@@ -46,15 +46,18 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * Capture types (make authorization close or remain open)
+     *
      * @var string
      */
     protected $_captureTypeComplete = 'Complete';
 
+    /**
+     * @var string
+     */
     protected $_captureTypeNotcomplete = 'NotComplete';
 
     /**
-     * Global public interface map
-     * @var array
+     * @inerhitDoc
      */
     protected $_globalMap = [
         // each call
@@ -186,7 +189,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Filter callbacks for preparing internal amounts to NVP request
      *
-     * @var array
+     * @inerhitDoc
      */
     protected $_exportToRequestFilters = [
         'AMT'         => '_filterAmount',
@@ -204,6 +207,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'NOSHIPPING' => '_filterInt',
     ];
 
+    /**
+     * @inerhitDoc
+     */
     protected $_importFromRequestFilters = [
         'REDIRECTREQUIRED'  => '_filterToBool',
         'SUCCESSPAGEREDIRECTREQUESTED'  => '_filterToBool',
@@ -212,13 +218,15 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * Request map for each API call
-     * @var array
+     *
+     * @var string[]
      */
     protected $_eachCallRequest = ['VERSION', 'USER', 'PWD', 'SIGNATURE', 'BUTTONSOURCE',];
 
     /**
      * SetExpressCheckout request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_setExpressCheckoutRequest = [
         'PAYMENTACTION', 'AMT', 'CURRENCYCODE', 'RETURNURL', 'CANCELURL', 'INVNUM', 'SOLUTIONTYPE', 'NOSHIPPING',
@@ -228,30 +236,39 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'USERSELECTEDFUNDINGSOURCE',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $_setExpressCheckoutResponse = ['TOKEN'];
 
     /**
      * GetExpressCheckoutDetails request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_getExpressCheckoutDetailsRequest = ['TOKEN', 'SUBJECT',];
 
     /**
      * DoExpressCheckoutPayment request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_doExpressCheckoutPaymentRequest = [
         'TOKEN', 'PAYERID', 'PAYMENTACTION', 'AMT', 'CURRENCYCODE', 'IPADDRESS', 'BUTTONSOURCE', 'NOTIFYURL',
         'RETURNFMFDETAILS', 'SUBJECT', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $_doExpressCheckoutPaymentResponse = [
         'TRANSACTIONID', 'AMT', 'PAYMENTSTATUS', 'PENDINGREASON', 'REDIRECTREQUIRED',
     ];
 
     /**
      * DoDirectPayment request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_doDirectPaymentRequest = [
         'PAYMENTACTION', 'IPADDRESS', 'RETURNFMFDETAILS',
@@ -260,48 +277,68 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'AUTHSTATUS3DS', 'MPIVENDOR3DS', 'CAVV', 'ECI3DS', 'XID',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $_doDirectPaymentResponse = [
         'TRANSACTIONID', 'AMT', 'AVSCODE', 'CVV2MATCH', 'VPAS', 'ECISUBMITTED3DS',
     ];
 
     /**
      * DoReauthorization request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_doReauthorizationRequest = ['AUTHORIZATIONID', 'AMT', 'CURRENCYCODE'];
 
+    /**
+     * @var string[]
+     */
     protected $_doReauthorizationResponse = [
         'AUTHORIZATIONID', 'PAYMENTSTATUS', 'PENDINGREASON', 'PROTECTIONELIGIBILITY',
     ];
 
     /**
      * DoCapture request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_doCaptureRequest = ['AUTHORIZATIONID', 'COMPLETETYPE', 'AMT', 'CURRENCYCODE', 'NOTE', 'INVNUM',];
 
+    /**
+     * @var string[]
+     */
     protected $_doCaptureResponse = ['TRANSACTIONID', 'CURRENCYCODE', 'AMT', 'PAYMENTSTATUS', 'PENDINGREASON',];
 
     /**
      * DoAuthorization request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_doAuthorizationRequest = ['TRANSACTIONID', 'AMT', 'CURRENCYCODE'];
 
+    /**
+     * @var string[]
+     */
     protected $_doAuthorizationResponse = ['TRANSACTIONID', 'AMT'];
 
     /**
      * DoVoid request map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_doVoidRequest = ['AUTHORIZATIONID', 'NOTE',];
 
     /**
      * GetTransactionDetailsRequest
-     * @var array
+     *
+     * @var string[]
      */
     protected $_getTransactionDetailsRequest = ['TRANSACTIONID'];
 
+    /**
+     * @var string[]
+     */
     protected $_getTransactionDetailsResponse = [
         'PAYERID', 'FIRSTNAME', 'LASTNAME', 'TRANSACTIONID', 'PARENTTRANSACTIONID', 'CURRENCYCODE', 'AMT',
         'PAYMENTSTATUS', 'PENDINGREASON',
@@ -309,29 +346,39 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * RefundTransaction request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_refundTransactionRequest = ['TRANSACTIONID', 'REFUNDTYPE', 'CURRENCYCODE', 'NOTE',];
 
+    /**
+     * @var string[]
+     */
     protected $_refundTransactionResponse = ['REFUNDTRANSACTIONID', 'GROSSREFUNDAMT',];
 
     /**
      * ManagePendingTransactionStatus request/response map
+     *
+     * @var string[]
      */
     protected $_managePendingTransactionStatusRequest = ['TRANSACTIONID', 'ACTION'];
 
+    /**
+     * @var string[]
+     */
     protected $_managePendingTransactionStatusResponse = ['TRANSACTIONID', 'STATUS'];
 
     /**
      * GetPalDetails response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_getPalDetailsResponse = ['PAL'];
 
     /**
      * CreateRecurringPaymentsProfile request/response map
      *
-     * @var array
+     * @var string[]
      */
     protected $_createRecurringPaymentsProfileRequest = [
         'TOKEN', 'SUBSCRIBERNAME', 'PROFILESTARTDATE', 'PROFILEREFERENCE', 'DESC', 'MAXFAILEDPAYMENTS', 'AUTOBILLAMT',
@@ -339,6 +386,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'TRIALTOTALBILLINGCYCLES', 'TRIALAMT', 'CURRENCYCODE', 'SHIPPINGAMT', 'TAXAMT', 'INITAMT', 'FAILEDINITAMTACTION',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $_createRecurringPaymentsProfileResponse = [
         'PROFILEID', 'PROFILESTATUS',
     ];
@@ -346,7 +396,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Request/response for ManageRecurringPaymentsProfileStatus map
      *
-     * @var array
+     * @var string[]
      */
     protected $_manageRecurringPaymentsProfileStatusRequest = ['PROFILEID', 'ACTION'];
 
@@ -355,15 +405,19 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Request/response for GetRecurringPaymentsProfileDetails
      *
-     * @var array
+     * @var string[]
      */
     protected $_getRecurringPaymentsProfileDetailsRequest = ['PROFILEID'];
 
+    /**
+     * @var string[]
+     */
     protected $_getRecurringPaymentsProfileDetailsResponse = ['STATUS', /* TODO: lot of other stuff */];
 
     /**
      * Map for billing address import/export
-     * @var array
+     *
+     * @var array<string, string>
      */
     protected $_billingAddressMap = [
         'BUSINESS' => 'company',
@@ -388,13 +442,14 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Map for billing address to do request (not response)
      * Merging with $_billingAddressMap
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $_billingAddressMapRequest = [];
 
     /**
      * Map for shipping address import/export (extends billing address mapper)
-     * @var array
+     *
+     * @var array<string, string>
      */
     protected $_shippingAddressMap = [
         'SHIPTOCOUNTRYCODE' => 'country_id',
@@ -409,7 +464,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * Map for callback request
-     * @var array
+     *
+     * @var array<string, string>
      */
     protected $_callbackRequestMap = [
         'SHIPTOCOUNTRY' => 'country_id',
@@ -422,7 +478,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * Payment information response specifically to be collected after some requests
-     * @var array
+     *
+     * @var string[]
      */
     protected $_paymentInformationResponse = [
         'PAYERID', 'PAYERSTATUS', 'CORRELATIONID', 'ADDRESSID', 'ADDRESSSTATUS',
@@ -430,8 +487,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-     * Line items export mapping settings
-     * @var array
+     * @inerhitDoc
      */
     protected $_lineItemTotalExportMap = [
         Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL => 'ITEMAMT',
@@ -439,6 +495,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         Mage_Paypal_Model_Cart::TOTAL_SHIPPING => 'SHIPPINGAMT',
     ];
 
+    /**
+     * @inerhitDoc
+     */
     protected $_lineItemExportItemsFormat = [
         'id'     => 'L_NUMBER%d',
         'name'   => 'L_NAME%d',
@@ -447,8 +506,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-     * Shipping options export to request mapping settings
-     * @var array
+     * @inerhitDoc
      */
     protected $_shippingOptionsExportItemsFormat = [
         'is_default' => 'L_SHIPPINGOPTIONISDEFAULT%d',
@@ -460,38 +518,54 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * init Billing Agreement request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_customerBillingAgreementRequest = ['RETURNURL', 'CANCELURL', 'BILLINGTYPE'];
 
+    /**
+     * @var string[]
+     */
     protected $_customerBillingAgreementResponse = ['TOKEN'];
 
     /**
      * Billing Agreement details request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_billingAgreementCustomerDetailsRequest = ['TOKEN'];
 
+    /**
+     * @var string[]
+     */
     protected $_billingAgreementCustomerDetailsResponse = ['EMAIL', 'PAYERID', 'PAYERSTATUS', 'SHIPTOCOUNTRYCODE',
         'PAYERBUSINESS',
     ];
 
     /**
      * Create Billing Agreement request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_createBillingAgreementRequest = ['TOKEN'];
 
+    /**
+     * @var string[]
+     */
     protected $_createBillingAgreementResponse = ['BILLINGAGREEMENTID'];
 
     /**
      * Update Billing Agreement request/response map
-     * @var array
+     *
+     * @var string[]
      */
     protected $_updateBillingAgreementRequest = [
         'REFERENCEID', 'BILLINGAGREEMENTDESCRIPTION', 'BILLINGAGREEMENTSTATUS', 'BILLINGAGREEMENTCUSTOM',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $_updateBillingAgreementResponse = [
         'REFERENCEID', 'BILLINGAGREEMENTDESCRIPTION', 'BILLINGAGREEMENTSTATUS', 'BILLINGAGREEMENTCUSTOM',
     ];
@@ -499,18 +573,19 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Do Reference Transaction request/response map
      *
-     * @var array
+     * @var string[]
      */
     protected $_doReferenceTransactionRequest = ['REFERENCEID', 'PAYMENTACTION', 'AMT', 'ITEMAMT', 'SHIPPINGAMT',
         'TAXAMT', 'INVNUM', 'NOTIFYURL', 'CURRENCYCODE',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $_doReferenceTransactionResponse = ['BILLINGAGREEMENTID', 'TRANSACTIONID'];
 
     /**
-     * Fields that should be replaced in debug with '***'
-     *
-     * @var array
+     * @inerhitDoc
      */
     protected $_debugReplacePrivateDataKeys = [
 
@@ -520,7 +595,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * Map of credit card types supported by this API
-     * @var array
+     *
+     * @var array<string, string>
      */
     protected $_supportedCcTypes = [
         'VI' => 'Visa', 'MC' => 'MasterCard', 'DI' => 'Discover', 'AE' => 'Amex', 'SM' => 'Maestro', 'SO' => 'Solo'];
@@ -528,7 +604,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Required fields in the response
      *
-     * @var array
+     * @var array<string, string[]>
      */
     protected $_requiredResponseParams = [
         self::DO_DIRECT_PAYMENT             => ['ACK', 'CORRELATIONID', 'AMT'],

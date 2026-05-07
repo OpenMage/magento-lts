@@ -18,9 +18,7 @@
 class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 {
     /**
-     * Action list where need check enabled cookie
-     *
-     * @var string[]
+     * @inerhitDoc
      */
     protected $_cookieCheckActions = ['add'];
 

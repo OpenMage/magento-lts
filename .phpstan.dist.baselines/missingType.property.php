@@ -232,11 +232,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Adminhtml_Block_Report_Grid_Abstract::$_resourceCollectionName has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Adminhtml_Block_Report_Grid_Abstract::$_storeIds has no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
@@ -482,11 +477,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Form/Renderer/Fieldset.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element::$_element has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Form/Renderer/Fieldset/Element.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Adminhtml_Block_Widget_Grid::$_defaultDir has no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
@@ -678,11 +668,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Adminhtml_Block_Widget_Grid_Container::$_backButtonLabel has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Container.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Adminhtml_Block_Widget_Grid_Container::$_blockGroup has no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Container.php',
 ];
@@ -2357,11 +2342,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Index/Model/Event.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Index_Model_Indexer_Abstract::$_matchedEntities has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Index/Model/Indexer/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Install_Model_Config::$_optionsMapping has no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Install/Model/Config.php',
@@ -2715,111 +2695,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Paypal_Block_Express_Review_Details::$_address has no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Review/Details.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Abstract::$_lineItemExportItemsFilters has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Abstract::$_lineItemTotalExportMap has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_billingAgreementCustomerDetailsResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_captureTypeNotcomplete has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_createBillingAgreementResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_createRecurringPaymentsProfileResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_customerBillingAgreementResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doAuthorizationResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doCaptureResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doDirectPaymentResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doExpressCheckoutPaymentResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doReauthorizationResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doReferenceTransactionResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_getRecurringPaymentsProfileDetailsResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_getTransactionDetailsResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_managePendingTransactionStatusRequest has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_managePendingTransactionStatusResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_refundTransactionResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_setExpressCheckoutResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_updateBillingAgreementResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Standard::$_lineItemExportItemsFilters has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Standard.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Paypal_Model_Direct::$_canAuthorize has no type specified.',
@@ -3200,41 +3075,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Paypal_StandardController::$_order has no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/StandardController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_captureTypeNotcomplete has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_doCaptureResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_doDirectPaymentResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_doExpressCheckoutPaymentResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_getTransactionDetailsResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_refundTransactionResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_setExpressCheckoutResponse has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_PaypalUk_Model_Direct::$_canFetchTransactionInfo has no type specified.',

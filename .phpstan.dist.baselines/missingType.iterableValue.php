@@ -3642,11 +3642,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/CatalogIndex/Data/Bundle.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Bundle_Model_CatalogIndex_Data_Bundle::$_haveChildren type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/CatalogIndex/Data/Bundle.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Class Mage_Bundle_Model_Option has PHPDoc tag @method for method setSelections() parameter #1 $value with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Option.php',
@@ -6302,6 +6297,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Catalog_Model_Product_Compare_Item::$_cacheTag type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Compare/Item.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Product_Compare_List::addProducts() has parameter $productIds with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Compare/List.php',
@@ -8587,11 +8587,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Catalog_Product_CompareController::$_cookieCheckActions type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/controllers/Product/CompareController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Catalog_ProductController::$_designProductSettingsApplied type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/controllers/ProductController.php',
@@ -8747,24 +8742,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_CatalogIndex_Model_Data_Abstract::$_haveChildren type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_CatalogIndex_Model_Data_Grouped::getFinalPrice() has parameter $product with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Data/Grouped.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_CatalogIndex_Model_Data_Simple::$_haveChildren type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Data/Simple.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_CatalogIndex_Model_Data_Virtual::$_haveChildren type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Data/Virtual.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_CatalogIndex_Model_Indexer::_afterPlainReindex() has parameter $products with no value type specified in iterable type array.',
@@ -10927,11 +10907,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Onepage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Checkout_CartController::$_cookieCheckActions type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/CartController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Checkout_OnepageController::_filterPostData() has parameter $data with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/OnepageController.php',
@@ -11488,11 +11463,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Core_Controller_Varien_Action::setRedirectWithCookieCheck() has parameter $arguments with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Controller/Varien/Action.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Core_Controller_Varien_Action::$_cookieCheckActions type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Controller/Varien/Action.php',
 ];
@@ -15377,11 +15347,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/controllers/AccountController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Customer_AccountController::$_cookieCheckActions type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/controllers/AccountController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Dataflow_Model_Batch::getFieldList() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Batch.php',
@@ -18412,6 +18377,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Index/Model/Indexer.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Index_Model_Indexer_Abstract::$_matchedEntities type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Index/Model/Indexer/Abstract.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Index_Model_Lock::$_lockDb type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Index/Model/Lock.php',
@@ -19432,37 +19402,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Abstract::$_debugReplacePrivateDataKeys type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Abstract::$_exportToRequestFilters type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Abstract::$_globalMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Abstract::$_importFromRequestFilters type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Abstract::$_lineItemExportItemsFormat type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Paypal_Model_Api_Abstract::$_recurringPaymentProfiles type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Abstract::$_shippingOptionsExportItemsFormat type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
 ];
@@ -19577,21 +19517,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_billingAddressMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_billingAddressMapRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_billingAgreementCustomerDetailsRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_callErrors type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
@@ -19602,162 +19527,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_callbackRequestMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_createBillingAgreementRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_createRecurringPaymentsProfileRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_customerBillingAgreementRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_debugReplacePrivateDataKeys type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doAuthorizationRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doCaptureRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doDirectPaymentRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doExpressCheckoutPaymentRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doReauthorizationRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doReferenceTransactionRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_doVoidRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_eachCallRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_exportToRequestFilters type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_getExpressCheckoutDetailsRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_getPalDetailsResponse type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_getRecurringPaymentsProfileDetailsRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_getTransactionDetailsRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_globalMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_headers type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_importFromRequestFilters type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_lineItemExportItemsFormat type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_lineItemTotalExportMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_manageRecurringPaymentsProfileStatusRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_paymentInformationResponse type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_refundTransactionRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_requiredResponseParams type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_setExpressCheckoutRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_shippingAddressMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_shippingOptionsExportItemsFormat type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_supportedCcTypes type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Nvp::$_updateBillingAgreementRequest type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
 ];
@@ -19788,31 +19558,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Paypal_Model_Api_Standard::$_commonRequestFields type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Standard.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Standard::$_debugReplacePrivateDataKeys type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Standard.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Standard::$_exportToRequestFilters type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Standard.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Standard::$_globalMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Standard.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Standard::$_lineItemExportItemsFormat type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Standard.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Api_Standard::$_lineItemTotalExportMap type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Standard.php',
 ];
@@ -20198,96 +19943,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_PaypalUk_Model_Api_Nvp::_prepareExpressCheckoutCallRequest() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_billingAddressMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_billingAddressMapRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_debugReplacePrivateDataKeys type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_doCaptureRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_doDirectPaymentRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_doExpressCheckoutPaymentRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_doVoidRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_eachCallRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_getExpressCheckoutDetailsRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_getTransactionDetailsRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_globalMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_lineItemExportItemsFormat type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_lineItemTotalExportMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_paymentInformationResponse type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_refundTransactionRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_requiredResponseParams type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_setExpressCheckoutRequest type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_PaypalUk_Model_Api_Nvp::$_shippingAddressMap type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
 ];
@@ -20923,11 +20578,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Review_ProductController::_cropReviewData() has parameter $reviewData with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Review/controllers/ProductController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Review_ProductController::$_cookieCheckActions type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Review/controllers/ProductController.php',
 ];

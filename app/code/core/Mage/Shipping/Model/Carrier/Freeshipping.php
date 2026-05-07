@@ -15,9 +15,7 @@
 class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
     /**
-     * Carrier's code
-     *
-     * @var string
+     * @inerhitDoc
      */
     protected $_code = 'freeshipping';
 

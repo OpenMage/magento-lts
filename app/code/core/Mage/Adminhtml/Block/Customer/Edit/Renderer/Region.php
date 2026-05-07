@@ -15,9 +15,7 @@
 class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
-     * Factory instance
-     *
-     * @var Mage_Core_Model_Factory
+     * @inerhitDoc
      */
     protected $_factory;
 

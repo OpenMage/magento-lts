@@ -15,9 +15,7 @@
 class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model_Data_Simple
 {
     /**
-     * Defines when product type has children
-     *
-     * @var array
+     * @inerhitDoc
      */
     protected $_haveChildren = [
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => false,

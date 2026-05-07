@@ -392,6 +392,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Cms/Page/Grid.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getHelper() on Mage_Core_Model_Factory|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Renderer/Region.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getValue() on Varien_Data_Form_Element_Abstract|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Renderer/Region.php',

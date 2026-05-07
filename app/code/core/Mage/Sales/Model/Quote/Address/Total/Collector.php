@@ -34,16 +34,12 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
     protected $_store;
 
     /**
-     * Configuration path where to collect registered totals
-     *
-     * @var string
+     * @inerhitDoc
      */
     protected $_totalsConfigNode = 'global/sales/quote/totals';
 
     /**
-     * Cache key for collectors
-     *
-     * @var string
+     * @inerhitDoc
      */
     protected $_collectorsCacheKey = 'sorted_quote_collectors';
 

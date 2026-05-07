@@ -15,9 +15,7 @@
 class Mage_Sales_Model_Order_Creditmemo_Config extends Mage_Sales_Model_Order_Total_Config_Base
 {
     /**
-     * Cache key for collectors
-     *
-     * @var string
+     * @inerhitDoc
      */
     protected $_collectorsCacheKey = 'sorted_order_creditmemo_collectors';
 
