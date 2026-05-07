@@ -74,8 +74,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     protected $_code;
 
     /**
-     * Bank Transfer payment block paths
-     *
      * @var string
      */
     protected $_formBlockType = 'payment/form';
