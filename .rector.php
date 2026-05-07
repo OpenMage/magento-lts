@@ -87,6 +87,7 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Zend\Acl::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Zend\Captcha::renameMethod())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
+        ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\OpenMage::replaceStoreConfigPathsWithConstants())
         # skip: do not apply
         ->withSkip([
             # skip avoid renaming of methods in tests
