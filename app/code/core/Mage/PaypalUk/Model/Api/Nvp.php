@@ -61,7 +61,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Capture types (make authorization close or remain open)
      *
-     * @inheritdoc
+     * @inheritDoc
      */
     protected $_captureTypeComplete = 'Y';
 
