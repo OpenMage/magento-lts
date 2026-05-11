@@ -107,6 +107,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Cart/Product/Api.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, int given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Session.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, string|null given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/File/Storage/Directory/Database.php',
