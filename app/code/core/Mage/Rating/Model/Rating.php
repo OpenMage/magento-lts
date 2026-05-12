@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,30 +16,14 @@
  *
  * @method Mage_Rating_Model_Resource_Rating            _getResource()
  * @method Mage_Rating_Model_Resource_Rating_Collection getCollection()
- * @method string                                       getEntityPkValue()
- * @method string                                       getRatingCode()
  * @method array                                        getRatingCodes()
  * @method Mage_Rating_Model_Resource_Rating            getResource()
  * @method Mage_Rating_Model_Resource_Rating_Collection getResourceCollection()
- * @method int                                          getReviewId()
- * @method int                                          getStoreId()
  * @method array                                        getStores()
- * @method int                                          getVoteId()
  * @method bool                                         hasRatingCodes()
  * @method bool                                         hasStores()
- * @method $this                                        setCount(int $value)
- * @method $this                                        setCustomerId(int $value)
- * @method $this                                        setEntityId(int $value)
- * @method $this                                        setEntityPkValue(string $value)
- * @method $this                                        setId(string $value)
- * @method $this                                        setPosition(string $value)
- * @method $this                                        setRatingCode(string $value)
  * @method $this                                        setRatingCodes(array $value)
- * @method $this                                        setRatingId(int $value)
- * @method $this                                        setReviewId(int $value)
- * @method $this                                        setStoreId(int $value)
  * @method $this                                        setStores(array $value)
- * @method $this                                        setSum(int $value)
  * @method $this                                        setSummary(float|int $param)
  */
 class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
@@ -57,6 +43,26 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('rating/rating');
+    }
+
+    public function getRatingCode(): string
+    {
+        return (string) $this->_getData('rating_code');
+    }
+
+    public function setEntityId(int $value): static
+    {
+        return $this->setData('entity_id', $value);
+    }
+
+    public function setPosition(int $value): static
+    {
+        return $this->setData('position', $value);
+    }
+
+    public function setRatingCode(string $value): static
+    {
+        return $this->setData('rating_code', $value);
     }
 
     /**
@@ -146,5 +152,60 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     public function getEntityIdByCode($entityCode)
     {
         return $this->getResource()->getEntityIdByCode($entityCode);
+    }
+
+    public function getEntityPkValue(): string
+    {
+        return (string) $this->_getData('entity_pk_value');
+    }
+
+    public function setEntityPkValue(string $value): static
+    {
+        return $this->setData('entity_pk_value', $value);
+    }
+
+    public function getReviewId(): int
+    {
+        return (int) $this->_getData('review_id');
+    }
+
+    public function setReviewId(int $value): static
+    {
+        return $this->setData('review_id', $value);
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function getVoteId(): int
+    {
+        return (int) $this->_getData('vote_id');
+    }
+
+    public function setCount(int $value): static
+    {
+        return $this->setData('count', $value);
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setRatingId(int $value): static
+    {
+        return $this->setData('rating_id', $value);
+    }
+
+    public function setSum(int $value): static
+    {
+        return $this->setData('sum', $value);
     }
 }

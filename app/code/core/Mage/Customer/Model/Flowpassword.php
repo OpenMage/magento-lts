@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -16,9 +18,6 @@
  * @method Mage_Customer_Model_Resource_Flowpassword_Collection getCollection()
  * @method Mage_Customer_Model_Resource_Flowpassword            getResource()
  * @method Mage_Customer_Model_Resource_Flowpassword_Collection getResourceCollection()
- * @method $this                                                setEmail(string $value)
- * @method $this                                                setIp(string $value)
- * @method $this                                                setRequestedDate(string $value)
  */
 class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
 {
@@ -28,6 +27,36 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('customer/flowpassword');
+    }
+
+    public function getEmail(): string
+    {
+        return (string) $this->_getData('email');
+    }
+
+    public function getIp(): string
+    {
+        return (string) $this->_getData('ip');
+    }
+
+    public function getRequestedDate(): string
+    {
+        return (string) $this->_getData('requested_date');
+    }
+
+    public function setEmail(string $value): static
+    {
+        return $this->setData('email', $value);
+    }
+
+    public function setIp(string $value): static
+    {
+        return $this->setData('ip', $value);
+    }
+
+    public function setRequestedDate(string $value): static
+    {
+        return $this->setData('requested_date', $value);
     }
 
     /**

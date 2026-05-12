@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,19 +15,13 @@
  * @package    Mage_Tax
  *
  * @method Mage_Tax_Model_Resource_Calculation_Rule            _getResource()
- * @method string                                              getCode()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
- * @method int                                                 getPosition()
- * @method int                                                 getPriority()
  * @method Mage_Tax_Model_Resource_Calculation_Rule            getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getResourceCollection()
- * @method string                                              getTaxCustomerClass()
- * @method string                                              getTaxProductClass()
- * @method float                                               getTaxRate()
+ * @method array                                               getTaxCustomerClass()
+ * @method array                                               getTaxProductClass()
+ * @method array                                               getTaxRate()
  * @method $this                                               setCalculateSubtotal(float $value)
- * @method $this                                               setCode(string $value)
- * @method $this                                               setPosition(int $value)
- * @method $this                                               setPriority(int $value)
  */
 class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
 {
@@ -177,5 +173,35 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     public function fetchRuleCodes($rateId, $customerTaxClassId, $productTaxClassId)
     {
         return $this->getResource()->fetchRuleCodes($rateId, $customerTaxClassId, $productTaxClassId);
+    }
+
+    public function getCode(): string
+    {
+        return (string) $this->_getData('code');
+    }
+
+    public function setCode(string $value): static
+    {
+        return $this->setData('code', $value);
+    }
+
+    public function getPosition(): int
+    {
+        return (int) $this->_getData('position');
+    }
+
+    public function setPosition(int $value): static
+    {
+        return $this->setData('position', $value);
+    }
+
+    public function getPriority(): int
+    {
+        return (int) $this->_getData('priority');
+    }
+
+    public function setPriority(int $value): static
+    {
+        return $this->setData('priority', $value);
     }
 }

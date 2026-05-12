@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,25 +16,9 @@
  *
  * @method Mage_Core_Model_Resource_Store            _getResource()
  * @method Mage_Core_Model_Resource_Store_Collection getCollection()
- * @method string                                    getHomeUrl()
- * @method string                                    getLanguageCode()
- * @method string                                    getLocaleCode()
  * @method Mage_Core_Model_Resource_Store            getResource()
  * @method Mage_Core_Model_Resource_Store_Collection getResourceCollection()
- * @method string                                    getRootCategoryPath()
- * @method int                                       getSortOrder()
- * @method int                                       getStoreId()
- * @method $this                                     setCode(string $value)
- * @method $this                                     setGroupId(int $value)
- * @method $this                                     setHomeUrl(string $value)
- * @method $this                                     setIsActive(int $value)
- * @method $this                                     setLocaleCode(string $value)
- * @method $this                                     setName(string $value)
  * @method $this                                     setRootCategory(Mage_Catalog_Model_Category $value)
- * @method $this                                     setRootCategoryPath(string $value)
- * @method $this                                     setSortOrder(int $value)
- * @method $this                                     setStoreId(int $value)
- * @method $this                                     setWebsiteId(int $value)
  */
 class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 {
@@ -1301,5 +1287,85 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         }
 
         return $this->_frontendName;
+    }
+
+    public function getHomeUrl(): string
+    {
+        return (string) $this->_getData('home_url');
+    }
+
+    public function getLanguageCode(): string
+    {
+        return (string) $this->_getData('language_code');
+    }
+
+    public function getLocaleCode(): string
+    {
+        return (string) $this->_getData('locale_code');
+    }
+
+    public function getRootCategoryPath(): string
+    {
+        return (string) $this->_getData('root_category_path');
+    }
+
+    public function getSortOrder(): int
+    {
+        return (int) $this->_getData('sort_order');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setCode(string $value): static
+    {
+        return $this->setData('code', $value);
+    }
+
+    public function setGroupId(int $value): static
+    {
+        return $this->setData('group_id', $value);
+    }
+
+    public function setHomeUrl(string $value): static
+    {
+        return $this->setData('home_url', $value);
+    }
+
+    public function setIsActive(int $value): static
+    {
+        return $this->setData('is_active', $value);
+    }
+
+    public function setLocaleCode(string $value): static
+    {
+        return $this->setData('locale_code', $value);
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
+    }
+
+    public function setRootCategoryPath(string $value): static
+    {
+        return $this->setData('root_category_path', $value);
+    }
+
+    public function setSortOrder(int $value): static
+    {
+        return $this->setData('sort_order', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function setWebsiteId(int $value): static
+    {
+        return $this->setData('website_id', $value);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -11,29 +13,9 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate            _getResource()
- * @method int                                                     getAddressId()
- * @method string                                                  getCarrier()
- * @method int                                                     getCarrierSortOrder()
- * @method string                                                  getCarrierTitle()
- * @method string                                                  getCode()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getCollection()
- * @method string                                                  getErrorMessage()
- * @method string                                                  getMethod()
- * @method string                                                  getMethodDescription()
- * @method string                                                  getMethodTitle()
- * @method float                                                   getPrice()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate            getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getResourceCollection()
- * @method $this                                                   setAddressId(int $value)
- * @method $this                                                   setCarrier(string $value)
- * @method $this                                                   setCarrierSortOrder(int $value)
- * @method $this                                                   setCarrierTitle(string $value)
- * @method $this                                                   setCode(string $value)
- * @method $this                                                   setErrorMessage(string $value)
- * @method $this                                                   setMethod(string $value)
- * @method $this                                                   setMethodDescription(string $value)
- * @method $this                                                   setMethodTitle(string $value)
- * @method $this                                                   setPrice(float $value)
  */
 class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstract
 {
@@ -103,5 +85,111 @@ class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstr
         }
 
         return $this;
+    }
+
+    public function getAddressId(): int
+    {
+        return (int) $this->_getData('address_id');
+    }
+
+    public function setAddressId(int $value): static
+    {
+        return $this->setData('address_id', $value);
+    }
+
+    public function getCarrier(): string
+    {
+        return (string) $this->_getData('carrier');
+    }
+
+    public function setCarrier(string $value): static
+    {
+        return $this->setData('carrier', $value);
+    }
+
+    public function getCarrierSortOrder(): ?int
+    {
+        $value = $this->_getData('carrier_sort_order');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setCarrierSortOrder(int $value): static
+    {
+        return $this->setData('carrier_sort_order', $value);
+    }
+
+    public function getCarrierTitle(): ?string
+    {
+        $value = $this->_getData('carrier_title');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCarrierTitle(string $value): static
+    {
+        return $this->setData('carrier_title', $value);
+    }
+
+    public function getCode(): string
+    {
+        return (string) $this->_getData('code');
+    }
+
+    public function setCode(string $value): static
+    {
+        return $this->setData('code', $value);
+    }
+
+    public function getErrorMessage(): ?string
+    {
+        $value = $this->_getData('error_message');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setErrorMessage(string $value): static
+    {
+        return $this->setData('error_message', $value);
+    }
+
+    public function getMethod(): ?string
+    {
+        $value = $this->_getData('method');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setMethod(string $value): static
+    {
+        return $this->setData('method', $value);
+    }
+
+    public function getMethodDescription(): ?string
+    {
+        $value = $this->_getData('method_description');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setMethodDescription(string $value): static
+    {
+        return $this->setData('method_description', $value);
+    }
+
+    public function getMethodTitle(): ?string
+    {
+        $value = $this->_getData('method_title');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setMethodTitle(string $value): static
+    {
+        return $this->setData('method_title', $value);
+    }
+
+    public function getPrice(): float
+    {
+        return (float) $this->_getData('price');
+    }
+
+    public function setPrice(float $value): static
+    {
+        return $this->setData('price', $value);
     }
 }

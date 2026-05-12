@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,14 +16,8 @@
  *
  * @method Mage_CatalogSearch_Model_Resource_Fulltext            _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getCollection()
- * @method string                                                getDataIndex()
- * @method int                                                   getProductId()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext            getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getResourceCollection()
- * @method int                                                   getStoreId()
- * @method $this                                                 setDataIndex(string $value)
- * @method $this                                                 setProductId(int $value)
- * @method $this                                                 setStoreId(int $value)
  */
 class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
 {
@@ -169,5 +165,35 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     {
         $this->getResource()->updateCategoryIndex($productIds, $categoryIds);
         return $this;
+    }
+
+    public function getDataIndex(): string
+    {
+        return (string) $this->_getData('data_index');
+    }
+
+    public function setDataIndex(string $value): static
+    {
+        return $this->setData('data_index', $value);
+    }
+
+    public function getProductId(): int
+    {
+        return (int) $this->_getData('product_id');
+    }
+
+    public function setProductId(int $value): static
+    {
+        return $this->setData('product_id', $value);
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }

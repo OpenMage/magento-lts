@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,19 +16,10 @@
  *
  * @method Mage_Core_Model_Resource_Store_Group            _getResource()
  * @method Mage_Core_Model_Resource_Store_Group_Collection getCollection()
- * @method int                                             getGroupId()
- * @method string                                          getName()
- * @method int                                             getOriginalGroupId()
- * @method int                                             getOriginalWebsiteId()
  * @method Mage_Core_Model_Resource_Store_Group            getResource()
  * @method Mage_Core_Model_Resource_Store_Group_Collection getResourceCollection()
  * @method bool                                            hasDefaultStoreId()
  * @method bool                                            hasGroupId()
- * @method $this                                           setDefaultStoreId(int $value)
- * @method $this                                           setHomeUrl(string $value)
- * @method $this                                           setName(string $value)
- * @method $this                                           setRootCategoryId(int $value)
- * @method $this                                           setWebsiteId(int $value)
  */
 class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
 {
@@ -356,5 +349,50 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         }
 
         return $this->_isReadOnly;
+    }
+
+    public function getGroupId(): int
+    {
+        return (int) $this->_getData('group_id');
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->_getData('name');
+    }
+
+    public function getOriginalGroupId(): int
+    {
+        return (int) $this->_getData('original_group_id');
+    }
+
+    public function getOriginalWebsiteId(): int
+    {
+        return (int) $this->_getData('original_website_id');
+    }
+
+    public function setDefaultStoreId(int $value): static
+    {
+        return $this->setData('default_store_id', $value);
+    }
+
+    public function setHomeUrl(string $value): static
+    {
+        return $this->setData('home_url', $value);
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
+    }
+
+    public function setRootCategoryId(int $value): static
+    {
+        return $this->setData('root_category_id', $value);
+    }
+
+    public function setWebsiteId(int $value): static
+    {
+        return $this->setData('website_id', $value);
     }
 }

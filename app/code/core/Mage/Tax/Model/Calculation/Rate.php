@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,32 +15,15 @@
  * @package    Mage_Tax
  *
  * @method Mage_Tax_Model_Resource_Calculation_Rate            _getResource()
- * @method string                                              getCode()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getCollection()
- * @method string                                              getRate()
  * @method Mage_Tax_Model_Resource_Calculation_Rate            getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Collection getResourceCollection()
- * @method int                                                 getTaxCalculationRateId()
- * @method string                                              getTaxCountryId()
- * @method string                                              getTaxPostcode()
- * @method int                                                 getTaxRegionId()
  * @method array                                               getTitle()
- * @method string                                              getZipFrom()
- * @method int                                                 getZipIsRange()
- * @method string                                              getZipTo()
  * @method bool                                                hasTaxCountryId()
  * @method bool                                                hasTaxPostcode()
  * @method bool                                                hasTaxRegionId()
- * @method $this                                               setCode(string $value)
- * @method $this                                               setRate(string $value)
  * @method $this                                               setRegionName(string $value)
- * @method $this                                               setTaxCountryId(string $value)
- * @method $this                                               setTaxPostcode(string $value)
- * @method $this                                               setTaxRegionId(int $value)
  * @method $this                                               setTitle(array $value)
- * @method $this                                               setZipFrom(null|string $value)
- * @method $this                                               setZipIsRange(null|int $value)
- * @method $this                                               setZipTo(null|string $value)
  */
 class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
 {
@@ -259,5 +244,94 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     protected function _isInRule()
     {
         return $this->getResource()->isInRule($this->getId());
+    }
+
+    public function getCode(): string
+    {
+        return (string) $this->_getData('code');
+    }
+
+    public function setCode(string $value): static
+    {
+        return $this->setData('code', $value);
+    }
+
+    public function getRate(): string
+    {
+        return (string) $this->_getData('rate');
+    }
+
+    public function setRate(string $value): static
+    {
+        return $this->setData('rate', $value);
+    }
+
+    public function getTaxCalculationRateId(): int
+    {
+        return (int) $this->_getData('tax_calculation_rate_id');
+    }
+
+    public function getTaxCountryId(): string
+    {
+        return (string) $this->_getData('tax_country_id');
+    }
+
+    public function setTaxCountryId(string $value): static
+    {
+        return $this->setData('tax_country_id', $value);
+    }
+
+    public function getTaxPostcode(): ?string
+    {
+        $value = $this->_getData('tax_postcode');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setTaxPostcode(string $value): static
+    {
+        return $this->setData('tax_postcode', $value);
+    }
+
+    public function getTaxRegionId(): int
+    {
+        return (int) $this->_getData('tax_region_id');
+    }
+
+    public function setTaxRegionId(int $value): static
+    {
+        return $this->setData('tax_region_id', $value);
+    }
+
+    public function getZipFrom(): ?string
+    {
+        $value = $this->_getData('zip_from');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setZipFrom(?string $value): static
+    {
+        return $this->setData('zip_from', $value);
+    }
+
+    public function getZipIsRange(): ?int
+    {
+        $value = $this->_getData('zip_is_range');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setZipIsRange(?int $value): static
+    {
+        return $this->setData('zip_is_range', $value);
+    }
+
+    public function getZipTo(): ?string
+    {
+        $value = $this->_getData('zip_to');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setZipTo(?string $value): static
+    {
+        return $this->setData('zip_to', $value);
     }
 }

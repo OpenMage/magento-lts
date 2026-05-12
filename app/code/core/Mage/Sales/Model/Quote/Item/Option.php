@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,21 +15,9 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Quote_Item_Option            _getResource()
- * @method string                                                 getCode()
  * @method Mage_Sales_Model_Resource_Quote_Item_Option_Collection getCollection()
- * @method int                                                    getItemId()
- * @method int                                                    getProductId()
  * @method Mage_Sales_Model_Resource_Quote_Item_Option            getResource()
  * @method Mage_Sales_Model_Resource_Quote_Item_Option_Collection getResourceCollection()
- * @method $this                                                  setBackorders(float $value)
- * @method $this                                                  setCode(string $value)
- * @method $this                                                  setHasError(bool $value)
- * @method $this                                                  setHasQtyOptionUpdate(bool $value)
- * @method $this                                                  setIsQtyDecimal(bool $value)
- * @method $this                                                  setItemId(int $value)
- * @method $this                                                  setMessage(string $value)
- * @method $this                                                  setProductId(int $value)
- * @method $this                                                  setValue(string $value)
  */
 class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
@@ -142,5 +132,65 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
     {
         $this->setId(null);
         $this->_item    = null;
+    }
+
+    public function getCode(): string
+    {
+        return (string) $this->_getData('code');
+    }
+
+    public function setCode(string $value): static
+    {
+        return $this->setData('code', $value);
+    }
+
+    public function getItemId(): int
+    {
+        return (int) $this->_getData('item_id');
+    }
+
+    public function setItemId(int $value): static
+    {
+        return $this->setData('item_id', $value);
+    }
+
+    public function getProductId(): int
+    {
+        return (int) $this->_getData('product_id');
+    }
+
+    public function setProductId(int $value): static
+    {
+        return $this->setData('product_id', $value);
+    }
+
+    public function setBackorders(float $value): static
+    {
+        return $this->setData('backorders', $value);
+    }
+
+    public function setHasError(bool $value): static
+    {
+        return $this->setData('has_error', $value);
+    }
+
+    public function setHasQtyOptionUpdate(bool $value): static
+    {
+        return $this->setData('has_qty_option_update', $value);
+    }
+
+    public function setIsQtyDecimal(bool $value): static
+    {
+        return $this->setData('is_qty_decimal', $value);
+    }
+
+    public function setMessage(string $value): static
+    {
+        return $this->setData('message', $value);
+    }
+
+    public function setValue(string $value): static
+    {
+        return $this->setData('value', $value);
     }
 }

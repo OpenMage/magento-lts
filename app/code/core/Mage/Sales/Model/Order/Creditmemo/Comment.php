@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,17 +14,8 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment            _getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection getCollection()
- * @method string                                                        getComment()
- * @method int                                                           getIsCustomerNotified()
- * @method int                                                           getIsVisibleOnFront()
- * @method int                                                           getParentId()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment            getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection getResourceCollection()
- * @method $this                                                         setComment(string $value)
- * @method $this                                                         setIsCustomerNotified(int $value)
- * @method $this                                                         setIsVisibleOnFront(int $value)
- * @method $this                                                         setParentId(int $value)
- * @method $this                                                         setStoreId(int $value)
  */
 class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstract
 {
@@ -91,5 +84,50 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstrac
         }
 
         return $this;
+    }
+
+    public function getComment(): string
+    {
+        return (string) $this->_getData('comment');
+    }
+
+    public function setComment(string $value): static
+    {
+        return $this->setData('comment', $value);
+    }
+
+    public function getIsCustomerNotified(): int
+    {
+        return (int) $this->_getData('is_customer_notified');
+    }
+
+    public function setIsCustomerNotified(int $value): static
+    {
+        return $this->setData('is_customer_notified', $value);
+    }
+
+    public function getIsVisibleOnFront(): int
+    {
+        return (int) $this->_getData('is_visible_on_front');
+    }
+
+    public function setIsVisibleOnFront(int $value): static
+    {
+        return $this->setData('is_visible_on_front', $value);
+    }
+
+    public function getParentId(): int
+    {
+        return (int) $this->_getData('parent_id');
+    }
+
+    public function setParentId(int $value): static
+    {
+        return $this->setData('parent_id', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }

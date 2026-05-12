@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,26 +15,9 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track            _getResource()
- * @method string                                                    getCarrierCode()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track_Collection getCollection()
- * @method string                                                    getDescription()
- * @method int                                                       getOrderId()
- * @method int                                                       getParentId()
- * @method float                                                     getQty()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track            getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Track_Collection getResourceCollection()
- * @method string                                                    getTitle()
- * @method string                                                    getTrackNumber()
- * @method float                                                     getWeight()
- * @method $this                                                     setCarrierCode(string $value)
- * @method $this                                                     setDescription(string $value)
- * @method $this                                                     setNumber(string $value)
- * @method $this                                                     setOrderId(int $value)
- * @method $this                                                     setParentId(int $value)
- * @method $this                                                     setQty(float $value)
- * @method $this                                                     setStoreId(int $value)
- * @method $this                                                     setTitle(string $value)
- * @method $this                                                     setWeight(float $value)
  */
 class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
 {
@@ -181,5 +166,88 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
         }
 
         return $this;
+    }
+
+    public function getCarrierCode(): string
+    {
+        return (string) $this->_getData('carrier_code');
+    }
+
+    public function setCarrierCode(string $value): static
+    {
+        return $this->setData('carrier_code', $value);
+    }
+
+    public function getDescription(): ?string
+    {
+        $value = $this->_getData('description');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setDescription(string $value): static
+    {
+        return $this->setData('description', $value);
+    }
+
+    public function getOrderId(): int
+    {
+        return (int) $this->_getData('order_id');
+    }
+
+    public function setOrderId(int $value): static
+    {
+        return $this->setData('order_id', $value);
+    }
+
+    public function getParentId(): int
+    {
+        return (int) $this->_getData('parent_id');
+    }
+
+    public function setParentId(int $value): static
+    {
+        return $this->setData('parent_id', $value);
+    }
+
+    public function getQty(): float
+    {
+        return (float) $this->_getData('qty');
+    }
+
+    public function setQty(float $value): static
+    {
+        return $this->setData('qty', $value);
+    }
+
+    public function getTitle(): string
+    {
+        return (string) $this->_getData('title');
+    }
+
+    public function setTitle(string $value): static
+    {
+        return $this->setData('title', $value);
+    }
+
+    public function getTrackNumber(): ?string
+    {
+        $value = $this->_getData('track_number');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setNumber(string $value): static
+    {
+        return $this->setData('track_number', $value);
+    }
+
+    public function getWeight(): ?float
+    {
+        $value = $this->_getData('weight');
+        return $value !== null ? (float) $value : null;
+    }
+
+    public function setWeight(float $value): static
+    {
+        return $this->setData('weight', $value);
     }
 }

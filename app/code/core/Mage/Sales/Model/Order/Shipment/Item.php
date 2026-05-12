@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,31 +15,9 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item            _getResource()
- * @method string                                                   getAdditionalData()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item_Collection getCollection()
- * @method string                                                   getDescription()
- * @method string                                                   getName()
- * @method int                                                      getOrderItemId()
- * @method int                                                      getParentId()
- * @method float                                                    getPrice()
- * @method int                                                      getProductId()
- * @method float                                                    getQty()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item            getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item_Collection getResourceCollection()
- * @method float                                                    getRowTotal()
- * @method string                                                   getSku()
- * @method float                                                    getWeight()
- * @method $this                                                    setAdditionalData(string $value)
- * @method $this                                                    setDescription(string $value)
- * @method $this                                                    setName(string $value)
- * @method $this                                                    setOrderItemId(int $value)
- * @method $this                                                    setParentId(int $value)
- * @method $this                                                    setPrice(float $value)
- * @method $this                                                    setProductId(int $value)
- * @method $this                                                    setRowTotal(float $value)
- * @method $this                                                    setSku(string $value)
- * @method $this                                                    setStoreId(int $value)
- * @method $this                                                    setWeight(float $value)
  */
 class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
 {
@@ -162,5 +142,119 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
         }
 
         return $this;
+    }
+
+    public function getAdditionalData(): ?string
+    {
+        $value = $this->_getData('additional_data');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setAdditionalData(string $value): static
+    {
+        return $this->setData('additional_data', $value);
+    }
+
+    public function getDescription(): ?string
+    {
+        $value = $this->_getData('description');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setDescription(string $value): static
+    {
+        return $this->setData('description', $value);
+    }
+
+    public function getName(): ?string
+    {
+        $value = $this->_getData('name');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
+    }
+
+    public function getOrderItemId(): int
+    {
+        return (int) $this->_getData('order_item_id');
+    }
+
+    public function setOrderItemId(int $value): static
+    {
+        return $this->setData('order_item_id', $value);
+    }
+
+    public function getParentId(): int
+    {
+        return (int) $this->_getData('parent_id');
+    }
+
+    public function setParentId(int $value): static
+    {
+        return $this->setData('parent_id', $value);
+    }
+
+    public function getPrice(): float
+    {
+        return (float) $this->_getData('price');
+    }
+
+    public function setPrice(float $value): static
+    {
+        return $this->setData('price', $value);
+    }
+
+    public function getProductId(): int
+    {
+        return (int) $this->_getData('product_id');
+    }
+
+    public function setProductId(int $value): static
+    {
+        return $this->setData('product_id', $value);
+    }
+
+    public function getQty(): float
+    {
+        return (float) $this->_getData('qty');
+    }
+
+    public function getRowTotal(): float
+    {
+        return (float) $this->_getData('row_total');
+    }
+
+    public function setRowTotal(float $value): static
+    {
+        return $this->setData('row_total', $value);
+    }
+
+    public function getSku(): ?string
+    {
+        $value = $this->_getData('sku');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setSku(string $value): static
+    {
+        return $this->setData('sku', $value);
+    }
+
+    public function getWeight(): float
+    {
+        return (float) $this->_getData('weight');
+    }
+
+    public function setWeight(float $value): static
+    {
+        return $this->setData('weight', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }

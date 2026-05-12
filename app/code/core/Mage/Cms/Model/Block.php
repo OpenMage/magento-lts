@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,24 +15,9 @@
  * @package    Mage_Cms
  *
  * @method Mage_Cms_Model_Resource_Block            _getResource()
- * @method int                                      getBlockId()
  * @method Mage_Cms_Model_Resource_Block_Collection getCollection()
- * @method string                                   getContent()
- * @method string                                   getCreationTime()
- * @method string                                   getIdentifier()
- * @method int                                      getIsActive()
  * @method Mage_Cms_Model_Resource_Block            getResource()
  * @method Mage_Cms_Model_Resource_Block_Collection getResourceCollection()
- * @method int                                      getStoreId()
- * @method string                                   getTitle()
- * @method string                                   getUpdateTime()
- * @method $this                                    setContent(string $value)
- * @method $this                                    setCreationTime(string $value)
- * @method $this                                    setIdentifier(string $value)
- * @method $this                                    setIsActive(int $value)
- * @method $this                                    setStoreId(int $storeId)
- * @method $this                                    setTitle(string $value)
- * @method $this                                    setUpdateTime(string $value)
  */
 class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
 {
@@ -44,6 +31,83 @@ class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('cms/block');
+    }
+
+    public function getBlockId(): int
+    {
+        return (int) $this->_getData('block_id');
+    }
+
+    public function getContent(): string
+    {
+        return (string) $this->_getData('content');
+    }
+
+    public function getCreationTime(): ?string
+    {
+        $value = $this->_getData('creation_time');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getIdentifier(): string
+    {
+        return (string) $this->_getData('identifier');
+    }
+
+    public function getIsActive(): int
+    {
+        return (int) $this->_getData('is_active');
+    }
+
+    public function getTitle(): string
+    {
+        return (string) $this->_getData('title');
+    }
+
+    public function getUpdateTime(): ?string
+    {
+        $value = $this->_getData('update_time');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setContent(string $value): static
+    {
+        return $this->setData('content', $value);
+    }
+
+    public function setCreationTime(?string $value): static
+    {
+        return $this->setData('creation_time', $value);
+    }
+
+    public function setIdentifier(string $value): static
+    {
+        return $this->setData('identifier', $value);
+    }
+
+    public function setIsActive(int $value): static
+    {
+        return $this->setData('is_active', $value);
+    }
+
+    public function setTitle(string $value): static
+    {
+        return $this->setData('title', $value);
+    }
+
+    public function setUpdateTime(?string $value): static
+    {
+        return $this->setData('update_time', $value);
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 
     /**

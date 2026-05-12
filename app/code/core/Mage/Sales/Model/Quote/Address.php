@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,174 +15,48 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Quote_Address            _getResource()
- * @method string                                             getAddressType()
  * @method array                                              getAppliedRuleIds()
  * @method bool                                               getAppliedTaxesReset()
  * @method float                                              getBaseCustbalanceAmount()
- * @method float                                              getBaseDiscountAmount()
- * @method float                                              getBaseExtraTaxAmount()
- * @method float                                              getBaseGrandTotal()
- * @method float                                              getBaseHiddenTaxAmount()
- * @method float                                              getBaseRowTotal()
- * @method float                                              getBaseShippingAmount()
- * @method float                                              getBaseShippingAmountForDiscount()
- * @method float                                              getBaseShippingDiscountAmount()
- * @method float                                              getBaseShippingHiddenTaxAmount()
- * @method float                                              getBaseShippingInclTax()
- * @method float                                              getBaseShippingTaxable()
- * @method float                                              getBaseShippingTaxAmount()
- * @method float                                              getBaseSubtotal()
- * @method float                                              getBaseSubtotalInclTax()
- * @method float                                              getBaseSubtotalTotalInclTax()
- * @method float                                              getBaseTaxAmount()
- * @method float                                              getBaseVirtualAmount()
  * @method float                                              getBaseWeeeDiscount()
  * @method array                                              getCartFixedRules()
  * @method Mage_Sales_Model_Quote_Address[]                   getChildren()
- * @method string                                             getCity()
  * @method Mage_Sales_Model_Resource_Quote_Address_Collection getCollection()()
- * @method int                                                getCollectShippingRates()
- * @method string                                             getCompany()
- * @method string                                             getCountryId()
  * @method float                                              getCustbalanceAmount()
  * @method Mage_Customer_Model_Address                        getCustomerAddress()
- * @method int                                                getCustomerAddressId()
- * @method int                                                getCustomerId()
- * @method string                                             getCustomerNotes()
  * @method string                                             getCustomerPassword()
- * @method float                                              getDiscountAmount()
- * @method string                                             getDiscountDescription()
  * @method null|array                                         getDiscountDescriptionArray()
- * @method float                                              getDiscountTaxCompensation()
- * @method string                                             getDob()
- * @method string                                             getEmail()
- * @method float                                              getExtraTaxAmount()
- * @method string                                             getFax()
- * @method string                                             getFirstname()
- * @method float                                              getFreeMethodWeight()
- * @method int                                                getFreeShipping()
- * @method string                                             getGender()
- * @method int                                                getGiftMessageId()
- * @method float                                              getGrandTotal()
  * @method bool                                               getHasChildren()
- * @method float                                              getHiddenTaxAmount()
  * @method bool                                               getIsShippingInclTax()
- * @method string                                             getLastname()
- * @method string                                             getLimitCarrier()
- * @method string                                             getMiddlename()
  * @method Mage_Sales_Model_Quote_Address                     getParentItem()
- * @method int                                                getParentItemId()
- * @method string                                             getPostcode()
- * @method string                                             getPrefix()
  * @method Mage_Catalog_Model_Product                         getProduct()
- * @method float                                              getQty()
- * @method int                                                getQuoteId()
  * @method Mage_Sales_Model_Resource_Quote_Address            getResource()
  * @method array                                              getRoundingDeltas()
- * @method float                                              getRowTotal()
- * @method bool                                               getSameAsBilling()
- * @method int                                                getSaveInAddressBook()
- * @method float                                              getShippingAmount()
- * @method float                                              getShippingAmountForDiscount()
- * @method string                                             getShippingDescription()
- * @method float                                              getShippingDiscountAmount()
  * @method float                                              getShippingDiscountPercent()
- * @method float                                              getShippingHiddenTaxAmount()
- * @method float                                              getShippingInclTax()
- * @method string                                             getShippingMethod()
- * @method float                                              getShippingTaxable()
- * @method float                                              getShippingTaxAmount()
- * @method int                                                getStoreId()
- * @method float                                              getSubtotal()
- * @method float                                              getSubtotalInclTax()
- * @method string                                             getSuffix()
- * @method float                                              getTaxAmount()
- * @method string                                             getTaxvat()
- * @method string                                             getTelephone()
- * @method float                                              getTotalQty()
  * @method float                                              getWeeeDiscount()
- * @method float                                              getWeight()
  * @method bool                                               hasCouponCode()
  * @method bool                                               hasPaymentMethod()
- * @method $this                                              setAddressType(string $value)
  * @method $this                                              setAppliedRuleIds(string $value)
  * @method $this                                              setAppliedTaxesReset(bool $value)
  * @method $this                                              setBaseCustbalanceAmount(float $float)
- * @method $this                                              setBaseDiscountAmount(float $float)
- * @method $this                                              setBaseExtraTaxAmount(float $float)
- * @method $this                                              setBaseGrandTotal(float $float)
- * @method $this                                              setBaseHiddenTaxAmount(float $float)
- * @method $this                                              setBaseShippingAmountForDiscount(float $float)
- * @method $this                                              setBaseShippingDiscountAmount(float $float)
- * @method $this                                              setBaseShippingHiddenTaxAmount(float $float)
- * @method $this                                              setBaseShippingInclTax(float $float)
- * @method $this                                              setBaseShippingTaxable(float $float)
- * @method $this                                              setBaseShippingTaxAmount(float $float)
- * @method $this                                              setBaseSubtotal(float $float)
- * @method $this                                              setBaseSubtotalInclTax(float $float)
- * @method $this                                              setBaseSubtotalTotalInclTax(float $float)
  * @method $this                                              setBaseSubtotalWithDiscount(float $float)
- * @method $this                                              setBaseTaxAmount(float $value)
- * @method $this                                              setBaseVirtualAmount(float $value)
  * @method $this                                              setBaseWeeeDiscount(float $value)
  * @method $this                                              setCartFixedRules(array $value)
- * @method $this                                              setCity(string $value)
- * @method $this                                              setCollectShippingRates(int $value)
- * @method $this                                              setCompany(string $value)
- * @method $this                                              setCountryId(string $value)
  * @method $this                                              setCouponCode(string $value)
  * @method $this                                              setCustbalanceAmount(float $int)
  * @method $this                                              setCustomerAddress(Mage_Customer_Model_Address $value)
- * @method $this                                              setCustomerAddressId(int $value)
- * @method $this                                              setCustomerId(int $value)
- * @method $this                                              setCustomerNotes(string $value)
  * @method $this                                              setDeleteImmediately(bool $value)
- * @method $this                                              setDiscountAmount(float $value)
- * @method $this                                              setDiscountDescription(string $value)
  * @method $this                                              setDiscountDescriptionArray(array $value)
- * @method $this                                              setEmail(string $value)
- * @method $this                                              setExtraTaxAmount(float $value)
- * @method $this                                              setFax(string $value)
- * @method $this                                              setFirstname(string $value)
- * @method $this                                              setFreeMethodWeight(int $value)
- * @method $this                                              setFreeShipping(int $value)
- * @method $this                                              setGiftMessageId(int $value)
- * @method $this                                              setGrandTotal(float $value)
- * @method $this                                              setHiddenTaxAmount(float $value)
  * @method $this                                              setIsShippingInclTax(bool $value)
  * @method $this                                              setItemQty(float $value)
- * @method $this                                              setLastname(string $string)
- * @method $this                                              setMiddlename(string $string)
  * @method $this                                              setPaymentMethod(null|string $value)
- * @method $this                                              setPostcode(string $string)
- * @method $this                                              setPrefix(string $string)
  * @method $this                                              setPrevQuoteCustomerGroupId(int $groupId)
- * @method $this                                              setQuoteId(int $value)
- * @method $this                                              setRegion(string $value)
- * @method $this                                              setRegionId(int $value)
  * @method $this                                              setRoundingDeltas(array $value)
  * @method $this                                              setRowWeight(float $value)
- * @method $this                                              setSameAsBilling(bool $value)
  * @method $this                                              setSaveInAddressBook(int $value)
- * @method $this                                              setShippingAmountForDiscount(float|int $value)
- * @method $this                                              setShippingDescription(string $value)
- * @method $this                                              setShippingDiscountAmount(float $value)
  * @method $this                                              setShippingDiscountPercent(float $value)
- * @method $this                                              setShippingHiddenTaxAmount(float $value)
- * @method $this                                              setShippingInclTax(float $value)
- * @method $this                                              setShippingMethod(string $value)
- * @method $this                                              setShippingTaxable(float $value)
- * @method $this                                              setShippingTaxAmount(float $value)
- * @method $this                                              setSubtotal(float $value)
- * @method $this                                              setSubtotalInclTax(float $value)
  * @method $this                                              setSubtotalWithDiscount(float $value)
- * @method $this                                              setSuffix(string $value)
- * @method $this                                              setTaxAmount(float $value)
- * @method $this                                              setTelephone(string $value)
- * @method $this                                              setTotalQty(float $int)
- * @method $this                                              setVirtualAmount(float $value)
  * @method $this                                              setWeeeDiscount(float $value)
- * @method $this                                              setWeight(float $value)
  * @method $this                                              unsAddressId()
  * @method $this                                              unsAddressType()
  *
@@ -1391,5 +1267,732 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function getCouponCode(): string
     {
         return (string) $this->_getData('coupon_code');
+    }
+
+    public function getAddressType(): string
+    {
+        return (string) $this->_getData('address_type');
+    }
+
+    public function getBaseDiscountAmount(): float
+    {
+        return (float) $this->_getData('base_discount_amount');
+    }
+
+    public function getBaseExtraTaxAmount(): float
+    {
+        return (float) $this->_getData('base_extra_tax_amount');
+    }
+
+    public function getBaseGrandTotal(): float
+    {
+        return (float) $this->_getData('base_grand_total');
+    }
+
+    public function getBaseHiddenTaxAmount(): float
+    {
+        return (float) $this->_getData('base_hidden_tax_amount');
+    }
+
+    public function getBaseRowTotal(): float
+    {
+        return (float) $this->_getData('base_row_total');
+    }
+
+    public function getBaseShippingAmount(): float
+    {
+        return (float) $this->_getData('base_shipping_amount');
+    }
+
+    public function getBaseShippingAmountForDiscount(): float
+    {
+        return (float) $this->_getData('base_shipping_amount_for_discount');
+    }
+
+    public function getBaseShippingDiscountAmount(): float
+    {
+        return (float) $this->_getData('base_shipping_discount_amount');
+    }
+
+    public function getBaseShippingHiddenTaxAmount(): float
+    {
+        return (float) $this->_getData('base_shipping_hidden_tax_amount');
+    }
+
+    public function getBaseShippingInclTax(): float
+    {
+        return (float) $this->_getData('base_shipping_incl_tax');
+    }
+
+    public function getBaseShippingTaxable(): float
+    {
+        return (float) $this->_getData('base_shipping_taxable');
+    }
+
+    public function getBaseShippingTaxAmount(): float
+    {
+        return (float) $this->_getData('base_shipping_tax_amount');
+    }
+
+    public function getBaseSubtotal(): float
+    {
+        return (float) $this->_getData('base_subtotal');
+    }
+
+    public function getBaseSubtotalInclTax(): float
+    {
+        return (float) $this->_getData('base_subtotal_incl_tax');
+    }
+
+    public function getBaseSubtotalTotalInclTax(): float
+    {
+        return (float) $this->_getData('base_subtotal_total_incl_tax');
+    }
+
+    public function getBaseTaxAmount(): float
+    {
+        return (float) $this->_getData('base_tax_amount');
+    }
+
+    public function getBaseVirtualAmount(): float
+    {
+        return (float) $this->_getData('base_virtual_amount');
+    }
+
+    public function getCity(): string
+    {
+        return (string) $this->_getData('city');
+    }
+
+    public function getCollectShippingRates(): int
+    {
+        return (int) $this->_getData('collect_shipping_rates');
+    }
+
+    public function getCompany(): string
+    {
+        return (string) $this->_getData('company');
+    }
+
+    public function getCountryId(): string
+    {
+        return (string) $this->_getData('country_id');
+    }
+
+    public function getCustomerAddressId(): int
+    {
+        return (int) $this->_getData('customer_address_id');
+    }
+
+    public function getCustomerId(): int
+    {
+        return (int) $this->_getData('customer_id');
+    }
+
+    public function getCustomerNotes(): string
+    {
+        return (string) $this->_getData('customer_notes');
+    }
+
+    public function getDiscountAmount(): float
+    {
+        return (float) $this->_getData('discount_amount');
+    }
+
+    public function getDiscountDescription(): string
+    {
+        return (string) $this->_getData('discount_description');
+    }
+
+    public function getDiscountTaxCompensation(): float
+    {
+        return (float) $this->_getData('discount_tax_compensation');
+    }
+
+    public function getEmail(): string
+    {
+        return (string) $this->_getData('email');
+    }
+
+    public function getExtraTaxAmount(): float
+    {
+        return (float) $this->_getData('extra_tax_amount');
+    }
+
+    public function getFax(): string
+    {
+        return (string) $this->_getData('fax');
+    }
+
+    public function getFirstname(): string
+    {
+        return (string) $this->_getData('firstname');
+    }
+
+    public function getFreeMethodWeight(): float
+    {
+        return (float) $this->_getData('free_method_weight');
+    }
+
+    public function getFreeShipping(): int
+    {
+        return (int) $this->_getData('free_shipping');
+    }
+
+    public function getGender(): string
+    {
+        return (string) $this->_getData('gender');
+    }
+
+    public function getGiftMessageId(): int
+    {
+        return (int) $this->_getData('gift_message_id');
+    }
+
+    public function getGrandTotal(): float
+    {
+        return (float) $this->_getData('grand_total');
+    }
+
+    public function getHiddenTaxAmount(): float
+    {
+        return (float) $this->_getData('hidden_tax_amount');
+    }
+
+    public function getLastname(): string
+    {
+        return (string) $this->_getData('lastname');
+    }
+
+    public function getLimitCarrier(): string
+    {
+        return (string) $this->_getData('limit_carrier');
+    }
+
+    public function getMiddlename(): string
+    {
+        return (string) $this->_getData('middlename');
+    }
+
+    public function getParentItemId(): int
+    {
+        return (int) $this->_getData('parent_item_id');
+    }
+
+    public function getPostcode(): string
+    {
+        return (string) $this->_getData('postcode');
+    }
+
+    public function getPrefix(): string
+    {
+        return (string) $this->_getData('prefix');
+    }
+
+    public function getQuoteId(): int
+    {
+        return (int) $this->_getData('quote_id');
+    }
+
+    public function getRegion(): string
+    {
+        return (string) $this->_getData('region');
+    }
+
+    public function getRegionCode(): string
+    {
+        return (string) $this->_getData('region_code');
+    }
+
+    public function getRegionId(): int
+    {
+        return (int) $this->_getData('region_id');
+    }
+
+    public function getRewardPointsBalance(): int
+    {
+        return (int) $this->_getData('reward_points_balance');
+    }
+
+    public function getRowTotal(): float
+    {
+        return (float) $this->_getData('row_total');
+    }
+
+    public function getSameAsBilling(): int
+    {
+        return (int) $this->_getData('same_as_billing');
+    }
+
+    public function getShippingAmount(): float
+    {
+        return (float) $this->_getData('shipping_amount');
+    }
+
+    public function getShippingAmountForDiscount(): float
+    {
+        return (float) $this->_getData('shipping_amount_for_discount');
+    }
+
+    public function getShippingDescription(): string
+    {
+        return (string) $this->_getData('shipping_description');
+    }
+
+    public function getShippingDiscountAmount(): float
+    {
+        return (float) $this->_getData('shipping_discount_amount');
+    }
+
+    public function getShippingHiddenTaxAmount(): float
+    {
+        return (float) $this->_getData('shipping_hidden_tax_amount');
+    }
+
+    public function getShippingInclTax(): float
+    {
+        return (float) $this->_getData('shipping_incl_tax');
+    }
+
+    public function getShippingMethod(): string
+    {
+        return (string) $this->_getData('shipping_method');
+    }
+
+    public function getShippingTaxable(): float
+    {
+        return (float) $this->_getData('shipping_taxable');
+    }
+
+    public function getShippingTaxAmount(): float
+    {
+        return (float) $this->_getData('shipping_tax_amount');
+    }
+
+    public function getStreet1(): string
+    {
+        return (string) $this->_getData('street1');
+    }
+
+    public function getStreet2(): string
+    {
+        return (string) $this->_getData('street2');
+    }
+
+    public function getSubtotal(): float
+    {
+        return (float) $this->_getData('subtotal');
+    }
+
+    public function getSubtotalInclTax(): float
+    {
+        return (float) $this->_getData('subtotal_incl_tax');
+    }
+
+    public function getSubtotalTotalInclTax(): float
+    {
+        return (float) $this->_getData('subtotal_total_incl_tax');
+    }
+
+    public function getSuffix(): string
+    {
+        return (string) $this->_getData('suffix');
+    }
+
+    public function getTaxAmount(): float
+    {
+        return (float) $this->_getData('tax_amount');
+    }
+
+    public function getTelephone(): string
+    {
+        return (string) $this->_getData('telephone');
+    }
+
+    public function getTotalQty(): float
+    {
+        return (float) $this->_getData('total_qty');
+    }
+
+    public function getVirtualAmount(): float
+    {
+        return (float) $this->_getData('virtual_amount');
+    }
+
+    public function getWeight(): float
+    {
+        return (float) $this->_getData('weight');
+    }
+
+    public function getWeightee(): float
+    {
+        return (float) $this->_getData('weightee');
+    }
+
+    public function setAddressType(string $value): static
+    {
+        return $this->setData('address_type', $value);
+    }
+
+    public function setBaseDiscountAmount(float $value): static
+    {
+        return $this->setData('base_discount_amount', $value);
+    }
+
+    public function setBaseExtraTaxAmount(float $value): static
+    {
+        return $this->setData('base_extra_tax_amount', $value);
+    }
+
+    public function setBaseGrandTotal(float $value): static
+    {
+        return $this->setData('base_grand_total', $value);
+    }
+
+    public function setBaseHiddenTaxAmount(float $value): static
+    {
+        return $this->setData('base_hidden_tax_amount', $value);
+    }
+
+    public function setBaseRowTotal(float $value): static
+    {
+        return $this->setData('base_row_total', $value);
+    }
+
+    public function setBaseShippingAmountForDiscount(float $value): static
+    {
+        return $this->setData('base_shipping_amount_for_discount', $value);
+    }
+
+    public function setBaseShippingDiscountAmount(float $value): static
+    {
+        return $this->setData('base_shipping_discount_amount', $value);
+    }
+
+    public function setBaseShippingHiddenTaxAmount(float $value): static
+    {
+        return $this->setData('base_shipping_hidden_tax_amount', $value);
+    }
+
+    public function setBaseShippingInclTax(float $value): static
+    {
+        return $this->setData('base_shipping_incl_tax', $value);
+    }
+
+    public function setBaseShippingTaxable(float $value): static
+    {
+        return $this->setData('base_shipping_taxable', $value);
+    }
+
+    public function setBaseShippingTaxAmount(float $value): static
+    {
+        return $this->setData('base_shipping_tax_amount', $value);
+    }
+
+    public function setBaseSubtotal(float $value): static
+    {
+        return $this->setData('base_subtotal', $value);
+    }
+
+    public function setBaseSubtotalInclTax(float $value): static
+    {
+        return $this->setData('base_subtotal_incl_tax', $value);
+    }
+
+    public function setBaseSubtotalTotalInclTax(float $value): static
+    {
+        return $this->setData('base_subtotal_total_incl_tax', $value);
+    }
+
+    public function setBaseTaxAmount(float $value): static
+    {
+        return $this->setData('base_tax_amount', $value);
+    }
+
+    public function setBaseVirtualAmount(float $value): static
+    {
+        return $this->setData('base_virtual_amount', $value);
+    }
+
+    public function setCity(string $value): static
+    {
+        return $this->setData('city', $value);
+    }
+
+    public function setCollectShippingRates(int $value): static
+    {
+        return $this->setData('collect_shipping_rates', $value);
+    }
+
+    public function setCompany(string $value): static
+    {
+        return $this->setData('company', $value);
+    }
+
+    public function setCountryId(string $value): static
+    {
+        return $this->setData('country_id', $value);
+    }
+
+    public function setCustomerAddressId(int $value): static
+    {
+        return $this->setData('customer_address_id', $value);
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setCustomerNotes(string $value): static
+    {
+        return $this->setData('customer_notes', $value);
+    }
+
+    public function setDiscountAmount(float $value): static
+    {
+        return $this->setData('discount_amount', $value);
+    }
+
+    public function setDiscountDescription(string $value): static
+    {
+        return $this->setData('discount_description', $value);
+    }
+
+    public function setDiscountTaxCompensation(float $value): static
+    {
+        return $this->setData('discount_tax_compensation', $value);
+    }
+
+    public function setEmail(string $value): static
+    {
+        return $this->setData('email', $value);
+    }
+
+    public function setExtraTaxAmount(float $value): static
+    {
+        return $this->setData('extra_tax_amount', $value);
+    }
+
+    public function setFax(string $value): static
+    {
+        return $this->setData('fax', $value);
+    }
+
+    public function setFirstname(string $value): static
+    {
+        return $this->setData('firstname', $value);
+    }
+
+    public function setFreeMethodWeight(float $value): static
+    {
+        return $this->setData('free_method_weight', $value);
+    }
+
+    public function setFreeShipping(int $value): static
+    {
+        return $this->setData('free_shipping', $value);
+    }
+
+    public function setGender(string $value): static
+    {
+        return $this->setData('gender', $value);
+    }
+
+    public function setGiftMessageId(int $value): static
+    {
+        return $this->setData('gift_message_id', $value);
+    }
+
+    public function setGrandTotal(float $value): static
+    {
+        return $this->setData('grand_total', $value);
+    }
+
+    public function setHiddenTaxAmount(float $value): static
+    {
+        return $this->setData('hidden_tax_amount', $value);
+    }
+
+    public function setLastname(string $value): static
+    {
+        return $this->setData('lastname', $value);
+    }
+
+    public function setLimitCarrier(string $value): static
+    {
+        return $this->setData('limit_carrier', $value);
+    }
+
+    public function setMiddlename(string $value): static
+    {
+        return $this->setData('middlename', $value);
+    }
+
+    public function setParentItemId(int $value): static
+    {
+        return $this->setData('parent_item_id', $value);
+    }
+
+    public function setPostcode(string $value): static
+    {
+        return $this->setData('postcode', $value);
+    }
+
+    public function setPrefix(string $value): static
+    {
+        return $this->setData('prefix', $value);
+    }
+
+    public function setQuoteId(int $value): static
+    {
+        return $this->setData('quote_id', $value);
+    }
+
+    public function setRegion(string $value): static
+    {
+        return $this->setData('region', $value);
+    }
+
+    public function setRegionCode(string $value): static
+    {
+        return $this->setData('region_code', $value);
+    }
+
+    public function setRegionId(int $value): static
+    {
+        return $this->setData('region_id', $value);
+    }
+
+    public function setRewardPointsBalance(int $value): static
+    {
+        return $this->setData('reward_points_balance', $value);
+    }
+
+    public function setRowTotal(float $value): static
+    {
+        return $this->setData('row_total', $value);
+    }
+
+    public function setSameAsBilling(int $value): static
+    {
+        return $this->setData('same_as_billing', $value);
+    }
+
+    public function setShippingAmountForDiscount(float $value): static
+    {
+        return $this->setData('shipping_amount_for_discount', $value);
+    }
+
+    public function setShippingDescription(string $value): static
+    {
+        return $this->setData('shipping_description', $value);
+    }
+
+    public function setShippingDiscountAmount(float $value): static
+    {
+        return $this->setData('shipping_discount_amount', $value);
+    }
+
+    public function setShippingHiddenTaxAmount(float $value): static
+    {
+        return $this->setData('shipping_hidden_tax_amount', $value);
+    }
+
+    public function setShippingInclTax(float $value): static
+    {
+        return $this->setData('shipping_incl_tax', $value);
+    }
+
+    public function setShippingMethod(string $value): static
+    {
+        return $this->setData('shipping_method', $value);
+    }
+
+    public function setShippingTaxable(float $value): static
+    {
+        return $this->setData('shipping_taxable', $value);
+    }
+
+    public function setShippingTaxAmount(float $value): static
+    {
+        return $this->setData('shipping_tax_amount', $value);
+    }
+
+    public function setSubtotal(float $value): static
+    {
+        return $this->setData('subtotal', $value);
+    }
+
+    public function setSubtotalInclTax(float $value): static
+    {
+        return $this->setData('subtotal_incl_tax', $value);
+    }
+
+    public function setSubtotalTotalInclTax(float $value): static
+    {
+        return $this->setData('subtotal_total_incl_tax', $value);
+    }
+
+    public function setSuffix(string $value): static
+    {
+        return $this->setData('suffix', $value);
+    }
+
+    public function setTaxAmount(float $value): static
+    {
+        return $this->setData('tax_amount', $value);
+    }
+
+    public function setTelephone(string $value): static
+    {
+        return $this->setData('telephone', $value);
+    }
+
+    public function setTotalQty(float $value): static
+    {
+        return $this->setData('total_qty', $value);
+    }
+
+    public function setVirtualAmount(float $value): static
+    {
+        return $this->setData('virtual_amount', $value);
+    }
+
+    public function setWeight(float $value): static
+    {
+        return $this->setData('weight', $value);
+    }
+
+    public function setWeightee(float $value): static
+    {
+        return $this->setData('weightee', $value);
+    }
+
+    public function getSaveInAddressBook(): int
+    {
+        return (int) $this->_getData('save_in_address_book');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getTaxvat(): ?string
+    {
+        $value = $this->_getData('taxvat');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getDob(): ?string
+    {
+        $value = $this->_getData('dob');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getQty(): float
+    {
+        return (float) $this->_getData('qty');
     }
 }

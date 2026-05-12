@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,25 +15,14 @@
  * @package    Mage_Wishlist
  *
  * @method Mage_Wishlist_Model_Resource_Item            _getResource()
- * @method string                                       getAddedAt()
  * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
- * @method string                                       getDescription()
  * @method bool                                         getHasError()
  * @method string                                       getMessage()
- * @method int                                          getProductId()
- * @method float                                        getQty()
  * @method Mage_Wishlist_Model_Resource_Item            getResource()
  * @method Mage_Wishlist_Model_Resource_Item_Collection getResourceCollection()
- * @method int                                          getStoreId()
- * @method int                                          getWishlistId()
- * @method $this                                        setAddedAt(string $value)
- * @method $this                                        setDescription(string $value)
  * @method $this                                        setProduct(Mage_Catalog_Model_Product $value)
- * @method $this                                        setProductId(int $value)
- * @method $this                                        setStoreId(int $value)
  * @method $this                                        setWishlist(Mage_Wishlist_Model_Wishlist $param)
- * @method $this setWishlistId(int $value)Mage_Wishlist_Model_Resource_Item
- * @method $this unsProduct()
+ * @method $this                                        unsProduct()
  */
 class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Interface
 {
@@ -104,6 +95,62 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     {
         $this->_cacheTag = 'wishlist_item';
         $this->_init('wishlist/item');
+    }
+
+    public function getAddedAt(): ?string
+    {
+        $value = $this->_getData('added_at');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getDescription(): string
+    {
+        return (string) $this->_getData('description');
+    }
+
+    public function getProductId(): int
+    {
+        return (int) $this->_getData('product_id');
+    }
+
+    public function getQty(): float
+    {
+        return (float) $this->_getData('qty');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getWishlistId(): int
+    {
+        return (int) $this->_getData('wishlist_id');
+    }
+
+    public function setAddedAt(?string $value): static
+    {
+        return $this->setData('added_at', $value);
+    }
+
+    public function setDescription(string $value): static
+    {
+        return $this->setData('description', $value);
+    }
+
+    public function setProductId(int $value): static
+    {
+        return $this->setData('product_id', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function setWishlistId(int $value): static
+    {
+        return $this->setData('wishlist_id', $value);
     }
 
     /**

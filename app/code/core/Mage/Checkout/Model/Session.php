@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -10,66 +12,37 @@
 /**
  * @package    Mage_Checkout
  *
- * @method string getCartCouponCode()
- * @method bool   getCartWasUpdated()
- * @method string getCheckoutState()
- * @method string getContinueShoppingUrl()
- * @method bool   getDisplaySuccess()
- * @method array  getEstimatedShippingAddressData()
- * @method string getGotoSection()
- * @method bool   getHasDownloadableProducts()
- * @method int    getLastAddedProductId()
- * @method int    getLastBillingAgreementId()
- * @method int    getLastOrderId()
- * @method int    getLastQuoteId()
- * @method string getLastRealOrderId()
- * @method int    getLastRecurringProfileIds()
- * @method int    getLastSuccessQuoteId()
- * @method array  getMethodData()
- * @method bool   getNoCartRedirect()
- * @method array  getPaypalTransactionData()
- * @method string getRedirectUrl()
- * @method bool   getRememberMeChecked()
- * @method string getSharedWishlist()
- * @method int    getSingleWishlistId()
- * @method array  getSteps()
- * @method string getUpdateSection()
- * @method bool   getUseNotice()
- * @method array  getWishlistIds()
- * @method array  getWishlistPendingMessages()
- * @method array  getWishlistPendingUrls()
- * @method $this  setAdditionalMessages(null|array $value)
- * @method $this  setCartCouponCode(string $value)
- * @method $this  setCartWasUpdated(bool $value)
- * @method $this  setCheckoutState(string $value)
- * @method $this  setContinueShoppingUrl(string $value)
- * @method $this  setDisplaySuccess(bool $value)
- * @method $this  setEstimatedShippingAddressData(array $value)
- * @method $this  setGotoSection(string $value)
- * @method $this  setHasDownloadableProducts(bool $value)
- * @method $this  setLastAddedProductId(int $value)
- * @method $this  setLastBillingAgreementId(null|int $value)
- * @method $this  setLastOrderId(null|int $value)
- * @method $this  setLastQuoteId(int $value)
- * @method $this  setLastRealOrderId(string $value)
- * @method $this  setLastRecurringProfileIds(null|array $value)
- * @method $this  setLastSuccessQuoteId(null|int $value)
- * @method $this  setNoCartRedirect(bool $value)
- * @method $this  setRedirectUrl(string $value)
- * @method $this  setRememberMeChecked(bool $value)
- * @method $this  setSharedWishlist(string $value)
- * @method $this  setSingleWishlistId(null|int $value)
- * @method $this  setSteps(array $value)
- * @method $this  setUpdateSection(string $value)
- * @method $this  setUseNotice(bool $value)
- * @method $this  setWishlistIds(array $value)
- * @method $this  setWishlistPendingMessages(array $value)
- * @method $this  setWishlistPendingUrls(array $value)
- * @method $this  unsLastOrderId()
- * @method $this  unsLastQuoteId()
- * @method $this  unsLastRealOrderId()
- * @method $this  unsLastSuccessQuoteId()
- * @method $this  unsRememberMeChecked()
+ * @method bool  getCartWasUpdated()
+ * @method bool  getDisplaySuccess()
+ * @method array getEstimatedShippingAddressData()
+ * @method bool  getHasDownloadableProducts()
+ * @method array getMethodData()
+ * @method bool  getNoCartRedirect()
+ * @method array getPaypalTransactionData()
+ * @method bool  getRememberMeChecked()
+ * @method array getSteps()
+ * @method bool  getUseNotice()
+ * @method array getWishlistIds()
+ * @method array getWishlistPendingMessages()
+ * @method array getWishlistPendingUrls()
+ * @method $this setAdditionalMessages(null|array $value)
+ * @method $this setCartWasUpdated(bool $value)
+ * @method $this setDisplaySuccess(bool $value)
+ * @method $this setEstimatedShippingAddressData(array $value)
+ * @method $this setHasDownloadableProducts(bool $value)
+ * @method $this setLastRecurringProfileIds(null|array $value)
+ * @method $this setNoCartRedirect(bool $value)
+ * @method $this setRememberMeChecked(bool $value)
+ * @method $this setSteps(array $value)
+ * @method $this setUseNotice(bool $value)
+ * @method $this setWishlistIds(array $value)
+ * @method $this setWishlistPendingMessages(array $value)
+ * @method $this setWishlistPendingUrls(array $value)
+ * @method $this unsLastOrderId()
+ * @method $this unsLastQuoteId()
+ * @method $this unsLastRealOrderId()
+ * @method $this unsLastSuccessQuoteId()
+ * @method $this unsRememberMeChecked()
  */
 class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -539,5 +512,150 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     protected function _getOrderModel()
     {
         return Mage::getModel('sales/order');
+    }
+
+    public function getCartCouponCode(): string
+    {
+        return (string) $this->_getData('cart_coupon_code');
+    }
+
+    public function getCheckoutState(): string
+    {
+        return (string) $this->_getData('checkout_state');
+    }
+
+    public function getContinueShoppingUrl(): string
+    {
+        return (string) $this->_getData('continue_shopping_url');
+    }
+
+    public function getGotoSection(): string
+    {
+        return (string) $this->_getData('goto_section');
+    }
+
+    public function getLastAddedProductId(): int
+    {
+        return (int) $this->_getData('last_added_product_id');
+    }
+
+    public function getLastBillingAgreementId(): int
+    {
+        return (int) $this->_getData('last_billing_agreement_id');
+    }
+
+    public function getLastOrderId(): int
+    {
+        return (int) $this->_getData('last_order_id');
+    }
+
+    public function getLastQuoteId(): int
+    {
+        return (int) $this->_getData('last_quote_id');
+    }
+
+    public function getLastRealOrderId(): string
+    {
+        return (string) $this->_getData('last_real_order_id');
+    }
+
+    public function getLastRecurringProfileIds(): int
+    {
+        return (int) $this->_getData('last_recurring_profile_ids');
+    }
+
+    public function getLastSuccessQuoteId(): int
+    {
+        return (int) $this->_getData('last_success_quote_id');
+    }
+
+    public function getRedirectUrl(): string
+    {
+        return (string) $this->_getData('redirect_url');
+    }
+
+    public function getSharedWishlist(): string
+    {
+        return (string) $this->_getData('shared_wishlist');
+    }
+
+    public function getSingleWishlistId(): int
+    {
+        return (int) $this->_getData('single_wishlist_id');
+    }
+
+    public function getUpdateSection(): string
+    {
+        return (string) $this->_getData('update_section');
+    }
+
+    public function setCartCouponCode(string $value): static
+    {
+        return $this->setData('cart_coupon_code', $value);
+    }
+
+    public function setCheckoutState(string $value): static
+    {
+        return $this->setData('checkout_state', $value);
+    }
+
+    public function setContinueShoppingUrl(string $value): static
+    {
+        return $this->setData('continue_shopping_url', $value);
+    }
+
+    public function setGotoSection(string $value): static
+    {
+        return $this->setData('goto_section', $value);
+    }
+
+    public function setLastAddedProductId(int $value): static
+    {
+        return $this->setData('last_added_product_id', $value);
+    }
+
+    public function setLastBillingAgreementId(?int $value): static
+    {
+        return $this->setData('last_billing_agreement_id', $value);
+    }
+
+    public function setLastOrderId(?int $value): static
+    {
+        return $this->setData('last_order_id', $value);
+    }
+
+    public function setLastQuoteId(int $value): static
+    {
+        return $this->setData('last_quote_id', $value);
+    }
+
+    public function setLastRealOrderId(string $value): static
+    {
+        return $this->setData('last_real_order_id', $value);
+    }
+
+    public function setLastSuccessQuoteId(?int $value): static
+    {
+        return $this->setData('last_success_quote_id', $value);
+    }
+
+    public function setRedirectUrl(string $value): static
+    {
+        return $this->setData('redirect_url', $value);
+    }
+
+    public function setSharedWishlist(string $value): static
+    {
+        return $this->setData('shared_wishlist', $value);
+    }
+
+    public function setSingleWishlistId(?int $value): static
+    {
+        return $this->setData('single_wishlist_id', $value);
+    }
+
+    public function setUpdateSection(string $value): static
+    {
+        return $this->setData('update_section', $value);
     }
 }

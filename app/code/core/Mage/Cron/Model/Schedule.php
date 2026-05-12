@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,22 +19,10 @@ use Carbon\Carbon;
  * @method Mage_Cron_Model_Resource_Schedule            _getResource()
  * @method Mage_Cron_Model_Resource_Schedule_Collection getCollection()
  * @method array[]|false|string[]                       getCronExprArr()
- * @method string                                       getExecutedAt()
- * @method string                                       getFinishedAt()
- * @method string                                       getJobCode()
- * @method string                                       getMessages()
  * @method Mage_Cron_Model_Resource_Schedule            getResource()
  * @method Mage_Cron_Model_Resource_Schedule_Collection getResourceCollection()
- * @method string                                       getScheduledAt()
- * @method string                                       getStatus()
  * @method $this                                        setCronExprArr(array[]|false|string[] $value)
- * @method $this                                        setExecutedAt(string $value)
- * @method $this                                        setFinishedAt(string $value)
  * @method $this                                        setIsError(bool $value)
- * @method $this                                        setJobCode(string $value)
- * @method $this                                        setMessages(string $value)
- * @method $this                                        setScheduledAt(string $value)
- * @method $this                                        setStatus(string $value)
  * @method $this                                        unsScheduleId()
  */
 class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
@@ -55,6 +45,66 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     public function getIsError(): bool
     {
         return !empty($this->getDataByKey('is_error'));
+    }
+
+    public function getExecutedAt(): ?string
+    {
+        return $this->_getData('executed_at') !== null ? (string) $this->_getData('executed_at') : null;
+    }
+
+    public function getFinishedAt(): ?string
+    {
+        return $this->_getData('finished_at') !== null ? (string) $this->_getData('finished_at') : null;
+    }
+
+    public function getJobCode(): string
+    {
+        return (string) $this->_getData('job_code');
+    }
+
+    public function getMessages(): string
+    {
+        return (string) $this->_getData('messages');
+    }
+
+    public function getScheduledAt(): ?string
+    {
+        return $this->_getData('scheduled_at') !== null ? (string) $this->_getData('scheduled_at') : null;
+    }
+
+    public function getStatus(): string
+    {
+        return (string) $this->_getData('status');
+    }
+
+    public function setExecutedAt(?string $value): static
+    {
+        return $this->setData('executed_at', $value);
+    }
+
+    public function setFinishedAt(?string $value): static
+    {
+        return $this->setData('finished_at', $value);
+    }
+
+    public function setJobCode(string $value): static
+    {
+        return $this->setData('job_code', $value);
+    }
+
+    public function setMessages(string $value): static
+    {
+        return $this->setData('messages', $value);
+    }
+
+    public function setScheduledAt(?string $value): static
+    {
+        return $this->setData('scheduled_at', $value);
+    }
+
+    public function setStatus(string $value): static
+    {
+        return $this->setData('status', $value);
     }
 
     /**

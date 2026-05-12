@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,27 +14,10 @@
  *
  * @method Mage_Index_Model_Resource_Process            _getResource()
  * @method Mage_Index_Model_Resource_Process_Collection getCollection()
- * @method string                                       getDescription()
- * @method string                                       getEndedAt()
  * @method bool                                         getForcePartialReindex()
- * @method string                                       getIndexCode()
- * @method string                                       getIndexerCode()
- * @method string                                       getMode()
- * @method string                                       getName()
  * @method Mage_Index_Model_Resource_Process            getResource()
  * @method Mage_Index_Model_Resource_Process_Collection getResourceCollection()
- * @method string                                       getStartedAt()
- * @method string                                       getStatus()
- * @method int                                          getUpdateRequired()
- * @method $this                                        setDescription(string $value)
- * @method $this                                        setEndedAt(string $value)
  * @method $this                                        setForcePartialReindex(bool $value)
- * @method $this                                        setIndexerCode(string $value)
- * @method $this                                        setMode(string $value)
- * @method $this                                        setName(string $value)
- * @method $this                                        setStartedAt(string $value)
- * @method $this                                        setStatus(string $value)
- * @method $this                                        setUpdateRequired(int $value)
  */
 class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 {
@@ -96,6 +81,58 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('index/process');
+    }
+
+    public function getEndedAt(): ?string
+    {
+        $value = $this->_getData('ended_at');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getIndexerCode(): string
+    {
+        return (string) $this->_getData('indexer_code');
+    }
+
+    public function getMode(): string
+    {
+        return (string) $this->_getData('mode');
+    }
+
+    public function getStartedAt(): ?string
+    {
+        $value = $this->_getData('started_at');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getStatus(): string
+    {
+        return (string) $this->_getData('status');
+    }
+
+    public function setEndedAt(?string $value): static
+    {
+        return $this->setData('ended_at', $value);
+    }
+
+    public function setIndexerCode(string $value): static
+    {
+        return $this->setData('indexer_code', $value);
+    }
+
+    public function setMode(string $value): static
+    {
+        return $this->setData('mode', $value);
+    }
+
+    public function setStartedAt(?string $value): static
+    {
+        return $this->setData('started_at', $value);
+    }
+
+    public function setStatus(string $value): static
+    {
+        return $this->setData('status', $value);
     }
 
     /**
@@ -650,5 +687,40 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         $eventsCollection = Mage::getResourceModel('index/event_collection');
         $eventsCollection->addProcessFilter($this, self::EVENT_STATUS_NEW);
         return $eventsCollection;
+    }
+
+    public function getDescription(): string
+    {
+        return (string) $this->_getData('description');
+    }
+
+    public function getIndexCode(): string
+    {
+        return (string) $this->_getData('index_code');
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->_getData('name');
+    }
+
+    public function getUpdateRequired(): int
+    {
+        return (int) $this->_getData('update_required');
+    }
+
+    public function setDescription(string $value): static
+    {
+        return $this->setData('description', $value);
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
+    }
+
+    public function setUpdateRequired(int $value): static
+    {
+        return $this->setData('update_required', $value);
     }
 }

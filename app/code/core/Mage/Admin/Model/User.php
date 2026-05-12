@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,50 +17,20 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Resource_User            _getResource()
- * @method string                                    getCreated()
- * @method string                                    getEmail()
  * @method array                                     getExtra()
- * @method string                                    getFirstname()
- * @method int                                       getIsActive()
- * @method string                                    getLastname()
- * @method string                                    getLogdate()
- * @method int                                       getLognum()
- * @method string                                    getModified()
  * @method string                                    getNewPassword()
- * @method string                                    getPassword()
  * @method string                                    getPasswordConfirmation()
- * @method int                                       getReloadAclFlag()
  * @method Mage_Admin_Model_Resource_User            getResource()
  * @method Mage_Admin_Model_Resource_User_Collection getResourceCollection()
- * @method int                                       getRoleId()
  * @method array                                     getRoleIds()
- * @method string                                    getRpToken()
- * @method string                                    getRpTokenCreatedAt()
- * @method int                                       getUserId()
- * @method string                                    getUsername()
  * @method bool                                      hasNewPassword()
  * @method bool                                      hasPassword()
  * @method bool                                      hasPasswordConfirmation()
- * @method $this                                     setCreated(string $value)
- * @method $this                                     setEmail(string $value)
  * @method $this                                     setExtra(string $value)
- * @method $this                                     setFirstname(string $value)
- * @method $this                                     setIsActive(int $value)
- * @method $this                                     setLastname(string $value)
- * @method $this                                     setLogdate(string $value)
- * @method $this                                     setLognum(int $value)
- * @method $this                                     setModified(string $value)
  * @method $this                                     setNewPassword(string $value)
- * @method $this                                     setPassword(string $value)
  * @method $this                                     setPasswordConfirmation(string $value)
- * @method $this                                     setReloadAclFlag(int $value)
- * @method $this                                     setRoleId(int $value)
  * @method $this                                     setRoleIds(array $value)
  * @method $this                                     setRoleUserId(int $value)
- * @method $this                                     setRpToken(string $value)
- * @method $this                                     setRpTokenCreatedAt(string $value)
- * @method $this                                     setUserId(int $value)
- * @method $this                                     setUsername(string $value)
  * @method $this                                     unsNewPassword()
  * @method $this                                     unsPasswordConfirmation()
  */
@@ -126,6 +98,158 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('admin/user');
+    }
+
+    public function getCreated(): string
+    {
+        return (string) $this->_getData('created');
+    }
+
+    public function getEmail(): string
+    {
+        return (string) $this->_getData('email');
+    }
+
+    public function getFirstname(): string
+    {
+        return (string) $this->_getData('firstname');
+    }
+
+    public function getIsActive(): int
+    {
+        return (int) $this->_getData('is_active');
+    }
+
+    public function getLastname(): string
+    {
+        return (string) $this->_getData('lastname');
+    }
+
+    public function getLogdate(): string
+    {
+        return (string) $this->_getData('logdate');
+    }
+
+    public function getLognum(): int
+    {
+        return (int) $this->_getData('lognum');
+    }
+
+    public function getModified(): string
+    {
+        return (string) $this->_getData('modified');
+    }
+
+    public function getPassword(): string
+    {
+        return (string) $this->_getData('password');
+    }
+
+    public function getReloadAclFlag(): int
+    {
+        return (int) $this->_getData('reload_acl_flag');
+    }
+
+    public function getRpToken(): ?string
+    {
+        $value = $this->_getData('rp_token');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getRpTokenCreatedAt(): ?string
+    {
+        $value = $this->_getData('rp_token_created_at');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getUserId(): int
+    {
+        return (int) $this->_getData('user_id');
+    }
+
+    public function getUsername(): string
+    {
+        return (string) $this->_getData('username');
+    }
+
+    public function setCreated(string $value): static
+    {
+        return $this->setData('created', $value);
+    }
+
+    public function setEmail(string $value): static
+    {
+        return $this->setData('email', $value);
+    }
+
+    public function setFirstname(string $value): static
+    {
+        return $this->setData('firstname', $value);
+    }
+
+    public function setIsActive(int $value): static
+    {
+        return $this->setData('is_active', $value);
+    }
+
+    public function setLastname(string $value): static
+    {
+        return $this->setData('lastname', $value);
+    }
+
+    public function setLogdate(string $value): static
+    {
+        return $this->setData('logdate', $value);
+    }
+
+    public function setLognum(int $value): static
+    {
+        return $this->setData('lognum', $value);
+    }
+
+    public function setModified(string $value): static
+    {
+        return $this->setData('modified', $value);
+    }
+
+    public function setPassword(string $value): static
+    {
+        return $this->setData('password', $value);
+    }
+
+    public function setReloadAclFlag(int $value): static
+    {
+        return $this->setData('reload_acl_flag', $value);
+    }
+
+    public function setRoleId(int $value): static
+    {
+        return $this->setData('role_id', $value);
+    }
+
+    public function getRoleId(): int
+    {
+        return (int) $this->_getData('role_id');
+    }
+
+    public function setRpToken(?string $value): static
+    {
+        return $this->setData('rp_token', $value);
+    }
+
+    public function setRpTokenCreatedAt(?string $value): static
+    {
+        return $this->setData('rp_token_created_at', $value);
+    }
+
+    public function setUserId(int $value): static
+    {
+        return $this->setData('user_id', $value);
+    }
+
+    public function setUsername(string $value): static
+    {
+        return $this->setData('username', $value);
     }
 
     /**

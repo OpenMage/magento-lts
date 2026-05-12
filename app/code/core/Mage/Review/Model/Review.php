@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,22 +17,10 @@
  * @method Mage_Review_Model_Resource_Review            _getResource()
  * @method Mage_Review_Model_Resource_Review_Collection getCollection()
  * @method array                                        getCustomerId()
- * @method string                                       getDetail()
- * @method int                                          getEntityPkValue()
- * @method string                                       getNickname()
  * @method Mage_Review_Model_Resource_Review            getResource()
  * @method Mage_Review_Model_Resource_Review_Collection getResourceCollection()
- * @method int                                          getReviewId()
- * @method int                                          getStatusId()
- * @method int                                          getStoreId()
  * @method array                                        getStores()
- * @method string                                       getTitle()
- * @method $this                                        setCustomerId(int $value)
- * @method $this                                        setEntityId(int $value)
- * @method $this                                        setEntityPkValue(int $value)
  * @method $this                                        setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $collection)
- * @method $this                                        setStatusId(int $value)
- * @method $this                                        setStoreId(int $value)
  * @method $this                                        setStores(array $value)
  */
 class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
@@ -254,5 +244,65 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     public function getEntityIdByCode($entityCode)
     {
         return $this->getResource()->getEntityIdByCode($entityCode);
+    }
+
+    public function getDetail(): string
+    {
+        return (string) $this->_getData('detail');
+    }
+
+    public function getEntityPkValue(): int
+    {
+        return (int) $this->_getData('entity_pk_value');
+    }
+
+    public function getNickname(): string
+    {
+        return (string) $this->_getData('nickname');
+    }
+
+    public function getReviewId(): int
+    {
+        return (int) $this->_getData('review_id');
+    }
+
+    public function getStatusId(): int
+    {
+        return (int) $this->_getData('status_id');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getTitle(): string
+    {
+        return (string) $this->_getData('title');
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setEntityId(int $value): static
+    {
+        return $this->setData('entity_id', $value);
+    }
+
+    public function setEntityPkValue(int $value): static
+    {
+        return $this->setData('entity_pk_value', $value);
+    }
+
+    public function setStatusId(int $value): static
+    {
+        return $this->setData('status_id', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }

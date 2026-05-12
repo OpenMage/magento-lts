@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,29 +15,13 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Url_Rewrite            _getResource()
- * @method int                                             getCategoryId()
  * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getCollection()
- * @method string                                          getDescription()
- * @method string                                          getIdPath()
- * @method int                                             getIsSystem()
- * @method string                                          getOptions()
- * @method int                                             getProductId()
- * @method string                                          getRequestPath()
  * @method Mage_Core_Model_Resource_Url_Rewrite            getResource()
  * @method Mage_Core_Model_Resource_Url_Rewrite_Collection getResourceCollection()
  * @method array|string                                    getTags()
- * @method string                                          getTargetPath()
  * @method bool                                            hasCategoryId()
- * @method $this                                           setCategoryId(int $value)
- * @method $this                                           setDescription(string $value)
- * @method $this                                           setIdPath(string $value)
- * @method $this                                           setIsSystem(int $value)
- * @method $this                                           setOptions(string $value)
- * @method $this                                           setProductId(int $value)
- * @method $this                                           setRequestPath(string $value)
  * @method $this                                           setStoreId(int $value)
  * @method $this                                           setTags(array|string $value)
- * @method $this                                           setTargetPath(string $value)
  */
 class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Mage_Core_Model_Url_Rewrite_Interface
 {
@@ -359,6 +345,86 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     public function getStoreId()
     {
         return $this->_getData('store_id');
+    }
+
+    public function getCategoryId(): int
+    {
+        return (int) $this->_getData('category_id');
+    }
+
+    public function getDescription(): string
+    {
+        return (string) $this->_getData('description');
+    }
+
+    public function getIdPath(): string
+    {
+        return (string) $this->_getData('id_path');
+    }
+
+    public function getIsSystem(): int
+    {
+        return (int) $this->_getData('is_system');
+    }
+
+    public function getOptions(): string
+    {
+        return (string) $this->_getData('options');
+    }
+
+    public function getProductId(): int
+    {
+        return (int) $this->_getData('product_id');
+    }
+
+    public function getRequestPath(): string
+    {
+        return (string) $this->_getData('request_path');
+    }
+
+    public function getTargetPath(): string
+    {
+        return (string) $this->_getData('target_path');
+    }
+
+    public function setCategoryId(int $value): static
+    {
+        return $this->setData('category_id', $value);
+    }
+
+    public function setDescription(string $value): static
+    {
+        return $this->setData('description', $value);
+    }
+
+    public function setIdPath(string $value): static
+    {
+        return $this->setData('id_path', $value);
+    }
+
+    public function setIsSystem(int $value): static
+    {
+        return $this->setData('is_system', $value);
+    }
+
+    public function setOptions(string $value): static
+    {
+        return $this->setData('options', $value);
+    }
+
+    public function setProductId(int $value): static
+    {
+        return $this->setData('product_id', $value);
+    }
+
+    public function setRequestPath(string $value): static
+    {
+        return $this->setData('request_path', $value);
+    }
+
+    public function setTargetPath(string $value): static
+    {
+        return $this->setData('target_path', $value);
     }
 
     /**

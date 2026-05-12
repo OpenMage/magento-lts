@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,13 +15,7 @@
  * @package    Mage_Persistent
  *
  * @method Mage_Persistent_Model_Resource_Session _getResource()
- * @method int                                    getCustomerId()
- * @method string                                 getInfo()
- * @method string                                 getKey()
  * @method Mage_Persistent_Model_Resource_Session getResource()
- * @method $this                                  setCustomerId(int $value)
- * @method $this                                  setInfo(string $value)
- * @method $this                                  setKey(string $value)
  * @method $this                                  setWebsiteId(null|int|string $value)
  */
 class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
@@ -48,6 +44,37 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('persistent/session');
+    }
+
+    public function getCustomerId(): ?int
+    {
+        $value = $this->_getData('customer_id');
+        return $value === null ? null : (int) $value;
+    }
+
+    public function getInfo(): string
+    {
+        return (string) $this->_getData('info');
+    }
+
+    public function getKey(): string
+    {
+        return (string) $this->_getData('key');
+    }
+
+    public function setCustomerId(?int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setInfo(string $value): static
+    {
+        return $this->setData('info', $value);
+    }
+
+    public function setKey(string $value): static
+    {
+        return $this->setData('key', $value);
     }
 
     /**

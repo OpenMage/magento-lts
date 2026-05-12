@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -16,12 +18,6 @@
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection getCollection()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title            getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection getResourceCollection()
- * @method int                                                       getStoreId()
- * @method int                                                       getTaxCalculationRateId()
- * @method string                                                    getValue()
- * @method $this                                                     setStoreId(int $value)
- * @method $this                                                     setTaxCalculationRateId(int $value)
- * @method $this                                                     setValue(string $value)
  */
 class Mage_Tax_Model_Calculation_Rate_Title extends Mage_Core_Model_Abstract
 {
@@ -41,5 +37,35 @@ class Mage_Tax_Model_Calculation_Rate_Title extends Mage_Core_Model_Abstract
     {
         $this->getResource()->deleteByRateId($rateId);
         return $this;
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function getTaxCalculationRateId(): int
+    {
+        return (int) $this->_getData('tax_calculation_rate_id');
+    }
+
+    public function setTaxCalculationRateId(int $value): static
+    {
+        return $this->setData('tax_calculation_rate_id', $value);
+    }
+
+    public function getValue(): string
+    {
+        return (string) $this->_getData('value');
+    }
+
+    public function setValue(string $value): static
+    {
+        return $this->setData('value', $value);
     }
 }

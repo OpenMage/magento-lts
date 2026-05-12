@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,162 +15,30 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Payment            _getResource()
- * @method string                                             getAccountStatus()
- * @method string                                             getAdditionalData()
- * @method string                                             getAddressStatus()
- * @method float                                              getAmountAuthorized()
- * @method float                                              getAmountCanceled()
- * @method float                                              getAmountOrdered()
- * @method float                                              getAmountPaid()
- * @method float                                              getAmountRefunded()
- * @method string                                             getAnetTransMethod()
- * @method float                                              getBaseAmountAuthorized()
- * @method float                                              getBaseAmountCanceled()
- * @method float                                              getBaseAmountOrdered()
- * @method float                                              getBaseAmountPaid()
- * @method float                                              getBaseAmountPaidOnline()
- * @method float                                              getBaseAmountRefunded()
- * @method float                                              getBaseAmountRefundedOnline()
- * @method float                                              getBaseShippingAmount()
- * @method float                                              getBaseShippingCaptured()
- * @method float                                              getBaseShippingRefunded()
  * @method array                                              getBillingAgreementData()
- * @method string                                             getCcApproval()
- * @method string                                             getCcAvsStatus()
- * @method string                                             getCcCidStatus()
- * @method string                                             getCcDebugRequestBody()
- * @method string                                             getCcDebugResponseBody()
- * @method string                                             getCcDebugResponseSerialized()
- * @method string                                             getCcExpMonth()
- * @method string                                             getCcExpYear()
- * @method string                                             getCcLast4()
- * @method string                                             getCcNumberEnc()
- * @method string                                             getCcOwner()
- * @method string                                             getCcSecureVerify()
- * @method string                                             getCcSsIssue()
- * @method string                                             getCcSsStartMonth()
- * @method string                                             getCcSsStartYear()
- * @method string                                             getCcStatus()
- * @method string                                             getCcStatusDescription()
- * @method string                                             getCcTransId()
- * @method string                                             getCcType()
  * @method Mage_Sales_Model_Resource_Order_Payment_Collection getCollection()
- * @method string                                             getCurrencyCode()
- * @method int                                                getCustomerPaymentId()
- * @method string                                             getCybersourceToken()
- * @method string                                             getEcheckAccountName()
- * @method string                                             getEcheckAccountType()
- * @method string                                             getEcheckBankName()
- * @method string                                             getEcheckRoutingNumber()
- * @method string                                             getEcheckType()
- * @method string                                             getFlo2cashAccountId()
  * @method string                                             getForcedState()
- * @method string                                             getIdealIssuerId()
- * @method string                                             getIdealIssuerTitle()
- * @method int                                                getIdealTransactionChecked()
- * @method int                                                getIncrementId()
  * @method bool                                               getIsFraudDetected()
  * @method bool                                               getIsTransactionApproved()
  * @method bool                                               getIsTransactionClosed()
  * @method bool                                               getIsTransactionDenied()
  * @method bool                                               getIsTransactionPending()
- * @method string                                             getLastTransId()
- * @method string                                             getMessage()
- * @method string                                             getMethod()
  * @method bool                                               getNotificationResult()
- * @method int                                                getParentId()
- * @method string                                             getParentTransactionId()
- * @method string                                             getPayboxQuestionNumber()
- * @method string                                             getPayboxRequestNumber()
- * @method string                                             getPoNumber()
  * @method string                                             getPreparedMessage()
- * @method string                                             getProtectionEligibility()
- * @method int                                                getQuotePaymentId()
  * @method Mage_Sales_Model_Resource_Order_Payment            getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Collection getResourceCollection()
- * @method float                                              getShippingAmount()
- * @method float                                              getShippingCaptured()
- * @method float                                              getShippingRefunded()
  * @method bool                                               getShouldCloseParentTransaction()
  * @method bool                                               getSkipOrderProcessing()
  * @method bool                                               getSkipTransactionCreation()
- * @method int                                                getStoreId()
- * @method string                                             getTransactionId()
  * @method bool                                               hasForcedState()
  * @method bool                                               hasIsTransactionClosed()
  * @method bool                                               hasMessage()
- * @method $this                                              setAccountStatus(string $value)
- * @method $this                                              setAdditionalData(string $value)
- * @method $this                                              setAddressStatus(string $value)
- * @method $this                                              setAmountAuthorized(float $value)
- * @method $this                                              setAmountCanceled(float $value)
- * @method $this                                              setAmountOrdered(float $value)
- * @method $this                                              setAmountPaid(float $value)
- * @method $this                                              setAmountRefunded(float $value)
- * @method $this                                              setAnetTransMethod(string $value)
- * @method $this                                              setBaseAmountAuthorized(float $value)
- * @method $this                                              setBaseAmountCanceled(float $value)
- * @method $this                                              setBaseAmountOrdered(float $value)
- * @method $this                                              setBaseAmountPaid(float $value)
- * @method $this                                              setBaseAmountPaidOnline(float $value)
- * @method $this                                              setBaseAmountRefunded(float $value)
- * @method $this                                              setBaseAmountRefundedOnline(float $value)
- * @method $this                                              setBaseShippingAmount(float $value)
- * @method $this                                              setBaseShippingCaptured(float $value)
- * @method $this                                              setBaseShippingRefunded(float $value)
- * @method $this                                              setCcApproval(string $value)
- * @method $this                                              setCcAvsStatus(string $value)
- * @method $this                                              setCcCidStatus(string $value)
- * @method $this                                              setCcDebugRequestBody(string $value)
- * @method $this                                              setCcDebugResponseBody(string $value)
- * @method $this                                              setCcDebugResponseSerialized(string $value)
- * @method $this                                              setCcExpMonth(string $value)
- * @method $this                                              setCcExpYear(string $value)
- * @method $this                                              setCcLast4(string $value)
- * @method $this                                              setCcNumberEnc(string $value)
- * @method $this                                              setCcOwner(string $value)
- * @method $this                                              setCcSecureVerify(string $value)
- * @method $this                                              setCcSsIssue(string $value)
- * @method $this                                              setCcSsStartMonth(string $value)
- * @method $this                                              setCcSsStartYear(string $value)
- * @method $this                                              setCcStatus(string $value)
- * @method $this                                              setCcStatusDescription(string $value)
- * @method $this                                              setCcTransId(string $value)
- * @method $this                                              setCcType(string $value)
  * @method $this                                              setCreatedCreditmemo(Mage_Sales_Model_Order_Creditmemo $value)
  * @method $this                                              setCreatedInvoice(Mage_Sales_Model_Order_Invoice $invoice)
  * @method $this                                              setCreatedTransaction(Mage_Sales_Model_Order_Payment_Transaction $value)
  * @method $this                                              setCreditmemo(Mage_Sales_Model_Order_Creditmemo $value)
- * @method $this                                              setCustomerPaymentId(int $value)
- * @method $this                                              setCybersourceToken(string $value)
- * @method $this                                              setEcheckAccountName(string $value)
- * @method $this                                              setEcheckAccountType(string $value)
- * @method $this                                              setEcheckBankName(string $value)
- * @method $this                                              setEcheckRoutingNumber(string $value)
- * @method $this                                              setEcheckType(string $value)
- * @method $this                                              setFlo2cashAccountId(string $value)
- * @method $this                                              setIdealIssuerId(string $value)
- * @method $this                                              setIdealIssuerTitle(string $value)
- * @method $this                                              setIdealTransactionChecked(int $value)
  * @method $this                                              setIsFraudDetected(bool $value)
- * @method $this                                              setLastTransId(string $value)
- * @method $this                                              setMessage(string $value)
- * @method $this                                              setMethod(string $value)
- * @method $this                                              setParentId(int $value)
- * @method $this                                              setParentTransactionId(string $value)
- * @method $this                                              setPayboxQuestionNumber(string $value)
- * @method $this                                              setPayboxRequestNumber(string $value)
- * @method $this                                              setPoNumber(string $value)
- * @method $this                                              setProtectionEligibility(string $value)
- * @method $this                                              setQuotePaymentId(int $value)
- * @method $this                                              setRefundTransactionId(string $value)
- * @method $this                                              setShippingAmount(float $value)
- * @method $this                                              setShippingCaptured(float $value)
- * @method $this                                              setShippingRefunded(float $value)
  * @method $this                                              setShouldCloseParentTransaction(bool $value)
- * @method $this                                              setStoreId(int $value)
- * @method $this                                              setTransactionId(string $value)
- * @method $this                                              setVoidTransactionId(string $value)
  * @method $this                                              unsTransactionId()
  */
 class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
@@ -1776,5 +1646,675 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
 
         return false;
+    }
+
+    public function getAccountStatus(): string
+    {
+        return (string) $this->_getData('account_status');
+    }
+
+    public function getAdditionalData(): string
+    {
+        return (string) $this->_getData('additional_data');
+    }
+
+    public function getAddressStatus(): string
+    {
+        return (string) $this->_getData('address_status');
+    }
+
+    public function getAmountAuthorized(): float
+    {
+        return (float) $this->_getData('amount_authorized');
+    }
+
+    public function getAmountCanceled(): float
+    {
+        return (float) $this->_getData('amount_canceled');
+    }
+
+    public function getAmountOrdered(): float
+    {
+        return (float) $this->_getData('amount_ordered');
+    }
+
+    public function getAmountPaid(): float
+    {
+        return (float) $this->_getData('amount_paid');
+    }
+
+    public function getAmountRefunded(): float
+    {
+        return (float) $this->_getData('amount_refunded');
+    }
+
+    public function getAnetTransMethod(): string
+    {
+        return (string) $this->_getData('anet_trans_method');
+    }
+
+    public function getBaseAmountAuthorized(): float
+    {
+        return (float) $this->_getData('base_amount_authorized');
+    }
+
+    public function getBaseAmountCanceled(): float
+    {
+        return (float) $this->_getData('base_amount_canceled');
+    }
+
+    public function getBaseAmountOrdered(): float
+    {
+        return (float) $this->_getData('base_amount_ordered');
+    }
+
+    public function getBaseAmountPaid(): float
+    {
+        return (float) $this->_getData('base_amount_paid');
+    }
+
+    public function getBaseAmountPaidOnline(): float
+    {
+        return (float) $this->_getData('base_amount_paid_online');
+    }
+
+    public function getBaseAmountRefunded(): float
+    {
+        return (float) $this->_getData('base_amount_refunded');
+    }
+
+    public function getBaseAmountRefundedOnline(): float
+    {
+        return (float) $this->_getData('base_amount_refunded_online');
+    }
+
+    public function getBaseShippingAmount(): float
+    {
+        return (float) $this->_getData('base_shipping_amount');
+    }
+
+    public function getBaseShippingCaptured(): float
+    {
+        return (float) $this->_getData('base_shipping_captured');
+    }
+
+    public function getBaseShippingRefunded(): float
+    {
+        return (float) $this->_getData('base_shipping_refunded');
+    }
+
+    public function getCcApproval(): string
+    {
+        return (string) $this->_getData('cc_approval');
+    }
+
+    public function getCcAvsStatus(): string
+    {
+        return (string) $this->_getData('cc_avs_status');
+    }
+
+    public function getCcCidStatus(): string
+    {
+        return (string) $this->_getData('cc_cid_status');
+    }
+
+    public function getCcDebugRequestBody(): string
+    {
+        return (string) $this->_getData('cc_debug_request_body');
+    }
+
+    public function getCcDebugResponseBody(): string
+    {
+        return (string) $this->_getData('cc_debug_response_body');
+    }
+
+    public function getCcDebugResponseSerialized(): string
+    {
+        return (string) $this->_getData('cc_debug_response_serialized');
+    }
+
+    public function getCcExpMonth(): string
+    {
+        return (string) $this->_getData('cc_exp_month');
+    }
+
+    public function getCcExpYear(): string
+    {
+        return (string) $this->_getData('cc_exp_year');
+    }
+
+    public function getCcLast4(): string
+    {
+        return (string) $this->_getData('cc_last4');
+    }
+
+    public function getCcNumberEnc(): string
+    {
+        return (string) $this->_getData('cc_number_enc');
+    }
+
+    public function getCcOwner(): string
+    {
+        return (string) $this->_getData('cc_owner');
+    }
+
+    public function getCcSecureVerify(): string
+    {
+        return (string) $this->_getData('cc_secure_verify');
+    }
+
+    public function getCcSsIssue(): string
+    {
+        return (string) $this->_getData('cc_ss_issue');
+    }
+
+    public function getCcSsStartMonth(): string
+    {
+        return (string) $this->_getData('cc_ss_start_month');
+    }
+
+    public function getCcSsStartYear(): string
+    {
+        return (string) $this->_getData('cc_ss_start_year');
+    }
+
+    public function getCcStatus(): string
+    {
+        return (string) $this->_getData('cc_status');
+    }
+
+    public function getCcStatusDescription(): string
+    {
+        return (string) $this->_getData('cc_status_description');
+    }
+
+    public function getCcTransId(): string
+    {
+        return (string) $this->_getData('cc_trans_id');
+    }
+
+    public function getCcType(): string
+    {
+        return (string) $this->_getData('cc_type');
+    }
+
+    public function getCurrencyCode(): string
+    {
+        return (string) $this->_getData('currency_code');
+    }
+
+    public function getCustomerPaymentId(): int
+    {
+        return (int) $this->_getData('customer_payment_id');
+    }
+
+    public function getCybersourceToken(): string
+    {
+        return (string) $this->_getData('cybersource_token');
+    }
+
+    public function getEcheckAccountName(): string
+    {
+        return (string) $this->_getData('echeck_account_name');
+    }
+
+    public function getEcheckAccountType(): string
+    {
+        return (string) $this->_getData('echeck_account_type');
+    }
+
+    public function getEcheckBankName(): string
+    {
+        return (string) $this->_getData('echeck_bank_name');
+    }
+
+    public function getEcheckRoutingNumber(): string
+    {
+        return (string) $this->_getData('echeck_routing_number');
+    }
+
+    public function getEcheckType(): string
+    {
+        return (string) $this->_getData('echeck_type');
+    }
+
+    public function getFlo2cashAccountId(): string
+    {
+        return (string) $this->_getData('flo2cash_account_id');
+    }
+
+    public function getIdealIssuerId(): string
+    {
+        return (string) $this->_getData('ideal_issuer_id');
+    }
+
+    public function getIdealIssuerTitle(): string
+    {
+        return (string) $this->_getData('ideal_issuer_title');
+    }
+
+    public function getIdealTransactionChecked(): int
+    {
+        return (int) $this->_getData('ideal_transaction_checked');
+    }
+
+    public function getIncrementId(): int
+    {
+        return (int) $this->_getData('increment_id');
+    }
+
+    public function getLastTransId(): string
+    {
+        return (string) $this->_getData('last_trans_id');
+    }
+
+    public function getMessage(): string
+    {
+        return (string) $this->_getData('message');
+    }
+
+    public function getMethod(): string
+    {
+        return (string) $this->_getData('method');
+    }
+
+    public function getParentId(): int
+    {
+        return (int) $this->_getData('parent_id');
+    }
+
+    public function getParentTransactionId(): string
+    {
+        return (string) $this->_getData('parent_transaction_id');
+    }
+
+    public function getPayboxQuestionNumber(): string
+    {
+        return (string) $this->_getData('paybox_question_number');
+    }
+
+    public function getPayboxRequestNumber(): string
+    {
+        return (string) $this->_getData('paybox_request_number');
+    }
+
+    public function getPoNumber(): string
+    {
+        return (string) $this->_getData('po_number');
+    }
+
+    public function getProtectionEligibility(): string
+    {
+        return (string) $this->_getData('protection_eligibility');
+    }
+
+    public function getQuotePaymentId(): int
+    {
+        return (int) $this->_getData('quote_payment_id');
+    }
+
+    public function getRefundTransactionId(): string
+    {
+        return (string) $this->_getData('refund_transaction_id');
+    }
+
+    public function getShippingAmount(): float
+    {
+        return (float) $this->_getData('shipping_amount');
+    }
+
+    public function getShippingCaptured(): float
+    {
+        return (float) $this->_getData('shipping_captured');
+    }
+
+    public function getShippingRefunded(): float
+    {
+        return (float) $this->_getData('shipping_refunded');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getTransactionId(): string
+    {
+        return (string) $this->_getData('transaction_id');
+    }
+
+    public function getVoidTransactionId(): string
+    {
+        return (string) $this->_getData('void_transaction_id');
+    }
+
+    public function setAccountStatus(string $value): static
+    {
+        return $this->setData('account_status', $value);
+    }
+
+    public function setAdditionalData(string $value): static
+    {
+        return $this->setData('additional_data', $value);
+    }
+
+    public function setAddressStatus(string $value): static
+    {
+        return $this->setData('address_status', $value);
+    }
+
+    public function setAmountAuthorized(float $value): static
+    {
+        return $this->setData('amount_authorized', $value);
+    }
+
+    public function setAmountCanceled(float $value): static
+    {
+        return $this->setData('amount_canceled', $value);
+    }
+
+    public function setAmountOrdered(float $value): static
+    {
+        return $this->setData('amount_ordered', $value);
+    }
+
+    public function setAmountPaid(float $value): static
+    {
+        return $this->setData('amount_paid', $value);
+    }
+
+    public function setAmountRefunded(float $value): static
+    {
+        return $this->setData('amount_refunded', $value);
+    }
+
+    public function setAnetTransMethod(string $value): static
+    {
+        return $this->setData('anet_trans_method', $value);
+    }
+
+    public function setBaseAmountAuthorized(float $value): static
+    {
+        return $this->setData('base_amount_authorized', $value);
+    }
+
+    public function setBaseAmountCanceled(float $value): static
+    {
+        return $this->setData('base_amount_canceled', $value);
+    }
+
+    public function setBaseAmountOrdered(float $value): static
+    {
+        return $this->setData('base_amount_ordered', $value);
+    }
+
+    public function setBaseAmountPaid(float $value): static
+    {
+        return $this->setData('base_amount_paid', $value);
+    }
+
+    public function setBaseAmountPaidOnline(float $value): static
+    {
+        return $this->setData('base_amount_paid_online', $value);
+    }
+
+    public function setBaseAmountRefunded(float $value): static
+    {
+        return $this->setData('base_amount_refunded', $value);
+    }
+
+    public function setBaseAmountRefundedOnline(float $value): static
+    {
+        return $this->setData('base_amount_refunded_online', $value);
+    }
+
+    public function setBaseShippingAmount(float $value): static
+    {
+        return $this->setData('base_shipping_amount', $value);
+    }
+
+    public function setBaseShippingCaptured(float $value): static
+    {
+        return $this->setData('base_shipping_captured', $value);
+    }
+
+    public function setBaseShippingRefunded(float $value): static
+    {
+        return $this->setData('base_shipping_refunded', $value);
+    }
+
+    public function setCcApproval(string $value): static
+    {
+        return $this->setData('cc_approval', $value);
+    }
+
+    public function setCcAvsStatus(string $value): static
+    {
+        return $this->setData('cc_avs_status', $value);
+    }
+
+    public function setCcCidStatus(string $value): static
+    {
+        return $this->setData('cc_cid_status', $value);
+    }
+
+    public function setCcDebugRequestBody(string $value): static
+    {
+        return $this->setData('cc_debug_request_body', $value);
+    }
+
+    public function setCcDebugResponseBody(string $value): static
+    {
+        return $this->setData('cc_debug_response_body', $value);
+    }
+
+    public function setCcDebugResponseSerialized(string $value): static
+    {
+        return $this->setData('cc_debug_response_serialized', $value);
+    }
+
+    public function setCcExpMonth(string $value): static
+    {
+        return $this->setData('cc_exp_month', $value);
+    }
+
+    public function setCcExpYear(string $value): static
+    {
+        return $this->setData('cc_exp_year', $value);
+    }
+
+    public function setCcLast4(string $value): static
+    {
+        return $this->setData('cc_last4', $value);
+    }
+
+    public function setCcNumberEnc(string $value): static
+    {
+        return $this->setData('cc_number_enc', $value);
+    }
+
+    public function setCcOwner(string $value): static
+    {
+        return $this->setData('cc_owner', $value);
+    }
+
+    public function setCcSecureVerify(string $value): static
+    {
+        return $this->setData('cc_secure_verify', $value);
+    }
+
+    public function setCcSsIssue(string $value): static
+    {
+        return $this->setData('cc_ss_issue', $value);
+    }
+
+    public function setCcSsStartMonth(string $value): static
+    {
+        return $this->setData('cc_ss_start_month', $value);
+    }
+
+    public function setCcSsStartYear(string $value): static
+    {
+        return $this->setData('cc_ss_start_year', $value);
+    }
+
+    public function setCcStatus(string $value): static
+    {
+        return $this->setData('cc_status', $value);
+    }
+
+    public function setCcStatusDescription(string $value): static
+    {
+        return $this->setData('cc_status_description', $value);
+    }
+
+    public function setCcTransId(string $value): static
+    {
+        return $this->setData('cc_trans_id', $value);
+    }
+
+    public function setCcType(string $value): static
+    {
+        return $this->setData('cc_type', $value);
+    }
+
+    public function setCustomerPaymentId(int $value): static
+    {
+        return $this->setData('customer_payment_id', $value);
+    }
+
+    public function setCybersourceToken(string $value): static
+    {
+        return $this->setData('cybersource_token', $value);
+    }
+
+    public function setEcheckAccountName(string $value): static
+    {
+        return $this->setData('echeck_account_name', $value);
+    }
+
+    public function setEcheckAccountType(string $value): static
+    {
+        return $this->setData('echeck_account_type', $value);
+    }
+
+    public function setEcheckBankName(string $value): static
+    {
+        return $this->setData('echeck_bank_name', $value);
+    }
+
+    public function setEcheckRoutingNumber(string $value): static
+    {
+        return $this->setData('echeck_routing_number', $value);
+    }
+
+    public function setEcheckType(string $value): static
+    {
+        return $this->setData('echeck_type', $value);
+    }
+
+    public function setFlo2cashAccountId(string $value): static
+    {
+        return $this->setData('flo2cash_account_id', $value);
+    }
+
+    public function setIdealIssuerId(string $value): static
+    {
+        return $this->setData('ideal_issuer_id', $value);
+    }
+
+    public function setIdealIssuerTitle(string $value): static
+    {
+        return $this->setData('ideal_issuer_title', $value);
+    }
+
+    public function setIdealTransactionChecked(int $value): static
+    {
+        return $this->setData('ideal_transaction_checked', $value);
+    }
+
+    public function setLastTransId(string $value): static
+    {
+        return $this->setData('last_trans_id', $value);
+    }
+
+    public function setMessage(string $value): static
+    {
+        return $this->setData('message', $value);
+    }
+
+    public function setMethod(string $value): static
+    {
+        return $this->setData('method', $value);
+    }
+
+    public function setParentId(int $value): static
+    {
+        return $this->setData('parent_id', $value);
+    }
+
+    public function setParentTransactionId(string $value): static
+    {
+        return $this->setData('parent_transaction_id', $value);
+    }
+
+    public function setPayboxQuestionNumber(string $value): static
+    {
+        return $this->setData('paybox_question_number', $value);
+    }
+
+    public function setPayboxRequestNumber(string $value): static
+    {
+        return $this->setData('paybox_request_number', $value);
+    }
+
+    public function setPoNumber(string $value): static
+    {
+        return $this->setData('po_number', $value);
+    }
+
+    public function setProtectionEligibility(string $value): static
+    {
+        return $this->setData('protection_eligibility', $value);
+    }
+
+    public function setQuotePaymentId(int $value): static
+    {
+        return $this->setData('quote_payment_id', $value);
+    }
+
+    public function setRefundTransactionId(string $value): static
+    {
+        return $this->setData('refund_transaction_id', $value);
+    }
+
+    public function setShippingAmount(float $value): static
+    {
+        return $this->setData('shipping_amount', $value);
+    }
+
+    public function setShippingCaptured(float $value): static
+    {
+        return $this->setData('shipping_captured', $value);
+    }
+
+    public function setShippingRefunded(float $value): static
+    {
+        return $this->setData('shipping_refunded', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function setTransactionId(string $value): static
+    {
+        return $this->setData('transaction_id', $value);
+    }
+
+    public function setVoidTransactionId(string $value): static
+    {
+        return $this->setData('void_transaction_id', $value);
     }
 }

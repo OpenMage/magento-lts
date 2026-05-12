@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,50 +15,14 @@
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Address            _getResource()
- * @method string                                             getAddressType()
- * @method string                                             getCity()
  * @method Mage_Sales_Model_Resource_Order_Address_Collection getCollection()
- * @method string                                             getCompany()
- * @method string                                             getCountryId()
  * @method Mage_Customer_Model_Address                        getCustomerAddress()
- * @method int                                                getCustomerAddressId()
- * @method int                                                getCustomerId()
- * @method string                                             getEmail()
- * @method string                                             getFax()
- * @method string                                             getFirstname()
- * @method string                                             getLastname()
- * @method string                                             getMiddlename()
- * @method int                                                getParentId()
- * @method string                                             getPostcode()
- * @method string                                             getPrefix()
- * @method int                                                getQuoteAddressId()
  * @method Mage_Sales_Model_Resource_Order_Address            getResource()
  * @method Mage_Sales_Model_Resource_Order_Address_Collection getResourceCollection()
  * @method bool                                               getSameAsBilling()
  * @method $this                                              getStoreId(int $value)
- * @method string                                             getSuffix()
- * @method string                                             getTelephone()
- * @method $this                                              setAddressType(string $value)
- * @method $this                                              setCity(string $value)
- * @method $this                                              setCompany(string $value)
- * @method $this                                              setCountryId(string $value)
  * @method $this                                              setCustomerAddress(Mage_Customer_Model_Address $value)
- * @method $this                                              setCustomerAddressId(int $value)
- * @method $this                                              setCustomerId(int $value)
- * @method $this                                              setEmail(string $value)
- * @method $this                                              setFax(string $value)
- * @method $this                                              setFirstname(string $value)
- * @method $this                                              setLastname(string $value)
- * @method $this                                              setMiddlename(string $value)
- * @method $this                                              setParentId(int $value)
- * @method $this                                              setPostcode(string $value)
- * @method $this                                              setPrefix(string $value)
- * @method $this                                              setQuoteAddressId(int $value)
- * @method $this                                              setRegion(string $value)
- * @method $this                                              setRegionId(int $value)
  * @method $this                                              setSameAsBilling(bool $value)
- * @method $this                                              setSuffix(string $value)
- * @method $this                                              setTelephone(string $value)
  */
 class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstract
 {
@@ -132,5 +98,185 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
         }
 
         return $this;
+    }
+
+    public function getAddressType(): string
+    {
+        return (string) $this->_getData('address_type');
+    }
+
+    public function getCity(): string
+    {
+        return (string) $this->_getData('city');
+    }
+
+    public function getCompany(): string
+    {
+        return (string) $this->_getData('company');
+    }
+
+    public function getCountryId(): string
+    {
+        return (string) $this->_getData('country_id');
+    }
+
+    public function getCustomerAddressId(): int
+    {
+        return (int) $this->_getData('customer_address_id');
+    }
+
+    public function getCustomerId(): int
+    {
+        return (int) $this->_getData('customer_id');
+    }
+
+    public function getEmail(): string
+    {
+        return (string) $this->_getData('email');
+    }
+
+    public function getFax(): string
+    {
+        return (string) $this->_getData('fax');
+    }
+
+    public function getFirstname(): string
+    {
+        return (string) $this->_getData('firstname');
+    }
+
+    public function getLastname(): string
+    {
+        return (string) $this->_getData('lastname');
+    }
+
+    public function getMiddlename(): string
+    {
+        return (string) $this->_getData('middlename');
+    }
+
+    public function getParentId(): int
+    {
+        return (int) $this->_getData('parent_id');
+    }
+
+    public function getPostcode(): string
+    {
+        return (string) $this->_getData('postcode');
+    }
+
+    public function getPrefix(): string
+    {
+        return (string) $this->_getData('prefix');
+    }
+
+    public function getQuoteAddressId(): int
+    {
+        return (int) $this->_getData('quote_address_id');
+    }
+
+    public function getSuffix(): string
+    {
+        return (string) $this->_getData('suffix');
+    }
+
+    public function getTelephone(): string
+    {
+        return (string) $this->_getData('telephone');
+    }
+
+    public function setAddressType(string $value): static
+    {
+        return $this->setData('address_type', $value);
+    }
+
+    public function setCity(string $value): static
+    {
+        return $this->setData('city', $value);
+    }
+
+    public function setCompany(string $value): static
+    {
+        return $this->setData('company', $value);
+    }
+
+    public function setCountryId(string $value): static
+    {
+        return $this->setData('country_id', $value);
+    }
+
+    public function setCustomerAddressId(int $value): static
+    {
+        return $this->setData('customer_address_id', $value);
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function setEmail(string $value): static
+    {
+        return $this->setData('email', $value);
+    }
+
+    public function setFax(string $value): static
+    {
+        return $this->setData('fax', $value);
+    }
+
+    public function setFirstname(string $value): static
+    {
+        return $this->setData('firstname', $value);
+    }
+
+    public function setLastname(string $value): static
+    {
+        return $this->setData('lastname', $value);
+    }
+
+    public function setMiddlename(string $value): static
+    {
+        return $this->setData('middlename', $value);
+    }
+
+    public function setParentId(int $value): static
+    {
+        return $this->setData('parent_id', $value);
+    }
+
+    public function setPostcode(string $value): static
+    {
+        return $this->setData('postcode', $value);
+    }
+
+    public function setPrefix(string $value): static
+    {
+        return $this->setData('prefix', $value);
+    }
+
+    public function setQuoteAddressId(int $value): static
+    {
+        return $this->setData('quote_address_id', $value);
+    }
+
+    public function setRegion(string $value): static
+    {
+        return $this->setData('region', $value);
+    }
+
+    public function setRegionId(int $value): static
+    {
+        return $this->setData('region_id', $value);
+    }
+
+    public function setSuffix(string $value): static
+    {
+        return $this->setData('suffix', $value);
+    }
+
+    public function setTelephone(string $value): static
+    {
+        return $this->setData('telephone', $value);
     }
 }

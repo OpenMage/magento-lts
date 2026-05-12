@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,11 +16,8 @@
  *
  * @method Mage_Customer_Model_Resource_Group            _getResource()
  * @method Mage_Customer_Model_Resource_Group_Collection getCollection()
- * @method null|string                                   getCustomerGroupCode()
  * @method Mage_Customer_Model_Resource_Group            getResource()
  * @method Mage_Customer_Model_Resource_Group_Collection getResourceCollection()
- * @method $this                                         setCustomerGroupCode(string $value)
- * @method $this                                         setTaxClassId(int $value)
  */
 class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
 {
@@ -59,6 +58,22 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('customer/group');
+    }
+
+    public function getCustomerGroupCode(): ?string
+    {
+        $value = $this->_getData('customer_group_code');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCustomerGroupCode(?string $value): static
+    {
+        return $this->setData('customer_group_code', $value);
+    }
+
+    public function setTaxClassId(int $value): static
+    {
+        return $this->setData('tax_class_id', $value);
     }
 
     /**

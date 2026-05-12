@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,47 +14,20 @@
  *
  * @package    Mage_Customer
  *
- * @method string getCity()
- * @method string getCountryId()
  * @method string getCustomerId()
- * @method string getFirstname()
  * @method bool   getForceProcess()
  * @method bool   getIsCustomerSaveTransaction()
  * @method bool   getIsDefaultBilling()
  * @method bool   getIsDefaultShipping()
  * @method bool   getIsPrimaryBilling()
  * @method bool   getIsPrimaryShipping()
- * @method string getLastname()
- * @method string getMiddlename()
- * @method int    getParentId()
- * @method string getPostcode()
- * @method string getPrefix()
  * @method bool   getShouldIgnoreValidation()
- * @method string getSuffix()
- * @method string getTelephone()
- * @method string getVatId()
- * @method int    getVatIsValid()
- * @method string getVatRequestDate()
- * @method string getVatRequestId()
- * @method int    getVatRequestSuccess()
- * @method $this  setCity(string $value)
- * @method $this  setCountryId(string $value)
- * @method $this  setFirstname(string $value)
  * @method $this  setForceProcess(bool $value)
  * @method $this  setIsCustomerSaveTransaction(bool $value)
  * @method $this  setIsDefaultBilling(bool $value)
  * @method $this  setIsDefaultShipping(bool $value)
  * @method $this  setIsPrimaryBilling(bool $value)
  * @method $this  setIsPrimaryShipping(bool $value)
- * @method $this  setLastname(string $value)
- * @method $this  setMiddlename(string $value)
- * @method $this  setParentId(int $value)
- * @method $this  setPostcode(string $value)
- * @method $this  setPrefix(string $value)
- * @method $this  setRegion(string $value)
- * @method $this  setStoreId(int $value)
- * @method $this  setSuffix(string $value)
- * @method $this  setTelephone(string $value)
  * @method $this  unsRegion()
  */
 class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
@@ -531,5 +506,140 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     {
         $this->_errors = [];
         return $this;
+    }
+
+    public function getCity(): string
+    {
+        return (string) $this->_getData('city');
+    }
+
+    public function getCountryId(): string
+    {
+        return (string) $this->_getData('country_id');
+    }
+
+    public function getFirstname(): string
+    {
+        return (string) $this->_getData('firstname');
+    }
+
+    public function getLastname(): string
+    {
+        return (string) $this->_getData('lastname');
+    }
+
+    public function getMiddlename(): string
+    {
+        return (string) $this->_getData('middlename');
+    }
+
+    public function getParentId(): int
+    {
+        return (int) $this->_getData('parent_id');
+    }
+
+    public function getPostcode(): string
+    {
+        return (string) $this->_getData('postcode');
+    }
+
+    public function getPrefix(): string
+    {
+        return (string) $this->_getData('prefix');
+    }
+
+    public function getSuffix(): string
+    {
+        return (string) $this->_getData('suffix');
+    }
+
+    public function getTelephone(): string
+    {
+        return (string) $this->_getData('telephone');
+    }
+
+    public function getVatId(): string
+    {
+        return (string) $this->_getData('vat_id');
+    }
+
+    public function getVatIsValid(): int
+    {
+        return (int) $this->_getData('vat_is_valid');
+    }
+
+    public function getVatRequestDate(): string
+    {
+        return (string) $this->_getData('vat_request_date');
+    }
+
+    public function getVatRequestId(): string
+    {
+        return (string) $this->_getData('vat_request_id');
+    }
+
+    public function getVatRequestSuccess(): int
+    {
+        return (int) $this->_getData('vat_request_success');
+    }
+
+    public function setCity(string $value): static
+    {
+        return $this->setData('city', $value);
+    }
+
+    public function setCountryId(string $value): static
+    {
+        return $this->setData('country_id', $value);
+    }
+
+    public function setFirstname(string $value): static
+    {
+        return $this->setData('firstname', $value);
+    }
+
+    public function setLastname(string $value): static
+    {
+        return $this->setData('lastname', $value);
+    }
+
+    public function setMiddlename(string $value): static
+    {
+        return $this->setData('middlename', $value);
+    }
+
+    public function setParentId(int $value): static
+    {
+        return $this->setData('parent_id', $value);
+    }
+
+    public function setPostcode(string $value): static
+    {
+        return $this->setData('postcode', $value);
+    }
+
+    public function setPrefix(string $value): static
+    {
+        return $this->setData('prefix', $value);
+    }
+
+    public function setRegion(string $value): static
+    {
+        return $this->setData('region', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
+    public function setSuffix(string $value): static
+    {
+        return $this->setData('suffix', $value);
+    }
+
+    public function setTelephone(string $value): static
+    {
+        return $this->setData('telephone', $value);
     }
 }

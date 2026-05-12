@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,14 +15,8 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Flag _getResource()
- * @method string                        getFlagCode()
- * @method string                        getLastUpdate()
  * @method Mage_Core_Model_Resource_Flag getResource()
- * @method int                           getState()
  * @method bool                          hasFlagData()
- * @method $this                         setFlagCode(string $value)
- * @method $this                         setLastUpdate(string $value)
- * @method $this                         setState(int $value)
  */
 class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
 {
@@ -42,6 +38,36 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
         }
 
         $this->_init('core/flag');
+    }
+
+    public function getFlagCode(): string
+    {
+        return (string) $this->_getData('flag_code');
+    }
+
+    public function getLastUpdate(): string
+    {
+        return (string) $this->_getData('last_update');
+    }
+
+    public function getState(): int
+    {
+        return (int) $this->_getData('state');
+    }
+
+    public function setFlagCode(string $value): static
+    {
+        return $this->setData('flag_code', $value);
+    }
+
+    public function setLastUpdate(string $value): static
+    {
+        return $this->setData('last_update', $value);
+    }
+
+    public function setState(int $value): static
+    {
+        return $this->setData('state', $value);
     }
 
     /**

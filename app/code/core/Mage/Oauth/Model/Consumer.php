@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,19 +15,9 @@
  * @package    Mage_Oauth
  *
  * @method Mage_Oauth_Model_Resource_Consumer            _getResource()
- * @method string                                        getCallbackUrl()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getCollection()
- * @method string                                        getKey()
- * @method string                                        getName()
- * @method string                                        getRejectedCallbackUrl()
  * @method Mage_Oauth_Model_Resource_Consumer            getResource()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getResourceCollection()
- * @method string                                        getSecret()
- * @method $this                                         setCallbackUrl(string $url)
- * @method $this                                         setKey(string $key)
- * @method $this                                         setName(string $name)
- * @method $this                                         setRejectedCallbackUrl(string $rejectedCallbackUrl)
- * @method $this                                         setSecret(string $secret)
  */
 class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
 {
@@ -45,6 +37,56 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('oauth/consumer');
+    }
+
+    public function getCallbackUrl(): string
+    {
+        return (string) $this->_getData('callback_url');
+    }
+
+    public function getKey(): string
+    {
+        return (string) $this->_getData('key');
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->_getData('name');
+    }
+
+    public function getRejectedCallbackUrl(): string
+    {
+        return (string) $this->_getData('rejected_callback_url');
+    }
+
+    public function getSecret(): string
+    {
+        return (string) $this->_getData('secret');
+    }
+
+    public function setCallbackUrl(string $value): static
+    {
+        return $this->setData('callback_url', $value);
+    }
+
+    public function setKey(string $value): static
+    {
+        return $this->setData('key', $value);
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
+    }
+
+    public function setRejectedCallbackUrl(string $value): static
+    {
+        return $this->setData('rejected_callback_url', $value);
+    }
+
+    public function setSecret(string $value): static
+    {
+        return $this->setData('secret', $value);
     }
 
     /**

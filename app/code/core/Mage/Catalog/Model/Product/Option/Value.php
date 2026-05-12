@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,19 +16,8 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Option_Value            _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getCollection()
- * @method null|int                                                    getOptionId()
- * @method null|int                                                    getOptionTypeId()
- * @method string                                                      getPriceType()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value            getResource()
- * @method string                                                      getSku()
- * @method int                                                         getSortOrder()
- * @method float                                                       getStorePrice()
- * @method string                                                      getStoreTitle()
- * @method string                                                      getTitle()
- * @method $this                                                       setOptionId(null|int $value)
- * @method $this                                                       setOptionTypeId(null|int $value)
- * @method $this                                                       setSku(string $value)
- * @method $this                                                       setSortOrder(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getResourceCollection()
  */
 class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 {
@@ -246,5 +237,67 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     {
         $this->getResource()->duplicate($this, $oldOptionId, $newOptionId);
         return $this;
+    }
+
+    public function getOptionId(): ?int
+    {
+        $value = $this->_getData('option_id');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setOptionId(?int $value): static
+    {
+        return $this->setData('option_id', $value);
+    }
+
+    public function getOptionTypeId(): ?int
+    {
+        $value = $this->_getData('option_type_id');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setOptionTypeId(?int $value): static
+    {
+        return $this->setData('option_type_id', $value);
+    }
+
+    public function getSku(): string
+    {
+        return (string) $this->_getData('sku');
+    }
+
+    public function setSku(string $value): static
+    {
+        return $this->setData('sku', $value);
+    }
+
+    public function getSortOrder(): int
+    {
+        return (int) $this->_getData('sort_order');
+    }
+
+    public function setSortOrder(int $value): static
+    {
+        return $this->setData('sort_order', $value);
+    }
+
+    public function getPriceType(): string
+    {
+        return (string) $this->_getData('price_type');
+    }
+
+    public function getStorePrice(): float
+    {
+        return (float) $this->_getData('store_price');
+    }
+
+    public function getStoreTitle(): string
+    {
+        return (string) $this->_getData('store_title');
+    }
+
+    public function getTitle(): string
+    {
+        return (string) $this->_getData('title');
     }
 }

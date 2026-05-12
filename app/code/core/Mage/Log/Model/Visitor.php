@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -11,41 +13,18 @@
  * @package    Mage_Log
  *
  * @method Mage_Log_Model_Resource_Visitor _getResource()
- * @method int                             getCustomerId()
- * @method int                             getCustomerLogId()
  * @method bool                            getDoCustomerLogin()
  * @method bool                            getDoCustomerLogout()
  * @method bool                            getDoQuoteCreate()
  * @method bool                            getDoQuoteDestroy()
- * @method string                          getHttpAcceptCharset()
- * @method string                          getHttpAcceptLanguage()
- * @method string                          getHttpHost()
- * @method string                          getHttpReferer()
- * @method string                          getHttpSecure()
- * @method string                          getHttpUserAgent()
  * @method bool                            getIsNewVisitor()
- * @method int                             getLastUrlId()
- * @method int                             getQuoteId()
- * @method string                          getRemoteAddr()
- * @method string                          getRequestUri()
  * @method Mage_Log_Model_Resource_Visitor getResource()
- * @method string                          getServerAddr()
- * @method string                          getSessionId()
- * @method int                             getStoreId()
- * @method int                             getVisitorId()
- * @method $this                           setCustomerId(int $value)
- * @method $this                           setCustomerLogId(int $value)
  * @method $this                           setDoCustomerLogin(bool $value)
  * @method $this                           setDoCustomerLogout(bool $value)
  * @method $this                           setDoQuoteCreate(bool $value)
  * @method $this                           setDoQuoteDestroy(bool $value)
- * @method $this                           setFirstVisitAt(string $value)
  * @method $this                           setIsNewVisitor(bool $value)
- * @method $this                           setLastUrlId(int $value)
- * @method $this                           setLastVisitAt(string $value)
  * @method $this                           setQuoteId(int $value)
- * @method $this                           setSessionId(string $value)
- * @method $this                           setStoreId(int $value)
  */
 class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 {
@@ -114,6 +93,47 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         }
     }
 
+    public function getLastUrlId(): int
+    {
+        return (int) $this->_getData('last_url_id');
+    }
+
+    public function getSessionId(): ?string
+    {
+        $value = $this->_getData('session_id');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function setFirstVisitAt(string $value): static
+    {
+        return $this->setData('first_visit_at', $value);
+    }
+
+    public function setLastUrlId(int $value): static
+    {
+        return $this->setData('last_url_id', $value);
+    }
+
+    public function setLastVisitAt(string $value): static
+    {
+        return $this->setData('last_visit_at', $value);
+    }
+
+    public function setSessionId(?string $value): static
+    {
+        return $this->setData('session_id', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
+    }
+
     /**
      * Retrieve session object
      *
@@ -174,7 +194,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     /**
      * @return string
      */
-    public function getFirstVisitAt()
+    public function getFirstVisitAt(): ?string
     {
         if (!$this->hasData('first_visit_at')) {
             $this->setData('first_visit_at', Varien_Date::now());
@@ -186,13 +206,13 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     /**
      * @return string
      */
-    public function getLastVisitAt()
+    public function getLastVisitAt(): string
     {
         if (!$this->hasData('last_visit_at')) {
             $this->setData('last_visit_at', Varien_Date::now());
         }
 
-        return $this->getDataByKey('last_visit_at');
+        return (string) $this->getDataByKey('last_visit_at');
     }
 
     /**
@@ -400,5 +420,93 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         }
 
         return false;
+    }
+
+    public function getCustomerId(): ?int
+    {
+        $value = $this->_getData('customer_id');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setCustomerId(int $value): static
+    {
+        return $this->setData('customer_id', $value);
+    }
+
+    public function getCustomerLogId(): ?int
+    {
+        $value = $this->_getData('customer_log_id');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function setCustomerLogId(int $value): static
+    {
+        return $this->setData('customer_log_id', $value);
+    }
+
+    public function getHttpAcceptCharset(): ?string
+    {
+        $value = $this->_getData('http_accept_charset');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getHttpAcceptLanguage(): ?string
+    {
+        $value = $this->_getData('http_accept_language');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getHttpHost(): ?string
+    {
+        $value = $this->_getData('http_host');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getHttpReferer(): ?string
+    {
+        $value = $this->_getData('http_referer');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getHttpSecure(): ?string
+    {
+        $value = $this->_getData('http_secure');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getHttpUserAgent(): ?string
+    {
+        $value = $this->_getData('http_user_agent');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getQuoteId(): ?int
+    {
+        $value = $this->_getData('quote_id');
+        return $value !== null ? (int) $value : null;
+    }
+
+    public function getRemoteAddr(): ?string
+    {
+        $value = $this->_getData('remote_addr');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getRequestUri(): ?string
+    {
+        $value = $this->_getData('request_uri');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getServerAddr(): ?string
+    {
+        $value = $this->_getData('server_addr');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getVisitorId(): ?int
+    {
+        $value = $this->_getData('visitor_id');
+        return $value !== null ? (int) $value : null;
     }
 }

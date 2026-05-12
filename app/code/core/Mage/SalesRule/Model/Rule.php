@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,55 +15,11 @@
  * @package    Mage_SalesRule
  *
  * @method Mage_SalesRule_Model_Resource_Rule            _getResource()
- * @method int                                           getApplyToShipping()
  * @method Mage_SalesRule_Model_Resource_Rule_Collection getCollection()
- * @method string                                        getCouponCode()
- * @method int                                           getCouponType()
- * @method string                                        getDescription()
- * @method float                                         getDiscountQty()
- * @method int                                           getDiscountStep()
- * @method string                                        getFromDate()
- * @method int                                           getIsActive()
- * @method int                                           getIsAdvanced()
- * @method int                                           getIsRss()
- * @method string                                        getName()
- * @method string                                        getProductIds()
  * @method Mage_SalesRule_Model_Resource_Rule            getResource()
  * @method Mage_SalesRule_Model_Resource_Rule_Collection getResourceCollection()
- * @method int                                           getRuleId()
- * @method string                                        getSimpleAction()
- * @method int                                           getSimpleFreeShipping()
- * @method int                                           getSortOrder()
- * @method int                                           getStopRulesProcessing()
- * @method int                                           getTimesUsed()
- * @method string                                        getToDate()
- * @method int                                           getUseAutoGeneration()
- * @method int                                           getUsesPerCoupon()
- * @method int                                           getUsesPerCustomer()
  * @method bool                                          hasStoreLabels()
- * @method $this                                         setApplyToShipping(int $value)
- * @method $this                                         setCouponCode(string $value)
- * @method $this                                         setCouponType(int $value)
- * @method $this                                         setDescription(string $value)
- * @method $this                                         setDiscountAmount(float $value)
- * @method $this                                         setDiscountQty(float $value)
- * @method $this                                         setDiscountStep(int $value)
- * @method $this                                         setFromDate(string $value)
- * @method $this                                         setIsActive(int $value)
- * @method $this                                         setIsAdvanced(int $value)
- * @method $this                                         setIsRss(int $value)
- * @method $this                                         setName(string $value)
- * @method $this                                         setProductIds(string $value)
- * @method $this                                         setSimpleAction(string $value)
- * @method $this                                         setSimpleFreeShipping(int $value)
- * @method $this                                         setSortOrder(int $value)
- * @method $this                                         setStopRulesProcessing(int $value)
  * @method $this                                         setStoreLabels(array $value)
- * @method $this                                         setTimesUsed(int $value)
- * @method $this                                         setToDate(string $value)
- * @method $this                                         setUseAutoGeneration(int $value)
- * @method $this                                         setUsesPerCoupon(int $value)
- * @method $this                                         setUsesPerCustomer(int $value)
  */
 class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
 {
@@ -549,5 +507,231 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);
+    }
+
+    public function getApplyToShipping(): int
+    {
+        return (int) $this->_getData('apply_to_shipping');
+    }
+
+    public function setApplyToShipping(int $value): static
+    {
+        return $this->setData('apply_to_shipping', $value);
+    }
+
+    public function getCouponType(): int
+    {
+        return (int) $this->_getData('coupon_type');
+    }
+
+    public function setCouponType(int $value): static
+    {
+        return $this->setData('coupon_type', $value);
+    }
+
+    public function setDiscountAmount(float $value): static
+    {
+        return $this->setData('discount_amount', $value);
+    }
+
+    public function getDiscountStep(): int
+    {
+        return (int) $this->_getData('discount_step');
+    }
+
+    public function setDiscountStep(int $value): static
+    {
+        return $this->setData('discount_step', $value);
+    }
+
+    public function getIsActive(): int
+    {
+        return (int) $this->_getData('is_active');
+    }
+
+    public function setIsActive(int $value): static
+    {
+        return $this->setData('is_active', $value);
+    }
+
+    public function getIsAdvanced(): int
+    {
+        return (int) $this->_getData('is_advanced');
+    }
+
+    public function setIsAdvanced(int $value): static
+    {
+        return $this->setData('is_advanced', $value);
+    }
+
+    public function getIsRss(): int
+    {
+        return (int) $this->_getData('is_rss');
+    }
+
+    public function setIsRss(int $value): static
+    {
+        return $this->setData('is_rss', $value);
+    }
+
+    public function getRuleId(): int
+    {
+        return (int) $this->_getData('rule_id');
+    }
+
+    public function getSimpleFreeShipping(): int
+    {
+        return (int) $this->_getData('simple_free_shipping');
+    }
+
+    public function setSimpleFreeShipping(int $value): static
+    {
+        return $this->setData('simple_free_shipping', $value);
+    }
+
+    public function getSortOrder(): int
+    {
+        return (int) $this->_getData('sort_order');
+    }
+
+    public function setSortOrder(int $value): static
+    {
+        return $this->setData('sort_order', $value);
+    }
+
+    public function getStopRulesProcessing(): int
+    {
+        return (int) $this->_getData('stop_rules_processing');
+    }
+
+    public function setStopRulesProcessing(int $value): static
+    {
+        return $this->setData('stop_rules_processing', $value);
+    }
+
+    public function getTimesUsed(): int
+    {
+        return (int) $this->_getData('times_used');
+    }
+
+    public function setTimesUsed(int $value): static
+    {
+        return $this->setData('times_used', $value);
+    }
+
+    public function getUseAutoGeneration(): int
+    {
+        return (int) $this->_getData('use_auto_generation');
+    }
+
+    public function setUseAutoGeneration(int $value): static
+    {
+        return $this->setData('use_auto_generation', $value);
+    }
+
+    public function getUsesPerCoupon(): int
+    {
+        return (int) $this->_getData('uses_per_coupon');
+    }
+
+    public function setUsesPerCoupon(int $value): static
+    {
+        return $this->setData('uses_per_coupon', $value);
+    }
+
+    public function getUsesPerCustomer(): int
+    {
+        return (int) $this->_getData('uses_per_customer');
+    }
+
+    public function setUsesPerCustomer(int $value): static
+    {
+        return $this->setData('uses_per_customer', $value);
+    }
+
+    public function getCouponCode(): ?string
+    {
+        $value = $this->_getData('coupon_code');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setCouponCode(string $value): static
+    {
+        return $this->setData('coupon_code', $value);
+    }
+
+    public function getDescription(): ?string
+    {
+        $value = $this->_getData('description');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setDescription(string $value): static
+    {
+        return $this->setData('description', $value);
+    }
+
+    public function getDiscountQty(): ?float
+    {
+        $value = $this->_getData('discount_qty');
+        return $value !== null ? (float) $value : null;
+    }
+
+    public function setDiscountQty(float $value): static
+    {
+        return $this->setData('discount_qty', $value);
+    }
+
+    public function getFromDate(): ?string
+    {
+        $value = $this->_getData('from_date');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setFromDate(string $value): static
+    {
+        return $this->setData('from_date', $value);
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->_getData('name');
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
+    }
+
+    public function getProductIds(): ?string
+    {
+        $value = $this->_getData('product_ids');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setProductIds(string $value): static
+    {
+        return $this->setData('product_ids', $value);
+    }
+
+    public function getSimpleAction(): string
+    {
+        return (string) $this->_getData('simple_action');
+    }
+
+    public function setSimpleAction(string $value): static
+    {
+        return $this->setData('simple_action', $value);
+    }
+
+    public function getToDate(): ?string
+    {
+        $value = $this->_getData('to_date');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function setToDate(string $value): static
+    {
+        return $this->setData('to_date', $value);
     }
 }

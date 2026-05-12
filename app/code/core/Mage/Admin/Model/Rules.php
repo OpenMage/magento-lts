@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,22 +15,10 @@
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Resource_Rules            _getResource()
- * @method int                                        getAssertId()
- * @method string                                     getPermission()
- * @method string                                     getPrivileges()
  * @method Mage_Admin_Model_Resource_Rules            getResource()
  * @method Mage_Admin_Model_Resource_Rules_Collection getResourceCollection()
- * @method string                                     getResourceId()
  * @method array                                      getResources()
- * @method int                                        getRoleId()
- * @method string                                     getRoleType()
- * @method $this                                      setAssertId(int $value)
- * @method $this                                      setPermission(string $value)
- * @method $this                                      setPrivileges(string $value)
- * @method $this                                      setResourceId(string $value)
  * @method $this                                      setResources(array $value)
- * @method $this                                      setRoleId(int $value)
- * @method $this                                      setRoleType(string $value)
  */
 class Mage_Admin_Model_Rules extends Mage_Core_Model_Abstract
 {
@@ -48,6 +38,67 @@ class Mage_Admin_Model_Rules extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('admin/rules');
+    }
+
+    public function getAssertId(): int
+    {
+        return (int) $this->_getData('assert_id');
+    }
+
+    public function getPermission(): string
+    {
+        return (string) $this->_getData('permission');
+    }
+
+    public function getPrivileges(): string
+    {
+        return (string) $this->_getData('privileges');
+    }
+
+    public function getResourceId(): ?string
+    {
+        $value = $this->_getData('resource_id');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getRoleId(): int
+    {
+        return (int) $this->_getData('role_id');
+    }
+
+    public function getRoleType(): string
+    {
+        return (string) $this->_getData('role_type');
+    }
+
+    public function setAssertId(int $value): static
+    {
+        return $this->setData('assert_id', $value);
+    }
+
+    public function setPermission(string $value): static
+    {
+        return $this->setData('permission', $value);
+    }
+
+    public function setPrivileges(string $value): static
+    {
+        return $this->setData('privileges', $value);
+    }
+
+    public function setResourceId(?string $value): static
+    {
+        return $this->setData('resource_id', $value);
+    }
+
+    public function setRoleId(int $value): static
+    {
+        return $this->setData('role_id', $value);
+    }
+
+    public function setRoleType(string $value): static
+    {
+        return $this->setData('role_type', $value);
     }
 
     /**

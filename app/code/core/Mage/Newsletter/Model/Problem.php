@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,20 +16,11 @@
  *
  * @method Mage_Newsletter_Model_Resource_Problem            _getResource()
  * @method Mage_Newsletter_Model_Resource_Problem_Collection getCollection()
- * @method int                                               getCustomerId()
- * @method int                                               getProblemErrorCode()
- * @method string                                            getProblemErrorText()
- * @method int                                               getQueueId()
  * @method Mage_Newsletter_Model_Resource_Problem            getResource()
  * @method Mage_Newsletter_Model_Resource_Problem_Collection getResourceCollection()
- * @method int                                               getSubscriberId()
  * @method $this                                             setCustomerFirstName(string $value)
  * @method $this                                             setCustomerLastName(string $value)
  * @method $this                                             setCustomerName(string $value)
- * @method $this                                             setProblemErrorCode(int $value)
- * @method $this                                             setProblemErrorText(string $value)
- * @method $this                                             setQueueId(int $value)
- * @method $this                                             setSubscriberId(int $value)
  */
 class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
 {
@@ -44,6 +37,52 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('newsletter/problem');
+    }
+
+    public function getProblemErrorCode(): int
+    {
+        return (int) $this->_getData('problem_error_code');
+    }
+
+    public function getProblemErrorText(): string
+    {
+        return (string) $this->_getData('problem_error_text');
+    }
+
+    public function getQueueId(): int
+    {
+        return (int) $this->_getData('queue_id');
+    }
+
+    public function getSubscriberId(): ?int
+    {
+        return $this->_getData('subscriber_id') !== null ? (int) $this->_getData('subscriber_id') : null;
+    }
+
+    public function setProblemErrorCode(int $value): static
+    {
+        return $this->setData('problem_error_code', $value);
+    }
+
+    public function setProblemErrorText(string $value): static
+    {
+        return $this->setData('problem_error_text', $value);
+    }
+
+    public function setQueueId(int $value): static
+    {
+        return $this->setData('queue_id', $value);
+    }
+
+    public function setSubscriberId(?int $value): static
+    {
+        return $this->setData('subscriber_id', $value);
+    }
+
+    public function getCustomerId(): ?int
+    {
+        $value = $this->_getData('customer_id');
+        return $value !== null ? (int) $value : null;
     }
 
     /**

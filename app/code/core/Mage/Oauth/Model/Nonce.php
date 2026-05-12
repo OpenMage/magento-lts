@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,12 +16,8 @@
  *
  * @method Mage_Oauth_Model_Resource_Nonce            _getResource()
  * @method Mage_Oauth_Model_Resource_Nonce_Collection getCollection()
- * @method string                                     getNonce()
  * @method Mage_Oauth_Model_Resource_Nonce            getResource()
  * @method Mage_Oauth_Model_Resource_Nonce_Collection getResourceCollection()
- * @method string                                     getTimestamp()
- * @method $this                                      setNonce(string $nonce)
- * @method $this                                      setTimestamp(string $timestamp)
  */
 class Mage_Oauth_Model_Nonce extends Mage_Core_Model_Abstract
 {
@@ -29,6 +27,26 @@ class Mage_Oauth_Model_Nonce extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('oauth/nonce');
+    }
+
+    public function getNonce(): string
+    {
+        return (string) $this->_getData('nonce');
+    }
+
+    public function getTimestamp(): string
+    {
+        return (string) $this->_getData('timestamp');
+    }
+
+    public function setNonce(string $value): static
+    {
+        return $this->setData('nonce', $value);
+    }
+
+    public function setTimestamp(string $value): static
+    {
+        return $this->setData('timestamp', $value);
     }
 
     /**

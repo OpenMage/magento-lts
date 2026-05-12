@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,21 +16,8 @@
  *
  * @method Mage_SalesRule_Model_Resource_Coupon            _getResource()
  * @method Mage_SalesRule_Model_Resource_Coupon_Collection getCollection()
- * @method string                                          getDash()
- * @method string                                          getFormat()
- * @method string                                          getLength()
- * @method int                                             getMaxAttempts()
- * @method int                                             getMaxProbability()
- * @method string                                          getPrefix()
- * @method int                                             getQty()
  * @method Mage_SalesRule_Model_Resource_Coupon            getResource()
  * @method Mage_SalesRule_Model_Resource_Coupon_Collection getResourceCollection()
- * @method int                                             getRuleId()
- * @method string                                          getSuffix()
- * @method string                                          getToDate()
- * @method int                                             getUsesPerCoupon()
- * @method int                                             getUsesPerCustomer()
- * @method $this                                           setLength(int $value)
  */
 class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract implements Mage_SalesRule_Model_Coupon_CodegeneratorInterface
 {
@@ -193,5 +182,71 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
     public function getGeneratedCount()
     {
         return $this->_generatedCount;
+    }
+
+    public function getDash(): string
+    {
+        return (string) $this->_getData('dash');
+    }
+
+    public function getFormat(): string
+    {
+        return (string) $this->_getData('format');
+    }
+
+    public function getLength(): int
+    {
+        return (int) $this->_getData('length');
+    }
+
+    public function setLength(int $value): static
+    {
+        return $this->setData('length', $value);
+    }
+
+    public function getMaxAttempts(): int
+    {
+        return (int) $this->_getData('max_attempts');
+    }
+
+    public function getMaxProbability(): int
+    {
+        return (int) $this->_getData('max_probability');
+    }
+
+    public function getPrefix(): string
+    {
+        return (string) $this->_getData('prefix');
+    }
+
+    public function getQty(): int
+    {
+        return (int) $this->_getData('qty');
+    }
+
+    public function getRuleId(): int
+    {
+        return (int) $this->_getData('rule_id');
+    }
+
+    public function getSuffix(): string
+    {
+        return (string) $this->_getData('suffix');
+    }
+
+    public function getToDate(): ?string
+    {
+        $value = $this->_getData('to_date');
+        return $value !== null ? (string) $value : null;
+    }
+
+    public function getUsesPerCoupon(): int
+    {
+        return (int) $this->_getData('uses_per_coupon');
+    }
+
+    public function getUsesPerCustomer(): int
+    {
+        return (int) $this->_getData('uses_per_customer');
     }
 }

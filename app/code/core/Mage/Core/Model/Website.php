@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,23 +16,11 @@
  *
  * @method Mage_Core_Model_Resource_Website            _getResource()
  * @method Mage_Core_Model_Resource_Website_Collection getCollection()
- * @method int                                         getGroupId()
- * @method int                                         getIsDefault()
- * @method string                                      getName()
  * @method Mage_Core_Model_Resource_Website            getResource()
  * @method Mage_Core_Model_Resource_Website_Collection getResourceCollection()
- * @method int                                         getSortOrder()
- * @method int                                         getStoreId()
  * @method array                                       getStoresIds()
- * @method int                                         getWebsiteId()
  * @method bool                                        hasDefaultGroupId()
  * @method bool                                        hasWebsiteId()
- * @method $this                                       setCode(string $value)
- * @method $this                                       setDefaultGroupId(int $value)
- * @method $this                                       setIsDefault(int $value)
- * @method $this                                       setName(string $value)
- * @method $this                                       setSortOrder(int $value)
- * @method $this                                       setStoreId(int $value)
  */
 class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 {
@@ -603,5 +593,65 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         }
 
         return $this->_isReadOnly;
+    }
+
+    public function getGroupId(): int
+    {
+        return (int) $this->_getData('group_id');
+    }
+
+    public function getIsDefault(): int
+    {
+        return (int) $this->_getData('is_default');
+    }
+
+    public function getName(): string
+    {
+        return (string) $this->_getData('name');
+    }
+
+    public function getSortOrder(): int
+    {
+        return (int) $this->_getData('sort_order');
+    }
+
+    public function getStoreId(): int
+    {
+        return (int) $this->_getData('store_id');
+    }
+
+    public function getWebsiteId(): int
+    {
+        return (int) $this->_getData('website_id');
+    }
+
+    public function setCode(string $value): static
+    {
+        return $this->setData('code', $value);
+    }
+
+    public function setDefaultGroupId(int $value): static
+    {
+        return $this->setData('default_group_id', $value);
+    }
+
+    public function setIsDefault(int $value): static
+    {
+        return $this->setData('is_default', $value);
+    }
+
+    public function setName(string $value): static
+    {
+        return $this->setData('name', $value);
+    }
+
+    public function setSortOrder(int $value): static
+    {
+        return $this->setData('sort_order', $value);
+    }
+
+    public function setStoreId(int $value): static
+    {
+        return $this->setData('store_id', $value);
     }
 }
