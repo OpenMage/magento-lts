@@ -76,6 +76,7 @@
                 <observers>
                     <csp_observer>
                         <class>csp/observer_addFrontendCspHeaders</class>
+                        <method>execute</method>
                     </csp_observer>
                 </observers>
             </http_response_send_before>
@@ -102,6 +103,7 @@
                 <observers>
                     <csp_observer>
                         <class>csp/observer_addAdminCspHeaders</class>
+                        <method>execute</method>
                     </csp_observer>
                 </observers>
             </http_response_send_before>
