@@ -127,10 +127,12 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save tag action
-     * @return $this|void
+     * @return $this
      */
     public function saveAction()
     {
+        $data = [];
+
         if ($postData = $this->getRequest()->getPost()) {
             if (isset($postData['tag_id'])) {
                 $data['tag_id'] = $postData['tag_id'];

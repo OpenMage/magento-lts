@@ -27,7 +27,6 @@ return ['includes' => [
     __DIR__ . '/cast.useless.php',
     __DIR__ . '/catch.neverThrown.php',
     __DIR__ . '/class.extendsDeprecatedClass.php',
-    __DIR__ . '/class.nameCase.php',
     __DIR__ . '/class.notFound.php',
     __DIR__ . '/classConstant.deprecatedClass.php',
     __DIR__ . '/clone.nonObject.php',
@@ -108,7 +107,6 @@ return ['includes' => [
     __DIR__ . '/varTag.deprecatedClass.php',
     __DIR__ . '/varTag.type.php',
     __DIR__ . '/variable.dynamicName.php',
-    __DIR__ . '/variable.implicitArray.php',
     __DIR__ . '/variable.undefined.php',
     __DIR__ . '/while.condNotBoolean.php',
 ]];

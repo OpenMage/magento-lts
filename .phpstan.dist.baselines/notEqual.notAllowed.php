@@ -2068,11 +2068,16 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and string is not allowed.',
-    'count' => 4,
+    'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between string and mixed is not allowed.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
 ];

@@ -257,11 +257,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Image/Adapter/Gd2.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Offset (int|string) might not exist on array|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Offset 0 might not exist on array<static(Varien_Simplexml_Element)>|null.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Simplexml/Element.php',

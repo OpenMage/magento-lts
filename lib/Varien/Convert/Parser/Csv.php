@@ -32,6 +32,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         fseek($resource, 0);
 
         $data = [];
+        $fields = [];
         for ($i = 0; $line = fgetcsv($resource, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if (0 == $i) {
                 if ($this->getVar('fieldnames')) {
@@ -77,6 +78,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         $sessionId = Mage::registry('current_dataflow_session_id');
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
+        $fields = [];
         for ($i = 0; $line = fgetcsv($resource, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if (0 == $i) {
                 if ($this->getVar('fieldnames')) {

@@ -4982,7 +4982,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $callback of function call_user_func expects callable(): mixed, array{$this(Mage_Paypal_Model_Api_Abstract), mixed} given.',
+    'rawMessage' => 'Parameter #1 $callback of function call_user_func expects callable(): mixed, array{$this(Mage_Paypal_Model_Api_Abstract), string} given.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
 ];
@@ -8868,11 +8868,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $array of function array_key_exists expects array, array|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$arrays of function array_intersect_key expects array, array|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Object.php',
 ];

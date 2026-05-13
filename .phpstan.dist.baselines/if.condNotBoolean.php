@@ -6627,6 +6627,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, array<string, string> given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
@@ -8333,11 +8338,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, (SimpleXMLElement|null) given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, array given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php',
 ];
