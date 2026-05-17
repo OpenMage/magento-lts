@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_AdminNotification_Model_Inbox as Subject;
@@ -22,9 +23,9 @@ final class InboxTest extends OpenMageTest
 {
     use InboxTrait;
 
-    public const TITLE = 'PhpUnit test';
+    public const string TITLE = 'PhpUnit test';
 
-    public const URL = 'https://openmage.org';
+    public const string URL = 'https://openmage.org';
 
     private static Subject $subject;
 
@@ -36,9 +37,9 @@ final class InboxTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetSeverities
      * @group Model
      */
+    #[DataProvider('provideGetSeverities')]
     public function testGetSeverities(null|array|string $expectedResult, ?int $severity): void
     {
         self::assertSame($expectedResult, self::$subject->getSeverities($severity));

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Exception;
 use Mage;
@@ -42,9 +43,9 @@ final class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Url::getEncodedUrl()
-     * @dataProvider provideGetEncodedUrl
      * @group Helper
      */
+    #[DataProvider('provideGetEncodedUrl')]
     public function testGetEncodedUrl(string $expectedResult, ?string $url): void
     {
         self::assertSame($expectedResult, self::$subject->getEncodedUrl($url));
@@ -61,9 +62,9 @@ final class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Url::addRequestParam()
-     * @dataProvider provideAddRequestParam
      * @group Helper
      */
+    #[DataProvider('provideAddRequestParam')]
     public function testAddRequestParam(string $expectedResult, string $url, array $param): void
     {
         self::assertSame($expectedResult, self::$subject->addRequestParam($url, $param));
@@ -71,9 +72,9 @@ final class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Url::removeRequestParam()
-     * @dataProvider provideRemoveRequestParam
      * @group Helper
      */
+    #[DataProvider('provideRemoveRequestParam')]
     public function testRemoveRequestParam(string $expectedResult, string $url, string $paramKey, bool $caseSensitive = false): void
     {
         self::assertSame($expectedResult, self::$subject->removeRequestParam($url, $paramKey, $caseSensitive));

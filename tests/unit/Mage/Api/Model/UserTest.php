@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage_Api_Model_User as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\UserTrait;
@@ -20,10 +21,10 @@ final class UserTest extends OpenMageTest
     use UserTrait;
 
     /**
-     * @dataProvider provideValidateApiUserData
      * @param array|true $expectedResult
      * @group Model
      */
+    #[DataProvider('provideValidateApiUserData')]
     public function testValidate($expectedResult, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);

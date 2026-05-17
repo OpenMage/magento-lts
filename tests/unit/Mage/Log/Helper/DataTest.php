@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Log\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Log_Helper_Data as Subject;
@@ -59,9 +60,9 @@ final class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Log_Helper_Data::isLogFileExtensionValid()
-     * @dataProvider provideIsLogFileExtensionValid
      * @group Helper
      */
+    #[DataProvider('provideIsLogFileExtensionValid')]
     public function testIsLogFileExtensionValid(bool $expectedResult, string $file): void
     {
         self::assertSame($expectedResult, self::$subject->isLogFileExtensionValid($file));

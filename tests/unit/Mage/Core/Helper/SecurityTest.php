@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Generator;
 use Mage;
@@ -34,10 +35,7 @@ final class SecurityTest extends OpenMageTest
         self::$subject = Mage::helper('core/security');
     }
 
-    /**
-     * @group Helper
-     */
-    public function validateAgainstBlockMethodBlacklistDataProvider(): Generator
+    public static function provideValidateAgainstBlockMethodBlacklistData(): Generator
     {
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
         $template = new Mage_Core_Block_Template();
@@ -54,13 +52,12 @@ final class SecurityTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider validateAgainstBlockMethodBlacklistDataProvider
      * @doesNotPerformAssertions if data is correct, then NO exception is thrown, so we don't need an assertion
      * @param  string[]            $args
      * @throws Mage_Core_Exception
-     *
      * @group Helper
      */
+    #[DataProvider('provideValidateAgainstBlockMethodBlacklistData')]
     public function testValidateAgainstBlockMethodBlacklist(
         Mage_Core_Block_Abstract $block,
         string $method,
@@ -69,7 +66,7 @@ final class SecurityTest extends OpenMageTest
         self::$subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 
-    public function forbiddenBlockMethodsDataProvider(): Generator
+    public static function provideForbiddenBlockMethodsData(): Generator
     {
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
         $template = new Mage_Core_Block_Template();
@@ -111,12 +108,11 @@ final class SecurityTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider forbiddenBlockMethodsDataProvider
      * @param  string[]            $args
      * @throws Mage_Core_Exception
-     *
      * @group Helper
      */
+    #[DataProvider('provideForbiddenBlockMethodsData')]
     public function testValidateAgainstBlockMethodBlacklistThrowsException(
         Mage_Core_Block_Abstract $block,
         string $method,

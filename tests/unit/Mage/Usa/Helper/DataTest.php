@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Usa_Helper_Data as Subject;
@@ -34,9 +35,9 @@ final class DataTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideConvertMeasureWeightData
      * @group Helper
      */
+    #[DataProvider('provideConvertMeasureWeightData')]
     public function testConvertMeasureWeight(float|string $expectedResult, $value, ?string $sourceWeightMeasure, ?string $toWeightMeasure): void
     {
         try {
@@ -47,9 +48,9 @@ final class DataTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideConvertMeasureDimensionData
      * @group Helper
      */
+    #[DataProvider('provideConvertMeasureDimensionData')]
     public function testConvertMeasureDimension(float|string $expectedResult, $value, ?string $sourceWeightMeasure, ?string $toWeightMeasure): void
     {
         try {
@@ -60,9 +61,9 @@ final class DataTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetMeasureWeightNameData
      * @group Helper
      */
+    #[DataProvider('provideGetMeasureWeightNameData')]
     public function testGetMeasureWeightName(string $expectedResult, string $key): void
     {
         try {
@@ -73,9 +74,9 @@ final class DataTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetMeasureDimensionNameData
      * @group Helper
      */
+    #[DataProvider('provideGetMeasureDimensionNameData')]
     public function testGetMeasureDimensionName(string $expectedResult, string $key): void
     {
         try {
@@ -86,9 +87,9 @@ final class DataTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideDisplayGirthValueData
      * @group Helper
      */
+    #[DataProvider('provideDisplayGirthValueData')]
     public function testDisplayGirthValue(bool $expectedResult, string $value): void
     {
         self::assertSame($expectedResult, self::$subject->displayGirthValue($value));

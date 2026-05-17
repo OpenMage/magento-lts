@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage_Adminhtml_Block_Widget_Grid as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -30,9 +31,9 @@ final class GridTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideAddColumnDefaultData
      * @group Block
      */
+    #[DataProvider('provideAddColumnDefaultData')]
     public function testAddColumnDefaultData(array $expectedResult, array $column): void
     {
         self::assertSame($expectedResult, self::$subject->addColumnDefaultData($column));

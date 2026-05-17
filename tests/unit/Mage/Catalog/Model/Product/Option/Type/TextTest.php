@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Option\Type;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Catalog_Model_Product_Option;
@@ -45,9 +46,9 @@ final class TextTest extends OpenMageTest
 
 
     /**
-     * @dataProvider providePrepareForCart
      * @group Model
      */
+    #[DataProvider('providePrepareForCart')]
     public function testPrepareForCart(?string $expectedResult, bool $setIsValid = true, ?string $setUserValue = null): void
     {
         self::$subject->setIsValid($setIsValid)->setUserValue($setUserValue);

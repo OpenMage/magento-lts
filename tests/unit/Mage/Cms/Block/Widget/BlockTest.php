@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Block\Widget;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage_Cms_Block_Widget_Block as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -30,9 +31,9 @@ final class BlockTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideNumericString
      * @group Block
      */
+    #[DataProvider('provideNumericString')]
     public function testGetCacheKeyInfo(string $blockId): void
     {
         $methods = [

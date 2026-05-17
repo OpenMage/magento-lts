@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Model_Locale as Subject;
@@ -31,11 +32,10 @@ final class LocaleTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetNumberData
      * @param float|int|string $value
-     *
      * @group Model
      */
+    #[DataProvider('provideGetNumberData')]
     public function testGetNumber(?float $expectedResult, $value): void
     {
         self::assertSame($expectedResult, self::$subject->getNumber($value));

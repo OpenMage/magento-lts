@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier\Fedex\Rest;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Varien_Object;
 use Mage;
 use Mage_Core_Helper_Measure_Weight;
@@ -326,9 +327,7 @@ final class RequestbuilderTest extends OpenMageTest
         yield 'legacy station' => ['STATION', 'DROPOFF_AT_FEDEX_LOCATION'];
     }
 
-    /**
-     * @dataProvider dropoffMappingProvider
-     */
+    #[DataProvider('dropoffMappingProvider')]
     public function testShipmentPayloadMapsDropoffTypeToValidRestPickupType(string $configuredDropoff, string $expectedPickupType): void
     {
         $request = $this->shipmentRequest();

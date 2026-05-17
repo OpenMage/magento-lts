@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Parser;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage_Dataflow_Model_Batch;
 use Mage_Dataflow_Model_Batch_Export;
 use Mage_Dataflow_Model_Batch_Import;
@@ -27,7 +28,11 @@ final class AbstractTest extends OpenMageTest
     protected function setUp(): void
     {
         parent::setUp();
-        self::$subject = $this->getMockForAbstractClass(Subject::class);
+        self::$subject = new class extends Subject {
+            public function parse() {}
+
+            public function unparse() {}
+        };
     }
 
     /**
@@ -54,9 +59,7 @@ final class AbstractTest extends OpenMageTest
         self::assertInstanceOf(Mage_Dataflow_Model_Batch_Import::class, self::$subject->getBatchImportModel());
     }
 
-    /**
-     * @dataProvider provideGetCopyFile
-     */
+    #[DataProvider('provideGetCopyFile')]
     public function testGetCopyFile(string $expectedResult, string $files): void
     {
         self::assertSame($expectedResult, self::$subject->getCopyFile($files));

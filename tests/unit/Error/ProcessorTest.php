@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Error;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Error_Processor as Subject;
 use Generator;
 use PHPUnit\Framework\TestCase;
@@ -33,9 +34,9 @@ final class ProcessorTest extends TestCase
     }
 
     /**
-     * @dataProvider provideGetHostUrl
      * @param array<string, int|string> $serverVars
      */
+    #[DataProvider('provideGetHostUrl')]
     public function testGetHostUrl(string $expectedResult, array $serverVars): void
     {
         foreach ($serverVars as $serverVar => $value) {

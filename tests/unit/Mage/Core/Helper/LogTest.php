@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Helper_Log as Subject;
@@ -35,10 +36,10 @@ final class LogTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetLogLevelData
      * @covers Mage_Core_Helper_Log::getLogLevelValue()
      * @group Helper
      */
+    #[DataProvider('provideGetLogLevelData')]
     public function testGetLogLevelValue(int $expectedResult, null|int|Level|string $level): void
     {
         self::assertSame($expectedResult, Subject::getLogLevelValue($level));
@@ -91,9 +92,9 @@ final class LogTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Log::getLogFilePath()
-     * @dataProvider provideGetLogFilePathData
      * @group Helper
      */
+    #[DataProvider('provideGetLogFilePathData')]
     public function testGetLogFilePath(?string $expectedResult, string $file): void
     {
         if ($expectedResult !== null) {

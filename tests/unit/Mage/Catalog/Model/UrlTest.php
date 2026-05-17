@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Catalog_Model_Url as Subject;
@@ -47,19 +48,18 @@ final class UrlTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideIntOrNull
      * @group Model
      */
+    #[DataProvider('provideIntOrNull')]
     public function testRefreshRewrites(?int $storeId): void
     {
         self::assertInstanceOf(Subject::class, self::$subject->refreshRewrites($storeId));
     }
 
     /**
-     * @dataProvider provideGeneratePathData
-     *
      * @group Model
      */
+    #[DataProvider('provideGeneratePathData')]
     public function testGeneratePath(
         string $expectedResult,
         string $type,
@@ -75,9 +75,9 @@ final class UrlTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideFormatUrlKey
      * @group Model
      */
+    #[DataProvider('provideFormatUrlKey')]
     public function testFormatUrlKey(string $expectedResult, string $locale): void
     {
         self::$subject->setLocale($locale);
@@ -92,11 +92,10 @@ final class UrlTest extends OpenMageTest
     //    {
     //        self::$subject->getSlugger();
     //    }
-
     /**
-     * @dataProvider provideGetSluggerConfig
      * @group Model
      */
+    #[DataProvider('provideGetSluggerConfig')]
     public function testGetSluggerConfig(array $expectedResult, string $locale): void
     {
         $result = self::$subject->getSluggerConfig($locale);

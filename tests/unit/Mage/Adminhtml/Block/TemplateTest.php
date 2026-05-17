@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage_Adminhtml_Block_Template as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -42,9 +43,9 @@ final class TemplateTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Block_Template::isModuleOutputEnabled()
-     * @dataProvider provideIsModuleOutputEnabledData
      * @group Block
      */
+    #[DataProvider('provideIsModuleOutputEnabledData')]
     public function testIsModuleOutputEnabled(bool $expectedResult, ?string $moduleName): void
     {
         self::assertSame($expectedResult, self::$subject->isModuleOutputEnabled($moduleName));

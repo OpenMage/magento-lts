@@ -20,7 +20,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 final class ProcessTest extends OpenMageTest
 {
-    public const INDEXER_MODEL_IS_NOT_DEFINED = 'Indexer model is not defined.';
+    public const string INDEXER_MODEL_IS_NOT_DEFINED = 'Indexer model is not defined.';
 
     private static Subject $subject;
 

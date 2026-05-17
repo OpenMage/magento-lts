@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Base;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use Mage;
 use Mage_Adminhtml_Helper_Dashboard_Data;
@@ -19,9 +20,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DefaultConfigTest extends TestCase
 {
-    /**
-     * @dataProvider provideGetStoreConfig
-     */
+    #[DataProvider('provideGetStoreConfig')]
     public function testGetStoreConfig(string $expectedResult, string $path, null|bool|int|Mage_Core_Model_Store|string $store = null): void
     {
         self::assertSame($expectedResult, Mage::getStoreConfig($path, $store));

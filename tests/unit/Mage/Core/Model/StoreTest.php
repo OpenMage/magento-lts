@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage;
 use Mage_Core_Model_Store as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
@@ -29,10 +30,10 @@ final class StoreTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Model_Store::getId()
-     * @dataProvider provideGetStoreId
      * @param null|int|string $withStore
      * @group Model
      */
+    #[DataProvider('provideGetStoreId')]
     public function testGetId(?int $expectedResult, $withStore): void
     {
         if ($withStore) {

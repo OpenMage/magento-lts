@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Block;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage_Cms_Block_Block as Subject;
 use Mage_Core_Model_Store_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -21,10 +22,10 @@ final class BlockTest extends OpenMageTest
     use NumericStringTrait;
 
     /**
-     * @dataProvider provideNumericString
      * @group Block
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[DataProvider('provideNumericString')]
     public function testGetCacheKeyInfo(string $blockId): void
     {
         $methods = [

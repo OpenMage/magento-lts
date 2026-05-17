@@ -25,7 +25,7 @@ use Zend_Cache_Backend_ExtendedInterface;
 
 final class DefinitionCacheTest extends OpenMageTest
 {
-    private const CACHE_DEFINITION_IMPL = self::class;
+    private const string CACHE_DEFINITION_IMPL = self::class;
 
     /** @var Zend_Cache_Backend&Zend_Cache_Backend_ExtendedInterface */
     private static $cacheBackend;

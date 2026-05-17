@@ -43,12 +43,12 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     protected const SANDBOX_SMARTPOST_HUB_ID = '5531';
 
     /** SOAP-era service code → REST code. */
-    private const LEGACY_SERVICE_TYPE_MAP = [
+    private const array LEGACY_SERVICE_TYPE_MAP = [
         'INTERNATIONAL_PRIORITY' => 'FEDEX_INTERNATIONAL_PRIORITY',
     ];
 
     /** Fallback labels for codes absent from the active map (retired or renamed). */
-    private const DEPRECATED_METHOD_LABELS = [
+    private const array DEPRECATED_METHOD_LABELS = [
         'INTERNATIONAL_PRIORITY'              => 'International Priority',
         'INTERNATIONAL_GROUND'                => 'International Ground',
         'EUROPE_FIRST_INTERNATIONAL_PRIORITY' => 'Europe First Priority',

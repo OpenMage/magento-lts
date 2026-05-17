@@ -8,7 +8,7 @@
     ],
     "type": "magento-source",
     "require": {
-        "php": ">=8.1 <8.6",
+        "php": ">=8.3 <8.6",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -50,8 +50,6 @@
         "shardj/zf1-future": "^1.24.1",
         "shipstream/fedex-rest-sdk": "^1.4",
         "symfony/mime": "^6.4",
-        "symfony/polyfill-php82": "^1.33",
-        "symfony/polyfill-php83": "^1.33",
         "symfony/polyfill-php84": "^1.33",
         "symfony/polyfill-php85": "^1.33",
         "symfony/string": "^6.4",
@@ -76,7 +74,7 @@
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
-        "phpunit/phpunit": "^9.6",
+        "phpunit/phpunit": "^9.6 || ^12.5",
         "rector/rector": "^2.1.12",
         "shipmonk/phpstan-baseline-per-identifier": "^2.3",
         "squizlabs/php_codesniffer": "^3.7",
@@ -95,7 +93,9 @@
         "symfony/polyfill-php73": "*",
         "symfony/polyfill-php74": "*",
         "symfony/polyfill-php80": "*",
-        "symfony/polyfill-php81": "*"
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*",
+        "symfony/polyfill-php83": "*"
     },
     "conflict": {
         "n98/n98_layouthelper": "*"
@@ -172,7 +172,7 @@
             "block-insecure": false
         },
         "platform": {
-            "php": "8.1"
+            "php": "8.3"
         },
         "sort-packages": true
     },

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Email\Template;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage_Core_Model_Email_Template_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Email\Template\AbstractTrait;
@@ -23,13 +24,13 @@ final class AbstractTest extends OpenMageTest
 
     protected function setUp(): void
     {
-        self::$subject = $this->getMockForAbstractClass(Subject::class);
+        self::$subject = $this->createMock(Subject::class);
     }
 
     /**
-     * @dataProvider provideValidateFileExension
      * @group Model
      */
+    #[DataProvider('provideValidateFileExension')]
     public function testValidateFileExension(bool $expectedResult, string $filePath, string $extension, bool $fileExists): void
     {
         if ($fileExists) {

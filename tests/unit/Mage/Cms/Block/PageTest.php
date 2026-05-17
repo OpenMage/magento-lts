@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Block;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage_Cms_Block_Page as Subject;
 use Mage_Cms_Model_Page;
 use Mage_Core_Model_Store_Exception;
@@ -22,10 +23,10 @@ final class PageTest extends OpenMageTest
     use NumericStringTrait;
 
     /**
-     * @dataProvider provideNumericString
      * @group Block
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[DataProvider('provideNumericString')]
     public function testGetPage(string $pageId): void
     {
         $methods = [

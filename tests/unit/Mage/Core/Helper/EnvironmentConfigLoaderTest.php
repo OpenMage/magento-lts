@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage_Core_Model_Store;
 use Generator;
@@ -25,19 +26,19 @@ use Varien_Simplexml_Config;
  */
 final class EnvironmentConfigLoaderTest extends OpenMageTest
 {
-    public const XML_PATH_GENERAL = 'general/store_information/name';
+    public const string XML_PATH_GENERAL = 'general/store_information/name';
 
-    public const XML_PATH_DEFAULT = 'default/general/store_information/name';
+    public const string XML_PATH_DEFAULT = 'default/general/store_information/name';
 
-    public const XML_PATH_WEBSITE = 'websites/base/general/store_information/name';
+    public const string XML_PATH_WEBSITE = 'websites/base/general/store_information/name';
 
-    public const XML_PATH_STORE = 'stores/german/general/store_information/name';
+    public const string XML_PATH_STORE = 'stores/german/general/store_information/name';
 
-    private const ENV_TEST_STORES = ['german_ch', 'german', 'german-at'];
+    private const array ENV_TEST_STORES = ['german_ch', 'german', 'german-at'];
 
     private string $testXml;
 
-    private const WEBSITES = [
+    private const array WEBSITES = [
         'base' => self::ENV_TEST_STORES,
     ];
 
@@ -147,11 +148,10 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @runInSeparateProcess
-     * @dataProvider envOverridesCorrectConfigKeysDataProvider
      * @group Helper
-     *
      * @param array<string, string> $config
      */
+    #[DataProvider('envOverridesCorrectConfigKeysDataProvider')]
     public function testEnvOverridesForValidConfigKeys(array $config): void
     {
         $xmlDefault = new Varien_Simplexml_Config();
@@ -179,7 +179,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         self::assertNotSame($expected, $actual, 'Default value was not overridden.');
     }
 
-    public function envOverridesCorrectConfigKeysDataProvider(): Generator
+    public static function envOverridesCorrectConfigKeysDataProvider(): Generator
     {
         $defaultPath = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME';
         $defaultPathWithDash = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__FOO-BAR__NAME';
@@ -237,11 +237,10 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @runInSeparateProcess
-     * @dataProvider envAsArrayDataProvider
      * @group Helper
-     *
      * @param array<string, array|string> $config
      */
+    #[DataProvider('provideEnvAsArrayData')]
     public function testAsArray(array $config): void
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
@@ -257,7 +256,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         self::assertSame($expected, $actual);
     }
 
-    public function envAsArrayDataProvider(): Generator
+    public static function provideEnvAsArrayData(): Generator
     {
         yield 'default' => [
             [
@@ -288,11 +287,10 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @runInSeparateProcess
-     * @dataProvider envHasPathDataProvider
      * @group Helper
-     *
      * @param array<string, bool|string> $config
      */
+    #[DataProvider('envHasPathDataProvider')]
     public function testHasPath(array $config): void
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
@@ -307,7 +305,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         self::assertSame($expected, $actual);
     }
 
-    public function envHasPathDataProvider(): Generator
+    public static function envHasPathDataProvider(): Generator
     {
         yield 'hasPath default' => [
             [
@@ -334,11 +332,10 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @runInSeparateProcess
-     * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
      * @group Helper
-     *
      * @param array<string, string> $config
      */
+    #[DataProvider('envDoesNotOverrideOnWrongConfigKeysDataProvider')]
     public function testEnvDoesNotOverrideForInvalidConfigKeys(array $config): void
     {
         $xmlStruct = $this->getTestXml();
@@ -384,7 +381,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         self::assertStringNotContainsString((string) $valueAfterCheck, 'value_will_not_be_changed', 'Default value was wrongfully overridden.');
     }
 
-    public function envDoesNotOverrideOnWrongConfigKeysDataProvider(): Generator
+    public static function envDoesNotOverrideOnWrongConfigKeysDataProvider(): Generator
     {
         $defaultPath = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__ST';
         $websitePath = 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__ST';

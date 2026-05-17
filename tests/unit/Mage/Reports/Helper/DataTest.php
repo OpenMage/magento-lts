@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Reports\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Composer\InstalledVersions;
 use Mage;
@@ -54,12 +55,12 @@ final class DataTest extends OpenMageTest
     /**
      * @param 'day'|'month'|'year' $period Period type
      * @covers Mage_Reports_Helper_Data::getIntervals()
-     * @dataProvider provideReportsDateIntervalsData
      * @group Helper
      */
+    #[DataProvider('provideReportsDateIntervalsData')]
     public function testGetIntervals(int|string $expectedResult, ?string $dateFrom, ?string $dateTo, string $period): void
     {
-        if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
+        if (version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
             self::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
         }
 
@@ -72,9 +73,9 @@ final class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Helper_Data::prepareIntervalsCollection()
-     * @dataProvider provideReportsDateIntervalsData
      * @group Helper
      */
+    #[DataProvider('provideReportsDateIntervalsData')]
     public function testPrepareIntervalsCollection(int|string $expectedResult, ?string $dateFrom, ?string $dateTo, string $period): void
     {
         $collection = new Varien_Data_Collection();

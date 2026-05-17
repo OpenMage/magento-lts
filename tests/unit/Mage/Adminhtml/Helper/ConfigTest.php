@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Adminhtml_Helper_Config as Subject;
@@ -32,9 +33,9 @@ final class ConfigTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Config::getInputTypes()
-     * @dataProvider provideGetInputTypes
      * @group Helper
      */
+    #[DataProvider('provideGetInputTypes')]
     public function testGetInputTypes(array $expectedResult, ?string $inputType): void
     {
         self::assertSame($expectedResult, self::$subject->getInputTypes($inputType));
@@ -42,9 +43,9 @@ final class ConfigTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Config::getBackendModelByInputType()
-     * @dataProvider provideGetBackendModelByInputType
      * @group Helper
      */
+    #[DataProvider('provideGetBackendModelByInputType')]
     public function testGetBackendModelByInputType(?string $expectedResult, string $inputType): void
     {
         self::assertSame($expectedResult, self::$subject->getBackendModelByInputType($inputType));

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Eav;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage;
 use Mage_Catalog_Model_Resource_Eav_Attribute as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
@@ -28,9 +29,9 @@ final class AttributeTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetStoreId
      * @group Model
      */
+    #[DataProvider('provideGetStoreId')]
     public function testGetStoreId(?int $expectedResult, null|int|string $withStoreId): void
     {
         if ($withStoreId) {

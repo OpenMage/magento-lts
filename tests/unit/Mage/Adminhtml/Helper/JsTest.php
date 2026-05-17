@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Adminhtml_Helper_Js as Subject;
@@ -32,9 +33,9 @@ final class JsTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Js::decodeGridSerializedInput()
-     * @dataProvider provideDecodeGridSerializedInput
      * @group Helper
      */
+    #[DataProvider('provideDecodeGridSerializedInput')]
     public function testDecodeGridSerializedInput(array $expectedResult, string $encoded): void
     {
         self::assertSame($expectedResult, self::$subject->decodeGridSerializedInput($encoded));

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Adminhtml_Helper_Sales as Subject;
@@ -32,9 +33,9 @@ final class SalesTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Sales::escapeHtmlWithLinks()
-     * @dataProvider provideDecodeGridSerializedInput
      * @group Helper
      */
+    #[DataProvider('provideDecodeGridSerializedInput')]
     public function testEscapeHtmlWithLinks(string $expectedResult, string $data): void
     {
         self::assertSame($expectedResult, self::$subject->escapeHtmlWithLinks($data, ['a']));

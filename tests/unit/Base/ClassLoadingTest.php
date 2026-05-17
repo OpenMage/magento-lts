@@ -11,14 +11,13 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Base;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
 final class ClassLoadingTest extends TestCase
 {
-    /**
-     * @dataProvider provideClassExistsData
-     */
+    #[DataProvider('provideClassExistsData')]
     public function testClassExists(bool $expectedResult, string $class): void
     {
         self::assertSame($expectedResult, class_exists($class));

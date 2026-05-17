@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Helper_Data as Subject;
@@ -24,7 +25,7 @@ final class DataTest extends OpenMageTest
 {
     use DataTrait;
 
-    public const TEST_STRING = '1234567890';
+    public const string TEST_STRING = '1234567890';
 
     private static Subject $subject;
 
@@ -68,9 +69,9 @@ final class DataTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideFormatTimezoneDate
      * @group Helper
      */
+    #[DataProvider('provideFormatTimezoneDate')]
     public function testFormatTimezoneDate(
         string $expectedResult,
         null|int|string $data,
@@ -123,9 +124,9 @@ final class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::removeAccents()
-     * @dataProvider provideRemoveAccents
      * @group Helper
      */
+    #[DataProvider('provideRemoveAccents')]
     public function testRemoveAccents(string $expectedResult, string $string, bool $german): void
     {
         self::assertSame($expectedResult, self::$subject->removeAccents($string, $german));
@@ -268,9 +269,9 @@ final class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::getMerchantCountryCode()
-     * @dataProvider provideIsCountryInEUData
      * @group Helper
      */
+    #[DataProvider('provideIsCountryInEUData')]
     public function testIsCountryInEU(bool $expectedResult, string $value): void
     {
         self::assertSame($expectedResult, self::$subject->isCountryInEU($value));

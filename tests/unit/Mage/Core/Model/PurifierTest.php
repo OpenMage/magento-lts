@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage;
 use Mage_Core_Model_Purifier as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -21,9 +22,9 @@ final class PurifierTest extends OpenMageTest
     use PurifierTrait;
 
     /**
-     * @dataProvider provideGetAllowedAttributes
      * @group Model
      */
+    #[DataProvider('provideGetAllowedAttributes')]
     public function testGetAllowedAttributes(?array $allowedAttributes): void
     {
         $subject = $this->getSubject([
@@ -34,9 +35,9 @@ final class PurifierTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetAllowedElements
      * @group Model
      */
+    #[DataProvider('provideGetAllowedElements')]
     public function testGetAllowedElements(?array $allowedElements): void
     {
         $subject = $this->getSubject([
@@ -47,9 +48,9 @@ final class PurifierTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetAllowedClasses
      * @group Model
      */
+    #[DataProvider('provideGetAllowedClasses')]
     public function testGetAllowedClasses(?array $allowedClasses): void
     {
         $subject = $this->getSubject([
@@ -60,9 +61,9 @@ final class PurifierTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetAllowedStyleProperties
      * @group Model
      */
+    #[DataProvider('provideGetAllowedStyleProperties')]
     public function testGetAllowedStyleProperties(?array $allowedStyleProperties): void
     {
         $subject = $this->getSubject([
@@ -73,9 +74,9 @@ final class PurifierTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetEscapeInvalidTags
      * @group Model
      */
+    #[DataProvider('provideGetEscapeInvalidTags')]
     public function testGetEscapeInvalidTags($escapeInvalidTags): void
     {
         $subject = $this->getSubject([
@@ -86,9 +87,9 @@ final class PurifierTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider providePurify
      * @group Model
      */
+    #[DataProvider('providePurify')]
     public function testPurify(string $expected, string $input, array $options = []): void
     {
         $subject = $this->getSubject($options);

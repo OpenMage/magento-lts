@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Usa\Model\Shipping\Carrier\UspsSecurityTrait;
 
@@ -124,10 +125,7 @@ final class UspsSecurityTest extends OpenMageTest
     // ──────────────────────────────────────────────
     // Fix #4: Gateway URL allowlist
     // ──────────────────────────────────────────────
-
-    /**
-     * @dataProvider provideGatewayUrlsData
-     */
+    #[DataProvider('provideGatewayUrlsData')]
     public function testGatewayUrlValidation(string $url, bool $shouldPass): void
     {
         // Replicate the exact validation logic from _getRestGatewayUrl()

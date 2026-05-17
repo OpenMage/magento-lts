@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Customer_Model_Customer as Subject;
@@ -29,11 +30,11 @@ final class CustomerTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideValidateCustomerData
      * @group Model
      * @param  array|true          $expectedResult
      * @throws Mage_Core_Exception
      */
+    #[DataProvider('provideValidateCustomerData')]
     public function testValidate($expectedResult, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
@@ -43,9 +44,9 @@ final class CustomerTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetDobData
      * @group Model
      */
+    #[DataProvider('provideGetDobData')]
     public function testGetDob($expectedResult, ?string $dob): void
     {
         self::assertNull(self::$subject->getDob());

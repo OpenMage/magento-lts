@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Security;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage_Core_Model_Security_HtmlEscapedString as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\SecurityTrait;
@@ -22,11 +23,10 @@ final class HtmlEscapedStringTest extends OpenMageTest
     private static Subject $subject;
 
     /**
-     * @dataProvider provideHtmlEscapedStringAsStringData
      * @param array<int, string> $allowedTags
-     *
      * @group Model
      */
+    #[DataProvider('provideHtmlEscapedStringAsStringData')]
     public function testToSting(string $expectedResult, string $string, ?array $allowedTags): void
     {
         self::$subject = new Subject($string, $allowedTags);
@@ -34,11 +34,10 @@ final class HtmlEscapedStringTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideHtmlEscapedStringGetUnescapedValueData
      * @param array<int, string> $allowedTags
-     *
      * @group Model
      */
+    #[DataProvider('provideHtmlEscapedStringGetUnescapedValueData')]
     public function testGetUnescapedValue(string $expectedResult, string $string, ?array $allowedTags): void
     {
         self::$subject = new Subject($string, $allowedTags);

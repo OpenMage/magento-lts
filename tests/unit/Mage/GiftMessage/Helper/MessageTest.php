@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\GiftMessage\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Model_Store;
@@ -34,9 +35,9 @@ final class MessageTest extends OpenMageTest
 
     /**
      * @param 'address_item'|'config'|'item'|'items'|'order'|'order_item' $type Message type
-     * @dataProvider provideIsMessagesAvailable
      * @group Helper
      */
+    #[DataProvider('provideIsMessagesAvailable')]
     public function testIsMessagesAvailable(string $type, Varien_Object $entity, null|bool|int|Mage_Core_Model_Store|string $store = null): void
     {
         self::assertIsBool(self::$subject->isMessagesAvailable($type, $entity, $store));

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Helper\Wysiwyg;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Cms_Helper_Wysiwyg_Images as Subject;
@@ -72,9 +73,9 @@ final class ImagesTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetShortFilename
      * @group Helper
      */
+    #[DataProvider('provideGetShortFilename')]
     public function testGetShortFilename(string $expectedResult, string $filename, int $maxLength): void
     {
         self::assertSame($expectedResult, self::$subject->getShortFilename($filename, $maxLength));

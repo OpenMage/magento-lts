@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Catalog_Helper_Data as Subject;
@@ -32,9 +33,9 @@ final class DataTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideSplitSku
      * @group Helper
      */
+    #[DataProvider('provideSplitSku')]
     public function testSplitSku(array $expectedResult, string $sku, int $length = 30): void
     {
         self::assertSame($expectedResult, self::$subject->splitSku($sku, $length));

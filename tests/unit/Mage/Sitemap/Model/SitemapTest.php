@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sitemap\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage_Sitemap_Model_Sitemap as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\SitemapTrait;
@@ -21,9 +22,9 @@ final class SitemapTest extends OpenMageTest
     use SitemapTrait;
 
     /**
-     * @dataProvider provideGetPreparedFilenameData
      * @group Model
      */
+    #[DataProvider('provideGetPreparedFilenameData')]
     public function testGetPreparedFilename(array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
@@ -33,12 +34,12 @@ final class SitemapTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGenerateXmlData
      * @group Model
      * @throws Throwable
      * @todo  test validation
      * @todo  test content of xml
      */
+    #[DataProvider('provideGenerateXmlData')]
     public function testGenerateXml(array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);

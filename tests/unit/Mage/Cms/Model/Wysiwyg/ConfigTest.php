@@ -19,7 +19,7 @@ use Varien_Object;
 
 final class ConfigTest extends OpenMageTest
 {
-    public const TEST_STRING = '0123456789';
+    public const string TEST_STRING = '0123456789';
 
     private static Subject $subject;
 

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Usa\Model\Shipping\Carrier;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage_Shipping_Model_Rate_Result;
 use Mage_Shipping_Model_Tracking_Result;
@@ -226,9 +227,9 @@ final class FedexTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider missingTrackingCredentialProvider
      * @param array<string,string> $config
      */
+    #[DataProvider('missingTrackingCredentialProvider')]
     public function testGetTrackingRestClientThrowsWhenEitherCredentialIsMissing(array $config, string $missingField): void
     {
         $fedex = $this->fedexWithConfig($config);

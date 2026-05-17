@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Block\Widget\Page;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage_Cms_Block_Widget_Page_Link as Subject;
 use Mage_Core_Model_Store_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -29,11 +30,11 @@ final class LinkTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetHrefData
      * @group Block
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
+    #[DataProvider('provideGetHrefData')]
     public function testGetHref(string $expectedResult, array $data): void
     {
         self::$subject->setData($data);
@@ -43,10 +44,10 @@ final class LinkTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetTitleData
      * @group Block
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[DataProvider('provideGetTitleData')]
     public function testGetTitle(string $expectedResult, array $data): void
     {
         self::$subject->setData($data);
@@ -56,10 +57,10 @@ final class LinkTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetAnchorTextData
      * @group Block
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[DataProvider('provideGetAnchorTextData')]
     public function testGetAnchorText(null|bool|string $expectedResult, array $data): void
     {
         self::$subject->setData($data);

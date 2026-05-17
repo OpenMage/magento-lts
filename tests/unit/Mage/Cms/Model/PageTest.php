@@ -17,7 +17,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 final class PageTest extends OpenMageTest
 {
-    public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
+    public const string SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
 
     private static Subject $subject;
 

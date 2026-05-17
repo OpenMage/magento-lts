@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Catalog_Helper_Product as Subject;
@@ -39,27 +40,27 @@ final class ProductTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideGetAttributeInputTypes
      * @group Helper
      */
+    #[DataProvider('provideGetAttributeInputTypes')]
     public function testGetAttributeInputTypes(int $expectedResult, ?string $inputType = null): void
     {
         self::assertCount($expectedResult, self::$subject->getAttributeInputTypes($inputType));
     }
 
     /**
-     * @dataProvider provideGetAttributeBackendModelByInputType
      * @group Helper
      */
+    #[DataProvider('provideGetAttributeBackendModelByInputType')]
     public function testGetAttributeBackendModelByInputType(string $expectedResult, string $inputType): void
     {
         self::assertSame($expectedResult, self::$subject->getAttributeBackendModelByInputType($inputType));
     }
 
     /**
-     * @dataProvider provideGetAttributeSourceModelByInputType
      * @group Helper
      */
+    #[DataProvider('provideGetAttributeSourceModelByInputType')]
     public function testGetAttributeSourceModelByInputType(string $expectedResult, string $inputType): void
     {
         self::assertSame($expectedResult, self::$subject->getAttributeSourceModelByInputType($inputType));

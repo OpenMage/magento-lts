@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Core_Model_Logger as Subject;
@@ -31,9 +32,9 @@ final class LoggerTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideLogData
      * @group Model
      */
+    #[DataProvider('provideLogData')]
     public function testLog($message, $level, $file, $forceLog, $context)
     {
         if (!in_array($file, ['php://stdout', 'php://stderr'], true)) {

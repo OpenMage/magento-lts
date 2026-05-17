@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Base;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use SimpleXMLElement;
@@ -18,9 +19,7 @@ use XMLReader;
 
 final class XmlFileLoadingTest extends TestCase
 {
-    /**
-     * @dataProvider provideXmlFiles
-     */
+    #[DataProvider('provideXmlFiles')]
     public function testFileLoading(string $filepath): void
     {
         /** @var SimpleXMLElement $simplexml */
@@ -32,9 +31,7 @@ final class XmlFileLoadingTest extends TestCase
         self::assertNotEmpty($simplexml->asXML());
     }
 
-    /**
-     * @dataProvider provideXmlFiles
-     */
+    #[DataProvider('provideXmlFiles')]
     public function testXmlReaderIsValid(string $filepath): void
     {
         /** @var XMLReader $xml */

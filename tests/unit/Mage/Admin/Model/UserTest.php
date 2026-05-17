@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Admin_Model_Resource_User_Collection;
@@ -134,11 +135,11 @@ final class UserTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideAuthenticateData
      * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
+    #[DataProvider('provideAuthenticateData')]
     public function testAuthenticate(bool|string $expectedResult, array $methods): void
     {
         $defaultMethods = ['loadByUsername' => self::WILL_RETURN_SELF];
@@ -183,10 +184,10 @@ final class UserTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideValidateAdminUserData
      * @param array|true $expectedResult
      * @group Model
      */
+    #[DataProvider('provideValidateAdminUserData')]
     public function testValidate(array|bool $expectedResult, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
@@ -258,9 +259,9 @@ final class UserTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideIsResetPasswordLinkTokenExpiredData
      * @group Model
      */
+    #[DataProvider('provideIsResetPasswordLinkTokenExpiredData')]
     public function testIsResetPasswordLinkTokenExpired(bool $expectedResult, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
@@ -320,10 +321,6 @@ final class UserTest extends OpenMageTest
      */
     public function testGetMinAdminPasswordLength(): void
     {
-        $methods = ['getStoreConfigAsInt' => 10];
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-
-        self::assertInstanceOf(Subject::class, $mock);
-        self::assertSame(14, $mock->getMinAdminPasswordLength());
+        self::assertSame(14, self::$subject->getMinAdminPasswordLength());
     }
 }

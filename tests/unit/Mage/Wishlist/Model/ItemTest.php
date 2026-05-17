@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Wishlist\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Mage;
 use Mage_Catalog_Model_Product;
 use Mage_Checkout_Model_Cart;
@@ -49,10 +50,10 @@ final class ItemTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideValidateData
      * @group Model
      * @throws Mage_Core_Exception
      */
+    #[DataProvider('provideValidateData')]
     public function testValidate(?string $expectedExceptionMessage, ?int $wishlistId, ?int $productId): void
     {
         // TODO: mock methods

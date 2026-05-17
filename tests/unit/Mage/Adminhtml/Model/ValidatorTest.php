@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Mage;
 use Mage_Adminhtml_Model_LayoutUpdate_Validator as Subject;
@@ -42,9 +43,9 @@ final class ValidatorTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Model_LayoutUpdate_Validator::isValid()
-     * @dataProvider provideIsValidData
      * @group Model
      */
+    #[DataProvider('provideIsValidData')]
     public function testIsValid(bool $expectedResult, string|Varien_Simplexml_Element $data): void
     {
         self::assertSame($expectedResult, self::$subject->isValid($data));

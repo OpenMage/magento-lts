@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Override;
 use Exception;
 use Mage;
@@ -32,12 +33,12 @@ final class BlockTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideValidateAdminBlockData
      * @param array<int, string>|true $expectedResult
      *
      * @group Model
      * @throws Exception
      */
+    #[DataProvider('provideValidateAdminBlockData')]
     public function testValidate(array|bool $expectedResult, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
