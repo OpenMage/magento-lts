@@ -190,7 +190,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         ]);
         $fromValue = null;
         $toValue   = null;
-        if (is_array($value) && count($value) == 2) {
+        if (is_array($value) && count($value) === 2) {
             $fromValue = $this->_helper->escapeHtml(reset($value));
             $toValue   = $this->_helper->escapeHtml(next($value));
         }
@@ -267,7 +267,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         $fromValue = null;
         $toValue = null;
         $name = $this->getFilterElementName($attribute->getAttributeCode());
-        if (is_array($value) && count($value) == 2) {
+        if (is_array($value) && count($value) === 2) {
             $fromValue = $this->_helper->escapeHtml(reset($value));
             $toValue   = $this->_helper->escapeHtml(next($value));
         }

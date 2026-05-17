@@ -48,7 +48,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
                 }
             }
 
-            if (count($data) == 1 && array_key_exists(Mage_Customer_Model_Group::CUST_GROUP_ALL, $data)) {
+            if (count($data) === 1 && array_key_exists(Mage_Customer_Model_Group::CUST_GROUP_ALL, $data)) {
                 return (string) $data[Mage_Customer_Model_Group::CUST_GROUP_ALL];
             }
 

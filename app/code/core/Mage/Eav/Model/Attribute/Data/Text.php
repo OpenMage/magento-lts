@@ -70,7 +70,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
             $errors = array_merge($errors, $result);
         }
 
-        if (count($errors) == 0) {
+        if ($errors === []) {
             return true;
         }
 

@@ -190,7 +190,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
             }
 
-            if ($virtualCount == count($selections)) {
+            if ($virtualCount === count($selections)) {
                 return true;
             }
         }
@@ -233,9 +233,9 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $options = $product->getBundleOptionsData();
                 if ($options) {
                     foreach ($options as $option) {
-                        if (empty($option['delete']) || (int) $option['delete'] != 1) {
+                        if (empty($option['delete']) || (int) $option['delete'] !== 1) {
                             $product->setTypeHasOptions(true);
-                            if ((int) $option['required'] == 1) {
+                            if ((int) $option['required'] === 1) {
                                 $product->setTypeHasRequiredOptions(true);
                                 break;
                             }

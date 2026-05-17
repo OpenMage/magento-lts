@@ -17,7 +17,7 @@ class Varien_Exception extends Exception
      */
     public static function processPcreError()
     {
-        if (preg_last_error() != PREG_NO_ERROR) {
+        if (preg_last_error() !== PREG_NO_ERROR) {
             switch (preg_last_error()) {
                 case PREG_INTERNAL_ERROR:
                     throw new Varien_Exception('PCRE PREG internal error');
