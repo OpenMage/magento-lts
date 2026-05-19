@@ -236,6 +236,11 @@ class PayPalPayment {
             if (data?.paymentSource) {
                 requestBody.append('funding_source', data.paymentSource);
             }
+
+            this.collectAgreementParams().forEach(([name, value]) => {
+                requestBody.append(name, value);
+            });
+
             const response = await fetch(this.config.createOrderUrl, {
                 method: 'POST',
                 headers: {
@@ -319,8 +324,35 @@ class PayPalPayment {
         formKeyInput.value = this.config.formKey;
 
         form.append(orderIdInput, formKeyInput);
+
+        this.collectAgreementParams().forEach(([name, value]) => {
+            const agreementInput = document.createElement('input');
+            agreementInput.type = 'hidden';
+            agreementInput.name = name;
+            agreementInput.value = value;
+            form.appendChild(agreementInput);
+        });
+
         document.body.appendChild(form);
         form.submit();
+    }
+
+    /**
+     * Collect accepted checkout agreement fields so they can be carried into
+     * the PayPal-only create-order and place-order requests, which bypass the
+     * normal review.save() submission.
+     *
+     * @returns {Array<[string, string]>}
+     */
+    collectAgreementParams() {
+        const params = [];
+        document.querySelectorAll('input[name^="agreement["]').forEach(input => {
+            if ((input.type === 'checkbox' || input.type === 'radio') && !input.checked) {
+                return;
+            }
+            params.push([input.name, input.value]);
+        });
+        return params;
     }
 
     onButtonError(error) {

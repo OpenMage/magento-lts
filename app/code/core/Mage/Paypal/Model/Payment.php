@@ -52,7 +52,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      */
     public function captureOrder(string $orderId, Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote): void
     {
-        $api = $this->getHelper()->getApi();
+        $api = $this->getHelper()->getApi()->setStore($quote->getStore());
         $requestId = $this->getHelper()->getPaypalRequestId($quote);
         $response = $api->captureOrder($orderId, $quote, $requestId);
         if ($response->isError()) {
@@ -72,7 +72,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      */
     public function authorizePayment(string $orderId, Mage_Sales_Model_Quote $quote): void
     {
-        $api = $this->getHelper()->getApi();
+        $api = $this->getHelper()->getApi()->setStore($quote->getStore());
         $response = $api->authorizeOrder($orderId, $quote);
         $result = $response->getResult();
 
@@ -95,7 +95,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      */
     public function reauthorizePayment(string $orderId, Mage_Sales_Model_Order $order): string
     {
-        $api = $this->getHelper()->getApi();
+        $api = $this->getHelper()->getApi()->setStore($order->getStore());
         $response = $this->_requireApiResponse(
             $api->reAuthorizeOrder($orderId, $order),
             'Reauthorization failed',
@@ -131,17 +131,19 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
     public function processRefund(Varien_Object $payment, $amount): static
     {
         try {
-            $amount = (float) $amount;
             $order  = $payment->getOrder();
+            $amount = $this->_resolveRefundAmount($payment, (float) $amount);
 
             $this->_assertRefundable($payment, $amount);
 
-            $response = $this->getHelper()->getApi()->refundCapturedPayment(
-                $payment->getParentTransactionId(),
-                $amount,
-                $order->getOrderCurrencyCode(),
-                $order,
-            );
+            $response = $this->getHelper()->getApi()
+                ->setStore($order->getStore())
+                ->refundCapturedPayment(
+                    $payment->getParentTransactionId(),
+                    $amount,
+                    $order->getOrderCurrencyCode(),
+                    $order,
+                );
 
             if ($response->isError()) {
                 throw new Mage_Paypal_Model_Exception($response->getResult()->getMessage());
@@ -160,6 +162,26 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
         }
 
         return $this;
+    }
+
+    /**
+     * Resolve the refund amount in the currency PayPal actually captured.
+     *
+     * Magento hands the refund method the credit memo's base-currency total,
+     * but PayPal charged in the order currency. Use the credit memo's
+     * order-currency grand total, falling back to converting the base amount
+     * with the order's exchange rate when no credit memo is in context.
+     */
+    private function _resolveRefundAmount(Varien_Object $payment, float $baseAmount): float
+    {
+        $creditmemo = $payment->getCreditmemo();
+        if ($creditmemo instanceof Mage_Sales_Model_Order_Creditmemo) {
+            return (float) $creditmemo->getGrandTotal();
+        }
+
+        $rate = (float) $payment->getOrder()->getBaseToOrderRate();
+
+        return $rate > 0 ? $baseAmount * $rate : $baseAmount;
     }
 
     /**
@@ -222,7 +244,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
             );
         }
 
-        $api = $this->getHelper()->getApi();
+        $api = $this->getHelper()->getApi()->setStore($order->getStore());
         $response = $api->captureAuthorizedPayment($authorizationId, $order);
 
         if ($response->isError()) {
@@ -248,7 +270,9 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
             : $payment->getTransactionId();
 
         try {
-            $response = $this->getHelper()->getApi()->voidPayment($transactionId, $payment->getOrder());
+            $response = $this->getHelper()->getApi()
+                ->setStore($payment->getOrder()->getStore())
+                ->voidPayment($transactionId, $payment->getOrder());
 
             if ($response->isError()) {
                 throw new Mage_Paypal_Model_Exception($response->getResult()->getMessage());

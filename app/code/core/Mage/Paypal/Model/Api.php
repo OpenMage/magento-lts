@@ -274,6 +274,22 @@ class Mage_Paypal_Model_Api extends Varien_Object
     }
 
     /**
+     * Scope the API client to a specific store.
+     *
+     * Admin, cron and webhook paths have no frontend store context, so the
+     * client must be rebuilt against the order's store to pick up
+     * website-scoped PayPal credentials and sandbox mode.
+     *
+     * @param mixed $store store id or object
+     * @return $this
+     */
+    public function setStore(mixed $store): self
+    {
+        $this->config->setStoreId((int) Mage::app()->getStore($store)->getId());
+        return $this->resetClient();
+    }
+
+    /**
      * Fetch a PayPal REST access token from the SDK OAuth manager.
      */
     public function getAccessToken(): string
@@ -512,7 +528,9 @@ class Mage_Paypal_Model_Api extends Varien_Object
     {
         return [
             'amount' => [
-                'value' => number_format($amount, 2, '.', ''),
+                // PayPal rejects decimals for zero-decimal currencies (JPY,
+                // HUF, TWD); format with the precision PayPal expects.
+                'value' => Mage::helper('paypal')->formatPrice($amount, $currencyCode),
                 'currency_code' => $currencyCode,
             ],
         ];

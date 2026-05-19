@@ -41,7 +41,13 @@ class Mage_Paypal_Model_Config extends Varien_Object
 
     public const BUTTON_LABEL_INSTALLMENT = 'installment';
 
-    protected $_cachedCredentials = null;
+    /**
+     * API credentials cache, keyed by store id so website-scoped
+     * credentials are not leaked across stores.
+     *
+     * @var array<string, array<string, string>>
+     */
+    protected $_cachedCredentials = [];
 
     /**
      * Supported currencies for PayPal transactions
@@ -83,14 +89,20 @@ class Mage_Paypal_Model_Config extends Varien_Object
      */
     public function getApiCredentials(): array
     {
-        if ($this->_cachedCredentials === null) {
-            $this->_cachedCredentials = [
-                'client_id' => $this->getConfigData('client_id'),
-                'client_secret' => Mage::helper('core')->decrypt($this->getConfigData('client_secret')),
+        $storeId = $this->getStoreId();
+        if ($storeId instanceof Mage_Core_Model_Store) {
+            $storeId = $storeId->getId();
+        }
+
+        $storeKey = (string) $storeId;
+        if (!isset($this->_cachedCredentials[$storeKey])) {
+            $this->_cachedCredentials[$storeKey] = [
+                'client_id' => (string) $this->getConfigData('client_id'),
+                'client_secret' => (string) Mage::helper('core')->decrypt($this->getConfigData('client_secret')),
             ];
         }
 
-        return $this->_cachedCredentials;
+        return $this->_cachedCredentials[$storeKey];
     }
 
     /**
@@ -245,7 +257,7 @@ class Mage_Paypal_Model_Config extends Varien_Object
      */
     protected function getConfigData(string $field, mixed $store = null): mixed
     {
-        return Mage::getStoreConfig('payment/paypal/' . $field, $store);
+        return Mage::getStoreConfig('payment/paypal/' . $field, $store ?? $this->getStoreId());
     }
 
     /**

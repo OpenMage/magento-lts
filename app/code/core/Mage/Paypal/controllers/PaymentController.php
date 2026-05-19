@@ -44,6 +44,10 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
             }
 
+            // Enforce checkout agreements before the PayPal order is created,
+            // so the customer is never charged without accepting the terms.
+            $this->_validateCheckoutAgreements();
+
             if (!$this->_getQuote()->hasItems() || $this->_getQuote()->getHasError()) {
                 $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
                 Mage::throwException(Mage::helper('paypal')->__('Unable to initialize Express Checkout.'));
@@ -148,6 +152,10 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
             }
 
+            // Re-check agreements: the place-order form is submitted by JS and
+            // bypasses the normal review.save() agreement enforcement.
+            $this->_validateCheckoutAgreements();
+
             $isNewCustomer = false;
             switch (Mage::getSingleton('checkout/type_onepage')->getCheckoutMethod()) {
                 case Mage_Checkout_Model_Type_Onepage::METHOD_GUEST:
@@ -191,10 +199,25 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
+            Mage::dispatchEvent(
+                'checkout_type_onepage_save_order_after',
+                ['order' => $order, 'quote' => $this->_getQuote()],
+            );
+
             $quotePayment = $this->_getQuote()->getPayment();
             $orderPayment = $order->getPayment();
+
+            // For Authorize orders paypal_correlation_id still holds the PayPal
+            // order id; the real authorization id lives in additional info and
+            // is what the authorization-expiration cron needs as last_trans_id.
+            $authorizationId = (string) $quotePayment->getAdditionalInformation(
+                Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID,
+            );
+            $lastTransId = ($isAuthorize && $authorizationId !== '')
+                ? $authorizationId
+                : (string) $quotePayment->getPaypalCorrelationId();
             $orderPayment->setQuotePaymentId($quotePayment->getId())
-                ->setLastTransId($quotePayment->getPaypalCorrelationId());
+                ->setLastTransId($lastTransId);
             foreach ($quotePayment->getAdditionalInformation() as $key => $value) {
                 $orderPayment->setAdditionalInformation($key, $value);
             }
@@ -258,6 +281,15 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 ->setLastOrderId($order->getId())
                 ->setLastRealOrderId($order->getIncrementId());
             $order->queueNewOrderEmail();
+
+            Mage::dispatchEvent(
+                'checkout_submit_all_after',
+                [
+                    'order' => $order,
+                    'quote' => $this->_getQuote(),
+                    'recurring_profiles' => $service->getRecurringPaymentProfiles(),
+                ],
+            );
 
             $this->_redirect('checkout/onepage/success');
             return;
@@ -498,6 +530,29 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         $this->_getQuote()->getBillingAddress()->setShouldIgnoreValidation(true);
         if (!$this->_getQuote()->getIsVirtual()) {
             $this->_getQuote()->getShippingAddress()->setShouldIgnoreValidation(true);
+        }
+    }
+
+    /**
+     * Ensures every required checkout agreement was accepted.
+     *
+     * The PayPal button bypasses the normal review.save() flow, so the
+     * agreement enforcement that flow performs must be repeated here.
+     *
+     * @throws Mage_Core_Exception when a required agreement is missing
+     */
+    private function _validateCheckoutAgreements(): void
+    {
+        $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
+        if (!$requiredAgreements) {
+            return;
+        }
+
+        $postedAgreements = array_keys($this->getRequest()->getPost('agreement', []));
+        if (array_diff($requiredAgreements, $postedAgreements)) {
+            Mage::throwException(
+                Mage::helper('paypal')->__('Please agree to all the terms and conditions before placing the order.'),
+            );
         }
     }
 
