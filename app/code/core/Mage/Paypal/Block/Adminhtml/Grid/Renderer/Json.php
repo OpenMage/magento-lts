@@ -42,6 +42,7 @@ class Mage_Paypal_Block_Adminhtml_Grid_Renderer_Json extends Mage_Adminhtml_Bloc
     /**
      * Render cell content
      */
+    #[Override]
     public function render(Varien_Object $row): string
     {
         return $this->_formatJson($row->getData($this->getColumn()->getIndex()));

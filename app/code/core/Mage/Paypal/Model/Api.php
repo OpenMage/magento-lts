@@ -56,9 +56,9 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Create a new PayPal order with a pre-built request
      *
-     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote Customer quote or order
-     * @param object $orderRequest Pre-built order request object
-     * @param string $paypalRequestId PayPal request ID
+     * @param  Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote           Customer quote or order
+     * @param  object                                        $orderRequest    Pre-built order request object
+     * @param  string                                        $paypalRequestId PayPal request ID
      * @throws Mage_Paypal_Model_Exception
      */
     public function createOrder(
@@ -86,7 +86,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Authorize payment for a PayPal order
      *
-     * @param string $id PayPal order ID
+     * @param  string                      $id PayPal order ID
      * @throws Mage_Paypal_Model_Exception
      */
     public function authorizeOrder(
@@ -113,7 +113,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Authorize payment for a PayPal order
      *
-     * @param string $id PayPal order ID
+     * @param  string                      $id PayPal order ID
      * @throws Mage_Paypal_Model_Exception
      */
     public function reAuthorizeOrder(
@@ -140,7 +140,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Capture authorized payment for a PayPal order
      *
-     * @param string $id PayPal order ID
+     * @param  string                      $id PayPal order ID
      * @throws Mage_Paypal_Model_Exception
      */
     public function captureAuthorizedPayment(string $id, Mage_Sales_Model_Order $order): ?ApiResponse
@@ -163,9 +163,9 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Capture payment for a PayPal order
      *
-     * @param string $id PayPal order ID
-     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote Customer quote or order
-     * @param string $paypalRequestId PayPal request ID
+     * @param  string                                        $id              PayPal order ID
+     * @param  Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote           Customer quote or order
+     * @param  string                                        $paypalRequestId PayPal request ID
      * @throws Mage_Paypal_Model_Exception
      */
     public function captureOrder(
@@ -195,9 +195,9 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Refund a captured payment
      *
-     * @param string $captureId PayPal capture ID
-     * @param float $amount Amount to refund
-     * @param string $currencyCode Currency code
+     * @param  string                      $captureId    PayPal capture ID
+     * @param  float                       $amount       Amount to refund
+     * @param  string                      $currencyCode Currency code
      * @throws Mage_Paypal_Model_Exception
      */
     public function refundCapturedPayment(
@@ -227,7 +227,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Void an authorization
      *
-     * @param string $authorizationId PayPal authorization ID
+     * @param  string                      $authorizationId PayPal authorization ID
      * @throws Mage_Paypal_Model_Exception
      */
     public function voidPayment(string $authorizationId, Mage_Sales_Model_Order $order): ?ApiResponse

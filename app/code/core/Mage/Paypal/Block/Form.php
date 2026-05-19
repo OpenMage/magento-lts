@@ -17,6 +17,7 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
     /**
      * Initializes the block by setting the payment template.
      */
+    #[Override]
     protected function _construct(): void
     {
         parent::_construct();
@@ -74,12 +75,10 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
 
     /**
      * Retrieves the grand total amount from the current quote.
-     *
-     * @return float
      */
-    public function getAmount()
+    public function getAmount(): float
     {
-        return $this->getMethod()->getQuote()->getGrandTotal();
+        return (float) $this->getMethod()->getQuote()->getGrandTotal();
     }
 
     /**

@@ -17,6 +17,7 @@ class Mage_Paypal_Block_Info extends Mage_Payment_Block_Info
     /**
      * Initializes the block by setting the payment template.
      */
+    #[Override]
     protected function _construct(): void
     {
         parent::_construct();

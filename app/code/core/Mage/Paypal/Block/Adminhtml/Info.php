@@ -17,6 +17,7 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
     /**
      * Initializes the payment information block by setting the template.
      */
+    #[Override]
     protected function _construct(): void
     {
         parent::_construct();
@@ -73,7 +74,7 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
     /**
      * Formats a given UTC expiration timestamp to the store's local timezone.
      *
-     * @param string $expirationTime the expiration timestamp in UTC
+     * @param  string $expirationTime the expiration timestamp in UTC
      * @return string the formatted date and time string
      */
     protected function formatExpirationDate(string $expirationTime): string

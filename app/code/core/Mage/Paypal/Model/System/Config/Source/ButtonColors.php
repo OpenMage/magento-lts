@@ -11,6 +11,9 @@ declare(strict_types=1);
 
 class Mage_Paypal_Model_System_Config_Source_ButtonColors
 {
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public function toOptionArray(): array
     {
         return [

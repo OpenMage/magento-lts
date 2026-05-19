@@ -9,8 +9,6 @@
 
 declare(strict_types=1);
 
-use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
-
 /**
  * PayPal Payment Method Model
  *
@@ -46,8 +44,8 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Create PayPal order via API
      *
-     * @param Mage_Sales_Model_Quote $quote Customer quote
-     * @param null|string $fundingSource Funding source for the order, e.g., 'mybank'
+     * @param  Mage_Sales_Model_Quote                            $quote         Customer quote
+     * @param  null|string                                       $fundingSource Funding source for the order, e.g., 'mybank'
      * @return array{success: bool, id?: string, error?: string}
      * @throws Mage_Paypal_Model_Exception
      */
@@ -59,7 +57,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Capture PayPal payment via API
      *
-     * @param string $orderId PayPal order ID
+     * @param  string                      $orderId PayPal order ID
      * @throws Mage_Paypal_Model_Exception
      */
     public function captureOrder(string $orderId, Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote): void
@@ -70,7 +68,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Authorize PayPal payment via API
      *
-     * @param string $orderId PayPal order ID
+     * @param  string                      $orderId PayPal order ID
      * @throws Mage_Paypal_Model_Exception
      */
     public function authorizePayment(string $orderId, Mage_Sales_Model_Quote $quote): void
@@ -81,8 +79,8 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Reauthorize a payment after the initial authorization has expired
      *
-     * @param string $orderId PayPal order ID
-     * @param Mage_Sales_Model_Order $order Magento order
+     * @param string                 $orderId PayPal order ID
+     * @param Mage_Sales_Model_Order $order   Magento order
      */
     public function reauthorizePayment(string $orderId, Mage_Sales_Model_Order $order): string
     {
@@ -92,6 +90,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Validate payment method information object
      */
+    #[Override]
     public function validate(): static
     {
         parent::validate();
@@ -101,10 +100,11 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Refund payment method
      *
-     * @param Varien_Object $payment Payment object
-     * @param float $amount Refund amount
+     * @param  Varien_Object               $payment Payment object
+     * @param  float                       $amount  Refund amount
      * @throws Mage_Paypal_Model_Exception
      */
+    #[Override]
     public function refund(Varien_Object $payment, $amount): static
     {
         $this->getPaymentProcessor()->processRefund($payment, $amount);
@@ -114,10 +114,11 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Capture payment method
      *
-     * @param Varien_Object $payment Payment object
-     * @param float $amount Capture amount
+     * @param  Varien_Object               $payment Payment object
+     * @param  float                       $amount  Capture amount
      * @throws Mage_Paypal_Model_Exception
      */
+    #[Override]
     public function capture(Varien_Object $payment, $amount): static
     {
         $this->getPaymentProcessor()->processCapture($payment, $amount);
@@ -127,9 +128,10 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Void payment method
      *
-     * @param Varien_Object $payment Payment object
+     * @param  Varien_Object               $payment Payment object
      * @throws Mage_Paypal_Model_Exception
      */
+    #[Override]
     public function void(Varien_Object $payment): static
     {
         $this->getPaymentProcessor()->processVoid($payment);
@@ -139,9 +141,10 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Cancel payment method
      *
-     * @param Varien_Object $payment Payment object
+     * @param  Varien_Object               $payment Payment object
      * @throws Mage_Paypal_Model_Exception
      */
+    #[Override]
     public function cancel(Varien_Object $payment): static
     {
         $this->getPaymentProcessor()->processCancel($payment);
@@ -153,6 +156,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      *
      * @param null|Mage_Sales_Model_Quote $quote
      */
+    #[Override]
     public function isAvailable($quote = null): bool
     {
         if (!$this->getConfigData('client_id') || !$this->getConfigData('client_secret')) {

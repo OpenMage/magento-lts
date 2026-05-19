@@ -12,6 +12,9 @@ use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 
 class Mage_Paypal_Model_System_Config_Source_PaymentActions
 {
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public function toOptionArray(): array
     {
         return [

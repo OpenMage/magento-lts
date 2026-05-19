@@ -95,6 +95,7 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
     /**
      * Checks if the current user has permission to access this controller.
      */
+    #[Override]
     protected function _isAllowed(): bool
     {
         return Mage::getSingleton('admin/session')->isAllowed('report/paypal/debug');

@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 class Mage_Paypal_Model_System_Config_Backend_MerchantCountry extends Mage_Core_Model_Config_Data
 {
+    #[Override]
     protected function _beforeSave(): Mage_Core_Model_Config_Data
     {
         $value = $this->getValue();

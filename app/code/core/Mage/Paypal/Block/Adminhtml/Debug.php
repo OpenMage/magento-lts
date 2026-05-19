@@ -28,7 +28,7 @@ class Mage_Paypal_Block_Adminhtml_Debug extends Mage_Adminhtml_Block_Widget_Grid
         $this->_controller = 'adminhtml_debug';
         $this->_headerText = Mage::helper('paypal')->__('PayPal Debug Log');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
 
         $this->_addButton('delete_all', [
             'label'   => Mage::helper('paypal')->__('Delete All Logs'),

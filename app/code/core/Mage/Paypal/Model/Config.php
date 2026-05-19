@@ -166,7 +166,7 @@ class Mage_Paypal_Model_Config extends Varien_Object
     /**
      * Retrieves a specific configuration value from the store config.
      *
-     * @param string $field the configuration field to retrieve
+     * @param string     $field the configuration field to retrieve
      * @param null|mixed $store the store ID or object
      */
     protected function getConfigData(string $field, mixed $store = null): mixed

@@ -9,8 +9,6 @@ declare(strict_types=1);
  * @package    Mage_Paypal
  */
 
-declare(strict_types=1);
-
 /**
  * PayPal Debug Model
  */

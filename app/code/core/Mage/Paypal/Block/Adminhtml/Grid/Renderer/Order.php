@@ -14,6 +14,7 @@ class Mage_Paypal_Block_Adminhtml_Grid_Renderer_Order extends Mage_Adminhtml_Blo
     /**
      * Render order link
      */
+    #[Override]
     public function render(Varien_Object $row): string
     {
         $incrementId = $row->getData($this->getColumn()->getIndex());

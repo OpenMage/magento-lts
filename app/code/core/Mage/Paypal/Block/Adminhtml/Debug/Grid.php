@@ -29,6 +29,7 @@ class Mage_Paypal_Block_Adminhtml_Debug_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareCollection(): self
     {
         $collection = Mage::getModel('paypal/debug')->getCollection();
@@ -41,6 +42,7 @@ class Mage_Paypal_Block_Adminhtml_Debug_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareColumns(): self
     {
         $this->addColumn('entity_id', [
@@ -105,6 +107,7 @@ class Mage_Paypal_Block_Adminhtml_Debug_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareMassaction(): self
     {
         $this->setMassactionIdField('entity_id');
