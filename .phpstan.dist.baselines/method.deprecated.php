@@ -267,24 +267,6 @@ since 1.8.2.0 use child block catalog.topnav.renderer instead',
     'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Html/Topmenu.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getFormated() of class Mage_Customer_Model_Address_Abstract:
-for public function format',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Review.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method setJoinFlag() of class Mage_Tag_Model_Resource_Product_Collection:
 after 1.3.2.3',
     'count' => 3,

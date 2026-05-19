@@ -273,21 +273,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/paypal/system/config/api_wizard.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/paypal/system/config/bml_api_wizard.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/promo/fieldset.phtml',
 ];
@@ -1053,51 +1038,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/bml.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string>|string) of echo cannot be converted to string.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/express/review.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/express/review.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string>|string) of echo cannot be converted to string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/express/shortcut.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string>|string) of echo cannot be converted to string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/hss/redirect.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/partner/logo.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string>|string) of echo cannot be converted to string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/payflowadvanced/redirect.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string>|string) of echo cannot be converted to string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/payflowlink/redirect.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/payment/mark.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
     'count' => 9,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/persistent/checkout/onepage/billing.phtml',
 ];
@@ -1565,36 +1505,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/oauth/authorize/form/login-simple.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/paypal/bml.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string>|string) of echo cannot be converted to string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/paypal/express/minicart/shortcut.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string>|string) of echo cannot be converted to string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/paypal/express/product/shortcut.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string>|string) of echo cannot be converted to string.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/paypal/express/review.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/paypal/express/review.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 10,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/paypal/express/review/address.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string>|string) of echo cannot be converted to string.',

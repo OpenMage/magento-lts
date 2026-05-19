@@ -622,16 +622,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paygate/Model/Resource/Authorizenet/Debug/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends generic class Mage_Core_Model_Resource_Db_Collection_Abstract but does not specify its types: T',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Resource/Payment/Transaction/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends generic class Mage_Core_Model_Resource_Db_Collection_Abstract but does not specify its types: T',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Resource/Report/Settlement/Row/Collection.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Class Mage_ProductAlert_Model_Resource_Price_Collection extends generic class Mage_Core_Model_Resource_Db_Collection_Abstract but does not specify its types: T',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ProductAlert/Model/Resource/Price/Collection.php',

@@ -174,17 +174,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Payflowlink/Info.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in ||, string|false given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflow/Request.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, string|null given on the left side.',

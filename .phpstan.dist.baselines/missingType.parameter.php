@@ -1202,11 +1202,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global::getElementOriginalData() has parameter $key with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Global.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Paypal_Model_Config::isMethodSupportedForCountry() has parameter $countryCode with no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
@@ -1215,31 +1210,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Paypal_Model_Config::isMethodSupportedForCountry() has parameter $method with no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Direct::__construct() has parameter $params with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Direct.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Express::__construct() has parameter $params with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Express_Checkout::_prepareShippingOptions() has parameter $calculateTax with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Standard::createFormBlock() has parameter $name with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Standard.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_System_Config_Source_BuyerCountry::toOptionArray() has parameter $isMultiselect with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/System/Config/Source/BuyerCountry.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Paypal_Model_System_Config_Source_MerchantCountry::toOptionArray() has parameter $isMultiselect with no type specified.',

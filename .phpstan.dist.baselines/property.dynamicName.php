@@ -107,11 +107,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Address/Api/V2.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Variable property access on Mage_Paypal_Model_Config|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Variable property access on $this(Mage_Paypal_Model_Cart).',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
@@ -120,21 +115,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Variable property access on $this(Mage_Paypal_Model_Config).',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Variable property access on Mage_Paypal_Model_Config.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Direct.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Variable property access on Mage_Paypal_Model_Config.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Variable property access on Mage_Paypal_Model_Config.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Standard.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable property access on Mage_Core_Model_Config_Element|false.',

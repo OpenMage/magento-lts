@@ -22,11 +22,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Customer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only numeric types are allowed in -, int<0, max>|false given on the right side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only numeric types are allowed in -, Mage_Core_Model_Config_Element given on the right side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Persistent/Model/Session.php',
