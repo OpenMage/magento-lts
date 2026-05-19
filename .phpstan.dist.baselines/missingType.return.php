@@ -5782,31 +5782,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Recurring/Profile/MethodInterface.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Cart::_applyHiddenTaxWorkaround() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Cart::_render() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Cart::_validate() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::exportExpressCheckoutStyleSettings() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_System_Config_Source_MerchantCountry::toOptionArray() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Persistent_Helper_Session::setRememberMeChecked() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Persistent/Helper/Session.php',

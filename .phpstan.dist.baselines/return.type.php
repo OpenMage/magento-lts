@@ -2377,14 +2377,19 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Cc.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Cart::getSalesEntity() should return Mage_Sales_Model_Quote but returns Mage_Sales_Model_Order|Mage_Sales_Model_Quote.',
+    'rawMessage' => 'Method Mage_Paypal_Block_Adminhtml_Grid_Renderer_Json::_formatJson() should return string but returns string|null.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Grid/Renderer/Json.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::getMethodCode() should return string but returns string|null.',
+    'rawMessage' => 'Method Mage_Paypal_Block_Adminhtml_Grid_Renderer_Order::render() should return string but returns array<string|null>|string|null.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Grid/Renderer/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Paypal_Model_Cart::getQuote() should return Mage_Sales_Model_Order|Mage_Sales_Model_Quote but returns Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_ProductAlert_Block_Email_Abstract::_getFilteredProductShortDescription() should return string|null but returns array|float|int|string|false|null.',

@@ -2399,12 +2399,32 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Helper/Data.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Debug/Grid/Renderer/Message.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/System/Config/Backend/MerchantCountry.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Debug/Grid/Renderer/Request.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Debug/Grid/Renderer/Response.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Grid/Renderer/Json.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Grid/Renderer/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 7,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Helper.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',

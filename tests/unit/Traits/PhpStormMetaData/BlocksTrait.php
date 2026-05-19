@@ -1110,6 +1110,16 @@ use Mage_Payment_Block_Info_Ccsave;
 use Mage_Payment_Block_Info_Checkmo;
 use Mage_Payment_Block_Info_Container;
 use Mage_Payment_Block_Info_Purchaseorder;
+use Mage_Paypal_Block_Adminhtml_Debug;
+use Mage_Paypal_Block_Adminhtml_Debug_Grid;
+use Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Message;
+use Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Request;
+use Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Response;
+use Mage_Paypal_Block_Adminhtml_Grid_Renderer_Json;
+use Mage_Paypal_Block_Adminhtml_Grid_Renderer_Order;
+use Mage_Paypal_Block_Adminhtml_Info;
+use Mage_Paypal_Block_Form;
+use Mage_Paypal_Block_Info;
 use Mage_Persistent_Block_Form_Remember;
 use Mage_Persistent_Block_Header_Additional;
 use Mage_ProductAlert_Block_Email_Abstract;
@@ -2375,6 +2385,16 @@ trait BlocksTrait
             'payment/info_checkmo' => Mage_Payment_Block_Info_Checkmo::class,
             'payment/info_container' => Mage_Payment_Block_Info_Container::class,
             'payment/info_purchaseorder' => Mage_Payment_Block_Info_Purchaseorder::class,
+            'paypal/adminhtml_debug' => Mage_Paypal_Block_Adminhtml_Debug::class,
+            'paypal/adminhtml_debug_grid' => Mage_Paypal_Block_Adminhtml_Debug_Grid::class,
+            'paypal/adminhtml_debug_grid_renderer_message' => Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Message::class,
+            'paypal/adminhtml_debug_grid_renderer_request' => Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Request::class,
+            'paypal/adminhtml_debug_grid_renderer_response' => Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Response::class,
+            'paypal/adminhtml_grid_renderer_json' => Mage_Paypal_Block_Adminhtml_Grid_Renderer_Json::class,
+            'paypal/adminhtml_grid_renderer_order' => Mage_Paypal_Block_Adminhtml_Grid_Renderer_Order::class,
+            'paypal/adminhtml_info' => Mage_Paypal_Block_Adminhtml_Info::class,
+            'paypal/form' => Mage_Paypal_Block_Form::class,
+            'paypal/info' => Mage_Paypal_Block_Info::class,
             'persistent/form_remember' => Mage_Persistent_Block_Form_Remember::class,
             'persistent/header_additional' => Mage_Persistent_Block_Header_Additional::class,
             'productalert/email_abstract' => Mage_ProductAlert_Block_Email_Abstract::class,

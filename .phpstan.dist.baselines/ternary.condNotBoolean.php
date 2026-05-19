@@ -957,29 +957,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Cc.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',
+    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, PaypalServerSdkLib\\Models\\Money|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, int given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, array<string, string> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, int<0, max>|false given.',

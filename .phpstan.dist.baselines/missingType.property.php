@@ -2712,6 +2712,71 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Purchaseorder.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Config::$_cachedCredentials has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Exception::$_debugData has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Exception.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Paypal::$_canAuthorize has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Paypal::$_canCapture has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Paypal::$_canRefund has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Paypal::$_canRefundInvoicePartial has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Paypal::$_canUseCheckout has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Paypal::$_canUseForMultishipping has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Paypal::$_canUseInternal has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Paypal::$_canVoid has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Paypal::$_code has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Paypal::$_formBlockType has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Paypal_Model_Paypal::$_infoBlockType has no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Reports_Model_Event_Observer::$_enabledReports has no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Event/Observer.php',

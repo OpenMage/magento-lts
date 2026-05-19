@@ -1352,14 +1352,19 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, float|int<0, max> given on the right side.',
+    'rawMessage' => 'Only booleans are allowed in &&, mixed given on the right side.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Helper.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, mixed given on the right side.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'rawMessage' => 'Only booleans are allowed in &&, string|null given on the right side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Helper.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in &&, int|string|null given on the right side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, Mage_Core_Model_Layout given on the right side.',

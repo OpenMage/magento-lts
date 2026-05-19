@@ -19312,104 +19312,64 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Source/Cctype.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Paypal_Block_Adminhtml_Info::getPaymentInfo() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Info.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Paypal_Block_Form::getButtonConfig() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Form.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Paypal_Model_Cart::__construct() has parameter $params with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Cart::getItems() return type has no value type specified in iterable type array.',
+    'rawMessage' => 'Method Mage_Paypal_Model_Cart::getAllItems() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Cart::getTotals() return type has no value type specified in iterable type array.',
+    'rawMessage' => 'Method Mage_Paypal_Model_Cart::getAmounts() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Cart::$_totalLineItemDescriptions type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Cart::$_totals type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::__construct() has parameter $params with no value type specified in iterable type array.',
+    'rawMessage' => 'Property Mage_Paypal_Model_Config::$_supportedCurrencies type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::getCountryMethods() return type has no value type specified in iterable type array.',
+    'rawMessage' => 'Method Mage_Paypal_Model_Exception::getDebugData() return type has no value type specified in iterable type array.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Exception.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::getPayflowproCcTypesAsOptionArray() return type has no value type specified in iterable type array.',
+    'rawMessage' => 'Method Mage_Paypal_Model_Helper::_extractDetailedError() has parameter $result with no value type specified in iterable type array.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Helper.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::getSupportedBuyerCountryCodes() return type has no value type specified in iterable type array.',
+    'rawMessage' => 'Method Mage_Paypal_Model_Helper::_extractFromArrayResponse() has parameter $result with no value type specified in iterable type array.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Helper.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::getSupportedMerchantCountryCodes() return type has no value type specified in iterable type array.',
+    'rawMessage' => 'Method Mage_Paypal_Model_Helper::logDebug() has parameter $request with no value type specified in iterable type array.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Helper.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::getWppCcTypesAsOptionArray() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'rawMessage' => 'Method Mage_Paypal_Model_Order::reconcileCartForPaypal() return type has no value type specified in iterable type array.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::getWppPeCcTypesAsOptionArray() return type has no value type specified in iterable type array.',
+    'rawMessage' => 'Method Mage_Paypal_Model_System_Config_Source_MerchantCountry::toOptionArray() return type has no value type specified in iterable type array.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Config::$_buildNotationPPMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Config::$_config type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Config::$_ecStyleConfigMap type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Config::$_supportedBuyerCountryCodes type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Config::$_supportedCountryCodes type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Config::$_supportedCurrencyCodes type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Config::$_supportedImageLocales type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_System_Config_Source_PaymentActions::toOptionArray() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/System/Config/Source/PaymentActions.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Persistent_Model_Persistent_Config::collectInstancesToEmulate() return type has no value type specified in iterable type array.',

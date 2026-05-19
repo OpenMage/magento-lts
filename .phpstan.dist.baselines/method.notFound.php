@@ -1357,9 +1357,24 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Object::isNominal().',
+    'rawMessage' => 'Call to an undefined method object::getAddress().',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method object::getEmailAddress().',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method object::getName().',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Sales_Model_Order|Mage_Sales_Model_Quote::collectTotals().',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::deleteAggregatedRatingsByProductId().',

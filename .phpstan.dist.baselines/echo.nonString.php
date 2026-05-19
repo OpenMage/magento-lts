@@ -274,6 +274,11 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
     'count' => 1,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/paypal/info.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
+    'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/promo/fieldset.phtml',
 ];
 $ignoreErrors[] = [

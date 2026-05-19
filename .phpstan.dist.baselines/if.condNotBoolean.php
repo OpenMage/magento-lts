@@ -6537,34 +6537,24 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, float given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+    'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
+    'count' => 3,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Info.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, string given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+    'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Resource/Debug/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, array given.',
+    'rawMessage' => 'Only booleans are allowed in an if condition, int|string|null given.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, float given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Transaction.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Checkout_Model_Session given.',
@@ -8852,6 +8842,16 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/info/pdf/default.phtml',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, array given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/paypal/info.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/paypal/info.phtml',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Reports_Model_Resource_Report_Collection given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/grid.phtml',
@@ -9810,6 +9810,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, array given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/payment/info/default.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/info.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, int given.',

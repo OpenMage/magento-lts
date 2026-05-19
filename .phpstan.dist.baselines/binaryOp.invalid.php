@@ -337,6 +337,26 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paygate/Model/Authorizenet.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Binary operation "." between \'<span data-copy…\' and array<string|null>|string|null results in an error.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Debug/Grid/Renderer/Message.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Binary operation "." between non-falsy-string and array<string|null>|string|null results in an error.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Debug/Grid/Renderer/Message.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Binary operation "." between \'<div data-copy-text…\' and array<string|null>|string|null results in an error.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Debug/Grid/Renderer/Request.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Binary operation "." between \'<div data-copy-text…\' and array<string|null>|string|null results in an error.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Debug/Grid/Renderer/Response.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Binary operation "." between \'<br/> Coupon Code: \' and array<string|null>|string|null results in an error.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Rss/Block/Catalog/Salesrule.php',

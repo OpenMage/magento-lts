@@ -4947,14 +4947,114 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getAmount() on Varien_Object|void.',
+    'rawMessage' => 'Cannot call method collectTotals() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getId() on Varien_Object|void.',
+    'rawMessage' => 'Cannot call method getAllVisibleItems() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getDiscountAmount() on Mage_Sales_Model_Order_Address|Mage_Sales_Model_Quote_Address|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getOrderCurrencyCode() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getQuoteCurrencyCode() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getShippingAddress() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getShippingAmount() on Mage_Sales_Model_Order_Address|Mage_Sales_Model_Quote_Address|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getSubtotal() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getTaxAmount() on Mage_Sales_Model_Order_Address|Mage_Sales_Model_Quote_Address|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cron.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method setAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cron.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getResult() on PaypalServerSdkLib\\Http\\ApiResponse|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method isError() on PaypalServerSdkLib\\Http\\ApiResponse|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getResult() on PaypalServerSdkLib\\Http\\ApiResponse|null.',
+    'count' => 6,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method isError() on PaypalServerSdkLib\\Http\\ApiResponse|null.',
+    'count' => 6,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method save() on Mage_Sales_Model_Order_Payment|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method setAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
+    'count' => 3,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getIsTransactionClosed() on Mage_Sales_Model_Order_Payment|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method save() on Mage_Sales_Model_Order_Payment|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method setAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method setQuotePaymentId() on Mage_Sales_Model_Order_Payment|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getModuleDir() on Mage_Core_Model_Config|null.',

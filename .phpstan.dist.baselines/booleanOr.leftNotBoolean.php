@@ -172,11 +172,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Info/Cc.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in ||, mixed given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, string|null given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php',

@@ -1202,19 +1202,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::isMethodSupportedForCountry() has parameter $countryCode with no type specified.',
+    'rawMessage' => 'Method Mage_Paypal_Model_Exception::__construct() has parameter $debugData with no type specified.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Exception.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::isMethodSupportedForCountry() has parameter $method with no type specified.',
+    'rawMessage' => 'Method Mage_Paypal_Model_Exception::__construct() has parameter $message with no type specified.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_System_Config_Source_MerchantCountry::toOptionArray() has parameter $isMultiselect with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Exception.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Abstract::getTrackingInfo() has parameter $tracking with no type specified.',

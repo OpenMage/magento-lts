@@ -85,29 +85,6 @@ since 1.7.0.0 (used in adminhtml/default/default/layout/main.xml)',
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Access to constant on deprecated class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global:
-since 1.7.0.1',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Access to constant on deprecated class Mage_Paypal_Block_Logo.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Access to constant on deprecated class Mage_Paypal_Block_Payflow_Advanced_Review:
-since 1.6.2.0',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Access to constant on deprecated class Mage_Paypal_Block_Payflow_Link_Review:
-since 1.6.2.0',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Access to constant on deprecated class Mage_ProductAlert_Block_Price:
 after 1.4.1.0',
     'count' => 1,
