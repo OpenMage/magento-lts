@@ -167,7 +167,6 @@ class Mage_Paypal_Model_Webhook_Processor
             $captureId,
             Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE,
             null,
-            true,
             $event,
         );
 
@@ -179,6 +178,8 @@ class Mage_Paypal_Model_Webhook_Processor
         $isFullCapture = $captureAmount !== null
             && abs($captureAmount - (float) $order->getGrandTotal()) < 0.01;
 
+        $message = Mage::helper('paypal')->__('PayPal webhook confirmed capture. Capture ID: %s', $captureId);
+
         if ($isFullCapture && !$this->hasInvoiceForTransaction($order, $captureId) && $order->canInvoice()) {
             $invoice = $order->prepareInvoice();
             $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
@@ -189,16 +190,12 @@ class Mage_Paypal_Model_Webhook_Processor
                 ->addObject($invoice)
                 ->addObject($order)
                 ->save();
-
-            $message = Mage::helper('paypal')->__('PayPal webhook confirmed capture. Capture ID: %s', $captureId);
         } elseif ($captureAmount !== null && !$isFullCapture) {
             $message = Mage::helper('paypal')->__(
                 'PayPal webhook confirmed a partial capture. Capture ID: %s. '
                 . 'Create the invoice manually for the captured items.',
                 $captureId,
             );
-        } else {
-            $message = Mage::helper('paypal')->__('PayPal webhook confirmed capture. Capture ID: %s', $captureId);
         }
 
         $order->addStatusHistoryComment($message, false)->save();
@@ -245,7 +242,6 @@ class Mage_Paypal_Model_Webhook_Processor
             $refundId,
             Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND,
             (string) $event->getData('paypal_capture_id') ?: null,
-            true,
             $event,
         );
 
@@ -270,7 +266,6 @@ class Mage_Paypal_Model_Webhook_Processor
                 $reversalId . '-reversal',
                 Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID,
                 (string) $event->getData('paypal_capture_id') ?: null,
-                true,
                 $event,
             );
         }
@@ -333,7 +328,6 @@ class Mage_Paypal_Model_Webhook_Processor
         string $transactionId,
         string $transactionType,
         ?string $parentTransactionId,
-        bool $isClosed,
         Mage_Paypal_Model_Webhook_Event $event
     ): void {
         $transaction = Mage::getModel('sales/order_payment_transaction')->loadByTxnId($transactionId);
@@ -347,7 +341,7 @@ class Mage_Paypal_Model_Webhook_Processor
             }
         }
 
-        $transaction->setIsClosed($isClosed ? 1 : 0)
+        $transaction->setIsClosed(1)
             ->setAdditionalInformation('paypal_webhook_event_id', $event->getData('webhook_event_id'))
             ->save();
     }

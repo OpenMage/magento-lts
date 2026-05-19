@@ -9,7 +9,6 @@
 
 declare(strict_types=1);
 
-use Carbon\Carbon;
 use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 
 /**
@@ -219,7 +218,10 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 $date->setTimezone(new DateTimeZone($storeTimezone));
 
                 $order->addStatusHistoryComment(
-                    Mage::helper('paypal')->__('Paypal payment has been authorized, capture is required before date ' . $date->format('Y-m-d H:i:s')),
+                    Mage::helper('paypal')->__(
+                        'Paypal payment has been authorized, capture is required before date %s',
+                        $date->format('Y-m-d H:i:s'),
+                    ),
                     false,
                 );
                 $order->setState(
@@ -392,7 +394,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         $customer->setSuffix($quote->getCustomerSuffix());
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
-        $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
+        $customer->setPasswordCreatedAt(time());
         $customer->save();
 
         $quote->setCustomer($customer);

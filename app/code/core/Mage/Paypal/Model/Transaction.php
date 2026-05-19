@@ -108,7 +108,6 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
             );
         $transaction->save();
 
-        // Close the parent authorization transaction.
         $authTxn = $this->getTransaction()->loadByTxnId($authorizationId);
         if ($authTxn->getId()) {
             $authTxn->setIsClosed(1);
