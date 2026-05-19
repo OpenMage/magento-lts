@@ -15,6 +15,13 @@ declare(strict_types=1);
 class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
+     * Currencies PayPal does not accept decimal amounts for.
+     *
+     * @var string[]
+     */
+    private const ZERO_DECIMAL_CURRENCIES = ['HUF', 'JPY', 'TWD'];
+
+    /**
      * Retrieves the PayPal configuration model, optionally for a specific store.
      *
      * @param mixed $store the store ID or object
@@ -37,7 +44,8 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieves the configuration settings for the PayPal button, optionally for a specific store.
      *
-     * @param mixed $store the store ID or object
+     * @param  mixed                      $store the store ID or object
+     * @return array<string, bool|string>
      */
     public function getButtonConfig(mixed $store = null): array
     {
@@ -45,20 +53,35 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Formats a numeric price into a string with two decimal places, suitable for the PayPal API.
+     * Returns the number of decimal places PayPal expects for the given currency.
      *
-     * @param float $amount the price amount to format
+     * PayPal rejects amounts with decimals for HUF, JPY and TWD.
      */
-    public function formatPrice(float $amount): string
+    public function getCurrencyDecimals(string $currency): int
     {
-        return number_format($amount, 2, '.', '');
+        return in_array(strtoupper($currency), self::ZERO_DECIMAL_CURRENCIES, true) ? 0 : 2;
+    }
+
+    /**
+     * Formats a numeric price into a string suitable for the PayPal API.
+     *
+     * When a currency code is supplied the precision matches what PayPal
+     * expects for that currency; otherwise two decimal places are used.
+     *
+     * @param float  $amount   the price amount to format
+     * @param string $currency optional ISO currency code controlling precision
+     */
+    public function formatPrice(float $amount, string $currency = ''): string
+    {
+        $decimals = $currency === '' ? 2 : $this->getCurrencyDecimals($currency);
+        return number_format($amount, $decimals, '.', '');
     }
 
     /**
      * Constructs the URL to view a specific transaction in the PayPal merchant dashboard.
      *
      * @param string $transactionId the transaction ID
-     * @param bool $sandbox whether to use the sandbox environment
+     * @param bool   $sandbox       whether to use the sandbox environment
      */
     public function getTransactionUrl(string $transactionId, bool $sandbox = false): string
     {

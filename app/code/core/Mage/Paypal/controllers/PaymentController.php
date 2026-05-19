@@ -9,6 +9,7 @@
 
 declare(strict_types=1);
 
+use Carbon\Carbon;
 use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 
 /**
@@ -59,7 +60,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 $this->_getQuote()->removeAllAddresses();
             }
 
-            $fundingSource = $this->getRequest()->getParam('funding_source');
+            $fundingSource = (string) $this->getRequest()->getParam('funding_source') ?: 'paypal';
 
             $customer = $this->_getCustomerSession()->getCustomer();
             $quoteCheckoutMethod = Mage::getSingleton('checkout/type_onepage')->getCheckoutMethod();
@@ -194,7 +195,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             $orderPayment->save();
 
             $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
-            $isAuthorize = ($paymentAction === strtolower(PaypalServerSdkLib\Models\CheckoutPaymentIntent::AUTHORIZE));
+            $isAuthorize = ($paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE));
             $transaction = Mage::getModel('sales/order_payment_transaction');
             foreach ($orderPayment->getAdditionalInformation() as $key => $value) {
                 $transaction->setAdditionalInformation($key, $value);
@@ -385,7 +386,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         $customer->setSuffix($quote->getCustomerSuffix());
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
-        $customer->setPasswordCreatedAt(time());
+        $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
         $customer->save();
 
         $quote->setCustomer($customer);
@@ -462,7 +463,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
         $customer->loadByEmail($email);
         if (!is_null($customer->getId())) {
-            $result = true;
+            return true;
         }
 
         return $result;

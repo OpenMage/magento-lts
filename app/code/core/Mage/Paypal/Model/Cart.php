@@ -23,42 +23,39 @@ class Mage_Paypal_Model_Cart
 
     public const TOTAL_SHIPPING = 'shipping';
 
-    /**
-     * @var null|Mage_Sales_Model_Order|Mage_Sales_Model_Quote
-     */
-    protected $_quote;
+    public const TOTAL_HANDLING = 'handling';
+
+    protected null|Mage_Sales_Model_Order|Mage_Sales_Model_Quote $_quote = null;
 
     /**
-     * @var array
+     * @var array<string, object>
      */
-    protected $_totals = [];
+    protected array $_totals = [];
 
     /**
-     * @var array
+     * @var array<int, object>
      */
-    protected $_items = [];
+    protected array $_items = [];
 
-    /**
-     * @var null|string
-     */
-    protected $_currency;
+    protected ?string $_currency = null;
 
     /**
      * Initializes the cart model with a sales entity (order or quote).
      *
-     * @throws Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function __construct(array $params = [])
     {
         $salesEntity = array_shift($params);
         if (
-            is_object($salesEntity)
-            && (($salesEntity instanceof Mage_Sales_Model_Order)
-                || ($salesEntity instanceof Mage_Sales_Model_Quote))
+            $salesEntity instanceof Mage_Sales_Model_Order
+            || $salesEntity instanceof Mage_Sales_Model_Quote
         ) {
             $this->_quote = $salesEntity;
         } else {
-            throw new Exception('Invalid sales entity provided.');
+            throw new Mage_Paypal_Model_Exception(
+                Mage::helper('paypal')->__('Invalid sales entity provided.'),
+            );
         }
 
         $this->_validateCurrency();
@@ -88,7 +85,7 @@ class Mage_Paypal_Model_Cart
      */
     public function getAllItems(): array
     {
-        if (empty($this->_items)) {
+        if ($this->_items === []) {
             $this->_prepareItems();
         }
 
@@ -100,7 +97,7 @@ class Mage_Paypal_Model_Cart
      */
     public function getAmounts(): array
     {
-        if (empty($this->_totals)) {
+        if ($this->_totals === []) {
             $this->_prepareTotals();
         }
 
@@ -112,23 +109,24 @@ class Mage_Paypal_Model_Cart
      */
     protected function _prepareItems(): self
     {
+        $helper = Mage::helper('paypal');
         foreach ($this->_quote->getAllVisibleItems() as $item) {
             $taxAmount = $item->getData('tax_amount');
             $qty = $item->getQty();
             $moneyBuilder = MoneyBuilder::init(
                 $this->_currency,
-                number_format($item->getCalculationPrice(), 2, '.', ''),
+                $helper->formatPrice((float) $item->getCalculationPrice(), $this->_currency),
             );
 
             $taxMoneyBuilder = ($taxAmount > 0)
-                ? MoneyBuilder::init($this->_currency, number_format($taxAmount / $qty, 2, '.', ''))
+                ? MoneyBuilder::init($this->_currency, $helper->formatPrice((float) $taxAmount / $qty, $this->_currency))
                 : null;
 
             $itemBuilder = ItemBuilder::init($item->getName(), $moneyBuilder->build(), (string) $qty)
                 ->sku($item->getSku())
                 ->category($item->getIsVirtual() ? ItemCategory::DIGITAL_GOODS : ItemCategory::PHYSICAL_GOODS);
 
-            if ($taxMoneyBuilder) {
+            if ($taxMoneyBuilder instanceof MoneyBuilder) {
                 $itemBuilder->tax($taxMoneyBuilder->build());
             }
 
@@ -150,23 +148,24 @@ class Mage_Paypal_Model_Cart
     {
         $this->_quote->collectTotals()->save();
         $shippingAddress = $this->_quote->getShippingAddress();
-        $totalDiscount = abs($shippingAddress->getDiscountAmount() ?? 0);
+        $totalDiscount = abs((float) ($shippingAddress->getDiscountAmount() ?? 0));
+        $helper = Mage::helper('paypal');
         $this->_totals = [
             self::TOTAL_SUBTOTAL => MoneyBuilder::init(
                 $this->_currency,
-                number_format($this->_quote->getSubtotal(), 2, '.', ''),
+                $helper->formatPrice((float) $this->_quote->getSubtotal(), $this->_currency),
             )->build(),
             self::TOTAL_TAX => MoneyBuilder::init(
                 $this->_currency,
-                number_format($shippingAddress->getTaxAmount() ?? 0, 2, '.', ''),
+                $helper->formatPrice((float) ($shippingAddress->getTaxAmount() ?? 0), $this->_currency),
             )->build(),
             self::TOTAL_SHIPPING => MoneyBuilder::init(
                 $this->_currency,
-                number_format($shippingAddress->getShippingAmount() ?? 0, 2, '.', ''),
+                $helper->formatPrice((float) ($shippingAddress->getShippingAmount() ?? 0), $this->_currency),
             )->build(),
             self::TOTAL_DISCOUNT => MoneyBuilder::init(
                 $this->_currency,
-                number_format($totalDiscount, 2, '.', ''),
+                $helper->formatPrice($totalDiscount, $this->_currency),
             )->build(),
         ];
 
