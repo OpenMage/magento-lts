@@ -9,16 +9,10 @@
 
 declare(strict_types=1);
 
-use PaypalServerSdkLib\Models\Builders\OrdersCaptureBuilder;
 use PaypalServerSdkLib\PaypalServerSdkClientBuilder;
 use PaypalServerSdkLib\Authentication\ClientCredentialsAuthCredentialsBuilder;
 use PaypalServerSdkLib\Environment;
 use PaypalServerSdkLib\Http\ApiResponse;
-use PaypalServerSdkLib\Models\Builders\NameBuilder;
-use PaypalServerSdkLib\Models\Builders\OrderBuilder;
-use PaypalServerSdkLib\Models\Builders\PayerBuilder;
-use PaypalServerSdkLib\Models\Builders\PaymentCollectionBuilder;
-use PaypalServerSdkLib\Models\Builders\PurchaseUnitBuilder;
 use PaypalServerSdkLib\PaypalServerSdkClient;
 
 /**
@@ -194,12 +188,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
 
             return $response;
         } catch (Exception $exception) {
-            if ($this->_isPhoneNumberMappingError($exception)) {
-                $response = $this->_handlePhoneNumberMappingError($id, $quote, $exception);
-                $this->helper->logDebug('Manual Capture Order', $quote, $request, $response);
-                return $response;
-            }
-
             $this->_logAndThrowError('Capture Order Error', $exception);
         }
     }
@@ -394,192 +382,5 @@ class Mage_Paypal_Model_Api extends Varien_Object
     {
         $this->helper->logError($message, $e);
         throw $e;
-    }
-
-    /**
-     * @TODO: Temporary workaround for PhoneNumberWithCountryCode mapping issues
-     * https://github.com/paypal/PayPal-PHP-Server-SDK/issues/46
-     * Check if exception is related to PhoneNumberWithCountryCode mapping
-     */
-    private function _isPhoneNumberMappingError(Exception $e): bool
-    {
-        return str_contains($e->getMessage(), 'PhoneNumberWithCountryCode')
-            && str_contains($e->getMessage(), 'countryCode');
-    }
-
-    /**
-     * Handle PhoneNumberWithCountryCode mapping error by making raw API call
-     */
-    private function _handlePhoneNumberMappingError(
-        string $orderId,
-        Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote,
-        Exception $originalException
-    ): ApiResponse {
-        try {
-            $rawResponse = $this->_makeRawApiCall($orderId);
-            $processedResponse = $this->_processPhoneNumberFields($rawResponse);
-
-            $this->helper->logDebug('Capture Order (Phone Fix)', $quote, ['id' => $orderId], null);
-            return $this->_createApiResponseFromProcessedData($processedResponse);
-        } catch (Exception $exception) {
-            $this->helper->logError('Failed to handle phone number mapping error', $exception);
-            throw $originalException;
-        }
-    }
-
-    /**
-     * @TODO: Temporary workaround for PhoneNumberWithCountryCode mapping issues
-     * https://github.com/paypal/PayPal-PHP-Server-SDK/issues/46
-     * Make raw API call without SDK model mapping
-     */
-    private function _makeRawApiCall(string $orderId): array
-    {
-        $environment = $this->config->isSandbox() ? 'sandbox' : 'production';
-        $baseUrl = $environment === 'sandbox' ? 'https://api.sandbox.paypal.com' : 'https://api.paypal.com';
-
-        $credentials = $this->config->getApiCredentials();
-        $accessToken = $this->_getAccessToken($credentials);
-
-        $ch = curl_init();
-        curl_setopt_array($ch, [
-            CURLOPT_URL => "{$baseUrl}/v2/checkout/orders/{$orderId}",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                "Authorization: Bearer {$accessToken}",
-                'Content-Type: application/json',
-                'Accept: application/json',
-            ],
-        ]);
-
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        if ($httpCode !== 200) {
-            throw new Exception("API call failed with status: $httpCode" . " and response: {$response}");
-        }
-
-        return json_decode($response, true);
-    }
-
-    /**
-     * @TODO: Temporary workaround for PhoneNumberWithCountryCode mapping issues
-     * https://github.com/paypal/PayPal-PHP-Server-SDK/issues/46
-     * Process phone number fields to handle missing country codes
-     */
-    private function _processPhoneNumberFields(array $responseData): array
-    {
-        array_walk_recursive($responseData, function (&$value, $key) {
-            if ($key === 'phone_number' && is_array($value)) {
-                if (isset($value['national_number']) && !isset($value['country_code'])) {
-                    $value['country_code'] = '1';
-                }
-            }
-        });
-
-        return $responseData;
-    }
-
-    /**
-     * @TODO: Temporary workaround for PhoneNumberWithCountryCode mapping issues
-     * https://github.com/paypal/PayPal-PHP-Server-SDK/issues/46
-     * Create API response from processed data
-     */
-    private function _createApiResponseFromProcessedData(array $processedData): ApiResponse
-    {
-        $purchaseUnits = [];
-        if (!empty($processedData['purchase_units']) && is_array($processedData['purchase_units'])) {
-            foreach ($processedData['purchase_units'] as $purchaseUnit) {
-                $captures = [];
-                if (isset($purchaseUnit['payments']['captures']) && is_array($purchaseUnit['payments']['captures'])) {
-                    foreach ($purchaseUnit['payments']['captures'] as $capture) {
-                        $captures[] = OrdersCaptureBuilder::init()
-                            ->id($capture['id'] ?? null)
-                            ->status($capture['status'] ?? null)
-                            ->build();
-                    }
-                }
-
-                $purchaseUnits[] = PurchaseUnitBuilder::init()
-                    ->payments(
-                        PaymentCollectionBuilder::init()
-                            ->captures($captures)
-                            ->build(),
-                    )
-                    ->build();
-            }
-        }
-
-        $payer = null;
-        if (!empty($processedData['payer'])) {
-            $payerName = null;
-            if (!empty($processedData['payer']['name'])) {
-                $payerName = NameBuilder::init()
-                    ->givenName($processedData['payer']['name']['given_name'] ?? null)
-                    ->surname($processedData['payer']['name']['surname'] ?? null)
-                    ->build();
-            }
-
-            $payer = PayerBuilder::init()
-                ->name($payerName)
-                ->emailAddress($processedData['payer']['email_address'] ?? null)
-                ->payerId($processedData['payer']['payer_id'] ?? null)
-                ->build();
-        }
-
-        $order = OrderBuilder::init()
-            ->createTime($processedData['create_time'] ?? null)
-            ->updateTime($processedData['update_time'] ?? null)
-            ->id($processedData['id'] ?? null)
-            ->payer($payer)
-            ->intent($processedData['intent'] ?? null)
-            ->purchaseUnits($purchaseUnits)
-            ->status($processedData['status'] ?? null)
-            ->links($processedData['links'] ?? [])
-            ->build();
-
-        return new ApiResponse(
-            200,
-            200,
-            null,
-            ['Content-Type' => 'application/json'],
-            $order,
-            json_encode($processedData),
-        );
-    }
-
-    /**
-     * @TODO: Temporary workaround for PhoneNumberWithCountryCode mapping issues
-     * https://github.com/paypal/PayPal-PHP-Server-SDK/issues/46
-     * Get access token for direct API calls
-     */
-    private function _getAccessToken(array $credentials): string
-    {
-        $environment = $this->config->isSandbox() ? 'sandbox' : 'production';
-        $baseUrl = $environment === 'sandbox' ? 'https://api.sandbox.paypal.com' : 'https://api.paypal.com';
-
-        $ch = curl_init();
-        curl_setopt_array($ch, [
-            CURLOPT_URL => "{$baseUrl}/v1/oauth2/token",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
-            CURLOPT_HTTPHEADER => [
-                'Accept: application/json',
-                'Accept-Language: en_US',
-            ],
-            CURLOPT_USERPWD => "{$credentials['client_id']}:{$credentials['client_secret']}",
-        ]);
-
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        if ($httpCode !== 200) {
-            throw new Exception("Token request failed with status: $httpCode");
-        }
-
-        $tokenData = json_decode($response, true);
-        return $tokenData['access_token'];
     }
 }
