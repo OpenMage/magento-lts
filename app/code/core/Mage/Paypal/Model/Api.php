@@ -256,7 +256,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
     public function getClient(): PaypalServerSdkClient
     {
         if (!$this->client instanceof PaypalServerSdkClient) {
-            $this->_initializeClient();
+            $this->client = $this->_initializeClient();
         }
 
         return $this->client;
@@ -278,13 +278,13 @@ class Mage_Paypal_Model_Api extends Varien_Object
      *
      * @throws Mage_Paypal_Model_Exception
      */
-    private function _initializeClient(): void
+    private function _initializeClient(): PaypalServerSdkClient
     {
         try {
             $credentials = $this->config->getApiCredentials();
             $environment = $this->config->isSandbox() ? Environment::SANDBOX : Environment::PRODUCTION;
 
-            $this->client = PaypalServerSdkClientBuilder::init()
+            return PaypalServerSdkClientBuilder::init()
                 ->clientCredentialsAuthCredentials(
                     ClientCredentialsAuthCredentialsBuilder::init(
                         $credentials['client_id'],
@@ -305,7 +305,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      */
     private function _validateQuote(mixed $quote): void
     {
-        if (!$quote || !$quote->hasItems()) {
+        if (!$quote instanceof Varien_Object || !$quote->hasItems()) {
             throw new Mage_Paypal_Model_Exception(self::ERROR_INVALID_QUOTE);
         }
     }
@@ -317,7 +317,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      */
     private function _validateOrderId(string $id): void
     {
-        if (empty($id)) {
+        if ($id === '') {
             throw new Mage_Paypal_Model_Exception(self::ERROR_EMPTY_ORDER_ID);
         }
     }
@@ -329,7 +329,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      */
     private function _validateCaptureId(string $captureId): void
     {
-        if (empty($captureId)) {
+        if ($captureId === '') {
             throw new Mage_Paypal_Model_Exception(self::ERROR_EMPTY_CAPTURE_ID);
         }
     }
@@ -341,7 +341,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      */
     private function _validateAuthorizationId(string $authorizationId): void
     {
-        if (empty($authorizationId)) {
+        if ($authorizationId === '') {
             throw new Mage_Paypal_Model_Exception(self::ERROR_EMPTY_AUTH_ID);
         }
     }
