@@ -106,4 +106,14 @@ final class HelperTest extends OpenMageTest
             self::assertNull($extracted);
         }
     }
+
+    /**
+     * @dataProvider provideRawDetails
+     * @param array<string, string> $expected
+     * @group Model
+     */
+    public function testPrepareRawDetails(string $json, array $expected): void
+    {
+        self::assertSame($expected, self::$subject->prepareRawDetails($json));
+    }
 }

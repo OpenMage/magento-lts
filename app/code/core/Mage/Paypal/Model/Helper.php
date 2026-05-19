@@ -325,21 +325,133 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Prepare raw details for storage
+     * Extract the payment-relevant fields from a PayPal API response for
+     * storage on the transaction record.
      *
-     * @param  string               $details JSON details object
-     * @return array<string, mixed>
+     * Only a whitelist of useful scalar fields is kept; verbose, unbounded or
+     * redundant data (line items, links, payee, raw breakdown trees) is
+     * dropped so the admin transaction grid stays readable regardless of
+     * order size. The full payload remains available in the debug log.
+     *
+     * Handles every PayPal resource shape the module persists: Orders v2
+     * order responses (capture or authorize intent) and the standalone
+     * Payments v2 capture / refund / authorization resources.
+     *
+     * @param  string                $details JSON details object
+     * @return array<string, string>
      */
     public function prepareRawDetails(string $details): array
     {
-        $decoded = json_decode($details, true) ?? [];
-        unset($decoded['links']);
-        $decoded = $this->_redactSensitiveData($decoded);
+        $decoded = json_decode($details, true);
+        if (!is_array($decoded)) {
+            return [];
+        }
+
+        $unit     = is_array($decoded['purchase_units'][0] ?? null) ? $decoded['purchase_units'][0] : [];
+        $payments = is_array($unit['payments'] ?? null) ? $unit['payments'] : [];
+
+        $capture = is_array($payments['captures'][0] ?? null) ? $payments['captures'][0] : [];
+        if ($capture === [] && isset($decoded['seller_receivable_breakdown'])) {
+            $capture = $decoded; // standalone Payments v2 capture resource
+        }
+
+        $refund = is_array($payments['refunds'][0] ?? null) ? $payments['refunds'][0] : [];
+        if ($refund === [] && isset($decoded['seller_payable_breakdown'])) {
+            $refund = $decoded; // standalone Payments v2 refund resource
+        }
+
+        $authorization = is_array($payments['authorizations'][0] ?? null) ? $payments['authorizations'][0] : [];
+        if ($authorization === [] && isset($decoded['expiration_time'])) {
+            $authorization = $decoded; // standalone authorization resource
+        }
+
+        // The breakdown key differs: captures use "receivable", refunds "payable".
+        $breakdown = $capture['seller_receivable_breakdown'] ?? ($refund['seller_payable_breakdown'] ?? []);
+        if (!is_array($breakdown)) {
+            $breakdown = [];
+        }
+
+        $payer = $this->_resolvePayer($decoded);
+
+        $extracted = [
+            'id'                   => $decoded['id'] ?? null,
+            'intent'               => $decoded['intent'] ?? null,
+            'status'               => $decoded['status'] ?? ($capture['status'] ?? null),
+            'payer_email'          => $payer['email_address'] ?? null,
+            'payer_name'           => $this->_extractPayerName($payer),
+            'amount'               => $this->_formatPaypalAmount(
+                $decoded['amount'] ?? $unit['amount'] ?? $capture['amount'] ?? null,
+            ),
+            'invoice_id'           => $unit['invoice_id'] ?? ($decoded['invoice_id'] ?? null),
+            'capture_id'           => $capture['id'] ?? null,
+            'capture_amount'       => $this->_formatPaypalAmount($capture['amount'] ?? null),
+            'paypal_fee'           => $this->_formatPaypalAmount($breakdown['paypal_fee'] ?? null),
+            'net_amount'           => $this->_formatPaypalAmount($breakdown['net_amount'] ?? null),
+            'refund_id'            => $refund['id'] ?? null,
+            'refund_amount'        => $this->_formatPaypalAmount($refund['amount'] ?? null),
+            'authorization_id'     => $authorization['id'] ?? null,
+            'authorization_status' => $authorization['status'] ?? null,
+            'authorization_amount' => $this->_formatPaypalAmount($authorization['amount'] ?? null),
+            'expiration_time'      => $decoded['expiration_time'] ?? ($authorization['expiration_time'] ?? null),
+            'create_time'          => $decoded['create_time'] ?? null,
+            'update_time'          => $decoded['update_time'] ?? null,
+        ];
 
         return array_map(
-            fn($v) => is_array($v) ? json_encode($v) : $v,
-            $decoded,
+            strval(...),
+            array_filter($extracted, static fn($value) => is_scalar($value) && $value !== ''),
         );
+    }
+
+    /**
+     * Resolve the payer structure from a PayPal response.
+     *
+     * The legacy "payer" object is deprecated in newer Orders v2 responses in
+     * favour of "payment_source.paypal"; fall back to it when needed.
+     *
+     * @param  array<string, mixed> $decoded
+     * @return array<string, mixed>
+     */
+    private function _resolvePayer(array $decoded): array
+    {
+        if (is_array($decoded['payer'] ?? null)) {
+            return $decoded['payer'];
+        }
+
+        if (is_array($decoded['payment_source']['paypal'] ?? null)) {
+            return $decoded['payment_source']['paypal'];
+        }
+
+        return [];
+    }
+
+    /**
+     * Format a PayPal amount object ("currency_code" + "value") as a string.
+     */
+    private function _formatPaypalAmount(mixed $amount): ?string
+    {
+        if (!is_array($amount) || !is_scalar($amount['value'] ?? null)) {
+            return null;
+        }
+
+        $currency = $amount['currency_code'] ?? '';
+
+        return trim((is_scalar($currency) ? (string) $currency : '') . ' ' . $amount['value']);
+    }
+
+    /**
+     * Build the payer's full name from a PayPal "payer" structure.
+     *
+     * @param array<string, mixed> $payer
+     */
+    private function _extractPayerName(array $payer): ?string
+    {
+        $name = is_array($payer['name'] ?? null) ? $payer['name'] : [];
+        $full = trim(
+            ($name['given_name'] ?? '') . ' ' . ($name['surname'] ?? ''),
+        );
+
+        return $full === '' ? null : $full;
     }
 
     /**
