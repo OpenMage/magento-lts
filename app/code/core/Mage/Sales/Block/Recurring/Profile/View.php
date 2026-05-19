@@ -345,7 +345,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     /**
      * Add specified data to the $_info
      *
-     * @param string $key = null
+     * @param array<array<string, mixed>, mixed> $data
+     * @param string                             $key  = null
      */
     protected function _addInfo(array $data, $key = null)
     {
@@ -360,6 +361,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     /**
      * Get current profile from registry and assign store/locale information to it
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->_profile = Mage::registry('current_recurring_profile')
@@ -374,6 +376,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_profile || $this->_shouldRenderInfo && !$this->_info) {

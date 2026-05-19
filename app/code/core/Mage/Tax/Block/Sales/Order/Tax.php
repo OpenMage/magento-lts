@@ -32,8 +32,9 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     protected $_source;
 
     /**
-     * Initialize configuration object
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_config = Mage::getSingleton('tax/config');
@@ -87,7 +88,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     /**
      * Add tax total string
      *
-     * @param string $after
+     * @param  string $after
      * @return $this
      */
     protected function _addTax($after = 'discount')

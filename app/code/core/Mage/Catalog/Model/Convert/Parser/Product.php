@@ -51,6 +51,9 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
     protected $_inventoryItems = [];
 
+    /**
+     * @var null|false|string
+     */
     protected $_productModel;
 
     protected $_setInstances = [];
@@ -90,23 +93,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     }
 
     /**
-     * @return Mage_Catalog_Model_Mysql4_Convert
-     */
-    public function getResource()
-    {
-        if (!$this->_resource) {
-            $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
-            #->loadStores()
-            #->loadProducts()
-            #->loadAttributeSets()
-            #->loadAttributeOptions();
-        }
-
-        return $this->_resource;
-    }
-
-    /**
-     * @param int $storeId
+     * @param  int                                            $storeId
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function getCollection($storeId)
@@ -127,8 +114,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     public function getProductTypes()
     {
         if (is_null($this->_productTypes)) {
-            $this->_productTypes = Mage::getSingleton('catalog/product_type')
-                ->getOptionArray();
+            $this->_productTypes = Mage::getSingleton('catalog/product_type')::getOptionArray();
         }
 
         return $this->_productTypes;
@@ -137,7 +123,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Retrieve Product type name by code
      *
-     * @param string $code
+     * @param  string $code
      * @return string
      */
     public function getProductTypeName($code)
@@ -149,7 +135,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Retrieve product type code by name
      *
-     * @param string $name
+     * @param  string       $name
      * @return false|string
      */
     public function getProductTypeId($name)
@@ -165,7 +151,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Retrieve product model cache
      *
-     * @return Mage_Catalog_Model_Product|object
+     * @return Mage_Catalog_Model_Product
      */
     public function getProductModel()
     {
@@ -174,7 +160,9 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $this->_productModel = Mage::objects()->save($productModel);
         }
 
-        return Mage::objects()->load($this->_productModel);
+        /** @var Mage_Catalog_Model_Product $productModel */
+        $productModel = Mage::objects()->load($this->_productModel);
+        return $productModel;
     }
 
     /**
@@ -187,12 +175,12 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         if (is_null($this->_store)) {
             try {
                 $store = Mage::app()->getStore($this->getVar('store'));
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->addException(
                     Mage::helper('catalog')->__('Invalid store specified'),
                     Varien_Convert_Exception::FATAL,
                 );
-                throw $e;
+                throw $exception;
             }
 
             $this->_store = $store;
@@ -224,8 +212,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     {
         $type = $product->getTypeId();
         if (!isset($this->_productTypeInstances[$type])) {
-            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')
-                ->factory($product, true);
+            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')::factory($product, true);
         }
 
         $product->setTypeInstance($this->_productTypeInstances[$type], true);
@@ -242,7 +229,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
         if (!isset($this->_setInstances[$productType][$attributeSetId])) {
             $this->_setInstances[$productType][$attributeSetId]
-                = Mage::getSingleton('catalog/product_type')->factory($this->getProductModel());
+                = Mage::getSingleton('catalog/product_type')::factory($this->getProductModel());
         }
 
         return $this->_setInstances[$productType][$attributeSetId];
@@ -251,7 +238,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Retrieve eav entity attribute model
      *
-     * @param string $code
+     * @param  string                          $code
      * @return Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($code)
@@ -288,7 +275,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
                 // try to get entity_id by sku if not set
                 if (empty($row['entity_id'])) {
-                    $row['entity_id'] = $this->getResource()->getProductIdBySku($row['sku']);
+                    $row['entity_id'] = Mage::getModel('catalog/product')->getIdBySku($row['sku']);
                 }
 
                 // if attribute_set not set use default
@@ -379,10 +366,10 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
                     unset($model);
                 } //foreach ($storeIds as $storeId)
-            } catch (Exception $e) {
-                if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
+            } catch (Exception $exception) {
+                if (!$exception instanceof Mage_Dataflow_Model_Convert_Exception) {
                     $this->addException(
-                        Mage::helper('catalog')->__('Error during retrieval of option value: %s', $e->getMessage()),
+                        Mage::helper('catalog')->__('Error during retrieval of option value: %s', $exception->getMessage()),
                         Mage_Dataflow_Model_Convert_Exception::FATAL,
                     );
                 }
@@ -429,7 +416,6 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 ->setStoreId($this->getStoreId())
                 ->load($entityId);
             $this->setProductTypeInstance($product);
-            /** @var Mage_Catalog_Model_Product $product */
 
             $position = Mage::helper('catalog')->__('Line %d, SKU: %s', ($i + 1), $product->getSku());
             $this->setPosition($position);
@@ -461,7 +447,11 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             }
 
             foreach ($product->getData() as $field => $value) {
-                if (in_array($field, $this->_systemFields) || is_object($value)) {
+                if (in_array($field, $this->_systemFields)) {
+                    continue;
+                }
+
+                if (is_object($value)) {
                     continue;
                 }
 
@@ -480,11 +470,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                         continue;
                     }
 
-                    if (is_array($option)) {
-                        $value = implode(self::MULTI_DELIMITER, $option);
-                    } else {
-                        $value = $option;
-                    }
+                    $value = is_array($option) ? implode(self::MULTI_DELIMITER, $option) : $option;
 
                     unset($option);
                 } elseif (is_array($value)) {
@@ -496,7 +482,11 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
             if ($stockItem = $product->getStockItem()) {
                 foreach ($stockItem->getData() as $field => $value) {
-                    if (in_array($field, $this->_systemFields) || is_object($value)) {
+                    if (in_array($field, $this->_systemFields)) {
+                        continue;
+                    }
+
+                    if (is_object($value)) {
                         continue;
                     }
 
@@ -572,7 +562,11 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
         foreach ($productAttributes as $attr) {
             $code = $attr->getAttributeCode();
-            if (in_array($code, $this->_internalFields) || $attr->getFrontendInput() == 'hidden') {
+            if (in_array($code, $this->_internalFields)) {
+                continue;
+            }
+
+            if ($attr->getFrontendInput() == 'hidden') {
                 continue;
             }
 

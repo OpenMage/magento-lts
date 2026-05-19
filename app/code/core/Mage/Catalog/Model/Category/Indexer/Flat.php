@@ -47,11 +47,16 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      *
      * @return bool
      */
+    #[Override]
     public function isVisible()
     {
         /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
         $categoryFlatHelper = Mage::helper('catalog/category_flat');
-        return $categoryFlatHelper->isEnabled() || !$categoryFlatHelper->isBuilt();
+        if ($categoryFlatHelper->isEnabled()) {
+            return true;
+        }
+
+        return !$categoryFlatHelper->isBuilt();
     }
 
     /**
@@ -69,6 +74,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('catalog')->__('Reorganize EAV category structure to flat structure');
@@ -91,6 +97,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      *
      * @return bool
      */
+    #[Override]
     public function matchEvent(Event $event)
     {
         /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
@@ -234,6 +241,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
     /**
      * Rebuild all index data
      */
+    #[Override]
     public function reindexAll()
     {
         $this->_getIndexer()->reindexAll();

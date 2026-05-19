@@ -28,6 +28,9 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      */
     protected static $_dataVersions    = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/resource', 'store_id');
@@ -40,7 +43,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      * information on main purpose of calling this routine, and even when 'data' column is absent - it won't require
      * reissuing new sql just to get 'db' version of module.
      *
-     * @param string $needType Can be 'db' or 'data'
+     * @param  string $needType Can be 'db' or 'data'
      * @return $this
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
@@ -76,7 +79,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Get Module version from DB
      *
-     * @param string $resName
+     * @param  string       $resName
      * @return false|string
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
@@ -93,8 +96,8 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Set module version into DB
      *
-     * @param string $resName
-     * @param string $version
+     * @param  string $resName
+     * @param  string $version
      * @return int
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
@@ -112,16 +115,16 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
                 $dbModuleInfo,
                 ['code = ?' => $resName],
             );
-        } else {
-            self::$_versions[$resName] = $version;
-            return $this->_getWriteAdapter()->insert($this->getMainTable(), $dbModuleInfo);
         }
+
+        self::$_versions[$resName] = $version;
+        return $this->_getWriteAdapter()->insert($this->getMainTable(), $dbModuleInfo);
     }
 
     /**
      * Get resource data version
      *
-     * @param string $resName
+     * @param  string       $resName
      * @return false|string
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
@@ -139,8 +142,8 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Specify resource data version
      *
-     * @param string $resName
-     * @param string $version
+     * @param  string $resName
+     * @param  string $version
      * @return $this
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */

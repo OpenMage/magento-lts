@@ -12,7 +12,7 @@ class Mage_Api_Model_Cron
     /**
      * Clean session table
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
      * @return $this
      */
     public function cleanOldSessions($schedule)

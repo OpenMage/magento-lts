@@ -66,13 +66,13 @@ class Mage_Core_Model_Url_Rewrite_Request
      */
     public function __construct(array $args)
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getModel('core/factory');
-        $this->_app     = !empty($args['app']) ? $args['app'] : Mage::app();
-        $this->_config  = !empty($args['config']) ? $args['config'] : Mage::getConfig();
-        $this->_request = !empty($args['request'])
-            ? $args['request'] : Mage::app()->getFrontController()->getRequest();
-        $this->_rewrite = !empty($args['rewrite'])
-            ? $args['rewrite'] : $this->_factory->getModel('core/url_rewrite');
+        $this->_factory = empty($args['factory']) ? Mage::getModel('core/factory') : $args['factory'];
+        $this->_app     = empty($args['app']) ? Mage::app() : $args['app'];
+        $this->_config  = empty($args['config']) ? Mage::getConfig() : $args['config'];
+        $this->_request = empty($args['request'])
+            ? Mage::app()->getFrontController()->getRequest() : $args['request'];
+        $this->_rewrite = empty($args['rewrite'])
+            ? $this->_factory->getModel('core/url_rewrite') : $args['rewrite'];
 
         if (!empty($args['routers'])) {
             $this->_routers = $args['routers'];
@@ -221,16 +221,20 @@ class Mage_Core_Model_Url_Rewrite_Request
         }
 
         foreach ($config->children() as $rewrite) {
-            $from = (string) $rewrite->from;
-            $to = (string) $rewrite->to;
-            if (empty($from) || empty($to)) {
+            $rewriteFrom = (string) $rewrite->from;
+            $rewriteTo   = (string) $rewrite->to;
+            if (empty($rewriteFrom)) {
                 continue;
             }
 
-            $from = $this->_processRewriteUrl($from);
-            $to   = $this->_processRewriteUrl($to);
+            if (empty($rewriteTo)) {
+                continue;
+            }
 
-            $pathInfo = preg_replace($from, $to, $this->_request->getPathInfo());
+            $rewriteFrom = $this->_processRewriteUrl($rewriteFrom);
+            $rewriteTo   = $this->_processRewriteUrl($rewriteTo);
+
+            $pathInfo = preg_replace($rewriteFrom, $rewriteTo, $this->_request->getPathInfo());
             if (isset($rewrite->complete)) {
                 $this->_request->setPathInfo($pathInfo);
             } else {
@@ -249,7 +253,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      * - with and without slashes at the end ("/somepath/" and "/somepath").
      * Choose any matched rewrite, but in priority order that depends on same presence of slash and query params.
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getRequestCases()
     {
@@ -276,7 +280,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      * Add location header and disable browser page caching
      *
      * @param string $url
-     * @param bool $isPermanent
+     * @param bool   $isPermanent
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _sendRedirectHeaders($url, $isPermanent = false)
@@ -312,9 +316,9 @@ class Mage_Core_Model_Url_Rewrite_Request
 
             if ($hasChanges) {
                 return http_build_query($queryParams);
-            } else {
-                return $_SERVER['QUERY_STRING'];
             }
+
+            return $_SERVER['QUERY_STRING'];
         }
 
         return false;
@@ -323,7 +327,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     /**
      * Replace route name placeholders in url to front name
      *
-     * @param string $url
+     * @param  string $url
      * @return string
      */
     protected function _processRewriteUrl($url)
@@ -345,7 +349,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     /**
      * Retrieve router by name
      *
-     * @param string $name
+     * @param  string                                            $name
      * @return false|Mage_Core_Controller_Varien_Router_Abstract
      */
     protected function _getRouter($name)
@@ -356,7 +360,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     /**
      * Retrieve router by name
      *
-     * @param string $routeName
+     * @param  string                                      $routeName
      * @return Mage_Core_Controller_Varien_Router_Abstract
      */
     protected function _getRouterByRoute($routeName)

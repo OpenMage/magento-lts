@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -22,6 +24,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _connect()
     {
         if ($this->_connection) {
@@ -43,8 +46,8 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         $conn->options(MYSQLI_OPT_LOCAL_INFILE, 1);
         #$conn->options(MYSQLI_CLIENT_MULTI_QUERIES, 1);
 
-        $port = !empty($this->_config['port']) ? $this->_config['port'] : null;
-        $socket = !empty($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null;
+        $port = empty($this->_config['port']) ? null : $this->_config['port'];
+        $socket = empty($this->_config['unix_socket']) ? null : $this->_config['unix_socket'];
         // socket specified in host config
         if (str_contains($this->_config['host'], '/')) {
             $socket = $this->_config['host'];
@@ -74,7 +77,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     /**
      * Run RAW Query
      *
-     * @param string $sql
+     * @param  string                           $sql
      * @return mysqli_result
      * @throws Zend_Db_Adapter_Mysqli_Exception
      */
@@ -110,7 +113,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             return $date->toString(self::ISO_DATE_FORMAT);
         }
 
-        return date(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT, strtotime($date));
+        return Carbon::parse($date)->format(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT);
     }
 
     public function convertDateTime($datetime)
@@ -119,7 +122,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             return $datetime->toString(self::ISO_DATETIME_FORMAT);
         }
 
-        return date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($datetime));
+        return Carbon::parse($datetime)->format(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
     }
 
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -139,9 +142,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
 
         if (empty($field)) {
             return $row;
-        } else {
-            return $row[$field] ?? false;
         }
+
+        return $row[$field] ?? false;
     }
 
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -191,11 +194,11 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      * @throws Exception
      * @throws Zend_Db_Adapter_Mysqli_Exception
      */
-    public function dropForeignKey($table, $fk)
+    public function dropForeignKey($table, $foreignKey)
     {
-        $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (str_contains($create, "CONSTRAINT `$fk` FOREIGN KEY (")) {
-            return $this->raw_query("ALTER TABLE `$table` DROP FOREIGN KEY `$fk`");
+        $create = $this->raw_fetchRow("show create table `{$table}`", 'Create Table');
+        if (str_contains($create, "CONSTRAINT `{$foreignKey}` FOREIGN KEY (")) {
+            return $this->raw_query("ALTER TABLE `{$table}` DROP FOREIGN KEY `{$foreignKey}`");
         }
 
         return true;
@@ -207,9 +210,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      */
     public function dropKey($table, $key)
     {
-        $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (str_contains($create, "KEY `$key` (")) {
-            return $this->raw_query("ALTER TABLE `$table` DROP KEY `$key`");
+        $create = $this->raw_fetchRow("show create table `{$table}`", 'Create Table');
+        if (str_contains($create, "KEY `{$key}` (")) {
+            return $this->raw_query("ALTER TABLE `{$table}` DROP KEY `{$key}`");
         }
 
         return true;
@@ -218,13 +221,13 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     /**
      * ADD CONSTRAINT
      *
-     * @param string $fkName
-     * @param string $tableName
-     * @param string $keyName
-     * @param string $refTableName
-     * @param string $refKeyName
-     * @param string $onDelete
-     * @param string $onUpdate
+     * @param  string    $fkName
+     * @param  string    $tableName
+     * @param  string    $keyName
+     * @param  string    $refTableName
+     * @param  string    $refKeyName
+     * @param  string    $onDelete
+     * @param  string    $onUpdate
      * @throws Exception
      */
     public function addConstraint(
@@ -273,7 +276,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             return true;
         }
 
-        return $this->raw_query("alter table `$tableName` add column `$columnName` " . $definition);
+        return $this->raw_query("alter table `{$tableName}` add column `{$columnName}` " . $definition);
     }
 
     /**
@@ -309,6 +312,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function select()
     {
         return new Varien_Db_Select($this);

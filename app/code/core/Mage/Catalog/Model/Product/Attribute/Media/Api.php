@@ -39,19 +39,18 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Retrieve images for product
      *
-     * @param int|string $productId
-     * @param int|string $store
-     * @param null|string $identifierType
+     * @param  int|string  $productId
+     * @param  int|string  $store
+     * @param  null|string $identifierType
      * @return array
      */
     public function items($productId, $store = null, $identifierType = null)
     {
         $product = $this->_initProduct($productId, $store, $identifierType);
 
-        $gallery = $this->_getGalleryAttribute($product);
+        $this->_getGalleryAttribute($product);
 
         $galleryData = $product->getData(self::ATTRIBUTE_CODE);
-
         if (!isset($galleryData['images']) || !is_array($galleryData['images'])) {
             return [];
         }
@@ -68,10 +67,10 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Retrieve image data
      *
-     * @param int|string $productId
-     * @param string $file
-     * @param int|string $store
-     * @param null|string $identifierType
+     * @param  int|string         $productId
+     * @param  string             $file
+     * @param  int|string         $store
+     * @param  null|string        $identifierType
      * @return array
      * @throws Mage_Api_Exception
      */
@@ -91,10 +90,10 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Create new image for product and return image filename
      *
-     * @param int|string $productId
-     * @param array $data
-     * @param int|string $store
-     * @param null|string $identifierType
+     * @param  int|string         $productId
+     * @param  array              $data
+     * @param  int|string         $store
+     * @param  null|string        $identifierType
      * @return string
      * @throws Mage_Api_Exception
      *
@@ -125,11 +124,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
         $tmpDirectory = Mage::getBaseDir('var') . DS . 'api' . DS . $this->_getSession()->getSessionId();
 
-        if (isset($data['file']['name']) && $data['file']['name']) {
-            $fileName  = $data['file']['name'];
-        } else {
-            $fileName  = 'image';
-        }
+        $fileName = isset($data['file']['name']) && $data['file']['name'] ? $data['file']['name'] : 'image';
 
         $fileName .= '.' . $this->_mimeTypes[$data['file']['mime']];
 
@@ -147,11 +142,11 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                 $filePath = $tmpDirectory . DS . $fileName;
                 Mage::getModel('varien/image', $filePath);
                 Mage::getModel('core/file_validator_image')->validate($filePath);
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 // Remove temporary directory
                 $ioAdapter->rmdir($tmpDirectory, true);
 
-                throw new Mage_Core_Exception($e->getMessage(), $e->getCode(), $e);
+                throw new Mage_Core_Exception($exception->getMessage(), $exception->getCode(), $exception);
             }
 
             // Adding image to gallery
@@ -172,8 +167,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_created', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_created', $mageCoreException->getMessage());
         } catch (Exception) {
             $this->_fault('not_created', Mage::helper('catalog')->__('Cannot create image.'));
         }
@@ -184,11 +179,11 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Update image data
      *
-     * @param int|string $productId
-     * @param string $file
-     * @param array $data
-     * @param int|string $store
-     * @param null|string $identifierType
+     * @param  int|string         $productId
+     * @param  string             $file
+     * @param  array              $data
+     * @param  int|string         $store
+     * @param  null|string        $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      *
@@ -259,9 +254,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Remove image from product
      *
-     * @param int|string $productId
-     * @param string $file
-     * @param null|string $identifierType
+     * @param  int|string         $productId
+     * @param  string             $file
+     * @param  null|string        $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -289,7 +284,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Retrieve image types (image, small_image, thumbnail, etc...)
      *
-     * @param int $setId
+     * @param  int   $setId
      * @return array
      */
     public function types($setId)
@@ -326,7 +321,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Prepare data to create or update image
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _prepareImageData($data)
@@ -337,7 +332,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Retrieve gallery attribute from product
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product                 $product
      * @return bool|Mage_Catalog_Model_Resource_Attribute
      */
     protected function _getGalleryAttribute($product)
@@ -353,8 +348,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     }
 
     /**
-     * Retrie
-     * ve media config
+     * Retrieve media config
      *
      * @return Mage_Catalog_Model_Product_Media_Config
      */
@@ -366,9 +360,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Converts image to api array data
      *
-     * @param array $image
-     * @param Mage_Catalog_Model_Product $product
-     * @return array
+     * @param  array                      $image
+     * @param  Mage_Catalog_Model_Product $product
+     * @return array<string, mixed>
      */
     protected function _imageToArray(&$image, $product)
     {
@@ -393,9 +387,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Retrieve product
      *
-     * @param int|string $productId
-     * @param int|string $store
-     * @param  string $identifierType
+     * @param  int|string                 $productId
+     * @param  int|string                 $store
+     * @param  string                     $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _initProduct($productId, $store = null, $identifierType = null)

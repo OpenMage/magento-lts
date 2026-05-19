@@ -17,6 +17,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
     /**
      * @throws Exception
      */
+    #[Override]
     protected function _construct()
     {
         /*
@@ -37,6 +38,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         $categoryId = $this->getRequest()->getParam('cid');
@@ -80,7 +82,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 $categoryProductCollection = $currentCategory
                     ->getProductCollection()
                     ->addAttributeToSort('updated_at', 'desc')
-                    ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
+                    ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
                     ->setCurPage(1)
                     ->setPageSize(50)
                 ;

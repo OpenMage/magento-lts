@@ -11,6 +11,8 @@
  * Country collection
  *
  * @package    Mage_Directory
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Directory_Model_Region>
  */
 class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -47,6 +49,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         parent::_initSelect();
@@ -65,7 +68,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     /**
      * Filter by country_id
      *
-     * @param array|string $countryId
+     * @param  array|string $countryId
      * @return $this
      */
     public function addCountryFilter($countryId)
@@ -84,7 +87,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     /**
      * Filter by country code (ISO 3)
      *
-     * @param string $countryCode
+     * @param  string $countryCode
      * @return $this
      */
     public function addCountryCodeFilter($countryCode)
@@ -102,7 +105,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     /**
      * Filter by Region code
      *
-     * @param array|string $regionCode
+     * @param  array|string $regionCode
      * @return $this
      */
     public function addRegionCodeFilter($regionCode)
@@ -121,7 +124,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     /**
      * Filter by region name
      *
-     * @param array|string $regionName
+     * @param  array|string $regionName
      * @return $this
      */
     public function addRegionNameFilter($regionName)
@@ -140,7 +143,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     /**
      * Filter region by its code or name
      *
-     * @param array|string $region
+     * @param  array|string $region
      * @return $this
      */
     public function addRegionCodeOrNameFilter($region)
@@ -158,6 +161,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         $options = $this->_toOptionArray('region_id', 'default_name', ['title' => 'default_name']);

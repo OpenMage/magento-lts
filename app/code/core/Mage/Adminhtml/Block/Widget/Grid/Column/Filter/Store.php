@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
      *
      * @return string
      */
+    #[Override]
     public function getHtml()
     {
         $storeModel = Mage::getSingleton('adminhtml/system_store');
@@ -36,7 +37,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
             $html .= '<option value="0"' . ($value == 0 ? ' selected="selected"' : '') . '>'
                   . Mage::helper('adminhtml')->__('All Store Views') . '</option>';
         } else {
-            $html .= '<option value=""' . (!$value ? ' selected="selected"' : '') . '></option>';
+            $html .= '<option value=""' . ($value ? '' : ' selected="selected"') . '></option>';
         }
 
         foreach ($websiteCollection as $website) {
@@ -84,10 +85,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
     }
 
     /**
-     * Form condition from element's value
-     *
-     * @return null|array
+     * @inheritDoc
      */
+    #[Override]
     public function getCondition()
     {
         if (is_null($this->getValue())) {
@@ -96,8 +96,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
 
         if ($this->getValue() == '_deleted_') {
             return ['null' => true];
-        } else {
-            return ['eq' => $this->getValue()];
         }
+
+        return ['eq' => $this->getValue()];
     }
 }

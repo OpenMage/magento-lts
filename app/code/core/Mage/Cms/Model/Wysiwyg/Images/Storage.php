@@ -37,7 +37,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Return one-level child directories for specified path
      *
-     * @param string $path Parent directory path
+     * @param  string                            $path Parent directory path
      * @return Varien_Data_Collection_Filesystem
      */
     public function getDirsCollection($path)
@@ -86,8 +86,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Return files
      *
-     * @param string $path Parent directory path
-     * @param string $type Type of storage, e.g. image, media etc.
+     * @param  string                            $path Parent directory path
+     * @param  string                            $type Type of storage, e.g. image, media etc.
      * @return Varien_Data_Collection_Filesystem
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -101,6 +101,12 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             foreach ($files as $file) {
                 $fileStorageModel->saveFile($file);
             }
+        }
+
+        if (str_starts_with($path, 'phar://')) {
+            return $this->getCollection()
+                ->setCollectDirs(false)
+                ->setCollectFiles(false);
         }
 
         $collection = $this->getCollection($path)
@@ -151,7 +157,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Storage collection
      *
-     * @param string $path Path to the directory
+     * @param  null|string                       $path Path to the directory
      * @return Varien_Data_Collection_Filesystem
      */
     public function getCollection($path = null)
@@ -167,9 +173,9 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Create new directory in storage
      *
-     * @param string $name New directory name
-     * @param string $path Parent directory path
-     * @return array New directory info
+     * @param  string              $name New directory name
+     * @param  string              $path Parent directory path
+     * @return array               New directory info
      * @throws Mage_Core_Exception
      */
     public function createDirectory($name, $path)
@@ -188,8 +194,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             Mage::throwException(Mage::helper('cms')->__('A directory with the same name already exists. Please try another folder name.'));
         }
 
-        $io = new Varien_Io_File();
-        if ($io->mkdir($newPath)) {
+        $ioFile = new Varien_Io_File();
+        if ($ioFile->mkdir($newPath)) {
             if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
                 $relativePath = Mage::helper('core/file_storage_database')->getMediaRelativePath($newPath);
                 Mage::getModel('core/file_storage_directory_database')->createRecursive($relativePath);
@@ -217,12 +223,12 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $rootCmp = rtrim($this->getHelper()->getStorageRoot(), DS);
         $pathCmp = rtrim($path, DS);
 
-        $io = new Varien_Io_File();
+        $ioFile = new Varien_Io_File();
 
         if ($rootCmp == $pathCmp) {
             Mage::throwException(Mage::helper('cms')->__(
                 'Cannot delete root directory %s.',
-                $io->getFilteredPath($path),
+                $ioFile->getFilteredPath($path),
             ));
         }
 
@@ -236,30 +242,30 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             Mage::getModel('core/file_storage_directory_database')->deleteDirectory($path);
         }
 
-        if (!$io->rmdir($path, true)) {
-            Mage::throwException(Mage::helper('cms')->__('Cannot delete directory %s.', $io->getFilteredPath($path)));
+        if (!$ioFile->rmdir($path, true)) {
+            Mage::throwException(Mage::helper('cms')->__('Cannot delete directory %s.', $ioFile->getFilteredPath($path)));
         }
 
         if (str_starts_with($pathCmp, $rootCmp)) {
-            $io->rmdir($this->getThumbnailRoot() . DS . ltrim(substr($pathCmp, strlen($rootCmp)), '\\/'), true);
+            $ioFile->rmdir($this->getThumbnailRoot() . DS . ltrim(substr($pathCmp, strlen($rootCmp)), '\\/'), true);
         }
     }
 
     /**
      * Delete file (and its thumbnail if exists) from storage
      *
-     * @param string $target File path to be deleted
+     * @param  string $target File path to be deleted
      * @return $this
      */
     public function deleteFile($target)
     {
-        $io = new Varien_Io_File();
-        $io->rm($target);
+        $ioFile = new Varien_Io_File();
+        $ioFile->rm($target);
         Mage::helper('core/file_storage_database')->deleteFile($target);
 
         $thumb = $this->getThumbnailPath($target, true);
         if ($thumb) {
-            $io->rm($thumb);
+            $ioFile->rm($thumb);
             Mage::helper('core/file_storage_database')->deleteFile($thumb);
         }
 
@@ -269,8 +275,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Upload and resize new file
      *
-     * @param string $targetPath Target directory
-     * @param string $type Type of storage, e.g. image, media etc.
+     * @param  string              $targetPath Target directory
+     * @param  string              $type       Type of storage, e.g. image, media etc.
      * @return array|bool|void
      * @throws Mage_Core_Exception
      */
@@ -316,8 +322,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Thumbnail path getter
      *
-     * @param  string $filePath original file path
-     * @param bool $checkFile OPTIONAL is it necessary to check file availability
+     * @param  string       $filePath  original file path
+     * @param  bool         $checkFile OPTIONAL is it necessary to check file availability
      * @return false|string
      */
     public function getThumbnailPath($filePath, $checkFile = false)
@@ -338,8 +344,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Thumbnail URL getter
      *
-     * @param  string $filePath original file path
-     * @param bool $checkFile OPTIONAL is it necessary to check file availability
+     * @param  string       $filePath  original file path
+     * @param  bool         $checkFile OPTIONAL is it necessary to check file availability
      * @return false|string
      */
     public function getThumbnailUrl($filePath, $checkFile = false)
@@ -348,7 +354,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (str_starts_with($filePath, $mediaRootDir)) {
             $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . substr($filePath, strlen($mediaRootDir));
             if (!$checkFile || is_readable($this->getHelper()->getStorageRoot() . $thumbSuffix)) {
-                $randomIndex = '?rand=' . time();
+                $randomIndex = '?rand=' . Mage::helper('core/clock')->getTimestamp();
                 $thumbUrl = $this->getHelper()->getBaseUrl() . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
                     . DS . $thumbSuffix;
                 return str_replace('\\', '/', $thumbUrl) . $randomIndex;
@@ -361,8 +367,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Create thumbnail for image and save it to thumbnails directory
      *
-     * @param string $source Image path to be resized
-     * @param bool $keepRation Keep aspect ratio or not
+     * @param  string      $source     Image path to be resized
+     * @param  bool        $keepRation Keep aspect ratio or not
      * @return bool|string Resized filepath or false if errors were occurred
      */
     public function resizeFile($source, $keepRation = true)
@@ -372,12 +378,12 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         }
 
         $targetDir = $this->getThumbsPath($source);
-        $io = new Varien_Io_File();
-        if (!$io->isWriteable($targetDir)) {
-            $io->mkdir($targetDir);
+        $ioFile = new Varien_Io_File();
+        if (!$ioFile->isWriteable($targetDir)) {
+            $ioFile->mkdir($targetDir);
         }
 
-        if (!$io->isWriteable($targetDir)) {
+        if (!$ioFile->isWriteable($targetDir)) {
             return false;
         }
 
@@ -408,7 +414,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Resize images on the fly in controller action
      *
-     * @param string $filename File basename
+     * @param  string       $filename File basename
      * @return false|string Thumbnail path or false for errors
      */
     public function resizeOnTheFly($filename)
@@ -424,7 +430,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Return thumbnails directory path for file/current directory
      *
-     * @param false|string $filePath Path to the file
+     * @param  false|string $filePath Path to the file
      * @return string
      */
     public function getThumbsPath($filePath = false)
@@ -489,8 +495,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Wysiwyg Config reader
      *
-     * @param string $key
-     * @param mixed $default
+     * @param  string $key
+     * @param  mixed  $default
      * @return mixed
      */
     public function getConfigData($key, $default = false)
@@ -504,8 +510,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Prepare allowed_extensions config settings
      *
-     * @param string $type Type of storage, e.g. image, media etc.
-     * @return array Array of allowed file extensions
+     * @param  string $type Type of storage, e.g. image, media etc.
+     * @return array  Array of allowed file extensions
      */
     public function getAllowedExtensions($type = null)
     {
@@ -533,7 +539,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Simple way to check whether file is image or not based on extension
      *
-     * @param string $filename
+     * @param  string $filename
      * @return bool
      */
     public function isImage($filename)

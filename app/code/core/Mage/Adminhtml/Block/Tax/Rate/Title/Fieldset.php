@@ -9,9 +9,15 @@
 
 /**
  * Tax Rate Titles Fieldset
+ *
+ * @package    Mage_Adminhtml
+ *
+ * @method string getLegend()
+ * @method $this  setLegend(string $value)
  */
 class Mage_Adminhtml_Block_Tax_Rate_Title_Fieldset extends Varien_Data_Form_Element_Fieldset
 {
+    #[Override]
     public function getChildrenHtml()
     {
         return Mage::getBlockSingleton('adminhtml/tax_rate_title')->toHtml();

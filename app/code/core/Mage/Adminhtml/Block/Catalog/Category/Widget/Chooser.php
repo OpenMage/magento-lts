@@ -16,6 +16,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
 {
     protected $_selectedCategories = [];
 
+    protected $_withProductCount = false;
+
     /**
      * Block construction
      * Defines tree template and init tree params
@@ -24,13 +26,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     {
         parent::__construct();
         $this->setTemplate('catalog/category/widget/tree.phtml');
-        $this->_withProductCount = false;
     }
 
     /**
      * Setter
      *
-     * @param array $selectedCategories
+     * @param  array $selectedCategories
      * @return $this
      */
     public function setSelectedCategories($selectedCategories)
@@ -52,7 +53,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * Prepare chooser element HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element Form Element
+     * @param  Varien_Data_Form_Element_Abstract $element Form Element
      * @return Varien_Data_Form_Element_Abstract
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -91,9 +92,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * Retrieve model attribute value
      *
-     * @param string $modelType Model Type
-     * @param string $attributeName Attribute Name
-     * @param string $entityId Form Entity ID
+     * @param  string $modelType     Model Type
+     * @param  string $attributeName Attribute Name
+     * @param  string $entityId      Form Entity ID
      * @return string
      */
     protected function _getModelAttributeByEntityId($modelType, $attributeName, $entityId)
@@ -105,7 +106,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
             ->addAttributeToFilter('entity_id', $entityId)
             ->getFirstItem();
         if ($model) {
-            $result = $model->getData($attributeName);
+            return $model->getData($attributeName);
         }
 
         return $result;
@@ -118,39 +119,39 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      */
     public function getNodeClickListener()
     {
-        if ($this->getData('node_click_listener')) {
-            return $this->getData('node_click_listener');
+        if ($this->getDataByKey('node_click_listener')) {
+            return $this->getDataByKey('node_click_listener');
         }
 
         if ($this->getUseMassaction()) {
-            $js = '
+            return '
                 function (node, e) {
                     if (node.ui.toggleCheck) {
                         node.ui.toggleCheck(true);
                     }
                 }
             ';
-        } else {
-            $chooserJsObject = $this->getId();
-            $js = '
+        }
+
+        $chooserJsObject = $this->getId();
+
+        return '
                 function (node, e) {
                     ' . $chooserJsObject . '.setElementValue("category/" + node.attributes.id);
                     ' . $chooserJsObject . '.setElementLabel(node.text);
                     ' . $chooserJsObject . '.close();
                 }
             ';
-        }
-
-        return $js;
     }
 
     /**
      * Get JSON of a tree node or an associative array
      *
-     * @param array|Varien_Data_Tree_Node $node
-     * @param int $level
+     * @param  array|Varien_Data_Tree_Node $node
+     * @param  int                         $level
      * @return array
      */
+    #[Override]
     protected function _getNodeJson($node, $level = 0)
     {
         $item = parent::_getNodeJson($node, $level);
@@ -159,25 +160,25 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         }
 
         $item['is_anchor'] = (int) $node->getIsAnchor();
-        $item['url_key'] = $node->getData('url_key');
+        $item['url_key'] = $node->getDataByKey('url_key');
         return $item;
     }
 
     /**
      * Adds some extra params to categories collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     * @return Mage_Catalog_Model_Resource_Category_Collection
      */
+    #[Override]
     public function getCategoryCollection()
     {
         return parent::getCategoryCollection()->addAttributeToSelect('url_key')->addAttributeToSelect('is_anchor');
     }
 
     /**
-     * Tree JSON source URL
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getLoadTreeUrl($expanded = null)
     {
         return $this->getUrl('*/catalog_category_widget/categoriesJson', [

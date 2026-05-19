@@ -14,13 +14,13 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Website _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Website getResource()
- * @method int getWebsiteId()
- * @method $this setWebsiteId(int $value)
+ * @method int                                         getWebsiteId()
+ * @method $this                                       setWebsiteId(int $value)
  */
 class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
 {
     /**
-     * Initialize resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -30,8 +30,8 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     /**
      * Removes products from websites
      *
-     * @param array $websiteIds
-     * @param array $productIds
+     * @param  array $websiteIds
+     * @param  array $productIds
      * @return $this
      */
     public function removeProducts($websiteIds, $productIds)
@@ -50,8 +50,8 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     /**
      * Add products to websites
      *
-     * @param array $websiteIds
-     * @param array $productIds
+     * @param  array $websiteIds
+     * @param  array $productIds
      * @return $this
      */
     public function addProducts($websiteIds, $productIds)
@@ -71,7 +71,7 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
      * Retrieve product websites
      * Return array with key as product ID and value array of websites
      *
-     * @param array|int $productIds
+     * @param  array|int $productIds
      * @return array
      */
     public function getWebsites($productIds)

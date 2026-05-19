@@ -18,6 +18,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
 
     protected $_currencyModel = null;
 
+    #[Override]
     public function getHtml()
     {
         $fromLabel = Mage::helper('adminhtml')->__('From');
@@ -35,20 +36,20 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
 
     public function getDisplayCurrencySelect()
     {
-        if (!is_null($this->getColumn()->getData('display_currency_select'))) {
-            return $this->getColumn()->getData('display_currency_select');
-        } else {
-            return true;
+        if (!is_null($this->getColumn()->getDataByKey('display_currency_select'))) {
+            return $this->getColumn()->getDataByKey('display_currency_select');
         }
+
+        return true;
     }
 
     public function getCurrencyAffect()
     {
-        if (!is_null($this->getColumn()->getData('currency_affect'))) {
-            return $this->getColumn()->getData('currency_affect');
-        } else {
-            return true;
+        if (!is_null($this->getColumn()->getDataByKey('currency_affect'))) {
+            return $this->getColumn()->getDataByKey('currency_affect');
         }
+
+        return true;
     }
 
     protected function _getCurrencyModel()
@@ -92,7 +93,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
             return $this->getData('value', $index);
         }
 
-        $value = $this->getData('value');
+        $value = $this->getDataByKey('value');
         if ((isset($value['from']) && (string) $value['from'] !== '')
             || (isset($value['to']) && (string) $value['to'] !== '')
         ) {
@@ -102,6 +103,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function getCondition()
     {
         $value = $this->getValue();
@@ -124,9 +129,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         return $value;
     }
 
-    protected function _getRate($from, $to)
+    protected function _getRate($min, $max)
     {
-        return Mage::getModel('directory/currency')->load($from)->getAnyRate($to);
+        return Mage::getModel('directory/currency')->load($min)->getAnyRate($max);
     }
 
     public function prepareRates($displayCurrency)

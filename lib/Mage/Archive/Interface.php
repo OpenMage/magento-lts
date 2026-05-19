@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,8 +19,8 @@ interface Mage_Archive_Interface
     /**
      * Pack file or directory.
      *
-     * @param string $source
-     * @param string $destination
+     * @param  string $source
+     * @param  string $destination
      * @return string
      */
     public function pack($source, $destination);
@@ -26,8 +28,8 @@ interface Mage_Archive_Interface
     /**
      * Unpack file or directory.
      *
-     * @param string $source
-     * @param string $destination
+     * @param  string $source
+     * @param  string $destination
      * @return string
      */
     public function unpack($source, $destination);

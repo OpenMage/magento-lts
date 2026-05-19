@@ -19,6 +19,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
      *
      * @return string
      */
+    #[Override]
     protected function _create(array $data)
     {
         /** @var Mage_Api2_Model_Resource_Validator_Fields $validator */
@@ -56,10 +57,10 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
 
         try {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
@@ -71,6 +72,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
      *
      * @return bool
      */
+    #[Override]
     protected function _delete()
     {
         $product = $this->_getProduct();
@@ -92,10 +94,10 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
 
         try {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
@@ -107,6 +109,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
      *
      * @return array
      */
+    #[Override]
     protected function _getCategoryIds()
     {
         return $this->_getProduct()->getCategoryIds();
@@ -115,9 +118,10 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
     /**
      * Get resource location
      *
-     * @param Mage_Core_Model_Abstract $resource
-     * @return string URL
+     * @param  Mage_Core_Model_Abstract $resource
+     * @return string                   URL
      */
+    #[Override]
     protected function _getLocation($resource)
     {
         /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */

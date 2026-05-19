@@ -21,6 +21,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      * @throws Mage_Api2_Exception
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _create(array $data)
     {
         /** @var Mage_Catalog_Model_Api2_Product_Image_Validator_Image $validator */
@@ -58,9 +59,9 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
                 $filePath = $apiTempDir . DS . $imageFileName;
                 Mage::getModel('varien/image', $filePath);
                 Mage::getModel('core/file_validator_image')->validate($filePath);
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $ioAdapter->rmdir($apiTempDir, true);
-                $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+                $this->_critical($exception->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
             }
 
             $product = $this->_getProduct();
@@ -76,10 +77,10 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
 
             $product->save();
             return $this->_getImageLocation($this->_getCreatedImageId($imageFileUri));
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
         }
     }
@@ -87,7 +88,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
     /**
      * Get added image ID
      *
-     * @param string $imageFileUri
+     * @param  string              $imageFileUri
      * @return int
      * @throws Mage_Api2_Exception
      */
@@ -117,6 +118,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      * @return array
      * @throws Mage_Api2_Exception
      */
+    #[Override]
     protected function _retrieve()
     {
         $result = [];
@@ -145,6 +147,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      *
      * @throws Mage_Api2_Exception
      */
+    #[Override]
     protected function _update(array $data)
     {
         $imageId = (int) $this->getRequest()->getParam('image');
@@ -163,10 +166,10 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
 
         try {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -176,6 +179,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      *
      * @throws Mage_Api2_Exception
      */
+    #[Override]
     protected function _delete()
     {
         $imageId = (int) $this->getRequest()->getParam('image');
@@ -184,10 +188,10 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         $this->_getMediaGallery()->removeImage($product, $imageFileUri);
         try {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -197,6 +201,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      *
      * @return array
      */
+    #[Override]
     protected function _retrieveCollection()
     {
         $images = [];
@@ -213,7 +218,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
     /**
      * Get image resource location
      *
-     * @param int $imageId
+     * @param  int    $imageId
      * @return string URL
      */
     protected function _getImageLocation($imageId)

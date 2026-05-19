@@ -15,8 +15,9 @@ class Mage_Uploader_Block_Single extends Mage_Uploader_Block_Abstract
     /**
      * Prepare layout, change button and set front-end element ids mapping
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();

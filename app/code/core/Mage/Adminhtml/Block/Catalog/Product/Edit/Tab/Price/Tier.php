@@ -20,10 +20,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
     }
 
     /**
-     * Retrieve list of initial customer groups
-     *
-     * @return array
+     * @inheritDoc
+     * @return array<int, string>
      */
+    #[Override]
     protected function _getInitialCustomerGroups()
     {
         return [Mage_Customer_Model_Group::CUST_GROUP_ALL => Mage::helper('catalog')->__('ALL GROUPS')];
@@ -32,20 +32,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
     /**
      * Sort values
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
+    #[Override]
     protected function _sortValues($data)
     {
-        usort($data, [$this, '_sortTierPrices']);
+        usort($data, $this->_sortTierPrices(...));
         return $data;
     }
 
     /**
      * Sort tier price values callback method
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortTierPrices($a, $b)
@@ -71,6 +72,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')

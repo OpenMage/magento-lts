@@ -13,7 +13,7 @@
 class Mage_Checkout_Model_Config_Source_Cart_Summary
 {
     /**
-     * @return array
+     * @return array<int, array<string, int|string>>
      */
     public function toOptionArray()
     {

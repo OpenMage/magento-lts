@@ -92,7 +92,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     ];
 
     /**
-     * Collection resource initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -125,7 +125,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     /**
      * Get GROUP BY date format
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      * @deprecated since 1.5.0.0
      */
@@ -147,7 +147,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     /**
      * Get range by type
      *
-     * @param string $typeCode
+     * @param  string $typeCode
      * @return string
      * @deprecated since 1.5.0.0
      */
@@ -165,15 +165,12 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      *
      * @inheritDoc
      */
+    #[Override]
     public function addFieldToFilter($fieldName, $condition = null)
     {
         if ($fieldName == 'type' && is_array($condition) && isset($condition['eq'])) {
             $fieldName = 'customer_id';
-            if ($condition['eq'] === Mage_Log_Model_Visitor::VISITOR_TYPE_VISITOR) {
-                $condition = ['null' => 1];
-            } else {
-                $condition = ['moreq' => 1];
-            }
+            $condition = $condition['eq'] === Mage_Log_Model_Visitor::VISITOR_TYPE_VISITOR ? ['null' => 1] : ['moreq' => 1];
         }
 
         return parent::addFieldToFilter($this->_getFieldMap($fieldName), $condition);
@@ -182,7 +179,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     /**
      * Return field with table prefix
      *
-     * @param string $fieldName
+     * @param  string $fieldName
      * @return string
      */
     protected function _getFieldMap($fieldName)
@@ -193,10 +190,11 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
     /**
      * Load data
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool                                            $printQuery
+     * @param  bool                                            $logQuery
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {

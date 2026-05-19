@@ -48,7 +48,7 @@ class Mage_Downloadable_Block_Sales_Order_Email_Items_Order_Downloadable extends
     }
 
     /**
-     * @param Mage_Downloadable_Model_Link_Purchased_Item $item
+     * @param  Mage_Downloadable_Model_Link_Purchased_Item $item
      * @return string
      */
     public function getPurchasedLinkUrl($item)

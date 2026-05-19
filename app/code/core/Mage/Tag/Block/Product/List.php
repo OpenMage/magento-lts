@@ -75,6 +75,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         if (!$this->getProductId()) {
@@ -99,8 +100,8 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     /**
      * Render tags by specified pattern and implode them by specified 'glue' string
      *
-     * @param string $pattern
-     * @param string $glue
+     * @param  string                          $pattern
+     * @param  string                          $glue
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -122,7 +123,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     /**
      * Generate unique html id
      *
-     * @param string $prefix
+     * @param  string $prefix
      * @return string
      */
     public function getUniqueHtmlId($prefix = '')

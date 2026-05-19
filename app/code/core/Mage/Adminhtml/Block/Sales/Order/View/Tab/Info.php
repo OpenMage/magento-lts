@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
      *
      * @return Mage_Sales_Model_Order
      */
+    #[Override]
     public function getOrder()
     {
         return Mage::registry('current_order');
@@ -35,10 +36,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * Retrieve order totals block settings
-     *
-     * @return array
+     * @inheritDoc
+     * @return array<string, bool>
      */
+    #[Override]
     public function getOrderTotalData()
     {
         return [
@@ -48,6 +49,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
         ];
     }
 
+    /**
+     * @inheritDoc
+     * @return array<string, bool>
+     */
+    #[Override]
     public function getOrderInfoData()
     {
         return [

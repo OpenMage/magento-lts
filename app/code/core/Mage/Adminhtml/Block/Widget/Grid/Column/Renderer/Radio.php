@@ -26,7 +26,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio extends Mage_Adminh
     public function getValues()
     {
         if (is_null($this->_values)) {
-            $this->_values = $this->getColumn()->getData('values') ? $this->getColumn()->getData('values') : [];
+            $this->_values = $this->getColumn()->getDataByKey('values') ? $this->getColumn()->getDataByKey('values') : [];
         }
 
         return $this->_values;
@@ -35,8 +35,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio extends Mage_Adminh
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $values = $this->getColumn()->getValues();

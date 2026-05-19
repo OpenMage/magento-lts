@@ -15,15 +15,6 @@
 class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
-     * Retrieve an instance of the fallback helper
-     * @return Mage_Admin_Helper_Rules_Fallback
-     */
-    protected function _getFallbackHelper()
-    {
-        return Mage::helper('admin/rules_fallback');
-    }
-
-    /**
      * Get tab label
      *
      * @return string
@@ -81,25 +72,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         /** @var Mage_Admin_Model_Rules $item */
         foreach ($rules->getItems() as $item) {
             $itemResourceId = $item->getResource_id();
-            if (array_key_exists(strtolower($itemResourceId), $resources)) {
-                if ($item->isAllowed()) {
-                    $resources[$itemResourceId]['checked'] = true;
-                    $selrids[] = $itemResourceId;
-                }
-            }
-        }
-
-        $resourcesPermissionsMap = $rules->getResourcesPermissionsArray();
-        $undefinedResources = array_diff(array_keys($resources), array_keys($resourcesPermissionsMap));
-
-        foreach ($undefinedResources as $undefinedResourceId) {
-            // Fallback resource permissions
-            $permissions = $this->_getFallbackHelper()->fallbackResourcePermissions(
-                $resourcesPermissionsMap,
-                $undefinedResourceId,
-            );
-            if ($permissions == Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED) {
-                $selrids[] = $undefinedResourceId;
+            if (array_key_exists(strtolower($itemResourceId), $resources) && $item->isAllowed()) {
+                $resources[$itemResourceId]['checked'] = true;
+                $selrids[] = $itemResourceId;
             }
         }
 
@@ -125,9 +100,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
      */
     public function getResTreeJson()
     {
-        $rid = Mage::app()->getRequest()->getParam('rid', false);
         $resources = Mage::getModel('admin/roles')->getResourcesTree();
-
         $rootArray = $this->_getNodeJson($resources->admin, 1);
 
         return Mage::helper('core')->jsonEncode($rootArray['children'] ?? []);
@@ -136,8 +109,8 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
     /**
      * Compare two nodes of the Resource Tree
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortTree($a, $b)
@@ -148,8 +121,8 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
     /**
      * Get Node Json
      *
-     * @param mixed $node
-     * @param int $level
+     * @param  mixed $node
+     * @param  int   $level
      * @return array
      */
     protected function _getNodeJson($node, $level = 0)
@@ -167,11 +140,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             }
         }
 
-        if (isset($node->children)) {
-            $children = $node->children->children();
-        } else {
-            $children = $node->children();
-        }
+        $children = isset($node->children) ? $node->children->children() : $node->children();
 
         if (empty($children)) {
             return $item;
@@ -195,7 +164,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             }
 
             if (!empty($item['children'])) {
-                usort($item['children'], [$this, '_sortTree']);
+                usort($item['children'], $this->_sortTree(...));
             }
         }
 

@@ -22,13 +22,13 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     /**
      * Retrieve Full Option values array
      *
-     * @param bool $withEmpty       Add empty option to array
-     * @param bool $defaultValues
+     * @param  bool  $withEmpty     Add empty option to array
+     * @param  bool  $defaultValues
      * @return array
      */
     public function getAllOptions($withEmpty = true, $defaultValues = false)
     {
-        $storeId = $this->getAttribute()->getStoreId();
+        $storeId = (string) $this->getAttribute()->getStoreId();
         if (!is_array($this->_options)) {
             $this->_options = [];
         }
@@ -64,9 +64,10 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     /**
      * Get a text for option value
      *
-     * @param int|string $value
+     * @param  int|string         $value
      * @return array|false|string
      */
+    #[Override]
     public function getOptionText($value)
     {
         $isMultiple = false;
@@ -101,10 +102,11 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      * Add Value Sort To Collection Select
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @param string $dir
+     * @param string                                    $dir
      *
      * @return $this
      */
+    #[Override]
     public function addValueSortToCollection($collection, $dir = Varien_Db_Select::SQL_ASC)
     {
         $valueTable1    = $this->getAttribute()->getAttributeCode() . '_t1';
@@ -137,10 +139,9 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     }
 
     /**
-     * Retrieve Column(s) for Flat
-     *
-     * @return array
+     * @inheritDoc
      */
+    #[Override]
     public function getFlatColums()
     {
         $columns = [];
@@ -192,10 +193,9 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     }
 
     /**
-     * Retrieve Indexes for Flat
-     *
-     * @return array
+     * @inheritDoc
      */
+    #[Override]
     public function getFlatIndexes()
     {
         $indexes = [];
@@ -222,7 +222,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $store
+     * @param  int                   $store
      * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)

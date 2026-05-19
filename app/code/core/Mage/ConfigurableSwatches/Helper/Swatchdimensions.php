@@ -36,9 +36,9 @@ class Mage_ConfigurableSwatches_Helper_Swatchdimensions extends Mage_Core_Helper
     /**
      * Get any dimension
      *
-     * @param string $area
-     * @param string $dimension
-     * @param bool $outer
+     * @param  string $area
+     * @param  string $dimension
+     * @param  bool   $outer
      * @return int
      */
     public function getDimension($area, $dimension, $outer = false)
@@ -56,7 +56,7 @@ class Mage_ConfigurableSwatches_Helper_Swatchdimensions extends Mage_Core_Helper
     /**
      * Get inner width for any area
      *
-     * @param string $area
+     * @param  string $area
      * @return int
      */
     public function getInnerWidth($area)
@@ -67,7 +67,7 @@ class Mage_ConfigurableSwatches_Helper_Swatchdimensions extends Mage_Core_Helper
     /**
      * Get inner height for any area
      *
-     * @param string $area
+     * @param  string $area
      * @return int
      */
     public function getInnerHeight($area)
@@ -78,7 +78,7 @@ class Mage_ConfigurableSwatches_Helper_Swatchdimensions extends Mage_Core_Helper
     /**
      * Get outer width for any area
      *
-     * @param string $area
+     * @param  string $area
      * @return int
      */
     public function getOuterWidth($area)
@@ -89,7 +89,7 @@ class Mage_ConfigurableSwatches_Helper_Swatchdimensions extends Mage_Core_Helper
     /**
      * Get outer height for any area
      *
-     * @param string $area
+     * @param  string $area
      * @return int
      */
     public function getOuterHeight($area)

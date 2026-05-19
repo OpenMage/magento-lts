@@ -51,7 +51,7 @@ abstract class Magento_Profiler_OutputAbstract
     /**
      * Retrieve the list of (column_label; column_id) pairs
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getColumns()
     {
@@ -79,18 +79,16 @@ abstract class Magento_Profiler_OutputAbstract
 
         $value = (float) Magento_Profiler::fetch($timerId, $columnId);
         if (in_array($columnId, [Magento_Profiler::FETCH_TIME, Magento_Profiler::FETCH_AVG])) {
-            $value = number_format($value, 6);
-        } else {
-            $value = number_format($value);
+            return number_format($value, 6);
         }
 
-        return $value;
+        return number_format($value);
     }
 
     /**
      * Render timer id column value
      *
-     * @param string $timerId
+     * @param  string $timerId
      * @return string
      */
     protected function _renderTimerId($timerId)
@@ -203,7 +201,7 @@ abstract class Magento_Profiler_OutputAbstract
      * Set threshold (minimal allowed) value for timer column.
      * Timer is being rendered if at least one of its columns is not less than the minimal allowed value.
      *
-     * @param string $fetchKey
+     * @param string         $fetchKey
      * @param null|float|int $minAllowedValue
      */
     public function setThreshold($fetchKey, $minAllowedValue)

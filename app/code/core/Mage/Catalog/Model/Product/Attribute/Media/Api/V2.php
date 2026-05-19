@@ -17,9 +17,10 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api_V2 extends Mage_Catalog_Mod
     /**
      * Prepare data to create or update image
      *
-     * @param stdClass $data
+     * @param  stdClass $data
      * @return array
      */
+    #[Override]
     protected function _prepareImageData($data)
     {
         if (!is_object($data)) {

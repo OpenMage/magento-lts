@@ -14,12 +14,18 @@
  */
 class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_tag_popular_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('grid');
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
         if ($this->getRequest()->getParam('website')) {
@@ -40,6 +46,11 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -81,6 +92,11 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Tag_Model_Tag $row
+     */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/tagDetail', ['id' => $row->getTagId()]);

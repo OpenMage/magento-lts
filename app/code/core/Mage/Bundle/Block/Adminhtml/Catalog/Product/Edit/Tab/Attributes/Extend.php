@@ -12,13 +12,13 @@
  *
  * @package    Mage_Bundle
  *
- * @method bool getCanEditPrice()
- * @method bool getCanReadPrice()
+ * @method bool   getCanEditPrice()
+ * @method bool   getCanReadPrice()
  * @method string getDefaultProductPrice()
- * @method bool getDisableChild()
- * @method $this setCanEditPrice(bool $true)
- * @method $this setCanReadPrice(bool $true)
- * @method $this setDisableChild(bool $value)
+ * @method bool   getDisableChild()
+ * @method $this  setCanEditPrice(bool $true)
+ * @method $this  setCanReadPrice(bool $true)
+ * @method $this  setDisableChild(bool $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
 {
@@ -41,6 +41,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $elementHtml = parent::getElementHtml();
@@ -120,10 +121,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
      */
     public function getProduct()
     {
-        if (!$this->getData('product')) {
+        if (!$this->getDataByKey('product')) {
             $this->setData('product', Mage::registry('product'));
         }
 
-        return $this->getData('product');
+        return $this->getDataByKey('product');
     }
 }

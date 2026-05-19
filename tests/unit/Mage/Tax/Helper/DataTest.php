@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Helper;
 
+use Override;
 use Mage;
 use Mage_Tax_Helper_Data as Subject;
 use Mage_Tax_Model_Calculation;
@@ -28,6 +29,7 @@ final class DataTest extends OpenMageTest
 
     public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -130,18 +132,6 @@ final class DataTest extends OpenMageTest
         self::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
         self::assertSame('', self::$subject->getPriceFormat());
-    }
-
-    /**
-     * @group Helper
-     */
-    public function testGetTaxRatesByProductClass(): void
-    {
-        if (defined('DATA_MAY_CHANGED')) {
-            self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
-        }
-
-        self::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getTaxRatesByProductClass());
     }
 
     /**

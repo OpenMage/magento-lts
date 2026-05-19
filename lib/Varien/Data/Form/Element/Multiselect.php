@@ -12,10 +12,10 @@
  *
  * @package    Varien_Data
  *
- * @method bool getCanBeEmpty()
+ * @method bool   getCanBeEmpty()
  * @method string getDeselectAll()
  * @method string getSelectAll()
- * @method $this setSize(int $value)
+ * @method $this  setSize(int $value)
  */
 class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abstract
 {
@@ -25,15 +25,16 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      */
     public function __construct($attributes = [])
     {
+        $attributes['size'] ??= 10;
         parent::__construct($attributes);
         $this->setType('select');
         $this->setExtType('multiple');
-        $this->setSize(10);
     }
 
     /**
      * @return string
      */
+    #[Override]
     public function getName()
     {
         $name = parent::getName();
@@ -47,6 +48,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $this->addClass('select multiselect');
@@ -57,8 +59,13 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
             $html .= '/>';
         }
 
-        $html .= '<select id="' . $this->getHtmlId() . '" name="' . $this->getName() . '" '
-            . $this->serialize($this->getHtmlAttributes()) . ' multiple="multiple">' . "\n";
+        $html .= '<select id="' . $this->getHtmlId() . '"
+            name="' . $this->getName() . '"
+            data-test="' . $this->getTestId() . '"
+            ' . $this->serialize($this->getHtmlAttributes()) . '
+            multiple="multiple"
+            >'
+            . "\n";
 
         $value = $this->getValue();
         if (!is_array($value)) {
@@ -86,8 +93,9 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
     }
 
     /**
-     * @return array
+     * @return array<int, string>
      */
+    #[Override]
     public function getHtmlAttributes()
     {
         return ['title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'size', 'tabindex'];
@@ -96,6 +104,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
     /**
      * @return string
      */
+    #[Override]
     public function getDefaultHtml()
     {
         $result = ($this->getNoSpan() === true) ? '' : '<span class="field-row">' . "\n";
@@ -141,8 +150,8 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
     }
 
     /**
-     * @param array $option
-     * @param array $selected
+     * @param  array  $option
+     * @param  array  $selected
      * @return string
      */
     protected function _optionToHtml($option, $selected)

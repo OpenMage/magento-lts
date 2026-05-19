@@ -6,6 +6,8 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Varien_File
  */
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Validation;
 
 /**
  * File upload class
@@ -142,8 +144,8 @@ class Varien_File_Uploader
     /**
      * Resulting of uploaded file
      *
-     * @var array|bool      Array with file info keys: path, file. Result is
-     *                      FALSE when file not uploaded
+     * @var array|bool Array with file info keys: path, file. Result is
+     *                 FALSE when file not uploaded
      */
     protected $_result;
 
@@ -164,7 +166,7 @@ class Varien_File_Uploader
      * After save logic
      *
      * @param  array $result
-     * @return Varien_File_Uploader
+     * @return $this
      */
     protected function _afterSave($result)
     {
@@ -238,8 +240,8 @@ class Varien_File_Uploader
     /**
      * Move files from TMP folder into destination folder
      *
-     * @param string $tmpPath
-     * @param string $destPath
+     * @param  string $tmpPath
+     * @param  string $destPath
      * @return bool
      */
     protected function _moveFile($tmpPath, $destPath)
@@ -291,11 +293,11 @@ class Varien_File_Uploader
     /**
      * Add validation callback model for us in self::_validateFile()
      *
-     * @param string $callbackName
-     * @param object $callbackObject
-     * @param string $callbackMethod    Method name of $callbackObject. It must
-     *                                  have interface (string $tmpFilePath)
-     * @return Varien_File_Uploader
+     * @param  string $callbackName
+     * @param  object $callbackObject
+     * @param  string $callbackMethod Method name of $callbackObject. It must
+     *                                have interface (string $tmpFilePath)
+     * @return $this
      */
     public function addValidateCallback($callbackName, $callbackObject, $callbackMethod)
     {
@@ -311,7 +313,7 @@ class Varien_File_Uploader
      *
      * @param string $callbackName
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
      */
     public function removeValidateCallback($callbackName)
     {
@@ -325,7 +327,7 @@ class Varien_File_Uploader
     /**
      * Correct filename with special chars and spaces
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return string
      */
     public static function getCorrectFileName($fileName)
@@ -334,7 +336,7 @@ class Varien_File_Uploader
         $fileInfo = pathinfo($fileName);
 
         if (preg_match('/^_+$/', $fileInfo['filename'])) {
-            $fileName = 'file.' . $fileInfo['extension'];
+            return 'file.' . $fileInfo['extension'];
         }
 
         return $fileName;
@@ -343,7 +345,7 @@ class Varien_File_Uploader
     /**
      * Convert filename to lowercase in case of case-insensitive file names
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return string
      */
     public function correctFileNameCase($fileName)
@@ -375,8 +377,10 @@ class Varien_File_Uploader
     {
         try {
             if (count($validTypes) > 0) {
-                $validator = new Zend_Validate_File_MimeType($validTypes);
-                return $validator->isValid($this->_file['tmp_name']);
+                $validator = Validation::createValidator();
+                return $validator->validate($this->_file['tmp_name'], [
+                    new File(mimeTypes: $validTypes),
+                ])->count() === 0;
             }
 
             return true;
@@ -401,7 +405,7 @@ class Varien_File_Uploader
      *
      * @param mixed $flag
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
      * @see _allowCreateFolders
      */
     public function setAllowCreateFolders($flag)
@@ -415,7 +419,7 @@ class Varien_File_Uploader
      *
      * @param mixed $flag
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
      * @see _allowRenameFiles
      */
     public function setAllowRenameFiles($flag)
@@ -429,7 +433,7 @@ class Varien_File_Uploader
      *
      * @param mixed $flag
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
      * @see _enableFilesDispersion
      */
     public function setFilesDispersion($flag)
@@ -441,8 +445,8 @@ class Varien_File_Uploader
     /**
      * Filenames Case-sensitivity  setter
      *
-     * @param mixed $flag
-     * @return Varien_File_Uploader
+     * @param  mixed $flag
+     * @return $this
      */
     public function setFilenamesCaseSensitivity($flag)
     {
@@ -462,8 +466,8 @@ class Varien_File_Uploader
     /**
      * Set valid MIME-types.
      *
-     * @param array $mimeTypes
-     * @return Varien_File_Uploader
+     * @param  array $mimeTypes
+     * @return $this
      */
     public function setValidMimeTypes($mimeTypes = [])
     {
@@ -478,12 +482,12 @@ class Varien_File_Uploader
     /**
      * Check if specified extension is allowed
      *
-     * @param string $extension
+     * @param  string $extension
      * @return bool
      */
     public function checkAllowedExtension($extension)
     {
-        if (!is_array($this->_allowedExtensions) || empty($this->_allowedExtensions)) {
+        if (!is_array($this->_allowedExtensions) || $this->_allowedExtensions === []) {
             return true;
         }
 
@@ -491,7 +495,7 @@ class Varien_File_Uploader
     }
 
     /**
-     * @param string $extension
+     * @param  string $extension
      * @return bool
      * @deprecated after 1.5.0.0-beta2
      */
@@ -541,7 +545,7 @@ class Varien_File_Uploader
             $destinationFolder = substr($destinationFolder, 0, -1);
         }
 
-        if (!(@is_dir($destinationFolder) || @mkdir($destinationFolder, 0777, true))) {
+        if (!@is_dir($destinationFolder) && !@mkdir($destinationFolder, 0777, true)) {
             throw new Exception("Unable to create directory '{$destinationFolder}'.");
         }
 

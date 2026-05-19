@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -11,13 +12,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model;
 
 use Generator;
-use Varien_Object;
 
 trait SecurityTrait
 {
     public static string $testString = 'This is a bold <b>string</b>';
 
-    public function provideHtmlEscapedStringAsStringData(): Generator
+    public static function provideHtmlEscapedStringAsStringData(): Generator
     {
         yield 'tags null' => [
             'This is a bold &lt;b&gt;string&lt;/b&gt;',
@@ -31,7 +31,7 @@ trait SecurityTrait
         ];
     }
 
-    public function provideHtmlEscapedStringGetUnescapedValueData(): Generator
+    public static function provideHtmlEscapedStringGetUnescapedValueData(): Generator
     {
         yield 'tags null' => [
             self::$testString,

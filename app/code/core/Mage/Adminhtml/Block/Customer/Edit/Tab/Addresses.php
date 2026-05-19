@@ -34,6 +34,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -232,8 +233,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Return predefined additional element types
      *
-     * @return array
+     * @return array<string, string>
      */
+    #[Override]
     protected function _getAdditionalElementTypes()
     {
         return [
@@ -265,7 +267,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Add specified values to name prefix element values
      *
-     * @param array|int|string $values
+     * @param  array|int|string $values
      * @return $this
      */
     public function addValuesToNamePrefixElement($values)
@@ -280,7 +282,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Add specified values to name suffix element values
      *
-     * @param array|int|string $values
+     * @param  array|int|string $values
      * @return $this
      */
     public function addValuesToNameSuffixElement($values)

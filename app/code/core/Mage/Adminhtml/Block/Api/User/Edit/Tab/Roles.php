@@ -16,17 +16,22 @@
  */
 class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_api_user_edit_tab_roles';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('permissionsUserRolesGrid');
         $this->setDefaultSort('sort_order');
-        $this->setDefaultDir('asc');
-        //$this->setDefaultFilter(array('assigned_user_role'=>1));
+        $this->setDefaultDir('ASC');
         $this->setTitle(Mage::helper('adminhtml')->__('User Roles Information'));
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getId() === 'assigned_user_role') {
@@ -51,6 +56,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('api/role_collection');
@@ -63,6 +69,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('assigned_user_role', [
@@ -84,15 +91,16 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/rolesGrid', ['user_id' => Mage::registry('api_user')->getUserId()]);
     }
 
     /**
-     * @param bool $json
+     * @param  bool      $json
      * @return string
      * @throws Exception
      */

@@ -134,7 +134,11 @@ cy.openmage.validation = {
             options.match = 'include.text';
         }
 
-        cy.get(element).should(options.match, message);
+        if (message === undefined) {
+            cy.get(element).should('exist');
+        } else {
+            cy.get(element).should(options.match, message);
+        }
 
         if (options.screenshot === true && options.filename) {
             cy.openmage.utils.screenshot(cy.openmage.validation._messagesContainer, options.filename);

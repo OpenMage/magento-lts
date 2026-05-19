@@ -16,18 +16,20 @@
  */
 class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_product_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('productsReportGrid');
         $this->setDefaultSort('entity_id');
-        $this->setDefaultDir('desc');
     }
 
     /**
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Reports_Model_Resource_Product_Collection $collection */
@@ -42,6 +44,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoadCollection()
     {
         $totalObj = new Mage_Reports_Model_Totals();
@@ -54,6 +57,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
@@ -107,7 +111,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
             'total'     => 'sum',
         ]);
 
-        $this->setCountTotals(true);
+        $this->setCountTotals();
 
         $this->addExportType('*/*/exportProductsCsv', Mage::helper('reports')->__('CSV'));
         $this->addExportType('*/*/exportProductsExcel', Mage::helper('reports')->__('Excel XML'));

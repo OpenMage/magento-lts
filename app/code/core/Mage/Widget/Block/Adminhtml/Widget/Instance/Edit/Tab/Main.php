@@ -14,6 +14,10 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -75,12 +79,13 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $widgetInstance = $this->getWidgetInstance();
         $form = new Varien_Data_Form([
             'id' => 'edit_form',
-            'action' => $this->getData('action'),
+            'action' => $this->getDataByKey('action'),
             'method' => 'post',
         ]);
 
@@ -185,6 +190,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _initFormValues()
     {
         $this->getForm()->addValues($this->getWidgetInstance()->getData());

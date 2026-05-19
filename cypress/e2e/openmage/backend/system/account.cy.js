@@ -1,6 +1,5 @@
 const test = cy.openmage.test.backend.system.account.config;
 const tools = cy.openmage.tools;
-const utils = cy.openmage.utils;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
@@ -13,10 +12,8 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.removeClasses(test.index);
         validation.emptyFields(test.index);
 
-        const message = 'Current password field cannot be empty.';
-        const screenshot = 'message.system.account.saveEmptyWithoutJs';
         test.index.__buttons.save.click();
-        validation.hasErrorMessage(message, { screenshot: true, filename: screenshot + '-1' });
+        validation.hasErrorMessage('Current password field cannot be empty.');
 
         /// with filling password
         validation.removeClasses(test.index);
@@ -29,7 +26,6 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.hasErrorMessage('First Name is required field.');
         validation.hasErrorMessage('Last Name is required field.');
         validation.hasErrorMessage('Please enter a valid email.');
-        utils.screenshot(cy.openmage.validation._messagesContainer, screenshot + '-2');
    });
 
     it(`tests save empty input`, () => {

@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
      *
      * @return string
      */
+    #[Override]
     public function getHtml()
     {
         $options = $this->getOptions();
@@ -44,7 +45,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
     {
         $options = $this->getColumn()->getOptions();
         if (empty($options) || !is_array($options)) {
-            $options = Mage::getModel('core/design_source_design')
+            return Mage::getModel('core/design_source_design')
                 ->setIsFullLabel(true)->getAllOptions(false);
         }
 
@@ -54,7 +55,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
     /**
      * Render SELECT options
      *
-     * @param array $options
+     * @param  array  $options
      * @return string
      */
     protected function _drawOptions($options)
@@ -67,7 +68,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
         $html  = '';
 
         foreach ($options as $option) {
-            if (!isset($option['value']) || !isset($option['label'])) {
+            if (!isset($option['value'])) {
+                continue;
+            }
+
+            if (!isset($option['label'])) {
                 continue;
             }
 
@@ -85,10 +90,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
     }
 
     /**
-     * Retrieve filter condition for collection
-     *
-     * @return mixed
+     * @inheritDoc
      */
+    #[Override]
     public function getCondition()
     {
         if (is_null($this->getValue())) {

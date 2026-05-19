@@ -17,9 +17,10 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Parent extends Mage_Eav_
     /**
      * Perform operation after save
      *
-     * @param Mage_Sales_Model_Order|Varien_Object $object
+     * @param  Mage_Sales_Model_Order|Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         parent::afterSave($object);

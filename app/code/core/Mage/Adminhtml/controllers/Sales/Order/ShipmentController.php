@@ -94,7 +94,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Save shipment and order in one transaction
      *
-     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return $this
      * @throws Exception
      */
@@ -112,8 +112,10 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Shipment information page
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function viewAction()
     {
         $shipment = $this->_initShipment();
@@ -135,6 +137,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Start create shipment action
+     * @return void
      */
     public function startAction()
     {
@@ -147,6 +150,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Shipment create page
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function newAction()
@@ -171,6 +175,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Save shipment
      * We can save only new shipment. Existing shipments are not editable
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function saveAction()
@@ -253,6 +258,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Send email with shipment data to customer
+     * @return void
      */
     public function emailAction()
     {
@@ -284,6 +290,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Add new tracking number action
+     * @return void
      */
     public function addTrackAction()
     {
@@ -337,12 +344,12 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Remove tracking number from shipment
+     * @return void
      */
     public function removeTrackAction()
     {
-        $trackId    = $this->getRequest()->getParam('track_id');
-        $shipmentId = $this->getRequest()->getParam('shipment_id');
-        $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
+        $trackId = $this->getRequest()->getParam('track_id');
+        $track   = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
             try {
                 if ($this->_initShipment()) {
@@ -378,12 +385,12 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * View shipment tracking information
+     * @return void
      */
     public function viewTrackAction()
     {
-        $trackId    = $this->getRequest()->getParam('track_id');
-        $shipmentId = $this->getRequest()->getParam('shipment_id');
-        $track = Mage::getModel('sales/order_shipment_track')->load($trackId);
+        $trackId = $this->getRequest()->getParam('track_id');
+        $track   = Mage::getModel('sales/order_shipment_track')->load($trackId);
         if ($track->getId()) {
             try {
                 $response = $track->getNumberDetail();
@@ -421,6 +428,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Add comment to shipment history
+     * @return void
      */
     public function addCommentAction()
     {
@@ -467,8 +475,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * for example we don't need create dummy parent if all
      * children are not in process
      *
-     * @param Mage_Sales_Model_Order_Item $item
-     * @param array $qtys
+     * @param  Mage_Sales_Model_Order_Item $item
+     * @param  array                       $qtys
      * @return bool
      * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
      */
@@ -495,13 +503,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 return false;
             }
 
-            if ((isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0)
-                || (!isset($qtys[$item->getParentItem()->getId()]) && $item->getParentItem()->getQtyToShip())
-            ) {
-                return true;
-            }
-
-            return false;
+            return (isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0)
+                || (!isset($qtys[$item->getParentItem()->getId()]) && $item->getParentItem()->getQtyToShip());
         }
 
         return false;
@@ -563,6 +566,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
     /**
      * Create shipping label action for specific shipment
+     * @return void
      */
     public function createLabelAction()
     {
@@ -589,7 +593,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Print label for one specific shipment
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return $this|void
      */
     public function printLabelAction()
     {
@@ -633,6 +637,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Create pdf document with information about packages
      *
+     * @return void
      * @throws Mage_Core_Exception
      * @throws Zend_Pdf_Exception
      */
@@ -656,11 +661,13 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Batch print shipping labels for whole shipments.
      * Push pdf document with shipping labels to user browser
      *
+     * @return void
      * @throws Zend_Pdf_Exception
      */
     public function massPrintShippingLabelAction()
     {
         $request = $this->getRequest();
+        /** @var string[] $ids */
         $ids = $request->getParam('order_ids');
         $createdFromOrders = !empty($ids);
         $shipments = null;
@@ -668,8 +675,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         switch ($request->getParam('massaction_prepare_key')) {
             case 'shipment_ids':
                 $ids = $request->getParam('shipment_ids');
-                $ids = array_filter($ids, \intval(...));
-                if (!empty($ids)) {
+                $ids = array_filter($ids, fn(mixed $value) => (int) $value !== 0);
+                if ($ids !== []) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->addFieldToFilter('entity_id', ['in' => $ids]);
                 }
@@ -677,8 +684,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 break;
             case 'order_ids':
                 $ids = $request->getParam('order_ids');
-                $ids = array_filter($ids, \intval(...));
-                if (!empty($ids)) {
+                $ids = array_filter($ids, fn(mixed $value) => (int) $value !== 0);
+                if ($ids !== []) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->setOrderFilter(['in' => $ids]);
                 }
@@ -695,7 +702,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             }
         }
 
-        if (!empty($labelsContent)) {
+        if ($labelsContent !== []) {
             $outputPdf = $this->_combineLabelsPdf($labelsContent);
             $this->_prepareDownloadResponse('ShippingLabels.pdf', $outputPdf->render(), 'application/pdf');
             return;
@@ -741,7 +748,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Create Zend_Pdf_Page instance with image from $imageString. Supports JPEG, PNG, GIF, WBMP, and GD2 formats.
      *
-     * @param string $imageString
+     * @param  string             $imageString
      * @return bool|Zend_Pdf_Page
      * @throws Zend_Pdf_Exception
      */
@@ -758,7 +765,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
         imageinterlace($image, false);
         $tmpFileName = sys_get_temp_dir() . DS . 'shipping_labels_'
-                     . uniqid((string) mt_rand()) . time() . '.png';
+                     . uniqid((string) mt_rand()) . Mage::helper('core/clock')->getTimestamp() . '.png';
         imagepng($image, $tmpFileName);
         $pdfImage = Zend_Pdf_Image::imageWithPath($tmpFileName);
         $page->drawImage($pdfImage, 0, 0, $xSize, $ySize);
@@ -769,7 +776,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Return grid with shipping items for Ajax request
      *
-     * @return Mage_Core_Controller_Response_Http
+     * @return Mage_Core_Controller_Response_Http|Zend_Controller_Response_Abstract
      * @throws Mage_Core_Exception
      */
     public function getShippingItemsGridAction()

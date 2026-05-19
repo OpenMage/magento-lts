@@ -10,7 +10,7 @@
 <config>
     <modules>
         <Mage_Api>
-            <version>1.6.0.3</version>
+            <version>1.6.0.4</version>
         </Mage_Api>
     </modules>
     <global>
@@ -35,7 +35,6 @@
             </api>
             <api_resource>
                 <class>Mage_Api_Model_Resource</class>
-                <deprecatedNode>api_mysql4</deprecatedNode>
                 <entities>
                     <assert>
                         <table>api_assert</table>

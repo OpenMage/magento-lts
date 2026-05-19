@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -50,12 +51,12 @@ class CollectionTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideReportsDateIntervals
+     * @dataProvider provideReportsDateIntervalsData
      * @group Model
      */
-    public function testGetIntervals(int|string $expectedResult, string|Zend_Date $from, string|Zend_Date $to, string $period): void
+    public function testGetIntervals(int|string $expectedResult, null|string|Zend_Date $dateFrom, null|string|Zend_Date $dateTo, string $period): void
     {
-        self::$subject->setInterval($from, $to);
+        self::$subject->setInterval($dateFrom, $dateTo);
         self::$subject->setPeriod($period);
 
         try {
@@ -108,7 +109,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testGetPageSize(): void
     {
-        self::assertNull(self::$subject->getPageSize());
+        self::assertFalse(self::$subject->getPageSize());
     }
 
     /**

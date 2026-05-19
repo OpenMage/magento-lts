@@ -31,14 +31,13 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Check is attribute allowed
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return bool
      */
     protected function _isAllowedAttribute($attribute, ?array $filter = null)
     {
         if (!is_null($filter)
-            && !(in_array($attribute->getAttributeCode(), $filter)
-                  || in_array($attribute->getAttributeId(), $filter))
+            && (!in_array($attribute->getAttributeCode(), $filter) && !in_array($attribute->getAttributeId(), $filter))
         ) {
             return false;
         }
@@ -50,7 +49,7 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Return list of allowed attributes
      *
-     * @param Mage_Customer_Model_Address|Mage_Customer_Model_Customer $entity
+     * @param  Mage_Customer_Model_Address|Mage_Customer_Model_Customer $entity
      * @return array
      * @throws Mage_Core_Exception
      */

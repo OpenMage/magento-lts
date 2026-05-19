@@ -14,6 +14,10 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -38,7 +42,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      *
      * @inheritDoc
      */
-    protected function _preparelayout()
+    #[Override]
+    protected function _prepareLayout()
     {
         if ($this->getWidgetInstance()->isCompleteToCreate()) {
             $this->_addButton(
@@ -62,6 +67,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if ($this->getWidgetInstance()->getId()) {
@@ -86,6 +92,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      *
      * @return string
      */
+    #[Override]
     public function getSaveUrl()
     {
         return $this->getUrl('*/*/save', ['_current' => true, 'back' => null]);

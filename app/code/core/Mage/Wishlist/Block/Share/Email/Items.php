@@ -26,10 +26,11 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
     /**
      * Retrieve Product View URL
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
+    #[Override]
     public function getProductUrl($product, $additional = [])
     {
         $additional['_store_to_url'] = true;
@@ -39,10 +40,11 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
     /**
      * Retrieve URL for add product to shopping cart
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
+    #[Override]
     public function getAddToCartUrl($product, $additional = [])
     {
         return $this->getAddToCartUrlCustom($product, $additional);
@@ -51,9 +53,10 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
     /**
      * Check whether wishlist item has description
      *
-     * @param Mage_Wishlist_Model_Item $item
+     * @param  Mage_Wishlist_Model_Item $item
      * @return bool
      */
+    #[Override]
     public function hasDescription($item)
     {
         $hasDescription = parent::hasDescription($item);
@@ -67,11 +70,12 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
     /**
      * Retrieve URL for add product to shopping cart with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
+     * @param  bool                       $addFormKey
      * @return string
      */
+    #[Override]
     public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {
         $additional['nocookie'] = 1;

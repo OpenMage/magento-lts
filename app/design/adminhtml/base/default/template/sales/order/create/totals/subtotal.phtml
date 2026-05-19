@@ -1,0 +1,40 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Sales_Order_Create_Totals_Subtotal
+ * @var Mage_Adminhtml_Block_Sales_Order_Create_Totals_Subtotal $this
+ */
+?>
+<?php if ($this->displayBoth()):?>
+<tr>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
+        <?php echo $this->helper('tax')->__('Subtotal (Excl. Tax)') ?>
+    </td>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right">
+        <?php echo $this->formatPrice($this->getTotal()->getValueExclTax()) ?>
+    </td>
+</tr>
+<tr>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
+        <?php echo $this->helper('tax')->__('Subtotal (Incl. Tax)') ?>
+    </td>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right">
+        <?php echo $this->formatPrice($this->getTotal()->getValueInclTax()) ?>
+    </td>
+</tr>
+<?php else: ?>
+<tr>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
+        <?php echo $this->getTotal()->getTitle() ?>
+    </td>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right">
+        <?php echo $this->formatPrice($this->getTotal()->getValue()) ?>
+    </td>
+</tr>
+<?php endif ?>

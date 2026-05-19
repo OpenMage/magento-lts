@@ -12,24 +12,24 @@
  *
  * @package    Mage_Admin
  *
- * @method Mage_Admin_Model_Resource_Roles _getResource()
+ * @method Mage_Admin_Model_Resource_Roles            _getResource()
  * @method Mage_Admin_Model_Resource_Roles_Collection getCollection()
- * @method string getName()
- * @method int getParentId()
- * @method int getPid()
- * @method Mage_Admin_Model_Resource_Roles getResource()
+ * @method string                                     getName()
+ * @method int                                        getParentId()
+ * @method int                                        getPid()
+ * @method Mage_Admin_Model_Resource_Roles            getResource()
  * @method Mage_Admin_Model_Resource_Roles_Collection getResourceCollection()
- * @method string getRoleName()
- * @method string getRoleType()
- * @method int getSortOrder()
- * @method int getTreeLevel()
- * @method int getUserId()
- * @method $this setParentId(int $value)
- * @method $this setRoleName(string $value)
- * @method $this setRoleType(string $value)
- * @method $this setSortOrder(int $value)
- * @method $this setTreeLevel(int $value)
- * @method $this setUserId(int $value)
+ * @method string                                     getRoleName()
+ * @method string                                     getRoleType()
+ * @method int                                        getSortOrder()
+ * @method int                                        getTreeLevel()
+ * @method int                                        getUserId()
+ * @method $this                                      setParentId(int $value)
+ * @method $this                                      setRoleName(string $value)
+ * @method $this                                      setRoleType(string $value)
+ * @method $this                                      setSortOrder(int $value)
+ * @method $this                                      setTreeLevel(int $value)
+ * @method $this                                      setUserId(int $value)
  */
 class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
 {
@@ -38,20 +38,12 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'admin_roles';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('admin/roles');
-    }
-
-    /**
-     * Update object into database
-     *
-     * @return $this
-     */
-    public function update()
-    {
-        $this->getResource()->update($this);
-        return $this;
     }
 
     /**
@@ -97,7 +89,8 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Return users for role
      *
-     * @return array|false
+     * @return string[]
+     * @throws Mage_Core_Exception
      */
     public function getRoleUsers()
     {
@@ -107,11 +100,11 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Build resources array process
      *
-     * @param  null|string $parentName
-     * @param  null|int $level
-     * @param  null|mixed $represent2Darray
-     * @param  bool $rawNodes
-     * @param  string $module
+     * @param  null|string                          $parentName
+     * @param  null|int                             $level
+     * @param  null|mixed                           $represent2Darray
+     * @param  bool                                 $rawNodes
+     * @param  string                               $module
      * @return array|false|Varien_Simplexml_Element
      */
     protected function _buildResourcesArray(
@@ -154,7 +147,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
         //check children and run recursion if they exists
         $children = $resource->children();
         foreach ($children as $key => $child) {
-            if ($child->disabled == 1) {
+            if ((string) $child->disabled === '1') {
                 $resource->{$key} = null;
                 continue;
             }
@@ -164,8 +157,8 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
 
         if ($rawNodes) {
             return $resource;
-        } else {
-            return $result;
         }
+
+        return $result;
     }
 }

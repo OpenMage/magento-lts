@@ -67,7 +67,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     /**
      * Geter for available gift messages value from product
      *
-     * @param int|Mage_Catalog_Model_Product $product
+     * @param  int|Mage_Catalog_Model_Product $product
      * @return null|int
      * @deprecated after 1.5.0.0
      */

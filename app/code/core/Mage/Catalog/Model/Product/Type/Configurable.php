@@ -86,6 +86,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      *
      * @return Varien_Object Object with information data
      */
+    #[Override]
     public function getRelationInfo()
     {
         $info = new Varien_Object();
@@ -96,15 +97,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     }
 
     /**
-     * Retrieve Required children ids
-     * Return grouped array, ex array(
-     *   group => array(ids)
-     * )
-     *
-     * @param  int $parentId
-     * @param  bool $required
-     * @return array
+     * @inheritDoc
      */
+    #[Override]
     public function getChildrenIds($parentId, $required = true)
     {
         return Mage::getResourceSingleton('catalog/product_type_configurable')
@@ -117,6 +112,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * @param  array|int $childId
      * @return array
      */
+    #[Override]
     public function getParentIdsByChild($childId)
     {
         return Mage::getResourceSingleton('catalog/product_type_configurable')
@@ -129,6 +125,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
+    #[Override]
     public function getEditableAttributes($product = null)
     {
         if (is_null($this->_editableAttributes)) {
@@ -148,7 +145,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Checkin attribute availability for create superproduct
      *
-     * @return  bool
+     * @return bool
      */
     public function canUseAttribute(Mage_Eav_Model_Entity_Attribute $attribute)
     {
@@ -162,9 +159,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Declare attribute identifiers used for assign subproducts
      *
-     * @param   array $ids
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Catalog_Model_Product_Type_Configurable
+     * @param  array                      $ids
+     * @param  Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function setUsedProductAttributeIds($ids, $product = null)
     {
@@ -207,7 +204,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Retrieve used product attributes
      *
-     * @param  Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product                  $product
      * @return Mage_Catalog_Model_Resource_Eav_Attribute[]
      */
     public function getUsedProductAttributes($product = null)
@@ -233,7 +230,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Retrieve configurable attributes data
      *
-     * @param  Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product                               $product
      * @return Mage_Catalog_Model_Product_Type_Configurable_Attribute[]
      */
     public function getConfigurableAttributes($product = null)
@@ -253,7 +250,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Retrieve Configurable Attributes as array
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getConfigurableAttributesAsArray($product = null)
@@ -279,7 +276,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Retrieve configurable attribute collection
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product                                                 $product
      * @return Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      */
     public function getConfigurableAttributeCollection($product = null)
@@ -311,8 +308,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Retrieve array of "subproducts"
      *
-     * @param  null|array $requiredAttributeIds
-     * @param  Mage_Catalog_Model_Product $product
+     * @param  null|array                   $requiredAttributeIds
+     * @param  Mage_Catalog_Model_Product   $product
      * @return Mage_Catalog_Model_Product[]
      */
     public function getUsedProducts($requiredAttributeIds = null, $product = null)
@@ -367,7 +364,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Retrieve related products collection
      *
-     * @param  Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product                                               $product
      * @return Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
      */
     public function getUsedProductCollection($product = null)
@@ -389,6 +386,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
+    #[Override]
     public function beforeSave($product = null)
     {
         parent::beforeSave($product);
@@ -410,7 +408,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         }
 
         foreach ($this->getConfigurableAttributes($product) as $attribute) {
-            $this->getProduct($product)->setData($attribute->getProductAttribute()->getAttributeCode(), null);
+            $this->getProduct($product)->setData($attribute->getProductAttribute()->getAttributeCode());
         }
 
         return $this;
@@ -422,6 +420,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
+    #[Override]
     public function save($product = null)
     {
         parent::save($product);
@@ -457,9 +456,10 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Check is product available for sale
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
+    #[Override]
     public function isSalable($product = null)
     {
         $salable = parent::isSalable($product);
@@ -485,7 +485,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * Check whether the product is available for sale
      * is alias to isSalable for compatibility
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function getIsSalable($product = null)
@@ -495,17 +495,17 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
 
     /**
      * Retrieve used product by attribute values
-     *  $attrbutesInfo = array(
+     *  $attributesInfo = array(
      *      $attributeId => $attributeValue
      *  )
      *
-     * @param  array $attributesInfo
-     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                           $attributesInfo
+     * @param  Mage_Catalog_Model_Product      $product
      * @return null|Mage_Catalog_Model_Product
      */
     public function getProductByAttributes($attributesInfo, $product = null)
     {
-        if (is_array($attributesInfo) && !empty($attributesInfo)) {
+        if (is_array($attributesInfo) && $attributesInfo !== []) {
             $productCollection = $this->getUsedProductCollection($product)->addAttributeToSelect('name');
             foreach ($attributesInfo as $attributeId => $attributeValue) {
                 $productCollection->addAttributeToFilter($attributeId, $attributeValue);
@@ -556,11 +556,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     $attribute = $usedAttributes[$attributeId];
                     $label = $attribute->getLabel();
                     $value = $attribute->getProductAttribute();
-                    if ($value->getSourceModel()) {
-                        $value = $value->getSource()->getOptionText($attributeValue);
-                    } else {
-                        $value = '';
-                    }
+                    $value = $value->getSourceModel() ? $value->getSource()->getOptionText($attributeValue) : '';
 
                     $attributes[] = ['label' => $label, 'value' => $value];
                 }
@@ -575,10 +571,11 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * Prepare product and its configuration to be added to some products list.
      * Perform standard preparation process and then add Configurable specific options.
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $processMode
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  string                     $processMode
      * @return array|string
      */
+    #[Override]
     protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
     {
         $attributes = $buyRequest->getSuperAttribute();
@@ -604,7 +601,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 $subProduct = true;
                 if ($this->_isStrictProcessMode($processMode)) {
                     foreach ($this->getConfigurableAttributes($product) as $attributeItem) {
-                        $attrId = $attributeItem->getData('attribute_id');
+                        $attrId = $attributeItem->getDataByKey('attribute_id');
                         if (!isset($attributes[$attrId]) || empty($attributes[$attrId])) {
                             $subProduct = null;
                             break;
@@ -620,7 +617,6 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     $product->addCustomOption('attributes', serialize($attributes));
                     $product->addCustomOption('product_qty_' . $subProduct->getId(), 1, $subProduct);
                     $product->addCustomOption('simple_product', $subProduct->getId(), $subProduct);
-
                     $_result = $subProduct->getTypeInstance(true)->_prepareProduct(
                         $buyRequest,
                         $subProduct,
@@ -657,7 +653,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
 
                     $result[] = $_result[0];
                     return $result;
-                } elseif (!$this->_isStrictProcessMode($processMode)) {
+                }
+
+                if (!$this->_isStrictProcessMode($processMode)) {
                     return $result;
                 }
             }
@@ -673,6 +671,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function checkProductBuyState($product = null)
     {
         parent::checkProductBuyState($product);
@@ -702,6 +701,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      *
      * @return string
      */
+    #[Override]
     public function getSpecifyOptionMessage()
     {
         return Mage::helper('catalog')->__("Please specify the product's option(s).");
@@ -714,6 +714,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
+    #[Override]
     public function getOrderOptions($product = null)
     {
         $options = parent::getOrderOptions($product);
@@ -734,15 +735,15 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Check is virtual product
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
+    #[Override]
     public function isVirtual($product = null)
     {
-        if ($productOption = $this->getProduct($product)->getCustomOption('simple_product')) {
-            if ($optionProduct = $productOption->getProduct()) {
-                return $optionProduct->isVirtual();
-            }
+        $productOption = $this->getProduct($product)->getCustomOption('simple_product');
+        if ($productOption && $optionProduct = $productOption->getProduct()) {
+            return $optionProduct->isVirtual();
         }
 
         return parent::isVirtual($product);
@@ -754,6 +755,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
+    #[Override]
     public function hasOptions($product = null)
     {
         if ($this->getProduct($product)->getOptions()) {
@@ -763,7 +765,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $attributes = $this->getConfigurableAttributes($product);
         if (count($attributes)) {
             foreach ($attributes as $attribute) {
-                if ($attribute->getData('prices')) {
+                if ($attribute->getDataByKey('prices')) {
                     return true;
                 }
             }
@@ -779,6 +781,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * @param  Mage_Catalog_Model_Product $product
      * @return float
      */
+    #[Override]
     public function getWeight($product = null)
     {
         if ($this->getProduct($product)->hasCustomOptions()
@@ -791,18 +794,19 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             }
         }
 
-        return $this->getProduct($product)->getData('weight');
+        return $this->getProduct($product)->getDataByKey('weight');
     }
 
     /**
      * Implementation of product specify logic of which product needs to be assigned to option.
      * For example if product which was added to option already removed from catalog.
      *
-     * @param  null|Mage_Catalog_Model_Product $optionProduct
+     * @param  null|Mage_Catalog_Model_Product    $optionProduct
      * @param  Mage_Sales_Model_Quote_Item_Option $option
-     * @param  null|Mage_Catalog_Model_Product $product
+     * @param  null|Mage_Catalog_Model_Product    $product
      * @return $this
      */
+    #[Override]
     public function assignProductToOption($optionProduct, $option, $product = null)
     {
         if ($optionProduct) {
@@ -821,6 +825,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
+    #[Override]
     public function getProductsToPurchaseByReqGroups($product = null)
     {
         $product = $this->getProduct($product);
@@ -830,9 +835,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Get sku of product
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getSku($product = null)
     {
         /** @var Mage_Sales_Model_Quote_Item_Option $simpleOption */
@@ -844,25 +849,24 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 $simpleSku =  $simpleOption->getProduct()->getSku();
             }
 
-            $sku = parent::getOptionSku($product, $simpleSku);
-        } else {
-            $sku = parent::getSku($product);
+            return parent::getOptionSku($product, $simpleSku);
         }
 
-        return $sku;
+        return parent::getSku($product);
     }
 
     /**
      * Prepare selected options for configurable product
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  Varien_Object $buyRequest
-     * @return array
+     * @inheritDoc
+     * @return array<string, string[]>
      */
+    #[Override]
     public function processBuyRequest($product, $buyRequest)
     {
+        /** @var null|string[] $superAttribute */
         $superAttribute = $buyRequest->getSuperAttribute();
-        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, \intval(...)) : [];
+        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, fn(mixed $value) => (int) $value !== 0) : [];
 
         return ['super_attribute' => $superAttribute];
     }
@@ -870,10 +874,11 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Check if Minimum Advertise Price is enabled at least in one option
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param int $visibility
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  int                        $visibility
      * @return null|bool
      */
+    #[Override]
     public function isMapEnabledInOptions($product, $visibility = null)
     {
         return null;
@@ -882,7 +887,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Prepare and retrieve options values with product data
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getConfigurableOptions($product)

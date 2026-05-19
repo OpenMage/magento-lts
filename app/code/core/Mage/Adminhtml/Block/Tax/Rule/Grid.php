@@ -16,23 +16,21 @@
  */
 class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Set default value
-     */
+    protected string $_eventPrefix = 'adminhtml_tax_rule_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setDefaultSort('tax_rule_id');
         $this->setId('taxRuleGrid');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
     }
 
     /**
-     * Prepare grid collection
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('tax/calculation_rule')
@@ -52,6 +50,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($this->getCollection()) {
@@ -75,7 +74,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn(
@@ -159,17 +160,15 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ],
         );
 
-        $actionsUrl = $this->getUrl('*/*/');
-
         return parent::_prepareColumns();
     }
 
     /**
-     * Return url
-     *
-     * @param Mage_Tax_Model_Calculation_Rule $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Tax_Model_Calculation_Rule $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['rule' => $row->getId()]);

@@ -21,6 +21,9 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
      */
     protected $_useIsObjectNew = true;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('persistent/session', 'persistent_id');
@@ -29,11 +32,12 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     /**
      * Add expiration date filter to select
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Persistent_Model_Session $object
+     * @param  string                        $field
+     * @param  mixed                         $value
+     * @param  Mage_Persistent_Model_Session $object
      * @return Zend_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);
@@ -51,7 +55,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     /**
      * Delete customer persistent session by customer id
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function deleteByCustomerId($customerId)
@@ -63,7 +67,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     /**
      * Check if such session key allowed (not exists)
      *
-     * @param string $key
+     * @param  string $key
      * @return bool
      */
     public function isKeyAllowed($key)
@@ -76,7 +80,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     /**
      * Delete expired persistent sessions
      *
-     * @param  int $websiteId
+     * @param  int    $websiteId
      * @param  string $expiredBefore
      * @return $this
      */

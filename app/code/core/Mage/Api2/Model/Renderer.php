@@ -17,7 +17,7 @@ abstract class Mage_Api2_Model_Renderer
     /**
      * Get Renderer of given type
      *
-     * @param array|string $acceptTypes
+     * @param  array|string                   $acceptTypes
      * @return false|Mage_Core_Model_Abstract
      * @throws Mage_Api2_Exception
      */

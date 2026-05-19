@@ -13,36 +13,36 @@
  * @package    Mage_Customer
  *
  * @method string getAddActionReferer()
- * @method array getAddressFormData()
+ * @method array  getAddressFormData()
  * @method string getAfterAuthUrl()
  * @method string getBeforeAuthUrl()
  * @method string getBeforeUrl()
- * @method array getBeforeWishlistRequest()
+ * @method array  getBeforeWishlistRequest()
  * @method string getBeforeWishlistUrl()
- * @method array getCustomerFormData()
- * @method string  getDisplayOutOfStockProducts(string $value)
+ * @method array  getCustomerFormData()
+ * @method string getDisplayOutOfStockProducts(string $value)
  * @method string getForgottenEmail()
- * @method bool getNoReferer(bool $value)
+ * @method bool   getNoReferer(bool $value)
  * @method string getUsername()
- * @method string  getWishlistDisplayType()
- * @method int getWishlistItemCount()
- * @method bool  hasDisplayOutOfStockProducts()
- * @method bool hasWishlistItemCount()
- * @method $this setAddActionReferer(string $value)
- * @method $this setAddressFormData(array $value)
- * @method $this setBeforeUrl(string $value)
- * @method $this setBeforeWishlistRequest(array $value)
- * @method $this setBeforeWishlistUrl(string $value)
- * @method $this setCustomerFormData(array $value)
+ * @method string getWishlistDisplayType()
+ * @method int    getWishlistItemCount()
+ * @method bool   hasDisplayOutOfStockProducts()
+ * @method bool   hasWishlistItemCount()
+ * @method $this  setAddActionReferer(string $value)
+ * @method $this  setAddressFormData(array $value)
+ * @method $this  setBeforeUrl(string $value)
+ * @method $this  setBeforeWishlistRequest(array $value)
+ * @method $this  setBeforeWishlistUrl(string $value)
+ * @method $this  setCustomerFormData(array $value)
  * @method $this  setDisplayOutOfStockProducts()
- * @method $this setForgottenEmail(string $value)
- * @method $this setNoReferer(bool $value)
- * @method $this setUsername(string $value)
+ * @method $this  setForgottenEmail(string $value)
+ * @method $this  setNoReferer(bool $value)
+ * @method $this  setUsername(string $value)
  * @method $this  setWishlistDisplayType(string $value)
- * @method $this setWishlistItemCount(int $value)
- * @method $this unsBeforeWishlistRequest()
- * @method $this unsForgottenEmail()
- * @method $this unsNoReferer(bool $value)
+ * @method $this  setWishlistItemCount(int $value)
+ * @method $this  unsBeforeWishlistRequest()
+ * @method $this  unsForgottenEmail()
+ * @method $this  unsNoReferer(bool $value)
  */
 class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -91,15 +91,13 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set customer object and setting customer id in session
      *
-     * @return  Mage_Customer_Model_Session
+     * @return Mage_Customer_Model_Session
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
         // check if customer is not confirmed
-        if ($customer->isConfirmationRequired()) {
-            if ($customer->getConfirmation()) {
-                return $this->_logout();
-            }
+        if ($customer->isConfirmationRequired() && $customer->getConfirmation()) {
+            return $this->_logout();
         }
 
         $this->_customer = $customer;
@@ -137,7 +135,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set customer id
      *
-     * @param null|int $id
+     * @param  null|int $id
      * @return $this
      */
     public function setCustomerId($id)
@@ -153,8 +151,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getCustomerId()
     {
-        if ($this->getData('customer_id')) {
-            return $this->getData('customer_id');
+        if ($this->getDataByKey('customer_id')) {
+            return $this->getDataByKey('customer_id');
         }
 
         return ($this->isLoggedIn()) ? $this->getId() : null;
@@ -163,7 +161,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set customer group id
      *
-     * @param null|int $id
+     * @param  null|int $id
      * @return $this
      */
     public function setCustomerGroupId($id)
@@ -180,8 +178,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getCustomerGroupId()
     {
-        if ($this->getData('customer_group_id')) {
-            return $this->getData('customer_group_id');
+        if ($this->getDataByKey('customer_group_id')) {
+            return $this->getDataByKey('customer_group_id');
         }
 
         if ($this->isLoggedIn() && $this->getCustomer()) {
@@ -204,7 +202,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Check exists customer (light check)
      *
-     * @param int $customerId
+     * @param  int  $customerId
      * @return bool
      */
     public function checkCustomerId($customerId)
@@ -219,9 +217,9 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Customer authorization
      *
-     * @param   string $username
-     * @param   string $password
-     * @return  bool
+     * @param  string $username
+     * @param  string $password
+     * @return bool
      */
     public function login($username, $password)
     {
@@ -241,7 +239,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function setCustomerAsLoggedIn($customer)
@@ -256,8 +254,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Authorization customer by identifier
      *
-     * @param   int $customerId
-     * @return  bool
+     * @param  int  $customerId
+     * @return bool
      */
     public function loginById($customerId)
     {
@@ -288,8 +286,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Authenticate controller action by login customer
      *
-     * @param   string $loginUrl
-     * @return  bool
+     * @param  string $loginUrl
+     * @return bool
      */
     public function authenticate(Mage_Core_Controller_Varien_Action $action, $loginUrl = null)
     {
@@ -313,8 +311,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set auth url
      *
-     * @param string $key
-     * @param string $url
+     * @param  string $key
+     * @param  string $url
      * @return $this
      */
     protected function _setAuthUrl($key, $url)
@@ -343,7 +341,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set Before auth url
      *
-     * @param string $url
+     * @param  string $url
      * @return $this
      */
     public function setBeforeAuthUrl($url)
@@ -354,7 +352,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set After auth url
      *
-     * @param string $url
+     * @param  string $url
      * @return $this
      */
     public function setAfterAuthUrl($url)
@@ -367,6 +365,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function renewSession()
     {
         parent::renewSession();

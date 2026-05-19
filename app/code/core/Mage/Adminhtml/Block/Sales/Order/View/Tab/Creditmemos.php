@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_view_tab_creditmemos';
+
     public function __construct()
     {
         parent::__construct();
@@ -31,6 +33,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
         return 'sales/order_creditmemo_grid_collection';
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Sales_Model_Resource_Order_Creditmemo_Grid_Collection $collection */
@@ -52,6 +58,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', [
@@ -75,7 +86,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_creditmemo')->getStates(),
+            'options'   => Mage::getModel('sales/order_creditmemo')::getStates(),
         ]);
 
         $this->addColumn('base_grand_total', [
@@ -98,6 +109,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
         return Mage::registry('current_order');
     }
 
+    /**
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Order_Creditmemo $row
+     * @throws Mage_Core_Exception
+     */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl(
@@ -109,26 +126,42 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
         );
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/creditmemos', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Credit Memos');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabTitle()
     {
         return Mage::helper('sales')->__('Credit Memos');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function canShowTab()
     {
         return Mage::getSingleton('admin/session')->isAllowed('sales/creditmemo');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isHidden()
     {
         return false;

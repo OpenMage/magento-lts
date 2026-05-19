@@ -53,7 +53,7 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
     /**
      * Get all possible coupon codes formats
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getFormatsList()
     {
@@ -117,7 +117,7 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
     /**
      * Get Coupon's alphabet as array of chars
      *
-     * @param string $format
+     * @param  string $format
      * @return array
      */
     public function getCharset($format)

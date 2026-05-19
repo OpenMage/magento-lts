@@ -17,8 +17,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Rebuild all index data
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
+     * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -42,8 +43,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Rebuild index data by entities
      *
-     * @param array|int $processIds
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
+     * @param  array|int $processIds
+     * @return $this
      * @throws Exception
      */
     public function reindexEntities($processIds)
@@ -92,9 +93,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
      * Rebuild index data by attribute id
      * If attribute is not indexable remove data by attribute
      *
-     * @param int $attributeId
-     * @param bool $isIndexable
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
+     * @param  int   $attributeId
+     * @param  bool  $isIndexable
+     * @return $this
      */
     public function reindexAttribute($attributeId, $isIndexable = true)
     {
@@ -116,15 +117,15 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Prepare data index for indexable attributes
      *
-     * @param array $entityIds      the entity ids limitation
-     * @param int $attributeId      the attribute id limitation
+     * @param array $entityIds   the entity ids limitation
+     * @param int   $attributeId the attribute id limitation
      */
     abstract protected function _prepareIndex($entityIds = null, $attributeId = null);
 
     /**
      * Remove Not Visible products from temporary data index
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
+     * @return $this
      */
     protected function _removeNotVisibleEntityFromIndex()
     {
@@ -152,8 +153,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Prepare data index for product relations
      *
-     * @param array $parentIds  the parent entity ids limitation
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
+     * @param  array $parentIds the parent entity ids limitation
+     * @return $this
      */
     protected function _prepareRelationIndex($parentIds = null)
     {
@@ -215,8 +216,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Remove index data from index by attribute id
      *
-     * @param int $attributeId
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
+     * @param  int   $attributeId
+     * @return $this
      */
     protected function _removeAttributeIndexData($attributeId)
     {
@@ -237,8 +238,8 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
     /**
      * Synchronize temporary index table with index table by attribute id
      *
-     * @param int $attributeId
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
+     * @param  int       $attributeId
+     * @return $this
      * @throws Exception
      */
     protected function _synchronizeAttributeIndexData($attributeId)

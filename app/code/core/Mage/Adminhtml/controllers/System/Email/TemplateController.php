@@ -22,6 +22,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -45,6 +46,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Grid action
+     * @return void
      */
     public function gridAction()
     {
@@ -55,6 +57,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * New transactional email action
+     * @return void
      */
     public function newAction()
     {
@@ -63,6 +66,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Edit transactional email action
+     * @return void
      */
     public function editAction()
     {
@@ -99,6 +103,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
     /**
      * Save action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function saveAction()
@@ -157,6 +162,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -169,13 +175,13 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 );
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addError(
                     Mage::helper('adminhtml')->__('An error occurred while deleting email template data. Please review log and try again.'),
                 );
-                Mage::logException($e);
+                Mage::logException($exception);
                 $this->_redirect('*/*/edit', ['id' => $template]);
                 return;
             }
@@ -189,6 +195,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Preview action
+     * @return void
      */
     public function previewAction()
     {
@@ -198,6 +205,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Set template data to retrieve it in template info form
+     * @return void
      */
     public function defaultTemplateAction()
     {
@@ -219,6 +227,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
@@ -228,7 +237,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
     /**
      * Load email template from request
      *
-     * @param string $idFieldName
+     * @param  string                              $idFieldName
      * @return Mage_Adminhtml_Model_Email_Template
      */
     protected function _initTemplate($idFieldName = 'template_id')

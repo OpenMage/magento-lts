@@ -14,11 +14,8 @@
  */
 class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Set grid ID
-     *
-     * @param array $attributes
-     */
+    protected string $_eventPrefix = 'api2_adminhtml_attribute_grid';
+
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
@@ -26,9 +23,9 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Collection object set up
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = new Varien_Data_Collection();
@@ -45,10 +42,10 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Prepare grid columns
-     *
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('user_type_name', [
@@ -62,9 +59,10 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Disable unnecessary functionality
      *
-     * @return $this
+     * @inheritDoc
      */
-    public function _prepareLayout()
+    #[Override]
+    protected function _prepareLayout()
     {
         $this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
@@ -73,19 +71,16 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Get row URL
-     *
+     * @inheritDoc
      * @param Varien_Object $row
-     * @return null|string
      */
+    #[Override]
     public function getRowUrl($row)
     {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        if ($session->isAllowed('system/api/attributes/edit')) {
+        if ($this->isAllowed('system/api/attributes/edit')) {
             return $this->getUrl('*/*/edit', ['type' => $row->getUserTypeCode()]);
         }
 
-        return null;
+        return '';
     }
 }

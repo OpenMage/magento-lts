@@ -21,7 +21,7 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve subsription confirmation url
      *
-     * @param Mage_Newsletter_Model_Subscriber $subscriber
+     * @param  Mage_Newsletter_Model_Subscriber $subscriber
      * @return string
      */
     public function getConfirmationUrl($subscriber)
@@ -38,7 +38,7 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve unsubsription url
      *
-     * @param Mage_Newsletter_Model_Subscriber $subscriber
+     * @param  Mage_Newsletter_Model_Subscriber $subscriber
      * @return string
      */
     public function getUnsubscribeUrl($subscriber)
@@ -55,11 +55,14 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Template processor for Newsletter template
      *
-     * @return false|Mage_Core_Model_Abstract|Varien_Filter_Template
+     * @return Varien_Filter_Template
      */
     public function getTemplateProcessor()
     {
-        $model = (string) Mage::getConfig()->getNode(self::XML_PATH_TEMPLATE_FILTER);
-        return Mage::getModel($model);
+        $node = (string) Mage::getConfig()->getNode(self::XML_PATH_TEMPLATE_FILTER);
+
+        /** @var Varien_Filter_Template $model */
+        $model = Mage::getModel($node);
+        return $model;
     }
 }

@@ -29,8 +29,9 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     protected $_cacheKeyInfo = null;
 
     /**
-     * Set default template
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('page/template/links.phtml');
@@ -49,16 +50,16 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Add link to the list
      *
-     * @param string $label
-     * @param string $url
-     * @param string $title
-     * @param bool $prepare
-     * @param array $urlParams
-     * @param int $position
-     * @param array|string $liParams
-     * @param array|string $aParams
-     * @param string $beforeText
-     * @param string $afterText
+     * @param  string       $label
+     * @param  string       $url
+     * @param  string       $title
+     * @param  bool         $prepare
+     * @param  array        $urlParams
+     * @param  int          $position
+     * @param  array|string $liParams
+     * @param  array|string $aParams
+     * @param  string       $beforeText
+     * @param  string       $afterText
      * @return $this
      * @SuppressWarnings("PHPMD.ExcessiveParameterList")
      */
@@ -96,8 +97,8 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Add link into collection
      *
-     * @param Varien_Object $link
-     * @param int $position
+     * @param  Varien_Object $link
+     * @param  int           $position
      * @return $this
      */
     protected function _addIntoPosition($link, $position)
@@ -114,7 +115,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Add block to link list
      *
-     * @param string $blockName
+     * @param  string $blockName
      * @return $this
      */
     public function addLinkBlock($blockName)
@@ -131,7 +132,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Remove Link block by blockName
      *
-     * @param string $blockName
+     * @param  string $blockName
      * @return $this
      */
     public function removeLinkBlock($blockName)
@@ -148,14 +149,14 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Removes link by url
      *
-     * @param string $url
+     * @param  string $url
      * @return $this
      */
     public function removeLinkByUrl($url)
     {
-        foreach ($this->_links as $k => $v) {
-            if ($v->getUrl() == $url) {
-                unset($this->_links[$k]);
+        foreach ($this->_links as $key => $link) {
+            if ($link->getUrl() == $url) {
+                unset($this->_links[$key]);
             }
         }
 
@@ -168,6 +169,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         if (is_null($this->_cacheKeyInfo)) {
@@ -190,14 +192,16 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Prepare tag attributes
      *
-     * @param array|string $params
+     * @param  array|string $params
      * @return string
      */
     protected function _prepareParams($params)
     {
         if (is_string($params)) {
             return $params;
-        } elseif (is_array($params)) {
+        }
+
+        if (is_array($params)) {
             $result = '';
             foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';
@@ -214,6 +218,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         if (!empty($this->_links)) {
@@ -227,7 +232,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Return new link position in list
      *
-     * @param int $position
+     * @param  int $position
      * @return int
      */
     protected function _getNewPosition($position = 0)
@@ -253,6 +258,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {

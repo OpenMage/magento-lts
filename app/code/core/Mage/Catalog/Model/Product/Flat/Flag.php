@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -26,6 +28,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
      *
      * @return array
      */
+    #[Override]
     public function getFlagData()
     {
         $flagData = parent::getFlagData();
@@ -40,7 +43,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
     /**
      * Returns true if store's flat index has been built.
      *
-     * @param int $storeId
+     * @param  int  $storeId
      * @return bool
      */
     public function isStoreBuilt($storeId)
@@ -58,8 +61,8 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
     /**
      * Defines whether flat index for specific store has been built.
      *
-     * @param int  $storeId
-     * @param bool $built
+     * @param  int   $storeId
+     * @param  bool  $built
      * @return $this
      */
     public function setStoreBuilt($storeId, $built)
@@ -99,20 +102,6 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
         $flagData = $this->getFlagData();
         $flagData['is_built'] = (bool) $flag;
         $this->setFlagData($flagData);
-        return $this;
-    }
-
-    /**
-     * Set Catalog Product Flat Data is built flag
-     *
-     * @param bool $flag
-     *
-     * @return $this
-     * @deprecated after 1.7.0.0 use Mage_Catalog_Model_Product_Flat_Flag::setIsBuilt() instead
-     */
-    public function setIsBuild($flag)
-    {
-        $this->setIsBuilt($flag);
         return $this;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -21,6 +23,10 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
      */
     protected $_haveParents = false;
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         $this->_init('catalogindex/data_grouped');
@@ -29,11 +35,12 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
     /**
      * Fetch final price for product
      *
-     * @param array $product
-     * @param Mage_Core_Model_Store $store
-     * @param Mage_Customer_Model_Group $group
+     * @param  array                     $product
+     * @param  Mage_Core_Model_Store     $store
+     * @param  Mage_Customer_Model_Group $group
      * @return false
      */
+    #[Override]
     public function getFinalPrice($product, $store, $group)
     {
         return false;
@@ -44,6 +51,7 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
      *
      * @return string
      */
+    #[Override]
     public function getTypeCode()
     {
         return Mage_Catalog_Model_Product_Type::TYPE_GROUPED;
@@ -52,8 +60,9 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
     /**
      * Get child link table and field settings
      *
-     * @return array
+     * @return array<string, array<string, int>|string>
      */
+    #[Override]
     protected function _getLinkSettings()
     {
         return [

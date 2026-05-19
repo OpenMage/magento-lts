@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $this->addClass('input-file');
@@ -151,7 +152,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
      */
     protected function _getPreviewUrl()
     {
-        return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', [
+        return Mage::helper('adminhtml')::getUrl('adminhtml/customer/viewfile', [
             'file'      => Mage::helper('core')->urlEncode($this->getValue()),
         ]);
     }
@@ -159,15 +160,16 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     /**
      * Return Element HTML
      *
-     * @param string $element
-     * @param bool $closed
+     * @param  string                          $element
+     * @param  array<string, false|int|string> $attributes
+     * @param  bool                            $closed
      * @return string
      */
     protected function _drawElementHtml($element, array $attributes, $closed = true)
     {
         $parts = [];
-        foreach ($attributes as $k => $v) {
-            $parts[] = sprintf('%s="%s"', $k, $v);
+        foreach ($attributes as $key => $value) {
+            $parts[] = sprintf('%s="%s"', $key, $value);
         }
 
         return sprintf('<%s %s%s>', $element, implode(' ', $parts), $closed ? ' /' : '');
@@ -176,9 +178,10 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     /**
      * Return escaped value
      *
-     * @param null|string $index
+     * @param  null|string  $index
      * @return false|string
      */
+    #[Override]
     public function getEscapedValue($index = null)
     {
         $value = $this->getValue();

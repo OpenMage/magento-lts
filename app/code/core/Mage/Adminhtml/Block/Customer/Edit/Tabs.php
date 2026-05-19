@@ -23,9 +23,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Account $block */
@@ -33,7 +34,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
         $this->addTab('account', [
             'label'     => Mage::helper('customer')->__('Account Information'),
             'content'   => $block->initForm()->toHtml(),
-            'active'    => Mage::registry('current_customer')->getId() ? false : true,
+            'active'    => !(bool) Mage::registry('current_customer')->getId(),
         ]);
 
         /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses $block */

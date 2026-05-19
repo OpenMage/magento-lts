@@ -22,9 +22,10 @@ class Varien_Data_Form_Element_Obscure extends Varien_Data_Form_Element_Password
     /**
      * Hide value to make sure it will not show in HTML
      *
-     * @param string $index
+     * @param  string $index
      * @return string
      */
+    #[Override]
     public function getEscapedValue($index = null)
     {
         $value = parent::getEscapedValue($index);
@@ -38,8 +39,9 @@ class Varien_Data_Form_Element_Obscure extends Varien_Data_Form_Element_Password
     /**
      * Returns list of html attributes possible to output in HTML
      *
-     * @return array
+     * @return array<int, string>
      */
+    #[Override]
     public function getHtmlAttributes()
     {
         return ['type', 'title', 'class', 'style', 'onclick', 'onchange', 'onkeyup', 'disabled', 'readonly', 'maxlength', 'tabindex'];

@@ -13,6 +13,8 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
  * Catalog url model
  *
  * @package    Mage_Catalog
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Catalog_Model_Url extends Varien_Object
 {
@@ -187,7 +189,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Retrieve stores array or store model
      *
-     * @param null|int $storeId
+     * @param  null|int                                      $storeId
      * @return Mage_Core_Model_Store|Mage_Core_Model_Store[]
      */
     public function getStores($storeId = null)
@@ -232,7 +234,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Returns store root category, uses caching for it
      *
-     * @param int $storeId
+     * @param  int           $storeId
      * @return Varien_Object
      */
     public function getStoreRootCategory($storeId)
@@ -255,7 +257,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * Setter for $_saveRewritesHistory
      * Force Rewrites History save bypass config settings
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setShouldSaveRewritesHistory($flag)
@@ -267,7 +269,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param null|bool|int|Mage_Core_Model_Store|string $storeId Store View
+     * @param  ConfigStoreId $storeId
      * @return bool
      */
     public function getShouldSaveRewritesHistory($storeId = null)
@@ -279,7 +281,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * Refresh all rewrite urls for some store or for all stores
      * Used to make full reindexing of url rewrites
      *
-     * @param int $storeId
+     * @param  int                 $storeId
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -308,8 +310,8 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Refresh category rewrite
      *
-     * @param string $parentPath
-     * @param bool $refreshProducts
+     * @param  string              $parentPath
+     * @param  bool                $refreshProducts
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -471,9 +473,9 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * Refresh category and children rewrites
      * Called when reindexing all rewrites and as a reaction on category change that affects rewrites
      *
-     * @param int $categoryId
-     * @param null|int $storeId
-     * @param bool $refreshProducts
+     * @param  int                 $categoryId
+     * @param  null|int            $storeId
+     * @param  bool                $refreshProducts
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -512,8 +514,8 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * Refresh product rewrite urls for one store or all stores
      * Called as a reaction on product change that affects rewrites
      *
-     * @param int $productId
-     * @param null|int $storeId
+     * @param  int                 $productId
+     * @param  null|int            $storeId
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -565,7 +567,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Refresh all product rewrites for designated store
      *
-     * @param null|int $storeId
+     * @param  null|int            $storeId
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -633,7 +635,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Deletes old rewrites for store, left from the times when store had some other root category
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function clearStoreInvalidRewrites($storeId = null)
@@ -655,26 +657,10 @@ class Mage_Catalog_Model_Url extends Varien_Object
      *
      * Will try to get unique path by adding -1 -2 etc. between url_key and optional url_suffix
      *
-     * @param int $storeId
-     * @param string $requestPath
-     * @param string $idPath
-     * @return string
-     * @deprecated use $this->getUnusedPathByUrlKey() instead
-     */
-    public function getUnusedPath($storeId, $requestPath, $idPath)
-    {
-        return $this->getUnusedPathByUrlKey($storeId, $requestPath, $idPath, '');
-    }
-
-    /**
-     * Get requestPath that was not used yet.
-     *
-     * Will try to get unique path by adding -1 -2 etc. between url_key and optional url_suffix
-     *
-     * @param int $storeId
-     * @param string $requestPath
-     * @param string $idPath
-     * @param string $urlKey
+     * @param  int    $storeId
+     * @param  string $requestPath
+     * @param  string $idPath
+     * @param  string $urlKey
      * @return string
      */
     public function getUnusedPathByUrlKey($storeId, $requestPath, $idPath, $urlKey)
@@ -723,7 +709,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             }
 
             $match['prefix'] .= '-';
-            $match['suffix'] = $match['suffix'] ?? '';
+            $match['suffix'] ??= '';
 
             $lastRequestPath = $this->getResource()
                 ->getLastUsedRewriteRequestIncrement($match['prefix'], $match['suffix'], $storeId);
@@ -732,17 +718,17 @@ class Mage_Catalog_Model_Url extends Varien_Object
             }
 
             return $match['prefix']
-                . (!empty($match['increment']) ? ((int) $match['increment'] + 1) : '1')
+                . (empty($match['increment']) ? '1' : (int) $match['increment'] + 1)
                 . $match['suffix'];
-        } else {
-            return $requestPath;
         }
+
+        return $requestPath;
     }
 
     /**
      * Retrieve product rewrite suffix for store
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getProductUrlSuffix($storeId)
@@ -753,7 +739,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Retrieve category rewrite suffix for store
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getCategoryUrlSuffix($storeId)
@@ -764,8 +750,8 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Get unique category request path
      *
-     * @param Mage_Catalog_Model_Category|Varien_Object $category
-     * @param string $parentPath
+     * @param  Mage_Catalog_Model_Category|Varien_Object $category
+     * @param  string                                    $parentPath
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -809,9 +795,9 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Check if current generated request path is one of the old paths
      *
-     * @param string $requestPath
-     * @param string $idPath
-     * @param int $storeId
+     * @param  string $requestPath
+     * @param  string $idPath
+     * @param  int    $storeId
      * @return bool
      */
     protected function _deleteOldTargetPath($requestPath, $idPath, $storeId)
@@ -828,8 +814,8 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Get unique product request path
      *
-     * @param Mage_Catalog_Model_Product|Varien_Object $product
-     * @param Mage_Catalog_Model_Category|Varien_Object $category
+     * @param  Mage_Catalog_Model_Product|Varien_Object  $product
+     * @param  Mage_Catalog_Model_Category|Varien_Object $category
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -923,10 +909,10 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * For generating request path - category is required
      * $parentPath used only for generating category path
      *
-     * @param string $type
-     * @param Mage_Catalog_Model_Product|Varien_Object $product
-     * @param Mage_Catalog_Model_Category|Varien_Object $category
-     * @param string $parentPath
+     * @param  string                                    $type
+     * @param  Mage_Catalog_Model_Product|Varien_Object  $product
+     * @param  Mage_Catalog_Model_Category|Varien_Object $category
+     * @param  string                                    $parentPath
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -1039,8 +1025,8 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * Create Custom URL Rewrite for old product/category URL after url_key changed
      * It will perform permanent redirect from old URL to new URL
      *
-     * @param array $rewriteData New rewrite data
-     * @param Varien_Object $rewrite Rewrite model
+     * @param  array         $rewriteData New rewrite data
+     * @param  Varien_Object $rewrite     Rewrite model
      * @return $this
      */
     protected function _saveRewriteHistory($rewriteData, $rewrite)
@@ -1060,7 +1046,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Format Key for URL
      *
-     * @param string $str
+     * @param  string $str
      * @return string
      */
     public function formatUrlKey($str)

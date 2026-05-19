@@ -64,8 +64,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve framed javascript
      *
-     * @param   string $script
-     * @return  string script
+     * @param  string $script
+     * @return string script
      */
     public function getScript($script)
     {
@@ -77,8 +77,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve javascript include code
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function includeScript($file)
     {
@@ -88,8 +88,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function includeSkinScript($file)
     {
@@ -99,8 +99,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve JS file url
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function getJsUrl($file)
     {
@@ -110,8 +110,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve skin JS file url
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function getJsSkinUrl($file)
     {

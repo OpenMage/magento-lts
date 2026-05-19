@@ -29,7 +29,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      *
      * Call from controller action
      *
-     * @param string $pageId
+     * @param  string              $pageId
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -41,8 +41,8 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     /**
      * Renders CMS page
      *
-     * @param string $pageId
-     * @param bool $renderLayout
+     * @param  string              $pageId
+     * @param  bool                $renderLayout
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -68,13 +68,11 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         $inRange = Mage::app()->getLocale()
             ->isStoreDateInInterval(null, $page->getCustomThemeFrom(), $page->getCustomThemeTo());
 
-        if ($page->getCustomTheme()) {
-            if ($inRange) {
-                [$package, $theme] = explode('/', $page->getCustomTheme());
-                Mage::getSingleton('core/design_package')
-                    ->setPackageName($package)
-                    ->setTheme($theme);
-            }
+        if ($page->getCustomTheme() && $inRange) {
+            [$package, $theme] = explode('/', $page->getCustomTheme());
+            Mage::getSingleton('core/design_package')
+                ->setPackageName($package)
+                ->setTheme($theme);
         }
 
         $action->getLayout()->getUpdate()
@@ -130,8 +128,8 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * Allows to use also backend action as first parameter.
      * Also takes third parameter which allows not run renderLayout method.
      *
-     * @param string $pageId
-     * @param bool $renderLayout
+     * @param  string              $pageId
+     * @param  bool                $renderLayout
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -143,7 +141,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     /**
      * Retrieve page direct URL
      *
-     * @param string $pageId
+     * @param  string                          $pageId
      * @return null|string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -177,7 +175,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         }
 
         if (is_null($paths)) {
-            $searchPaths = [];
+            return [];
         }
 
         return $searchPaths;
@@ -197,7 +195,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param Form::SCOPE_* $scope
+     * @param  Form::SCOPE_*       $scope
      * @throws Mage_Core_Exception
      */
     public static function getScopeInfoFromConfigScope(string $scope, string $scopeId): string
@@ -245,5 +243,15 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         unset($data, $path, $items, $item, $scopes);
 
         return implode(', ', $messages);
+    }
+
+    /**
+     * Get CMS page identifier without trailing page ID
+     *
+     * @param Mage_Cms_Helper_Page::XML_PATH_* $path
+     */
+    public function getIdentifierFromConfigPath(string $path): string
+    {
+        return explode('|', (string) Mage::getStoreConfig($path))[0];
     }
 }

@@ -17,7 +17,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Customer_Address_Type
     /**
      * Retrieve possible customer address types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function toOptionArray()
     {

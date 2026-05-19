@@ -24,6 +24,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Page_Block_Html_Head $head */
@@ -51,10 +52,10 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     /**
      * Add new rss feed
      *
-     * @param string $url
-     * @param string $label
-     * @param array $param
-     * @param bool $customerGroup
+     * @param  string                          $url
+     * @param  string                          $label
+     * @param  array                           $param
+     * @param  bool                            $customerGroup
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -101,7 +102,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
      *
      * array structure:
      *
-     * @return  array
+     * @return array
      */
     public function getRssCatalogFeeds()
     {

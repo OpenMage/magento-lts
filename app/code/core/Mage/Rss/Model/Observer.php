@@ -30,8 +30,8 @@ class Mage_Rss_Model_Observer
 
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
-        $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('core/factory') : $args['factory'];
+        $this->_app = empty($args['app']) ? Mage::app() : $args['app'];
     }
 
     /**

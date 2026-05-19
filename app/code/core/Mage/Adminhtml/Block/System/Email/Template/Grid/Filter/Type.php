@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
     protected static $_types = [
-        null                                =>  null,
+        ''                                  =>  null,
         Mage_Core_Model_Template::TYPE_HTML => 'HTML',
         Mage_Core_Model_Template::TYPE_TEXT => 'Text',
     ];
@@ -23,6 +23,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type extends Mage_A
     /**
      * @return array
      */
+    #[Override]
     protected function _getOptions()
     {
         $result = [];
@@ -34,8 +35,9 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type extends Mage_A
     }
 
     /**
-     * @return null|array
+     * @inheritDoc
      */
+    #[Override]
     public function getCondition()
     {
         if (is_null($this->getValue())) {

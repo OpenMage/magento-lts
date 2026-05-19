@@ -21,6 +21,10 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
      */
     public const CACHE_TAG = 'block_html_rss_catalog_notifystock';
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         $this->setCacheTags([self::CACHE_TAG]);
@@ -36,6 +40,7 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $newUrl = Mage::getUrl('rss/catalog/notifystock');
@@ -78,7 +83,7 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         */
         Mage::getSingleton('core/resource_iterator')->walk(
             $collection->getSelect(),
-            [[$this, 'addNotifyItemXmlCallback']],
+            [$this->addNotifyItemXmlCallback(...)],
             ['rssObj' => $rssObj, 'product' => $product, 'globalQty' => $globalNotifyStockQty],
         );
 
@@ -95,7 +100,7 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         $product = $args['product'];
         $product->setData($args['row']);
 
-        $url = Mage::helper('adminhtml')->getUrl(
+        $url = Mage::helper('adminhtml')::getUrl(
             'adminhtml/catalog_product/edit/',
             ['id' => $product->getId(), '_secure' => true, '_nosecret' => true],
         );

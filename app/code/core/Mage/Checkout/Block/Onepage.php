@@ -11,6 +11,8 @@
  * Onepage checkout block
  *
  * @package    Mage_Checkout
+ *
+ * @method Mage_Checkout_Block_Onepage_Abstract getChild(string $step)
  */
 class Mage_Checkout_Block_Onepage extends Mage_Checkout_Block_Onepage_Abstract
 {

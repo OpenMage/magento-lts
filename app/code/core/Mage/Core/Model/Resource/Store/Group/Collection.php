@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,8 +14,7 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Store_Group getItemById(int $value)
- * @method Mage_Core_Model_Store_Group[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Core_Model_Store_Group>
  */
 class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -26,7 +27,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     protected $_loadDefault = false;
 
     /**
-     * Define resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -79,7 +80,8 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     /**
      * @inheritDoc
      */
-    public function _beforeLoad()
+    #[Override]
+    protected function _beforeLoad()
     {
         if (!$this->getLoadDefault()) {
             $this->setWithoutDefaultFilter();
@@ -94,6 +96,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('group_id', 'name');

@@ -12,9 +12,9 @@
  *
  * @package    Mage_Sales
  *
- * @method int getCustomerId()
+ * @method int                                        getCustomerId()
  * @method Mage_Sales_Model_Resource_Order_Collection getOrders()
- * @method $this setOrders(Mage_Sales_Model_Resource_Order_Collection $value)
+ * @method $this                                      setOrders(Mage_Sales_Model_Resource_Order_Collection $value)
  */
 class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
 {
@@ -55,7 +55,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     /**
      * Get list of last ordered products
      *
-     * @return array
+     * @return Mage_Sales_Model_Order_Item[]
      */
     public function getItems()
     {
@@ -123,6 +123,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         return $this->_getCustomerSession()->isLoggedIn() || $this->getCustomerId() ? parent::_toHtml() : '';
@@ -143,6 +144,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(
@@ -154,7 +156,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     /**
      * Retrieve products list from items
      *
-     * @return array
+     * @return Mage_Catalog_Model_Product[]
      */
     protected function _getItemProducts()
     {

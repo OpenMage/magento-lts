@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/variable', 'variable_id');
@@ -22,7 +25,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Load variable by code
      *
-     * @param string $code
+     * @param  string $code
      * @return $this
      */
     public function loadByCode(Mage_Core_Model_Variable $object, $code)
@@ -37,9 +40,9 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieve variable data by code
      *
-     * @param string $code
-     * @param bool $withValue
-     * @param int $storeId
+     * @param  string $code
+     * @param  bool   $withValue
+     * @param  int    $storeId
      * @return array
      */
     public function getVariableByCode($code, $withValue = false, $storeId = 0)
@@ -58,6 +61,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
      * @param Mage_Core_Model_Variable $object
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         parent::_afterSave($object);
@@ -94,6 +98,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
      * @param Mage_Core_Model_Variable $object
      * @inheritDoc
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);
@@ -104,7 +109,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Add variable store and default value to select
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     protected function _addValueToSelect(Zend_Db_Select $select, $storeId = Mage_Core_Model_App::ADMIN_STORE_ID)

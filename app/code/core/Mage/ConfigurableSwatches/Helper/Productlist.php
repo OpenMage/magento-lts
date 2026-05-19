@@ -40,7 +40,9 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
     /**
      * Convert a catalog layer block with the right templates
      *
-     * @param string $blockName
+     * @param  string              $blockName
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function convertLayerBlock($blockName)
     {
@@ -88,6 +90,7 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
      * Get model of attribute that should be used for swatches on product listing
      *
      * @return false|Mage_Catalog_Model_Product_Type_Configurable_Attribute|Mage_Eav_Model_Entity_Attribute_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getSwatchAttribute()
     {
@@ -125,7 +128,7 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
     /**
      * See if the swatch matches a filter currently applied to the product list.
      *
-     * @param int $optionId
+     * @param  int  $optionId
      * @return bool
      */
     public function swatchMatchesFilter($optionId)

@@ -20,7 +20,7 @@ final class DateTest extends TestCase
 {
     public Varien_Data_Form_Filter_Date $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->subject = new Varien_Data_Form_Filter_Date(null, 'en_US');
     }
@@ -41,7 +41,7 @@ final class DateTest extends TestCase
         }
     }
 
-    public function provideFilterDateData(): Generator
+    public static function provideFilterDateData(): Generator
     {
         yield 'bcsub() exception' => [
             'bcsub():',

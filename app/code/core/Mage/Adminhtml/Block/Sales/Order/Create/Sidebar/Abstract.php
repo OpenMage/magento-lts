@@ -11,6 +11,9 @@
  * Adminhtml sales order create sidebar block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getDataId()
+ * @method $this  setDataId(string $value)
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
@@ -34,14 +37,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
     /**
      * Retrieve display block availability
      *
-     * @return int
+     * @return bool
      */
     public function canDisplay()
     {
-        return $this->getCustomerId();
+        return (bool) $this->getCustomerId();
     }
 
     /**
+     * Retrieve possibility to display quantity column in grid of wishlist block
+     *
      * @return bool
      */
     public function canDisplayItemQty()
@@ -62,8 +67,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
     /**
      * Retrieve identifier of block item
      *
-     * @param   Varien_Object $item
-     * @return  int
+     * @param  Varien_Object $item
+     * @return int
      */
     public function getIdentifierId($item)
     {
@@ -73,8 +78,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
     /**
      * Retrieve item identifier of block item
      *
-     * @param   mixed $item
-     * @return  int
+     * @param  mixed $item
+     * @return int
      */
     public function getItemId($item)
     {
@@ -84,8 +89,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
     /**
      * Retrieve product identifier linked with item
      *
-     * @param   mixed $item
-     * @return  int
+     * @param  mixed $item
+     * @return int
      */
     public function getProductId($item)
     {
@@ -99,7 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
      */
     public function getItemCount()
     {
-        $count = $this->getData('item_count');
+        $count = $this->getDataByKey('item_count');
         if (is_null($count)) {
             $count = count($this->getItems());
             $this->setData('item_count', $count);
@@ -119,11 +124,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
         $collection = $this->getItemCollection();
         if ($collection) {
             $productTypes = Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray();
-            if (is_array($collection)) {
-                $items = $collection;
-            } else {
-                $items = $collection->getItems();
-            }
+            $items = is_array($collection) ? $collection : $collection->getItems();
 
             /*
              * Filtering items by allowed product type

@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($head = $this->getLayout()->getBlock('head')) {
@@ -51,7 +52,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     }
 
     /**
-     * @param string $entityType
+     * @param  string         $entityType
      * @return array|string[]
      */
     public function getAttributes($entityType)
@@ -78,17 +79,15 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     }
 
     /**
-     * @param string $key
-     * @param string $default
-     * @param null|string $defaultNew
+     * @param  string      $key
+     * @param  string      $default
+     * @param  null|string $defaultNew
      * @return string
      */
     public function getValue($key, $default = '', $defaultNew = null)
     {
-        if ($defaultNew !== null) {
-            if ($this->getProfileId() == 0) {
-                $default = $defaultNew;
-            }
+        if ($defaultNew !== null && $this->getProfileId() == 0) {
+            $default = $defaultNew;
         }
 
         $value = $this->getData($key);
@@ -96,8 +95,8 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     }
 
     /**
-     * @param string $key
-     * @param bool|int|string $value
+     * @param  string          $key
+     * @param  bool|int|string $value
      * @return string
      *
      * @todo check remove int from param value
@@ -113,7 +112,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     }
 
     /**
-     * @param string $entityType
+     * @param  string $entityType
      * @return array
      */
     public function getMappings($entityType)
@@ -155,7 +154,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
      */
     public function getProductTypeFilterOptions()
     {
-        $options = Mage::getSingleton('catalog/product_type')->getOptionArray();
+        $options = Mage::getSingleton('catalog/product_type')::getOptionArray();
         array_splice($options, 0, 0, ['' => $this->__('Any Type')]);
         return $options;
     }
@@ -185,7 +184,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
      */
     public function getProductVisibilityFilterOptions()
     {
-        $options = Mage::getSingleton('catalog/product_visibility')->getOptionArray();
+        $options = Mage::getSingleton('catalog/product_visibility')::getOptionArray();
         array_splice($options, 0, 0, ['' => $this->__('Any Visibility')]);
         return $options;
     }
@@ -195,7 +194,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
      */
     public function getProductStatusFilterOptions()
     {
-        $options = Mage::getSingleton('catalog/product_status')->getOptionArray();
+        $options = Mage::getSingleton('catalog/product_status')::getOptionArray();
         array_splice($options, 0, 0, ['' => $this->__('Any Status')]);
         return $options;
     }

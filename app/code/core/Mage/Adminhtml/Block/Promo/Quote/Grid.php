@@ -14,10 +14,8 @@
  */
 class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Initialize grid
-     * Set sort settings
-     */
+    protected string $_eventPrefix = 'adminhtml_promo_quote_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -29,10 +27,10 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
 
     /**
      * Add websites to sales rules collection
-     * Set collection
      *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_SalesRule_Model_Resource_Rule_Collection $collection */
@@ -42,15 +40,14 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
         $collection->addFilterToMap('times_used', 'main_table.times_used');
         $this->setCollection($collection);
 
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Add grid columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('rule_id', [
@@ -126,17 +123,14 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
             'width'     => 100,
         ]);
 
-        parent::_prepareColumns();
-        return $this;
+        return parent::_prepareColumns();
     }
 
     /**
-     * Retrieve row click URL
-     *
-     * @param Varien_Object $row
-     *
-     * @return string
+     * @inheritDoc
+     * @param Mage_SalesRule_Model_Rule $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getRuleId()]);

@@ -14,6 +14,10 @@
  */
 class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         /*
@@ -26,6 +30,7 @@ class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $rssObj = Mage::getModel('rss/rss');

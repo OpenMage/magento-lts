@@ -14,20 +14,20 @@
  *
  * @method string getClass()
  * @method string getLabel()
- * @method bool getNoSpan()
- * @method bool getRequired()
+ * @method bool   getNoSpan()
+ * @method bool   getRequired()
  * @method string getValue()
- * @method array getValues()
- * @method $this setAfterElementHtml(string $value)
- * @method $this setClass(string $value)
- * @method $this setContainer(Varien_Data_Form $value)
- * @method $this setExtType(string $value)
- * @method $this setLabel(string $value)
- * @method $this setName(string $value)
- * @method $this setValues(array|int|string $value)
- * @method $this unsCanUseDefaultValue()
- * @method $this unsCanUseWebsiteValue()
- * @method $this unsScope()
+ * @method array  getValues()
+ * @method $this  setAfterElementHtml(string $value)
+ * @method $this  setClass(string $value)
+ * @method $this  setContainer(Varien_Data_Form $value)
+ * @method $this  setExtType(string $value)
+ * @method $this  setLabel(string $value)
+ * @method $this  setName(string $value)
+ * @method $this  setValues(array|int|string $value)
+ * @method $this  unsCanUseDefaultValue()
+ * @method $this  unsCanUseWebsiteValue()
+ * @method $this  unsScope()
  */
 abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstract
 {
@@ -57,9 +57,10 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Add form element
      *
-     * @param false|string $after
-     * @return  $this
+     * @param  false|string $after
+     * @return $this
      */
+    #[Override]
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
         if ($this->getForm()) {
@@ -74,6 +75,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * @return string
      */
+    #[Override]
     public function getId()
     {
         return $this->_id;
@@ -96,9 +98,10 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param string $id
+     * @param  string $id
      * @return $this
      */
+    #[Override]
     public function setId($id)
     {
         $this->_id = $id;
@@ -111,7 +114,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getHtmlId()
     {
-        return $this->getForm()->getHtmlIdPrefix() . $this->getData('html_id') . $this->getForm()->getHtmlIdSuffix();
+        return $this->getForm()->getHtmlIdPrefix() . $this->getDataByKey('html_id') . $this->getForm()->getHtmlIdSuffix();
     }
 
     /**
@@ -119,16 +122,16 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getName()
     {
-        $name = $this->getData('name');
+        $name = $this->getDataByKey('name');
         if ($suffix = $this->getForm()->getFieldNameSuffix()) {
-            $name = $this->getForm()->addSuffixToName($name, $suffix);
+            return $this->getForm()->addSuffixToName($name, $suffix);
         }
 
         return $name;
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return $this
      */
     public function setType($type)
@@ -139,7 +142,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param Varien_Data_Form_Abstract $form
+     * @param  Varien_Data_Form_Abstract $form
      * @return $this
      */
     public function setForm($form)
@@ -151,6 +154,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * @inheritDoc
      */
+    #[Override]
     public function removeField($elementId)
     {
         $this->getForm()->removeField($elementId);
@@ -158,7 +162,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @return array
+     * @return array<int, string>
      */
     public function getHtmlAttributes()
     {
@@ -166,7 +170,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param string $class
+     * @param  string $class
      * @return $this
      */
     public function addClass($class)
@@ -179,13 +183,14 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Remove CSS class
      *
-     * @param string $class
+     * @param  string $class
      * @return $this
      */
     public function removeClass($class)
     {
         $classes = array_unique(explode(' ', $this->getClass()));
-        if (false !== ($key = array_search($class, $classes))) {
+        $key = array_search($class, $classes);
+        if ($key !== false) {
             unset($classes[$key]);
         }
 
@@ -194,7 +199,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     protected function _escape($string)
@@ -203,7 +208,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param null|string $index
+     * @param  null|string $index
      * @return string
      */
     public function getEscapedValue($index = null)
@@ -234,13 +239,23 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         return $this->_renderer;
     }
 
+    final public function getTestId(): string
+    {
+        return 'input-' . str_replace('_', '-', $this->getHtmlId());
+    }
+
     /**
      * @return string
      */
     public function getElementHtml()
     {
-        $html = '<input id="' . $this->getHtmlId() . '" name="' . $this->getName()
-             . '" value="' . $this->getEscapedValue() . '" ' . $this->serialize($this->getHtmlAttributes()) . '/>' . "\n";
+        $html = '<input id="' . $this->getHtmlId() . '"
+            name="' . $this->getName() . '"
+            value="' . $this->getEscapedValue() . '"
+            data-test="' . $this->getTestId() . '"
+            ' . $this->serialize($this->getHtmlAttributes()) . '
+            />'
+            . "\n";
         return $html . $this->getAfterElementHtml();
     }
 
@@ -249,25 +264,23 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getAfterElementHtml()
     {
-        return $this->getData('after_element_html');
+        return $this->getDataByKey('after_element_html');
     }
 
     /**
      * Render HTML for element's label
      *
-     * @param string $idSuffix
+     * @param  string $idSuffix
      * @return string
      */
     public function getLabelHtml($idSuffix = '')
     {
         if (!is_null($this->getLabel())) {
-            $html = '<label for="' . $this->getHtmlId() . $idSuffix . '">' . $this->_escape($this->getLabel())
+            return '<label for="' . $this->getHtmlId() . $idSuffix . '">' . $this->_escape($this->getLabel())
                   . ($this->getRequired() ? ' <span class="required">*</span>' : '') . '</label>' . "\n";
-        } else {
-            $html = '';
         }
 
-        return $html;
+        return '';
     }
 
     /**
@@ -275,7 +288,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getDefaultHtml()
     {
-        $html = $this->getData('default_html');
+        $html = $this->getDataByKey('default_html');
         if (is_null($html)) {
             $html = ($this->getNoSpan() === true) ? '' : '<span class="field-row">' . "\n";
             $html .= $this->getLabelHtml();
@@ -296,12 +309,10 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         }
 
         if ($this->_renderer) {
-            $html = $this->_renderer->render($this);
-        } else {
-            $html = $this->getDefaultHtml();
+            return $this->_renderer->render($this);
         }
 
-        return $html;
+        return $this->getDefaultHtml();
     }
 
     /**
@@ -315,6 +326,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * @inheritDoc
      */
+    #[Override]
     public function serialize($attributes = [], $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
         if (in_array('disabled', $attributes) && !empty($this->_data['disabled'])) {
@@ -350,8 +362,10 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     public function getHtmlContainerId()
     {
         if ($this->hasData('container_id')) {
-            return $this->getData('container_id');
-        } elseif ($idPrefix = $this->getForm()->getFieldContainerIdPrefix()) {
+            return $this->getDataByKey('container_id');
+        }
+
+        if ($idPrefix = $this->getForm()->getFieldContainerIdPrefix()) {
             return $idPrefix . $this->getId();
         }
 
@@ -361,8 +375,8 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Add specified values to element values
      *
-     * @param array|int|string $values
-     * @param bool $overwrite
+     * @param  array|int|string $values
+     * @param  bool             $overwrite
      * @return $this
      */
     public function addElementValues($values, $overwrite = false)

@@ -23,47 +23,46 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method Mage_Core_Model_Resource_Email_Template _getResource()
- * @method string getAddedAt()
+ * @method Mage_Core_Model_Resource_Email_Template            _getResource()
+ * @method string                                             getAddedAt()
  * @method Mage_Core_Model_Resource_Email_Template_Collection getCollection()
- * @method string getModifiedAt()
- * @method string getOrigTemplateCode()
- * @method string getOrigTemplateVariables()
- * @method Mage_Core_Model_Email_Queue getQueue()
- * @method Mage_Core_Model_Resource_Email_Template getResource()
+ * @method string                                             getModifiedAt()
+ * @method string                                             getOrigTemplateCode()
+ * @method string                                             getOrigTemplateVariables()
+ * @method Mage_Core_Model_Email_Queue                        getQueue()
+ * @method Mage_Core_Model_Resource_Email_Template            getResource()
  * @method Mage_Core_Model_Resource_Email_Template_Collection getResourceCollection()
- * @method string getSenderEmail()
- * @method string getSenderName()
- * @method bool getSentSuccess()
- * @method int getTemplateActual()
- * @method string getTemplateCode()
- * @method int getTemplateId()
- * @method string getTemplateSenderEmail()
- * @method string getTemplateSenderName()
- * @method string getTemplateStyles()
- * @method string getTemplateSubject()
- * @method string getTemplateText()
- * @method int getTemplateType()
- * @method bool getUseAbsoluteLinks()
- * @method int hasQueue()
- * @method $this setAddedAt(string $value)
- * @method $this setCreatedAt(string $value)
- * @method $this setInlineCssFile(string $value)
- * @method $this setModifiedAt(string $value)
- * @method $this setOrigTemplateCode(string $value)
- * @method $this setOrigTemplateVariables(string $value)
- * @method $this setQueue(Mage_Core_Model_Abstract $value)
- * @method $this setSenderEmail(string $value)
- * @method $this setSenderName(string $value)
- * @method $this setSentSuccess(bool $value)
- * @method $this setTemplateCode(string $value)
- * @method $this setTemplateId(int $value)
- * @method $this setTemplateSenderEmail(string $value)
- * @method $this setTemplateSenderName(string $value)
- * @method $this setTemplateStyles(string $value)
- * @method $this setTemplateSubject(string $value)
- * @method $this setTemplateText(string $value)
- * @method $this setTemplateType(int $value)
+ * @method string                                             getSenderEmail()
+ * @method string                                             getSenderName()
+ * @method bool                                               getSentSuccess()
+ * @method int                                                getTemplateActual()
+ * @method string                                             getTemplateCode()
+ * @method int                                                getTemplateId()
+ * @method string                                             getTemplateSenderEmail()
+ * @method string                                             getTemplateSenderName()
+ * @method string                                             getTemplateStyles()
+ * @method string                                             getTemplateSubject()
+ * @method string                                             getTemplateText()
+ * @method int                                                getTemplateType()
+ * @method bool                                               getUseAbsoluteLinks()
+ * @method int                                                hasQueue()
+ * @method $this                                              setAddedAt(string $value)
+ * @method $this                                              setInlineCssFile(string $value)
+ * @method $this                                              setModifiedAt(string $value)
+ * @method $this                                              setOrigTemplateCode(string $value)
+ * @method $this                                              setOrigTemplateVariables(string $value)
+ * @method $this                                              setQueue(Mage_Core_Model_Abstract $value)
+ * @method $this                                              setSenderEmail(string $value)
+ * @method $this                                              setSenderName(string $value)
+ * @method $this                                              setSentSuccess(bool $value)
+ * @method $this                                              setTemplateCode(string $value)
+ * @method $this                                              setTemplateId(int $value)
+ * @method $this                                              setTemplateSenderEmail(string $value)
+ * @method $this                                              setTemplateSenderName(string $value)
+ * @method $this                                              setTemplateStyles(string $value)
+ * @method $this                                              setTemplateSubject(string $value)
+ * @method $this                                              setTemplateText(string $value)
+ * @method $this                                              setTemplateType(int $value)
  * @method setUseAbsoluteLinks(bool $value)
  */
 class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abstract
@@ -88,7 +87,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     protected static $_defaultTemplates;
 
     /**
-     * Initialize email template model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -112,7 +111,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Declare template processing filter
      *
-     * @return  $this
+     * @return $this
      */
     public function setTemplateFilter(Varien_Filter_Template $filter)
     {
@@ -139,8 +138,8 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Load template by code
      *
-     * @param   string $templateCode
-     * @return   $this
+     * @param  string $templateCode
+     * @return $this
      */
     public function loadByCode($templateCode)
     {
@@ -151,8 +150,8 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Load default email template from locale translate
      *
-     * @param string $templateId
-     * @param string $locale
+     * @param  string $templateId
+     * @param  string $locale
      * @return $this
      */
     public function loadDefault($templateId, $locale = null)
@@ -224,11 +223,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
 
         $idLabel = [];
         foreach (self::getDefaultTemplates() as $templateId => $row) {
-            if (isset($row['@']) && isset($row['@']['module'])) {
-                $module = $row['@']['module'];
-            } else {
-                $module = 'adminhtml';
-            }
+            $module = isset($row['@']) && isset($row['@']['module']) ? $row['@']['module'] : 'adminhtml';
 
             $idLabel[$templateId] = Mage::helper($module)->__($row['label']);
         }
@@ -245,6 +240,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Return template id
      * return int|null
      */
+    #[Override]
     public function getId()
     {
         return $this->getTemplateId();
@@ -252,9 +248,10 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
 
     /**
      * Set id of template
-     * @param int $value
+     * @param  int   $value
      * @return $this
      */
+    #[Override]
     public function setId($value)
     {
         return $this->setTemplateId($value);
@@ -274,9 +271,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     }
 
     /**
-     * Getter for template type
-     *
-     * @return int|string
+     * @inheritDoc
      */
     public function getType()
     {
@@ -286,7 +281,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Process email template code
      *
-     * @return  string
+     * @return string
      */
     public function getProcessedTemplate(array $variables = [])
     {
@@ -309,8 +304,8 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $variables = $this->_addEmailVariables($variables, $processor->getStoreId());
 
         $processor
-            ->setTemplateProcessor([$this, 'getTemplateByConfigPath'])
-            ->setIncludeProcessor([$this, 'getInclude'])
+            ->setTemplateProcessor($this->getTemplateByConfigPath(...))
+            ->setIncludeProcessor($this->getInclude(...))
             ->setVariables($variables);
 
         try {
@@ -335,14 +330,16 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @return string
      */
     /**
-     * @param null|string $html
+     * @param  null|string $html
      * @return string
      */
     public function getPreparedTemplateText($html = null)
     {
         if ($this->isPlain() && $html) {
             return $html;
-        } elseif ($this->isPlain()) {
+        }
+
+        if ($this->isPlain()) {
             return $this->getTemplateText();
         }
 
@@ -352,13 +349,12 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Get template code for include directive
      *
-     * @param   string $template
-     * @return  string
+     * @param  string $template
+     * @return string
      */
     public function getInclude($template, array $variables)
     {
         $thisClass = self::class;
-        /** @var Mage_Core_Model_Email_Template $includeTemplate */
         $includeTemplate = new $thisClass();
         $includeTemplate->loadByCode($template);
 
@@ -368,9 +364,9 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Send mail to recipient
      *
-     * @param   array|string       $email        E-mail(s)
-     * @param   null|array|string  $name         receiver name(s)
-     * @param   array              $variables    template variables
+     * @param  array|string      $email     E-mail(s)
+     * @param  null|array|string $name      receiver name(s)
+     * @param  array             $variables template variables
      * @return bool
      **/
     public function send($email, $name = null, array $variables = [])
@@ -485,14 +481,14 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Send transactional email to recipient
      *
-     * @param   int|string $templateId
-     * @param   array|string $sender sender information, can be declared as part of config path
-     * @param   string $email recipient email
-     * @param   null|array|string $name recipient name
-     * @param   array $vars variables which can be used in template
-     * @param   null|int $storeId
+     * @param int|string        $templateId
+     * @param array|string      $sender     sender information, can be declared as part of config path
+     * @param string            $email      recipient email
+     * @param null|array|string $name       recipient name
+     * @param array             $vars       variables which can be used in template
+     * @param null|int          $storeId
      *
-     * @return  $this
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function sendTransactional($templateId, $sender, $email, $name, $vars = [], $storeId = null)
@@ -534,7 +530,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Process email subject
      *
-     * @return  string
+     * @return string
      */
     public function getProcessedTemplateSubject(array $variables)
     {
@@ -559,7 +555,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     }
 
     /**
-     * @param array|string $bcc
+     * @param  array|string $bcc
      * @return $this
      */
     public function addBcc($bcc)
@@ -580,7 +576,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Set Return Path
      *
-     * @param string $email
+     * @param  string $email
      * @return $this
      */
     public function setReturnPath($email)
@@ -592,7 +588,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Add Reply-To header
      *
-     * @param string $email
+     * @param  string $email
      * @return $this
      */
     public function setReplyTo($email)
@@ -604,7 +600,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Parse variables string into array of variables
      *
-     * @param string $variablesString
+     * @param  string $variablesString
      * @return array
      */
     protected function _parseVariablesString($variablesString)
@@ -621,13 +617,13 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve option array of variables
      *
-     * @param bool $withGroup if true wrap variable options in group
+     * @param  bool  $withGroup if true wrap variable options in group
      * @return array
      */
     public function getVariablesOptionArray($withGroup = false)
     {
         $optionArray = [];
-        $variables = $this->_parseVariablesString($this->getData('orig_template_variables'));
+        $variables = $this->_parseVariablesString($this->getDataByKey('orig_template_variables'));
         if ($variables) {
             foreach ($variables as $value => $label) {
                 $optionArray[] = [
@@ -652,6 +648,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * {@inheritDoc}
      */
+    #[Override]
     protected function _beforeSave()
     {
         $code = $this->getTemplateCode();

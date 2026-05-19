@@ -13,18 +13,18 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice _getResource()
- * @method int getCustomerGroupId()
- * @method float getQty()
+ * @method int                                                   getCustomerGroupId()
+ * @method float                                                 getQty()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice getResource()
- * @method int getTaxClassId()
- * @method float getValue()
- * @method int getWebsiteId()
- * @method $this setCustomerGroupId(int $value)
- * @method $this setEntityId(int $value)
- * @method $this setQty(float $value)
- * @method $this setTaxClassId(int $value)
- * @method $this setValue(float $value)
- * @method $this setWebsiteId(int $value)
+ * @method int                                                   getTaxClassId()
+ * @method float                                                 getValue()
+ * @method int                                                   getWebsiteId()
+ * @method $this                                                 setCustomerGroupId(int $value)
+ * @method $this                                                 setEntityId(int $value)
+ * @method $this                                                 setQty(float $value)
+ * @method $this                                                 setTaxClassId(int $value)
+ * @method $this                                                 setValue(float $value)
+ * @method $this                                                 setWebsiteId(int $value)
  */
 class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
@@ -42,6 +42,9 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
 
     protected $_processChildren = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogindex/indexer_minimalprice');
@@ -57,7 +60,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
      */
     public function getTierPriceAttribute()
     {
-        $data = $this->getData('tier_price_attribute');
+        $data = $this->getDataByKey('tier_price_attribute');
         if (is_null($data)) {
             $data = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'tier_price');
             $this->setData('tier_price_attribute', $data);
@@ -72,7 +75,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
      */
     public function getPriceAttribute()
     {
-        $data = $this->getData('price_attribute');
+        $data = $this->getDataByKey('price_attribute');
         if (is_null($data)) {
             $data = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'price');
             $this->setData('price_attribute', $data);
@@ -133,6 +136,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     /**
      * @return bool
      */
+    #[Override]
     public function isAttributeIdUsed()
     {
         return false;
@@ -141,12 +145,9 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     /**
      * @return bool
      */
+    #[Override]
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
-        if ($attribute->getAttributeCode() != 'minimal_price') {
-            return false;
-        }
-
-        return true;
+        return $attribute->getAttributeCode() == 'minimal_price';
     }
 }

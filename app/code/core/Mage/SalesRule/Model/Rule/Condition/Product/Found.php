@@ -27,6 +27,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
      *
      * @return $this
      */
+    #[Override]
     public function loadValueOptions()
     {
         $this->setValueOption([
@@ -39,6 +40,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
     /**
      * @return string
      */
+    #[Override]
     public function asHtml()
     {
         $html = $this->getTypeElement()->getHtml() . Mage::helper('salesrule')->__('If an item is %s in the cart with %s of these conditions true:', $this->getValueElement()->getHtml(), $this->getAggregatorElement()->getHtml());
@@ -52,9 +54,10 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
     /**
      * validate
      *
-     * @param Varien_Object $object Quote
+     * @param  Varien_Object $object Quote
      * @return bool
      */
+    #[Override]
     public function validate(Varien_Object $object)
     {
         $all = $this->getAggregator() === 'all';
@@ -78,10 +81,10 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
         // found an item and we're looking for existing one
         if ($found && $true) {
             return true;
-        } elseif (!$found && !$true) { // not found and we're making sure it doesn't exist
-            return true;
         }
 
-        return false;
+        // found an item and we're looking for existing one
+        // not found and we're making sure it doesn't exist
+        return !$found && !$true;
     }
 }

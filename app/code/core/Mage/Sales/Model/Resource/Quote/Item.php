@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,7 +17,7 @@
 class Mage_Sales_Model_Resource_Quote_Item extends Mage_Sales_Model_Resource_Abstract
 {
     /**
-     * Main table and field initialization
+     * @inheritDoc
      */
     protected function _construct()
     {

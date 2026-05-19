@@ -37,8 +37,8 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Set active website instance
      *
-     * @param int|Mage_Core_Model_Website $website
-     * @return Mage_Eav_Model_Attribute
+     * @param  int|Mage_Core_Model_Website $website
+     * @return $this
      */
     public function setWebsite($website)
     {
@@ -65,6 +65,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         Mage::getSingleton('eav/config')->clear();
@@ -78,7 +79,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      */
     public function getUsedInForms()
     {
-        $forms = $this->getData('used_in_forms');
+        $forms = $this->getDataByKey('used_in_forms');
         if (is_null($forms)) {
             $forms = $this->_getResource()->getUsedInForms($this);
             $this->setData('used_in_forms', $forms);
@@ -94,10 +95,12 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      */
     public function getValidateRules()
     {
-        $rules = $this->getData('validate_rules');
+        $rules = $this->getDataByKey('validate_rules');
         if (is_array($rules)) {
             return $rules;
-        } elseif (!empty($rules)) {
+        }
+
+        if (is_string($rules) && $rules !== '') {
             return Mage::helper('core/unserializeArray')->unserialize($rules);
         }
 
@@ -107,8 +110,8 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Set validate rules
      *
-     * @param array|string $rules
-     * @return Mage_Eav_Model_Attribute
+     * @param  array|string $rules
+     * @return $this
      */
     public function setValidateRules($rules)
     {
@@ -126,7 +129,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Return scope value by key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     protected function _getScopeValue($key)
@@ -160,6 +163,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      *
      * @return mixed
      */
+    #[Override]
     public function getDefaultValue()
     {
         return $this->_getScopeValue('default_value');

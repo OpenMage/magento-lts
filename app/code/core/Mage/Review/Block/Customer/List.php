@@ -22,8 +22,9 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     protected $_collection;
 
     /**
-     * Initializes collection
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_collection = Mage::getModel('review/review')->getProductCollection();
@@ -56,8 +57,9 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     /**
      * Initializes toolbar
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $toolbar = $this->getLayout()->createBlock('page/html_pager', 'customer_review_list.toolbar')
@@ -110,7 +112,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     /**
      * Format date in short format
      *
-     * @param null|string|Zend_Date $date
+     * @param  null|string|Zend_Date $date
      * @return string
      */
     public function dateFormat($date)
@@ -119,8 +121,9 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     }
 
     /**
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->_getCollection()

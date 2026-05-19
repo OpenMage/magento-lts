@@ -52,7 +52,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Adapter object constructor.
      *
-     * @param string $source source file path
+     * @param  string              $source source file path
      * @throws Mage_Core_Exception
      */
     final public function __construct($source)
@@ -91,7 +91,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Method called as last step of object instance creation. Can be overridden in child classes.
      *
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return $this
      */
     protected function _init()
     {
@@ -103,7 +103,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @return array
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function current()
     {
         return array_combine(
@@ -129,7 +129,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @return int more than 0 integer on success, integer 0 on failure
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->_currentKey;
@@ -140,7 +140,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @param int $position the position to seek to
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function seek($position)
     {
         Mage::throwException(Mage::helper('importexport')->__('Not implemented yet'));
@@ -151,7 +151,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @return bool returns true on success or false on failure
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function valid()
     {
         return !empty($this->_currentRow);
@@ -160,7 +160,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Check source file for validity.
      *
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return $this
      */
     public function validateSource()
     {

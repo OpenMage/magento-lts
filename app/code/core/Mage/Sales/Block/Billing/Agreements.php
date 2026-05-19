@@ -32,8 +32,9 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     /**
      * Set Billing Agreement instance
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -64,7 +65,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     /**
      * Retrieve item value by key
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     public function getItemValue(Mage_Sales_Model_Billing_Agreement $item, $key)
@@ -134,6 +135,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setCreateUrl($this->getUrl('*/billing_agreement/startWizard', ['_secure' => $this->_isSecure()]));

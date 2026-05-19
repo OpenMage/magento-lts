@@ -21,9 +21,10 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Assign data to info model instance
      *
-     * @param mixed $data
+     * @param  mixed $data
      * @return $this
      */
+    #[Override]
     public function assignData($data)
     {
         if (!($data instanceof Varien_Object)) {
@@ -50,6 +51,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function prepareSave()
     {
         $info = $this->getInfoInstance();
@@ -70,6 +72,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      * @throws Mage_Core_Exception
      * @throws Zend_Date_Exception
      */
+    #[Override]
     public function validate()
     {
         /*
@@ -88,14 +91,11 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         $info->setCcNumber($ccNumber);
 
-        $ccType = '';
-
         if (in_array($info->getCcType(), $availableTypes)) {
             if ($this->validateCcNum($ccNumber)
                 // Other credit card type number validation
                 || ($this->otherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))
             ) {
-                $ccType = 'OT';
                 $discoverNetworkRegexp = '/^(30[0-5]\d{13}|3095\d{12}|35(2[8-9]\d{12}|[3-8]\d{13})|36\d{12}'
                     . '|3[8-9]\d{14}|6011(0\d{11}|[2-4]\d{11}|74\d{10}|7[7-9]\d{10}|8[6-9]\d{10}|9\d{11})'
                     . '|62(2(12[6-9]\d{10}|1[3-9]\d{11}|[2-8]\d{12}|9[0-1]\d{11}|92[0-5]\d{10})|[4-6]\d{13}'
@@ -148,7 +148,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             }
         }
 
-        if ($ccType != 'SS' && !$this->_validateExpDate($info->getCcExpYear(), $info->getCcExpMonth())) {
+        if (!$this->_validateExpDate($info->getCcExpYear(), $info->getCcExpMonth())) {
             $errorMsg = Mage::helper('payment')->__('Incorrect credit card expiration date.');
         }
 
@@ -178,7 +178,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     public function getVerificationRegEx()
     {
@@ -196,25 +196,25 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-     * @param string $expYear
-     * @param string $expMonth
+     * @param  string              $expYear
+     * @param  string              $expMonth
      * @return bool
      * @throws Zend_Date_Exception
      */
     protected function _validateExpDate($expYear, $expMonth)
     {
         $date = Mage::app()->getLocale()->date();
-        if (!$expYear || !$expMonth || ($date->compareYear($expYear) == 1)
-            || ($date->compareYear($expYear) == 0 && ($date->compareMonth($expMonth) == 1))
-        ) {
-            return false;
-        }
-
-        return true;
+        return !(
+            !$expYear
+            || !$expMonth
+            || $date->compareYear($expYear) == 1
+            || $date->compareYear($expYear) == 0
+            && $date->compareMonth($expMonth) == 1
+        );
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return bool
      */
     public function otherCcType($type)
@@ -225,8 +225,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Validate credit card number
      *
-     * @param string $ccNumber
-     * @return  bool
+     * @param  string $ccNumber
+     * @return bool
      */
     public function validateCcNum($ccNumber)
     {
@@ -264,7 +264,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Other credit cart type number validation
      *
-     * @param string $ccNumber
+     * @param  string $ccNumber
      * @return bool
      */
     public function validateCcNumOther($ccNumber)
@@ -275,9 +275,10 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Check whether there are CC types set in configuration
      *
-     * @param null|Mage_Sales_Model_Quote $quote
+     * @param  null|Mage_Sales_Model_Quote $quote
      * @return bool
      */
+    #[Override]
     public function isAvailable($quote = null)
     {
         return $this->getConfigData('cctypes', ($quote ? $quote->getStoreId() : null))
@@ -342,13 +343,13 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         if ($this->_isPlaceOrder()) {
             return $info->getOrder()->getIncrementId();
-        } else {
-            if (!$info->getQuote()->getReservedOrderId()) {
-                $info->getQuote()->reserveOrderId();
-            }
-
-            return $info->getQuote()->getReservedOrderId();
         }
+
+        if (!$info->getQuote()->getReservedOrderId()) {
+            $info->getQuote()->reserveOrderId();
+        }
+
+        return $info->getQuote()->getReservedOrderId();
     }
 
     /**
@@ -361,9 +362,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $info = $this->getInfoInstance();
         if ($this->_isPlaceOrder()) {
             return (float) $info->getOrder()->getQuoteBaseGrandTotal();
-        } else {
-            return (float) $info->getQuote()->getBaseGrandTotal();
         }
+
+        return (float) $info->getQuote()->getBaseGrandTotal();
     }
 
     /**
@@ -377,9 +378,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         if ($this->_isPlaceOrder()) {
             return $info->getOrder()->getBaseCurrencyCode();
-        } else {
-            return $info->getQuote()->getBaseCurrencyCode();
         }
+
+        return $info->getQuote()->getBaseCurrencyCode();
     }
 
     /**
@@ -392,10 +393,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $info = $this->getInfoInstance();
         if ($info instanceof Mage_Sales_Model_Quote_Payment) {
             return false;
-        } elseif ($info instanceof Mage_Sales_Model_Order_Payment) {
-            return true;
         }
 
-        return false;
+        return $info instanceof Mage_Sales_Model_Order_Payment;
     }
 }

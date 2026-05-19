@@ -12,7 +12,7 @@
  *
  * @package    Mage_Review
  *
- * @method Mage_Review_Model_Review[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Review_Model_Review>
  */
 class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -58,7 +58,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     protected $_addStoreDataFlag   = false;
 
     /**
-     * Define module
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -73,8 +73,9 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * init select
      *
-     * @return Mage_Review_Model_Resource_Review_Collection
+     * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         parent::_initSelect();
@@ -88,7 +89,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     }
 
     /**
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)
@@ -104,7 +105,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Add store filter
      *
-     * @param array|int $storeId
+     * @param  array|int $storeId
      * @return $this
      */
     public function addStoreFilter($storeId)
@@ -133,8 +134,8 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Add entity filter
      *
-     * @param int|string $entity
-     * @param int $pkValue
+     * @param  int|string $entity
+     * @param  int        $pkValue
      * @return $this
      */
     public function addEntityFilter($entity, $pkValue)
@@ -171,7 +172,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Add status filter
      *
-     * @param int|string $status
+     * @param  int|string $status
      * @return $this
      */
     public function addStatusFilter($status)
@@ -195,7 +196,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Set date order
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function setDateOrder($dir = 'DESC')
@@ -249,10 +250,11 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     /**
      * Load data
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {

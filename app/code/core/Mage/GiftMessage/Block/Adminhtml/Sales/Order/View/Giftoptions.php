@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -21,6 +23,6 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Giftoptions extends Mage
      */
     public function getItem()
     {
-        return $this->getParentBlock()->getData('item');
+        return $this->getParentBlock()->getDataByKey('item');
     }
 }

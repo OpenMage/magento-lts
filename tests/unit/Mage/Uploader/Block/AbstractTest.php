@@ -21,7 +21,7 @@ final class AbstractTest extends OpenMageTest
 {
     private static Subject $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$subject = $this->getMockForAbstractClass(Subject::class);
     }

@@ -23,15 +23,18 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
      */
     protected function _getResource()
     {
-        return Mage::getResourceSingleton(self::getBackendModelName());
+        /** @var Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax $model */
+        $model = Mage::getResourceSingleton(self::getBackendModelName());
+        return $model;
     }
 
     /**
      * Validate data
      *
-     * @param   Mage_Catalog_Model_Product $object
-     * @return  $this
+     * @param  Mage_Catalog_Model_Product $object
+     * @return $this
      */
+    #[Override]
     public function validate($object)
     {
         $taxes = $object->getData($this->getAttribute()->getName());
@@ -64,9 +67,10 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     /**
      * Assign WEEE taxes to product data
      *
-     * @param   Mage_Catalog_Model_Product $object
-     * @return  $this
+     * @param  Mage_Catalog_Model_Product $object
+     * @return $this
      */
+    #[Override]
     public function afterLoad($object)
     {
         $data = $this->_getResource()->loadProductData($object, $this->getAttribute());
@@ -89,9 +93,10 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product                               $object
      * @return $this|Mage_Catalog_Model_Product_Attribute_Backend_Price
      */
+    #[Override]
     public function afterSave($object)
     {
         $orig = $object->getOrigData($this->getAttribute()->getName());
@@ -108,15 +113,19 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
         }
 
         foreach ($taxes as $tax) {
-            if (empty($tax['price']) || empty($tax['country']) || !empty($tax['delete'])) {
+            if (empty($tax['price'])) {
                 continue;
             }
 
-            if (isset($tax['state']) && $tax['state']) {
-                $state = $tax['state'];
-            } else {
-                $state = '*';
+            if (empty($tax['country'])) {
+                continue;
             }
+
+            if (!empty($tax['delete'])) {
+                continue;
+            }
+
+            $state = isset($tax['state']) && $tax['state'] ? $tax['state'] : '*';
 
             $data = [];
             $data['website_id']   = $tax['website_id'];
@@ -132,9 +141,10 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     }
 
     /**
-     * @param Varien_Object $object
+     * @param  Varien_Object                                          $object
      * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      */
+    #[Override]
     public function afterDelete($object)
     {
         $this->_getResource()->deleteProductData($object, $this->getAttribute());
@@ -144,6 +154,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     /**
      * @return string
      */
+    #[Override]
     public function getTable()
     {
         return $this->_getResource()->getTable('weee/tax');

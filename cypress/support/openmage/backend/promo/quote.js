@@ -11,7 +11,7 @@ test.config = {
     _nav: '#nav-admin-promo',
     _title: base._title,
     _button: base._button,
-    url: 'promo_quote/index',
+    url: 'admin/promo_quote',
     index: {},
     edit: {},
     new: {},
@@ -19,12 +19,12 @@ test.config = {
 
 /**
  * Configuration for "Shopping Cart Price Rules" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}}}
  */
 test.config.index = {
     title: 'Shopping Cart Price Rules',
     url: test.config.url,
-    _grid: '#promo_quote_grid_table',
+    grid: {...base.__grid, ...{ sort: {order: 'sort_order', dir: 'asc' } }},
     __buttons: {},
 }
 

@@ -19,6 +19,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      *
      * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -38,9 +39,10 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param array|int $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
+    #[Override]
     public function reindexEntity($entityIds)
     {
         $this->_prepareBundlePrice($entityIds);
@@ -126,8 +128,8 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare temporary price index data for bundle products by price type
      *
-     * @param int $priceType
-     * @param array|int $entityIds the entity ids limitatation
+     * @param  int       $priceType
+     * @param  array|int $entityIds the entity ids limitatation
      * @return $this
      */
     protected function _prepareBundlePriceByType($priceType, $entityIds = null)
@@ -378,7 +380,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Calculate bundle product selections price by product type
      *
-     * @param int $priceType
+     * @param  int   $priceType
      * @return $this
      */
     protected function _calculateBundleSelectionPrice($priceType)
@@ -523,7 +525,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare temporary index price for bundle products
      *
-     * @param array|int $entityIds  the entity ids limitation
+     * @param  array|int $entityIds the entity ids limitation
      * @return $this
      */
     protected function _prepareBundlePrice($entityIds = null)
@@ -564,7 +566,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare percentage tier price for bundle products
      *
-     * @param array|int $entityIds
+     * @param  array|int $entityIds
      * @return $this
      * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareTierPriceIndex
      */
@@ -622,7 +624,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare percentage group price for bundle products
      *
-     * @param array|int $entityIds
+     * @param  array|int $entityIds
      * @return $this
      * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareGroupPriceIndex
      */

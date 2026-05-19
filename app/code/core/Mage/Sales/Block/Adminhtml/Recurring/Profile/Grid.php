@@ -12,6 +12,8 @@
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'sales_adminhtml_recurring_profile_grid';
+
     /**
      * Set ajax/session parameters
      */
@@ -28,6 +30,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/recurring_profile_collection');
@@ -43,7 +46,9 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
      * Prepare grid columns
      *
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $profile = Mage::getModel('sales/recurring_profile');
@@ -109,11 +114,11 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
     }
 
     /**
-     * Return row url for js event handlers
-     *
-     * @param Varien_Object $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Recurring_Profile $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_recurring_profile/view', ['profile' => $row->getId()]);
@@ -124,6 +129,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);

@@ -14,6 +14,9 @@
  */
 class Mage_Eav_Model_Resource_Entity_Type extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/entity_type', 'entity_type_id');
@@ -22,8 +25,8 @@ class Mage_Eav_Model_Resource_Entity_Type extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Load Entity Type by Code
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @param string $code
+     * @param  Mage_Core_Model_Abstract $object
+     * @param  string                   $code
      * @return $this
      */
     public function loadByCode($object, $code)
@@ -34,7 +37,7 @@ class Mage_Eav_Model_Resource_Entity_Type extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve additional attribute table name for specified entity type
      *
-     * @param int $entityTypeId
+     * @param  int    $entityTypeId
      * @return string
      */
     public function getAdditionalAttributeTable($entityTypeId)

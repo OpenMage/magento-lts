@@ -15,7 +15,7 @@
 class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core_Model_Resource_File_Storage_Abstract
 {
     /**
-     * Define table name and id field for resource
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -113,7 +113,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Return parent id
      *
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     public function getParentId($path)
@@ -153,9 +153,9 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Export directories from database
      *
-     * @param int $offset
-     * @param int $count
-     * @return mixed
+     * @param  int   $offset
+     * @param  int   $count
+     * @return array
      */
     public function exportDirectories($offset, $count = 100)
     {
@@ -175,8 +175,8 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Return directory file listing
      *
-     * @param string $directory
-     * @return mixed
+     * @param  string $directory
+     * @return array
      */
     public function getSubdirectories($directory)
     {

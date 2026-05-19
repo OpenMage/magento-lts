@@ -81,7 +81,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      */
     public function getQuoteProductIds()
     {
-        $products = $this->getData('product_ids');
+        $products = $this->getDataByKey('product_ids');
         if (is_null($products)) {
             $products = [];
             foreach ($this->getQuote()->getAllItems() as $item) {
@@ -146,8 +146,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Convert order item to quote item
      *
-     * @param Mage_Sales_Model_Order_Item $orderItem
-     * @param mixed $qtyFlag if is null set product qty like in order
+     * @param  Mage_Sales_Model_Order_Item $orderItem
+     * @param  mixed                       $qtyFlag   if is null set product qty like in order
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -178,9 +178,9 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Get product object based on requested product information
      *
-     * @param   mixed $productInfo
-     * @return  Mage_Catalog_Model_Product
-     * @throws  Mage_Core_Exception
+     * @param  mixed                      $productInfo
+     * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
      */
     protected function _getProduct($productInfo)
     {
@@ -208,8 +208,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Get request for product add to cart procedure
      *
-     * @param   mixed $requestInfo
-     * @return  Varien_Object
+     * @param  mixed         $requestInfo
+     * @return Varien_Object
      */
     protected function _getProductRequest($requestInfo)
     {
@@ -227,10 +227,10 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Add product to shopping cart (quote)
      *
-     * @param   int|Mage_Catalog_Model_Product $productInfo
-     * @param   mixed $requestInfo
-     * @return  Mage_Checkout_Model_Cart
-     * @throws  Mage_Core_Exception
+     * @param  int|Mage_Catalog_Model_Product $productInfo
+     * @param  mixed                          $requestInfo
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addProduct($productInfo, $requestInfo = null)
     {
@@ -295,9 +295,9 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Adding products to cart by ids
      *
-     * @param   array $productIds
-     * @return  Mage_Checkout_Model_Cart
-     * @throws  Mage_Core_Exception
+     * @param  array               $productIds
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addProductsByIds($productIds)
     {
@@ -346,9 +346,9 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      *
      * $data is an array of ($quoteItemId => (item info array with 'qty' key), ...)
      *
-     * @param   array $data
-     * @return  array
-     * @throws  Mage_Core_Exception
+     * @param  array               $data
+     * @return array
+     * @throws Mage_Core_Exception
      */
     public function suggestItemsQty($data)
     {
@@ -387,9 +387,9 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Update cart items information
      *
-     * @param   array $data
-     * @return  Mage_Checkout_Model_Cart
-     * @throws  Mage_Core_Exception
+     * @param  array               $data
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function updateItems($data)
     {
@@ -440,9 +440,9 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Remove item from cart
      *
-     * @param   int $itemId
-     * @return  Mage_Checkout_Model_Cart
-     * @throws  Mage_Core_Exception
+     * @param  int                 $itemId
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeItem($itemId)
     {
@@ -495,12 +495,11 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     }
 
     /**
-     * @return null|array
+     * @return array
      * @throws Mage_Core_Exception
      */
     public function getProductIds()
     {
-        $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
         if ($this->_productIds === null) {
             $this->_productIds = [];
             if ($this->getSummaryQty() > 0) {
@@ -528,16 +527,12 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         //and get new quote id. This is done for cases when quote was created
         //not by customer (from backend for example).
         if (!$quoteId && Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $quote = Mage::getSingleton('checkout/session')->getQuote();
+            Mage::getSingleton('checkout/session')->getQuote();
             $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
         }
 
         if ($quoteId && $this->_summaryQty === null) {
-            if (Mage::getStoreConfig('checkout/cart_link/use_qty')) {
-                $this->_summaryQty = $this->getItemsQty();
-            } else {
-                $this->_summaryQty = $this->getItemsCount();
-            }
+            $this->_summaryQty = Mage::getStoreConfig('checkout/cart_link/use_qty') ? $this->getItemsQty() : $this->getItemsCount();
         }
 
         return $this->_summaryQty;
@@ -568,9 +563,9 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      * $requestInfo - either qty (int) or buyRequest in form of array or Varien_Object
      * $updatingParams - information on how to perform update, passed to Quote->updateItem() method
      *
-     * @param int $itemId
-     * @param array|int|Varien_Object $requestInfo
-     * @param null|array|Varien_Object $updatingParams
+     * @param  int                                         $itemId
+     * @param  array|int|Varien_Object                     $requestInfo
+     * @param  null|array|Varien_Object                    $updatingParams
      * @return Mage_Sales_Model_Quote_Item_Abstract|string
      * @throws Mage_Core_Exception
      * @see Mage_Sales_Model_Quote::updateItem()

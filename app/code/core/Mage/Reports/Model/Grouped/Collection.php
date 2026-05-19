@@ -9,6 +9,8 @@
 
 /**
  * @package    Mage_Reports
+ *
+ * @extends Varien_Data_Collection<Mage_Adminhtml_Model_Report_Item>
  */
 class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -29,7 +31,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mag
     /**
      * Set column to group by
      *
-     * @param string $column
+     * @param  string $column
      * @return $this
      */
     public function setColumnGroupBy($column)
@@ -41,10 +43,11 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mag
     /**
      * Load collection
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -65,7 +68,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mag
     /**
      * Setter for resource collection
      *
-     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
+     * @param  Mage_Core_Model_Resource_Db_Collection_Abstract $collection
      * @return $this
      */
     public function setResourceCollection($collection)

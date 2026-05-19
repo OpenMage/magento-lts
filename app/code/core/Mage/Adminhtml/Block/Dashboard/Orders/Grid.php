@@ -14,12 +14,18 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_orders_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('lastOrdersGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
         if (!$this->isModuleEnabled('Mage_Reports')) {
@@ -54,17 +60,23 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
 
     /**
      * Prepares page sizes for dashboard grid with las 5 orders
+     *
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _preparePage()
     {
         $this->getCollection()->setPageSize($this->getParam($this->getVarNameLimit(), $this->_defaultLimit));
         // Remove count of total orders $this->getCollection()->setCurPage($this->getParam($this->getVarNamePage(), $this->_defaultPage));
+        return $this;
     }
 
     /**
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('customer', [
@@ -98,9 +110,11 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
     }
 
     /**
-     * @param Mage_Sales_Model_Order $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Order $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);

@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs_Grouped extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs
 {
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();

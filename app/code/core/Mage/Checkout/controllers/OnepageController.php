@@ -33,8 +33,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Predispatch: should set layout area
      *
-     * @return $this|void
+     * @return null|$this
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -52,7 +53,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         if (!$this->_canShowForUnregisteredUsers()) {
             $this->norouteAction();
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-            return;
+            return null;
         }
 
         return $this;
@@ -89,7 +90,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         $action = strtolower($this->getRequest()->getActionName());
         if (Mage::getSingleton('checkout/session')->getCartWasUpdated(true)
-            && !in_array($action, ['index', 'progress'])
+            && !in_array($action, ['index', 'progress'], true)
         ) {
             $this->_ajaxRedirectResponse();
             return true;
@@ -172,6 +173,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Checkout page
+     * @return void
      */
     public function indexAction()
     {
@@ -240,6 +242,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Shipping method action
+     * @return void
      */
     public function shippingMethodAction()
     {
@@ -253,6 +256,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Review page action
+     * @return void
      */
     public function reviewAction()
     {
@@ -266,6 +270,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Order success action
+     * @return void
      */
     public function successAction()
     {
@@ -292,6 +297,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Failure action
+     * @return void
      */
     public function failureAction()
     {
@@ -309,6 +315,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Get additional info action
+     * @return void
      */
     public function getAdditionalAction()
     {
@@ -317,6 +324,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Address JSON
+     * @return void
      */
     public function getAddressAction()
     {
@@ -338,6 +346,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Save checkout method
+     * @return void
      */
     public function saveMethodAction()
     {
@@ -354,6 +363,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Save checkout billing address
+     * @return void
      */
     public function saveBillingAction()
     {
@@ -402,6 +412,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Shipping address save action
+     * @return void
      */
     public function saveShippingAction()
     {
@@ -432,6 +443,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Shipping method save action
+     * @return void
      */
     public function saveShippingMethodAction()
     {
@@ -473,6 +485,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      * Save payment ajax action
      *
      * Sets either redirect or a JSON response
+     * @return void
      */
     public function savePaymentAction()
     {
@@ -507,16 +520,16 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             if ($redirectUrl) {
                 $result['redirect'] = $redirectUrl;
             }
-        } catch (Mage_Payment_Exception $e) {
-            if ($e->getFields()) {
-                $result['fields'] = $e->getFields();
+        } catch (Mage_Payment_Exception $magePaymentException) {
+            if ($magePaymentException->getFields()) {
+                $result['fields'] = $magePaymentException->getFields();
             }
 
-            $result['error'] = $e->getMessage();
-        } catch (Mage_Core_Exception $e) {
-            $result['error'] = $e->getMessage();
-        } catch (Exception $e) {
-            Mage::logException($e);
+            $result['error'] = $magePaymentException->getMessage();
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $result['error'] = $mageCoreException->getMessage();
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $result['error'] = $this->__('Unable to set Payment Method.');
         }
 
@@ -544,7 +557,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Create invoice
      *
-     * @return Mage_Sales_Model_Service_Order
+     * @return Mage_Sales_Model_Order_Invoice
      * @throws Mage_Core_Exception
      * @throws Mage_Payment_Model_Info_Exception
      */
@@ -555,7 +568,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $items[$item->getId()] = $item->getQtyOrdered();
         }
 
-        /** @var Mage_Sales_Model_Service_Order $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
         $invoice = Mage::getModel('sales/service_order', $this->_getOrder())->prepareInvoice($items);
         $invoice->setEmailSent(true)->register();
 
@@ -565,6 +578,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     /**
      * Create order action
+     * @return void
      */
     public function saveOrderAction()
     {
@@ -607,8 +621,8 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $redirectUrl = $this->getOnepage()->getCheckout()->getRedirectUrl();
             $result['success'] = true;
             $result['error']   = false;
-        } catch (Mage_Payment_Model_Info_Exception $e) {
-            $message = $e->getMessage();
+        } catch (Mage_Payment_Model_Info_Exception $magePaymentModelInfoException) {
+            $message = $magePaymentModelInfoException->getMessage();
             if (!empty($message)) {
                 $result['error_messages'] = $message;
             }
@@ -618,12 +632,12 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 'name' => 'payment-method',
                 'html' => $this->_getPaymentMethodsHtml(),
             ];
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
-            Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
+            Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $mageCoreException->getMessage());
             $result['success'] = false;
             $result['error'] = true;
-            $result['error_messages'] = $e->getMessage();
+            $result['error_messages'] = $mageCoreException->getMessage();
 
             $gotoSection = $this->getOnepage()->getCheckout()->getGotoSection();
             if ($gotoSection) {
@@ -643,9 +657,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
                 $this->getOnepage()->getCheckout()->setUpdateSection(null);
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
-            Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $exception->getMessage());
             $result['success']  = false;
             $result['error']    = true;
             $result['error_messages'] = $this->__('There was an error processing your order. Please contact us or try again later.');
@@ -666,7 +680,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Filtering posted data. Converting localized data if needed
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _filterPostData($data)
@@ -681,16 +695,25 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     protected function _canShowForUnregisteredUsers()
     {
-        return Mage::getSingleton('customer/session')->isLoggedIn()
-            || $this->getRequest()->getActionName() == 'index'
-            || Mage::helper('checkout')->isAllowedGuestCheckout($this->getOnepage()->getQuote())
-            || !Mage::helper('checkout')->isCustomerMustBeLogged();
+        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            return true;
+        }
+
+        if ($this->getRequest()->getActionName() == 'index') {
+            return true;
+        }
+
+        if (Mage::helper('checkout')->isAllowedGuestCheckout($this->getOnepage()->getQuote())) {
+            return true;
+        }
+
+        return !Mage::helper('checkout')->isCustomerMustBeLogged();
     }
 
     /**
      * Prepare JSON formatted data for response to client
      *
-     * @param mixed $response
+     * @param  mixed                             $response
      * @return Zend_Controller_Response_Abstract
      */
     protected function _prepareDataJSON($response)

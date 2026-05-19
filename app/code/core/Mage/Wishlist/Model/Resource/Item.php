@@ -14,6 +14,9 @@
  */
 class Mage_Wishlist_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('wishlist/item', 'wishlist_item_id');
@@ -22,10 +25,10 @@ class Mage_Wishlist_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Load item by wishlist, product and shared stores
      *
-     * @param Mage_Wishlist_Model_Item $object
-     * @param int $wishlistId
-     * @param int $productId
-     * @param array $sharedStores
+     * @param  Mage_Wishlist_Model_Item $object
+     * @param  int                      $wishlistId
+     * @param  int                      $productId
+     * @param  array                    $sharedStores
      * @return $this
      */
     public function loadByProductWishlist($object, $wishlistId, $productId, $sharedStores)

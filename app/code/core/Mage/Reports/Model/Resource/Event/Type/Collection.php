@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,6 +16,9 @@
  */
 class Mage_Reports_Model_Resource_Event_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('reports/event_type');
@@ -24,6 +29,7 @@ class Mage_Reports_Model_Resource_Event_Type_Collection extends Mage_Core_Model_
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return parent::_toOptionArray('event_type_id', 'event_name');

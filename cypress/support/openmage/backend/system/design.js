@@ -31,7 +31,7 @@ test.config = {
     _nav: '#nav-admin-system',
     _title: base._title,
     _button: base._button,
-    url: 'system_design/index',
+    url: 'admin/system_design',
     index: {},
     edit: {},
     new: {},
@@ -39,12 +39,12 @@ test.config = {
 
 /**
  * Configuration for "Design" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}}}
  */
 test.config.index = {
     title: 'Design',
     url: test.config.url,
-    _grid: '#designGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'package', dir: 'asc' } }},
     __buttons: {},
 }
 

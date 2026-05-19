@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use Override;
 use Mage;
 use Mage_Core_Model_Resource_Store_Collection;
 use Mage_Core_Model_Resource_Store_Group_Collection;
@@ -23,6 +24,7 @@ final class WebsiteTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -20,7 +20,9 @@ class Mage_Dataflow_Model_Convert_Adapter_Http_Curl extends Mage_Dataflow_Model_
         $uri = $this->getVar('uri');
 
         // validate input parameter
-        if (!Zend_Uri::check($uri)) {
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
+        if ($validator->validateUrl(value: $uri)->count() > 0) {
             $this->addException("Expecting a valid 'uri' parameter");
         }
 

@@ -79,7 +79,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Varien_Object $obj
+     * @param  Varien_Object $obj
      * @return string
      */
     public function getSearchUrl($obj)

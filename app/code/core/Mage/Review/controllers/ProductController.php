@@ -22,26 +22,29 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     protected $_cookieCheckActions = ['post'];
 
     /**
-     * @return $this|Mage_Core_Controller_Front_Action|void
+     * @return null|$this|Mage_Core_Controller_Front_Action
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
 
         $allowGuest = Mage::helper('review')->getIsGuestAllowToWrite();
         if (!$this->getRequest()->isDispatched()) {
-            return;
+            return null;
         }
 
         $action = strtolower($this->getRequest()->getActionName());
-        if (!$allowGuest && $action == 'post' && $this->getRequest()->isPost()) {
-            if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-                Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
-                Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
-                    ->setRedirectUrl($this->_getRefererUrl());
-                $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
-            }
+        if (!$allowGuest
+            && $action == 'post'
+            && $this->getRequest()->isPost()
+            && !Mage::getSingleton('customer/session')->isLoggedIn()
+        ) {
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
+            Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
+                ->setRedirectUrl($this->_getRefererUrl());
+            $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
         }
 
         return $this;
@@ -86,7 +89,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      * Load product model with data by passed id.
      * Return false if product was not loaded or has incorrect status.
      *
-     * @param int $productId
+     * @param  int                             $productId
      * @return bool|Mage_Catalog_Model_Product
      */
     protected function _loadProduct($productId)
@@ -113,7 +116,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      * Load review model with data by passed id.
      * Return false if review was not loaded or review is not approved.
      *
-     * @param int $reviewId
+     * @param  int                           $reviewId
      * @return bool|Mage_Review_Model_Review
      */
     protected function _loadReview($reviewId)
@@ -135,6 +138,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Submit new review action
+     * @return void
      */
     public function postAction()
     {
@@ -207,6 +211,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Show list of product's reviews
+     * @return void
      */
     public function listAction()
     {
@@ -241,6 +246,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Show details of one review
+     * @return void
      */
     public function viewAction()
     {
@@ -303,7 +309,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Crops POST values
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _cropReviewData(array $reviewData)
     {

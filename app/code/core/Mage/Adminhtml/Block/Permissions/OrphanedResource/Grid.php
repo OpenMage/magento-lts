@@ -18,17 +18,20 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_orphaned_resource_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('permissionsOrphanedResourceGrid');
         $this->setDefaultSort('resource_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
     }
 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('admin/rules_collection')
@@ -51,7 +54,9 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('resource_id', [
@@ -65,6 +70,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('resource_id');
@@ -76,9 +82,10 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
             'confirm'  => Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
+    #[Override]
     public function getRowUrl($row): string
     {
         return '';

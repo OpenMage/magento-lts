@@ -34,9 +34,9 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
     /**
      * Retrieve product link associations
      *
-     * @param string $type
-     * @param int|string $productId
-     * @param  string $identifierType
+     * @param  string     $type
+     * @param  int|string $productId
+     * @param  string     $identifierType
      * @return array
      */
     public function items($type, $productId, $identifierType = null)
@@ -73,11 +73,11 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
     /**
      * Add product link association
      *
-     * @param string $type
-     * @param int|string $productId
-     * @param int|string $linkedProductId
-     * @param array $data
-     * @param  string $identifierType
+     * @param  string     $type
+     * @param  int|string $productId
+     * @param  int|string $linkedProductId
+     * @param  array      $data
+     * @param  string     $identifierType
      * @return bool
      */
     public function assign($type, $productId, $linkedProductId, $data = [], $identifierType = null)
@@ -130,11 +130,11 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
     /**
      * Update product link association info
      *
-     * @param string $type
-     * @param int|string $productId
-     * @param int|string $linkedProductId
-     * @param array $data
-     * @param  string $identifierType
+     * @param  string     $type
+     * @param  int|string $productId
+     * @param  int|string $linkedProductId
+     * @param  array      $data
+     * @param  string     $identifierType
      * @return bool
      */
     public function update($type, $productId, $linkedProductId, $data = [], $identifierType = null)
@@ -186,10 +186,10 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
     /**
      * Remove product link association
      *
-     * @param string $type
-     * @param int|string $productId
-     * @param int|string $linkedProductId
-     * @param  string $identifierType
+     * @param  string     $type
+     * @param  int|string $productId
+     * @param  int|string $linkedProductId
+     * @param  string     $identifierType
      * @return bool
      */
     public function remove($type, $productId, $linkedProductId, $identifierType = null)
@@ -226,7 +226,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
     /**
      * Retrieve attribute list for specified type
      *
-     * @param string $type
+     * @param  string $type
      * @return array
      */
     public function attributes($type)
@@ -261,7 +261,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
     /**
      * Retrieve link type id by code
      *
-     * @param string $type
+     * @param  string $type
      * @return int
      */
     protected function _getTypeId($type)
@@ -276,8 +276,8 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
     /**
      * Initialize and return product model
      *
-     * @param int $productId
-     * @param  string $identifierType
+     * @param  int                        $productId
+     * @param  string                     $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _initProduct($productId, $identifierType = null)
@@ -293,8 +293,8 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
     /**
      * Initialize and return linked products collection
      *
-     * @param Mage_Catalog_Model_Product_Link $link
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product_Link                             $link
+     * @param  Mage_Catalog_Model_Product                                  $product
      * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
      */
     protected function _initCollection($link, $product)
@@ -308,7 +308,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
     /**
      * Export collection to editable array
      *
-     * @param Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
      * @return array
      */
     protected function _collectionToEditableArray($collection)

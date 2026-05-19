@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Sitemap grid link column renderer
  *
@@ -19,11 +21,9 @@ class Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Time extends Mage_Adminhtml_Blo
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
-        return date(
-            Varien_Date::DATETIME_PHP_FORMAT,
-            strtotime($row->getSitemapTime()) + Mage::getSingleton('core/date')->getGmtOffset(),
-        );
+        return Carbon::createFromTimestamp(Carbon::parse($row->getSitemapTime())->getTimestamp() + Mage::getSingleton('core/date')->getGmtOffset())->format(Varien_Date::DATETIME_PHP_FORMAT);
     }
 }

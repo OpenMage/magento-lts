@@ -9,15 +9,16 @@ test.config = {
     _: '#nav-admin-customer-online',
     _nav: '#nav-admin-customer',
     _title: base._title,
-    url: 'customer_online/index',
+    url: 'admin/customer_online',
     index: {},
 }
 
 /**
  * Configuration for "Online Customers" page
- * @type {{title: string, url: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Online Customers',
     url: test.config.url,
+    grid: {...base.__grid, ...{ sort: { order: 'last_activity', dir: 'desc' } }},
 }

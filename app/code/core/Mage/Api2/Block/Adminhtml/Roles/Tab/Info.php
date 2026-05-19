@@ -13,13 +13,14 @@
  * @package    Mage_Api2
  *
  * @method Mage_Api2_Model_Acl_Global_Role getRole()
- * @method $this setRole(Mage_Api2_Model_Acl_Global_Role $role)
+ * @method $this                           setRole(Mage_Api2_Model_Acl_Global_Role $role)
  */
 class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Prepare form object
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();

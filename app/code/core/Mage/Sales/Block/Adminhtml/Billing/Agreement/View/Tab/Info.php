@@ -22,8 +22,9 @@
 class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Adminhtml_Block_Abstract implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
-     * Set custom template
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -85,6 +86,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $agreement = $this->_getBillingAgreement();

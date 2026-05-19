@@ -16,6 +16,8 @@
  */
 class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_grid';
+
     protected $_storeSwitcherVisibility = true;
 
     protected $_dateFilterVisibility = true;
@@ -61,12 +63,13 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setPagerVisibility(false);
         $this->setTemplate('report/grid.phtml');
         $this->setUseAjax(false);
-        $this->setCountTotals(true);
+        $this->setCountTotals();
     }
 
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -93,6 +96,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareColumns()
     {
         foreach ($this->_columns as $_column) {
@@ -106,9 +110,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
-        $filter = $this->getParam($this->getVarNameFilter(), null);
+        $filter = $this->getParam($this->getVarNameFilter());
 
         if (is_null($filter)) {
             $filter = $this->_defaultFilter;
@@ -148,10 +153,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
              * Validate from and to date
              */
             try {
-                $from = $this->getLocale()->date($this->getFilter('report_from'), Zend_Date::DATE_SHORT, null, false);
-                $to   = $this->getLocale()->date($this->getFilter('report_to'), Zend_Date::DATE_SHORT, null, false);
-
-                $collection->setInterval($from, $to);
+                $dateFrom = $this->getLocale()->date($this->getFilter('report_from'), Zend_Date::DATE_SHORT, null, false);
+                $dateTo   = $this->getLocale()->date($this->getFilter('report_to'), Zend_Date::DATE_SHORT, null, false);
+                $collection->setInterval($dateFrom, $dateTo);
             } catch (Exception) {
                 $this->_errors[] = Mage::helper('reports')->__('Invalid date specified.');
             }
@@ -174,7 +178,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         // And then array_intersect with post data for prevent unauthorized stores reports
         $storeIds = array_intersect($allowedStoreIds, $storeIds);
         // If selected all websites or unauthorized stores use only allowed
-        if (empty($storeIds)) {
+        if ($storeIds === []) {
             $storeIds = $allowedStoreIds;
         }
 
@@ -198,9 +202,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
+    #[Override]
     protected function _setFilterValues($data)
     {
         foreach (array_keys($data) as $name) {
@@ -333,12 +338,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function getFilter($name)
     {
-        if (isset($this->_filters[$name])) {
-            return $this->_filters[$name];
-        } else {
-            return ($this->getRequest()->getParam($name))
-                    ? htmlspecialchars($this->getRequest()->getParam($name)) : '';
-        }
+        return $this->_filters[$name] ?? (($this->getRequest()->getParam($name))
+                ? htmlspecialchars($this->getRequest()->getParam($name)) : '');
     }
 
     public function setSubReportSize($size)
@@ -368,11 +369,12 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Add new export type to grid
      *
-     * @param   string $url
-     * @param   string $label
-     * @return  $this
-     * @throws  Exception
+     * @param  string    $url
+     * @param  string    $label
+     * @return $this
+     * @throws Exception
      */
+    #[Override]
     public function addExportType($url, $label)
     {
         $this->_exportTypes[] = new Varien_Object(
@@ -381,7 +383,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     $url,
                     [
                         '_current' => true,
-                        'filter' => $this->getParam($this->getVarNameFilter(), null),
+                        'filter' => $this->getParam($this->getVarNameFilter()),
                     ],
                 ),
                 'label' => $label,
@@ -393,20 +395,20 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @throws Exception
      */
-    public function getReport($from, $to)
+    public function getReport($dateFrom, $dateTo)
     {
-        if ($from == '') {
-            $from = $this->getFilter('report_from');
+        if ($dateFrom == '') {
+            $dateFrom = $this->getFilter('report_from');
         }
 
-        if ($to == '') {
-            $to = $this->getFilter('report_to');
+        if ($dateTo == '') {
+            $dateTo = $this->getFilter('report_to');
         }
 
         $totalObj = Mage::getModel('reports/totals');
-        $this->setTotals($totalObj->countTotals($this, $from, $to));
+        $this->setTotals($totalObj->countTotals($this, $dateFrom, $dateTo));
         $this->addGrandTotals($this->getTotals());
-        return $this->getCollection()->getReport($from, $to);
+        return $this->getCollection()->getReport($dateFrom, $dateTo);
     }
 
     public function addGrandTotals($total)
@@ -456,6 +458,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @throws Exception
      * @throws Zend_Date_Exception
      */
+    #[Override]
     public function getCsv()
     {
         $csv = '';
@@ -524,6 +527,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @throws Exception
      * @throws Zend_Date_Exception
      */
+    #[Override]
     public function getExcel($filename = '')
     {
         $this->_prepareGrid();
@@ -603,6 +607,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @return string
      */
+    #[Override]
     public function getEmptyText()
     {
         return $this->__('No records found for this period.');
@@ -611,14 +616,11 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @return bool
      */
+    #[Override]
     public function getCountTotals()
     {
         $totals = $this->getGrandTotals()->getData();
-        if (parent::getCountTotals() && count($totals)) {
-            return true;
-        } else {
-            return false;
-        }
+        return parent::getCountTotals() && count($totals);
     }
 
     /**
@@ -670,7 +672,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Get currency rate (base to given currency)
      *
-     * @param Mage_Directory_Model_Currency|string $toCurrency
+     * @param  Mage_Directory_Model_Currency|string $toCurrency
      * @return float
      * @throws Mage_Core_Exception
      */

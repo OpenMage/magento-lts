@@ -13,9 +13,10 @@
 class Mage_Sales_Model_Entity_Quote_Address_Attribute_Backend_Region extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
-     * @param Mage_Sales_Model_Quote_Address|Varien_Object $object
+     * @param  Mage_Sales_Model_Quote_Address|Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         if (is_numeric($object->getRegion())) {

@@ -21,12 +21,13 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
         $this->setId('taxClassForm');
     }
 
+    #[Override]
     protected function _prepareForm()
     {
         $model  = Mage::registry('tax_class');
         $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
+            'action'    => $this->getDataByKey('action'),
             'method'    => 'post',
         ]);
 

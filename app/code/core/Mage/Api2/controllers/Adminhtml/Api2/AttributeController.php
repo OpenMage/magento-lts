@@ -25,6 +25,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions(['save']);
@@ -33,6 +34,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
     /**
      * Show user types grid
+     * @return void
      */
     public function indexAction()
     {
@@ -51,6 +53,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
     /**
      * Edit role
+     * @return void
      */
     public function editAction()
     {
@@ -79,6 +82,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
     /**
      * Save role
+     * @return void
      */
     public function saveAction()
     {
@@ -134,10 +138,10 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
             }
 
             $session->addSuccess($this->__('The attribute rules were saved.'));
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('An error occurred while saving attribute rules.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('An error occurred while saving attribute rules.'));
         }
 
         $this->_redirect('*/*/edit', ['type' => $type]);

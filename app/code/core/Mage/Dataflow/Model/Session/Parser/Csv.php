@@ -27,23 +27,22 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
         // fixed for multibyte characters
         setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
-        $fp = tmpfile();
-        fwrite($fp, $this->getData());
-        fseek($fp, 0);
+        $resource = tmpfile();
+        fwrite($resource, $this->getData());
+        fseek($resource, 0);
 
-        $data = [];
         $sessionId = Mage::registry('current_dataflow_session_id');
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
-        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc, $fEsc); $i++) {
+        for ($i = 0; $line = fgetcsv($resource, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if ($i == 0) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
                     continue;
-                } else {
-                    foreach (array_keys($line) as $j) {
-                        $fields[$j] = 'column' . ($j + 1);
-                    }
+                }
+
+                foreach (array_keys($line) as $j) {
+                    $fields[$j] = 'column' . ($j + 1);
                 }
             }
 
@@ -71,7 +70,7 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
             //unset($import);
         }
 
-        fclose($fp);
+        fclose($resource);
         unset($sessionId);
         //$this->setData($data);
         return $this;
@@ -79,8 +78,6 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
 
     public function unparse()
     {
-        $csv = '';
-
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
         $fEsc = $this->getVar('escape', '\\');
@@ -96,8 +93,8 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         if ($this->getVar('fieldnames')) {
             $line = [];
-            foreach ($fields as $f) {
-                $line[] = $fEnc . str_replace(['"', '\\'], [$fEsc . '"', $fEsc . '\\'], $f) . $fEnc;
+            foreach ($fields as $field) {
+                $line[] = $fEnc . str_replace(['"', '\\'], [$fEsc . '"', $fEsc . '\\'], $field) . $fEnc;
             }
 
             $lines[] = implode($fDel, $line);
@@ -105,16 +102,15 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         foreach ($data as $row) {
             $line = [];
-            foreach ($fields as $f) {
+            foreach ($fields as $field) {
                 /*
-                if (isset($row[$f]) && (preg_match('\"', $row[$f]) || preg_match('\\', $row[$f]))) {
-                    $tmp = str_replace('\\', '\\\\',$row[$f]);
+                if (isset($row[$field]) && (preg_match('\"', $row[$field]) || preg_match('\\', $row[$field]))) {
+                    $tmp = str_replace('\\', '\\\\',$row[$field]);
                     echo str_replace('"', '\"',$tmp).'<br>';
                 }
                 */
-                $v = isset($row[$f]) ? str_replace(['"', '\\'], [$fEsc . '"', $fEsc . '\\'], $row[$f]) : '';
-
-                $line[] = $fEnc . $v . $fEnc;
+                $str = isset($row[$field]) ? str_replace(['"', '\\'], [$fEsc . '"', $fEsc . '\\'], $row[$field]) : '';
+                $line[] = $fEnc . $str . $fEnc;
             }
 
             $lines[] = implode($fDel, $line);

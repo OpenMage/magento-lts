@@ -38,6 +38,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      * @return array
      * @throws Mage_Api2_Exception
      */
+    #[Override]
     protected function _retrieve()
     {
         $imageData = [];
@@ -67,6 +68,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      *
      * @return array
      */
+    #[Override]
     protected function _retrieveCollection()
     {
         $images = [];
@@ -107,8 +109,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     /**
      * Create image data representation for API
      *
-     * @param array $image
-     * @return array
+     * @param  array                $image
+     * @return array<string, mixed>
      */
     protected function _formatImageData($image)
     {
@@ -125,7 +127,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     /**
      * Retrieve image types assigned to product (base, small, thumbnail)
      *
-     * @param string $imageFile
+     * @param  string $imageFile
      * @return array
      */
     protected function _getImageTypesAssignedToProduct($imageFile)
@@ -153,7 +155,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     /**
      * Create file name from received data
      *
-     * @param array $data
+     * @param  array  $data
      * @return string
      */
     protected function _getFileName($data)
@@ -169,7 +171,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     /**
      * Retrieve file extension using MIME type
      *
-     * @param string $mimeType
+     * @param  string              $mimeType
      * @return string
      * @throws Mage_Api2_Exception
      */
@@ -185,14 +187,14 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     /**
      * Get file URI by its id. File URI is used by media backend to identify image
      *
-     * @param int $imageId
+     * @param  int                 $imageId
      * @return string
      * @throws Mage_Api2_Exception
      */
     protected function _getImageFileById($imageId)
     {
         $file = null;
-        $mediaGalleryData = $this->_getProduct()->getData('media_gallery');
+        $mediaGalleryData = $this->_getProduct()->getDataByKey('media_gallery');
         if (!isset($mediaGalleryData['images'])) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }

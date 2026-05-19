@@ -20,14 +20,6 @@ class Varien_Db_Tree_NodeSet implements Iterator
 
     private $count = 0;
 
-    public function __construct()
-    {
-        $this->_nodes = [];
-        $this->_current = 0;
-        $this->_currentNode = 0;
-        $this->count = 0;
-    }
-
     /**
      * @return int
      */
@@ -58,13 +50,13 @@ class Varien_Db_Tree_NodeSet implements Iterator
         }
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->_current;
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->_nodes[$this->_current];

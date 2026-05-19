@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,7 +14,6 @@
  *
  * @package    Varien_Filter
  */
-
 class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_Tokenizer_Abstract
 {
     /**
@@ -29,7 +30,9 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
             if ($this->isWhiteSpace()) {
                 // Ignore white spaces
                 continue;
-            } elseif ($this->char() != '.' && $this->char() != '(') {
+            }
+
+            if ($this->char() != '.' && $this->char() != '(') {
                 // Property or method name
                 $parameterName .= $this->char();
             } elseif ($this->char() == '(') {
@@ -122,7 +125,11 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
      */
     public function isQuote()
     {
-        return $this->char() == '"' || $this->char() == "'";
+        if ($this->char() === '"') {
+            return true;
+        }
+
+        return $this->char() === "'";
     }
 
     /**
@@ -133,16 +140,17 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
     public function getMethodArgs()
     {
         $value = [];
-        $numberStr = '';
 
         while ($this->next() && $this->char() != ')') {
-            if ($this->isWhiteSpace() || $this->char() == ',') {
+            if ($this->isWhiteSpace()) {
                 continue;
-            } elseif ($this->isNumeric()) {
-                $value[] = $this->getNumber();
-            } else {
-                $value[] = $this->getString();
             }
+
+            if ($this->char() == ',') {
+                continue;
+            }
+
+            $value[] = $this->isNumeric() ? $this->getNumber() : $this->getString();
         }
 
         return $value;

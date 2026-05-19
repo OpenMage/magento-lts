@@ -18,8 +18,11 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Source_Method
     {
         $fedex = Mage::getSingleton('usa/shipping_carrier_fedex');
         $arr = [];
-        foreach ($fedex->getCode('method') as $k => $v) {
-            $arr[] = ['value' => $k, 'label' => $v];
+        foreach ($fedex->getCode('method') as $key => $value) {
+            $arr[] = [
+                'value' => $key,
+                'label' => $value,
+            ];
         }
 
         return $arr;

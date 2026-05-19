@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,6 +17,7 @@ class Mage_CatalogSearch_TermController extends Mage_Core_Controller_Front_Actio
     /**
      * @return $this|Mage_Core_Controller_Front_Action
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -26,6 +29,9 @@ class Mage_CatalogSearch_TermController extends Mage_Core_Controller_Front_Actio
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function popularAction()
     {
         $this->loadLayout();

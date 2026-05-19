@@ -15,7 +15,7 @@ class Unserialize_Reader_ArrKey
     /**
      * @var int
      */
-    protected $_status;
+    protected $_status = self::NOT_STARTED;
 
     /**
      * @object
@@ -27,16 +27,8 @@ class Unserialize_Reader_ArrKey
     public const READING_KEY = 2;
 
     /**
-     * Construct
-     */
-    public function __construct()
-    {
-        $this->_status = self::NOT_STARTED;
-    }
-
-    /**
-     * @param string $char
-     * @param string $prevChar
+     * @param  string     $char
+     * @param  string     $prevChar
      * @return null|mixed
      * @throws Exception
      */

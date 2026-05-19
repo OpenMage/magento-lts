@@ -33,8 +33,9 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     /**
      * Initialize categories collection
      *
-     * @return Mage_Catalog_Block_Seo_Sitemap_Category
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $parent = Mage::getModel('catalog/category')
@@ -53,6 +54,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
      *
      * @param string $pagerName
      */
+    #[Override]
     public function bindPager($pagerName)
     {
         $pager = $this->getLayout()->getBlock($pagerName);
@@ -143,7 +145,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
             }
         }
 
-        if (empty($pathFilter)) {
+        if ($pathFilter === []) {
             $pathFilter = $this->_storeRootCategoryPath . '/';
         }
 
@@ -158,8 +160,8 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     /**
      * Return level of indent
      *
-     * @param Mage_Catalog_Model_Category $item
-     * @param int $delta
+     * @param  Mage_Catalog_Model_Category $item
+     * @param  int                         $delta
      * @return int
      */
     public function getLevel($item, $delta = 1)

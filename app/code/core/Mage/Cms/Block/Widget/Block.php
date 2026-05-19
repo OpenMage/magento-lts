@@ -12,15 +12,16 @@
  *
  * @package    Mage_Cms
  *
- * @method int getBlockId()
+ * @method int    getBlockId()
  * @method string getText()
- * @method $this setText(string $value)
+ * @method $this  setText(string $value)
  */
 class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface
 {
     /**
-     * Initialize cache
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -44,10 +45,11 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         parent::_beforeToHtml();
-        $blockId = $this->getData('block_id');
+        $blockId = $this->getDataByKey('block_id');
         $blockHash = static::class . $blockId;
 
         if (isset(self::$_widgetUsageMap[$blockHash])) {
@@ -84,6 +86,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         $result = parent::getCacheKeyInfo();

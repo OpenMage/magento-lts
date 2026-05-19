@@ -9,7 +9,7 @@ test.config = {
     _: '#nav-admin-system-config',
     _nav: '#nav-admin-system',
     _title: base._title,
-    url: 'system_config/index',
+    url: 'admin/system_config',
     section: {},
 };
 

@@ -19,7 +19,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
     /**
      * Init layout of product configuration update result
      *
-     * @param Mage_Adminhtml_Controller_Action $controller
+     * @param  Mage_Adminhtml_Controller_Action $controller
      * @return $this
      */
     protected function _initUpdateResultLayout($controller)
@@ -34,7 +34,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      * Prepares and render result of composite product configuration update for a case
      * when single configuration submitted
      *
-     * @param Mage_Adminhtml_Controller_Action $controller
+     * @param  Mage_Adminhtml_Controller_Action $controller
      * @return $this
      */
     public function renderUpdateResult($controller, Varien_Object $updateResult)
@@ -52,9 +52,9 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      * $isOk - true or false, whether action was completed nicely or with some error
      * If $isOk is FALSE (some error during configuration), so $productType must be null
      *
-     * @param Mage_Adminhtml_Controller_Action $controller
-     * @param bool $isOk
-     * @param string $productType
+     * @param  Mage_Adminhtml_Controller_Action $controller
+     * @param  bool                             $isOk
+     * @param  string                           $productType
      * @return $this
      */
     protected function _initConfigureResultLayout($controller, $isOk, $productType)
@@ -78,7 +78,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      *  - 'ok' = true, and 'product_id', 'buy_request', 'current_store_id', 'current_customer' or 'current_customer_id'
      *  - 'error' = true, and 'message' to show
      *
-     * @param Mage_Adminhtml_Controller_Action $controller
+     * @param  Mage_Adminhtml_Controller_Action $controller
      * @return $this
      */
     public function renderConfigureResult($controller, Varien_Object $configureResult)

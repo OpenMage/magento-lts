@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Logo extends Varien_Data_For
      * Get logo image preview url
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getUrl(): string
     {
         if (is_null($this->url)) {
@@ -56,8 +57,10 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Logo extends Varien_Data_For
 
     /**
      * Allow deletion of logo file in media directory only
+     *
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getDeleteCheckbox(): string
     {
         return str_contains($this->_getUrl(), '/media/')

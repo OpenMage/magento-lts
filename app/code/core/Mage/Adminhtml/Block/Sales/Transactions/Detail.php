@@ -7,11 +7,29 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
 
 /**
  * Adminhtml transaction detail
  *
  * @package    Mage_Adminhtml
+ *
+ * @method string getCreatedAtHtml()
+ * @method string getIsClosedHtml()
+ * @method string getOrderIdUrlHtml()
+ * @method string getOrderIncrementIdHtml()
+ * @method string getParentTxnIdHtml()
+ * @method string getParentTxnIdUrlHtml()
+ * @method string getTxnIdHtml()
+ * @method string getTxnTypeHtml()
+ * @method $this  setCreatedAtHtml(string $value)
+ * @method $this  setIsClosedHtml(string $value)
+ * @method $this  setOrderIdUrlHtml(string $value)
+ * @method $this  setOrderIncrementIdHtml(string $value)
+ * @method $this  setParentTxnIdHtml(string $value)
+ * @method $this  setParentTxnIdUrlHtml(string $value)
+ * @method $this  setTxnIdHtml(string $value)
+ * @method $this  setTxnTypeHtml(string $value)
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Block_Widget_Container
 {
@@ -32,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $this->_txn = Mage::registry('current_transaction');
 
         $backUrl = ($this->_txn->getOrderUrl()) ? $this->_txn->getOrderUrl() : $this->getUrl('*/*/');
-        $this->_addButton('back', [
+        $this->_addButton(self::BUTTON_TYPE_BACK, [
             'label'   => Mage::helper('sales')->__('Back'),
             'onclick' => Mage::helper('core/js')->getSetLocationJs($backUrl),
             'class'   => 'back',
@@ -54,6 +72,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         return Mage::helper('sales')->__(
@@ -68,8 +87,9 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setTxnIdHtml(Mage::helper('adminhtml/sales')->escapeHtmlWithLinks(
@@ -97,7 +117,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
             ($this->_txn->getIsClosed()) ? Mage::helper('sales')->__('Yes') : Mage::helper('sales')->__('No'),
         );
 
-        $createdAt = (strtotime($this->_txn->getCreatedAt()))
+        $createdAt = (Carbon::parse($this->_txn->getCreatedAt())->getTimestamp())
             ? $this->formatDate($this->_txn->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true)
             : $this->__('N/A');
         $this->setCreatedAtHtml($this->escapeHtml($createdAt));

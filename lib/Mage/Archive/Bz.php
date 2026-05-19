@@ -17,8 +17,8 @@ class Mage_Archive_Bz extends Mage_Archive_Abstract implements Mage_Archive_Inte
     /**
      * Pack file by BZIP2 compressor.
      *
-     * @param string $source
-     * @param string $destination
+     * @param  string $source
+     * @param  string $destination
      * @return string
      */
     public function pack($source, $destination)
@@ -42,8 +42,8 @@ class Mage_Archive_Bz extends Mage_Archive_Abstract implements Mage_Archive_Inte
     /**
      * Unpack file by BZIP2 compressor.
      *
-     * @param string $source
-     * @param string $destination
+     * @param  string $source
+     * @param  string $destination
      * @return string
      */
     public function unpack($source, $destination)

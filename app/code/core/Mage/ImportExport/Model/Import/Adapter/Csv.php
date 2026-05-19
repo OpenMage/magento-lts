@@ -55,8 +55,9 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Method called as last step of object instance creation. Can be overridden in child classes.
      *
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _init()
     {
         $this->_fileHandler = fopen($this->_source, 'r');
@@ -69,7 +70,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
      *
      * @return void any returned value is ignored
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function next()
     {
         $this->_currentRow = fgetcsv($this->_fileHandler, 0, $this->_delimiter, $this->_enclosure, $this->_escape);
@@ -81,7 +82,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
      *
      * @return void any returned value is ignored
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function rewind()
     {
         // rewind resource, reset column names, read first row as current
@@ -97,18 +98,21 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     /**
      * Seeks to a position.
      *
-     * @param int $position the position to seek to
+     * @param  int                  $position the position to seek to
      * @return void
      * @throws OutOfBoundsException
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
+    #[Override]
     public function seek($position)
     {
         if ($position != $this->_currentKey) {
             if ($position == 0) {
                 $this->rewind();
                 return;
-            } elseif ($position > 0) {
+            }
+
+            if ($position > 0) {
                 if ($position < $this->_currentKey) {
                     $this->rewind();
                 }

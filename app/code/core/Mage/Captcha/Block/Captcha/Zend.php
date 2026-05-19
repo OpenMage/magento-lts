@@ -13,7 +13,7 @@
  * @package    Mage_Captcha
  *
  * @method string getFormId()
- * @method bool getIsAjax()
+ * @method bool   getIsAjax()
  */
 class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
 {
@@ -29,6 +29,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     public function getTemplate()
     {
         return $this->getIsAjax() ? '' : $this->_template;
@@ -52,9 +53,22 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (Mage::helper('captcha')->isEnabled() && $this->getCaptchaModel()->isRequired()) {
+            if ($this->hasData('img_width')) {
+                $this->getCaptchaModel()->setWidth($this->getDataByKey('img_width'));
+            }
+
+            if ($this->hasData('img_height')) {
+                $this->getCaptchaModel()->setHeight($this->getDataByKey('img_height'));
+            }
+
+            if ($this->hasData('font_size')) {
+                $this->getCaptchaModel()->setFontSize($this->getDataByKey('font_size'));
+            }
+
             $this->getCaptchaModel()->generate();
             return parent::_toHtml();
         }

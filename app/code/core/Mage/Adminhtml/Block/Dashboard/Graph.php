@@ -8,6 +8,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Adminhtml dashboard google chart block
  *
@@ -132,7 +134,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     /**
      * Get series
      *
-     * @param string $seriesId
+     * @param  string $seriesId
      * @return mixed
      */
     public function getSeries($seriesId)
@@ -215,7 +217,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                             $formats = Mage::app()->getLocale()->getTranslationList('datetime');
                             $format = $formats['yyMM'] ?? 'MM/yyyy';
                             $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
-                            $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
+                            $this->_axisLabels[$idx][$_index] = Carbon::parse($_label)->format($format);
                             break;
                     }
                 }
@@ -237,6 +239,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     }
 
     /**
+     * @return array<int, mixed[]>
      * @throws Mage_Core_Model_Store_Exception
      */
     private function getChartDatasAndDates(): array
@@ -359,26 +362,17 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             $localminvalue[$index] = min($serie);
         }
 
-        if (is_numeric($this->_max)) {
-            $maxvalue = $this->_max;
-        } else {
-            $maxvalue = max($localmaxvalue);
-        }
-
-        if (is_numeric($this->_min)) {
-            $minvalue = $this->_min;
-        } else {
-            $minvalue = min($localminvalue);
-        }
+        $maxvalue = is_numeric($this->_max) ? $this->_max : max($localmaxvalue);
+        $minvalue = is_numeric($this->_min) ? $this->_min : min($localminvalue);
 
         // default values
         $yLabels = [];
         if ($minvalue >= 0 && $maxvalue >= 0) {
             $miny = 0;
             if ($maxvalue > 10) {
-                $p = 10 ** $this->_getPow($maxvalue);
-                $maxy = (ceil($maxvalue / $p)) * $p;
-                $yLabels = range($miny, $maxy, $p);
+                $step = 10 ** $this->_getPow($maxvalue);
+                $maxy = (ceil($maxvalue / $step)) * $step;
+                $yLabels = range($miny, $maxy, $step);
             } else {
                 $maxy = ceil($maxvalue + 1);
                 $yLabels = range($miny, $maxy, 1);
@@ -391,8 +385,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     /**
      * Get rows data
      *
-     * @param array $attributes
-     * @param bool $single
+     * @param  array $attributes
+     * @param  bool  $single
      * @return array
      */
     protected function getRowsData($attributes, $single = false)
@@ -416,7 +410,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      * Set axis labels
      *
      * @param string $axis
-     * @param array $labels
+     * @param array  $labels
      */
     public function setAxisLabels($axis, $labels)
     {
@@ -438,6 +432,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      *
      * @return string
      */
+    #[Override]
     public function getHtmlId()
     {
         return $this->_htmlId;
@@ -446,7 +441,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     /**
      * Return pow
      *
-     * @param int $number
+     * @param  int $number
      * @return int
      */
     protected function _getPow($number)
@@ -486,6 +481,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      * @return void
      * @throws Exception
      */
+    #[Override]
     protected function _prepareData()
     {
         /** @var Mage_Adminhtml_Helper_Dashboard_Data $helper */

@@ -13,9 +13,10 @@
 class Mage_Sales_Model_Entity_Order_Attribute_Backend_Parent extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
-     * @param Mage_Sales_Model_Order|Varien_Object $object
+     * @param  Mage_Sales_Model_Order|Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         parent::afterSave($object);

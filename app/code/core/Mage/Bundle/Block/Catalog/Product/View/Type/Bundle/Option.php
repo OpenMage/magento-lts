@@ -13,8 +13,8 @@
  * @package    Mage_Bundle
  *
  * @method Mage_Catalog_Model_Product getFormatProduct()
- * @method Mage_Bundle_Model_Option getOption()
- * @method $this setFormatProduct(Mage_Catalog_Model_Product $value)
+ * @method Mage_Bundle_Model_Option   getOption()
+ * @method $this                      setFormatProduct(Mage_Catalog_Model_Product $value)
  */
 class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bundle_Block_Catalog_Product_Price
 {
@@ -52,7 +52,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Retrieve default values for template
      *
-     * @return array
+     * @return array<int, bool|float|int>
      */
     protected function _getDefaultValues()
     {
@@ -123,13 +123,17 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         $selectedOptions = $this->_getSelectedOptions();
         if (is_numeric($selectedOptions)) {
             return ($selection->getSelectionId() == $this->_getSelectedOptions());
-        } elseif (is_array($selectedOptions) && !empty($selectedOptions)) {
-            return in_array($selection->getSelectionId(), $this->_getSelectedOptions());
-        } elseif ($selectedOptions === 'None') {
-            return false;
-        } else {
-            return ($selection->getIsDefault() && $selection->isSaleable());
         }
+
+        if (is_array($selectedOptions) && $selectedOptions !== []) {
+            return in_array($selection->getSelectionId(), $this->_getSelectedOptions());
+        }
+
+        if ($selectedOptions === 'None') {
+            return false;
+        }
+
+        return ($selection->getIsDefault() && $selection->isSaleable());
     }
 
     /**
@@ -157,20 +161,21 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      *
      * @return Mage_Catalog_Model_Product
      */
+    #[Override]
     public function getProduct()
     {
         if (!$this->hasData('product')) {
             $this->setData('product', Mage::registry('current_product'));
         }
 
-        return $this->getData('product');
+        return $this->getDataByKey('product');
     }
 
     /**
      * Returns the formatted string for the quantity chosen for the given selection
      *
-     * @param Mage_Catalog_Model_Product $selection
-     * @param bool $includeContainer
+     * @param  Mage_Catalog_Model_Product      $selection
+     * @param  bool                            $includeContainer
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -188,7 +193,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Get price for selection product
      *
-     * @param Mage_Catalog_Model_Product $selection
+     * @param  Mage_Catalog_Model_Product $selection
      * @return float|int
      */
     public function getSelectionPrice($selection)
@@ -210,8 +215,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Get title price for selection product
      *
-     * @param Mage_Catalog_Model_Product $selection
-     * @param bool $includeContainer
+     * @param  Mage_Catalog_Model_Product      $selection
+     * @param  bool                            $includeContainer
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -228,8 +233,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Set JS validation container for element
      *
-     * @param string $elementId
-     * @param string $containerId
+     * @param  string $elementId
+     * @param  string $containerId
      * @return string
      */
     public function setValidationContainer($elementId, $containerId)
@@ -243,8 +248,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Format price string
      *
-     * @param float $price
-     * @param bool $includeContainer
+     * @param  float                           $price
+     * @param  bool                            $includeContainer
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */

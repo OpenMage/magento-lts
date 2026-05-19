@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
@@ -49,14 +50,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
             }
 
             return parent::_beforeToHtml();
-        } else {
-            return parent::_beforeToHtml();
         }
+
+        return parent::_beforeToHtml();
     }
 
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
@@ -89,7 +91,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Set entity for form
      *
-     * @param Mage_Sales_Model_Order $entity
+     * @param  Mage_Sales_Model_Order $entity
      * @return $this
      */
     public function setEntity(Varien_Object $entity)
@@ -171,7 +173,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve real name for field
      *
-     * @param string $name
+     * @param  string    $name
      * @return string
      * @throws Exception
      */
@@ -183,7 +185,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve real html id for field
      *
-     * @param string $id
+     * @param  string    $id
      * @return string
      * @throws Exception
      */
@@ -264,6 +266,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * @return string
      * @throws Exception
      */
+    #[Override]
     public function getHtmlId()
     {
         return substr($this->getFieldIdPrefix(), 0, -1);

@@ -23,8 +23,9 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
@@ -66,7 +67,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
             'index'     => 'status',
             'type'      => 'options',
             'source'    => 'catalog/product_status',
-            'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_status')::getOptionArray(),
         ]);
 
         /**
@@ -86,21 +87,23 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
             );
         }
 
-        return $this;
+        return Mage_Adminhtml_Block_Widget_Grid::_prepareColumns();
     }
 
     /**
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/productGrid', ['_current' => true]);
     }
 
     /**
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return string
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/jsonProductInfo', ['id' => $row->getId()]);
@@ -109,6 +112,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         return $this;

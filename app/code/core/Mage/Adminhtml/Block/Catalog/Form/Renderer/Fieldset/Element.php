@@ -15,8 +15,9 @@
 class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
 {
     /**
-     * Initialize block template
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('catalog/form/renderer/fieldset/element.phtml');
@@ -59,17 +60,13 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
      */
     public function canDisplayUseDefault()
     {
-        if ($attribute = $this->getAttribute()) {
-            if (!$attribute->isScopeGlobal()
+        return ($attribute = $this->getAttribute())
+            && (
+                !$attribute->isScopeGlobal()
                 && $this->getDataObject()
                 && $this->getDataObject()->getId()
                 && $this->getDataObject()->getStoreId()
-            ) {
-                return true;
-            }
-        }
-
-        return false;
+            );
     }
 
     /**
@@ -81,12 +78,12 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $defaultValue = $this->getDataObject()->getAttributeDefaultValue($attributeCode);
-
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } elseif ($this->getElement()->getValue() == $defaultValue
-            && $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()
-        ) {
+        }
+
+        if ($this->getElement()->getValue() == $defaultValue
+            && $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
             return false;
         }
 

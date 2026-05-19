@@ -19,6 +19,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $applyTo = $object->getApplyTo();
@@ -35,6 +36,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $this->_clearUselessAttributeValues($object);
@@ -57,7 +59,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
             && Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL != $origData['is_global']
         ) {
             $attributeStoreIds = array_keys(Mage::app()->getStores());
-            if (!empty($attributeStoreIds)) {
+            if ($attributeStoreIds !== []) {
                 $delCondition = [
                     'entity_type_id=?' => $object->getEntityTypeId(),
                     'attribute_id = ?' => $object->getId(),
@@ -76,6 +78,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function deleteEntity(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getEntityAttributeId()) {
@@ -119,7 +122,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
     /**
      * Defines is Attribute used by super products
      *
-     * @param int $attributeSet
+     * @param  int               $attributeSet
      * @return null|false|string
      */
     public function isUsedBySuperProducts(Mage_Core_Model_Abstract $object, $attributeSet = null)

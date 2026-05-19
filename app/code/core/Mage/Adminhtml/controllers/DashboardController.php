@@ -20,6 +20,9 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
      */
     public const ADMIN_RESOURCE = 'dashboard';
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('Dashboard'));
@@ -32,6 +35,7 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Gets most viewed products list
+     * @return void
      */
     public function productsViewedAction()
     {
@@ -41,6 +45,7 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Gets latest customers list
+     * @return void
      */
     public function customersNewestAction()
     {
@@ -50,6 +55,7 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Gets the list of most active customers
+     * @return void
      */
     public function customersMostAction()
     {
@@ -57,6 +63,9 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function ajaxBlockAction()
     {
         $output   = '';

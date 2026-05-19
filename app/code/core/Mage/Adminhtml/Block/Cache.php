@@ -21,7 +21,7 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
         $this->_controller = 'cache';
         $this->_headerText = Mage::helper('core')->__('Cache Storage Management');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
         $this->_addButton('flush_magento', [
             'label'     => Mage::helper('core')->__('Flush & Apply Updates'),
             'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getFlushSystemUrl()),

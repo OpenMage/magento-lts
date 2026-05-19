@@ -114,7 +114,7 @@ class Mage_Checkout_Model_Type_Onepage
         $customerSession = $this->getCustomerSession();
         if (is_array($checkout->getStepData())) {
             foreach (array_keys($checkout->getStepData()) as $step) {
-                if (!($step === 'login' || $customerSession->isLoggedIn() && $step === 'billing')) {
+                if ($step !== 'login' && !($customerSession->isLoggedIn() && $step === 'billing')) {
                     $checkout->setStepData($step, 'allow', false);
                 }
             }
@@ -193,21 +193,10 @@ class Mage_Checkout_Model_Type_Onepage
     }
 
     /**
-     * Get quote checkout method
-     *
-     * @return string
-     * @deprecated since 1.4.0.1
-     */
-    public function getCheckoutMehod()
-    {
-        return $this->getCheckoutMethod();
-    }
-
-    /**
      * Specify checkout method
      *
-     * @param   string $method
-     * @return  array
+     * @param  string $method
+     * @return array
      */
     public function saveCheckoutMethod($method)
     {
@@ -223,8 +212,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Get customer address by identifier
      *
-     * @param   int $addressId
-     * @return  Mage_Customer_Model_Address
+     * @param  int                         $addressId
+     * @return Mage_Customer_Model_Address
      */
     public function getAddress($addressId)
     {
@@ -241,8 +230,8 @@ class Mage_Checkout_Model_Type_Onepage
      * Save billing address information to quote
      * This method is called by One Page Checkout JS (AJAX) while saving the billing information.
      *
-     * @param array $data
-     * @param int $customerAddressId
+     * @param  array               $data
+     * @param  int                 $customerAddressId
      * @return array|true
      * @throws Mage_Core_Exception
      */
@@ -288,7 +277,7 @@ class Mage_Checkout_Model_Type_Onepage
             //unset billing address attributes which were not shown in form
             foreach ($addressForm->getAttributes() as $attribute) {
                 if (!isset($data[$attribute->getAttributeCode()])) {
-                    $address->setData($attribute->getAttributeCode(), null);
+                    $address->setData($attribute->getAttributeCode());
                 }
             }
 
@@ -313,10 +302,11 @@ class Mage_Checkout_Model_Type_Onepage
             return $result;
         }
 
-        if (!$this->getQuote()->getCustomerId() && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
-            if ($this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
-                return ['error' => 1, 'message' => $this->_customerEmailExistsMessage];
-            }
+        if (!$this->getQuote()->getCustomerId()
+            && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()
+            && $this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())
+        ) {
+            return ['error' => 1, 'message' => $this->_customerEmailExistsMessage];
         }
 
         if (!$this->getQuote()->isVirtual()) {
@@ -509,8 +499,10 @@ class Mage_Checkout_Model_Type_Onepage
                 ];
             }
         } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
-            $email = $address->getData('email');
-            if (!Zend_Validate::is($email, 'EmailAddress')) {
+            $email = $address->getDataByKey('email');
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator = Mage::helper('core/validate');
+            if ($validator->validateEmail($email)->count() > 0) {
                 return [
                     'error'   => -1,
                     'message' => Mage::helper('checkout')->__('Invalid email address "%s"', $email),
@@ -524,8 +516,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Save checkout shipping address
      *
-     * @param array $data
-     * @param int $customerAddressId
+     * @param  array $data
+     * @param  int   $customerAddressId
      * @return array
      */
     public function saveShipping($data, $customerAddressId)
@@ -571,7 +563,7 @@ class Mage_Checkout_Model_Type_Onepage
             // unset shipping address attributes which were not shown in form
             foreach ($addressForm->getAttributes() as $attribute) {
                 if (!isset($data[$attribute->getAttributeCode()])) {
-                    $address->setData($attribute->getAttributeCode(), null);
+                    $address->setData($attribute->getAttributeCode());
                 }
             }
 
@@ -602,8 +594,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Specify quote shipping method
      *
-     * @param   string $shippingMethod
-     * @return  array
+     * @param  string $shippingMethod
+     * @return array
      */
     public function saveShippingMethod($shippingMethod)
     {
@@ -629,8 +621,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Specify quote payment method
      *
-     * @param   array $data
-     * @return  array
+     * @param  array $data
+     * @return array
      */
     public function savePayment($data)
     {
@@ -725,7 +717,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         Mage::helper('core')->copyFieldset('checkout_onepage_quote', 'to_customer', $quote, $customer);
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
-        $customer->setPasswordCreatedAt(time());
+        $customer->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
         $quote->setCustomer($customer)
             ->setCustomerId(true);
         $quote->setPasswordHash('');
@@ -818,8 +810,8 @@ class Mage_Checkout_Model_Type_Onepage
         if ($isNewCustomer) {
             try {
                 $this->_involveNewCustomer();
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -845,8 +837,8 @@ class Mage_Checkout_Model_Type_Onepage
             if (!$redirectUrl && $order->getCanSendNewEmailFlag()) {
                 try {
                     $order->queueNewOrderEmail();
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
 
@@ -922,8 +914,8 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Check if customer email exists
      *
-     * @param string $email
-     * @param int $websiteId
+     * @param  string                             $email
+     * @param  int                                $websiteId
      * @return false|Mage_Customer_Model_Customer
      */
     protected function _customerEmailExists($email, $websiteId = null)

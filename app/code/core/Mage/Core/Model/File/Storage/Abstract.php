@@ -47,8 +47,8 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
      *  directory   => string
      * )
      *
-     * @param  string $path
-     * @return array
+     * @param  string               $path
+     * @return array<string, mixed>
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -56,13 +56,13 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
     {
         $path = ltrim($path, '\\/');
         $fullPath = $this->getMediaBaseDirectory() . DS . $path;
-        $io = new Varien_Io_File();
+        $ioFile = new Varien_Io_File();
         if (!file_exists($fullPath) || !is_file($fullPath)) {
-            Mage::throwException(Mage::helper('core')->__('File %s does not exist', $io->getFilteredPath($fullPath)));
+            Mage::throwException(Mage::helper('core')->__('File %s does not exist', $ioFile->getFilteredPath($fullPath)));
         }
 
         if (!is_readable($fullPath)) {
-            Mage::throwException(Mage::helper('core')->__('File %s is not readable', $io->getFilteredPath($fullPath)));
+            Mage::throwException(Mage::helper('core')->__('File %s is not readable', $ioFile->getFilteredPath($fullPath)));
         }
 
         $path = str_replace(['/', '\\'], '/', $path);

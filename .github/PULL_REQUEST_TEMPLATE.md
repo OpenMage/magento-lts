@@ -42,5 +42,4 @@
 
 ### Contribution checklist (*)
  - [ ] Pull request has a meaningful description of its purpose
- - [ ] All commits are accompanied by meaningful commit messages
- - [ ] All automated tests passed successfully (all builds are green)
+ - [ ] All automated tests passed successfully (all builds are green, SonarCloud checks are not required to merge)

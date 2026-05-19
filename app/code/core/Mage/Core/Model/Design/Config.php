@@ -56,6 +56,7 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
      *
      * @return bool
      */
+    #[Override]
     public function loadCache()
     {
         if ($this->_canUseCache()) {
@@ -68,9 +69,10 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
     /**
      * Save cache
      *
-     * @param array $tags
+     * @param  array $tags
      * @return $this
      */
+    #[Override]
     public function saveCache($tags = null)
     {
         if ($this->_canUseCache()) {
@@ -96,8 +98,8 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
     /**
      * Get area, package and theme from path .../app/design/{area}/{package}/{theme}/etc/theme.xml
      *
-     * @param string $filePath
-     * @return array
+     * @param  string             $filePath
+     * @return array<int, string>
      */
     protected function _getThemePathSegments($filePath)
     {

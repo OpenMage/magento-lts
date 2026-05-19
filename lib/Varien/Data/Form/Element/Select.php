@@ -31,10 +31,16 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $this->addClass('select');
-        $html = '<select id="' . $this->getHtmlId() . '" name="' . $this->getName() . '" ' . $this->serialize($this->getHtmlAttributes()) . '>' . "\n";
+        $html = '<select id="' . $this->getHtmlId() . '"
+            name="' . $this->getName() . '"
+            data-test="' . $this->getTestId() . '"
+            ' . $this->serialize($this->getHtmlAttributes()) . '
+            >'
+            . "\n";
 
         $value = $this->getValue();
         if (!is_array($value)) {
@@ -69,8 +75,8 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     }
 
     /**
-     * @param array $option
-     * @param array|string $selected
+     * @param  array        $option
+     * @param  array|string $selected
      * @return string
      */
     protected function _optionToHtml($option, $selected)
@@ -115,8 +121,9 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     }
 
     /**
-     * @return array
+     * @return array<int, string>
      */
+    #[Override]
     public function getHtmlAttributes()
     {
         return ['title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex'];

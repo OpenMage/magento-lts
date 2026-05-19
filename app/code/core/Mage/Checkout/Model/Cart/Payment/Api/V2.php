@@ -15,12 +15,13 @@
 class Mage_Checkout_Model_Cart_Payment_Api_V2 extends Mage_Checkout_Model_Cart_Payment_Api
 {
     /**
-     * @param object $data
+     * @param  object $data
      * @return array
      */
+    #[Override]
     protected function _preparePaymentData($data)
     {
-        if (($_data = get_object_vars($data)) !== null) {
+        if (($_data = get_object_vars($data)) !== []) {
             return parent::_preparePaymentData($_data);
         }
 

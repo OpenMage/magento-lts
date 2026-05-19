@@ -12,20 +12,20 @@
  *
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Resource_Form_Type _getResource()
- * @method string getCode()
+ * @method Mage_Eav_Model_Resource_Form_Type            _getResource()
+ * @method string                                       getCode()
  * @method Mage_Eav_Model_Resource_Form_Type_Collection getCollection()
- * @method int getIsSystem()
- * @method string getLabel()
- * @method Mage_Eav_Model_Resource_Form_Type getResource()
+ * @method int                                          getIsSystem()
+ * @method string                                       getLabel()
+ * @method Mage_Eav_Model_Resource_Form_Type            getResource()
  * @method Mage_Eav_Model_Resource_Form_Type_Collection getResourceCollection()
- * @method int getStoreId()
- * @method string getTheme()
- * @method $this setCode(string $value)
- * @method $this setIsSystem(int $value)
- * @method $this setLabel(string $value)
- * @method $this setStoreId(int $value)
- * @method $this setTheme(string $value)
+ * @method int                                          getStoreId()
+ * @method string                                       getTheme()
+ * @method $this                                        setCode(string $value)
+ * @method $this                                        setIsSystem(int $value)
+ * @method $this                                        setLabel(string $value)
+ * @method $this                                        setStoreId(int $value)
+ * @method $this                                        setTheme(string $value)
  */
 class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
 {
@@ -37,7 +37,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
     protected $_eventPrefix = 'eav_form_type';
 
     /**
-     * Initialize resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -72,7 +72,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
     /**
      * Assign Entity Type to Form Type
      *
-     * @param int $entityTypeId
+     * @param  int   $entityTypeId
      * @return $this
      */
     public function addEntityType($entityTypeId)

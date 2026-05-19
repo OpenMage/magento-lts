@@ -15,8 +15,8 @@
 class Mage_Core_Block_Text_List_Item extends Mage_Core_Block_Text
 {
     /**
-     * @param array $liParams
-     * @param array $innerText
+     * @param  array $liParams
+     * @param  array $innerText
      * @return $this
      */
     public function setLink($liParams, $innerText)
@@ -30,6 +30,7 @@ class Mage_Core_Block_Text_List_Item extends Mage_Core_Block_Text
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setText('<li');

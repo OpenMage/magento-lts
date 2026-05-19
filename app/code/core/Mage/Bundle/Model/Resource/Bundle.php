@@ -18,8 +18,8 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
      * Preparing select for getting selection's raw data by product id
      * also can be specified extra parameter for limit which columns should be selected
      *
-     * @param int $productId
-     * @param array $columns
+     * @param  int            $productId
+     * @param  array          $columns
      * @return Zend_Db_Select
      */
     protected function _getSelect($productId, $columns = [])
@@ -39,7 +39,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     /**
      * Retrieve selection data for specified product id
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return array
      */
     public function getSelectionsData($productId)
@@ -75,7 +75,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     /**
      * Removes specified selections by ids for specified product id
      *
-     * @param int $productId
+     * @param int   $productId
      * @param array $ids
      */
     public function dropAllUnneededSelections($productId, $ids)
@@ -94,8 +94,8 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     /**
      * Save product relations
      *
-     * @param int $parentId
-     * @param array $childIds
+     * @param  int   $parentId
+     * @param  array $childIds
      * @return $this
      */
     public function saveProductRelations($parentId, $childIds)

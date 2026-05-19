@@ -14,7 +14,8 @@
  */
 class Mage_Usa_Block_Adminhtml_Dhl_Unitofmeasure extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
-    public function _construct()
+    #[Override]
+    protected function _construct()
     {
         parent::_construct();
 
@@ -36,8 +37,8 @@ class Mage_Usa_Block_Adminhtml_Dhl_Unitofmeasure extends Mage_Adminhtml_Block_Sy
         $weight = round(
             (float) Mage::helper('usa')->convertMeasureWeight(
                 $kgWeight,
-                Zend_Measure_Weight::KILOGRAM,
-                Zend_Measure_Weight::POUND,
+                Mage_Core_Helper_Measure_Weight::KILOGRAM,
+                Mage_Core_Helper_Measure_Weight::POUND,
             ),
             3,
         );
@@ -54,6 +55,7 @@ class Mage_Usa_Block_Adminhtml_Dhl_Unitofmeasure extends Mage_Adminhtml_Block_Sy
      *
      * @return string
      */
+    #[Override]
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         return parent::_getElementHtml($element) . $this->renderView();

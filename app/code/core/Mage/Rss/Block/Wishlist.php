@@ -34,6 +34,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      * @return Mage_Wishlist_Model_Wishlist
      * @throws Exception
      */
+    #[Override]
     protected function _getWishlist()
     {
         if (is_null($this->_wishlist)) {
@@ -92,6 +93,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      * @throws Exception
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         /** @var Mage_Rss_Model_Rss $rssObj */
@@ -174,10 +176,11 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Retrieve Product View URL
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
+    #[Override]
     public function getProductUrl($product, $additional = [])
     {
         $additional['_rss'] = true;
@@ -187,10 +190,11 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Adding customized price template for product type, used as action in layouts
      *
-     * @param string $type Catalog Product Type
-     * @param string $block Block Type
+     * @param string $type     Catalog Product Type
+     * @param string $block    Block Type
      * @param string $template Template
      */
+    #[Override]
     public function addPriceBlockType($type, $block = '', $template = '')
     {
         if ($type) {

@@ -12,7 +12,7 @@
  *
  * @package    Mage_Review
  *
- * @method bool getAllowWriteReviewFlag()
+ * @method bool  getAllowWriteReviewFlag()
  * @method $this setAllowWriteReviewFlag(bool $value)
  * @method $this setLoginLink(string $value)
  */
@@ -74,6 +74,7 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     public function getAction()
     {
         $productId = Mage::app()->getRequest()->getParam('id', false);

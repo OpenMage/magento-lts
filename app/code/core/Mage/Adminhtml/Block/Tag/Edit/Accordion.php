@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Tag_Edit_Accordion extends Mage_Adminhtml_Block_Widge
     /**
      * Add products and customers accordion to layout
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if (is_null(Mage::registry('current_tag')->getId())) {

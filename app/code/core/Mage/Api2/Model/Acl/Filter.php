@@ -46,8 +46,8 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Return only the data which keys are allowed
      *
-     * @param array $allowedAttributes List of attributes available to use
-     * @param array $data Associative array attribute to value
+     * @param  array $allowedAttributes List of attributes available to use
+     * @param  array $data              Associative array attribute to value
      * @return array
      */
     protected function _filter(array $allowedAttributes, array $data)
@@ -64,7 +64,7 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Strip attributes in of collection items
      *
-     * @param array $items
+     * @param  array $items
      * @return array
      */
     public function collectionIn($items)
@@ -79,7 +79,7 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Strip attributes out of collection items
      *
-     * @param array $items
+     * @param  array $items
      * @return array
      */
     public function collectionOut($items)
@@ -94,7 +94,7 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Fetch array of allowed attributes for given resource type, operation and user type.
      *
-     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType OPTIONAL
+     * @param  Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType OPTIONAL
      * @return array
      */
     public function getAllowedAttributes($operationType = null)

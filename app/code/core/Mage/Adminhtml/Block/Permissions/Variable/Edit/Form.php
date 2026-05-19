@@ -15,9 +15,10 @@
 class Mage_Adminhtml_Block_Permissions_Variable_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _prepareForm()
     {
         $block = Mage::getModel('admin/variable')->load((int) $this->getRequest()->getParam('variable_id'));

@@ -12,13 +12,17 @@
  *
  * @package    Mage_Bundle
  *
- * @method bool getFirstShow()
+ * @method bool   getFirstShow()
  * @method string getIndex()
- * @method $this setFirstShow(bool $value)
- * @method $this setIndex(string $value)
+ * @method $this  setFirstShow(bool $value)
+ * @method $this  setIndex(string $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search extends Mage_Adminhtml_Block_Widget
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         $this->setId('bundle_option_selection_search');
@@ -36,6 +40,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -51,6 +56,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->getChild('grid')->setIndex($this->getIndex())

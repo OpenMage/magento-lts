@@ -48,4 +48,8 @@ if (file_exists($maintenanceFile)) {
     $config->getCache()->remove($config->getCacheId());
 }
 
+// Unset headers that are not supported but which may be exploited against the Zend libraries
+unset($_SERVER['HTTP_X_ORIGINAL_URL']);
+unset($_SERVER['HTTP_X_REWRITE_URL']);
+
 Mage::run($mageRunCode, $mageRunType);

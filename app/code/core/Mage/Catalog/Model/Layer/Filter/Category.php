@@ -61,10 +61,11 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     /**
      * Apply category filter to layer
      *
-     * @param   Varien_Object $filterBlock
-     * @return  $this
-     * @throws  Mage_Core_Exception
+     * @param  Varien_Object       $filterBlock
+     * @return $this
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
         $filter = (int) $request->getParam($this->getRequestVar());
@@ -95,7 +96,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     /**
      * Validate category for be using as filter
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param  Mage_Catalog_Model_Category $category
      * @return int
      */
     protected function _isValidCategory($category)
@@ -108,6 +109,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
      *
      * @return string
      */
+    #[Override]
     public function getName()
     {
         return Mage::helper('catalog')->__('Category');
@@ -132,10 +134,10 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     }
 
     /**
-     * Get data array for building category filter items
-     *
-     * @return array
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getItemsData()
     {
         $key = $this->getLayer()->getStateKey() . '_SUBCATEGORIES';

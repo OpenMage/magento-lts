@@ -20,7 +20,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
     }
 
     /**
-     * @param array $productIds
+     * @param  array $productIds
      * @return array
      */
     public function items($productIds)
@@ -59,8 +59,8 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
     }
 
     /**
-     * @param string $productId
-     * @param array $data
+     * @param  string             $productId
+     * @param  array              $data
      * @return bool
      * @throws Mage_Api_Exception
      */

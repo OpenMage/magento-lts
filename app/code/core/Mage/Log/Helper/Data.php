@@ -25,6 +25,8 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Allowed extensions that can be used to create a log file
+     *
+     * @var array
      */
     private $_allowedFileExtensions = ['log', 'txt', 'html', 'csv'];
 
@@ -70,7 +72,7 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Checking if file extensions is allowed. If passed then return true.
      *
-     * @param string $file
+     * @param  string $file
      * @return bool
      */
     public function isLogFileExtensionValid($file)
@@ -78,7 +80,7 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
         $result = false;
         $validatedFileExtension = pathinfo($file, PATHINFO_EXTENSION);
         if ($validatedFileExtension && in_array($validatedFileExtension, $this->_allowedFileExtensions)) {
-            $result = true;
+            return true;
         }
 
         return $result;

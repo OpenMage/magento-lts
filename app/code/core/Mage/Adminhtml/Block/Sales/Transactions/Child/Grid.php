@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Child_Grid extends Mage_Adminhtml_Block_Sales_Transactions_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_transactions_child_grid';
+
     /**
      * Columns, that should be removed from grid
      *
@@ -21,9 +23,6 @@ class Mage_Adminhtml_Block_Sales_Transactions_Child_Grid extends Mage_Adminhtml_
      */
     protected $_columnsToRemove = ['parent_id', 'parent_txn_id'];
 
-    /**
-     * Disable pager and filter
-     */
     public function __construct()
     {
         parent::__construct();
@@ -36,8 +35,9 @@ class Mage_Adminhtml_Block_Sales_Transactions_Child_Grid extends Mage_Adminhtml_
     /**
      * Add filter by parent transaction ID
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_payment_transaction_collection');
@@ -48,7 +48,10 @@ class Mage_Adminhtml_Block_Sales_Transactions_Child_Grid extends Mage_Adminhtml_
 
     /**
      * Remove some columns and make other not sortable
+     *
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $result = parent::_prepareColumns();

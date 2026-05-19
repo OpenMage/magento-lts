@@ -30,6 +30,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
@@ -60,6 +61,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -72,6 +74,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Create new sitemap
+     * @return void
      */
     public function newAction()
     {
@@ -81,6 +84,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Edit sitemap
+     * @return void
      */
     public function editAction()
     {
@@ -125,6 +129,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save action
+     * @return void
      */
     public function saveAction()
     {
@@ -207,9 +212,9 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 // save data in session
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
@@ -224,6 +229,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -250,9 +256,9 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
                 // go to grid
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 // go back to edit form
                 $this->_redirect('*/*/edit', ['sitemap_id' => $id]);
                 return;
@@ -269,6 +275,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Generate sitemap
+     * @return void
      */
     public function generateAction()
     {
@@ -285,11 +292,11 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
                 $this->_getSession()->addSuccess(
                     Mage::helper('sitemap')->__('The sitemap "%s" has been generated.', $sitemap->getSitemapFilename()),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addException(
-                    $e,
+                    $exception,
                     Mage::helper('sitemap')->__('Unable to generate the sitemap.'),
                 );
             }

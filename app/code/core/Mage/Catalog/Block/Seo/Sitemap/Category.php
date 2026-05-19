@@ -21,6 +21,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Category extends Mage_Catalog_Block_Seo_Sit
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $helper = Mage::helper('catalog/category');
@@ -33,9 +34,10 @@ class Mage_Catalog_Block_Seo_Sitemap_Category extends Mage_Catalog_Block_Seo_Sit
     /**
      * Get item URL
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param  Mage_Catalog_Model_Category $category
      * @return string
      */
+    #[Override]
     public function getItemUrl($category)
     {
         $helper = Mage::helper('catalog/category');

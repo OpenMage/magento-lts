@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Customer_Accounts_Grid extends Mage_Adminhtml_Block_Report_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_customer_accounts_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -21,8 +23,9 @@ class Mage_Adminhtml_Block_Report_Customer_Accounts_Grid extends Mage_Adminhtml_
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         parent::_prepareCollection();
@@ -32,7 +35,9 @@ class Mage_Adminhtml_Block_Report_Customer_Accounts_Grid extends Mage_Adminhtml_
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('accounts', [

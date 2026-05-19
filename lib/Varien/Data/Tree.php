@@ -27,7 +27,7 @@ class Varien_Data_Tree
     }
 
     /**
-     * @return Varien_Data_Tree
+     * @return $this
      */
     public function getTree()
     {
@@ -45,9 +45,9 @@ class Varien_Data_Tree
     public function loadNode($nodeId) {}
 
     /**
-     * @param array|Varien_Data_Tree_Node $data
-     * @param Varien_Data_Tree_Node $parentNode
-     * @param Varien_Data_Tree_Node $prevNode
+     * @param  array|Varien_Data_Tree_Node $data
+     * @param  Varien_Data_Tree_Node       $parentNode
+     * @param  Varien_Data_Tree_Node       $prevNode
      * @return Varien_Data_Tree_Node
      */
     public function appendChild($data, $parentNode, $prevNode = null)
@@ -65,8 +65,8 @@ class Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node $node
-     * @param Varien_Data_Tree_Node $parent
+     * @param  Varien_Data_Tree_Node $node
+     * @param  Varien_Data_Tree_Node $parent
      * @return Varien_Data_Tree_Node
      */
     public function addNode($node, $parent = null)
@@ -95,8 +95,8 @@ class Varien_Data_Tree
     public function copyNodeTo($node, $parentNode, $prevNode = null) {}
 
     /**
-     * @param Varien_Data_Tree_Node $node
-     * @return Varien_Data_Tree
+     * @param  Varien_Data_Tree_Node $node
+     * @return $this
      */
     public function removeNode($node)
     {
@@ -134,7 +134,7 @@ class Varien_Data_Tree
     }
 
     /**
-     * @param int $nodeId
+     * @param  int                   $nodeId
      * @return Varien_Data_Tree_Node
      */
     public function getNodeById($nodeId)
@@ -143,16 +143,13 @@ class Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node $node
+     * @param  Varien_Data_Tree_Node $node
      * @return array
      */
     public function getPath($node)
     {
-        if ($node instanceof Varien_Data_Tree_Node) {
-        } elseif (is_numeric($node)) {
-            if ($_node = $this->getNodeById($node)) {
-                return $_node->getPath();
-            }
+        if (!$node instanceof Varien_Data_Tree_Node && is_numeric($node) && ($_node = $this->getNodeById($node))) {
+            return $_node->getPath();
         }
 
         return [];

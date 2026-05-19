@@ -14,6 +14,9 @@
  */
 class Mage_Dataflow_Model_Resource_Profile_History extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('dataflow/profile_history', 'history_id');
@@ -24,10 +27,11 @@ class Mage_Dataflow_Model_Resource_Profile_History extends Mage_Core_Model_Resou
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getPerformedAt()) {
-            $object->setPerformedAt($this->formatDate(time()));
+            $object->setPerformedAt($this->formatDate(Mage::helper('core/clock')->getTimestamp()));
         }
 
         parent::_beforeSave($object);

@@ -32,6 +32,11 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
         return false;
     }
 
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function indexAction()
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
@@ -57,6 +62,11 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function viewAction()
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
@@ -84,14 +94,18 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @deprecated after 1.3.2.3
-     * This functionality was removed
+     * @return void
+     * @deprecated after 1.3.2.3 This functionality was removed
      */
     public function editAction()
     {
         $this->_forward('noRoute');
     }
 
+    /**
+     * @return void
+     * @throws Mage_Core_Exception
+     */
     public function removeAction()
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
@@ -104,7 +118,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
             try {
                 $model = Mage::registry('tagModel');
                 $model->deactivate();
-                $tag = Mage::getModel('tag/tag')->load($tagId)->aggregate();
+                Mage::getModel('tag/tag')->load($tagId)->aggregate();
                 Mage::getSingleton('tag/session')->addSuccess(Mage::helper('tag')->__('The tag has been deleted.'));
                 $this->getResponse()->setRedirect(Mage::getUrl('*/*/', [
                     self::PARAM_NAME_URL_ENCODED => Mage::helper('core')->urlEncode(Mage::getUrl('customer/account/')),
@@ -119,6 +133,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * @return void
      * @deprecated after 1.3.2.3
      * This functionality was removed
      */

@@ -13,7 +13,7 @@
  * @package    Mage_Widget
  *
  * @method Mage_Widget_Model_Widget_Instance getWidgetInstance()
- * @method $this setWidgetInstance(Mage_Widget_Model_Widget_Instance $value)
+ * @method $this                             setWidgetInstance(Mage_Widget_Model_Widget_Instance $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends Mage_Adminhtml_Block_Template implements Varien_Data_Form_Element_Renderer_Interface
 {
@@ -23,8 +23,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
     protected $_element = null;
 
     /**
-     * Internal constructor
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -125,7 +126,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
      * - Products (product types depend on configuration)
      * - Generic (predefined) pages (all pages and single layout update)
      *
-     * @return array
+     * @return array<int, array<string, array<string, string|string[]>[]|string|string[]>>
      */
     protected function _getDisplayOnOptions()
     {
@@ -211,7 +212,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
             'is_anchor_only' => '',
             'product_type_id' => '',
         ];
-        foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
+        foreach (array_keys(Mage_Catalog_Model_Product_Type::getTypes()) as $typeId) {
             $container[$typeId] = [
                 'label' => 'Products',
                 'code' => 'products',

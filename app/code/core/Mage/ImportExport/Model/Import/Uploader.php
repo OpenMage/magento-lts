@@ -64,7 +64,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Proceed moving a file from TMP to destination folder
      *
-     * @param string $fileName
+     * @param  string    $fileName
      * @return array
      * @throws Exception
      */
@@ -96,8 +96,8 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Reads file info
      *
-     * @param string $filePath
-     * @return array
+     * @param  string                         $filePath
+     * @return array<string, bool|int|string>
      */
     protected function _readFileInfo($filePath)
     {
@@ -115,14 +115,11 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Validate uploaded file by type and etc.
      */
+    #[Override]
     protected function _validateFile()
     {
         $filePath = $this->_file['tmp_name'];
-        if (is_readable($filePath)) {
-            $this->_fileExists = true;
-        } else {
-            $this->_fileExists = false;
-        }
+        $this->_fileExists = is_readable($filePath);
 
         $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
         if (!$this->checkAllowedExtension($fileExtension)) {
@@ -140,7 +137,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Returns file MIME type by extension
      *
-     * @param string $ext
+     * @param  string $ext
      * @return string
      */
     protected function _getMimeTypeByExt($ext)
@@ -165,7 +162,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Set TMP file path prefix
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     public function setTmpDir($path)
@@ -191,7 +188,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Set destination file path prefix
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     public function setDestDir($path)
@@ -207,17 +204,18 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     /**
      * Move files from TMP folder into destination folder
      *
-     * @param string $tmpPath
-     * @param string $destPath
+     * @param  string $tmpPath
+     * @param  string $destPath
      * @return bool
      */
+    #[Override]
     protected function _moveFile($tmpPath, $destPath)
     {
         $sourceFile = realpath($tmpPath);
         if ($sourceFile !== false) {
             return copy($sourceFile, $destPath);
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

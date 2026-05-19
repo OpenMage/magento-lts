@@ -17,7 +17,8 @@
  */
 class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 {
-    public function _construct()
+    #[Override]
+    protected function _construct()
     {
         $this->setTemplate('page/html/header.phtml');
     }
@@ -33,8 +34,8 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $logoSrc
-     * @param string $logoAlt
+     * @param  string $logoSrc
+     * @param  string $logoAlt
      * @return $this
      */
     public function setLogo($logoSrc, $logoAlt)

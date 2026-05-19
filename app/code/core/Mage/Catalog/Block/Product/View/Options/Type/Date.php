@@ -26,6 +26,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($head = $this->getLayout()->getBlock('head')) {
@@ -54,9 +55,9 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     {
         if ($this->useCalendar()) {
             return $this->getCalendarDateHtml();
-        } else {
-            return $this->getDropDownsDateHtml();
         }
+
+        return $this->getDropDownsDateHtml();
     }
 
     /**
@@ -148,18 +149,18 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     /**
      * Return drop-down html with range of values
      *
-     * @param string $name      Id/name of html select element
-     * @param int|string $from  Start position
-     * @param int|string $to    End position
-     * @param string $value     Value selected
-     * @return string           Formatted Html
+     * @param  string     $name  Id/name of html select element
+     * @param  int|string $start Start position
+     * @param  int|string $end   End position
+     * @param  string     $value Value selected
+     * @return string     Formatted Html
      */
-    protected function _getSelectFromToHtml($name, $from, $to, $value = null)
+    protected function _getSelectFromToHtml($name, $start, $end, $value = null)
     {
         $options = [
             ['value' => '', 'label' => '-'],
         ];
-        for ($i = $from; $i <= $to; $i++) {
+        for ($i = $start; $i <= $end; $i++) {
             $options[] = ['value' => $i, 'label' => $this->_getValueWithLeadingZeros($i)];
         }
 
@@ -171,8 +172,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     /**
      * HTML select element
      *
-     * @param string $name Id/name of html select element
-     * @param null|string $value
+     * @param  string                      $name  Id/name of html select element
+     * @param  null|string                 $value
      * @return Mage_Core_Block_Html_Select
      */
     protected function _getHtmlSelect($name, $value = null)
@@ -207,7 +208,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     /**
      * Add Leading Zeros to number less than 10
      *
-     * @param int $value
+     * @param  int        $value
      * @return int|string
      */
     protected function _getValueWithLeadingZeros($value)

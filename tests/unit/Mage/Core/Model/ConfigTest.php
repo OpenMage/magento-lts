@@ -11,14 +11,19 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use Override;
 use Mage;
 use Mage_Core_Model_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\ConfigTrait;
 
 final class ConfigTest extends OpenMageTest
 {
+    use ConfigTrait;
+
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

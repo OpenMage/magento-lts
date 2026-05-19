@@ -17,7 +17,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     /**
      * Getting all available children for Invoice, Shipmen or Credit memo item
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return array
      */
     public function getChilds($item)
@@ -47,7 +47,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return bool
      */
     public function isShipmentSeparately($item = null)
@@ -59,38 +59,20 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
 
             if ($parentItem = $item->getParentItem()) {
                 if ($options = $parentItem->getProductOptions()) {
-                    if (isset($options['shipment_type'])
-                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-                    ) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return isset($options['shipment_type'])
+                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY;
                 }
             } elseif ($options = $item->getProductOptions()) {
-                if (isset($options['shipment_type'])
-                    && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-                ) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return !(isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY);
             }
         }
 
-        if ($options = $this->getOrderItem()->getProductOptions()) {
-            if (isset($options['shipment_type'])
-                && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-            ) {
-                return true;
-            }
-        }
-
-        return false;
+        return ($options = $this->getOrderItem()->getProductOptions())
+            && (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY);
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return bool
      */
     public function isChildCalculated($item = null)
@@ -102,38 +84,20 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
 
             if ($parentItem = $item->getParentItem()) {
                 if ($options = $parentItem->getProductOptions()) {
-                    if (isset($options['product_calculations'])
-                        && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-                    ) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return isset($options['product_calculations'])
+                        && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD;
                 }
             } elseif ($options = $item->getProductOptions()) {
-                if (isset($options['product_calculations'])
-                    && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-                ) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return !(isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD);
             }
         }
 
-        if ($options = $this->getOrderItem()->getProductOptions()) {
-            if (isset($options['product_calculations'])
-                && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-            ) {
-                return true;
-            }
-        }
-
-        return false;
+        return ($options = $this->getOrderItem()->getProductOptions())
+            && (isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD);
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice_Item|Varien_Object $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item|Varien_Object $item
      * @return null|mixed
      */
     public function getSelectionAttributes($item)
@@ -152,14 +116,15 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     }
 
     /**
-     * @param null $item deprecated
+     * @param  null  $item deprecated
      * @return array
      */
     public function getOrderOptions($item = null)
     {
         $result = [];
+        $options = $this->getOrderItem()->getProductOptions();
 
-        if ($options = $this->getOrderItem()->getProductOptions()) {
+        if ($options) {
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
@@ -187,39 +152,33 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return string
      */
     public function getValueHtml($item)
     {
         $result = $this->escapeHtml($item->getName());
-        if (!$this->isShipmentSeparately($item)) {
-            if ($attributes = $this->getSelectionAttributes($item)) {
-                $result =  sprintf('%d', $attributes['qty']) . ' x ' . $result;
-            }
+        if (!$this->isShipmentSeparately($item) && $attributes = $this->getSelectionAttributes($item)) {
+            $result =  sprintf('%d', $attributes['qty']) . ' x ' . $result;
         }
 
-        if (!$this->isChildCalculated($item)) {
-            if ($attributes = $this->getSelectionAttributes($item)) {
-                $result .= ' ' . $this->getOrderItem()->getOrder()->formatPrice($attributes['price']);
-            }
+        if (!$this->isChildCalculated($item) && $attributes = $this->getSelectionAttributes($item)) {
+            $result .= ' ' . $this->getOrderItem()->getOrder()->formatPrice($attributes['price']);
         }
 
         return $result;
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return bool
      */
     public function canShowPriceInfo($item)
     {
-        if (($item->getOrderItem()->getParentItem() && $this->isChildCalculated())
-                || (!$item->getOrderItem()->getParentItem() && !$this->isChildCalculated())
-        ) {
+        if ($item->getOrderItem()->getParentItem() && $this->isChildCalculated()) {
             return true;
         }
 
-        return false;
+        return !$item->getOrderItem()->getParentItem() && !$this->isChildCalculated();
     }
 }

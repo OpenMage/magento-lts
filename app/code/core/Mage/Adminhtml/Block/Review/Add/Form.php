@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Review_Add_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();

@@ -20,7 +20,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * @var array
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private $_elements;
+    private $_elements = [];
 
     /**
      * Elements container
@@ -37,7 +37,6 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      */
     public function __construct($container)
     {
-        $this->_elements = [];
         $this->_container = $container;
     }
 
@@ -46,7 +45,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @return ArrayIterator
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->_elements);
     }
@@ -65,10 +64,10 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Implementation of ArrayAccess:offsetGet()
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($key)
     {
         return $this->_elements[$key];
@@ -98,7 +97,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Add element to collection
      *
      * @todo get it straight with $after
-     * @param false|string $after
+     * @param  false|string                      $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function add(Varien_Data_Form_Element_Abstract $element, $after = false)
@@ -135,8 +134,8 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Sort elements by values using a user-defined comparison function
      *
-     * @param mixed $callback
-     * @return Varien_Data_Form_Element_Collection
+     * @param  mixed $callback
+     * @return $this
      */
     public function usort($callback)
     {
@@ -147,8 +146,8 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Remove element from collection
      *
-     * @param mixed $elementId
-     * @return Varien_Data_Form_Element_Collection
+     * @param  mixed $elementId
+     * @return $this
      */
     public function remove($elementId)
     {
@@ -174,7 +173,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Find element by ID
      *
-     * @param mixed $elementId
+     * @param  mixed                                  $elementId
      * @return null|Varien_Data_Form_Element_Abstract
      */
     public function searchById($elementId)

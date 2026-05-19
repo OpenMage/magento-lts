@@ -14,6 +14,9 @@
  */
 class Mage_Dataflow_Model_Resource_Profile extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('dataflow/profile', 'profile_id');
@@ -24,21 +27,22 @@ class Mage_Dataflow_Model_Resource_Profile extends Mage_Core_Model_Resource_Db_A
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getCreatedAt()) {
-            $object->setCreatedAt($this->formatDate(time()));
+            $object->setCreatedAt($this->formatDate(Mage::helper('core/clock')->getTimestamp()));
         }
 
-        $object->setUpdatedAt($this->formatDate(time()));
+        $object->setUpdatedAt($this->formatDate(Mage::helper('core/clock')->getTimestamp()));
         return parent::_beforeSave($object);
     }
 
     /**
      * Returns true if profile with name exists
      *
-     * @param string $name
-     * @param int $id
+     * @param  string $name
+     * @param  int    $id
      * @return bool
      */
     public function isProfileExists($name, $id = null)
@@ -53,6 +57,6 @@ class Mage_Dataflow_Model_Resource_Profile extends Mage_Core_Model_Resource_Db_A
             $bind['id'] = $id;
         }
 
-        return $this->_getReadAdapter()->fetchOne($select, $bind) ? true : false;
+        return (bool) $this->_getReadAdapter()->fetchOne($select, $bind);
     }
 }

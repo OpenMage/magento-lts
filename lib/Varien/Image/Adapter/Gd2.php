@@ -12,6 +12,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     protected $_requiredExtensions = ['gd'];
 
     private static $_callbacks = [
+        IMAGETYPE_AVIF => ['output' => 'imageavif', 'create' => 'imagecreatefromavif'],
         IMAGETYPE_WEBP => ['output' => 'imagewebp', 'create' => 'imagecreatefromwebp'],
         IMAGETYPE_GIF  => ['output' => 'imagegif',  'create' => 'imagecreatefromgif'],
         IMAGETYPE_JPEG => ['output' => 'imagejpeg', 'create' => 'imagecreatefromjpeg'],
@@ -40,7 +41,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function destruct()
     {
-        if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof \GdImage)) {
+        if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof GdImage)) {
             @imagedestroy($this->_imageHandler);
         }
     }
@@ -48,7 +49,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Opens image file.
      *
-     * @param string $fileName
+     * @param  string           $fileName
      * @throws Exception
      * @throws Varien_Exception
      */
@@ -87,7 +88,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Notation in value is supported only for PHP
      * Shorthand byte options are case insensitive
      *
-     * @param string $memoryValue
+     * @param  string $memoryValue
      * @return int
      * @deprecated
      * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
@@ -143,8 +144,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
         if (!is_writable($destinationDir)) {
             try {
-                $io = new Varien_Io_File();
-                $io->mkdir($destination);
+                $ioFile = new Varien_Io_File();
+                $ioFile->mkdir($destination);
             } catch (Exception $exception) {
                 throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.", $exception->getCode(), $exception);
             }
@@ -219,8 +220,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Obtain function name, basing on image type and callback type
      *
-     * @param string $callbackType
-     * @param int $fileType
+     * @param  string    $callbackType
+     * @param  int       $fileType
      * @return string
      * @throws Exception
      */
@@ -271,7 +272,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     }
 
                     return $transparentAlphaColor;
-                } elseif (false !== $transparentIndex) { // fill image with indexed non-alpha transparency
+                }
+
+                // fill truecolor png with alpha transparency
+                if (false !== $transparentIndex) {
+                    // fill image with indexed non-alpha transparency
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         [$rgbR, $rgbG, $rgbB]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
@@ -306,7 +311,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Gives true for a PNG with alpha, false otherwise
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return bool
      */
     public function checkAlpha($fileName)
@@ -324,10 +329,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $transparentIndex = imagecolortransparent($imageResource);
             if ($transparentIndex >= 0) {
                 return $transparentIndex;
-            } elseif ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
+            }
+
+            if ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
                 $isAlpha = $this->checkAlpha($this->_fileName);
                 $isTrueColor = true;
-                return $transparentIndex; // -1
+                return $transparentIndex;
+                // -1
             }
         }
 
@@ -341,8 +349,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Change the image size
      *
-     * @param int $width
-     * @param int $height
+     * @param  int       $width
+     * @param  int       $height
      * @throws Exception
      */
     public function resize($width = null, $height = null)
@@ -371,11 +379,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $dstHeight = $height;
         if ($this->_keepAspectRatio) {
             // do not make picture bigger, than it is, if required
-            if ($this->_constrainOnly) {
-                if (($width >= $this->_imageSrcWidth) && ($height >= $this->_imageSrcHeight)) {
-                    $dstWidth  = $this->_imageSrcWidth;
-                    $dstHeight = $this->_imageSrcHeight;
-                }
+            if ($this->_constrainOnly && ($width >= $this->_imageSrcWidth && $height >= $this->_imageSrcHeight)) {
+                $dstWidth  = $this->_imageSrcWidth;
+                $dstHeight = $this->_imageSrcHeight;
             }
 
             // keep aspect ratio
@@ -402,11 +408,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $isAlpha     = false;
         $isTrueColor = false;
         $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha, $isTrueColor);
-        if ($isTrueColor) {
-            $newImage = imagecreatetruecolor($width, $height);
-        } else {
-            $newImage = imagecreate($width, $height);
-        }
+        $newImage = $isTrueColor ? imagecreatetruecolor($width, $height) : imagecreate($width, $height);
 
         // fill new image with required color
         $this->_fillBackgroundColor($newImage);

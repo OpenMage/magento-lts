@@ -17,8 +17,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview_Form extends Mage_Adminhtml_
     /**
      * Preparing from for revision page
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form([
@@ -30,13 +31,8 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview_Form extends Mage_Adminhtml_
         if ($data = $this->getFormData()) {
             $mapper = ['preview_store_id' => 'store_id'];
 
-            foreach ($data as $key => $value) {
-                if (array_key_exists($key, $mapper)) {
-                    $name = $mapper[$key];
-                } else {
-                    $name = $key;
-                }
-
+            foreach (array_keys($data) as $key) {
+                $name = array_key_exists($key, $mapper) ? $mapper[$key] : $key;
                 $form->addField($key, 'hidden', ['name' => $name]);
             }
 

@@ -16,13 +16,18 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_notification_grid';
+
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         $this->setSaveParametersInSession(true);
         $this->setId('notificationGrid');
         $this->setIdFieldName('notification_id');
         $this->setDefaultSort('date_added');
-        $this->setDefaultDir('desc');
         $this->setFilterVisibility(false);
     }
 
@@ -30,6 +35,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('adminnotification/inbox')
@@ -43,6 +49,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('severity', [
@@ -75,9 +82,9 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Prepare mass action
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('notification_id');
@@ -93,11 +100,11 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
             'url'      => $this->getUrl('*/*/massRemove'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
-     * @param Mage_AdminNotification_Model_Inbox $row
+     * @param  Mage_AdminNotification_Model_Inbox $row
      * @return string
      */
     public function getRowClass(Varien_Object $row)

@@ -17,9 +17,10 @@ abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract extends Mage
     /**
      * Format url key attribute before save, also use product name as url key if it empty
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         $attributeName = $this->getAttribute()->getName();
@@ -50,6 +51,7 @@ abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract extends Mage
      *
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         /**

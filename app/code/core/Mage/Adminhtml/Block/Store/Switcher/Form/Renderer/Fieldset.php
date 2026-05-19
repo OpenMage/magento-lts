@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -21,6 +23,10 @@ class Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset extends Mage_Ad
      */
     protected $_element;
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('store/switcher/form/renderer/fieldset.phtml');

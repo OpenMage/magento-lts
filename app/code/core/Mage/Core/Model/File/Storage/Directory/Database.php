@@ -13,13 +13,13 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_File_Storage_Directory_Database _getResource()
- * @method string getConnectionName()
- * @method string getPath()
+ * @method string                                                   getConnectionName()
+ * @method string                                                   getPath()
  * @method Mage_Core_Model_Resource_File_Storage_Directory_Database getResource()
- * @method $this setName(string $value)
- * @method $this setParentId(string $value)
- * @method $this setPath(string $value)
- * @method $this setUploadTime(string $value)
+ * @method $this                                                    setName(string $value)
+ * @method $this                                                    setParentId(string $value)
+ * @method $this                                                    setPath(string $value)
+ * @method $this                                                    setUploadTime(string $value)
  */
 class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_File_Storage_Database_Abstract
 {
@@ -82,7 +82,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      */
     public function hasErrors()
     {
-        return !empty($this->_errors);
+        return $this->_errors !== [];
     }
 
     /**
@@ -93,7 +93,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     public function getParentId()
     {
         $parentId = null;
-        if (!$this->getData('parent_id')) {
+        if (!$this->getDataByKey('parent_id')) {
             $parentId = $this->_getResource()->getParentId($this->getPath());
             if (empty($parentId)) {
                 $parentId = null;
@@ -108,7 +108,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     /**
      * Create directories recursively
      *
-     * @param  string $path
+     * @param  string                                          $path
      * @return Mage_Core_Model_File_Storage_Directory_Database
      */
     public function createRecursive($path)
@@ -139,9 +139,9 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     /**
      * Export directories from storage
      *
-     * @param  int $offset
-     * @param  int $count
-     * @return bool
+     * @param  int         $offset
+     * @param  int         $count
+     * @return array|false
      */
     public function exportDirectories($offset = 0, $count = 100)
     {
@@ -150,7 +150,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
 
         $result = $this->_getResource()->exportDirectories($offset, $count);
 
-        if (empty($result)) {
+        if ($result === []) {
             return false;
         }
 
@@ -171,7 +171,15 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
 
         $dateSingleton = Mage::getSingleton('core/date');
         foreach ($dirs as $dir) {
-            if (!is_array($dir) || !isset($dir['name']) || !strlen($dir['name'])) {
+            if (!is_array($dir)) {
+                continue;
+            }
+
+            if (!isset($dir['name'])) {
+                continue;
+            }
+
+            if (!strlen($dir['name'])) {
                 continue;
             }
 
@@ -190,8 +198,8 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
                 } else {
                     Mage::throwException(Mage::helper('core')->__('Parent directory does not exist: %s', $dir['path']));
                 }
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -212,8 +220,8 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     /**
      * Return subdirectories
      *
-     * @param string $directory
-     * @return mixed
+     * @param  string $directory
+     * @return array
      */
     public function getSubdirectories($directory)
     {
@@ -225,7 +233,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     /**
      * Delete directory from database
      *
-     * @param string $dirPath
+     * @param  string $dirPath
      * @return $this
      */
     public function deleteDirectory($dirPath)

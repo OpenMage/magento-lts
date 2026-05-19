@@ -19,7 +19,7 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return label for cmpi field
      *
-     * @param string $fieldName
+     * @param  string $fieldName
      * @return string
      */
     public function getCmpiLabel($fieldName)
@@ -37,8 +37,8 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return value for cmpi field
      *
-     * @param string $fieldName
-     * @param string $value
+     * @param  string $fieldName
+     * @param  string $value
      * @return string
      */
     public function getCmpiValue($fieldName, $value)
@@ -55,7 +55,7 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return text value for cmpi eci flag field
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     private function _getCmpiEciValue($value)
@@ -70,7 +70,7 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return text value for cmpi enrolled field
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     private function _getCmpiEnrolledValue($value)
@@ -85,7 +85,7 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return text value for cmpi pares field
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     private function _getCmpiParesValue($value)
@@ -102,7 +102,7 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return centinel block for payment form with logos
      *
-     * @param Mage_Payment_Model_Method_Abstract $method
+     * @param  Mage_Payment_Model_Method_Abstract                      $method
      * @return false|Mage_Centinel_Block_Logo|Mage_Core_Block_Abstract
      */
     public function getMethodFormBlock($method)

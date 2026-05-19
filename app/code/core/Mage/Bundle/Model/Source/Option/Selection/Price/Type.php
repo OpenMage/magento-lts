@@ -15,7 +15,7 @@
 class Mage_Bundle_Model_Source_Option_Selection_Price_Type
 {
     /**
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function toOptionArray()
     {

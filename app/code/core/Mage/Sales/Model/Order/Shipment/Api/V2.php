@@ -15,7 +15,7 @@
 class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Shipment_Api
 {
     /**
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _prepareItemQtyData($data)
@@ -33,13 +33,14 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
     /**
      * Create new shipment for order
      *
-     * @param string $orderIncrementId
-     * @param array $itemsQty
-     * @param string $comment
-     * @param bool $email
-     * @param bool $includeComment
+     * @param  string      $orderIncrementId
+     * @param  array       $itemsQty
+     * @param  string      $comment
+     * @param  bool        $email
+     * @param  bool        $includeComment
      * @return null|string
      */
+    #[Override]
     public function create(
         $orderIncrementId,
         $itemsQty = [],
@@ -79,8 +80,8 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
                     ->addObject($shipment->getOrder())
                     ->save();
                 $shipment->sendEmail($email, ($includeComment ? $comment : ''));
-            } catch (Mage_Core_Exception $e) {
-                $this->_fault('data_invalid', $e->getMessage());
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_fault('data_invalid', $mageCoreException->getMessage());
             }
 
             return $shipment->getIncrementId();
@@ -92,9 +93,10 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
     /**
      * Retrieve allowed shipping carriers for specified order
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return array
      */
+    #[Override]
     public function getCarriers($orderIncrementId)
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);

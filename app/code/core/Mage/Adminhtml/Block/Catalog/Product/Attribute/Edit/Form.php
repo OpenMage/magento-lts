@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,9 +16,10 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    #[Override]
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post']);
+        $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post']);
         $form->setUseContainer(true);
         $this->setForm($form);
         return parent::_prepareForm();

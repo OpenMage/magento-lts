@@ -32,6 +32,9 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
      */
     protected $_useAnalyticFunction         = true;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('reports/event');
@@ -51,11 +54,11 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
     /**
      * Add recently filter
      *
-     * @param int $typeId
-     * @param int $subjectId
-     * @param int $subtype
-     * @param array|int $ignore
-     * @param int $limit
+     * @param  int       $typeId
+     * @param  int       $subjectId
+     * @param  int       $subtype
+     * @param  array|int $ignore
+     * @param  int       $limit
      * @return $this
      */
     public function addRecentlyFiler($typeId, $subjectId, $subtype = 0, $ignore = null, $limit = 15)

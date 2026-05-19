@@ -14,23 +14,21 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Payment_Transaction _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction            _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getCollection()
- * @method string getCreatedAt()
- * @method int getIsClosed()
- * @method int getParentId()
- * @method string getParentTxnId()
- * @method int getPaymentId()
- * @method Mage_Sales_Model_Resource_Order_Payment_Transaction getResource()
+ * @method int                                                            getIsClosed()
+ * @method int                                                            getParentId()
+ * @method string                                                         getParentTxnId()
+ * @method int                                                            getPaymentId()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction            getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getResourceCollection()
- * @method string getTxnId()
- * @method string getTxnType()
- * @method $this setCreatedAt(string $value)
- * @method $this setIsClosed(int $value)
- * @method $this setOrderId(int $value)
- * @method $this setOrderUrl(string $value)
- * @method $this setParentId(int $value)
- * @method $this setPaymentId(int $value)
+ * @method string                                                         getTxnId()
+ * @method string                                                         getTxnType()
+ * @method $this                                                          setIsClosed(int $value)
+ * @method $this                                                          setOrderId(int $value)
+ * @method $this                                                          setOrderUrl(string $value)
+ * @method $this                                                          setParentId(int $value)
+ * @method $this                                                          setPaymentId(int $value)
  */
 class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstract
 {
@@ -124,6 +122,9 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected $_orderWebsiteId = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_payment_transaction');
@@ -144,7 +145,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Transaction ID setter
-     * @param string $txnId
+     * @param  string              $txnId
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -157,8 +158,8 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Parent transaction ID setter
      * Can set the transaction id as well
-     * @param string $parentTxnId
-     * @param string $txnId
+     * @param  string              $parentTxnId
+     * @param  string              $txnId
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -181,7 +182,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Transaction type setter
      *
-     * @param string $txnType
+     * @param  string              $txnType
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -195,7 +196,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Parent transaction getter
      * May attempt to load it.
      *
-     * @param bool $shouldLoad
+     * @param  bool                $shouldLoad
      * @return $this|false
      * @throws Mage_Core_Exception
      */
@@ -232,20 +233,22 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Returns transaction object if transaction_id is specified, otherwise - array
      * TODO: $recursive is not implemented
      *
-     * @param array|string $types
-     * @param string $txnId
-     * @param bool $recursive
+     * @param  array|string        $types
+     * @param  string              $txnId
+     * @param  bool                $recursive
      * @return null|$this|array
      * @throws Mage_Core_Exception
      */
     public function getChildTransactions($types = null, $txnId = null, $recursive = false)
     {
         $this->_loadChildren();
-
         // grab all transactions
         if (empty($types) && $txnId === null) {
             return $this->_children;
-        } elseif ($types && !is_array($types)) {
+        }
+
+        // grab all transactions
+        if ($types && !is_array($types)) {
             $types = [$types];
         }
 
@@ -294,8 +297,8 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Returns the authorization transaction on success. Otherwise false.
      * $dryRun = true prevents actual closing, it just allows to check whether this operation is possible
      *
-     * @param bool $shouldSave
-     * @param bool $dryRun
+     * @param  bool        $shouldSave
+     * @param  bool        $dryRun
      * @return $this|false
      * @throws Exception
      * @throws Throwable
@@ -325,10 +328,8 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 // case self::TYPE_PAYMENT?
         }
 
-        if ($authTransaction) {
-            if (!$dryRun) {
-                $authTransaction->close($shouldSave);
-            }
+        if ($authTransaction && !$dryRun) {
+            $authTransaction->close($shouldSave);
         }
 
         return $authTransaction;
@@ -337,7 +338,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Close a capture transaction
      * Logic is similar to closeAuthorization(), but for a capture transaction
-     * @param bool $shouldSave
+     * @param  bool                $shouldSave
      * @return $this|bool|false
      * @throws Mage_Core_Exception
      * @throws Throwable
@@ -372,11 +373,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     {
         try {
             $authTransaction = $this->closeAuthorization('', true);
-            if ($authTransaction->hasChildTransaction() || $this->_children) {
-                return false;
-            }
-
-            return true;
+            return !$authTransaction->hasChildTransaction() && !$this->_children;
         } catch (Mage_Core_Exception) {
             // jam all logical exceptions, fallback to false
         }
@@ -386,7 +383,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Getter/Setter of whether current transaction has a child transaction
-     * @param bool $whetherHasChild
+     * @param  bool                $whetherHasChild
      * @return $this|bool
      * @throws Mage_Core_Exception
      */
@@ -395,12 +392,10 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if ($whetherHasChild !== null) {
             $this->_hasChild = (bool) $whetherHasChild;
             return $this;
-        } elseif ($this->_hasChild === null) {
-            if ($this->getChildTransactions()) {
-                $this->_hasChild = true;
-            } else {
-                $this->_hasChild = false;
-            }
+        }
+
+        if ($this->_hasChild === null) {
+            $this->_hasChild = (bool) $this->getChildTransactions();
         }
 
         return $this->_hasChild;
@@ -408,7 +403,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Check object before loading by by specified transaction ID
-     * @param int $txnId
+     * @param  int                 $txnId
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -424,7 +419,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Load self by specified transaction ID. Requires the valid payment object to be set
-     * @param string $txnId
+     * @param  string              $txnId
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -456,8 +451,8 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Updates data inside the 'additional_information' array
      * Doesn't allow to set arrays
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string              $key
+     * @param  mixed               $value
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -478,7 +473,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Getter for entire additional_information value or one of its element by key
-     * @param string $key
+     * @param  string           $key
      * @return null|array|mixed
      */
     public function getAdditionalInformation($key = null)
@@ -497,7 +492,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Unsetter for entire additional_information value or one of its element by key
-     * @param string $key
+     * @param  string $key
      * @return $this
      */
     public function unsAdditionalInformation($key = null)
@@ -516,7 +511,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Close this transaction
-     * @param bool $shouldSave
+     * @param  bool                $shouldSave
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Throwable
@@ -555,7 +550,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Order Payment instance getter
      * Will attempt to load by payment_id if it is set in data
-     * @param bool $shouldLoad
+     * @param  bool                           $shouldLoad
      * @return Mage_Sales_Model_Order_Payment
      * @throws Mage_Core_Exception
      */
@@ -613,7 +608,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * Set order instance for transaction depends on transaction behavior
      * If $order equals to true, method isn't loading new order instance.
      *
-     * @param null|bool|Mage_Sales_Model_Order_Payment $order
+     * @param  null|bool|Mage_Sales_Model_Order_Payment $order
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -639,7 +634,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Setter/Getter whether transaction is supposed to prevent exceptions on saving
      *
-     * @param null|bool $setFailsafe
+     * @param  null|bool  $setFailsafe
      * @return $this|bool
      */
     public function isFailsafe($setFailsafe = null)
@@ -657,6 +652,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         // set parent id
@@ -756,7 +752,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Retrieve transaction types
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getTransactionTypes()
     {
@@ -786,7 +782,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Check whether specified or set transaction type is supported
-     * @param string $txnType
+     * @param  string              $txnType
      * @throws Mage_Core_Exception
      */
     protected function _verifyTxnType($txnType = null)
@@ -811,16 +807,14 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Check whether the payment object is set and it has order object or there is an order_id is set
      * $dryRun allows to not throw exception
-     * @param bool $dryRun
+     * @param  bool                                $dryRun
      * @return null|Mage_Sales_Model_Order_Payment
      * @throws Mage_Core_Exception
      */
     protected function _verifyPaymentObject($dryRun = false)
     {
-        if (!$this->_paymentObject || !$this->getOrderId()) {
-            if (!$dryRun) {
-                Mage::throwException(Mage::helper('sales')->__('Proper payment object must be set.'));
-            }
+        if ((!$this->_paymentObject || !$this->getOrderId()) && !$dryRun) {
+            Mage::throwException(Mage::helper('sales')->__('Proper payment object must be set.'));
         }
 
         return $this->_paymentObject;
@@ -828,7 +822,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Check whether specified transaction ID is valid
-     * @param string $txnId
+     * @param  string              $txnId
      * @throws Mage_Core_Exception
      */
     protected function _verifyTxnId($txnId)

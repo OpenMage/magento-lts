@@ -73,9 +73,9 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      * Init model class by configuration
      *
      * @abstract
-     * @param string $class
-     * @param string $totalCode
-     * @param Mage_Core_Model_Config_Element $totalConfig
+     * @param  string                         $class
+     * @param  string                         $totalCode
+     * @param  Mage_Core_Model_Config_Element $totalConfig
      * @return mixed
      */
     abstract protected function _initModelInstance($class, $totalCode, $totalConfig);
@@ -83,25 +83,15 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
     /**
      * Prepare configuration array for total model
      *
-     * @param   string $code
-     * @param   Mage_Core_Model_Config_Element $totalConfig
-     * @return  array
+     * @param  string                         $code
+     * @param  Mage_Core_Model_Config_Element $totalConfig
+     * @return array
      */
     protected function _prepareConfigArray($code, $totalConfig)
     {
         $totalConfig = (array) $totalConfig;
-        if (isset($totalConfig['before'])) {
-            $totalConfig['before'] = explode(',', $totalConfig['before']);
-        } else {
-            $totalConfig['before'] = [];
-        }
-
-        if (isset($totalConfig['after'])) {
-            $totalConfig['after'] = explode(',', $totalConfig['after']);
-        } else {
-            $totalConfig['after'] = [];
-        }
-
+        $totalConfig['before'] = isset($totalConfig['before']) ? explode(',', $totalConfig['before']) : [];
+        $totalConfig['after'] = isset($totalConfig['after']) ? explode(',', $totalConfig['after']) : [];
         $totalConfig['_code'] = $code;
         return $totalConfig;
     }
@@ -125,7 +115,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         reset($configArray);
         $element = current($configArray);
         if (isset($element['sort_order'])) {
-            uasort($configArray, [$this, '_compareSortOrder']);
+            uasort($configArray, $this->_compareSortOrder(...));
         } else {
             foreach ($configArray as $code => $data) {
                 foreach ($data['before'] as $beforeCode) {
@@ -163,7 +153,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                 }
             }
 
-            uasort($configArray, [$this, '_compareTotals']);
+            uasort($configArray, $this->_compareTotals(...));
         }
 
         $sortedCollectors = array_keys($configArray);
@@ -180,7 +170,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      * Initialize collectors array.
      * Collectors array is array of total models ordered based on configuration settings
      *
-     * @return  $this
+     * @return $this
      */
     protected function _initCollectors()
     {
@@ -195,9 +185,9 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
     /**
      * Callback that uses after/before for comparison
      *
-     * @param   array $a
-     * @param   array $b
-     * @return  int
+     * @param  array $a
+     * @param  array $b
+     * @return int
      */
     protected function _compareTotals($a, $b)
     {
@@ -217,8 +207,8 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
     /**
      * Callback that uses sort_order for comparison
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _compareSortOrder($a, $b)

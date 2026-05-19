@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,7 +19,7 @@ class Mage_Core_Model_Magento_Api extends Mage_Api_Model_Resource_Abstract
     /**
      * Retrieve information about current Magento installation
      *
-     * @return array
+     * @return array<string, string>
      */
     public function info()
     {

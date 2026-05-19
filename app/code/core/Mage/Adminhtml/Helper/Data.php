@@ -34,8 +34,8 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     /**
      * Get mapped help pages url
      *
-     * @param null|string $url
-     * @param null|string $suffix
+     * @param  null|string $url
+     * @param  null|string $suffix
      * @return mixed
      * @deprecated
      */
@@ -51,8 +51,8 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     /**
      * Set help page url
      *
-     * @param null|string $url
-     * @param null|string $suffix
+     * @param  null|string $url
+     * @param  null|string $suffix
      * @return $this
      * @deprecated
      */
@@ -65,7 +65,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     /**
      * Add suffix for help page url
      *
-     * @param null|string $suffix
+     * @param  null|string $suffix
      * @return $this
      * @deprecated
      */
@@ -76,8 +76,8 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     }
 
     /**
-     * @param string $route
-     * @param array $params
+     * @param  string $route
+     * @param  array  $params
      * @return string
      */
     public static function getUrl($route = '', $params = [])
@@ -114,7 +114,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     /**
      * Decode filter string
      *
-     * @param string $filterString
+     * @param  string $filterString
      * @return array
      */
     public function prepareFilterString($filterString)
@@ -122,7 +122,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
         $data = [];
         $filterString = base64_decode($filterString);
         parse_str($filterString, $data);
-        array_walk_recursive($data, [$this, 'decodeFilter']);
+        array_walk_recursive($data, $this->decodeFilter(...));
         return $data;
     }
 

@@ -46,7 +46,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     /**
      * Load data with filter applying and create file for download.
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this|void
      */
     public function exportAction()
     {
@@ -64,10 +64,10 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                     $result,
                     $model->getContentType(),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $this->_getSession()->addError($this->__('No valid data sent'));
             }
         } else {
@@ -79,6 +79,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
 
     /**
      * Index action.
+     * @return void
      */
     public function indexAction()
     {
@@ -91,6 +92,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
 
     /**
      * Get grid-filter of entity attributes action.
+     * @return $this|void
      */
     public function getFilterAction()
     {
@@ -110,8 +112,8 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                     ),
                 );
                 return $this->renderLayout();
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
             }
         } else {
             $this->_getSession()->addError($this->__('No valid data sent'));

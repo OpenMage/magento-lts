@@ -14,6 +14,10 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();

@@ -29,9 +29,10 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Open a SFTP connection to a remote site.
      *
-     * @param array{host?: mixed, username?: mixed, password?: mixed, timeout?: int} $args Connection arguments
+     * @param  array{host?: mixed, username?: mixed, password?: mixed, timeout?: int} $args Connection arguments
      * @throws Exception
      */
+    #[Override]
     public function open(array $args = [])
     {
         if (!isset($args['timeout'])) {
@@ -62,7 +63,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Create a directory
      *
-     * @param int $mode Ignored here; uses logged-in user's umask
+     * @param int  $mode      Ignored here; uses logged-in user's umask
      * @param bool $recursive Analogous to mkdir -p
      *
      * Note: if $recursive is true and an error occurs mid-execution,
@@ -82,9 +83,9 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
             $this->_connection->chdir($cwd);
             return $no_errors;
-        } else {
-            return $this->_connection->mkdir($dir);
         }
+
+        return $this->_connection->mkdir($dir);
     }
 
     /**
@@ -96,7 +97,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             $no_errors = true;
             $cwd = $this->_connection->pwd();
             if (!$this->_connection->chdir($dir)) {
-                throw new Exception("chdir(): $dir: Not a directory");
+                throw new Exception("chdir(): {$dir}: Not a directory");
             }
 
             $list = $this->_connection->nlist();
@@ -104,21 +105,21 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
                 // Go back
                 $this->_connection->chdir($cwd);
                 return $this->rmdir($dir, false);
-            } else {
-                foreach ($list as $filename) {
-                    if ($this->_connection->chdir($filename)) { // This is a directory
-                        $this->_connection->chdir('..');
-                        $no_errors = $no_errors && $this->rmdir($filename, $recursive);
-                    } else {
-                        $no_errors = $no_errors && $this->rm($filename);
-                    }
+            }
+
+            foreach ($list as $filename) {
+                if ($this->_connection->chdir($filename)) { // This is a directory
+                    $this->_connection->chdir('..');
+                    $no_errors = $no_errors && $this->rmdir($filename, $recursive);
+                } else {
+                    $no_errors = $no_errors && $this->rm($filename);
                 }
             }
 
             return $no_errors && ($this->_connection->chdir($cwd) && $this->_connection->rmdir($dir));
-        } else {
-            return $this->_connection->rmdir($dir);
         }
+
+        return $this->_connection->rmdir($dir);
     }
 
     /**
@@ -208,7 +209,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Write a file
      * @param  string $filename remote filename
-     * @param  string $src local filename
+     * @param  string $src      local filename
      * @return bool
      */
     public function writeFile($filename, $src)

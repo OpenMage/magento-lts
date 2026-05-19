@@ -11,6 +11,8 @@
  * Abstract Core Resource Collection
  *
  * @package    Mage_Core
+ * @template T of Mage_Core_Model_Abstract
+ * @extends Varien_Data_Collection_Db<T>
  */
 abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Data_Collection_Db
 {
@@ -33,7 +35,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Resource instance
      *
-     * @var Mage_Core_Model_Resource_Db_Abstract
+     * @var Mage_Core_Model_Resource_Db_Abstract|Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     protected $_resource = null;
 
@@ -104,7 +106,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Collection constructor
      *
-     * @param Mage_Core_Model_Resource_Db_Abstract $resource
+     * @param  Mage_Core_Model_Resource_Db_Abstract $resource
      * @throws Mage_Core_Exception
      * @throws Zend_Exception
      */
@@ -143,7 +145,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Set main collection table
      *
-     * @param string $table
+     * @param  string                   $table
      * @return $this
      * @throws Zend_Db_Select_Exception
      */
@@ -185,6 +187,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * @return Varien_Db_Select
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     public function getSelect()
     {
         if ($this->_select && $this->_fieldsToSelectChanged) {
@@ -280,8 +283,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Add field to select
      *
-     * @param array|string $field
-     * @param null|string $alias
+     * @param  array|string        $field
+     * @param  null|string         $alias
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -325,9 +328,9 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Example: ('sub_total', 'SUM({{revenue}})', 'revenue')
      * For some functions like SUM use groupByAttribute.
      *
-     * @param string $alias
-     * @param string $expression
-     * @param array|string $fields
+     * @param  string                   $alias
+     * @param  string                   $expression
+     * @param  array|string             $fields
      * @return $this
      * @throws Zend_Db_Select_Exception
      */
@@ -351,8 +354,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Removes field from select
      *
-     * @param null|string $field
-     * @param bool $isAlias Alias identifier
+     * @param  null|string $field
+     * @param  bool        $isAlias Alias identifier
      * @return $this
      */
     public function removeFieldFromSelect($field, $isAlias = false)
@@ -390,8 +393,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Standard resource collection initialization
      *
-     * @param string $model
-     * @param string $resourceModel
+     * @param  string $model
+     * @param  string $resourceModel
      * @return $this
      */
     protected function _init($model, $resourceModel = null)
@@ -408,7 +411,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Set model name for collection items
      *
-     * @param string $model
+     * @param  string $model
      * @return $this
      */
     public function setModel($model)
@@ -424,7 +427,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Get model instance
      *
-     * @param array $args
+     * @param  array  $args
      * @return string
      */
     public function getModelName($args = [])
@@ -469,7 +472,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Retrieve table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
     public function getTable($table)
@@ -484,6 +487,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     public function getAllIds()
     {
         $idsSelect = clone $this->getSelect();
@@ -500,6 +504,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * @return array
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     public function getData()
     {
         if ($this->_data === null) {
@@ -544,8 +549,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      * Join table to collection select
      *
      * @param  array|string|Zend_Db_Expr $table Table name
-     * @param  string $cond Join on this condition
-     * @param  array|string $cols The columns to select from the joined table
+     * @param  string                    $cond  Join on this condition
+     * @param  array|string              $cols  The columns to select from the joined table
      * @return $this
      * @throws Zend_Db_Select_Exception
      */
@@ -578,6 +583,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeLoad()
     {
         parent::_beforeLoad();
@@ -594,7 +600,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Set reset items data changed flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setResetItemsDataChanged($flag)
@@ -610,7 +616,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     public function resetItemsDataChanged()
     {
-        /** @var Varien_Object $item */
         foreach ($this->_items as $item) {
             $item->setDataChanges(false);
         }
@@ -623,10 +628,10 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();
-        /** @var Varien_Object $item */
         foreach ($this->_items as $item) {
             $item->setOrigData();
             if ($this->_resetItemsDataChanged) {
@@ -639,6 +644,20 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             Mage::dispatchEvent($this->_eventPrefix . '_load_after', [
                 $this->_eventObject => $this,
             ]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Delete all the entities in the collection
+     *
+     * @return $this
+     */
+    public function delete()
+    {
+        foreach ($this->getItems() as $item) {
+            $item->delete();
         }
 
         return $this;
@@ -663,6 +682,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      *
      * @return bool
      */
+    #[Override]
     protected function _canUseCache()
     {
         return Mage::app()->useCache('collections') && !empty($this->_cacheConf);
@@ -671,9 +691,10 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Load cached data for select
      *
-     * @param Zend_Db_Select $select
+     * @param  Zend_Db_Select $select
      * @return false|string
      */
+    #[Override]
     protected function _loadCache($select)
     {
         return Mage::app()->loadCache($this->_getSelectCacheId($select));
@@ -682,10 +703,11 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Save collection data to cache
      *
-     * @param array $data
-     * @param Zend_Db_Select $select
+     * @param  array          $data
+     * @param  Zend_Db_Select $select
      * @return $this
      */
+    #[Override]
     protected function _saveCache($data, $select)
     {
         Mage::app()->saveCache(serialize($data), $this->_getSelectCacheId($select), $this->_getCacheTags());
@@ -697,6 +719,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      *
      * @return array
      */
+    #[Override]
     protected function _getCacheTags()
     {
         $tags = parent::_getCacheTags();
@@ -707,8 +730,8 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Format Date to internal database date format
      *
-     * @param null|bool|int|string|Zend_Date $date
-     * @param bool $includeTime
+     * @param  null|bool|int|string|Zend_Date $date
+     * @param  bool                           $includeTime
      * @return string
      */
     public function formatDate($date, $includeTime = true)

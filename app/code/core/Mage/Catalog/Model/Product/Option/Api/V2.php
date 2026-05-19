@@ -17,11 +17,12 @@ class Mage_Catalog_Model_Product_Option_Api_V2 extends Mage_Catalog_Model_Produc
     /**
      * Add custom option to product
      *
-     * @param string $productId
-     * @param array $data
-     * @param null|int|string $store
+     * @param  string          $productId
+     * @param  array           $data
+     * @param  null|int|string $store
      * @return bool
      */
+    #[Override]
     public function add($productId, $data, $store = null)
     {
         Mage::helper('api')->toArray($data);
@@ -31,11 +32,12 @@ class Mage_Catalog_Model_Product_Option_Api_V2 extends Mage_Catalog_Model_Produc
     /**
      * Update product custom option data
      *
-     * @param string $optionId
-     * @param array $data
-     * @param null|int|string $store
+     * @param  string          $optionId
+     * @param  array           $data
+     * @param  null|int|string $store
      * @return bool
      */
+    #[Override]
     public function update($optionId, $data, $store = null)
     {
         Mage::helper('api')->toArray($data);
@@ -45,10 +47,11 @@ class Mage_Catalog_Model_Product_Option_Api_V2 extends Mage_Catalog_Model_Produc
     /**
      * Retrieve list of product custom options
      *
-     * @param string $productId
-     * @param null|int|string $store
+     * @param  string          $productId
+     * @param  null|int|string $store
      * @return array
      */
+    #[Override]
     public function items($productId, $store = null)
     {
         $result = parent::items($productId, $store);

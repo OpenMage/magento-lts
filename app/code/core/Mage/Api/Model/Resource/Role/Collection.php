@@ -15,7 +15,7 @@
 class Mage_Api_Model_Resource_Role_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Resource collection initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,7 +25,7 @@ class Mage_Api_Model_Resource_Role_Collection extends Mage_Core_Model_Resource_D
     /**
      * Aet user filter
      *
-     * @param int|string $userId
+     * @param  int|string $userId
      * @return $this
      */
     public function setUserFilter($userId)

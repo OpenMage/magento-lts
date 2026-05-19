@@ -37,7 +37,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     protected $_regionTable;
 
     /**
-     * Define resource model and item
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -52,7 +52,8 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
      *
      * @return $this
      */
-    public function _initSelect()
+    #[Override]
+    protected function _initSelect()
     {
         parent::_initSelect();
 
@@ -79,7 +80,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     /**
      * Add website filter to collection
      *
-     * @param int $websiteId
+     * @param  int   $websiteId
      * @return $this
      */
     public function setWebsiteFilter($websiteId)
@@ -90,7 +91,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     /**
      * Add condition name (code) filter to collection
      *
-     * @param string $conditionName
+     * @param  string $conditionName
      * @return $this
      */
     public function setConditionFilter($conditionName)
@@ -101,7 +102,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     /**
      * Add country filter to collection
      *
-     * @param string $countryId
+     * @param  string $countryId
      * @return $this
      */
     public function setCountryFilter($countryId)

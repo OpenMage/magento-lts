@@ -14,16 +14,18 @@
  */
 class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = true;
+
     /**
      * Render specified template
      *
      * @param string $tplName
-     * @param array $data parameters required by template
+     * @param array  $data    parameters required by template
      */
     protected function _outTemplate($tplName, $data = [])
     {
         $this->_initLayoutMessages('adminhtml/session');
-        $block = $this->getLayout()->createBlock('adminhtml/template')->setTemplate("$tplName.phtml");
+        $block = $this->getLayout()->createBlock('adminhtml/template')->setTemplate("{$tplName}.phtml");
         foreach ($data as $index => $value) {
             $block->assign($index, $value);
         }
@@ -36,6 +38,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     /**
      * Admin area entry point
      * Always redirects to the startup page url
+     * @return void
      */
     public function indexAction()
     {
@@ -51,6 +54,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Administrator login action
+     * @return void
      */
     public function loginAction()
     {
@@ -59,15 +63,13 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             return;
         }
 
-        $loginData = $this->getRequest()->getParam('login');
-        $username = (is_array($loginData) && array_key_exists('username', $loginData)) ? $loginData['username'] : null;
-
         $this->loadLayout();
         $this->renderLayout();
     }
 
     /**
      * Administrator logout action
+     * @return void
      */
     public function logoutAction()
     {
@@ -82,6 +84,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Global Search Action
+     * @return void
      */
     public function globalSearchAction()
     {
@@ -95,7 +98,6 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 'name' => Mage::helper('adminhtml')->__('Access Denied'),
                 'description' => Mage::helper('adminhtml')->__('You have not enough permissions to use this functionality.'),
             ];
-            $totalCount = 1;
         } elseif (empty($searchModules)) {
             $items[] = [
                 'id' => 'error',
@@ -103,7 +105,6 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 'name' => Mage::helper('adminhtml')->__('No search modules were registered'),
                 'description' => Mage::helper('adminhtml')->__('Please make sure that all global admin search modules are installed and activated.'),
             ];
-            $totalCount = 1;
         } else {
             $start = $this->getRequest()->getParam('start', 1);
             $limit = $this->getRequest()->getParam('limit', 10);
@@ -127,8 +128,6 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                     ->getResults();
                 $items = array_merge_recursive($items, $results);
             }
-
-            $totalCount = count($items);
         }
 
         $block = $this->getLayout()->createBlock('adminhtml/template')
@@ -140,6 +139,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Example action
+     * @return void
      */
     public function exampleAction()
     {
@@ -148,6 +148,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Test action
+     * @return void
      */
     public function testAction()
     {
@@ -156,6 +157,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Change locale action
+     * @return void
      */
     public function changeLocaleAction()
     {
@@ -169,6 +171,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Denied JSON action
+     * @return void
      */
     public function deniedJsonAction()
     {
@@ -188,6 +191,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Denied IFrame action
+     * @return void
      */
     public function deniedIframeAction()
     {
@@ -205,6 +209,9 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Forgot administrator password action
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function forgotpasswordAction()
     {
@@ -214,9 +221,11 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $email = (string) $this->getRequest()->getParam('email');
 
             if ($this->_validateFormKey()) {
-                if (!empty($email)) {
+                if ($email !== '') {
                     // Validate received data to be an email address
-                    if (Zend_Validate::is($email, 'EmailAddress')) {
+                    /** @var Mage_Core_Helper_Validate $validator */
+                    $validator = Mage::helper('core/validate');
+                    if ($validator->validateEmail(value: $email)->count() === 0) {
                         $collection = Mage::getResourceModel('admin/user_collection');
                         /** @var Mage_Admin_Model_Resource_User_Collection $collection */
                         $collection->addFieldToFilter('email', $email);
@@ -246,9 +255,9 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                             );
                         $this->_redirect('*/*/login');
                         return;
-                    } else {
-                        $this->_getSession()->addError($this->__('Invalid email address.'));
                     }
+
+                    $this->_getSession()->addError($this->__('Invalid email address.'));
                 } else {
                     $this->_getSession()->addError($this->__('The email address is empty.'));
                 }
@@ -265,6 +274,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      * Display reset forgotten password form
      *
      * User is redirected on this action when he clicks on the corresponding link in password reset confirmation email
+     * @return void
      */
     public function resetPasswordAction()
     {
@@ -288,6 +298,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      * Reset forgotten password
      *
      * Used to handle data received from reset forgotten password form
+     * @return void
      */
     public function resetPasswordPostAction()
     {
@@ -326,7 +337,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $errorMessages = array_merge($errorMessages, $validationErrorMessages);
         }
 
-        if (!empty($errorMessages)) {
+        if ($errorMessages !== []) {
             foreach ($errorMessages as $errorMessage) {
                 $this->_getSession()->addError($errorMessage);
             }
@@ -362,8 +373,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     /**
      * Check if password reset token is valid
      *
-     * @param int $userId
-     * @param string $resetPasswordLinkToken
+     * @param  int                 $userId
+     * @param  string              $resetPasswordLinkToken
      * @throws Mage_Core_Exception
      */
     protected function _validateResetPasswordLinkToken($userId, $resetPasswordLinkToken)
@@ -390,22 +401,12 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Check if user has permissions to access this controller
-     *
-     * @return true
-     */
-    protected function _isAllowed()
-    {
-        return true;
-    }
-
-    /**
      * Retrieve model object
      *
-     * @link    Mage_Core_Model_Config::getModelInstance
-     * @param   string $modelClass
-     * @param   array|object $arguments
-     * @return  false|Mage_Core_Model_Abstract
+     * @param  string                         $modelClass
+     * @param  array|object                   $arguments
+     * @return false|Mage_Core_Model_Abstract
+     * @link   Mage_Core_Model_Config::getModelInstance()
      */
     protected function _getModel($modelClass = '', $arguments = [])
     {

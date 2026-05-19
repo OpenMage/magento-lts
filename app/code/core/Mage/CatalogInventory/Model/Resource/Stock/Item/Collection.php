@@ -14,6 +14,9 @@
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock_item');
@@ -22,7 +25,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     /**
      * Add stock filter to collection
      *
-     * @param mixed $stock
+     * @param  mixed $stock
      * @return $this
      */
     public function addStockFilter($stock)
@@ -39,21 +42,17 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     /**
      * Add product filter to collection
      *
-     * @param array|Mage_Catalog_Model_Resource_Product_Collection $products
+     * @param  array|Mage_Catalog_Model_Resource_Product_Collection $products
      * @return $this
      */
     public function addProductsFilter($products)
     {
         $productIds = [];
         foreach ($products as $product) {
-            if ($product instanceof Mage_Catalog_Model_Product) {
-                $productIds[] = $product->getId();
-            } else {
-                $productIds[] = $product;
-            }
+            $productIds[] = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
         }
 
-        if (empty($productIds)) {
+        if ($productIds === []) {
             $productIds[] = false;
             $this->_setIsLoaded(true);
         }
@@ -65,7 +64,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     /**
      * Join Stock Status to collection
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function joinStockStatus($storeId = null)
@@ -85,7 +84,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     /**
      * Add Managed Stock products filter to collection
      *
-     * @param bool $isStockManagedInConfig
+     * @param  bool  $isStockManagedInConfig
      * @return $this
      */
     public function addManagedFilter($isStockManagedInConfig)
@@ -102,8 +101,8 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     /**
      * Add filter by quantity to collection
      *
-     * @param string $comparsionMethod
-     * @param float $qty
+     * @param  string $comparsionMethod
+     * @param  float  $qty
      * @return $this
      */
     public function addQtyFilter($comparsionMethod, $qty)
@@ -128,6 +127,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _initSelect()
     {
         return parent::_initSelect()->getSelect()

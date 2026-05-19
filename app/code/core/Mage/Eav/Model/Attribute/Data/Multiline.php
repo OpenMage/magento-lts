@@ -17,27 +17,27 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
     /**
      * Extract data from request and return value
      *
-     * @return array|string
+     * @return array|false
      */
+    #[Override]
     public function extractValue(Zend_Controller_Request_Http $request)
     {
         $value = $this->_getRequestValue($request);
         if (!is_array($value)) {
-            $value = false;
-        } else {
-            $value = array_map([$this, '_applyInputFilter'], $value);
+            return false;
         }
 
-        return $value;
+        return array_map($this->_applyInputFilter(...), $value);
     }
 
     /**
      * Validate data
      * Return true or array of errors
      *
-     * @param array|string $value
+     * @param  array|string $value
      * @return array|bool
      */
+    #[Override]
     public function validateValue($value)
     {
         $errors     = [];
@@ -86,6 +86,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      *
      * @inheritDoc
      */
+    #[Override]
     public function compactValue($value)
     {
         if (is_array($value)) {
@@ -98,9 +99,10 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
     /**
      * Restore attribute value from SESSION to entity model
      *
-     * @param array|string $value
+     * @param  array|string                       $value
      * @return Mage_Eav_Model_Attribute_Data_Text
      */
+    #[Override]
     public function restoreValue($value)
     {
         return $this->compactValue($value);
@@ -109,10 +111,11 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
     /**
      * Return formatted attribute value from entity model
      *
-     * @param string $format
+     * @param  string              $format
      * @return array|string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {
         $values = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
@@ -120,7 +123,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
             $values = explode("\n", (string) $values);
         }
 
-        $values = array_map([$this, '_applyOutputFilter'], $values);
+        $values = array_map($this->_applyOutputFilter(...), $values);
         return match ($format) {
             Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY => $values,
             Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_HTML => implode('<br />', $values),

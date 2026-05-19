@@ -5,6 +5,7 @@
  * @license    Academic Free License (AFL 3.0)
  * @package     base_default
  */
+
 /** @var Mage_Wishlist_Block_Render_Item_Price $this */
 ?>
 
@@ -16,6 +17,6 @@
 <?php if ($product->canConfigure()): ?>
     <p class="configured-price">
         <span class="price-label"><?php echo Mage::helper('wishlist')->__('Configured Price:') ?></span>
-        <span class="price"><?php echo Mage::helper('core')->currency($finalPrice, true, false); ?></span>
+        <span class="price"><?php echo Mage::helper('core')::currency($finalPrice, true, false); ?></span>
     </p>
 <?php endif ?>

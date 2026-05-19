@@ -13,10 +13,11 @@
  * @package    Mage_ImportExport
  *
  * @property resource $_fileHandler
- * @property string $_delimiter
- * @property string $_enclosure
- * @property string $_escape
+ * @property string   $_delimiter
+ * @property string   $_enclosure
+ * @property string   $_escape
  */
+#[AllowDynamicProperties]
 abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
 {
     /**
@@ -43,7 +44,7 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
     /**
      * Adapter object constructor.
      *
-     * @param string $destination OPTIONAL Destination file path
+     * @param  string    $destination OPTIONAL Destination file path
      * @throws Exception
      */
     final public function __construct($destination = null)
@@ -81,7 +82,7 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
     /**
      * Method called as last step of object instance creation. Can be overridden in child classes.
      *
-     * @return Mage_ImportExport_Model_Export_Adapter_Abstract
+     * @return $this
      */
     protected function _init()
     {
@@ -131,7 +132,7 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
     /**
      * Set column names.
      *
-     * @return Mage_ImportExport_Model_Export_Adapter_Abstract
+     * @return $this
      * @throws Exception
      */
     public function setHeaderCols(array $headerCols)

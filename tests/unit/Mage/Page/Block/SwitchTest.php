@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
-use Mage;
+use Override;
 use Mage_Page_Block_Switch as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
@@ -19,6 +19,7 @@ final class SwitchTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

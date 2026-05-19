@@ -14,6 +14,9 @@
  */
 class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/customer_group', 'customer_group_id');
@@ -24,6 +27,7 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
      *
      * @return $this
      */
+    #[Override]
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = [
@@ -41,6 +45,7 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
      * @return Mage_Core_Model_Resource_Db_Abstract
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeDelete(Mage_Core_Model_Abstract $group)
     {
         /** @var Mage_Customer_Model_Group $group */
@@ -56,6 +61,7 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
      *
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
+    #[Override]
     protected function _afterDelete(Mage_Core_Model_Abstract $group)
     {
         $customerCollection = Mage::getResourceModel('customer/customer_collection')

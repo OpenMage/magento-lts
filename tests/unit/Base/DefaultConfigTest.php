@@ -28,7 +28,7 @@ final class DefaultConfigTest extends TestCase
     }
 
 
-    public function provideGetStoreConfig(): Generator
+    public static function provideGetStoreConfig(): Generator
     {
         yield Mage_Adminhtml_Helper_Dashboard_Data::XML_PATH_ENABLE_CHARTS => [
             '1',

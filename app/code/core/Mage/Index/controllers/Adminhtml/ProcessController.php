@@ -39,6 +39,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Display processes grid action
+     * @return void
      */
     public function listAction()
     {
@@ -51,6 +52,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Process detail and edit action
+     * @return void
      */
     public function editAction()
     {
@@ -77,6 +79,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Save process data
+     * @return void
      */
     public function saveAction()
     {
@@ -93,11 +96,11 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
                 $this->_getSession()->addSuccess(
                     Mage::helper('index')->__('The index has been saved.'),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addException(
-                    $e,
+                    $exception,
                     Mage::helper('index')->__('There was a problem with saving process.'),
                 );
             }
@@ -113,6 +116,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Reindex all data what process is responsible
+     * @return void
      */
     public function reindexProcessAction()
     {
@@ -127,11 +131,11 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
                 $this->_getSession()->addSuccess(
                     Mage::helper('index')->__('%s index was rebuilt.', $process->getIndexer()->getName()),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addException(
-                    $e,
+                    $exception,
                     Mage::helper('index')->__('There was a problem with reindexing process.'),
                 );
             }
@@ -146,16 +150,19 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Reindex pending events for index process
+     * @return void
      */
     public function reindexEventsAction() {}
 
     /**
      * Rebiuld all processes index
+     * @return void
      */
     public function reindexAllAction() {}
 
     /**
      * Mass rebuild selected processes index
+     * @return void
      */
     public function massReindexAction()
     {
@@ -179,10 +186,10 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
                 $this->_getSession()->addSuccess(
                     Mage::helper('index')->__('Total of %d index(es) have reindexed data.', $counter),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                $this->_getSession()->addException($e, Mage::helper('index')->__('Cannot initialize the indexer process.'));
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addException($exception, Mage::helper('index')->__('Cannot initialize the indexer process.'));
             }
         }
 
@@ -191,6 +198,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
     /**
      * Mass change index mode of selected processes index
+     * @return void
      */
     public function massChangeModeAction()
     {
@@ -213,10 +221,10 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
                 $this->_getSession()->addSuccess(
                     Mage::helper('index')->__('Total of %d index(es) have changed index mode.', $counter),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                $this->_getSession()->addException($e, Mage::helper('index')->__('Cannot initialize the indexer process.'));
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addException($exception, Mage::helper('index')->__('Cannot initialize the indexer process.'));
             }
         }
 

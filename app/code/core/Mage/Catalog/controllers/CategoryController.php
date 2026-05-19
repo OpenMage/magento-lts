@@ -57,22 +57,10 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Initialize requested category object
-     *
-     * @return Mage_Catalog_Model_Category
-     * @throws Mage_Core_Exception
-     * @deprecated use method _initCategory
-     */
-    protected function _initCatagory()
-    {
-        return $this->_initCategory();
-    }
-
-    /**
      * Recursively apply custom design settings to category if it's option
      * custom_use_parent_settings is set to 1 while parent option is not
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param Mage_Catalog_Model_Category   $category
      * @param Mage_Core_Model_Layout_Update $update
      *
      * @return $this
@@ -106,6 +94,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
     /**
      * Category view action
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function viewAction()
@@ -134,11 +123,9 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
             $this->loadLayoutUpdates();
 
             // apply custom layout update once layout is loaded
-            if ($layoutUpdates = $settings->getLayoutUpdates()) {
-                if (is_array($layoutUpdates)) {
-                    foreach ($layoutUpdates as $layoutUpdate) {
-                        $update->addUpdate($layoutUpdate);
-                    }
+            if (($layoutUpdates = $settings->getLayoutUpdates()) && is_array($layoutUpdates)) {
+                foreach ($layoutUpdates as $layoutUpdate) {
+                    $update->addUpdate($layoutUpdate);
                 }
             }
 

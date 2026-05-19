@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox extends Mage_Admin
     /**
      * @return string
      */
+    #[Override]
     public function getHtml()
     {
         return '<span class="head-massaction">' . parent::getHtml() . '</span>';
@@ -25,6 +26,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox extends Mage_Admin
     /**
      * @return array[]
      */
+    #[Override]
     protected function _getOptions()
     {
         return [
@@ -44,17 +46,18 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox extends Mage_Admin
     }
 
     /**
-     * @return null|array
+     * @inheritDoc
      */
+    #[Override]
     public function getCondition()
     {
         if ($this->getValue()) {
             return $this->getColumn()->getValue();
-        } else {
-            return [
-                ['neq' => $this->getColumn()->getValue()],
-                ['is' => new Zend_Db_Expr('NULL')],
-            ];
         }
+
+        return [
+            ['neq' => $this->getColumn()->getValue()],
+            ['is' => new Zend_Db_Expr('NULL')],
+        ];
     }
 }

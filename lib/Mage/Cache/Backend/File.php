@@ -35,6 +35,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+use Carbon\Carbon;
+
 /**
  * Optimized file cache backend
  *
@@ -45,7 +47,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Default options for the File cache adapter
      *
-     *  @var array
+     * @var array
      */
     protected $_options = [
         'cache_dir'              => null,    // Path to cache files
@@ -95,10 +97,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
 
         // Validate prefix
-        if (isset($this->_options['file_name_prefix'])) {
-            if (!preg_match('~^[a-zA-Z0-9_]+$~D', $this->_options['file_name_prefix'])) {
-                Zend_Cache::throwException('Invalid file_name_prefix : must use only [a-zA-Z0-9_]');
-            }
+        if (isset($this->_options['file_name_prefix']) && !preg_match('~^[\w]+$~D', $this->_options['file_name_prefix'])) {
+            Zend_Cache::throwException('Invalid file_name_prefix : must use only [\w]');
         }
 
         // See #ZF-4422
@@ -117,11 +117,12 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Trying to load cached value by id, in case of failure will return false, in other case will return cached string
      *
-     * @param  string  $id                     Cache id
-     * @param  bool $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param string $id                     Cache id
+     * @param bool   $doNotTestCacheValidity If set to true, the cache validity won't be tested
      *
      * @return bool|string Cached data or false
      */
+    #[Override]
     public function load($id, $doNotTestCacheValidity = false)
     {
         $file  = $this->_file($id);
@@ -131,7 +132,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
 
         [$metadatas, $data] = $cache;
-        if (!$doNotTestCacheValidity && time() > $metadatas['expire']) {
+        if (!$doNotTestCacheValidity && Carbon::now()->getTimestamp() > $metadatas['expire']) {
             // ?? $this->remove($id);
             return false;
         }
@@ -158,37 +159,32 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Note : $data must be a "string" (serialization is done by the
      * core not by the backend)
      *
-     * @param  string   $data             Data to cache
-     * @param  string   $id               Cache id
-     * @param  array    $tags             Array of strings, the cache record will be tagged by each string entry
-     * @param  bool|int $specificLifetime If != false, set a specific lifetime for this cache record
-     *                                    (null => infinite lifetime)
+     * @param string   $data             Data to cache
+     * @param string   $id               Cache id
+     * @param array    $tags             Array of strings, the cache record will be tagged by each string entry
+     * @param bool|int $specificLifetime If != false, set a specific lifetime for this cache record
+     *                                   (null => infinite lifetime)
      *
      * @return bool In case of success returns true
      */
+    #[Override]
     public function save($data, $id, $tags = [], $specificLifetime = false)
     {
         $file = $this->_file($id);
         $path = $this->_path($id);
-        if ($this->_options['hashed_directory_level'] > 0) {
+        if ($this->_options['hashed_directory_level'] > 0 && !is_writable($path)) {
+            // maybe, we just have to build the directory structure
+            $this->_recursiveMkdirAndChmod($id);
             if (!is_writable($path)) {
-                // maybe, we just have to build the directory structure
-                $this->_recursiveMkdirAndChmod($id);
-                if (!is_writable($path)) {
-                    return false;
-                }
+                return false;
             }
         }
 
-        if ($this->_options['read_control']) {
-            $hash = $this->_hash($data, $this->_options['read_control_type']);
-        } else {
-            $hash = '';
-        }
+        $hash = $this->_options['read_control'] ? $this->_hash($data, $this->_options['read_control_type']) : '';
 
         $metadatas = [
             'hash'   => $hash,
-            'mtime'  => time(),
+            'mtime'  => Carbon::now()->getTimestamp(),
             'expire' => $this->_expireTime($this->getLifetime($specificLifetime)),
             'tags'   => implode(',', $tags),
         ];
@@ -200,10 +196,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Remove a cache record
      *
-     * @param  string $id Cache id
+     * @param string $id Cache id
      *
      * @return bool In case of success returns true
      */
+    #[Override]
     public function remove($id)
     {
         $file      = $this->_file($id);
@@ -231,11 +228,12 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * 'matchingAnyTag' => remove cache entries matching any given tags
      *                     ($tags can be an array of strings or a single string)
      *
-     * @param  string $mode
-     * @param  array $tags
+     * @param string $mode
+     * @param array  $tags
      *
      * @return bool In case of success returns true
      */
+    #[Override]
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
         // We use this protected method to hide the recursive stuff
@@ -253,6 +251,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     public function getTags()
     {
         $prefix    = $this->_tagFile('');
@@ -270,10 +269,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * In case of multiple tags, a logical AND is made between tags
      *
-     * @param  array $tags Array of tags
+     * @param array $tags Array of tags
      *
      * @return array Array of matching cache ids (string)
      */
+    #[Override]
     public function getIdsMatchingTags($tags = [])
     {
         return $this->_getIdsByTags(Zend_Cache::CLEANING_MODE_MATCHING_TAG, $tags);
@@ -284,10 +284,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * In case of multiple tags, a logical OR is made between tags
      *
-     * @param  array $tags Array of tags
+     * @param array $tags Array of tags
      *
      * @return array Array of not matching cache ids (string)
      */
+    #[Override]
     public function getIdsNotMatchingTags($tags = [])
     {
         return $this->_getIdsByTags(Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG, $tags);
@@ -298,10 +299,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * In case of multiple tags, a logical OR is made between tags
      *
-     * @param  array $tags Array of tags
+     * @param array $tags Array of tags
      *
      * @return array Array of any matching cache ids (string)
      */
+    #[Override]
     public function getIdsMatchingAnyTags($tags = [])
     {
         return $this->_getIdsByTags(Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG, $tags);
@@ -315,10 +317,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * - tags : a string array of tags
      * - mtime : timestamp of last modification time
      *
-     * @param  string $id Cache id
+     * @param string $id Cache id
      *
      * @return array Array of metadatas (false if the cache id is not found)
      */
+    #[Override]
     public function getMetadatas($id)
     {
         $metadatas = $this->_getCache($this->_file($id), false);
@@ -332,11 +335,12 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Give (if possible) an extra lifetime to the given cache id
      *
-     * @param  string $id Cache id
-     * @param  int $extraLifetime
+     * @param string $id            Cache id
+     * @param int    $extraLifetime
      *
      * @return bool In case of success returns true
      */
+    #[Override]
     public function touch($id, $extraLifetime)
     {
         $file  = $this->_file($id);
@@ -346,13 +350,13 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
 
         [$metadatas, $data] = $cache;
-        if (time() > $metadatas['expire']) {
+        if (Carbon::now()->getTimestamp() > $metadatas['expire']) {
             return false;
         }
 
         $newMetadatas = [
             'hash'   => $metadatas['hash'],
-            'mtime'  => time(),
+            'mtime'  => Carbon::now()->getTimestamp(),
             'expire' => $metadatas['expire'] + $extraLifetime,
             'tags'   => $metadatas['tags'],
         ];
@@ -363,8 +367,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Get a metadatas record and optionally the data as well
      *
-     * @param  string $file  Cache file
-     * @param  bool $withData
+     * @param  string     $file     Cache file
+     * @param  bool       $withData
      * @return array|bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -410,10 +414,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Get meta data from a cache record
      *
-     * @param  string $id Cache id
+     * @param string $id Cache id
      *
      * @return array|bool Associative array of meta data
      */
+    #[Override]
     protected function _getMetadatas($id)
     {
         return $this->_getCache($this->_file($id), false);
@@ -422,12 +427,13 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Set a metadatas record
      *
-     * @param  string  $id        Cache id
-     * @param  array   $metadatas Associative array of metadatas
-     * @param  bool $save      Optional pass false to disable saving to file
+     * @param string $id        Cache id
+     * @param array  $metadatas Associative array of metadatas
+     * @param bool   $save      Optional pass false to disable saving to file
      *
      * @return bool In case of success returns true
      */
+    #[Override]
     protected function _setMetadatas($id, $metadatas, $save = true)
     {
         // TODO - implement for unit tests ___expire method
@@ -439,11 +445,12 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * Uses multiple letters for a single-level hash rather than multiple levels
      *
-     * @param  string  $id    Cache id
-     * @param  bool $parts If true, returns array of directory parts instead of single string
+     * @param string $id    Cache id
+     * @param bool   $parts If true, returns array of directory parts instead of single string
      *
      * @return array|string Complete directory path
      */
+    #[Override]
     protected function _path($id, $parts = false)
     {
         $partsArray = [];
@@ -478,11 +485,12 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param string $mode Clean mode
      * @param array  $tags
      *
-     * @return bool In case of success returns true
+     * @return bool                 In case of success returns true
      * @throws Zend_Cache_Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _clean($dir, $mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
         if (!is_dir($dir)) {
@@ -516,15 +524,15 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 }
 
                 if ($mode == Zend_Cache::CLEANING_MODE_OLD) {
-                    if (time() > $metadatas['expire']) {
+                    if (Carbon::now()->getTimestamp() > $metadatas['expire']) {
                         $result = $this->_remove($file) && $result;
                         $result = $this->_updateIdsTags([$id], explode(',', $metadatas['tags']), 'diff') && $result;
                     }
 
                     continue;
-                } else {
-                    Zend_Cache::throwException('Invalid mode for clean() method.');
                 }
+
+                Zend_Cache::throwException('Invalid mode for clean() method.');
             }
 
             if (is_dir($file) && $this->_options['hashed_directory_level'] > 0) {
@@ -559,10 +567,10 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG => remove cache entries matching any given tags
      *                                               ($tags can be an array of strings or a single string)
      *
-     * @param  string $mode Clean mode
-     * @param  array  $tags Array of tags
+     * @param string $mode Clean mode
+     * @param array  $tags Array of tags
      *
-     * @return bool In case of success returns true
+     * @return bool                 In case of success returns true
      * @throws Zend_Cache_Exception
      */
     protected function _cleanNew($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
@@ -651,7 +659,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Make and return a file name (with path)
      *
-     * @param  string $id Cache id
+     * @param string $id Cache id
      *
      * @return string File name (with path)
      */
@@ -672,10 +680,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         $path = $this->_options['cache_dir'] . DIRECTORY_SEPARATOR . $this->_options['file_name_prefix'] . '-tags'
                     . DIRECTORY_SEPARATOR;
         if (!$this->_isTagDirChecked) {
-            if (!is_dir($path)) {
-                if (@mkdir($path, $this->_options['use_chmod'] ? $this->_options['directory_mode'] : 0777) && $this->_options['use_chmod']) {
-                    @chmod($path, $this->_options['directory_mode']); // see #ZF-320 (this line is required in some configurations)
-                }
+            if (!is_dir($path)
+                && (@mkdir($path, $this->_options['use_chmod'] ? $this->_options['directory_mode'] : 0777) && $this->_options['use_chmod'])
+            ) {
+                @chmod($path, $this->_options['directory_mode']);
+                // see #ZF-320 (this line is required in some configurations)
             }
 
             $this->_isTagDirChecked = true;
@@ -741,11 +750,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                         flock($fd, LOCK_EX);
                     }
 
-                    if ($mode == 'diff') {
-                        $_ids = array_diff($this->_getTagIds($fd), $ids);
-                    } else {
-                        $_ids = array_merge($this->_getTagIds($fd), $ids);
-                    }
+                    $_ids = $mode == 'diff' ? array_diff($this->_getTagIds($fd), $ids) : array_merge($this->_getTagIds($fd), $ids);
 
                     fseek($fd, 0);
                     ftruncate($fd, 0);
@@ -769,13 +774,14 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Put the given string into the given file
      *
-     * @param  string $file   File complete path
-     * @param  string $string String to put in file
+     * @param string $file   File complete path
+     * @param string $string String to put in file
      *
      * @return bool In case of success returns true
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _filePutContents($file, $string)
     {
         $result = @file_put_contents($file, $string, $this->_options['file_locking'] ? LOCK_EX : 0);
@@ -789,11 +795,12 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Make the directory structure for the given id
      *
-     * @param string $id cache id
-     * @return bool true
+     * @param  string $id cache id
+     * @return bool   true
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _recursiveMkdirAndChmod($id)
     {
         if ($this->_options['hashed_directory_level'] <= 0) {
@@ -818,6 +825,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @param $id
      */
+    #[Override]
     public function ___expire($id)
     {
         $metadata = $this->_getMetadatas($id);

@@ -22,6 +22,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
 
     /**
      * Process validate payment data action
+     * @return void
      */
     public function validatePaymentDataAction()
     {
@@ -36,10 +37,10 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
             $validator->reset();
             $this->_getPayment()->importData($paymentData);
             $result['authenticationUrl'] = $validator->getAuthenticationStartUrl();
-        } catch (Mage_Core_Exception $e) {
-            $result['message'] = $e->getMessage();
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $result['message'] = $mageCoreException->getMessage();
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $result['message'] = Mage::helper('centinel')->__('Validation failed.');
         }
 
@@ -48,6 +49,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
 
     /**
      * Process authentication start action
+     * @return void
      */
     public function authenticationStartAction()
     {
@@ -60,6 +62,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
 
     /**
      * Process authentication complete action
+     * @return void
      */
     public function authenticationCompleteAction()
     {

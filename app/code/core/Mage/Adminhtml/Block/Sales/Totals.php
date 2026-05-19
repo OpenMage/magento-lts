@@ -15,9 +15,10 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
     /**
      * Format total value based on order currency
      *
-     * @param   Varien_Object $total
-     * @return  string
+     * @param  Varien_Object $total
+     * @return string
      */
+    #[Override]
     public function formatValue($total)
     {
         if (!$total->getIsFormated()) {
@@ -36,8 +37,9 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
     /**
      * Initialize order totals array
      *
-     * @return Mage_Sales_Block_Order_Totals
+     * @return $this
      */
+    #[Override]
     protected function _initTotals()
     {
         $this->_totals = [];

@@ -24,7 +24,9 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
 
     /**
      * Start edit order initialization
+     * @return void
      */
+    #[Override]
     public function startAction()
     {
         $this->_getSession()->clear();
@@ -44,18 +46,20 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
             $this->_getSession()->setUseOldShippingMethod(true);
             $this->_getOrderCreateModel()->initFromOrder($order);
             $this->_redirect('*/*');
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
             $this->_redirect('*/sales_order/view', ['order_id' => $orderId]);
-        } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addException($e, $e->getMessage());
+        } catch (Exception $exception) {
+            Mage::getSingleton('adminhtml/session')->addException($exception, $exception->getMessage());
             $this->_redirect('*/sales_order/view', ['order_id' => $orderId]);
         }
     }
 
     /**
      * Index page
+     * @return void
      */
+    #[Override]
     public function indexAction()
     {
         $this->_title($this->__('Sales'))->_title($this->__('Orders'))->_title($this->__('Edit Order'));

@@ -15,6 +15,9 @@
  */
 class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Mode
 {
+    /**
+     * @return array<int, array<string, string>>
+     */
     public function toOptionArray()
     {
         return [

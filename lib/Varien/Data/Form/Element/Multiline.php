@@ -10,7 +10,7 @@
 /**
  * Form multiline text elements
  *
- * @method int getLineCount()
+ * @method int   getLineCount()
  * @method $this setLineCount(int $value)
  */
 class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstract
@@ -27,17 +27,19 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
     }
 
     /**
-     * @return array
+     * @return array<int, string>
      */
+    #[Override]
     public function getHtmlAttributes()
     {
         return ['type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'maxlength'];
     }
 
     /**
-     * @param string $idSuffix
+     * @param  string $idSuffix
      * @return string
      */
+    #[Override]
     public function getLabelHtml($idSuffix = '0')
     {
         return parent::getLabelHtml($idSuffix);
@@ -48,6 +50,7 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $html = '';
@@ -76,6 +79,7 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
     /**
      * @return string
      */
+    #[Override]
     public function getDefaultHtml()
     {
         $html = '';

@@ -14,10 +14,8 @@ describe(`Checks admin system "${test.section.title}" settings`, () => {
         validation.fillFields(fields, validation.requiredEntry);
         validation.removeClasses(fields);
 
-        const message = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
-        const screenshot = 'message.sytem.config.catalog.sitemap.saveEmptyWithoutJs';
         cy.openmage.test.backend.system.config.clickSave();
-        validation.hasErrorMessage(message, { screenshot: true, filename: screenshot });
+        validation.hasErrorMessage( 'An error occurred while saving this configuration: The priority must be between 0 and 1.');
     });
 
     it(`tests invalid string priority`, () => {

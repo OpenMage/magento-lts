@@ -84,8 +84,9 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     protected $_position = 0;
 
     /**
-     * Set default template
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('page/template/linksblock.phtml');
@@ -114,9 +115,8 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Set first list flag
      *
-     * @param bool $value
-     * return Mage_Page_Block_Template_Links_Block
-     * @return Mage_Page_Block_Template_Links_Block
+     * @param  bool  $value
+     * @return $this
      */
     public function setIsFirst($value)
     {
@@ -137,9 +137,8 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Set last list flag
      *
-     * @param bool $value
-     * return Mage_Page_Block_Template_Links_Block
-     * @return Mage_Page_Block_Template_Links_Block
+     * @param  bool  $value
+     * @return $this
      */
     public function setIsLast($value)
     {
@@ -180,14 +179,16 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Prepare tag attributes
      *
-     * @param array|string $params
+     * @param  array|string $params
      * @return string
      */
     protected function _prepareParams($params)
     {
         if (is_string($params)) {
             return $params;
-        } elseif (is_array($params)) {
+        }
+
+        if (is_array($params)) {
             $result = '';
             foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';

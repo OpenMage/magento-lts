@@ -14,6 +14,10 @@
  */
 class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_Resource_Product_Collection
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -84,6 +88,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
      *
      * @return $this
      */
+    #[Override]
     public function addGroupByTag()
     {
         $this->getSelect()
@@ -96,7 +101,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add product filter
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addProductFilter($customerId)
@@ -108,12 +113,9 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     }
 
     /**
-     * Set order
-     *
-     * @param string $attribute
-     * @param string $dir
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
         if (in_array($attribute, ['utaged', 'taged', 'tag_name'])) {
@@ -130,6 +132,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
      *
      * @return $this
      */
+    #[Override]
     protected function _joinFields()
     {
         $this->addAttributeToSelect('name');

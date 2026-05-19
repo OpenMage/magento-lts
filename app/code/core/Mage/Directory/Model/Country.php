@@ -12,29 +12,32 @@
  *
  * @package    Mage_Directory
  *
- * @method Mage_Directory_Model_Resource_Country _getResource()
- * @method string getCode()
+ * @method Mage_Directory_Model_Resource_Country            _getResource()
+ * @method string                                           getCode()
  * @method Mage_Directory_Model_Resource_Country_Collection getCollection()
- * @method string getCountryId()
- * @method string getIso2Code()
- * @method string getIso3Code()
- * @method Mage_Directory_Model_Resource_Country getResource()
+ * @method string                                           getCountryId()
+ * @method string                                           getIso2Code()
+ * @method string                                           getIso3Code()
+ * @method Mage_Directory_Model_Resource_Country            getResource()
  * @method Mage_Directory_Model_Resource_Country_Collection getResourceCollection()
- * @method $this setCountryId(string $value)
- * @method $this setIso2Code(string $value)
- * @method $this setIso3Code(string $value)
+ * @method $this                                            setCountryId(string $value)
+ * @method $this                                            setIso2Code(string $value)
+ * @method $this                                            setIso3Code(string $value)
  */
 class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 {
     public static $_format = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('directory/country');
     }
 
     /**
-     * @param string $code
+     * @param  string              $code
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -73,7 +76,7 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param bool $html
+     * @param  bool   $html
      * @return string
      */
     public function formatAddress(Varien_Object $address, $html = false)
@@ -104,12 +107,10 @@ T: {{telephone}}';
         $addressText = $filter->setData($address->getData())->filter($template);
 
         if ($html) {
-            $addressText = preg_replace('#(<br\s*/?>\s*){2,}#im', '<br/>', $addressText);
-        } else {
-            $addressText = preg_replace('#(\n\s*){2,}#m', "\n", $addressText);
+            return preg_replace('#(<br\s*/?>\s*){2,}#im', '<br/>', $addressText);
         }
 
-        return $addressText;
+        return preg_replace('#(\n\s*){2,}#m', "\n", $addressText);
     }
 
     /**
@@ -132,7 +133,7 @@ T: {{telephone}}';
     /**
      * Retrieve format
      *
-     * @param string $type
+     * @param  string                                   $type
      * @return null|Mage_Directory_Model_Country_Format
      */
     public function getFormat($type)
@@ -153,13 +154,13 @@ T: {{telephone}}';
      */
     public function getName()
     {
-        if (!$this->getData('name')) {
+        if (!$this->getDataByKey('name')) {
             $this->setData(
                 'name',
                 Mage::app()->getLocale()->getCountryTranslation($this->getId()),
             );
         }
 
-        return $this->getData('name');
+        return $this->getDataByKey('name');
     }
 }

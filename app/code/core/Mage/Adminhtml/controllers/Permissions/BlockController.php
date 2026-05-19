@@ -35,6 +35,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -51,6 +52,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
     /**
      * New action
+     * @return void
      */
     public function newAction()
     {
@@ -60,6 +62,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
     /**
      * Edit action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function editAction()
@@ -90,11 +93,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
         Mage::register('permissions_block', $model);
 
-        if ($id) {
-            $breadcrumb = $this->__('Edit Block');
-        } else {
-            $breadcrumb = $this->__('New Block');
-        }
+        $breadcrumb = $id ? $this->__('Edit Block') : $this->__('New Block');
 
         $this->_initAction()
             ->_addBreadcrumb($breadcrumb, $breadcrumb);
@@ -108,9 +107,8 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
     /**
      * Save action
      *
-     * @return $this|void
+     * @return null|$this
      * @throws Mage_Core_Exception
-     * @throws Zend_Validate_Exception
      */
     public function saveAction()
     {
@@ -120,7 +118,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
             if (!$model->getId() && $id) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This block no longer exists.'));
                 $this->_redirect('*/*/');
-                return;
+                return null;
             }
 
             $model->setData($data);
@@ -147,7 +145,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
 
                 $this->_redirect('*/*/');
-                return;
+                return null;
             } catch (Exception $exception) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
@@ -155,15 +153,17 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
                 $this->_redirect('*/*/edit', ['block_id' => $id]);
-                return;
+                return null;
             }
         }
 
         $this->_redirect('*/*/');
+        return null;
     }
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -189,6 +189,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
     /**
      * Grid action
+     * @return void
      */
     public function blockGridAction()
     {
@@ -203,6 +204,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -15,13 +17,14 @@
  * @method string getKeywords()
  * @method string getRobots()
  * @method string getTitle()
- * @method $this setContentType(string $value)
+ * @method $this  setContentType(string $value)
  */
 class Mage_Core_Block_Text_Tag_Meta extends Mage_Core_Block_Text
 {
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->getContentType()) {

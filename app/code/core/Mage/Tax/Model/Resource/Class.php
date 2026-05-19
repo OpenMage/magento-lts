@@ -14,7 +14,7 @@
  */
 class Mage_Tax_Model_Resource_Class extends Mage_Core_Model_Resource_Db_Abstract
 {
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('tax/tax_class', 'class_id');
     }
@@ -24,6 +24,7 @@ class Mage_Tax_Model_Resource_Class extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = [[

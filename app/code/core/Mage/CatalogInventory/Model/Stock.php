@@ -14,8 +14,8 @@
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock getResource()
- * @method string getStockName()
- * @method $this setStockName(string $value)
+ * @method string                                     getStockName()
+ * @method $this                                      setStockName(string $value)
  */
 class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 {
@@ -36,6 +36,9 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 
     public const DEFAULT_STOCK_ID          = 1;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock');
@@ -46,6 +49,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      *
      * @return int
      */
+    #[Override]
     public function getId()
     {
         return self::DEFAULT_STOCK_ID;
@@ -54,8 +58,8 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Add stock item objects to products
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
-     * @return  Mage_CatalogInventory_Model_Stock
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @return $this
      */
     public function addItemsToProducts($productCollection)
     {
@@ -93,7 +97,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Prepare array($productId=>$qty) based on array($productId => array('qty'=>$qty, 'item'=>$stockItem))
      *
-     * @param array $items
+     * @param  array $items
      * @return array
      */
     protected function _prepareProductQtys($items)
@@ -119,7 +123,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      * Subtract product qtys from stock.
      * Return array of items that require full save
      *
-     * @param array $items
+     * @param  array $items
      * @return array
      */
     public function registerProductsSale($items)
@@ -153,8 +157,8 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param array $items
-     * @return Mage_CatalogInventory_Model_Stock
+     * @param  array $items
+     * @return $this
      */
     public function revertProductsSale($items)
     {
@@ -166,7 +170,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Subtract ordered qty for product
      *
-     * @return  Mage_CatalogInventory_Model_Stock
+     * @return $this
      */
     public function registerItemSale(Varien_Object $item)
     {
@@ -193,8 +197,8 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Get back to stock (when order is canceled or whatever else)
      *
-     * @param int $productId
-     * @param float $qty
+     * @param  int   $productId
+     * @param  float $qty
      * @return $this
      */
     public function backItemQty($productId, $qty)
@@ -216,8 +220,8 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Lock stock items for product ids array
      *
-     * @param   array $productIds
-     * @return  Mage_CatalogInventory_Model_Stock
+     * @param  array $productIds
+     * @return $this
      */
     public function lockProductItems($productIds)
     {
@@ -228,8 +232,8 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     /**
      * Adds filtering for collection to return only in stock products
      *
-     * @param Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
-     * @return $this $this
+     * @param  Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
+     * @return $this                                                       $this
      */
     public function addInStockFilterToCollection($collection)
     {

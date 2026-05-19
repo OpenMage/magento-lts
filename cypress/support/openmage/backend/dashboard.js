@@ -9,7 +9,7 @@ test.config = {
     _: '#nav-admin-dashboard',
     _nav: '#nav-admin-dashboard',
     _title: 'h3.head-dashboard',
-    url: 'dashboard/index',
+    url: 'admin/dashboard',
     index: {},
 }
 

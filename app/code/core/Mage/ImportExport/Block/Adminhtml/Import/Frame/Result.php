@@ -43,9 +43,9 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
     /**
      * Add action for response.
      *
-     * @param string $actionName
-     * @param array|string $elementId
-     * @param mixed $value OPTIONAL
+     * @param  string       $actionName
+     * @param  array|string $elementId
+     * @param  mixed        $value      OPTIONAL
      * @return $this
      */
     public function addAction($actionName, $elementId, $value = null)
@@ -70,7 +70,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
     /**
      * Add error message.
      *
-     * @param string $message Error message
+     * @param  string $message Error message
      * @return $this
      */
     public function addError($message)
@@ -89,8 +89,8 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
     /**
      * Add notice message.
      *
-     * @param mixed $message Message text
-     * @param bool $appendImportButton OPTIONAL Append import button to message?
+     * @param  mixed $message            Message text
+     * @param  bool  $appendImportButton OPTIONAL Append import button to message?
      * @return $this
      */
     public function addNotice($message, $appendImportButton = false)
@@ -109,8 +109,8 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
     /**
      * Add success message.
      *
-     * @param mixed $message Message text
-     * @param bool $appendImportButton OPTIONAL Append import button to message?
+     * @param  mixed $message            Message text
+     * @param  bool  $appendImportButton OPTIONAL Append import button to message?
      * @return $this
      */
     public function addSuccess($message, $appendImportButton = false)

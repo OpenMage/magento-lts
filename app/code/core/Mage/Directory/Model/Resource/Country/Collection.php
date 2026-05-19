@@ -12,12 +12,13 @@
  *
  * @package    Mage_Directory
  *
- * @property Mage_Directory_Model_Country[] $_items
- * @method  Mage_Directory_Model_Country getFirstItem()
- * @method  Mage_Directory_Model_Country getLastItem()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Directory_Model_Country>
  */
 class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('directory/country');
@@ -26,8 +27,8 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     /**
      * Get Store Config
      *
-     * @param string $path
-     * @param null|mixed $store
+     * @param  string     $path
+     * @param  null|mixed $store
      * @return string
      */
     protected function _getStoreConfig($path, $store = null)
@@ -38,13 +39,13 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     /**
      * Load allowed countries for specific store
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return $this
      */
     public function loadByStore($store = null)
     {
         $allowCountries = explode(',', (string) $this->_getStoreConfig('general/country/allow', $store));
-        if (!empty($allowCountries)) {
+        if ($allowCountries !== []) {
             $this->addFieldToFilter('country_id', ['in' => $allowCountries]);
         }
 
@@ -54,9 +55,10 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     /**
      * Loads Item By Id
      *
-     * @param string $idValue
+     * @param  string                                                             $idValue
      * @return Mage_Directory_Model_Country|Mage_Directory_Model_Resource_Country
      */
+    #[Override]
     public function getItemById($idValue)
     {
         foreach ($this->_items as $country) {
@@ -74,8 +76,8 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * $iso can be either array containing 'iso2', 'iso3' values or string with containing one of that values directly.
      * The collection will contain countries where at least one of country $iso fields matches $countryCode.
      *
-     * @param array|string $countryCode
-     * @param array|string $iso
+     * @param  array|string $countryCode
+     * @param  array|string $iso
      * @return $this
      */
     public function addCountryCodeFilter($countryCode, $iso = ['iso3', 'iso2'])
@@ -110,7 +112,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     /**
      * Add filter by country code(s) to collection
      *
-     * @param array|string $countryId
+     * @param  array|string $countryId
      * @return $this
      */
     public function addCountryIdFilter($countryId)
@@ -129,9 +131,10 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     /**
      * Convert collection items to select options array
      *
-     * @param false|string $emptyLabel
+     * @param  false|string $emptyLabel
      * @return array
      */
+    #[Override]
     public function toOptionArray($emptyLabel = ' ')
     {
         $options = $this->_toOptionArray('country_id', 'name', ['title' => 'iso2_code']);

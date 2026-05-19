@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -14,6 +16,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    #[Override]
     protected function _prepareLayout()
     {
         $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element');

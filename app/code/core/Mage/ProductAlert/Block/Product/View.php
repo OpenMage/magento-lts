@@ -63,6 +63,7 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $product = Mage::registry('current_product');

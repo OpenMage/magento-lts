@@ -19,6 +19,7 @@ class Mage_Core_Block_Text_Tag_Css_Admin extends Mage_Core_Block_Text_Tag_Css
     /**
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -27,10 +28,11 @@ class Mage_Core_Block_Text_Tag_Css_Admin extends Mage_Core_Block_Text_Tag_Css
     }
 
     /**
-     * @param string $href
-     * @param null|string $type
+     * @param  string      $href
+     * @param  null|string $type
      * @return $this
      */
+    #[Override]
     public function setHref($href, $type = null)
     {
         $type = (string) $type;

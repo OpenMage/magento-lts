@@ -27,7 +27,7 @@
             <?php foreach ($this->getItems() as $item): ?>
                 <tr id="item_<?php echo $item->getId();?>">
                     <?php foreach ($columns as $column): ?>
-                        <td><?php $column->setItem($item); echo $column->toHtml($item);?></td>
+                        <td><?php $column->setItem($item); echo $column->toHtml();?></td>
                     <?php endforeach ?>
                 </tr>
             <?php endforeach ?>

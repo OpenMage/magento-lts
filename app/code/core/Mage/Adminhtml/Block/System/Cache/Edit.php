@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -35,7 +36,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Save Cache Settings'),
                     'onclick'   => 'configForm.submit()',
-                    'class' => 'save',
+                    'class'     => 'save',
                 ]),
         );
         return parent::_prepareLayout();
@@ -71,7 +72,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve Catalog Tools Data
      *
-     * @return array
+     * @return array<string, array<string, mixed>>
      */
     public function getCatalogData()
     {

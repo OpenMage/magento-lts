@@ -65,7 +65,11 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
         }
 
         foreach ($oldRules as $rule) {
-            if (!isset($ratesByType[$rule['tax_rate_type_id']]) || $ratesByType[$rule['tax_rate_type_id']] === []) {
+            if (!isset($ratesByType[$rule['tax_rate_type_id']])) {
+                continue;
+            }
+
+            if ($ratesByType[$rule['tax_rate_type_id']] === []) {
                 continue;
             }
 
@@ -96,7 +100,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
     /**
      * Load Tax Table Data
      *
-     * @param string $table
+     * @param  string $table
      * @return array
      */
     protected function _loadTableData($table)
@@ -110,7 +114,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
     /**
      * Load Old Rate Data
      *
-     * @param array $oldRateTypes
+     * @param  array $oldRateTypes
      * @return array
      * @deprecated since 1.5.0.0
      */

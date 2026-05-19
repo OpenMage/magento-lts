@@ -32,6 +32,7 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
      *
      * @return string
      */
+    #[Override]
     public function getTypeCode()
     {
         return Mage_Catalog_Model_Product_Type::TYPE_BUNDLE;
@@ -40,8 +41,9 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
     /**
      * Get child link table and field settings
      *
-     * @return array
+     * @return array<string, string>
      */
+    #[Override]
     protected function _getLinkSettings()
     {
         return [
@@ -54,12 +56,12 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
     /**
      * Prepare select statement before 'fetchLinkInformation' function result fetch
      *
-     * @param int $store
+     * @param int    $store
      * @param string $table
      * @param string $idField
      * @param string $whereField
-     * @param int $id
-     * @param array $additionalWheres
+     * @param int    $id
+     * @param array  $additionalWheres
      */
     protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {

@@ -42,9 +42,10 @@ class Magento_Profiler_Output_Html extends Magento_Profiler_OutputAbstract
     /**
      * Render timer id column value
      *
-     * @param string $timerId
+     * @param  string $timerId
      * @return string
      */
+    #[Override]
     protected function _renderTimerId($timerId)
     {
         $nestingSep = preg_quote(Magento_Profiler::NESTING_SEPARATOR, '/');

@@ -30,6 +30,7 @@ class Varien_Data_Form_Element_Note extends Varien_Data_Form_Element_Abstract
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $html = '<span id="' . $this->getHtmlId() . '">' . $this->getText() . '</span>';

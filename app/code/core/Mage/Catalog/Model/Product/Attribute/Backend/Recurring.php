@@ -16,9 +16,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Recurring extends Mage_Eav_Mo
 {
     /**
      * Serialize or remove before saving
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
+    #[Override]
     public function beforeSave($product)
     {
         if ($product->hasIsRecurring()) {
@@ -34,9 +35,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Recurring extends Mage_Eav_Mo
 
     /**
      * Unserialize or remove on failure
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
+    #[Override]
     protected function _unserialize(Varien_Object $product)
     {
         if ($product->hasIsRecurring()) {

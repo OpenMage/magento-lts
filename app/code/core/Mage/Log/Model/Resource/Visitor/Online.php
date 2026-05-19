@@ -14,6 +14,9 @@
  */
 class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('log/visitor_online', 'visitor_id');
@@ -26,7 +29,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
      */
     public function prepare(Mage_Log_Model_Visitor_Online $object)
     {
-        if (($object->getUpdateFrequency() + $object->getPrepareAt()) > time()) {
+        if (($object->getUpdateFrequency() + $object->getPrepareAt()) > Mage::helper('core/clock')->getTimestamp()) {
             return $this;
         }
 

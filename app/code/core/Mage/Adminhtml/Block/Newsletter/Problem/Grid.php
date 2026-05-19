@@ -14,16 +14,23 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Problem_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_newsletter_problem_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('problemGrid');
+        $this->setDefaultSort('problem_id');
         $this->setSaveParametersInSession(true);
-        $this->setMessageBlockVisibility(true);
+        $this->setMessageBlockVisibility();
         $this->setUseAjax(true);
         $this->setEmptyText(Mage::helper('newsletter')->__('No problems found.'));
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('newsletter/problem_collection')
@@ -35,6 +42,11 @@ class Mage_Adminhtml_Block_Newsletter_Problem_Grid extends Mage_Adminhtml_Block_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('checkbox', [

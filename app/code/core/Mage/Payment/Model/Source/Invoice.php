@@ -15,7 +15,7 @@
 class Mage_Payment_Model_Source_Invoice
 {
     /**
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function toOptionArray()
     {

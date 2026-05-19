@@ -12,7 +12,7 @@
  *
  * @package    Mage_Downloadable
  *
- * @method bool getCanReadPrice()
+ * @method bool  getCanReadPrice()
  * @method $this setCanEditPrice(bool $value)
  * @method $this setCanReadPrice(bool $value)
  */
@@ -134,14 +134,13 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Return array of links
      *
-     * @return array
+     * @return Varien_Object[]
      */
     public function getLinkData()
     {
         $linkArr = [];
         /** @var Mage_Downloadable_Model_Product_Type $productType */
         $productType = $this->getProduct()->getTypeInstance(true);
-        /** @var Mage_Downloadable_Model_Link[] $links */
         $links = $productType->getLinks($this->getProduct());
         $priceWebsiteScope = Mage::helper('downloadable')->getIsPriceWebsiteScope();
         foreach ($links as $item) {
@@ -223,7 +222,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Return formatted price with two digits after decimal point
      *
-     * @param float $value
+     * @param  float  $value
      * @return string
      */
     public function getPriceValue($value)
@@ -244,6 +243,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Prepare block Layout
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -276,7 +276,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Retrieve config json
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getConfigJson($type = 'links')
@@ -294,9 +294,10 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
+    #[Override]
     public function getBrowseButtonHtml($type = '')
     {
         return $this->getChild('browse_button')
@@ -310,9 +311,10 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
+    #[Override]
     public function getDeleteButtonHtml($type = '')
     {
         return $this->getChild('delete_button')

@@ -85,7 +85,7 @@ class Mage_Checkout_Block_Total_Nominal extends Mage_Checkout_Block_Total_Defaul
     /**
      * Format an amount without container
      *
-     * @param float $amount
+     * @param  float  $amount
      * @return string
      */
     public function formatPrice($amount)
@@ -98,6 +98,7 @@ class Mage_Checkout_Block_Total_Nominal extends Mage_Checkout_Block_Total_Defaul
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $total = $this->getTotal();

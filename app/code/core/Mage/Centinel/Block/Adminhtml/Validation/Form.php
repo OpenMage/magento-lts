@@ -17,17 +17,19 @@ class Mage_Centinel_Block_Adminhtml_Validation_Form extends Mage_Adminhtml_Block
     /**
      * Prepare validation and template parameters
      */
+    #[Override]
     protected function _toHtml()
     {
         $payment = $this->getQuote()->getPayment();
-        if ($payment && $method = $payment->getMethodInstance()) {
-            if ($method->getIsCentinelValidationEnabled() && $centinel = $method->getCentinelValidator()) {
-                $this->setFrameUrl($centinel->getValidatePaymentDataUrl())
-                    ->setContainerId('centinel_authenticate_iframe')
-                    ->setMethodCode($method->getCode())
-                ;
-                return parent::_toHtml();
-            }
+        if ($payment
+            && ($method = $payment->getMethodInstance())
+            && ($method->getIsCentinelValidationEnabled() && $centinel = $method->getCentinelValidator())
+        ) {
+            $this->setFrameUrl($centinel->getValidatePaymentDataUrl())
+                ->setContainerId('centinel_authenticate_iframe')
+                ->setMethodCode($method->getCode())
+            ;
+            return parent::_toHtml();
         }
 
         return '';

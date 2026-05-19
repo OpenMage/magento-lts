@@ -1,0 +1,214 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * USPS Address Verification Controller
+ *
+ * Handles AJAX requests for address verification during checkout.
+ *
+ * @category    Mage
+ * @package     Mage_Usa
+ */
+class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
+{
+    protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service $_addressService = null;
+
+    /**
+     * Get address service instance
+     */
+    protected function _getAddressService(): Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service
+    {
+        if (!$this->_addressService instanceof Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service) {
+            $this->_addressService = Mage::getModel('usa/shipping_carrier_usps_address_service');
+        }
+
+        return $this->_addressService;
+    }
+
+    /**
+     * Verify an address via USPS API
+     *
+     * POST parameters:
+     * - street1: Primary street address
+     * - street2: Secondary address (apt, suite, etc.)
+     * - city: City name
+     * - region: State/Province code
+     * - postcode: ZIP code
+     */
+    public function verifyAction(): void
+    {
+        $result = [
+            'status' => 'error',
+            'message' => '',
+            'original' => [],
+            'corrected' => null,
+            'corrections' => [],
+            'warnings' => [],
+        ];
+
+        try {
+            // Validate form key
+            if (!$this->_validateFormKey()) {
+                $result['message'] = $this->__('Invalid form key. Please refresh the page.');
+                $this->_sendJsonResponse($result);
+                return;
+            }
+
+            // Check if verification is enabled
+            $addressService = $this->_getAddressService();
+            if (!$addressService->isEnabled()) {
+                // Silently pass through if disabled
+                $result['status'] = 'exact';
+                $this->_sendJsonResponse($result);
+                return;
+            }
+
+            // Build address data from POST
+            $addressData = [
+                'street1' => trim($this->getRequest()->getPost('street1', '')),
+                'street2' => trim($this->getRequest()->getPost('street2', '')),
+                'city' => trim($this->getRequest()->getPost('city', '')),
+                'region' => trim($this->getRequest()->getPost('region', '')),
+                'postcode' => trim($this->getRequest()->getPost('postcode', '')),
+            ];
+
+            // Store original for comparison
+            $result['original'] = $addressData;
+
+            // Validate required fields
+            if ($addressData['street1'] === '') {
+                $result['message'] = $this->__('Street address is required.');
+                $this->_sendJsonResponse($result);
+                return;
+            }
+
+            if ($addressData['city'] === '' && $addressData['postcode'] === '') {
+                $result['message'] = $this->__('City or ZIP code is required.');
+                $this->_sendJsonResponse($result);
+                return;
+            }
+
+            // Verify address using array-based method
+            $verificationResult = $addressService->verifyFromArray($addressData);
+
+            if ($verificationResult['success']) {
+                $status = $verificationResult['status'];
+                $result['status'] = $status;
+                $result['warnings'] = $verificationResult['warnings'] ?? [];
+
+                if ($status === Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service::MATCH_CORRECTED) {
+                    // Address was corrected
+                    $result['corrected'] = $verificationResult['corrected'];
+                    $result['corrections'] = $this->_buildCorrections($addressData, $verificationResult['corrected']);
+                    $result['message'] = $this->__('USPS suggests corrections to your address.');
+                } elseif ($status === Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service::MATCH_EXACT) {
+                    $result['message'] = $this->__('Address verified successfully.');
+                } elseif ($status === Mage_Usa_Model_Shipping_Carrier_Usps_Address_Service::MATCH_MULTIPLE) {
+                    $result['message'] = $this->__('Multiple addresses match. Please be more specific.');
+                } else {
+                    $result['status'] = 'invalid';
+                    $result['message'] = $this->__('Address could not be verified.');
+                }
+            } else {
+                $result['status'] = 'error';
+                $result['message'] = $verificationResult['error'] ?? $this->__('Address verification failed.');
+            }
+
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $result['status'] = 'error';
+            $result['message'] = $this->__('An error occurred during address verification.');
+        }
+
+        $this->_sendJsonResponse($result);
+    }
+
+    /**
+     * Apply address correction to session/quote
+     *
+     * POST parameters: Same as verifyAction
+     */
+    public function applyAction(): void
+    {
+        $result = [
+            'success' => false,
+            'message' => '',
+        ];
+
+        try {
+            // Validate form key
+            if (!$this->_validateFormKey()) {
+                $result['message'] = $this->__('Invalid form key. Please refresh the page.');
+                $this->_sendJsonResponse($result);
+                return;
+            }
+
+            // Build corrected address from POST
+            $correctedAddress = [
+                'street1' => trim($this->getRequest()->getPost('street1', '')),
+                'street2' => trim($this->getRequest()->getPost('street2', '')),
+                'city' => trim($this->getRequest()->getPost('city', '')),
+                'region' => trim($this->getRequest()->getPost('region', '')),
+                'postcode' => trim($this->getRequest()->getPost('postcode', '')),
+            ];
+
+            // Apply correction to quote via service
+            $addressService = $this->_getAddressService();
+            $applyResult = $addressService->applyCorrectionToQuote($correctedAddress);
+
+            $result['success'] = $applyResult['success'];
+            $result['message'] = $applyResult['message'] ?? ($applyResult['success'] ? $this->__('Address updated.') : $this->__('Failed to update address.'));
+
+            // Include updated form values for JS to populate
+            if ($result['success']) {
+                $result['address'] = $correctedAddress;
+            }
+
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $result['message'] = $this->__('An error occurred while applying the correction.');
+        }
+
+        $this->_sendJsonResponse($result);
+    }
+
+    /**
+     * Build corrections array showing what changed
+     *
+     * @param  array<string, string>                $original  Original address
+     * @param  array<string, string>                $corrected Corrected address
+     * @return array<string, array<string, string>>
+     */
+    protected function _buildCorrections(array $original, array $corrected): array
+    {
+        $corrections = [];
+        $fields = ['street1', 'street2', 'city', 'region', 'postcode'];
+
+        foreach ($fields as $field) {
+            $origValue = isset($original[$field]) ? strtoupper(trim($original[$field])) : '';
+            $corrValue = isset($corrected[$field]) ? strtoupper(trim($corrected[$field])) : '';
+
+            if ($origValue !== $corrValue) {
+                $corrections[$field] = [
+                    'original' => $original[$field] ?? '',
+                    'corrected' => $corrected[$field] ?? '',
+                ];
+            }
+        }
+
+        return $corrections;
+    }
+
+    /**
+     * Send JSON response and exit
+     *
+     * @param array<string, mixed> $data Response data
+     */
+    protected function _sendJsonResponse(array $data): void
+    {
+        $this->getResponse()
+            ->setHeader('Content-Type', 'application/json', true)
+            ->setBody(Mage::helper('core')->jsonEncode($data));
+    }
+}

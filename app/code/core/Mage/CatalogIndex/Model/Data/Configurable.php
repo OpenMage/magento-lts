@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -32,6 +34,10 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
      */
     protected $_haveParents = false;
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         $this->_init('catalogindex/data_configurable');
@@ -42,6 +48,7 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
      *
      * @return string
      */
+    #[Override]
     public function getTypeCode()
     {
         return Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE;
@@ -50,8 +57,9 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     /**
      * Get child link table and field settings
      *
-     * @return array
+     * @return array<string, string>
      */
+    #[Override]
     protected function _getLinkSettings()
     {
         return [

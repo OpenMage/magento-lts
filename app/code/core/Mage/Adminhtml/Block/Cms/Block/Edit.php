@@ -20,19 +20,28 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
         $this->_controller = 'cms_block';
 
         parent::__construct();
+
+        if ($this->_isAllowedAction('save')) {
+            $this->_addButton(self::BUTTON_TYPE_SAVE_EDIT, [
+                'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
+                'onclick'   => 'saveAndContinueEdit()',
+                'class'     => 'save continue',
+            ], -100);
+        } else {
+            $this->_removeButton(self::BUTTON_TYPE_SAVE);
+        }
+
+        if (!$this->_isAllowedAction('delete')) {
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
+        }
     }
 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
-        $this->_addButton('saveandcontinue', [
-            'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-            'onclick'   => 'saveAndContinueEdit()',
-            'class'     => 'save continue',
-        ], -100);
-
         $this->_formScripts[] = "
             function toggleEditor() {
                 tinymce.execCommand('mceToggleEditor', false, wysiwygblock_content);
@@ -51,6 +60,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('cms_block')->getId()) {
@@ -58,5 +68,13 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
         }
 
         return Mage::helper('cms')->__('New Block');
+    }
+
+    /**
+     * Check permission for passed action
+     */
+    protected function _isAllowedAction(string $action): bool
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('cms/block/' . $action);
     }
 }

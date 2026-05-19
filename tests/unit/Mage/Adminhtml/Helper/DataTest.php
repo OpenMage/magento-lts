@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
+use Override;
 use Mage;
 use Mage_Adminhtml_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -19,6 +20,7 @@ final class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -60,7 +62,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetUrl(): void
     {
-        self::assertIsString(self::$subject->getUrl());
+        self::assertIsString(Subject::getUrl());
     }
 
     /**
@@ -69,7 +71,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetCustomAdminUrl(): void
     {
-        self::assertIsString(self::$subject->getCustomAdminUrl());
+        self::assertIsString(Subject::getCustomAdminUrl());
     }
 
     /**

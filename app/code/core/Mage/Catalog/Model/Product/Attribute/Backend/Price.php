@@ -18,9 +18,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Price extends Mage_Eav_Model_
      * Set Attribute instance
      * Rewrite for redefine attribute scope
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return $this
      */
+    #[Override]
     public function setAttribute($attribute)
     {
         parent::setAttribute($attribute);
@@ -31,7 +32,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Price extends Mage_Eav_Model_
     /**
      * Redefine Attribute scope
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return $this
      */
     public function setScope($attribute)
@@ -48,9 +49,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Price extends Mage_Eav_Model_
     /**
      * After Save Attribute manipulation
      *
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         $value = $object->getData($this->getAttribute()->getAttributeCode());

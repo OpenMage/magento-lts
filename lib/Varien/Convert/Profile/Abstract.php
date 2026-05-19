@@ -84,19 +84,19 @@ abstract class Varien_Convert_Profile_Abstract
         return $this;
     }
 
-    public function addException(Varien_Convert_Exception $e)
+    public function addException(Varien_Convert_Exception $varienConvertException)
     {
-        $this->_exceptions[] = $e;
+        $this->_exceptions[] = $varienConvertException;
         return $this;
     }
 
     public function run()
     {
         if (!$this->_actions) {
-            $e = new Varien_Convert_Exception('Could not find any actions for this profile');
-            $e->setLevel(Varien_Convert_Exception::FATAL);
-            $this->addException($e);
-            return;
+            $exception = new Varien_Convert_Exception('Could not find any actions for this profile');
+            $exception->setLevel(Varien_Convert_Exception::FATAL);
+            $this->addException($exception);
+            return null;
         }
 
         foreach ($this->_actions as $action) {

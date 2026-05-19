@@ -14,15 +14,11 @@
  */
 class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Block construction, prepare grid params
-     *
-     * @param array $arguments Object data
-     */
+    protected string $_eventPrefix = 'adminhtml_cms_page_widget_chooser';
+
     public function __construct($arguments = [])
     {
         parent::__construct($arguments);
-        //$this->setDefaultSort('name');
         $this->setUseAjax(true);
         $this->setDefaultFilter(['chooser_is_active' => '1']);
     }
@@ -30,8 +26,9 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     /**
      * Prepare chooser element HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element Form Element
+     * @param  Varien_Data_Form_Element_Abstract $element Form Element
      * @return Varien_Data_Form_Element_Abstract
+     * @throws Mage_Core_Exception
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
@@ -80,8 +77,9 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     /**
      * Prepare pages collection
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Cms_Model_Resource_Page_Collection $collection */
@@ -95,8 +93,9 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     /**
      * Prepare columns for pages grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('chooser_id', [
@@ -137,6 +136,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
         return parent::_prepareColumns();
     }
 
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/cms_page_widget/chooser', ['_current' => true]);

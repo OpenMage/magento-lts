@@ -17,9 +17,10 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping extends Mage_Ea
     /**
      * Perform operation before save
      *
-     * @param Mage_Sales_Model_Order|Varien_Object $object
+     * @param  Mage_Sales_Model_Order|Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         $shippingAddressId = $object->getShippingAddressId();
@@ -33,9 +34,10 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping extends Mage_Ea
     /**
      * Perform operation after save
      *
-     * @param Mage_Sales_Model_Order|Varien_Object $object
+     * @param  Mage_Sales_Model_Order|Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         $shippingAddressId = false;

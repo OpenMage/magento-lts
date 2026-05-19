@@ -14,16 +14,22 @@
  */
 class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_grid_role';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('roleGrid');
         $this->setSaveParametersInSession(true);
         $this->setDefaultSort('role_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection =  Mage::getModel('admin/roles')->getCollection();
@@ -32,6 +38,11 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('role_id', [
@@ -49,11 +60,20 @@ class Mage_Adminhtml_Block_Permissions_Grid_Role extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/roleGrid', ['_current' => true]);
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Admin_Model_Role $row
+     */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/editrole', ['rid' => $row->getRoleId()]);

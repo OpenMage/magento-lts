@@ -10,19 +10,19 @@ test.config = {
     _nav: '#nav-admin-sales',
     _title: base._title,
     _button: base._button,
-    url: 'sales_invoice/index',
+    url: 'admin/sales_invoice',
     index: {},
     view: {},
 };
 
 /**
  * Configuration for "Invoices" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Invoice',
     url: test.config.url,
-    _grid: '#sales_invoice_grid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'created_at', dir: 'desc' } }},
 }
 
 /**

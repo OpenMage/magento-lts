@@ -13,8 +13,9 @@
  * @package    Mage_Directory
  *
  * @property string $_url
- * @property array $_messages
+ * @property array  $_messages
  */
+#[AllowDynamicProperties]
 abstract class Mage_Directory_Model_Currency_Import_Abstract
 {
     /**
@@ -40,17 +41,17 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
     /**
      * Retrieve rate
      *
-     * @param   string $currencyFrom
-     * @param   string $currencyTo
-     * @return  float
+     * @param  string $currencyFrom
+     * @param  string $currencyTo
+     * @return float
      */
     abstract protected function _convert($currencyFrom, $currencyTo);
 
     /**
      * Saving currency rates
      *
-     * @param   array $rates
-     * @return  Mage_Directory_Model_Currency_Import_Abstract
+     * @param  array $rates
+     * @return $this
      */
     protected function _saveRates($rates)
     {
@@ -67,7 +68,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
     /**
      * Import rates
      *
-     * @return Mage_Directory_Model_Currency_Import_Abstract
+     * @return $this
      */
     public function importRates()
     {
@@ -106,7 +107,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
     }
 
     /**
-     * @param float $number
+     * @param  float $number
      * @return float
      */
     protected function _numberFormat($number)

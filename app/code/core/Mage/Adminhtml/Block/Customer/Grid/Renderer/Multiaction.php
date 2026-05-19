@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Admin
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $html = '';
@@ -38,7 +39,7 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Admin
         }
 
         if ($html == '') {
-            $html = '&nbsp;';
+            return '&nbsp;';
         }
 
         return $html;
@@ -47,9 +48,10 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Admin
     /**
      * Render single action as link html
      *
-     * @param  array $action
+     * @param  array  $action
      * @return string
      */
+    #[Override]
     protected function _toLinkHtml($action, Varien_Object $row)
     {
         $product = $row->getProduct();
@@ -64,8 +66,8 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Admin
             }
 
             return sprintf('<a href="%s" %s %s>%s</a>', $action['url'], $style, $onClick, $action['caption']);
-        } else {
-            return parent::_toLinkHtml($action, $row);
         }
+
+        return parent::_toLinkHtml($action, $row);
     }
 }

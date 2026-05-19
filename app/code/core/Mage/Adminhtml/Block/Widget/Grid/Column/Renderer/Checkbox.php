@@ -26,7 +26,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
     public function getValues()
     {
         if (is_null($this->_values)) {
-            $this->_values = $this->getColumn()->getData('values') ? $this->getColumn()->getData('values') : [];
+            $this->_values = $this->getColumn()->getDataByKey('values') ? $this->getColumn()->getDataByKey('values') : [];
         }
 
         return $this->_values;
@@ -35,8 +35,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $values = $this->getColumn()->getValues();
@@ -66,8 +67,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
     }
 
     /**
-     * @param string $value   Value of the element
-     * @param string $checked Whether it is checked
+     * @param  string $value   Value of the element
+     * @param  string $checked Whether it is checked
      * @return string
      */
     protected function _getCheckboxHtml($value, $checked)
@@ -84,6 +85,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
      *
      * @return string
      */
+    #[Override]
     public function renderHeader()
     {
         if ($this->getColumn()->getHeader()) {

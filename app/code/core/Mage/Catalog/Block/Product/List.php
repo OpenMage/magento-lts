@@ -12,18 +12,18 @@
  *
  * @package    Mage_Catalog
  *
- * @method array getAvailableOrders()
- * @method int getCategoryId()
+ * @method array  getAvailableOrders()
+ * @method int    getCategoryId()
  * @method string getDefaultDirection()
- * @method array getModes()
- * @method bool getShowRootCategory()
+ * @method array  getModes()
+ * @method bool   getShowRootCategory()
  * @method string getSortBy()
  * @method string getToolbarBlockName()
- * @method $this setAvailableOrders(array $value)
- * @method $this setCategoryId(int $value)
- * @method $this setDefaultDirection(string $value)
- * @method $this setModes(array $value)
- * @method $this setSortBy(string $value)
+ * @method $this  setAvailableOrders(array $value)
+ * @method $this  setCategoryId(int $value)
+ * @method $this  setDefaultDirection(string $value)
+ * @method $this  setModes(array $value)
+ * @method $this  setSortBy(string $value)
  */
 class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstract
 {
@@ -105,7 +105,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Retrieve loaded category collection
      *
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function getLoadedProductCollection()
     {
@@ -126,6 +126,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
      * Need use as _prepareLayout - but problem in declaring collection from
      * another block (was problem with search result)
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $toolbar = $this->getToolbarBlock();
@@ -170,10 +171,8 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
      */
     public function getToolbarBlock()
     {
-        if ($blockName = $this->getToolbarBlockName()) {
-            if ($block = $this->getLayout()->getBlock($blockName)) {
-                return $block;
-            }
+        if (($blockName = $this->getToolbarBlockName()) && $block = $this->getLayout()->getBlock($blockName)) {
+            return $block;
         }
 
         return $this->getLayout()->createBlock($this->_defaultToolbarBlock, microtime());
@@ -200,7 +199,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function setCollection($collection)
@@ -210,7 +209,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * @param array|int|Mage_Core_Model_Config_Element|string $code
+     * @param  array|int|Mage_Core_Model_Config_Element|string $code
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -241,7 +240,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Prepare Sort By fields from Category Data
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param  Mage_Catalog_Model_Category $category
      * @return $this
      */
     public function prepareSortableFieldsByCategory($category)
@@ -251,15 +250,13 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         }
 
         $availableOrders = $this->getAvailableOrders();
-        if (!$this->getSortBy()) {
-            if ($categorySortBy = $category->getDefaultSortBy()) {
-                if (!$availableOrders) {
-                    $availableOrders = $this->_getConfig()->getAttributeUsedForSortByArray();
-                }
+        if (!$this->getSortBy() && $categorySortBy = $category->getDefaultSortBy()) {
+            if (!$availableOrders) {
+                $availableOrders = $this->_getConfig()->getAttributeUsedForSortByArray();
+            }
 
-                if (isset($availableOrders[$categorySortBy])) {
-                    $this->setSortBy($categorySortBy);
-                }
+            if (isset($availableOrders[$categorySortBy])) {
+                $this->setSortBy($categorySortBy);
             }
         }
 
@@ -271,6 +268,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(

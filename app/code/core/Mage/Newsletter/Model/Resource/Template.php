@@ -14,6 +14,9 @@
  */
 class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('newsletter/template', 'template_id');
@@ -22,7 +25,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
     /**
      * Load an object by template code
      *
-     * @param string $templateCode
+     * @param  string $templateCode
      * @return $this
      */
     public function loadByCode(Mage_Newsletter_Model_Template $object, $templateCode)
@@ -54,15 +57,11 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getTable('newsletter/queue'), new Zend_Db_Expr('COUNT(queue_id)'))
                 ->where('template_id = :template_id');
-
             $countOfQueue = $this->_getReadAdapter()->fetchOne($select, ['template_id' => $template->getId()]);
-
             return $countOfQueue > 0;
-        } elseif ($template->getIsSystem()) {
-            return false;
-        } else {
-            return true;
         }
+
+        return !$template->getIsSystem();
     }
 
     /**
@@ -87,9 +86,9 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
             $countOfCodes = $this->_getReadAdapter()->fetchOne($select, $bind);
 
             return $countOfCodes > 0;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -98,6 +97,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
      * @param Mage_Newsletter_Model_Template $object
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if ($this->checkCodeUsage($object)) {

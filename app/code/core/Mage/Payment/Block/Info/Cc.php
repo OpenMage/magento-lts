@@ -45,7 +45,7 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
     {
         $month = $this->getInfo()->getCcExpMonth();
         if ($month < 10) {
-            $month = '0' . $month;
+            return '0' . $month;
         }
 
         return $month;
@@ -67,9 +67,10 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
     /**
      * Prepare credit card related payment info
      *
-     * @param array|Varien_Object $transport
+     * @param  array|Varien_Object $transport
      * @return Varien_Object
      */
+    #[Override]
     protected function _prepareSpecificInformation($transport = null)
     {
         if ($this->_paymentSpecificInformation !== null) {
@@ -104,8 +105,8 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
     /**
      * Format year/month on the credit card
      *
-     * @param string $year
-     * @param string $month
+     * @param  string $year
+     * @param  string $month
      * @return string
      */
     protected function _formatCardDate($year, $month)

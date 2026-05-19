@@ -54,7 +54,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get Captcha
      *
-     * @param string $formId
+     * @param  string                  $formId
      * @return Mage_Captcha_Model_Zend
      */
     public function getCaptcha($formId)
@@ -70,8 +70,8 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns value of the node with respect to current area (frontend or backend)
      *
-     * @param string $id The last part of XML_PATH_$area_CAPTCHA_ constant (case-insensitive)
-     * @param Mage_Core_Model_Store $store
+     * @param  string                         $id    The last part of XML_PATH_$area_CAPTCHA_ constant (case-insensitive)
+     * @param  Mage_Core_Model_Store          $store
      * @return Mage_Core_Model_Config_Element
      */
     public function getConfigNode($id, $store = null)
@@ -106,22 +106,22 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get captcha image directory
      *
-     * @param mixed $website
+     * @param  mixed  $website
      * @return string
      */
     public function getImgDir($website = null)
     {
         $websiteCode = Mage::app()->getWebsite($website)->getCode();
         $captchaDir = Mage::getBaseDir('media') . DS . 'captcha' . DS . $websiteCode . DS;
-        $io = new Varien_Io_File();
-        $io->checkAndCreateFolder($captchaDir, 0755);
+        $ioFile = new Varien_Io_File();
+        $ioFile->checkAndCreateFolder($captchaDir, 0755);
         return $captchaDir;
     }
 
     /**
      * Get captcha image base URL
      *
-     * @param mixed $website
+     * @param  mixed  $website
      * @return string
      */
     public function getImgUrl($website = null)

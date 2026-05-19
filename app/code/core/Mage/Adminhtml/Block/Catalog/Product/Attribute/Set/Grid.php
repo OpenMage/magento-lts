@@ -12,6 +12,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_attribute_set_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -24,6 +26,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -37,6 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('set_name', [
@@ -45,13 +49,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
             'index'     => 'attribute_set_name',
         ]);
 
-        return $this;
+        return parent::_prepareColumns();
     }
 
     /**
-     * @param Varien_Object $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Eav_Model_Entity_Attribute_Set $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getAttributeSetId()]);

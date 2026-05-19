@@ -14,8 +14,8 @@
  *
  * @method string getForceLoad()
  * @method string getTitle()
- * @method bool getWysiwyg()
- * @method $this setConfig(Varien_Object $value)
+ * @method bool   getWysiwyg()
+ * @method $this  setConfig(Varien_Object $value)
  */
 class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 {
@@ -39,9 +39,10 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
-        $js = '
+        $str = '
             <script type="text/javascript">
             //<![CDATA[
                 openEditorPopup = function(url, name, specs, parent) {
@@ -88,8 +89,9 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                 . '<textarea name="' . $this->getName() . '" title="' . $this->getTitle()
                 . '" id="' . $this->getHtmlId() . '"'
                 . ' class="textarea ' . $this->getClass() . '" '
+                . ' data-test="' . $this->getTestId() . '"'
                 . $this->serialize($this->getHtmlAttributes()) . ' >' . $this->getEscapedValue() . '</textarea>'
-                . $js . '
+                . $str . '
                 <script type="text/javascript">
                 //<![CDATA[
                     if ("undefined" != typeof(Translator)) {
@@ -114,15 +116,15 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 
             $html = $this->_wrapIntoContainer($html);
             return $html . $this->getAfterElementHtml();
-        } else {
-            // Display only buttons to additional features
-            if ($this->getConfig('widget_window_url') || $this->getConfig('plugins') || $this->getConfig('add_images')) {
-                $html = $this->_getButtonsHtml() . $js . parent::getElementHtml();
-                return $this->_wrapIntoContainer($html);
-            }
-
-            return parent::getElementHtml();
         }
+
+        // Display only buttons to additional features
+        if ($this->getConfig('widget_window_url') || $this->getConfig('plugins') || $this->getConfig('add_images')) {
+            $html = $this->_getButtonsHtml() . $str . parent::getElementHtml();
+            return $this->_wrapIntoContainer($html);
+        }
+
+        return parent::getElementHtml();
     }
 
     /**
@@ -157,7 +159,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     /**
      * Return HTML button to toggling WYSIWYG
      *
-     * @param bool $visible
+     * @param  bool   $visible
      * @return string
      */
     protected function _getToggleButtonHtml($visible = true)
@@ -173,7 +175,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     /**
      * Prepare Html buttons for additional WYSIWYG features
      *
-     * @param bool $visible Display button or not
+     * @param  bool   $visible Display button or not
      * @return string
      */
     protected function _getPluginButtonsHtml($visible = true)
@@ -229,7 +231,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     /**
      * Prepare button options array to create button html
      *
-     * @param array $options
+     * @param  array $options
      * @return array
      */
     protected function _prepareButtonOptions($options)
@@ -246,23 +248,19 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     /**
      * Check if plugin button options have required values
      *
-     * @param array $pluginOptions
+     * @param  array $pluginOptions
      * @return bool
      */
     protected function _checkPluginButtonOptions($pluginOptions)
     {
-        if (!isset($pluginOptions['title'])) {
-            return false;
-        }
-
-        return true;
+        return isset($pluginOptions['title']);
     }
 
     /**
      * Convert options by replacing template constructions ( like {{var_name}} )
      * with data from this element object
      *
-     * @param array $options
+     * @param  array $options
      * @return array
      */
     protected function _prepareOptions($options)
@@ -287,7 +285,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     /**
      * Return custom button HTML
      *
-     * @param array $data Button params
+     * @param  array  $data Button params
      * @return string
      */
     protected function _getButtonHtml($data)
@@ -307,7 +305,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      * Wraps Editor HTML into div if 'use_container' config option is set to true
      * If 'no_display' config option is set to true, the div will be invisible
      *
-     * @param string $html HTML code to wrap
+     * @param  string $html HTML code to wrap
      * @return string
      */
     protected function _wrapIntoContainer($html)
@@ -327,7 +325,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     /**
      * Editor config retriever
      *
-     * @param string $key Config var key
+     * @param  string $key Config var key
      * @return mixed
      */
     public function getConfig($key = null)
@@ -347,7 +345,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     /**
      * Translate string using defined helper
      *
-     * @param string $string String to be translated
+     * @param  string $string String to be translated
      * @return string
      */
     public function translate($string)

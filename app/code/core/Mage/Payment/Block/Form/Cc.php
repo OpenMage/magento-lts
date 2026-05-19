@@ -12,6 +12,10 @@
  */
 class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -29,7 +33,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     }
 
     /**
-     * Retrieve availables credit card types
+     * Retrieve available credit card types
      *
      * @return array
      */
@@ -41,7 +45,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             if ($availableTypes) {
                 $availableTypes = explode(',', $availableTypes);
                 foreach (array_keys($types) as $code) {
-                    if (!in_array($code, $availableTypes)) {
+                    if (!in_array($code, $availableTypes, true)) {
                         unset($types[$code]);
                     }
                 }
@@ -58,7 +62,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
      */
     public function getCcMonths()
     {
-        $months = $this->getData('cc_months');
+        $months = $this->getDataByKey('cc_months');
         if (is_null($months)) {
             $months[0] =  $this->__('Month');
             $months = array_merge($months, $this->_getConfig()->getMonths());
@@ -75,7 +79,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
      */
     public function getCcYears()
     {
-        $years = $this->getData('cc_years');
+        $years = $this->getDataByKey('cc_years');
         if (is_null($years)) {
             $years = $this->_getConfig()->getYears();
             $years = [0 => $this->__('Year')] + $years;
@@ -114,11 +118,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     {
         $availableTypes = explode(',', $this->getMethod()->getConfigData('cctypes'));
         $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
-        if ($availableTypes && $ssPresenations !== []) {
-            return true;
-        }
-
-        return false;
+        return $availableTypes && $ssPresenations !== [];
     }
 
     /*
@@ -131,7 +131,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     public function getSsStartYears()
     {
         $years = [];
-        $first = date('Y');
+        $first = (int) Mage::helper('core/clock')->format('Y');
 
         for ($index = 5; $index >= 0; $index--) {
             $year = $first - $index;
@@ -146,6 +146,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         Mage::dispatchEvent('payment_form_block_to_html_before', [

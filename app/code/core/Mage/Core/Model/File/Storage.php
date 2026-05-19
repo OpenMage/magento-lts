@@ -48,11 +48,13 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    protected function _synchronizeHasErrors(
-        Mage_Core_Model_Abstract $sourceModel,
-        Mage_Core_Model_Abstract $destinationModel
-    ) {
-        return $sourceModel->hasErrors() || $destinationModel->hasErrors();
+    protected function _synchronizeHasErrors(Mage_Core_Model_Abstract $sourceModel, Mage_Core_Model_Abstract $destinationModel)
+    {
+        if ($sourceModel->hasErrors()) {
+            return true;
+        }
+
+        return $destinationModel->hasErrors();
     }
 
     /**
@@ -74,8 +76,8 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      *  init        => bool     - force initialization process for storage model
      * )
      *
-     * @param  null|int $storage
-     * @param  array $params
+     * @param  null|int                                                                      $storage
+     * @param  array                                                                         $params
      * @return false|Mage_Core_Model_File_Storage_Database|Mage_Core_Model_File_Storage_File
      */
     public function getStorageModel($storage = null, $params = [])
@@ -197,7 +199,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     /**
      * Return current media directory, allowed resources for get.php script, etc.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public static function getScriptConfig()
     {

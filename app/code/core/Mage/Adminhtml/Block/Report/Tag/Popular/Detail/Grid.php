@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_tag_popular_detail_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -21,10 +23,9 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Reports_Model_Resource_Tag_Customer_Collection $collection */
@@ -39,10 +40,10 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
     }
 
     /**
-     * Form columns for the grid
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('firstname', [

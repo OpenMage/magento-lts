@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\GiftMessage\Helper;
 
+use Override;
 use Mage;
 use Mage_Core_Model_Store;
 use Mage_GiftMessage_Helper_Message as Subject;
@@ -24,6 +25,7 @@ final class MessageTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -31,8 +33,8 @@ final class MessageTest extends OpenMageTest
     }
 
     /**
+     * @param 'address_item'|'config'|'item'|'items'|'order'|'order_item' $type Message type
      * @dataProvider provideIsMessagesAvailable
-     *
      * @group Helper
      */
     public function testIsMessagesAvailable(string $type, Varien_Object $entity, null|bool|int|Mage_Core_Model_Store|string $store = null): void

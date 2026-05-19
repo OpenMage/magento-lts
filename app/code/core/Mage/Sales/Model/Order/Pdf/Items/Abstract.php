@@ -181,13 +181,15 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
 
     /**
      * Draw item line
+     *
+     * @return void
      */
     abstract public function draw();
 
     /**
      * Format option value process
      *
-     * @param  array|string $value
+     * @param  array|string        $value
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -208,9 +210,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
             }
 
             return  $resultValue;
-        } else {
-            return $value;
         }
+
+        return $value;
     }
 
     /**
@@ -301,7 +303,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set font as regular
      *
-     * @param  int $size
+     * @param  int                    $size
      * @return Zend_Pdf_Resource_Font
      * @throws Mage_Core_Exception
      * @throws Zend_Pdf_Exception
@@ -316,7 +318,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set font as bold
      *
-     * @param  int $size
+     * @param  int                    $size
      * @return Zend_Pdf_Resource_Font
      * @throws Mage_Core_Exception
      * @throws Zend_Pdf_Exception
@@ -331,7 +333,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set font as italic
      *
-     * @param  int $size
+     * @param  int                    $size
      * @return Zend_Pdf_Resource_Font
      * @throws Mage_Core_Exception
      * @throws Zend_Pdf_Exception
@@ -346,15 +348,15 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Return item Sku
      *
-     * @param Mage_Sales_Model_Order_Creditmemo_Item|Mage_Sales_Model_Order_Invoice_Item|Varien_Object $item
+     * @param  Mage_Sales_Model_Order_Creditmemo_Item|Mage_Sales_Model_Order_Invoice_Item|Varien_Object $item
      * @return string
      */
     public function getSku($item)
     {
         if ($item->getOrderItem()->getProductOptionByCode('simple_sku')) {
             return $item->getOrderItem()->getProductOptionByCode('simple_sku');
-        } else {
-            return $item->getSku();
         }
+
+        return $item->getSku();
     }
 }

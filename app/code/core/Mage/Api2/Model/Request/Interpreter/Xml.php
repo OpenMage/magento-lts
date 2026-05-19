@@ -31,7 +31,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
     /**
      * Parse Request body into array of params
      *
-     * @param string $body  Posted content from request
+     * @param  string                        $body Posted content from request
      * @return array
      * @throws Exception|Mage_Api2_Exception
      */
@@ -43,7 +43,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
 
         $body = str_contains($body, '<?xml') ? $body : '<?xml version="1.0"?>' . PHP_EOL . $body;
 
-        set_error_handler([$this, '_loadErrorHandler']); // Warnings and errors are suppressed
+        set_error_handler($this->_loadErrorHandler(...)); // Warnings and errors are suppressed
         $config = simplexml_load_string($body);
         restore_error_handler();
 
@@ -87,11 +87,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
                     $value = $this->_toArray($value);
                 } elseif (count($value->attributes()) > 0) {
                     $attributes = $value->attributes();
-                    if (isset($attributes['value'])) {
-                        $value = (string) $attributes['value'];
-                    } else {
-                        $value = $this->_toArray($value);
-                    }
+                    $value = isset($attributes['value']) ? (string) $attributes['value'] : $this->_toArray($value);
                 } else {
                     $value = (string) $value;
                 }
@@ -116,10 +112,10 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
     /**
      * Handle any errors from load xml
      *
-     * @param int $errno
+     * @param int    $errno
      * @param string $errstr
      * @param string $errfile
-     * @param int $errline
+     * @param int    $errline
      */
     protected function _loadErrorHandler($errno, $errstr, $errfile, $errline)
     {

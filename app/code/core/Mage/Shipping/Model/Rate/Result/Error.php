@@ -23,10 +23,10 @@ class Mage_Shipping_Model_Rate_Result_Error extends Mage_Shipping_Model_Rate_Res
      */
     public function getErrorMessage()
     {
-        if (!$this->getData('error_message')) {
+        if (!$this->getDataByKey('error_message')) {
             $this->setData('error_message', Mage::helper('shipping')->__('This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.'));
         }
 
-        return $this->getData('error_message');
+        return $this->getDataByKey('error_message');
     }
 }

@@ -11,9 +11,14 @@
  * Customer group collection
  *
  * @package    Mage_Customer
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Customer_Model_Group>
  */
 class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/group');
@@ -22,7 +27,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     /**
      * Set tax group filter
      *
-     * @param mixed $classId
+     * @param  mixed $classId
      * @return $this
      */
     public function setTaxGroupFilter($classId)
@@ -38,7 +43,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     /**
      * Set ignore ID filter
      *
-     * @param array $indexes
+     * @param  array $indexes
      * @return $this
      */
     public function setIgnoreIdFilter($indexes)
@@ -79,6 +84,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return parent::_toOptionArray('customer_group_id', 'customer_group_code');
@@ -89,6 +95,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
      *
      * @return array
      */
+    #[Override]
     public function toOptionHash()
     {
         return parent::_toOptionHash('customer_group_id', 'customer_group_code');

@@ -37,6 +37,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
      *
      * @return int
      */
+    #[Override]
     public function getStoreId()
     {
         return $this->getProduct()->getStoreId();
@@ -57,6 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
      *
      * @return array
      */
+    #[Override]
     public function getWebsites()
     {
         return $this->getProduct()->getWebsiteIds();
@@ -65,7 +67,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
     /**
      * Returns whether product associated with website with $websiteId
      *
-     * @param int $websiteId
+     * @param  int  $websiteId
      * @return bool
      */
     public function hasWebsite($websiteId)
@@ -86,7 +88,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
     /**
      * Retrieve store name by its ID
      *
-     * @param int $storeId
+     * @param  int         $storeId
      * @return null|string
      */
     public function getStoreName($storeId)
@@ -97,7 +99,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
     /**
      * Get HTML of store chooser
      *
-     * @param Mage_Core_Model_Store $storeTo
+     * @param  Mage_Core_Model_Store $storeTo
      * @return string
      */
     public function getChooseFromStoreHtml($storeTo)

@@ -16,15 +16,13 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Initialization
-     */
+    protected string $_eventPrefix = 'adminhtml_sales_shipment_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('sales_shipment_grid');
         $this->setDefaultSort('created_at');
-        $this->setDefaultDir('DESC');
     }
 
     /**
@@ -38,10 +36,9 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Prepare and set collection of grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
@@ -50,10 +47,10 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Prepare and add columns to grid
-     *
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', [
@@ -115,25 +112,24 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Get url for row
-     *
-     * @param Mage_Sales_Model_Order_Shipment $row
-     * @return false|string
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Order_Shipment $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
-        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/shipment')) {
-            return false;
+        if ($this->isAllowed('sales/order/shipment')) {
+            return $this->getUrl('*/sales_shipment/view', ['shipment_id' => $row->getId()]);
         }
 
-        return $this->getUrl('*/sales_shipment/view', ['shipment_id' => $row->getId()]);
+        return '';
     }
 
     /**
-     * Prepare and set options for massaction
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('entity_id');
@@ -150,14 +146,13 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
-     * Get url of grid
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/*', ['_current' => true]);

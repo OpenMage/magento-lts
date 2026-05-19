@@ -55,7 +55,7 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
     /**
      * Force setting session model
      *
-     * @param null|Mage_Persistent_Model_Session $sessionModel null to unset session
+     * @param  null|Mage_Persistent_Model_Session $sessionModel null to unset session
      * @return null|Mage_Persistent_Model_Session
      */
     public function setSession($sessionModel)

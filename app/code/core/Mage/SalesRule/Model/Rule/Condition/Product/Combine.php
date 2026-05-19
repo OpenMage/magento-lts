@@ -44,7 +44,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Check whether the attribute is a quote item attribute
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return bool
      */
     protected function _getIsQuoteItemAttribute($attributeCode)
@@ -142,6 +142,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
      * Generate a conditions data
      * @return array
      */
+    #[Override]
     public function getNewChildSelectOptions()
     {
         $conditions = parent::getNewChildSelectOptions();
@@ -170,7 +171,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Collect all validated attributes
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return $this
      */
     public function collectValidatedAttributes($productCollection)
@@ -187,6 +188,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
      *
      * @return bool
      */
+    #[Override]
     public function validate(Varien_Object $object)
     {
         /** @var Mage_Catalog_Model_Product $product */

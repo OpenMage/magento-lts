@@ -6,28 +6,29 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
+
 /**
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price _getResource()
- * @method int getCustomerGroupId()
- * @method float getFinalPrice()
- * @method float getMaxPrice()
- * @method float getMinPrice()
- * @method float getPrice()
+ * @method int                                               getCustomerGroupId()
+ * @method float                                             getFinalPrice()
+ * @method float                                             getMaxPrice()
+ * @method float                                             getMinPrice()
+ * @method float                                             getPrice()
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price getResource()
- * @method int getTaxClassId()
- * @method float getTierPrice()
- * @method int getWebsiteId()
- * @method $this setCustomerGroupId(int $value)
- * @method $this setEntityId(int $value)
- * @method $this setFinalPrice(float $value)
- * @method $this setMaxPrice(float $value)
- * @method $this setMinPrice(float $value)
- * @method $this setPrice(float $value)
- * @method $this setTaxClassId(int $value)
- * @method $this setTierPrice(float $value)
- * @method $this setWebsiteId(int $value)
+ * @method int                                               getTaxClassId()
+ * @method float                                             getTierPrice()
+ * @method int                                               getWebsiteId()
+ * @method $this                                             setCustomerGroupId(int $value)
+ * @method $this                                             setEntityId(int $value)
+ * @method $this                                             setFinalPrice(float $value)
+ * @method $this                                             setMaxPrice(float $value)
+ * @method $this                                             setMinPrice(float $value)
+ * @method $this                                             setPrice(float $value)
+ * @method $this                                             setTaxClassId(int $value)
+ * @method $this                                             setTierPrice(float $value)
+ * @method $this                                             setWebsiteId(int $value)
  */
 class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_Abstract
 {
@@ -69,6 +70,9 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
         Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK,
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_indexer_price');
@@ -89,6 +93,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('catalog')->__('Index product prices');
@@ -97,7 +102,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
     /**
      * Retrieve attribute list has an effect on product price
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getDependentAttributes()
     {
@@ -119,6 +124,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
      *
      * @return bool
      */
+    #[Override]
     public function matchEvent(Mage_Index_Model_Event $event)
     {
         $data       = $event->getNewData();
@@ -128,11 +134,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
         if ($event->getEntity() == Mage_Core_Model_Config_Data::ENTITY) {
             $data = $event->getDataObject();
-            if ($data && in_array($data->getPath(), $this->_relatedConfigSettings)) {
-                $result = $data->isValueChanged();
-            } else {
-                $result = false;
-            }
+            $result = $data && in_array($data->getPath(), $this->_relatedConfigSettings) ? $data->isValueChanged() : false;
         } elseif ($event->getEntity() == Mage_Customer_Model_Group::ENTITY) {
             $result = $event->getDataObject() && $event->getDataObject()->isObjectNew();
         } else {

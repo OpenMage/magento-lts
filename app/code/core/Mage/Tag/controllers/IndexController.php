@@ -16,6 +16,9 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
 {
     /**
      * Saving tag and relation between tag, customer, product and store
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function saveAction()
     {
@@ -67,8 +70,8 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                     }
 
                     $this->_fillMessageBox($counter);
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                     $session->addError($this->__('Unable to save tag(s).'));
                 }
             }
@@ -80,7 +83,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Checks inputted tags on the correctness of symbols and split string to array of tags
      *
-     * @param string $tagNamesInString
+     * @param  string $tagNamesInString
      * @return array
      */
     protected function _extractTags($tagNamesInString)

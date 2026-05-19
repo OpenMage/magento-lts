@@ -117,7 +117,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * @return $this
      * @throws Exception
      */
-    public function _prepareForm()
+    #[Override]
+    protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('main', ['no_container' => true]);
@@ -205,7 +206,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             [
                 'name'     => $this->_getFieldName('sender'),
                 'label'    => Mage::helper('sales')->__('From'),
-                'required' => $this->getMessage()->getMessage() ? true : false,
+                'required' => (bool) $this->getMessage()->getMessage(),
             ],
         );
         $fieldset->addField(
@@ -214,7 +215,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             [
                 'name'     => $this->_getFieldName('recipient'),
                 'label'    => Mage::helper('sales')->__('To'),
-                'required' => $this->getMessage()->getMessage() ? true : false,
+                'required' => (bool) $this->getMessage()->getMessage(),
             ],
         );
 
@@ -261,7 +262,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Retrieve real name for field
      *
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     protected function _getFieldName($name)
@@ -272,7 +273,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Retrieve real html id for field
      *
-     * @param string $id
+     * @param  string $id
      * @return string
      */
     protected function _getFieldId($id)

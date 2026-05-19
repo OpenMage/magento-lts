@@ -19,8 +19,8 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
     /**
      * Interceptor for all interfaces
      *
-     * @param string $function
-     * @param array $args
+     * @param  string              $function
+     * @param  array               $args
      * @return stdClass
      * @throws Mage_Api_Exception
      * @throws ReflectionException
@@ -71,10 +71,11 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
     /**
      * Login user and Retrieve session id
      *
-     * @param string $username
-     * @param null|string $apiKey
+     * @param  string      $username
+     * @param  null|string $apiKey
      * @return stdClass
      */
+    #[Override]
     public function login($username, $apiKey = null)
     {
         if (is_object($username)) {
@@ -93,8 +94,8 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
     /**
      * Return called class and method names
      *
-     * @param String $apiPath
-     * @return array|void
+     * @param  String       $apiPath
+     * @return null|mixed[]
      */
     protected function _getResourceName($apiPath)
     {
@@ -102,7 +103,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
 
         if (empty($resourceName) || empty($methodName)) {
             $this->_fault('resource_path_invalid');
-            return;
+            return null;
         }
 
         $resourcesAlias = $this->_getConfig()->getResourcesAlias();
@@ -122,9 +123,9 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
     /**
      * Return an array of parameters for the callable method.
      *
-     * @param String $modelName
-     * @param String $methodName
-     * @return array of ReflectionParameter
+     * @param  String              $modelName
+     * @param  String              $methodName
+     * @return array               of ReflectionParameter
      * @throws ReflectionException
      */
     public function getMethodParams($modelName, $methodName)
@@ -137,8 +138,8 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
     /**
      * Prepares arguments for the method calling. Sort in correct order, set default values for omitted parameters.
      *
-     * @param array $params
-     * @param array $args
+     * @param  array               $params
+     * @param  array               $args
      * @return array
      * @throws ReflectionException
      */
@@ -154,7 +155,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
             } elseif ($parameter->isOptional()) {
                 $callArgs[$pName] = $parameter->getDefaultValue();
             } else {
-                Mage::logException(new Exception("Required parameter \"$pName\" is missing.", 0));
+                Mage::logException(new Exception("Required parameter \"{$pName}\" is missing.", 0));
                 $this->_fault('invalid_request_param');
             }
         }
@@ -165,9 +166,10 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
     /**
      * End web service session
      *
-     * @param stdClass|string $sessionId
+     * @param  stdClass|string $sessionId
      * @return stdClass
      */
+    #[Override]
     public function endSession($sessionId)
     {
         $stdObject = new stdClass();

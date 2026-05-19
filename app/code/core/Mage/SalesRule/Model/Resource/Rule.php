@@ -33,7 +33,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     ];
 
     /**
-     * Initialize main table and table id field
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -45,6 +45,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         $object->setData('customer_group_ids', (array) $this->getCustomerGroupIds($object->getId()));
@@ -60,7 +61,8 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function _beforeSave(Mage_Core_Model_Abstract $object)
+    #[Override]
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getDiscountQty()) {
             $object->setDiscountQty(new Zend_Db_Expr('NULL'));
@@ -88,6 +90,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * @param Mage_SalesRule_Model_Rule $object
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->hasStoreLabels()) {
@@ -133,7 +136,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * Retrieve coupon/rule uses for specified customer
      *
      * @param Mage_SalesRule_Model_Rule $rule
-     * @param int $customerId
+     * @param int                       $customerId
      *
      * @return string
      */
@@ -149,7 +152,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Save rule labels for different store views
      *
-     * @param int $ruleId
+     * @param int   $ruleId
      * @param array $labels
      *
      * @return $this
@@ -171,7 +174,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
 
         $adapter->beginTransaction();
         try {
-            if (!empty($data)) {
+            if ($data !== []) {
                 $adapter->insertOnDuplicate(
                     $table,
                     $data,
@@ -179,7 +182,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
                 );
             }
 
-            if (!empty($deleteByStoreIds)) {
+            if ($deleteByStoreIds !== []) {
                 $adapter->delete($table, [
                     'rule_id=?'       => $ruleId,
                     'store_id IN (?)' => $deleteByStoreIds,
@@ -198,7 +201,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Get all existing rule labels
      *
-     * @param int $ruleId
+     * @param  int   $ruleId
      * @return array
      */
     public function getStoreLabels($ruleId)
@@ -212,8 +215,8 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Get rule label by specific store id
      *
-     * @param int $ruleId
-     * @param int $storeId
+     * @param  int    $ruleId
+     * @param  int    $storeId
      * @return string
      */
     public function getStoreLabel($ruleId, $storeId)
@@ -229,27 +232,27 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Return codes of all product attributes currently used in promo rules for specified customer group and website
      *
-     * @param int $websiteId
-     * @param int $customerGroupId
-     * @return mixed
+     * @param  int        $websiteId
+     * @param  int        $customerGroupId
+     * @return null|array
      */
     public function getActiveAttributes($websiteId, $customerGroupId)
     {
         $read = $this->_getReadAdapter();
+        $distinctAttributeIds = $read->select()
+            ->distinct(true)
+            ->from($this->getTable('salesrule/product_attribute'), 'attribute_id');
         $select = $read->select()
-            ->from(
-                ['a' => $this->getTable('salesrule/product_attribute')],
-                new Zend_Db_Expr('DISTINCT ea.attribute_code'),
-            )
-            ->joinInner(['ea' => $this->getTable('eav/attribute')], 'ea.attribute_id = a.attribute_id', []);
+            ->from(['ea' => $this->getTable('eav/attribute')], ['attribute_code'])
+            ->joinInner(['a' => $distinctAttributeIds], 'ea.attribute_id = a.attribute_id', []);
         return $read->fetchAll($select);
     }
 
     /**
      * Save product attributes currently used in conditions and actions of rule
      *
-     * @param Mage_SalesRule_Model_Rule $rule
-     * @param mixed $attributes
+     * @param  Mage_SalesRule_Model_Rule $rule
+     * @param  mixed                     $attributes
      * @return $this
      */
     public function setActualProductAttributes($rule, $attributes)

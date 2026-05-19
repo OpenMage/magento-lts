@@ -19,10 +19,11 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Password extends Mage_Eav_M
      * a) check some rules for password
      * b) transform temporary attribute 'password' into real attribute 'password_hash'
      *
-     * @param Mage_Customer_Model_Customer $object
+     * @param  Mage_Customer_Model_Customer $object
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function beforeSave($object)
     {
         $password = trim($object->getPassword());
@@ -45,16 +46,15 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Password extends Mage_Eav_M
     /**
      * Validate object
      *
-     * @param Mage_Customer_Model_Customer $object
+     * @param  Mage_Customer_Model_Customer $object
      * @return bool
      * @throws Mage_Eav_Exception
      */
+    #[Override]
     public function validate($object)
     {
-        if ($password = $object->getPassword()) {
-            if ($password == $object->getPasswordConfirm()) {
-                return true;
-            }
+        if (($password = $object->getPassword()) && $password == $object->getPasswordConfirm()) {
+            return true;
         }
 
         return parent::validate($object);

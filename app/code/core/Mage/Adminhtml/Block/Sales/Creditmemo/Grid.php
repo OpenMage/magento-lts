@@ -16,12 +16,13 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_creditmemo_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('sales_creditmemo_grid');
         $this->setDefaultSort('created_at');
-        $this->setDefaultDir('DESC');
     }
 
     /**
@@ -38,6 +39,7 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
@@ -49,6 +51,7 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', [
@@ -85,7 +88,7 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_creditmemo')->getStates(),
+            'options'   => Mage::getModel('sales/order_creditmemo')::getStates(),
         ]);
 
         $this->addColumn('grand_total', [
@@ -118,8 +121,9 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('entity_id');
@@ -131,30 +135,28 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             'url'  => $this->getUrl('*/sales_creditmemo/pdfcreditmemos'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Creditmemo $row
-     * @return false|string
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Order_Creditmemo $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
-        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/creditmemo')) {
-            return false;
+        if ($this->isAllowed('sales/order/creditmemo')) {
+            return $this->getUrl('*/sales_creditmemo/view', ['creditmemo_id' => $row->getId()]);
         }
 
-        return $this->getUrl(
-            '*/sales_creditmemo/view',
-            [
-                'creditmemo_id' => $row->getId(),
-            ],
-        );
+        return '';
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/*', ['_current' => true]);

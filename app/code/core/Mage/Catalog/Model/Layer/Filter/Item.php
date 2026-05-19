@@ -12,13 +12,13 @@
  *
  * @package    Mage_Catalog
  *
- * @method int getCount()
+ * @method int    getCount()
  * @method string getLabel()
  * @method string getValue()
- * @method $this setCount(int $value)
- * @method $this setFilter(Mage_Catalog_Model_Layer_Filter_Abstract $value)
- * @method $this setLabel(string $value)
- * @method $this setValue(string $value)
+ * @method $this  setCount(int $value)
+ * @method $this  setFilter(Mage_Catalog_Model_Layer_Filter_Abstract $value)
+ * @method $this  setLabel(string $value)
+ * @method $this  setValue(string $value)
  */
 class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
 {
@@ -29,7 +29,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
      */
     public function getFilter()
     {
-        $filter = $this->getData('filter');
+        $filter = $this->getDataByKey('filter');
         if (!is_object($filter)) {
             Mage::throwException(
                 Mage::helper('catalog')->__('Filter must be an object. Please set correct filter.'),

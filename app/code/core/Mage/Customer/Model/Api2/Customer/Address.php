@@ -15,10 +15,11 @@
 class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
 {
     /**
-     * Resource specific method to retrieve attributes' codes. May be overridden in child.
-     *
-     * @return array
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getResourceAttributes()
     {
         return $this->getEavAttributes(Mage_Api2_Model_Auth_User_Admin::USER_TYPE != $this->getUserType());
@@ -58,8 +59,8 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      * Get region id by name or code
      * If id is not found then return passed $region
      *
-     * @param string $region
-     * @param string $countryId
+     * @param  string     $region
+     * @param  string     $countryId
      * @return int|string
      */
     protected function _getRegionIdByNameOrCode($region, $countryId)
@@ -82,7 +83,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
     /**
      * Load customer address by id
      *
-     * @param int $id
+     * @param  int                         $id
      * @return Mage_Customer_Model_Address
      */
     protected function _loadCustomerAddressById($id)
@@ -102,7 +103,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
     /**
      * Load customer by id
      *
-     * @param int $id
+     * @param  int                          $id
      * @return Mage_Customer_Model_Customer
      * @throws Mage_Api2_Exception
      */

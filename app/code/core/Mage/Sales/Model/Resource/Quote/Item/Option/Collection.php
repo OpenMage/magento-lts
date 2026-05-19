@@ -29,7 +29,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     protected $_optionsByProduct     = [];
 
     /**
-     * Define resource model for collection
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -41,6 +41,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -68,7 +69,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     /**
      * Apply quote item(s) filter to collection
      *
-     * @param array|int|Mage_Sales_Model_Quote_Item $item
+     * @param  array|int|Mage_Sales_Model_Quote_Item $item
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -103,17 +104,13 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     /**
      * Get all option for item
      *
-     * @param int|Mage_Sales_Model_Quote_Item|string $item
-     * @return array
+     * @param  int|Mage_Sales_Model_Quote_Item|string $item
+     * @return Mage_Core_Model_Abstract[]
      * @throws Mage_Core_Exception
      */
     public function getOptionsByItem($item)
     {
-        if ($item instanceof Mage_Sales_Model_Quote_Item) {
-            $itemId = $item->getId();
-        } else {
-            $itemId = $item;
-        }
+        $itemId = $item instanceof Mage_Sales_Model_Quote_Item ? $item->getId() : $item;
 
         $this->load();
 
@@ -130,17 +127,13 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     /**
      * Get all option for item
      *
-     * @param int|Mage_Catalog_Model_Product $product
-     * @return array
+     * @param  int|Mage_Catalog_Model_Product $product
+     * @return Mage_Core_Model_Abstract[]
      * @throws Mage_Core_Exception
      */
     public function getOptionsByProduct($product)
     {
-        if ($product instanceof Mage_Catalog_Model_Product) {
-            $productId = $product->getId();
-        } else {
-            $productId = $product;
-        }
+        $productId = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
 
         $this->load();
 

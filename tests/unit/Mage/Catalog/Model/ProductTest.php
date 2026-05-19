@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
+use Override;
 use Mage;
 use Mage_Catalog_Model_Product as Subject;
 use Mage_Catalog_Model_Product_Link;
@@ -25,10 +26,12 @@ use OpenMage\Tests\Unit\OpenMageTest;
 final class ProductTest extends OpenMageTest
 {
     use BoolTrait;
+
     use CatalogTrait;
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

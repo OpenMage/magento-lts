@@ -13,7 +13,7 @@
 class Mage_Weee_Model_Config_Source_Display
 {
     /**
-     * @return array
+     * @return array<int, array<string, int|string>>
      */
     public function toOptionArray()
     {

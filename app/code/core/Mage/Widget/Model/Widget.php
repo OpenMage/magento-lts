@@ -44,7 +44,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return widget XML config element based on its type
      *
-     * @param string $type Widget type
+     * @param  string                        $type Widget type
      * @return null|Varien_Simplexml_Element
      */
     public function getXmlElementByType($type)
@@ -60,7 +60,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Wrapper for getXmlElementByType method
      *
-     * @param string $type Widget type
+     * @param  string                        $type Widget type
      * @return null|Varien_Simplexml_Element
      */
     public function getConfigAsXml($type)
@@ -71,7 +71,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return widget XML configuration as Varien_Object and makes some data preparations
      *
-     * @param string $type Widget type
+     * @param  string        $type Widget type
      * @return Varien_Object
      */
     public function getConfigAsObject($type)
@@ -94,7 +94,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         }
 
         // Correct widget parameters and convert its data to objects
-        $params = $object->getData('parameters');
+        $params = $object->getDataByKey('parameters');
         $newParams = [];
         if (is_array($params)) {
             $sortOrder = 0;
@@ -135,7 +135,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             }
         }
 
-        uasort($newParams, [$this, '_sortParameters']);
+        uasort($newParams, $this->_sortParameters(...));
         $object->setData('parameters', $newParams);
 
         return $object;
@@ -144,7 +144,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return filtered list of widgets as SimpleXml object
      *
-     * @param array $filters Key-value array of filters for widget node properties
+     * @param  array                    $filters Key-value array of filters for widget node properties
      * @return Varien_Simplexml_Element
      */
     public function getWidgetsXml($filters = [])
@@ -175,7 +175,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return list of widgets as array
      *
-     * @param array $filters Key-value array of filters for widget node properties
+     * @param  array $filters Key-value array of filters for widget node properties
      * @return array
      */
     public function getWidgetsArray($filters = [])
@@ -195,7 +195,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 ];
             }
 
-            usort($result, [$this, '_sortWidgets']);
+            usort($result, $this->_sortWidgets(...));
             $this->setData('widgets_array', $result);
         }
 
@@ -205,10 +205,11 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return widget presentation code in WYSIWYG editor
      *
-     * @param string $type Widget Type
-     * @param array $params Pre-configured Widget Params
-     * @param bool $asIs Return result as widget directive(true) or as placeholder image(false)
-     * @return string Widget directive ready to parse
+     * @param  string    $type   Widget Type
+     * @param  array     $params Pre-configured Widget Params
+     * @param  bool      $asIs   Return result as widget directive(true) or as placeholder image(false)
+     * @return string    Widget directive ready to parse
+     * @throws Exception
      */
     public function getWidgetDeclaration($type, $params = [], $asIs = true)
     {
@@ -239,11 +240,9 @@ class Mage_Widget_Model_Widget extends Varien_Object
 
         $config = Mage::getSingleton('widget/widget_config');
         $imageName = str_replace('/', '__', $type) . '.gif';
-        if (is_file($config->getPlaceholderImagesBaseDir() . DS . $imageName)) {
-            $image = $config->getPlaceholderImagesBaseUrl() . $imageName;
-        } else {
-            $image = $config->getPlaceholderImagesBaseUrl() . 'default.gif';
-        }
+
+        $images = $config->getPlaceholderImages();
+        $image = $images[$imageName] ?? Mage::getDesign()->getSkinUrl('images/widget/default.gif');
 
         return sprintf(
             '<img id="%s" src="%s" title="%s">',
@@ -263,8 +262,8 @@ class Mage_Widget_Model_Widget extends Varien_Object
         $result = [];
         foreach ($this->getWidgetsXml() as $widget) {
             if ($widget->js) {
-                foreach (explode(',', (string) $widget->js) as $js) {
-                    $result[] = $js;
+                foreach (explode(',', (string) $widget->js) as $str) {
+                    $result[] = $str;
                 }
             }
         }
@@ -275,7 +274,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Encode string to valid HTML id element, based on base64 encoding
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     protected function _idEncode($string)
@@ -286,8 +285,8 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * User-defined widgets sorting by Name
      *
-     * @param array $a
-     * @param array $b
+     * @param  array      $a
+     * @param  array      $b
      * @return int<-1, 1>
      */
     protected function _sortWidgets($a, $b)
@@ -298,12 +297,12 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Widget parameters sort callback
      *
-     * @param Varien_Object $a
-     * @param Varien_Object $b
+     * @param  Varien_Object $a
+     * @param  Varien_Object $b
      * @return int
      */
     protected function _sortParameters($a, $b)
     {
-        return (int) $a->getData('sort_order') <=> (int) $b->getData('sort_order');
+        return (int) $a->getDataByKey('sort_order') <=> (int) $b->getDataByKey('sort_order');
     }
 }

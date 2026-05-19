@@ -49,8 +49,8 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     /**
      * Returns ID of a specific chunk on the basis of data's ID
      *
-     * @param string $id    Main data's ID
-     * @param int    $index Particular chunk number to return ID for
+     * @param  string $id    Main data's ID
+     * @param  int    $index Particular chunk number to return ID for
      * @return string
      */
     protected function _getChunkId($id, $index)
@@ -76,13 +76,14 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     /**
      * Save data to memcached, split it into chunks if data size is bigger than memcached slab size.
      *
-     * @param string $data
-     * @param string $id
-     * @param array  $tags
-     * @param false|int $specificLifetime
+     * @param  string    $data
+     * @param  string    $id
+     * @param  array     $tags
+     * @param  false|int $specificLifetime
      * @return bool
      * @see Zend_Cache_Backend_Memcached::save()
      */
+    #[Override]
     public function save($data, $id, $tags = [], $specificLifetime = false)
     {
         if (is_string($data) && (strlen($data) > $this->_options['slab_size'])) {
@@ -106,11 +107,12 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     /**
      * Load data from memcached, glue from several chunks if it was split upon save.
      *
-     * @param string $id
-     * @param bool   $doNotTestCacheValidity
+     * @param  string            $id
+     * @param  bool              $doNotTestCacheValidity
      * @return bool|false|string
      * @see Zend_Cache_Backend_Memcached::load()
      */
+    #[Override]
     public function load($id, $doNotTestCacheValidity = false)
     {
         $data = parent::load($id, $doNotTestCacheValidity);

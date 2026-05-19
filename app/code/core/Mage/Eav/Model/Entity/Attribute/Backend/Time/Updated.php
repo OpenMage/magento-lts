@@ -17,9 +17,10 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Updated extends Mage_Eav_Mode
     /**
      * Set modified date
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         $object->setData($this->getAttribute()->getAttributeCode(), Varien_Date::now());

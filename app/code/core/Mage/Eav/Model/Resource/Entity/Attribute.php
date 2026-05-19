@@ -21,6 +21,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      */
     protected static $_entityAttributes     = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/attribute', 'attribute_id');
@@ -29,6 +32,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * @return $this
      */
+    #[Override]
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = [[
@@ -41,7 +45,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Load all entity type attributes
      *
-     * @param int $entityTypeId
+     * @param  int   $entityTypeId
      * @return $this
      */
     protected function _loadTypeAttributes($entityTypeId)
@@ -65,8 +69,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Load attribute data by attribute code
      *
-     * @param int $entityTypeId
-     * @param string $code
+     * @param  int    $entityTypeId
+     * @param  string $code
      * @return bool
      */
     public function loadByCode(Mage_Core_Model_Abstract $object, $entityTypeId, $code)
@@ -133,6 +137,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $object
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $frontendLabel = $object->getFrontendLabel();
@@ -148,8 +153,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
         /**
          * Set default source model.
          */
-        if ($object->usesSource() && !$object->getData('source_model')) {
-            $object->setSourceModel($object->_getDefaultSourceModel());
+        if ($object->usesSource() && !$object->getDataByKey('source_model')) {
+            $object->setSourceModel($object->getDefaultSourceModel());
         }
 
         return parent::_beforeSave($object);
@@ -161,6 +166,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * @param Mage_Eav_Model_Entity_Attribute $object
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $this->_saveStoreLabels($object)
@@ -187,7 +193,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             }
 
             foreach ($storeLabels as $storeId => $label) {
-                if ($storeId == 0 || !strlen($label)) {
+                if ($storeId == 0) {
+                    continue;
+                }
+
+                if (!strlen($label)) {
                     continue;
                 }
 
@@ -298,7 +308,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                         continue;
                     }
 
-                    $sortOrder = !empty($option['order'][$optionId]) ? $option['order'][$optionId] : 0;
+                    $sortOrder = empty($option['order'][$optionId]) ? 0 : $option['order'][$optionId];
                     if (!$intOptionId) {
                         $data = [
                             'attribute_id'  => $object->getId(),
@@ -371,8 +381,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Retrieve attribute id by entity type code and attribute code
      *
-     * @param string $entityType
-     * @param string $code
+     * @param  string $entityType
+     * @param  string $code
      * @return string
      */
     public function getIdByCode($entityType, $code)
@@ -398,7 +408,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Retrieve attribute codes by front-end type
      *
-     * @param string $frontendType
+     * @param  string $frontendType
      * @return array
      */
     public function getAttributeCodesByFrontendType($frontendType)
@@ -415,7 +425,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $storeId
+     * @param  int              $storeId
      * @return Varien_Db_Select
      */
     public function getFlatUpdateSelect(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $storeId)
@@ -461,7 +471,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Returns the column descriptions for a table
      *
-     * @param string $table
+     * @param  string $table
      * @return array
      */
     public function describeTable($table)
@@ -472,7 +482,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Retrieve additional attribute table name for specified entity type
      *
-     * @param int $entityTypeId
+     * @param  int    $entityTypeId
      * @return string
      */
     public function getAdditionalAttributeTable($entityTypeId)
@@ -486,10 +496,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         /** @var Mage_Eav_Model_Entity_Type $entityType */
-        $entityType = $object->getData('entity_type');
+        $entityType = $object->getDataByKey('entity_type');
         if ($entityType) {
             $additionalTable = $entityType->getAdditionalAttributeTable();
         } else {
@@ -515,7 +526,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Retrieve store labels by given attribute id
      *
-     * @param int $attributeId
+     * @param  int   $attributeId
      * @return array
      */
     public function getStoreLabelsByAttributeId($attributeId)
@@ -532,7 +543,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Load by given attributes ids and return only exist attribute ids
      *
-     * @param array $attributeIds
+     * @param  array $attributeIds
      * @return array
      */
     public function getValidAttributeIds($attributeIds)

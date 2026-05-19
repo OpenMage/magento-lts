@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         if ($data = (string) $row->getData($this->getColumn()->getIndex())) {
@@ -48,7 +49,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
     /**
      * Returns currency code, false on error
      *
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return false|string
      */
     protected function _getCurrencyCode($row)
@@ -67,7 +68,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
     /**
      * Get rate for current row, 1 by default
      *
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return float|int
      */
     protected function _getRate($row)

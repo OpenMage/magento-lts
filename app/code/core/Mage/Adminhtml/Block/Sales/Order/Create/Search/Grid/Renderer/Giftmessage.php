@@ -18,8 +18,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage e
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         /** @var Mage_GiftMessage_Helper_Message $helper */

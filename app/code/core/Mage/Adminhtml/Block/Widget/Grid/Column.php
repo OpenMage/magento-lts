@@ -12,18 +12,34 @@
  *
  * @package    Mage_Adminhtml
  *
- * @method array getActions()
- * @method bool getCopyable()
- * @method string getDir()
- * @method array getFilterConditionCallback()
- * @method string getFilterIndex()
- * @method string getIndex()
- * @method bool getNoLink()
- * @method array getSelected()
- * @method $this setActions(array $value)
- * @method $this setCopyable(bool $value)
- * @method $this setFormat(string $value)
- * @method $this setSelected(array $value)
+ * @method array           getActions()
+ * @method string          getAlign()
+ * @method bool            getCopyable()
+ * @method string          getDir()
+ * @method bool            getEditable()
+ * @method bool            getEditOnly()
+ * @method array|Closure   getFilterConditionCallback()
+ * @method string          getFilterIndex()
+ * @method array|Closure   getFrameCallback()
+ * @method callable|string getGetter()
+ * @method string          getHeader()
+ * @method string          getHtmlName()
+ * @method string          getIndex()
+ * @method bool            getNoLink()
+ * @method array           getSelected()
+ * @method bool            getSortable()
+ * @method string          getValidateClass()
+ * @method string          getValue()
+ * @method array           getValues()
+ * @method $this           setActions(array $value)
+ * @method $this           setCopyable(bool $value)
+ * @method $this           setEditable(bool $value)
+ * @method $this           setEditOnly(bool $value)
+ * @method $this           setFilterConditionCallback(array|Closure $value)
+ * @method $this           setFormat(string $value)
+ * @method $this           setFrameCallback(array|Closure $value)
+ * @method $this           setGetter(callable|string $value)
+ * @method $this           setSelected(array $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widget
 {
@@ -38,7 +54,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     protected $_cssClass = null;
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid $grid
+     * @param  Mage_Adminhtml_Block_Widget_Grid $grid
      * @return $this
      */
     public function setGrid($grid)
@@ -93,7 +109,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
 
             // Add a custom css class for column
             if ($this->hasData('column_css_class')) {
-                $this->_cssClass .= ' ' . $this->getData('column_css_class');
+                $this->_cssClass .= ' ' . $this->getDataByKey('column_css_class');
             }
 
             if ($this->getEditable()) {
@@ -122,7 +138,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
      */
     public function getHeaderCssClass()
     {
-        $class = $this->getData('header_css_class');
+        $class = $this->getDataByKey('header_css_class');
         if (($this->getSortable() === false) || ($this->getGrid()->getSortable() === false)) {
             $class .= ' no-link';
         }
@@ -154,7 +170,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     /**
      * Retrieve row column field value for display
      *
-     * @return  string
+     * @return string
      */
     public function getRowField(Varien_Object $row)
     {
@@ -171,12 +187,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          * should return new version of rendered value
          */
         $frameCallback = $this->getFrameCallback();
-        if (is_array($frameCallback)) {
+        if (is_array($frameCallback) || $frameCallback instanceof Closure) {
             $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, false);
         }
 
         if ($this->getCopyable() && $text = $this->getRenderer()->getCopyableText($row)) {
-            $renderedValue = '<span data-copy-text="' . $text . '">' . $renderedValue . '</span>';
+            return '<span data-copy-text="' . $text . '">' . $renderedValue . '</span>';
         }
 
         return $renderedValue;
@@ -185,7 +201,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     /**
      * Retrieve row column field value for export
      *
-     * @return  string
+     * @return string
      */
     public function getRowFieldExport(Varien_Object $row)
     {
@@ -199,8 +215,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          * should return new version of rendered value
          */
         $frameCallback = $this->getFrameCallback();
-        if (is_array($frameCallback)) {
-            $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, true);
+        if (is_array($frameCallback) || $frameCallback instanceof Closure) {
+            return call_user_func($frameCallback, $renderedValue, $row, $this, true);
         }
 
         return $renderedValue;
@@ -209,19 +225,17 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     /**
      * Decorate rendered cell value
      *
-     * @param string $value
-     * @param array|string $decorators
+     * @param  string       $value
+     * @param  array|string $decorators
      * @return string
      */
     protected function &_applyDecorators($value, $decorators)
     {
-        if (!is_array($decorators)) {
-            if (is_string($decorators)) {
-                $decorators = explode(' ', $decorators);
-            }
+        if (!is_array($decorators) && is_string($decorators)) {
+            $decorators = explode(' ', $decorators);
         }
 
-        if (empty($decorators)) {
+        if ($decorators === []) {
             return $value;
         }
 
@@ -229,7 +243,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             $value = '<span class="nobr">' . $value . '</span>';
         }
 
-        if (!empty($decorators)) {
+        if ($decorators !== []) {
             return $this->_applyDecorators($value, $decorators);
         }
 
@@ -237,7 +251,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param string $renderer
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract $renderer
      * @return $this
      */
     public function setRenderer($renderer)
@@ -289,7 +303,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     public function getRenderer()
     {
         if (!$this->_renderer) {
-            $rendererClass = $this->getData('renderer');
+            $rendererClass = $this->getDataByKey('renderer');
             if (!$rendererClass) {
                 $rendererClass = $this->_getRendererByType();
             }
@@ -302,7 +316,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param string $filterClass
+     * @param  string $filterClass
      * @return void
      */
     public function setFilter($filterClass)
@@ -344,7 +358,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     public function getFilter()
     {
         if (!$this->_filter) {
-            $filterClass = $this->getData('filter');
+            $filterClass = $this->getDataByKey('filter');
             if ($filterClass === false) {
                 return false;
             }

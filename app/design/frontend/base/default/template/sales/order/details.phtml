@@ -39,7 +39,7 @@
     </div>
     <div class="col-2">
         <h4><?php echo $this->__('Billing Address') ?></h4>
-        <?php $_billing = $_invoice->getbillingAddress() ?>
+        <?php $_billing = $_invoice->getBillingAddress() ?>
         <address><?php echo $_billing->getFirstname() ?> <?php echo $_billing->getLastname() ?><br />
         <?php echo $_billing->getCompany() ?><br />
         <?php echo $_billing->getStreet() ?><br />

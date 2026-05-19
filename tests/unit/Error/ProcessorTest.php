@@ -21,19 +21,20 @@ final class ProcessorTest extends TestCase
 
     public array $server;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->subject = new Subject();
         $this->server  = $_SERVER;
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $_SERVER = $this->server;
     }
 
     /**
      * @dataProvider provideGetHostUrl
+     * @param array<string, int|string> $serverVars
      */
     public function testGetHostUrl(string $expectedResult, array $serverVars): void
     {
@@ -44,7 +45,7 @@ final class ProcessorTest extends TestCase
         self::assertSame($expectedResult, $this->subject->getHostUrl());
     }
 
-    public function provideGetHostUrl(): Generator
+    public static function provideGetHostUrl(): Generator
     {
         yield 'default' => [
             'http://localhost',

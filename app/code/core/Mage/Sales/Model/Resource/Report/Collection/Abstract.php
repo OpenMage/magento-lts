@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -24,7 +26,7 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
     /**
      * Set status filter
      *
-     * @param string $orderStatus
+     * @param  string $orderStatus
      * @return $this
      */
     public function addOrderStatusFilter($orderStatus)
@@ -58,6 +60,7 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
      *
      * @return $this
      */
+    #[Override]
     protected function _applyCustomFilter()
     {
         return $this->_applyOrderStatusFilter();

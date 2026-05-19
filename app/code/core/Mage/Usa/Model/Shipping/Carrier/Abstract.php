@@ -34,8 +34,8 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Set flag for check carriers for activity
      *
-     * @param string $code
-     * @return Mage_Usa_Model_Shipping_Carrier_Abstract
+     * @param  string $code
+     * @return $this
      */
     public function setActiveFlag($code = 'active')
     {
@@ -48,6 +48,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return null|string
      */
+    #[Override]
     public function getCarrierCode()
     {
         return $this->_code ?? null;
@@ -61,7 +62,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             if ($trackings = $result->getAllTrackings()) {
                 return $trackings[0];
             }
-        } elseif (is_string($result) && !empty($result)) {
+        } elseif (is_string($result) && $result !== '') {
             return $result;
         }
 
@@ -74,6 +75,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return bool
      */
+    #[Override]
     public function isTrackingAvailable()
     {
         return true;
@@ -84,6 +86,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return bool
      */
+    #[Override]
     public function isCityRequired()
     {
         return true;
@@ -92,9 +95,10 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Determine whether zip-code is required for the country of destination
      *
-     * @param null|string $countryId
+     * @param  null|string $countryId
      * @return bool
      */
+    #[Override]
     public function isZipCodeRequired($countryId = null)
     {
         if ($countryId != null) {
@@ -109,6 +113,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return bool
      */
+    #[Override]
     public function isShippingLabelsAvailable()
     {
         return true;
@@ -119,15 +124,19 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * bundle itself, otherwise we may not get a rate at all (e.g. when total weight of a bundle exceeds max weight
      * despite each item by itself is not)
      *
-     * @return array
+     * @return Mage_Sales_Model_Quote_Item_Abstract[]
      */
     public function getAllItems(Mage_Shipping_Model_Rate_Request $request)
     {
         $items = [];
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
-                /** @var Mage_Sales_Model_Quote_Item $item */
-                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                if ($item->getProduct()->isVirtual()) {
+                    // Don't process children here - we will process (or already have processed) them below
+                    continue;
+                }
+
+                if ($item->getParentItem()) {
                     // Don't process children here - we will process (or already have processed) them below
                     continue;
                 }
@@ -153,6 +162,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return bool|Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error
      */
+    #[Override]
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         //Skip by item validation if there is no items in request
@@ -199,7 +209,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             $error->setCarrierTitle($this->getConfigData('title'));
             $error->setErrorMessage($errorMsg);
             return $error;
-        } elseif ($errorMsg) {
+        }
+
+        if ($errorMsg) {
             return false;
         }
 
@@ -209,7 +221,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Returns cache key for some request to carrier quotes service
      *
-     * @param array|string $requestParams
+     * @param  array|string $requestParams
      * @return int
      */
     protected function _getQuotesCacheKey($requestParams)
@@ -234,7 +246,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * Returns cached response or null
      *
-     * @param array|string $requestParams
+     * @param  array|string $requestParams
      * @return null|string
      */
     protected function _getCachedQuotes($requestParams)
@@ -246,9 +258,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Sets received carrier quotes to cache
      *
-     * @param array|string $requestParams
-     * @param string $response
-     * @return Mage_Usa_Model_Shipping_Carrier_Abstract
+     * @param  array|string $requestParams
+     * @param  string       $response
+     * @return $this
      */
     protected function _setCachedQuotes($requestParams, $response)
     {
@@ -260,8 +272,8 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Prepare service name. Strip tags and entities from name
      *
-     * @param object|string $name  service name or object with implemented __toString() method
-     * @return string              prepared service name
+     * @param  object|string $name service name or object with implemented __toString() method
+     * @return string        prepared service name
      */
     protected function _prepareServiceName($name)
     {
@@ -292,6 +304,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @return Varien_Object
      */
+    #[Override]
     public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
     {
         $packages = $request->getPackages();
@@ -341,9 +354,10 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Do request to RMA shipment
      *
-     * @param $request
+     * @param                $request
      * @return Varien_Object
      */
+    #[Override]
     public function returnOfShipment($request)
     {
         $request->setIsReturn(true);
@@ -396,7 +410,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * request is failed
      *
      * @todo implement rollback logic
-     * @param array $data
+     * @param  array $data
      * @return bool
      */
     public function rollBack($data)
@@ -414,7 +428,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Check is Country U.S. Possessions and Trust Territories
      *
-     * @param string $countyId
+     * @param  string $countyId
      * @return bool
      */
     protected function _isUSCountry($countyId)
@@ -429,7 +443,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Check is Canada
      *
-     * @param string $countryId
+     * @param  string $countryId
      * @return bool
      */
     protected function _isCanada($countryId)
@@ -440,7 +454,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Check whether girth is allowed for the carrier
      *
-     * @param null|string $countyDest
+     * @param  null|string $countyDest
      * @return bool
      */
     public function isGirthAllowed($countyDest = null)

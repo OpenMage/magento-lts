@@ -19,6 +19,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
      *
      * Check customer authentication for some actions
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -33,7 +34,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
      * Load review model with data by passed id.
      * Return false if review was not loaded or was not created by customer
      *
-     * @param int $reviewId
+     * @param  int                           $reviewId
      * @return bool|Mage_Review_Model_Review
      */
     protected function _loadReview($reviewId)
@@ -51,6 +52,9 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         return $review;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->loadLayout();
@@ -69,6 +73,9 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function viewAction()
     {
         $review = $this->_loadReview((int) $this->getRequest()->getParam('id'));

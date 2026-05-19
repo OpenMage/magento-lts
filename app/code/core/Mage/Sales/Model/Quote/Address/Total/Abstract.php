@@ -44,8 +44,8 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Set total code code name
      *
-     * @param string $code
-     * @return Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @param  string $code
+     * @return $this
      */
     public function setCode($code)
     {
@@ -103,7 +103,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Set address which can be used inside totals calculation
      *
-     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @return $this
      */
     protected function _setAddress(Mage_Sales_Model_Quote_Address $address)
     {
@@ -115,7 +115,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * Get quote address object
      *
      * @throw   Mage_Core_Exception if address not declared
-     * @return  Mage_Sales_Model_Quote_Address
+     * @return Mage_Sales_Model_Quote_Address
      */
     protected function _getAddress()
     {
@@ -131,8 +131,8 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Set total model amount value to address
      *
-     * @param   float $amount
-     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @param  float $amount
+     * @return $this
      */
     protected function _setAmount($amount)
     {
@@ -146,8 +146,8 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Set total model base amount value to address
      *
-     * @param   float $baseAmount
-     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @param  float $baseAmount
+     * @return $this
      */
     protected function _setBaseAmount($baseAmount)
     {
@@ -161,8 +161,8 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Add total model amount value to address
      *
-     * @param   float $amount
-     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @param  float $amount
+     * @return $this
      */
     protected function _addAmount($amount)
     {
@@ -176,8 +176,8 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Add total model base amount value to address
      *
-     * @param   float $baseAmount
-     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @param  float $baseAmount
+     * @return $this
      */
     protected function _addBaseAmount($baseAmount)
     {
@@ -233,20 +233,16 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     public function getIsItemRowTotalCompoundable(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
-        if ($item->getData("skip_compound_{$this->_itemRowTotalKey}")) {
-            return false;
-        }
-
-        return true;
+        return !$item->getDataByKey("skip_compound_{$this->_itemRowTotalKey}");
     }
 
     /**
      * Process model configuration array.
      * This method can be used for changing models apply sort order
      *
-     * @param   array $config
-     * @param   Mage_Core_Model_Store $store
-     * @return  array
+     * @param  array                 $config
+     * @param  Mage_Core_Model_Store $store
+     * @return array
      */
     public function processConfigArray($config, $store)
     {

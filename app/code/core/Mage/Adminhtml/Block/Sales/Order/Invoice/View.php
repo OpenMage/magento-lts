@@ -34,12 +34,12 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
 
         parent::__construct();
 
-        $this->_removeButton('save');
-        $this->_removeButton('reset');
-        $this->_removeButton('delete');
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
 
         if ($this->_isAllowedAction('cancel') && $this->getInvoice()->canCancel()) {
-            $this->_addButton('cancel', [
+            $this->_addButton(self::BUTTON_TYPE_CANCEL, [
                 'label'     => Mage::helper('sales')->__('Cancel'),
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCancelUrl()),
                 'class'     => 'delete',
@@ -59,18 +59,19 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
 
         $orderPayment = $this->getInvoice()->getOrder()->getPayment();
 
-        if ($this->_isAllowedAction('creditmemo') && $this->getInvoice()->getOrder()->canCreditmemo()) {
-            if (($orderPayment->canRefundPartialPerInvoice()
+        if ($this->_isAllowedAction('creditmemo')
+            && $this->getInvoice()->getOrder()->canCreditmemo()
+            && ($orderPayment->canRefundPartialPerInvoice()
                 && $this->getInvoice()->canRefund()
-                && $orderPayment->getAmountPaid() > $orderPayment->getAmountRefunded())
-                || ($orderPayment->canRefund() && !$this->getInvoice()->getIsUsedForRefund())
-            ) {
-                $this->_addButton('capture', [ // capture?
-                    'label'     => Mage::helper('sales')->__('Credit Memo'),
-                    'class'     => 'go',
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreditMemoUrl()),
-                ]);
-            }
+                && $orderPayment->getAmountPaid() > $orderPayment->getAmountRefunded()
+                || $orderPayment->canRefund()
+                && !$this->getInvoice()->getIsUsedForRefund())
+        ) {
+            $this->_addButton('capture', [ // capture?
+                'label'     => Mage::helper('sales')->__('Credit Memo'),
+                'class'     => 'go',
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreditMemoUrl()),
+            ]);
         }
 
         if ($this->_isAllowedAction('capture') && $this->getInvoice()->canCapture()) {
@@ -82,7 +83,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         }
 
         if ($this->getInvoice()->canVoid()) {
-            $this->_addButton('void', [
+            $this->_addButton(self::BUTTON_TYPE_VOID, [
                 'label'     => Mage::helper('sales')->__('Void'),
                 'class'     => 'save void',
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl()),
@@ -90,7 +91,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         }
 
         if ($this->getInvoice()->getId()) {
-            $this->_addButton('print', [
+            $this->_addButton(self::BUTTON_TYPE_PRINT, [
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save print',
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
@@ -111,6 +112,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if ($this->getInvoice()->getEmailSent()) {
@@ -135,6 +137,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     /**
      * @return string
      */
+    #[Override]
     public function getBackUrl()
     {
         return $this->getUrl(
@@ -203,7 +206,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     }
 
     /**
-     * @param string $flag
+     * @param  string $flag
      * @return $this
      */
     public function updateBackButtonUrl($flag)
@@ -211,14 +214,14 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         if ($flag) {
             if ($this->getInvoice()->getBackUrl()) {
                 return $this->_updateButton(
-                    'back',
+                    self::BUTTON_TYPE_BACK,
                     'onclick',
                     Mage::helper('core/js')->getSetLocationJs($this->getInvoice()->getBackUrl()),
                 );
             }
 
             return $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_invoice/')),
             );
@@ -230,7 +233,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     /**
      * Check whether is allowed action
      *
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     protected function _isAllowedAction($action)

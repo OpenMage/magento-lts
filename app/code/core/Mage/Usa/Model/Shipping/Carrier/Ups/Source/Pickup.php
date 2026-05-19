@@ -16,8 +16,11 @@ class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Pickup
     {
         $ups = Mage::getSingleton('usa/shipping_carrier_ups');
         $arr = [];
-        foreach ($ups->getCode('pickup') as $k => $v) {
-            $arr[] = ['value' => $k, 'label' => Mage::helper('usa')->__($v['label'])];
+        foreach ($ups->getCode('pickup') as $key => $value) {
+            $arr[] = [
+                'value' => $key,
+                'label' => Mage::helper('usa')->__($value['label']),
+            ];
         }
 
         return $arr;

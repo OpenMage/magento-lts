@@ -9,16 +9,16 @@ test.config = {
     _: '#nav-admin-newsletter-problem',
     _nav: '#nav-admin-newsletter',
     _title: base._title,
-    url: 'newsletter_problem/index',
+    url: 'admin/newsletter_problem',
     index: {},
 }
 
 /**
  * Configuration for "Newsletter Problem Reports" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Newsletter Problem Reports',
     url: test.config.url,
-    _grid: '#problemGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'problem_id', dir: 'desc' } }},
 }

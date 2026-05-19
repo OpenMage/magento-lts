@@ -14,6 +14,8 @@
  */
 class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'api2_adminhtml_roles_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -25,24 +27,22 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
         $collection = Mage::getModel('api2/acl_global_role')->getCollection();
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
@@ -59,7 +59,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
         $this->addColumn('tole_user_type', [
             'header'         => Mage::helper('oauth')->__('User Type'),
             'sortable'       => false,
-            'frame_callback' => [$this, 'decorateUserType'],
+            'frame_callback' => $this->decorateUserType(...),
         ]);
 
         $this->addColumn('created_at', [
@@ -67,45 +67,40 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
             'index'  => 'created_at',
         ]);
 
-        parent::_prepareColumns();
-        return $this;
+        return parent::_prepareColumns();
     }
 
     /**
-     * Get grid URL
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 
     /**
-     * Get row URL
-     *
-     * @param Mage_Api2_Model_Acl_Global_Role $row
-     * @return null|string
+     * @inheritDoc
+     * @param  Mage_Api2_Model_Acl_Global_Role $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-
-        if ($session->isAllowed('system/api/roles/edit')) {
+        if ($this->isAllowed('system/api/roles/edit')) {
             return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
         }
 
-        return null;
+        return '';
     }
 
     /**
      * Decorate 'User Type' column
      *
-     * @param string $renderedValue Rendered value
-     * @param Mage_Api2_Model_Acl_Global_Role $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool $isExport
+     * @param  string                                  $renderedValue Rendered value
+     * @param  Mage_Api2_Model_Acl_Global_Role         $row
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  bool                                    $isExport
      * @return string
      */
     public function decorateUserType($renderedValue, $row, $column, $isExport)

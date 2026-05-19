@@ -12,12 +12,12 @@
  *
  * @method string getAggregator()
  * @method string getAggregatorOption()
- * @method array getAggregatorOptions()
+ * @method array  getAggregatorOptions()
  * @method string getPrefix()
- * @method $this setActions(array $value)
- * @method $this setAggregator(string $value)
- * @method $this setAggregatorOption(array $value)
- * @method $this setValueOption(array $value)
+ * @method $this  setActions(array $value)
+ * @method $this  setAggregator(string $value)
+ * @method $this  setAggregatorOption(array $value)
+ * @method $this  setValueOption(array $value)
  */
 class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstract
 {
@@ -33,14 +33,18 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      *
      * @return string
      */
+    #[Override]
     public function prepareConditionSql()
     {
         $wheres = [];
         foreach ($this->getConditions() as $condition) {
-            $wheres[] = '(' . $condition->prepareConditionSql() . ')';
+            $conditionSql = $condition->prepareConditionSql();
+            if ($conditionSql !== '') {
+                $wheres[] = '(' . $conditionSql . ')';
+            }
         }
 
-        if (empty($wheres)) {
+        if ($wheres === []) {
             return '';
         }
 
@@ -54,7 +58,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      *
      * It's made by performance reasons to avoid initialization of same models each time when rules are being processed.
      *
-     * @param  string $modelClass
+     * @param  string                                  $modelClass
      * @return bool|Mage_Rule_Model_Condition_Abstract
      */
     protected function _getNewConditionModelInstance($modelClass)
@@ -135,7 +139,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function getAggregatorElement()
     {
         if (is_null($this->getAggregator())) {
-            foreach ($this->getAggregatorOption() as $key => $value) {
+            foreach (array_keys($this->getAggregatorOption()) as $key) {
                 $this->setAggregator($key);
                 break;
             }
@@ -161,6 +165,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     /**
      * @return $this|Mage_Rule_Model_Condition_Abstract
      */
+    #[Override]
     public function loadValueOptions()
     {
         $this->setValueOption([
@@ -171,7 +176,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param Mage_Rule_Model_Condition_Abstract $condition
+     * @param  Mage_Rule_Model_Condition_Abstract $condition
      * @return $this
      */
     public function addCondition($condition)
@@ -194,6 +199,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     /**
      * @return string
      */
+    #[Override]
     public function getValueElementType()
     {
         return 'select';
@@ -216,6 +222,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      *
      * @return array
      */
+    #[Override]
     public function asArray(array $arrAttributes = [])
     {
         $out = parent::asArray();
@@ -229,27 +236,29 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param string $containerKey
-     * @param string $itemKey
+     * @param  string $containerKey
+     * @param  string $itemKey
      * @return string
      */
+    #[Override]
     public function asXml($containerKey = 'conditions', $itemKey = 'condition')
     {
         $xml = '<aggregator>' . $this->getAggregator() . '</aggregator>'
             . '<value>' . $this->getValue() . '</value>'
-            . "<$containerKey>";
+            . "<{$containerKey}>";
         foreach ($this->getConditions() as $condition) {
-            $xml .= "<$itemKey>" . $condition->asXml() . "</$itemKey>";
+            $xml .= "<{$itemKey}>" . $condition->asXml() . "</{$itemKey}>";
         }
 
-        return $xml . "</$containerKey>";
+        return $xml . "</{$containerKey}>";
     }
 
     /**
-     * @param array|Mage_Rule_Model_Condition_Abstract $arr
-     * @param string $key
+     * @param  array|Mage_Rule_Model_Condition_Abstract $arr
+     * @param  string                                   $key
      * @return $this
      */
+    #[Override]
     public function loadArray($arr, $key = 'conditions')
     {
         $this->setAggregator($arr['aggregator'] ?? $arr['attribute'] ?? null)
@@ -273,9 +282,10 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param SimpleXMLElement|string $xml
+     * @param  SimpleXMLElement|string $xml
      * @return $this
      */
+    #[Override]
     public function loadXml($xml)
     {
         if (is_string($xml)) {
@@ -295,6 +305,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      * @return string
      * @throws Exception
      */
+    #[Override]
     public function asHtml()
     {
         $html = $this->getTypeElement()->getHtml()
@@ -330,6 +341,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      * @return string
      * @throws Exception
      */
+    #[Override]
     public function asHtmlRecursive()
     {
         $html = $this->asHtml() . '<ul id="' . $this->getPrefix() . '__' . $this->getId() . '__children" class="rule-param-children">';
@@ -341,18 +353,20 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param string $format
+     * @param  string $format
      * @return string
      */
+    #[Override]
     public function asString($format = '')
     {
         return Mage::helper('rule')->__('If %s of these conditions are %s:', $this->getAggregatorName(), $this->getValueName());
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
+    #[Override]
     public function asStringRecursive($level = 0)
     {
         $str = parent::asStringRecursive($level);
@@ -366,6 +380,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     /**
      * @return bool
      */
+    #[Override]
     public function validate(Varien_Object $object)
     {
         if (!$this->getConditions()) {
@@ -377,19 +392,20 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
 
         foreach ($this->getConditions() as $cond) {
             $validated = $cond->validate($object);
-
             if ($all && $validated !== $true) {
                 return false;
-            } elseif (!$all && $validated === $true) {
+            }
+
+            if (!$all && $validated === $true) {
                 return true;
             }
         }
 
-        return $all ? true : false;
+        return $all;
     }
 
     /**
-     * @param string $form
+     * @param  string $form
      * @return $this
      */
     public function setJsFormObject($form)
@@ -416,7 +432,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     /**
      * Set conditions, if current prefix is undefined use 'conditions' key
      *
-     * @param Mage_Rule_Model_Condition_Product_Abstract[] $conditions
+     * @param  Mage_Rule_Model_Condition_Product_Abstract[] $conditions
      * @return $this
      */
     public function setConditions($conditions)
@@ -427,6 +443,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
 
     /**
      * Getter for "Conditions Combination" select option for recursive combines
+     * @return array<string, bool|string>
      */
     protected function _getRecursiveChildSelectOption()
     {

@@ -32,6 +32,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         $value = trim($this->getValue());
@@ -67,7 +68,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
         }
 
         // Only allow http and https
-        if (!in_array($urlParts['scheme'], ['http', 'https'])) {
+        if (!in_array($urlParts['scheme'], ['http', 'https'], true)) {
             Mage::throwException(
                 Mage::helper('adminhtml')->__('Custom Admin URL must use http:// or https:// protocol.'),
             );
@@ -100,7 +101,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
      *
      * @return $this
      */
-    public function _afterSave()
+    #[Override]
+    protected function _afterSave()
     {
         $useCustomUrl = $this->getData('groups/url/fields/use_custom/value');
         $value = $this->getValue();

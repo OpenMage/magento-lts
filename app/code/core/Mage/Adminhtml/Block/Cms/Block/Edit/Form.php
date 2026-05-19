@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
     /**
      * Load Wysiwyg on demand and Prepare layout
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -37,12 +38,13 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
         return $this;
     }
 
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('cms_block');
 
         $form = new Varien_Data_Form(
-            ['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'],
+            ['id' => 'edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post'],
         );
 
         $form->setHtmlIdPrefix('block_');

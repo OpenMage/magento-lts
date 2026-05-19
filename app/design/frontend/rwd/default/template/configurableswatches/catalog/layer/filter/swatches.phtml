@@ -29,7 +29,7 @@ $_swatchOuterHeight = $_dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Help
         $_swatchUrl = Mage::helper('configurableswatches/productimg')->getGlobalSwatchUrl($_item, $_label, $_swatchInnerWidth, $_swatchInnerHeight);
         $_hasImage = (!empty($_swatchUrl));
         $_linkClass = 'swatch-link' . (($_hasImage) ? ' has-image' : '');
-        $_linkCss = 'height:' . $_swatchOuterHeight . 'px; ' . ((!$_hasImage) ? 'min-' : '') . 'width:' . $_swatchOuterWidth . 'px;';
+        $_linkCss = 'height:' . $_swatchOuterHeight . 'px; ' . (($_hasImage) ? '' : 'min-') . 'width:' . $_swatchOuterWidth . 'px;';
         $_lineHeight = $_swatchOuterHeight + 2;
         ?>
         <li<?php if ($_hasImage){ echo ' style="line-height: ' . $_lineHeight . 'px;"'; } ?>>

@@ -13,7 +13,7 @@
  * @package    Mage_Api2
  *
  * @method Mage_Api2_Model_Acl_Global_Role getRole()
- * @method $this setRole(Mage_Api2_Model_Acl_Global_Role $role)
+ * @method $this                           setRole(Mage_Api2_Model_Acl_Global_Role $role)
  */
 class Mage_Api2_Block_Adminhtml_Roles_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
@@ -30,6 +30,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tabs extends Mage_Adminhtml_Block_Widget_T
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $role = $this->getRole();

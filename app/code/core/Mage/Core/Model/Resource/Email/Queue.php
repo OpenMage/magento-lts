@@ -13,7 +13,7 @@
 class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize email queue resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,7 +25,9 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      *
      * @param Mage_Core_Model_Email_Queue $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         $object->setRecipients($this->getRecipients($object->getId()));
@@ -38,7 +40,9 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      *
      * @param Mage_Core_Model_Email_Queue $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->isObjectNew()) {
@@ -55,6 +59,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      * Check if email was added to queue for requested recipients
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function wasEmailQueued(Mage_Core_Model_Email_Queue $queue)
     {
@@ -74,7 +79,8 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
         $existingRecipients = $readAdapter->fetchAll($select);
         if ($existingRecipients) {
             $newRecipients = $queue->getRecipients();
-            $oldEmails = $newEmails = [];
+            $oldEmails = [];
+            $newEmails = [];
             foreach ($existingRecipients as $recipient) {
                 $oldEmails[$recipient['recipient_email']] = [
                     $recipient['recipient_email'], $recipient['recipient_name'], $recipient['email_type'],
@@ -175,6 +181,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
      * Remove already sent messages
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeSentMessages()
     {

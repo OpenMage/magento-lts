@@ -13,24 +13,24 @@
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price _getResource()
- * @method int getCustomerGroupId()
- * @method float getFinalPrice()
- * @method float getMaxPrice()
- * @method float getMinPrice()
- * @method float getPrice()
+ * @method int                                            getCustomerGroupId()
+ * @method float                                          getFinalPrice()
+ * @method float                                          getMaxPrice()
+ * @method float                                          getMinPrice()
+ * @method float                                          getPrice()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price getResource()
- * @method int getTaxClassId()
- * @method float getTierPrice()
- * @method int getWebsiteId()
- * @method $this setCustomerGroupId(int $value)
- * @method $this setEntityId(int $value)
- * @method $this setFinalPrice(float $value)
- * @method $this setMaxPrice(float $value)
- * @method $this setMinPrice(float $value)
- * @method $this setPrice(float $value)
- * @method $this setTaxClassId(int $value)
- * @method $this setTierPrice(float $value)
- * @method $this setWebsiteId(int $value)
+ * @method int                                            getTaxClassId()
+ * @method float                                          getTierPrice()
+ * @method int                                            getWebsiteId()
+ * @method $this                                          setCustomerGroupId(int $value)
+ * @method $this                                          setEntityId(int $value)
+ * @method $this                                          setFinalPrice(float $value)
+ * @method $this                                          setMaxPrice(float $value)
+ * @method $this                                          setMinPrice(float $value)
+ * @method $this                                          setPrice(float $value)
+ * @method $this                                          setTaxClassId(int $value)
+ * @method $this                                          setTierPrice(float $value)
+ * @method $this                                          setWebsiteId(int $value)
  */
 class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
@@ -38,6 +38,9 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
 
     protected $_processChildrenForConfigurable = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogindex/indexer_price');
@@ -76,6 +79,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
     /**
      * @return bool
      */
+    #[Override]
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         if ($attribute->getFrontendInput() != 'price') {
@@ -86,16 +90,13 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
             return false;
         }
 
-        if ($attribute->getAttributeCode() == 'minimal_price') {
-            return false;
-        }
-
-        return true;
+        return $attribute->getAttributeCode() != 'minimal_price';
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     protected function _getIndexableAttributeConditions()
     {
         return "frontend_input = 'price' AND attribute_code <> 'price'";

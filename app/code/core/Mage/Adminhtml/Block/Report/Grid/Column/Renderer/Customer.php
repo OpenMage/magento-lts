@@ -17,8 +17,9 @@ class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Customer extends Mage_Adm
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $id   = $row->getCustomerId();

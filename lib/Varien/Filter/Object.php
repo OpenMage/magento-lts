@@ -15,9 +15,10 @@ class Varien_Filter_Object extends Zend_Filter
     protected $_columnFilters = [];
 
     /**
-     * @param string $column
+     * @param  string $column
      * @return $this
      */
+    #[Override]
     public function addFilter(Zend_Filter_Interface $filter, $column = '')
     {
         if ('' === $column) {
@@ -34,10 +35,11 @@ class Varien_Filter_Object extends Zend_Filter
     }
 
     /**
-     * @param Varien_Object $object
-     * @return mixed
+     * @param  Varien_Object $object
+     * @return Varien_Object
      * @throws Exception
      */
+    #[Override]
     public function filter($object)
     {
         if (!$object instanceof Varien_Object) {

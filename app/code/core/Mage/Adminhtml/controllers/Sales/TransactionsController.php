@@ -43,6 +43,9 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
         return $txn;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('Sales'))
@@ -55,6 +58,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
 
     /**
      * Ajax grid action
+     * @return void
      */
     public function gridAction()
     {
@@ -64,6 +68,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
 
     /**
      * View Transaction Details action
+     * @return void
      */
     public function viewAction()
     {
@@ -83,6 +88,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
 
     /**
      * Fetch transaction details action
+     * @return void
      */
     public function fetchAction()
     {
@@ -99,13 +105,13 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
             Mage::getSingleton('adminhtml/session')->addSuccess(
                 Mage::helper('adminhtml')->__('The transaction details have been updated.'),
             );
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             Mage::getSingleton('adminhtml/session')->addError(
                 Mage::helper('adminhtml')->__('Unable to update transaction details.'),
             );
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirect('*/sales_transactions/view', ['_current' => true]);
@@ -114,7 +120,8 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    #[Override]
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {

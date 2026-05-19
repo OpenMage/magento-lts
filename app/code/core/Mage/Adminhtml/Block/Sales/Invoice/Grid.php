@@ -16,13 +16,14 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_invoice_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('sales_invoice_grid');
         $this->setUseAjax(true);
         $this->setDefaultSort('created_at');
-        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
     }
 
@@ -40,6 +41,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
@@ -51,6 +53,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', [
@@ -87,7 +90,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
-            'options'   => Mage::getModel('sales/order_invoice')->getStates(),
+            'options'   => Mage::getModel('sales/order_invoice')::getStates(),
         ]);
 
         $this->addColumn('grand_total', [
@@ -120,8 +123,9 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('entity_id');
@@ -133,30 +137,28 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
             'url'  => $this->getUrl('*/sales_invoice/pdfinvoices'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice $row
-     * @return false|string
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Order_Invoice $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
-        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/invoice')) {
-            return false;
+        if ($this->isAllowed('sales/order/invoice')) {
+            return $this->getUrl('*/sales_invoice/view', ['invoice_id' => $row->getId()]);
         }
 
-        return $this->getUrl(
-            '*/sales_invoice/view',
-            [
-                'invoice_id' => $row->getId(),
-            ],
-        );
+        return '';
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);

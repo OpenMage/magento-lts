@@ -16,24 +16,21 @@
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Set grid params
-     */
+    protected string $_eventPrefix = 'adminhtml_sales_transactions_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('order_transactions');
         $this->setUseAjax(true);
         $this->setDefaultSort('created_at');
-        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = $this->getCollection() ?: Mage::getResourceModel('sales/order_payment_transaction_collection');
@@ -50,7 +47,9 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('transaction_id', [
@@ -82,7 +81,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
             'header'    => Mage::helper('sales')->__('Payment Method Name'),
             'index'     => 'method',
             'type'      => 'options',
-            'options'       => Mage::helper('payment')->getPaymentMethodList(true),
+            'options'       => Mage::helper('payment')->getPaymentMethodList(),
             'option_groups' => Mage::helper('payment')->getPaymentMethodList(true, true, true),
         ]);
 
@@ -118,10 +117,9 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Retrieve grid url
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);
@@ -132,6 +130,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
      *
      * @return string
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/view', ['txn_id' => $row->getId()]);

@@ -44,9 +44,9 @@ class Mage_Catalog_Model_Product_Type
     /**
      * Product type instance factory
      *
-     * @param Mage_Catalog_Model_Product|Varien_Object $product
-     * @param bool $singleton
-     * @return false|Mage_Core_Model_Abstract
+     * @param  Mage_Catalog_Model_Product|Varien_Object       $product
+     * @param  bool                                           $singleton
+     * @return false|Mage_Catalog_Model_Product_Type_Abstract
      */
     public static function factory($product, $singleton = false)
     {
@@ -74,8 +74,8 @@ class Mage_Catalog_Model_Product_Type
     /**
      * Product type price model factory
      *
-     * @param   string $productType
-     * @return  Mage_Catalog_Model_Product_Type_Price|Mage_Core_Model_Abstract
+     * @param  string                                                         $productType
+     * @return Mage_Catalog_Model_Product_Type_Price|Mage_Core_Model_Abstract
      */
     public static function priceFactory($productType)
     {
@@ -162,7 +162,7 @@ class Mage_Catalog_Model_Product_Type
     }
 
     /**
-     * @param string $optionId
+     * @param  string     $optionId
      * @return null|mixed
      */
     public static function getOptionText($optionId)
@@ -172,7 +172,7 @@ class Mage_Catalog_Model_Product_Type
     }
 
     /**
-     * @return array|string
+     * @return array<array-key, array{label: string, model?: string, price_model?: string, index_priority?: int, composite?: bool}>
      */
     public static function getTypes()
     {
@@ -224,7 +224,7 @@ class Mage_Catalog_Model_Product_Type
 
             $types = self::getTypes();
             foreach ($types as $typeId => $typeInfo) {
-                $priority = isset($typeInfo['index_priority']) ? abs((int) $typeInfo['index_priority']) : 0;
+                $priority = isset($typeInfo['index_priority']) ? abs($typeInfo['index_priority']) : 0;
                 if (!empty($typeInfo['composite'])) {
                     $b[$typeId] = $priority;
                 } else {

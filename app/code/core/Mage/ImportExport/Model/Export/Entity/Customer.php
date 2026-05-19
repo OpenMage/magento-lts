@@ -72,6 +72,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      *
      * @return $this
      */
+    #[Override]
     protected function _initWebsites()
     {
         foreach (Mage::app()->getWebsites(true) as $website) {
@@ -86,6 +87,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      *
      * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
+    #[Override]
     protected function _prepareEntityCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
         // forced addition default billing and shipping addresses attributes
@@ -117,7 +119,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      *     'value' => path to created file
      * )
      *
-     * @return array
+     * @return array<string, int|string>
      */
     public function exportFile()
     {
@@ -136,6 +138,9 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      */
     protected function _prepareExport()
     {
+        /**
+         * @var Mage_Customer_Model_Resource_Customer_Collection $collection
+         */
         $collection = $this->_prepareEntityCollection(Mage::getResourceModel('customer/customer_collection'));
         $validAttrCodes = $this->_getExportAttrCodes();
         $writer         = $this->getWriter();
@@ -265,9 +270,9 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Get Additional Rows Count
      *
-     * @param array $customerAddress
-     * @param array $addrMultiSelect
-     * @param array $customerMultiSelect
+     * @param  array $customerAddress
+     * @param  array $addrMultiSelect
+     * @param  array $customerMultiSelect
      * @return int
      */
     protected function _getAdditionalRowsCount($customerAddress, $addrMultiSelect, $customerMultiSelect)
@@ -297,7 +302,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Get Next Address Row
      *
-     * @param array $customerAddress
+     * @param  array $customerAddress
      * @return array
      */
     protected function _getNextAddressRow(&$customerAddress)
@@ -318,6 +323,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      *
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
+    #[Override]
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
     {
         foreach (parent::filterAttributeCollection($collection) as $attribute) {
@@ -358,7 +364,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Get Address Attributes
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
      * @return array
      */
     protected function _getAddressAttributeOptions($attribute)
@@ -384,8 +390,8 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Prepare Export Row
      *
-     * @param Mage_Customer_Model_Customer $customer
-     * @param array $attributeMultiSelect
+     * @param  Mage_Customer_Model_Customer $customer
+     * @param  array                        $attributeMultiSelect
      * @return array
      */
     protected function _prepareExportRow($customer, &$attributeMultiSelect)
@@ -424,7 +430,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Prepare Default Address
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return array
      */
     protected function _prepareDefaultAddress($customer)
@@ -444,9 +450,9 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Add default fields to row
      *
-     * @param array $defaultAddrs
-     * @param int $addressId
-     * @param array $row
+     * @param  array $defaultAddrs
+     * @param  int   $addressId
+     * @param  array $row
      * @return array
      */
     protected function _addDefaultAddressFields($defaultAddrs, $addressId, $row)
@@ -465,9 +471,9 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Get Next Address MultiSelect option
      *
-     * @param array $addrAttributeMultiSelect
-     * @param int $addressId
-     * @param array $addrRow
+     * @param  array $addrAttributeMultiSelect
+     * @param  int   $addressId
+     * @param  array $addrRow
      * @return array
      */
     protected function _addNextAddressOptions(&$addrAttributeMultiSelect, $addressId, $addrRow)
@@ -489,8 +495,8 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Check if exist MultiSelect Options
      *
-     * @param array $addrAttributeMultiSelect
-     * @param int $addressId
+     * @param  array $addrAttributeMultiSelect
+     * @param  int   $addressId
      * @return bool
      */
     protected function _isExistMultiSelectOptions($addrAttributeMultiSelect, $addressId)

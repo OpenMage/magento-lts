@@ -9,16 +9,16 @@ test.config = {
     _: '#nav-admin-newsletter-queue',
     _nav: '#nav-admin-newsletter',
     _title: base._title,
-    url: 'newsletter_queue/index',
+    url: 'admin/newsletter_queue',
     index: {},
 }
 
 /**
  * Configuration for "Newsletter Queue" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Newsletter Queue',
     url: test.config.url,
-    _grid: '#queueGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'start_at', dir: 'desc' } }},
 }

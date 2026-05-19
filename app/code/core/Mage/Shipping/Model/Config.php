@@ -23,13 +23,18 @@ class Mage_Shipping_Model_Config extends Varien_Object
 
     public const XML_PATH_ORIGIN_POSTCODE   = 'shipping/origin/postcode';
 
+    /**
+     * Cache for carrier instances
+     *
+     * @var Mage_Shipping_Model_Carrier_Abstract[]
+     */
     protected static $_carriers;
 
     /**
      * Retrieve active system carriers
      *
-     * @param   mixed $store
-     * @return  array
+     * @param  mixed $store
+     * @return array
      */
     public function getActiveCarriers($store = null)
     {
@@ -50,8 +55,8 @@ class Mage_Shipping_Model_Config extends Varien_Object
     /**
      * Retrieve all system carriers
      *
-     * @param   mixed $store
-     * @return  Mage_Shipping_Model_Carrier_Abstract[]
+     * @param  mixed                                  $store
+     * @return Mage_Shipping_Model_Carrier_Abstract[]
      */
     public function getAllCarriers($store = null)
     {
@@ -70,14 +75,14 @@ class Mage_Shipping_Model_Config extends Varien_Object
     /**
      * Retrieve carrier model instance by carrier code
      *
-     * @param   string $carrierCode
-     * @param   mixed $store
-     * @return  false|Mage_Usa_Model_Shipping_Carrier_Abstract
+     * @param  string                                         $carrierCode
+     * @param  mixed                                          $store
+     * @return false|Mage_Usa_Model_Shipping_Carrier_Abstract
      */
     public function getCarrierInstance($carrierCode, $store = null)
     {
-        $carrierConfig =  Mage::getStoreConfig('carriers/' . $carrierCode, $store);
-        if (!empty($carrierConfig)) {
+        $carrierConfig = Mage::getStoreConfig('carriers/' . $carrierCode, $store);
+        if (is_array($carrierConfig) && $carrierConfig !== []) {
             return $this->_getCarrier($carrierCode, $carrierConfig, $store);
         }
 
@@ -87,9 +92,9 @@ class Mage_Shipping_Model_Config extends Varien_Object
     /**
      * Get carrier model object
      *
-     * @param string $code
-     * @param array $config
-     * @param mixed $store
+     * @param  string                                     $code
+     * @param  array                                      $config
+     * @param  mixed                                      $store
      * @return false|Mage_Shipping_Model_Carrier_Abstract
      */
     protected function _getCarrier($code, $config, $store = null)

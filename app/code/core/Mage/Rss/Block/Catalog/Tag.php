@@ -14,6 +14,10 @@
  */
 class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         /*
@@ -31,6 +35,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         //store id is store view id
@@ -53,7 +58,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
             ->addTagFilter($tagModel->getId())
             ->addStoreFilter($storeId);
 
-        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
+        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds());
 
         $product = Mage::getModel('catalog/product');
 
@@ -61,7 +66,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $resourceHelper = Mage::getResourceHelper('core');
         Mage::getSingleton('core/resource_iterator')->walk(
             $resourceHelper->getQueryUsingAnalyticFunction($collection->getSelect()),
-            [[$this, 'addTaggedItemXml']],
+            [$this->addTaggedItemXml(...)],
             ['rssObj' => $rssObj, 'product' => $product],
             $collection->getSelect()->getAdapter(),
         );

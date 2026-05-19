@@ -9,16 +9,16 @@ test.config = {
     _: '#nav-admin-system-index',
     _nav: '#nav-admin-system',
     _title: base._title,
-    url: 'process/list',
+    url: 'admin/process/list',
     index: {},
 }
 
 /**
  * Configuration for "Index Management" page
- * @type {{title: string, url: string, _grid: string}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Index Management',
     url: test.config.url,
-    _grid: '#indexer_processes_grid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'ended_at', dir: 'desc' } }},
 }

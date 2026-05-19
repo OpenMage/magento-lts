@@ -59,7 +59,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
-    public function _prepareLayout()
+    #[Override]
+    protected function _prepareLayout()
     {
         $this->addMessages(Mage::getSingleton('core/session')->getMessages(true));
         return parent::_prepareLayout();
@@ -67,7 +68,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
 
     /**
      * Set message escape flag
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setEscapeMessageFlag($flag)
@@ -79,7 +80,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Set messages collection
      *
-     * @return  Mage_Core_Block_Messages
+     * @return $this
      */
     public function setMessages(Mage_Core_Model_Message_Collection $messages)
     {
@@ -118,7 +119,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new message to message collection
      *
-     * @return  Mage_Core_Block_Messages
+     * @return $this
      */
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
     {
@@ -129,8 +130,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new error message
      *
-     * @param   string $message
-     * @return  Mage_Core_Block_Messages
+     * @param  string $message
+     * @return $this
      */
     public function addError($message)
     {
@@ -141,8 +142,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new warning message
      *
-     * @param   string $message
-     * @return  Mage_Core_Block_Messages
+     * @param  string $message
+     * @return $this
      */
     public function addWarning($message)
     {
@@ -153,8 +154,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new nitice message
      *
-     * @param   string $message
-     * @return  Mage_Core_Block_Messages
+     * @param  string $message
+     * @return $this
      */
     public function addNotice($message)
     {
@@ -165,8 +166,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new success message
      *
-     * @param   string $message
-     * @return  Mage_Core_Block_Messages
+     * @param  string $message
+     * @return $this
      */
     public function addSuccess($message)
     {
@@ -177,8 +178,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Retrieve messages array by message type
      *
-     * @param   string $type
-     * @return  array
+     * @param  string $type
+     * @return array
      */
     public function getMessages($type = null)
     {
@@ -188,8 +189,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Retrieve messages in HTML format
      *
-     * @param   string $type
-     * @return  string
+     * @param  string $type
+     * @return string
      */
     public function getHtml($type = null)
     {
@@ -206,7 +207,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Retrieve messages in HTML format grouped by type
      *
-     * @return  string
+     * @return string
      */
     public function getGroupedHtml()
     {
@@ -250,6 +251,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         return $this->getGroupedHtml();
@@ -278,8 +280,9 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Get cache key informative items
      *
-     * @return array
+     * @return array<string, string>
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         return [

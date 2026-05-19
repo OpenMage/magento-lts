@@ -15,7 +15,7 @@
 class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Define module
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,11 +25,12 @@ class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract $object
+     * @param  string                   $field
+     * @param  mixed                    $value
+     * @param  Mage_Core_Model_Abstract $object
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);
@@ -40,7 +41,7 @@ class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource
     /**
      * Reaggregate all data by rating summary
      *
-     * @param array $summary
+     * @param  array $summary
      * @return $this
      */
     public function reAggregate($summary)

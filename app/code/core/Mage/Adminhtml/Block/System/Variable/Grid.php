@@ -14,9 +14,12 @@
  */
 class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_system_variable_grid';
+
     /**
-     * Internal constructor
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -26,10 +29,9 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare grid collection object
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Core_Model_Resource_Variable_Collection $collection */
@@ -39,10 +41,10 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare grid columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('variable_id', [
@@ -65,10 +67,11 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Row click url
-     *
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Core_Model_Variable $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['variable_id' => $row->getId()]);

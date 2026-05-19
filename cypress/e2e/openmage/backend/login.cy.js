@@ -1,6 +1,8 @@
+const path = '/admin';
+
 describe('Check admin login', () => {
     beforeEach('Log in the user', () => {
-        cy.visit('/admin');
+        cy.visit(path);
     });
 
     const login = cy.openmage.admin;
@@ -13,7 +15,7 @@ describe('Check admin login', () => {
         cy.get(login.username._).clear().type(username).should('have.value', username);
         cy.get(login.password._).clear().type(password).should('have.value', password);
         cy.get(login._submit._).click();
-        cy.url().should('include', '/dashboard/index');
+        cy.url().should('include', path + '/dashboard');
     })
 
     it('tests invalid login', () => {
@@ -24,14 +26,14 @@ describe('Check admin login', () => {
         cy.get(login.username._).clear().type(username).should('have.value', username);
         cy.get(login.password._).clear().type(password).should('have.value', password);
         cy.get(login._submit._).click();
-        cy.url().should('include', '/index/index');
+        cy.url().should('include', path);
     })
 
     it('tests empty login', () => {
         cy.get(login.username._).clear().should('have.value', '');
         cy.get(login.password._).clear().should('have.value', '');
         cy.get(login._submit._).click();
-        cy.url().should('not.include', '/index/index');
-        cy.url().should('not.include', '/index/dashboard');
+        cy.url().should('include', path);
+        cy.url().should('not.include', path + '/dashboard');
     })
 })

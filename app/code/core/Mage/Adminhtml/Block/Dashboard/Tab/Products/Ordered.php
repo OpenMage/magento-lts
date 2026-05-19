@@ -14,12 +14,18 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_tab_products_ordered';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('productsOrderedGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
         if (!$this->isModuleEnabled('Mage_Sales')) {
@@ -47,8 +53,12 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
     }
 
     /**
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -84,10 +94,11 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
      * Returns row url to show in admin dashboard
      * $row is bestseller row wrapped in Product model
      *
-     * @param Mage_Catalog_Model_Product $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Catalog_Model_Product $row
      * @throws Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         // getId() would return id of bestseller row, and product id we get by getProductId()

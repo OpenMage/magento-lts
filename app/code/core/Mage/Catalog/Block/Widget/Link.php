@@ -12,14 +12,14 @@
  *
  * @package    Mage_Catalog
  *
- * @method int getStoreId()
+ * @method int  getStoreId()
  * @method bool hasStoreId()
  */
 class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implements Mage_Widget_Block_Interface
 {
     /**
      * Entity model name which must be used to retrieve entity specific data.
-     * @var null|Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract
+     * @var null|Mage_Catalog_Model_Resource_Abstract
      */
     protected $_entityResource = null;
 
@@ -48,11 +48,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
     public function getHref()
     {
         if (!$this->_href) {
-            if ($this->hasStoreId()) {
-                $store = Mage::app()->getStore($this->getStoreId());
-            } else {
-                $store = Mage::app()->getStore();
-            }
+            $store = $this->hasStoreId() ? Mage::app()->getStore($this->getStoreId()) : Mage::app()->getStore();
 
             $idPath = explode('/', $this->_getData('id_path'));
 
@@ -76,7 +72,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
 
         if ($this->_href) {
             if (!str_contains($this->_href, '___store')) {
-                $symbol = (!str_contains($this->_href, '?')) ? '?' : '&';
+                $symbol = (str_contains($this->_href, '?')) ? '&' : '?';
                 $this->_href = $this->_href . $symbol . '___store=' . $store->getCode();
             }
         } else {
@@ -95,11 +91,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
      */
     public function getAnchorText()
     {
-        if ($this->hasStoreId()) {
-            $store = Mage::app()->getStore($this->getStoreId());
-        } else {
-            $store = Mage::app()->getStore();
-        }
+        $store = $this->hasStoreId() ? Mage::app()->getStore($this->getStoreId()) : Mage::app()->getStore();
 
         if (!$this->_anchorText && $this->_entityResource) {
             if (!$this->_getData('anchor_text')) {
@@ -125,6 +117,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if ($this->getHref()) {

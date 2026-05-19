@@ -13,11 +13,11 @@
  * @package    Mage_Downloadable
  *
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection getItems()
- * @method Mage_Downloadable_Model_Resource_Link_Purchased_Collection getPurchased()
- * @method string getRefererUrl()
- * @method $this setItems(Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection $value)
- * @method $this setPurchased(Mage_Downloadable_Model_Resource_Link_Purchased_Collection $value)
- * @method $this setRefererUrl(string $value)
+ * @method Mage_Downloadable_Model_Resource_Link_Purchased_Collection      getPurchased()
+ * @method string                                                          getRefererUrl()
+ * @method $this                                                           setItems(Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection $value)
+ * @method $this                                                           setPurchased(Mage_Downloadable_Model_Resource_Link_Purchased_Collection $value)
+ * @method $this                                                           setRefererUrl(string $value)
  */
 class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Template
 {
@@ -33,12 +33,12 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
             ->addOrder('created_at', 'desc');
         $this->setPurchased($purchased);
         $purchasedIds = [];
-        /** @var Mage_Downloadable_Model_Link_Purchased_Item $item */
+        /** @var Mage_Downloadable_Model_Link_Purchased $item */
         foreach ($purchased as $item) {
             $purchasedIds[] = $item->getId();
         }
 
-        if (empty($purchasedIds)) {
+        if ($purchasedIds === []) {
             $purchasedIds = [null];
         }
 
@@ -60,6 +60,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     /**
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -79,7 +80,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     /**
      * Return order view url
      *
-     * @param int $orderId
+     * @param  int    $orderId
      * @return string
      */
     public function getOrderViewUrl($orderId)
@@ -102,7 +103,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     /**
      * Return number of left downloads or unlimited
      *
-     * @param Mage_Downloadable_Model_Link_Purchased_Item $item
+     * @param  Mage_Downloadable_Model_Link_Purchased_Item $item
      * @return int|string
      */
     public function getRemainingDownloads($item)
@@ -117,7 +118,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     /**
      * Return url to download link
      *
-     * @param Mage_Downloadable_Model_Link_Purchased_Item $item
+     * @param  Mage_Downloadable_Model_Link_Purchased_Item $item
      * @return string
      */
     public function getDownloadUrl($item)

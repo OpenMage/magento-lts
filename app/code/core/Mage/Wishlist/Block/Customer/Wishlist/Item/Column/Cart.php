@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -30,9 +32,10 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart extends Mage_Wishli
      *
      * @return string
      */
+    #[Override]
     public function getJs()
     {
-        $js = "
+        $str = "
             function addWItemToCart(itemId) {
                 addWItemToCartCustom(itemId, true)
             }
@@ -61,6 +64,6 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart extends Mage_Wishli
                 }
             }
         ";
-        return $js . parent::getJs();
+        return $str . parent::getJs();
     }
 }

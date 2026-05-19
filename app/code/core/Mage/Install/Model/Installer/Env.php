@@ -14,8 +14,6 @@
  */
 class Mage_Install_Model_Installer_Env extends Mage_Install_Model_Installer_Abstract
 {
-    public function __construct() {}
-
     public function install()
     {
         if (!$this->_checkPhpExtensions()) {

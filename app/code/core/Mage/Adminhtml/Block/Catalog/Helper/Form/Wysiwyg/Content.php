@@ -20,19 +20,20 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg_Content extends Mage_Admi
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(['id' => 'wysiwyg_edit_form', 'action' => $this->getData('action'), 'method' => 'post']);
+        $form = new Varien_Data_Form(['id' => 'wysiwyg_edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post']);
 
-        $config['document_base_url']     = $this->getData('store_media_url');
-        $config['store_id']              = $this->getData('store_id');
+        $config['document_base_url']     = $this->getDataByKey('store_media_url');
+        $config['store_id']              = $this->getDataByKey('store_id');
         $config['add_variables']         = false;
         $config['add_widgets']           = false;
         $config['add_directives']        = true;
         $config['use_container']         = true;
         $config['container_class']       = 'hor-scroll';
 
-        $form->addField($this->getData('editor_element_id'), 'editor', [
+        $form->addField($this->getDataByKey('editor_element_id'), 'editor', [
             'name'      => 'content',
             'style'     => 'height:460px',
             'required'  => true,

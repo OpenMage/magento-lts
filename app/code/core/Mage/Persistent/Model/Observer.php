@@ -24,7 +24,7 @@ class Mage_Persistent_Model_Observer
     /**
      * Apply persistent data
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function applyPersistentData($observer)
@@ -44,7 +44,7 @@ class Mage_Persistent_Model_Observer
     /**
      * Apply persistent data to specific block
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function applyBlockPersistentData($observer)
@@ -80,13 +80,13 @@ class Mage_Persistent_Model_Observer
     /**
      * Emulate welcome message with persistent data
      *
-     * @param Mage_Page_Block_Html_Welcome $block
+     * @param  Mage_Page_Block_Html_Welcome $block
      * @return $this
      */
     public function emulateWelcomeMessageBlock($block)
     {
         $block->setWelcome(
-            Mage::helper('persistent')->__('Welcome, %s!', Mage::helper('core')->escapeHtml($this->_getPersistentCustomer()->getName(), null)),
+            Mage::helper('persistent')->__('Welcome, %s!', Mage::helper('core')->escapeHtml($this->_getPersistentCustomer()->getName())),
         );
         return $this;
     }
@@ -94,7 +94,7 @@ class Mage_Persistent_Model_Observer
     /**
      * Emulate 'welcome' block with persistent data
      *
-     * @param Mage_Core_Block_Abstract $block
+     * @param  Mage_Core_Block_Abstract $block
      * @return $this
      */
     public function emulateWelcomeBlock($block)
@@ -253,7 +253,7 @@ class Mage_Persistent_Model_Observer
     /**
      * Check if checkout session should NOT be cleared
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer                $observer
      * @return bool|Mage_Persistent_IndexController
      */
     protected function _checkClearCheckoutSessionNecessity($observer)
@@ -555,7 +555,7 @@ class Mage_Persistent_Model_Observer
     /**
      * Set persistent data to customer session
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function emulateCustomer($observer)

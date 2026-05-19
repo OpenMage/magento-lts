@@ -12,18 +12,21 @@
  *
  * @package    Mage_Customer
  *
- * @method Mage_Customer_Model_Resource_Customer _getResource()
+ * @method Mage_Customer_Model_Resource_Customer            _getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
- * @method string getEmail()
- * @method int getPostIndex()
- * @method Mage_Customer_Model_Resource_Customer getResource()
+ * @method string                                           getEmail()
+ * @method int                                              getPostIndex()
+ * @method Mage_Customer_Model_Resource_Customer            getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getResourceCollection()
- * @method bool hasEmail()
+ * @method bool                                             hasEmail()
  */
 class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
 {
     protected $_customer;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/address');
@@ -42,7 +45,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     /**
      * Declare address customer identifier
      *
-     * @param int $id
+     * @param  int   $id
      * @return $this
      */
     public function setCustomerId($id)
@@ -91,6 +94,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function delete()
     {
         parent::delete();
@@ -105,7 +109,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      */
     public function getAttributes()
     {
-        $attributes = $this->getData('attributes');
+        $attributes = $this->getDataByKey('attributes');
         if (is_null($attributes)) {
             $attributes = $this->_getResource()
                 ->loadAllAttributes($this)
@@ -138,7 +142,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      */
     public function getEntityTypeId()
     {
-        $entityTypeId = $this->getData('entity_type_id');
+        $entityTypeId = $this->getDataByKey('entity_type_id');
         if (!$entityTypeId) {
             $entityTypeId = $this->getEntityType()->getId();
             $this->setData('entity_type_id', $entityTypeId);
@@ -152,15 +156,16 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      *
      * @return int
      */
+    #[Override]
     public function getRegionId()
     {
-        return (int) $this->getData('region_id');
+        return (int) $this->getDataByKey('region_id');
     }
 
     /**
      * Set Region ID. $regionId is automatically converted to integer
      *
-     * @param int $regionId
+     * @param  int   $regionId
      * @return $this
      */
     public function setRegionId($regionId)

@@ -1,4 +1,4 @@
---- /dev/null
+--- ../library/Zend/Validate/Hostname.php
 +++ ../library/Zend/Validate/Hostname.php
 @@ -2188,7 +2188,9 @@
                      $this->_tld = $matches[1];

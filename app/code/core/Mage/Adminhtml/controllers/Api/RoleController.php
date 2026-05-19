@@ -25,6 +25,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions(['delete', 'save']);
@@ -41,6 +42,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -54,6 +58,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function roleGridAction()
     {
         $this->getResponse()
@@ -62,6 +69,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             ->toHtml());
     }
 
+    /**
+     * @return void
+     */
     public function editRoleAction()
     {
         $this->_title($this->__('System'))
@@ -88,7 +98,6 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->_addLeft(
             $this->getLayout()->createBlock('adminhtml/api_editroles'),
         );
-        $resources = Mage::getModel('api/roles')->getResourcesList();
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/api_buttons')
                 ->setRoleId($roleId)
@@ -101,12 +110,15 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         $rid = $this->getRequest()->getParam('role_id', false);
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -129,6 +141,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function saveRoleAction()
     {
         $rid        = $this->getRequest()->getParam('role_id', false);
@@ -140,7 +155,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         }
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -154,7 +169,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         }
 
         $resource   = explode(',', $this->getRequest()->getParam('resource', false));
-        $roleUsers  = $this->getRequest()->getParam('in_role_user', null);
+        $roleUsers  = $this->getRequest()->getParam('in_role_user');
         parse_str($roleUsers, $roleUsers);
         $roleUsers = array_keys($roleUsers);
 
@@ -196,6 +211,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/editrole', ['rid' => $rid]);
     }
 
+    /**
+     * @return void
+     */
     public function editrolegridAction()
     {
         $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/api_role_grid_user')->toHtml());
@@ -222,9 +240,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
         if ($user->roleUserExists() === true) {
             return false;
-        } else {
-            $user->add();
-            return true;
         }
+
+        $user->add();
+        return true;
     }
 }

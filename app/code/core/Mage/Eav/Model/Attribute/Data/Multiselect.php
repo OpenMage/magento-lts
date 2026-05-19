@@ -19,11 +19,12 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
      *
      * @return array|string
      */
+    #[Override]
     public function extractValue(Zend_Controller_Request_Http $request)
     {
         $values = $this->_getRequestValue($request);
         if ($values !== false && !is_array($values)) {
-            $values = [$values];
+            return [$values];
         }
 
         return $values;
@@ -34,6 +35,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
      *
      * @inheritDoc
      */
+    #[Override]
     public function compactValue($value)
     {
         if (is_array($value)) {
@@ -46,10 +48,11 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
     /**
      * Return formatted attribute value from entity model
      *
-     * @param string $format
+     * @param  string              $format
      * @return array|string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {
         $values = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());

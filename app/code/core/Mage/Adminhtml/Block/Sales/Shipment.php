@@ -19,6 +19,6 @@ class Mage_Adminhtml_Block_Sales_Shipment extends Mage_Adminhtml_Block_Widget_Gr
         $this->_controller = 'sales_shipment';
         $this->_headerText = Mage::helper('sales')->__('Shipments');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 }

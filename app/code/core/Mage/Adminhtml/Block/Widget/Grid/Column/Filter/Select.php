@@ -28,7 +28,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
         }
 
         $colOptions = $this->getColumn()->getOptions();
-        if (!empty($colOptions) && is_array($colOptions)) {
+        if (is_array($colOptions) && $colOptions !== []) {
             $options = [$emptyOption];
             foreach ($colOptions as $value => $label) {
                 $options[] = ['value' => $value, 'label' => $label];
@@ -43,8 +43,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
     /**
      * Render an option with selected value
      *
-     * @param array $option
-     * @param null|string $value
+     * @param  array       $option
+     * @param  null|string $value
      * @return string
      */
     protected function _renderOption($option, $value)
@@ -56,6 +56,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
     /**
      * @return string
      */
+    #[Override]
     public function getHtml()
     {
         $html = '<select name="' . $this->_getHtmlName() . '" id="' . $this->_getHtmlId() . '" class="no-changes">';
@@ -77,8 +78,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
     }
 
     /**
-     * @return null|array
+     * @inheritDoc
      */
+    #[Override]
     public function getCondition()
     {
         if (is_null($this->getValue())) {

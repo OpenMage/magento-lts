@@ -17,7 +17,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
     /**
      * Add not indexable fields to search
      *
-     * @param array $fields
+     * @param  array $fields
      * @return $this
      */
     public function addFieldsToFilter($fields)

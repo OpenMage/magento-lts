@@ -89,8 +89,8 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
 
     /**
      * @param array $data
-     * @param int $storeId
-     * @param int $productId
+     * @param int   $storeId
+     * @param int   $productId
      */
     public function saveIndex($data, $storeId, $productId)
     {
@@ -149,7 +149,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @return array
+     * @return array<string, string>|array<void>|string
      */
     protected function _getIndexableAttributeConditions()
     {

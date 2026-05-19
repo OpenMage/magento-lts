@@ -19,7 +19,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
     /**
      * Apply page layout handle
      *
-     * @param string $pageLayout
+     * @param  string $pageLayout
      * @return $this
      */
     public function applyHandle($pageLayout)
@@ -41,16 +41,12 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
      * Apply page layout template
      * (for old design packages)
      *
-     * @param string $pageLayout
+     * @param  string $pageLayout
      * @return $this
      */
     public function applyTemplate($pageLayout = null)
     {
-        if ($pageLayout === null) {
-            $pageLayout = $this->getCurrentPageLayout();
-        } else {
-            $pageLayout = $this->_getConfig()->getPageLayout($pageLayout);
-        }
+        $pageLayout = $pageLayout === null ? $this->getCurrentPageLayout() : $this->_getConfig()->getPageLayout($pageLayout);
 
         if (!$pageLayout) {
             return $this;
@@ -88,7 +84,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
         // Applied page layout handles
         $appliedHandles = array_intersect($handles, $pageLayoutHandles);
 
-        if (empty($appliedHandles)) {
+        if ($appliedHandles === []) {
             return false;
         }
 

@@ -14,23 +14,34 @@
  */
 class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_grid_user';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('customerGrid');
         $this->setSaveParametersInSession(true);
         $this->setDefaultSort('username');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
-        $collection =  Mage::getModel('permissions/users')->getCollection();
+        $collection = Mage::getModel('permissions/users')->getCollection();
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('user_id', [
@@ -61,6 +72,7 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edituser', ['id' => $row->getUserId()]);

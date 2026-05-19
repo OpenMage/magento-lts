@@ -19,8 +19,8 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return URL for admin area
      *
-     * @param string $route
-     * @param array $params
+     * @param  string $route
+     * @param  array  $params
      * @return string
      */
     public function getAdminUrl($route, $params)
@@ -31,10 +31,11 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Set secure url checkout is secure for current store.
      *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
+     * @param  string $route
+     * @param  array  $params
+     * @return string
      */
+    #[Override]
     protected function _getUrl($route, $params = [])
     {
         $params['_type'] = Mage_Core_Model_Store::URL_TYPE_LINK;
@@ -50,8 +51,8 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve save order url params
      *
-     * @param string $controller
-     * @return array
+     * @param  string                $controller
+     * @return array<string, string>
      */
     public function getSaveOrderUrlParams($controller)
     {
@@ -66,41 +67,10 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve redirect iframe url
-     * @param array $params
-     * @return string
-     */
-    public function getRedirectIframeUrl($params)
-    {
-        return $this->_getUrl('authorizenet/directpost_payment/redirect', $params);
-    }
-
-    /**
-     * Retrieve place order url on front
-     *
-     * @return  string
-     */
-    public function getPlaceOrderFrontUrl()
-    {
-        $params = [Mage_Core_Model_Url::FORM_KEY => Mage::getSingleton('core/session')->getFormKey()];
-        return $this->_getUrl('authorizenet/directpost_payment/place', $params);
-    }
-
-    /**
-     * Retrieve place order url in admin
-     *
-     * @return  string
-     */
-    public function getPlaceOrderAdminUrl()
-    {
-        return $this->getAdminUrl('*/authorizenet_directpost_payment/place', []);
-    }
-
-    /**
      * Retrieve place order url
      *
-     * @param array $params
-     * @return  string
+     * @param  array  $params
+     * @return string
      */
     public function getSuccessOrderUrl($params)
     {

@@ -25,6 +25,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
@@ -44,6 +45,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 
     /**
      * Customer groups list.
+     * @return void
      */
     public function indexAction()
     {
@@ -58,6 +60,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 
     /**
      * Edit or create customer group.
+     * @return void
      */
     public function newAction()
     {
@@ -86,6 +89,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 
     /**
      * Edit customer group action. Forward to new action.
+     * @return void
      */
     public function editAction()
     {
@@ -94,6 +98,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 
     /**
      * Create or save customer group.
+     * @return void
      */
     public function saveAction()
     {
@@ -117,8 +122,8 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('customer')->__('The customer group has been saved.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/customer_group'));
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 Mage::getSingleton('adminhtml/session')->setCustomerGroupData($customerGroup->getData());
                 $this->getResponse()->setRedirect($this->getUrl('*/customer_group/edit', ['id' => $id]));
                 return;
@@ -130,6 +135,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 
     /**
      * Delete customer group action
+     * @return void
      */
     public function deleteAction()
     {
@@ -141,8 +147,8 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('customer')->__('The customer group has been deleted.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/customer_group'));
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 $this->getResponse()->setRedirect($this->getUrl('*/customer_group/edit', ['id' => $id]));
                 return;
             }

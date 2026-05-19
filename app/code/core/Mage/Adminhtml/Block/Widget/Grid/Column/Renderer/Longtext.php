@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext extends Mage_Adm
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $truncateLength = 250;
@@ -40,7 +41,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext extends Mage_Adm
         }
 
         if ($this->getColumn()->getNl2br()) {
-            $text = nl2br($text);
+            return nl2br($text);
         }
 
         return $text;

@@ -35,6 +35,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
      *
      * Check customer authentication for some actions
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -50,6 +51,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
 
     /**
      * Render grid page
+     * @return void
      */
     public function indexAction()
     {
@@ -76,6 +78,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
 
     /**
      * Update revoke status action
+     * @return void
      */
     public function revokeAction()
     {
@@ -122,11 +125,11 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
             } else {
                 $this->_session->addError($this->__('Application not found.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_session->addError($this->__('An error occurred on update revoke status.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirectBack();
@@ -134,6 +137,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -165,11 +169,11 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
             } else {
                 $this->_session->addError($this->__('Application not found.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_session->addError($this->__('An error occurred on delete application.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         $this->_redirectBack();

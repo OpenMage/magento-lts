@@ -20,13 +20,16 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
      */
     public const ADMIN_RESOURCE = 'catalog/products';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->setUsedModuleName('Mage_Bundle');
     }
 
     /**
-     * @return Zend_Controller_Response_Abstract
+     * @return Mage_Core_Controller_Response_Http|Zend_Controller_Response_Abstract
      */
     public function searchAction()
     {
@@ -40,7 +43,7 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
     }
 
     /**
-     * @return Zend_Controller_Response_Abstract
+     * @return Mage_Core_Controller_Response_Http|Zend_Controller_Response_Abstract
      */
     public function gridAction()
     {

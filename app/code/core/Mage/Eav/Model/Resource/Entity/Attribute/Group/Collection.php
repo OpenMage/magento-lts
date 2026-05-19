@@ -15,7 +15,7 @@
 class Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Init resource model for collection
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -25,7 +25,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection extends Mage_Cor
     /**
      * Set Attribute Set Filter
      *
-     * @param int $setId
+     * @param  int   $setId
      * @return $this
      */
     public function setAttributeSetFilter($setId)
@@ -38,7 +38,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection extends Mage_Cor
     /**
      * Set sort order
      *
-     * @param string $direction
+     * @param  string $direction
      * @return $this
      */
     public function setSortOrder($direction = self::SORT_ORDER_ASC)

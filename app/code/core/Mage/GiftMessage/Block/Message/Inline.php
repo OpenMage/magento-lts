@@ -22,6 +22,10 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
 
     protected $_giftMessage = null;
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -31,7 +35,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Set entity
      *
-     * @param mixed $entity
+     * @param  mixed $entity
      * @return $this
      */
     public function setEntity($entity)
@@ -53,7 +57,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Set type
      *
-     * @param string $type
+     * @param  string $type
      * @return $this
      */
     public function setType($type)
@@ -105,9 +109,9 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     {
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return Mage::getSingleton('customer/session')->getCustomer()->getName();
-        } else {
-            return $this->getEntity()->getBillingAddress()->getName();
         }
+
+        return $this->getEntity()->getBillingAddress()->getName();
     }
 
     /**
@@ -119,15 +123,15 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     {
         if ($this->getEntity()->getShippingAddress()) {
             return $this->getEntity()->getShippingAddress()->getName();
-        } else {
-            return $this->getEntity()->getName();
         }
+
+        return $this->getEntity()->getName();
     }
 
     /**
      * Retrieve message
      *
-     * @param mixed $entity
+     * @param  mixed               $entity
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -157,7 +161,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     public function getItems()
     {
-        if (!$this->getData('items')) {
+        if (!$this->getDataByKey('items')) {
             $items = [];
 
             $entityItems = $this->getEntity()->getAllItems();
@@ -176,7 +180,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
             $this->setData('items', $items);
         }
 
-        return $this->getData('items');
+        return $this->getDataByKey('items');
     }
 
     /**
@@ -238,8 +242,8 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Return escaped value
      *
-     * @param string $value
-     * @param string $defaultValue
+     * @param  string $value
+     * @param  string $defaultValue
      * @return string
      */
     public function getEscaped($value, $defaultValue = '')
@@ -266,7 +270,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Check availability of giftmessages for specified entity item
      *
-     * @param Mage_Sales_Model_Quote_Item $item
+     * @param  Mage_Sales_Model_Quote_Item $item
      * @return bool|int
      */
     public function isItemMessagesAvailable($item)

@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      * @return array<string, Varien_Object> Array of rows
      * @throws Exception
      */
+    #[Override]
     public function getArrayRows(): array
     {
         if ($this->_arrayRowsCache !== null) {
@@ -95,13 +96,12 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      * Extract and validate area and directive name from the node path
      *
      * @return array{Mage_Core_Model_App_Area::AREA_ADMINHTML|Mage_Core_Model_App_Area::AREA_FRONTEND, value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES>} Array containing area and directiveName
-     * @throws Exception If path format is invalid or contains disallowed values
+     * @throws Exception                                                                                                                               If path format is invalid or contains disallowed values
      */
     private function _parseNodePath(): array
     {
-        /** @var Varien_Data_Form_Element_Abstract $element */
         $element = $this->getElement();
-        $configPath = $element->getData('config_path');
+        $configPath = $element->getDataByKey('config_path');
 
         $allowedDirectives = implode('|', Mage_Csp_Helper_Data::CSP_DIRECTIVES);
         $allowedAreas = Mage_Core_Model_App_Area::AREA_FRONTEND . '|' . Mage_Core_Model_App_Area::AREA_ADMINHTML;
@@ -121,10 +121,11 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
     /**
      * Render array cell for prototypeJS template
      *
-     * @param string $columnName
+     * @param  string    $columnName
      * @return string
      * @throws Exception
      */
+    #[Override]
     protected function _renderCellTemplate($columnName)
     {
         if (empty($this->_columns[$columnName])) {

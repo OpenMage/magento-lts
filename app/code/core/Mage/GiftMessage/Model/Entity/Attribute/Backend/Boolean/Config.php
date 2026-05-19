@@ -18,9 +18,10 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
     /**
      * Set attribute default value if value empty
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function afterLoad($object)
     {
         if (!$object->hasData($this->getAttribute()->getAttributeCode())) {
@@ -33,9 +34,10 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
     /**
      * Set attribute default value if value empty
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         if ($object->hasData($this->getAttribute()->getAttributeCode())
@@ -50,9 +52,10 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
     /**
      * Validate attribute data
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return bool
      */
+    #[Override]
     public function validate($object)
     {
         // all attribute's options
@@ -60,6 +63,6 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
 
         $value = $object->getData($this->getAttribute()->getAttributeCode());
 
-        return in_array($value, $optionsAllowed) ? true : false;
+        return in_array($value, $optionsAllowed);
     }
 }

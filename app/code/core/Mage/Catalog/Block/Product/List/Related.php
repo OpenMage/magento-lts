@@ -34,6 +34,7 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
         $this->_itemCollection = $product->getRelatedProductCollection()
             ->addAttributeToSelect('required_options')
             ->setPositionOrder()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addStoreFilter()
         ;
 
@@ -45,8 +46,6 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
             $this->_addProductAttributesAndPrices($this->_itemCollection);
         }
 
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
-
         $this->_itemCollection->load();
 
         foreach ($this->_itemCollection as $product) {
@@ -57,8 +56,9 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
     }
 
     /**
-     * @return Mage_Catalog_Block_Product_Abstract
+     * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->_prepareData();
@@ -78,6 +78,7 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->getItemsTags($this->getItems()));

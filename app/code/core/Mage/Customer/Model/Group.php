@@ -12,13 +12,13 @@
  *
  * @package    Mage_Customer
  *
- * @method Mage_Customer_Model_Resource_Group _getResource()
+ * @method Mage_Customer_Model_Resource_Group            _getResource()
  * @method Mage_Customer_Model_Resource_Group_Collection getCollection()
- * @method null|string getCustomerGroupCode()
- * @method Mage_Customer_Model_Resource_Group getResource()
+ * @method null|string                                   getCustomerGroupCode()
+ * @method Mage_Customer_Model_Resource_Group            getResource()
  * @method Mage_Customer_Model_Resource_Group_Collection getResourceCollection()
- * @method $this setCustomerGroupCode(string $value)
- * @method $this setTaxClassId(int $value)
+ * @method $this                                         setCustomerGroupCode(string $value)
+ * @method $this                                         setTaxClassId(int $value)
  */
 class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
 {
@@ -53,6 +53,9 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
 
     protected static $_taxClassIds = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/group');
@@ -61,7 +64,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     /**
      * Alias for setCustomerGroupCode
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setCode($value)
@@ -80,7 +83,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param null|int $groupId
+     * @param  null|int $groupId
      * @return int
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
@@ -89,13 +92,13 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         if (!is_null($groupId)) {
             if (empty(self::$_taxClassIds[$groupId])) {
                 $this->load($groupId);
-                self::$_taxClassIds[$groupId] = $this->getData('tax_class_id');
+                self::$_taxClassIds[$groupId] = $this->getDataByKey('tax_class_id');
             }
 
             $this->setData('tax_class_id', self::$_taxClassIds[$groupId]);
         }
 
-        return $this->getData('tax_class_id');
+        return $this->getDataByKey('tax_class_id');
     }
 
     /**
@@ -104,11 +107,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     public function usesAsDefault()
     {
         $data = Mage::getConfig()->getStoresConfigByPath(self::XML_PATH_DEFAULT_ID);
-        if (in_array($this->getId(), $data)) {
-            return true;
-        }
-
-        return false;
+        return in_array($this->getId(), $data);
     }
 
     /**
@@ -116,6 +115,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function afterCommitCallback()
     {
         parent::afterCommitCallback();
@@ -130,6 +130,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         $this->_prepareData();

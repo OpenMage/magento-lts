@@ -44,7 +44,7 @@ class Mage_Page_Model_Config
     /**
      * Fill in $_pageLayouts by reading layouts from config
      *
-     * @param string $xmlPath XML path to layouts root
+     * @param  string $xmlPath XML path to layouts root
      * @return $this
      */
     protected function _appendPageLayouts($xmlPath)
@@ -84,7 +84,7 @@ class Mage_Page_Model_Config
     /**
      * Retrieve page layout by code
      *
-     * @param string $layoutCode
+     * @param  string              $layoutCode
      * @return false|Varien_Object
      */
     public function getPageLayout($layoutCode)

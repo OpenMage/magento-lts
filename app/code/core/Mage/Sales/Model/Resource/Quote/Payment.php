@@ -24,7 +24,7 @@ class Mage_Sales_Model_Resource_Quote_Payment extends Mage_Sales_Model_Resource_
     ];
 
     /**
-     * Main table and field initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -33,9 +33,10 @@ class Mage_Sales_Model_Resource_Quote_Payment extends Mage_Sales_Model_Resource_
 
     /**
      * @param string $field
-     * @param mixed $defaultValue
+     * @param mixed  $defaultValue
      * @see Mage_Core_Model_Resource_Abstract::_unserializeField()
      */
+    #[Override]
     protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
     {
         $value = $object->getData($field);
@@ -46,8 +47,8 @@ class Mage_Sales_Model_Resource_Quote_Payment extends Mage_Sales_Model_Resource_
             try {
                 $unserializedValue = Mage::helper('core/unserializeArray')
                     ->unserialize($value);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
 
             $object->setData($field, $unserializedValue);

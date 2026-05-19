@@ -31,7 +31,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Mapping for fields
      *
-     * @var array
+     * @inheritDoc
      */
     public $_map               = [
         'fields' => [
@@ -40,7 +40,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     ];
 
     /**
-     * Define resource model and model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -50,10 +50,11 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Loads collection
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -72,7 +73,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * Set flag about joined table.
      * setFlag method must be used in future.
      *
-     * @param string $table
+     * @param  string $table
      * @return $this
      * @deprecated after 1.3.2.3
      */
@@ -83,23 +84,10 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     }
 
     /**
-     * Get flag's status about joined table.
-     * getFlag method must be used in future.
-     *
-     * @param string $table
-     * @return bool
-     * @deprecated after 1.3.2.3
-     */
-    public function getJoinFlag($table)
-    {
-        return $this->getFlag($table);
-    }
-
-    /**
      * Unset value of join flag.
      * Set false (bool) value to flag instead in future.
      *
-     * @param string $table
+     * @param  string $table
      * @return $this
      * @deprecated after 1.3.2.3
      */
@@ -112,7 +100,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Sett
      *
-     * @param int $limit
+     * @param  int   $limit
      * @return $this
      */
     public function limit($limit)
@@ -124,7 +112,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Replacing popularity by sum of popularity and base_popularity
      *
-     * @param int $limit
+     * @param  int   $limit
      * @return $this
      */
     public function addPopularity($limit = null)
@@ -161,7 +149,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Adds summary
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addSummary($storeId)
@@ -240,10 +228,11 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Adds field to filter
      *
-     * @param string $field
-     * @param null|array|int|string $condition
+     * @param  string                $field
+     * @param  null|array|int|string $condition
      * @return $this
      */
+    #[Override]
     public function addFieldToFilter($field, $condition = null)
     {
         if ($this->getFlag('relation') && $field == 'popularity') {
@@ -267,6 +256,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $select = parent::getSelectCountSql();
@@ -281,8 +271,8 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Add filter by store
      *
-     * @param array|int $storeId
-     * @param bool $allFilter
+     * @param  array|int $storeId
+     * @param  bool      $allFilter
      * @return $this
      */
     public function addStoreFilter($storeId, $allFilter = true)
@@ -336,7 +326,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Adds filter by status
      *
-     * @param int $status
+     * @param  int   $status
      * @return $this
      */
     public function addStatusFilter($status)
@@ -348,7 +338,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Adds filter by product id
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return $this
      */
     public function addProductFilter($productId)
@@ -364,7 +354,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Adds filter by customer id
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)

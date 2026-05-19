@@ -19,6 +19,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
      *
      * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -37,9 +38,10 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param array|int $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
+    #[Override]
     public function reindexEntity($entityIds)
     {
         $this->_prepareGroupedProductPriceData($entityIds);
@@ -51,7 +53,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
      * Calculate minimal and maximal prices for Grouped products
      * Use calculated price for relation products
      *
-     * @param array|int $entityIds  the parent entity ids limitation
+     * @param  array|int $entityIds the parent entity ids limitation
      * @return $this
      */
     protected function _prepareGroupedProductPriceData($entityIds = null)

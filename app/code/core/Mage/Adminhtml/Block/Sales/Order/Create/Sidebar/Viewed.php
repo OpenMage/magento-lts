@@ -14,6 +14,10 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -22,20 +26,18 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Viewed extends Mage_Adminh
     }
 
     /**
-     * Retrieve display block availability
-     *
-     * @return false|int
+     * @inheritDoc
      */
+    #[Override]
     public function canDisplay()
     {
         return false;
     }
 
     /**
-     * Retrieve availability removing items in block
-     *
-     * @return false
+     * @inheritDoc
      */
+    #[Override]
     public function canRemoveItems()
     {
         return false;

@@ -109,7 +109,7 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     public function getEscaped($value)
@@ -118,7 +118,7 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     public function getEscapedForJs($value)

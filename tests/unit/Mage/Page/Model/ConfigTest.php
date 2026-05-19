@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Page\Model;
 
+use Override;
 use Mage;
 use Mage_Page_Model_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -19,6 +20,7 @@ final class ConfigTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

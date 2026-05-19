@@ -13,11 +13,17 @@
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Link_Product_Collection getCollection()
+ * @method bool                                                        getIsReadonly()
+ * @method bool                                                        getSkipGenerateContent()
+ * @method $this                                                       setIsReadonly(bool $value)
+ * @method $this                                                       setSkipGenerateContent(bool $value)
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_super_group';
+
     /**
-     * Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group constructor.
+     * @throws Mage_Core_Exception
      */
     public function __construct()
     {
@@ -58,9 +64,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
@@ -85,6 +92,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $allowProductTypes = [];
@@ -113,6 +121,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('in_products', [
@@ -149,7 +158,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'validate_class' => 'validate-number',
             'index'     => 'qty',
             'editable'  => true,
-            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback'],
+            'filter_condition_callback' => $this->_addLinkModelFilterCallback(...),
         ]);
 
         $this->addColumn('position', [
@@ -161,7 +170,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'width'     => '1',
             'editable'  => true,
             'edit_only' => !$this->_getProduct()->getId(),
-            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback'],
+            'filter_condition_callback' => $this->_addLinkModelFilterCallback(...),
         ]);
 
         $this->addColumn('action', [
@@ -189,10 +198,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     }
 
     /**
-     * Get Grid Url
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->_getData('grid_url') ?: $this->getUrl('*/*/superGroupGridOnly', ['_current' => true]);
@@ -207,7 +215,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     {
         $products = $this->getProductsGrouped();
         if (!is_array($products)) {
-            $products = array_keys($this->getSelectedGroupedProducts());
+            return array_keys($this->getSelectedGroupedProducts());
         }
 
         return $products;
@@ -233,21 +241,33 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         return $products;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabLabel()
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTabTitle()
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function canShowTab()
     {
         return true;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isHidden()
     {
         return false;

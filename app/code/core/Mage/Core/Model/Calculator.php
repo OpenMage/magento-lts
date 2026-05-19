@@ -45,8 +45,8 @@ class Mage_Core_Model_Calculator
     /**
      * Round price considering delta
      *
-     * @param float $price
-     * @param bool $negative Indicates if we perform addition (true) or subtraction (false) of rounded value
+     * @param  float $price
+     * @param  bool  $negative Indicates if we perform addition (true) or subtraction (false) of rounded value
      * @return float
      */
     public function deltaRound($price, $negative = false)

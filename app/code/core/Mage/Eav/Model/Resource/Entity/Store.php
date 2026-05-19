@@ -14,6 +14,9 @@
  */
 class Mage_Eav_Model_Resource_Entity_Store extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/entity_store', 'entity_store_id');
@@ -22,8 +25,8 @@ class Mage_Eav_Model_Resource_Entity_Store extends Mage_Core_Model_Resource_Db_A
     /**
      * Load an object by entity type and store
      *
-     * @param int $entityTypeId
-     * @param int $storeId
+     * @param  int  $entityTypeId
+     * @param  int  $storeId
      * @return bool
      */
     public function loadByEntityStore(Mage_Core_Model_Abstract $object, $entityTypeId, $storeId)

@@ -19,14 +19,22 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
     public function __construct()
     {
         parent::__construct();
-        $this->setCountTotals(true);
+        $this->setCountTotals();
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function getResourceCollectionName()
     {
         return 'sales/report_bestsellers_collection';
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('period', [

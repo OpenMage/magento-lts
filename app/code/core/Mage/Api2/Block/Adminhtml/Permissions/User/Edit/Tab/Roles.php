@@ -11,9 +11,13 @@
  * API2 role list for admin user permissions
  *
  * @package    Mage_Api2
+ *
+ * @method Varien_Data_Collection_Db getCollection()
  */
 class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'api2_adminhtml_permissions_user_edit_tab_roles';
+
     /**
      * Selected API2 roles for grid
      *
@@ -33,10 +37,9 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
     }
 
     /**
-     * Prepare grid collection object
-     *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
@@ -49,10 +52,10 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
     }
 
     /**
-     * Prepare grid columns
-     *
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('assigned_user_role', [
@@ -74,11 +77,9 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
     }
 
     /**
-     * Add custom column filter to collection
-     *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getId() == 'assigned_user_role') {
@@ -124,9 +125,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
     }
 
     /**
-     * Prepare label for tab
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabLabel()
     {
@@ -134,9 +133,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
     }
 
     /**
-     * Prepare title for tab
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabTitle()
     {
@@ -144,9 +141,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
     }
 
     /**
-     * Returns status flag about this tab can be shown or not
-     *
-     * @return true
+     * @inheritDoc
      */
     public function canShowTab()
     {
@@ -154,9 +149,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
     }
 
     /**
-     * Returns status flag about this tab hidden or not
-     *
-     * @return false
+     * @inheritDoc
      */
     public function isHidden()
     {
@@ -164,10 +157,9 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
     }
 
     /**
-     * Get controller action url for grid ajax actions
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl(

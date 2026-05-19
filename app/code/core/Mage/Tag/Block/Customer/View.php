@@ -12,7 +12,7 @@
  *
  * @package    Mage_Tag
  *
- * @method int getTagId()
+ * @method int   getTagId()
  * @method $this setTagId(int $value)
  */
 class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
@@ -32,8 +32,9 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     protected $_tagInfo;
 
     /**
-     * Initialize block
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -78,7 +79,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * Retrieve Product Info URL
      *
-     * @param int $productId
+     * @param  int    $productId
      * @return string
      */
     public function getReviewUrl($productId)
@@ -91,6 +92,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $toolbar = $this->getLayout()
@@ -135,12 +137,11 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
                 ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
                 ->addStoreFilter(Mage::app()->getStore()->getId())
                 ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds())
                 ->setActiveFilter();
 
             Mage::getSingleton('catalog/product_status')
                 ->addVisibleFilterToCollection($this->_collection);
-            Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($this->_collection);
         }
 
         return $this->_collection;

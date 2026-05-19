@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Tag_Edit_Assigned extends Mage_Adminhtml_Block_Widget
     /**
      * Add Assigned products accordion to layout
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if (is_null(Mage::registry('current_tag')->getId())) {

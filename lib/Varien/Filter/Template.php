@@ -37,14 +37,14 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Template processor
      *
-     * @var null|array|string
+     * @var null|Closure|non-empty-array
      */
     protected $_templateProcessor = null;
 
     /**
      * Include processor
      *
-     * @var null|array|string
+     * @var null|Closure|non-empty-array
      */
     protected $_includeProcessor = null;
 
@@ -64,9 +64,10 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      * Sets the proccessor of templates. Templates are directives that include email templates based on system
      * configuration path.
      *
-     * @param array $callback it must return string
+     * @phpstan-param non-empty-array|Closure $callback it must return string
+     * @return $this
      */
-    public function setTemplateProcessor(array $callback)
+    public function setTemplateProcessor(array|Closure $callback)
     {
         $this->_templateProcessor = $callback;
         return $this;
@@ -75,7 +76,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of templates.
      *
-     * @return null|array
+     * @phpstan-return null|non-empty-array|Closure
      */
     public function getTemplateProcessor()
     {
@@ -85,9 +86,10 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of includes.
      *
-     * @param array $callback it must return string
+     * @phpstan-param non-empty-array|Closure $callback it must return string
+     * @return $this
      */
-    public function setIncludeProcessor(array $callback)
+    public function setIncludeProcessor(array|Closure $callback)
     {
         $this->_includeProcessor = $callback;
         return $this;
@@ -96,7 +98,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of includes.
      *
-     * @return null|array
+     * @phpstan-return null|non-empty-array|Closure
      */
     public function getIncludeProcessor()
     {
@@ -106,7 +108,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Filter the string as template.
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     public function filter($value)
@@ -126,8 +128,8 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                     $callback = [$this, $directive];
                     try {
                         $replacedValue = call_user_func($callback, $construction);
-                    } catch (Exception $e) {
-                        throw $e;
+                    } catch (Exception $exception) {
+                        throw $exception;
                     }
 
                     $value = str_replace($construction[0], $replacedValue, $value);
@@ -145,8 +147,8 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
                 try {
                     $replacedValue = call_user_func($callback, $construction);
-                } catch (Exception $e) {
-                    throw $e;
+                } catch (Exception $exception) {
+                    throw $exception;
                 }
 
                 $value = str_replace($construction[0], $replacedValue, $value);
@@ -170,18 +172,17 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     {
         // Processing of {include template=... [...]} statement
         $includeParameters = $this->_getIncludeParameters($construction[2]);
-        if (!isset($includeParameters['template']) || !$this->getIncludeProcessor()) {
+        if (!isset($includeParameters['template']) || is_null($this->getIncludeProcessor())) {
             // Not specified template or not seted include processor
-            $replacedValue = '{Error in include processing}';
-        } else {
-            // Including of template
-            $templateCode = $includeParameters['template'];
-            unset($includeParameters['template']);
-            $includeParameters = array_merge_recursive($includeParameters, $this->_templateVars);
-            $replacedValue = call_user_func($this->getIncludeProcessor(), $templateCode, $includeParameters);
+            return '{Error in include processing}';
         }
 
-        return $replacedValue;
+        // Including of template
+        $templateCode = $includeParameters['template'];
+        unset($includeParameters['template']);
+        $includeParameters = array_merge_recursive($includeParameters, $this->_templateVars);
+
+        return call_user_func($this->getIncludeProcessor(), $templateCode, $includeParameters);
     }
 
     /**
@@ -191,24 +192,23 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      * Mage_Sales_Model_Order::sales_email/order/template. This directive is useful to include things like a global
      * header/footer.
      *
-     * @param $construction
+     * @param               $construction
      * @return mixed|string
      */
     public function templateDirective($construction)
     {
         // Processing of {template config_path=... [...]} statement
         $templateParameters = $this->_getIncludeParameters($construction[2]);
-        if (!isset($templateParameters['config_path']) || !$this->getTemplateProcessor()) {
-            $replacedValue = '{Error in template processing}';
-        } else {
-            // Including of template
-            $configPath = $templateParameters['config_path'];
-            unset($templateParameters['config_path']);
-            $templateParameters = array_merge_recursive($templateParameters, $this->_templateVars);
-            $replacedValue = call_user_func($this->getTemplateProcessor(), $configPath, $templateParameters);
+        if (!isset($templateParameters['config_path']) || is_null($this->getTemplateProcessor())) {
+            return '{Error in template processing}';
         }
 
-        return $replacedValue;
+        // Including of template
+        $configPath = $templateParameters['config_path'];
+        unset($templateParameters['config_path']);
+        $templateParameters = array_merge_recursive($templateParameters, $this->_templateVars);
+
+        return call_user_func($this->getTemplateProcessor(), $configPath, $templateParameters);
     }
 
     public function dependDirective($construction)
@@ -220,9 +220,9 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
         if ($this->_getVariable($construction[1], '') == '') {
             return '';
-        } else {
-            return $construction[2];
         }
+
+        return $construction[2];
     }
 
     public function ifDirective($construction)
@@ -237,15 +237,15 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             }
 
             return '';
-        } else {
-            return $construction[2];
         }
+
+        return $construction[2];
     }
 
     /**
      * Return associative array of include construction.
      *
-     * @param string $value raw parameters
+     * @param  string $value raw parameters
      * @return array
      */
     protected function _getIncludeParameters($value)
@@ -266,8 +266,8 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Return variable value for var construction
      *
-     * @param string $value raw parameters
-     * @param null|string $default default value
+     * @param  string      $value   raw parameters
+     * @param  null|string $default default value
      * @return string
      */
     protected function _getVariable($value, $default = '{no_value_defined}')
@@ -305,7 +305,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
                         $stackVars[$i]['variable'] = call_user_func_array(
                             [$stackVars[$i - 1]['variable'], $stackVars[$i]['name']],
-                            !$isEncrypted ? $stackVars[$i]['args'] : [null],
+                            $isEncrypted ? [null] : $stackVars[$i]['args'],
                         );
                     }
                 }

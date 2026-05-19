@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -62,7 +63,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
      */
     public function getUploader()
     {
-        return $this->getChild('uploader');
+        /** @var Mage_Uploader_Block_Multiple $child */
+        $child = $this->getChild('uploader');
+        return $child;
     }
 
     /**

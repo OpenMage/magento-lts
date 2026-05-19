@@ -11,6 +11,8 @@
  * Flat sales order invoice comment collection
  *
  * @package    Mage_Sales
+ *
+ * @extends Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract<Mage_Sales_Model_Order_Invoice_Comment>
  */
 class Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection extends Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
 {
@@ -24,6 +26,9 @@ class Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection extends Mage_Sa
      */
     protected $_eventObject    = 'order_invoice_comment_collection';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -33,7 +38,7 @@ class Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection extends Mage_Sa
     /**
      * Set invoice filter
      *
-     * @param int $invoiceId
+     * @param  int   $invoiceId
      * @return $this
      */
     public function setInvoiceFilter($invoiceId)

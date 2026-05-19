@@ -43,7 +43,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
     {
         $this->_title($this->__('System'))->_title($this->__('Custom Variables'));
 
-        $variableId = $this->getRequest()->getParam('variable_id', null);
+        $variableId = $this->getRequest()->getParam('variable_id');
         $storeId = (int) $this->getRequest()->getParam('store', 0);
         /** @var Mage_Core_Model_Variable $variable */
         $variable = Mage::getModel('core/variable');
@@ -58,6 +58,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Index Action
+     * @return void
      */
     public function indexAction()
     {
@@ -70,6 +71,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * New Action (forward to edit action)
+     * @return void
      */
     public function newAction()
     {
@@ -78,6 +80,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Edit Action
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function editAction()
@@ -96,6 +99,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Validate Action
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function validateAction()
@@ -117,6 +121,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Save Action
+     * @return void
      * @throws Mage_Core_Exception|Throwable
      */
     public function saveAction()
@@ -139,8 +144,8 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
                 }
 
                 return;
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['_current' => true,]);
                 return;
             }
@@ -151,6 +156,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Delete Action
+     * @return void
      * @throws Mage_Core_Exception|Throwable
      */
     public function deleteAction()
@@ -162,8 +168,8 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
                 $this->_getSession()->addSuccess(
                     Mage::helper('adminhtml')->__('The custom variable has been deleted.'),
                 );
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['_current' => true,]);
                 return;
             }
@@ -174,6 +180,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * WYSIWYG Plugin Action
+     * @return void
      */
     public function wysiwygPluginAction()
     {

@@ -65,6 +65,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return int
      */
+    #[Override]
     public function getCurrentPage()
     {
         if ($this->_currentPage === null) {
@@ -86,6 +87,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return int
      */
+    #[Override]
     public function getLimit()
     {
         if ($this->_limit > 0) {
@@ -105,9 +107,10 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
     /**
      * Connect collection to paging
      *
-     * @param   Mage_Core_Model_Resource_Db_Collection_Abstract $collection
-     * @return  Mage_Catalog_Block_Product_Widget_Html_Pager
+     * @param  Mage_Core_Model_Resource_Db_Collection_Abstract $collection
+     * @return $this
      */
+    #[Override]
     public function setCollection($collection)
     {
         $this->_collection = $collection;
@@ -128,6 +131,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return int
      */
+    #[Override]
     public function getFirstNum()
     {
         return $this->getLimit() * ($this->getCurrentPage() - 1) + 1;
@@ -138,6 +142,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return int
      */
+    #[Override]
     public function getLastNum()
     {
         $collection = $this->getCollection();
@@ -151,6 +156,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return int
      */
+    #[Override]
     public function getTotalNum()
     {
         return $this->getCollectionSize();
@@ -161,6 +167,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return float|int
      */
+    #[Override]
     public function getLastPageNum()
     {
         if ($this->_lastPage === null) {
@@ -178,6 +185,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return bool
      */
+    #[Override]
     public function isFirstPage()
     {
         return $this->getCurrentPage() == 1;
@@ -188,6 +196,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return bool
      */
+    #[Override]
     public function isLastPage()
     {
         return $this->getCurrentPage() >= $this->getLastPageNum();
@@ -198,29 +207,28 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return array
      */
+    #[Override]
     public function getPages()
     {
         $start = 1;
         $finish = 1;
 
         if ($this->getLastPageNum() <= $this->_displayPages) {
-            $pages = range(1, $this->getLastPageNum());
-        } else {
-            $half = ceil($this->_displayPages / 2);
-            if ($this->getCurrentPage() >= $half && $this->getCurrentPage() <= $this->getLastPageNum() - $half) {
-                $start  = ($this->getCurrentPage() - $half) + 1;
-                $finish = ($start + $this->_displayPages) - 1;
-            } elseif ($this->getCurrentPage() < $half) {
-                $finish = $this->_displayPages;
-            } elseif ($this->getCurrentPage() > ($this->getLastPageNum() - $half)) {
-                $finish = $this->getLastPageNum();
-                $start  = $finish - $this->_displayPages + 1;
-            }
-
-            $pages = range($start, $finish);
+            return range(1, $this->getLastPageNum());
         }
 
-        return $pages;
+        $half = ceil($this->_displayPages / 2);
+        if ($this->getCurrentPage() >= $half && $this->getCurrentPage() <= $this->getLastPageNum() - $half) {
+            $start  = ($this->getCurrentPage() - $half) + 1;
+            $finish = ($start + $this->_displayPages) - 1;
+        } elseif ($this->getCurrentPage() < $half) {
+            $finish = $this->_displayPages;
+        } elseif ($this->getCurrentPage() > ($this->getLastPageNum() - $half)) {
+            $finish = $this->getLastPageNum();
+            $start  = $finish - $this->_displayPages + 1;
+        }
+
+        return range($start, $finish);
     }
 
     /**
@@ -228,6 +236,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return string
      */
+    #[Override]
     public function getPreviousPageUrl()
     {
         return $this->getPageUrl($this->getCurrentPage() - 1);
@@ -238,6 +247,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return string
      */
+    #[Override]
     public function getNextPageUrl()
     {
         return $this->getPageUrl($this->getCurrentPage() + 1);
@@ -248,6 +258,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return string
      */
+    #[Override]
     public function getLastPageUrl()
     {
         return $this->getPageUrl($this->getLastPageNum());
@@ -258,6 +269,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      *
      * @return $this
      */
+    #[Override]
     protected function _initFrame()
     {
         if (!$this->isFrameInitialized()) {

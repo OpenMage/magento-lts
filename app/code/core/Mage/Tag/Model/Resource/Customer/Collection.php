@@ -40,7 +40,8 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @return $this
      */
-    public function _initSelect()
+    #[Override]
+    protected function _initSelect()
     {
         parent::_initSelect();
         $this->_joinFields();
@@ -52,7 +53,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * Set flag about joined table.
      * setFlag method must be used in future.
      *
-     * @param string $table
+     * @param  string $table
      * @return $this
      * @deprecated after 1.3.2.3
      */
@@ -66,7 +67,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * Get flag's status about joined table.
      * getFlag method must be used in future.
      *
-     * @param string $table
+     * @param  string $table
      * @return bool
      * @deprecated after 1.3.2.3
      */
@@ -79,7 +80,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * Unset value of join flag.
      * Set false (bool) value to flag instead in future.
      *
-     * @param string $table
+     * @param  string $table
      * @return $this
      * @deprecated after 1.3.2.3
      */
@@ -92,7 +93,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Adds filter by tag is
      *
-     * @param int $tagId
+     * @param  int   $tagId
      * @return $this
      */
     public function addTagFilter($tagId)
@@ -105,7 +106,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * adds filter by product id
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return $this
      */
     public function addProductFilter($productId)
@@ -118,7 +119,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Apply filter by store id(s).
      *
-     * @param array|int $storeId
+     * @param  array|int $storeId
      * @return $this
      */
     public function addStoreFilter($storeId)
@@ -130,7 +131,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Adds filter by status
      *
-     * @param int $status
+     * @param  int   $status
      * @return $this
      */
     public function addStatusFilter($status)
@@ -200,7 +201,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Adds filter by customer id
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)
@@ -237,6 +238,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = parent::getSelectCountSql();
@@ -324,7 +326,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Sets attribute for count
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setCountAttribute($value)
@@ -334,7 +336,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     }
 
     /**
-     * Gets attribure for count
+     * Gets attribute for count
      *
      * @return string
      */
@@ -348,15 +350,16 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @inheritDoc
      */
+    #[Override]
     public function addFieldToFilter($attribute, $condition = null)
     {
         if ($attribute == 'name') {
             $where = $this->_getConditionSql('t.name', $condition);
             $this->getSelect()->where($where, null, Varien_Db_Select::TYPE_CONDITION);
             return $this;
-        } else {
-            return parent::addFieldToFilter($attribute, $condition);
         }
+
+        return parent::addFieldToFilter($attribute, $condition);
     }
 
     /**
@@ -364,6 +367,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @return $this
      */
+    #[Override]
     protected function _renderOrders()
     {
         if (!$this->_isOrdersRendered) {

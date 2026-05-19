@@ -98,7 +98,11 @@ class Varien_Convert_Profile_Collection
         $this->_xml = $xml;
 
         foreach ($xml->container as $containerNode) {
-            if (!$containerNode['name'] || !$containerNode['type']) {
+            if (!$containerNode['name']) {
+                continue;
+            }
+
+            if (!$containerNode['type']) {
                 continue;
             }
 

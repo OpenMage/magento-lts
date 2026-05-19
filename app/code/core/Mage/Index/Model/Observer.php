@@ -145,7 +145,7 @@ class Mage_Index_Model_Observer
             ->getProcessesCollection()
             ->addFieldToFilter('mode', Mage_Index_Model_Process::MODE_MANUAL);
 
-        $now = new DateTime();
+        $now = Mage::helper('core/clock')->now();
         /** @noinspection PhpUnhandledExceptionInspection */
         $dateInterval = new DateInterval('PT' . self::OLD_INDEX_EVENT_THRESHOLD_SECONDS . 'S');
         $oldEventsThreshold = $now
@@ -174,7 +174,7 @@ class Mage_Index_Model_Observer
                 }
             }
 
-            if (!empty($eventList)) {
+            if ($eventList !== []) {
                 $where = new Zend_Db_Expr(
                     sprintf(
                         'event_id in (%s)',

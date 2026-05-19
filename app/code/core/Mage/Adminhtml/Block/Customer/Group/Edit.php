@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
         $this->_controller = 'customer_group';
 
         if (!Mage::registry('current_group')->getId() || Mage::registry('current_group')->usesAsDefault()) {
-            $this->_removeButton('delete');
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
         }
     }
 
@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
      * @return string
      * @throws Exception
      */
+    #[Override]
     public function getDeleteUrl()
     {
         if (!Mage::getSingleton('adminhtml/url')->useSecretKey()) {
@@ -37,14 +38,15 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
                 $this->_objectId => $this->getRequest()->getParam($this->_objectId),
                 'form_key' => Mage::getSingleton('core/session')->getFormKey(),
             ]);
-        } else {
-            return parent::getDeleteUrl();
         }
+
+        return parent::getDeleteUrl();
     }
 
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (!is_null(Mage::registry('current_group')->getId())) {
@@ -57,6 +59,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head head-customer-groups';

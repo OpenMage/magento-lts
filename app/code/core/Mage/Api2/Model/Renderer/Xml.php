@@ -56,7 +56,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     /**
      * Convert Array to XML
      *
-     * @param mixed $data
+     * @param  mixed  $data
      * @return string
      */
     public function render($data)
@@ -71,8 +71,8 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     /**
      * Prepare convert data
      *
-     * @param array|Varien_Object $data
-     * @param bool $root
+     * @param  array|Varien_Object $data
+     * @param  bool                $root
      * @return array
      * @throws Exception
      */
@@ -105,7 +105,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     /**
      * Prepare value
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     protected function _prepareValue($value)
@@ -124,7 +124,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     /**
      * Prepare key and replace unavailable chars
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     protected function _prepareKey($key)
@@ -132,7 +132,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
         $key = str_replace(array_keys($this->_replacementInTagName), array_values($this->_replacementInTagName), $key);
         $key = trim($key, '_');
         if (preg_match($this->_protectedTagNamePattern, $key)) {
-            $key = self::ARRAY_NON_ASSOC_ITEM_NAME . '_' . $key;
+            return self::ARRAY_NON_ASSOC_ITEM_NAME . '_' . $key;
         }
 
         return $key;

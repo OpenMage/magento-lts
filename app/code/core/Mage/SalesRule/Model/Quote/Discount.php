@@ -35,6 +35,7 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
      *
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         parent::collect($address);
@@ -113,8 +114,8 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
     /**
      * Aggregate item discount information to address data and related properties
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return  $this
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return $this
      */
     protected function _aggregateItemDiscount($item)
     {
@@ -128,6 +129,7 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
      *
      * @return $this|array
      */
+    #[Override]
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getDiscountAmount();

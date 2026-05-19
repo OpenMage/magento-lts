@@ -28,6 +28,9 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
      */
     protected $_eventPrefix          = 'sales_order_payment_resource';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_payment', 'entity_id');
@@ -37,8 +40,9 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
      * Unserialize Varien_Object field in an object
      *
      * @param string $field
-     * @param mixed $defaultValue
+     * @param mixed  $defaultValue
      */
+    #[Override]
     protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
     {
         $value = $object->getData($field);
@@ -49,8 +53,8 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
             try {
                 $unserializedValue = Mage::helper('core/unserializeArray')
                 ->unserialize($value);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
 
             $object->setData($field, $unserializedValue);

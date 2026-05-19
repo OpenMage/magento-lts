@@ -1,0 +1,27 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php
+/**
+ * "Grant Access" button
+ *
+ * @see Mage_Oauth_Block_Authorize
+ * @var Mage_Oauth_Block_Authorize $this 
+ */
+?>
+<?php /** @var Mage_Core_Block_Template $this */ ?>
+<div class="login-container">
+    <div class="login-box">
+        <div class="login-form">
+            <h1><?php echo $this->__('Rejection Of Authorization') ?></h1>
+            <?php echo $this->getMessagesBlock()->toHtml() ?>
+        </div>
+        <p class="legal"><?php echo $this->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', \Carbon\Carbon::now()->format('Y')) ?></p>
+        <div class="bottom"></div>
+    </div>
+</div>

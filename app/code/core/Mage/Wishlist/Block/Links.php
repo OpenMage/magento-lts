@@ -23,6 +23,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         /** @var Mage_Wishlist_Helper_Data $helper */
@@ -66,7 +67,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     /**
      * Create button label based on wishlist item quantity
      *
-     * @param int $count
+     * @param  int    $count
      * @return string
      */
     protected function _createLabel($count)
@@ -83,7 +84,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     }
 
     /**
-     * @return Mage_Wishlist_Block_Links
+     * @return $this
      *
      * @deprecated after 1.4.2.0
      * @see Mage_Wishlist_Block_Links::__construct
@@ -99,6 +100,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
      * @return array
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     public function getCacheTags()
     {
         /** @var Mage_Wishlist_Helper_Data $helper */

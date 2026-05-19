@@ -50,8 +50,9 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     protected $_decimalFilterBlockName;
 
     /**
-     * Internal constructor
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -86,7 +87,9 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      * Prepare child blocks
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $stateBlock = $this->getLayout()->createBlock($this->_stateBlockName)
@@ -137,10 +140,11 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      * Get all fiterable attributes of current category
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _getFilterableAttributes()
     {
-        $attributes = $this->getData('_filterable_attributes');
+        $attributes = $this->getDataByKey('_filterable_attributes');
         if (is_null($attributes)) {
             $attributes = $this->getLayer()->getFilterableAttributes();
             $this->setData('_filterable_attributes', $attributes);
@@ -163,6 +167,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      * Get all layer filters
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getFilters()
     {
@@ -186,13 +191,16 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      */
     protected function _getCategoryFilter()
     {
-        return $this->getChild('category_filter');
+        /** @var Mage_Catalog_Block_Layer_Filter_Category $child */
+        $child = $this->getChild('category_filter');
+        return $child;
     }
 
     /**
      * Check availability display layer options
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canShowOptions()
     {
@@ -209,10 +217,15 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      * Check availability display layer block
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canShowBlock()
     {
-        return $this->canShowOptions() || count($this->getLayer()->getState()->getFilters());
+        if ($this->canShowOptions()) {
+            return true;
+        }
+
+        return (bool) count($this->getLayer()->getState()->getFilters());
     }
 
     /**
@@ -222,7 +235,9 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      */
     protected function _getPriceFilter()
     {
-        return $this->getChild('_price_filter');
+        /** @var Mage_Catalog_Block_Layer_Filter_Price $child */
+        $child = $this->getChild('_price_filter');
+        return $child;
     }
 
     /**

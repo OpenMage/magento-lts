@@ -17,6 +17,7 @@ class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_
     /**
      * Prepare children blocks
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -31,9 +32,10 @@ class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_
     /**
      * Check payment method model
      *
-     * @param null|Mage_Payment_Model_Method_Abstract $method
+     * @param  null|Mage_Payment_Model_Method_Abstract $method
      * @return bool
      */
+    #[Override]
     protected function _canUseMethod($method)
     {
         return $method && $method->canUseForMultishipping() && parent::_canUseMethod($method);
@@ -44,6 +46,7 @@ class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_
      *
      * @return false|string
      */
+    #[Override]
     public function getSelectedMethodCode()
     {
         if ($method = $this->getQuote()->getPayment()->getMethod()) {
@@ -60,7 +63,7 @@ class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_
      */
     public function getAddress()
     {
-        $address = $this->getData('address');
+        $address = $this->getDataByKey('address');
         if (is_null($address)) {
             $address = Mage::getSingleton('checkout/type_multishipping')->getQuote()->getBillingAddress();
             $this->setData('address', $address);

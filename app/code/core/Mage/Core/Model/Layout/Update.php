@@ -72,9 +72,9 @@ class Mage_Core_Model_Layout_Update
     public function __construct()
     {
         $subst = Mage::getConfig()->getPathVars();
-        foreach ($subst as $k => $v) {
-            $this->_subst['from'][] = '{{' . $k . '}}';
-            $this->_subst['to'][] = $v;
+        foreach ($subst as $key => $value) {
+            $this->_subst['from'][] = '{{' . $key . '}}';
+            $this->_subst['to'][] = $value;
         }
     }
 
@@ -100,7 +100,7 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param string $update
+     * @param  string $update
      * @return $this
      */
     public function addUpdate($update)
@@ -135,7 +135,7 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param array|string $handle
+     * @param  array|string $handle
      * @return $this
      */
     public function addHandle($handle)
@@ -152,7 +152,7 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param string $handle
+     * @param  string $handle
      * @return $this
      */
     public function removeHandle($handle)
@@ -186,7 +186,7 @@ class Mage_Core_Model_Layout_Update
     /**
      * Set cache id
      *
-     * @param string $cacheId
+     * @param  string $cacheId
      * @return $this
      */
     public function setCacheId($cacheId)
@@ -209,10 +209,11 @@ class Mage_Core_Model_Layout_Update
         }
 
         // The cache key is just a hash of the real content to de-duplicate the often large XML strings
-        if (strlen($result) === 40) { // sha1
-            if (!$result = Mage::app()->loadCache(self::XML_KEY_PREFIX . $result)) {
-                return false;
-            }
+        // sha1
+        if (strlen($result) === 40
+            && !$result = Mage::app()->loadCache(self::XML_KEY_PREFIX . $result)
+        ) {
+            return false;
         }
 
         $this->addUpdate($result);
@@ -239,7 +240,7 @@ class Mage_Core_Model_Layout_Update
 
         // Only save actual XML to cache if it doesn't already exist
         if (!Mage::app()->testCache(self::XML_KEY_PREFIX . $hash)) {
-            $returnValue = Mage::app()->saveCache($str, self::XML_KEY_PREFIX . $hash, $tags, null);
+            return Mage::app()->saveCache($str, self::XML_KEY_PREFIX . $hash, $tags, null);
         }
 
         return $returnValue;
@@ -248,7 +249,7 @@ class Mage_Core_Model_Layout_Update
     /**
      * Load layout updates by handles
      *
-     * @param array|string $handles
+     * @param  array|string $handles
      * @return $this
      */
     public function load($handles = [])
@@ -288,12 +289,12 @@ class Mage_Core_Model_Layout_Update
     /**
      * Merge layout update by handle
      *
-     * @param string $handle
+     * @param  string $handle
      * @return $this
      */
     public function merge($handle)
     {
-        $packageUpdatesStatus = $this->fetchPackageLayoutUpdates($handle);
+        $this->fetchPackageLayoutUpdates($handle);
         if (Mage::app()->isInstalled()) {
             $this->fetchDbLayoutUpdates($handle);
         }
@@ -334,7 +335,7 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param string $handle
+     * @param  string                          $handle
      * @return bool
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -358,7 +359,7 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param string $handle
+     * @param  string $handle
      * @return bool
      */
     public function fetchDbLayoutUpdates($handle)
@@ -385,7 +386,7 @@ class Mage_Core_Model_Layout_Update
     /**
      * Get update string
      *
-     * @param string $handle
+     * @param  string $handle
      * @return mixed
      */
     protected function _getUpdateString($handle)
@@ -394,7 +395,7 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param SimpleXMLElement $updateXml
+     * @param  SimpleXMLElement $updateXml
      * @return $this
      */
     public function fetchRecursiveUpdates($updateXml)
@@ -420,10 +421,10 @@ class Mage_Core_Model_Layout_Update
     /**
      * Collect and merge layout updates from file
      *
-     * @param string $area
-     * @param string $package
-     * @param string $theme
-     * @param null|int $storeId
+     * @param  string           $area
+     * @param  string           $package
+     * @param  string           $theme
+     * @param  null|int         $storeId
      * @return SimpleXMLElement
      */
     public function getFileLayoutUpdatesXml($area, $package, $theme, $storeId = null)
@@ -434,12 +435,12 @@ class Mage_Core_Model_Layout_Update
 
         /** @var Mage_Core_Model_Design_Package $design */
         $design = Mage::getSingleton('core/design_package');
-        $layoutXml = null;
         $elementClass = $this->getElementClass();
         $updatesRoot = Mage::app()->getConfig()->getNode($area . '/layout/updates');
+        $updatesRoot = $this->addFallbackThemesLayoutUpdates($updatesRoot);
         Mage::dispatchEvent('core_layout_update_updates_get_after', ['updates' => $updatesRoot]);
         $updates = $updatesRoot->asArray();
-        $themeUpdates = Mage::getSingleton('core/design_config')->getNode("$area/$package/$theme/layout/updates");
+        $themeUpdates = Mage::getSingleton('core/design_config')->getNode("{$area}/{$package}/{$theme}/layout/updates");
         if ($themeUpdates && is_array($themeUpdates->asArray())) {
             //array_values() to ensure that theme-specific layouts don't override, but add to module layouts
             $updates = array_merge($updates, array_values($themeUpdates->asArray()));
@@ -482,5 +483,54 @@ class Mage_Core_Model_Layout_Update
         }
 
         return simplexml_load_string('<layouts>' . $layoutStr . '</layouts>', $elementClass);
+    }
+
+    /**
+     * Add layout files added via theme.xml to layout updates
+     * for all themes that are parents of this theme.
+     */
+    public function addFallbackThemesLayoutUpdates(Mage_Core_Model_Config_Element $updates): Mage_Core_Model_Config_Element
+    {
+        /** @var Mage_Core_Model_Design_Package $designPackage */
+        $designPackage = Mage::getSingleton('core/design_package');
+        /** @var Mage_Core_Model_Design_Fallback $fallbackModel */
+        $fallbackModel = Mage::getModel('core/design_fallback');
+
+        $fallbacks = array_reverse($fallbackModel->getFallbackScheme(
+            $designPackage->getArea(),
+            $designPackage->getPackageName(),
+            $designPackage->getTheme('layout'),
+        ));
+
+        foreach ($fallbacks as $fallback) {
+            if (!isset($fallback['_package'], $fallback['_theme'])) {
+                continue;
+            }
+
+            $fallbackPackage = $fallback['_package'];
+            $fallbackTheme = $fallback['_theme'];
+
+            $themeUpdateGroups = Mage::getSingleton('core/design_config')->getNode("{$designPackage->getArea()}/{$fallbackPackage}/{$fallbackTheme}/layout/updates");
+
+            if (!$themeUpdateGroups) {
+                continue;
+            }
+
+            foreach ($themeUpdateGroups as $themeUpdateGroup) {
+                foreach ($themeUpdateGroup->asArray() as $key => $themeUpdate) {
+                    if (!isset($themeUpdate['file'])) {
+                        continue;
+                    }
+
+                    if (!is_string($themeUpdate['file'])) {
+                        continue;
+                    }
+
+                    $updates->addChild($key)->addChild('file', $themeUpdate['file']);
+                }
+            }
+        }
+
+        return $updates;
     }
 }

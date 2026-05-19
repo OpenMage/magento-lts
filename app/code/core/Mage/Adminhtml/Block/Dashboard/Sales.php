@@ -14,6 +14,10 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Sales extends Mage_Adminhtml_Block_Dashboard_Bar
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -23,6 +27,7 @@ class Mage_Adminhtml_Block_Dashboard_Sales extends Mage_Adminhtml_Block_Dashboar
     /**
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if (!$this->isModuleEnabled('Mage_Reports')) {

@@ -35,6 +35,9 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
      */
     protected $_linkTypeId;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_link');

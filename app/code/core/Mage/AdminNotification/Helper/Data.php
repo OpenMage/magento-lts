@@ -47,7 +47,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve count of unread notes by type
      *
-     * @param int $severity
+     * @param  int $severity
      * @return int
      */
     public function getUnreadNoticeCount($severity)
@@ -62,7 +62,7 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Widget Popup Notification Object URL
      *
-     * @param bool $withExt
+     * @param  bool   $withExt
      * @return string
      * @deprecated v19.4.16
      */

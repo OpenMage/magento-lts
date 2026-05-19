@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -13,18 +15,18 @@
  * @package    Mage_Core
  *
  * @method string getAfterText()
- * @method array getAParams()
+ * @method array  getAParams()
  * @method string getInnerText()
- * @method array getLiParams()
- * @method $this setAfterText(string $value)
- * @method $this setAParams(array $value)
- * @method $this setInnerText(string $value)
- * @method $this setLiParams(array $value)
+ * @method array  getLiParams()
+ * @method $this  setAfterText(string $value)
+ * @method $this  setAParams(array $value)
+ * @method $this  setInnerText(string $value)
+ * @method $this  setLiParams(array $value)
  */
 class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
 {
     /**
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function setText($text)
@@ -38,12 +40,12 @@ class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
      */
     public function getText()
     {
-        return $this->getData('text');
+        return $this->getDataByKey('text');
     }
 
     /**
      * @param string $text
-     * @param bool $before
+     * @param bool   $before
      */
     public function addText($text, $before = false)
     {
@@ -57,6 +59,7 @@ class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_beforeToHtml()) {

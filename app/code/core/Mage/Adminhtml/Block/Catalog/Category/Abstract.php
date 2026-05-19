@@ -50,11 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
     public function hasStoreRootCategory()
     {
         $root = $this->getRoot();
-        if ($root && $root->getId()) {
-            return true;
-        }
-
-        return false;
+        return $root && $root->getId();
     }
 
     public function getStore()
@@ -110,7 +106,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
      * Tree with minimal required nodes (all parents and neighbours) will be built.
      * If ids are empty, default tree with depth = 2 will be returned.
      *
-     * @param array $ids
+     * @param  array                            $ids
      * @return null|mixed|Varien_Data_Tree_Node
      */
     public function getRootByIds($ids)
@@ -171,7 +167,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
      */
     public function getRootIds()
     {
-        $ids = $this->getData('root_ids');
+        $ids = $this->getDataByKey('root_ids');
         if (is_null($ids)) {
             $ids = [];
             foreach (Mage::app()->getGroups() as $store) {

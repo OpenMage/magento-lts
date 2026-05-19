@@ -14,7 +14,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
+class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
 {
     public const XML_PATH_LAYOUT_DISALLOWED_BLOCKS       = 'validators/custom_layout/disallowed_block';
 
@@ -31,7 +31,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
     /**
      * The Varien SimpleXml object
      *
-     * @var Varien_Simplexml_Element
+     * @inheritDoc
      */
     protected $_value;
 
@@ -78,7 +78,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
     /**
      * Initialize messages templates with translating
      *
-     * @return Mage_Core_Model_Layout_Validator
+     * @return $this
      */
     protected function _initMessageTemplates()
     {
@@ -131,10 +131,10 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
-     * @param string|Varien_Simplexml_Element $value
+     * @param  string|Varien_Simplexml_Element $value
      * @return bool
-     * @throws Exception            Throw exception when xml object is not
-     *                              instance of Varien_Simplexml_Element
+     * @throws Exception                       Throw exception when xml object is not
+     *                                         instance of Varien_Simplexml_Element
      */
     public function isValid($value)
     {
@@ -210,15 +210,13 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      */
     public function getXpathBlockValidationExpression()
     {
-        if (!$this->_xpathBlockValidationExpression) {
-            if (count($this->_disallowedBlock)) {
-                foreach ($this->_disallowedBlock as $key => $value) {
-                    $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
-                    $this->_xpathBlockValidationExpression
-                        .= "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
-                    $this->_xpathBlockValidationExpression
-                        .= "translate('$value', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
-                }
+        if (!$this->_xpathBlockValidationExpression && count($this->_disallowedBlock)) {
+            foreach ($this->_disallowedBlock as $key => $value) {
+                $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
+                $this->_xpathBlockValidationExpression
+                    .= "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
+                $this->_xpathBlockValidationExpression
+                    .= "translate('{$value}', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
             }
         }
 

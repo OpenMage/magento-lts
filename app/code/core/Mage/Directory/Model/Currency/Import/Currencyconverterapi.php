@@ -66,6 +66,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      *
      * @return array
      */
+    #[Override]
     public function fetchRates()
     {
         $data = [];
@@ -87,7 +88,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     /**
      * Batch import of currency rates
      *
-     * @param string $currencyFrom
+     * @param  string $currencyFrom
      * @return array
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -136,8 +137,8 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     /**
      * Get response from external service
      *
-     * @param string $url
-     * @param int $retry
+     * @param  string $url
+     * @param  int    $retry
      * @return array
      */
     protected function _getServiceResponse($url, $retry = 0)

@@ -7,6 +7,8 @@
  * @package    Mage_Captcha
  */
 
+use Carbon\Carbon;
+
 /**
  * Log Attempts resource
  *
@@ -24,6 +26,9 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      */
     public const TYPE_LOGIN = 2;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_setMainTable('captcha/log');
@@ -32,7 +37,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save or Update count Attempts
      *
-     * @param null|string $login
+     * @param  null|string $login
      * @return $this
      */
     public function logAttempt($login)
@@ -48,12 +53,12 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
             );
         }
 
-        $ip = Mage::helper('core/http')->getRemoteAddr();
-        if ($ip != null) {
+        $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
+        if ($remoteAddr != null) {
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getMainTable(),
                 [
-                    'type' => self::TYPE_REMOTE_ADDRESS, 'value' => $ip, 'count' => 1,
+                    'type' => self::TYPE_REMOTE_ADDRESS, 'value' => $remoteAddr, 'count' => 1,
                     'updated_at' => Mage::getSingleton('core/date')->gmtDate(),
                 ],
                 ['count' => new Zend_Db_Expr('count+1'), 'updated_at'],
@@ -66,7 +71,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Delete User attempts by login
      *
-     * @param string $login
+     * @param  string $login
      * @return $this
      */
     public function deleteUserAttempts($login)
@@ -78,11 +83,11 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
             );
         }
 
-        $ip = Mage::helper('core/http')->getRemoteAddr();
-        if ($ip != null) {
+        $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
+        if ($remoteAddr != null) {
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
-                ['type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip],
+                ['type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $remoteAddr],
             );
         }
 
@@ -96,21 +101,21 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function countAttemptsByRemoteAddress()
     {
-        $ip = Mage::helper('core/http')->getRemoteAddr();
-        if (!$ip) {
+        $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
+        if (!$remoteAddr) {
             return 0;
         }
 
         $read = $this->_getReadAdapter();
         $select = $read->select()->from($this->getMainTable(), 'count')->where('type = ?', self::TYPE_REMOTE_ADDRESS)
-            ->where('value = ?', $ip);
+            ->where('value = ?', $remoteAddr);
         return $read->fetchOne($select);
     }
 
     /**
      * Get count attempts by user login
      *
-     * @param string $login
+     * @param  string     $login
      * @return int|string
      */
     public function countAttemptsByUserLogin($login)
@@ -132,7 +137,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     {
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60 * 30)],
+            ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, Carbon::now()->subMinutes(30)->getTimestamp())],
         );
     }
 }

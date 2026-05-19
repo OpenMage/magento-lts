@@ -29,6 +29,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Initialize block's cache
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -46,8 +47,9 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Get Key pieces for caching block content
      *
-     * @return array
+     * @return array<int|string, mixed>
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         return [
@@ -79,7 +81,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
 
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_collection');
-        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
+        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds());
 
         return $this->_addProductAttributesAndPrices($collection)
             ->addStoreFilter()
@@ -105,8 +107,9 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Prepare collection with new products
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->setProductCollection($this->_getProductCollection());
@@ -116,7 +119,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Set how much product should be displayed at once.
      *
-     * @param int $count
+     * @param  int   $count
      * @return $this
      */
     public function setProductsCount($count)

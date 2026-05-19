@@ -69,7 +69,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected $_idFieldName;
 
     /**
-     * Primery key auto increment flag
+     * Primary key auto increment flag
      *
      * @var bool
      */
@@ -83,7 +83,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected $_useIsObjectNew = false;
 
     /**
-     * Fields List for update in forsedSave
+     * Fields List for update in forcedSave
      *
      * @var array
      */
@@ -106,7 +106,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *      'title' => 'Field 3 and Field 4 combination should be unique'
      *   )
      * )
-     * or string 'my_field_name' - will be autoconverted to
+     * or string 'my_field_name' - will be auto converted to
      *      array( array( 'field' => 'my_field_name', 'title' => 'my_field_name' ) )
      *
      * @var null|array
@@ -130,7 +130,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Standard resource model initialization
      *
-     * @param string $mainTable
+     * @param string      $mainTable
      * @param null|string $idFieldName
      */
     protected function _init($mainTable, $idFieldName)
@@ -143,8 +143,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * If one or both arguments are string, will be used as prefix
      * If $tables is null and $connections is string, $tables will be the same
      *
-     * @param array|string $connections
-     * @param null|array|string $tables
+     * @param  array|string      $connections
+     * @param  null|array|string $tables
      * @return $this
      */
     protected function _setResource($connections, $tables = null)
@@ -176,8 +176,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Set main entity table name and primary key field name
      * If field name is omitted {table_name}_id will be used
      *
-     * @param string $mainTable
-     * @param null|string $idFieldName
+     * @param  string      $mainTable
+     * @param  null|string $idFieldName
      * @return $this
      */
     protected function _setMainTable($mainTable, $idFieldName = null)
@@ -236,7 +236,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Get table name for the entity, validated by db adapter
      *
-     * @param array|string $entityName
+     * @param  array|string $entityName
      * @return string
      */
     public function getTable($entityName)
@@ -254,20 +254,12 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         if (strpos($entityName, '/')) {
-            if (!is_null($entitySuffix)) {
-                $modelEntity = [$entityName, $entitySuffix];
-            } else {
-                $modelEntity = $entityName;
-            }
+            $modelEntity = is_null($entitySuffix) ? $entityName : [$entityName, $entitySuffix];
 
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } elseif (!empty($this->_resourceModel)) {
             $entityName = sprintf('%s/%s', $this->_resourceModel, $entityName);
-            if (!is_null($entitySuffix)) {
-                $modelEntity = [$entityName, $entitySuffix];
-            } else {
-                $modelEntity = $entityName;
-            }
+            $modelEntity = is_null($entitySuffix) ? $entityName : [$entityName, $entitySuffix];
 
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } else {
@@ -284,8 +276,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve table name for the entity separated value
      *
-     * @param string $entityName
-     * @param string $valueType
+     * @param  string $entityName
+     * @param  string $valueType
      * @return string
      */
     public function getValueTable($entityName, $valueType)
@@ -296,7 +288,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Get connection by name or type
      *
-     * @param string $connectionName
+     * @param  string                             $connectionName
      * @return false|Magento_Db_Adapter_Pdo_Mysql
      */
     protected function _getConnection($connectionName)
@@ -317,7 +309,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * @param string $connectionName
+     * @param  string $connectionName
      * @return bool
      */
     public function hasConnection($connectionName)
@@ -366,8 +358,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Load an object
      *
-     * @param mixed $value
-     * @param null|string $field field to load by (defaults to model id)
+     * @param  mixed       $value
+     * @param  null|string $field field to load by (defaults to model id)
      * @return $this
      * @throws Exception
      */
@@ -396,9 +388,9 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract|Varien_Object $object
+     * @param  string                                 $field
+     * @param  mixed                                  $value
+     * @param  Mage_Core_Model_Abstract|Varien_Object $object
      * @return Varien_Db_Select
      * @throws Exception
      */
@@ -407,7 +399,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
 
         if (!isset($fields[$field])) {
-            throw new Exception("Column \"$field\" does not exist in table \"{$this->getMainTable()}\"");
+            throw new Exception("Column \"{$field}\" does not exist in table \"{$this->getMainTable()}\"");
         }
 
         $value = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
@@ -527,7 +519,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Add unique field restriction
      *
-     * @param array|string $field
+     * @param  array|string $field
      * @return $this
      */
     public function addUniqueField($field)
@@ -560,7 +552,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function unserializeFields(Mage_Core_Model_Abstract $object)
     {
         foreach ($this->_serializableFields as $field => $parameters) {
-            [$serializeDefault, $unserializeDefault] = $parameters;
+            [$ignored, $unserializeDefault] = $parameters;
             $this->_unserializeField($object, $field, $unserializeDefault);
         }
     }
@@ -605,7 +597,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Check that model data fields that can be saved
      * has really changed comparing with origData
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param  Mage_Core_Model_Abstract $object
      * @return bool
      * @throws Mage_Core_Exception
      * @throws Zend_Cache_Exception
@@ -629,8 +621,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Prepare value for save
      *
-     * @param mixed $value
-     * @param string $type
+     * @param  mixed  $value
+     * @param  string $type
      * @return mixed
      */
     protected function _prepareValueForSave($value, $type)
@@ -684,7 +676,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             }
         }
 
-        if (!empty($existent)) {
+        if ($existent !== []) {
             if (count($existent) == 1) {
                 $error = Mage::helper('core')->__('%s already exists.', $existent[0]);
             } else {
@@ -761,7 +753,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected function _serializeFields(Mage_Core_Model_Abstract $object)
     {
         foreach ($this->_serializableFields as $field => $parameters) {
-            [$serializeDefault, $unserializeDefault] = $parameters;
+            [$serializeDefault, $ignored] = $parameters;
             $this->_serializeField($object, $field, $serializeDefault, isset($parameters[2]));
         }
     }
@@ -769,7 +761,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve table checksum
      *
-     * @param array|string $table
+     * @param  array|string $table
      * @return array|false
      */
     public function getChecksum($table)

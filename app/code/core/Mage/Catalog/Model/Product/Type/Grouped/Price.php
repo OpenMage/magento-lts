@@ -17,10 +17,11 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
     /**
      * Returns product final price depending on options chosen
      *
-     * @param null|float $qty
-     * @param Mage_Catalog_Model_Product $product
-     * @return  float
+     * @param  null|float                 $qty
+     * @param  Mage_Catalog_Model_Product $product
+     * @return float
      */
+    #[Override]
     public function getFinalPrice($qty, $product)
     {
         if (is_null($qty) && !is_null($product->getCalculatedFinalPrice())) {
@@ -52,6 +53,6 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
         $product->setFinalPrice($finalPrice);
         Mage::dispatchEvent('catalog_product_type_grouped_price', ['product' => $product]);
 
-        return max(0, $product->getData('final_price'));
+        return max(0, $product->getDataByKey('final_price'));
     }
 }

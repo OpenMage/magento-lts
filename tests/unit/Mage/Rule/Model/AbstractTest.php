@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -26,13 +27,14 @@ use Varien_Object;
 final class AbstractTest extends OpenMageTest
 {
     use BoolTrait;
+
     use RuleTrait;
 
     public const CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL = 'Call to a member function setRule() on null';
 
     private static Subject $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$subject = $this->getMockForAbstractClass(Subject::class);
     }

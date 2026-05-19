@@ -30,7 +30,7 @@ class Mage_Api_Model_Server
     /**
      * Complex retrieve adapter code by calling auxiliary model method
      *
-     * @param string $alias Alias name
+     * @param  string      $alias Alias name
      * @return null|string Returns NULL if no alias found
      */
     public function getAdapterCodeByAlias($alias)
@@ -56,8 +56,8 @@ class Mage_Api_Model_Server
     /**
      * Initialize server components
      *
-     * @param string $adapter Adapter name
-     * @param string $handler Handler name
+     * @param  string $adapter Adapter name
+     * @param  string $handler Handler name
      * @return $this
      */
     public function init(Mage_Api_Controller_Action $controller, $adapter = 'default', $handler = 'default')
@@ -72,8 +72,8 @@ class Mage_Api_Model_Server
     /**
      * Initialize server components. Lightweight implementation of init() method
      *
-     * @param string $adapterCode Adapter code
-     * @param string $handler OPTIONAL Handler name (if not specified, it will be found from config)
+     * @param  string $adapterCode Adapter code
+     * @param  string $handler     OPTIONAL Handler name (if not specified, it will be found from config)
      * @return $this
      */
     public function initialize($adapterCode, $handler = null)

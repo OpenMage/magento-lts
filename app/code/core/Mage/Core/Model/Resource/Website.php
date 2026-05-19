@@ -14,6 +14,9 @@
  */
 class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/website', 'website_id');
@@ -24,6 +27,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
      *
      * @return $this
      */
+    #[Override]
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = [[
@@ -39,6 +43,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
      * @param Mage_Core_Model_Website $object
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!preg_match('/^[a-z]+[a-z0-9_]*$/', $object->getCode())) {
@@ -52,6 +57,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
      * @param Mage_Core_Model_Website $object
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->getIsDefault()) {
@@ -69,6 +75,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
      * @param Mage_Core_Model_Website $model
      * @inheritDoc
      */
+    #[Override]
     protected function _afterDelete(Mage_Core_Model_Abstract $model)
     {
         $where = [
@@ -85,7 +92,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
      * Retrieve default stores select object
      * Select fields website_id, store_id
      *
-     * @param bool $withDefault include/exclude default admin website
+     * @param  bool             $withDefault include/exclude default admin website
      * @return Varien_Db_Select
      */
     public function getDefaultStoresSelect($withDefault = false)

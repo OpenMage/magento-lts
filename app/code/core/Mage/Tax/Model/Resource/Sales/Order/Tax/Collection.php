@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,10 +14,13 @@
  *
  * @package    Mage_Tax
  *
- * @method Mage_Tax_Model_Sales_Order_Tax[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Tax_Model_Sales_Order_Tax>
  */
 class Mage_Tax_Model_Resource_Sales_Order_Tax_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/sales_order_tax');
@@ -24,7 +29,7 @@ class Mage_Tax_Model_Resource_Sales_Order_Tax_Collection extends Mage_Core_Model
     /**
      * Retrieve order tax collection by order identifier
      *
-     * @param Varien_Object $order
+     * @param  Varien_Object $order
      * @return $this
      */
     public function loadByOrder($order)

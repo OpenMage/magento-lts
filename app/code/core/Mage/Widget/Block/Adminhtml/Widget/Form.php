@@ -17,6 +17,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Form with widget to select
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -25,7 +26,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
             'legend'    => $this->helper('widget')->__('Widget'),
         ]);
 
-        $select = $fieldset->addField('select_widget_type', 'select', [
+        $fieldset->addField('select_widget_type', 'select', [
             'label'                 => $this->helper('widget')->__('Widget Type'),
             'title'                 => $this->helper('widget')->__('Widget Type'),
             'name'                  => 'widget_type',
@@ -77,7 +78,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Return array of available widgets based on configuration
      *
-     * @param bool $withEmptyElement
+     * @param  bool  $withEmptyElement
      * @return array
      */
     protected function _getAvailableWidgets($withEmptyElement = false)

@@ -21,6 +21,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
 
     /**
      * New subscription action
+     * @return void
      */
     public function newAction()
     {
@@ -34,8 +35,11 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             $customerSession    = Mage::getSingleton('customer/session');
             $email              = (string) $this->getRequest()->getPost('email');
 
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator          = Mage::helper('core/validate');
+
             try {
-                if (!Zend_Validate::is($email, 'EmailAddress')) {
+                if ($validator->validateEmail($email)->count() > 0) {
                     Mage::throwException($this->__('Please enter a valid email address.'));
                 }
 
@@ -59,10 +63,10 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                 } else {
                     $session->addSuccess($this->__('Thank you for your subscription.'));
                 }
-            } catch (Mage_Core_Exception $e) {
-                $session->addException($e, $this->__('There was a problem with the subscription: %s', $e->getMessage()));
-            } catch (Exception $e) {
-                $session->addException($e, $this->__('There was a problem with the subscription.'));
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $session->addException($mageCoreException, $this->__('There was a problem with the subscription: %s', $mageCoreException->getMessage()));
+            } catch (Exception $exception) {
+                $session->addException($exception, $this->__('There was a problem with the subscription.'));
             }
         }
 
@@ -71,6 +75,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
 
     /**
      * Subscription confirm action
+     * @return void
      */
     public function confirmAction()
     {
@@ -100,6 +105,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
 
     /**
      * Unsubscribe newsletter
+     * @return void
      */
     public function unsubscribeAction()
     {
@@ -113,10 +119,10 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                     ->setCheckCode($code)
                     ->unsubscribe();
                 $session->addSuccess($this->__('You have been unsubscribed.'));
-            } catch (Mage_Core_Exception $e) {
-                $session->addException($e, $e->getMessage());
-            } catch (Exception $e) {
-                $session->addException($e, $this->__('There was a problem with the un-subscription.'));
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $session->addException($mageCoreException, $mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                $session->addException($exception, $this->__('There was a problem with the un-subscription.'));
             }
         }
 
@@ -128,6 +134,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
      *
      * @return bool
      */
+    #[Override]
     protected function _isFormKeyEnabled()
     {
         return Mage::getStoreConfigFlag(self::XML_CSRF_USE_FLAG_CONFIG_PATH);

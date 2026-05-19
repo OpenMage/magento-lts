@@ -196,18 +196,14 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
     /**
      * Compose reconstructed URL using mapping
      *
-     * @param string $frontModule
-     * @param string $controllerName
-     * @param string $actionName
+     * @param  string      $frontModule
+     * @param  string      $controllerName
+     * @param  string      $actionName
      * @return bool|string
      */
     protected function findInMapping($frontModule, $controllerName, $actionName)
     {
-        if ($actionName === 'index') {
-            $targetToFind = $controllerName;
-        } else {
-            $targetToFind = $controllerName . '/' . $actionName;
-        }
+        $targetToFind = $actionName === 'index' ? $controllerName : $controllerName . '/' . $actionName;
 
         if (isset($this->_moduleMappings[$frontModule])
             && isset($this->_moduleMappings[$frontModule][$targetToFind])

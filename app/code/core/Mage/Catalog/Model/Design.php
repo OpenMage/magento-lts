@@ -33,8 +33,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     /**
      * Apply design from catalog object
      *
-     * @param array|Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
-     * @param int $calledFrom
+     * @param  array|Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
+     * @param  int                                                          $calledFrom
      * @return $this
      * @deprecated after 1.4.2.0-beta1
      */
@@ -70,8 +70,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     /**
      * Apply custom design
      *
-     * @param string $design
-     * @return false|void
+     * @param  string     $design
+     * @return null|false
      */
     public function applyCustomDesign($design)
     {
@@ -83,14 +83,15 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         $package = $designInfo[0];
         $theme   = $designInfo[1];
         $this->_apply($package, $theme);
+        return null;
     }
 
     /**
      * Check is allow apply for
      *
-     * @param int $applyForObject
-     * @param int $applyTo
-     * @param int $pass
+     * @param  int  $applyForObject
+     * @param  int  $applyTo
+     * @param  int  $pass
      * @return bool
      * @deprecated after 1.4.1.0
      */
@@ -149,7 +150,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     /**
      * Check and apply design
      *
-     * @param string $design
+     * @param  string $design
      * @return bool
      * @deprecated after 1.4.2.0-beta1
      */
@@ -181,7 +182,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * Recursively apply design
      *
      * @param Varien_Object $object
-     * @param int $calledFrom
+     * @param int           $calledFrom
      *
      * @return $this
      * @deprecated after 1.4.2.0-beta1
@@ -199,14 +200,15 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             $category = $object->getParentCategory();
 
             $useParentSettings = $object->getCustomUseParentSettings();
-            if ($useParentSettings) {
-                if ($category
+            if ($useParentSettings
+                && (
+                    $category
                     && $category->getId()
                     && $category->getLevel() > 1
                     && $category->getId() != Mage_Catalog_Model_Category::TREE_ROOT_ID
-                ) {
-                    return $this->_inheritDesign($category, $calledFrom);
-                }
+                )
+            ) {
+                return $this->_inheritDesign($category, $calledFrom);
             }
 
             if ($calledFrom == self::APPLY_FOR_PRODUCT) {
@@ -230,8 +232,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * Apply design recursively (if using EAV)
      *
      * @param Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
-     * @param int $calledFrom
-     * @param int $pass
+     * @param int                                                    $calledFrom
+     * @param int                                                    $pass
      *
      * @return $this
      * @deprecated after 1.4.1.0
@@ -266,11 +268,11 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param mixed $designUpdateData
-     * @param int $calledFrom
-     * @param bool $loaded
-     * @param int $pass
-     * @return Mage_Catalog_Model_Design
+     * @param  mixed $designUpdateData
+     * @param  int   $calledFrom
+     * @param  bool  $loaded
+     * @param  int   $pass
+     * @return $this
      * @deprecated after 1.4.2.0-beta1
      */
     protected function _applyDesign($designUpdateData, $calledFrom = 0, $loaded = false, $pass = 0)
@@ -324,16 +326,12 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     /**
      * Get custom layout settings
      *
-     * @param Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
      * @return Varien_Object
      */
     public function getDesignSettings($object)
     {
-        if ($object instanceof Mage_Catalog_Model_Product) {
-            $currentCategory = $object->getCategory();
-        } else {
-            $currentCategory = $object;
-        }
+        $currentCategory = $object instanceof Mage_Catalog_Model_Product ? $object->getCategory() : $object;
 
         $category = null;
         if ($currentCategory) {
@@ -343,18 +341,18 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         if ($object instanceof Mage_Catalog_Model_Product) {
             if ($category && $category->getCustomApplyToProducts()) {
                 return $this->_mergeSettings($this->_extractSettings($category), $this->_extractSettings($object));
-            } else {
-                return $this->_extractSettings($object);
             }
-        } else {
-            return $this->_extractSettings($category);
+
+            return $this->_extractSettings($object);
         }
+
+        return $this->_extractSettings($category);
     }
 
     /**
      * Extract custom layout settings from category or product object
      *
-     * @param Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
      * @return Varien_Object
      */
     protected function _extractSettings($object)
@@ -390,8 +388,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     /**
      * Merge custom design settings
      *
-     * @param Varien_Object $categorySettings
-     * @param Varien_Object $productSettings
+     * @param  Varien_Object $categorySettings
+     * @param  Varien_Object $productSettings
      * @return Varien_Object
      */
     protected function _mergeSettings($categorySettings, $productSettings)

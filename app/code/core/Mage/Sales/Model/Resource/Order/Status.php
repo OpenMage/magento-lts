@@ -29,7 +29,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     protected $_stateTable;
 
     /**
-     * Internal constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -40,17 +40,13 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     }
 
     /**
-     * Retrieve select object for load object data
-     *
-     * @param string $field
-     * @param mixed $value
-     * @param Varien_Object $object
-     * @return  Zend_Db_Select
+     * @inheritDoc
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         if ($field == 'default_state') {
-            $select = $this->_getReadAdapter()->select()
+            return $this->_getReadAdapter()->select()
                 ->from($this->getMainTable(), ['label'])
                 ->join(
                     ['state_table' => $this->_stateTable],
@@ -60,11 +56,9 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 ->where('state_table.state = ?', $value)
                 ->order('state_table.is_default DESC')
                 ->limit(1);
-        } else {
-            $select = parent::_getLoadSelect($field, $value, $object);
         }
 
-        return $select;
+        return parent::_getLoadSelect($field, $value, $object);
     }
 
     /**
@@ -86,6 +80,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
      * @param Mage_Sales_Model_Order|Mage_Sales_Model_Order_Status $object
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->hasStoreLabels()) {
@@ -107,7 +102,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 ];
             }
 
-            if (!empty($data)) {
+            if ($data !== []) {
                 $this->_getWriteAdapter()->insertMultiple($this->_labelsTable, $data);
             }
         }
@@ -118,9 +113,9 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     /**
      * Assign order status to order state
      *
-     * @param string $status
-     * @param string $state
-     * @param bool $isDefault
+     * @param  string $status
+     * @param  string $state
+     * @param  bool   $isDefault
      * @return $this
      */
     public function assignState($status, $state, $isDefault)
@@ -147,8 +142,8 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     /**
      * Unassign order status from order state
      *
-     * @param string $status
-     * @param string $state
+     * @param  string $status
+     * @param  string $state
      * @return $this
      */
     public function unassignState($status, $state)

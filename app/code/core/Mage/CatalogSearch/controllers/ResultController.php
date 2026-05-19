@@ -26,6 +26,7 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
 
     /**
      * Display search result
+     * @return void
      */
     public function indexAction()
     {
@@ -50,9 +51,9 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
                     $query->save();
                     $this->getResponse()->setRedirect($query->getRedirect());
                     return;
-                } else {
-                    $query->prepare();
                 }
+
+                $query->prepare();
             }
 
             Mage::helper('catalogsearch')->checkNotes();

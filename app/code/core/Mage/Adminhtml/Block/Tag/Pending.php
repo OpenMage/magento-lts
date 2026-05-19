@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Tag_Pending extends Mage_Adminhtml_Block_Template
         $this->setTemplate('tag/index.phtml');
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild('tagsGrid', $this->getLayout()->createBlock('adminhtml/tag_grid_pending'));

@@ -41,8 +41,8 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize product view layout
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Catalog_ProductController
+     * @param  Mage_Catalog_Model_Product $product
+     * @return $this
      */
     protected function _initProductLayout($product)
     {
@@ -56,7 +56,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      * If not or product shows not in category - applies product's internal settings
      *
      * @param Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
-     * @param Mage_Core_Model_Layout_Update $update
+     * @param Mage_Core_Model_Layout_Update                          $update
      * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
      */
     protected function _applyCustomDesignSettings($object, $update)
@@ -98,6 +98,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      * Product view action
      *
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function viewAction()
     {
@@ -136,6 +137,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      * View product gallery action
      *
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function galleryAction()
     {
@@ -156,6 +158,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
     /**
      * Display product image action
      *
+     * @return void
      * @deprecated
      */
     public function imageAction()

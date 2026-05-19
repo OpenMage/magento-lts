@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Items extends Mage_Admin
     /**
      * Retrieve required options from parent
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         if (!$this->getParentBlock()) {
@@ -49,9 +50,10 @@ class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Items extends Mage_Admin
     /**
      * Retrieve formatted price
      *
-     * @param   float $value
-     * @return  string
+     * @param  float  $value
+     * @return string
      */
+    #[Override]
     public function formatPrice($value)
     {
         $store = Mage::app()->getStore($this->_getRecurringProfile()->getStore());

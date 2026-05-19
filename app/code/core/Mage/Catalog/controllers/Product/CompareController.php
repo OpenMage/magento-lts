@@ -8,7 +8,7 @@
  */
 
 /**
- * Catalog comapare controller
+ * Catalog compare controller
  *
  * @package    Mage_Catalog
  */
@@ -28,6 +28,9 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
      */
     protected $_customerId = null;
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $items = $this->getRequest()->getParam('items');
@@ -51,6 +54,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
 
     /**
      * Add item to compare list
+     * @return void
      */
     public function addAction()
     {
@@ -83,6 +87,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
 
     /**
      * Remove item from compare list
+     * @return void
      */
     public function removeAction()
     {
@@ -125,6 +130,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
 
     /**
      * Remove all items from comparison list
+     * @return void
      */
     public function clearAction()
     {
@@ -145,10 +151,10 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
             $items->clear();
             $session->addSuccess($this->__('The comparison list was cleared.'));
             Mage::helper('catalog/product_compare')->calculate();
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('An error occurred while clearing comparison list.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('An error occurred while clearing comparison list.'));
         }
 
         $this->_redirectReferer();
@@ -157,7 +163,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
     /**
      * Setter for customer id
      *
-     * @param int $id
+     * @param  int   $id
      * @return $this
      */
     public function setCustomerId($id)
@@ -169,7 +175,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
     /**
      * Check if product is available
      *
-     * @param int $productId
+     * @param  int  $productId
      * @return bool
      */
     public function isProductAvailable($productId)

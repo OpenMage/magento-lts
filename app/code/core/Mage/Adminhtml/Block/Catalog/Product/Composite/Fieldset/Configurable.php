@@ -19,13 +19,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable exten
      *
      * @return Mage_Catalog_Model_Product
      */
+    #[Override]
     public function getProduct()
     {
         if (!$this->hasData('product')) {
             $this->setData('product', Mage::registry('product'));
         }
 
-        $product = $this->getData('product');
+        $product = $this->getDataByKey('product');
         if (is_null($product->getTypeInstance(true)->getStoreFilter($product))) {
             $product->getTypeInstance(true)->setStoreFilter(Mage::app()->getStore($product->getStoreId()), $product);
         }
@@ -38,16 +39,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable exten
      *
      * @return Mage_Core_Model_Store
      */
+    #[Override]
     public function getCurrentStore()
     {
         return Mage::app()->getStore($this->getProduct()->getStoreId());
     }
 
     /**
-     * Returns additional values for js config, con be overridden by descendants
-     *
-     * @return array
+     * @inheritDoc
      */
+    #[Override]
     protected function _getAdditionalConfig()
     {
         $result = parent::_getAdditionalConfig();

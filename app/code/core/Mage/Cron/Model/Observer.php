@@ -7,6 +7,8 @@
  * @package    Mage_Cron
  */
 
+use Carbon\Carbon;
+
 /**
  * Crontab observer
  *
@@ -39,7 +41,10 @@ class Mage_Cron_Model_Observer
      * Generate tasks schedule
      * Cleanup tasks schedule
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
+     * @throws Mage_Core_Exception
+     * @throws Throwable
+     * @throws Zend_Cache_Exception
      */
     public function dispatch($observer)
     {
@@ -53,7 +58,11 @@ class Mage_Cron_Model_Observer
             $jobConfig = $jobsRoot->{$jobCode};
             if (!$jobConfig || !$jobConfig->run) {
                 $jobConfig = $defaultJobsRoot->{$jobCode};
-                if (!$jobConfig || !$jobConfig->run) {
+                if (!$jobConfig) {
+                    continue;
+                }
+
+                if (!$jobConfig->run) {
                     continue;
                 }
             }
@@ -68,7 +77,9 @@ class Mage_Cron_Model_Observer
     /**
      * Process cron queue for tasks marked as always
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function dispatchAlways($observer)
     {
@@ -89,6 +100,8 @@ class Mage_Cron_Model_Observer
 
     /**
      * @return Mage_Cron_Model_Resource_Schedule_Collection
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getPendingSchedules()
     {
@@ -106,6 +119,9 @@ class Mage_Cron_Model_Observer
      * Generate cron schedule
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
+     * @throws Zend_Cache_Exception
      */
     public function generate()
     {
@@ -113,7 +129,7 @@ class Mage_Cron_Model_Observer
          * check if schedule generation is needed
          */
         $lastRun = Mage::app()->loadCache(self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT);
-        if ($lastRun > time() - Mage::getStoreConfig(self::XML_PATH_SCHEDULE_GENERATE_EVERY) * 60) {
+        if ($lastRun > Carbon::now()->subMinutes(Mage::getStoreConfigAsInt(self::XML_PATH_SCHEDULE_GENERATE_EVERY))->getTimestamp()) {
             return $this;
         }
 
@@ -142,7 +158,7 @@ class Mage_Cron_Model_Observer
         /**
          * save time schedules generation was ran with no expiration
          */
-        Mage::app()->saveCache(time(), self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT, ['crontab'], null);
+        Mage::app()->saveCache(Mage::helper('core/clock')->getTimestamp(), self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT, ['crontab'], null);
 
         return $this;
     }
@@ -150,9 +166,11 @@ class Mage_Cron_Model_Observer
     /**
      * Generate jobs for config information
      *
-     * @param   SimpleXMLElement $jobs
-     * @param   array $exists
-     * @return  $this
+     * @param  SimpleXMLElement    $jobs
+     * @param  array               $exists
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _generateJobs($jobs, $exists)
     {
@@ -169,19 +187,23 @@ class Mage_Cron_Model_Observer
                 $cronExpr = (string) $jobConfig->schedule->cron_expr;
             }
 
-            if (!$cronExpr || $cronExpr == 'always') {
+            if (!$cronExpr) {
                 continue;
             }
 
-            $now = time();
+            if ($cronExpr == 'always') {
+                continue;
+            }
+
+            $now = Mage::helper('core/clock')->getTimestamp();
             $timeAhead = $now + $scheduleAheadFor;
             $schedule->setJobCode($jobCode)
                 ->setCronExpr($cronExpr)
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_PENDING);
 
             for ($time = $now; $time < $timeAhead; $time += 60) {
-                $ts = date('Y-m-d H:i:00', $time);
-                if (!empty($exists[$jobCode . '/' . $ts])) {
+                $timestamp = Carbon::createFromTimestamp($time)->format('Y-m-d H:i:00');
+                if (!empty($exists[$jobCode . '/' . $timestamp])) {
                     // already scheduled
                     continue;
                 }
@@ -202,12 +224,14 @@ class Mage_Cron_Model_Observer
      * Clean up the history of tasks
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function cleanup()
     {
         // check if history cleanup is needed
         $lastCleanup = Mage::app()->loadCache(self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT);
-        if ($lastCleanup > time() - Mage::getStoreConfig(self::XML_PATH_HISTORY_CLEANUP_EVERY) * 60) {
+        if ($lastCleanup > Carbon::now()->subMinutes(Mage::getStoreConfigAsInt(self::XML_PATH_HISTORY_CLEANUP_EVERY))->getTimestamp()) {
             return $this;
         }
 
@@ -225,17 +249,17 @@ class Mage_Cron_Model_Observer
             Mage_Cron_Model_Schedule::STATUS_ERROR => Mage::getStoreConfig(self::XML_PATH_HISTORY_FAILURE) * 60,
         ];
 
-        $now = time();
+        $now = Mage::helper('core/clock')->getTimestamp();
         foreach ($history->getIterator() as $record) {
             if (empty($record->getExecutedAt())
-                || (strtotime($record->getExecutedAt()) < $now - $historyLifetimes[$record->getStatus()])
+                || (Carbon::parse($record->getExecutedAt())->getTimestamp() < $now - $historyLifetimes[$record->getStatus()])
             ) {
                 $record->delete();
             }
         }
 
         // save time history cleanup was ran with no expiration
-        Mage::app()->saveCache(time(), self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT, ['crontab'], null);
+        Mage::app()->saveCache(Mage::helper('core/clock')->getTimestamp(), self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT, ['crontab'], null);
 
         return $this;
     }
@@ -243,19 +267,21 @@ class Mage_Cron_Model_Observer
     /**
      * Processing cron task which is marked as always
      *
-     * @param string $jobCode
-     * @param SimpleXMLElement $jobConfig
-     * @return $this|void
+     * @param  string              $jobCode
+     * @param  SimpleXMLElement    $jobConfig
+     * @return null|$this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _processAlwaysTask($jobCode, $jobConfig)
     {
         if (!$jobConfig || !$jobConfig->run) {
-            return;
+            return null;
         }
 
         $cronExpr = isset($jobConfig->schedule->cron_expr) ? (string) $jobConfig->schedule->cron_expr : '';
         if ($cronExpr != 'always') {
-            return;
+            return null;
         }
 
         $schedule = $this->_getAlwaysJobSchedule($jobCode);
@@ -269,31 +295,32 @@ class Mage_Cron_Model_Observer
     /**
      * Process cron task
      *
-     * @param Mage_Cron_Model_Schedule $schedule
-     * @param SimpleXMLElement $jobConfig
-     * @param bool $isAlways
-     * @return $this|void
+     * @param  Mage_Cron_Model_Schedule $schedule
+     * @param  SimpleXMLElement         $jobConfig
+     * @param  bool                     $isAlways
+     * @return null|$this
+     * @throws Throwable
      */
     protected function _processJob($schedule, $jobConfig, $isAlways = false)
     {
         $runConfig = $jobConfig->run;
         if (!$isAlways) {
             $scheduleLifetime = Mage::getStoreConfig(self::XML_PATH_SCHEDULE_LIFETIME) * 60;
-            $now = time();
-            $time = strtotime($schedule->getScheduledAt());
+            $now = Mage::helper('core/clock')->getTimestamp();
+            $time = Carbon::parse($schedule->getScheduledAt())->getTimestamp();
             if ($time > $now) {
-                return;
+                return null;
             }
         }
 
         $arguments = [];
+        $callback  = [];
+
         $errorStatus = Mage_Cron_Model_Schedule::STATUS_ERROR;
         try {
-            if (!$isAlways) {
-                if ($time < $now - $scheduleLifetime) {
-                    $errorStatus = Mage_Cron_Model_Schedule::STATUS_MISSED;
-                    Mage::throwException(Mage::helper('cron')->__('Too late for the schedule.'));
-                }
+            if (!$isAlways && $time < $now - $scheduleLifetime) {
+                $errorStatus = Mage_Cron_Model_Schedule::STATUS_MISSED;
+                Mage::throwException(Mage::helper('cron')->__('Too late for the schedule.'));
             }
 
             if ($runConfig->model) {
@@ -309,14 +336,14 @@ class Mage_Cron_Model_Observer
                 $arguments = [$schedule];
             }
 
-            if (empty($callback)) {
+            if ($callback === []) {
                 Mage::throwException(Mage::helper('cron')->__('No callbacks found'));
             }
 
             if (!$isAlways) {
                 if (!$schedule->tryLockJob()) {
                     // another cron started this job intermittently, so skip it
-                    return;
+                    return null;
                 }
 
                 /**
@@ -352,18 +379,20 @@ class Mage_Cron_Model_Observer
     /**
      * Get job for task marked as always
      *
-     * @param string $jobCode
+     * @param  string                   $jobCode
      * @return Mage_Cron_Model_Schedule
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _getAlwaysJobSchedule($jobCode)
     {
         /** @var Mage_Cron_Model_Schedule $schedule */
         $schedule = Mage::getModel('cron/schedule')->load($jobCode, 'job_code');
         if ($schedule->getId() === null) {
-            $ts = date('Y-m-d H:i:00');
+            $timestamp = Mage::helper('core/clock')->format('Y-m-d H:i:00');
             $schedule->setJobCode($jobCode)
-                ->setCreatedAt($ts)
-                ->setScheduledAt($ts);
+                ->setCreatedAt($timestamp)
+                ->setScheduledAt($timestamp);
         }
 
         $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_RUNNING)->save();

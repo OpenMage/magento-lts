@@ -14,6 +14,10 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Radio extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
+    /**
+     * @return array<int, array<string, int|string>>
+     */
+    #[Override]
     protected function _getOptions()
     {
         return [
@@ -32,15 +36,19 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Radio extends Mage_Adminhtm
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function getCondition()
     {
         if ($this->getValue()) {
             return $this->getColumn()->getValue();
-        } else {
-            return [
-                ['neq' => $this->getColumn()->getValue()],
-                ['is' => new Zend_Db_Expr('NULL')],
-            ];
         }
+
+        return [
+            ['neq' => $this->getColumn()->getValue()],
+            ['is' => new Zend_Db_Expr('NULL')],
+        ];
     }
 }

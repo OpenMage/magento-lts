@@ -14,6 +14,10 @@
  */
 class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct() {}
 
     /**
@@ -22,6 +26,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
      * @throws Mage_Core_Model_Store_Exception
      * @throws Zend_Date_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         $storeId = $this->_getStoreId();
@@ -53,6 +58,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         $products = $product->getCollection()
             ->setStoreId($storeId)
             ->addStoreFilter()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addAttributeToFilter('news_from_date', ['or' => [
                 0 => ['date' => true, 'to' => $todayEndOfDayDate],
                 1 => ['is' => new Zend_Db_Expr('null')]],
@@ -79,15 +85,13 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
             ->applyFrontendPriceLimitations()
         ;
 
-        $products->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
-
         /*
         using resource iterator to load the data one by one
         instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
         */
         Mage::getSingleton('core/resource_iterator')->walk(
             $products->getSelect(),
-            [[$this, 'addNewItemXmlCallback']],
+            [$this->addNewItemXmlCallback(...)],
             ['rssObj' => $rssObj, 'product' => $product],
         );
 

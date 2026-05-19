@@ -30,6 +30,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
      * @return string
      * @throw Mage_Core_Exception
      */
+    #[Override]
     protected function _getUploadDir()
     {
         $uploadDir = $this->_appendScopeInfo(self::UPLOAD_DIR);
@@ -42,6 +43,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
      *
      * @return bool
      */
+    #[Override]
     protected function _addWhetherScopeInfo()
     {
         return true;
@@ -50,19 +52,21 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
     /**
      * Getter for allowed extensions of uploaded files.
      *
-     * @return array
+     * @return array<int, string>
      */
+    #[Override]
     protected function _getAllowedExtensions()
     {
-        return ['ico', 'png', 'gif', 'jpg', 'jpeg', 'apng'];
+        return ['png', 'gif', 'jpg', 'jpeg', 'apng'];
     }
 
     /**
      * Get real media dir path
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
+    #[Override]
     protected function _getUploadRoot($token)
     {
         return Mage::getBaseDir($token);

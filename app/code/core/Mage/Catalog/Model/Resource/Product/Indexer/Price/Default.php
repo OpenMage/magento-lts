@@ -30,7 +30,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     protected $_isComposite    = false;
 
     /**
-     * Define main price index table
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Set Product Type code
      *
-     * @param string $typeCode
+     * @param  string $typeCode
      * @return $this
      */
     public function setTypeId($typeCode)
@@ -66,7 +66,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Set Product Type Composite flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setIsComposite($flag)
@@ -90,6 +90,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
      *
      * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -110,7 +111,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param array|int $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)
@@ -161,7 +162,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Prepare products default final price in temporary index table
      *
-     * @param array|int $entityIds  the entity ids limitation
+     * @param  array|int $entityIds the entity ids limitation
      * @return $this
      */
     protected function _prepareFinalPriceData($entityIds = null)
@@ -404,13 +405,13 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
 
         $tierPriceRound = new Zend_Db_Expr("ROUND(i.base_tier * ({$optPriceValue} / 100), 4)");
         $tierPriceExpr  = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $tierPriceRound);
-        $tierPriceMin   = new Zend_Db_Expr("MIN($tierPriceExpr)");
+        $tierPriceMin   = new Zend_Db_Expr("MIN({$tierPriceExpr})");
         $tierPriceValue = $write->getCheckSql('MIN(o.is_require) > 0', $tierPriceMin, '0');
         $tierPrice      = $write->getCheckSql('MIN(i.base_tier) IS NOT NULL', $tierPriceValue, 'NULL');
 
         $groupPriceRound = new Zend_Db_Expr("ROUND(i.base_group_price * ({$optPriceValue} / 100), 4)");
         $groupPriceExpr  = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $groupPriceRound);
-        $groupPriceMin   = new Zend_Db_Expr("MIN($groupPriceExpr)");
+        $groupPriceMin   = new Zend_Db_Expr("MIN({$groupPriceExpr})");
         $groupPriceValue = $write->getCheckSql('MIN(o.is_require) > 0', $groupPriceMin, '0');
         $groupPrice      = $write->getCheckSql('MIN(i.base_group_price) IS NOT NULL', $groupPriceValue, 'NULL');
 
@@ -418,8 +419,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         $maxPriceExpr   = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $maxPriceRound);
         $maxPrice       = $write->getCheckSql(
             "(MIN(o.type)='radio' OR MIN(o.type)='drop_down')",
-            "MAX($maxPriceExpr)",
-            "SUM($maxPriceExpr)",
+            "MAX({$maxPriceExpr})",
+            "SUM({$maxPriceExpr})",
         );
 
         $select->columns([
@@ -597,9 +598,10 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     /**
      * Retrieve temporary index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
+    #[Override]
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {

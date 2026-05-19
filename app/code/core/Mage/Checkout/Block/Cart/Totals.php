@@ -21,6 +21,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     /**
      * @return null|array
      */
+    #[Override]
     public function getTotals()
     {
         if (is_null($this->_totals)) {
@@ -31,7 +32,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     }
 
     /**
-     * @param array $value
+     * @param  array $value
      * @return $this
      */
     public function setTotals($value)
@@ -41,7 +42,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     }
 
     /**
-     * @param string $code
+     * @param  string                                $code
      * @return false|Mage_Core_Block_Abstract|string
      */
     protected function _getTotalRenderer($code)
@@ -66,9 +67,9 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address_Total $total
-     * @param null|string $area
-     * @param int $colspan
+     * @param  Mage_Sales_Model_Quote_Address_Total $total
+     * @param  null|string                          $area
+     * @param  int                                  $colspan
      * @return string
      */
     public function renderTotal($total, $area = null, $colspan = 1)
@@ -81,16 +82,16 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
         return $this->_getTotalRenderer($code)
             ->setTotal($total)
             ->setColspan($colspan)
-            ->setRenderingArea(is_null($area) ? -1 : $area)
+            ->setRenderingArea($area ?? -1)
             ->toHtml();
     }
 
     /**
      * Render totals html for specific totals area (footer, body)
      *
-     * @param   null|string $area
-     * @param   int $colspan
-     * @return  string
+     * @param  null|string $area
+     * @param  int         $colspan
+     * @return string
      */
     public function renderTotals($area = null, $colspan = 1)
     {
@@ -114,11 +115,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     public function needDisplayBaseGrandtotal()
     {
         $quote  = $this->getQuote();
-        if ($quote->getBaseCurrencyCode() != $quote->getQuoteCurrencyCode()) {
-            return true;
-        }
-
-        return false;
+        return $quote->getBaseCurrencyCode() != $quote->getQuoteCurrencyCode();
     }
 
     /**
@@ -142,6 +139,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
      *
      * @return Mage_Sales_Model_Quote
      */
+    #[Override]
     public function getQuote()
     {
         if ($this->getCustomQuote()) {

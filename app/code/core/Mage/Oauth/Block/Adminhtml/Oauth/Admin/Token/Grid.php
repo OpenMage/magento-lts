@@ -14,9 +14,8 @@
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Construct grid block
-     */
+    protected string $_eventPrefix = 'oauth_adminhtml_oauth_admin_token_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -28,14 +27,13 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Admin_Model_User $user */
-        $user = Mage::getSingleton('admin/session')->getData('user');
+        $user = Mage::getSingleton('admin/session')->getDataByKey('user');
 
         /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
         $collection = Mage::getModel('oauth/token')->getCollection();
@@ -44,15 +42,14 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
                 ->addFilterByAdminId($user->getId());
         $this->setCollection($collection);
 
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
@@ -76,15 +73,13 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
             'options'   => $sourceYesNo->toArray(),
         ]);
 
-        parent::_prepareColumns();
-        return $this;
+        return parent::_prepareColumns();
     }
 
     /**
-     * Add mass-actions to grid
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('id');
@@ -104,7 +99,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
             'url'   => $this->getUrl('*/*/delete'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
@@ -112,6 +107,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);

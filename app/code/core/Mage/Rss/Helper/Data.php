@@ -11,6 +11,8 @@
  * Rss data helper
  *
  * @package    Mage_Rss
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -91,7 +93,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Validate Authenticate
      *
-     * @param array $headers
+     * @param  array $headers
      * @return array
      */
     public function authValidate($headers = null)
@@ -145,7 +147,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param ConfigStoreId $store
      */
     public function isRssAdminOrderNewEnabled($store = null): bool
     {
@@ -153,10 +155,10 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param ConfigStoreId $store
      */
     public function getRssAdminOrderNewPeriod($store = null): int
     {
-        return (int) Mage::getStoreConfig(self::XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD, $store);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD, $store);
     }
 }

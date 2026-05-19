@@ -15,9 +15,10 @@ class Mage_Tax_Model_System_Config_Source_Tax_Country extends Mage_Adminhtml_Mod
     protected $_options;
 
     /**
-     * @param bool $noEmpty
+     * @param  bool  $noEmpty
      * @return array
      */
+    #[Override]
     public function toOptionArray($noEmpty = false)
     {
         $options = parent::toOptionArray($noEmpty);

@@ -14,11 +14,10 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_cache_grid';
+
     protected $_invalidatedTypes = [];
 
-    /**
-     * Class constructor
-     */
     public function __construct()
     {
         parent::__construct();
@@ -29,8 +28,9 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * Prepare grid collection
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = new Varien_Data_Collection();
@@ -43,17 +43,10 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * Add name and description to collection elements
-     */
-    protected function _afterLoadCollection()
-    {
-        return $this;
-    }
-
-    /**
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('cache_type', [
@@ -86,7 +79,8 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'index'     => 'status',
             'type'      => 'options',
             'options'   => [0 => $this->__('Disabled'), 1 => $this->__('Enabled')],
-            'frame_callback' => [$this, 'decorateStatus'],
+            'frame_callback' => $this->decorateStatus(...),
+            'sortable'  => false,
         ]);
 
         return parent::_prepareColumns();
@@ -96,10 +90,10 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Decorate status column values
      *
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function decorateStatus($value, $row, $column, $isExport)
     {
-        $class = '';
         if (isset($this->_invalidatedTypes[$row->getId()])) {
             $class = self::CSS_SEVERITY_MINOR;
             $value = $this->__('Invalidated');
@@ -113,26 +107,22 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * Get row edit url
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return '';
     }
 
     /**
-     * Add mass-actions to grid
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('id');
         $this->getMassactionBlock()->setFormFieldName('types');
-
-        $modeOptions = Mage::getModel('index/process')->getModesOptions();
 
         $this->getMassactionBlock()->addItem(MassAction::ENABLE, [
             'label'    => Mage::helper('index')->__('Enable'),
@@ -148,6 +138,6 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'selected' => true,
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 }

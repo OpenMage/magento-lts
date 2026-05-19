@@ -14,27 +14,19 @@
  */
 class Mage_Adminhtml_Block_Report_Product_Sold_Grid extends Mage_Adminhtml_Block_Report_Grid
 {
-    /**
-     * Sub report size
-     *
-     * @var int
-     */
-    protected $_subReportSize = 0;
+    protected string $_eventPrefix = 'adminhtml_report_product_sold_grid';
 
-    /**
-     * Initialize Grid settings
-     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('gridProductsSold');
+        $this->setSubReportSize(0);
     }
 
     /**
-     * Prepare collection object for grid
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         parent::_prepareCollection();
@@ -44,10 +36,10 @@ class Mage_Adminhtml_Block_Report_Product_Sold_Grid extends Mage_Adminhtml_Block
     }
 
     /**
-     * Prepare Grid columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('name', [

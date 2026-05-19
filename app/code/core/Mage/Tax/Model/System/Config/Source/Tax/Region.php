@@ -22,15 +22,15 @@ class Mage_Tax_Model_System_Config_Source_Tax_Region
      */
     public function __construct($arguments = [])
     {
-        $this->_optionsModel = !empty($arguments['region_model'])
-            ? $arguments['region_model'] : Mage::getModel('directory/region');
+        $this->_optionsModel = empty($arguments['region_model'])
+            ? Mage::getModel('directory/region') : $arguments['region_model'];
     }
 
     /**
      * Return list of country's regions as array
      *
-     * @param bool $noEmpty
-     * @param null|string $country
+     * @param  bool        $noEmpty
+     * @param  null|string $country
      * @return array
      */
     public function toOptionArray($noEmpty = false, $country = null)

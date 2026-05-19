@@ -33,6 +33,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -46,6 +47,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -54,6 +56,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Edit configuration section
+     * @return void
      */
     public function editAction()
     {
@@ -125,6 +128,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      * Save configuration
      *
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function saveAction()
     {
@@ -184,15 +188,15 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             if (!empty($groups)) {
                 $session->addSuccess(Mage::helper('adminhtml')->__('The configuration has been saved.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            foreach (explode("\n", $e->getMessage()) as $message) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            foreach (explode("\n", $mageCoreException->getMessage()) as $message) {
                 $session->addError($message);
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $session->addException(
-                $e,
+                $exception,
                 Mage::helper('adminhtml')->__('An error occurred while saving this configuration:') . ' '
-                . $e->getMessage(),
+                . $exception->getMessage(),
             );
         }
 
@@ -227,6 +231,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Save fieldset state through AJAX
+     * @return void
      */
     public function stateAction()
     {
@@ -245,6 +250,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      * Export shipping table rates in csv format
      *
+     * @return void
      * @throws Exception
      * @throws Mage_Core_Exception
      */
@@ -270,7 +276,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      *
      * Will forward to deniedAction(), if not allowed.
      *
-     * @param string $section
+     * @param  string $section
      * @return bool
      */
     protected function _isSectionAllowed($section)
@@ -278,8 +284,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         try {
             $session = Mage::getSingleton('admin/session');
             $resourceLookup = "admin/system/config/{$section}";
-            if ($session->getData('acl') instanceof Mage_Admin_Model_Acl) {
-                $resourceId = $session->getData('acl')->get($resourceLookup)->getResourceId();
+            if ($session->getDataByKey('acl') instanceof Mage_Admin_Model_Acl) {
+                $resourceId = $session->getDataByKey('acl')->get($resourceLookup)->getResourceId();
                 if (!$session->isAllowed($resourceId)) {
                     throw new Exception('');
                 }
@@ -302,7 +308,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      * Save state of configuration field sets
      *
-     * @param array $configState
+     * @param  array $configState
      * @return bool
      */
     protected function _saveState($configState = [])

@@ -37,6 +37,16 @@
                             <block translate="title">
                                 <title>Static Blocks</title>
                                 <sort_order>10</sort_order>
+                                <children>
+                                    <save translate="title">
+                                        <title>Save Block</title>
+                                        <sort_order>0</sort_order>
+                                    </save>
+                                    <delete translate="title">
+                                        <title>Delete Block</title>
+                                        <sort_order>10</sort_order>
+                                    </delete>
+                                </children>
                             </block>
                             <page translate="title">
                                 <title>Pages</title>

@@ -25,6 +25,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Logo extends Mage_Adminht
     /**
      * Fix media dir for all uploads of logo files
      */
+    #[Override]
     protected function _getUploadDir(): string
     {
         $uploadDir  = $this->_appendScopeInfo(Mage_Page_Helper_Data::LOGO_MEDIA_DIR);
@@ -34,6 +35,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Logo extends Mage_Adminht
     /**
      * Always add scope info
      */
+    #[Override]
     protected function _addWhetherScopeInfo(): bool
     {
         return true;

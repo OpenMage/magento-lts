@@ -38,6 +38,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * View recurring profile detales
+     * @return void
      */
     public function viewAction()
     {
@@ -50,10 +51,10 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
                 ->renderLayout()
             ;
             return;
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         $this->_redirect('*/*/');
@@ -61,16 +62,17 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * Profiles ajax grid
+     * @return void
      */
     public function gridAction()
     {
         try {
             $this->loadLayout()->renderLayout();
             return;
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         $this->_redirect('*/*/');
@@ -78,6 +80,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * Profile orders ajax grid
+     * @return void
      */
     public function ordersAction()
     {
@@ -92,6 +95,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * Profile state updater action
+     * @return void
      */
     public function updateStateAction()
     {
@@ -112,11 +116,11 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             }
 
             $this->_getSession()->addSuccess(Mage::helper('sales')->__('The profile state has been updated.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addError(Mage::helper('sales')->__('Failed to update the profile.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         if ($profile) {
@@ -128,6 +132,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * Profile information updater action
+     * @return void
      */
     public function updateProfileAction()
     {
@@ -141,11 +146,11 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             } else {
                 $this->_getSession()->addNotice($this->__('The profile has no changes.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addError($this->__('Failed to update the profile.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         if ($profile) {
@@ -157,6 +162,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
 
     /**
      * Cutomer billing agreements ajax action
+     * @return void
      */
     public function customerGridAction()
     {

@@ -12,9 +12,9 @@
  *
  * @package    Mage_Page
  *
- * @method bool getIsHandle()
+ * @method bool   getIsHandle()
  * @method string getLayoutCode()
- * @method $this setBodyClass(string $value)
+ * @method $this  setBodyClass(string $value)
  */
 class Mage_Page_Block_Html extends Mage_Core_Block_Template
 {
@@ -42,6 +42,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     public function getBaseUrl()
     {
         return $this->_urls['base'];
@@ -66,7 +67,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     /**
      *  Print Logo URL (Conf -> Sales -> Invoice and Packing Slip Design)
      *
-     *  @return   string
+     * @return string
      */
     public function getPrintLogoUrl()
     {
@@ -91,12 +92,10 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
 
         // build url
         if (!empty($logo)) {
-            $logo = Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_MEDIA_URL) . $logo;
-        } else {
-            $logo = '';
+            return Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_MEDIA_URL) . $logo;
         }
 
-        return $logo;
+        return '';
     }
 
     /**
@@ -108,7 +107,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $title
+     * @param  string $title
      * @return $this
      */
     public function setHeaderTitle($title)
@@ -128,7 +127,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     /**
      * Add CSS class to page body tag
      *
-     * @param string $className
+     * @param  string $className
      * @return $this
      */
     public function addBodyClass($className)
@@ -148,11 +147,11 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
             $this->setData('lang', substr(Mage::app()->getLocale()->getLocaleCode(), 0, 2));
         }
 
-        return $this->getData('lang');
+        return $this->getDataByKey('lang');
     }
 
     /**
-     * @param string $theme
+     * @param  string              $theme
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -187,9 +186,10 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     /**
      * Processing block html after rendering
      *
-     * @param   string $html
-     * @return  string
+     * @param  string $html
+     * @return string
      */
+    #[Override]
     protected function _afterToHtml($html)
     {
         return $this->_afterCacheUrl($html);

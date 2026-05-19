@@ -19,6 +19,9 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
      */
     protected $_eventPrefix    = 'sales_order_address_resource';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_address', 'entity_id');
@@ -27,7 +30,7 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
     /**
      * Return configuration for all attributes
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getAllAttributes()
     {
@@ -53,6 +56,7 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
      *
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $resource = parent::_afterSave($object);

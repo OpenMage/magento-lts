@@ -12,17 +12,17 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Resource_Variable _getResource()
- * @method string getCode()
+ * @method Mage_Core_Model_Resource_Variable            _getResource()
+ * @method string                                       getCode()
  * @method Mage_Core_Model_Resource_Variable_Collection getCollection()
- * @method string getHtmlValue()
- * @method string getName()
- * @method string getPlainValue()
- * @method Mage_Core_Model_Resource_Variable getResource()
+ * @method string                                       getHtmlValue()
+ * @method string                                       getName()
+ * @method string                                       getPlainValue()
+ * @method Mage_Core_Model_Resource_Variable            getResource()
  * @method Mage_Core_Model_Resource_Variable_Collection getResourceCollection()
- * @method bool getUseDefaultValue()
- * @method $this setCode(string $value)
- * @method $this setName(string $value)
+ * @method bool                                         getUseDefaultValue()
+ * @method $this                                        setCode(string $value)
+ * @method $this                                        setName(string $value)
  */
 class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
 {
@@ -33,7 +33,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     protected $_storeId = 0;
 
     /**
-     * Internal Constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -44,7 +44,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Setter
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -66,7 +66,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Load variable by code
      *
-     * @param string $code
+     * @param  string $code
      * @return $this
      */
     public function loadByCode($code)
@@ -78,7 +78,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Return variable value depend on given type
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getValue($type = null)
@@ -87,23 +87,23 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
             $type = self::TYPE_HTML;
         }
 
-        if ($type == self::TYPE_TEXT || !(strlen((string) $this->getData('html_value')))) {
-            $value = $this->getData('plain_value');
+        if ($type == self::TYPE_TEXT || !(strlen((string) $this->getDataByKey('html_value')))) {
+            $value = $this->getDataByKey('plain_value');
             //escape html if type is html, but html value is not defined
             if ($type == self::TYPE_HTML) {
-                $value = nl2br(Mage::helper('core')->escapeHtml($value));
+                return nl2br(Mage::helper('core')->escapeHtml($value));
             }
 
             return $value;
         }
 
-        return $this->getData('html_value');
+        return $this->getDataByKey('html_value');
     }
 
     /**
      * Validation of object data. Checking for unique variable code
      *
-     * @return bool|string
+     * @return string|true
      */
     public function validate()
     {
@@ -122,12 +122,11 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Retrieve variables option array
      *
-     * @param bool $withGroup
+     * @param  bool  $withGroup
      * @return array
      */
     public function getVariablesOptionArray($withGroup = false)
     {
-        /** @var Mage_Core_Model_Resource_Variable_Collection $collection */
         $collection = $this->getCollection();
         $variables = [];
         foreach ($collection->toOptionArray() as $variable) {
@@ -141,7 +140,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
         }
 
         if ($withGroup && $variables) {
-            $variables = [
+            return [
                 'label' => Mage::helper('core')->__('Custom Variables'),
                 'value' => $variables,
             ];

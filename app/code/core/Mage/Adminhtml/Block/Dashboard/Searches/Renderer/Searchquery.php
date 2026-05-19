@@ -14,16 +14,15 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Searches_Renderer_Searchquery extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+    #[Override]
     public function render(Varien_Object $row)
     {
         $value = $row->getData($this->getColumn()->getIndex());
         if (Mage::helper('core/string')->strlen($value) > 30) {
-            $value = '<span title="' . $this->escapeHtml($value) . '">'
+            return '<span title="' . $this->escapeHtml($value) . '">'
                 . $this->escapeHtml(Mage::helper('core/string')->truncate($value, 30)) . '</span>';
-        } else {
-            $value = $this->escapeHtml($value);
         }
 
-        return $value;
+        return $this->escapeHtml($value);
     }
 }

@@ -24,8 +24,8 @@ class Mage_SalesRule_Model_Observer
     /**
      * Get quote item validator/processor object
      *
-     * @param   Varien_Event $event
-     * @return  Mage_SalesRule_Model_Validator
+     * @param  Varien_Event                   $event
+     * @return Mage_SalesRule_Model_Validator
      * @deprecated
      */
     public function getValidator($event)
@@ -41,7 +41,7 @@ class Mage_SalesRule_Model_Observer
     /**
      * Process quote item (apply discount to item)
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @throws Mage_Core_Exception
      * @deprecated process call moved to total model
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
@@ -56,7 +56,7 @@ class Mage_SalesRule_Model_Observer
     /**
      * Registered callback: called after an order is placed
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      * @throws Throwable
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
@@ -141,33 +141,30 @@ class Mage_SalesRule_Model_Observer
         /** @var Mage_Sales_Model_Order $order */
         $order = $event->getPayment()->getOrder();
 
-        if ($order->canCancel()) {
-            if ($code = $order->getCouponCode()) {
-                // Decrement coupon times_used
-                $coupon = Mage::getModel('salesrule/coupon')->loadByCode($code);
+        if ($order->canCancel() && $code = $order->getCouponCode()) {
+            // Decrement coupon times_used
+            $coupon = Mage::getModel('salesrule/coupon')->loadByCode($code);
+            if ($coupon->getId()) {
+                $coupon->setTimesUsed($coupon->getTimesUsed() - 1);
+                $coupon->save();
 
-                if ($coupon->getId()) {
-                    $coupon->setTimesUsed($coupon->getTimesUsed() - 1);
-                    $coupon->save();
+                // Decrement times_used on rule
+                $rule = Mage::getModel('salesrule/rule');
+                $rule->load($coupon->getRuleId());
+                if ($rule->getId()) {
+                    $rule->setTimesUsed($rule->getTimesUsed() - 1);
+                    $rule->save();
+                }
 
-                    // Decrement times_used on rule
-                    $rule = Mage::getModel('salesrule/rule');
-                    $rule->load($coupon->getRuleId());
-                    if ($rule->getId()) {
-                        $rule->setTimesUsed($rule->getTimesUsed() - 1);
-                        $rule->save();
-                    }
+                if ($customerId = $order->getCustomerId()) {
+                    // Decrement coupon_usage times_used
+                    Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), true);
 
-                    if ($customerId = $order->getCustomerId()) {
-                        // Decrement coupon_usage times_used
-                        Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), true);
-
-                        // Decrement rule times_used
-                        $customerCoupon = Mage::getModel('salesrule/rule_customer')->loadByCustomerRule($customerId, $coupon->getRuleId());
-                        if ($customerCoupon->getId()) {
-                            $customerCoupon->setTimesUsed($customerCoupon->getTimesUsed() - 1);
-                            $customerCoupon->save();
-                        }
+                    // Decrement rule times_used
+                    $customerCoupon = Mage::getModel('salesrule/rule_customer')->loadByCustomerRule($customerId, $coupon->getRuleId());
+                    if ($customerCoupon->getId()) {
+                        $customerCoupon->setTimesUsed($customerCoupon->getTimesUsed() - 1);
+                        $customerCoupon->save();
                     }
                 }
             }
@@ -177,7 +174,7 @@ class Mage_SalesRule_Model_Observer
     /**
      * Refresh sales coupons report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
@@ -195,7 +192,7 @@ class Mage_SalesRule_Model_Observer
      * Check rules that contains affected attribute
      * If rules were found they will be set to inactive and notice will be add to admin session
      *
-     * @param string $attributeCode
+     * @param  string    $attributeCode
      * @return $this
      * @throws Throwable
      */
@@ -229,7 +226,7 @@ class Mage_SalesRule_Model_Observer
      * Remove catalog attribute condition by attribute code from rule conditions
      *
      * @param Mage_Rule_Model_Condition_Combine $combine
-     * @param string $attributeCode
+     * @param string                            $attributeCode
      */
     protected function _removeAttributeFromConditions($combine, $attributeCode)
     {
@@ -239,10 +236,8 @@ class Mage_SalesRule_Model_Observer
                 $this->_removeAttributeFromConditions($condition, $attributeCode);
             }
 
-            if ($condition instanceof Mage_SalesRule_Model_Rule_Condition_Product) {
-                if ($condition->getAttribute() == $attributeCode) {
-                    unset($conditions[$conditionId]);
-                }
+            if ($condition instanceof Mage_SalesRule_Model_Rule_Condition_Product && $condition->getAttribute() == $attributeCode) {
+                unset($conditions[$conditionId]);
             }
         }
 
@@ -313,7 +308,7 @@ class Mage_SalesRule_Model_Observer
     /**
      * Add coupon's rule name to order data
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function addSalesRuleNameToOrder($observer)

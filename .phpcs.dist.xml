@@ -26,6 +26,10 @@
         <exclude-pattern>*/core/Mage/*/Model/Mysql4/**.php*</exclude-pattern>
         <!-- resource helpers - keep -->
         <exclude-pattern>*/core/Mage/*/Model/Resource/Helper/Mysql4.php*</exclude-pattern>
+        <!-- test files -->
+        <exclude-pattern>*/tests/unit/Mage/*/Model/Resource/Helper/Mysql4Test.php*</exclude-pattern>
+        <exclude-pattern>*/tests/unit/Mage/Install/Block/Db/Type/Mysql4Test.php*</exclude-pattern>
+        <exclude-pattern>*/tests/unit/Mage/Install/Model/Installer/Db/Mysql4Test.php*</exclude-pattern>
     </rule>
     <rule ref="Ecg.Classes.ObjectInstantiation">
         <!-- should be reviewed -->

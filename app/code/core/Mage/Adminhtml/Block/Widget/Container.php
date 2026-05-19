@@ -14,6 +14,26 @@
  */
 class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Template
 {
+    public const BUTTON_TYPE_ADD        = 'add';
+
+    public const BUTTON_TYPE_BACK       = 'back';
+
+    public const BUTTON_TYPE_CANCEL     = 'cancel';
+
+    public const BUTTON_TYPE_CLOSE      = 'close';
+
+    public const BUTTON_TYPE_DELETE     = 'delete';
+
+    public const BUTTON_TYPE_PRINT      = 'print';
+
+    public const BUTTON_TYPE_RESET      = 'reset';
+
+    public const BUTTON_TYPE_SAVE       = 'save';
+
+    public const BUTTON_TYPE_SAVE_EDIT  = 'save-edit';
+
+    public const BUTTON_TYPE_VOID       = 'void';
+
     /**
      * So-called "container controller" to specify group of blocks participating in some action
      *
@@ -24,7 +44,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Array of buttons
      *
-     * @var array
+     * @var array<int, mixed>
      */
     protected $_buttons = [
         -1  => [],
@@ -42,11 +62,11 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Add a button
      *
-     * @param string $id
-     * @param array $data
-     * @param int $level
-     * @param int $sortOrder
-     * @param null|string $area area, that button should be displayed in ('header', 'footer', null)
+     * @param  string      $id
+     * @param  array       $data
+     * @param  int         $level
+     * @param  int         $sortOrder
+     * @param  null|string $area      area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
     protected function _addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
@@ -55,25 +75,28 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
             $this->_buttons[$level] = [];
         }
 
+        $data['test_id'] = $this->getTestIdentifier($id);
+
         $this->_buttons[$level][$id] = $data;
         $this->_buttons[$level][$id]['area'] = $area;
-        if ($sortOrder) {
-            $this->_buttons[$level][$id]['sort_order'] = $sortOrder;
-        } else {
-            $this->_buttons[$level][$id]['sort_order'] = count($this->_buttons[$level]) * 10;
-        }
+        $this->_buttons[$level][$id]['sort_order'] = $sortOrder ? $sortOrder : count($this->_buttons[$level]) * 10;
 
         return $this;
+    }
+
+    private function getTestIdentifier(string $id): string
+    {
+        return 'admin-button-' . str_replace([' ', '_'], '-', $id);
     }
 
     /**
      * Public wrapper for protected _addButton method
      *
-     * @param string $id
-     * @param array $data
-     * @param int $level
-     * @param int $sortOrder
-     * @param null|string $area area, that button should be displayed in ('header', 'footer', null)
+     * @param  string      $id
+     * @param  array       $data
+     * @param  int         $level
+     * @param  int         $sortOrder
+     * @param  null|string $area      area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
     public function addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
@@ -84,7 +107,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Remove existing button
      *
-     * @param string $id
+     * @param  string $id
      * @return $this
      */
     protected function _removeButton($id)
@@ -101,7 +124,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Public wrapper for the _removeButton() method
      *
-     * @param string $id
+     * @param  string $id
      * @return $this
      */
     public function removeButton($id)
@@ -112,9 +135,9 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Update specified button property
      *
-     * @param string $id
-     * @param string $key
-     * @param mixed $data
+     * @param  string $id
+     * @param  string $key
+     * @param  mixed  $data
      * @return $this
      */
     protected function _updateButton($id, $key, $data)
@@ -146,9 +169,9 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Public wrapper for protected _updateButton method
      *
-     * @param string $id
-     * @param string $key
-     * @param mixed $data
+     * @param  string $id
+     * @param  string $key
+     * @param  mixed  $data
      * @return $this
      */
     public function updateButton($id, $key, $data)
@@ -159,10 +182,11 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         foreach ($this->_buttons as $buttons) {
-            foreach ($buttons as $buttonId => $data) {
+            foreach (array_keys($buttons) as $buttonId) {
                 $childId = $this->_prepareButtonBlockId($buttonId);
                 $this->_addButtonChildBlock($childId);
             }
@@ -174,7 +198,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Prepare block id for button's id
      *
-     * @param string $id
+     * @param  string $id
      * @return string
      */
     protected function _prepareButtonBlockId($id)
@@ -185,7 +209,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Adding child block with specified child's id.
      *
-     * @param string $childId
+     * @param  string                             $childId
      * @return Mage_Adminhtml_Block_Widget_Button
      */
     protected function _addButtonChildBlock($childId)
@@ -199,7 +223,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Produce buttons HTML
      *
-     * @param string $area
+     * @param  string $area
      * @return string
      */
     public function getButtonsHtml($area = null)
@@ -293,6 +317,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         Mage::dispatchEvent('adminhtml_widget_container_html_before', ['block' => $this]);

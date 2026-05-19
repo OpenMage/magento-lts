@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Customer account form block
  *
@@ -139,7 +141,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         $log = $this->getCustomerLog();
         if ($log->getLogoutAt()
             || !$log->getLastVisitAt()
-            || strtotime(Varien_Date::now()) - strtotime($log->getLastVisitAt()) > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
+            || Carbon::parse(Varien_Date::now())->getTimestamp() - Carbon::parse($log->getLastVisitAt())->getTimestamp() > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
         ) {
             return Mage::helper('customer')->__('Offline');
         }
@@ -179,14 +181,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      */
     public function getBillingAddressHtml()
     {
-        $html = '';
         if ($address = $this->getCustomer()->getPrimaryBillingAddress()) {
-            $html = $address->format('html');
-        } else {
-            $html = Mage::helper('customer')->__('The customer does not have default billing address.');
+            return $address->format('html');
         }
 
-        return $html;
+        return Mage::helper('customer')->__('The customer does not have default billing address.');
     }
 
     /**
@@ -226,11 +225,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      */
     public function canShowTab()
     {
-        if (Mage::registry('current_customer')->getId()) {
-            return true;
-        }
-
-        return false;
+        return (bool) Mage::registry('current_customer')->getId();
     }
 
     /**
@@ -238,11 +233,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      */
     public function isHidden()
     {
-        if (Mage::registry('current_customer')->getId()) {
-            return false;
-        }
-
-        return true;
+        return !Mage::registry('current_customer')->getId();
     }
 
     /**

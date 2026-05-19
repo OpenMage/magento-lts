@@ -12,43 +12,43 @@
  *
  * @package    Mage_Api
  *
- * @method Mage_Api_Model_Resource_User _getResource()
- * @method string getApiKey()
- * @method string getApiKeyConfirmation()
- * @method string getCreated()
- * @method string getEmail()
- * @method string getFirstname()
- * @method int getIsActive()
- * @method string getLastname()
- * @method string getLogdate()
- * @method int getLognum()
- * @method string getModified()
- * @method string getNewApiKey()
- * @method int getReloadAclFlag()
- * @method Mage_Api_Model_Resource_User getResource()
+ * @method Mage_Api_Model_Resource_User            _getResource()
+ * @method string                                  getApiKey()
+ * @method string                                  getApiKeyConfirmation()
+ * @method string                                  getCreated()
+ * @method string                                  getEmail()
+ * @method string                                  getFirstname()
+ * @method int                                     getIsActive()
+ * @method string                                  getLastname()
+ * @method string                                  getLogdate()
+ * @method int                                     getLognum()
+ * @method string                                  getModified()
+ * @method string                                  getNewApiKey()
+ * @method int                                     getReloadAclFlag()
+ * @method Mage_Api_Model_Resource_User            getResource()
  * @method Mage_Api_Model_Resource_User_Collection getResourceCollection()
- * @method int getRoleId()
- * @method array getRoleIds()
- * @method string getSessid()
- * @method string getUserId()
- * @method string getUsername()
- * @method bool hasApiKey()
- * @method bool hasApiKeyConfirmation()
- * @method bool hasNewApiKey()
- * @method $this setApiKey(string $value)
- * @method $this setCreated(string $value)
- * @method $this setEmail(string $value)
- * @method $this setFirstname(string $value)
- * @method $this setIsActive(int $value)
- * @method $this setLastname(string $value)
- * @method $this setLogdate(string $value)
- * @method $this setLognum(int $value)
- * @method $this setModified(string $value)
- * @method $this setReloadAclFlag(int $value)
- * @method $this setRoleIds(array $value)
- * @method $this setRoleUserId(int $value)
- * @method $this setSessid($sessId)
- * @method $this setUsername(string $value)
+ * @method int                                     getRoleId()
+ * @method array                                   getRoleIds()
+ * @method string                                  getSessid()
+ * @method string                                  getUserId()
+ * @method string                                  getUsername()
+ * @method bool                                    hasApiKey()
+ * @method bool                                    hasApiKeyConfirmation()
+ * @method bool                                    hasNewApiKey()
+ * @method $this                                   setApiKey(string $value)
+ * @method $this                                   setCreated(string $value)
+ * @method $this                                   setEmail(string $value)
+ * @method $this                                   setFirstname(string $value)
+ * @method $this                                   setIsActive(int $value)
+ * @method $this                                   setLastname(string $value)
+ * @method $this                                   setLogdate(string $value)
+ * @method $this                                   setLognum(int $value)
+ * @method $this                                   setModified(string $value)
+ * @method $this                                   setReloadAclFlag(int $value)
+ * @method $this                                   setRoleIds(array $value)
+ * @method $this                                   setRoleUserId(int $value)
+ * @method $this                                   setSessid($sessId)
+ * @method $this                                   setUsername(string $value)
  */
 class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 {
@@ -57,6 +57,9 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'api_user';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api/user');
@@ -65,6 +68,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * @return $this
      */
+    #[Override]
     public function save()
     {
         $this->_beforeSave();
@@ -107,6 +111,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * @return $this|Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function delete()
     {
         $this->_beforeDelete();
@@ -186,6 +191,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @return Mage_Api_Model_Resource_User_Collection|Object
      */
+    #[Override]
     public function getCollection()
     {
         return Mage::getResourceModel('api/user_collection');
@@ -194,7 +200,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Get user's name
      *
-     * @param string $separator
+     * @param  string $separator
      * @return string
      */
     public function getName($separator = ' ')
@@ -207,6 +213,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getId()
     {
         return $this->getUserId();
@@ -225,8 +232,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Authenticate user name and api key and save loaded record
      *
-     * @param string $username
-     * @param string $apiKey
+     * @param  string    $username
+     * @param  string    $apiKey
      * @return bool
      * @throws Exception
      */
@@ -249,9 +256,9 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Login user
      *
-     * @param string $username
-     * @param string $apiKey
-     * @return Mage_Api_Model_User
+     * @param  string    $username
+     * @param  string    $apiKey
+     * @return $this
      * @throws Exception
      */
     public function login($username, $apiKey)
@@ -288,7 +295,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Load user by username
      *
-     * @param string $username
+     * @param  string $username
      * @return $this
      */
     public function loadByUsername($username)
@@ -300,7 +307,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Load user by session id
      *
-     * @param string $sessId
+     * @param  string $sessId
      * @return $this
      */
     public function loadBySessId($sessId)
@@ -312,7 +319,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Logout user by session id
      *
-     * @param string $sessid
+     * @param  string $sessid
      * @return $this
      */
     public function logoutBySessId($sessid)
@@ -324,7 +331,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if user is assigned to role
      *
-     * @param int|Mage_Core_Model_Abstract $user
+     * @param  int|Mage_Core_Model_Abstract $user
      * @return array
      */
     public function hasAssigned2Role($user)
@@ -335,7 +342,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Retrieve encoded api key
      *
-     * @param string $apiKey
+     * @param  string $apiKey
      * @return string
      */
     protected function _getEncodedApiKey($apiKey)
@@ -346,7 +353,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     /**
      * Get helper instance
      *
-     * @param string $helperName
+     * @param  string                    $helperName
      * @return Mage_Core_Helper_Abstract
      */
     protected function _getHelper($helperName)
@@ -358,27 +365,32 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Validate user attribute values.
      *
      * @return array|true
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
-        $errors = new ArrayObject();
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
+        $errors     = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getUsername(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('User Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getUsername(),
+            message: Mage::helper('api')->__('User Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('First Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getFirstname(),
+            message: Mage::helper('api')->__('First Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('Last Name is required field.'));
-        }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getLastname(),
+            message: Mage::helper('api')->__('Last Name is required field.'),
+        ));
 
-        if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
-            $errors->append($this->_getHelper('api')->__('Please enter a valid email.'));
-        }
+        $violations->append($validator->validateEmail(
+            value: $this->getEmail(),
+            message: Mage::helper('adminhtml')->__('Please enter a valid email.'),
+        ));
 
         if ($this->hasNewApiKey()) {
             $apiKey = $this->getNewApiKey();
@@ -388,18 +400,39 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 
         if (isset($apiKey)) {
             $minCustomerPasswordLength = $this->_getMinCustomerPasswordLength();
-            if (strlen($apiKey) < $minCustomerPasswordLength) {
-                $errors->append($this->_getHelper('api')
-                    ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength));
-            }
+            $violations->append($validator->validateLength(
+                value: $apiKey,
+                min: $minCustomerPasswordLength,
+                minMessage: $this->_getHelper('api')
+                    ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength),
+            ));
 
-            if (!preg_match('/[a-z]/iu', $apiKey) || !preg_match('/[0-9]/u', $apiKey)) {
-                $errors->append($this->_getHelper('api')
-                    ->__('Api Key must include both numeric and alphabetic characters.'));
-            }
+            $violations->append($validator->validateRegex(
+                value: $apiKey,
+                pattern: '/[a-z]/iu',
+                message: $this->_getHelper('api')
+                    ->__('Api Key must include both numeric and alphabetic characters.'),
+            ));
 
-            if ($this->hasApiKeyConfirmation() && $apiKey != $this->getApiKeyConfirmation()) {
-                $errors->append($this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.'));
+            $violations->append($validator->validateRegex(
+                value: $apiKey,
+                pattern: '/[0-9]/u',
+                message: $this->_getHelper('api')
+                    ->__('Api Key must include both numeric and alphabetic characters.'),
+            ));
+
+            if ($this->hasApiKeyConfirmation()) {
+                $violations->append($validator->validateIdentical(
+                    value: $apiKey,
+                    compare: $this->getApiKeyConfirmation(),
+                    message: $this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.'),
+                ));
+            }
+        }
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
             }
         }
 

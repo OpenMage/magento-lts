@@ -11,7 +11,7 @@ test.config = {
     _nav: '#nav-admin-catalog',
     _title: base._title,
     _button: base._button,
-    url: 'catalog_product/index',
+    url: 'admin/catalog_product',
     index: {},
     edit: {},
     new: {},
@@ -19,12 +19,12 @@ test.config = {
 
 /**
  * Configuration for "Manage Products" page
- * @type {{title: string, url: string, _grid: string, __buttons: {})}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {})}}
  */
 test.config.index = {
     title: 'Manage Products',
     url: test.config.url,
-    _grid: '#productGrid_table',
+    grid: {...base.__grid, ...{ sort: { order: 'entity_id', dir: 'desc' } }},
     __buttons: {},
 }
 

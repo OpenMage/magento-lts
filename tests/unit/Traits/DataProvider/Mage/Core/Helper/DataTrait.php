@@ -4,23 +4,24 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper;
 
+use Carbon\Carbon;
 use Generator;
 
 trait DataTrait
 {
-    public function provideFormatTimezoneDate(): Generator
+    public static function provideFormatTimezoneDate(): Generator
     {
         /** @phpstan-ignore method.nonObject */
         $date           = date_create()->getTimestamp();
-        $dateShort      = date('n/j/Y', $date);
-        $dateLong       = date('F j, Y', $date);
-        $dateShortTime  = date('n/j/Y g:i A', $date);
+        $dateShort      = Carbon::createFromTimestamp($date)->format('n/j/Y');
+        $dateLong       = Carbon::createFromTimestamp($date)->format('F j, Y');
 
         yield 'null' => [
             $dateShort,
@@ -64,7 +65,7 @@ trait DataTrait
         //        ];
     }
 
-    public function provideRemoveAccents(): Generator
+    public static function provideRemoveAccents(): Generator
     {
         $string = 'Ae-Ä Oe-Ö Ue-Ü ae-ä oe-ö ue-ü';
 
@@ -80,7 +81,7 @@ trait DataTrait
         ];
     }
 
-    public function provideIsCountryInEUData(): Generator
+    public static function provideIsCountryInEUData(): Generator
     {
         yield 'DE true' => [
             true,

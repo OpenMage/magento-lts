@@ -14,13 +14,16 @@
  */
 class Mage_Sales_Model_Entity_Order_Invoice_Item_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_invoice_item');
     }
 
     /**
-     * @param int $invoiceId
+     * @param  int   $invoiceId
      * @return $this
      */
     public function setInvoiceFilter($invoiceId)

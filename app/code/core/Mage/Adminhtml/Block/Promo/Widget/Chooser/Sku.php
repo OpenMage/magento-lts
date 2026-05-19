@@ -13,12 +13,16 @@
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
+ * @method bool                                           getIsCollapsed()
+ * @method string                                         getJsFormObject()
+ * @method $this                                          setIsCollapsed(bool $value)
+ * @method $this                                          setJsFormObject(string $value)
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_promo_widget_chooser_sku';
+
     /**
-     * Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku constructor.
-     * @param array $arguments
      * @throws Exception
      */
     public function __construct($arguments = [])
@@ -32,9 +36,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
         }
 
         $form = $this->getJsFormObject();
-        $this->setRowClickCallback("$form.chooserGridRowClick.bind($form)");
-        $this->setCheckboxCheckCallback("$form.chooserGridCheckboxCheck.bind($form)");
-        $this->setRowInitCallback("$form.chooserGridRowInit.bind($form)");
+        $this->setRowClickCallback("{$form}.chooserGridRowClick.bind({$form})");
+        $this->setCheckboxCheckCallback("{$form}.chooserGridCheckboxCheck.bind({$form})");
+        $this->setRowInitCallback("{$form}.chooserGridRowInit.bind({$form})");
         $this->setDefaultSort('sku');
         $this->setUseAjax(true);
         if ($this->getRequest()->getParam('collapse')) {
@@ -44,6 +48,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
 
     /**
      * Retrieve quote store object
+     *
      * @return Mage_Core_Model_Store
      */
     public function getStore()
@@ -52,9 +57,11 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
@@ -81,6 +88,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('catalog/product_collection')
@@ -93,10 +101,12 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     }
 
     /**
-     * Define Cooser Grid Columns and filters
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('in_products', [
@@ -121,7 +131,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
                 'width' => '60px',
                 'index' => 'type_id',
                 'type'  => 'options',
-                'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+                'options' => Mage::getSingleton('catalog/product_type')::getOptionArray(),
             ],
         );
 
@@ -157,8 +167,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/chooser', [

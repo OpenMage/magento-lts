@@ -11,11 +11,16 @@
  * customers defined options
  *
  * @package    Mage_Adminhtml
+ *
+ * @method bool  getCanEditPrice()
+ * @method $this setCanEditPrice(bool $value)
+ * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract extends Mage_Adminhtml_Block_Widget
 {
     protected $_name = 'abstract';
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

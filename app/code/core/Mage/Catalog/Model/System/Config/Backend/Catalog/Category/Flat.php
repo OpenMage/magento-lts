@@ -19,6 +19,7 @@ class Mage_Catalog_Model_System_Config_Backend_Catalog_Category_Flat extends Mag
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->isValueChanged() && $this->getValue()) {

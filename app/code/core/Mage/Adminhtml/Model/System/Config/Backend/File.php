@@ -29,6 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     protected function _beforeSave()
     {
         $value = $this->getValue();
@@ -48,11 +49,11 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('The file %s has been uploaded.', $result['file']),
                 );
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 Mage::getSingleton('adminhtml/session')->addError(
                     Mage::helper('adminhtml')->__('The file %s has not been uploaded.', $file['name']),
                 );
-                Mage::throwException($e->getMessage());
+                Mage::throwException($exception->getMessage());
             }
 
             $filename = $result['file'];
@@ -85,8 +86,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      * Delete file after a file is uploaded
      *
      * @return $this
-     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave()
     {
         parent::_afterSave();
@@ -160,7 +161,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     /**
      * Validation callback for checking max file size
      *
-     * @param  string $filePath Path to temporary uploaded file
+     * @param  string              $filePath Path to temporary uploaded file
      * @throws Mage_Core_Exception
      */
     public function validateMaxSize($filePath)
@@ -178,8 +179,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     protected function _addWhetherScopeInfo()
     {
         $fieldConfig = $this->getFieldConfig();
-        $el = $fieldConfig->descend('upload_dir');
-        return (!empty($el['scope_info']));
+        $element = $fieldConfig->descend('upload_dir');
+        return !empty($element['scope_info']);
     }
 
     /**
@@ -199,20 +200,20 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
 
         $uploadDir = (string) $fieldConfig->upload_dir;
 
-        $el = $fieldConfig->descend('upload_dir');
+        $element = $fieldConfig->descend('upload_dir');
 
         /**
          * Add scope info
          */
-        if (!empty($el['scope_info'])) {
+        if (!empty($element['scope_info'])) {
             $uploadDir = $this->_appendScopeInfo($uploadDir);
         }
 
         /**
          * Take root from config
          */
-        if (!empty($el['config'])) {
-            $uploadRoot = $this->_getUploadRoot((string) $el['config']);
+        if (!empty($element['config'])) {
+            $uploadRoot = $this->_getUploadRoot((string) $element['config']);
             $uploadDir = $uploadRoot . '/' . $uploadDir;
         }
 
@@ -222,7 +223,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     /**
      * Return the root part of directory path for uploading
      *
-     * @param string $token
+     * @param  string $token
      * @return string
      */
     protected function _getUploadRoot($token)
@@ -242,7 +243,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      *
      * E.g. 'stores/2/path' , 'websites/3/path', 'default/path'
      *
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     protected function _prependScopeInfo($path)
@@ -260,7 +261,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      *
      * E.g. 'path/stores/2' , 'path/websites/3', 'path/default'
      *
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     protected function _appendScopeInfo($path)
@@ -282,9 +283,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     {
         /** @var Varien_Simplexml_Element $fieldConfig */
         $fieldConfig = $this->getFieldConfig();
-        $el = $fieldConfig->descend('upload_dir');
-        if (!empty($el['allowed_extensions'])) {
-            $allowedExtensions = (string) $el['allowed_extensions'];
+        $element = $fieldConfig->descend('upload_dir');
+        if (!empty($element['allowed_extensions'])) {
+            $allowedExtensions = (string) $element['allowed_extensions'];
             return explode(',', $allowedExtensions);
         }
 

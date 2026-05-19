@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -29,8 +31,8 @@ class Varien_Db_Tree_Node
 
     /**
      * Varien_Db_Tree_Node constructor.
-     * @param array $nodeData
-     * @param array $keys
+     * @param  array                         $nodeData
+     * @param  array                         $keys
      * @throws Varien_Db_Tree_Node_Exception
      */
     public function __construct($nodeData, $keys)
@@ -59,11 +61,7 @@ class Varien_Db_Tree_Node
 
     public function getData($name)
     {
-        if (isset($this->data[$name])) {
-            return $this->data[$name];
-        } else {
-            return null;
-        }
+        return $this->data[$name] ?? null;
     }
 
     public function getLevel()
@@ -98,10 +96,6 @@ class Varien_Db_Tree_Node
      */
     public function isParent()
     {
-        if ($this->right - $this->left > 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->right - $this->left > 1;
     }
 }

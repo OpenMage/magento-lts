@@ -7,12 +7,15 @@
  * @package    Mage_Captcha
  */
 
+
+use Laminas\Captcha\Image;
+
 /**
- * Implementation of Zend_Captcha
+ * Implementation of Laminas\Captcha
  *
  * @package    Mage_Captcha
  */
-class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha_Model_Interface
+class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interface
 {
     /**
      * Key in session for captcha code
@@ -44,7 +47,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Override default value to prevent a captcha cut off
      * @var int
-     * @see Zend_Captcha_Image::$_fsize
+     * @see \Laminas\Captcha\Image::$_fsize
      */
     protected $_fsize = 22;
 
@@ -79,7 +82,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Returns key with respect of current form ID
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     protected function _getFormIdKey($key)
@@ -100,7 +103,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Whether captcha is required to be inserted to this form
      *
-     * @param null|string $login
+     * @param  null|string $login
      * @return bool
      */
     public function isRequired($login = null)
@@ -113,20 +116,30 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
             return false;
         }
 
-        return ($this->_isShowAlways() || $this->_isOverLimitAttempts($login)
-            || $this->getSession()->getData($this->_getFormIdKey('show_captcha'))
-        );
+        if ($this->_isShowAlways()) {
+            return true;
+        }
+
+        if ($this->_isOverLimitAttempts($login)) {
+            return true;
+        }
+
+        return (bool) $this->getSession()->getData($this->_getFormIdKey('show_captcha'));
     }
 
     /**
      * Check is overlimit attempts
      *
-     * @param string $login
+     * @param  string $login
      * @return bool
      */
     protected function _isOverLimitAttempts($login)
     {
-        return ($this->_isOverLimitIpAttempt() || $this->_isOverLimitLoginAttempts($login));
+        if ($this->_isOverLimitIpAttempt()) {
+            return true;
+        }
+
+        return $this->_isOverLimitLoginAttempts($login);
     }
 
     /**
@@ -163,7 +176,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Is Over Limit Login Attempts
      *
-     * @param string $login
+     * @param  string $login
      * @return bool
      */
     protected function _isOverLimitLoginAttempts($login)
@@ -203,6 +216,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return string
      */
+    #[Override]
     public function getFont()
     {
         return $this->_getFontPath();
@@ -213,6 +227,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return int
      */
+    #[Override]
     public function getTimeout()
     {
         if (!$this->_expiration) {
@@ -231,6 +246,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return string
      */
+    #[Override]
     public function getImgDir()
     {
         return $this->_helper->getImgDir();
@@ -241,6 +257,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return string
      */
+    #[Override]
     public function getImgUrl()
     {
         return $this->_helper->getImgUrl();
@@ -249,7 +266,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Checks whether captcha was guessed correctly by user
      *
-     * @param string $word
+     * @param  string $word
      * @return bool
      */
     public function isCorrect($word)
@@ -274,6 +291,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return Mage_Customer_Model_Session
      */
+    #[Override]
     public function getSession()
     {
         return Mage::getSingleton('customer/session');
@@ -292,7 +310,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * log Attempt
      *
-     * @param string $login
+     * @param  string $login
      * @return $this
      */
     public function logAttempt($login)
@@ -318,13 +336,12 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         $fonts = $this->_getHelper()->getFonts();
 
         if (isset($fonts[$font])) {
-            $fontPath = $fonts[$font]['path'];
-        } else {
-            $fontData = array_shift($fonts);
-            $fontPath = $fontData['path'];
+            return $fonts[$font]['path'];
         }
 
-        return $fontPath;
+        $fontData = array_shift($fonts);
+
+        return $fontData['path'];
     }
 
     /**
@@ -346,7 +363,8 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * @return string
      */
-    protected function _generateWord()
+    #[Override]
+    protected function generateWord()
     {
         $word = '';
         $symbols = $this->_getSymbols();
@@ -375,25 +393,25 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _getWordLen()
     {
-        $from = 0;
-        $to = 0;
+        $min = 0;
+        $max = 0;
         $length = (string) $this->_getHelper()->getConfigNode('length');
         if (!is_numeric($length)) {
             if (preg_match('/(\d+)-(\d+)/', $length, $matches)) {
-                $from = (int) $matches[1];
-                $to = (int) $matches[2];
+                $min = (int) $matches[1];
+                $max = (int) $matches[2];
             }
         } else {
-            $from = (int) $length;
-            $to = (int) $length;
+            $min = (int) $length;
+            $max = (int) $length;
         }
 
-        if (($to < $from) || ($from < 1) || ($to < 1)) {
-            $from = self::DEFAULT_WORD_LENGTH_FROM;
-            $to = self::DEFAULT_WORD_LENGTH_TO;
+        if (($max < $min) || ($min < 1) || ($max < 1)) {
+            $min = self::DEFAULT_WORD_LENGTH_FROM;
+            $max = self::DEFAULT_WORD_LENGTH_TO;
         }
 
-        return mt_rand($from, $to);
+        return mt_rand($min, $max);
     }
 
     /**
@@ -446,31 +464,31 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     }
 
     /**
-     * Get captcha word
-     *
-     * @return null|string
+     * @inheritDoc
      */
+    #[Override]
     public function getWord()
     {
         $sessionData = $this->getSession()->getData($this->_getFormIdKey(self::SESSION_WORD));
         if (!is_array($sessionData)) {
-            return null;
+            return '';
         }
 
-        return time() < $sessionData['expires'] ? $sessionData['data'] : null;
+        return Mage::helper('core/clock')->getTimestamp() < $sessionData['expires'] ? $sessionData['data'] : '';
     }
 
     /**
      * Set captcha word
      *
      * @param  string $word
-     * @return Zend_Captcha_Word
+     * @return $this
      */
-    protected function _setWord($word)
+    #[Override]
+    protected function setWord($word)
     {
         $this->getSession()->setData(
             $this->_getFormIdKey(self::SESSION_WORD),
-            ['data' => $word, 'expires' => time() + $this->getTimeout()],
+            ['data' => $word, 'expires' => Mage::helper('core/clock')->getTimestamp() + $this->getTimeout()],
         );
         $this->_word = $word;
         return $this;
@@ -492,9 +510,10 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * Override function to generate less curly captcha that will not cut off
      *
      * @return int
-     * @see Zend_Captcha_Image::_randomSize()
+     * @see \Laminas\Captcha\Image::randomSize()
      */
-    protected function _randomSize()
+    #[Override]
+    protected function randomSize()
     {
         return mt_rand(280, 300) / 100;
     }
@@ -504,8 +523,10 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      *
      * Now deleting old captcha images make crontab script
      * @see Mage_Captcha_Model_Observer::deleteExpiredImages
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
-    protected function _gc()
+    #[Override]
+    protected function gc()
     {
         //do nothing
     }

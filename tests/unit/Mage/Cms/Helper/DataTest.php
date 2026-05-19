@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Helper;
 
+use Override;
 use Mage;
 use Mage_Cms_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -22,6 +23,7 @@ final class DataTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

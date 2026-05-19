@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Page_Block_Html_Head $head */
@@ -39,6 +40,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -55,8 +57,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
                 'container_id' => 'used_currently_for',
                 'after_element_html'
                     => '<script type="text/javascript">'
-                    . (!$this->getEmailTemplate()->getSystemConfigPathsWhereUsedCurrently()
-                        ? '$(\'used_currently_for\').hide(); ' : '')
+                    . ($this->getEmailTemplate()->getSystemConfigPathsWhereUsedCurrently()
+                        ? '' : '$(\'used_currently_for\').hide(); ')
                     . '</script>',
             ]);
         }
@@ -67,8 +69,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
                 'container_id' => 'used_default_for',
                 'after_element_html'
                     => '<script type="text/javascript">'
-                    . (!(bool) $this->getEmailTemplate()->getOrigTemplateCode()
-                        ? '$(\'used_default_for\').hide(); ' : '')
+                    . ((bool) $this->getEmailTemplate()->getOrigTemplateCode()
+                        ? '' : '$(\'used_default_for\').hide(); ')
                     . '</script>',
             ]);
         }
@@ -152,7 +154,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
     /**
      * Retrieve variables to insert into email
      *
-     * @return array
+     * @return array<int, mixed>
      */
     public function getVariables()
     {

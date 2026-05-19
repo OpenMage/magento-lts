@@ -32,8 +32,8 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Apply all catalog price rules for specific product
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function applyAllRulesOnProduct($observer)
     {
@@ -52,8 +52,8 @@ class Mage_CatalogRule_Model_Observer
      * Load matched catalog price rules for specific product.
      * Is used for comparison in Mage_CatalogRule_Model_Resource_Rule::applyToProduct method
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function loadProductRules($observer)
     {
@@ -71,9 +71,9 @@ class Mage_CatalogRule_Model_Observer
      * Apply all price rules for current date.
      * Handle catalog_product_import_after event
      *
-     * @param   Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer
      *
-     * @return  $this
+     * @return $this
      */
     public function applyAllRules($observer)
     {
@@ -90,7 +90,7 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Preload all price rules for all items in quote
      *
-     * @return  $this
+     * @return $this
      */
     public function preloadPriceRules(Varien_Event_Observer $observer)
     {
@@ -123,9 +123,9 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Apply catalog price rules to product on frontend
      *
-     * @param   Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer
      *
-     * @return  $this
+     * @return $this
      */
     public function processFrontFinalPrice($observer)
     {
@@ -134,11 +134,7 @@ class Mage_CatalogRule_Model_Observer
         $pId        = $product->getId();
         $storeId    = $product->getStoreId();
 
-        if ($observer->hasDate()) {
-            $date = $observer->getEvent()->getDate();
-        } else {
-            $date = Mage::app()->getLocale()->storeTimeStamp($storeId);
-        }
+        $date = $observer->hasDate() ? $observer->getEvent()->getDate() : Mage::app()->getLocale()->storeTimeStamp($storeId);
 
         if ($observer->hasWebsiteId()) {
             $wId = $observer->getEvent()->getWebsiteId();
@@ -162,7 +158,7 @@ class Mage_CatalogRule_Model_Observer
         }
 
         if ($this->_rulePrices[$key] !== false) {
-            $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
+            $finalPrice = min($product->getDataByKey('final_price'), $this->_rulePrices[$key]);
             $product->setFinalPrice($finalPrice);
         }
 
@@ -172,9 +168,9 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Apply catalog price rules to product in admin
      *
-     * @param   Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer
      *
-     * @return  $this
+     * @return $this
      */
     public function processAdminFinalPrice($observer)
     {
@@ -205,7 +201,7 @@ class Mage_CatalogRule_Model_Observer
             }
 
             if ($this->_rulePrices[$key] !== false) {
-                $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
+                $finalPrice = min($product->getDataByKey('final_price'), $this->_rulePrices[$key]);
                 $product->setFinalPrice($finalPrice);
             }
         }
@@ -241,9 +237,9 @@ class Mage_CatalogRule_Model_Observer
      * This method is called from cron process, cron is working in UTC time and
      * we should generate data for interval -1 day ... +1 day
      *
-     * @param   Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer
      *
-     * @return  $this
+     * @return $this
      */
     public function dailyCatalogUpdate($observer)
     {
@@ -342,10 +338,10 @@ class Mage_CatalogRule_Model_Observer
                 $this->_removeAttributeFromConditions($condition, $attributeCode);
             }
 
-            if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract) {
-                if ($condition->getAttribute() == $attributeCode) {
-                    unset($conditions[$conditionId]);
-                }
+            if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract
+                && $condition->getAttribute() == $attributeCode
+            ) {
+                unset($conditions[$conditionId]);
             }
         }
 
@@ -470,7 +466,7 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Generate key for rule prices
      *
-     * @param array $keyInfo
+     * @param  array  $keyInfo
      * @return string
      */
     protected function _getRulePricesKey($keyInfo)

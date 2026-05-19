@@ -15,7 +15,7 @@
 class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resource_Abstract
 {
     /**
-     * Initialize main table and column
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -36,8 +36,9 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
      * Unserialize Varien_Object field in an object
      *
      * @param string $field
-     * @param mixed $defaultValue
+     * @param mixed  $defaultValue
      */
+    #[Override]
     protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
     {
         if ($field != 'additional_info') {
@@ -52,8 +53,8 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
             try {
                 $unserializedValue = Mage::helper('core/unserializeArray')
                 ->unserialize($value);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
 
             $object->setData($field, $unserializedValue);
@@ -63,7 +64,7 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
     /**
      * Return recurring profile child Orders Ids
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return array
      */
     public function getChildOrderIds($object)
@@ -83,8 +84,8 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
     /**
      * Add order relation to recurring profile
      *
-     * @param int $recurringProfileId
-     * @param int $orderId
+     * @param  int   $recurringProfileId
+     * @param  int   $orderId
      * @return $this
      */
     public function addOrderRelation($recurringProfileId, $orderId)

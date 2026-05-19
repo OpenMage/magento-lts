@@ -14,10 +14,13 @@
  */
 class Mage_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = true;
+
     /**
      * Ajax action for inline translation
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @return void
      */
     public function translateAction()
     {
@@ -33,15 +36,5 @@ class Mage_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_Action
 
         echo Mage::helper('core/translate')->apply($translation, $area);
         exit();
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return true
-     */
-    protected function _isAllowed()
-    {
-        return true;
     }
 }

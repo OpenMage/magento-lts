@@ -22,6 +22,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * view grid
+     * @return void
      */
     public function indexAction()
     {
@@ -39,6 +40,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * new class action
+     * @return void
      */
     public function newAction()
     {
@@ -47,6 +49,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * edit class action
+     * @return void
      */
     public function editAction()
     {
@@ -91,6 +94,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * delete class action
+     * @return void
      */
     public function deleteAction()
     {
@@ -132,10 +136,10 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
             $session->addSuccess(Mage::helper('tax')->__('The tax class has been deleted.'));
             $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             return;
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Exception $e) {
-            $session->addException($e, Mage::helper('tax')->__('An error occurred while deleting this tax class.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $session->addException($exception, Mage::helper('tax')->__('An error occurred while deleting this tax class.'));
         }
 
         $this->_redirect('*/*/edit/', ['id' => $classId]);

@@ -36,8 +36,9 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     protected $_comparableAttributes;
 
     /**
-     * Initialize resources
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_init('catalog/product_compare_item', 'catalog/product');
@@ -47,7 +48,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Set customer filter to collection
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function setCustomerId($customerId)
@@ -60,7 +61,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Set visitor filter to collection
      *
-     * @param int $visitorId
+     * @param  int   $visitorId
      * @return $this
      */
     public function setVisitorId($visitorId)
@@ -210,7 +211,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                 $attributeSortInfo = [];
                 foreach ($attributeIds as $attributeId) {
                     $attribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeId);
-                    if ($attribute->getData('is_comparable')) {
+                    if ($attribute->getDataByKey('is_comparable')) {
                         $this->_comparableAttributes[$attribute->getAttributeCode()] = $attribute;
                         $attributeSortInfo[$attribute->getAttributeCode()] = $eavConfig->getAttributeSetGroupInfo($attributeId, $setIds);
                     }
@@ -284,6 +285,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
      *
      * @return $this
      */
+    #[Override]
     public function clear()
     {
         Mage::getResourceSingleton('catalog/product_compare_item')
@@ -299,6 +301,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
      *
      * @return bool
      */
+    #[Override]
     public function isEnabledFlat()
     {
         if (!Mage::helper('catalog/product_compare')->getAllowUsedFlat()) {

@@ -11,6 +11,8 @@
  * Gift Message helper
  *
  * @package    Mage_GiftMessage
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
 {
@@ -52,7 +54,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Retrieve old stule edit button html for editing of giftmessage in popup
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getButton($type, Varien_Object $entity)
@@ -71,8 +73,8 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Retrieve inline giftmessage edit form for specified entity
      *
-     * @param string $type
-     * @param bool $dontDisplayContainer
+     * @param  string $type
+     * @param  bool   $dontDisplayContainer
      * @return string
      */
     public function getInline($type, Varien_Object $entity, $dontDisplayContainer = false)
@@ -93,8 +95,8 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Check availability of giftmessages for specified entity.
      *
-     * @param self::TYPE_* $type $type
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  self::TYPE_*  $type
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isMessagesAvailable($type, Varien_Object $entity, $store = null)
@@ -102,7 +104,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
         switch ($type) {
             case self::TYPE_ITEMS:
                 $items = $entity->getAllItems();
-                if (!is_array($items) || empty($items)) {
+                if (!is_array($items) || $items === []) {
                     return Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
                 }
 
@@ -156,8 +158,8 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Check availability of gift messages from store config if flag eq 2.
      *
-     * @param bool $productGiftMessageAllow
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  bool          $productGiftMessageAllow
+     * @param  ConfigStoreId $store
      * @return bool
      */
     protected function _getDependenceFromStoreConfig($productGiftMessageAllow, $store = null)
@@ -165,16 +167,16 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
         $result = Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
         if ($productGiftMessageAllow === '' || is_null($productGiftMessageAllow)) {
             return $result;
-        } else {
-            return $productGiftMessageAllow;
         }
+
+        return $productGiftMessageAllow;
     }
 
     /**
      * Alias for isMessagesAvailable(...)
      *
-     * @param self::TYPE_* $type
-     * @param null|bool|int|Mage_Core_Model_Store|string $store
+     * @param  self::TYPE_*  $type
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function getIsMessagesAvailable($type, Varien_Object $entity, $store = null)
@@ -217,7 +219,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      *
      * If cached data not found return null.
      *
-     * @param string $key
+     * @param  string     $key
      * @return null|mixed
      */
     public function getCached($key)
@@ -232,7 +234,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Check availability for internal cached data with specified key
      *
-     * @param string $key
+     * @param  string $key
      * @return bool
      */
     public function isCached($key)
@@ -243,8 +245,8 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Set internal cache data with specified key
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string $key
+     * @param  mixed  $value
      * @return $this
      */
     public function setCached($key, $value)
@@ -256,8 +258,8 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Check availability for onepage checkout items
      *
-     * @param Mage_Sales_Model_Quote $quote
-     * @param int|Mage_Core_Model_Store $store
+     * @param  Mage_Sales_Model_Quote    $quote
+     * @param  int|Mage_Core_Model_Store $store
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -275,8 +277,8 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Check availability for multishiping checkout items
      *
-     * @param array $items
-     * @param int|Mage_Core_Model_Store $store
+     * @param  array                     $items
+     * @param  int|Mage_Core_Model_Store $store
      * @return bool
      */
     public function getAvailableForAddressItems($items, $store = null)
@@ -293,7 +295,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Retrieve gift message with specified id
      *
-     * @param int $messageId
+     * @param  int                            $messageId
      * @return Mage_GiftMessage_Model_Message
      * @throws Mage_Core_Exception
      */

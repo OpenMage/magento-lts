@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -17,8 +19,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_Symlink extends Mage_Core_Model
     /**
      * Save object data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
+    #[Override]
     public function save()
     {
         return $this;

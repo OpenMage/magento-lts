@@ -76,7 +76,7 @@ test.config = {
     _nav: '#nav-admin-cms',
     _title: base._title,
     _button: base._button,
-    url: 'cms_page/index',
+    url: 'admin/cms_page',
     index: {},
     edit: {},
     new: {},
@@ -96,12 +96,12 @@ test.config = {
 
 /**
  * Configuration for "Pages" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}, clickGridRow: cy.openmage.test.backend.cms.page.config.index.clickGridRow}}
+ * @type {{title: string, url: string, grid: {}, __buttons: {}, clickGridRow: cy.openmage.test.backend.cms.page.config.index.clickGridRow}}
  */
 test.config.index = {
     title: 'Manage Pages',
     url: test.config.url,
-    _grid: '#cmsPageGrid',
+    grid: {...base.__grid, ...{ sort: { order: 'title', dir: 'asc' } }},
     __buttons: {},
     clickGridRow: (content = '', _ = 'td') => {
         tools.grid.clickContains(test.config.index, content, _);

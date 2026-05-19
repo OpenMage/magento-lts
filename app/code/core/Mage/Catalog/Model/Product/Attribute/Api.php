@@ -33,7 +33,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Retrieve attributes from specified attribute set
      *
-     * @param int $setId
+     * @param  int   $setId
      * @return array
      */
     public function items($setId)
@@ -72,8 +72,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Retrieve attribute options
      *
-     * @param int $attributeId
-     * @param int|string $store
+     * @param  int        $attributeId
+     * @param  int|string $store
      * @return array
      */
     public function options($attributeId, $store = null)
@@ -93,14 +93,10 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         if ($attribute->usesSource()) {
             $attribute->setStoreId($storeId);
             foreach ($attribute->getSource()->getAllOptions() as $optionId => $optionValue) {
-                if (is_array($optionValue)) {
-                    $options[] = $optionValue;
-                } else {
-                    $options[] = [
-                        'value' => $optionId,
-                        'label' => $optionValue,
-                    ];
-                }
+                $options[] = is_array($optionValue) ? $optionValue : [
+                    'value' => $optionId,
+                    'label' => $optionValue,
+                ];
             }
         }
 
@@ -120,7 +116,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Create new product attribute
      *
-     * @param array $data input data
+     * @param  array $data input data
      * @return int
      */
     public function create($data)
@@ -175,8 +171,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Update product attribute
      *
-     * @param int|string $attribute attribute code or ID
-     * @param array $data
+     * @param  int|string $attribute attribute code or ID
+     * @param  array      $data
      * @return bool
      */
     public function update($attribute, $data)
@@ -208,7 +204,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Remove attribute
      *
-     * @param int|string $attribute attribute ID or code
+     * @param  int|string $attribute attribute ID or code
      * @return true|void
      */
     public function remove($attribute)
@@ -234,8 +230,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Get full information about attribute with list of options
      *
-     * @param int|string $attribute attribute ID or code
-     * @return array
+     * @param  int|string           $attribute attribute ID or code
+     * @return array<string, mixed>
      */
     public function info($attribute)
     {
@@ -329,7 +325,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Add option to select or multiselect attribute
      *
      * @param  int|string $attribute attribute ID or code
-     * @param  array $data
+     * @param  array      $data
      * @return bool
      */
     public function addOption($attribute, $data)
@@ -387,7 +383,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Remove option from select or multiselect attribute
      *
      * @param  int|string $attribute attribute ID or code
-     * @param  int $optionId option to remove ID
+     * @param  int        $optionId  option to remove ID
      * @return bool
      */
     public function removeOption($attribute, $optionId)
@@ -482,7 +478,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Load model by attribute ID or code
      *
-     * @param int|string $attribute
+     * @param  int|string                                $attribute
      * @return Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected function _getAttribute($attribute)

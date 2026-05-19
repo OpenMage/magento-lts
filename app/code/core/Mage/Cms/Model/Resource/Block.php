@@ -14,6 +14,9 @@
  */
 class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cms/block', 'block_id');
@@ -21,7 +24,9 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
         $condition = [
@@ -39,6 +44,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$this->getIsUniqueBlockToStores($object)) {
@@ -55,7 +61,10 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Exception
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $oldStores = $this->lookupStoreIds($object->getId());
@@ -93,6 +102,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
         if (!is_numeric($value) && is_null($field)) {
@@ -104,7 +114,9 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         if ($object->getId()) {
@@ -119,11 +131,14 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Cms_Model_Block $object
+     * @param  string               $field
+     * @param  mixed                $value
+     * @param  Mage_Cms_Model_Block $object
      * @return Zend_Db_Select
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);
@@ -151,13 +166,14 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
      * Check for unique of identifier of block to selected store(s).
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function getIsUniqueBlockToStores(Mage_Core_Model_Abstract $object)
     {
         if (Mage::app()->isSingleStoreMode()) {
             $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
         } else {
-            $stores = (array) $object->getData('stores');
+            $stores = (array) $object->getDataByKey('stores');
         }
 
         $select = $this->_getReadAdapter()->select()
@@ -166,24 +182,20 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
                 ['cbs' => $this->getTable('cms/block_store')],
                 'cb.block_id = cbs.block_id',
                 [],
-            )->where('cb.identifier = ?', $object->getData('identifier'))
+            )->where('cb.identifier = ?', $object->getDataByKey('identifier'))
             ->where('cbs.store_id IN (?)', $stores);
 
         if ($object->getId()) {
             $select->where('cb.block_id <> ?', $object->getId());
         }
 
-        if ($this->_getReadAdapter()->fetchRow($select)) {
-            return false;
-        }
-
-        return true;
+        return !$this->_getReadAdapter()->fetchRow($select);
     }
 
     /**
      * Get store ids to which specified item is assigned
      *
-     * @param int $id
+     * @param  int   $id
      * @return array
      */
     public function lookupStoreIds($id)

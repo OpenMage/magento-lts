@@ -15,7 +15,7 @@
 class Mage_Downloadable_Model_System_Config_Source_Contentdisposition
 {
     /**
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function toOptionArray()
     {

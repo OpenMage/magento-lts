@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Form extends Mage_Adminht
      *
      * @return Mage_Sales_Model_Order
      */
+    #[Override]
     public function getOrder()
     {
         return $this->getCreditmemo()->getOrder();
@@ -35,10 +36,10 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Form extends Mage_Adminht
     }
 
     /**
-     * Retrieve order totals block settings
-     *
-     * @return array
+     * @inheritDoc
+     * @return array<string, string>
      */
+    #[Override]
     public function getOrderTotalData()
     {
         return [

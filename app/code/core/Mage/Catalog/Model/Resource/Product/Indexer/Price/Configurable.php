@@ -19,6 +19,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
      *
      * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -40,9 +41,10 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param array|int $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
+    #[Override]
     public function reindexEntity($entityIds)
     {
         $this->_prepareFinalPriceData($entityIds);

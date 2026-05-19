@@ -24,14 +24,14 @@ class Mage_Admin_Model_Redirectpolicy
      */
     public function __construct($parameters = [])
     {
-        $this->_urlModel = (!empty($parameters['urlModel']))
-            ? $parameters['urlModel'] : Mage::getModel('adminhtml/url');
+        $this->_urlModel = (empty($parameters['urlModel']))
+            ? Mage::getModel('adminhtml/url') : $parameters['urlModel'];
     }
 
     /**
      * Redirect to startup page after logging in if request contains any params (except security key)
      *
-     * @param null|string $alternativeUrl
+     * @param  null|string $alternativeUrl
      * @return null|string
      */
     public function getRedirectUrl(

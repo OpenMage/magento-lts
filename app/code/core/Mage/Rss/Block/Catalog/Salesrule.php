@@ -14,6 +14,10 @@
  */
 class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         /*
@@ -28,12 +32,13 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $storeId       = $this->_getStoreId();
         $websiteId     = Mage::app()->getStore($storeId)->getWebsiteId();
         $customerGroup = $this->_getCustomerGroupId();
-        $now           = date('Y-m-d');
+        $now           = Mage::helper('core/clock')->format('Y-m-d');
         $url           = Mage::getUrl('');
         $newUrl        = Mage::getUrl('rss/catalog/salesrule');
         $lang          = Mage::getStoreConfig('general/locale/code');

@@ -16,10 +16,9 @@ class Mage_Adminhtml_Model_Observer
 {
     public function bindLocale($observer)
     {
-        if ($locale = $observer->getEvent()->getLocale()) {
-            if ($choosedLocale = Mage::getSingleton('adminhtml/session')->getLocale()) {
-                $locale->setLocaleCode($choosedLocale);
-            }
+        $locale = $observer->getEvent()->getLocale();
+        if ($locale && $choosedLocale = Mage::getSingleton('adminhtml/session')->getLocale()) {
+            $locale->setLocaleCode($choosedLocale);
         }
 
         return $this;

@@ -29,7 +29,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
      * Validate data
      * Return true or array of errors
      *
-     * @param null|bool|string $value
+     * @param  null|bool|string $value
      * @return array|bool
      */
     public function validateValue($value)
@@ -56,13 +56,13 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
 
         $validateRules = $attribute->getValidateRules();
         if (!empty($validateRules['min_text_length']) && $length < $validateRules['min_text_length']) {
-            $v = $validateRules['min_text_length'];
-            $errors[] = Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.', $label, $v);
+            $rule = $validateRules['min_text_length'];
+            $errors[] = Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.', $label, $rule);
         }
 
         if (!empty($validateRules['max_text_length']) && $length > $validateRules['max_text_length']) {
-            $v = $validateRules['max_text_length'];
-            $errors[] = Mage::helper('eav')->__('"%s" length must be equal or less than %s characters.', $label, $v);
+            $rule = $validateRules['max_text_length'];
+            $errors[] = Mage::helper('eav')->__('"%s" length must be equal or less than %s characters.', $label, $rule);
         }
 
         $result = $this->_validateInputRule($value);
@@ -80,7 +80,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Export attribute value to entity model
      *
-     * @param array|string $value
+     * @param  array|string $value
      * @return $this
      */
     public function compactValue($value)
@@ -95,7 +95,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Restore attribute value from SESSION to entity model
      *
-     * @param array|string $value
+     * @param  array|string $value
      * @return $this
      */
     public function restoreValue($value)
@@ -106,7 +106,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Return formatted attribute value from entity model
      *
-     * @param string $format
+     * @param  string       $format
      * @return array|string
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)

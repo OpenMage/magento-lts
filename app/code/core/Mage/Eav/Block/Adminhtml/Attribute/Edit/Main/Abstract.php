@@ -17,7 +17,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     protected $_attribute = null;
 
     /**
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return $this
      */
     public function setAttributeObject($attribute)
@@ -42,13 +42,14 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      * @throws Mage_Core_Exception
      * @throws Zend_Locale_Exception
      */
+    #[Override]
     protected function _prepareForm()
     {
         $attributeObject = $this->getAttributeObject();
 
         $form = new Varien_Data_Form([
             'id' => 'edit_form',
-            'action' => $this->getData('action'),
+            'action' => $this->getDataByKey('action'),
             'method' => 'post',
         ]);
 
@@ -161,6 +162,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _initFormValues()
     {
         Mage::dispatchEvent('adminhtml_block_eav_attribute_edit_form_init', ['form' => $this->getForm()]);
@@ -172,9 +174,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     /**
      * This method is called before rendering HTML
      *
-     * @return Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         parent::_beforeToHtml();
@@ -200,9 +203,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      * Processing block html after rendering
      * Adding js block to the end of this block
      *
-     * @param   string $html
-     * @return  string
+     * @param  string $html
+     * @return string
      */
+    #[Override]
     protected function _afterToHtml($html)
     {
         $jsScripts = $this->getLayout()

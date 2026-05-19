@@ -4,6 +4,7 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -11,16 +12,15 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Block\Widget\Page;
 
 use Generator;
-use Mage_Cms_Helper_Page;
 
 trait LinkTrait
 {
-    public static $defaults = [
+    public static array $defaults = [
         'custom_title' => 'Custom Title',
         'custom_text'  => 'Custom Text',
     ];
 
-    public static $tests = [
+    public static array $tests = [
         'empty' => 'empty',
         'href' => 'href is set',
         'no_data' => 'no data is set',
@@ -29,7 +29,7 @@ trait LinkTrait
         'title' => 'title is set',
     ];
 
-    public function provideGetHrefData(): Generator
+    public static function provideGetHrefData(): Generator
     {
         $emptyData = [
             'href'    => null,
@@ -61,7 +61,7 @@ trait LinkTrait
         ];
     }
 
-    public function provideGetTitleData(): Generator
+    public static function provideGetTitleData(): Generator
     {
         $emptyData = [
             'href'    => null,
@@ -101,7 +101,7 @@ trait LinkTrait
         ];
     }
 
-    public function provideGetAnchorTextData(): Generator
+    public static function provideGetAnchorTextData(): Generator
     {
         $emptyData = [
             'href'    => null,

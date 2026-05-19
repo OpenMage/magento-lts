@@ -14,16 +14,14 @@
  */
 class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Set grid params
-     */
+    protected string $_eventPrefix = 'sales_adminhtml_billing_agreement_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('billing_agreements');
         $this->setUseAjax(true);
         $this->setDefaultSort('agreement_id');
-        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
     }
 
@@ -32,27 +30,26 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/sales_billing_agreement/grid', ['_current' => true]);
     }
 
     /**
-     * Retrieve row url
-     *
-     * @param Mage_Sales_Model_Billing_Agreement $item
-     * @return string
+     * @inheritDoc
+     * @param Mage_Sales_Model_Billing_Agreement $row
      */
-    public function getRowUrl($item)
+    #[Override]
+    public function getRowUrl($row)
     {
-        return $this->getUrl('*/sales_billing_agreement/view', ['agreement' => $item->getAgreementId()]);
+        return $this->getUrl('*/sales_billing_agreement/view', ['agreement' => $row->getAgreementId()]);
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/billing_agreement_collection')
@@ -62,10 +59,10 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
     }
 
     /**
-     * Add columns to grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('agreement_id', [

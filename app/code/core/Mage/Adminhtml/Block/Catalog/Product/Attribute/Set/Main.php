@@ -15,8 +15,9 @@
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Initialize template
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('catalog/product/attribute/set/main.phtml');
@@ -27,6 +28,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $setId = $this->_getSetId();
@@ -201,7 +203,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
                     $attr = [
                         'text'              => $child->getAttributeCode(),
                         'id'                => $child->getAttributeId(),
-                        'cls'               => (!$child->getIsUserDefined()) ? 'system-leaf' : 'leaf',
+                        'cls'               => ($child->getIsUserDefined()) ? 'leaf' : 'system-leaf',
                         'allowDrop'         => false,
                         'allowDrag'         => true,
                         'leaf'              => true,
@@ -376,7 +378,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
      */
     public function getIsCurrentSetDefault()
     {
-        $isDefault = $this->getData('is_current_set_default');
+        $isDefault = $this->getDataByKey('is_current_set_default');
         if (is_null($isDefault)) {
             $defaultSetId = Mage::getSingleton('eav/config')
                 ->getEntityType(Mage::registry('entityType'))
@@ -389,21 +391,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
     }
 
     /**
-     * Retrieve current Attribute Set object
-     *
-     * @return Mage_Eav_Model_Entity_Attribute_Set
-     * @deprecated use _getAttributeSet
-     */
-    protected function _getSetData()
-    {
-        return $this->_getAttributeSet();
-    }
-
-    /**
      * Prepare HTML
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         Mage::dispatchEvent('adminhtml_catalog_product_attribute_set_main_html_before', ['block' => $this]);

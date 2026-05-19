@@ -43,6 +43,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $this->getLayout()->setArea($this->_currentArea);
@@ -56,6 +57,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return $this
      */
+    #[Override]
     public function postDispatch()
     {
         parent::postDispatch();
@@ -84,14 +86,15 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     /**
      * Declare headers and content file in response for file download
      *
-     * @param string $fileName
-     * @param array|string $content set to null to avoid starting output, $contentLength should be set explicitly in
-     *                              that case
-     * @param string $contentType
-     * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
+     * @param  string       $fileName
+     * @param  array|string $content       set to null to avoid starting output, $contentLength should be set explicitly in
+     *                                     that case
+     * @param  string       $contentType
+     * @param  int          $contentLength explicit content length, if strlen($content) isn't applicable
      * @return $this
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
+    #[Override]
     protected function _prepareDownloadResponse(
         $fileName,
         $content,
@@ -123,9 +126,9 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             ->setHeader('Pragma', 'public', true)
             ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
             ->setHeader('Content-type', $contentType, true)
-            ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength)
+            ->setHeader('Content-Length', $contentLength ?? strlen($content))
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
-            ->setHeader('Last-Modified', date('r'));
+            ->setHeader('Last-Modified', Mage::helper('core/clock')->format('r'));
 
         if (!is_null($content)) {
             if ($isFile) {
@@ -149,9 +152,9 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                 }
 
                 exit(0);
-            } else {
-                $this->getResponse()->setBody($content);
             }
+
+            $this->getResponse()->setBody($content);
         }
 
         return $this;
@@ -162,11 +165,12 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return bool
      */
+    #[Override]
     protected function _validateFormKey()
     {
         $validated = true;
         if ($this->_isFormKeyEnabled()) {
-            $validated = parent::_validateFormKey();
+            return parent::_validateFormKey();
         }
 
         return $validated;

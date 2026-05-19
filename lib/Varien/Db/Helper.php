@@ -69,7 +69,7 @@ class Varien_Db_Helper
     /**
      * Convert name using dictionary
      *
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     public static function shortName($name)
@@ -80,11 +80,11 @@ class Varien_Db_Helper
     /**
      * Add or replace translate to dictionary
      *
-     * @param string $from
-     * @param string $to
+     * @param string $source
+     * @param string $target
      */
-    public static function addTranslate($from, $to)
+    public static function addTranslate($source, $target)
     {
-        self::$_translateMap[$from] = $to;
+        self::$_translateMap[$source] = $target;
     }
 }

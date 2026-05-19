@@ -18,6 +18,6 @@ class Mage_Index_Block_Adminhtml_Process extends Mage_Adminhtml_Block_Widget_Gri
         $this->_controller = 'adminhtml_process';
         $this->_headerText = Mage::helper('index')->__('Index Management');
         parent::__construct();
-        $this->_removeButton('add');
+        $this->_removeButton(self::BUTTON_TYPE_ADD);
     }
 }

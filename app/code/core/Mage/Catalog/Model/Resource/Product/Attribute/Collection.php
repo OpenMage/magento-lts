@@ -15,8 +15,9 @@
 class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
     /**
-     * Resource model initialization
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_init('catalog/resource_eav_attribute', 'eav/entity_attribute');
@@ -27,6 +28,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         $entityTypeId = (int) Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
@@ -56,9 +58,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
      * Specify attribute entity type filter.
      * Entity type is defined.
      *
-     * @param  int $typeId
+     * @param  int   $typeId
      * @return $this
      */
+    #[Override]
     public function setEntityTypeFilter($typeId)
     {
         return $this;
@@ -69,6 +72,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
      *
      * @return array
      */
+    #[Override]
     protected function _getLoadDataFields()
     {
         return array_merge(
@@ -144,7 +148,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
     /**
      * Specify filter for attributes that have to be indexed
      *
-     * @param bool $addRequiredCodes
+     * @param  bool  $addRequiredCodes
      * @return $this
      */
     public function addToIndexFilter($addRequiredCodes = false)
