@@ -114,6 +114,18 @@
                             </depends>
                             <required>1</required>
                         </payment_action>
+                        <auth_alert_email translate="label comment">
+                            <label>Authorization Expiry Alert Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment>Email address that receives alerts when PayPal authorizations are
+                                about to expire. Leave empty to use the General Contact email.</comment>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </auth_alert_email>
                         <debug translate="label comment">
                             <label>Debug Mode</label>
                             <frontend_type>select</frontend_type>

@@ -1,48 +1,61 @@
 <?php
 
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 declare(strict_types=1);
 
+use Carbon\Carbon;
+use Monolog\Level;
+
 /**
- * Simplified cron job for PayPal authorization management.
+ * Cron job for PayPal authorization management.
  *
- * This class handles three main scenarios:
- * 1. Auto-reauthorize after 3-day honor period
+ * Handles three scenarios:
+ * 1. Auto-reauthorize after the 3-day honor period
  * 2. Email alerts when approaching 29-day expiration
  * 3. Close transactions after 29-day expiration
- *
- * PHP version 8.4
- *
- * @category    Mage
- * @package     Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
- * @copyright   Copyright (c) 2005-2024 Magento Inc. (https://www.magentocommerce.com)
- * @license     https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
- * @link        https://magento.com
  */
 class Mage_Paypal_Model_Cron
 {
     /**
-     * @var array
+     * Maximum number of automatic reauthorization attempts before giving up.
      */
-    protected $_emailAlerts = [];
+    private const MAX_REAUTH_ATTEMPTS = 3;
 
     /**
-     * Main method to process PayPal authorization lifecycle
-     *
-     * @param Mage_Cron_Model_Schedule $schedule
-     * @return void
+     * Payment additional_information key holding the reauthorization attempt count.
      */
-    public function processAuthorizationLifecycle($schedule)
+    private const REAUTH_ATTEMPTS_KEY = 'paypal_reauth_attempts';
+
+    /**
+     * @var array<int, array<string, mixed>>
+     */
+    protected array $_emailAlerts = [];
+
+    /**
+     * Main entry point: process the PayPal authorization lifecycle.
+     */
+    public function processAuthorizationLifecycle(?Mage_Cron_Model_Schedule $schedule = null): void
     {
         $this->_emailAlerts = [];
 
         $transactions = $this->_getActivePayPalAuthorizations();
 
         foreach ($transactions as $transaction) {
-            $this->_processTransaction($transaction);
+            // Isolate each row so one malformed transaction cannot abort the batch.
+            try {
+                $this->_processTransaction($transaction);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+            }
         }
 
-        if (!empty($this->_emailAlerts)) {
+        if ($this->_emailAlerts !== []) {
             $this->_sendEmailAlerts();
         }
     }
@@ -74,18 +87,15 @@ class Mage_Paypal_Model_Cron
     }
 
     /**
-     * Process individual transaction based on its age
-     *
-     * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
-     * @return void
+     * Process an individual transaction based on its age.
      */
-    protected function _processTransaction($transaction)
+    protected function _processTransaction(Mage_Sales_Model_Order_Payment_Transaction $transaction): void
     {
         $order = Mage::getModel('sales/order')->load($transaction->getData('parent_id'));
         $payment = $order->getPayment();
 
         $hoursFromAuth = $this->_calculateHoursFromAuthorization($transaction);
-        $hoursUntilExpiry = $this->_calculateHoursUntilExpiry($transaction, $order->getStoreId());
+        $hoursUntilExpiry = $this->_calculateHoursUntilExpiry($transaction);
 
         if ($hoursUntilExpiry <= 0) {
             // Authorization expired (29+ days) - close transaction
@@ -100,102 +110,114 @@ class Mage_Paypal_Model_Cron
     }
 
     /**
-     * Calculate hours from authorization creation
-     *
-     * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
-     * @return float
+     * Calculate hours elapsed since the authorization was created.
      */
-    protected function _calculateHoursFromAuthorization($transaction)
+    protected function _calculateHoursFromAuthorization(Mage_Sales_Model_Order_Payment_Transaction $transaction): float
     {
         $authCreated = $transaction->getCreatedAt();
-        $createdTimestamp = strtotime((string) $authCreated);
-        $nowTimestamp = time();
+        $createdTimestamp = Carbon::parse((string) $authCreated)->getTimestamp();
+        $nowTimestamp = Carbon::now()->getTimestamp();
 
         return ($nowTimestamp - $createdTimestamp) / 3600;
     }
 
     /**
-     * Calculate hours until expiry with timezone conversion
-     *
-     * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
-     * @param int $storeId
-     * @return float
+     * Calculate hours remaining until the authorization expires.
      */
-    protected function _calculateHoursUntilExpiry($transaction, $storeId)
+    protected function _calculateHoursUntilExpiry(Mage_Sales_Model_Order_Payment_Transaction $transaction): float
     {
         $additionalInfo = $transaction->getAdditionalInformation();
         $authExpiry = $additionalInfo[Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME] ?? null;
 
-        if (!$authExpiry) {
-            $createdTimestamp = strtotime((string) $transaction->getCreatedAt());
-            $expiryTimestamp = $createdTimestamp + (29 * 24 * 3600);
-            return ($expiryTimestamp - time()) / 3600;
+        if (is_string($authExpiry) && $authExpiry !== '') {
+            try {
+                $expiryDateTime = new DateTime($authExpiry, new DateTimeZone('UTC'));
+                return ($expiryDateTime->getTimestamp() - Carbon::now()->getTimestamp()) / 3600;
+            } catch (Exception $exception) {
+                // Malformed expiry value - fall through to the 29-day estimate below.
+                Mage::logException($exception);
+            }
         }
 
-        $storeTimezone = Mage::app()->getStore($storeId)->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
-        $expiryDateTime = new DateTime($authExpiry, new DateTimeZone('UTC'));
-        $expiryDateTime->setTimezone(new DateTimeZone($storeTimezone));
-
-        $nowDateTime = new DateTime('now', new DateTimeZone($storeTimezone));
-
-        return ($expiryDateTime->getTimestamp() - $nowDateTime->getTimestamp()) / 3600;
+        // No (or unparseable) expiry from PayPal: estimate 29 days from creation.
+        $createdTimestamp = Carbon::parse((string) $transaction->getCreatedAt())->getTimestamp();
+        $expiryTimestamp = $createdTimestamp + (29 * 24 * 3600);
+        return ($expiryTimestamp - Carbon::now()->getTimestamp()) / 3600;
     }
 
     /**
-     * Check if transaction has been reauthorized
-     *
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @return bool
+     * Check whether the authorization has already been reauthorized.
      */
-    protected function _hasBeenReauthorized($payment)
+    protected function _hasBeenReauthorized(Mage_Sales_Model_Order_Payment $payment): bool
     {
         $additionalInfo = $payment->getAdditionalInformation();
         return isset($additionalInfo[Mage_Paypal_Model_Payment::PAYPAL_PAYMENT_AUTHORIZATION_REAUTHORIZED]);
     }
 
     /**
-     * Attempt to reauthorize payment after honor period
-     *
-     * @param Mage_Sales_Model_Order $order
-     * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
-     * @return void
+     * Attempt to reauthorize a payment after the honor period.
      */
-    protected function _attemptReauthorization($order, $transaction)
-    {
-        try {
-            $authorizationId = $transaction->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID);
-            if (!$authorizationId) {
-                return;
-            }
+    protected function _attemptReauthorization(
+        Mage_Sales_Model_Order $order,
+        Mage_Sales_Model_Order_Payment_Transaction $transaction
+    ): void {
+        $payment = $order->getPayment();
+        $attempts = (int) $payment->getAdditionalInformation(self::REAUTH_ATTEMPTS_KEY);
 
+        // Already exhausted the retry budget - the final-failure comment was added once.
+        if ($attempts >= self::MAX_REAUTH_ATTEMPTS) {
+            return;
+        }
+
+        $authorizationId = $transaction->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID);
+        if (!$authorizationId) {
+            return;
+        }
+
+        try {
             $paypalModel = Mage::getModel('paypal/paypal');
             $response = $paypalModel->reauthorizePayment($authorizationId, $order);
+
+            // Mark as reauthorized so subsequent cron runs skip this transaction.
+            $payment->setAdditionalInformation(
+                Mage_Paypal_Model_Payment::PAYPAL_PAYMENT_AUTHORIZATION_REAUTHORIZED,
+                Varien_Date::now(),
+            )->save();
 
             Mage::log([
                 'order_id' => $order->getIncrementId(),
                 'auth_id' => $authorizationId,
                 'message' => 'Auto-reauthorization successful',
                 'response' => $response,
-            ], Zend_Log::INFO, 'paypal_auto_reauth.log');
+            ], Level::Info, 'paypal_auto_reauth.log');
         } catch (Exception $exception) {
             Mage::logException($exception);
-            $order->addStatusHistoryComment(
-                'PayPal auto-reauthorization failed due to system error. Please check log and go to PayPal site to reauthorize manually.',
-                false,
-            )->save();
+
+            $attempts++;
+            $payment->setAdditionalInformation(self::REAUTH_ATTEMPTS_KEY, $attempts)->save();
+
+            // Add the merchant-facing comment only once, on the final failed attempt.
+            if ($attempts >= self::MAX_REAUTH_ATTEMPTS) {
+                $order->addStatusHistoryComment(
+                    sprintf(
+                        'PayPal auto-reauthorization failed after %d attempts. '
+                        . 'Please check the log and reauthorize manually on the PayPal site.',
+                        self::MAX_REAUTH_ATTEMPTS,
+                    ),
+                    false,
+                )->save();
+            }
         }
     }
 
     /**
-     * Add expiration alert to email queue
-     *
-     * @param Mage_Sales_Model_Order $order
-     * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
-     * @param float $hoursUntilExpiry
-     * @return void
+     * Queue an expiration alert for the batched notification email.
      */
-    protected function _addExpirationAlert($order, $transaction, $hoursUntilExpiry)
-    {
+    protected function _addExpirationAlert(
+        Mage_Sales_Model_Order $order,
+        Mage_Sales_Model_Order_Payment_Transaction $transaction,
+        float $hoursUntilExpiry
+    ): void {
         $daysUntilExpiry = round($hoursUntilExpiry / 24, 1);
 
         $this->_emailAlerts[] = [
@@ -207,12 +229,9 @@ class Mage_Paypal_Model_Cron
     }
 
     /**
-     * Handle expired authorization (29+ days)
-     *
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @return void
+     * Handle an expired authorization (29+ days): close it and hold the order.
      */
-    protected function _handleExpiredAuthorization($payment)
+    protected function _handleExpiredAuthorization(Mage_Sales_Model_Order_Payment $payment): void
     {
         try {
             $transactionModel = Mage::getSingleton('paypal/transaction');
@@ -234,24 +253,25 @@ class Mage_Paypal_Model_Cron
             Mage::log([
                 'order_id' => $order->getIncrementId(),
                 'message' => 'Authorization expired and closed',
-            ], Zend_Log::WARN, 'paypal_expired_auth.log');
+            ], Level::Warning, 'paypal_expired_auth.log');
         } catch (Exception $exception) {
             Mage::logException($exception);
         }
     }
 
     /**
-     * Send email alerts for orders approaching expiration
-     *
-     * @return void
+     * Send the batched email alert for orders approaching expiration.
      */
-    protected function _sendEmailAlerts()
+    protected function _sendEmailAlerts(): void
     {
         $subject = 'PayPal Authorization Expiring Soon - Action Required';
         $body = $this->_buildAlertEmailBody();
 
+        $recipient = (string) Mage::getStoreConfig('payment/paypal/auth_alert_email')
+            ?: (string) Mage::getStoreConfig('trans_email/ident_general/email');
+
         $mail = Mage::getModel('core/email')
-            ->setToEmail(Mage::getStoreConfig('trans_email/ident_general/email'))
+            ->setToEmail($recipient)
             ->setToName(Mage::getStoreConfig('trans_email/ident_general/name'))
             ->setFromEmail(Mage::getStoreConfig('trans_email/ident_general/email'))
             ->setFromName(Mage::getStoreConfig('general/store_information/name'))
@@ -267,14 +287,12 @@ class Mage_Paypal_Model_Cron
     }
 
     /**
-     * Build email body for expiration alerts
-     *
-     * @return string
+     * Build the plain-text body for the expiration alert email.
      */
-    protected function _buildAlertEmailBody()
+    protected function _buildAlertEmailBody(): string
     {
         $body = "PayPal Authorization Expiration Alert\n";
-        $body .= 'Generated: ' . date('Y-m-d H:i:s') . "\n";
+        $body .= 'Generated: ' . Carbon::now()->format('Y-m-d H:i:s') . "\n";
         $body .= str_repeat('=', 50) . "\n\n";
 
         $body .= "The following orders have PayPal authorizations expiring within 3 days:\n\n";
@@ -282,14 +300,12 @@ class Mage_Paypal_Model_Cron
             $order = $alert['order'];
             $transaction = $alert['transaction'];
             $orderNumber = $order->getIncrementId();
-            $customerName = $order->getCustomerName();
 
             $orderAmount = $order->getBaseCurrencyCode() . ' ' . number_format((float) $order->getGrandTotal(), 2);
             $transactionId = $transaction->getTxnId();
             $daysRemaining = $alert['days_until_expiry'];
 
             $body .= 'Order: #' . $orderNumber . "\n";
-            $body .= 'Customer: ' . $customerName . "\n";
             $body .= 'Amount: ' . $orderAmount . "\n";
             $body .= 'Transaction ID: ' . $transactionId . "\n";
             $body .= 'Expires in: ' . $daysRemaining . " days\n";
