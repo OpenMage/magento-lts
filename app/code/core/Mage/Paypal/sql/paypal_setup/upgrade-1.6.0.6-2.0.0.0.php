@@ -93,21 +93,25 @@ $installer->getConnection()->delete(
 $status = 'paypal_auth_expired';
 $statusLabel = 'PayPal Authorization Expired';
 
-$installer->getConnection()->insert(
+// insertOnDuplicate keeps this upgrade re-runnable: status is the primary key
+// of sales_order_status, so a plain insert would abort a partial-upgrade retry.
+$installer->getConnection()->insertOnDuplicate(
     $installer->getTable('sales/order_status'),
     [
         'status' => $status,
         'label'  => $statusLabel,
     ],
+    ['label'],
 );
 
-$installer->getConnection()->insert(
+$installer->getConnection()->insertOnDuplicate(
     $installer->getTable('sales/order_status_state'),
     [
         'status'     => $status,
         'state'      => Mage_Sales_Model_Order::STATE_HOLDED,
         'is_default' => 0,
     ],
+    ['is_default'],
 );
 
 $installer->getConnection()->delete(
