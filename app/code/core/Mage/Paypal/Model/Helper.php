@@ -9,6 +9,7 @@
 
 declare(strict_types=1);
 
+use Monolog\Level;
 use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 use PaypalServerSdkLib\Http\ApiResponse;
 
@@ -20,6 +21,14 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
 {
     // Error messages
     private const ERROR_ZERO_AMOUNT = 'PayPal does not support processing orders with zero amount. To complete your purchase, proceed to the standard checkout process.';
+
+    /**
+     * Keys whose values hold customer PII and must be redacted before any
+     * request/response payload is persisted to the debug log.
+     *
+     * @var string[]
+     */
+    private const REDACTED_KEYS = ['payer', 'shipping', 'payment_source', 'email_address', 'phone', 'phone_number'];
 
     /**
      * @var Mage_Paypal_Helper_Data
@@ -38,10 +47,10 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     /**
      * Logs debug information for a PayPal API request if debugging is enabled.
      *
-     * @param string $action Action being performed (e.g., 'Create Order').
-     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote quote or order object
-     * @param array $request request object or data sent to the API
-     * @param null|ApiResponse $response API response, if available
+     * @param string                                        $action   Action being performed (e.g., 'Create Order').
+     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote    quote or order object
+     * @param array                                         $request  request object or data sent to the API
+     * @param null|ApiResponse                              $response API response, if available
      */
     public function logDebug(
         string $action,
@@ -50,7 +59,6 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
         ?ApiResponse $response = null
     ): void {
         if (Mage::getStoreConfigFlag('payment/paypal/debug')) {
-            $requestData = json_encode($request);
             $debug = Mage::getModel('paypal/debug');
             if ($quote instanceof Mage_Sales_Model_Quote) {
                 $debug->setQuoteId($quote->getId());
@@ -59,16 +67,15 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
             }
 
             $debug->setAction($action)
-                ->setRequestBody($requestData);
-            Mage::log($response, null, 'paypal.log');
+                ->setRequestBody($this->_encodeRedacted($request));
             if ($response instanceof ApiResponse) {
                 $result = $response->getResult();
                 if ($response->isError()) {
-                    $debug->setTransactionId($result['debug_id'])
-                        ->setResponseBody(json_encode($result));
+                    $debug->setTransactionId(is_array($result) ? ($result['debug_id'] ?? null) : null)
+                        ->setResponseBody($this->_encodeRedacted($result));
                 } else {
-                    $debug->setTransactionId($response->getResult()->getId() ?? null)
-                        ->setResponseBody(json_encode($response->getResult()));
+                    $debug->setTransactionId($result->getId() ?? null)
+                        ->setResponseBody($this->_encodeRedacted($result));
                 }
             }
 
@@ -79,7 +86,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     /**
      * Logs an error message and exception details if debugging is enabled.
      *
-     * @param string $message the error message
+     * @param string    $message   the error message
      * @param Exception $exception the exception object
      */
     public function logError(string $message, Exception $exception): void
@@ -94,7 +101,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
                 $errorData['debug_data'] = $exception->getDebugData();
             }
 
-            Mage::log($errorData, Zend_Log::ERR, 'paypal.log', true);
+            Mage::log($errorData, Level::Error, 'paypal.log', true);
         }
     }
 
@@ -117,8 +124,8 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     /**
      * Handle API error response
      *
-     * @param ApiResponse $response API response
-     * @param string $defaultMessage Default error message
+     * @param  ApiResponse                 $response       API response
+     * @param  string                      $defaultMessage Default error message
      * @throws Mage_Paypal_Model_Exception
      */
     public function handleApiError(ApiResponse $response, string $defaultMessage): never
@@ -130,8 +137,8 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     /**
      * Extract comprehensive error message from PayPal API response
      *
-     * @param ApiResponse $response API response
-     * @param string $defaultMessage Default error message
+     * @param ApiResponse $response       API response
+     * @param string      $defaultMessage Default error message
      */
     public function extractErrorMessage(ApiResponse $response, string $defaultMessage): string
     {
@@ -160,7 +167,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     /**
      * Extract error message from array response structure
      *
-     * @param array $result API result array
+     * @param array  $result         API result array
      * @param string $defaultMessage Default error message
      */
     private function _extractFromArrayResponse(array $result, string $defaultMessage): string
@@ -168,16 +175,16 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
         $mainMessage = $result['message'] ?? '';
         $detailedMessage = $this->_extractDetailedError($result);
         if (!empty($detailedMessage)) {
-            return !empty($mainMessage) ? $mainMessage . ' ' . $detailedMessage : $detailedMessage;
+            return empty($mainMessage) ? $detailedMessage : $mainMessage . ' ' . $detailedMessage;
         }
 
-        return !empty($mainMessage) ? $this->_helper->__($mainMessage) : $defaultMessage;
+        return empty($mainMessage) ? $defaultMessage : $this->_helper->__($mainMessage);
     }
 
     /**
      * Extract error message from object response structure
      *
-     * @param object $result API result object
+     * @param object $result         API result object
      * @param string $defaultMessage Default error message
      */
     private function _extractFromObjectResponse(object $result, string $defaultMessage): string
@@ -225,7 +232,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
             }
         }
 
-        if (empty($errorMessages) && isset($result['message'])) {
+        if ($errorMessages === [] && isset($result['message'])) {
             $errorMessages[] = $result['message'];
         }
 
@@ -254,10 +261,12 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     public function extractCaptureId(mixed $result): ?string
     {
         if (
-            !method_exists($result, 'getPurchaseUnits')
+            !is_object($result)
+            || !method_exists($result, 'getPurchaseUnits')
             || !is_array($result->getPurchaseUnits())
-            || empty($result->getPurchaseUnits())
+            || $result->getPurchaseUnits() === []
         ) {
+            Mage::log('PayPal: unable to extract capture ID - no purchase units in response.', Level::Warning, 'paypal.log');
             return null;
         }
 
@@ -265,10 +274,12 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
         $payments = $purchaseUnit->getPayments();
 
         if (
-            !method_exists($payments, 'getCaptures')
+            !is_object($payments)
+            || !method_exists($payments, 'getCaptures')
             || !is_array($payments->getCaptures())
-            || empty($payments->getCaptures())
+            || $payments->getCaptures() === []
         ) {
+            Mage::log('PayPal: unable to extract capture ID - no captures in response.', Level::Warning, 'paypal.log');
             return null;
         }
 
@@ -276,28 +287,94 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Extract the captured amount from a PayPal order API result.
+     *
+     * @param mixed $result API result (an Order with nested capture)
+     */
+    public function extractCaptureAmount(mixed $result): ?float
+    {
+        if (
+            !is_object($result)
+            || !method_exists($result, 'getPurchaseUnits')
+            || !is_array($result->getPurchaseUnits())
+            || $result->getPurchaseUnits() === []
+        ) {
+            return null;
+        }
+
+        $payments = $result->getPurchaseUnits()[0]->getPayments();
+        if (
+            !is_object($payments)
+            || !method_exists($payments, 'getCaptures')
+            || !is_array($payments->getCaptures())
+            || $payments->getCaptures() === []
+        ) {
+            return null;
+        }
+
+        $amount = $payments->getCaptures()[0]->getAmount();
+
+        return $amount ? (float) $amount->getValue() : null;
+    }
+
+    /**
      * Prepare raw details for storage
      *
-     * @param string $details JSON details object
+     * @param  string               $details JSON details object
      * @return array<string, mixed>
      */
     public function prepareRawDetails(string $details): array
     {
-        $decoded = json_decode($details, true);
-        if (isset($decoded['links'])) {
-            unset($decoded['links']);
-        }
+        $decoded = json_decode($details, true) ?? [];
+        unset($decoded['links']);
+        $decoded = $this->_redactSensitiveData($decoded);
 
         return array_map(
             fn($v) => is_array($v) ? json_encode($v) : $v,
-            $decoded ?? [],
+            $decoded,
         );
+    }
+
+    /**
+     * JSON-encode a request/response payload with customer PII redacted.
+     *
+     * @param mixed $payload Array or SDK object to serialise for the debug log
+     */
+    private function _encodeRedacted(mixed $payload): string
+    {
+        $asArray = json_decode((string) json_encode($payload), true);
+
+        return (string) json_encode(
+            is_array($asArray) ? $this->_redactSensitiveData($asArray) : $asArray,
+        );
+    }
+
+    /**
+     * Recursively replace the values of PII-bearing keys with a redaction marker.
+     *
+     * @param  array<mixed> $data
+     * @return array<mixed>
+     */
+    private function _redactSensitiveData(array $data): array
+    {
+        foreach ($data as $key => $value) {
+            if (is_string($key) && in_array(strtolower($key), self::REDACTED_KEYS, true)) {
+                $data[$key] = '[REDACTED]';
+                continue;
+            }
+
+            if (is_array($value)) {
+                $data[$key] = $this->_redactSensitiveData($value);
+            }
+        }
+
+        return $data;
     }
 
     /**
      * Add order status comment
      *
-     * @param string $action Action performed (captured, authorized, etc.)
+     * @param string      $action        Action performed (captured, authorized, etc.)
      * @param null|string $transactionId Transaction ID
      */
     public function addOrderComment(
