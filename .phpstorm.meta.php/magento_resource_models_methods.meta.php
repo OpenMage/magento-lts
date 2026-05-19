@@ -328,6 +328,8 @@ namespace PHPSTORM_META {
             'paypal/debug' => \Mage_Paypal_Model_Resource_Debug::class,
             'paypal/debug_collection' => \Mage_Paypal_Model_Resource_Debug_Collection::class,
             'paypal/setup' => \Mage_Paypal_Model_Resource_Setup::class,
+            'paypal/webhook_event' => \Mage_Paypal_Model_Resource_Webhook_Event::class,
+            'paypal/webhook_event_collection' => \Mage_Paypal_Model_Resource_Webhook_Event_Collection::class,
             'persistent/session' => \Mage_Persistent_Model_Resource_Session::class,
             'productalert/abstract' => \Mage_ProductAlert_Model_Resource_Abstract::class,
             'productalert/price' => \Mage_ProductAlert_Model_Resource_Price::class,
