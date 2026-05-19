@@ -275,15 +275,21 @@ class PayPalPayment {
         this.showLoadingMask();
 
         try {
+            const requestBody = new URLSearchParams({
+                order_id: data.orderID,
+                form_key: this.config.formKey
+            });
+
+            this.collectAgreementParams().forEach(([name, value]) => {
+                requestBody.append(name, value);
+            });
+
             const response = await fetch(this.config.captureUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({
-                    order_id: data.orderID,
-                    form_key: this.config.formKey
-                }),
+                body: requestBody,
                 signal: this.abortController.signal
             });
 

@@ -112,6 +112,11 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
             }
 
+            // Agreements must hold here too: this action captures/authorizes
+            // the PayPal payment, and a later placeOrderAction rejection would
+            // leave the customer charged without an order.
+            $this->_validateCheckoutAgreements();
+
             $orderId = $this->getRequest()->getParam('order_id');
             $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
 
@@ -199,11 +204,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            Mage::dispatchEvent(
-                'checkout_type_onepage_save_order_after',
-                ['order' => $order, 'quote' => $this->_getQuote()],
-            );
-
             $quotePayment = $this->_getQuote()->getPayment();
             $orderPayment = $order->getPayment();
 
@@ -274,6 +274,14 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                     ->addObject($order)
                     ->save();
             }
+
+            // Dispatched only now that last_trans_id, the auth/capture
+            // transaction and the online invoice are persisted, so onepage
+            // observers see a fully finalized order as they would normally.
+            Mage::dispatchEvent(
+                'checkout_type_onepage_save_order_after',
+                ['order' => $order, 'quote' => $this->_getQuote()],
+            );
 
             $session->clearHelperData();
             $session->setLastQuoteId($this->_getQuote()->getId())
@@ -544,12 +552,12 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     private function _validateCheckoutAgreements(): void
     {
         $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
-        if (!$requiredAgreements) {
+        if ($requiredAgreements === null || $requiredAgreements === []) {
             return;
         }
 
         $postedAgreements = array_keys($this->getRequest()->getPost('agreement', []));
-        if (array_diff($requiredAgreements, $postedAgreements)) {
+        if (array_diff($requiredAgreements, $postedAgreements) !== []) {
             Mage::throwException(
                 Mage::helper('paypal')->__('Please agree to all the terms and conditions before placing the order.'),
             );
