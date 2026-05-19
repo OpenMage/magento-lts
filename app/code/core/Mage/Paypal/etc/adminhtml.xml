@@ -20,6 +20,11 @@
                             <action>adminhtml/paypal_debug</action>
                             <sort_order>10</sort_order>
                         </debug>
+                        <webhook translate="title" module="paypal">
+                            <title>Webhook Events</title>
+                            <action>adminhtml/paypal_webhook</action>
+                            <sort_order>20</sort_order>
+                        </webhook>
                     </children>
                 </paypal>
             </children>
@@ -54,6 +59,10 @@
                                         <title>Debug Log</title>
                                         <sort_order>10</sort_order>
                                     </debug>
+                                    <webhook translate="title">
+                                        <title>Webhook Events</title>
+                                        <sort_order>20</sort_order>
+                                    </webhook>
                                 </children>
                             </paypal>
                         </children>

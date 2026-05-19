@@ -278,6 +278,132 @@ class Mage_Paypal_Model_Api extends Varien_Object
     }
 
     /**
+     * Fetch a PayPal REST access token from the SDK OAuth manager.
+     */
+    public function getAccessToken(): string
+    {
+        return $this->getClient()->getClientCredentialsAuth()->fetchToken()->getAccessToken();
+    }
+
+    /**
+     * POST to a PayPal REST endpoint that is not modeled by the SDK.
+     *
+     * @param  array<string, mixed>        $body
+     * @param  array<string, string>       $headers
+     * @return array<string, mixed>
+     * @throws Mage_Paypal_Model_Exception
+     */
+    public function postPaypalRest(string $path, array $body, array $headers = []): array
+    {
+        $payload = json_encode($body, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        if (!is_string($payload)) {
+            throw new Mage_Paypal_Model_Exception('Failed to encode PayPal REST request body.');
+        }
+
+        $client = new Varien_Http_Client(
+            rtrim($this->getClient()->getBaseUri(), '/') . '/' . ltrim($path, '/'),
+        );
+        $client->setConfig([
+            'maxredirects' => 0,
+            'timeout'      => $this->config->getApiTimeout() ?: 30,
+            'verifyhost'   => 2,
+            'verifypeer'   => true,
+        ]);
+
+        $requestHeaders = [
+            'Authorization' => 'Bearer ' . $this->getAccessToken(),
+            'Accept'        => 'application/json',
+            'Content-Type'  => 'application/json',
+        ];
+        foreach ($headers as $name => $value) {
+            if ($name === '') {
+                continue;
+            }
+
+            $requestHeaders[$name] = $value;
+        }
+
+        $response = $client
+            ->setHeaders($requestHeaders)
+            ->setRawData($payload, 'application/json')
+            ->request(Zend_Http_Client::POST);
+
+        $statusCode = (int) $response->getStatus();
+        $responseBody = (string) $response->getBody();
+        $decodedResponse = $responseBody === '' ? [] : json_decode($responseBody, true);
+        if (!is_array($decodedResponse)) {
+            throw new Mage_Paypal_Model_Exception('PayPal REST response was not valid JSON.');
+        }
+
+        if ($statusCode < 200 || $statusCode >= 300) {
+            $message = $decodedResponse['message']
+                ?? $decodedResponse['error_description']
+                ?? $decodedResponse['name']
+                ?? 'HTTP ' . $statusCode . ' error';
+            if (!is_scalar($message)) {
+                $message = 'HTTP ' . $statusCode . ' error';
+            }
+
+            throw new Mage_Paypal_Model_Exception(
+                'PayPal REST request failed: ' . $message,
+                [
+                    'status_code' => $statusCode,
+                    'response'    => $decodedResponse,
+                ],
+            );
+        }
+
+        return $decodedResponse;
+    }
+
+    /**
+     * Read a PayPal order through the SDK.
+     *
+     * @throws Mage_Paypal_Model_Exception
+     */
+    public function getOrder(string $orderId): ApiResponse
+    {
+        $this->_validateOrderId($orderId);
+        return $this->getClient()->getOrdersController()->getOrder(['id' => $orderId]);
+    }
+
+    /**
+     * Read a captured PayPal payment through the SDK.
+     *
+     * @throws Mage_Paypal_Model_Exception
+     */
+    public function getCapturedPayment(string $captureId): ApiResponse
+    {
+        $this->_validateCaptureId($captureId);
+        return $this->getClient()->getPaymentsController()->getCapturedPayment(['captureId' => $captureId]);
+    }
+
+    /**
+     * Read a PayPal refund through the SDK.
+     *
+     * @throws Mage_Paypal_Model_Exception
+     */
+    public function getRefund(string $refundId): ApiResponse
+    {
+        if ($refundId === '') {
+            throw new Mage_Paypal_Model_Exception('Refund ID cannot be empty');
+        }
+
+        return $this->getClient()->getPaymentsController()->getRefund(['refundId' => $refundId]);
+    }
+
+    /**
+     * Read an authorized PayPal payment through the SDK.
+     *
+     * @throws Mage_Paypal_Model_Exception
+     */
+    public function getAuthorizedPayment(string $authorizationId): ApiResponse
+    {
+        $this->_validateAuthorizationId($authorizationId);
+        return $this->getClient()->getPaymentsController()->getAuthorizedPayment(['authorizationId' => $authorizationId]);
+    }
+
+    /**
      * Initialize PayPal client
      *
      * @throws Mage_Paypal_Model_Exception

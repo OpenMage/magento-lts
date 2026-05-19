@@ -139,6 +139,70 @@
                             </depends>
                             <required>1</required>
                         </debug>
+                        <webhook_enabled translate="label comment">
+                            <label>Enable Webhooks</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>61</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment><![CDATA[Enable PayPal REST webhook handling. Receiver URL: <strong>{{base_url}}paypal/webhook/index</strong>. Configure this URL per website in the PayPal developer dashboard.]]></comment>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </webhook_enabled>
+                        <webhook_id translate="label comment">
+                            <label>Webhook ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>62</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment>PayPal REST webhook ID from the PayPal developer dashboard.</comment>
+                            <depends>
+                                <active>1</active>
+                                <webhook_enabled>1</webhook_enabled>
+                            </depends>
+                            <required>1</required>
+                        </webhook_id>
+                        <webhook_process_async translate="label comment">
+                            <label>Process Webhooks Asynchronously</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>63</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment>Persist verified webhook events first and process business effects from cron.</comment>
+                            <depends>
+                                <active>1</active>
+                                <webhook_enabled>1</webhook_enabled>
+                            </depends>
+                        </webhook_process_async>
+                        <webhook_retry_limit translate="label comment">
+                            <label>Webhook Retry Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>64</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <validate>validate-digits validate-zero-or-greater</validate>
+                            <comment>Maximum processing attempts for failed webhook events.</comment>
+                            <depends>
+                                <active>1</active>
+                                <webhook_enabled>1</webhook_enabled>
+                            </depends>
+                        </webhook_retry_limit>
+                        <webhook_retention_days translate="label comment">
+                            <label>Webhook Retention Days</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <validate>validate-digits validate-zero-or-greater</validate>
+                            <comment>Number of days to retain processed and ignored webhook events.</comment>
+                            <depends>
+                                <active>1</active>
+                                <webhook_enabled>1</webhook_enabled>
+                            </depends>
+                        </webhook_retention_days>
                         <api_timeout translate="label comment">
                             <label>API Timeout</label>
                             <frontend_type>text</frontend_type>

@@ -10,7 +10,7 @@
 <config>
     <modules>
         <Mage_Paypal>
-            <version>2.0.0.0</version>
+            <version>2.0.1.0</version>
         </Mage_Paypal>
     </modules>
     <global>
@@ -25,6 +25,9 @@
                     <debug>
                         <table>paypal_debug</table>
                     </debug>
+                    <webhook_event>
+                        <table>paypal_webhook_event</table>
+                    </webhook_event>
                 </entities>
             </paypal_resource>
         </models>
@@ -131,6 +134,11 @@
                 <sandbox_mode>1</sandbox_mode>
                 <payment_action>capture</payment_action>
                 <debug>0</debug>
+                <webhook_enabled>0</webhook_enabled>
+                <webhook_id></webhook_id>
+                <webhook_process_async>1</webhook_process_async>
+                <webhook_retry_limit>10</webhook_retry_limit>
+                <webhook_retention_days>90</webhook_retention_days>
                 <api_timeout>0</api_timeout>
                 <retry_enabled>0</retry_enabled>
                 <retry_count>0</retry_count>
@@ -159,6 +167,14 @@
                     <model>paypal/cron::processAuthorizationLifecycle</model>
                 </run>
             </paypal_check_authorization_expiry>
+            <paypal_process_webhook_events>
+                <schedule>
+                    <cron_expr>*/5 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>paypal/cron::processWebhookEvents</model>
+                </run>
+            </paypal_process_webhook_events>
         </jobs>
     </crontab>
 </config>

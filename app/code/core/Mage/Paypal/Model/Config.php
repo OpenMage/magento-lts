@@ -186,6 +186,46 @@ class Mage_Paypal_Model_Config extends Varien_Object
     }
 
     /**
+     * Checks if PayPal webhook handling is enabled.
+     */
+    public function isWebhookEnabled(): bool
+    {
+        return (bool) $this->getConfigData('webhook_enabled');
+    }
+
+    /**
+     * Retrieves the PayPal REST webhook ID.
+     */
+    public function getWebhookId(): string
+    {
+        return trim((string) $this->getConfigData('webhook_id'));
+    }
+
+    /**
+     * Checks if webhook business effects should be processed from cron.
+     */
+    public function shouldProcessWebhooksAsync(): bool
+    {
+        return (bool) $this->getConfigData('webhook_process_async');
+    }
+
+    /**
+     * Retrieves the webhook processing retry limit.
+     */
+    public function getWebhookRetryLimit(): int
+    {
+        return max(0, (int) $this->getConfigData('webhook_retry_limit'));
+    }
+
+    /**
+     * Retrieves the processed webhook retention period in days.
+     */
+    public function getWebhookRetentionDays(): int
+    {
+        return max(1, (int) $this->getConfigData('webhook_retention_days'));
+    }
+
+    /**
      * Checks if the PayPal payment method is active for the given store.
      *
      * @param null|mixed $store the store ID or object to check for
