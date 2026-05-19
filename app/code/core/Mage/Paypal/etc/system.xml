@@ -437,7 +437,7 @@
                                     <sort_order>10</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment><![CDATA[Enable PayPal REST webhook handling. Receiver URL: <strong>{{base_url}}paypal/webhook/index</strong>. Configure this URL per website in the PayPal developer dashboard.]]></comment>
+                                    <comment><![CDATA[Enable PayPal REST webhook handling. Receiver URL: <strong>{{base_url}}paypal/webhook/index</strong>. Configure this URL per website in the PayPal developer dashboard.<br /><br />Handled events: payment capture (completed, denied, refunded, reversed), authorization voided, and disputes. Other event types are still verified and stored but not acted on, so it is safe to subscribe the webhook to all events.]]></comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
