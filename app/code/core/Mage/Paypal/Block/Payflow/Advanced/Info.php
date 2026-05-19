@@ -9,9 +9,7 @@
 
 declare(strict_types=1);
 
-class Mage_Paypal_Model_Legacy_Payflow_Link extends Mage_Paypal_Model_Legacy_Abstract
-{
-    protected const INFO_BLOCK_TYPE = 'paypal/payflow_link_info';
-
-    protected const METHOD_CODE = 'payflow_link';
-}
+/**
+ * Display-only legacy Payflow Advanced payment information block.
+ */
+class Mage_Paypal_Block_Payflow_Advanced_Info extends Mage_Paypal_Block_Payflow_Link_Info {}

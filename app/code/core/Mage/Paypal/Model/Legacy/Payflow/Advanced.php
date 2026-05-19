@@ -11,5 +11,7 @@ declare(strict_types=1);
 
 class Mage_Paypal_Model_Legacy_Payflow_Advanced extends Mage_Paypal_Model_Legacy_Abstract
 {
+    protected const INFO_BLOCK_TYPE = 'paypal/payflow_advanced_info';
+
     protected const METHOD_CODE = 'payflow_advanced';
 }

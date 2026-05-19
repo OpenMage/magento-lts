@@ -11,5 +11,7 @@ declare(strict_types=1);
 
 class Mage_Paypal_Model_Legacy_Payflow_Pro extends Mage_Paypal_Model_Legacy_Abstract
 {
+    protected const INFO_BLOCK_TYPE = 'payment/info_cc';
+
     protected const METHOD_CODE = 'verisign';
 }

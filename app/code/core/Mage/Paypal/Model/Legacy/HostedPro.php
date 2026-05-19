@@ -11,5 +11,7 @@ declare(strict_types=1);
 
 class Mage_Paypal_Model_Legacy_HostedPro extends Mage_Paypal_Model_Legacy_Abstract
 {
+    protected const INFO_BLOCK_TYPE = 'paypal/hosted_pro_info';
+
     protected const METHOD_CODE = 'hosted_pro';
 }

@@ -14,7 +14,7 @@ declare(strict_types=1);
  */
 abstract class Mage_Paypal_Model_Legacy_Abstract extends Mage_Payment_Model_Method_Abstract
 {
-    private const INFO_BLOCK_TYPE = 'paypal/adminhtml_info';
+    protected const INFO_BLOCK_TYPE = 'paypal/payment_info';
 
     protected const METHOD_CODE = '';
 
@@ -31,7 +31,7 @@ abstract class Mage_Paypal_Model_Legacy_Abstract extends Mage_Payment_Model_Meth
     #[Override]
     public function getInfoBlockType(): string
     {
-        return self::INFO_BLOCK_TYPE;
+        return static::INFO_BLOCK_TYPE;
     }
 
     #[Override]
