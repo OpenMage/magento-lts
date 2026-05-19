@@ -141,7 +141,49 @@ class Mage_Paypal_Model_Config extends Varien_Object
         ];
     }
 
+    /**
+     * Retrieves the SDK API timeout in seconds.
+     */
+    public function getApiTimeout(): int
+    {
+        return max(0, (int) $this->getConfigData('api_timeout'));
+    }
 
+    /**
+     * Retrieves the SDK retry configuration.
+     *
+     * @return array{
+     *     enabled: bool,
+     *     number_of_retries: int,
+     *     retry_interval: float,
+     *     backoff_factor: float,
+     *     maximum_retry_wait_time: int,
+     *     retry_on_timeout: bool,
+     *     http_status_codes: int[],
+     *     http_methods: string[]
+     * }
+     */
+    public function getRetryConfiguration(): array
+    {
+        return [
+            'enabled' => (bool) $this->getConfigData('retry_enabled'),
+            'number_of_retries' => max(0, (int) $this->getConfigData('retry_count')),
+            'retry_interval' => max(0.0, (float) $this->getConfigData('retry_interval')),
+            'backoff_factor' => max(0.0, (float) $this->getConfigData('retry_backoff_factor')),
+            'maximum_retry_wait_time' => max(0, (int) $this->getConfigData('retry_max_wait_time')),
+            'retry_on_timeout' => (bool) $this->getConfigData('retry_on_timeout'),
+            'http_status_codes' => $this->parseRetryStatusCodes($this->getConfigData('retry_status_codes')),
+            'http_methods' => $this->parseRetryHttpMethods($this->getConfigData('retry_http_methods')),
+        ];
+    }
+
+    /**
+     * Checks if SDK HTTP debug logging is enabled.
+     */
+    public function isSdkHttpDebugEnabled(): bool
+    {
+        return (bool) $this->getConfigData('sdk_http_debug');
+    }
 
     /**
      * Checks if the PayPal payment method is active for the given store.
@@ -172,5 +214,68 @@ class Mage_Paypal_Model_Config extends Varien_Object
     protected function getConfigData(string $field, mixed $store = null): mixed
     {
         return Mage::getStoreConfig('payment/paypal/' . $field, $store);
+    }
+
+    /**
+     * @return int[]
+     */
+    private function parseRetryStatusCodes(mixed $value): array
+    {
+        $statusCodes = [];
+
+        foreach (explode(',', (string) $value) as $rawStatusCode) {
+            $rawStatusCode = trim($rawStatusCode);
+            if ($rawStatusCode === '') {
+                continue;
+            }
+
+            if (!ctype_digit($rawStatusCode)) {
+                continue;
+            }
+
+            $statusCode = (int) $rawStatusCode;
+            if ($statusCode < 100) {
+                continue;
+            }
+
+            if ($statusCode > 599) {
+                continue;
+            }
+
+            if (in_array($statusCode, $statusCodes, true)) {
+                continue;
+            }
+
+            $statusCodes[] = $statusCode;
+        }
+
+        return $statusCodes;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function parseRetryHttpMethods(mixed $value): array
+    {
+        $methods = [];
+
+        foreach (explode(',', (string) $value) as $rawMethod) {
+            $method = strtoupper(trim($rawMethod));
+            if ($method === '') {
+                continue;
+            }
+
+            if (!in_array($method, Mage_Paypal_Model_System_Config_Source_RetryHttpMethods::METHODS, true)) {
+                continue;
+            }
+
+            if (in_array($method, $methods, true)) {
+                continue;
+            }
+
+            $methods[] = $method;
+        }
+
+        return $methods;
     }
 }

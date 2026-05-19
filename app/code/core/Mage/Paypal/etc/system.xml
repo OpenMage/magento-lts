@@ -139,11 +139,139 @@
                             </depends>
                             <required>1</required>
                         </debug>
+                        <api_timeout translate="label comment">
+                            <label>API Timeout</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>61</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <validate>validate-digits validate-zero-or-greater</validate>
+                            <comment>Timeout in seconds for PayPal SDK API calls. Use 0 for the SDK default.</comment>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </api_timeout>
+                        <retry_enabled translate="label comment">
+                            <label>Enable SDK Retries</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>62</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment>Retry transient PayPal SDK HTTP failures. Keep retry counts low for checkout paths.</comment>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </retry_enabled>
+                        <retry_count translate="label comment">
+                            <label>Retry Count</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>63</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <validate>validate-digits validate-zero-or-greater</validate>
+                            <comment>Maximum number of retry attempts after the first request.</comment>
+                            <depends>
+                                <active>1</active>
+                                <retry_enabled>1</retry_enabled>
+                            </depends>
+                        </retry_count>
+                        <retry_interval translate="label comment">
+                            <label>Retry Interval</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>64</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <comment>Initial retry delay in seconds.</comment>
+                            <depends>
+                                <active>1</active>
+                                <retry_enabled>1</retry_enabled>
+                            </depends>
+                        </retry_interval>
+                        <retry_backoff_factor translate="label comment">
+                            <label>Retry Backoff Factor</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <comment>Multiplier applied to each retry delay.</comment>
+                            <depends>
+                                <active>1</active>
+                                <retry_enabled>1</retry_enabled>
+                            </depends>
+                        </retry_backoff_factor>
+                        <retry_max_wait_time translate="label comment">
+                            <label>Maximum Retry Wait Time</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>66</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <validate>validate-digits validate-zero-or-greater</validate>
+                            <comment>Maximum retry wait time in seconds. Use 0 for the SDK default.</comment>
+                            <depends>
+                                <active>1</active>
+                                <retry_enabled>1</retry_enabled>
+                            </depends>
+                        </retry_max_wait_time>
+                        <retry_on_timeout translate="label comment">
+                            <label>Retry on Timeout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>67</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment>Retry requests that fail because of a timeout.</comment>
+                            <depends>
+                                <active>1</active>
+                                <retry_enabled>1</retry_enabled>
+                            </depends>
+                        </retry_on_timeout>
+                        <retry_status_codes translate="label comment">
+                            <label>Retry Status Codes</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>paypal/system_config_backend_retryStatusCodes</backend_model>
+                            <sort_order>68</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment>Comma-separated HTTP status codes that should trigger a retry.</comment>
+                            <depends>
+                                <active>1</active>
+                                <retry_enabled>1</retry_enabled>
+                            </depends>
+                        </retry_status_codes>
+                        <retry_http_methods translate="label comment">
+                            <label>Retry HTTP Methods</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>paypal/system_config_source_retryHttpMethods</source_model>
+                            <backend_model>paypal/system_config_backend_retryHttpMethods</backend_model>
+                            <sort_order>69</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment>HTTP methods eligible for retry. Retrying POST is unsafe without idempotency keys.</comment>
+                            <depends>
+                                <active>1</active>
+                                <retry_enabled>1</retry_enabled>
+                            </depends>
+                        </retry_http_methods>
+                        <sdk_http_debug translate="label comment">
+                            <label>SDK HTTP Debug Logging</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment>Enable SDK HTTP header logging with bodies disabled and sensitive headers masked.</comment>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </sdk_http_debug>
                         <button_shape>
                             <label>Button Shape</label>
                             <frontend_type>select</frontend_type>
                             <source_model>paypal/system_config_source_buttonShapes</source_model>
-                            <sort_order>70</sort_order>
+                            <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <comment><![CDATA[Select the shape of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#shape" target="_blank">Learn more about PayPal button shapes</a>]]></comment>
@@ -156,7 +284,7 @@
                             <label>Button Color</label>
                             <frontend_type>select</frontend_type>
                             <source_model>paypal/system_config_source_buttonColors</source_model>
-                            <sort_order>80</sort_order>
+                            <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <comment><![CDATA[Select the color of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#color" target="_blank">Learn more about PayPal button colors</a>]]></comment>
@@ -169,7 +297,7 @@
                             <label>Button Layout</label>
                             <frontend_type>select</frontend_type>
                             <source_model>paypal/system_config_source_buttonLayouts</source_model>
-                            <sort_order>90</sort_order>
+                            <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <comment><![CDATA[Select the layout of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#layout" target="_blank">Learn more about PayPal button layouts</a>]]></comment>
@@ -182,7 +310,7 @@
                             <label>Button Label</label>
                             <frontend_type>select</frontend_type>
                             <source_model>paypal/system_config_source_buttonLabels</source_model>
-                            <sort_order>100</sort_order>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <comment>
@@ -198,7 +326,7 @@
                             <label>Button Message</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>110</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <comment><![CDATA[Select the message to display on the PayPal button.

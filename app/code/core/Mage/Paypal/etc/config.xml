@@ -131,6 +131,16 @@
                 <sandbox_mode>1</sandbox_mode>
                 <payment_action>capture</payment_action>
                 <debug>0</debug>
+                <api_timeout>0</api_timeout>
+                <retry_enabled>0</retry_enabled>
+                <retry_count>0</retry_count>
+                <retry_interval>1</retry_interval>
+                <retry_backoff_factor>2</retry_backoff_factor>
+                <retry_max_wait_time>0</retry_max_wait_time>
+                <retry_on_timeout>1</retry_on_timeout>
+                <retry_status_codes>408,413,429,500,502,503,504,521,522,524</retry_status_codes>
+                <retry_http_methods>GET,PUT</retry_http_methods>
+                <sdk_http_debug>0</sdk_http_debug>
                 <button_shape>rect</button_shape>
                 <button_color>gold</button_color>
                 <button_layout>vertical</button_layout>

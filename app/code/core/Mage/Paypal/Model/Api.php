@@ -13,7 +13,11 @@ use PaypalServerSdkLib\PaypalServerSdkClientBuilder;
 use PaypalServerSdkLib\Authentication\ClientCredentialsAuthCredentialsBuilder;
 use PaypalServerSdkLib\Environment;
 use PaypalServerSdkLib\Http\ApiResponse;
+use PaypalServerSdkLib\Logging\LoggingConfigurationBuilder;
+use PaypalServerSdkLib\Logging\RequestLoggingConfigurationBuilder;
+use PaypalServerSdkLib\Logging\ResponseLoggingConfigurationBuilder;
 use PaypalServerSdkLib\PaypalServerSdkClient;
+use Psr\Log\LogLevel;
 
 /**
  * PayPal API Model
@@ -284,15 +288,54 @@ class Mage_Paypal_Model_Api extends Varien_Object
             $credentials = $this->config->getApiCredentials();
             $environment = $this->config->isSandbox() ? Environment::SANDBOX : Environment::PRODUCTION;
 
-            return PaypalServerSdkClientBuilder::init()
+            $builder = PaypalServerSdkClientBuilder::init()
                 ->clientCredentialsAuthCredentials(
                     ClientCredentialsAuthCredentialsBuilder::init(
                         $credentials['client_id'],
                         $credentials['client_secret'],
                     ),
                 )
-                ->environment($environment)
-                ->build();
+                ->environment($environment);
+
+            $apiTimeout = $this->config->getApiTimeout();
+            if ($apiTimeout > 0) {
+                $builder->timeout($apiTimeout);
+            }
+
+            $retry = $this->config->getRetryConfiguration();
+            if ($retry['enabled']) {
+                $builder
+                    ->enableRetries(true)
+                    ->numberOfRetries($retry['number_of_retries'])
+                    ->retryInterval($retry['retry_interval'])
+                    ->backOffFactor($retry['backoff_factor'])
+                    ->maximumRetryWaitTime($retry['maximum_retry_wait_time'])
+                    ->retryOnTimeout($retry['retry_on_timeout'])
+                    ->httpStatusCodesToRetry($retry['http_status_codes'])
+                    ->httpMethodsToRetry($retry['http_methods']);
+            }
+
+            if ($this->config->isSdkHttpDebugEnabled()) {
+                $builder->loggingConfiguration(
+                    LoggingConfigurationBuilder::init()
+                        ->level(LogLevel::INFO)
+                        ->maskSensitiveHeaders(true)
+                        ->requestConfiguration(
+                            RequestLoggingConfigurationBuilder::init()
+                                ->headers(true)
+                                ->body(false)
+                                ->excludeHeaders('Authorization'),
+                        )
+                        ->responseConfiguration(
+                            ResponseLoggingConfigurationBuilder::init()
+                                ->headers(true)
+                                ->body(false)
+                                ->excludeHeaders('Authorization'),
+                        ),
+                );
+            }
+
+            return $builder->build();
         } catch (Exception $exception) {
             throw new Mage_Paypal_Model_Exception('Failed to initialize PayPal client: ' . $exception->getMessage(), [], $exception);
         }

@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Mage\Paypal\Model\System\Config\Source;
+
+use Mage_Paypal_Model_System_Config_Source_RetryHttpMethods as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\System\Config\Source\RetryHttpMethodsTrait;
+
+final class RetryHttpMethodsTest extends OpenMageTest
+{
+    use RetryHttpMethodsTrait;
+
+    /**
+     * @dataProvider provideOptionValuesData
+     * @param string[] $expectedResult
+     */
+    public function testToOptionArrayReturnsSupportedMethods(array $expectedResult): void
+    {
+        $subject = new Subject();
+
+        self::assertSame($expectedResult, array_column($subject->toOptionArray(), 'value'));
+    }
+}
