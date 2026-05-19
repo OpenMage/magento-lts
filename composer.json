@@ -43,7 +43,7 @@
         "nesbot/carbon": "^2.73",
         "nnnick/chartjs": "^4.4",
         "openmage/composer-plugin": "^3.1",
-        "paypal/paypal-server-sdk": "2.0.0",
+        "paypal/paypal-server-sdk": "2.2.0",
         "pelago/emogrifier": "^8.0",
         "php-units-of-measure/php-units-of-measure": "^2.2",
         "phpseclib/mcrypt_compat": "^2.0.3",
