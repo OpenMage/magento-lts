@@ -74,6 +74,11 @@
                 </connection>
             </paypal_read>
         </resources>
+        <payment>
+            <groups>
+                <paypal_legacy>PayPal (Legacy)</paypal_legacy>
+            </groups>
+        </payment>
     </global>
     <frontend>
         <routers>
@@ -232,9 +237,6 @@
                 <active>0</active>
                 <group>paypal_legacy</group>
             </paypal_wps_express>
-            <groups>
-                <paypal_legacy>PayPal (Legacy)</paypal_legacy>
-            </groups>
         </payment>
     </default>
     <crontab>
