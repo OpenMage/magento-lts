@@ -31,8 +31,8 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
     /**
      * Create refund transaction record
      *
-     * @param Varien_Object $payment Payment object
-     * @param ApiResponse $response API result
+     * @param Varien_Object $payment  Payment object
+     * @param ApiResponse   $response API result
      */
     public function createRefundTransaction(Varien_Object $payment, ApiResponse $response): void
     {
@@ -57,9 +57,9 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
     /**
      * Create capture transaction record
      *
-     * @param Varien_Object $payment Payment object
-     * @param ApiResponse $response API response
-     * @param string $authorizationId Authorization ID
+     * @param Varien_Object $payment         Payment object
+     * @param ApiResponse   $response        API response
+     * @param string        $authorizationId Authorization ID
      */
     public function createCaptureTransaction(Varien_Object $payment, ApiResponse $response, string $authorizationId): void
     {
@@ -82,21 +82,24 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Create void transaction record
+     * Create void transaction record.
      *
-     * @param Varien_Object $payment Payment object
-     * @param ApiResponse $response API response
+     * The void is recorded as a child of the authorization transaction (per
+     * Magento convention), and the authorization transaction is then closed.
+     *
+     * @param Varien_Object $payment         Payment object
+     * @param ApiResponse   $response        API response
+     * @param string        $authorizationId Authorization transaction ID being voided
      */
-    public function createVoidTransaction(Varien_Object $payment, ApiResponse $response): void
+    public function createVoidTransaction(Varien_Object $payment, ApiResponse $response, string $authorizationId): void
     {
         $transaction = $this->getTransaction();
-        $result = $response->getResult();
         /**
          * @var Mage_Sales_Model_Order_Payment $payment
          */
         $transaction->setOrderPaymentObject($payment)
-            ->setTxnId($payment->getTransactionId())
-            ->setParentTxnId($result->getId())
+            ->setTxnId($authorizationId . '-void')
+            ->setParentTxnId($authorizationId)
             ->setTxnType(Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID)
             ->setIsClosed(1)
             ->setAdditionalInformation(
@@ -105,18 +108,19 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
             );
         $transaction->save();
 
-        $parentTxn = $transaction->loadByTxnId($result->getId());
-        if ($parentTxn->getId()) {
-            $parentTxn->setIsClosed(1);
-            $parentTxn->save();
+        // Close the parent authorization transaction.
+        $authTxn = $this->getTransaction()->loadByTxnId($authorizationId);
+        if ($authTxn->getId()) {
+            $authTxn->setIsClosed(1);
+            $authTxn->save();
         }
     }
 
     /**
      * Update payment object after successful capture
      *
-     * @param ApiResponse $response API result
-     * @param string $captureId Capture ID
+     * @param ApiResponse $response  API result
+     * @param string      $captureId Capture ID
      */
     public function updatePaymentAfterCapture(
         Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment $payment,
@@ -137,6 +141,12 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
             $paypalWallet = $paymentSource->getPaypal();
             $payment->setPaypalPayerId($paypalWallet->getAccountId())
                 ->setPaypalPayerStatus($paypalWallet->getAccountStatus());
+        }
+
+        // Record the amount PayPal captured as the authoritative refund ceiling.
+        $capturedAmount = $this->getHelper()->extractCaptureAmount($result);
+        if ($capturedAmount !== null) {
+            $payment->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CAPTURED_AMOUNT, $capturedAmount);
         }
 
         $payment->save();
@@ -172,7 +182,7 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
      * Update payment after refund
      *
      * @param Varien_Object $payment Payment object
-     * @param Refund $result API result
+     * @param Refund        $result  API result
      */
     public function updatePaymentAfterRefund(Varien_Object $payment, Refund $result): void
     {
@@ -185,9 +195,9 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
     /**
      * Update payment after authorized capture
      *
-     * @param Varien_Object $payment Payment object
-     * @param ApiResponse $response API response
-     * @param string $authorizationId Authorization ID
+     * @param Varien_Object $payment         Payment object
+     * @param ApiResponse   $response        API response
+     * @param string        $authorizationId Authorization ID
      */
     public function updatePaymentAfterAuthorizedCapture(Varien_Object $payment, ApiResponse $response, string $authorizationId): void
     {
@@ -209,6 +219,15 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
                 Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
                 $this->getHelper()->prepareRawDetails($response->getBody()),
             );
+
+        // Record the amount PayPal captured as the authoritative refund ceiling.
+        $capturedAmount = $result->getAmount();
+        if ($capturedAmount !== null) {
+            $payment->setAdditionalInformation(
+                Mage_Paypal_Model_Payment::PAYPAL_CAPTURED_AMOUNT,
+                (float) $capturedAmount->getValue(),
+            );
+        }
     }
 
     /**
@@ -236,25 +255,30 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
     public function updateExpiredTransaction(Varien_Object $payment): void
     {
         $transaction = $this->getTransaction();
-        $transactionId = $payment->getLastTransId() . '-expired';
+
+        // Capture the original authorization txn id before it is overwritten.
+        $authorizationTxnId = (string) $payment->getLastTransId();
+        $expiredTxnId       = $authorizationTxnId . '-expired';
 
         /**
          * @var Mage_Sales_Model_Order_Payment $payment
          */
         $transaction->setOrderPaymentObject($payment)
-            ->setTxnId($transactionId)
-            ->setParentTxnId($payment->getTransactionId())
+            ->setTxnId($expiredTxnId)
+            ->setParentTxnId($authorizationTxnId)
             ->setTxnType(Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID)
             ->setIsClosed(1);
         $transaction->save();
-        $payment->setLastTransId($transactionId)
+
+        $payment->setLastTransId($expiredTxnId)
             ->setAdditionalInformation(self::PAYPAL_PAYMENT_STATUS, 'EXPIRED')
             ->save();
 
-        $parentTxn = $transaction->loadByTxnId($payment->getLastTransId());
-        if ($parentTxn->getId()) {
-            $parentTxn->setIsClosed(1);
-            $parentTxn->save();
+        // Close the original authorization transaction, not the expired marker.
+        $authTxn = $this->getTransaction()->loadByTxnId($authorizationTxnId);
+        if ($authTxn->getId()) {
+            $authTxn->setIsClosed(1);
+            $authTxn->save();
         }
     }
 
