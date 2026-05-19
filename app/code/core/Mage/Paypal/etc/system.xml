@@ -253,6 +253,38 @@
                                     </depends>
                                     <required>1</required>
                                 </button_message>
+                                <visible_on_product translate="label comment">
+                                    <label>Show on Product Page</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                                    <config_path>payment/paypal/visible_on_product</config_path>
+                                    <sort_order>60</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Display a PayPal Buy Now shortcut button on product pages.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                </visible_on_product>
+                                <visible_on_cart translate="label comment">
+                                    <label>Show on Cart Page</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                                    <config_path>payment/paypal/visible_on_cart</config_path>
+                                    <sort_order>70</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Display a PayPal Checkout shortcut button on the shopping cart page.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                </visible_on_cart>
                             </fields>
                         </button>
 

@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
+/**
+ * @var Mage_Paypal_Block_Express_Shortcut $this
+ */
+?>
+<div id="<?php echo $this->escapeHtml($this->getContainerId()) ?>"
+     class="paypal-express-shortcut paypal-express-shortcut-<?php echo $this->escapeHtml($this->getShortcutContext()) ?>">
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    new PayPalShortcut(<?php echo json_encode($this->getShortcutConfig(), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>);
+//]]>
+</script>

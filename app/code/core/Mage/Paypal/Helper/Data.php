@@ -53,6 +53,40 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Checks whether the product-page PayPal shortcut may render.
+     */
+    public function isShortcutVisibleOnProduct(mixed $store = null): bool
+    {
+        return Mage::getStoreConfigFlag('payment/paypal/visible_on_product', $store)
+            && $this->isPaymentMethodAvailable($store);
+    }
+
+    /**
+     * Checks whether the cart-page PayPal shortcut may render.
+     */
+    public function isShortcutVisibleOnCart(mixed $store = null): bool
+    {
+        return Mage::getStoreConfigFlag('payment/paypal/visible_on_cart', $store)
+            && $this->isPaymentMethodAvailable($store);
+    }
+
+    /**
+     * Checks PayPal method availability against the current checkout quote.
+     */
+    private function isPaymentMethodAvailable(mixed $store = null): bool
+    {
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        if ($store !== null) {
+            $storeModel = Mage::app()->getStore($store);
+            if ($storeModel !== null) {
+                $quote->setStore($storeModel);
+            }
+        }
+
+        return Mage::getModel('paypal/paypal')->isAvailable($quote);
+    }
+
+    /**
      * Returns the number of decimal places PayPal expects for the given currency.
      *
      * PayPal rejects amounts with decimals for HUF, JPY and TWD.

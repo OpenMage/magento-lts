@@ -22,4 +22,79 @@
     margin: 10px 0;
     font-size: 13px;
     color: #666;
-} 
+}
+
+.paypal-express-shortcut {
+    clear: both;
+    margin: 12px 0 0;
+    max-width: 320px;
+    min-height: 40px;
+}
+
+.paypal-express-shortcut-cart {
+    margin: 8px 0;
+}
+
+.paypal-express-shortcut[data-loading="true"],
+.paypal-express-review form[data-loading="true"] {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.paypal-express-review .page-title {
+    margin-bottom: 18px;
+}
+
+.paypal-express-review-addresses {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin-bottom: 20px;
+}
+
+.paypal-express-review-address {
+    border: 1px solid #d9dde3;
+    padding: 12px;
+}
+
+.paypal-express-review-address h2,
+.paypal-express-review-section h2 {
+    font-size: 16px;
+    line-height: 1.3;
+    margin: 0 0 10px;
+}
+
+.paypal-express-review-section {
+    margin: 0 0 20px;
+}
+
+.paypal-express-review-items {
+    width: 100%;
+}
+
+.paypal-express-review-items .product-name {
+    font-size: 13px;
+    margin: 0 0 4px;
+}
+
+.paypal-express-review-sku {
+    color: #666;
+    margin: 0;
+}
+
+.paypal-express-review-shipping .sp-methods {
+    margin: 0;
+}
+
+.paypal-express-review-totals {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.paypal-express-review-totals table {
+    min-width: 260px;
+}
+
+.paypal-express-review-actions {
+    margin-top: 20px;
+}

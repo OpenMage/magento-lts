@@ -158,6 +158,8 @@
                 <button_layout>vertical</button_layout>
                 <button_label>paypal</button_label>
                 <button_message>1</button_message>
+                <visible_on_product>0</visible_on_product>
+                <visible_on_cart>0</visible_on_cart>
             </paypal>
             <paypal_express>
                 <model>paypal/legacy_express</model>

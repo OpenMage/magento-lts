@@ -31,6 +31,16 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
 
     public const PAYPAL_PAYMENT_AUTHORIZATION_REAUTHORIZED = 'paypal_payment_authorization_reauthorized';
 
+    public const PAYPAL_SHORTCUT_ORDER_ID = 'paypal_shortcut_order_id';
+
+    public const PAYPAL_SHORTCUT_REQUEST_ID = 'paypal_shortcut_request_id';
+
+    public const PAYPAL_SHORTCUT_RESERVED_ORDER_ID = 'paypal_shortcut_reserved_order_id';
+
+    public const PAYPAL_SHORTCUT_CURRENCY = 'paypal_shortcut_currency';
+
+    public const PAYPAL_SHORTCUT_FINGERPRINT = 'paypal_shortcut_fingerprint';
+
     /**
      * Payment additional_information key holding the amount PayPal actually captured.
      */

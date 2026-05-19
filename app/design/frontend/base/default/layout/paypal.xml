@@ -12,4 +12,47 @@
             <block type="paypal/form" name="payment.method.paypal" template="paypal/payment.phtml"/>
         </reference>
     </checkout_onepage_paymentmethod>
+
+    <catalog_product_view>
+        <reference name="head">
+            <action method="addJs"><script>paypal/shortcut.js</script></action>
+            <action method="addCss"><stylesheet>css/paypal.css</stylesheet></action>
+        </reference>
+        <reference name="product.info.addtocart">
+            <block type="paypal/express_shortcut" name="paypal.express.shortcut.product" as="paypal_express_shortcut" ifconfig="payment/paypal/visible_on_product" template="paypal/express/shortcut.phtml">
+                <action method="setShortcutContext"><context>product</context></action>
+            </block>
+        </reference>
+    </catalog_product_view>
+
+    <checkout_cart_index>
+        <reference name="head">
+            <action method="addJs"><script>paypal/shortcut.js</script></action>
+            <action method="addCss"><stylesheet>css/paypal.css</stylesheet></action>
+        </reference>
+        <reference name="checkout.cart.methods">
+            <block type="paypal/express_shortcut" name="paypal.express.shortcut.cart" as="paypal_express_shortcut" ifconfig="payment/paypal/visible_on_cart" template="paypal/express/shortcut.phtml">
+                <action method="setShortcutContext"><context>cart</context></action>
+            </block>
+        </reference>
+    </checkout_cart_index>
+
+    <paypal_express_review translate="label">
+        <label>PayPal Express Review</label>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>paypal/shortcut.js</script></action>
+            <action method="addCss"><stylesheet>css/paypal.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="paypal/express_review" name="paypal.express.review" template="paypal/express/review.phtml">
+                <block type="checkout/cart_totals" name="paypal.express.review.totals" as="totals" template="checkout/cart/totals.phtml"/>
+                <block type="checkout/agreements" name="paypal.express.review.agreements" as="agreements"/>
+            </block>
+        </reference>
+    </paypal_express_review>
 </layout>

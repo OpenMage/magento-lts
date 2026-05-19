@@ -9,6 +9,7 @@
 
 declare(strict_types=1);
 
+use Carbon\Carbon;
 use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 
 /**
@@ -161,21 +162,10 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             // bypasses the normal review.save() agreement enforcement.
             $this->_validateCheckoutAgreements();
 
-            $isNewCustomer = false;
-            switch (Mage::getSingleton('checkout/type_onepage')->getCheckoutMethod()) {
-                case Mage_Checkout_Model_Type_Onepage::METHOD_GUEST:
-                    $this->_prepareGuestQuote();
-                    break;
-                case Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER:
-                    $this->_prepareNewCustomerQuote();
-                    $isNewCustomer = true;
-                    break;
-                default:
-                    $this->_prepareCustomerQuote();
-                    break;
-            }
-
-            $this->_ignoreAddressValidation();
+            /** @var Mage_Paypal_Model_Checkout_Finalizer $finalizer */
+            $finalizer = Mage::getModel('paypal/checkout_finalizer');
+            $isNewCustomer = $finalizer->prepareQuoteForCheckout($this->_getQuote());
+            $finalizer->ignoreAddressValidation($this->_getQuote());
             $this->_getQuote()->collectTotals();
             $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
             $isAuthorize = ($paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE));
@@ -185,119 +175,12 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 (string) $this->getRequest()->getParam('id'),
             );
 
-            $session = $this->_getCheckoutSession();
             $service = Mage::getModel('sales/service_quote', $this->_getQuote());
-
             $service->submitAll();
-            $this->_getQuote()->save();
-            if ($isNewCustomer) {
-                try {
-                    $this->_involveNewCustomer();
-                } catch (Exception $e) {
-                    Mage::logException($e);
-                }
-            }
-
-            /** @var Mage_Sales_Model_Order $order */
-            $order = $service->getOrder();
-            if (!$order) {
+            $order = $finalizer->finalizeSubmittedOrder($this->_getQuote(), $service, $isAuthorize, $isNewCustomer);
+            if ($order === null) {
                 return;
             }
-
-            $quotePayment = $this->_getQuote()->getPayment();
-            $orderPayment = $order->getPayment();
-
-            // For Authorize orders paypal_correlation_id still holds the PayPal
-            // order id; the real authorization id lives in additional info and
-            // is what the authorization-expiration cron needs as last_trans_id.
-            $authorizationId = (string) $quotePayment->getAdditionalInformation(
-                Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID,
-            );
-            $lastTransId = ($isAuthorize && $authorizationId !== '')
-                ? $authorizationId
-                : (string) $quotePayment->getPaypalCorrelationId();
-            $orderPayment->setQuotePaymentId($quotePayment->getId())
-                ->setLastTransId($lastTransId);
-            foreach ($quotePayment->getAdditionalInformation() as $key => $value) {
-                $orderPayment->setAdditionalInformation($key, $value);
-            }
-
-            $orderPayment->save();
-
-            $transaction = Mage::getModel('sales/order_payment_transaction');
-            foreach ($orderPayment->getAdditionalInformation() as $key => $value) {
-                $transaction->setAdditionalInformation($key, $value);
-            }
-
-            if ($isAuthorize) {
-                $transaction->setOrderPaymentObject($orderPayment)
-                    ->setTxnId($orderPayment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID))
-                    ->setTxnType(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH)
-                    ->setIsClosed(false);
-                $storeTimezone = Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
-                $expirationTime = $orderPayment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
-
-                $date = new DateTime($expirationTime, new DateTimeZone('UTC'));
-                $date->setTimezone(new DateTimeZone($storeTimezone));
-
-                $order->addStatusHistoryComment(
-                    Mage::helper('paypal')->__(
-                        'Paypal payment has been authorized, capture is required before date %s',
-                        $date->format('Y-m-d H:i:s'),
-                    ),
-                    false,
-                );
-                $order->setState(
-                    Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
-                    true,
-                    Mage::helper('paypal')->__('Payment has been authorized. Capture is required.'),
-                )->save();
-            } else {
-                $transaction->setOrderPaymentObject($orderPayment)
-                    ->setTxnId($quotePayment->getPaypalCorrelationId())
-                    ->setTxnType(Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE)
-                    ->setIsClosed($orderPayment->getIsTransactionClosed());
-                $order->addStatusHistoryComment(
-                    Mage::helper('paypal')->__('PayPal payment captured successfully. Capture ID: %s', $transaction->getTxnId()),
-                    false,
-                );
-            }
-
-            $transaction->save();
-
-            if (!$isAuthorize && $order->canInvoice()) {
-                $invoice = $order->prepareInvoice();
-                $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_ONLINE);
-                $invoice->register()->setIsPaid(true)->setIsTransactionPending(false)->setTransactionId($transaction->getTxnId());
-                Mage::getModel('core/resource_transaction')
-                    ->addObject($invoice)
-                    ->addObject($order)
-                    ->save();
-            }
-
-            // Dispatched only now that last_trans_id, the auth/capture
-            // transaction and the online invoice are persisted, so onepage
-            // observers see a fully finalized order as they would normally.
-            Mage::dispatchEvent(
-                'checkout_type_onepage_save_order_after',
-                ['order' => $order, 'quote' => $this->_getQuote()],
-            );
-
-            $session->clearHelperData();
-            $session->setLastQuoteId($this->_getQuote()->getId())
-                ->setLastSuccessQuoteId($this->_getQuote()->getId())
-                ->setLastOrderId($order->getId())
-                ->setLastRealOrderId($order->getIncrementId());
-            $order->queueNewOrderEmail();
-
-            Mage::dispatchEvent(
-                'checkout_submit_all_after',
-                [
-                    'order' => $order,
-                    'quote' => $this->_getQuote(),
-                    'recurring_profiles' => $service->getRecurringPaymentProfiles(),
-                ],
-            );
 
             $this->_redirect('checkout/onepage/success');
             return;
@@ -434,7 +317,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         $customer->setSuffix($quote->getCustomerSuffix());
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
-        $customer->setPasswordCreatedAt(time());
+        $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
         $customer->save();
 
         $quote->setCustomer($customer);
@@ -528,17 +411,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             ->setWebsiteId(Mage::app()->getWebsite()->getId())
             ->loadByEmail($this->_getQuote()->getCustomerEmail())
             ->getId();
-    }
-
-    /**
-     * Sets the quote addresses to ignore validation during the order placement process.
-     */
-    private function _ignoreAddressValidation(): void
-    {
-        $this->_getQuote()->getBillingAddress()->setShouldIgnoreValidation(true);
-        if (!$this->_getQuote()->getIsVirtual()) {
-            $this->_getQuote()->getShippingAddress()->setShouldIgnoreValidation(true);
-        }
     }
 
     /**

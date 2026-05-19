@@ -280,7 +280,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * client must be rebuilt against the order's store to pick up
      * website-scoped PayPal credentials and sandbox mode.
      *
-     * @param mixed $store store id or object
+     * @param  mixed $store store id or object
      * @return $this
      */
     public function setStore(mixed $store): self
@@ -373,10 +373,40 @@ class Mage_Paypal_Model_Api extends Varien_Object
      *
      * @throws Mage_Paypal_Model_Exception
      */
-    public function getOrder(string $orderId): ApiResponse
+    public function getOrderDetails(string $orderId): ApiResponse
     {
         $this->_validateOrderId($orderId);
         return $this->getClient()->getOrdersController()->getOrder(['id' => $orderId]);
+    }
+
+    /**
+     * Backward-compatible alias for callers that predate the explicit name.
+     *
+     * @throws Mage_Paypal_Model_Exception
+     */
+    public function getOrder(string $orderId): ApiResponse
+    {
+        return $this->getOrderDetails($orderId);
+    }
+
+    /**
+     * Patch a PayPal order before authorization or capture.
+     *
+     * @param  array<int, array<string, mixed>> $patch JSON Patch operations
+     * @throws Mage_Paypal_Model_Exception
+     */
+    public function patchOrder(string $orderId, array $patch): ?ApiResponse
+    {
+        $this->_validateOrderId($orderId);
+
+        try {
+            return $this->getClient()->getOrdersController()->patchOrder([
+                'id' => $orderId,
+                'body' => $patch,
+            ]);
+        } catch (Exception $exception) {
+            $this->_logAndThrowError('Patch Order Error', $exception);
+        }
     }
 
     /**
