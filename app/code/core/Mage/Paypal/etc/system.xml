@@ -31,375 +31,539 @@
                             <comment>If you want to use PayPal Express Checkout, you must complete
                                 the settings below.</comment>
                         </active>
-                        <merchant_country translate="label comment">
-                            <label>Merchant Country</label>
-                            <comment><![CDATA[If not specified, Default Country from General Config will be
-                                used. <a href="https://developer.paypal.com/docs/multiparty/seller-onboarding/#country-eligibility" target="_blank">Learn more about PayPal Supported Countries.</a>]]></comment>
-                            <frontend_type>select</frontend_type>
-                            <source_model>paypal/system_config_source_merchantCountry</source_model>
-                            <backend_model>paypal/system_config_backend_merchantCountry</backend_model>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+
+                        <general translate="label" module="paypal" type="group">
+                            <label>General Settings</label>
                             <sort_order>10</sort_order>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </merchant_country>
-                        <title translate="label comment">
-                            <label>Title</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <comment>Enter the title for the PayPal Express Checkout button.</comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </title>
-                        <client_id translate="label comment">
-                            <label>Client ID</label>
-                            <frontend_type>text</frontend_type>
+                            <expanded>1</expanded>
+                            <fields>
+                                <merchant_country translate="label comment">
+                                    <label>Merchant Country</label>
+                                    <comment><![CDATA[If not specified, Default Country from General Config will be
+                                        used. <a href="https://developer.paypal.com/docs/multiparty/seller-onboarding/#country-eligibility" target="_blank">Learn more about PayPal Supported Countries.</a>]]></comment>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>paypal/system_config_source_merchantCountry</source_model>
+                                    <backend_model>paypal/system_config_backend_merchantCountry</backend_model>
+                                    <config_path>payment/paypal/merchant_country</config_path>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <sort_order>10</sort_order>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </merchant_country>
+                                <title translate="label comment">
+                                    <label>Title</label>
+                                    <frontend_type>text</frontend_type>
+                                    <config_path>payment/paypal/title</config_path>
+                                    <sort_order>20</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Enter the title for the PayPal Express Checkout button.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </title>
+                                <payment_action translate="label comment">
+                                    <label>Payment Action</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>paypal/system_config_source_paymentActions</source_model>
+                                    <config_path>payment/paypal/payment_action</config_path>
+                                    <sort_order>30</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Select whether to authorize or capture the payment
+                                        immediately. Note: Authorization is not supported for
+                                        multishipping orders and will automatically use capture
+                                        instead.<br /><br />When using Authorize, funds are reserved
+                                        for up to 29 days, but it's best to capture within 3 days.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </payment_action>
+                            </fields>
+                        </general>
+
+                        <credentials translate="label" module="paypal" type="group">
+                            <label>API Credentials</label>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <comment><![CDATA[Enter your PayPal REST API Client ID.<a href="https://developer.paypal.com/api/rest/#link-getclientidandclientsecret" target="_blank">Learn more about PayPal API credentials</a>]]></comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </client_id>
-                        <client_secret translate="label comment">
-                            <label>Client Secret</label>
-                            <frontend_type>obscure</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <expanded>1</expanded>
+                            <fields>
+                                <client_id translate="label comment">
+                                    <label>Client ID</label>
+                                    <frontend_type>text</frontend_type>
+                                    <config_path>payment/paypal/client_id</config_path>
+                                    <sort_order>10</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment><![CDATA[Enter your PayPal REST API Client ID.<a href="https://developer.paypal.com/api/rest/#link-getclientidandclientsecret" target="_blank">Learn more about PayPal API credentials</a>]]></comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </client_id>
+                                <client_secret translate="label comment">
+                                    <label>Client Secret</label>
+                                    <frontend_type>obscure</frontend_type>
+                                    <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                                    <config_path>payment/paypal/client_secret</config_path>
+                                    <sort_order>20</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment><![CDATA[Enter your PayPal REST API Client Secret.<a href="https://developer.paypal.com/api/rest/#link-getclientidandclientsecret" target="_blank">Learn more about PayPal API credentials</a>]]></comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </client_secret>
+                                <sandbox_mode translate="label comment">
+                                    <label>Sandbox Mode</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                                    <config_path>payment/paypal/sandbox_mode</config_path>
+                                    <sort_order>30</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Enable this option to use the PayPal Sandbox
+                                        environment for
+                                        testing.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </sandbox_mode>
+                            </fields>
+                        </credentials>
+
+                        <button translate="label" module="paypal" type="group">
+                            <label>Checkout Button</label>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <comment><![CDATA[Enter your PayPal REST API Client Secret.<a href="https://developer.paypal.com/api/rest/#link-getclientidandclientsecret" target="_blank">Learn more about PayPal API credentials</a>]]></comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </client_secret>
-                        <sandbox_mode translate="label comment">
-                            <label>Sandbox Mode</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <fields>
+                                <button_shape translate="label comment">
+                                    <label>Button Shape</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>paypal/system_config_source_buttonShapes</source_model>
+                                    <config_path>payment/paypal/button_shape</config_path>
+                                    <sort_order>10</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment><![CDATA[Select the shape of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#shape" target="_blank">Learn more about PayPal button shapes</a>]]></comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </button_shape>
+                                <button_color translate="label comment">
+                                    <label>Button Color</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>paypal/system_config_source_buttonColors</source_model>
+                                    <config_path>payment/paypal/button_color</config_path>
+                                    <sort_order>20</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment><![CDATA[Select the color of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#color" target="_blank">Learn more about PayPal button colors</a>]]></comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </button_color>
+                                <button_layout translate="label comment">
+                                    <label>Button Layout</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>paypal/system_config_source_buttonLayouts</source_model>
+                                    <config_path>payment/paypal/button_layout</config_path>
+                                    <sort_order>30</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment><![CDATA[Select the layout of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#layout" target="_blank">Learn more about PayPal button layouts</a>]]></comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </button_layout>
+                                <button_label translate="label comment">
+                                    <label>Button Label</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>paypal/system_config_source_buttonLabels</source_model>
+                                    <config_path>payment/paypal/button_label</config_path>
+                                    <sort_order>40</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment><![CDATA[Select the label for the PayPal button.
+                                        <a href="https://developer.paypal.com/sdk/js/reference/#label" target="_blank">Learn more about PayPal button labels</a>]]></comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </button_label>
+                                <button_message translate="label comment">
+                                    <label>Button Message</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                                    <config_path>payment/paypal/button_message</config_path>
+                                    <sort_order>50</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment><![CDATA[Select the message to display on the PayPal button.
+                                        <a href="https://developer.paypal.com/sdk/js/reference/#message" target="_blank">Learn more about PayPal button messages</a>]]></comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </button_message>
+                            </fields>
+                        </button>
+
+                        <connection translate="label" module="paypal" type="group">
+                            <label>Connection &amp; Retries</label>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <comment>Enable this option to use the PayPal Sandbox environment for
-                                testing.</comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </sandbox_mode>
-                        <payment_action translate="label comment">
-                            <label>Payment Action</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>paypal/system_config_source_paymentActions</source_model>
+                            <fields>
+                                <api_timeout translate="label comment">
+                                    <label>API Timeout</label>
+                                    <frontend_type>text</frontend_type>
+                                    <config_path>payment/paypal/api_timeout</config_path>
+                                    <sort_order>10</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                    <comment>Timeout in seconds for PayPal SDK API calls. Use 0 for
+                                        the SDK default.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                </api_timeout>
+                                <retry_enabled translate="label comment">
+                                    <label>Enable SDK Retries</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                                    <config_path>payment/paypal/retry_enabled</config_path>
+                                    <sort_order>20</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Retry transient PayPal SDK HTTP failures. Keep retry
+                                        counts low for checkout paths.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                </retry_enabled>
+                                <retry_count translate="label comment">
+                                    <label>Retry Count</label>
+                                    <frontend_type>text</frontend_type>
+                                    <config_path>payment/paypal/retry_count</config_path>
+                                    <sort_order>30</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                    <comment>Maximum number of retry attempts after the first
+                                        request.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                        <retry_enabled>1</retry_enabled>
+                                    </depends>
+                                </retry_count>
+                                <retry_interval translate="label comment">
+                                    <label>Retry Interval</label>
+                                    <frontend_type>text</frontend_type>
+                                    <config_path>payment/paypal/retry_interval</config_path>
+                                    <sort_order>40</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <validate>validate-number validate-zero-or-greater</validate>
+                                    <comment>Initial retry delay in seconds.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                        <retry_enabled>1</retry_enabled>
+                                    </depends>
+                                </retry_interval>
+                                <retry_backoff_factor translate="label comment">
+                                    <label>Retry Backoff Factor</label>
+                                    <frontend_type>text</frontend_type>
+                                    <config_path>payment/paypal/retry_backoff_factor</config_path>
+                                    <sort_order>50</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <validate>validate-number validate-zero-or-greater</validate>
+                                    <comment>Multiplier applied to each retry delay.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                        <retry_enabled>1</retry_enabled>
+                                    </depends>
+                                </retry_backoff_factor>
+                                <retry_max_wait_time translate="label comment">
+                                    <label>Maximum Retry Wait Time</label>
+                                    <frontend_type>text</frontend_type>
+                                    <config_path>payment/paypal/retry_max_wait_time</config_path>
+                                    <sort_order>60</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                    <comment>Maximum retry wait time in seconds. Use 0 for the SDK
+                                        default.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                        <retry_enabled>1</retry_enabled>
+                                    </depends>
+                                </retry_max_wait_time>
+                                <retry_on_timeout translate="label comment">
+                                    <label>Retry on Timeout</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                                    <config_path>payment/paypal/retry_on_timeout</config_path>
+                                    <sort_order>70</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Retry requests that fail because of a timeout.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                        <retry_enabled>1</retry_enabled>
+                                    </depends>
+                                </retry_on_timeout>
+                                <retry_status_codes translate="label comment">
+                                    <label>Retry Status Codes</label>
+                                    <frontend_type>text</frontend_type>
+                                    <backend_model>paypal/system_config_backend_retryStatusCodes</backend_model>
+                                    <config_path>payment/paypal/retry_status_codes</config_path>
+                                    <sort_order>80</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Comma-separated HTTP status codes that should trigger a
+                                        retry.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                        <retry_enabled>1</retry_enabled>
+                                    </depends>
+                                </retry_status_codes>
+                                <retry_http_methods translate="label comment">
+                                    <label>Retry HTTP Methods</label>
+                                    <frontend_type>multiselect</frontend_type>
+                                    <source_model>paypal/system_config_source_retryHttpMethods</source_model>
+                                    <backend_model>paypal/system_config_backend_retryHttpMethods</backend_model>
+                                    <config_path>payment/paypal/retry_http_methods</config_path>
+                                    <sort_order>90</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>HTTP methods eligible for retry. Retrying POST is
+                                        unsafe without idempotency keys.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                        <retry_enabled>1</retry_enabled>
+                                    </depends>
+                                </retry_http_methods>
+                            </fields>
+                        </connection>
+
+                        <webhook translate="label" module="paypal" type="group">
+                            <label>Webhooks</label>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <comment>Select whether to authorize or capture the payment immediately.
-                                Note: Authorization is not supported for multishipping orders and
-                                will automatically use capture instead.<br /><br />When using
-                                Authorize, funds are reserved for up to 29 days, but it's best to
-                                capture within 3 days.</comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </payment_action>
-                        <auth_alert_email translate="label comment">
-                            <label>Authorization Expiry Alert Email</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>55</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment>Email address that receives alerts when PayPal authorizations are
-                                about to expire. Leave empty to use the General Contact email.</comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                        </auth_alert_email>
-                        <debug translate="label comment">
-                            <label>Debug Mode</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <fields>
+                                <webhook_enabled translate="label comment">
+                                    <label>Enable Webhooks</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                                    <config_path>payment/paypal/webhook_enabled</config_path>
+                                    <sort_order>10</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment><![CDATA[Enable PayPal REST webhook handling. Receiver URL: <strong>{{base_url}}paypal/webhook/index</strong>. Configure this URL per website in the PayPal developer dashboard.]]></comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                </webhook_enabled>
+                                <webhook_id translate="label comment">
+                                    <label>Webhook ID</label>
+                                    <frontend_type>text</frontend_type>
+                                    <config_path>payment/paypal/webhook_id</config_path>
+                                    <sort_order>20</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>PayPal REST webhook ID from the PayPal developer
+                                        dashboard.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                        <webhook_enabled>1</webhook_enabled>
+                                    </depends>
+                                    <required>1</required>
+                                </webhook_id>
+                                <webhook_process_async translate="label comment">
+                                    <label>Process Webhooks Asynchronously</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                                    <config_path>payment/paypal/webhook_process_async</config_path>
+                                    <sort_order>30</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Persist verified webhook events first and process
+                                        business effects from cron.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                        <webhook_enabled>1</webhook_enabled>
+                                    </depends>
+                                </webhook_process_async>
+                                <webhook_retry_limit translate="label comment">
+                                    <label>Webhook Retry Limit</label>
+                                    <frontend_type>text</frontend_type>
+                                    <config_path>payment/paypal/webhook_retry_limit</config_path>
+                                    <sort_order>40</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                    <comment>Maximum processing attempts for failed webhook events.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                        <webhook_enabled>1</webhook_enabled>
+                                    </depends>
+                                </webhook_retry_limit>
+                                <webhook_retention_days translate="label comment">
+                                    <label>Webhook Retention Days</label>
+                                    <frontend_type>text</frontend_type>
+                                    <config_path>payment/paypal/webhook_retention_days</config_path>
+                                    <sort_order>50</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <validate>validate-digits validate-zero-or-greater</validate>
+                                    <comment>Number of days to retain processed and ignored webhook
+                                        events.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                        <webhook_enabled>1</webhook_enabled>
+                                    </depends>
+                                </webhook_retention_days>
+                            </fields>
+                        </webhook>
+
+                        <logging translate="label" module="paypal" type="group">
+                            <label>Logging &amp; Alerts</label>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <comment>Enable this option to log PayPal API requests and responses.</comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </debug>
-                        <webhook_enabled translate="label comment">
-                            <label>Enable Webhooks</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>61</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment><![CDATA[Enable PayPal REST webhook handling. Receiver URL: <strong>{{base_url}}paypal/webhook/index</strong>. Configure this URL per website in the PayPal developer dashboard.]]></comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                        </webhook_enabled>
-                        <webhook_id translate="label comment">
-                            <label>Webhook ID</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>62</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment>PayPal REST webhook ID from the PayPal developer dashboard.</comment>
-                            <depends>
-                                <active>1</active>
-                                <webhook_enabled>1</webhook_enabled>
-                            </depends>
-                            <required>1</required>
-                        </webhook_id>
-                        <webhook_process_async translate="label comment">
-                            <label>Process Webhooks Asynchronously</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>63</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment>Persist verified webhook events first and process business effects from cron.</comment>
-                            <depends>
-                                <active>1</active>
-                                <webhook_enabled>1</webhook_enabled>
-                            </depends>
-                        </webhook_process_async>
-                        <webhook_retry_limit translate="label comment">
-                            <label>Webhook Retry Limit</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>64</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <validate>validate-digits validate-zero-or-greater</validate>
-                            <comment>Maximum processing attempts for failed webhook events.</comment>
-                            <depends>
-                                <active>1</active>
-                                <webhook_enabled>1</webhook_enabled>
-                            </depends>
-                        </webhook_retry_limit>
-                        <webhook_retention_days translate="label comment">
-                            <label>Webhook Retention Days</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>65</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <validate>validate-digits validate-zero-or-greater</validate>
-                            <comment>Number of days to retain processed and ignored webhook events.</comment>
-                            <depends>
-                                <active>1</active>
-                                <webhook_enabled>1</webhook_enabled>
-                            </depends>
-                        </webhook_retention_days>
-                        <api_timeout translate="label comment">
-                            <label>API Timeout</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>61</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <validate>validate-digits validate-zero-or-greater</validate>
-                            <comment>Timeout in seconds for PayPal SDK API calls. Use 0 for the SDK default.</comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                        </api_timeout>
-                        <retry_enabled translate="label comment">
-                            <label>Enable SDK Retries</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>62</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment>Retry transient PayPal SDK HTTP failures. Keep retry counts low for checkout paths.</comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                        </retry_enabled>
-                        <retry_count translate="label comment">
-                            <label>Retry Count</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>63</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <validate>validate-digits validate-zero-or-greater</validate>
-                            <comment>Maximum number of retry attempts after the first request.</comment>
-                            <depends>
-                                <active>1</active>
-                                <retry_enabled>1</retry_enabled>
-                            </depends>
-                        </retry_count>
-                        <retry_interval translate="label comment">
-                            <label>Retry Interval</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>64</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <validate>validate-number validate-zero-or-greater</validate>
-                            <comment>Initial retry delay in seconds.</comment>
-                            <depends>
-                                <active>1</active>
-                                <retry_enabled>1</retry_enabled>
-                            </depends>
-                        </retry_interval>
-                        <retry_backoff_factor translate="label comment">
-                            <label>Retry Backoff Factor</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>65</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <validate>validate-number validate-zero-or-greater</validate>
-                            <comment>Multiplier applied to each retry delay.</comment>
-                            <depends>
-                                <active>1</active>
-                                <retry_enabled>1</retry_enabled>
-                            </depends>
-                        </retry_backoff_factor>
-                        <retry_max_wait_time translate="label comment">
-                            <label>Maximum Retry Wait Time</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>66</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <validate>validate-digits validate-zero-or-greater</validate>
-                            <comment>Maximum retry wait time in seconds. Use 0 for the SDK default.</comment>
-                            <depends>
-                                <active>1</active>
-                                <retry_enabled>1</retry_enabled>
-                            </depends>
-                        </retry_max_wait_time>
-                        <retry_on_timeout translate="label comment">
-                            <label>Retry on Timeout</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>67</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment>Retry requests that fail because of a timeout.</comment>
-                            <depends>
-                                <active>1</active>
-                                <retry_enabled>1</retry_enabled>
-                            </depends>
-                        </retry_on_timeout>
-                        <retry_status_codes translate="label comment">
-                            <label>Retry Status Codes</label>
-                            <frontend_type>text</frontend_type>
-                            <backend_model>paypal/system_config_backend_retryStatusCodes</backend_model>
-                            <sort_order>68</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment>Comma-separated HTTP status codes that should trigger a retry.</comment>
-                            <depends>
-                                <active>1</active>
-                                <retry_enabled>1</retry_enabled>
-                            </depends>
-                        </retry_status_codes>
-                        <retry_http_methods translate="label comment">
-                            <label>Retry HTTP Methods</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <source_model>paypal/system_config_source_retryHttpMethods</source_model>
-                            <backend_model>paypal/system_config_backend_retryHttpMethods</backend_model>
-                            <sort_order>69</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment>HTTP methods eligible for retry. Retrying POST is unsafe without idempotency keys.</comment>
-                            <depends>
-                                <active>1</active>
-                                <retry_enabled>1</retry_enabled>
-                            </depends>
-                        </retry_http_methods>
-                        <sdk_http_debug translate="label comment">
-                            <label>SDK HTTP Debug Logging</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>70</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment>Enable SDK HTTP header logging with bodies disabled and sensitive headers masked.</comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                        </sdk_http_debug>
-                        <button_shape>
-                            <label>Button Shape</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>paypal/system_config_source_buttonShapes</source_model>
-                            <sort_order>80</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment><![CDATA[Select the shape of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#shape" target="_blank">Learn more about PayPal button shapes</a>]]></comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </button_shape>
-                        <button_color>
-                            <label>Button Color</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>paypal/system_config_source_buttonColors</source_model>
-                            <sort_order>90</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment><![CDATA[Select the color of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#color" target="_blank">Learn more about PayPal button colors</a>]]></comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </button_color>
-                        <button_layout>
-                            <label>Button Layout</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>paypal/system_config_source_buttonLayouts</source_model>
-                            <sort_order>100</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment><![CDATA[Select the layout of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#layout" target="_blank">Learn more about PayPal button layouts</a>]]></comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </button_layout>
-                        <button_label>
-                            <label>Button Label</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>paypal/system_config_source_buttonLabels</source_model>
-                            <sort_order>110</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment>
-                                <![CDATA[Select the label for the PayPal button.
-                                <a href="https://developer.paypal.com/sdk/js/reference/#label" target="_blank">Learn more about PayPal button labels</a>]]>
-                            </comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </button_label>
-                        <button_message>
-                            <label>Button Message</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>120</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <comment><![CDATA[Select the message to display on the PayPal button.
-                                <a href="https://developer.paypal.com/sdk/js/reference/#message" target="_blank">Learn more about PayPal button messages</a>]]></comment>
-                            <depends>
-                                <active>1</active>
-                            </depends>
-                            <required>1</required>
-                        </button_message>
+                            <fields>
+                                <debug translate="label comment">
+                                    <label>Debug Mode</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                                    <config_path>payment/paypal/debug</config_path>
+                                    <sort_order>10</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Enable this option to log PayPal API requests and
+                                        responses.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                    <required>1</required>
+                                </debug>
+                                <auth_alert_email translate="label comment">
+                                    <label>Authorization Expiry Alert Email</label>
+                                    <frontend_type>text</frontend_type>
+                                    <config_path>payment/paypal/auth_alert_email</config_path>
+                                    <sort_order>20</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Email address that receives alerts when PayPal
+                                        authorizations are
+                                        about to expire. Leave empty to use the General Contact
+                                        email.</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                </auth_alert_email>
+                            </fields>
+                        </logging>
+
                     </fields>
                 </paypal>
             </groups>

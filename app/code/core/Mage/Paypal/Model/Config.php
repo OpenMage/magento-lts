@@ -178,14 +178,6 @@ class Mage_Paypal_Model_Config extends Varien_Object
     }
 
     /**
-     * Checks if SDK HTTP debug logging is enabled.
-     */
-    public function isSdkHttpDebugEnabled(): bool
-    {
-        return (bool) $this->getConfigData('sdk_http_debug');
-    }
-
-    /**
      * Checks if PayPal webhook handling is enabled.
      */
     public function isWebhookEnabled(): bool

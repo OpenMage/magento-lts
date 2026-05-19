@@ -13,11 +13,7 @@ use PaypalServerSdkLib\PaypalServerSdkClientBuilder;
 use PaypalServerSdkLib\Authentication\ClientCredentialsAuthCredentialsBuilder;
 use PaypalServerSdkLib\Environment;
 use PaypalServerSdkLib\Http\ApiResponse;
-use PaypalServerSdkLib\Logging\LoggingConfigurationBuilder;
-use PaypalServerSdkLib\Logging\RequestLoggingConfigurationBuilder;
-use PaypalServerSdkLib\Logging\ResponseLoggingConfigurationBuilder;
 use PaypalServerSdkLib\PaypalServerSdkClient;
-use Psr\Log\LogLevel;
 
 /**
  * PayPal API Model
@@ -439,26 +435,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
                     ->retryOnTimeout($retry['retry_on_timeout'])
                     ->httpStatusCodesToRetry($retry['http_status_codes'])
                     ->httpMethodsToRetry($retry['http_methods']);
-            }
-
-            if ($this->config->isSdkHttpDebugEnabled()) {
-                $builder->loggingConfiguration(
-                    LoggingConfigurationBuilder::init()
-                        ->level(LogLevel::INFO)
-                        ->maskSensitiveHeaders(true)
-                        ->requestConfiguration(
-                            RequestLoggingConfigurationBuilder::init()
-                                ->headers(true)
-                                ->body(false)
-                                ->excludeHeaders('Authorization'),
-                        )
-                        ->responseConfiguration(
-                            ResponseLoggingConfigurationBuilder::init()
-                                ->headers(true)
-                                ->body(false)
-                                ->excludeHeaders('Authorization'),
-                        ),
-                );
             }
 
             return $builder->build();

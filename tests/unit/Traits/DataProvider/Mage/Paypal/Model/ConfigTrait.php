@@ -111,15 +111,4 @@ trait ConfigTrait
             ],
         ];
     }
-
-    /**
-     * @return array<string, array{0: bool, 1: string}>
-     */
-    public function provideSdkHttpDebugData(): array
-    {
-        return [
-            'disabled' => [false, '0'],
-            'enabled' => [true, '1'],
-        ];
-    }
 }

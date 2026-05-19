@@ -63,16 +63,6 @@ final class ConfigTest extends OpenMageTest
         self::assertSame($expectedResult, self::$subject->getRetryConfiguration());
     }
 
-    /**
-     * @dataProvider provideSdkHttpDebugData
-     */
-    public function testIsSdkHttpDebugEnabled(bool $expectedResult, string $value): void
-    {
-        self::setPaypalConfig('sdk_http_debug', $value);
-
-        self::assertSame($expectedResult, self::$subject->isSdkHttpDebugEnabled());
-    }
-
     private static function setPaypalConfig(string $field, string $value): void
     {
         Mage::app()->getStore()->setConfig('payment/paypal/' . $field, $value);
