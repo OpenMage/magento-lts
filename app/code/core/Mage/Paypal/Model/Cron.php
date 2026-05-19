@@ -61,6 +61,43 @@ class Mage_Paypal_Model_Cron
     }
 
     /**
+     * Process queued PayPal webhook events and clean up retained terminal rows.
+     */
+    public function processWebhookEvents(?Mage_Cron_Model_Schedule $schedule = null): void
+    {
+        $config = Mage::getSingleton('paypal/config');
+        $processor = Mage::getModel('paypal/webhook_processor');
+
+        $processableEvents = Mage::getModel('paypal/webhook_event')->getCollection()
+            ->addProcessableFilter($config->getWebhookRetryLimit())
+            ->setPageSize(100);
+
+        foreach ($processableEvents as $event) {
+            if (!$event instanceof Mage_Paypal_Model_Webhook_Event) {
+                continue;
+            }
+
+            try {
+                $processor->process($event);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+            }
+        }
+
+        $expiredEvents = Mage::getModel('paypal/webhook_event')->getCollection()
+            ->addRetentionFilter($config->getWebhookRetentionDays())
+            ->setPageSize(500);
+
+        foreach ($expiredEvents as $event) {
+            try {
+                $event->delete();
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+            }
+        }
+    }
+
+    /**
      * Get active PayPal authorization transactions
      */
     protected function _getActivePayPalAuthorizations(): Mage_Core_Model_Resource_Db_Collection_Abstract
