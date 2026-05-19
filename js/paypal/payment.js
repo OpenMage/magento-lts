@@ -389,6 +389,12 @@ class PayPalPayment {
         const reviewContainer = document.getElementById(this.config.reviewButtonContainerId);
         if (!reviewContainer) return;
 
+        if (selectedMethod !== this.config.methodCode) {
+            this.removePayPalButton();
+            this.recreateCheckoutButton(reviewContainer);
+            return;
+        }
+
         this.buttonInitialized = false;
         reviewContainer.remove();
     }

@@ -12,7 +12,11 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 
 use Mage;
+use Mage_Paypal_Model_Exception;
 use Mage_Paypal_Model_Helper as Subject;
+use Mage_Paypal_Model_Transaction;
+use Mage_Sales_Model_Order_Payment_Transaction;
+use Mage_Sales_Model_Quote;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\HelperTrait;
@@ -75,6 +79,35 @@ final class HelperTest extends OpenMageTest
     }
 
     /**
+     * Build a quote with processed PayPal details already stored on payment.
+     *
+     * @param array<string, string> $rawDetails
+     */
+    private function buildProcessedPaymentQuote(array $rawDetails, float $grandTotal = 42.17): Mage_Sales_Model_Quote
+    {
+        $quote = Mage::getModel('sales/quote');
+        $quote->setId(10)
+            ->setReservedOrderId('100000001')
+            ->setGrandTotal($grandTotal)
+            ->setQuoteCurrencyCode('USD')
+            ->setOrderCurrencyCode('USD');
+
+        $payment = $quote->getPayment();
+        $payment->setMethod('paypal')
+            ->setPaypalCorrelationId($rawDetails['capture_id'] ?? 'CAP-1')
+            ->setAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS, $rawDetails);
+
+        if (isset($rawDetails['authorization_id'])) {
+            $payment->setAdditionalInformation(
+                Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID,
+                $rawDetails['authorization_id'],
+            );
+        }
+
+        return $quote;
+    }
+
+    /**
      * @dataProvider provideCaptureResultShapes
      * @group Model
      */
@@ -105,6 +138,94 @@ final class HelperTest extends OpenMageTest
         } else {
             self::assertNull($extracted);
         }
+    }
+
+    /**
+     * @group Model
+     */
+    public function testValidateProcessedPaymentForQuoteAcceptsMatchingCapture(): void
+    {
+        $quote = $this->buildProcessedPaymentQuote([
+            'id' => 'ORDER-1',
+            'invoice_id' => '100000001',
+            'capture_id' => 'CAP-1',
+            'capture_amount' => 'USD 42.17',
+        ]);
+
+        self::$subject->validateProcessedPaymentForQuote($quote, false, 'ORDER-1');
+
+        self::assertSame('CAP-1', $quote->getPayment()->getPaypalCorrelationId());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testValidateProcessedPaymentForQuoteAcceptsMatchingAuthorization(): void
+    {
+        $quote = $this->buildProcessedPaymentQuote([
+            'id' => 'ORDER-1',
+            'invoice_id' => '100000001',
+            'authorization_id' => 'AUTH-1',
+            'authorization_amount' => 'USD 42.17',
+        ]);
+
+        self::$subject->validateProcessedPaymentForQuote($quote, true, 'ORDER-1');
+
+        self::assertSame(
+            'AUTH-1',
+            $quote->getPayment()->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID),
+        );
+    }
+
+    /**
+     * @group Model
+     */
+    public function testValidateProcessedPaymentForQuoteRejectsChangedQuoteTotal(): void
+    {
+        $quote = $this->buildProcessedPaymentQuote([
+            'id' => 'ORDER-1',
+            'invoice_id' => '100000001',
+            'capture_id' => 'CAP-1',
+            'capture_amount' => 'USD 42.17',
+        ], 50.00);
+
+        $this->expectException(Mage_Paypal_Model_Exception::class);
+
+        self::$subject->validateProcessedPaymentForQuote($quote, false, 'ORDER-1');
+    }
+
+    /**
+     * @group Model
+     */
+    public function testValidateProcessedPaymentForQuoteRejectsDifferentQuoteInvoice(): void
+    {
+        $quote = $this->buildProcessedPaymentQuote([
+            'id' => 'ORDER-1',
+            'invoice_id' => '100000002',
+            'capture_id' => 'CAP-1',
+            'capture_amount' => 'USD 42.17',
+        ]);
+
+        $this->expectException(Mage_Paypal_Model_Exception::class);
+
+        self::$subject->validateProcessedPaymentForQuote($quote, false, 'ORDER-1');
+    }
+
+    /**
+     * @group Model
+     */
+    public function testValidateProcessedPaymentForQuoteRejectsDifferentPaypalOrder(): void
+    {
+        $quote = $this->buildProcessedPaymentQuote([
+            'id' => 'ORDER-1',
+            'invoice_id' => '100000001',
+            'capture_id' => 'CAP-1',
+            'capture_amount' => 'USD 42.17',
+        ]);
+
+        $this->expectException(Mage_Paypal_Model_Exception::class);
+
+        self::$subject->validateProcessedPaymentForQuote($quote, false, 'ORDER-2');
     }
 
     /**

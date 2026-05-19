@@ -9,6 +9,7 @@
 
 declare(strict_types=1);
 
+use PaypalServerSdkLib\Http\ApiResponse;
 use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 use PaypalServerSdkLib\Models\{
     Refund,
@@ -95,7 +96,10 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
     public function reauthorizePayment(string $orderId, Mage_Sales_Model_Order $order): string
     {
         $api = $this->getHelper()->getApi();
-        $response = $api->reAuthorizeOrder($orderId, $order);
+        $response = $this->_requireApiResponse(
+            $api->reAuthorizeOrder($orderId, $order),
+            'Reauthorization failed',
+        );
 
         if ($response->isError()) {
             $this->getHelper()->handleApiError($response, 'Reauthorization failed');
@@ -114,7 +118,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
             ),
             false,
         )->save();
-        return $response->getResult()->getBody();
+        return (string) $response->getBody();
     }
 
     /**
@@ -294,5 +298,17 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
     private function getTransactionManager(): Mage_Paypal_Model_Transaction
     {
         return Mage::getSingleton('paypal/transaction');
+    }
+
+    /**
+     * @throws Mage_Paypal_Model_Exception
+     */
+    private function _requireApiResponse(?ApiResponse $response, string $message): ApiResponse
+    {
+        if (!$response instanceof ApiResponse) {
+            throw new Mage_Paypal_Model_Exception(Mage::helper('paypal')->__($message));
+        }
+
+        return $response;
     }
 }

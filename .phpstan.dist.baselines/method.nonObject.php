@@ -5023,12 +5023,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getResult() on PaypalServerSdkLib\\Http\\ApiResponse|null.',
-    'count' => 6,
+    'count' => 5,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method isError() on PaypalServerSdkLib\\Http\\ApiResponse|null.',
-    'count' => 6,
+    'count' => 5,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [

@@ -5018,7 +5018,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $response of method Mage_Paypal_Model_Helper::handleApiError() expects PaypalServerSdkLib\\Http\\ApiResponse, PaypalServerSdkLib\\Http\\ApiResponse|null given.',
-    'count' => 4,
+    'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [

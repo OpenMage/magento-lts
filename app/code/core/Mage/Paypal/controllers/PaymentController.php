@@ -165,6 +165,14 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
             $this->_ignoreAddressValidation();
             $this->_getQuote()->collectTotals();
+            $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
+            $isAuthorize = ($paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE));
+            Mage::getSingleton('paypal/helper')->validateProcessedPaymentForQuote(
+                $this->_getQuote(),
+                $isAuthorize,
+                (string) $this->getRequest()->getParam('id'),
+            );
+
             $session = $this->_getCheckoutSession();
             $service = Mage::getModel('sales/service_quote', $this->_getQuote());
 
@@ -194,8 +202,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
             $orderPayment->save();
 
-            $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
-            $isAuthorize = ($paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE));
             $transaction = Mage::getModel('sales/order_payment_transaction');
             foreach ($orderPayment->getAdditionalInformation() as $key => $value) {
                 $transaction->setAdditionalInformation($key, $value);

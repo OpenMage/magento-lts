@@ -22,6 +22,12 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     // Error messages
     private const ERROR_ZERO_AMOUNT = 'PayPal does not support processing orders with zero amount. To complete your purchase, proceed to the standard checkout process.';
 
+    private const ERROR_UNVERIFIED_PAYMENT = 'Unable to verify the PayPal payment. Please restart PayPal checkout.';
+
+    private const ERROR_PAYMENT_QUOTE_MISMATCH = 'The PayPal payment does not match this quote. Please restart PayPal checkout.';
+
+    private const ERROR_PAYMENT_AMOUNT_MISMATCH = 'The PayPal payment amount no longer matches your quote total. Please restart PayPal checkout.';
+
     /**
      * Keys whose values hold customer PII and must be redacted before any
      * request/response payload is persisted to the debug log.
@@ -126,6 +132,146 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
                 Mage::helper('paypal')->__(self::ERROR_ZERO_AMOUNT),
             );
         }
+    }
+
+    /**
+     * Validate that the PayPal payment stored on the quote is the payment
+     * Magento is about to convert into an order.
+     *
+     * @throws Mage_Paypal_Model_Exception
+     */
+    public function validateProcessedPaymentForQuote(
+        Mage_Sales_Model_Quote $quote,
+        bool $isAuthorize,
+        string $paypalOrderId = ''
+    ): void {
+        $payment = $quote->getPayment();
+        if ($payment->getMethod() !== 'paypal') {
+            throw new Mage_Paypal_Model_Exception($this->_helper->__(self::ERROR_UNVERIFIED_PAYMENT));
+        }
+
+        $rawDetails = $payment->getAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS);
+        if (!is_array($rawDetails) || $rawDetails === []) {
+            throw new Mage_Paypal_Model_Exception($this->_helper->__(self::ERROR_UNVERIFIED_PAYMENT));
+        }
+
+        $currency = $this->_getQuoteCurrencyCode($quote);
+        if ($currency === '') {
+            throw new Mage_Paypal_Model_Exception($this->_helper->__(self::ERROR_UNVERIFIED_PAYMENT));
+        }
+
+        $this->_assertProcessedPaymentBelongsToQuote($rawDetails, $quote, $paypalOrderId);
+
+        if ($isAuthorize) {
+            $transactionId = (string) (
+                $rawDetails['authorization_id']
+                ?? $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID)
+            );
+            $paypalAmount = $this->_extractRawDetailAmount(
+                $rawDetails['authorization_amount'] ?? ($rawDetails['amount'] ?? null),
+                $currency,
+            );
+        } else {
+            $transactionId = (string) ($rawDetails['capture_id'] ?? $payment->getPaypalCorrelationId());
+            $paypalAmount = $this->_extractRawDetailAmount(
+                $rawDetails['capture_amount'] ?? ($rawDetails['amount'] ?? null),
+                $currency,
+            );
+        }
+
+        if ($transactionId === '' || $paypalAmount === null) {
+            throw new Mage_Paypal_Model_Exception($this->_helper->__(self::ERROR_UNVERIFIED_PAYMENT));
+        }
+
+        $expectedAmount = $this->_helper->formatPrice((float) $quote->getGrandTotal(), $currency);
+        $processedAmount = $this->_helper->formatPrice($paypalAmount, $currency);
+
+        if ($processedAmount !== $expectedAmount) {
+            throw new Mage_Paypal_Model_Exception($this->_helper->__(self::ERROR_PAYMENT_AMOUNT_MISMATCH));
+        }
+    }
+
+    /**
+     * @param  array<string, mixed>        $rawDetails
+     * @throws Mage_Paypal_Model_Exception
+     */
+    private function _assertProcessedPaymentBelongsToQuote(
+        array $rawDetails,
+        Mage_Sales_Model_Quote $quote,
+        string $paypalOrderId
+    ): void {
+        $reservedOrderId = $quote->getReservedOrderId();
+        $expectedInvoiceId = (string) (
+            ($reservedOrderId !== null && $reservedOrderId !== '')
+                ? $reservedOrderId
+                : $quote->getId()
+        );
+        $processedInvoiceId = (string) ($rawDetails['invoice_id'] ?? '');
+
+        if (
+            $expectedInvoiceId === ''
+            || $processedInvoiceId === ''
+            || !hash_equals($expectedInvoiceId, $processedInvoiceId)
+        ) {
+            throw new Mage_Paypal_Model_Exception($this->_helper->__(self::ERROR_PAYMENT_QUOTE_MISMATCH));
+        }
+
+        if ($paypalOrderId === '') {
+            return;
+        }
+
+        $processedOrderId = (string) ($rawDetails['id'] ?? '');
+        if ($processedOrderId === '' || !hash_equals($processedOrderId, $paypalOrderId)) {
+            throw new Mage_Paypal_Model_Exception($this->_helper->__(self::ERROR_PAYMENT_QUOTE_MISMATCH));
+        }
+    }
+
+    /**
+     * Resolve the quote currency used for the PayPal payment.
+     */
+    private function _getQuoteCurrencyCode(Mage_Sales_Model_Quote $quote): string
+    {
+        $orderCurrency = $quote->getOrderCurrencyCode();
+        if ($orderCurrency !== null && $orderCurrency !== '') {
+            return (string) $orderCurrency;
+        }
+
+        return (string) $quote->getQuoteCurrencyCode();
+    }
+
+    /**
+     * Extract a numeric amount from a whitelisted raw-details value.
+     */
+    private function _extractRawDetailAmount(mixed $amount, string $currency): ?float
+    {
+        if (is_int($amount) || is_float($amount)) {
+            return (float) $amount;
+        }
+
+        if (!is_string($amount)) {
+            return null;
+        }
+
+        $amount = trim($amount);
+        if ($amount === '') {
+            return null;
+        }
+
+        if (is_numeric($amount)) {
+            return (float) $amount;
+        }
+
+        $parts = preg_split('/\s+/', $amount, 2);
+        if (!is_array($parts) || count($parts) !== 2) {
+            return null;
+        }
+
+        [$amountCurrency, $amountValue] = $parts;
+        if (strcasecmp($amountCurrency, $currency) !== 0 || !is_numeric($amountValue)) {
+            return null;
+        }
+
+        return (float) $amountValue;
     }
 
     /**
