@@ -4947,6 +4947,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Info.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection, Mage_Core_Model_Resource_Db_Collection_Abstract|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Webhook/Grid.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $currencyCode of static method PaypalServerSdkLib\\Models\\Builders\\MoneyBuilder::init() expects string, string|null given.',
     'count' => 6,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
@@ -5057,6 +5062,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Parameter #2 $payment of method Mage_Paypal_Model_Webhook_Event_Resolver::buildResult() expects Mage_Sales_Model_Order_Payment|null, Mage_Sales_Model_Order_Payment|false given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Event/Resolver.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $customerId of method Mage_Customer_Model_Session::loginById() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
@@ -5070,6 +5080,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $timezone of class DateTimeZone constructor expects string, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #2 $headers of method Mage_Paypal_Model_Webhook_Event::populateFromPayload() expects array<string, string>, array<string, string|null> given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/WebhookController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $id of method Mage_Customer_Model_Session::setCustomerId() expects int|null, int|string|null given.',

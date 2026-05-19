@@ -139,6 +139,11 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
     'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
@@ -150,6 +155,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+    'count' => 6,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Processor.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',

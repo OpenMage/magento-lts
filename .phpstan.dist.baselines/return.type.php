@@ -2392,6 +2392,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Paypal_WebhookController::getPaypalHeaders() should return array<string, string|null> but returns array<string, string|false>.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/WebhookController.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_ProductAlert_Block_Email_Abstract::_getFilteredProductShortDescription() should return string|null but returns array|float|int|string|false|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ProductAlert/Block/Email/Abstract.php',

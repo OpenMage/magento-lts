@@ -5152,6 +5152,26 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
+    'count' => 5,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Event/Resolver.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Event/Resolver.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Processor.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/Adminhtml/Paypal/WebhookController.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Paypal_Model_Paypal|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',

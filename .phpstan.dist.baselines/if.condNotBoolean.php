@@ -6557,6 +6557,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Transaction.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, int|string|null given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Processor.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Checkout_Model_Session given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Persistent/Model/Observer.php',

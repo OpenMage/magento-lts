@@ -962,6 +962,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, int|string|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Event/Resolver.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, int<0, max>|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Persistent/controllers/IndexController.php',

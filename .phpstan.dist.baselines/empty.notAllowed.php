@@ -2423,6 +2423,11 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Webhook/Grid/Renderer/Payload.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
     'count' => 7,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Helper.php',
 ];
