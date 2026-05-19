@@ -79,7 +79,14 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
                 }
             }
 
-            $debug->save();
+            try {
+                $debug->save();
+            } catch (Exception $exception) {
+                // The debug table is unavailable - fall back to the file log
+                // so the request/response is not lost entirely.
+                Mage::log($debug->getData(), Level::Error, 'paypal.log');
+                Mage::logException($exception);
+            }
         }
     }
 
