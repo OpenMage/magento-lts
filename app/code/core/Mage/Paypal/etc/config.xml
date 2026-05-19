@@ -158,80 +158,83 @@
                 <model>paypal/legacy_express</model>
                 <title>PayPal Express Checkout (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </paypal_express>
             <paypal_express_bml>
                 <model>paypal/legacy_expressBml</model>
                 <title>PayPal Credit (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </paypal_express_bml>
             <paypal_direct>
                 <model>paypal/legacy_direct</model>
                 <title>PayPal Payments Pro (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </paypal_direct>
             <paypal_standard>
                 <model>paypal/legacy_standard</model>
                 <title>PayPal Website Payments Standard (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </paypal_standard>
             <paypaluk_express>
                 <model>paypal/legacy_uk_express</model>
                 <title>PayPal Express Checkout Payflow Edition (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </paypaluk_express>
             <paypaluk_express_bml>
                 <model>paypal/legacy_uk_expressBml</model>
                 <title>PayPal Credit Payflow Edition (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </paypaluk_express_bml>
             <paypaluk_direct>
                 <model>paypal/legacy_uk_direct</model>
                 <title>PayPal Payments Pro Payflow Edition (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </paypaluk_direct>
             <verisign>
                 <model>paypal/legacy_payflow_pro</model>
                 <title>Payflow Pro (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </verisign>
             <paypal_billing_agreement>
                 <model>paypal/legacy_billingAgreement</model>
                 <title>PayPal Billing Agreement (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </paypal_billing_agreement>
             <payflow_link>
                 <model>paypal/legacy_payflow_link</model>
                 <title>Payflow Link (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </payflow_link>
             <payflow_advanced>
                 <model>paypal/legacy_payflow_advanced</model>
                 <title>Payflow Advanced (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </payflow_advanced>
             <hosted_pro>
                 <model>paypal/legacy_hostedPro</model>
                 <title>Hosted Payments Pro (Legacy)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </hosted_pro>
             <paypal_wps_express>
                 <model>paypal/legacy_wps_express</model>
                 <title>PayPal Express Checkout (Legacy WPS)</title>
                 <active>0</active>
-                <group>paypal</group>
+                <group>paypal_legacy</group>
             </paypal_wps_express>
+            <groups>
+                <paypal_legacy>PayPal (Legacy)</paypal_legacy>
+            </groups>
         </payment>
     </default>
     <crontab>
