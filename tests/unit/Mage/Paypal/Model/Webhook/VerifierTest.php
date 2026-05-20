@@ -30,8 +30,8 @@ final class VerifierTest extends OpenMageTest
     public function testExtractRequiredHeadersNormalizesHeaderNames(array $headers, array $expectedResult): void
     {
         $subject = new Subject(
-            $this->createStub(Mage_Paypal_Model_Api::class),
-            $this->createStub(Mage_Paypal_Model_Config::class),
+            self::createStub(Mage_Paypal_Model_Api::class),
+            self::createStub(Mage_Paypal_Model_Config::class),
         );
 
         self::assertSame($expectedResult, $subject->extractRequiredHeaders($headers));
@@ -40,8 +40,8 @@ final class VerifierTest extends OpenMageTest
     public function testExtractRequiredHeadersRejectsMissingHeader(): void
     {
         $subject = new Subject(
-            $this->createStub(Mage_Paypal_Model_Api::class),
-            $this->createStub(Mage_Paypal_Model_Config::class),
+            self::createStub(Mage_Paypal_Model_Api::class),
+            self::createStub(Mage_Paypal_Model_Config::class),
         );
 
         $this->expectException(InvalidArgumentException::class);

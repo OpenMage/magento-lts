@@ -205,7 +205,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             $payment = $this->_getQuote()->getPayment();
             $additionalInfo = $payment->getAdditionalInformation();
             foreach (array_keys($additionalInfo) as $key) {
-                $payment->unsAdditionalInformation($key);
+                $payment->unsAdditionalInformation((string) $key);
             }
 
             $payment->setPaypalCorrelationId('')->save();
