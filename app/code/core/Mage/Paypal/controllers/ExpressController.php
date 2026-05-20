@@ -64,7 +64,6 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 $fundingSource = 'paypal';
             }
 
-            $fingerprint = $this->_buildQuoteFingerprint($quote);
             $result = $this->_getPaypal()->create($quote, $fundingSource);
             $resultId = $result['id'] ?? null;
             if (($result['success'] ?? false) !== true || !is_scalar($resultId) || (string) $resultId === '') {
@@ -72,7 +71,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             }
 
             $orderId = (string) $resultId;
-            $this->_storeShortcutState($quote, $orderId, $fingerprint);
+            $this->_storeShortcutState($quote, $orderId);
             $this->_jsonResponse([
                 'success' => true,
                 'id' => $orderId,
@@ -111,10 +110,16 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             $this->_assertPatchablePaypalStatus($details);
 
             Mage::getModel('paypal/express_addressImporter')->importFromOrderDetails($quote, $response->getBody());
+            $this->_ignoreAddressValidation($quote);
             $this->_prepareShippingRates($quote);
             $quote->collectTotals()->save();
 
-            $patchResponse = $api->patchOrder($orderId, $this->_buildPatch($quote));
+            $patch = $this->_buildPatch($quote);
+            if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
+                Mage::log(['order_id' => $orderId, 'patch' => $patch], null, 'paypal_patch.log', true);
+            }
+
+            $patchResponse = $api->patchOrder($orderId, $patch);
             if ($patchResponse !== null && $patchResponse->isError()) {
                 Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
             }
@@ -159,6 +164,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 Mage::throwException(Mage::helper('paypal')->__('Please specify a shipping method.'));
             }
 
+            $this->_ignoreAddressValidation($quote);
             $address = $quote->getShippingAddress();
             $address->setCollectShippingRates(true)->collectShippingRates();
             $rate = $address->getShippingRateByCode($shippingMethod);
@@ -216,7 +222,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             /** @var Mage_Paypal_Model_Checkout_Finalizer $finalizer */
             $finalizer = Mage::getModel('paypal/checkout_finalizer');
             $isNewCustomer = $finalizer->prepareQuoteForCheckout($quote, false);
-            $finalizer->ignoreAddressValidation($quote);
+            $this->_ignoreAddressValidation($quote);
 
             $quote->collectTotals();
             $this->_validateQuoteUsable($quote);
@@ -232,9 +238,12 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            $this->_assertQuoteFingerprint($quote);
+            $patch = $this->_buildPatch($quote);
+            if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
+                Mage::log(['order_id' => $orderId, 'patch' => $patch], null, 'paypal_patch.log', true);
+            }
 
-            $patchResponse = $api->patchOrder($orderId, $this->_buildPatch($quote));
+            $patchResponse = $api->patchOrder($orderId, $patch);
             if ($patchResponse !== null && $patchResponse->isError()) {
                 Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
             }
@@ -362,6 +371,10 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
 
     /**
      * Prepare quote state before creating the PayPal order.
+     *
+     * Mirrors the legacy Mage_Paypal_Model_Express_Checkout::start() — the
+     * shipping address is left intact so PayPal can echo any pre-set values
+     * back, and the address importer overwrites it on return regardless.
      */
     private function _prepareQuoteForStart(Mage_Sales_Model_Quote $quote): void
     {
@@ -370,17 +383,29 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             $quote->removeAllAddresses();
         }
 
+        // Clear the previously-selected method and force fresh rate collection so the PayPal popup shows the current shipping cost, not a stale value from a prior session.
         if (!$quote->isVirtual()) {
             $quote->getShippingAddress()
                 ->setShippingMethod(null)
                 ->setShippingDescription(null)
-                ->setCollectShippingRates(false)
-                ->removeAllShippingRates();
+                ->setCollectShippingRates(true);
         }
 
         $this->_lockCurrency($quote);
         $quote->getPayment()->setMethod('paypal');
         $quote->collectTotals()->save();
+    }
+
+    /**
+     * Bypass address validation while we mutate quote addresses via PayPal
+     * data. Mirrors the legacy _ignoreAddressValidation() helper.
+     */
+    private function _ignoreAddressValidation(Mage_Sales_Model_Quote $quote): void
+    {
+        $quote->getBillingAddress()->setShouldIgnoreValidation(true);
+        if (!$quote->isVirtual()) {
+            $quote->getShippingAddress()->setShouldIgnoreValidation(true);
+        }
     }
 
     /**
@@ -406,7 +431,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
     /**
      * Store per-attempt PayPal state on the quote payment.
      */
-    private function _storeShortcutState(Mage_Sales_Model_Quote $quote, string $orderId, string $fingerprint): void
+    private function _storeShortcutState(Mage_Sales_Model_Quote $quote, string $orderId): void
     {
         $payment = $quote->getPayment();
         $requestId = (string) $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID);
@@ -417,14 +442,12 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             ->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_REQUEST_ID, $requestId)
             ->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_RESERVED_ORDER_ID, $reservedOrderId)
             ->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY, $currency)
-            ->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_FINGERPRINT, $fingerprint)
             ->save();
         $this->_getCheckoutSession()
             ->setData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_ORDER_ID, $orderId)
             ->setData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_REQUEST_ID, $requestId)
             ->setData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_RESERVED_ORDER_ID, $reservedOrderId)
-            ->setData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY, $currency)
-            ->setData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_FINGERPRINT, $fingerprint);
+            ->setData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY, $currency);
         $quote->save();
     }
 
@@ -469,7 +492,6 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_REQUEST_ID,
             Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_RESERVED_ORDER_ID,
             Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY,
-            Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_FINGERPRINT,
         ];
     }
 
@@ -492,27 +514,6 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
 
         if ($storedOrderId === '' || !hash_equals($storedOrderId, $orderId)) {
             Mage::throwException(Mage::helper('paypal')->__('PayPal checkout session has expired. Please restart PayPal checkout.'));
-        }
-
-        $this->_assertQuoteFingerprint($quote);
-    }
-
-    /**
-     * Ensure the active quote still matches the quote that created the PayPal order.
-     */
-    private function _assertQuoteFingerprint(Mage_Sales_Model_Quote $quote): void
-    {
-        $expected = (string) $quote->getPayment()
-            ->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_FINGERPRINT);
-        if ($expected === '') {
-            $expected = (string) $this->_getCheckoutSession()->getData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_FINGERPRINT);
-        }
-
-        $actual = $this->_buildQuoteFingerprint($quote);
-        if ($expected === '' || !hash_equals($expected, $actual)) {
-            Mage::throwException(
-                Mage::helper('paypal')->__('Your cart changed after PayPal approval. Please restart PayPal checkout.'),
-            );
         }
     }
 
@@ -623,7 +624,9 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Collect shipping rates and select the sole valid rate automatically.
+     * PayPal Smart Buttons do not return a shipping-method hint (the buyer selects shipping on the store-side review
+     * page, not in PayPal's UI), so auto-selection falls back to the cheapest valid rate when no valid method is
+     * pre-selected.
      */
     private function _prepareShippingRates(Mage_Sales_Model_Quote $quote): void
     {
@@ -635,6 +638,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         $address->setCollectShippingRates(true)->collectShippingRates();
         $validRates = $this->_getValidShippingRates($address);
         if ($validRates === []) {
+            $address->setShippingMethod(null);
             $this->_getCheckoutSession()->addError(
                 Mage::helper('paypal')->__('Sorry, no shipping quotes are available for this order at this time.'),
             );
@@ -645,13 +649,32 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         if ($currentMethod !== '') {
             $currentRate = $address->getShippingRateByCode($currentMethod);
             if ($currentRate instanceof Mage_Sales_Model_Quote_Address_Rate) {
-                return;
+                $currentRateError = $currentRate->getErrorMessage();
+                if (in_array($currentRateError, [null, false, ''], true)) {
+                    return;
+                }
             }
         }
 
-        if (count($validRates) === 1) {
-            $address->setShippingMethod($validRates[0]->getCode());
-        }
+        usort($validRates, static function (
+            Mage_Sales_Model_Quote_Address_Rate $left,
+            Mage_Sales_Model_Quote_Address_Rate $right
+        ): int {
+            $leftPrice = (float) $left->getPrice();
+            $rightPrice = (float) $right->getPrice();
+
+            if ($leftPrice < $rightPrice) {
+                return -1;
+            }
+
+            if ($leftPrice > $rightPrice) {
+                return 1;
+            }
+
+            return strcmp((string) $left->getCode(), (string) $right->getCode());
+        });
+
+        $address->setShippingMethod($validRates[0]->getCode());
     }
 
     /**
@@ -837,46 +860,10 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
     {
         $postedTotal = trim((string) $this->getRequest()->getPost('quote_grand_total'));
         if ($postedTotal === '') {
-            return true;
+            return false;
         }
 
         return hash_equals($this->_formatQuoteGrandTotal($quote), $postedTotal);
-    }
-
-    /**
-     * Build a stable fingerprint for the cart contents and pricing state.
-     */
-    private function _buildQuoteFingerprint(Mage_Sales_Model_Quote $quote): string
-    {
-        $items = [];
-        foreach ($quote->getAllVisibleItems() as $item) {
-            $items[] = [
-                'item_id' => (int) $item->getId(),
-                'product_id' => (int) $item->getProductId(),
-                'sku' => (string) $item->getSku(),
-                'type' => (string) $item->getProductType(),
-                'qty' => (float) $item->getQty(),
-                'price' => (float) $item->getCalculationPrice(),
-                'base_price' => (float) $item->getBaseCalculationPrice(),
-                'row_total' => (float) $item->getRowTotal(),
-                'base_row_total' => (float) $item->getBaseRowTotal(),
-                'discount' => (float) $item->getDiscountAmount(),
-                'base_discount' => (float) $item->getBaseDiscountAmount(),
-            ];
-        }
-
-        usort($items, static fn(array $left, array $right): int => $left['item_id'] <=> $right['item_id']);
-
-        $payload = json_encode([
-            'quote_id' => (int) $quote->getId(),
-            'store_id' => (int) $quote->getStoreId(),
-            'customer_id' => (int) $quote->getCustomerId(),
-            'currency' => $this->_getQuoteCurrencyCode($quote),
-            'coupon' => $quote->getCouponCode(),
-            'items' => $items,
-        ]);
-
-        return hash('sha256', $payload === false ? '' : $payload);
     }
 
     /**

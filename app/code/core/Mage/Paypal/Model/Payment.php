@@ -39,8 +39,6 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
 
     public const PAYPAL_SHORTCUT_CURRENCY = 'paypal_shortcut_currency';
 
-    public const PAYPAL_SHORTCUT_FINGERPRINT = 'paypal_shortcut_fingerprint';
-
     /**
      * Payment additional_information key holding the amount PayPal actually captured.
      */

@@ -325,7 +325,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
      */
     private function _extractFromArrayResponse(array $result, string $defaultMessage): string
     {
-        $mainMessage = $result['message'] ?? '';
+        $mainMessage = $this->_normalizeApiMessage($result['message'] ?? null);
         $detailedMessage = $this->_extractDetailedError($result);
         if (!empty($detailedMessage)) {
             return empty($mainMessage) ? $detailedMessage : $mainMessage . ' ' . $detailedMessage;
@@ -374,22 +374,48 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
             foreach ($result['details'] as $detail) {
                 $issue = '';
                 if (is_array($detail)) {
-                    $issue = $detail['issue'] ?? '';
+                    $issue = $this->_normalizeApiMessage($detail['issue'] ?? null);
                 } elseif (is_object($detail)) {
-                    $issue = $detail->issue ?? '';
+                    $issue = $this->_normalizeApiMessage($detail->issue ?? null);
                 }
 
-                if (!empty($issue)) {
+                if ($issue !== '') {
                     $errorMessages[] = $this->_getReadableErrorMessage($issue);
                 }
             }
         }
 
         if ($errorMessages === [] && isset($result['message'])) {
-            $errorMessages[] = $result['message'];
+            $normalized = $this->_normalizeApiMessage($result['message']);
+            if ($normalized !== '') {
+                $errorMessages[] = $normalized;
+            }
         }
 
         return implode('; ', $errorMessages);
+    }
+
+    /**
+     * Coerce a PayPal error payload field to a usable string.
+     *
+     * Why: PayPal v2 error envelopes normally hold scalars in `message` /
+     * `issue`, but the apimatic SDK has been seen handing back nested arrays
+     * or objects on edge-case errors. Concatenating those directly emits
+     * "Array to string conversion". JSON-encoding non-scalars preserves the
+     * payload for the merchant log instead of swallowing it.
+     */
+    private function _normalizeApiMessage(mixed $value): string
+    {
+        if (is_scalar($value)) {
+            return (string) $value;
+        }
+
+        if ($value === null) {
+            return '';
+        }
+
+        $encoded = json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        return $encoded === false ? '' : $encoded;
     }
 
     /**
