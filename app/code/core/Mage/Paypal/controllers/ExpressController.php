@@ -51,7 +51,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            $this->_clearShortcutState($quote);
+            $this->_getShortcutState()->clear($quote);
 
             if ($this->_getShortcutContext() === self::SHORTCUT_CONTEXT_PRODUCT) {
                 $this->_addProductToQuote();
@@ -74,7 +74,8 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             }
 
             $orderId = (string) $resultId;
-            $this->_storeShortcutState($quote, $orderId);
+            $this->_getShortcutState()->store($quote, $orderId);
+            $quote->save();
             $this->_jsonResponse([
                 'success' => true,
                 'id' => $orderId,
@@ -100,8 +101,8 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
 
             $quote = $this->_getQuote();
             $orderId = trim((string) $this->getRequest()->getParam('token'));
-            $this->_assertCurrencyLock($quote);
-            $this->_applyLockedCurrencyToStore($quote);
+            $this->_getCurrencyLock()->assertHeld($quote);
+            $this->_getCurrencyLock()->applyTo($quote);
             $this->_validateShortcutAttempt($quote, $orderId);
 
             $api = Mage::getSingleton('paypal/helper')->getApi()->setStore($quote->getStore());
@@ -165,8 +166,8 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
 
             $quote = $this->_getQuote();
             $orderId = trim((string) $this->getRequest()->getParam('token'));
-            $this->_assertCurrencyLock($quote);
-            $this->_applyLockedCurrencyToStore($quote);
+            $this->_getCurrencyLock()->assertHeld($quote);
+            $this->_getCurrencyLock()->applyTo($quote);
             $this->_validateShortcutAttempt($quote, $orderId);
 
             if ($quote->isVirtual()) {
@@ -220,8 +221,8 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             }
 
             $quote = $this->_getQuote();
-            $this->_assertCurrencyLock($quote);
-            $this->_applyLockedCurrencyToStore($quote);
+            $this->_getCurrencyLock()->assertHeld($quote);
+            $this->_getCurrencyLock()->applyTo($quote);
             $this->_validateShortcutAttempt($quote, $orderId);
             $this->_validateCheckoutAgreements();
 
@@ -283,7 +284,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             // Post-success: the placed-order quote is now inactive (set by submitAll) and is referenced by the order;
             // do NOT delete it. Just drop the session pointer and restore the user's prior browsing currency.
             $this->_getCheckoutSession()->unsetData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_BUY_NOW_QUOTE_ID);
-            $this->_restorePriorCurrency($quote);
+            $this->_getCurrencyLock()->restore($quote);
             $this->_redirect('checkout/onepage/success');
         } catch (Exception $exception) {
             Mage::logException($exception);
@@ -304,9 +305,9 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             }
 
             $quote = $this->_getQuote();
-            $this->_clearShortcutState($quote);
+            $this->_getShortcutState()->clear($quote);
             $quote->setReservedOrderId(null)->save();
-            $this->_restorePriorCurrency($quote);
+            $this->_getCurrencyLock()->restore($quote);
             $this->_clearExpressQuoteSession();
             $this->_jsonResponse(['success' => true]);
         } catch (Exception $exception) {
@@ -410,8 +411,8 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         }
 
         $session->unsetData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_BUY_NOW_QUOTE_ID);
-        // Drop any leftover prior-currency snapshot so the next attempt's _lockCurrency takes a fresh one.
-        $session->unsetData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_PRIOR_CURRENCY);
+        // Drop any leftover prior-currency snapshot so the next attempt's lock() takes a fresh one.
+        $this->_getCurrencyLock()->forgetPriorSnapshot();
         $this->_quote = false;
     }
 
@@ -474,7 +475,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 ->setCollectShippingRates(true);
         }
 
-        $this->_lockCurrency($quote);
+        $this->_getCurrencyLock()->lock($quote);
         $quote->getPayment()->setMethod('paypal');
         $quote->collectTotals()->save();
     }
@@ -513,150 +514,6 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Lock the current store currency onto the quote for this PayPal attempt.
-     */
-    private function _lockCurrency(Mage_Sales_Model_Quote $quote): void
-    {
-        $store = Mage::app()->getStore();
-        $currency = $store->getCurrentCurrency();
-        $baseCurrency = $store->getBaseCurrency();
-        $currencyCode = $currency->getCode();
-        $rate = $baseCurrency->getRate($currency);
-
-        $quote->setStoreId($store->getId())
-            ->setBaseCurrencyCode($baseCurrency->getCode())
-            ->setStoreCurrencyCode($baseCurrency->getCode())
-            ->setQuoteCurrencyCode($currencyCode)
-            ->setOrderCurrencyCode($currencyCode)
-            ->setBaseToQuoteRate($rate)
-            ->setStoreToQuoteRate($rate);
-
-        // Snapshot the user's prior session currency so cancel/success can restore it — setCurrentCurrencyCode()
-        // also sets a cookie, which would otherwise leave the user pinned to the locked code after the express
-        // flow ends. Snapshot only on the first attempt; later requests in the same flow leave it untouched.
-        $session = $this->_getCheckoutSession();
-        if ((string) $session->getData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_PRIOR_CURRENCY) === '') {
-            $session->setData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_PRIOR_CURRENCY, $store->getCurrentCurrencyCode());
-        }
-
-        // Pin the store's current currency to the locked code so subsequent collectors (e.g., Shipping_Total::collect,
-        // which calls $store->convertPrice()) produce shipping_amount in the quote currency instead of leaking the
-        // store's session currency and writing both base and order shipping with no conversion.
-        $store->setCurrentCurrencyCode($currencyCode);
-        $store->unsetData('current_currency');
-    }
-
-    /**
-     * Restore the user's pre-express session currency. The currency-lock cookie/session set by setCurrentCurrencyCode()
-     * would otherwise persist into general browsing after the express flow ends.
-     */
-    private function _restorePriorCurrency(Mage_Sales_Model_Quote $quote): void
-    {
-        $session = $this->_getCheckoutSession();
-        $prior = trim((string) $session->getData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_PRIOR_CURRENCY));
-        if ($prior === '') {
-            return;
-        }
-
-        $store = Mage::app()->getStore($quote->getStoreId());
-        $store->setCurrentCurrencyCode($prior);
-        $store->unsetData('current_currency');
-        $session->unsetData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_PRIOR_CURRENCY);
-    }
-
-    /**
-     * Re-pin the store's current currency to the quote's locked code for this request. Magento's totals collectors
-     * read $store->getCurrentCurrency() at collect time, and between requests the session currency can drift away
-     * from the quote's locked value.
-     */
-    private function _applyLockedCurrencyToStore(Mage_Sales_Model_Quote $quote): void
-    {
-        $lockedCurrency = (string) $quote->getPayment()
-            ->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY);
-        if ($lockedCurrency === '') {
-            $lockedCurrency = (string) $this->_getCheckoutSession()
-                ->getData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY);
-        }
-
-        if ($lockedCurrency === '') {
-            return;
-        }
-
-        $store = Mage::app()->getStore($quote->getStoreId());
-        $store->setCurrentCurrencyCode($lockedCurrency);
-        // Mage_Core_Model_Store::getCurrentCurrency() caches the Currency model on first read; clear it so the next
-        // call re-resolves through the freshly-set code.
-        $store->unsetData('current_currency');
-    }
-
-    /**
-     * Store per-attempt PayPal state on the quote payment.
-     */
-    private function _storeShortcutState(Mage_Sales_Model_Quote $quote, string $orderId): void
-    {
-        $payment = $quote->getPayment();
-        $requestId = (string) $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID);
-        $reservedOrderId = (string) $quote->getReservedOrderId();
-        $currency = $this->_getQuoteCurrencyCode($quote);
-
-        $payment->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_ORDER_ID, $orderId)
-            ->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_REQUEST_ID, $requestId)
-            ->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_RESERVED_ORDER_ID, $reservedOrderId)
-            ->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY, $currency)
-            ->save();
-        $this->_getCheckoutSession()
-            ->setData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_ORDER_ID, $orderId)
-            ->setData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_REQUEST_ID, $requestId)
-            ->setData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_RESERVED_ORDER_ID, $reservedOrderId)
-            ->setData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY, $currency);
-        $quote->save();
-    }
-
-    /**
-     * Clear stale PayPal state before or after a shortcut attempt.
-     */
-    private function _clearShortcutState(Mage_Sales_Model_Quote $quote): void
-    {
-        $payment = $quote->getPayment();
-        foreach ($this->_getPaypalStateKeys() as $key) {
-            $payment->unsAdditionalInformation($key);
-        }
-
-        $payment->setPaypalCorrelationId(null)
-            ->setTransactionId(null)
-            ->setIsTransactionClosed(false);
-        if ((int) $quote->getId() > 0) {
-            $payment->save();
-        }
-
-        foreach ($this->_getPaypalStateKeys() as $key) {
-            $this->_getCheckoutSession()->unsetData($key);
-        }
-    }
-
-    /**
-     * @return string[]
-     */
-    private function _getPaypalStateKeys(): array
-    {
-        return [
-            Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
-            Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID,
-            Mage_Paypal_Model_Payment::PAYPAL_PAYMENT_SOURCE,
-            Mage_Paypal_Model_Payment::PAYPAL_PAYMENT_AUTHORIZATION_ID,
-            Mage_Paypal_Model_Payment::PAYPAL_PAYMENT_AUTHORIZATION_REAUTHORIZED,
-            Mage_Paypal_Model_Payment::PAYPAL_CAPTURED_AMOUNT,
-            Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_STATUS,
-            Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID,
-            Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME,
-            Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_ORDER_ID,
-            Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_REQUEST_ID,
-            Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_RESERVED_ORDER_ID,
-            Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY,
-        ];
-    }
-
-    /**
      * Validate that the current request belongs to the active PayPal shortcut attempt.
      */
     private function _validateShortcutAttempt(Mage_Sales_Model_Quote $quote, string $orderId): void
@@ -665,41 +522,9 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             Mage::throwException(Mage::helper('paypal')->__('PayPal order ID is required.'));
         }
 
-        $payment = $quote->getPayment();
-        $storedOrderId = (string) $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_ORDER_ID);
-        if ($storedOrderId === '') {
-            $storedOrderId = (string) $this->_getCheckoutSession()
-                ->getData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_ORDER_ID);
-        }
-
+        $storedOrderId = $this->_getShortcutState()->getOrderId($quote);
         if ($storedOrderId === '' || !hash_equals($storedOrderId, $orderId)) {
             Mage::throwException(Mage::helper('paypal')->__('PayPal checkout session has expired. Please restart PayPal checkout.'));
-        }
-    }
-
-    /**
-     * Ensure the quote currency stayed locked to the PayPal attempt currency.
-     */
-    private function _assertCurrencyLock(Mage_Sales_Model_Quote $quote): void
-    {
-        $lockedCurrency = (string) $quote->getPayment()
-            ->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY);
-        if ($lockedCurrency === '') {
-            $lockedCurrency = (string) $this->_getCheckoutSession()
-                ->getData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY);
-        }
-
-        $quoteCurrency = $this->_getQuoteCurrencyCode($quote);
-        $storeCurrency = (string) Mage::app()->getStore($quote->getStoreId())->getCurrentCurrencyCode();
-        if (
-            $lockedCurrency === ''
-            || $quoteCurrency === ''
-            || !hash_equals($lockedCurrency, $quoteCurrency)
-            || !hash_equals($lockedCurrency, $storeCurrency)
-        ) {
-            Mage::throwException(
-                Mage::helper('paypal')->__('The store currency changed after PayPal checkout started. Please restart PayPal checkout.'),
-            );
         }
     }
 
@@ -715,24 +540,15 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             Mage::throwException(Mage::helper('paypal')->__('PayPal order details were not valid JSON.'));
         }
 
-        $storedOrderId = (string) $quote->getPayment()
-            ->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_ORDER_ID);
-        if ($storedOrderId === '') {
-            $storedOrderId = (string) $this->_getCheckoutSession()
-                ->getData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_ORDER_ID);
-        }
+        $state = $this->_getShortcutState();
+        $storedOrderId = $state->getOrderId($quote);
 
         $paypalOrderId = (string) ($details['id'] ?? '');
         if ($paypalOrderId === '' || !hash_equals($storedOrderId, $paypalOrderId)) {
             Mage::throwException(Mage::helper('paypal')->__('The PayPal order does not match this checkout session.'));
         }
 
-        $reservedOrderId = (string) $quote->getPayment()
-            ->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_RESERVED_ORDER_ID);
-        if ($reservedOrderId === '') {
-            $reservedOrderId = (string) $this->_getCheckoutSession()
-                ->getData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_RESERVED_ORDER_ID);
-        }
+        $reservedOrderId = $state->getReservedOrderId($quote);
 
         $unit = is_array($details['purchase_units'][0] ?? null) ? $details['purchase_units'][0] : [];
         $invoiceId = (string) ($unit['invoice_id'] ?? '');
@@ -747,12 +563,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             Mage::throwException(Mage::helper('paypal')->__('The PayPal order does not match this quote.'));
         }
 
-        $lockedCurrency = (string) $quote->getPayment()
-            ->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY);
-        if ($lockedCurrency === '') {
-            $lockedCurrency = (string) $this->_getCheckoutSession()
-                ->getData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY);
-        }
+        $lockedCurrency = $state->getLockedCurrency($quote);
 
         $paypalCurrency = strtoupper((string) ($unit['amount']['currency_code'] ?? ''));
         $quoteCurrency = strtoupper($this->_getQuoteCurrencyCode($quote));
@@ -940,8 +751,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
      */
     private function _buildPatch(Mage_Sales_Model_Quote $quote): array
     {
-        $referenceId = (string) $quote->getPayment()
-            ->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_RESERVED_ORDER_ID);
+        $referenceId = $this->_getShortcutState()->getReservedOrderId($quote);
         $purchaseUnit = Mage::getModel('paypal/order')->buildPurchaseUnit($quote, $referenceId);
         assert($purchaseUnit instanceof PurchaseUnitRequest);
         $pathPrefix = "/purchase_units/@reference_id=='" . str_replace("'", "\\'", $referenceId) . "'";
@@ -1068,6 +878,20 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
     private function _getCheckoutSession(): Mage_Checkout_Model_Session
     {
         return Mage::getSingleton('checkout/session');
+    }
+
+    private function _getShortcutState(): Mage_Paypal_Model_Express_ShortcutState
+    {
+        /** @var Mage_Paypal_Model_Express_ShortcutState $state */
+        $state = Mage::getSingleton('paypal/express_shortcutState');
+        return $state;
+    }
+
+    private function _getCurrencyLock(): Mage_Paypal_Model_Express_CurrencyLock
+    {
+        /** @var Mage_Paypal_Model_Express_CurrencyLock $lock */
+        $lock = Mage::getSingleton('paypal/express_currencyLock');
+        return $lock;
     }
 
     /**

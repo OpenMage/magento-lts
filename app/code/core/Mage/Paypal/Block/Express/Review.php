@@ -171,8 +171,9 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
      */
     public function getPaypalOrderId(): string
     {
-        return (string) $this->getQuote()->getPayment()
-            ->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_ORDER_ID);
+        /** @var Mage_Paypal_Model_Express_ShortcutState $state */
+        $state = Mage::getSingleton('paypal/express_shortcutState');
+        return $state->getOrderId($this->getQuote());
     }
 
     /**
