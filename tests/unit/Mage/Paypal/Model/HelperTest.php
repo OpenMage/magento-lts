@@ -48,15 +48,19 @@ final class HelperTest extends OpenMageTest
         if ($kind === 'null') {
             return null;
         }
+
         if ($kind === 'string') {
             return 'not-an-object';
         }
+
         if ($kind === 'plain') {
             return new Varien_Object();
         }
+
         if ($kind === 'emptyUnits') {
             return OrderBuilder::init()->purchaseUnits([])->build();
         }
+
         if ($kind === 'noPayments') {
             return OrderBuilder::init()->purchaseUnits([PurchaseUnitBuilder::init()->build()])->build();
         }

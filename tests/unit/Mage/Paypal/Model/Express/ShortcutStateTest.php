@@ -50,6 +50,7 @@ final class ShortcutStateTest extends OpenMageTest
         if (Mage::registry('_singleton/checkout/session') !== null) {
             return;
         }
+
         $session = (new ReflectionClass(Mage_Checkout_Model_Session::class))->newInstanceWithoutConstructor();
         Mage::register('_singleton/checkout/session', $session);
     }

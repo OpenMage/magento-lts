@@ -35,7 +35,7 @@ final class ConfigTest extends OpenMageTest
      */
     public function testGetApiTimeout(int $expectedResult, string $value): void
     {
-        self::setPaypalConfig('api_timeout', $value);
+        $this->setPaypalConfig('api_timeout', $value);
 
         self::assertSame($expectedResult, self::$subject->getApiTimeout());
     }
@@ -57,13 +57,13 @@ final class ConfigTest extends OpenMageTest
     public function testGetRetryConfiguration(array $expectedResult, array $configValues): void
     {
         foreach ($configValues as $field => $value) {
-            self::setPaypalConfig($field, $value);
+            $this->setPaypalConfig($field, $value);
         }
 
         self::assertSame($expectedResult, self::$subject->getRetryConfiguration());
     }
 
-    private static function setPaypalConfig(string $field, string $value): void
+    private function setPaypalConfig(string $field, string $value): void
     {
         Mage::app()->getStore()->setConfig('payment/paypal/' . $field, $value);
     }

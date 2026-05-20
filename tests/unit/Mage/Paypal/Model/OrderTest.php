@@ -14,7 +14,6 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 use Mage;
 use Mage_Paypal_Model_Cart;
 use Mage_Paypal_Model_Order as Subject;
-use Mage_Sales_Model_Quote;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\OrderTrait;

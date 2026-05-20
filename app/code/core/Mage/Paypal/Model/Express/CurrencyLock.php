@@ -113,7 +113,7 @@ class Mage_Paypal_Model_Express_CurrencyLock extends Mage_Core_Model_Abstract
 
     private function _pinStoreCurrency(?Mage_Core_Model_Store $store, string $currencyCode): void
     {
-        if ($store === null) {
+        if (!$store instanceof Mage_Core_Model_Store) {
             return;
         }
 
@@ -129,6 +129,7 @@ class Mage_Paypal_Model_Express_CurrencyLock extends Mage_Core_Model_Abstract
         if ($currency === null || $currency === '') {
             $currency = $quote->getQuoteCurrencyCode();
         }
+
         return (string) $currency;
     }
 

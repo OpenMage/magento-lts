@@ -62,6 +62,7 @@ final class CurrencyLockTest extends OpenMageTest
         if (Mage::registry($registryKey) !== null) {
             return;
         }
+
         Mage::register($registryKey, (new ReflectionClass($class))->newInstanceWithoutConstructor());
     }
 

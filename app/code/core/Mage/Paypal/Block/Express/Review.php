@@ -43,6 +43,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         if (!$this->_quote instanceof Mage_Sales_Model_Quote) {
             $this->_quote = Mage::getSingleton('checkout/session')->getQuote();
         }
+
         return $this->_quote;
     }
 

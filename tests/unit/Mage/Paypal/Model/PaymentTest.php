@@ -52,12 +52,12 @@ final class PaymentTest extends OpenMageTest
         if ($captured !== null) {
             $payment->setAdditionalInformation(Subject::PAYPAL_CAPTURED_AMOUNT, $captured);
         }
+
         if ($refunded !== null) {
             $payment->setAdditionalInformation(Subject::PAYPAL_REFUNDED_AMOUNT, $refunded);
         }
 
         $method = new ReflectionMethod(Subject::class, '_assertRefundable');
-        $method->setAccessible(true);
 
         if ($shouldThrow) {
             $this->expectException(Mage_Paypal_Model_Exception::class);

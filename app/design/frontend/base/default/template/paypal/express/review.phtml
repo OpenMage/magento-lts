@@ -80,7 +80,7 @@
                             <?php $_sole = $_sole && count($_rates) === 1; foreach ($_rates as $_rate): ?>
                                 <li>
                                 <?php $_rateErrorMessage = $_rate->getErrorMessage(); ?>
-                                <?php if ($_rateErrorMessage !== null && $_rateErrorMessage !== false && $_rateErrorMessage !== ''): ?>
+                                <?php if (!in_array($_rateErrorMessage, [null, false, ''], true)): ?>
                                     <ul class="messages"><li class="error-msg"><ul><li><?php echo is_string($_rateErrorMessage) ? $this->escapeHtml($_rateErrorMessage) : '' ?></li></ul></li></ul>
                                 <?php else: ?>
                                     <?php $_rateCode = (string) $_rate->getCode(); ?>
@@ -125,7 +125,7 @@
                         <?php $_agreementContent = $_agreement->getContent(); ?>
                         <?php if ($_agreementContent !== null && $_agreementContent !== ''): ?>
                             <?php $_agreementContentHeight = $_agreement->getContentHeight(); ?>
-                            <div class="agreement-content"<?php echo (($_agreementContentHeight !== null && $_agreementContentHeight !== '') ? ' style="height:' . (string) $_agreementContentHeight . '"' : '')?>>
+                            <div class="agreement-content"<?php echo (($_agreementContentHeight !== null && $_agreementContentHeight !== '') ? ' style="height:' . $_agreementContentHeight . '"' : '')?>>
                                 <?php if ((int) $_agreement->getIsHtml() !== 0): ?>
                                     <?php echo $_agreementContent ?>
                                 <?php else: ?>

@@ -114,6 +114,7 @@ class Mage_Paypal_Model_Express_ShortcutState extends Mage_Core_Model_Abstract
         if ($currency === null || $currency === '') {
             $currency = $quote->getQuoteCurrencyCode();
         }
+
         return (string) $currency;
     }
 
@@ -123,6 +124,7 @@ class Mage_Paypal_Model_Express_ShortcutState extends Mage_Core_Model_Abstract
         if ($value === '') {
             $value = (string) $this->_getCheckoutSession()->getData($key);
         }
+
         return $value;
     }
 

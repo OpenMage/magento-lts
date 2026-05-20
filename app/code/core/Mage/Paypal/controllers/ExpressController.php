@@ -609,6 +609,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
 
         // First pass: collect totals so the shipping collector sees real items, weight and subtotal when it computes rates.
         $address->setCollectShippingRates(true);
+
         $quote->collectTotals();
 
         $validRates = $this->_getValidShippingRates($address);

@@ -25,7 +25,7 @@ final class ProcessorTest extends OpenMageTest
      */
     public function testGetActionForEventType(string $eventType, string $expectedResult): void
     {
-        $subject = new Subject($this->createMock(Mage_Paypal_Model_Webhook_Event_Resolver::class));
+        $subject = new Subject($this->createStub(Mage_Paypal_Model_Webhook_Event_Resolver::class));
 
         self::assertSame($expectedResult, $subject->getActionForEventType($eventType));
     }

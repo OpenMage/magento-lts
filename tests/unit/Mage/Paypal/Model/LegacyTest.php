@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 
+use Iterator;
 use Mage;
 use Mage_Paypal_Block_Hosted_Pro_Info;
 use Mage_Paypal_Block_Payflow_Advanced_Info;
@@ -79,41 +80,37 @@ final class LegacyTest extends OpenMageTest
     }
 
     /**
-     * @return array<string, array{string, string}>
+     * @return Iterator<string, array{string, string}>
      */
-    public static function provideLegacyMethodCodes(): array
+    public static function provideLegacyMethodCodes(): Iterator
     {
-        return [
-            'paypal express' => ['paypal_express', 'paypal/payment_info'],
-            'paypal credit' => ['paypal_express_bml', 'paypal/payment_info'],
-            'paypal direct' => ['paypal_direct', 'paypal/payment_info'],
-            'paypal standard' => ['paypal_standard', 'paypal/payment_info'],
-            'paypal uk express' => ['paypaluk_express', 'paypal/payment_info'],
-            'paypal uk credit' => ['paypaluk_express_bml', 'paypal/payment_info'],
-            'paypal uk direct' => ['paypaluk_direct', 'paypal/payment_info'],
-            'verisign payflow pro' => ['verisign', 'payment/info_cc'],
-            'billing agreement' => ['paypal_billing_agreement', 'sales/payment_info_billing_agreement'],
-            'payflow link' => ['payflow_link', 'paypal/payflow_link_info'],
-            'payflow advanced' => ['payflow_advanced', 'paypal/payflow_advanced_info'],
-            'hosted pro' => ['hosted_pro', 'paypal/hosted_pro_info'],
-            'wps express' => ['paypal_wps_express', 'paypal/payment_info'],
-        ];
+        yield 'paypal express' => ['paypal_express', 'paypal/payment_info'];
+        yield 'paypal credit' => ['paypal_express_bml', 'paypal/payment_info'];
+        yield 'paypal direct' => ['paypal_direct', 'paypal/payment_info'];
+        yield 'paypal standard' => ['paypal_standard', 'paypal/payment_info'];
+        yield 'paypal uk express' => ['paypaluk_express', 'paypal/payment_info'];
+        yield 'paypal uk credit' => ['paypaluk_express_bml', 'paypal/payment_info'];
+        yield 'paypal uk direct' => ['paypaluk_direct', 'paypal/payment_info'];
+        yield 'verisign payflow pro' => ['verisign', 'payment/info_cc'];
+        yield 'billing agreement' => ['paypal_billing_agreement', 'sales/payment_info_billing_agreement'];
+        yield 'payflow link' => ['payflow_link', 'paypal/payflow_link_info'];
+        yield 'payflow advanced' => ['payflow_advanced', 'paypal/payflow_advanced_info'];
+        yield 'hosted pro' => ['hosted_pro', 'paypal/hosted_pro_info'];
+        yield 'wps express' => ['paypal_wps_express', 'paypal/payment_info'];
     }
 
     /**
-     * @return array<string, array{string, class-string}>
+     * @return Iterator<string, array{string, class-string}>
      */
-    public static function provideLegacyInfoBlockAliases(): array
+    public static function provideLegacyInfoBlockAliases(): Iterator
     {
-        return [
-            'payment info' => ['paypal/payment_info', Mage_Paypal_Block_Payment_Info::class],
-            'hosted pro info' => ['paypal/hosted_pro_info', Mage_Paypal_Block_Hosted_Pro_Info::class],
-            'payflow link info' => ['paypal/payflow_link_info', Mage_Paypal_Block_Payflow_Link_Info::class],
-            'payflow advanced info' => ['paypal/payflow_advanced_info', Mage_Paypal_Block_Payflow_Advanced_Info::class],
-            'billing agreement info' => [
-                'sales/payment_info_billing_agreement',
-                Mage_Sales_Block_Payment_Info_Billing_Agreement::class,
-            ],
+        yield 'payment info' => ['paypal/payment_info', Mage_Paypal_Block_Payment_Info::class];
+        yield 'hosted pro info' => ['paypal/hosted_pro_info', Mage_Paypal_Block_Hosted_Pro_Info::class];
+        yield 'payflow link info' => ['paypal/payflow_link_info', Mage_Paypal_Block_Payflow_Link_Info::class];
+        yield 'payflow advanced info' => ['paypal/payflow_advanced_info', Mage_Paypal_Block_Payflow_Advanced_Info::class];
+        yield 'billing agreement info' => [
+            'sales/payment_info_billing_agreement',
+            Mage_Sales_Block_Payment_Info_Billing_Agreement::class,
         ];
     }
 }
