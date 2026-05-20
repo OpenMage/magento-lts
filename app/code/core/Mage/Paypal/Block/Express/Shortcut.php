@@ -7,169 +7,34 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 /**
- * Paypal express checkout shortcut link
- *
- * @package    Mage_Paypal
- *
- * @method string getBmlCheckoutUrl()
- * @method string getBmlImageUrl()
- * @method string getBmlShortcutHtmlId()
- * @method string getCheckoutUrl()
- * @method string getConfirmationMessage()
- * @method string getConfirmationUrl()
- * @method string getImageUrl()
- * @method string getIsBmlEnabled()
- * @method string getIsInCatalogProduct()
- * @method string getShortcutHtmlId()
+ * PayPal Express shortcut button block.
  */
 class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
 {
-    /**
-     * Position of "OR" label against shortcut
-     */
-    public const POSITION_BEFORE = 'before';
+    private const CONTEXT_PRODUCT = 'product';
 
-    public const POSITION_AFTER = 'after';
+    private const CONTEXT_CART = 'cart';
 
     /**
-     * Whether the block should be eventually rendered
-     *
-     * @var bool
-     */
-    protected $_shouldRender = true;
-
-    /**
-     * Payment method code
-     *
-     * @var string
-     */
-    protected $_paymentMethodCode = Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS;
-
-    /**
-     * Start express action
-     *
-     * @var string
-     */
-    protected $_startAction = 'paypal/express/start/button/1';
-
-    /**
-     * Express checkout model factory name
-     *
-     * @var string
-     */
-    protected $_checkoutType = 'paypal/express_checkout';
-
-    /**
-     * @return $this
+     * Set the default shortcut template.
      */
     #[Override]
-    protected function _beforeToHtml()
+    protected function _construct(): void
     {
-        $result = parent::_beforeToHtml();
-        $config = Mage::getModel('paypal/config', [$this->_paymentMethodCode]);
-        $isInCatalog = $this->getIsInCatalogProduct();
-        $quote = ($isInCatalog || $this->getIsQuoteAllowed() == '')
-            ? null : Mage::getSingleton('checkout/session')->getQuote();
-
-        // check visibility on cart or product page
-        $context = $isInCatalog ? 'visible_on_product' : 'visible_on_cart';
-        if (!$config->$context) {
-            $this->_shouldRender = false;
-            return $result;
-        }
-
-        if ($isInCatalog) {
-            /** @var Mage_Catalog_Model_Product $currentProduct */
-            $currentProduct = Mage::registry('current_product');
-            if (!is_null($currentProduct)) {
-                $price = (float) $currentProduct->getFinalPrice();
-                $typeInstance = $currentProduct->getTypeInstance();
-                if (empty($price) && !$currentProduct->isSuper() && !$typeInstance->canConfigure($currentProduct)) {
-                    $this->_shouldRender = false;
-                    return $result;
-                }
-            }
-        }
-
-        // validate minimum quote amount and validate quote for zero grandtotal
-        if ($quote !== null && (!$quote->validateMinimumAmount()
-            || (!$quote->getGrandTotal() && !$quote->hasNominalItems()))
-        ) {
-            $this->_shouldRender = false;
-            return $result;
-        }
-
-        // check payment method availability
-        $methodInstance = Mage::helper('payment')->getMethodInstance($this->_paymentMethodCode);
-        if (!$methodInstance || !$methodInstance->isAvailable($quote)) {
-            $this->_shouldRender = false;
-            return $result;
-        }
-
-        // set misc data
-        /** @var Mage_Core_Helper_Data $helper */
-        $helper = $this->helper('core');
-        $this->setShortcutHtmlId($helper->uniqHash('ec_shortcut_'))
-            ->setCheckoutUrl($this->getUrl($this->_startAction));
-
-        $this->_getBmlShortcut($quote);
-
-        // use static image if in catalog
-        if ($isInCatalog || $quote === null) {
-            $this->setImageUrl($config->getExpressCheckoutShortcutImageUrl(Mage::app()->getLocale()->getLocaleCode()));
-        } else {
-            $this->setImageUrl(Mage::getModel($this->_checkoutType, [
-                'quote'  => $quote,
-                'config' => $config,
-            ])->getCheckoutShortcutImageUrl());
-        }
-
-        // ask whether to create a billing agreement
-        $customerId = Mage::getSingleton('customer/session')->getCustomerId(); // potential issue for caching
-        if (Mage::helper('paypal')->shouldAskToCreateBillingAgreement($config, $customerId)) {
-            $this->setConfirmationUrl(
-                $this->getUrl(
-                    $this->_startAction,
-                    [Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT => 1],
-                ),
-            );
-            $this->setConfirmationMessage(Mage::helper('paypal')->__('Would you like to sign a billing agreement to streamline further purchases with PayPal?'));
-        }
-
-        return $result;
+        parent::_construct();
+        $this->setTemplate('paypal/express/shortcut.phtml');
     }
 
     /**
-     * @param Mage_Sales_Model_Quote $quote
-     *
-     * @return $this
-     */
-    protected function _getBmlShortcut($quote)
-    {
-        /** @var Mage_Core_Helper_Data $helper */
-        $helper = $this->helper('core');
-        $bml = Mage::helper('payment')->getMethodInstance(Mage_Paypal_Model_Config::METHOD_BML);
-        $isBmlEnabled = $bml && $bml->isAvailable($quote);
-        $this->setBmlShortcutHtmlId($helper->uniqHash('ec_shortcut_bml_'))
-            ->setBmlCheckoutUrl($this->getUrl('paypal/bml/start/button/1'))
-            ->setBmlImageUrl('https://www.paypalobjects.com/webstatic/en_US/i/buttons/ppcredit-logo-medium.png')
-            ->setMarketMessage('https://www.paypalobjects.com/webstatic/en_US/btn/btn_bml_text.png')
-            ->setMarketMessageUrl('https://www.securecheckout.billmelater.com/paycapture-content/'
-                . 'fetch?hash=AU826TU8&content=/bmlweb/ppwpsiw.html')
-            ->setIsBmlEnabled($isBmlEnabled);
-        return $this;
-    }
-
-    /**
-     * Render the block if needed
-     *
-     * @return string
+     * Render only when the context-specific config and method availability allow it.
      */
     #[Override]
-    protected function _toHtml()
+    protected function _toHtml(): string
     {
-        if (!$this->_shouldRender) {
+        if (!$this->isVisible()) {
             return '';
         }
 
@@ -177,30 +42,122 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     }
 
     /**
-     * Check is "OR" label position before shortcut
-     *
-     * @return bool
+     * Checks whether this shortcut should render.
      */
-    public function isOrPositionBefore()
+    public function isVisible(): bool
     {
-        if ($this->getIsInCatalogProduct() && !$this->getShowOrPosition()) {
-            return true;
+        if ($this->isProductContext()) {
+            $product = Mage::registry('current_product');
+            return $product instanceof Mage_Catalog_Model_Product
+                && $product->isSaleable()
+                && Mage::helper('paypal')->isShortcutVisibleOnProduct();
         }
 
-        return $this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_BEFORE;
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        return $quote->hasItems()
+            && !$quote->getHasError()
+            && Mage::helper('paypal')->isShortcutVisibleOnCart();
     }
 
     /**
-     * Check is "OR" label position after shortcut
-     *
-     * @return bool
+     * Configure product or cart context from layout XML.
      */
-    public function isOrPositionAfter()
+    public function setShortcutContext(string $context): self
     {
-        if (!$this->getIsInCatalogProduct() && !$this->getShowOrPosition()) {
-            return true;
+        $this->setData('shortcut_context', $context);
+        return $this;
+    }
+
+    /**
+     * Return the shortcut context.
+     */
+    public function getShortcutContext(): string
+    {
+        return $this->getData('shortcut_context') === self::CONTEXT_PRODUCT
+            ? self::CONTEXT_PRODUCT
+            : self::CONTEXT_CART;
+    }
+
+    /**
+     * Checks if this block renders on a product page.
+     */
+    public function isProductContext(): bool
+    {
+        return $this->getShortcutContext() === self::CONTEXT_PRODUCT;
+    }
+
+    /**
+     * Return a stable DOM container id.
+     */
+    public function getContainerId(): string
+    {
+        return 'paypal-express-shortcut-' . $this->getShortcutContext();
+    }
+
+    /**
+     * Retrieves the PayPal JavaScript SDK URL.
+     */
+    public function getSdkUrl(): string
+    {
+        $intent = Mage::getSingleton('paypal/config')->getPaymentAction();
+        $params = [
+            'client-id' => Mage::helper('paypal')->getConfig()->getApiCredentials()['client_id'],
+            'components' => 'buttons',
+            'intent' => (string) $intent,
+            'currency' => Mage::app()->getStore()->getCurrentCurrencyCode(),
+        ];
+        if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
+            $params['debug'] = 'true';
         }
 
-        return $this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_AFTER;
+        $baseUrl = Mage::helper('paypal')->getConfig()->getEndpoint();
+        if (!str_ends_with($baseUrl, '/')) {
+            $baseUrl .= '/';
+        }
+
+        return $baseUrl . 'sdk/js?' . http_build_query($params);
+    }
+
+    /**
+     * Retrieves the shortcut button style configuration.
+     *
+     * @return array<string, bool|string>
+     */
+    public function getButtonConfig(): array
+    {
+        $config = Mage::helper('paypal')->getButtonConfig();
+        $config['label'] = $this->isProductContext()
+            ? Mage_Paypal_Model_Config::BUTTON_LABEL_BUYNOW
+            : Mage_Paypal_Model_Config::BUTTON_LABEL_CHECKOUT;
+
+        return $config;
+    }
+
+    /**
+     * JavaScript configuration for PayPalShortcut.
+     *
+     * @return array<string, mixed>
+     */
+    public function getShortcutConfig(): array
+    {
+        $buttonConfig = $this->getButtonConfig();
+
+        return [
+            'context' => $this->getShortcutContext(),
+            'containerId' => $this->getContainerId(),
+            'formId' => $this->isProductContext() ? 'product_addtocart_form' : null,
+            'formKey' => $this->getFormKey(),
+            'sdkUrl' => $this->getSdkUrl(),
+            'startUrl' => $this->getUrl('paypal/express/start'),
+            'reviewUrl' => $this->getUrl('paypal/express/review'),
+            'cancelUrl' => $this->getUrl('paypal/express/cancel'),
+            'buttonLayout' => $buttonConfig['layout'],
+            'buttonColor' => $buttonConfig['color'],
+            'buttonShape' => $buttonConfig['shape'],
+            'buttonLabel' => $buttonConfig['label'],
+            'buttonMessage' => (bool) $buttonConfig['message'],
+            'errorMessage' => $this->__('An error occurred while processing your PayPal checkout. Please try again.'),
+            'validationMessage' => $this->__('Please specify the required product options.'),
+        ];
     }
 }

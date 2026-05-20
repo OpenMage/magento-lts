@@ -334,13 +334,6 @@
         min-height: 40px;
     }
 
-    .product-options-bottom .price-box,
-    .add-to-cart .qty-wrapper,
-    .add-to-cart-buttons .button,
-    .add-to-cart-buttons .paypal-logo {
-        margin-bottom: 10px;
-    }
-
     .add-to-cart .qty-wrapper,
     .add-to-cart .qty-wrapper label {
         margin-right: 7px;
@@ -360,36 +353,6 @@
         float: left;
         margin-right: 10px;
         max-width: 100%; // Constrain width in Firefox
-
-        .paypal-logo {
-            clear: left;
-            text-align: center;
-
-            .paypal-button {
-                margin: 0 auto;
-                display: block;
-                width: 170px;
-            }
-
-            .bml_button {
-                display: block;
-                width: 174px;
-                margin: 0 auto;
-
-                a {
-                    text-align: center;
-                }
-            }
-
-            .paypal-or {
-                display: block;
-                margin-bottom: 10px;
-                margin-left: 0;
-                margin-right: 0;
-                line-height: 1;
-                text-align: center;
-            }
-        }
     }
 
     .add-to-cart-buttons .button {
@@ -409,25 +372,6 @@
     }
 }
 
-@include bp(max-width, $bp-xsmall) {
-    .product-view .add-to-cart-buttons {
-        .paypal-or {
-            line-height: 20px;
-        }
-
-        .paypal-logo,
-        .paypal-or,
-        .paypal-button,
-        .button {
-            text-align: center;
-            width: 100%;
-            display: block;
-            margin-right: 0;
-            margin-left: 0;
-            float: none;
-        }
-    }
-}
 
 /* This is the "or" that separates the "Add to Cart" and "Add to X" links */
 .add-to-box .or {

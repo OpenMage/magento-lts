@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -9,9 +7,9 @@ declare(strict_types=1);
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 /**
- * Payflow Advanced infoblock
- *
- * @package    Mage_Paypal
+ * Display-only legacy Payflow Advanced payment information block.
  */
 class Mage_Paypal_Block_Payflow_Advanced_Info extends Mage_Paypal_Block_Payflow_Link_Info {}

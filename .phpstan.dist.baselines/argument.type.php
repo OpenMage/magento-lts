@@ -4927,339 +4927,159 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $groupConfig of method Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_PathDependent::hasActivePathDependencies() expects array, array|string given.',
+    'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection, Mage_Core_Model_Resource_Db_Collection_Abstract|false given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/PathDependent.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Debug/Grid.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $customerId of method Mage_Paypal_Helper_Data::shouldAskToCreateBillingAgreement() expects int, int|null given.',
+    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Form.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Grid/Renderer/Json.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
+    'rawMessage' => 'Parameter #3 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Review.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Grid/Renderer/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $quote of method Mage_Paypal_Block_Express_Shortcut::_getBmlShortcut() expects Mage_Sales_Model_Quote, Mage_Sales_Model_Quote|null given.',
+    'rawMessage' => 'Parameter #1 $timezone of class DateTimeZone constructor expects string, string|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Shortcut.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Info.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $customerId of method Mage_Paypal_Helper_Data::shouldAskToCreateBillingAgreement() expects int, int|null given.',
+    'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection, Mage_Core_Model_Resource_Db_Collection_Abstract|false given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Shortcut.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Webhook/Grid.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $setToken of method Mage_Paypal_Controller_Express_Abstract::_initToken() expects string|null, false given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
+    'rawMessage' => 'Parameter #1 $currencyCode of static method PaypalServerSdkLib\\Models\\Builders\\MoneyBuilder::init() expects string, string|null given.',
+    'count' => 6,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $token of method Mage_Paypal_Model_Config::getExpressCheckoutEditUrl() expects string, $this(Mage_Paypal_Controller_Express_Abstract)|string given.',
+    'rawMessage' => 'Parameter #2 $currency of method Mage_Paypal_Helper_Data::formatPrice() expects string, string|null given.',
+    'count' => 6,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $payment of method Mage_Paypal_Model_Cron::_handleExpiredAuthorization() expects Mage_Sales_Model_Order_Payment, Mage_Sales_Model_Order_Payment|false given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cron.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $token of method Mage_Paypal_Model_Config::getExpressCheckoutStartUrl() expects string, $this(Mage_Paypal_Controller_Express_Abstract)|string given.',
+    'rawMessage' => 'Parameter #1 $payment of method Mage_Paypal_Model_Cron::_hasBeenReauthorized() expects Mage_Sales_Model_Order_Payment, Mage_Sales_Model_Order_Payment|false given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cron.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $token of method Mage_Paypal_Model_Express_Checkout::place() expects string, $this(Mage_Paypal_Controller_Express_Abstract)|string given.',
+    'rawMessage' => 'Parameter #1 $transaction of method Mage_Paypal_Model_Cron::_processTransaction() expects Mage_Sales_Model_Order_Payment_Transaction, Mage_Core_Model_Abstract given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cron.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $token of method Mage_Paypal_Model_Express_Checkout::prepareOrderReview() expects string|null, $this(Mage_Paypal_Controller_Express_Abstract)|string given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $token of method Mage_Paypal_Model_Express_Checkout::returnFromPaypal() expects string, $this(Mage_Paypal_Controller_Express_Abstract)|string given.',
+    'rawMessage' => 'Parameter #1 $amount of static method PaypalServerSdkLib\\Models\\Builders\\PurchaseUnitRequestBuilder::init() expects PaypalServerSdkLib\\Models\\AmountWithBreakdown, object given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $callback of function call_user_func expects callable(): mixed, array{$this(Mage_Paypal_Model_Api_Abstract), mixed} given.',
+    'rawMessage' => 'Parameter #1 $response of method Mage_Paypal_Model_Helper::handleApiError() expects PaypalServerSdkLib\\Http\\ApiResponse, PaypalServerSdkLib\\Http\\ApiResponse|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $value of method PaypalServerSdkLib\\Models\\Builders\\AmountWithBreakdownBuilder::breakdown() expects PaypalServerSdkLib\\Models\\AmountBreakdown|null, object given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $value of method PaypalServerSdkLib\\Models\\Builders\\OrderRequestBuilder::paymentSource() expects PaypalServerSdkLib\\Models\\PaymentSource|null, object given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #2 $purchaseUnits of static method PaypalServerSdkLib\\Models\\Builders\\OrderRequestBuilder::init() expects array<PaypalServerSdkLib\\Models\\PurchaseUnitRequest>, array<int, object> given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #2 $response of method Mage_Paypal_Model_Order::updatePaymentWithOrderInfo() expects PaypalServerSdkLib\\Http\\ApiResponse, PaypalServerSdkLib\\Http\\ApiResponse|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $payment of method Mage_Paypal_Model_Transaction::updatePaymentAfterCapture() expects Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment, Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $quote of method Mage_Paypal_Model_Helper::getPaypalRequestId() expects Mage_Sales_Model_Quote, Mage_Sales_Model_Order|Mage_Sales_Model_Quote given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $response of method Mage_Paypal_Model_Helper::handleApiError() expects PaypalServerSdkLib\\Http\\ApiResponse, PaypalServerSdkLib\\Http\\ApiResponse|null given.',
     'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 of function sprintf is expected to be float by placeholder #1 ("%%.2F"), float|string given.',
+    'rawMessage' => 'Parameter #2 $response of method Mage_Paypal_Model_Transaction::createCaptureTransaction() expects PaypalServerSdkLib\\Http\\ApiResponse, PaypalServerSdkLib\\Http\\ApiResponse|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $request of method Mage_Paypal_Model_Api_Nvp::_applyCountryWorkarounds() expects array, array|Varien_Object given.',
+    'rawMessage' => 'Parameter #2 $response of method Mage_Paypal_Model_Transaction::createRefundTransaction() expects PaypalServerSdkLib\\Http\\ApiResponse, PaypalServerSdkLib\\Http\\ApiResponse|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $subject of function preg_split expects string, bool|string given.',
+    'rawMessage' => 'Parameter #2 $response of method Mage_Paypal_Model_Transaction::createVoidTransaction() expects PaypalServerSdkLib\\Http\\ApiResponse, PaypalServerSdkLib\\Http\\ApiResponse|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $target of method Mage_Paypal_Model_Api_Abstract::_importStreetFromAddress() expects array<mixed>, array|Varien_Object given.',
+    'rawMessage' => 'Parameter #2 $response of method Mage_Paypal_Model_Transaction::updatePaymentAfterAuthorization() expects PaypalServerSdkLib\\Http\\ApiResponse, PaypalServerSdkLib\\Http\\ApiResponse|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $length of function substr expects int|null, int<0, max>|false given.',
+    'rawMessage' => 'Parameter #2 $response of method Mage_Paypal_Model_Transaction::updatePaymentAfterAuthorizedCapture() expects PaypalServerSdkLib\\Http\\ApiResponse, PaypalServerSdkLib\\Http\\ApiResponse|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $target of method Mage_Paypal_Model_Api_Abstract::_importStreetFromAddress() expects array<mixed>, array|Varien_Object given.',
+    'rawMessage' => 'Parameter #2 $response of method Mage_Paypal_Model_Transaction::updatePaymentAfterCapture() expects PaypalServerSdkLib\\Http\\ApiResponse, PaypalServerSdkLib\\Http\\ApiResponse|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Standard.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $path of static method Mage::getStoreConfig() expects string, string|null given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function strtolower expects string, string|false given.',
+    'rawMessage' => 'Parameter #3 $captureId of method Mage_Paypal_Model_Transaction::updatePaymentAfterCapture() expects string, string|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function strtolower expects string, string|null given.',
+    'rawMessage' => 'Parameter #3 $paypalRequestId of method Mage_Paypal_Model_Api::captureOrder() expects string, string|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $orderTotal of method Mage_Paypal_Model_Config::_getDynamicImageUrl() expects float, float|null given.',
+    'rawMessage' => 'Parameter #2 $payment of method Mage_Paypal_Model_Webhook_Event_Resolver::buildResult() expects Mage_Sales_Model_Order_Payment|null, Mage_Sales_Model_Order_Payment|false given.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Event/Resolver.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #4 $pal of method Mage_Paypal_Model_Config::_getDynamicImageUrl() expects string, string|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Paypal_Model_Config::setStoreId() expects int, int|null given.',
+    'rawMessage' => 'Parameter #1 $store of method Mage_Sales_Model_Quote::setStore() expects Mage_Core_Model_Store, Mage_Core_Model_Store|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Direct.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 of function sprintf is expected to be int by placeholder #1 ("%%02d"), int|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Direct.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 of function sprintf is expected to be int by placeholder #1 ("%%02d"), string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Direct.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 of function sprintf is expected to be int by placeholder #2 ("%%02d"), int|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Direct.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $amount of method Mage_Paypal_Model_Express::_callDoAuthorize() expects int, float given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $datetime of class DateTime constructor expects string, null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Paypal_Model_Config::setStoreId() expects int, int|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $transaction of method Mage_Paypal_Model_Express::_isTransactionExpired() expects Mage_Sales_Model_Order_Payment_Transaction, Mage_Sales_Model_Order_Payment_Transaction|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/ExpressController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $customerId of method Mage_Customer_Model_Session::loginById() expects int, int|string|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $message of static method Mage::throwException() expects string, array given.',
+    'rawMessage' => 'Parameter #2 $headers of method Mage_Paypal_Model_Webhook_Event::populateFromPayload() expects array<string, string>, array<string, string|null> given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $storeId of method Mage_Paypal_Model_Hostedpro::_getUrl() expects int, int|null given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Hostedpro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 of function sprintf is expected to be float by placeholder #1 ("%%.2F"), float|int|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Hostedpro/Request.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $source of static method Varien_Object_Mapper::accumulateByMap() expects array|Varien_Object, array|(callable) given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Info.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $target of static method Varien_Object_Mapper::accumulateByMap() expects array|Varien_Object, array|(callable)|Varien_Object given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Info.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $array of function end expects array|object, list<string>|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $code of static method Mage_Paypal_Model_Info::explainPendingReason() expects string, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $code of static method Mage_Paypal_Model_Info::explainReasonCode() expects string, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $code of static method Mage_Paypal_Model_Info::isReversalDisputable() expects string, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $ipnPaymentStatus of method Mage_Paypal_Model_Ipn::_filterPaymentStatus() expects string, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $payment of static method Mage_Paypal_Model_Info::isPaymentFailed() expects Mage_Payment_Model_Info, Mage_Sales_Model_Order_Payment|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $payment of static method Mage_Paypal_Model_Info::isPaymentReviewRequired() expects Mage_Payment_Model_Info, Mage_Sales_Model_Order_Payment|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $payment of static method Mage_Paypal_Model_Info::isPaymentSuccessful() expects Mage_Payment_Model_Info, Mage_Sales_Model_Order_Payment|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function strtolower expects string, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function trim expects string, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $payment of method Mage_Paypal_Model_Info::importToPayment() expects Mage_Payment_Model_Info, Mage_Sales_Model_Order_Payment|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $txnId of method Mage_Paypal_Helper_Data::getHtmlTransactionId() expects string, array|string given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $url of method Zend_Http_Client_Adapter_Interface::write() expects Zend_Uri_Http, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Paypal_Model_Config::setStoreId() expects int, int|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Method/Agreement.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $encodedValue of method Mage_Core_Helper_Data::jsonDecode() expects string, array|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $payment of method Mage_Paypal_Model_Payflowlink::_buildTokenRequest() expects Mage_Sales_Model_Order_Payment, Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $payment of method Mage_Paypal_Model_Payflowlink::_getSecureSilentPostHash() expects Mage_Sales_Model_Order_Payment, Mage_Sales_Model_Order_Payment|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $payment of method Mage_Paypal_Model_Payflowpro::fetchTransactionInfo() expects Mage_Payment_Model_Info, Mage_Sales_Model_Order_Payment|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Paypal_Model_Config::setStoreId() expects int, int|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function implode expects array, array|string given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $payment of method Mage_Paypal_Model_Payflowpro::_buildBasicRequest() expects Mage_Sales_Model_Order_Payment, Mage_Payment_Model_Info given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowpro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Paypal_Model_Config::setStoreId() expects int, int|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowpro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function implode expects array, array|string given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowpro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $string of function explode expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowpro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $columns of method Mage_Paypal_Model_Resource_Payment_Transaction::_getLoadByUniqueKeySelect() expects array|string|Zend_Db_Expr, array|object|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Resource/Payment/Transaction.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Helper_Data::encrypt() expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/System/Config/Backend/Cert.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function substr expects string, int|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Direct.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 of function sprintf is expected to be int by placeholder #1 ("%%02d"), int|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Direct.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 of function sprintf is expected to be int by placeholder #1 ("%%02d"), string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Direct.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/WebhookController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $id of method Mage_Customer_Model_Session::setCustomerId() expects int|null, int|string|null given.',
@@ -7240,11 +7060,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $string of function nl2br expects string, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/info/pdf/checkmo.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $element of method Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global::getElementBackendConfig() expects Varien_Data_Form_Element_Abstract, Varien_Data_Form_Element_Abstract|false given.',
-    'count' => 9,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',

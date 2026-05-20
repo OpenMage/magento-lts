@@ -7,226 +7,220 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 /**
- * Paypal Express Onepage checkout block
- *
- * @package    Mage_Paypal
+ * PayPal Express review page block.
  */
 class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
 {
     /**
-     * @var Mage_Sales_Model_Quote
+     * @var null|Mage_Sales_Model_Quote
      */
-    protected $_quote;
+    private $_quote = null;
 
     /**
-     * Currently selected shipping rate
-     *
-     * @var Mage_Sales_Model_Quote_Address_Rate
+     * Set the default review template.
      */
-    protected $_currentShippingRate;
+    #[Override]
+    protected function _construct(): void
+    {
+        parent::_construct();
+        $this->setTemplate('paypal/express/review.phtml');
+    }
 
     /**
-     * Paypal action prefix
-     *
-     * @var string
+     * The controller pushes the active express quote in via setQuote() so the block doesn't re-load it from the DB.
      */
-    protected $_paypalActionPrefix = 'paypal';
-
-    /**
-     * @var Mage_Sales_Model_Quote_Address
-     */
-    protected $_address;
-
-    /**
-     * Quote object setter
-     *
-     * @return $this
-     */
-    public function setQuote(Mage_Sales_Model_Quote $quote)
+    public function setQuote(Mage_Sales_Model_Quote $quote): self
     {
         $this->_quote = $quote;
         return $this;
     }
 
-    /**
-     * Return quote billing address
-     *
-     * @return Mage_Sales_Model_Quote_Address
-     */
-    public function getBillingAddress()
+    public function getQuote(): Mage_Sales_Model_Quote
     {
-        return $this->_quote->getBillingAddress();
-    }
-
-    /**
-     * Return quote shipping address
-     *
-     * @return false|Mage_Sales_Model_Quote_Address
-     */
-    public function getShippingAddress()
-    {
-        if ($this->_quote->getIsVirtual()) {
-            return false;
+        if (!$this->_quote instanceof Mage_Sales_Model_Quote) {
+            $this->_quote = Mage::getSingleton('checkout/session')->getQuote();
         }
 
-        return $this->_quote->getShippingAddress();
+        return $this->_quote;
     }
 
     /**
-     * Get HTML output for specified address
+     * Retrieve visible quote items.
      *
-     * @param  Mage_Sales_Model_Quote_Address $address
-     * @return string
+     * @return Mage_Sales_Model_Quote_Item[]
      */
-    public function renderAddress($address)
+    public function getItems(): array
     {
-        return $address->getFormated(true);
+        return $this->getQuote()->getAllVisibleItems();
     }
 
     /**
-     * Return carrier name from config, base on carrier code
-     *
-     * @param  string $carrierCode
-     * @return string
+     * Checks whether the quote is virtual.
      */
-    public function getCarrierName($carrierCode)
+    public function isVirtual(): bool
     {
-        if ($name = Mage::getStoreConfig("carriers/{$carrierCode}/title")) {
-            return $name;
+        return $this->getQuote()->isVirtual();
+    }
+
+    /**
+     * Retrieve the quote billing address.
+     */
+    public function getBillingAddress(): Mage_Sales_Model_Quote_Address
+    {
+        return $this->getQuote()->getBillingAddress();
+    }
+
+    /**
+     * Retrieve the quote shipping address.
+     */
+    public function getShippingAddress(): Mage_Sales_Model_Quote_Address
+    {
+        return $this->getQuote()->getShippingAddress();
+    }
+
+    /**
+     * Format a quote address as HTML.
+     */
+    public function getAddressHtml(Mage_Sales_Model_Quote_Address $address): string
+    {
+        return (string) $address->format('html');
+    }
+
+    /**
+     * Retrieve grouped shipping rates.
+     *
+     * @return array<string, Mage_Sales_Model_Quote_Address_Rate[]>
+     */
+    public function getShippingRates(): array
+    {
+        if ($this->isVirtual()) {
+            return [];
+        }
+
+        $address = $this->getShippingAddress();
+        $address->setCollectShippingRates(true)->collectShippingRates();
+
+        return $address->getGroupedAllShippingRates();
+    }
+
+    /**
+     * Checks whether at least one non-error shipping rate is available.
+     */
+    public function hasShippingRates(): bool
+    {
+        foreach ($this->getShippingRates() as $rates) {
+            foreach ($rates as $rate) {
+                if (!$rate->getErrorMessage()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Resolve carrier display name.
+     */
+    public function getCarrierName(string $carrierCode): string
+    {
+        $name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title');
+        if ($name !== null) {
+            return (string) $name;
         }
 
         return $carrierCode;
     }
 
     /**
-     * Get either shipping rate code or empty value on error
-     *
-     * @return string
+     * Retrieve the selected shipping method.
      */
-    public function renderShippingRateValue(Varien_Object $rate)
+    public function getAddressShippingMethod(): string
     {
-        if ($rate->getErrorMessage()) {
-            return '';
+        return (string) $this->getShippingAddress()->getShippingMethod();
+    }
+
+    public function getShippingPrice(float $price, bool $includingTax): string
+    {
+        return (string) $this->getQuote()->getStore()->convertPrice(
+            Mage::helper('tax')->getShippingPrice($price, $includingTax, $this->getShippingAddress()),
+            true,
+        );
+    }
+
+    public function formatPrice(float $price): string
+    {
+        return (string) $this->getQuote()->getStore()->formatPrice($price);
+    }
+
+    public function getTotalsHtml(): string
+    {
+        $totals = $this->getChild('totals');
+        if ($totals instanceof Mage_Core_Block_Abstract) {
+            $totals->setCustomQuote($this->getQuote());
+            return $totals->toHtml();
         }
 
-        return $rate->getCode();
+        return '';
     }
 
     /**
-     * Get shipping rate code title and its price or error message
-     *
-     * @param  Varien_Object $rate
-     * @param  string        $format
-     * @param  string        $inclTaxFormat
-     * @return string
+     * Retrieve the PayPal order id for the active attempt.
      */
-    public function renderShippingRateOption($rate, $format = '%s - %s%s', $inclTaxFormat = ' (%s %s)')
+    public function getPaypalOrderId(): string
     {
-        $renderedInclTax = '';
-        if ($rate->getErrorMessage()) {
-            $price = $rate->getErrorMessage();
-        } else {
-            /** @var Mage_Tax_Helper_Data $helper */
-            $helper = $this->helper('tax');
+        /** @var Mage_Paypal_Model_Express_ShortcutState $state */
+        $state = Mage::getSingleton('paypal/express_shortcutState');
+        return $state->getOrderId($this->getQuote());
+    }
 
-            $price = $this->_getShippingPrice($rate->getPrice(), $helper->displayShippingPriceIncludingTax());
-            $incl = $this->_getShippingPrice($rate->getPrice(), true);
-            if (($incl != $price) && $helper->displayShippingBothPrices()) {
-                $renderedInclTax = sprintf($inclTaxFormat, Mage::helper('tax')->__('Incl. Tax'), $incl);
-            }
+    /**
+     * Format the current grand total for server-side drift checking.
+     */
+    public function getGrandTotalForPost(): string
+    {
+        $currency = $this->getQuote()->getOrderCurrencyCode();
+        if ($currency === null || $currency === '') {
+            $currency = $this->getQuote()->getQuoteCurrencyCode();
         }
 
-        return sprintf($format, $this->escapeHtml($rate->getMethodTitle()), $price, $renderedInclTax);
+        return Mage::helper('paypal')->formatPrice((float) $this->getQuote()->getGrandTotal(), (string) $currency);
     }
 
     /**
-     * Getter for current shipping rate
+     * Place order URL.
+     */
+    public function getPlaceOrderUrl(): string
+    {
+        return $this->getUrl('paypal/express/placeOrder');
+    }
+
+    /**
+     * Save shipping method URL.
+     */
+    public function getSaveShippingMethodUrl(): string
+    {
+        return $this->getUrl('paypal/express/saveShippingMethod');
+    }
+
+    /**
+     * JavaScript configuration for the review page.
      *
-     * @return Mage_Sales_Model_Quote_Address_Rate
+     * @return array<string, string>
      */
-    public function getCurrentShippingRate()
+    public function getReviewConfig(): array
     {
-        return $this->_currentShippingRate;
-    }
-
-    /**
-     * Set paypal actions prefix
-     * @param string $prefix
-     */
-    public function setPaypalActionPrefix($prefix)
-    {
-        $this->_paypalActionPrefix = $prefix;
-    }
-
-    /**
-     * Return formatted shipping price
-     *
-     * @param  float $price
-     * @param  bool  $isInclTax
-     * @return float
-     */
-    protected function _getShippingPrice($price, $isInclTax)
-    {
-        /** @var Mage_Tax_Helper_Data $helper */
-        $helper = $this->helper('tax');
-        return $helper->getShippingPrice($price, $isInclTax, $this->_address);
-    }
-
-    /**
-     * Format price base on store convert price method
-     *
-     * @param  float $price
-     * @return float
-     */
-    protected function _formatPrice($price)
-    {
-        return $this->_quote->getStore()->convertPrice($price, true);
-    }
-
-    /**
-     * Retrieve payment method and assign additional template values
-     *
-     * @return $this
-     */
-    #[Override]
-    protected function _beforeToHtml()
-    {
-        $methodInstance = $this->_quote->getPayment()->getMethodInstance();
-        $this->setPaymentMethodTitle($methodInstance->getTitle());
-
-        $this->setShippingRateRequired(true);
-        if ($this->_quote->getIsVirtual()) {
-            $this->setShippingRateRequired(false);
-        } else {
-            // prepare shipping rates
-            $this->_address = $this->_quote->getShippingAddress();
-            $groups = $this->_address->getGroupedAllShippingRates();
-            if ($groups && $this->_address) {
-                $this->setShippingRateGroups($groups);
-                // determine current selected code & name
-                foreach ($groups as $rates) {
-                    foreach ($rates as $rate) {
-                        if ($this->_address->getShippingMethod() == $rate->getCode()) {
-                            $this->_currentShippingRate = $rate;
-                            break(2);
-                        }
-                    }
-                }
-            }
-
-            $canEditShippingAddress = $this->_quote->getMayEditShippingAddress() && $this->_quote->getPayment()
-                    ->getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_BUTTON) == 1;
-            // misc shipping parameters
-            $this->setShippingMethodSubmitUrl($this->getUrl("{$this->_paypalActionPrefix}/express/saveShippingMethod"))
-                ->setCanEditShippingAddress($canEditShippingAddress)
-                ->setCanEditShippingMethod($this->_quote->getMayEditShippingMethod())
-            ;
-        }
-
-        $this->setEditUrl($this->getUrl("{$this->_paypalActionPrefix}/express/edit"))
-            ->setPlaceOrderUrl($this->getUrl("{$this->_paypalActionPrefix}/express/placeOrder"));
-
-        return parent::_beforeToHtml();
+        return [
+            'formId' => 'paypal-express-review-form',
+            'token' => $this->getPaypalOrderId(),
+            'formKey' => $this->getFormKey(),
+            'saveShippingMethodUrl' => $this->getSaveShippingMethodUrl(),
+            'totalsContainerId' => 'paypal-express-review-totals',
+            'grandTotalInputId' => 'paypal-express-grand-total',
+            'errorContainerId' => 'paypal-express-review-error',
+        ];
     }
 }

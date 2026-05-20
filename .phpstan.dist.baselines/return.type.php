@@ -2377,64 +2377,24 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Cc.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global::getElementBackendConfig() should return string but returns string|false.',
+    'rawMessage' => 'Method Mage_Paypal_Block_Adminhtml_Grid_Renderer_Json::_formatJson() should return string but returns string|null.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Global.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Grid/Renderer/Json.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Api_Abstract::_exportToRequest() should return array but returns array|Varien_Object.',
+    'rawMessage' => 'Method Mage_Paypal_Block_Adminhtml_Grid_Renderer_Order::render() should return string but returns array<string|null>|string|null.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Grid/Renderer/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Cart::getSalesEntity() should return Mage_Sales_Model_Quote but returns Mage_Sales_Model_Order|Mage_Sales_Model_Quote.',
+    'rawMessage' => 'Method Mage_Paypal_Model_Cart::getQuote() should return Mage_Sales_Model_Order|Mage_Sales_Model_Quote but returns Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Config::getMethodCode() should return string but returns string|null.',
+    'rawMessage' => 'Method Mage_Paypal_WebhookController::getPaypalHeaders() should return array<string, string|null> but returns array<string, string|false>.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Direct::getConfigPaymentAction() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Direct.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Express::getConfigPaymentAction() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Info::exportFromPayment() should return array|Varien_Object but returns array|(callable)|Varien_Object.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Info.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Method_Agreement::getConfigPaymentAction() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Method/Agreement.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Payflowlink::_getStoreId() should return int but returns int|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Pro::getApi() should return Mage_Paypal_Model_Api_Nvp but returns object|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Pro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Model_Resource_Payment_Transaction::_lookupByTxnId() should return array|string but returns string|false|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Resource/Payment/Transaction.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_PaypalUk_Model_Pro::_getParentTransactionId() should return string but returns array|float|int|string|false|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Pro.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/WebhookController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_ProductAlert_Block_Email_Abstract::_getFilteredProductShortDescription() should return string|null but returns array|float|int|string|false|null.',

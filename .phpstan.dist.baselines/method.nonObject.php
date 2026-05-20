@@ -4947,329 +4947,109 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Field/Country.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method saveConfig() on Mage_Core_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Deprecated.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method descend() on Mage_Core_Model_Config_Element|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Store.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Store.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBlockClassName() on Mage_Core_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Bml/Form.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getCheckoutShortcutImageUrl() on object|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Shortcut.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Hosted/Pro/Iframe.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getConfigData() on Mage_Payment_Model_Method_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Payflow/Advanced/Iframe.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Payflow/Link/Iframe.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getConfigData() on Mage_Payment_Model_Method_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Payflow/Link/Iframe.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBlockClassName() on Mage_Core_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Standard/Form.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getChild() on Mage_Core_Block_Abstract|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setQuote() on Mage_Core_Block_Abstract|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setQuote() on array<Mage_Core_Block_Abstract>|Mage_Core_Block_Abstract.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setQuote() on array<Mage_Core_Block_Abstract>|Mage_Core_Block_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getApiCertificate() on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBuildNotationCode() on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getMethodCode() on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method shouldUseUnilateralPayments() on Mage_Paypal_Model_Config|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getAmount() on Varien_Object|void.',
+    'rawMessage' => 'Cannot call method collectTotals() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getId() on Varien_Object|void.',
+    'rawMessage' => 'Cannot call method getAllVisibleItems() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getCreatedAt() on Mage_Sales_Model_Order_Payment_Transaction|false.',
+    'rawMessage' => 'Cannot call method getDiscountAmount() on Mage_Sales_Model_Order_Address|Mage_Sales_Model_Quote_Address|false.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getIsClosed() on Mage_Sales_Model_Order_Payment_Transaction|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getParentTxnId() on Mage_Sales_Model_Order_Payment_Transaction|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getTxnId() on Mage_Sales_Model_Order_Payment_Transaction|false.',
+    'rawMessage' => 'Cannot call method getOrderCurrencyCode() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getQuoteCurrencyCode() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getShippingAddress() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getShippingAmount() on Mage_Sales_Model_Order_Address|Mage_Sales_Model_Quote_Address|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getSubtotal() on Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getTaxAmount() on Mage_Sales_Model_Order_Address|Mage_Sales_Model_Quote_Address|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method addProcessableFilter() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cron.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method addRetentionFilter() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cron.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBillingAgreement() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setConfigObject() on object|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method addOrderRelation() on Mage_Sales_Model_Recurring_Profile|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method addStatusHistoryComment() on Mage_Sales_Model_Order|null.',
-    'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method createOrder() on Mage_Sales_Model_Recurring_Profile|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBaseCurrency() on Mage_Sales_Model_Order|null.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getCreatedInvoice() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getEmailSent() on Mage_Sales_Model_Order|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getInvoiceCollection() on Mage_Sales_Model_Order|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getMethod() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getPayment() on Mage_Sales_Model_Order|null.',
-    'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getState() on Mage_Sales_Model_Order|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method isCanceled() on Mage_Sales_Model_Order|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method queueNewOrderEmail() on Mage_Sales_Model_Order|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method registerCancellation() on Mage_Sales_Model_Order|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method registerCaptureNotification() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method save() on Mage_Sales_Model_Order_Status_History|string.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method save() on Mage_Sales_Model_Order|null.',
-    'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setIsFraudDetected() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setIsTransactionApproved() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setIsTransactionDenied() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setIsTransactionPending() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setPreparedMessage() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setStatus() on Mage_Sales_Model_Order|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setTransactionId() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method toHtml() on Mage_Core_Block_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBaseAmountAuthorized() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getMethodInstance() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method registerAuthorizationNotification() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method registerCaptureNotification() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cron.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method setAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cron.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setIsTransactionPending() on Mage_Sales_Model_Order_Payment|false.',
+    'rawMessage' => 'Cannot call method getResult() on PaypalServerSdkLib\\Http\\ApiResponse|null.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setTransactionId() on Mage_Sales_Model_Order_Payment|false.',
+    'rawMessage' => 'Cannot call method isError() on PaypalServerSdkLib\\Http\\ApiResponse|null.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setConfigObject() on object|false.',
+    'rawMessage' => 'Cannot call method getResult() on PaypalServerSdkLib\\Http\\ApiResponse|null.',
+    'count' => 5,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method isError() on PaypalServerSdkLib\\Http\\ApiResponse|null.',
+    'count' => 5,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method save() on Mage_Sales_Model_Order_Payment|false.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Pro.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method validate() on Mage_Sales_Model_Order_Address|false.',
+    'rawMessage' => 'Cannot call method setAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Standard.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method saveConfig() on Mage_Core_Model_Config|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/data/paypal_setup/data-install-1.6.0.5.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getMethodCode() on Mage_Paypal_Model_Config|null.',
+    'rawMessage' => 'Cannot call method addFieldToFilter() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Event/Resolver.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method hasNegativeItemAmount() on Mage_Paypal_Model_Cart|null.',
+    'rawMessage' => 'Cannot call method addWebhookEventIdFilter() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/WebhookController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getModuleDir() on Mage_Core_Model_Config|null.',

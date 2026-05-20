@@ -117,6 +117,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$issue.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Helper.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Access to an undefined property object::$complex_filter.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo/Api/V2.php',

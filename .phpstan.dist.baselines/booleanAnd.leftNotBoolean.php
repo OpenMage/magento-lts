@@ -1647,134 +1647,29 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, (callable)|null given on the left side.',
+    'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Quote_Payment given on the left side.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Payment.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, array given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Review.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Payment_Model_Method_Abstract|false given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Shortcut.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, int|string|null given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Iframe.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Helper.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, Mage_Customer_Model_Customer given on the left side.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Order|false given on the left side.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, int|string|null given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Helper/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, int given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Quote_Payment given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Helper/Hss.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Quote_Address|null given on the left side.',
     'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Varien_Object given on the left side.',
+    'rawMessage' => 'Only booleans are allowed in &&, int|null given on the left side.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, int given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Paypal_Model_Config given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Order given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Order_Payment|false given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/System/Config/Backend/Cert.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Order given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PayflowController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Order given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PayflowadvancedController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Payment_Model_Method_Abstract|false given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Block/Express/Shortcut.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Payment_Model_Method_Abstract|false given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Quote|null given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Express.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, int|string|null given on the left side.',

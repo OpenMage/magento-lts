@@ -942,66 +942,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Free.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Return type (bool) of method Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Expanded::_getCollapseState() should be covariant with return type (int|false) of method Mage_Adminhtml_Block_System_Config_Form_Fieldset::_getCollapseState()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Expanded.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (bool) of method Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment::_getCollapseState() should be covariant with return type (int|false) of method Mage_Adminhtml_Block_System_Config_Form_Fieldset::_getCollapseState()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Payment.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (false) of method Mage_Paypal_Block_Hosted_Pro_Info::getCcTypeName() should be compatible with return type (string|null) of method Mage_Paypal_Block_Payment_Info::getCcTypeName()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Hosted/Pro/Info.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (false) of method Mage_Paypal_Block_Payflow_Link_Info::getCcTypeName() should be compatible with return type (string|null) of method Mage_Paypal_Block_Payment_Info::getCcTypeName()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Payflow/Link/Info.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (string|null) of method Mage_Paypal_Block_Payment_Info::getCcTypeName() should be covariant with return type (string) of method Mage_Payment_Block_Info_Cc::getCcTypeName()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Payment/Info.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (bool|void) of method Mage_Paypal_Model_Api_Nvp::_exportLineItems() should be covariant with return type (bool) of method Mage_Paypal_Model_Api_Abstract::_exportLineItems()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (bool) of method Mage_Paypal_Model_Hostedpro::getAllowedCcTypes() should be compatible with return type (string) of method Mage_Paypal_Model_Direct::getAllowedCcTypes()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Hostedpro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (bool) of method Mage_Paypal_Model_Hostedpro::validate() should be compatible with return type ($this(Mage_Payment_Model_Method_Cc)) of method Mage_Payment_Model_Method_Cc::validate()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Hostedpro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (bool) of method Mage_Paypal_Model_Payflowlink::validate() should be compatible with return type ($this(Mage_Payment_Model_Method_Cc)) of method Mage_Payment_Model_Method_Cc::validate()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type ($this(Mage_Paypal_Model_Payflowpro)|false) of method Mage_Paypal_Model_Payflowpro::cancel() should be covariant with return type ($this(Mage_Payment_Model_Method_Abstract)) of method Mage_Payment_Model_Method_Abstract::cancel()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowpro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (Mage_Core_Model_Resource_Db_Abstract) of method Mage_Paypal_Model_Resource_Cert::_beforeSave() should be covariant with return type ($this(Mage_Core_Model_Resource_Db_Abstract)) of method Mage_Core_Model_Resource_Db_Abstract::_beforeSave()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Resource/Cert.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (void) of method Mage_PaypalUk_Model_Pro::fetchTransactionInfo() should be compatible with return type (array) of method Mage_Paypal_Model_Pro::fetchTransactionInfo()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Pro.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Return type (Zend_Db_Select) of method Mage_Persistent_Model_Resource_Session::_getLoadSelect() should be covariant with return type (Varien_Db_Select) of method Mage_Core_Model_Resource_Db_Abstract::_getLoadSelect()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Persistent/Model/Resource/Session.php',

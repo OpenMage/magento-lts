@@ -5132,194 +5132,64 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Source/Cctype.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Settlement/Report/Grid.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/ApiWizard.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Grid/Renderer/Order.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, string|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Field/Country.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Info.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Bml/Banners.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cron.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Payment_Model_Method_Abstract|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Shortcut.php',
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Paypal.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
+    'count' => 5,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Event/Resolver.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Shortcut.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Event/Resolver.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Paypal_Block_Iframe given.',
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Iframe.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Processor.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Order given.',
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Iframe.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/Adminhtml/Paypal/WebhookController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, bool|string given.',
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Paypal_Model_Paypal|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Logo.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Quote|false given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Controller/Express/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Paypal_Model_Cart|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, list<mixed> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Paypal_Model_Cart|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int<0, max> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Paypal_Model_Cart|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Standard.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Order_Item|Mage_Sales_Model_Quote_Item_Abstract|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int<0, max> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Order given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Quote_Payment given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int given.',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, array|string given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Paypal_Model_Payflow_Request given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowpro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment/Transaction.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment/Transaction.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Pro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, array given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Report/Settlement/Row.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int<0, max>|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/System/Config/Backend/Cert.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/Adminhtml/Paypal/ReportsController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Payment_Model_Method_Abstract|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Express.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, array|bool given.',
@@ -6957,16 +6827,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/page/html/pager.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Quote_Address_Rate given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/express/review.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Quote_Address_Rate given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/paypal/express/review/shipping/method.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, bool|int given.',
     'count' => 8,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/sales/order/creditmemo/items/renderer/default.phtml',
@@ -7030,16 +6890,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
     'count' => 4,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/page/html/pager.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Quote_Address_Rate given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/paypal/express/review.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Sales_Model_Quote_Address_Rate given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/paypal/express/review/shipping/method.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, bool|int given.',

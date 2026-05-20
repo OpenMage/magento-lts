@@ -69,28 +69,6 @@
         </reference>
     </checkout_multishipping_success>
 
-    <paypal_express_review>
-        <reference name="paypal.express.review.details">
-            <action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>downloadable/checkout/onepage/review/item.phtml</template></action>
-        </reference>
-    </paypal_express_review>
-    <paypal_express_review_details>
-        <reference name="root">
-            <action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>downloadable/checkout/onepage/review/item.phtml</template></action>
-        </reference>
-    </paypal_express_review_details>
-
-    <paypaluk_express_review>
-        <reference name="paypal.express.review.details">
-            <action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>downloadable/checkout/onepage/review/item.phtml</template></action>
-        </reference>
-    </paypaluk_express_review>
-    <paypaluk_express_review_details>
-        <reference name="root">
-            <action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>downloadable/checkout/onepage/review/item.phtml</template></action>
-        </reference>
-    </paypaluk_express_review_details>
-
     <sales_order_view>
         <reference name="order_items">
             <action method="addItemRender"><type>downloadable</type><block>downloadable/sales_order_item_renderer_downloadable</block><template>downloadable/sales/order/items/renderer/downloadable.phtml</template></action>

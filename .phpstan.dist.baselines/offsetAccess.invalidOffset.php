@@ -627,11 +627,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Info.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Possibly invalid array key type int<0, max>|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type int|string|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ProductAlert/Block/Email/Abstract.php',

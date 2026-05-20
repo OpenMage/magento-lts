@@ -29,11 +29,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Negated boolean expression is always true.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Negated boolean expression is always true.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Quote/Address/Total/Shipping.php',
 ];
 $ignoreErrors[] = [

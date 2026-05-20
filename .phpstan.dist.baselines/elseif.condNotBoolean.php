@@ -474,12 +474,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, Mage_Sales_Model_Quote_Address|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an elseif condition, array|bool given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Standard.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, int|null given.',

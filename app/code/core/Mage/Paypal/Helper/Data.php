@@ -7,121 +7,126 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 /**
- * Paypal Data helper
- *
- * @package    Mage_Paypal
+ * PayPal module helper
  */
 class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    protected $_moduleName = 'Mage_Paypal';
-
     /**
-     * US country code
-     */
-    public const US_COUNTRY = 'US';
-
-    /**
-     * Config path for merchant country
-     */
-    public const MERCHANT_COUNTRY_CONFIG_PATH = 'paypal/general/merchant_country';
-
-    /**
-     * Cache for shouldAskToCreateBillingAgreement()
+     * Currencies PayPal does not accept decimal amounts for.
      *
-     * @var bool
+     * @var string[]
      */
-    protected static $_shouldAskToCreateBillingAgreement = null;
+    private const ZERO_DECIMAL_CURRENCIES = ['HUF', 'JPY', 'TWD'];
 
     /**
-     * Check whether customer should be asked confirmation whether to sign a billing agreement
+     * Retrieves the PayPal configuration model, optionally for a specific store.
      *
-     * @param  int  $customerId
-     * @return bool
+     * @param mixed $store the store ID or object
      */
-    public function shouldAskToCreateBillingAgreement(Mage_Paypal_Model_Config $config, $customerId)
+    public function getConfig(mixed $store = null): Mage_Paypal_Model_Config
     {
-        if (self::$_shouldAskToCreateBillingAgreement === null) {
-            self::$_shouldAskToCreateBillingAgreement = false;
-            if ($customerId
-                && $config->shouldAskToCreateBillingAgreement()
-                && Mage::getModel('sales/billing_agreement')->needToCreateForCustomer($customerId)
-            ) {
-                self::$_shouldAskToCreateBillingAgreement = true;
+        return Mage::getSingleton('paypal/config')->setStoreId($store);
+    }
+
+    /**
+     * Checks if the PayPal payment method is active and available, optionally for a specific store.
+     *
+     * @param mixed $store the store ID or object
+     */
+    public function isAvailable(mixed $store = null): bool
+    {
+        return $this->getConfig($store)->isActive();
+    }
+
+    /**
+     * Retrieves the configuration settings for the PayPal button, optionally for a specific store.
+     *
+     * @param  mixed                      $store the store ID or object
+     * @return array<string, bool|string>
+     */
+    public function getButtonConfig(mixed $store = null): array
+    {
+        return $this->getConfig($store)->getButtonConfiguration();
+    }
+
+    /**
+     * Checks whether the product-page PayPal shortcut may render.
+     */
+    public function isShortcutVisibleOnProduct(mixed $store = null): bool
+    {
+        return Mage::getStoreConfigFlag('payment/paypal/visible_on_product', $store)
+            && $this->isPaymentMethodAvailable($store);
+    }
+
+    /**
+     * Checks whether the cart-page PayPal shortcut may render.
+     */
+    public function isShortcutVisibleOnCart(mixed $store = null): bool
+    {
+        return Mage::getStoreConfigFlag('payment/paypal/visible_on_cart', $store)
+            && $this->isPaymentMethodAvailable($store);
+    }
+
+    /**
+     * Checks PayPal method availability against the current checkout quote.
+     */
+    private function isPaymentMethodAvailable(mixed $store = null): bool
+    {
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        if ($store !== null) {
+            $storeModel = Mage::app()->getStore($store);
+            if ($storeModel !== null) {
+                $quote->setStore($storeModel);
             }
         }
 
-        return self::$_shouldAskToCreateBillingAgreement;
+        return Mage::getModel('paypal/paypal')->isAvailable($quote);
     }
 
     /**
-     * Return backend config for element like JSON
+     * Returns the number of decimal places PayPal expects for the given currency.
      *
-     * @return false|string
+     * PayPal rejects amounts with decimals for HUF, JPY and TWD.
      */
-    public function getElementBackendConfig(Varien_Data_Form_Element_Abstract $element)
+    public function getCurrencyDecimals(string $currency): int
     {
-        $config = $element->getFieldConfig()->backend_congif;
-        if (!$config) {
-            return false;
-        }
-
-        $config = $config->asCanonicalArray();
-        if (isset($config['enable_for_countries'])) {
-            $config['enable_for_countries'] = explode(',', str_replace(' ', '', $config['enable_for_countries']));
-        }
-
-        if (isset($config['disable_for_countries'])) {
-            $config['disable_for_countries'] = explode(',', str_replace(' ', '', $config['disable_for_countries']));
-        }
-
-        return Mage::helper('core')->jsonEncode($config);
+        return in_array(strtoupper($currency), self::ZERO_DECIMAL_CURRENCIES, true) ? 0 : 2;
     }
 
     /**
-     * Get selected merchant country code in system configuration
+     * Formats a numeric price into a string suitable for the PayPal API.
      *
-     * @return string
+     * When a currency code is supplied the precision matches what PayPal
+     * expects for that currency; otherwise two decimal places are used.
+     *
+     * @param float  $amount   the price amount to format
+     * @param string $currency optional ISO currency code controlling precision
      */
-    public function getConfigurationCountryCode()
+    public function formatPrice(float $amount, string $currency = ''): string
     {
-        $requestParam = Mage_Paypal_Block_Adminhtml_System_Config_Field_Country::REQUEST_PARAM_COUNTRY;
-        $countryCode  = Mage::app()->getRequest()->getParam($requestParam);
-        if (is_null($countryCode) || preg_match('/^[a-zA-Z]{2}$/', $countryCode) == 0) {
-            $countryCode = (string) Mage::getSingleton('adminhtml/config_data')
-                ->getConfigDataValue(self::MERCHANT_COUNTRY_CONFIG_PATH);
-        }
-
-        if (empty($countryCode)) {
-            return Mage::helper('core')->getDefaultCountry();
-        }
-
-        return $countryCode;
+        $decimals = $currency === '' ? 2 : $this->getCurrencyDecimals($currency);
+        return number_format($amount, $decimals, '.', '');
     }
 
     /**
-     * Get HTML representation of transaction id
+     * Constructs the URL to view a specific transaction in the PayPal merchant dashboard.
      *
-     * @param  string $methodCode
-     * @param  string $txnId
-     * @return string
+     * @param string $transactionId the transaction ID
+     * @param bool   $sandbox       whether to use the sandbox environment
      */
-    public function getHtmlTransactionId($methodCode, $txnId)
+    public function getTransactionUrl(string $transactionId, bool $sandbox = false): string
     {
-        if (in_array($methodCode, [
-            Mage_Paypal_Model_Config::METHOD_WPP_DIRECT,
-            Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS,
-            Mage_Paypal_Model_Config::METHOD_HOSTEDPRO,
-            Mage_Paypal_Model_Config::METHOD_WPS,
-        ])
-        ) {
-            /** @var Mage_Paypal_Model_Config $config */
-            $config = Mage::getModel('paypal/config')->setMethod($methodCode);
-            $url = 'https://www.' . ($config->sandboxFlag ? 'sandbox.' : '')
-                . 'paypal.com/cgi-bin/webscr?cmd=_view-a-trans&id=' . $txnId;
-            return '<a target="_blank" href="' . $url . '">' . $txnId . '</a>';
+        if (str_contains($transactionId, '-')) {
+            $parts = explode('-', $transactionId);
+            $transactionId = $parts[0];
         }
 
-        return $txnId;
+        $baseUrl = $sandbox
+            ? 'https://www.sandbox.paypal.com/activity/payment/'
+            : 'https://www.paypal.com/activity/payment/';
+        return $baseUrl . $transactionId;
     }
 }

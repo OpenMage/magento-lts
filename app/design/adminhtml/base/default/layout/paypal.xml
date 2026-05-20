@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_paypal_webhook_index>
+        <reference name="content">
+            <block type="paypal/adminhtml_webhook" name="paypal_webhook"/>
+        </reference>
+    </adminhtml_paypal_webhook_index>
+
+    <adminhtml_paypal_debug_index>
+        <reference name="content">
+            <block type="paypal/adminhtml_debug" name="paypal_debug"/>
+        </reference>
+    </adminhtml_paypal_debug_index>
+
+    <adminhtml_paypal_transaction_index>
+        <reference name="content">
+            <block type="paypal/adminhtml_transaction" name="paypal_transaction"/>
+        </reference>
+    </adminhtml_paypal_transaction_index>
+</layout>

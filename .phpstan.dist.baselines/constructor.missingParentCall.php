@@ -207,31 +207,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Mage_Paypal_Model_Direct::__construct() does not call parent constructor from Mage_Payment_Model_Method_Abstract.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Direct.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Mage_Paypal_Model_Express::__construct() does not call parent constructor from Mage_Payment_Model_Method_Abstract.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Mage_Paypal_Model_Method_Agreement::__construct() does not call parent constructor from Mage_Payment_Model_Method_Abstract.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Method/Agreement.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Mage_Paypal_Model_Session::__construct() does not call parent constructor from Varien_Object.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Session.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Mage_PaypalUk_Model_Session::__construct() does not call parent constructor from Varien_Object.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Session.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Mage_Rating_Model_Rating_Option_Vote::__construct() does not call parent constructor from Varien_Object.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Rating/Model/Rating/Option/Vote.php',

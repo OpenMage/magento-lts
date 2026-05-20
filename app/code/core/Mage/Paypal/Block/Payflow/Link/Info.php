@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -9,21 +7,19 @@ declare(strict_types=1);
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 /**
- * Payflow link infoblock
- *
- * @package    Mage_Paypal
+ * Display-only legacy Payflow Link payment information block.
  */
 class Mage_Paypal_Block_Payflow_Link_Info extends Mage_Paypal_Block_Payment_Info
 {
     /**
-     * Don't show CC type
-     *
-     * @return false
+     * Don't show CC type.
      */
     #[Override]
-    public function getCcTypeName()
+    public function getCcTypeName(): string
     {
-        return false;
+        return '';
     }
 }

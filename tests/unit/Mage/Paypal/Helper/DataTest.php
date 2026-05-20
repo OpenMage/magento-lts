@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Helper;
 
-// use Mage;
-// use Mage_Paypal_Helper_Data as Subject;
+use Mage;
+use Mage_Paypal_Helper_Data as Subject;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Helper\DataTrait;
@@ -21,13 +21,30 @@ final class DataTest extends OpenMageTest
 {
     use DataTrait;
 
-    // private static Subject $subject;
+    private static Subject $subject;
 
     #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        // self::$subject = Mage::helper('paypal/data');
-        self::markTestSkipped('');
+        self::$subject = Mage::helper('paypal');
+    }
+
+    /**
+     * @dataProvider provideCurrencyDecimals
+     * @group Helper
+     */
+    public function testGetCurrencyDecimals(int $expected, string $currency): void
+    {
+        self::assertSame($expected, self::$subject->getCurrencyDecimals($currency));
+    }
+
+    /**
+     * @dataProvider provideFormatPrice
+     * @group Helper
+     */
+    public function testFormatPrice(string $expected, float $amount, string $currency): void
+    {
+        self::assertSame($expected, self::$subject->formatPrice($amount, $currency));
     }
 }

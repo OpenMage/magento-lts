@@ -1357,54 +1357,24 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::setTemplate().',
+    'rawMessage' => 'Call to an undefined method object::getAddress().',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Bml/Form.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::toHtml().',
+    'rawMessage' => 'Call to an undefined method object::getEmailAddress().',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Bml/Form.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::setTemplate().',
+    'rawMessage' => 'Call to an undefined method object::getName().',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Standard/Form.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::toHtml().',
+    'rawMessage' => 'Call to an undefined method Mage_Sales_Model_Order|Mage_Sales_Model_Quote::collectTotals().',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Standard/Form.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Mage_Paypal_Model_Api_Nvp::_export().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Mage_Paypal_Model_Api_Nvp::_import().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Varien_Object::isNominal().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::loadByWebsite().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cert.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment::lookupTransaction().',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::getId().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Standard.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::deleteAggregatedRatingsByProductId().',

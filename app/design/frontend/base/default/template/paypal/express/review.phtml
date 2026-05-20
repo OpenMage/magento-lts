@@ -1,156 +1,161 @@
 <?php
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
- * @license    Academic Free License (AFL 3.0)
- * @package     base_default
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
  */
 
-/** @var Mage_Paypal_Block_Express_Review $this */
+/**
+ * @var Mage_Paypal_Block_Express_Review $this
+ */
 ?>
-<div class="page-title">
-    <h1><?php echo $this->__('Review Order') ?></h1>
-</div>
-<?php echo $this->getMessagesBlock()->toHtml() ?>
-<?php if ($this->getShippingAddress()): ?>
-    <div class="info-set col2-set">
-        <h2 class="legend"><?php echo $this->__('Shipping Information') ?></h2>
-        <div class="col-1">
-            <div class="box">
-                <div class="box-title">
-                    <h3><?php echo $this->__('Shipping Address') ?><span class="separator"><?php if ($this->getCanEditShippingAddress()):?> | </span><a href="<?php echo $this->getEditUrl() ?>"><?php echo $this->__('Edit') ?></a><?php endif ?></h3>
-                </div>
-                <div class="box-content">
-                    <address><?php echo $this->renderAddress($this->getShippingAddress())?></address>
-                </div>
+<div id="messages_paypal_express_review"><?php echo (string) $this->getMessagesBlock()->toHtml() ?></div>
+<div class="paypal-express-review">
+    <div class="page-title">
+        <h1><?php echo (string) $this->__('Review PayPal Order') ?></h1>
+    </div>
+
+    <form action="<?php echo (string) $this->escapeUrl($this->getPlaceOrderUrl()) ?>" method="post" id="paypal-express-review-form">
+        <?php echo (string) $this->getBlockHtml('formkey') ?>
+        <input type="hidden" name="token" value="<?php echo (string) $this->escapeHtml($this->getPaypalOrderId()) ?>" />
+        <input type="hidden" name="quote_grand_total" id="paypal-express-grand-total" value="<?php echo (string) $this->escapeHtml($this->getGrandTotalForPost()) ?>" />
+
+        <div class="paypal-express-review-addresses">
+            <div class="paypal-express-review-address">
+                <h2><?php echo (string) $this->__('Billing Address') ?></h2>
+                <address><?php echo (string) $this->getAddressHtml($this->getBillingAddress()) ?></address>
             </div>
-        </div>
-        <div class="col-2">
-            <div class="box">
-                <div class="box-title">
-                    <h3><?php echo $this->__('Shipping Method') ?></h3>
+            <?php if (!$this->isVirtual()): ?>
+                <div class="paypal-express-review-address">
+                    <h2><?php echo (string) $this->__('Shipping Address') ?></h2>
+                    <address><?php echo (string) $this->getAddressHtml($this->getShippingAddress()) ?></address>
                 </div>
-                <div class="box-content">
-                    <form method="post" id="shipping_method_form" action="<?php echo $this->escapeHtml($this->getShippingMethodSubmitUrl()) ?>">
-                        <?php if ($this->getCanEditShippingMethod() || !$this->getCurrentShippingRate()):?>
-                            <?php if ($groups = $this->getShippingRateGroups()):?>
-                                <?php $currentRate = $this->getCurrentShippingRate(); ?>
-                                <fieldset>
-                                    <select name="shipping_method" id="shipping_method" style="width:250px;" class="required-entry">
-                                        <?php if (!$currentRate):?>
-                                            <option value=""><?php echo $this->__('Please select a shipping method...') ?></option>
+            <?php endif ?>
+        </div>
+
+        <div class="paypal-express-review-section">
+            <h2><?php echo (string) $this->__('Items in Your Order') ?></h2>
+            <table class="data-table paypal-express-review-items" id="paypal-express-review-items">
+                <col />
+                <col width="1" />
+                <col width="1" />
+                <thead>
+                    <tr>
+                        <th><?php echo (string) $this->__('Product Name') ?></th>
+                        <th class="a-center"><?php echo (string) $this->__('Qty') ?></th>
+                        <th class="a-right"><?php echo (string) $this->__('Subtotal') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($this->getItems() as $_item): ?>
+                    <tr>
+                        <td>
+                            <h3 class="product-name"><?php echo $this->escapeHtml((string) $_item->getName()) ?></h3>
+                            <p class="paypal-express-review-sku"><?php echo sprintf($this->__('SKU: %s'), $this->escapeHtml((string) $_item->getSku())) ?></p>
+                        </td>
+                        <td class="a-center"><?php echo (string) (float) $_item->getQty() ?></td>
+                        <td class="a-right"><?php echo (string) $this->formatPrice((float) $_item->getRowTotal()) ?></td>
+                    </tr>
+                <?php endforeach ?>
+                </tbody>
+            </table>
+            <script type="text/javascript">decorateTable('paypal-express-review-items')</script>
+        </div>
+
+        <?php if (!$this->isVirtual()): ?>
+            <div class="paypal-express-review-section paypal-express-review-shipping">
+                <h2><?php echo (string) $this->__('Shipping Method') ?></h2>
+                <div id="paypal-express-review-error" class="paypal-error" style="display:none;"></div>
+                <?php $_shippingRateGroups = $this->getShippingRates(); ?>
+                <?php if ($_shippingRateGroups === [] || $this->hasShippingRates() === false): ?>
+                    <ul class="messages"><li class="error-msg"><ul><li><?php echo (string) $this->__('Sorry, no shipping quotes are available for this order at this time.') ?></li></ul></li></ul>
+                <?php else: ?>
+                    <dl class="sp-methods">
+                    <?php $_sole = count($_shippingRateGroups) === 1; foreach ($_shippingRateGroups as $_code => $_rates): ?>
+                        <dt><?php echo (string) $this->escapeHtml($this->getCarrierName((string) $_code)) ?></dt>
+                        <dd>
+                            <ul>
+                            <?php $_sole = $_sole && count($_rates) === 1; foreach ($_rates as $_rate): ?>
+                                <li>
+                                <?php $_rateErrorMessage = $_rate->getErrorMessage(); ?>
+                                <?php if (!in_array($_rateErrorMessage, [null, false, ''], true)): ?>
+                                    <ul class="messages"><li class="error-msg"><ul><li><?php echo is_string($_rateErrorMessage) ? $this->escapeHtml($_rateErrorMessage) : '' ?></li></ul></li></ul>
+                                <?php else: ?>
+                                    <?php $_rateCode = (string) $_rate->getCode(); ?>
+                                    <input name="shipping_method"
+                                           type="radio"
+                                           value="<?php echo (string) $this->escapeHtml($_rateCode) ?>"
+                                           id="s_method_<?php echo (string) $this->escapeHtml($_rateCode) ?>"
+                                           <?php if ($_rateCode === $this->getAddressShippingMethod() || $_sole): ?>checked="checked"<?php endif ?>
+                                           class="radio required-entry" />
+                                    <label for="s_method_<?php echo (string) $this->escapeHtml($_rateCode) ?>">
+                                        <?php echo $this->escapeHtml((string) $_rate->getMethodTitle()) ?>
+                                        <?php $_excl = $this->getShippingPrice((float) $_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                        <?php $_incl = $this->getShippingPrice((float) $_rate->getPrice(), true); ?>
+                                        <?php echo (string) $_excl; ?>
+                                        <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl !== $_excl): ?>
+                                            (<?php echo (string) $this->__('Incl. Tax'); ?> <?php echo (string) $_incl; ?>)
                                         <?php endif ?>
-                                        <?php foreach ($groups as $code => $rates):?>
-                                            <optgroup label="<?php echo $this->escapeHtml($this->getCarrierName($code)) ?>" style="font-style:normal;">
-                                                <?php foreach ($rates as $rate):?>
-                                                    <option value="<?php echo $this->renderShippingRateValue($rate)?>"<?php echo ($currentRate === $rate) ? ' selected="selected"' : '' ;?>>
-                                                        <?php echo $this->renderShippingRateOption($rate)?>
-                                                    </option>
-                                                <?php endforeach ?>
-                                            </optgroup>
-                                        <?php endforeach ?>
-                                    </select>
-                                </fieldset>
-                                <p class="actions">
-                                    <button id="update_shipping_method_submit" type="submit" class="button"><span><span><?php echo $this->__('Update Shipping Method') ?></span></span></button>
-                                </p>
-                            <?php else: ?>
-                                <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
-                            <?php endif ?>
-                        <?php else: ?>
-                            <p><strong><?php echo $this->renderShippingRateOption($this->getCurrentShippingRate())?></strong></p>
+                                    </label>
+                                <?php endif ?>
+                                </li>
+                            <?php endforeach ?>
+                            </ul>
+                        </dd>
+                    <?php endforeach ?>
+                    </dl>
+                <?php endif ?>
+            </div>
+        <?php endif ?>
+
+        <div class="paypal-express-review-section paypal-express-review-totals" id="paypal-express-review-totals">
+            <?php echo (string) $this->getTotalsHtml() ?>
+        </div>
+
+        <?php $_agreementsBlock = $this->getChild('agreements'); ?>
+        <?php $_agreements = $_agreementsBlock instanceof Mage_Checkout_Block_Agreements ? $_agreementsBlock->getAgreements() : []; ?>
+        <?php if ($_agreements instanceof Traversable || (is_array($_agreements) && $_agreements !== [])): ?>
+            <div class="paypal-express-review-section">
+                <ol class="checkout-agreements">
+                <?php foreach ($_agreements as $_agreement): ?>
+                    <?php /** @var Mage_Checkout_Model_Agreement $_agreement */ ?>
+                    <li>
+                        <?php $_agreementContent = $_agreement->getContent(); ?>
+                        <?php if ($_agreementContent !== null && $_agreementContent !== ''): ?>
+                            <?php $_agreementContentHeight = $_agreement->getContentHeight(); ?>
+                            <div class="agreement-content"<?php echo (($_agreementContentHeight !== null && $_agreementContentHeight !== '') ? ' style="height:' . $_agreementContentHeight . '"' : '')?>>
+                                <?php if ((int) $_agreement->getIsHtml() !== 0): ?>
+                                    <?php echo $_agreementContent ?>
+                                <?php else: ?>
+                                    <?php echo nl2br($this->escapeHtml((string) $_agreementContent) ?? '') ?>
+                                <?php endif ?>
+                            </div>
                         <?php endif ?>
-                    </form>
-                </div>
+                        <p class="agree">
+                            <input type="checkbox" id="agreement-<?php echo (string) $_agreement->getId() ?>" name="agreement[<?php echo (string) $_agreement->getId() ?>]" value="1" title="<?php echo (string) $this->escapeHtml((string) $_agreement->getCheckboxText()) ?>" class="checkbox required-entry" />
+                            <label for="agreement-<?php echo (string) $_agreement->getId() ?>"><?php echo (string) (((int) $_agreement->getIsHtml() !== 0) ? $_agreement->getCheckboxText() : $this->escapeHtml((string) $_agreement->getCheckboxText())) ?></label>
+                        </p>
+                    </li>
+                <?php endforeach ?>
+                </ol>
             </div>
-        </div>
-    </div>
-<?php endif ?>
+        <?php endif ?>
 
-<div class="info-set col2-set">
-    <h2 class="legend"><?php echo $this->__('Billing Information') ?></h2>
-    <div class="col-1">
-        <div class="box">
-            <div class="box-title">
-                <h3><?php echo $this->__('Payment Method') ?> <span class="separator">|</span>
-                    <?php if($this->getEditUrl()):?><a href="<?php echo $this->getEditUrl() ?>"><?php echo $this->__('Edit Payment Information') ?></a> <?php endif ?>
-                </h3>
-            </div>
-            <div class="box-content">
-                <?php echo $this->escapeHtml($this->getPaymentMethodTitle()) ?>
-            </div>
+        <div class="buttons-set paypal-express-review-actions">
+            <p class="back-link"><a href="<?php echo (string) $this->escapeUrl($this->getUrl('checkout/cart')) ?>" class="left">&laquo; <?php echo (string) $this->__('Edit Cart') ?></a></p>
+            <button type="submit" title="<?php echo (string) Mage::helper('core')->quoteEscape($this->__('Place Order')) ?>" class="button btn-checkout">
+                <span><span><?php echo (string) $this->__('Place Order') ?></span></span>
+            </button>
+            <span class="please-wait" id="paypal-express-review-please-wait" style="display:none;">
+                <img src="<?php echo (string) $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo (string) $this->__('Processing...') ?>" title="<?php echo (string) $this->__('Processing...') ?>" class="v-middle" /> <?php echo (string) $this->__('Processing...') ?>
+            </span>
         </div>
-    </div>
+    </form>
 </div>
-
-<div class="info-set">
-    <h2 class="legend"><?php echo $this->__('Items in Your Shopping Cart') ?><span class="separator"> | </span><a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Shopping Cart') ?></a></h2>
-    <div id="details-reload">
-        <?php echo $this->getChildHtml('details') ?>
-    </div>
-</div>
-<form method="post" id="order_review_form" action="<?php echo $this->getPlaceOrderUrl() ?>">
-    <?php echo $this->getChildHtml('agreements'); ?>
-    <div class="buttons-set buttons-set-order" id="review-buttons-container">
-        <button type="button" id="review_button" value="<?php echo Mage::helper('core')->quoteEscape($this->__('Place Order')) ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
-        <button type="button" id="review_submit" value="<?php echo Mage::helper('core')->quoteEscape($this->__('Place Order')) ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
-        <span class="please-wait" id="review-please-wait" style="display:none;">
-            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Submitting order information...')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submitting order information...')) ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
-        </span>
-    </div>
-</form>
 <script type="text/javascript">
-    //<![CDATA[
-    // submit buttons are not needed when submitting with ajax
-    $('review_submit').hide();
-    if ($('update_shipping_method_submit')) {
-        $('update_shipping_method_submit').hide();
-    }
-
-    <?php if ($this->getUseAjax()):?>
-    OrderReviewController.prototype._submitOrder = function() {
-        if (this._canSubmitOrder) {
-            if (this._pleaseWait) {
-                this._pleaseWait.show();
-            }
-            new Ajax.Request(this.form.action, {
-                parameters: {isAjax: 1, method: 'POST'},
-                onSuccess: function(transport) {
-                    var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
-                    if (response.redirect) {
-                        setLocation(response.redirect);
-                        return;
-                    }
-                    if (response.success) {
-                        setLocation('<?php echo $this->getSuccessUrl()?>');
-                        return;
-                    } else {
-                        var msg = response.error_messages;
-                        if (Object.isArray(msg)) {
-                            msg = msg.join("\n").stripTags().toString();
-                        }
-                        if (msg) {
-                            $('review-please-wait').hide();
-                            alert(msg.stripTags().toString());
-                            return;
-                        }
-                    }
-                    $('review-please-wait').hide();
-                    alert('<?php echo $this->jsQuoteEscape($this->__('Unknown Error. Please try again later.')); ?>');
-                    return;
-                },
-                onFailure: function(){
-                    alert('<?php echo $this->jsQuoteEscape($this->__('Server Error. Please try again.')) ?>');
-                    $('review-please-wait').hide();
-                }
-            });
-        }
-    }
-    <?php endif ?>
-
-    PayPalExpressAjax = new OrderReviewController($('order_review_form'), $('review_button'),
-        $('shipping_method'), $('shipping_method_form'), 'details-reload'
-    );
-    PayPalExpressAjax.addPleaseWait($('review-please-wait'));
-    //]]>
+//<![CDATA[
+    new PayPalExpressReview(<?php echo (string) json_encode($this->getReviewConfig(), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>);
+//]]>
 </script>

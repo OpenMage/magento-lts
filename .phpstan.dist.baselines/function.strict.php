@@ -1239,87 +1239,12 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Iframe.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Helper/Hss.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function array_search() requires parameter #3 to be set.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Hostedpro/Request.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Info.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowlink.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowpro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PayflowController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PayflowadvancedController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function array_search() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Express/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function array_search() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Direct.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',

@@ -622,14 +622,19 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paygate/Model/Resource/Authorizenet/Debug/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends generic class Mage_Core_Model_Resource_Db_Collection_Abstract but does not specify its types: T',
+    'rawMessage' => 'Method Mage_Paypal_Model_Cron::_getActivePayPalAuthorizations() return type with generic class Mage_Core_Model_Resource_Db_Collection_Abstract does not specify its types: T',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Resource/Payment/Transaction/Collection.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cron.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends generic class Mage_Core_Model_Resource_Db_Collection_Abstract but does not specify its types: T',
+    'rawMessage' => 'Class Mage_Paypal_Model_Resource_Debug_Collection extends generic class Mage_Core_Model_Resource_Db_Collection_Abstract but does not specify its types: T',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Resource/Report/Settlement/Row/Collection.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Resource/Debug/Collection.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Class Mage_Paypal_Model_Resource_Webhook_Event_Collection extends generic class Mage_Core_Model_Resource_Db_Collection_Abstract but does not specify its types: T',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Resource/Webhook/Event/Collection.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Class Mage_ProductAlert_Model_Resource_Price_Collection extends generic class Mage_Core_Model_Resource_Db_Collection_Abstract but does not specify its types: T',
