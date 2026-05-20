@@ -7597,16 +7597,16 @@
         },
         {
             "name": "perftools/php-profiler",
-            "version": "1.4.0",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/perftools/php-profiler.git",
-                "reference": "6f3ac513e86ab1f6ff065a7ea84e2902fb1c0ba9"
+                "reference": "d5bedbf8fb944295439f9ad241cfe6efce680aaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perftools/php-profiler/zipball/6f3ac513e86ab1f6ff065a7ea84e2902fb1c0ba9",
-                "reference": "6f3ac513e86ab1f6ff065a7ea84e2902fb1c0ba9",
+                "url": "https://api.github.com/repos/perftools/php-profiler/zipball/d5bedbf8fb944295439f9ad241cfe6efce680aaf",
+                "reference": "d5bedbf8fb944295439f9ad241cfe6efce680aaf",
                 "shasum": ""
             },
             "require": {
@@ -7653,9 +7653,9 @@
             "description": "PHP Profiling based on XHGui",
             "support": {
                 "issues": "https://github.com/perftools/php-profiler/issues",
-                "source": "https://github.com/perftools/php-profiler/tree/1.4.0"
+                "source": "https://github.com/perftools/php-profiler/tree/1.4.2"
             },
-            "time": "2026-05-09T11:44:17+00:00"
+            "time": "2026-05-11T20:38:47+00:00"
         },
         {
             "name": "phar-io/manifest",
