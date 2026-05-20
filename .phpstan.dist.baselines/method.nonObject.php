@@ -5047,31 +5047,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Event/Resolver.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getIsTransactionClosed() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method save() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setAdditionalInformation() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setQuotePaymentId() on Mage_Sales_Model_Order_Payment|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method addWebhookEventIdFilter() on Mage_Core_Model_Resource_Db_Collection_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/WebhookController.php',

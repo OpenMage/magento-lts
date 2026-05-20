@@ -5067,17 +5067,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Event/Resolver.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $customerId of method Mage_Customer_Model_Session::loginById() expects int, int|string|null given.',
+    'rawMessage' => 'Parameter #1 $store of method Mage_Sales_Model_Quote::setStore() expects Mage_Core_Model_Store, Mage_Core_Model_Store|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/ExpressController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $payment of method Mage_Sales_Model_Order_Payment_Transaction::setOrderPaymentObject() expects Mage_Sales_Model_Order_Payment, Mage_Sales_Model_Order_Payment|false given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $timezone of class DateTimeZone constructor expects string, string|null given.',
+    'rawMessage' => 'Parameter #1 $customerId of method Mage_Customer_Model_Session::loginById() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/PaymentController.php',
 ];

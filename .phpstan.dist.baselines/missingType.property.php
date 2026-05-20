@@ -2712,11 +2712,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Purchaseorder.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Config::$_cachedCredentials has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Paypal_Model_Exception::$_debugData has no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Exception.php',
