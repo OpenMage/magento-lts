@@ -12,8 +12,6 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model\System\Config\Backend;
 
 use Mage_Core_Exception;
-use Mage_Core_Model_Config_Data;
-use Mage_Paypal_Model_System_Config_Backend_RetryStatusCodes as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\System\Config\Backend\RetryStatusCodesTrait;
 
@@ -44,13 +42,5 @@ final class RetryStatusCodesTest extends OpenMageTest
         $subject = new RetryStatusCodesTestSubject();
         $subject->setData('value', $value);
         $subject->beforeSaveForTest();
-    }
-}
-
-final class RetryStatusCodesTestSubject extends Subject
-{
-    public function beforeSaveForTest(): Mage_Core_Model_Config_Data
-    {
-        return $this->_beforeSave();
     }
 }
