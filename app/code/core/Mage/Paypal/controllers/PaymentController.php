@@ -204,7 +204,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
             $payment = $this->_getQuote()->getPayment();
             $additionalInfo = $payment->getAdditionalInformation();
-            foreach ($additionalInfo as $key => $value) {
+            foreach (array_keys($additionalInfo) as $key) {
                 $payment->unsAdditionalInformation($key);
             }
 

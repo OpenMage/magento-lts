@@ -571,9 +571,9 @@ class Mage_Paypal_Model_Api extends Varien_Object
      *
      * @throws Exception
      */
-    private function _logAndThrowError(string $message, Exception $e): never
+    private function _logAndThrowError(string $message, Exception $exception): never
     {
-        $this->helper->logError($message, $e);
-        throw $e;
+        $this->helper->logError($message, $exception);
+        throw $exception;
     }
 }

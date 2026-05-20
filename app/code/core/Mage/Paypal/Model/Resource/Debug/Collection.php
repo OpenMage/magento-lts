@@ -59,17 +59,17 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
      * Adds a date range filter to the collection based on the 'created_at' field.
      *
      * @param  null|string $from the start date of the range
-     * @param  null|string $to   the end date of the range
+     * @param  null|string $toDate the end date of the range
      * @return $this
      */
-    public function addDateRangeFilter(?string $from, ?string $to): self
+    public function addDateRangeFilter(?string $from, ?string $toDate): self
     {
         if ($from) {
             $this->addFieldToFilter('created_at', ['gteq' => $from]);
         }
 
-        if ($to) {
-            $this->addFieldToFilter('created_at', ['lteq' => $to]);
+        if ($toDate) {
+            $this->addFieldToFilter('created_at', ['lteq' => $toDate]);
         }
 
         return $this;
