@@ -40,6 +40,17 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
     public const PAYPAL_SHORTCUT_CURRENCY = 'paypal_shortcut_currency';
 
     /**
+     * Checkout session key holding the id of the isolated quote used for the product-page "Buy Now" express flow.
+     */
+    public const PAYPAL_EXPRESS_BUY_NOW_QUOTE_ID = 'paypal_express_buy_now_quote_id';
+
+    /**
+     * Checkout session key holding the store currency the user was browsing in just before an express attempt started.
+     * Used to restore the user's currency after success/cancel so the lock doesn't leak into general browsing.
+     */
+    public const PAYPAL_EXPRESS_PRIOR_CURRENCY = 'paypal_express_prior_currency';
+
+    /**
      * Payment additional_information key holding the amount PayPal actually captured.
      */
     public const PAYPAL_CAPTURED_AMOUNT = 'paypal_captured_amount';

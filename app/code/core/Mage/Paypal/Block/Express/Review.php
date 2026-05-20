@@ -15,6 +15,11 @@ declare(strict_types=1);
 class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
 {
     /**
+     * @var null|Mage_Sales_Model_Quote
+     */
+    private $_quote = null;
+
+    /**
      * Set the default review template.
      */
     #[Override]
@@ -25,11 +30,20 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     }
 
     /**
-     * Retrieve the active checkout quote.
+     * The controller pushes the active express quote in via setQuote() so the block doesn't re-load it from the DB.
      */
+    public function setQuote(Mage_Sales_Model_Quote $quote): self
+    {
+        $this->_quote = $quote;
+        return $this;
+    }
+
     public function getQuote(): Mage_Sales_Model_Quote
     {
-        return Mage::getSingleton('checkout/session')->getQuote();
+        if (!$this->_quote instanceof Mage_Sales_Model_Quote) {
+            $this->_quote = Mage::getSingleton('checkout/session')->getQuote();
+        }
+        return $this->_quote;
     }
 
     /**
@@ -128,9 +142,6 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         return (string) $this->getShippingAddress()->getShippingMethod();
     }
 
-    /**
-     * Format a shipping price.
-     */
     public function getShippingPrice(float $price, bool $includingTax): string
     {
         return (string) $this->getQuote()->getStore()->convertPrice(
@@ -139,17 +150,11 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         );
     }
 
-    /**
-     * Format a quote item row total.
-     */
     public function formatPrice(float $price): string
     {
         return (string) $this->getQuote()->getStore()->formatPrice($price);
     }
 
-    /**
-     * Render child totals against the active quote.
-     */
     public function getTotalsHtml(): string
     {
         $totals = $this->getChild('totals');

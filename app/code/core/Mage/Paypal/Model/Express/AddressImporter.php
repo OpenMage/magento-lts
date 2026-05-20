@@ -199,15 +199,17 @@ class Mage_Paypal_Model_Express_AddressImporter extends Mage_Core_Model_Abstract
         $regionValue = trim((string) ($paypalAddress['admin_area_1'] ?? ''));
         $region = $this->_resolveRegion($regionValue, $countryId);
 
+        $streetLines = array_values(array_filter([
+            trim((string) ($paypalAddress['address_line_1'] ?? '')),
+            trim((string) ($paypalAddress['address_line_2'] ?? '')),
+        ], static fn(string $line): bool => $line !== ''));
+
         $address->addData([
             'firstname' => $name['firstname'],
             'lastname' => $name['lastname'],
             'email' => $email,
             'telephone' => $telephone,
-            'street' => array_values(array_filter([
-                trim((string) ($paypalAddress['address_line_1'] ?? '')),
-                trim((string) ($paypalAddress['address_line_2'] ?? '')),
-            ], static fn(string $line): bool => $line !== '')),
+            'street' => implode("\n", $streetLines),
             'city' => trim((string) ($paypalAddress['admin_area_2'] ?? '')),
             'postcode' => trim((string) ($paypalAddress['postal_code'] ?? '')),
             'country_id' => $countryId,

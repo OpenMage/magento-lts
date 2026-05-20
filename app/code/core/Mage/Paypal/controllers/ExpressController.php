@@ -43,6 +43,9 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
             }
 
+            // Drop any leftover Buy-Now quote from a prior attempt so the cart quote is what we see when no fresh product is added.
+            $this->_clearExpressQuoteSession();
+
             $quote = $this->_getQuote();
             if (!$this->_enforceGuestCheckoutAllowed($quote)) {
                 return;
@@ -97,8 +100,9 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
 
             $quote = $this->_getQuote();
             $orderId = trim((string) $this->getRequest()->getParam('token'));
-            $this->_validateShortcutAttempt($quote, $orderId);
             $this->_assertCurrencyLock($quote);
+            $this->_applyLockedCurrencyToStore($quote);
+            $this->_validateShortcutAttempt($quote, $orderId);
 
             $api = Mage::getSingleton('paypal/helper')->getApi()->setStore($quote->getStore());
             $response = $api->getOrderDetails($orderId);
@@ -111,6 +115,10 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
 
             Mage::getModel('paypal/express_addressImporter')->importFromOrderDetails($quote, $response->getBody());
             $this->_ignoreAddressValidation($quote);
+            // Pre-apply the guest customer-state that Finalizer::_prepareGuestQuote() would set at placeOrder time.
+            // Without this, customer_group_id shifts between the review collect (default group) and the placeOrder
+            // collect (NOT_LOGGED_IN_ID), which moves tax totals and trips _isPostedGrandTotalCurrent.
+            $this->_normalizeCustomerStateForGuest($quote);
             $this->_prepareShippingRates($quote);
             $quote->collectTotals()->save();
 
@@ -130,6 +138,11 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             $headBlock = $this->getLayout()->getBlock('head');
             if ($headBlock instanceof Mage_Page_Block_Html_Head) {
                 $headBlock->setTitle($this->__('Review PayPal Order'));
+            }
+
+            $reviewBlock = $this->getLayout()->getBlock('paypal.express.review');
+            if ($reviewBlock instanceof Mage_Paypal_Block_Express_Review) {
+                $reviewBlock->setQuote($quote);
             }
 
             $this->renderLayout();
@@ -152,8 +165,9 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
 
             $quote = $this->_getQuote();
             $orderId = trim((string) $this->getRequest()->getParam('token'));
-            $this->_validateShortcutAttempt($quote, $orderId);
             $this->_assertCurrencyLock($quote);
+            $this->_applyLockedCurrencyToStore($quote);
+            $this->_validateShortcutAttempt($quote, $orderId);
 
             if ($quote->isVirtual()) {
                 Mage::throwException(Mage::helper('paypal')->__('This order does not require a shipping method.'));
@@ -206,8 +220,9 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             }
 
             $quote = $this->_getQuote();
-            $this->_validateShortcutAttempt($quote, $orderId);
             $this->_assertCurrencyLock($quote);
+            $this->_applyLockedCurrencyToStore($quote);
+            $this->_validateShortcutAttempt($quote, $orderId);
             $this->_validateCheckoutAgreements();
 
             $api = Mage::getSingleton('paypal/helper')->getApi()->setStore($quote->getStore());
@@ -265,6 +280,10 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
+            // Post-success: the placed-order quote is now inactive (set by submitAll) and is referenced by the order;
+            // do NOT delete it. Just drop the session pointer and restore the user's prior browsing currency.
+            $this->_getCheckoutSession()->unsetData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_BUY_NOW_QUOTE_ID);
+            $this->_restorePriorCurrency($quote);
             $this->_redirect('checkout/onepage/success');
         } catch (Exception $exception) {
             Mage::logException($exception);
@@ -287,6 +306,8 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             $quote = $this->_getQuote();
             $this->_clearShortcutState($quote);
             $quote->setReservedOrderId(null)->save();
+            $this->_restorePriorCurrency($quote);
+            $this->_clearExpressQuoteSession();
             $this->_jsonResponse(['success' => true]);
         } catch (Exception $exception) {
             Mage::logException($exception);
@@ -323,13 +344,75 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             Mage::throwException(Mage::helper('checkout')->__('The product could not be found.'));
         }
 
-        /** @var Mage_Checkout_Model_Cart $cart */
-        $cart = Mage::getSingleton('checkout/cart');
-        $cart->addProduct($product, $params);
-        $cart->save();
+        $quote = $this->_createExpressQuote();
 
-        $this->_quote = $cart->getQuote();
-        $this->_getCheckoutSession()->setCartWasUpdated(false);
+        $request = new Varien_Object($params);
+        if (!$request->hasQty()) {
+            $defaultQty = Mage::helper('catalog/product')->getDefaultQty($product);
+            $request->setQty($defaultQty !== null && $defaultQty !== '' ? $defaultQty : 1);
+        }
+
+        if (!$product->isConfigurable() && $product->getStockItem() !== null) {
+            $minimumQty = $product->getStockItem()->getMinSaleQty();
+            if ($minimumQty > 0 && $request->getQty() < $minimumQty) {
+                $request->setQty($minimumQty);
+            }
+        }
+
+        $result = $quote->addProduct($product, $request);
+        if (is_string($result)) {
+            Mage::throwException($result);
+        }
+
+        $quote->save();
+        $this->_getCheckoutSession()->setData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_BUY_NOW_QUOTE_ID, (int) $quote->getId());
+        $this->_quote = $quote;
+    }
+
+    /**
+     * Build a fresh, isolated quote for the product-page Buy Now flow so the user's cart is not touched.
+     */
+    private function _createExpressQuote(): Mage_Sales_Model_Quote
+    {
+        /** @var Mage_Sales_Model_Quote $quote */
+        $quote = Mage::getModel('sales/quote');
+        $quote->setStore(Mage::app()->getStore());
+
+        $customerSession = Mage::getSingleton('customer/session');
+        if ($customerSession->isLoggedIn()) {
+            $customer = $customerSession->getCustomer();
+            $quote->assignCustomer($customer);
+        }
+
+        return $quote;
+    }
+
+    /**
+     * Forget any previously stored Buy-Now quote and delete the abandoned record so a popup-closed-mid-flow attempt
+     * doesn't leave orphans behind for the stale-quote cron to chase.
+     */
+    private function _clearExpressQuoteSession(): void
+    {
+        $session = $this->_getCheckoutSession();
+        $expressQuoteId = (int) $session->getData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_BUY_NOW_QUOTE_ID);
+        if ($expressQuoteId > 0) {
+            try {
+                /** @var Mage_Sales_Model_Quote $stale */
+                $stale = Mage::getModel('sales/quote')->loadByIdWithoutStore($expressQuoteId);
+                // Only delete an abandoned (still-active) Buy-Now quote. A quote whose order succeeded is already
+                // inactive via submitAll() and may be referenced by the placed order — leave it alone.
+                if ((int) $stale->getId() === $expressQuoteId && (int) $stale->getIsActive() === 1) {
+                    $stale->delete();
+                }
+            } catch (Throwable $throwable) {
+                Mage::logException($throwable);
+            }
+        }
+
+        $session->unsetData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_BUY_NOW_QUOTE_ID);
+        // Drop any leftover prior-currency snapshot so the next attempt's _lockCurrency takes a fresh one.
+        $session->unsetData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_PRIOR_CURRENCY);
+        $this->_quote = false;
     }
 
     /**
@@ -409,6 +492,27 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * Mirror the guest customer-state that Finalizer::_prepareGuestQuote() applies at placeOrder time, so the
+     * review-page totals collect against the same customer_group_id (NOT_LOGGED_IN_ID) the placeOrder collect uses.
+     * Logged-in users are untouched — assignCustomer() in _createExpressQuote already set their group correctly.
+     */
+    private function _normalizeCustomerStateForGuest(Mage_Sales_Model_Quote $quote): void
+    {
+        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            return;
+        }
+
+        $billingEmail = trim((string) $quote->getBillingAddress()->getEmail());
+        if ($billingEmail === '') {
+            $billingEmail = trim((string) $quote->getCustomerEmail());
+        }
+
+        $quote->setCustomerEmail($billingEmail)
+            ->setCustomerIsGuest(1)
+            ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+    }
+
+    /**
      * Lock the current store currency onto the quote for this PayPal attempt.
      */
     private function _lockCurrency(Mage_Sales_Model_Quote $quote): void
@@ -426,6 +530,63 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             ->setOrderCurrencyCode($currencyCode)
             ->setBaseToQuoteRate($rate)
             ->setStoreToQuoteRate($rate);
+
+        // Snapshot the user's prior session currency so cancel/success can restore it — setCurrentCurrencyCode()
+        // also sets a cookie, which would otherwise leave the user pinned to the locked code after the express
+        // flow ends. Snapshot only on the first attempt; later requests in the same flow leave it untouched.
+        $session = $this->_getCheckoutSession();
+        if ((string) $session->getData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_PRIOR_CURRENCY) === '') {
+            $session->setData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_PRIOR_CURRENCY, $store->getCurrentCurrencyCode());
+        }
+
+        // Pin the store's current currency to the locked code so subsequent collectors (e.g., Shipping_Total::collect,
+        // which calls $store->convertPrice()) produce shipping_amount in the quote currency instead of leaking the
+        // store's session currency and writing both base and order shipping with no conversion.
+        $store->setCurrentCurrencyCode($currencyCode);
+        $store->unsetData('current_currency');
+    }
+
+    /**
+     * Restore the user's pre-express session currency. The currency-lock cookie/session set by setCurrentCurrencyCode()
+     * would otherwise persist into general browsing after the express flow ends.
+     */
+    private function _restorePriorCurrency(Mage_Sales_Model_Quote $quote): void
+    {
+        $session = $this->_getCheckoutSession();
+        $prior = trim((string) $session->getData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_PRIOR_CURRENCY));
+        if ($prior === '') {
+            return;
+        }
+
+        $store = Mage::app()->getStore($quote->getStoreId());
+        $store->setCurrentCurrencyCode($prior);
+        $store->unsetData('current_currency');
+        $session->unsetData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_PRIOR_CURRENCY);
+    }
+
+    /**
+     * Re-pin the store's current currency to the quote's locked code for this request. Magento's totals collectors
+     * read $store->getCurrentCurrency() at collect time, and between requests the session currency can drift away
+     * from the quote's locked value.
+     */
+    private function _applyLockedCurrencyToStore(Mage_Sales_Model_Quote $quote): void
+    {
+        $lockedCurrency = (string) $quote->getPayment()
+            ->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY);
+        if ($lockedCurrency === '') {
+            $lockedCurrency = (string) $this->_getCheckoutSession()
+                ->getData(Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY);
+        }
+
+        if ($lockedCurrency === '') {
+            return;
+        }
+
+        $store = Mage::app()->getStore($quote->getStoreId());
+        $store->setCurrentCurrencyCode($lockedCurrency);
+        // Mage_Core_Model_Store::getCurrentCurrency() caches the Currency model on first read; clear it so the next
+        // call re-resolves through the freshly-set code.
+        $store->unsetData('current_currency');
     }
 
     /**
@@ -500,7 +661,6 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
      */
     private function _validateShortcutAttempt(Mage_Sales_Model_Quote $quote, string $orderId): void
     {
-        $quote->collectTotals();
         if ($orderId === '') {
             Mage::throwException(Mage::helper('paypal')->__('PayPal order ID is required.'));
         }
@@ -635,7 +795,11 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         }
 
         $address = $quote->getShippingAddress();
-        $address->setCollectShippingRates(true)->collectShippingRates();
+
+        // First pass: collect totals so the shipping collector sees real items, weight and subtotal when it computes rates.
+        $address->setCollectShippingRates(true);
+        $quote->collectTotals();
+
         $validRates = $this->_getValidShippingRates($address);
         if ($validRates === []) {
             $address->setShippingMethod(null);
@@ -646,35 +810,40 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         }
 
         $currentMethod = (string) $address->getShippingMethod();
+        $needsAutoSelect = true;
         if ($currentMethod !== '') {
             $currentRate = $address->getShippingRateByCode($currentMethod);
-            if ($currentRate instanceof Mage_Sales_Model_Quote_Address_Rate) {
-                $currentRateError = $currentRate->getErrorMessage();
-                if (in_array($currentRateError, [null, false, ''], true)) {
-                    return;
-                }
+            if ($currentRate instanceof Mage_Sales_Model_Quote_Address_Rate
+                && in_array($currentRate->getErrorMessage(), [null, false, ''], true)
+            ) {
+                $needsAutoSelect = false;
             }
         }
 
-        usort($validRates, static function (
-            Mage_Sales_Model_Quote_Address_Rate $left,
-            Mage_Sales_Model_Quote_Address_Rate $right
-        ): int {
-            $leftPrice = (float) $left->getPrice();
-            $rightPrice = (float) $right->getPrice();
+        if ($needsAutoSelect) {
+            usort($validRates, static function (
+                Mage_Sales_Model_Quote_Address_Rate $left,
+                Mage_Sales_Model_Quote_Address_Rate $right
+            ): int {
+                $leftPrice = (float) $left->getPrice();
+                $rightPrice = (float) $right->getPrice();
 
-            if ($leftPrice < $rightPrice) {
-                return -1;
-            }
+                if ($leftPrice < $rightPrice) {
+                    return -1;
+                }
 
-            if ($leftPrice > $rightPrice) {
-                return 1;
-            }
+                if ($leftPrice > $rightPrice) {
+                    return 1;
+                }
 
-            return strcmp((string) $left->getCode(), (string) $right->getCode());
-        });
+                return strcmp((string) $left->getCode(), (string) $right->getCode());
+            });
 
-        $address->setShippingMethod($validRates[0]->getCode());
+            $address->setShippingMethod($validRates[0]->getCode());
+        }
+
+        // Flag the next collectTotals() to re-run the shipping collector so it actually prices the selected method.
+        $address->setCollectShippingRates(true);
     }
 
     /**
@@ -794,63 +963,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             ];
         }
 
-        $shipping = $this->_buildShippingPatchValue($quote);
-        if ($shipping !== null) {
-            $patch[] = [
-                'op' => 'replace',
-                'path' => $pathPrefix . '/shipping',
-                'value' => $shipping,
-            ];
-        }
-
         return $patch;
-    }
-
-    /**
-     * Build the PayPal purchase-unit shipping payload from the quote shipping address.
-     *
-     * @return null|array{name: array{full_name: string}, address: array<string, string>}
-     */
-    private function _buildShippingPatchValue(Mage_Sales_Model_Quote $quote): ?array
-    {
-        if ($quote->isVirtual()) {
-            return null;
-        }
-
-        $address = $quote->getShippingAddress();
-        $countryId = strtoupper(trim((string) $address->getCountryId()));
-        if ($countryId === '') {
-            return null;
-        }
-
-        $fullName = trim(
-            trim((string) $address->getFirstname()) . ' ' . trim((string) $address->getLastname()),
-        );
-        if ($fullName === '') {
-            $fullName = 'PayPal Customer';
-        }
-
-        $regionCode = $address->getRegionCode();
-        if ($regionCode === null || $regionCode === '') {
-            $regionCode = $address->getRegion();
-        }
-
-        $paypalAddress = [
-            'address_line_1' => trim((string) $address->getStreetLine(1)),
-            'address_line_2' => trim((string) $address->getStreetLine(2)),
-            'admin_area_2' => trim((string) $address->getCity()),
-            'admin_area_1' => trim((string) $regionCode),
-            'postal_code' => trim((string) $address->getPostcode()),
-            'country_code' => $countryId,
-        ];
-
-        return [
-            'name' => ['full_name' => $fullName],
-            'address' => array_filter(
-                $paypalAddress,
-                static fn(string $value): bool => $value !== '',
-            ),
-        ];
     }
 
     /**
@@ -929,10 +1042,23 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
      */
     private function _getQuote(): Mage_Sales_Model_Quote
     {
-        if (!$this->_quote instanceof Mage_Sales_Model_Quote) {
-            $this->_quote = $this->_getCheckoutSession()->getQuote();
+        if ($this->_quote instanceof Mage_Sales_Model_Quote) {
+            return $this->_quote;
         }
 
+        $expressQuoteId = (int) $this->_getCheckoutSession()->getData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_BUY_NOW_QUOTE_ID);
+        if ($expressQuoteId > 0) {
+            /** @var Mage_Sales_Model_Quote $quote */
+            $quote = Mage::getModel('sales/quote')->loadByIdWithoutStore($expressQuoteId);
+            if ((int) $quote->getId() === $expressQuoteId) {
+                $this->_quote = $quote;
+                return $quote;
+            }
+
+            $this->_getCheckoutSession()->unsetData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_BUY_NOW_QUOTE_ID);
+        }
+
+        $this->_quote = $this->_getCheckoutSession()->getQuote();
         return $this->_quote;
     }
 
