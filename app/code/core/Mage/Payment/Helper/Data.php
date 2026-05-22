@@ -242,7 +242,18 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if ($asLabelValue && $withGroups) {
-            $groups = Mage::app()->getConfig()->getNode(self::XML_PATH_PAYMENT_GROUPS)->asCanonicalArray();
+            $groups = Mage::app()->getConfig()->getNode(self::XML_PATH_PAYMENT_GROUPS);
+
+            if ($groups instanceof Varien_Simplexml_Element) {
+                $groups = $groups->asCanonicalArray();
+
+                if (!is_array($groups)) {
+                    $groups = [];
+                }
+            } else {
+                $groups = [];
+            }
+
             foreach ($groups as $code => $title) {
                 $methods[$code] = $title; // for sorting, see below
             }

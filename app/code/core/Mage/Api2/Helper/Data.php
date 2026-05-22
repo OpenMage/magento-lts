@@ -53,25 +53,23 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getAuthAdapters($enabledOnly = false)
     {
-        $adapters = Mage::getConfig()->getNode(self::XML_PATH_AUTH_ADAPTERS);
+        $adapters = Mage::getConfig()?->getNode(self::XML_PATH_AUTH_ADAPTERS);
 
-        if (!$adapters) {
+        if (!$adapters instanceof Varien_Simplexml_Element) {
             return [];
         }
 
         $adapters = $adapters->asArray();
 
-        if ($enabledOnly) {
-            foreach ($adapters as $adapter) {
-                if (empty($adapter['enabled'])) {
-                    unset($adapters);
-                }
-            }
-
-            $adapters = (array) $adapters;
+        if (!is_array($adapters)) {
+            return [];
         }
 
-        uasort($adapters, ['Mage_Api2_Helper_Data', '_compareOrder']);
+        if ($enabledOnly) {
+            $adapters = array_filter($adapters, fn($adapter) => !empty($adapter['enabled']));
+        }
+
+        uasort($adapters, self::_compareOrder(...));
 
         return $adapters;
     }
@@ -83,14 +81,22 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getUserTypes()
     {
-        $userModels = [];
-        $types = Mage::getConfig()->getNode(self::XML_PATH_USER_TYPES);
+        $types = Mage::getConfig()?->getNode(self::XML_PATH_USER_TYPES);
 
-        if ($types) {
-            foreach ($types->asArray() as $type => $params) {
-                if (!empty($params['allowed'])) {
-                    $userModels[$type] = $params['model'];
-                }
+        if (!$types instanceof Varien_Simplexml_Element) {
+            return [];
+        }
+
+        $types = $types->asArray();
+
+        if (!is_array($types)) {
+            return [];
+        }
+
+        $userModels = [];
+        foreach ($types as $type => $params) {
+            if (!empty($params['allowed'])) {
+                $userModels[$type] = $params['model'];
             }
         }
 
@@ -104,7 +110,12 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRequestInterpreterAdapters()
     {
-        return (array) Mage::app()->getConfig()->getNode(self::XML_PATH_API2_REQUEST_INTERPRETERS);
+        $node = Mage::app()->getConfig()->getNode(self::XML_PATH_API2_REQUEST_INTERPRETERS);
+        if (!$node instanceof Varien_Simplexml_Element) {
+            return [];
+        }
+
+        return (array) $node;
     }
 
     /**
@@ -114,7 +125,12 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getResponseRenderAdapters()
     {
-        return (array) Mage::app()->getConfig()->getNode(self::XML_PATH_API2_RESPONSE_RENDERS);
+        $node = Mage::app()->getConfig()->getNode(self::XML_PATH_API2_RESPONSE_RENDERS);
+        if (!$node instanceof Varien_Simplexml_Element) {
+            return [];
+        }
+
+        return (array) $node;
     }
 
     /**

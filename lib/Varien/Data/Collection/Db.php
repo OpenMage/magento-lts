@@ -66,7 +66,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Fields map for correlation names & real selected fields
      *
-     * @var null|array{fields: array<string, string>}
+     * @var null|array<string, array<string, string|Zend_Db_Expr>>
      */
     protected $_map = null;
 
@@ -899,7 +899,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (is_null($this->_map)) {
             $this->_map = [$group => []];
-        } elseif (is_null($this->_map[$group])) {
+        } elseif (!isset($this->_map[$group])) {
             $this->_map[$group] = [];
         }
 
