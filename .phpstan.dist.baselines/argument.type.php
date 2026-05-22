@@ -3137,11 +3137,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $min (0) of function random_int expects lower number than parameter #2 $max (int<-1, max>).',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App::getStore() expects bool|int|Mage_Core_Model_Store|string|null, bool|int|string|Varien_Object|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Data.php',
@@ -6420,16 +6415,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $customerIdSession of method Mage_Sales_Model_Billing_Agreement::canPerformAction() expects int, int|string|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/controllers/Billing/AgreementController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $min (0) of function random_int expects lower number than parameter #2 $max (int<-1, max>).',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Coupon/Codegenerator.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $min (0) of function random_int expects lower number than parameter #2 $max (int<-1, max>).',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Coupon/Massgenerator.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $combine of method Mage_SalesRule_Model_Observer::_removeAttributeFromConditions() expects Mage_Rule_Model_Condition_Combine, Mage_Rule_Model_Action_Collection given.',

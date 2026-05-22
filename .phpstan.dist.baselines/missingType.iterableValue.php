@@ -25232,11 +25232,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget/Config.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Widget_Model_Widget_Config::getAvailablePlaceholderFilenames() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Class Mage_Widget_Model_Widget_Instance has PHPDoc tag @method for method getPageGroups() return type with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget/Instance.php',
