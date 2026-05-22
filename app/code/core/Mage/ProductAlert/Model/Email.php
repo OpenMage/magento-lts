@@ -212,8 +212,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             return false;
         }
 
-        if (($this->_type == 'price' && count($this->_priceProducts) == 0)
-            || ($this->_type == 'stock' && count($this->_stockProducts) == 0)
+        if (($this->_type == 'price' && count($this->_priceProducts) === 0)
+            || ($this->_type == 'stock' && count($this->_stockProducts) === 0)
         ) {
             return false;
         }
@@ -239,7 +239,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
         $appEmulation = Mage::getSingleton('core/app_emulation');
         $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
 
-        if ($this->_type == 'price') {
+        if ($this->_type === 'price') {
             $this->_getPriceBlock()
                 ->setStore($store)
                 ->reset();

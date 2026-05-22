@@ -151,7 +151,7 @@ class Mage_Paypal_Model_Ipn
 
         $response = preg_split('/^\r?$/m', $postbackResult);
         $response = trim(end($response));
-        if ($response != 'VERIFIED') {
+        if ($response !== 'VERIFIED') {
             $this->_debugData['postback'] = $postbackQuery;
             $this->_debugData['postback_result'] = $postbackResult;
             throw new Exception('PayPal IPN postback failure. See ' . self::DEFAULT_LOG_FILE . ' for details.');
@@ -242,7 +242,7 @@ class Mage_Paypal_Model_Ipn
                 $receiverEmail = $this->getRequestData('receiver_email');
             }
 
-            if (strtolower($merchantEmail) != strtolower($receiverEmail)) {
+            if (strtolower($merchantEmail) !== strtolower($receiverEmail)) {
                 throw new Exception(
                     sprintf(
                         'Requested %s and configured %s merchant emails do not match.',
@@ -372,9 +372,9 @@ class Mage_Paypal_Model_Ipn
         $price = $this->getRequestData('mc_gross') - $this->getRequestData('tax') -  $this->getRequestData('shipping');
         $productItemInfo = new Varien_Object();
         $type = trim($this->getRequestData('period_type'));
-        if ($type == 'Trial') {
+        if ($type === 'Trial') {
             $productItemInfo->setPaymentType(Mage_Sales_Model_Recurring_Profile::PAYMENT_TYPE_TRIAL);
-        } elseif ($type == 'Regular') {
+        } elseif ($type === 'Regular') {
             $productItemInfo->setPaymentType(Mage_Sales_Model_Recurring_Profile::PAYMENT_TYPE_REGULAR);
         }
 

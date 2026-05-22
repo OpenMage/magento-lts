@@ -304,7 +304,7 @@ class Mage_Core_Model_Resource_Setup
          * Hook queries in adapter, so that in MySQL compatibility mode extensions and custom modules will avoid
          * errors due to changes in database structure
          */
-        if (((string) $this->_moduleConfig->codePool != 'core') && Mage::helper('core')->useDbCompatibleMode()) {
+        if (((string) $this->_moduleConfig->codePool !== 'core') && Mage::helper('core')->useDbCompatibleMode()) {
             $this->_hookQueries();
         }
 
@@ -668,7 +668,7 @@ class Mage_Core_Model_Resource_Setup
                     $versionInfo = explode('-', $version);
 
                     // In array must be 2 elements: 0 => version from, 1 => version to
-                    if (count($versionInfo) != 2) {
+                    if (count($versionInfo) !== 2) {
                         continue;
                     }
 

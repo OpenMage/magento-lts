@@ -38,7 +38,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                 ->load()
                 ->getItems();
 
-            if (count($terms) == 0) {
+            if (count($terms) === 0) {
                 return $this;
             }
 

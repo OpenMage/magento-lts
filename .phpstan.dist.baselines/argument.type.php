@@ -507,7 +507,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Helper/Sales.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $format of function vsprintf expects string, array<string|null>|string|null given.',
+    'rawMessage' => 'Parameter #1 $format of function vsprintf expects string, array<string>|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Helper/Sales.php',
 ];
@@ -952,16 +952,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $array of function uasort expects array, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $string of function explode expects string, string|true given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $roleId of method Mage_Api2_Model_Acl::addRole() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl.php',
@@ -1375,16 +1365,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $size of method Mage_Catalog_Model_Product_Image::setWatermarkSize() expects array, array|bool given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Image.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Output.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $value of method Varien_Filter_Template::filter() expects string, string|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Output.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $categoryId of method Mage_Catalog_Model_Product::canBeShowInCategory() expects int, int<min, -1>|int<1, max>|string given.',
@@ -1804,16 +1784,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $string of function md5 expects string, string|false given.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
 $ignoreErrors[] = [
@@ -2567,11 +2537,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/Model/Rule.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function implode expects array<string>, array<array<string|null>|string|null> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #3 $length of method Mage_Core_Helper_String::substr() expects int|null, int|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Helper/Data.php',
@@ -2790,21 +2755,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $websiteId of method Mage_Checkout_Model_Type_Onepage::_customerEmailExists() expects int|null, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Onepage.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $code of method Mage_Core_Model_Message_Abstract::setCode() expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/CartController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $message of method Mage_Core_Model_Session_Abstract::addError() expects string, string|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/CartController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $message of method Mage_Core_Model_Session_Abstract::addNotice() expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/CartController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $message of static method Mage::throwException() expects string, array|string given.',
@@ -3135,11 +3085,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $allowedTags of method Mage_Core_Helper_Abstract::escapeHtml() expects array<string>|null, array<string>|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $min (0) of function random_int expects lower number than parameter #2 $max (int<-1, max>).',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Data.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App::getStore() expects bool|int|Mage_Core_Model_Store|string|null, bool|int|string|Varien_Object|null given.',
@@ -3877,11 +3822,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Validate/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Variable.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $website of method Mage_Core_Model_Resource_Store_Collection::addWebsiteFilter() expects array|int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Website.php',
@@ -3939,11 +3879,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $options of method Mage_Customer_Helper_Data::_prepareNamePrefixSuffixOptions() expects string, string|null given.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Helper/Data.php',
 ];
 $ignoreErrors[] = [
@@ -4547,11 +4482,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Set.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Helper/Message.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $type of method Mage_GiftMessage_Helper_Message::isMessagesAvailable() expects \'address_item\'|\'config\'|\'item\'|\'items\'|\'order\'|\'order_item\', string given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Helper/Message.php',
@@ -4805,11 +4735,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $string of function parse_str expects string, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Oauth/Model/Server.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $message of method Mage_Core_Model_Session_Abstract::addError() expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/ConsumerController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $customerId of method Mage_Oauth_Model_Resource_Token_Collection::addFilterByCustomerId() expects int, int|null given.',
@@ -6420,16 +6345,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $customerIdSession of method Mage_Sales_Model_Billing_Agreement::canPerformAction() expects int, int|string|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/controllers/Billing/AgreementController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $min (0) of function random_int expects lower number than parameter #2 $max (int<-1, max>).',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Coupon/Codegenerator.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $min (0) of function random_int expects lower number than parameter #2 $max (int<-1, max>).',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Coupon/Massgenerator.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $combine of method Mage_SalesRule_Model_Observer::_removeAttributeFromConditions() expects Mage_Rule_Model_Condition_Combine, Mage_Rule_Model_Action_Collection given.',

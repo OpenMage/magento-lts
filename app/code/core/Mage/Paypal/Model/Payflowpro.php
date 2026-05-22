@@ -193,7 +193,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         $infoInstance = $this->getInfoInstance();
         $amountToPay = round($amount, 2);
         $authorizedAmount = round($infoInstance->getAmountAuthorized(), 2);
-        return $amountToPay != $authorizedAmount ? $amountToPay : 0;
+        return $amountToPay !== $authorizedAmount ? $amountToPay : 0;
     }
 
     /**

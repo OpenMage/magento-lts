@@ -948,11 +948,11 @@ class Mage_Core_Model_Design_Package
             }
 
             foreach ($pathParts as $key => $part) {
-                if ($part == '.' || $part == '..') {
+                if ($part === '.' || $part === '..') {
                     unset($pathParts[$key]);
                 }
 
-                if ($part == '..' && count($fileDirParts)) {
+                if ($part === '..' && count($fileDirParts)) {
                     $fileDirParts = array_slice($fileDirParts, 0, count($fileDirParts) - 1);
                 }
             }

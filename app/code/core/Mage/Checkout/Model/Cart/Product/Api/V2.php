@@ -31,7 +31,7 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
                 $assocArr = [];
                 if (is_array($value)) {
                     foreach ($value as $item) {
-                        if (is_object($item) && count(get_object_vars($item)) == 2
+                        if (is_object($item) && count(get_object_vars($item)) === 2
                             && isset($item->key) && isset($item->value)
                         ) {
                             $assocArr[$item->key] = $item->value;

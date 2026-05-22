@@ -219,7 +219,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             // Retrieve default option value if pre-configured
             if (is_array($value)) {
                 $value = implode(',', $value);
-            } elseif (trim($value) == '') {
+            } elseif (trim($value) === '') {
                 $widget = $this->getConfigAsObject($type);
                 $parameters = $widget->getParameters();
                 if (isset($parameters[$name]) && is_object($parameters[$name])) {

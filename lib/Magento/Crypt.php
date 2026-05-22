@@ -128,7 +128,7 @@ class Magento_Crypt
      */
     public function encrypt($data)
     {
-        if (strlen($data) == 0) {
+        if ((string) $data === '') {
             return $data;
         }
 
@@ -143,7 +143,7 @@ class Magento_Crypt
      */
     public function decrypt($data)
     {
-        if (strlen($data) == 0) {
+        if ((string) $data === '') {
             return $data;
         }
 

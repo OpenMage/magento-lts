@@ -34,7 +34,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         $data = [];
         $fields = [];
         for ($i = 0; $line = fgetcsv($resource, 4096, $fDel, $fEnc, $fEsc); $i++) {
-            if (0 == $i) {
+            if (0 === $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
                     continue;
@@ -80,7 +80,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         $map = new Varien_Convert_Mapper_Column();
         $fields = [];
         for ($i = 0; $line = fgetcsv($resource, 4096, $fDel, $fEnc, $fEsc); $i++) {
-            if (0 == $i) {
+            if (0 === $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
                     continue;

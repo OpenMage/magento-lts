@@ -105,7 +105,7 @@ class Mage_Archive
         $interimSource = '';
         $counter = count($archivers);
         for ($i = 0; $i < $counter; $i++) {
-            if ($i == (count($archivers) - 1)) {
+            if ($i === count($archivers) - 1) {
                 $packed = $destination;
             } else {
                 $packed = dirname($destination) . DS . '~tmp-' . microtime(true) . $archivers[$i] . '.' . $archivers[$i];
@@ -142,7 +142,7 @@ class Mage_Archive
                 break;
             }
 
-            if ($i == 0) {
+            if ($i === 0) {
                 $packed = rtrim($destination, DS) . DS;
             } else {
                 $packed = rtrim($destination, DS) . DS . '~tmp-' . microtime(true) . $archivers[$i - 1] . '.' . $archivers[$i - 1];
@@ -200,6 +200,6 @@ class Mage_Archive
     public function isTar($file)
     {
         $archivers = $this->_getArchivers($file);
-        return count($archivers) == 1 && $archivers[0] == self::TAPE_ARCHIVER;
+        return count($archivers) === 1 && $archivers[0] == self::TAPE_ARCHIVER;
     }
 }

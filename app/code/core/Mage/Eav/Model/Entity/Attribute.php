@@ -146,7 +146,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         }
 
         $defaultValue   = $this->getDefaultValue();
-        $hasDefaultValue = ((string) $defaultValue != '');
+        $hasDefaultValue = ((string) $defaultValue !== '');
 
         if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
             $locale = Mage::app()->getLocale()->getLocaleCode();

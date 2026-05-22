@@ -135,7 +135,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
                         $entityInfo['rule_id_field'] => $ruleId,
                     ];
                     $count++;
-                    if (($count % 1000) == 0) {
+                    if ($count % 1000 === 0) {
                         $adapter->insertOnDuplicate(
                             $this->getTable($entityInfo['associations_table']),
                             $data,

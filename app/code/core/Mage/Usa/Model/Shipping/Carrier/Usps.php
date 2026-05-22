@@ -2311,9 +2311,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
         $zipCount = count($zip);
         for ($i = 0; $i < $zipCount; ++$i) {
-            if (strlen($zip[$i]) == 5) {
+            if (strlen($zip[$i]) === 5) {
                 $zip5 = $zip[$i];
-            } elseif (strlen($zip[$i]) == 4) {
+            } elseif (strlen($zip[$i]) === 4) {
                 $zip4 = $zip[$i];
             }
         }

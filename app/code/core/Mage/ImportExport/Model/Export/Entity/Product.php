@@ -910,7 +910,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
 
             unset($customOptionsDataPre);
 
-            if ($offsetProducts == 1) {
+            if ($offsetProducts === 1) {
                 // create export file
                 $headerCols = array_merge(
                     [

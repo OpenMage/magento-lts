@@ -14,7 +14,7 @@
 <dt><label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php if ($_option->getRequired()) echo '<em>*</em>' ?><?php echo $this->escapeHtml($_option->getTitle()) ?></label></dt>
 <dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
     <div class="input-box">
-    <?php if (count($_selections) == 1 && $_option->getRequired()): ?>
+    <?php if (count($_selections) === 1 && $_option->getRequired()): ?>
         <?php echo $this->getSelectionQtyTitlePrice($_selections[0]) ?>
         <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>" price="<?php echo $this->getSelectionPrice($_selections[0]) ?>"'/>
     <?php else: ?>

@@ -22,9 +22,9 @@ class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Rss
     {
         $path = '';
         $action = strtolower($this->getRequest()->getActionName());
-        if ($action == 'review') {
+        if ($action === 'review') {
             $path = 'catalog/reviews_ratings';
-        } elseif ($action == 'notifystock') {
+        } elseif ($action === 'notifystock') {
             $path = 'catalog/products';
         }
 

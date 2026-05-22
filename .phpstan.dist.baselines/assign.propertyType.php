@@ -577,16 +577,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/HTTP/Client/Socket.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Data_Collection_Db<T of Varien_Object>::$_map (array{fields: array<string, string>}|null) does not accept non-empty-array<string, array<string, string>>.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Data_Collection_Db<T of Varien_Object>::$_map (array{fields: array<string, string>}|null) does not accept non-empty-array<string, array{}>.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Varien_Data_Form_Filter_Date::$_locale (string|Zend_Locale) does not accept string|Zend_Locale|null.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Form/Filter/Date.php',

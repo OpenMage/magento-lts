@@ -130,11 +130,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     {
         if (isset($destination) && isset($newName)) {
             $fileName = $destination . '/' . $newName;
-        } elseif (isset($destination) && !isset($newName)) {
+        } elseif (isset($destination)) {
             $info = pathinfo($destination);
             $fileName = $destination;
             $destination = $info['dirname'];
-        } elseif (!isset($destination) && isset($newName)) {
+        } elseif (isset($newName)) {
             $fileName = $this->_fileSrcPath . '/' . $newName;
         } else {
             $fileName = $this->_fileSrcPath . $this->_fileSrcName;
@@ -316,7 +316,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function checkAlpha($fileName)
     {
-        return ((ord(file_get_contents($fileName, false, null, 25, 1)) & 6) & 4) == 4;
+        return (ord(file_get_contents($fileName, false, null, 25, 1)) & 6 & 4) === 4;
     }
 
     private function _getTransparency($imageResource, $fileType, &$isAlpha = false, &$isTrueColor = false)
