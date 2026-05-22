@@ -35,8 +35,8 @@ class Mage_Payment_Model_Config
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
             if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store) && array_key_exists('model', $methodConfig)) {
-                $methodModel = $this->_getMethod($code, $methodConfig);
-                if ($methodModel !== false && (int) $methodModel->getConfigData('active', $store)) {
+                $methodModel = $this->_getMethod($code, $methodConfig, $store);
+                if ($methodModel !== false && (bool) (int) $methodModel->getConfigData('active', $store)) {
                     $methods[$code] = $methodModel;
                 }
             }
@@ -56,7 +56,7 @@ class Mage_Payment_Model_Config
         $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
-            $data = $this->_getMethod($code, $methodConfig);
+            $data = $this->_getMethod($code, $methodConfig, $store);
             if ($data !== false) {
                 $methods[$code] = $data;
             }
@@ -74,6 +74,7 @@ class Mage_Payment_Model_Config
     protected function _getMethod($code, $config, $store = null)
     {
         if (isset(self::$_methods[$code])) {
+            self::$_methods[$code]->setStore($store);
             return self::$_methods[$code];
         }
 
