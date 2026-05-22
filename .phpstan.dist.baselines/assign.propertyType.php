@@ -432,6 +432,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Index/Model/Resource/Lock/Resource.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Property Varien_Data_Collection_Db<Mage_Core_Model_Abstract>::$_map (array{fields: array<string, string>}|null) does not accept array{fields: non-empty-array<string, string|Zend_Db_Expr>}.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Resource/Subscriber/Collection.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Page_Block_Html_Pager::$_frameEnd (int) does not accept float|int.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Html/Pager.php',

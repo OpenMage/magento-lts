@@ -418,7 +418,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
         $options = $this->getValueSelectOptions();
         $valueArr = [];
-        if ($options !== []) {
+        if (is_array($options) && $options !== []) {
             foreach ($options as $option) {
                 if (is_array($value)) {
                     if (in_array($option['value'], $value, true)) {

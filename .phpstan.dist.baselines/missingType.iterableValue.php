@@ -12462,11 +12462,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Config/Options.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Core_Model_Date::parseDateTime() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Date.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Core_Model_Design_Config::__construct() has parameter $params with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Design/Config.php',
@@ -15443,6 +15438,16 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Csv::getCsvString() has parameter $fields with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Csv::parseRow() has parameter $line with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Csv::parseRow() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
 ];
@@ -19342,11 +19347,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/PathDependent.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store::getPaypalDisabledMethods() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Store.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Paypal_Block_Express_Review_Details::getTotals() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Review/Details.php',
@@ -20923,11 +20923,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Review_ProductController::_cropReviewData() has parameter $reviewData with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Review/controllers/ProductController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Review_ProductController::_cropReviewData() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Review/controllers/ProductController.php',
 ];
@@ -25237,11 +25232,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget/Config.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Widget_Model_Widget_Config::getAvailablePlaceholderFilenames() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Class Mage_Widget_Model_Widget_Instance has PHPDoc tag @method for method getPageGroups() return type with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget/Instance.php',
@@ -27143,11 +27133,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Varien_Db_Adapter_Pdo_Mysql::_getIndexesDefinition() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Varien_Db_Adapter_Pdo_Mysql::_getOptionsDefinition() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Pdo/Mysql.php',
 ];
