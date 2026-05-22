@@ -19192,11 +19192,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Info/Ccsave.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Helper_Data::getAllBillingAgreementMethods() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Helper_Data::getPaymentMethodList() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
