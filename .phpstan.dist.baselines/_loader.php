@@ -55,7 +55,6 @@ return ['includes' => [
     __DIR__ . '/if.alwaysFalse.php',
     __DIR__ . '/if.alwaysTrue.php',
     __DIR__ . '/if.condNotBoolean.php',
-    __DIR__ . '/isset.variable.php',
     __DIR__ . '/method.childParameterType.php',
     __DIR__ . '/method.childReturnType.php',
     __DIR__ . '/method.deprecated.php',
