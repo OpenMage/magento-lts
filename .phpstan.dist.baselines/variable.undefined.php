@@ -7,11 +7,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Variable $adapters might not be defined.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Variable $operationName might not be defined.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php',

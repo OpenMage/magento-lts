@@ -952,16 +952,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $array of function uasort expects array, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $string of function explode expects string, string|true given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $roleId of method Mage_Api2_Model_Acl::addRole() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl.php',

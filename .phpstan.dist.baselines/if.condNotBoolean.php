@@ -2122,11 +2122,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Block/Adminhtml/Permissions/User/Edit/Tab/Roles.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Core_Model_Config_Element|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, array given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl/Filter.php',
