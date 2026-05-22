@@ -432,11 +432,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Index/Model/Resource/Lock/Resource.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Data_Collection_Db<Mage_Core_Model_Abstract>::$_map (array{fields: array<string, string>}|null) does not accept array{fields: non-empty-array<string, string|Zend_Db_Expr>}.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Resource/Subscriber/Collection.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Page_Block_Html_Pager::$_frameEnd (int) does not accept float|int.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Html/Pager.php',
@@ -580,16 +575,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_HTTP_Client_Socket::$_sock (resource) does not accept resource|false.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/HTTP/Client/Socket.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Data_Collection_Db<T of Varien_Object>::$_map (array{fields: array<string, string>}|null) does not accept non-empty-array<string, array<string, string>>.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Data_Collection_Db<T of Varien_Object>::$_map (array{fields: array<string, string>}|null) does not accept non-empty-array<string, array{}>.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Varien_Data_Form_Filter_Date::$_locale (string|Zend_Locale) does not accept string|Zend_Locale|null.',
