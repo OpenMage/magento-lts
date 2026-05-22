@@ -1,0 +1,19 @@
+{
+    "default": {
+        "template_select" : {
+            "_": "#template_select"
+        },
+        "locale_select" : {
+            "_": "#locale_select"
+        },
+        "template_code" : {
+            "_": "#template_code"
+        },
+        "template_subject" : {
+            "_": "#template_subject"
+        },
+        "template_text" : {
+            "_": "#template_text"
+        }
+    }
+}
