@@ -4907,11 +4907,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method asArray() on Mage_Core_Model_Config_Element|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
