@@ -448,7 +448,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type string|null.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Helper/Data.php',
 ];
 $ignoreErrors[] = [
