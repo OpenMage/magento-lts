@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0fef18317c0a1afe8d30d0a92b5d7ac3",
+    "content-hash": "a8988ae96c617dfc5c4d7c31df58b699",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -252,16 +252,16 @@
         },
         {
             "name": "components/jquery",
-            "version": "4.0.0",
+            "version": "v3.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/jquery.git",
-                "reference": "594f9dd922c3b12519c8d52bde744b79fd2ca816"
+                "reference": "8edc7785239bb8c2ad2b83302b856a1d61de60e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/jquery/zipball/594f9dd922c3b12519c8d52bde744b79fd2ca816",
-                "reference": "594f9dd922c3b12519c8d52bde744b79fd2ca816",
+                "url": "https://api.github.com/repos/components/jquery/zipball/8edc7785239bb8c2ad2b83302b856a1d61de60e7",
+                "reference": "8edc7785239bb8c2ad2b83302b856a1d61de60e7",
                 "shasum": ""
             },
             "type": "component",
@@ -297,7 +297,7 @@
                 "source": "https://github.com/jquery/jquery",
                 "wiki": "http://docs.jquery.com/"
             },
-            "time": "2026-05-11T18:06:23+00:00"
+            "time": "2023-09-22T01:43:46+00:00"
         },
         {
             "name": "cweagans/composer-configurable-plugin",
@@ -2447,16 +2447,16 @@
         },
         {
             "name": "mklkj/tinymce-i18n",
-            "version": "26.4.7",
+            "version": "26.5.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mklkj/tinymce-i18n.git",
-                "reference": "f44795dacfc3a37e722ef35b020fa2b20c45d74d"
+                "reference": "123e690741fbc187af8cab9f658df8553dfcbae8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/f44795dacfc3a37e722ef35b020fa2b20c45d74d",
-                "reference": "f44795dacfc3a37e722ef35b020fa2b20c45d74d",
+                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/123e690741fbc187af8cab9f658df8553dfcbae8",
+                "reference": "123e690741fbc187af8cab9f658df8553dfcbae8",
                 "shasum": ""
             },
             "type": "library",
@@ -2479,9 +2479,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mklkj/tinymce-i18n/issues",
-                "source": "https://github.com/mklkj/tinymce-i18n/tree/26.4.7"
+                "source": "https://github.com/mklkj/tinymce-i18n/tree/26.5.18"
             },
-            "time": "2026-04-07T07:49:22+00:00"
+            "time": "2026-05-18T11:34:50+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5977,16 +5977,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "8.5.0",
+            "version": "8.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "fcfc14e367d0aa6c72d018278776ef22dc2e8a8f"
+                "reference": "265989e814097c17f3196d33244a778c4925e80b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/fcfc14e367d0aa6c72d018278776ef22dc2e8a8f",
-                "reference": "fcfc14e367d0aa6c72d018278776ef22dc2e8a8f",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/265989e814097c17f3196d33244a778c4925e80b",
+                "reference": "265989e814097c17f3196d33244a778c4925e80b",
                 "shasum": ""
             },
             "type": "component",
@@ -6030,9 +6030,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/8.5.0"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/8.5.1"
             },
-            "time": "2026-04-29T05:18:45+00:00"
+            "time": "2026-05-19T23:39:20+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -7970,11 +7970,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.54",
+            "version": "2.1.55",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8be50c3992107dc837b17da4d140fbbdf9a5c5bd",
-                "reference": "8be50c3992107dc837b17da4d140fbbdf9a5c5bd",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9eaac3826ed5e9b8427350a43cac825eeca3f566",
+                "reference": "9eaac3826ed5e9b8427350a43cac825eeca3f566",
                 "shasum": ""
             },
             "require": {
@@ -8019,7 +8019,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-29T13:31:09+00:00"
+            "time": "2026-05-18T11:57:34+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -9185,16 +9185,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.4.2",
+            "version": "2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "e645b6463c6a88ea5b44b17d3387d35a912c7946"
+                "reference": "4661c582a20f03df585d2e3fdc4af1b83d67a091"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/e645b6463c6a88ea5b44b17d3387d35a912c7946",
-                "reference": "e645b6463c6a88ea5b44b17d3387d35a912c7946",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/4661c582a20f03df585d2e3fdc4af1b83d67a091",
+                "reference": "4661c582a20f03df585d2e3fdc4af1b83d67a091",
                 "shasum": ""
             },
             "require": {
@@ -9233,7 +9233,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.4.2"
+                "source": "https://github.com/rectorphp/rector/tree/2.4.4"
             },
             "funding": [
                 {
@@ -9241,7 +9241,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-16T13:07:34+00:00"
+            "time": "2026-05-20T19:30:21+00:00"
         },
         {
             "name": "sebastian/cli-parser",
