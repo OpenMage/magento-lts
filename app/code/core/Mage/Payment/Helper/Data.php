@@ -122,6 +122,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             $className = Mage::app()->getConfig()->getBlockClassName($blockType);
             $block = new $className();
         }
+
         /** @var Mage_Payment_Block_Form $block */
         $block->setMethod($method);
         return $block;
