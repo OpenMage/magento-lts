@@ -27,7 +27,6 @@ return ['includes' => [
     __DIR__ . '/cast.useless.php',
     __DIR__ . '/catch.neverThrown.php',
     __DIR__ . '/class.extendsDeprecatedClass.php',
-    __DIR__ . '/class.nameCase.php',
     __DIR__ . '/class.notFound.php',
     __DIR__ . '/classConstant.deprecatedClass.php',
     __DIR__ . '/clone.nonObject.php',
