@@ -290,7 +290,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getQty()
     {
-        if (!$this->_strictQtyMode && (string) $this->getItem()->getQty() == '') {
+        if (!$this->_strictQtyMode && (string) $this->getItem()->getQty() === '') {
             return '';
         }
 

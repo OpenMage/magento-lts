@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                     }
                 }
 
-                if (count($attributes) == 0) {
+                if (count($attributes) === 0) {
                     continue;
                 }
 

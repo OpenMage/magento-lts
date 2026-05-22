@@ -499,7 +499,7 @@ class Mage_Core_Model_Translate_Inline
         $tagLength = strlen($tagName);
         $length = $tagLength + 1;
         $end = $from + 1;
-        while (substr_count($body, $openTag, $from, $length) != substr_count($body, $closeTag, $from, $length)) {
+        while (substr_count($body, $openTag, $from, $length) !== substr_count($body, $closeTag, $from, $length)) {
             $end = strpos($body, $closeTag, $end + $tagLength + 1);
             if ($end === false) {
                 return false;

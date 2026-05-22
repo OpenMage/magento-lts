@@ -17,11 +17,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Roles.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/User.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Rules.php',
@@ -45,11 +40,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/User.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Api/Buttons.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -142,16 +132,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Main.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Main.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Composite/Fieldset.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Categories.php',
@@ -160,11 +140,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Inventory.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Options/Option.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -190,11 +165,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Simple.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tabs.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and null is not allowed.',
@@ -227,11 +197,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Grid/Renderer/Multiaction.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Grid/Renderer/Multiaction.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Group/Edit/Form.php',
@@ -255,11 +220,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Subscriber/Grid/Renderer/Checkbox.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid/Renderer/Sender.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -287,11 +247,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Page/Menu.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Buttons.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Role/Grid/User.php',
@@ -302,29 +257,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/User/Edit/Tab/Roles.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Labels.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Main.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and null is not allowed.',
@@ -370,11 +310,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Address.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Billing/Method/Form.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -427,18 +362,13 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Status/New/Form.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 7,
+    'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php',
 ];
 $ignoreErrors[] = [
@@ -467,11 +397,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Config/Tabs.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Config/Tabs.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and bool|int|string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php',
@@ -495,11 +420,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Edit/Tab/Run.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Grid/Renderer/Sender.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -560,11 +480,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and string|null is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid/Renderer/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Toolbar/Save.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -637,19 +552,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Theme.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Store.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -672,11 +577,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Controller/Action.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Controller/Action.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Helper/Rss.php',
@@ -685,16 +585,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Customer/Renderer/Region.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
@@ -808,7 +698,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Newsletter/QueueController.php',
 ];
 $ignoreErrors[] = [
@@ -887,11 +777,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Config.php',
@@ -912,28 +797,8 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Resource/Rules.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Resource/Rules.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Resource/User.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -998,11 +863,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between array and null is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Request.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Request.php',
 ];
@@ -1087,11 +947,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Block/Catalog/Product/Price.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle.php',
@@ -1117,11 +972,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Option.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string|null and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Price/Index.php',
@@ -1145,21 +995,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Product/Price.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Product/Type.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Product/Type.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
@@ -1208,7 +1043,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Captcha/Model/Observer.php',
 ];
 $ignoreErrors[] = [
@@ -1218,7 +1053,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Captcha/Model/Zend.php',
 ];
 $ignoreErrors[] = [
@@ -1240,26 +1075,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Navigation.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Navigation.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int<-1, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Navigation.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Navigation.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Product/Compare/List.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
@@ -1422,22 +1237,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Api2/Product/Rest/Admin/V1.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between bool and true is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between float|int|string and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php',
 ];
@@ -1472,11 +1272,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Category/Api.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Category/Api.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Category/Api.php',
@@ -1495,11 +1290,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Category/Indexer/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<-1, 1> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Config.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -1638,7 +1428,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Groupprice/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -1728,11 +1518,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Image.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php',
 ];
@@ -1765,11 +1550,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Link/Api/V2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Media/Config.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -1807,22 +1587,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/Select.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/Text.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Value.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',
 ];
@@ -1860,11 +1630,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Url.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
@@ -1917,11 +1682,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between bool and bool is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Helper/Mysql4.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Helper/Mysql4.php',
@@ -1947,19 +1707,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 999> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Action.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Groupprice/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Media.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -1988,7 +1738,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 4,
+    'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
 ];
 $ignoreErrors[] = [
@@ -2003,11 +1753,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between bool and true is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Source.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 9999> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Source.php',
 ];
@@ -2027,19 +1772,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Link/Product/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Option.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Option.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Option/Value.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -2055,11 +1790,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Status.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Website.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
@@ -2102,11 +1832,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between true and true is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between (int|string) and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/controllers/ProductController.php',
@@ -2117,19 +1842,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/data/catalog_setup/data-install-1.6.0.0.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Aggregation.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int|false is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Catalog/Index/Kill/Flag.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Indexer.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
@@ -2212,11 +1927,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Helper/Minsaleqty.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Helper/Minsaleqty.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Model/Indexer/Stock.php',
@@ -2247,18 +1957,13 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 999> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock/Default.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Model/Stock/Item.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogInventory/Model/Stock/Status.php',
 ];
 $ignoreErrors[] = [
@@ -2270,16 +1975,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -2313,11 +2008,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between (float|int) and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Block/Term.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Block/Term.php',
 ];
@@ -2437,11 +2127,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Block/Cart/Crosssell.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Block/Cart/Item/Renderer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Block/Links.php',
@@ -2517,11 +2202,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Cart/Product/Api.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Cart/Product/Api/V2.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Session.php',
@@ -2529,11 +2209,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between float and int is not allowed.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Multishipping.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Multishipping.php',
 ];
 $ignoreErrors[] = [
@@ -2563,18 +2238,8 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/CartController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/Multishipping/AddressController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/MultishippingController.php',
+    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/CartController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int|string|null and int is not allowed.',
@@ -2604,11 +2269,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php',
 ];
 $ignoreErrors[] = [
@@ -2704,11 +2364,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Controller/Varien/Front.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Controller/Varien/Router/Admin.php',
 ];
 $ignoreErrors[] = [
@@ -2729,25 +2384,10 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/File/Storage/Database.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Js.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/String.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/String.php',
 ];
@@ -2788,7 +2428,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 7,
+    'count' => 6,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/App.php',
 ];
 $ignoreErrors[] = [
@@ -2812,11 +2452,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Config.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int|string|false and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Cookie.php',
@@ -2828,18 +2463,13 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 5,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Design/Package.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Domainpolicy.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -2852,11 +2482,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Filter.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Encryption.php',
@@ -2867,17 +2492,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/File/Storage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/File/Storage/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/File/Storage/Directory/Database.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/File/Storage/Directory/Database.php',
 ];
@@ -2897,34 +2512,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Input/Filter.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Update.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Locale.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Db/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Db/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/File/Storage/Directory/Database.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -2938,7 +2528,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Session.php',
 ];
 $ignoreErrors[] = [
@@ -2992,11 +2582,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Translate/String.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Session/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Session/Abstract/Varien.php',
@@ -3048,7 +2633,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Translate.php',
 ];
 $ignoreErrors[] = [
@@ -3088,11 +2673,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Validate/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Variable.php',
 ];
@@ -3120,31 +2700,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Website.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/functions.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 1> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/functions.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/functions.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<min, -1>|int<1, 8191>|int<8193, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/functions.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<min, -1>|int<1, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/functions.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -3267,11 +2822,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Customer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Customer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string|null and null is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Customer.php',
@@ -3372,16 +2922,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/sql/customer_setup/mysql4-data-upgrade-1.4.0.0.8-1.4.0.0.9.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Batch/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Container/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
@@ -3412,21 +2952,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Profile/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Profile/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 255> and int is not allowed.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Profile.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Profile.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Profile.php',
@@ -3435,11 +2960,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 7,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Profile.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Session/Parser/Csv.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -3507,13 +3027,8 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 12,
+    'count' => 11,
     'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
 ];
 $ignoreErrors[] = [
@@ -3528,11 +3043,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/File.php',
 ];
@@ -3632,39 +3142,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Attribute/Data/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Attribute/Data/Date.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Attribute/Data/Datetime.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Attribute/Data/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Attribute/Data/Multiline.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Attribute/Data/Multiline.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Attribute/Data/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Attribute/Data/Text.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int|string is not allowed.',
@@ -3685,11 +3170,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Convert/Adapter/Entity.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<-1, 1> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Convert/Parser/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
@@ -3737,11 +3217,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Attribute/Set.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<-1, 1> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int|string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Abstract.php',
@@ -3765,11 +3240,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Form.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between (int|string) and string is not allowed.',
@@ -3797,34 +3267,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Resource/Form/Fieldset/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Block/Message/Inline.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Model/Api.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Model/Api/V2.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Model/Entity/Attribute/Backend/Boolean/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Model/Message.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Model/Observer.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and mixed is not allowed.',
@@ -3842,19 +3287,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/GoogleAnalytics/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 5,
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Export.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Export/Entity/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
@@ -3887,11 +3322,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
@@ -3914,11 +3344,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import.php',
 ];
 $ignoreErrors[] = [
@@ -4097,11 +3522,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Install/Model/Installer/Console.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Install/Model/Installer/Db.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Install/Model/Installer/Db/Mysql4.php',
@@ -4142,24 +3562,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Queue.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Queue.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Queue.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Resource/Problem/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Resource/Queue.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
@@ -4170,11 +3575,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Resource/Subscriber/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between bool and true is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Subscriber.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
@@ -4220,11 +3620,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/controllers/SubscriberController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Oauth/Helper/Data.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and mixed is not allowed.',
@@ -4302,19 +3697,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Html/Topmenu.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Html/Topmenu.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Html/Topmenu.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Redirect.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int|string|null and int is not allowed.',
@@ -4353,11 +3738,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paygate/Model/Authorizenet.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Info/Container.php',
 ];
@@ -4374,16 +3754,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Cc.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<-9, 9> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Cc.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 1> and int is not allowed.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Cc.php',
 ];
 $ignoreErrors[] = [
@@ -4507,18 +3877,8 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
 ];
 $ignoreErrors[] = [
@@ -4550,11 +3910,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Direct.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
@@ -4603,7 +3958,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 3,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Ipn.php',
 ];
 $ignoreErrors[] = [
@@ -4630,11 +3985,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowpro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment/Transaction.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between float and int is not allowed.',
@@ -4682,13 +4032,8 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Persistent/Model/Observer/Session.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/ProductAlert/Model/Email.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 5,
+    'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/ProductAlert/Model/Email.php',
 ];
 $ignoreErrors[] = [
@@ -4712,11 +4057,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Rating/Model/Resource/Rating.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int|null and null is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Rating/Model/Resource/Rating/Option/Vote/Collection.php',
@@ -4725,11 +4065,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Grouped/Collection.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
@@ -4762,11 +4097,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Order/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Order/Collection.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string|null and null is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Order/Collection.php',
@@ -4790,21 +4120,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Report/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<1, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Report/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Report/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
@@ -4862,19 +4177,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Review/Model/Review.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Review/controllers/ProductController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and null is not allowed.',
@@ -4897,11 +4202,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Rss/controllers/CatalogController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rss/controllers/CatalogController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int|string|null is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Rss/controllers/IndexController.php',
@@ -4910,26 +4210,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, max> and int|null is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Rss/controllers/IndexController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rss/controllers/OrderController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between float|int|string and float|int|string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rule/Model/Condition/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rule/Model/Condition/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rule/Model/Condition/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and float|int|string is not allowed.',
@@ -4957,11 +4237,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 999> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rule/Model/Resource/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Rule/Model/Resource/Rule/Collection/Abstract.php',
@@ -4978,11 +4253,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between (int|string) and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Order/Totals.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Order/Totals.php',
 ];
@@ -5012,11 +4282,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Api2/Order/Address/Rest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Billing/Agreement.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Entity/Order/Attribute/Backend/Billing.php',
@@ -5028,7 +4293,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Observer.php',
 ];
 $ignoreErrors[] = [
@@ -5072,11 +4337,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Api.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int|string|null and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
@@ -5085,11 +4345,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo/Item.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between (float|int) and mixed is not allowed.',
@@ -5117,16 +4372,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice/Item.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice/Item.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between float and float is not allowed.',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Item.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Item.php',
@@ -5147,11 +4392,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Payment.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Payment.php',
@@ -5165,11 +4405,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Payment.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int|null and int|string|null is not allowed.',
@@ -5188,11 +4423,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between (float|int) and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php',
 ];
@@ -5225,11 +4455,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Payment/Method/Billing/AgreementAbstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Quote.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int|string|null and int is not allowed.',
@@ -5362,11 +4587,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Service/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Coupon/Massgenerator.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
@@ -5405,11 +4625,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Model/Carrier/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
@@ -5462,11 +4677,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php',
@@ -5490,11 +4700,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string|false and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Model/Shipping.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Shipping/controllers/TrackingController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
@@ -5522,27 +4727,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/Block/All.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tag/Block/All.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between (float|int) and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/Block/Customer/Tags.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tag/Block/Customer/Tags.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between (float|int) and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tag/Block/Popular.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/Block/Popular.php',
 ];
@@ -5578,7 +4768,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 8,
+    'count' => 6,
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Helper/Data.php',
 ];
 $ignoreErrors[] = [
@@ -5597,11 +4787,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Calculation.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Calculation.php',
@@ -5617,11 +4802,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Class/Source/Product.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 24,
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Config.php',
@@ -5633,11 +4813,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between (int|string) and (int|string) is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Observer.php',
 ];
@@ -5717,22 +4892,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between SimpleXMLElement and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between array|string|false and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php',
 ];
@@ -5753,7 +4918,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 5,
+    'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php',
 ];
 $ignoreErrors[] = [
@@ -5762,17 +4927,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between Varien_Object|null and null is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
@@ -5798,16 +4953,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between Varien_Object|null and null is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 4>|int<6, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
@@ -5852,26 +4997,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Weee/Model/Resource/Tax.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Chooser/Block.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Chooser/Template.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/Block/Adminhtml/Widget/Options.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget/Instance.php',
@@ -5880,11 +5010,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/Model/Widget/Instance.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Widget/controllers/Adminhtml/Widget/InstanceController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<min, 1> and int is not allowed.',
@@ -5893,16 +5018,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/Controller/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/Controller/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/Controller/Abstract.php',
 ];
@@ -5982,54 +5097,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/api/userroles.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/product/composite/fieldset/options/type/checkbox.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/product/composite/fieldset/options/type/multi.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/product/edit/bundle.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/creditmemo/create/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/creditmemo/view/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/invoice/create/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/invoice/view/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<1, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/order/view/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/shipment/create/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<1, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/shipment/view/items/renderer.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -6117,16 +5187,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/graph.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between bool and false is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/store/switcher.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 3,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/store/switcher.phtml',
@@ -6142,24 +5202,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/giftmessage/form.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between bool and false is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/newsletter/preview/store.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/newsletter/preview/store.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 3> and int<-1, 2> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/notification/toolbar.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 3> and int<0, 3> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/notification/toolbar.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between (int|string) and string is not allowed.',
@@ -6187,34 +5232,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/permissions/userroles.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/rating/detailed.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, max> and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/rating/detailed.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/grid.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between bool and false is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int|null is not allowed.',
@@ -6227,11 +5252,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between bool and false is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher/enhanced.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int|null is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher/enhanced.phtml',
@@ -6240,11 +5260,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher/enhanced.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<2, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/billing/method/form.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string|false and mixed is not allowed.',
@@ -6267,11 +5282,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/sidebar/items.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between bool and false is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/store/select.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 4,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/totals/default.phtml',
@@ -6280,16 +5290,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/shipment/packaging/packed.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/shipment/packaging/popup.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 1> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/shipment/view/tracking.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
@@ -6302,29 +5302,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/payment/form/billing/agreement.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, 2> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/recurring/profile/view.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, 2> and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/recurring/profile/view.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between bool and false is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/store/switcher.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/store/switcher.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between bool and false is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/store/switcher/enhanced.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int|null is not allowed.',
@@ -6347,11 +5332,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/system/convert/profile/process.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/system/currency/rate/matrix.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and (int|string) is not allowed.',
     'count' => 4,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/system/currency/rate/matrix.phtml',
@@ -6367,11 +5347,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/system/email/template/edit.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/system/store/tree.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/tax/rate/title.phtml',
@@ -6382,11 +5357,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/widget/form/element.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/widget/form/element/gallery.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/widget/form/renderer/fieldset/element.phtml',
@@ -6394,16 +5364,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/widget/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<-1, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/widget/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 2,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/widget/grid.phtml',
 ];
 $ignoreErrors[] = [
@@ -6427,64 +5387,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/catalog/product/view/price.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/checkbox.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/multi.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 10,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/rss/catalog/product/price.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/sales/order/creditmemo/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/sales/order/invoice/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<1, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/sales/order/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<1, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/sales/order/shipment/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 9> and int is not allowed.',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/compare/list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/list.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<min, -1>|int<1, max> is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/new.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/new.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between float and float is not allowed.',
@@ -6512,21 +5422,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/view/tierprices.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/widget/new/content/new_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/widget/new/content/new_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/widget/new/content/new_list.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between float and float is not allowed.',
     'count' => 3,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/rss/product/price.phtml',
@@ -6542,24 +5437,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/cart/sidebar.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 2> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/multishipping/address/select.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string|false and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/multishipping/billing.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/multishipping/shipping.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/multishipping/shipping.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
@@ -6570,16 +5450,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string|false and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/onepage/payment/methods.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/onepage/shipping_method/available.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/onepage/shipping_method/available.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
@@ -6657,104 +5527,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/home_product_compared.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/home_product_compared.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/home_product_viewed.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/home_product_viewed.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/widget/compared/content/compared_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/widget/compared/content/compared_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/widget/compared/content/compared_list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/widget/viewed/content/viewed_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/widget/viewed/content/viewed_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/widget/viewed/content/viewed_list.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, 2> and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/sales/recurring/profile/view.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 1> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/tag/customer/view.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<1, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/bundle/sales/order/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, 9> and int is not allowed.',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/compare/list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/list.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between float and float is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/price.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/widget/new/content/new_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/widget/new/content/new_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/widget/new/content/new_list.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between float|int<1, max> and int is not allowed.',
@@ -6787,31 +5567,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/directory/currency.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/email/catalog/product/list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/email/catalog/product/list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/email/catalog/product/new.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/email/catalog/product/new.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/page/html/topmenu/renderer.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/page/html/topmenu/renderer.phtml',
@@ -6842,44 +5597,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/reports/widget/compared/content/compared_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/reports/widget/compared/content/compared_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/reports/widget/compared/content/compared_list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/reports/widget/viewed/content/viewed_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/reports/widget/viewed/content/viewed_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/reports/widget/viewed/content/viewed_list.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, 2> and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/sales/recurring/profile/view.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/install/default/default/template/install/begin.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
@@ -6892,24 +5612,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../cron.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../errors/report.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../errors/report.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Mage/Archive.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Archive.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -6932,11 +5637,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, 100> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 7,
     'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
@@ -6947,24 +5647,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/HTTP/Client/Curl.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/HTTP/Client/Socket.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Mage/HTTP/Client/Socket.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
     'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/System/Args.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Mage/System/Args.php',
+    'path' => __DIR__ . '/../lib/Mage/HTTP/Client/Socket.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int|false and int is not allowed.',
@@ -7007,16 +5692,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Magento/Profiler/OutputAbstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Convert/Container/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int<0, max> is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Convert/Parser/Csv.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 3,
     'path' => __DIR__ . '/../lib/Varien/Convert/Parser/Csv.php',
@@ -7027,39 +5702,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Data/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int<0, max> is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 3,
-    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Collection/Filesystem.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Data/Form.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Data/Form.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Data/Form/Element/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
@@ -7075,16 +5725,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Form/Element/Fieldset.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Data/Form/Element/Gallery.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../lib/Varien/Data/Form/Element/Multiline.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
@@ -7112,18 +5752,8 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Mysqli.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Mysqli.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between bool|int and int is not allowed.',
     'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Pdo/Mysql.php',
 ];
 $ignoreErrors[] = [
@@ -7143,23 +5773,13 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 18,
+    'count' => 5,
     'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Pdo/Mysql.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string|null and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Ddl/Table.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
@@ -7222,29 +5842,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/File/Uploader.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/File/Uploader.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/File/Uploader/Image.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and null is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../lib/Varien/File/Uploader/Image.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/File/Uploader/Image.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../lib/Varien/Filter/Template.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
@@ -7263,7 +5863,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 7,
+    'count' => 6,
     'path' => __DIR__ . '/../lib/Varien/Filter/Template/Tokenizer/Variable.php',
 ];
 $ignoreErrors[] = [
@@ -7283,7 +5883,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 6,
+    'count' => 5,
     'path' => __DIR__ . '/../lib/Varien/Image/Adapter/Gd2.php',
 ];
 $ignoreErrors[] = [

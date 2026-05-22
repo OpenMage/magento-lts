@@ -504,7 +504,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             }
         }
 
-        return (array_sum($requiredOptionIds) == count($requiredOptionIds) && $salableSelectionCount);
+        return (array_sum($requiredOptionIds) === count($requiredOptionIds) && $salableSelectionCount);
     }
 
     /**
@@ -621,7 +621,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $options = $optionCollection->appendSelections($selectionCollection, false, $_appendAllSelections);
 
             foreach ($options as $option) {
-                if ($option->getRequired() && count($option->getSelections()) == 1) {
+                if ($option->getRequired() && count($option->getSelections()) === 1) {
                     $selections = array_merge($selections, $option->getSelections());
                 } else {
                     $selections = [];
@@ -724,7 +724,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $usedSelections     = $this->getProduct($product)->getData($this->_keyUsedSelections);
         $usedSelectionsIds  = $this->getProduct($product)->getData($this->_keyUsedSelectionsIds);
 
-        if (!$usedSelections || serialize($usedSelectionsIds) != serialize($selectionIds)) {
+        if (!$usedSelections || serialize($usedSelectionsIds) !== serialize($selectionIds)) {
             $storeId = $this->getProduct($product)->getStoreId();
             $usedSelections = Mage::getResourceModel('bundle/selection_collection')
                 ->addAttributeToSelect('*')
@@ -762,7 +762,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $usedOptions     = $this->getProduct($product)->getData($this->_keyUsedOptions);
         $usedOptionsIds  = $this->getProduct($product)->getData($this->_keyUsedOptionsIds);
 
-        if (!$usedOptions || serialize($usedOptionsIds) != serialize($optionIds)) {
+        if (!$usedOptions || serialize($usedOptionsIds) !== serialize($optionIds)) {
             $usedOptions = Mage::getModel('bundle/option')->getResourceCollection()
                 ->setProductIdFilter($this->getProduct($product)->getId())
                 ->setPositionOrder()

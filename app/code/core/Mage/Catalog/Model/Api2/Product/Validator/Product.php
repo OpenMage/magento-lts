@@ -375,7 +375,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             $catalogHelper = Mage::helper('catalog');
             $website = Mage::getModel('core/website')->load($data['website_id']);
             $isAllWebsitesValue = is_numeric($data['website_id']) && ($data['website_id'] == 0);
-            $isGlobalPriceScope = (int) $catalogHelper->getPriceScope() == Mage_Catalog_Helper_Data::PRICE_SCOPE_GLOBAL;
+            $isGlobalPriceScope = (int) $catalogHelper->getPriceScope() === Mage_Catalog_Helper_Data::PRICE_SCOPE_GLOBAL;
             if (is_null($website->getId()) || ($isGlobalPriceScope && !$isAllWebsitesValue)) {
                 $this->_addError(sprintf('Invalid "website_id" value in the "%s" set.', $fieldSet));
             }
@@ -401,12 +401,12 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 $this->_validatePositiveNumber($stockData, $fieldSet, 'min_qty', false, true, true);
                 $this->_validateNumeric($stockData, $fieldSet, 'notify_stock_qty', false, true);
                 $this->_validateBoolean($stockData, $fieldSet, 'is_qty_decimal');
-                if (isset($stockData['is_qty_decimal']) && (bool) $stockData['is_qty_decimal'] == true) {
+                if (isset($stockData['is_qty_decimal']) && (bool) $stockData['is_qty_decimal']) {
                     $this->_validateBoolean($stockData, $fieldSet, 'is_decimal_divided');
                 }
 
                 $this->_validateBoolean($stockData, $fieldSet, 'enable_qty_increments', true);
-                if (isset($stockData['enable_qty_increments']) && (bool) $stockData['enable_qty_increments'] == true) {
+                if (isset($stockData['enable_qty_increments']) && (bool) $stockData['enable_qty_increments']) {
                     $this->_validatePositiveNumeric($stockData, $fieldSet, 'qty_increments', false, true);
                 }
 

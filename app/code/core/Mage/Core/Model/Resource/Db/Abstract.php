@@ -677,7 +677,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         if ($existent !== []) {
-            if (count($existent) == 1) {
+            if (count($existent) === 1) {
                 $error = Mage::helper('core')->__('%s already exists.', $existent[0]);
             } else {
                 $error = Mage::helper('core')->__('%s already exist.', implode(', ', $existent));
@@ -771,7 +771,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         $checksum = $this->_getReadAdapter()->getTablesChecksum($table);
-        if (count($checksum) == 1) {
+        if (count($checksum) === 1) {
             return $checksum[$table];
         }
 

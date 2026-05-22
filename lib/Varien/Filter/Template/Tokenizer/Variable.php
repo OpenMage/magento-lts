@@ -57,7 +57,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
             }
         } while ($this->next());
 
-        if ($parameterName != '') {
+        if ($parameterName !== '') {
             if ($variableSet) {
                 $actions[] = ['type' => 'property',
                     'name' => $parameterName];

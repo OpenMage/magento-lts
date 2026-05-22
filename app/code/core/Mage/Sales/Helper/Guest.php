@@ -66,11 +66,11 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
 
             if ($order->getId()) {
                 $billingAddress = $order->getBillingAddress();
-                if ((strtolower($lastName) != strtolower($billingAddress->getLastname()))
+                if ((strtolower($lastName) !== strtolower($billingAddress->getLastname()))
                     || ($type == 'email'
-                        && strtolower($email) != strtolower($order->getCustomerEmail()))
+                        && strtolower($email) !== strtolower($order->getCustomerEmail()))
                     || ($type == 'zip'
-                        && (strtolower($zip) != strtolower($billingAddress->getPostcode())))
+                        && (strtolower($zip) !== strtolower($billingAddress->getPostcode())))
                 ) {
                     $errors = true;
                 }

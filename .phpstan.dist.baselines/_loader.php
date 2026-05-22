@@ -39,7 +39,6 @@ return ['includes' => [
     __DIR__ . '/elseif.condNotBoolean.php',
     __DIR__ . '/empty.notAllowed.php',
     __DIR__ . '/encapsedStringPart.nonString.php',
-    __DIR__ . '/equal.alwaysTrue.php',
     __DIR__ . '/equal.invalid.php',
     __DIR__ . '/equal.notAllowed.php',
     __DIR__ . '/for.variableOverwrite.php',
