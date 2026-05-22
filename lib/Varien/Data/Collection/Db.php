@@ -899,7 +899,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (is_null($this->_map)) {
             $this->_map = [$group => []];
-        } elseif (!isset($this->_map[$group])) {
+        } elseif (!array_key_exists($group, $this->_map)) {
             $this->_map[$group] = [];
         }
 
