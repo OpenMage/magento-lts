@@ -18,13 +18,16 @@
  */
 class Mage_Payment_Model_Config
 {
+    /**
+     * @var array<string, Mage_Payment_Model_Method_Abstract>
+     */
     protected static $_methods;
 
     /**
      * Retrieve active system payments
      *
      * @param  ConfigStoreId $store
-     * @return array
+     * @return array<string, Mage_Payment_Model_Method_Abstract>
      */
     public function getActiveMethods($store = null)
     {
@@ -46,7 +49,7 @@ class Mage_Payment_Model_Config
      * Retrieve all system payments
      *
      * @param  ConfigStoreId $store
-     * @return array
+     * @return array<string, Mage_Payment_Model_Method_Abstract>
      */
     public function getAllMethods($store = null)
     {
@@ -98,7 +101,7 @@ class Mage_Payment_Model_Config
      */
     public function getCcTypes()
     {
-        $_types = Mage::getConfig()->getNode('global/payment/cc/types');
+        $_types = Mage::getConfig()?->getNode('global/payment/cc/types');
 
         if (!$_types instanceof Varien_Simplexml_Element) {
             return [];
@@ -125,7 +128,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve list of months translation
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getMonths()
     {
@@ -141,7 +144,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve array of available years
      *
-     * @return array
+     * @return array<int, int>
      */
     public function getYears()
     {

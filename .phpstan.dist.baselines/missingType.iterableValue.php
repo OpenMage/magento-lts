@@ -19227,26 +19227,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getActiveMethods() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getAllMethods() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getMonths() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getYears() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Model_Info::setAdditionalInformation() has parameter $key with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Info.php',
