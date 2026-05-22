@@ -17,11 +17,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Filter/Form.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc tag @var with type Mage_Core_Model_Config_Element is not subtype of type *NEVER*.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var with type Varien_Data_Form is not subtype of type Varien_Data_Form_Element_Fieldset.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php',
@@ -35,11 +30,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var with type Mage_Catalog_Model_Entity_Attribute is not subtype of type Mage_Catalog_Model_Resource_Eav_Attribute.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc tag @var with type Mage_Adminhtml_Model_Session is not subtype of type Mage_Core_Model_Abstract.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var with type Mage_Api2_Model_Request_Interpreter_Interface is not subtype of type Mage_Core_Model_Abstract|false.',

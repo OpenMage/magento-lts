@@ -45,6 +45,9 @@ jobs:
       - name: Update PhpStorm Meta-Files
         run: php -f vendor/bin/n98-magerun dev:ide:phpstorm:meta
 
+      - name: Reset composer files
+        run: git restore -s@ -SW composer.*
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
