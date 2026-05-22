@@ -11,6 +11,8 @@
  * Payment method form base block
  *
  * @package    Mage_Payment
+ *
+ * @method $this setMethod(Mage_Payment_Model_Method_Abstract $method)
  */
 class Mage_Payment_Block_Form extends Mage_Core_Block_Template
 {
