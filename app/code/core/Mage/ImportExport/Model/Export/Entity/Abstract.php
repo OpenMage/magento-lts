@@ -280,7 +280,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         $collection->addAttributeToFilter($attrCode, ['like' => "%{$exportFilter[$attrCode]}%"]);
                     }
                 } elseif (Mage_ImportExport_Model_Export::FILTER_TYPE_DATE == $attrFilterType) {
-                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) == 2) {
+                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) === 2) {
                         $source = array_shift($exportFilter[$attrCode]);
                         $target = array_shift($exportFilter[$attrCode]);
 
@@ -295,7 +295,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         }
                     }
                 } elseif (Mage_ImportExport_Model_Export::FILTER_TYPE_NUMBER == $attrFilterType) {
-                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) == 2) {
+                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) === 2) {
                         $source = array_shift($exportFilter[$attrCode]);
                         $target   = array_shift($exportFilter[$attrCode]);
 

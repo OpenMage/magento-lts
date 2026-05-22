@@ -67,7 +67,7 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
 
         $path = str_replace(['/', '\\'], '/', $path);
         $directory = dirname($path);
-        if ($directory == '.') {
+        if ($directory === '.') {
             $directory = null;
         }
 

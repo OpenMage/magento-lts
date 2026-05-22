@@ -179,7 +179,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      */
     protected function _setCurrentFile($file)
     {
-        $this->_currentFile = $file . ((!is_link($file) && is_dir($file) && substr($file, -1) != DS) ? DS : '');
+        $this->_currentFile = $file . ((!is_link($file) && is_dir($file) && substr($file, -1) !== DS) ? DS : '');
         return $this;
     }
 
@@ -214,7 +214,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     protected function _setCurrentPath($path)
     {
         if ($this->_skipRoot && is_dir($path)) {
-            $this->_currentPath = $path . (substr($path, -1) != DS ? DS : '');
+            $this->_currentPath = $path . (substr($path, -1) !== DS ? DS : '');
         } else {
             $this->_currentPath = dirname($path) . DS;
         }

@@ -353,7 +353,7 @@ class Mage_Core_Model_App
         }
 
         // Finish the request explicitly, no output allowed beyond this point
-        if (PHP_SAPI == 'fpm-fcgi' && function_exists('fastcgi_finish_request')) {
+        if (PHP_SAPI === 'fpm-fcgi' && function_exists('fastcgi_finish_request')) {
             fastcgi_finish_request();
         } else {
             flush();

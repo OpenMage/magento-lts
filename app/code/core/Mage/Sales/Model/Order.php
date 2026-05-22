@@ -1264,7 +1264,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->canCancel() || $this->isPaymentReview()) {
             $cancelState = self::STATE_CANCELED;
             foreach ($this->getAllItems() as $item) {
-                if ($cancelState != self::STATE_PROCESSING && $item->getQtyToRefund()) {
+                if ($cancelState !== self::STATE_PROCESSING && $item->getQtyToRefund()) {
                     $cancelState = $item->getQtyToShip() > $item->getQtyToCancel() ? self::STATE_PROCESSING : self::STATE_COMPLETE;
                 }
 

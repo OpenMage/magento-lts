@@ -19,11 +19,11 @@
         <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
             <?php $showGroup=false; ?>
             <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
-                <?php if ($showWebsite == false): ?>
+                <?php if ($showWebsite === false): ?>
                     <?php $showWebsite = true; ?>
                     <optgroup label="<?php echo $this->escapeHtml($_website->getName()); ?>"></optgroup>
                 <?php endif ?>
-                <?php if ($showGroup == false): ?>
+                <?php if ($showGroup === false): ?>
                     <?php $showGroup = true; ?>
                     <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($_group->getName()); ?>">
                 <?php endif ?>
