@@ -181,9 +181,10 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape html entities
      *
-     * @param  null|string|string[]                        $data
-     * @param  null|string[]                               $allowedTags
-     * @return ($data is array ? array<?string> : ?string)
+     * @template T of mixed|string|string[]
+     * @param  T                                                                 $data
+     * @param  null|string[]                                                     $allowedTags
+     * @return (T is array ? string[] : (T is null|bool|int|string ? T : mixed))
      */
     public function escapeHtml($data, $allowedTags = null)
     {
