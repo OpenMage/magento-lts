@@ -26,56 +26,61 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
     #[Override]
     protected function _prepareLayout()
     {
-        $this->_addButton(self::BUTTON_TYPE_BACK, [
-            'label'     => Mage::helper('adminhtml')->__('Back'),
-            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
-            'class'     => 'back',
-        ]);
+        $this->_addPreparedButton(id: self::BUTTON_TYPE_BACK);
 
         $profile = Mage::registry('current_recurring_profile');
 
         // cancel
         if ($profile->canCancel()) {
-            $this->_addButton(self::BUTTON_TYPE_CANCEL, [
-                'label'     => Mage::helper('sales')->__('Cancel'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_CANCEL,
+                module: 'sales',
+                onClick: Mage::helper('core/js')->getConfirmSetLocationJs(
                     $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'cancel']),
                 ),
-                'class'     => 'delete',
-            ]);
+            );
         }
 
         // suspend
         if ($profile->canSuspend()) {
-            $this->_addButton('suspend', [
-                'label'     => Mage::helper('sales')->__('Suspend'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'suspend']),
-                ),
-                'class'     => 'delete',
-            ]);
+            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs(
+                $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'suspend']),
+            );
+
+            $this->_addPreparedButton(
+                id: 'suspend',
+                label: Mage::helper('sales')->__('Suspend'),
+                class: 'delete',
+                onClick: $onClick,
+            );
         }
 
         // activate
         if ($profile->canActivate()) {
-            $this->_addButton('activate', [
-                'label'     => Mage::helper('sales')->__('Activate'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'activate']),
-                ),
-                'class'     => 'add',
-            ]);
+            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs(
+                $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'activate']),
+            );
+
+            $this->_addPreparedButton(
+                id: 'activate',
+                label: Mage::helper('sales')->__('Activate'),
+                class: 'add',
+                onClick: $onClick,
+            );
         }
 
         // get update
         if ($profile->canFetchUpdate()) {
-            $this->_addButton('update', [
-                'label'     => Mage::helper('sales')->__('Get Update'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getUrl('*/*/updateProfile', ['profile' => $profile->getId()]),
-                ),
-                'class'     => 'add',
-            ]);
+            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs(
+                $this->getUrl('*/*/updateProfile', ['profile' => $profile->getId()]),
+            );
+
+            $this->_addPreparedButton(
+                id: 'update',
+                label: Mage::helper('sales')->__('Get Update'),
+                class: 'add',
+                onClick: $onClick,
+            );
         }
 
         return parent::_prepareLayout();
