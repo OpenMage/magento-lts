@@ -100,7 +100,7 @@ class Mage_Payment_Model_Config
     {
         $_types = Mage::getConfig()->getNode('global/payment/cc/types');
 
-        if ($_types === false) {
+        if (!$_types instanceof Varien_Simplexml_Element) {
             return [];
         }
 
