@@ -56,7 +56,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     protected function _isApplicableAttribute($object, $attribute)
     {
         $applyTo = $attribute->getApplyTo();
-        return count($applyTo) == 0 || in_array($object->getTypeId(), $applyTo);
+        return count($applyTo) === 0 || in_array($object->getTypeId(), $applyTo);
     }
 
     /**

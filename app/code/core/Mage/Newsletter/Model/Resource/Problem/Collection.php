@@ -91,7 +91,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
             }
         }
 
-        if (count($customersIds) == 0) {
+        if ($customersIds === []) {
             return;
         }
 

@@ -426,7 +426,7 @@ class Mage_Captcha_Model_Zend extends Image implements Mage_Captcha_Model_Interf
             return true;
         }
 
-        if ((string) $this->_getHelper()->getConfigNode('mode') == Mage_Captcha_Helper_Data::MODE_ALWAYS) {
+        if ((string) $this->_getHelper()->getConfigNode('mode') === Mage_Captcha_Helper_Data::MODE_ALWAYS) {
             return true;
         }
 

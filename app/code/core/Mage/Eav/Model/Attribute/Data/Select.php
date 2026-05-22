@@ -50,7 +50,7 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
             return true;
         }
 
-        if (count($errors) == 0) {
+        if ($errors === []) {
             return true;
         }
 

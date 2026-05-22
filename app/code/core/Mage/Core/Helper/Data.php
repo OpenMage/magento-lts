@@ -533,7 +533,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             $value = $sourceIsArray ? $source[$code] ?? null : $source->getDataUsingMethod($code);
 
             $targetCode = (string) $node->$aspect;
-            $targetCode = $targetCode == '*' ? $code : $targetCode;
+            $targetCode = $targetCode === '*' ? $code : $targetCode;
 
             if ($targetIsArray) {
                 $target[$targetCode] = $value;

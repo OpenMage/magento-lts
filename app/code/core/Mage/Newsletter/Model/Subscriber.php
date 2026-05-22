@@ -342,7 +342,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             if ($isConfirmNeed) {
                 // if user subscribes own login email - confirmation is not needed
                 $isOwnSubscribes = $isSubscribeOwnEmail;
-                if ($isOwnSubscribes == true) {
+                if ($isOwnSubscribes) {
                     $this->setStatus(self::STATUS_SUBSCRIBED);
                 } else {
                     $this->setStatus(self::STATUS_NOT_ACTIVE);
@@ -436,7 +436,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             /**
              * If subscription status has been changed then send email to the customer
              */
-            if ($status != self::STATUS_UNCONFIRMED && $status != $this->getStatus()) {
+            if ($status !== self::STATUS_UNCONFIRMED && $status != $this->getStatus()) {
                 $sendInformationEmail = true;
             }
         } elseif (($this->getStatus() == self::STATUS_UNCONFIRMED) && (is_null($confirmation))) {

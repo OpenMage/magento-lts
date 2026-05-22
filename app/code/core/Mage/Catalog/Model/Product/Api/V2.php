@@ -201,7 +201,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      */
     public function multiUpdate($productIds, $productData, $store = null, $identifierType = null)
     {
-        if (count($productIds) != count($productData)) {
+        if (count($productIds) !== count($productData)) {
             $this->_fault('multi_update_not_match');
         }
 

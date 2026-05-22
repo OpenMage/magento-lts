@@ -234,7 +234,7 @@ class Varien_Db_Select extends Zend_Db_Select
         }
 
         foreach ($needle as $position) {
-            if ($position == 0) {
+            if ($position === 0) {
                 return true;
             }
 

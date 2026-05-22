@@ -118,7 +118,7 @@ abstract class Mage_Core_Model_Validate_Abstract implements Mage_Core_Model_Vali
      */
     public function __get(string $property)
     {
-        if ($property == 'value') {
+        if ($property === 'value') {
             return $this->_value;
         }
 

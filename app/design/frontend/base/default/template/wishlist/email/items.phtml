@@ -23,7 +23,7 @@
             <p align="center" style="font-size:12px;"><a href="<?php echo $this->getProductUrl($_product) ?>" style="color:#1E7EC8;"><?php echo $this->__('View Product') ?></a> <small>
             <?php if ($_product->getIsSalable()): ?>|</small> <a href="<?php echo $this->getSharedItemAddToCartUrl($item) ?>" style="color:#1E7EC8;"><strong><?php echo $this->__('Add to Cart') ?></strong></a><?php endif ?>
             </p></td>
-        <?php if ($i%3!=0): ?>
+        <?php if ($i % 3 !== 0): ?>
             <td width="2%"></td>
         <?php else: ?>
            </tr>

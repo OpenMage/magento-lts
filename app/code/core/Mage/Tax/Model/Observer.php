@@ -57,7 +57,7 @@ class Mage_Tax_Model_Observer
 
         foreach ($getTaxesForItems as $quoteItemId => $taxesArray) {
             foreach ($taxesArray as $rates) {
-                if (count($rates['rates']) == 1) {
+                if (count($rates['rates']) === 1) {
                     $ratesIdQuoteItemId[$rates['id']][] = [
                         'id'        => $quoteItemId,
                         'percent'   => $rates['percent'],

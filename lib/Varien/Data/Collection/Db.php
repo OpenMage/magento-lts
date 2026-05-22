@@ -252,7 +252,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function ($table) {
                 return ($table['joinType'] == Zend_Db_Select::LEFT_JOIN || $table['joinType'] == Zend_Db_Select::FROM);
             });
-            if (count($leftJoins) == count($countSelect->getPart(Zend_Db_Select::FROM))) {
+            if (count($leftJoins) === count($countSelect->getPart(Zend_Db_Select::FROM))) {
                 $mainTable = array_filter($leftJoins, function ($table) {
                     return $table['joinType'] == Zend_Db_Select::FROM;
                 });
@@ -348,7 +348,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         $this->_isOrdersRendered = false;
         $field = (string) $this->_getMappedField($field);
-        $direction = (strtoupper($direction) == self::SORT_ORDER_ASC) ? self::SORT_ORDER_ASC : self::SORT_ORDER_DESC;
+        $direction = (strtoupper($direction) === self::SORT_ORDER_ASC) ? self::SORT_ORDER_ASC : self::SORT_ORDER_DESC;
 
         unset($this->_orders[$field]); // avoid ordering by the same field twice
         if ($unshift) {

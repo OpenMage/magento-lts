@@ -76,7 +76,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 return false;
             }
         } else {
-            $packageTheme = $package . '/' . $theme == '/' ? null : $package . '/' . $theme;
+            $packageTheme = $package . '/' . $theme === '/' ? null : $package . '/' . $theme;
             $widgetInstance->setType($type)
                 ->setPackageTheme($packageTheme);
         }

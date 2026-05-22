@@ -240,7 +240,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
                     $importData[] = $row;
                 }
 
-                if (count($importData) == 5000) {
+                if (count($importData) === 5000) {
                     $this->_saveImportData($importData);
                     $importData = [];
                 }

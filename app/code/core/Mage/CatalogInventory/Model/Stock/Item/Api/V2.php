@@ -59,7 +59,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
      */
     public function multiUpdate($productIds, $productData)
     {
-        if (count($productIds) != count($productData)) {
+        if (count($productIds) !== count($productData)) {
             $this->_fault('multi_update_not_match');
         }
 

@@ -324,7 +324,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
         $payment = explode('{{pdf_row_separator}}', $paymentInfo);
         foreach ($payment as $key => $value) {
-            if (strip_tags(trim($value)) == '') {
+            if (strip_tags(trim($value)) === '') {
                 unset($payment[$key]);
             }
         }
@@ -422,7 +422,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         }
 
         foreach ($payment as $value) {
-            if (trim($value) != '') {
+            if (trim($value) !== '') {
                 //Printing "Payment Method" lines
                 $value = preg_replace('/<br[^>]*>/i', "\n", $value);
                 foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $str) {

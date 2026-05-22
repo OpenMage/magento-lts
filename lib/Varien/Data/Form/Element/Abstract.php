@@ -381,7 +381,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function addElementValues($values, $overwrite = false)
     {
-        if (empty($values) || (is_string($values) && trim($values) == '')) {
+        if (empty($values) || (is_string($values) && trim($values) === '')) {
             return $this;
         }
 

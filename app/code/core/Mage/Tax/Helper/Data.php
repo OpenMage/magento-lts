@@ -925,7 +925,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function applyTaxOnCustomPrice($store = null)
     {
-        return Mage::getStoreConfigAsInt(Mage_Tax_Model_Config::CONFIG_XML_PATH_APPLY_ON, $store) == 0;
+        return Mage::getStoreConfigAsInt(Mage_Tax_Model_Config::CONFIG_XML_PATH_APPLY_ON, $store) === 0;
     }
 
     /**
@@ -936,7 +936,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function applyTaxOnOriginalPrice($store = null)
     {
-        return Mage::getStoreConfigAsInt(Mage_Tax_Model_Config::CONFIG_XML_PATH_APPLY_ON, $store) == 1;
+        return Mage::getStoreConfigAsInt(Mage_Tax_Model_Config::CONFIG_XML_PATH_APPLY_ON, $store) === 1;
     }
 
     /**

@@ -327,7 +327,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
 
             $select->where('rate.zip_is_range IS NULL');
 
-            if ($postcode != '*' || $postcodeIsRange) {
+            if ($postcode !== '*' || $postcodeIsRange) {
                 $select
                     ->where(
                         "rate.tax_postcode IS NULL OR rate.tax_postcode IN('*', '', ?)",
