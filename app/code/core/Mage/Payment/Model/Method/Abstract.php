@@ -814,6 +814,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         if (!$this->hasData('sort_order')) {
             $this->setData('sort_order', $this->getConfigData('sort_order'));
         }
+
         return $this->getDataByKey('sort_order');
     }
 }
