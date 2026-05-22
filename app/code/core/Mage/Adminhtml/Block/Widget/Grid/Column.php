@@ -251,7 +251,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param  string $renderer
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract $renderer
      * @return $this
      */
     public function setRenderer($renderer)

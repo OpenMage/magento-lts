@@ -316,7 +316,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function checkAlpha($fileName)
     {
-        return ((ord(file_get_contents($fileName, false, null, 25, 1)) & 6) & 4) == 4;
+        return (ord(file_get_contents($fileName, false, null, 25, 1)) & 6 & 4) === 4;
     }
 
     private function _getTransparency($imageResource, $fileType, &$isAlpha = false, &$isTrueColor = false)

@@ -1423,7 +1423,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         $this->_allIdsCache = null;
 
-        if (is_string($attribute) && $attribute == 'is_saleable') {
+        if (is_string($attribute) && $attribute === 'is_saleable') {
             $columns = $this->getSelect()->getPart(Zend_Db_Select::COLUMNS);
             foreach ($columns as $columnEntry) {
                 [$correlationName, $column, $alias] = $columnEntry;

@@ -477,6 +477,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Argument of an invalid type array|string supplied for foreach, only iterables are supported.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array<Varien_Simplexml_Element>|false|null supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Persistent/Model/Observer.php',
@@ -520,11 +525,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|true supplied for foreach, only iterables are supported.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type list|string supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type (iterable<Mage_Sales_Model_Order_Creditmemo>&Mage_Sales_Model_Resource_Order_Creditmemo_Collection)|false supplied for foreach, only iterables are supported.',

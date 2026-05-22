@@ -75,7 +75,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
         if (is_array($this->_colNames) && !empty($this->_colNames)) {
             $this->_colQuantity = count($this->_colNames);
 
-            if (count(array_unique($this->_colNames)) != $this->_colQuantity) {
+            if (count(array_unique($this->_colNames)) !== $this->_colQuantity) {
                 Mage::throwException(Mage::helper('importexport')->__('Column names have duplicates'));
             }
         } else {

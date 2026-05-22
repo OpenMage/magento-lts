@@ -108,7 +108,7 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
      */
     public function isMessageEmpty()
     {
-        return trim($this->getMessage()) == '';
+        return trim($this->getMessage()) === '';
     }
 
     /**

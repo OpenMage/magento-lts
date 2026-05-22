@@ -253,7 +253,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                             );
                             $value['optionValues'][$i]['scopeTitleDisabled'] = is_null($optionValue->getStoreTitle())
                                 ? 'disabled' : null;
-                            if ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE) {
+                            if ($scope === Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE) {
                                 $value['optionValues'][$i]['checkboxScopePrice'] = $this->getCheckboxScopeHtml(
                                     $optionValue->getOptionId(),
                                     'price',
@@ -277,7 +277,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                     $value['image_size_x'] = $option->getImageSizeX();
                     $value['image_size_y'] = $option->getImageSizeY();
                     if ($this->getProduct()->getStoreId() != '0'
-                        && $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
+                        && $scope === Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
                     ) {
                         $value['checkboxScopePrice'] = $this->getCheckboxScopeHtml(
                             $option->getOptionId(),

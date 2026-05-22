@@ -125,7 +125,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
 
                 if ($item->getQty() > 1) {
                     for ($i = 0, $n = $item->getQty(); $i < $n; $i++) {
-                        $addressItem = $i == 0 ? $item : clone $item;
+                        $addressItem = $i === 0 ? $item : clone $item;
 
                         $addressItem->setQty(1)
                             ->setCustomerAddressId($address->getCustomerAddressId())
@@ -169,7 +169,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                  */
                 $address->setCollectShippingRates((bool) $this->getCollectRatesFlag());
 
-                if (count($address->getAllItems()) == 0) {
+                if (count($address->getAllItems()) === 0) {
                     $address->isDeleted(true);
                 }
 

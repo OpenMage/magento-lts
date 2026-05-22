@@ -201,7 +201,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
             }
 
             $parentId = (int) $this->getRequest()->getParam('parent');
-            if ($parentId && ($parentId != Mage_Catalog_Model_Category::TREE_ROOT_ID)) {
+            if ($parentId && ($parentId !== Mage_Catalog_Model_Category::TREE_ROOT_ID)) {
                 return Mage::helper('catalog')->__('New Subcategory');
             }
 

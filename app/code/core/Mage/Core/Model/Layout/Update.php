@@ -401,7 +401,7 @@ class Mage_Core_Model_Layout_Update
     public function fetchRecursiveUpdates($updateXml)
     {
         foreach ($updateXml->children() as $child) {
-            if ((strtolower($child->getName()) == 'update') && isset($child['handle'])) {
+            if ((strtolower($child->getName()) === 'update') && isset($child['handle'])) {
                 $allow = true;
                 if (isset($child['ifconfig']) && ($configPath = (string) $child['ifconfig'])) {
                     $allow = Mage::getStoreConfigFlag($configPath);

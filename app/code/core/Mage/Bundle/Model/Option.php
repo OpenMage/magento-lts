@@ -181,7 +181,7 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
         while ($i-- && $selections[$i]->getSelectionId() != $selectionId) {
         }
 
-        return $i == -1 ? false : $selections[$i];
+        return $i === -1 ? false : $selections[$i];
     }
 
     public function getOptionId(): int

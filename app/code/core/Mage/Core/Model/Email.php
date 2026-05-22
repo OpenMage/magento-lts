@@ -124,7 +124,7 @@ class Mage_Core_Model_Email extends Varien_Object
         $mail = new Zend_Mail('utf-8');
         $transport = new Varien_Object();
 
-        if (strtolower($this->getType()) == 'html') {
+        if (strtolower($this->getType()) === 'html') {
             $mail->setBodyHtml($this->getBody());
         } else {
             $mail->setBodyText($this->getBody());

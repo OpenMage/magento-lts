@@ -80,7 +80,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
             && property_exists($obj, 'key')
             && property_exists($obj, 'value')
         ) {
-            if (count(array_keys(get_object_vars($obj))) == 2) {
+            if (count(array_keys(get_object_vars($obj))) === 2) {
                 $obj = [$obj->key => $obj->value];
                 return true;
             }
@@ -124,7 +124,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
             foreach ($mixed as $value) {
                 if (is_object($value)) {
                     $value = get_object_vars($value);
-                    if (count($value) == 2 && isset($value['key']) && isset($value['value'])) {
+                    if (count($value) === 2 && isset($value['key']) && isset($value['value'])) {
                         $tmpArr[$value['key']] = $value['value'];
                     }
                 }
@@ -137,7 +137,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
 
         if (is_object($mixed)) {
             $numOfVals = count(get_object_vars($mixed));
-            if ($numOfVals == 2 && isset($mixed->key) && isset($mixed->value)) {
+            if ($numOfVals === 2 && isset($mixed->key) && isset($mixed->value)) {
                 $mixed = get_object_vars($mixed);
                 /*
                  * Processing an associative arrays.

@@ -357,7 +357,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     protected function _validateFilter($filter)
     {
         $filter = explode('-', $filter);
-        if (count($filter) != 2) {
+        if (count($filter) !== 2) {
             return false;
         }
 

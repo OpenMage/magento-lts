@@ -255,7 +255,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      */
     public function needToCreateForCustomer($customerId)
     {
-        return $customerId && count($this->getAvailableCustomerBillingAgreements($customerId)) == 0;
+        return $customerId && count($this->getAvailableCustomerBillingAgreements($customerId)) === 0;
     }
 
     /**

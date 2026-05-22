@@ -121,7 +121,7 @@ $numColumns = count($this->getColumns());
                     <?php endif ?>
                     <?php $i++; ?>
                     <?php $j=0;foreach ($this->getColumns() as $_column): ?>
-                        <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j==$numColumns?'last':'' ?>">
+                        <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j === $numColumns?'last':'' ?>">
                             <?php echo (($_html = $_column->getRowField($_subItem)) != '' ? $_html : '&nbsp;') ?>
                         </td>
                     <?php endforeach ?>
@@ -130,8 +130,8 @@ $numColumns = count($this->getColumns());
                 <?php if($this->getCountTotals() && $rows > 0 && $this->getSubtotalVisibility()): ?>
                 <tr>
                     <?php $j=0;foreach ($this->getColumns() as $_column): ?>
-                        <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j==$numColumns?'last':'' ?> subtotal">
-                            <?php echo ($j==1)?$this->getSubtotalText():$_column->getRowField($this->getTotals()) ?>
+                        <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j === $numColumns?'last':'' ?> subtotal">
+                            <?php echo ($j === 1)?$this->getSubtotalText():$_column->getRowField($this->getTotals()) ?>
                         </td>
                     <?php endforeach ?>
                 </tr>
@@ -152,7 +152,7 @@ $numColumns = count($this->getColumns());
         <tfoot>
             <tr><th><?php echo $this->getTotalText() ?></th>
             <?php $j=0;foreach ($this->getColumns() as $_column): ?>
-                <th class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j==$numColumns?'last':'' ?>"><?php echo $_column->getRowField($this->getGrandTotals()) ?></th>
+                <th class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j === $numColumns?'last':'' ?>"><?php echo $_column->getRowField($this->getGrandTotals()) ?></th>
             <?php endforeach ?>
             </tr>
          </tfoot>

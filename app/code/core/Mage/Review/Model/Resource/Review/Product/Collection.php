@@ -125,7 +125,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $select = $this->getSelect();
         }
 
-        if (is_array($storesIds) && (count($storesIds) == 1)) {
+        if (is_array($storesIds) && (count($storesIds) === 1)) {
             $storesIds = array_shift($storesIds);
         }
 
