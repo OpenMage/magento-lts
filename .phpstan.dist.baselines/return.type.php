@@ -432,11 +432,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/User.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Api2_Helper_Data::getAuthAdapters() should return array but returns array|string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Api2_Model_Config::getResourceAttributes() should return array but returns array|string.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Config.php',

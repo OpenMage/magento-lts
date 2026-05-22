@@ -141,7 +141,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isApiTypeSupported($type)
     {
-        return in_array($type, Mage_Api2_Model_Server::getApiTypes());
+        return in_array($type, Mage_Api2_Model_Server::getApiTypes(), true);
     }
 
     /**
