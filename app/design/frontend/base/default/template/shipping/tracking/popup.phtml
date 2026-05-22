@@ -25,7 +25,7 @@
                 <col width="15%" />
                 <col />
                 <tbody>
-                <?php if(is_object($track)): ?>
+                <?php if($track instanceof Mage_Shipping_Model_Tracking_Result_Abstract): ?>
                     <tr>
                         <th class="label"><?php echo $this->__('Tracking Number:'); ?></th>
                         <td class="value"><?php echo $this->escapeHtml($track->getTracking()); ?></td>
@@ -111,7 +111,7 @@
                 </tbody>
             </table>
             <script type="text/javascript">decorateTable('tracking-table-popup-<?php echo $_id++ ?>');</script>
-            <?php if (is_object($track) && is_array($track->getProgressdetail()) && count($track->getProgressdetail()) > 0): ?>
+            <?php if ($track instanceof Mage_Shipping_Model_Tracking_Result_Abstract && is_array($track->getProgressdetail()) && count($track->getProgressdetail()) > 0): ?>
                 <br />
                 <table class="data-table" id="track-history-table-<?php echo $track->getTracking(); ?>">
                     <col />
