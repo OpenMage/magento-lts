@@ -191,7 +191,7 @@ abstract class Mage_Core_Helper_Abstract
         if (is_array($data)) {
             $result = [];
             foreach ($data as $item) {
-                $result[] = $this->escapeHtml($item);
+                $result[] = $this->escapeHtml($item, $allowedTags);
             }
         } elseif (is_string($data) && strlen($data)) {
             // process single item
