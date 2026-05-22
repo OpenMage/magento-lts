@@ -106,7 +106,7 @@ class Mage_Payment_Model_Config
 
         $_types = $_types->asArray();
 
-        if (is_string($_types)) {
+        if (!is_array($_types)) {
             return [];
         }
 
