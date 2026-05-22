@@ -127,7 +127,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Store.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset string|null on non-empty-array|true.',
+    'rawMessage' => 'Cannot access offset string on non-empty-array|true.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Block/Widget/Name.php',
 ];

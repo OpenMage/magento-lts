@@ -77,11 +77,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tabs.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Customer_Edit::getHeaderText() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Customer_Edit_Tab_View::getBillingAddressHtml() should return string but returns string|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View.php',
@@ -105,11 +100,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Dashboard_Graph::getChartLabels() should return string but returns string|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Dashboard_Searches_Renderer_Searchquery::render() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Dashboard/Searches/Renderer/Searchquery.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Newsletter_Queue_Edit::getStoreId() should return int but returns int|null.',
@@ -145,11 +135,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Sales_Order_Create_Abstract::formatPrice() should return string but returns float|string.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Sales_Order_Create_Comment::getCommentNote() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Comment.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid::getRowUrl() should return string but returns int|string|null.',
@@ -242,34 +227,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Sales_Order_View_Tab_History::getItemTitle() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid::getWebsiteId() should return int but returns int|string|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Shipping/Carrier/Tablerate/Grid.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Link::render() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sitemap/Grid/Renderer/Link.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_System_Convert_Gui_Edit::getHeaderText() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard::getValue() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_System_Convert_Profile_Edit::getHeaderText() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Edit.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Tag_Assigned_Grid::_getStore() should return Mage_Core_Model_Store but returns Mage_Core_Model_Store|null.',
@@ -307,29 +267,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime::getEscapedValue() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Datetime.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime::getEscapedValue() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Datetime.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract::render() should return string but returns string|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract::renderHeader() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Country::render() should return string|null but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Country.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Ip::render() should return string but returns string|false.',
@@ -337,39 +277,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Ip.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext::render() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Longtext.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options::render() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Options.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options::render() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Options.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme::render() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Theme.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid_Massaction_Item::getAdditionalActionBlock() should return Mage_Core_Block_Abstract but returns array<Mage_Core_Block_Abstract>|Mage_Core_Block_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Massaction/Item.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Tabs::getTabLabel() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Tabs::getTabLabel() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Model_Config_Data::getConfigRoot() should return Mage_Core_Model_Config_Element but returns Mage_Core_Model_Config_Element|false.',
@@ -523,11 +433,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Bundle_Block_Sales_Order_Items_Renderer::getChilds() should return array but returns array<Mage_Sales_Model_Order_Creditmemo_Item|Mage_Sales_Model_Order_Invoice_Item|Mage_Sales_Model_Order_Shipment_Item>|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Block/Sales/Order/Items/Renderer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Bundle_Block_Sales_Order_Items_Renderer::getValueHtml() should return string but returns array<string|null>|string|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Block/Sales/Order/Items/Renderer.php',
 ];
@@ -2137,39 +2042,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Resource/Helper/Mysql4.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items::getMessageText() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/Create/Items.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items::getMessageText() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/View/Items.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items::getRecipient() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/View/Items.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items::getSender() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/View/Items.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_GiftMessage_Block_Message_Form::getEscaped() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Block/Message/Form.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_GiftMessage_Block_Message_Form::getMessage() should return Mage_GiftMessage_Model_Message but returns Mage_GiftMessage_Model_Message|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Block/Message/Form.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_GiftMessage_Block_Message_Inline::getEscaped() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Block/Message/Inline.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_GiftMessage_Model_Message::getEntityModelByType() should return Mage_Core_Model_Abstract but returns object|false.',
@@ -2310,11 +2185,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Paygate_Model_Authorizenet_Cards::registerCard() should return Varien_Object but returns Varien_Object|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paygate/Model/Authorizenet/Cards.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Block_Form::getInfoData() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Helper_Data::getMethodFormBlock() should return Mage_Core_Block_Abstract but returns Mage_Core_Block_Abstract|false.',
@@ -2552,27 +2422,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Adminhtml/Recurring/Profile/View/Items.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Block_Billing_Agreements::getItemValue() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Billing/Agreements.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Block_Order_Email_Items_Default::getProductAdditionalInformationBlock() should return Mage_Core_Block_Abstract but returns Mage_Core_Block_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Order/Email/Items/Default.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Block_Order_Email_Items_Default::getValueHtml() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Order/Email/Items/Default.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Block_Order_Email_Items_Order_Default::getProductAdditionalInformationBlock() should return Mage_Core_Block_Abstract|null but returns Mage_Core_Block_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Order/Email/Items/Order/Default.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Block_Order_Email_Items_Order_Default::getValueHtml() should return string but returns string|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Order/Email/Items/Order/Default.php',
 ];
@@ -2979,11 +2834,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Wishlist_Block_Abstract::getAddToWishlistUrlCustom() should return string but returns bool|string.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/Block/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Wishlist_Block_Abstract::getEscapedDescription() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/Block/Abstract.php',
 ];
 $ignoreErrors[] = [
