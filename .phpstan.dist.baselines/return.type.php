@@ -432,11 +432,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/User.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Api2_Helper_Data::getAuthAdapters() should return array but returns array|string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Api2_Model_Config::getResourceAttributes() should return array but returns array|string.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Config.php',
@@ -2360,16 +2355,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Block_Form::getInfoData() should return string but returns array<string|null>|string|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Helper_Data::getMethodFormBlock() should return Mage_Core_Block_Abstract but returns Mage_Core_Block_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Helper_Data::getMethodInstance() should return Mage_Payment_Model_Method_Abstract|false but returns object|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Model_Billing_AgreementAbstract::getPaymentMethodInstance() should return Mage_Payment_Model_Method_Abstract|null but returns Mage_Payment_Model_Method_Abstract|false.',

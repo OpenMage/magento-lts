@@ -97,11 +97,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Resource/User.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|string supplied for foreach, only iterables are supported.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type list<string>|false supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Request.php',
@@ -470,16 +465,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array<Mage_Core_Block_Abstract>|Mage_Core_Block_Abstract|false supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Info.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|string supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|string supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array<Varien_Simplexml_Element>|false|null supplied for foreach, only iterables are supported.',
