@@ -2,6 +2,10 @@
 namespace PHPSTORM_META {
     override( \Mage::helper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -98,6 +102,7 @@ namespace PHPSTORM_META {
             'core/measure_weight' => \Mage_Core_Helper_Measure_Weight::class,
             'core/psrLogger' => \Mage_Core_Helper_PsrLogger::class,
             'core/purifier' => \Mage_Core_Helper_Purifier::class,
+            'core/purifier_definitionCache' => \Mage_Core_Helper_Purifier_DefinitionCache::class,
             'core/security' => \Mage_Core_Helper_Security::class,
             'core/string' => \Mage_Core_Helper_String::class,
             'core/translate' => \Mage_Core_Helper_Translate::class,
@@ -105,7 +110,6 @@ namespace PHPSTORM_META {
             'core/url' => \Mage_Core_Helper_Url::class,
             'core/url_rewrite' => \Mage_Core_Helper_Url_Rewrite::class,
             'core/validate' => \Mage_Core_Helper_Validate::class,
-            'core/validate_abstract' => \Mage_Core_Helper_Validate_Abstract::class,
             'csp' => \Mage_Csp_Helper_Data::class,
             'csp/data' => \Mage_Csp_Helper_Data::class,
             'currencysymbol' => \Mage_CurrencySymbol_Helper_Data::class,

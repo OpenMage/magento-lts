@@ -3502,11 +3502,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setDataUsingMethod() on array|Varien_Object.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Hint.php',
@@ -6617,82 +6612,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getAccount() on Varien_Object|null.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getAllRates() on Mage_Shipping_Model_Rate_Result|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getDestCountry() on Varien_Object|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getDestPostal() on Varien_Object|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getDropoffType() on Varien_Object|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getFreeMethodWeight() on Varien_Object|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getKey() on Varien_Object|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getMeterNumber() on Varien_Object|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getOrigCountry() on Varien_Object|null.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getOrigPostal() on Varien_Object|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getPackaging() on Varien_Object|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getPassword() on Varien_Object|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getService() on Varien_Object|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getValue() on Varien_Object|null.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getWeight() on Varien_Object|null.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method hasService() on Varien_Object|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
@@ -7275,11 +7200,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method execute() on object|resource.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Db/Statement/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method hasData() on array|object.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method asNiceXml() on Varien_Simplexml_Element|false.',

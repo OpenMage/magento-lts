@@ -3382,8 +3382,13 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Container/Abstract.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
 ];
 $ignoreErrors[] = [
@@ -5760,21 +5765,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, max> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between Varien_Object|null and null is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-    'count' => 16,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between Varien_Object|null and null is not allowed.',

@@ -452,11 +452,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Resource/Report/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Mage_Usa_Model_Shipping_Carrier_Fedex::__construct() does not call parent constructor from Varien_Object.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Mage_Weee_Block_Renderer_Weee_Tax::__construct() does not call parent constructor from Mage_Core_Block_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Weee/Block/Renderer/Weee/Tax.php',
