@@ -110,12 +110,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRequestInterpreterAdapters()
     {
-        $node = Mage::app()->getConfig()->getNode(self::XML_PATH_API2_REQUEST_INTERPRETERS);
-        if (!$node instanceof Varien_Simplexml_Element) {
-            return [];
-        }
-
-        return (array) $node;
+        return (array) Mage::app()->getConfig()->getNode(self::XML_PATH_API2_REQUEST_INTERPRETERS);
     }
 
     /**
@@ -125,12 +120,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getResponseRenderAdapters()
     {
-        $node = Mage::app()->getConfig()->getNode(self::XML_PATH_API2_RESPONSE_RENDERS);
-        if (!$node instanceof Varien_Simplexml_Element) {
-            return [];
-        }
-
-        return (array) $node;
+        return (array) Mage::app()->getConfig()->getNode(self::XML_PATH_API2_RESPONSE_RENDERS);
     }
 
     /**
