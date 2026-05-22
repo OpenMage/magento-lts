@@ -1352,11 +1352,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paygate/controllers/Authorizenet/PaymentController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::getConfigData().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::setTemplate().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Bml/Form.php',

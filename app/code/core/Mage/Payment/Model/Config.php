@@ -36,7 +36,7 @@ class Mage_Payment_Model_Config
         foreach ($config as $code => $methodConfig) {
             if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store) && array_key_exists('model', $methodConfig)) {
                 $methodModel = $this->_getMethod($code, $methodConfig);
-                if ($methodModel && $methodModel->getConfigData('active', $store)) {
+                if ($methodModel !== false && (int) $methodModel->getConfigData('active', $store)) {
                     $methods[$code] = $methodModel;
                 }
             }
