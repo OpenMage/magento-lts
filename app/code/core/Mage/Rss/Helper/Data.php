@@ -50,7 +50,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
             [$username, $password] = $this->authValidate();
             $customer = Mage::getModel('customer/customer')->authenticate($username, $password);
             if ($customer && $customer->getId()) {
-                $this->_rssSession->settCustomer($customer);
+                $this->_rssSession->setCustomer($customer);
             } else {
                 $this->authFailed();
             }
