@@ -59,7 +59,7 @@ class Mage_DB_Mysqli
      * @param  string $paswd
      * @param  string $db
      * @param  int    $port
-     * @return mixed
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -373,7 +373,7 @@ class Mage_DB_Mysqli
         $sql .= ' ( ';
         for ($i = 0, $count = count($keys); $i < $count; $i++) {
             $sql .= $keys[$i];
-            if ($i != $count - 1) {
+            if ($i !== $count - 1) {
                 $sql .= ',';
             }
         }
@@ -389,13 +389,13 @@ class Mage_DB_Mysqli
             $sql .= '( ';
             for ($j = 0, $jc = count($values); $j < $jc; $j++) {
                 $sql .= $values[$j];
-                if ($j != $jc - 1) {
+                if ($j !== $jc - 1) {
                     $sql .= ',';
                 }
             }
 
             $sql .= ' )';
-            if ($i != $count - 1) {
+            if ($i !== $count - 1) {
                 $sql .= ',';
             }
         }

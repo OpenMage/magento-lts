@@ -20,12 +20,12 @@ abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstra
      * Set batch data
      * automatic convert to serialize data
      *
-     * @param  mixed                              $data
-     * @return Mage_Dataflow_Model_Batch_Abstract
+     * @param  mixed $data
+     * @return $this
      */
     public function setBatchData($data)
     {
-        if ('"libiconv"' == ICONV_IMPL) {
+        if ('"libiconv"' === ICONV_IMPL) {
             foreach ($data as &$value) {
                 $value = iconv('utf-8', 'utf-8//IGNORE', $value);
             }

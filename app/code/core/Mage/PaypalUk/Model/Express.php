@@ -40,6 +40,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
      * @param  Mage_Sales_Model_Quote $quote
      * @return bool
      */
+    #[Override]
     public function isAvailable($quote = null)
     {
         if (!parent::isAvailable($quote)) {
@@ -64,6 +65,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
      * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
      */
+    #[Override]
     protected function _importToPayment($api, $payment)
     {
         $payment->setTransactionId($api->getPaypalTransactionId())->setIsTransactionClosed(0)
@@ -85,6 +87,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
      * @see Mage_Checkout_OnepageController::savePaymentAction()
      * @see Mage_Sales_Model_Quote_Payment::getCheckoutRedirectUrl()
      */
+    #[Override]
     public function getCheckoutRedirectUrl()
     {
         return Mage::getUrl('paypaluk/express/start');

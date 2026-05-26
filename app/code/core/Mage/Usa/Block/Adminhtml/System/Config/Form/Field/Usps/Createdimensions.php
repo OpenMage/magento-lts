@@ -22,6 +22,7 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Createdimensions ex
     /**
      * Generate button HTML for creating dimension attributes
      */
+    #[Override]
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element): string
     {
         // Check if attributes already exist

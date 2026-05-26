@@ -16,7 +16,7 @@ use Mage_Adminhtml_Helper_Addresses as Subject;
 
 trait AddressTrait
 {
-    public function provideProcessStreetAttribute(): Generator
+    public static function provideProcessStreetAttribute(): Generator
     {
         yield 'default' => [
             Subject::DEFAULT_STREET_LINES_COUNT,

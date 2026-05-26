@@ -21,6 +21,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         parent::_prepareForm();

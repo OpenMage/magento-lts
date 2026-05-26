@@ -66,6 +66,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
     /**
      * Initialize data and prepare it for output
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->_prepareLastOrder();

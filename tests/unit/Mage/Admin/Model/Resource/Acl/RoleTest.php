@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model\Resource\Acl;
 
 // use Mage;
 // use Mage_Admin_Model_Resource_Acl_Role as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\Resource\Acl\RoleTrait;
 
@@ -22,6 +23,7 @@ final class RoleTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

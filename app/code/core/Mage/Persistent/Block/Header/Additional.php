@@ -22,6 +22,7 @@ class Mage_Persistent_Block_Header_Additional extends Mage_Core_Block_Html_Link
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $text = $this->__('(Not %s?)', $this->escapeHtml(Mage::helper('persistent/session')->getCustomer()->getName()));

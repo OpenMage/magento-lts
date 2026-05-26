@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/*'
+      - '.phpstan.dist.baselines/*'
       - 'composer.json'
       - 'composer.lock'
       - '**.php'
@@ -16,11 +17,11 @@ on:
       - '.phpcs.dist.ecg.xml'
       - '.phpcs.dist.php.xml'
       - '.phpstan.dist.neon'
-      - '.phpstan.dist.baseline.php'
 
   pull_request:
     paths:
       - '.github/workflows/*'
+      - '.phpstan.dist.baselines/*'
       - 'composer.json'
       - 'composer.lock'
       - '**.php'
@@ -33,7 +34,6 @@ on:
       - '.phpcs.dist.ecg.xml'
       - '.phpcs.dist.php.xml'
       - '.phpstan.dist.neon'
-      - '.phpstan.dist.baseline.php'
 
 jobs:
   debug:
@@ -132,7 +132,7 @@ jobs:
 
   unit_tests:
     name: PHPUnit
-    needs: [check, php-cs-fixer]
+    needs: [check, php-cs-fixer, phpstan]
     if: |
       needs.check.outputs.php > 0 ||
       needs.check.outputs.phpunit-test > 0 ||
@@ -153,6 +153,7 @@ jobs:
     name: Cypress E2E Tests
     needs: [check]
     if: |
+      needs.check.outputs.composer > 0 ||
       needs.check.outputs.cypress > 0 ||
       needs.check.outputs.php > 0 ||
       needs.check.outputs.phtml > 0 ||

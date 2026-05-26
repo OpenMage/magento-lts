@@ -236,7 +236,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Initialize attribute option values.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     * @return $this
      */
     protected function _initAttrValues()
     {
@@ -280,7 +280,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         $collection->addAttributeToFilter($attrCode, ['like' => "%{$exportFilter[$attrCode]}%"]);
                     }
                 } elseif (Mage_ImportExport_Model_Export::FILTER_TYPE_DATE == $attrFilterType) {
-                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) == 2) {
+                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) === 2) {
                         $source = array_shift($exportFilter[$attrCode]);
                         $target = array_shift($exportFilter[$attrCode]);
 
@@ -295,7 +295,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         }
                     }
                 } elseif (Mage_ImportExport_Model_Export::FILTER_TYPE_NUMBER == $attrFilterType) {
-                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) == 2) {
+                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) === 2) {
                         $source = array_shift($exportFilter[$attrCode]);
                         $target   = array_shift($exportFilter[$attrCode]);
 
@@ -524,7 +524,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Set parameters.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     * @return $this
      */
     public function setParameters(array $parameters)
     {
@@ -536,7 +536,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Writer model setter.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     * @return $this
      */
     public function setWriter(Mage_ImportExport_Model_Export_Adapter_Abstract $writer)
     {

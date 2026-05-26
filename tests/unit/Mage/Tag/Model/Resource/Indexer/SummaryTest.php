@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Tag\Model\Resource\Indexer;
 
 // use Mage;
 // use Mage_Tag_Model_Resource_Indexer_Summary as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tag\Model\Resource\Indexer\SummaryTrait;
 
@@ -22,6 +23,7 @@ final class SummaryTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -29,6 +29,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -105,7 +106,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
      */
     public function getDeleteButtonHtml()
     {
-        if ((int) $this->getRequest()->getParam('rate') == 0) {
+        if ((int) $this->getRequest()->getParam('rate') === 0) {
             return '';
         }
 

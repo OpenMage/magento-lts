@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Model\Resource\Page;
 
 // use Mage;
 // use Mage_Cms_Model_Resource_Page_Service as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Model\Resource\Page\ServiceTrait;
 
@@ -22,6 +23,7 @@ final class ServiceTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

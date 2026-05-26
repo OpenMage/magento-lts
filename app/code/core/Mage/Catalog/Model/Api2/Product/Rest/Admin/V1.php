@@ -22,6 +22,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * Add special fields to product get response
      */
+    #[Override]
     protected function _prepareProductForResponse(Mage_Catalog_Model_Product $product)
     {
         $pricesFilterKeys = ['price_id', 'all_groups', 'website_price'];
@@ -73,6 +74,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      *
      * @return array
      */
+    #[Override]
     protected function _retrieveCollection()
     {
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
@@ -92,6 +94,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      *
      * @throws Mage_Api2_Exception
      */
+    #[Override]
     protected function _delete()
     {
         $product = $this->_getProduct();
@@ -110,6 +113,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      *
      * @return string
      */
+    #[Override]
     protected function _create(array $data)
     {
         /** @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
@@ -175,6 +179,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * Update product by its ID
      */
+    #[Override]
     protected function _update(array $data)
     {
         $product = $this->_getProduct();

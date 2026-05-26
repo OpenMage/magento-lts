@@ -55,6 +55,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract extends
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         $sourceModel = Mage::getSingleton($this->_sourceModel);

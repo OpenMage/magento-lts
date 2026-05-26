@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Newsletter\Model\Template;
 
 // use Mage;
 // use Mage_Newsletter_Model_Template_Filter as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Model\Template\FilterTrait;
 
@@ -22,6 +23,7 @@ final class FilterTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

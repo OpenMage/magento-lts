@@ -107,6 +107,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
      * @return $this
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     protected function _initSelect()
     {
         $select = $this->getSelect();
@@ -164,6 +165,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
      * @throws Zend_Date_Exception
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     protected function _beforeLoad()
     {
         parent::_beforeLoad();

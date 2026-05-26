@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -44,6 +45,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
      *
      * @return mixed
      */
+    #[Override]
     public function getItemCollection()
     {
         $collection = $this->getDataByKey('item_collection');
@@ -64,6 +66,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
      *
      * @return array
      */
+    #[Override]
     public function getItems()
     {
         $items = parent::getItems();
@@ -83,6 +86,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
      * @param  Mage_Wishlist_Model_Item $item
      * @return int
      */
+    #[Override]
     public function getProductId($item)
     {
         return $item->getProduct()->getId();
@@ -94,14 +98,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
      * @param  Varien_Object $item
      * @return int
      */
+    #[Override]
     public function getIdentifierId($item)
     {
         return $item->getId();
     }
 
     /**
-     * @return false|int
+     * @inheritDoc
      */
+    #[Override]
     public function canDisplay()
     {
         if (!Mage::helper('wishlist')->isAllow()) {
@@ -112,10 +118,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
     }
 
     /**
-     * Retrieve possibility to display quantity column in grid of wishlist block
-     *
-     * @return bool
+     * @inheritDoc
      */
+    #[Override]
     public function canDisplayItemQty()
     {
         return true;

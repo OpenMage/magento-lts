@@ -20,6 +20,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->getLayout()->getBlock('head')

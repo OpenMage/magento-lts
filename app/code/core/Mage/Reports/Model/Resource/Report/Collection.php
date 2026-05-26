@@ -199,6 +199,7 @@ class Mage_Reports_Model_Resource_Report_Collection extends Varien_Data_Collecti
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getSize()
     {
         return count($this->getIntervals());

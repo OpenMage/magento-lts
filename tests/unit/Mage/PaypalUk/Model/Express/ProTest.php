@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\PaypalUk\Model\Express;
 
 // use Mage;
 // use Mage_PaypalUk_Model_Express_Pro as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\PaypalUk\Model\Express\ProTrait;
 
@@ -22,6 +23,7 @@ final class ProTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

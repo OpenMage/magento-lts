@@ -79,6 +79,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
     /**
      * @return bool
      */
+    #[Override]
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         if ($attribute->getFrontendInput() != 'price') {
@@ -95,6 +96,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _getIndexableAttributeConditions()
     {
         return "frontend_input = 'price' AND attribute_code <> 'price'";

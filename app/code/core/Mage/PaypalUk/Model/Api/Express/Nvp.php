@@ -17,6 +17,7 @@ class Mage_PaypalUk_Model_Api_Express_Nvp extends Mage_PaypalUk_Model_Api_Nvp
     /**
      * Set specific data when negative line item case
      */
+    #[Override]
     protected function _setSpecificForNegativeLineItems()
     {
         $paypalNvp = new Mage_Paypal_Model_Api_Nvp();

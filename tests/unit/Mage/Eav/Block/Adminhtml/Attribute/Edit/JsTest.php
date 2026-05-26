@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Eav\Block\Adminhtml\Attribute\Edit;
 
 // use Mage_Eav_Block_Adminhtml_Attribute_Edit_Js as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Block\Adminhtml\Attribute\Edit\JsTrait;
 
@@ -21,6 +22,7 @@ final class JsTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

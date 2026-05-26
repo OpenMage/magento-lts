@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Oauth\Model;
 
 // use Mage;
 // use Mage_Oauth_Model_Observer as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Oauth\Model\ObserverTrait;
 
@@ -22,6 +23,7 @@ final class ObserverTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

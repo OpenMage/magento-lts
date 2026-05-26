@@ -28,6 +28,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
      *
      * @return array
      */
+    #[Override]
     public function getFlagData()
     {
         $flagData = parent::getFlagData();

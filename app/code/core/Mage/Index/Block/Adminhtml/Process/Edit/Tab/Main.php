@@ -15,6 +15,7 @@ class Mage_Index_Block_Adminhtml_Process_Edit_Tab_Main extends Mage_Adminhtml_Bl
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('current_index_process');

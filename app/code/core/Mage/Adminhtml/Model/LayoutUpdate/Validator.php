@@ -68,6 +68,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Model_Valida
      *
      * @return array
      */
+    #[Override]
     public function getMessages()
     {
         return $this->_validator->getMessages();

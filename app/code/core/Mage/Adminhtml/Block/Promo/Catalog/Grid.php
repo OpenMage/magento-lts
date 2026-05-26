@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_CatalogRule_Model_Resource_Rule_Collection $collection */
@@ -45,6 +46,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('rule_id', [
@@ -106,6 +108,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
      * @inheritDoc
      * @param Mage_CatalogRule_Model_Rule $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getRuleId()]);

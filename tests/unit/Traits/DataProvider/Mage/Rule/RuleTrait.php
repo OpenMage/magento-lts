@@ -15,7 +15,7 @@ use Generator;
 
 trait RuleTrait
 {
-    public function provideValidateData(): Generator
+    public static function provideValidateData(): Generator
     {
         yield 'empty object' => [
             true,

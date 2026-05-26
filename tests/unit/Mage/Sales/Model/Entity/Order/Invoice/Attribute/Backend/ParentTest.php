@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Order\Invoice\Attribute\Ba
 
 // use Mage;
 // use Mage_Sales_Model_Entity_Order_Invoice_Attribute_Backend_Parent as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Order\Invoice\Attribute\Backend\ParentTrait;
 
@@ -22,6 +23,7 @@ final class ParentTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

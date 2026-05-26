@@ -1054,7 +1054,7 @@ XMLAuth;
                         $timeArr[] = substr($time, 2, 2);
                         $timeArr[] = substr($time, -2, 2);
 
-                        if ($i == 1) {
+                        if ($i === 1) {
                             $resultArr['status'] = (string) $activityTag->Status->StatusType->Description;
                             $resultArr['deliverydate'] = implode('-', $dateArr);//YYYY-MM-DD
                             $resultArr['deliverytime'] = implode(':', $timeArr);//HH:MM:SS
@@ -1992,6 +1992,7 @@ XMLAuth;
      *
      * @return array|bool
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         if ($params == null) {
@@ -2010,7 +2011,7 @@ XMLAuth;
             // 08: UPS Worldwide Expedited
             // 65: UPS Worldwide Saver
             if (in_array($method, ['07', '08', '65'], true)) {
-                if ($method != '08') {
+                if ($method !== '08') {
                     $containerTypes = [
                         '01'   => Mage::helper('usa')->__('UPS Letter Envelope'),
                         '24'   => Mage::helper('usa')->__('UPS Worldwide 25 kilo'),
@@ -2077,6 +2078,7 @@ XMLAuth;
      *
      * @return array<int, string>
      */
+    #[Override]
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         $countryRecipient           = $params != null ? $params->getCountryRecipient() : null;
@@ -2106,6 +2108,7 @@ XMLAuth;
      *
      * @return array
      */
+    #[Override]
     public function getCustomizableContainerTypes()
     {
         $result = [];

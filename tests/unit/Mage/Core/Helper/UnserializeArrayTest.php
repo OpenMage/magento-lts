@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Override;
 use Exception;
 use Mage;
 use Mage_Core_Helper_UnserializeArray as Subject;
@@ -23,6 +24,7 @@ final class UnserializeArrayTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

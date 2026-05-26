@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
+use Override;
 use Mage;
 use Mage_Adminhtml_Helper_Addresses as Subject;
 use Mage_Customer_Model_Attribute;
@@ -23,6 +24,7 @@ final class AddressesTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

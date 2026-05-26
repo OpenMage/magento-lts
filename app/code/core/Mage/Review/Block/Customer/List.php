@@ -24,6 +24,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_collection = Mage::getModel('review/review')->getProductCollection();
@@ -58,6 +59,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $toolbar = $this->getLayout()->createBlock('page/html_pager', 'customer_review_list.toolbar')
@@ -121,6 +123,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     /**
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->_getCollection()

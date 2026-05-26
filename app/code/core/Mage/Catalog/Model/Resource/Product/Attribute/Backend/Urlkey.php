@@ -20,6 +20,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Urlkey extends Mage_
      * @param  Mage_Catalog_Model_Product $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         $attributeName = $this->getAttribute()->getName();
@@ -45,6 +46,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Urlkey extends Mage_
      * @param  Mage_Catalog_Model_Product $object
      * @return $this
      */
+    #[Override]
     public function afterSave($object)
     {
         if ($object->dataHasChangedFor($this->getAttribute()->getName())) {

@@ -16,11 +16,21 @@ use stdClass;
 
 trait AbstractTrait
 {
-    public function provideEscapeHtmlData(): Generator
+    public static function provideEscapeHtmlData(): Generator
     {
         yield 'empty array' => [
             [],
             [],
+            null,
+        ];
+        yield 'array, allowed tags' => [
+            ['text<s>1</s>'],
+            ['text<s>1</s>'],
+            ['s'],
+        ];
+        yield 'array, no allowed tags' => [
+            ['text&lt;s&gt;1&lt;/s&gt;'],
+            ['text<s>1</s>'],
             null,
         ];
         yield 'empty string' => [
@@ -51,7 +61,7 @@ trait AbstractTrait
         ];
     }
 
-    public function provideStripTagsData(): Generator
+    public static function provideStripTagsData(): Generator
     {
         $plain = 'OpenMage is super-cool';
         $html = '<a href="https://openmage.org/">OpenMage <b>is <i>super</i>-cool</b></a>';

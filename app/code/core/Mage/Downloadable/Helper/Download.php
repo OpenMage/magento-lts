@@ -84,7 +84,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                  */
                 $urlProp = parse_url($this->_resourceFile);
                 if (!isset($urlProp['scheme'])
-                    || strtolower($urlProp['scheme']) != 'http' && strtolower($urlProp['scheme']) != 'https'
+                    || strtolower($urlProp['scheme']) !== 'http' && strtolower($urlProp['scheme']) !== 'https'
                 ) {
                     Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL scheme.'));
                 }
@@ -142,7 +142,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                     $match = [];
                     if (preg_match('#^([^:]+): (.*)\s+$#', $str, $match)) {
                         $key = strtolower($match[1]);
-                        if ($key == 'set-cookie') {
+                        if ($key === 'set-cookie') {
                             continue;
                         }
 
@@ -250,7 +250,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
      * Set resource file for download
      *
      * @param  string              $resourceFile
-     * @param  string              $linkType
+     * @param  self::LINK_TYPE_*   $linkType
      * @return $this
      * @throws Mage_Core_Exception
      */

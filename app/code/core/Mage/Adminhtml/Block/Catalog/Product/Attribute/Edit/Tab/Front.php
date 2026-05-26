@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('entity_attribute');

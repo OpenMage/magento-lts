@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order\Pdf\Shipment;
 
 // use Mage;
 // use Mage_Sales_Model_Order_Pdf_Shipment_Packaging as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Order\Pdf\Shipment\PackagingTrait;
 
@@ -22,6 +23,7 @@ final class PackagingTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

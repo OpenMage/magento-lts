@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace unit\Mage\Catalog\Model;
 
+use Override;
 use Mage;
 use Mage_Catalog_Model_Layer as Subject;
 use Mage_CatalogIndex_Model_Aggregation;
@@ -20,6 +21,7 @@ final class LayerTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

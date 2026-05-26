@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Persistent\Model\Persistent;
 
 // use Mage;
 // use Mage_Persistent_Model_Persistent_Config as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Persistent\Model\Persistent\ConfigTrait;
 
@@ -22,6 +23,7 @@ final class ConfigTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

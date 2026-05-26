@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
             foreach ($section->groups as $groups) {
                 $groups = (array) $groups;
-                usort($groups, [$this, '_sortForm']);
+                usort($groups, $this->_sortForm(...));
 
                 foreach ($groups as $group) {
                     /** @var Mage_Core_Model_Config_Element $group */
@@ -253,7 +253,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $group->sort_fields->direction_desc ? SORT_DESC : SORT_ASC,
                 );
             } else {
-                usort($elements, [$this, '_sortForm']);
+                usort($elements, $this->_sortForm(...));
             }
 
             foreach ($elements as $element) {
@@ -261,7 +261,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     continue;
                 }
 
-                if ((string) $element->getAttribute('type') == 'group') {
+                if ((string) $element->getAttribute('type') === 'group') {
                     $this->_initGroup($fieldset->getForm(), $element, $section, $fieldset);
                     continue;
                 }
@@ -452,7 +452,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
                     $optionArray = [];
                     if ($method) {
-                        if ($fieldType == 'multiselect') {
+                        if ($fieldType === 'multiselect') {
                             $optionArray = $sourceModel->$method();
                         } else {
                             foreach ($sourceModel->$method() as $value => $label) {
@@ -460,7 +460,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                             }
                         }
                     } elseif (method_exists($sourceModel, 'toOptionArray')) {
-                        $optionArray = $sourceModel->toOptionArray($fieldType == 'multiselect');
+                        $optionArray = $sourceModel->toOptionArray($fieldType === 'multiselect');
                     } else {
                         Mage::throwException("Missing method 'toOptionArray()' in source model '{$factoryName}'");
                     }
@@ -567,6 +567,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Append dependence block at then end of form block
      */
+    #[Override]
     protected function _afterToHtml($html)
     {
         if ($this->_getDependence()) {
@@ -760,6 +761,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * @return array<string, string>
      */
+    #[Override]
     protected function _getAdditionalElementTypes()
     {
         return [

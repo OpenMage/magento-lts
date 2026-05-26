@@ -391,7 +391,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             } else {
                 // check if $orderStatus has assigned a state
                 $states = $order->getConfig()->getStatusStates($orderStatus);
-                if (count($states) == 0) {
+                if (count($states) === 0) {
                     $orderStatus = $order->getConfig()->getStateDefaultStatus($orderState);
                 }
             }
@@ -1676,6 +1676,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();

@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue extends Mage_Adminhtml_Block_Templat
         $this->setTemplate('newsletter/queue/list.phtml');
     }
 
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/newsletter_queue_grid', 'newsletter.queue.grid'));

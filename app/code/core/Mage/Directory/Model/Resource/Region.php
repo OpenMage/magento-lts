@@ -39,6 +39,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select  = parent::_getLoadSelect($field, $value, $object);

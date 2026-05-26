@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Data_Form_Element_Abstract
 {
+    #[Override]
     public function getElementHtml()
     {
         return $this->getContentHtml();
@@ -156,6 +157,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
         return $this->getDataObject()->isLockedAttribute($attribute);
     }
 
+    #[Override]
     public function toHtml()
     {
         return '<tr><td class="value" colspan="3">' . $this->getElementHtml() . '</td></tr>';

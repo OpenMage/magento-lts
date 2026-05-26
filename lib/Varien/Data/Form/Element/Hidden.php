@@ -28,6 +28,7 @@ class Varien_Data_Form_Element_Hidden extends Varien_Data_Form_Element_Abstract
     /**
      * @return mixed|string
      */
+    #[Override]
     public function getDefaultHtml()
     {
         $html = $this->getDataByKey('default_html');

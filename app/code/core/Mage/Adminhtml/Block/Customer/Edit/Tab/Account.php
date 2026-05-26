@@ -295,6 +295,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
      *
      * @return array<string, string>
      */
+    #[Override]
     protected function _getAdditionalElementTypes()
     {
         return [

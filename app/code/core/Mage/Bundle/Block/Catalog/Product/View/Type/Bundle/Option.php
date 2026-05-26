@@ -161,6 +161,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      *
      * @return Mage_Catalog_Model_Product
      */
+    #[Override]
     public function getProduct()
     {
         if (!$this->hasData('product')) {

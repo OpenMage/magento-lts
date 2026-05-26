@@ -17,6 +17,7 @@ class Mage_Sales_Block_Order_Print extends Mage_Sales_Block_Items_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Page_Block_Html_Head $headBlock */
@@ -54,6 +55,7 @@ class Mage_Sales_Block_Order_Print extends Mage_Sales_Block_Items_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {
         $renderer->setPrintStatus(true);

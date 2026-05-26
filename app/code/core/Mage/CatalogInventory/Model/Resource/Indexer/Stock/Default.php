@@ -42,6 +42,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      * @return $this
      * @throws Exception
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -234,7 +235,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
                 'qty'           => (float) $row['qty'],
                 'stock_status'  => (int) $row['status'],
             ];
-            if (($index % 1000) == 0) {
+            if ($index % 1000 === 0) {
                 $this->_updateIndexTable($data);
                 $data = [];
             }
@@ -271,6 +272,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      * @param  string $table
      * @return string
      */
+    #[Override]
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {

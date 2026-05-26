@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         if ($this->getRequest()->getParam('website')) {
@@ -49,6 +50,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -94,6 +96,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
      * @inheritDoc
      * @param Mage_Tag_Model_Tag $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/tagDetail', ['id' => $row->getTagId()]);

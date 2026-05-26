@@ -73,6 +73,7 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
 
     /**
      * Get tree node (Ajax version)
+     * @return void
      */
     public function categoriesJsonAction()
     {

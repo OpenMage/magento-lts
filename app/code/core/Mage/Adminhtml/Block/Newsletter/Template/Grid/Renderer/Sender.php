@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Sender extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+    #[Override]
     public function render(Varien_Object $row)
     {
         $str = '';
@@ -25,7 +26,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Sender extends Mage
             $str .= '[' . $this->escapeHtml($row->getTemplateSenderEmail()) . ']';
         }
 
-        if ($str == '') {
+        if ($str === '') {
             $str .= '---';
         }
 

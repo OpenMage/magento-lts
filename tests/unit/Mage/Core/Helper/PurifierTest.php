@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Override;
 use Mage;
 use Mage_Core_Helper_Purifier as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -22,6 +23,7 @@ final class PurifierTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

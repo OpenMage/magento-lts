@@ -73,6 +73,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties extends Ma
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setWidgetType($this->getWidgetInstance()->getType())
@@ -86,6 +87,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties extends Ma
      * @param  Varien_Object                           $parameter
      * @return false|Varien_Data_Form_Element_Abstract
      */
+    #[Override]
     protected function _addField($parameter)
     {
         if ($parameter->getKey() != 'template') {

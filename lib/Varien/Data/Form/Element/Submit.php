@@ -28,6 +28,7 @@ class Varien_Data_Form_Element_Submit extends Varien_Data_Form_Element_Abstract
     /**
      * @return string
      */
+    #[Override]
     public function getHtml()
     {
         $this->addClass('submit');

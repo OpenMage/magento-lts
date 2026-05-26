@@ -165,6 +165,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      *
      * @inheritDoc
      */
+    #[Override]
     public function addFieldToFilter($fieldName, $condition = null)
     {
         if ($fieldName == 'type' && is_array($condition) && isset($condition['eq'])) {
@@ -193,6 +194,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      * @param  bool                                            $logQuery
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {

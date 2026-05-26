@@ -77,6 +77,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _getResource()
     {
         $resourceName = $this->_engine->getResourceName();
@@ -169,7 +170,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     }
                 }
             } elseif ($attribute->isIndexable()) {
-                if ((!is_string($value) || strlen($value) != 0) && $this->_getResource()
+                if ((!is_string($value) || strlen($value) !== 0) && $this->_getResource()
                     ->addIndexableAttributeModifiedFilter(
                         $this->getProductCollection(),
                         $attribute,

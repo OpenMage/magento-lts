@@ -22,6 +22,7 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
 
     /**
      * Wysiwyg widget plugin main page
+     * @return void
      */
     public function indexAction()
     {
@@ -37,6 +38,7 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
 
     /**
      * Ajax responder for loading plugin options form
+     * @return void
      */
     public function loadOptionsAction()
     {
@@ -65,6 +67,7 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
 
     /**
      * Format widget pseudo-code for inserting into wysiwyg editor
+     * @return void
      */
     public function buildWidgetAction()
     {

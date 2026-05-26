@@ -15,7 +15,7 @@ use Generator;
 
 trait DirectoryTrait
 {
-    public function provideGetCountriesWithOptionalZip(): Generator
+    public static function provideGetCountriesWithOptionalZip(): Generator
     {
         yield 'as json' => [
             '["HK","IE","MO","PA"]',
@@ -33,7 +33,7 @@ trait DirectoryTrait
     }
 
 
-    public function provideGetCountriesWithStatesRequired(): Generator
+    public static function provideGetCountriesWithStatesRequired(): Generator
     {
         yield 'as json' => [
             '["AT","CA","CH","DE","EE","ES","FI","FR","LT","LV","RO","US"]',

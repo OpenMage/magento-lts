@@ -16,6 +16,7 @@ declare(strict_types=1);
  */
 class Varien_Convert_Adapter_Zend_Db extends Varien_Convert_Adapter_Abstract
 {
+    #[Override]
     public function getResource()
     {
         if (!$this->_resource) {

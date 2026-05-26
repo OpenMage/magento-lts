@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         /** @var Mage_Cms_Model_Page $model */

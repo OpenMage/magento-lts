@@ -24,6 +24,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _connect()
     {
         if ($this->_connection) {
@@ -94,7 +95,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
                 $result = $connection->query($sql);
                 $this->clear_result();
             } catch (Exception $exception) {
-                if ($tries < 10 && $exception->getMessage() == $timeoutMessage) {
+                if ($tries < 10 && $exception->getMessage() === $timeoutMessage) {
                     $retry = true;
                     $tries++;
                 } else {
@@ -311,6 +312,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function select()
     {
         return new Varien_Db_Select($this);

@@ -19,6 +19,7 @@ class Mage_Reports_Block_Product_Widget_Compared extends Mage_Reports_Block_Prod
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();

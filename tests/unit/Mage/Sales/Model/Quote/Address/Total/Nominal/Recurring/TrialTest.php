@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Quote\Address\Total\Nominal\Recur
 
 // use Mage;
 // use Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Trial as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Quote\Address\Total\Nominal\Recurring\TrialTrait;
 
@@ -22,6 +23,7 @@ final class TrialTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

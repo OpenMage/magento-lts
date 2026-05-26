@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sitemap\Model\Resource;
 
 // use Mage;
 // use Mage_Sitemap_Model_Resource_Sitemap as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\Model\Resource\SitemapTrait;
 
@@ -22,6 +23,7 @@ final class SitemapTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

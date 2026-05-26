@@ -17,7 +17,7 @@ use Mage_Core_Helper_Measure_Weight;
 
 trait DataTrait
 {
-    public function provideConvertMeasureWeightData(): Generator
+    public static function provideConvertMeasureWeightData(): Generator
     {
         yield 'kg to lbs' => [
             22.046226218487757,
@@ -48,7 +48,7 @@ trait DataTrait
         ];
     }
 
-    public function provideConvertMeasureDimensionData(): Generator
+    public static function provideConvertMeasureDimensionData(): Generator
     {
         yield 'm to cm' => [
             1000,
@@ -65,7 +65,7 @@ trait DataTrait
         ];
     }
 
-    public function provideGetMeasureWeightNameData(): Generator
+    public static function provideGetMeasureWeightNameData(): Generator
     {
         yield 'kg' => [
             'kg',
@@ -78,7 +78,7 @@ trait DataTrait
         ];
     }
 
-    public function provideGetMeasureDimensionNameData(): Generator
+    public static function provideGetMeasureDimensionNameData(): Generator
     {
         yield 'm' => [
             'm',
@@ -91,7 +91,7 @@ trait DataTrait
         ];
     }
 
-    public function provideDisplayGirthValueData(): Generator
+    public static function provideDisplayGirthValueData(): Generator
     {
         yield 'valid' => [
             true,

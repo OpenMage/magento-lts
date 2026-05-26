@@ -56,6 +56,7 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
      *
      * @return bool
      */
+    #[Override]
     public function loadCache()
     {
         if ($this->_canUseCache()) {
@@ -71,6 +72,7 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
      * @param  array $tags
      * @return $this
      */
+    #[Override]
     public function saveCache($tags = null)
     {
         if ($this->_canUseCache()) {

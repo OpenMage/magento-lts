@@ -31,6 +31,7 @@ class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminht
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -47,6 +48,7 @@ class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminht
 
     /**
      * Mass delete action
+     * @return void
      */
     public function massDeleteAction()
     {
@@ -70,6 +72,7 @@ class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminht
     /**
      * @inheritDoc
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('massDelete');

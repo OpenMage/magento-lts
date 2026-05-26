@@ -20,6 +20,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare form object
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();

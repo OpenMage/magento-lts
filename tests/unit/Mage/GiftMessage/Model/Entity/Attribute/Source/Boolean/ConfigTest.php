@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\GiftMessage\Model\Entity\Attribute\Source\Boo
 
 // use Mage;
 // use Mage_GiftMessage_Model_Entity_Attribute_Source_Boolean_Config as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Model\Entity\Attribute\Source\Boolean\ConfigTrait;
 
@@ -22,6 +23,7 @@ final class ConfigTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

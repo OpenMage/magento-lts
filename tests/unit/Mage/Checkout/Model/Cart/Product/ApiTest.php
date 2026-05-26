@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Model\Cart\Product;
 
 // use Mage;
 // use Mage_Checkout_Model_Cart_Product_Api as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Model\Cart\Product\ApiTrait;
 
@@ -22,6 +23,7 @@ final class ApiTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

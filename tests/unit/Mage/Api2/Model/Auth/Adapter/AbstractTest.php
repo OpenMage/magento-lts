@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Auth\Adapter;
 
 // use Mage;
 // use Mage_Api2_Model_Auth_Adapter_Abstract as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Auth\Adapter\AbstractTrait;
 
@@ -22,6 +23,7 @@ final class AbstractTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

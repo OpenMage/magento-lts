@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Permissions_Block extends Mage_Adminhtml_Block_Widget
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         Mage::dispatchEvent('permissions_block_html_before', ['block' => $this]);

@@ -20,6 +20,7 @@ class Mage_Paypal_Block_Payment_Info extends Mage_Payment_Block_Info_Cc
      *
      * @return null|string
      */
+    #[Override]
     public function getCcTypeName()
     {
         if (Mage_Paypal_Model_Config::getIsCreditCardMethod($this->getInfo()->getMethod())) {
@@ -36,6 +37,7 @@ class Mage_Paypal_Block_Payment_Info extends Mage_Payment_Block_Info_Cc
      *                                        return Varien_Object
      * @return Varien_Object
      */
+    #[Override]
     protected function _prepareSpecificInformation($transport = null)
     {
         $transport = parent::_prepareSpecificInformation($transport);

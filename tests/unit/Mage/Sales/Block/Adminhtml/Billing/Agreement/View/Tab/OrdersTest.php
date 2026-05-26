@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Adminhtml\Billing\Agreement\View\Tab;
 
 // use Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Adminhtml\Billing\Agreement\View\Tab\OrdersTrait;
 
@@ -21,6 +22,7 @@ final class OrdersTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

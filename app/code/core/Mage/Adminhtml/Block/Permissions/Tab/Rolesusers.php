@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesusers extends Mage_Adminhtml_Blo
             ->assign('roleId', $roleId);
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild('userGrid', $this->getLayout()->createBlock('adminhtml/permissions_role_grid_user', 'roleUsersGrid'));

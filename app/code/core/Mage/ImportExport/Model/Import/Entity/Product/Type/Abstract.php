@@ -105,9 +105,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Add attribute parameters to appropriate attribute set.
      *
-     * @param  string                                                      $attrSetName name of attribute set
-     * @param  array<string, mixed>                                        $attrParams  refined attribute parameters
-     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+     * @param  string               $attrSetName name of attribute set
+     * @param  array<string, mixed> $attrParams  refined attribute parameters
+     * @return $this
      */
     protected function _addAttributeParams($attrSetName, array $attrParams)
     {
@@ -136,7 +136,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Initialize attributes parameters for all attributes' sets.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+     * @return $this
      */
     protected function _initAttributes()
     {
@@ -304,7 +304,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Save product type specific data.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+     * @return $this
      */
     public function saveData()
     {

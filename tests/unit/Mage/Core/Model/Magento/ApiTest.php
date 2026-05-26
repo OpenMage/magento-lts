@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Magento;
 
 // use Mage;
 // use Mage_Core_Model_Magento_Api as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Magento\ApiTrait;
 
@@ -22,6 +23,7 @@ final class ApiTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

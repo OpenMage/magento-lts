@@ -20,6 +20,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
      * @param  array|object $data
      * @return array
      */
+    #[Override]
     protected function _prepareData($data)
     {
         if (is_object($data)) {
@@ -28,7 +29,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
                 $assocArr = [];
                 if (is_array($value)) {
                     foreach ($value as $item) {
-                        if (is_object($item) && count(get_object_vars($item)) == 2
+                        if (is_object($item) && count(get_object_vars($item)) === 2
                             && isset($item->key) && isset($item->value)
                         ) {
                             $assocArr[$item->key] = $item->value;
@@ -64,6 +65,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
      * @param  Mage_Sales_Model_Quote            $quote
      * @return stdClass
      */
+    #[Override]
     protected function _setGiftMessage($entityId, $request, $quote)
     {
         $response = new stdClass();

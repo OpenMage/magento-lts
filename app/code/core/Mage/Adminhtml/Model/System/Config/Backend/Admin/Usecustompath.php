@@ -21,6 +21,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustompath extends Mag
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         if ($this->getOldValue() != $this->getValue()) {

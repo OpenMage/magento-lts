@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\System\Config\Backend\Catalog\U
 
 // use Mage;
 // use Mage_Catalog_Model_System_Config_Backend_Catalog_Url_Rewrite_Suffix as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\System\Config\Backend\Catalog\Url\Rewrite\SuffixTrait;
 
@@ -22,6 +23,7 @@ final class SuffixTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

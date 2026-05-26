@@ -27,6 +27,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _initUniqueFields()
     {
         $this->_uniqueFields = [[
@@ -72,6 +73,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getId() && $object->getStatus() == $object->getApprovedStatus()) {
@@ -100,6 +102,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * @throws Mage_Core_Model_Store_Exception
      * @throws Zend_Db_Exception
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getStore() || !Mage::app()->getStore()->isAdmin()) {
@@ -398,6 +401,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * @throws Exception
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);
@@ -418,6 +422,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         $read = $this->_getReadAdapter();

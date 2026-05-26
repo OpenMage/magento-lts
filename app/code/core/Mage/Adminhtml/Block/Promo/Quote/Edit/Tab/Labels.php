@@ -55,6 +55,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels extends Mage_Adminhtml_Bl
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $rule = Mage::registry('current_promo_quote_rule');
@@ -89,7 +90,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels extends Mage_Adminhtml_Bl
             ]);
             foreach ($website->getGroups() as $group) {
                 $stores = $group->getStores();
-                if (count($stores) == 0) {
+                if (count($stores) === 0) {
                     continue;
                 }
 

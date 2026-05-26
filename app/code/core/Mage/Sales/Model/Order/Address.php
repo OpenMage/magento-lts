@@ -117,6 +117,7 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();

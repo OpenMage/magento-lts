@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Api2\Customer\Address;
 
 // use Mage;
 // use Mage_Customer_Model_Api2_Customer_Address_Validator as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Api2\Customer\Address\ValidatorTrait;
 
@@ -22,6 +23,7 @@ final class ValidatorTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

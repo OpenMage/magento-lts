@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Payment\Model;
 
 // use Mage;
 // use Mage_Payment_Model_Config as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\ConfigTrait;
 
@@ -22,6 +23,7 @@ final class ConfigTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -211,7 +211,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             }
         }
 
-        if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) == 0) {
+        if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) === 0) {
             $this->_finishQueue();
         }
 
@@ -346,9 +346,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     }
 
     /**
-     * Getter for template type
-     *
-     * @return int|string
+     * @inheritDoc
      */
     public function getType()
     {

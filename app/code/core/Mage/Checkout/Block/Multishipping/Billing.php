@@ -17,6 +17,7 @@ class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_
     /**
      * Prepare children blocks
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -34,6 +35,7 @@ class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_
      * @param  null|Mage_Payment_Model_Method_Abstract $method
      * @return bool
      */
+    #[Override]
     protected function _canUseMethod($method)
     {
         return $method && $method->canUseForMultishipping() && parent::_canUseMethod($method);
@@ -44,6 +46,7 @@ class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_
      *
      * @return false|string
      */
+    #[Override]
     public function getSelectedMethodCode()
     {
         if ($method = $this->getQuote()->getPayment()->getMethod()) {

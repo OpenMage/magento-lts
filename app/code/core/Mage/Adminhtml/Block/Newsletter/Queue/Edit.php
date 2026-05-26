@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -39,6 +40,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->setTemplate('newsletter/queue/edit.phtml');
@@ -69,6 +71,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         // Load Wysiwyg on demand and Prepare layout

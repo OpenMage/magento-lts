@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Directory\Model\Currency\Import;
 
 // use Mage;
 // use Mage_Directory_Model_Currency_Import_Webservicex as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\Currency\Import\WebservicexTrait;
 
@@ -22,6 +23,7 @@ final class WebservicexTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

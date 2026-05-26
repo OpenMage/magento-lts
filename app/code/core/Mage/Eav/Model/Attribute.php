@@ -65,6 +65,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         Mage::getSingleton('eav/config')->clear();
@@ -162,6 +163,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      *
      * @return mixed
      */
+    #[Override]
     public function getDefaultValue()
     {
         return $this->_getScopeValue('default_value');

@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview_Form extends Mage_Adminht
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form([

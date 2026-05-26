@@ -60,6 +60,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
      *
      * @return $this|Mage_Adminhtml_Block_Widget_Grid
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/recurring_profile_collection')
@@ -85,6 +86,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/sales_recurring_profile/customerGrid', ['_current' => true]);

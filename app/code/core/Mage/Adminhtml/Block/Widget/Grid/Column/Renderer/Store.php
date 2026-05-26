@@ -57,6 +57,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $out = '';
@@ -85,7 +86,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
             return '';
         }
 
-        if (in_array(0, $origStores) && count($origStores) == 1 && !$skipAllStoresLabel) {
+        if (in_array(0, $origStores) && count($origStores) === 1 && !$skipAllStoresLabel) {
             return Mage::helper('adminhtml')->__('All Store Views');
         }
 
@@ -109,6 +110,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
      *
      * @return string
      */
+    #[Override]
     public function renderExport(Varien_Object $row)
     {
         $out = '';

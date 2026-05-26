@@ -21,13 +21,14 @@ class Mage_Adminhtml_Block_Permissions_Variable_Edit extends Mage_Adminhtml_Bloc
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', Mage::helper('adminhtml')->__('Save Variable'));
-        $this->_updateButton('delete', 'label', Mage::helper('adminhtml')->__('Delete Variable'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('adminhtml')->__('Save Variable'));
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', Mage::helper('adminhtml')->__('Delete Variable'));
     }
 
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('permissions_variable')->getId()) {

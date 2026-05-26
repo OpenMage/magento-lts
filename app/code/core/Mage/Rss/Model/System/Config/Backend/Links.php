@@ -19,6 +19,7 @@ class Mage_Rss_Model_System_Config_Backend_Links extends Mage_Core_Model_Config_
     /**
      * Invalidate cache type, when value was changed
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->isValueChanged()) {

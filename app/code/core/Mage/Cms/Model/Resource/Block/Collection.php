@@ -30,6 +30,7 @@ class Mage_Cms_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('block_id', 'title');
@@ -67,6 +68,7 @@ class Mage_Cms_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = parent::getSelectCountSql();

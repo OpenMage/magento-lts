@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Rule\Model;
 
+use Override;
 use Mage;
 use Mage_Rule_Model_Environment as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -19,6 +20,7 @@ final class EnvironmentTest extends OpenMageTest
 {
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

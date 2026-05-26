@@ -55,7 +55,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                 Mage::helper('core/file_storage_database')->saveFile($fullPath);
             }
         } catch (Exception $exception) {
-            if ($exception->getMessage() != '') {
+            if ($exception->getMessage() !== '') {
                 $this->_fault('upload_failed', $exception->getMessage());
             } else {
                 $this->_fault($exception->getCode());
@@ -262,6 +262,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
      * @param  string                     $identifierType
      * @return Mage_Catalog_Model_Product
      */
+    #[Override]
     protected function _getProduct($productId, $store = null, $identifierType = null)
     {
         $product = parent::_getProduct($productId, $store, $identifierType);

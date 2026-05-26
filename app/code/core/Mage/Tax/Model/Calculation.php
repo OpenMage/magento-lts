@@ -138,7 +138,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Specify customer object which can be used for rate calculation
      *
-     * @return Mage_Tax_Model_Calculation
+     * @return $this
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
@@ -186,8 +186,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Delete calculation settings by rule id
      *
-     * @param  int                        $ruleId
-     * @return Mage_Tax_Model_Calculation
+     * @param  int                 $ruleId
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function deleteByRuleId($ruleId)
@@ -490,7 +490,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     {
         $country = $first->getCountryId() == $second->getCountryId();
         // "0" support for admin dropdown with --please select--
-        $region  = (int) $first->getRegionId() == (int) $second->getRegionId();
+        $region  = (int) $first->getRegionId() === (int) $second->getRegionId();
         $postcode = $first-> getPostcode() == $second-> getPostcode();
         $taxClass = $first-> getCustomerClassId() == $second-> getCustomerClassId();
 

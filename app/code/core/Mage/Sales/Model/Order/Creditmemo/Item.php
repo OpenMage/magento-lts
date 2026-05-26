@@ -115,7 +115,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -281,7 +281,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     public function isLast()
     {
         $orderItem = $this->getOrderItem();
-        return (string) (float) $this->getQty() == (string) (float) $orderItem->getQtyToRefund()
+        return (string) (float) $this->getQty() === (string) (float) $orderItem->getQtyToRefund()
                 && !$orderItem->getQtyToInvoice();
     }
 
@@ -290,6 +290,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();

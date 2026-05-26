@@ -18,14 +18,14 @@ trait CoreTrait
 {
     use ModulesTrait;
 
-    public function provideIsModuleOutputEnabledData(): Generator
+    public static function provideIsModuleOutputEnabledData(): Generator
     {
         yield 'null' => [
             true,
             null, #Mage_Adminhtml
         ];
 
-        foreach ($this->provideAllActiveModules() as $module) {
+        foreach (static::provideAllActiveModules() as $module) {
             yield $module => [
                 true,
                 $module,
@@ -38,7 +38,7 @@ trait CoreTrait
         ];
     }
 
-    public function provideGetStoreConfigData(): Generator
+    public static function provideGetStoreConfigData(): Generator
     {
         yield 'null' => [
             null,
@@ -60,7 +60,7 @@ trait CoreTrait
         ];
     }
 
-    public function provideGetStoreId(): Generator
+    public static function provideGetStoreId(): Generator
     {
         yield 'string' => [
             1,

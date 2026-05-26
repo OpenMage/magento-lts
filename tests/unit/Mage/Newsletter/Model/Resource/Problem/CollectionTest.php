@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Newsletter\Model\Resource\Problem;
 
 // use Mage;
 // use Mage_Newsletter_Model_Resource_Problem_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\Model\Resource\Problem\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

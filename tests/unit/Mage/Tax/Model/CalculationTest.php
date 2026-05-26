@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Tax\Model;
 
 // use Mage;
 // use Mage_Tax_Model_Calculation as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\CalculationTrait;
 
@@ -22,6 +23,7 @@ final class CalculationTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

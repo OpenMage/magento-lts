@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\GiftMessage\Helper;
 
+use Override;
 use Mage;
 use Mage_Core_Model_Store;
 use Mage_GiftMessage_Helper_Message as Subject;
@@ -24,6 +25,7 @@ final class MessageTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

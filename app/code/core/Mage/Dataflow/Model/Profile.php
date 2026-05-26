@@ -7,8 +7,6 @@
  * @package    Mage_Dataflow
  */
 
-use Carbon\Carbon;
-
 /**
  * Convert profile
  *
@@ -63,6 +61,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $this->_init('dataflow/profile');
     }
 
+    #[Override]
     protected function _afterLoad()
     {
         $guiData = '';
@@ -83,12 +82,12 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
         $actionsXML = $this->getDataByKey('actions_xml');
-        // @phpstan-ignore-next-line because of https://github.com/phpstan/phpstan/issues/10570
-        if ($actionsXML !== null && strlen($actionsXML) < 0
+        if ($actionsXML !== null && is_string($actionsXML) && $actionsXML !== ''
             && @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
         ) {
             Mage::throwException(Mage::helper('dataflow')->__('Actions XML is not valid.'));
@@ -100,7 +99,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $charSingleList = ['\\', '/', '.', '!', '@', '#', '$', '%', '&', '*', '~', '^'];
             if (isset($guiData['file']['type']) && $guiData['file']['type'] == 'file') {
                 if (empty($guiData['file']['path'])
-                    || (strlen($guiData['file']['path']) == 1
+                    || (strlen($guiData['file']['path']) === 1
                     && in_array($guiData['file']['path'], $charSingleList))
                 ) {
                     $guiData['file']['path'] = self::DEFAULT_EXPORT_PATH;
@@ -143,6 +142,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->getGuiData() && is_string($this->getGuiData())) {
@@ -239,7 +239,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
 
                     if ($uploadFile) {
-                        $newFilename = 'import-' . Carbon::now()->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
+                        $newFilename = 'import-' . Mage::helper('core/clock')->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
                         rename($path . $uploadFile, $path . $newFilename);
                         $newUploadedFilenames[] = $newFilename;
                     }
@@ -248,7 +248,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 //BOM deleting for UTF files
                 if (isset($path, $newFilename) && $newFilename) {
                     $contents = file_get_contents($path . $newFilename);
-                    if (ord($contents[0]) == 0xEF && ord($contents[1]) == 0xBB && ord($contents[2]) == 0xBF) {
+                    if (ord($contents[0]) === 0xEF && ord($contents[1]) === 0xBB && ord($contents[2]) === 0xBF) {
                         $contents = substr($contents, 3);
                         file_put_contents($path . $newFilename, $contents);
                     }
@@ -463,7 +463,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     $parseFileXmlInter .= '    <var name="filter/' . $filter . '"><![CDATA[' . $value . ']]></var>' . $newLine;
                 } elseif (is_array($value)) {
                     foreach ($value as $a => $b) {
-                        if (strlen($b) == 0) {
+                        if ((string) $b === '') {
                             continue;
                         }
 

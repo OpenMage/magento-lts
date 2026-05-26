@@ -17,6 +17,7 @@ class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -28,6 +29,7 @@ class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
      *
      * @return string
      */
+    #[Override]
     public function getFrameActionUrl()
     {
         return $this->getTransactionUrl() . '?SECURETOKEN=' . $this->getSecureToken() . '&SECURETOKENID='
@@ -39,6 +41,7 @@ class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
      *
      * @return string
      */
+    #[Override]
     public function getSecureToken()
     {
         return $this->_getOrder()
@@ -51,6 +54,7 @@ class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
      *
      * @return string
      */
+    #[Override]
     public function getSecureTokenId()
     {
         return $this->_getOrder()
@@ -63,6 +67,7 @@ class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
      *
      * @return string
      */
+    #[Override]
     public function getTransactionUrl()
     {
         return Mage_Paypal_Model_Payflowlink::TRANSACTION_PAYFLOW_URL;
@@ -73,6 +78,7 @@ class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
      *
      * @return bool
      */
+    #[Override]
     public function isTestMode()
     {
         $mode = Mage::helper('payment')

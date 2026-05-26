@@ -62,6 +62,7 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $product = $this->getProduct();

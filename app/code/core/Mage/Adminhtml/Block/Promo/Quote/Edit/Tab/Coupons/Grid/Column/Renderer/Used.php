@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid_Column_Renderer_Used extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
 {
+    #[Override]
     public function render(Varien_Object $row)
     {
         $value = (int) $row->getData($this->getColumn()->getIndex());

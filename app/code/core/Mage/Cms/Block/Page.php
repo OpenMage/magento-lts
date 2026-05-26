@@ -44,6 +44,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
      * @inheritDoc
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $page = $this->getPage();
@@ -116,6 +117,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
      * @throws Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         /** @var Mage_Cms_Helper_Data $helper */
@@ -150,7 +152,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
         // For homepage, use base URL
         if ($identifier === $homePageId) {
-            return Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+            return Mage::getBaseUrl();
         }
 
         // For special pages that shouldn't have canonical tags

@@ -53,6 +53,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo extends Mage_Sales_Model_Resour
      *
      * @return $this
      */
+    #[Override]
     protected function _initVirtualGridColumns()
     {
         parent::_initVirtualGridColumns();

@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Sales extends Mage_Adminhtml_Block_Template
         $this->setTemplate('sales/index.phtml');
     }
 
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->assign('createUrl', $this->getUrl('*/sales/new'));

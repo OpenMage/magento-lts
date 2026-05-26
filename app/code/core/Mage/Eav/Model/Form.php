@@ -378,7 +378,7 @@ abstract class Mage_Eav_Model_Form
             }
         }
 
-        if (count($errors) == 0) {
+        if ($errors === []) {
             return true;
         }
 

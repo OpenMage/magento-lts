@@ -15,7 +15,7 @@ use Generator;
 
 trait ImageTrait
 {
-    public function provideSetSizeData(): Generator
+    public static function provideSetSizeData(): Generator
     {
         yield 'size height and width' => [
             [

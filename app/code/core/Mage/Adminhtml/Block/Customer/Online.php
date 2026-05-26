@@ -20,12 +20,14 @@ class Mage_Adminhtml_Block_Customer_Online extends Mage_Adminhtml_Block_Template
         $this->setTemplate('customer/online.phtml');
     }
 
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/customer_online_grid', 'customer.grid'));
         return parent::_beforeToHtml();
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild('filterForm', $this->getLayout()->createBlock('adminhtml/customer_online_filter'));

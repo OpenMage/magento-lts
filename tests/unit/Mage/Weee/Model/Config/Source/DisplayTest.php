@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Weee\Model\Config\Source;
 
 // use Mage;
 // use Mage_Weee_Model_Config_Source_Display as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Weee\Model\Config\Source\DisplayTrait;
 
@@ -22,6 +23,7 @@ final class DisplayTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

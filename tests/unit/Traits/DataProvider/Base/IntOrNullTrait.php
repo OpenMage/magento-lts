@@ -15,7 +15,7 @@ use Generator;
 
 trait IntOrNullTrait
 {
-    public function provideIntOrNull(): Generator
+    public static function provideIntOrNull(): Generator
     {
         yield 'null' => [
             null,

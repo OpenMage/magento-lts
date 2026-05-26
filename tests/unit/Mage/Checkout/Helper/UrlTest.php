@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Helper;
 
 // use Mage;
 // use Mage_Checkout_Helper_Url as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Helper\UrlTrait;
 
@@ -22,6 +23,7 @@ final class UrlTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

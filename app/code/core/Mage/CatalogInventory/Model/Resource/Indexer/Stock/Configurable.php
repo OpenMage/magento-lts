@@ -20,6 +20,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable extends Ma
      * @param  array|int $entityIds
      * @return $this
      */
+    #[Override]
     public function reindexEntity($entityIds)
     {
         $this->_updateIndex($entityIds);
@@ -33,6 +34,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable extends Ma
      * @param  bool             $usePrimaryTable use primary or temporary index table
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getStockStatusSelect($entityIds = null, $usePrimaryTable = false)
     {
         $adapter  = $this->_getWriteAdapter();

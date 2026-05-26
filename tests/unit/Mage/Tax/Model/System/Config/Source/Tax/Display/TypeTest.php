@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Tax\Model\System\Config\Source\Tax\Display;
 
 // use Mage;
 // use Mage_Tax_Model_System_Config_Source_Tax_Display_Type as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\Model\System\Config\Source\Tax\Display\TypeTrait;
 
@@ -22,6 +23,7 @@ final class TypeTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

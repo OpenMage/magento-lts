@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\CatalogInventory\Block\Adminhtml\Form\Field;
 
 // use Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Block\Adminhtml\Form\Field\MinsaleqtyTrait;
 
@@ -21,6 +22,7 @@ final class MinsaleqtyTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

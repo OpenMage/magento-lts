@@ -81,8 +81,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Adding new router
      *
-     * @param  string                            $name
-     * @return Mage_Core_Controller_Varien_Front
+     * @param  string $name
+     * @return $this
      */
     public function addRouter($name, Mage_Core_Controller_Varien_Router_Abstract $router)
     {
@@ -333,7 +333,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      */
     protected function _checkBaseUrl($request)
     {
-        if (!Mage::isInstalled() || $request->getPost() || strtolower($request->getMethod()) == 'post') {
+        if (!Mage::isInstalled() || $request->getPost() || strtolower($request->getMethod()) === 'post') {
             return;
         }
 
@@ -342,7 +342,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             return;
         }
 
-        if ($redirectCode != 301) {
+        if ($redirectCode !== 301) {
             $redirectCode = 302;
         }
 

@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Paygate\Block\Authorizenet\Info;
 
 // use Mage_Paygate_Block_Authorizenet_Info_Cc as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paygate\Block\Authorizenet\Info\CcTrait;
 
@@ -21,6 +22,7 @@ final class CcTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

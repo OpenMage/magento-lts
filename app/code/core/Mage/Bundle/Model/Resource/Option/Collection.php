@@ -181,6 +181,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
      *
      * @return array
      */
+    #[Override]
     public function getAllIds()
     {
         if (is_null($this->_itemIds)) {

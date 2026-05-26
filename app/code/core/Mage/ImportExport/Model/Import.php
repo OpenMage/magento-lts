@@ -372,7 +372,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                     if (!empty($row[$colName])) {
                         preg_match($regExps[$regExpType], $row[$colName], $matches);
 
-                        $row[$colName] = $matches[1] . ((int) $matches[2] + $size) . ($regExpType == 'middle' ? $matches[3] : '');
+                        $row[$colName] = $matches[1] . ((int) $matches[2] + $size) . ($regExpType === 'middle' ? $matches[3] : '');
                     }
                 }
 
@@ -413,7 +413,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
 
         $sourceFile .= '.' . $extension;
 
-        if (strtolower($uploadedFile) != strtolower($sourceFile)) {
+        if (strtolower($uploadedFile) !== strtolower($sourceFile)) {
             if (file_exists($sourceFile)) {
                 unlink($sourceFile);
             }

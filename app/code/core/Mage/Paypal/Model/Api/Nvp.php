@@ -1057,7 +1057,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         $exceptionCode = 0;
 
-        if ($errorsCount == 1 && $this->_isProcessableError($errors[0]['code'])) {
+        if ($errorsCount === 1 && $this->_isProcessableError($errors[0]['code'])) {
             $exceptionCode = $errors[0]['code'];
             $exceptionClass = 'Mage_Paypal_Model_Api_ProcessableException';
         } else {
@@ -1161,9 +1161,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         $ack = strtoupper($response['ACK']);
         $this->_callWarnings = [];
-        if ($ack == 'SUCCESS' || $ack == 'SUCCESSWITHWARNING') {
+        if ($ack === 'SUCCESS' || $ack === 'SUCCESSWITHWARNING') {
             // collect warnings
-            if ($ack == 'SUCCESSWITHWARNING') {
+            if ($ack === 'SUCCESSWITHWARNING') {
                 for ($i = 0; isset($response["L_ERRORCODE{$i}"]); $i++) {
                     $this->_callWarnings[] = $response["L_ERRORCODE{$i}"];
                 }
@@ -1231,6 +1231,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * @param  int       $i
      * @return bool|void
      */
+    #[Override]
     protected function _exportLineItems(array &$request, $i = 0)
     {
         if (!$this->_cart) {

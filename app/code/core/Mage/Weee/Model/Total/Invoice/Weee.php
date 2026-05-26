@@ -17,6 +17,7 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
      *
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
         $store = $invoice->getStore();

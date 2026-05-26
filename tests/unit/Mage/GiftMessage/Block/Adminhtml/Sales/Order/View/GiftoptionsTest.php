@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\GiftMessage\Block\Adminhtml\Sales\Order\View;
 
 // use Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Giftoptions as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\Block\Adminhtml\Sales\Order\View\GiftoptionsTrait;
 
@@ -21,6 +22,7 @@ final class GiftoptionsTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

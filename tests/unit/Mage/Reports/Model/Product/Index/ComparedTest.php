@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Reports\Model\Product\Index;
 
 // use Mage;
 // use Mage_Reports_Model_Product_Index_Compared as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\Model\Product\Index\ComparedTrait;
 
@@ -22,6 +23,7 @@ final class ComparedTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

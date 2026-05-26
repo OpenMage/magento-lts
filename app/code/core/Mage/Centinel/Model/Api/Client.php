@@ -19,6 +19,7 @@ include_once '3Dsecure/CentinelClient.php';
  */
 class Mage_Centinel_Model_Api_Client extends CentinelClient
 {
+    #[Override]
     public function sendHttp($url, $connectTimeout, $timeout)
     {
         // verify that the URL uses a supported protocol.
@@ -39,7 +40,7 @@ class Mage_Centinel_Model_Api_Client extends CentinelClient
 
             // Execute the request.
             $result = curl_exec($handle);
-            $succeeded = curl_errno($handle) == 0;
+            $succeeded = curl_errno($handle) === 0;
 
             // close cURL resource, and free up system resources
             curl_close($handle);

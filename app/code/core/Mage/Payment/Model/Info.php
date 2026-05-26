@@ -58,6 +58,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     public function getData($key = '', $index = null)
     {
         if ($key === 'cc_number'

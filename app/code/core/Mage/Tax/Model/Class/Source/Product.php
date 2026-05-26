@@ -42,6 +42,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
      * @param  int|string   $value
      * @return false|string
      */
+    #[Override]
     public function getOptionText($value)
     {
         $options = $this->getAllOptions(false);
@@ -68,6 +69,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();

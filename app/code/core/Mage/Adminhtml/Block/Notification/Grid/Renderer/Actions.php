@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions extends Mage_Admin
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $escapedRowUrl =  $this->escapeUrl($row->getUrl());

@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
     /**
      * Retrieve required options from parent
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         if (!$this->getParentBlock()) {
@@ -47,7 +48,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
                 $store->getGroup()->getName(),
                 $store->getName(),
             ];
-            return implode('<br/>', array_map([$this, 'escapeHtml'], $name));
+            return implode('<br/>', array_map($this->escapeHtml(...), $name));
         }
 
         return null;

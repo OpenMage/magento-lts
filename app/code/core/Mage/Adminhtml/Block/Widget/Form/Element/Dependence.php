@@ -84,6 +84,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
      * HTML output getter
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_depends) {

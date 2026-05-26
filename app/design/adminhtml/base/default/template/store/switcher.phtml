@@ -18,11 +18,11 @@
         <?php foreach ($website->getGroups() as $group): ?>
             <?php $showGroup = false; ?>
             <?php foreach ($this->getStores($group) as $store): ?>
-                <?php if ($showWebsite == false): ?>
+                <?php if ($showWebsite === false): ?>
                     <?php $showWebsite = true; ?>
                     <optgroup label="<?php echo $this->escapeHtml($website->getName()) ?>"></optgroup>
                 <?php endif ?>
-                <?php if ($showGroup == false): ?>
+                <?php if ($showGroup === false): ?>
                     <?php $showGroup = true; ?>
                     <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($group->getName()) ?>">
                 <?php endif ?>

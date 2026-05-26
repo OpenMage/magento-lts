@@ -104,6 +104,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
      *
      * @return string
      */
+    #[Override]
     public function getArea()
     {
         if (!$this->_getData('area')) {
@@ -146,6 +147,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $selectBlock = $this->getLayout()->createBlock('core/html_select')
@@ -205,7 +207,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
     {
         foreach ($this->_layoutHandlesXml->{$handle} as $updateXml) {
             foreach ($updateXml->children() as $child) {
-                if (strtolower($child->getName()) == 'update' && isset($child['handle'])) {
+                if (strtolower($child->getName()) === 'update' && isset($child['handle'])) {
                     $this->_mergeLayoutHandles((string) $child['handle']);
                 }
             }

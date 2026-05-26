@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\Product;
 
 // use Mage;
 // use Mage_Downloadable_Model_Product_Type as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Model\Product\TypeTrait;
 
@@ -22,6 +23,7 @@ final class TypeTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

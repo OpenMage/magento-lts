@@ -55,6 +55,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Conditions extends Mage_Adminh
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('current_promo_catalog_rule');

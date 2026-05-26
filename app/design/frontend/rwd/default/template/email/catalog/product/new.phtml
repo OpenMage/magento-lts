@@ -17,7 +17,7 @@
     <table class="products-grid">
     <?php $i = 0;
     foreach ($_products->getItems() as $_product): ?>
-        <?php if ($i++ % $_columnCount == 0): ?>
+        <?php if ($i++ % $_columnCount === 0): ?>
         <tr>
         <?php endif ?>
             <td>
@@ -30,7 +30,7 @@
                     <?php echo $this->getPriceHtml($_product, true, '-new') ?>
                 </div>
             </td>
-        <?php if ($i % $_columnCount == 0 || $i == count($_products)): ?>
+        <?php if ($i % $_columnCount === 0 || $i === count($_products)): ?>
         <tr>
         <?php endif ?>
     <?php endforeach ?>

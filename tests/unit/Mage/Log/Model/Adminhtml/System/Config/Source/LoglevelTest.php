@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model\Adminhtml\System\Config\Source;
 
 // use Mage;
 // use Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\Model\Adminhtml\System\Config\Source\LoglevelTrait;
 
@@ -22,6 +23,7 @@ final class LoglevelTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

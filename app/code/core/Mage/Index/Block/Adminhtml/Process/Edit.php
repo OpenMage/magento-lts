@@ -24,13 +24,13 @@ class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widge
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Process'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('cms')->__('Save Process'));
         $this->_addButton('reindex', [
             'label'     => Mage::helper('index')->__('Reindex Data'),
             'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getRunUrl()),
         ]);
-        $this->_removeButton('reset');
-        $this->_removeButton('delete');
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
     }
 
     /**
@@ -38,6 +38,7 @@ class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widge
      *
      * @return string
      */
+    #[Override]
     public function getBackUrl()
     {
         return $this->getUrl('adminhtml/process/list');
@@ -60,6 +61,7 @@ class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widge
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         $process = Mage::registry('current_index_process');

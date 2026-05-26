@@ -652,6 +652,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         // set parent id
@@ -826,7 +827,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected function _verifyTxnId($txnId)
     {
-        if ($txnId !== null && strlen($txnId) == 0) {
+        if ($txnId !== null && (string) $txnId === '') {
             Mage::throwException(Mage::helper('sales')->__('Transaction ID must not be empty.'));
         }
     }

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\PaypalUk\Model;
 
 // use Mage;
 // use Mage_PaypalUk_Model_Direct as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\PaypalUk\Model\DirectTrait;
 
@@ -22,6 +23,7 @@ final class DirectTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -409,8 +409,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     /**
      * Secure set groups
      *
-     * @param  array                            $groups
-     * @return Mage_Adminhtml_Model_Config_Data
+     * @param  array               $groups
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function setGroupsSecure($groups)

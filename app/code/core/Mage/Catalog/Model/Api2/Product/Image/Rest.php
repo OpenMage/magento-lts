@@ -38,6 +38,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      * @return array
      * @throws Mage_Api2_Exception
      */
+    #[Override]
     protected function _retrieve()
     {
         $imageData = [];
@@ -67,6 +68,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      *
      * @return array
      */
+    #[Override]
     protected function _retrieveCollection()
     {
         $images = [];

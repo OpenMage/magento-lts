@@ -282,7 +282,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     public function isLast()
     {
-        return (string) (float) $this->getQty() == (string) (float) $this->getOrderItem()->getQtyToInvoice();
+        return (string) (float) $this->getQty() === (string) (float) $this->getOrderItem()->getQtyToInvoice();
     }
 
     /**
@@ -290,6 +290,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -306,6 +307,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         if (!$this->_orderItem == null) {

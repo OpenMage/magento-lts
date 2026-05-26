@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Shipping\Model\Rate;
 
 // use Mage;
 // use Mage_Shipping_Model_Rate_Result as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Shipping\Model\Rate\ResultTrait;
 
@@ -22,6 +23,7 @@ final class ResultTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

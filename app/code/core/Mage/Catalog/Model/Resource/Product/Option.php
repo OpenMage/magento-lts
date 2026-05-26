@@ -27,6 +27,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
      *
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $this->_saveValuePrices($object);
@@ -105,7 +106,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
 
             $scope = (int) Mage::app()->getStore()->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
 
-            if ($object->getStoreId() != '0' && $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
+            if ($object->getStoreId() != '0' && $scope === Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
                 && !$object->getData('scope', 'price')
             ) {
                 $baseCurrency = Mage::app()->getBaseCurrencyCode();
@@ -165,7 +166,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                         }
                     }// end foreach()
                 }
-            } elseif ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE && $object->getData('scope', 'price')) {
+            } elseif ($scope === Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE && $object->getData('scope', 'price')) {
                 $writeAdapter->delete(
                     $priceTable,
                     [

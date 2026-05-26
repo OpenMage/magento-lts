@@ -64,7 +64,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     /**
      * Register data required by process in event object
      *
-     * @return Mage_Index_Model_Indexer_Abstract
+     * @return $this
      */
     public function register(Mage_Index_Model_Event $event)
     {
@@ -78,7 +78,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     /**
      * Process event
      *
-     * @return Mage_Index_Model_Indexer_Abstract
+     * @return $this
      */
     public function processEvent(Mage_Index_Model_Event $event)
     {
@@ -129,7 +129,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
      * Try dynamically detect and call event handler from resource model.
      * Handler name will be generated from event entity and type code
      *
-     * @return Mage_Index_Model_Indexer_Abstract
+     * @return $this
      */
     public function callEventHandler(Mage_Index_Model_Event $event)
     {
@@ -150,8 +150,8 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     /**
      * Set whether table changes are allowed
      *
-     * @param  bool                              $value
-     * @return Mage_Index_Model_Indexer_Abstract
+     * @param  bool  $value
+     * @return $this
      * @deprecated after 1.6.1.0
      */
     public function setAllowTableChanges($value = true)
@@ -163,7 +163,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     /**
      * Disable resource table keys
      *
-     * @return Mage_Index_Model_Indexer_Abstract
+     * @return $this
      */
     public function disableKeys()
     {
@@ -182,7 +182,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     /**
      * Enable resource table keys
      *
-     * @return Mage_Index_Model_Indexer_Abstract
+     * @return $this
      */
     public function enableKeys()
     {

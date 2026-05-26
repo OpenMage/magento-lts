@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Add extends Mage_Adminhtml_Block_Tem
         $this->setTemplate('tax/toolbar/rate/add.phtml');
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Entity\Order\Shipment;
 
 // use Mage;
 // use Mage_Sales_Model_Entity_Order_Shipment_Item as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Entity\Order\Shipment\ItemTrait;
 
@@ -22,6 +23,7 @@ final class ItemTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

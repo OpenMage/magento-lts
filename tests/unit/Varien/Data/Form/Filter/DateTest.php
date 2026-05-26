@@ -41,7 +41,7 @@ final class DateTest extends TestCase
         }
     }
 
-    public function provideFilterDateData(): Generator
+    public static function provideFilterDateData(): Generator
     {
         yield 'bcsub() exception' => [
             'bcsub():',

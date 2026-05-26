@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _preparePage()
     {
         $this->getCollection()
@@ -42,6 +43,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_grid_collection')
@@ -55,6 +57,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', [
@@ -108,6 +111,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
      * @param  Varien_Object $row
      * @return string
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
@@ -117,6 +121,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
      * @return bool
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     public function getHeadersVisibility()
     {
         return ($this->getCollection()->getSize() > 0);

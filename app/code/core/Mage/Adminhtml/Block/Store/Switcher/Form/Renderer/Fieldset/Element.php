@@ -26,6 +26,7 @@ class Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element extends
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('store/switcher/form/renderer/fieldset/element.phtml');
@@ -36,6 +37,7 @@ class Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element extends
      *
      * @return Varien_Data_Form_Element_Abstract
      */
+    #[Override]
     public function getElement()
     {
         return $this->_element;
@@ -46,6 +48,7 @@ class Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element extends
      *
      * @return string
      */
+    #[Override]
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $this->_element = $element;

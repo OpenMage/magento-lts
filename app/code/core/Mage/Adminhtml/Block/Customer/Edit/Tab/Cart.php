@@ -38,6 +38,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareGrid()
     {
         $this->setId('customer_cart_grid' . $this->getWebsiteId());
@@ -47,6 +48,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $customer = Mage::registry('current_customer');
@@ -68,6 +70,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('product_id', [
@@ -141,6 +144,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     /**
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/cart', ['_current' => true, 'website_id' => $this->getWebsiteId()]);
@@ -161,6 +165,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
      * @inheritDoc
      * @param Mage_Sales_Model_Quote_Item $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);

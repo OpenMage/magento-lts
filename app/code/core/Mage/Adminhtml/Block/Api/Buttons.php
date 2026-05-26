@@ -18,6 +18,7 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
         $this->setTemplate('api/userinfo.phtml');
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -93,7 +94,7 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
      */
     public function getDeleteButtonHtml()
     {
-        if ((int) $this->getRequest()->getParam('rid') == 0) {
+        if ((int) $this->getRequest()->getParam('rid') === 0) {
             return '';
         }
 

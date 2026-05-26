@@ -166,8 +166,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Remove index data for specifuc product
      *
-     * @param  mixed                           $product
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @param  mixed $product
+     * @return $this
      */
     public function cleanup($product)
     {
@@ -180,10 +180,10 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Reindex catalog product data which used in layered navigation and in product list
      *
-     * @param  mixed                           $products
-     * @param  mixed                           $attributes
-     * @param  mixed                           $stores
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @param  mixed $products
+     * @param  mixed $attributes
+     * @param  mixed $stores
+     * @return $this
      */
     public function plainReindex($products = null, $attributes = null, $stores = null)
     {
@@ -458,7 +458,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param  mixed                                          $store
      * @param  array                                          $attributes
      * @param  array                                          $prices
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @return $this
      */
     protected function _walkCollection($collection, $store, $attributes = [], $prices = [])
     {
@@ -602,7 +602,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     /** @var Mage_CatalogIndex_Model_Indexer_Abstract $indexer */
                     if ($indexer->isAttributeIndexable($attribute) && $values[$code]) {
                         if (isset($values[$code]['from']) && isset($values[$code]['to'])
-                            && (strlen($values[$code]['from']) == 0 && strlen($values[$code]['to']) == 0)
+                            && ((string) $values[$code]['from'] === '' && (string) $values[$code]['to'] === '')
                         ) {
                             continue;
                         }
@@ -763,7 +763,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * Add indexable attributes to product collection select
      *
      * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @return Mage_CatalogIndex_Model_Indexer
+     * @return $this
      * @deprecated
      */
     protected function _addFilterableAttributesToCollection($collection)

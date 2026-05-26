@@ -19,6 +19,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Search_Type extends Mag
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         $newValue = $this->getValue();

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Directory\Model\Country\Api;
 
 // use Mage;
 // use Mage_Directory_Model_Country_Api_V2 as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\Model\Country\Api\V2Trait;
 
@@ -22,6 +23,7 @@ final class V2Test extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -22,6 +22,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
     /**
      * grid view
+     * @return void
      */
     public function indexAction()
     {
@@ -40,6 +41,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
     /**
      * new class action
+     * @return void
      */
     public function newAction()
     {
@@ -48,6 +50,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
     /**
      * edit class action
+     * @return void
      */
     public function editAction()
     {
@@ -91,6 +94,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
     /**
      * delete class action
+     * @return void
      */
     public function deleteAction()
     {
@@ -144,7 +148,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
     /**
      * Initialize action
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _initAction()
     {

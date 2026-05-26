@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Checkout\Model\Api\Resource;
 
 // use Mage;
 // use Mage_Checkout_Model_Api_Resource_Customer as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Checkout\Model\Api\Resource\CustomerTrait;
 
@@ -22,6 +23,7 @@ final class CustomerTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

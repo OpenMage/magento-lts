@@ -23,6 +23,7 @@ class Mage_Paypal_Model_Payflow_Request extends Varien_Object
      * @return mixed
      * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
+    #[Override]
     public function __call($method, $args)
     {
         $key = $this->_underscore(substr($method, 3));

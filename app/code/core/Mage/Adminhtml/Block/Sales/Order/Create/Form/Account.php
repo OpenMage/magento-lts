@@ -86,6 +86,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
      *
      * @return $this
      */
+    #[Override]
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
     {
         if ($element->getId() === 'email') {
@@ -99,6 +100,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFormValues()
     {
         $data = $this->getCustomer()->getData();

@@ -19,6 +19,7 @@ class Mage_Paypal_Block_Payflow_Advanced_Form extends Mage_Paypal_Block_Payflow_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -30,6 +31,7 @@ class Mage_Paypal_Block_Payflow_Advanced_Form extends Mage_Paypal_Block_Payflow_
      *
      * @return string
      */
+    #[Override]
     public function getFrameActionUrl()
     {
         return $this->getUrl('paypal/payflowadvanced/form', ['_secure' => true]);

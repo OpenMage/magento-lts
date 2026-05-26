@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Image extends Varien_Data_For
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _getUrl()
     {
         if ($this->getValue()) {

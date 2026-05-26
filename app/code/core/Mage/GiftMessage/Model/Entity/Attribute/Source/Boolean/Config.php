@@ -20,6 +20,7 @@ class Mage_GiftMessage_Model_Entity_Attribute_Source_Boolean_Config extends Mage
      *
      * @return array
      */
+    #[Override]
     public function getAllOptions()
     {
         if (!$this->_options) {

@@ -135,7 +135,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             }
         }
 
-        uasort($newParams, [$this, '_sortParameters']);
+        uasort($newParams, $this->_sortParameters(...));
         $object->setData('parameters', $newParams);
 
         return $object;
@@ -195,7 +195,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 ];
             }
 
-            usort($result, [$this, '_sortWidgets']);
+            usort($result, $this->_sortWidgets(...));
             $this->setData('widgets_array', $result);
         }
 
@@ -205,10 +205,11 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return widget presentation code in WYSIWYG editor
      *
-     * @param  string $type   Widget Type
-     * @param  array  $params Pre-configured Widget Params
-     * @param  bool   $asIs   Return result as widget directive(true) or as placeholder image(false)
-     * @return string Widget directive ready to parse
+     * @param  string    $type   Widget Type
+     * @param  array     $params Pre-configured Widget Params
+     * @param  bool      $asIs   Return result as widget directive(true) or as placeholder image(false)
+     * @return string    Widget directive ready to parse
+     * @throws Exception
      */
     public function getWidgetDeclaration($type, $params = [], $asIs = true)
     {
@@ -218,7 +219,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             // Retrieve default option value if pre-configured
             if (is_array($value)) {
                 $value = implode(',', $value);
-            } elseif (trim($value) == '') {
+            } elseif (trim($value) === '') {
                 $widget = $this->getConfigAsObject($type);
                 $parameters = $widget->getParameters();
                 if (isset($parameters[$name]) && is_object($parameters[$name])) {
@@ -239,11 +240,9 @@ class Mage_Widget_Model_Widget extends Varien_Object
 
         $config = Mage::getSingleton('widget/widget_config');
         $imageName = str_replace('/', '__', $type) . '.gif';
-        if (is_file($config->getPlaceholderImagesBaseDir() . DS . $imageName)) {
-            $image = $config->getPlaceholderImagesBaseUrl() . $imageName;
-        } else {
-            $image = $config->getPlaceholderImagesBaseUrl() . 'default.gif';
-        }
+
+        $images = $config->getPlaceholderImages();
+        $image = $images[$imageName] ?? Mage::getDesign()->getSkinUrl('images/widget/default.gif');
 
         return sprintf(
             '<img id="%s" src="%s" title="%s">',

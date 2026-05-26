@@ -39,8 +39,9 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Prepare rule's active "from" and "to" dates
      *
-     * @return Mage_Rule_Model_Resource_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $fromDate = $object->getFromDate();
@@ -101,7 +102,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      * @param string           $entityType
      * @param bool             $deleteOldResults
      *
-     * @return Mage_Rule_Model_Resource_Abstract
+     * @return $this
      * @throws Exception
      */
     public function bindRuleToEntity($ruleIds, $entityIds, $entityType, $deleteOldResults = true)
@@ -134,7 +135,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
                         $entityInfo['rule_id_field'] => $ruleId,
                     ];
                     $count++;
-                    if (($count % 1000) == 0) {
+                    if ($count % 1000 === 0) {
                         $adapter->insertOnDuplicate(
                             $this->getTable($entityInfo['associations_table']),
                             $data,
@@ -177,7 +178,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      * @param array|int|string $entityIds
      * @param string           $entityType
      *
-     * @return Mage_Rule_Model_Resource_Abstract
+     * @return $this
      */
     public function unbindRuleFromEntity($ruleIds, $entityIds, $entityType)
     {

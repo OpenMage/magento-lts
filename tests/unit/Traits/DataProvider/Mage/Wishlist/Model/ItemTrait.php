@@ -15,7 +15,7 @@ use Generator;
 
 trait ItemTrait
 {
-    public function provideSetQtyData(): Generator
+    public static function provideSetQtyData(): Generator
     {
         yield 'positive quantity' => [
             5,
@@ -31,7 +31,7 @@ trait ItemTrait
         ];
     }
 
-    public function provideValidateData(): Generator
+    public static function provideValidateData(): Generator
     {
         yield 'valid data' => [
             null,

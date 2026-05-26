@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset extends Mage_Core_
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $children = $this->getSortedChildren();
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset extends Mage_Core_
             }
 
             $i++;
-            $block->setIsLastFieldset($i == $total);
+            $block->setIsLastFieldset($i === $total);
 
             $this->addText($block->toHtml());
         }

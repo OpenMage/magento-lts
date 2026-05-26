@@ -19,6 +19,7 @@ class Mage_Paypal_Block_Hosted_Pro_Form extends Mage_Payment_Block_Form
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();

@@ -344,7 +344,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 $startDay = isset($startMonthDay[1]) ? (int) $startMonthDay[1] : 1;
                 $dateStart->setMonth($startMonth);
                 $dateStart->setDay($startDay);
-                if ($range == '2y') {
+                if ($range === '2y') {
                     $dateStart->subYear(1);
                 }
 
@@ -366,6 +366,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      *
      * @return $this
      */
+    #[Override]
     public function addItemCountExpr()
     {
         $this->getSelect()->columns(['items_count' => 'total_item_count'], 'main_table');
@@ -756,6 +757,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();
@@ -775,6 +777,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      *
      * @return $this
      */
+    #[Override]
     protected function _initInitialFieldsToSelect()
     {
         // No fields should be initialized

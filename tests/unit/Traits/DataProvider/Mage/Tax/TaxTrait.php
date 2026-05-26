@@ -15,7 +15,7 @@ use Generator;
 
 trait TaxTrait
 {
-    public function provideGetIncExcText(): Generator
+    public static function provideGetIncExcText(): Generator
     {
         yield 'true' => [
             'Incl. Tax',
@@ -27,7 +27,7 @@ trait TaxTrait
         ];
     }
 
-    public function provideGetIncExcTaxLabel(): Generator
+    public static function provideGetIncExcTaxLabel(): Generator
     {
         yield 'true' => [
             '(Incl. Tax)',

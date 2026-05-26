@@ -274,6 +274,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
      * @throws Mage_Core_Model_Store_Exception
      * @throws Varien_Convert_Exception
      */
+    #[Override]
     public function load()
     {
         $addressType = $this->getVar('filter/adressType'); //error in key filter addressType
@@ -376,6 +377,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function save()
     {
         $stores = [];

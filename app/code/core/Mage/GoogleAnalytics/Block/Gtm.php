@@ -27,6 +27,7 @@ class Mage_GoogleAnalytics_Block_Gtm extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_isAvailable()) {

@@ -31,6 +31,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Init top menu tree structure and cache
      */
+    #[Override]
     protected function _construct()
     {
         $this->_menu = new Varien_Data_Tree_Node([], 'root', new Varien_Data_Tree());
@@ -96,7 +97,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
 
         foreach ($children as $child) {
             $child->setLevel($childLevel);
-            $child->setIsFirst($counter == 1);
+            $child->setIsFirst($counter === 1);
             $child->setIsLast($counter == $childrenCount);
             $child->setPositionClass($itemPositionClassPrefix . $counter);
 
@@ -204,6 +205,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         $shortCacheId = [

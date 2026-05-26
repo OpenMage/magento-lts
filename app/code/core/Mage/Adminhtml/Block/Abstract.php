@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_Abstract extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     protected function _getUrlModelClass()
     {
         return 'adminhtml/url';

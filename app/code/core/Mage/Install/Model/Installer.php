@@ -100,8 +100,8 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Installation config data
      *
-     * @param  array                        $data
-     * @return Mage_Install_Model_Installer
+     * @param  array $data
+     * @return $this
      */
     public function installConfig($data)
     {

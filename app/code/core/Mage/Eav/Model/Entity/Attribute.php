@@ -54,6 +54,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      *
      * @return string
      */
+    #[Override]
     protected function _getDefaultBackendModel()
     {
         return match ($this->getAttributeCode()) {
@@ -70,6 +71,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      *
      * @return string
      */
+    #[Override]
     protected function _getDefaultFrontendModel()
     {
         return parent::_getDefaultFrontendModel();
@@ -80,6 +82,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      *
      * @return string
      */
+    #[Override]
     protected function _getDefaultSourceModel()
     {
         if ($this->getAttributeCode() == 'store_id') {
@@ -126,6 +129,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         /*
@@ -142,7 +146,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         }
 
         $defaultValue   = $this->getDefaultValue();
-        $hasDefaultValue = ((string) $defaultValue != '');
+        $hasDefaultValue = ((string) $defaultValue !== '');
 
         if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
             $locale = Mage::app()->getLocale()->getLocaleCode();
@@ -193,6 +197,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         $this->_getResource()->saveInSetIncluding($this);

@@ -17,6 +17,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -76,6 +77,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
      *
      * @inheritDoc
      */
+    #[Override]
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {
         if (in_array($attribute, ['review_cnt', 'last_created', 'avg_rating', 'avg_rating_approved'])) {
@@ -91,6 +93,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $this->_renderFilters();

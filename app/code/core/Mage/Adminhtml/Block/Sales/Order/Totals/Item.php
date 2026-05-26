@@ -21,6 +21,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         parent::_beforeToHtml();
@@ -88,6 +89,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
      *
      * @return Mage_Sales_Model_Abstract
      */
+    #[Override]
     public function getSource()
     {
         return $this->getParentBlock()->getSource();

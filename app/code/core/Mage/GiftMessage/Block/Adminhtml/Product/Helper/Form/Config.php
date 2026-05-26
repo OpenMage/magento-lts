@@ -21,6 +21,7 @@ class Mage_GiftMessage_Block_Adminhtml_Product_Helper_Form_Config extends Mage_A
      *
      * @return bool
      */
+    #[Override]
     protected function _getValueFromConfig()
     {
         return Mage::getStoreConfigFlag(Mage_GiftMessage_Helper_Message::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS);

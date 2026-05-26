@@ -16,6 +16,7 @@ class Mage_Core_Block_Profiler extends Mage_Core_Block_Abstract
      * @return string
      * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_beforeToHtml()

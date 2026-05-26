@@ -20,6 +20,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      * @param  array|int $entityIds
      * @return $this
      */
+    #[Override]
     public function reindexEntity($entityIds)
     {
         $this->_updateIndex($entityIds);
@@ -108,6 +109,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      * @param  bool             $usePrimaryTable use primary or temporary index table
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getStockStatusSelect($entityIds = null, $usePrimaryTable = false)
     {
         $this->_prepareBundleOptionStockData($entityIds, $usePrimaryTable);
@@ -174,6 +176,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      * @param  array|int $entityIds the product limitation
      * @return $this
      */
+    #[Override]
     protected function _prepareIndexTable($entityIds = null)
     {
         parent::_prepareIndexTable($entityIds);
@@ -188,6 +191,7 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
      * @param  array|int $entityIds
      * @return $this
      */
+    #[Override]
     protected function _updateIndex($entityIds)
     {
         parent::_updateIndex($entityIds);

@@ -19,6 +19,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
     /**
      * @return false|Varien_Io_Abstract
      */
+    #[Override]
     public function getResource($forWrite = false)
     {
         if (!$this->_resource) {

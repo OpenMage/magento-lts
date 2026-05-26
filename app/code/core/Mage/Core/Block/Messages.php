@@ -59,6 +59,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->addMessages(Mage::getSingleton('core/session')->getMessages(true));
@@ -250,6 +251,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         return $this->getGroupedHtml();
@@ -280,6 +282,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      *
      * @return array<string, string>
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         return [

@@ -7,8 +7,6 @@
  * @package    Mage_Cms
  */
 
-use Carbon\Carbon;
-
 /**
  * Wysiwyg Images model
  *
@@ -227,7 +225,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 
         $ioFile = new Varien_Io_File();
 
-        if ($rootCmp == $pathCmp) {
+        if ($rootCmp === $pathCmp) {
             Mage::throwException(Mage::helper('cms')->__(
                 'Cannot delete root directory %s.',
                 $ioFile->getFilteredPath($path),
@@ -356,7 +354,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (str_starts_with($filePath, $mediaRootDir)) {
             $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . substr($filePath, strlen($mediaRootDir));
             if (!$checkFile || is_readable($this->getHelper()->getStorageRoot() . $thumbSuffix)) {
-                $randomIndex = '?rand=' . Carbon::now()->getTimestamp();
+                $randomIndex = '?rand=' . Mage::helper('core/clock')->getTimestamp();
                 $thumbUrl = $this->getHelper()->getBaseUrl() . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
                     . DS . $thumbSuffix;
                 return str_replace('\\', '/', $thumbUrl) . $randomIndex;

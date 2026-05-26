@@ -22,6 +22,7 @@ class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -33,6 +34,7 @@ class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
      *
      * @return string
      */
+    #[Override]
     public function toPdf()
     {
         $this->setTemplate('paygate/info/pdf.phtml');
@@ -44,6 +46,7 @@ class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
      *
      * @return mixed
      */
+    #[Override]
     public function getInfo()
     {
         if ($this->hasCardInfoObject()) {

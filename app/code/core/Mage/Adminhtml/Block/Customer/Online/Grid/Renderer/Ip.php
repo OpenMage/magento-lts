@@ -17,6 +17,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid_Renderer_Ip extends Mage_Adminht
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         /**

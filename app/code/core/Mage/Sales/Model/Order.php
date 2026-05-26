@@ -512,7 +512,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -531,6 +531,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  string $key data key
      * @return $this
      */
+    #[Override]
     public function unsetData($key = null)
     {
         parent::unsetData($key);
@@ -1263,7 +1264,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->canCancel() || $this->isPaymentReview()) {
             $cancelState = self::STATE_CANCELED;
             foreach ($this->getAllItems() as $item) {
-                if ($cancelState != self::STATE_PROCESSING && $item->getQtyToRefund()) {
+                if ($cancelState !== self::STATE_PROCESSING && $item->getQtyToRefund()) {
                     $cancelState = $item->getQtyToShip() > $item->getQtyToCancel() ? self::STATE_PROCESSING : self::STATE_COMPLETE;
                 }
 
@@ -2149,6 +2150,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  null|int|string $index
      * @return float|mixed
      */
+    #[Override]
     public function getData($key = '', $index = null)
     {
         if ($key == 'total_due') {
@@ -2359,6 +2361,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -2462,6 +2465,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->_addresses !== null) {
@@ -2594,6 +2598,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Protect order delete from not admin scope
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();

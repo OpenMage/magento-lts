@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Attribute\Backend;
 
 // use Mage;
 // use Mage_Catalog_Model_Attribute_Backend_Customlayoutupdate as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Attribute\Backend\CustomlayoutupdateTrait;
 
@@ -22,6 +23,7 @@ final class CustomlayoutupdateTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

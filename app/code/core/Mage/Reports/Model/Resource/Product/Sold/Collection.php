@@ -17,6 +17,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -60,6 +61,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
      *
      * @return $this
      */
+    #[Override]
     protected function _productLimitationJoinWebsite()
     {
         $filters     = $this->_productLimitationFilters;

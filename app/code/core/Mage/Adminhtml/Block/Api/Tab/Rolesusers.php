@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesusers extends Mage_Adminhtml_Block_Widge
             ->assign('roleId', $roleId);
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild('userGrid', $this->getLayout()->createBlock('adminhtml/api_role_grid_user', 'roleUsersGrid'));

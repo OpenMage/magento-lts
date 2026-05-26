@@ -17,7 +17,7 @@ trait CatalogTrait
 {
     public static string $testSting = '--a & B, x% @ ä ö ü ™--';
 
-    public function provideFormatUrlKey(): Generator
+    public static function provideFormatUrlKey(): Generator
     {
         yield 'de_DE' => [
             'a-und-b-x-prozent-at-ae-oe-ue-tm',

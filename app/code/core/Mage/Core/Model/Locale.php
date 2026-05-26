@@ -96,8 +96,8 @@ class Mage_Core_Model_Locale
     /**
      * Set default locale code
      *
-     * @param  string                 $locale
-     * @return Mage_Core_Model_Locale
+     * @param  string $locale
+     * @return $this
      */
     public function setDefaultLocale($locale)
     {
@@ -127,8 +127,8 @@ class Mage_Core_Model_Locale
     /**
      * Set locale
      *
-     * @param  string                 $locale
-     * @return Mage_Core_Model_Locale
+     * @param  string $locale
+     * @return $this
      */
     public function setLocale($locale = null)
     {
@@ -303,7 +303,7 @@ class Mage_Core_Model_Locale
         foreach ($zones as $code => $name) {
             $name = trim($name);
             $zonesList = explode(' ', $code);
-            if (count($zonesList) == 1) {
+            if (count($zonesList) === 1) {
                 $options[] = [
                     'label' => empty($name) ? $code : $name . ' (' . $code . ')',
                     'value' => $code,

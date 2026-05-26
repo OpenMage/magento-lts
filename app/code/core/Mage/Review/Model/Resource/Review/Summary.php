@@ -30,6 +30,7 @@ class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource
      * @param  Mage_Core_Model_Abstract $object
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);

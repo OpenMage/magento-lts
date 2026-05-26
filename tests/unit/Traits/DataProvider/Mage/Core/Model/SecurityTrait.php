@@ -17,7 +17,7 @@ trait SecurityTrait
 {
     public static string $testString = 'This is a bold <b>string</b>';
 
-    public function provideHtmlEscapedStringAsStringData(): Generator
+    public static function provideHtmlEscapedStringAsStringData(): Generator
     {
         yield 'tags null' => [
             'This is a bold &lt;b&gt;string&lt;/b&gt;',
@@ -31,7 +31,7 @@ trait SecurityTrait
         ];
     }
 
-    public function provideHtmlEscapedStringGetUnescapedValueData(): Generator
+    public static function provideHtmlEscapedStringGetUnescapedValueData(): Generator
     {
         yield 'tags null' => [
             self::$testString,

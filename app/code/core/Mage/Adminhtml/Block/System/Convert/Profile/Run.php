@@ -148,6 +148,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
      * Generating form key
      * @return string
      */
+    #[Override]
     public function getFormKey()
     {
         return Mage::getSingleton('core/session')->getFormKey();

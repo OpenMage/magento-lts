@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Eav\Model\Resource\Entity\Type;
 
 // use Mage;
 // use Mage_Eav_Model_Resource_Entity_Type_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Resource\Entity\Type\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

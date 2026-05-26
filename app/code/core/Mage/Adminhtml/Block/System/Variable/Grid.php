@@ -19,6 +19,7 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -30,6 +31,7 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Core_Model_Resource_Variable_Collection $collection */
@@ -42,6 +44,7 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('variable_id', [
@@ -68,6 +71,7 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
      * @param  Mage_Core_Model_Variable $row
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['variable_id' => $row->getId()]);

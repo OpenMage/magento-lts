@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Api2\Model\Resource;
 
 // use Mage;
 // use Mage_Api2_Model_Resource_Setup as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api2\Model\Resource\SetupTrait;
 
@@ -22,6 +23,7 @@ final class SetupTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

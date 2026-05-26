@@ -67,8 +67,8 @@ abstract class Mage_Api2_Model_Auth_User_Abstract
     /**
      * Set user identifier
      *
-     * @param  int                                $userId User identifier
-     * @return Mage_Api2_Model_Auth_User_Abstract
+     * @param  int   $userId User identifier
+     * @return $this
      */
     public function setUserId($userId)
     {

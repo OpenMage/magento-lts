@@ -19,6 +19,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Cost extends Mage_Sales_Model_Orde
      *
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
         $baseRefundTotalCost = 0;

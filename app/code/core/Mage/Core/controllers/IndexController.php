@@ -14,6 +14,9 @@ declare(strict_types=1);
  */
 class Mage_Core_IndexController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_forward('noRoute');

@@ -25,6 +25,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     public function afterSave($object)
     {
         $name  = $this->getAttribute()->getName();

@@ -14,6 +14,7 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Country extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
+    #[Override]
     protected function _getOptions()
     {
         $options = Mage::getResourceModel('directory/country_collection')->load()->toOptionArray(false);

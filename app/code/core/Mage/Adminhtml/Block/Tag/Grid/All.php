@@ -28,6 +28,7 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('tag/tag_collection')->addStoresVisibility();
@@ -39,6 +40,7 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -75,6 +77,7 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($this->getCollection() && $column->getFilter()->getValue()) {
@@ -92,6 +95,7 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
      * @param  Varien_Object $row
      * @return string
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/products', ['tag_id' => $row->getId()]);

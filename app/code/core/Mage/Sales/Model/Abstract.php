@@ -36,6 +36,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function afterCommitCallback()
     {
         if (!$this->getForceUpdateGridRecords()) {

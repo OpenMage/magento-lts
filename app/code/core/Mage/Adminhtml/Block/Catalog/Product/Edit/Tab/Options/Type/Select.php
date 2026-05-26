@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends 
         $this->setCanReadPrice(true);
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -60,6 +61,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends 
         return $this->getChildHtml('delete_select_row_button');
     }
 
+    #[Override]
     public function getPriceTypeSelectHtml()
     {
         $this->getChild('option_price_type')

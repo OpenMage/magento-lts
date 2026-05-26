@@ -73,6 +73,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
      * @param  int|string   $value
      * @return false|string
      */
+    #[Override]
     public function getOptionText($value)
     {
         $options = $this->getAllOptions();
@@ -88,6 +89,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
@@ -113,6 +115,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     /**
      * @inheritDoc
      */
+    #[Override]
     public function getFlatIndexes()
     {
         $indexes = [];
@@ -144,6 +147,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
      * @param  int|string  $value
      * @return bool|string
      */
+    #[Override]
     public function getIndexOptionText($value)
     {
         switch ($value) {

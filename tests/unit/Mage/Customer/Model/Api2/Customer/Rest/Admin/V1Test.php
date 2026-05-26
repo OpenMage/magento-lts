@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Api2\Customer\Rest\Admin;
 
 // use Mage;
 // use Mage_Customer_Model_Api2_Customer_Rest_Admin_V1 as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\Model\Api2\Customer\Rest\Admin\V1Trait;
 
@@ -22,6 +23,7 @@ final class V1Test extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

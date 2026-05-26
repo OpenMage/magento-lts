@@ -25,6 +25,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param  Mage_Catalog_Model_Product $object
      * @return $this
      */
+    #[Override]
     public function afterLoad($object)
     {
         $attrCode = $this->getAttribute()->getAttributeCode();
@@ -67,6 +68,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @return bool
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function validate($object)
     {
         if ($this->getAttribute()->getIsRequired()) {
@@ -93,6 +95,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @return null|$this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      * @throws Zend_Json_Exception
      */
+    #[Override]
     public function beforeSave($object)
     {
         $attrCode = $this->getAttribute()->getAttributeCode();
@@ -197,6 +200,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param  Mage_Catalog_Model_Product                            $object
      * @return Mage_Eav_Model_Entity_Attribute_Backend_Abstract|void
      */
+    #[Override]
     public function afterSave($object)
     {
         if ($object->getIsDuplicate() == true) {
@@ -722,12 +726,12 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $fileTmpMediaName = $dispretionPath . DS
                   . Mage_Core_Model_File_Uploader::getNewFileName($this->_getConfig()->getTmpMediaPath($fileName));
 
-        if ($fileMediaName != $fileTmpMediaName) {
+        if ($fileMediaName !== $fileTmpMediaName) {
             if ($fileMediaName != $fileName) {
                 return $this->_getNotDuplicatedFilename($fileMediaName, $dispretionPath);
             }
 
-            if ($fileTmpMediaName != $fileName) {
+            if ($fileTmpMediaName !== $fileName) {
                 return $this->_getNotDuplicatedFilename($fileTmpMediaName, $dispretionPath);
             }
         }

@@ -46,6 +46,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->getId() == '') {
@@ -71,6 +72,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * @return $this
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $this->_updateRoleUsersAcl($object);
@@ -85,6 +87,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
         $adapter = $this->_getWriteAdapter();

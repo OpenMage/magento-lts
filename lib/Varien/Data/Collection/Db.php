@@ -21,7 +21,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * DB connection
      *
-     * @var Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract
+     * @var Varien_Db_Adapter_Interface&Zend_Db_Adapter_Abstract
      */
     protected $_conn;
 
@@ -66,7 +66,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Fields map for correlation names & real selected fields
      *
-     * @var null|array{fields: array<string, string>}
+     * @var null|array<string, array<string, string|Zend_Db_Expr>>
      */
     protected $_map = null;
 
@@ -152,6 +152,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return mixed
      */
+    #[Override]
     protected function _getItemId(Varien_Object $item)
     {
         if ($field = $this->getIdFieldName()) {
@@ -193,7 +194,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Retrieve connection object
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return Varien_Db_Adapter_Interface&Zend_Db_Adapter_Abstract
      */
     public function getConnection()
     {
@@ -206,6 +207,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @return int
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     public function getSize()
     {
         if (is_null($this->_totalRecords)) {
@@ -250,7 +252,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function ($table) {
                 return ($table['joinType'] == Zend_Db_Select::LEFT_JOIN || $table['joinType'] == Zend_Db_Select::FROM);
             });
-            if (count($leftJoins) == count($countSelect->getPart(Zend_Db_Select::FROM))) {
+            if (count($leftJoins) === count($countSelect->getPart(Zend_Db_Select::FROM))) {
                 $mainTable = array_filter($leftJoins, function ($table) {
                     return $table['joinType'] == Zend_Db_Select::FROM;
                 });
@@ -304,6 +306,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * @inheritDoc
      */
+    #[Override]
     public function setOrder($field, $dir = self::SORT_ORDER_DESC)
     {
         return $this->_setOrder($field, $dir);
@@ -345,7 +348,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         $this->_isOrdersRendered = false;
         $field = (string) $this->_getMappedField($field);
-        $direction = (strtoupper($direction) == self::SORT_ORDER_ASC) ? self::SORT_ORDER_ASC : self::SORT_ORDER_DESC;
+        $direction = (strtoupper($direction) === self::SORT_ORDER_ASC) ? self::SORT_ORDER_ASC : self::SORT_ORDER_DESC;
 
         unset($this->_orders[$field]); // avoid ordering by the same field twice
         if ($unshift) {
@@ -367,6 +370,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return $this
      */
+    #[Override]
     protected function _renderFilters()
     {
         if ($this->_isFiltersRendered) {
@@ -532,6 +536,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return $this
      */
+    #[Override]
     protected function _renderOrders()
     {
         if (!$this->_isOrdersRendered) {
@@ -550,6 +555,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return $this
      */
+    #[Override]
     protected function _renderLimit()
     {
         if ($this->_pageSize) {
@@ -566,6 +572,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return $this
      */
+    #[Override]
     public function distinct($flag)
     {
         $this->_select->distinct($flag);
@@ -591,6 +598,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @throws Exception
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -733,6 +741,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @return $this
      * @throws Zend_Cache_Exception
      */
+    #[Override]
     public function loadData($printQuery = false, $logQuery = false)
     {
         return $this->load($printQuery, $logQuery);
@@ -750,11 +759,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
     {
         if ($printQuery) {
-            echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
+            echo $sql ?? $this->getSelect()->__toString();
         }
 
         if ($logQuery) {
-            Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
+            Mage::log($sql ?? $this->getSelect()->__toString());
         }
 
         return $this;
@@ -890,7 +899,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (is_null($this->_map)) {
             $this->_map = [$group => []];
-        } elseif (is_null($this->_map[$group])) {
+        } elseif (!array_key_exists($group, $this->_map)) {
             $this->_map[$group] = [];
         }
 

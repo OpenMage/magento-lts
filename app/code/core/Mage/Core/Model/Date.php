@@ -60,7 +60,7 @@ class Mage_Core_Model_Date
         }
 
         if ($result) {
-            $offset = (int) Carbon::now()->format('Z');
+            $offset = (int) Mage::helper('core/clock')->format('Z');
         }
 
         if (!is_null($timezone)) {
@@ -214,7 +214,7 @@ class Mage_Core_Model_Date
     /**
      * @param  string              $dateTimeString
      * @param  string              $dateTimeFormat
-     * @return array
+     * @return array<int, int>
      * @throws Mage_Core_Exception
      * @deprecated since 1.1.7
      */

@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Api\Model\Server\V2\Adapter;
 
 // use Mage;
 // use Mage_Api_Model_Server_V2_Adapter_Soap as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\Server\V2\Adapter\SoapTrait;
 
@@ -22,6 +23,7 @@ final class SoapTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

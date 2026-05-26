@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Catalog\Product\Frontend\Product;
 
 // use Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Catalog\Product\Frontend\Product\WatermarkTrait;
 
@@ -21,6 +22,7 @@ final class WatermarkTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

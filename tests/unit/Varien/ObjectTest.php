@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Varien;
 
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Varien\ObjectTrait;
 use Varien_Exception;
@@ -22,6 +23,7 @@ final class ObjectTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -37,7 +39,7 @@ final class ObjectTest extends OpenMageTest
      *
      * @group Varien_Object
      */
-    public function testGetData($expectedResult, $setKey, $setValue, null|string $key, $index = null): void
+    public function testGetData($expectedResult, $setKey, $setValue, ?string $key, $index = null): void
     {
         self::$subject->setData($setKey, $setValue);
         self::assertSame($expectedResult, self::$subject->getData($key, $index));

@@ -15,7 +15,8 @@
         bootstrap="tests/bootstrap.php"
 >
     <php>
-        <env name="NO_XHGUI" value="1"/>
+        <env name="MAGE_IS_DEVELOPER_MODE" value="1"/>
+        <env name="NO_XHGUI" value="1"/> <!-- @todo: still needed? -->
     </php>
 
     <coverage

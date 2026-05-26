@@ -68,6 +68,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
      * @param  bool  $logQuery
      * @return $this
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -97,6 +98,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
      * @return Varien_Db_Select
      * @throws Zend_Db_Select_Exception
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $this->_renderFilters();

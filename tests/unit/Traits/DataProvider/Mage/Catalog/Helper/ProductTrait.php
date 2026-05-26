@@ -15,7 +15,7 @@ use Generator;
 
 trait ProductTrait
 {
-    public function provideGetAttributeInputTypes(): Generator
+    public static function provideGetAttributeInputTypes(): Generator
     {
         yield 'null' => [
             2,
@@ -35,7 +35,7 @@ trait ProductTrait
         ];
     }
 
-    public function provideGetAttributeBackendModelByInputType(): Generator
+    public static function provideGetAttributeBackendModelByInputType(): Generator
     {
         yield 'multiselect' => [
             'eav/entity_attribute_backend_array',
@@ -43,7 +43,7 @@ trait ProductTrait
         ];
     }
 
-    public function provideGetAttributeSourceModelByInputType(): Generator
+    public static function provideGetAttributeSourceModelByInputType(): Generator
     {
         yield 'boolean' => [
             'eav/entity_attribute_source_boolean',

@@ -55,6 +55,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions extends Mage_Adminhtml_B
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('current_promo_quote_rule');

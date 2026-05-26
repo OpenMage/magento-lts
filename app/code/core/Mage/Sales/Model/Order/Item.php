@@ -234,7 +234,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -250,6 +250,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -488,23 +489,23 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             return self::STATUS_PENDING;
         }
 
-        if ($shipped && $invoiced && ($actuallyOrdered == $shipped)) {
+        if ($shipped && $invoiced && ($actuallyOrdered === $shipped)) {
             return self::STATUS_SHIPPED;
         }
 
-        if ($invoiced && !$shipped && ($actuallyOrdered == $invoiced)) {
+        if ($invoiced && !$shipped && ($actuallyOrdered === $invoiced)) {
             return self::STATUS_INVOICED;
         }
 
-        if ($backordered && ($actuallyOrdered == $backordered)) {
+        if ($backordered && ($actuallyOrdered === $backordered)) {
             return self::STATUS_BACKORDERED;
         }
 
-        if ($refunded && $ordered == $refunded) {
+        if ($refunded && $ordered === $refunded) {
             return self::STATUS_REFUNDED;
         }
 
-        if ($canceled && $ordered == $canceled) {
+        if ($canceled && $ordered === $canceled) {
             return self::STATUS_CANCELED;
         }
 

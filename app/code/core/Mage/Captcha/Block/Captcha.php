@@ -21,6 +21,7 @@ class Mage_Captcha_Block_Captcha extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (Mage::helper('captcha')->isEnabled()) {

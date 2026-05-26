@@ -91,7 +91,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
         if (is_dir($certDir)) {
             $entries = scandir($certDir);
             foreach ($entries as $entry) {
-                if ($entry != '.' && $entry != '..' && str_contains($entry, 'cert_' . $this->getWebsiteId())) {
+                if ($entry !== '.' && $entry !== '..' && str_contains($entry, 'cert_' . $this->getWebsiteId())) {
                     unlink($certDir . DS . $entry);
                 }
             }
@@ -113,6 +113,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterDelete()
     {
         $this->_removeOutdatedCertFile();

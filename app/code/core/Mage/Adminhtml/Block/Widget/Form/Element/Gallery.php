@@ -43,6 +43,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
         return $this->getElement()->getValue();
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

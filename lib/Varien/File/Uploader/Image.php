@@ -15,6 +15,7 @@
  *
  * @property mixed $uploader
  */
+#[AllowDynamicProperties]
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
     public function __construct()
@@ -170,7 +171,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function addReflection($height = '10%', $space = 0, $color = '#FFFFFF', $opacity = 60)
     {
-        if ((int) $height == 0) {
+        if ((int) $height === 0) {
             return;
         }
 
@@ -187,7 +188,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function addText($string = '')
     {
-        if (trim($string) == '') {
+        if (trim($string) === '') {
             return;
         }
 

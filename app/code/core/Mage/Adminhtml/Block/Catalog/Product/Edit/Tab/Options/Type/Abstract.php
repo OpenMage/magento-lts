@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract extend
 {
     protected $_name = 'abstract';
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(

@@ -19,6 +19,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $applyTo = $object->getApplyTo();
@@ -35,6 +36,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $this->_clearUselessAttributeValues($object);
@@ -76,6 +78,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function deleteEntity(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getEntityAttributeId()) {

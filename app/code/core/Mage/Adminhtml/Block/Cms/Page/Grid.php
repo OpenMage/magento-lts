@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('cms/page')->getCollection();
@@ -43,6 +44,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('title', [
@@ -75,8 +77,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'store_all'     => true,
                 'store_view'    => true,
                 'sortable'      => false,
-                'filter_condition_callback'
-                                => [$this, '_filterStoreCondition'],
+                'filter_condition_callback' => $this->_filterStoreCondition(...),
             ]);
         }
 
@@ -111,6 +112,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoadCollection()
     {
         $this->getCollection()->walk('afterLoad');
@@ -120,6 +122,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('page_id');
@@ -170,6 +173,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
      * @param  Mage_Cms_Model_Page $row
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['page_id' => $row->getId()]);

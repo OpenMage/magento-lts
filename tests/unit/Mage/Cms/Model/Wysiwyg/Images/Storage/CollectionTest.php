@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Model\Wysiwyg\Images\Storage;
 
 // use Mage;
 // use Mage_Cms_Model_Wysiwyg_Images_Storage_Collection as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Model\Wysiwyg\Images\Storage\CollectionTrait;
 
@@ -22,6 +23,7 @@ final class CollectionTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -84,6 +84,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         $object->setData('customer_group_ids', (array) $this->getCustomerGroupIds($object->getId()));
@@ -98,6 +99,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->hasWebsiteIds()) {
@@ -154,7 +156,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         if ($helper->isEnabled() && $helper->isBuiltAllStores()) {
             foreach ($this->_app->getStores(false) as $store) {
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                if (count($websiteIds) == 0 || in_array($store->getWebsiteId(), $websiteIds)) {
+                if (count($websiteIds) === 0 || in_array($store->getWebsiteId(), $websiteIds)) {
                     $selectByStore = $rule->getProductFlatSelect($store->getId());
                     $selectByStore->where('p.entity_id = ?', $product->getId());
                     $selectByStore->limit(1);
@@ -183,7 +185,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(Carbon::parse((string) $rule->getToDate())->getTimestamp());
         $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
 
-        $timestamp = Carbon::now()->getTimestamp();
+        $timestamp = Mage::helper('core/clock')->getTimestamp();
         if ($fromTime > $timestamp
             || ($toTime && $toTime < $timestamp)
         ) {
@@ -256,7 +258,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                 }
             }
         } else {
-            if (count($productIds) == 0) {
+            if ($productIds === []) {
                 Varien_Profiler::start('__MATCH_PRODUCTS__');
                 $productIds = $rule->getMatchingProductIds();
                 Varien_Profiler::stop('__MATCH_PRODUCTS__');
@@ -286,7 +288,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                         ];
 
                         // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                        if (count($rows) == 1000) {
+                        if (count($rows) === 1000) {
                             $write->insertMultiple($this->getTable('catalogrule/rule_product'), $rows);
                             $rows = [];
                         }

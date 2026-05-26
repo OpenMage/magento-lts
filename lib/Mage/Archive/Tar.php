@@ -67,7 +67,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Initialize tarball writer
      *
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _initWriter()
     {
@@ -91,7 +91,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Destroy tarball writer
      *
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _destroyWriter()
     {
@@ -120,7 +120,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Initialize tarball reader
      *
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _initReader()
     {
@@ -133,7 +133,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Destroy tarball reader
      *
-     * @return Mage_Archive_Tar
+     * @return $this
      */
     protected function _destroyReader()
     {
@@ -162,8 +162,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Set option that define ability skip first catalog level.
      *
-     * @param  mixed            $skipRoot
-     * @return Mage_Archive_Tar
+     * @param  mixed $skipRoot
+     * @return $this
      */
     protected function _setSkipRoot($skipRoot)
     {
@@ -174,20 +174,20 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Set file which is packing.
      *
-     * @param  string           $file
-     * @return Mage_Archive_Tar
+     * @param  string $file
+     * @return $this
      */
     protected function _setCurrentFile($file)
     {
-        $this->_currentFile = $file . ((!is_link($file) && is_dir($file) && substr($file, -1) != DS) ? DS : '');
+        $this->_currentFile = $file . ((!is_link($file) && is_dir($file) && substr($file, -1) !== DS) ? DS : '');
         return $this;
     }
 
     /**
      * Set path to file where tarball should be placed
      *
-     * @param  string           $destinationFilePath
-     * @return Mage_Archive_Tar
+     * @param  string $destinationFilePath
+     * @return $this
      */
     protected function _setDestinationFilePath($destinationFilePath)
     {
@@ -208,13 +208,13 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Set path to file which is packing.
      *
-     * @param  string           $path
-     * @return Mage_Archive_Tar
+     * @param  string $path
+     * @return $this
      */
     protected function _setCurrentPath($path)
     {
         if ($this->_skipRoot && is_dir($path)) {
-            $this->_currentPath = $path . (substr($path, -1) != DS ? DS : '');
+            $this->_currentPath = $path . (substr($path, -1) !== DS ? DS : '');
         } else {
             $this->_currentPath = dirname($path) . DS;
         }

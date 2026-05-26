@@ -15,7 +15,7 @@ use Generator;
 
 trait UserTrait
 {
-    public function provideAuthenticateData(): Generator
+    public static function provideAuthenticateData(): Generator
     {
         $validData = [
             'getId'       => '999',
@@ -60,7 +60,7 @@ trait UserTrait
         ];
     }
 
-    public function provideValidateAdminUserData(): Generator
+    public static function provideValidateAdminUserData(): Generator
     {
         yield 'fail different passwords' => [
             [
@@ -96,7 +96,7 @@ trait UserTrait
         ];
     }
 
-    public function provideIsResetPasswordLinkTokenExpiredData(): Generator
+    public static function provideIsResetPasswordLinkTokenExpiredData(): Generator
     {
         yield 'empty data' => [
             true,

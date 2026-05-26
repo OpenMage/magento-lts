@@ -809,8 +809,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         if (is_object($shipXml->Faults)
             && is_object($shipXml->Faults->Fault)
             && is_object($shipXml->Faults->Fault->Desc)
-            && (int) $shipXml->Faults->Fault->Code != self::SUCCESS_CODE
-            && (int) $shipXml->Faults->Fault->Code != self::SUCCESS_LABEL_CODE
+            && (int) $shipXml->Faults->Fault->Code !== self::SUCCESS_CODE
+            && (int) $shipXml->Faults->Fault->Code !== self::SUCCESS_LABEL_CODE
         ) {
             $code = (string) $shipXml->Faults->Fault->Code;
             $description = $shipXml->Faults->Fault->Desc;
@@ -905,7 +905,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         if ($desc && $totalEstimate) {
             $service = (string) $shipXml->EstimateDetail->Service->Code;
             $description = (string) $shipXml->EstimateDetail->ServiceLevelCommitment->Desc;
-            if ($service == 'E') {
+            if ($service === 'E') {
                 foreach ($regexps as $expService => $exp) {
                     if (preg_match('/' . preg_quote($exp, '/') . '/', $description)) {
                         $service = $expService;
@@ -1226,6 +1226,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      *
      * @return bool
      */
+    #[Override]
     public function isStateProvinceRequired()
     {
         return true;
@@ -1318,6 +1319,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      *
      * @return array|bool
      */
+    #[Override]
     public function getContainerTypes(?Varien_Object $params = null)
     {
         return $this->getCode('shipment_type');

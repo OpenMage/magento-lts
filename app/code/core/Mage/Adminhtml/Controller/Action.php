@@ -145,6 +145,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         // get legacy theme choice form backend config
@@ -247,7 +248,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             'default/' . Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL,
         );
 
-        if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
+        if ($defaultSecure === '{{base_url}}' || $defaultUnsecure === '{{base_url}}') {
             $this->_getSession()->addNotice(
                 $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', ['section' => 'web'])),
             );
@@ -292,6 +293,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         $this->renderLayout();
     }
 
+    #[Override]
     public function loadLayout($ids = null, $generateBlocks = true, $generateXml = true)
     {
         parent::loadLayout($ids, $generateBlocks, $generateXml);
@@ -299,6 +301,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return $this;
     }
 
+    #[Override]
     public function norouteAction($coreRoute = null)
     {
         $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
@@ -349,9 +352,10 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      *
      * Is overridden here to set defaultUrl to admin url
      *
-     * @param  string                           $defaultUrl
-     * @return Mage_Adminhtml_Controller_Action
+     * @param  string $defaultUrl
+     * @return $this
      */
+    #[Override]
     protected function _redirectReferer($defaultUrl = null)
     {
         $defaultUrl = empty($defaultUrl) ? $this->getUrl('*') : $defaultUrl;
@@ -366,6 +370,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * @param  array  $arguments
      * @return $this
      */
+    #[Override]
     protected function _redirect($path, $arguments = [])
     {
         $this->_getSession()->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
@@ -373,6 +378,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return $this;
     }
 
+    #[Override]
     protected function _forward($action, $controller = null, $module = null, ?array $params = null)
     {
         $this->_getSession()->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));

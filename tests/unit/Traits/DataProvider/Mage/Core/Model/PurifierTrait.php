@@ -14,41 +14,41 @@ use Generator;
 
 trait PurifierTrait
 {
-    public function provideGetAllowedAttributes(): Generator
+    public static function provideGetAllowedAttributes(): Generator
     {
         yield 'allow all attributes' => [null];
         yield 'allow some attributes' => [['a.href', '*.class']];
         yield 'allow no attributes' => [[]];
     }
 
-    public function provideGetAllowedElements(): Generator
+    public static function provideGetAllowedElements(): Generator
     {
         yield 'allow all elements' => [null];
         yield 'allow some elements' => [['b', 'i', 'u']];
         yield 'allow no elements' => [[]];
     }
 
-    public function provideGetAllowedClasses(): Generator
+    public static function provideGetAllowedClasses(): Generator
     {
         yield 'allow all classes' => [null];
         yield 'allow some classes' => [['foo-bar__baz']];
         yield 'allow no classes' => [[]];
     }
 
-    public function provideGetAllowedStyleProperties(): Generator
+    public static function provideGetAllowedStyleProperties(): Generator
     {
         yield 'allow all style properties' => [null];
         yield 'allow some style properties' => [['margin', 'font-size']];
         yield 'allow no style properties' => [[]];
     }
 
-    public function provideGetEscapeInvalidTags(): Generator
+    public static function provideGetEscapeInvalidTags(): Generator
     {
         yield 'false' => [false];
         yield 'true' => [true];
     }
 
-    public function providePurify(): Generator
+    public static function providePurify(): Generator
     {
         yield 'empty string' => [
             '',

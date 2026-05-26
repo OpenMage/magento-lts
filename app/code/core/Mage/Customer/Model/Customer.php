@@ -306,6 +306,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -1473,7 +1474,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                     return false;
                 }
 
-                if ($field == 'country'
+                if ($field === 'country'
                     && in_array(strtolower($data[$prefix . $field]), $usca)
                 ) {
                     if (!isset($data[$prefix . 'region'])) {
@@ -1501,6 +1502,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();

@@ -23,6 +23,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
@@ -40,6 +41,9 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -51,11 +55,17 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
             ->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('edit');
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_title($this->__('System'))
@@ -101,6 +111,9 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
@@ -178,6 +191,9 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         $id = $this->getRequest()->getParam('user_id');
@@ -214,6 +230,9 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function rolesGridAction()
     {
         $id = $this->getRequest()->getParam('user_id');
@@ -227,6 +246,9 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/api_user_edit_tab_roles')->toHtml());
     }
 
+    /**
+     * @return void
+     */
     public function roleGridAction()
     {
         $this->getResponse()

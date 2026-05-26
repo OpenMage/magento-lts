@@ -31,6 +31,9 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $storeId = (int) $this->getRequest()->getParam('store');
@@ -50,6 +53,9 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function treeJsonAction()
     {
         try {
@@ -63,6 +69,9 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
         }
     }
 
+    /**
+     * @return void
+     */
     public function contentsAction()
     {
         try {
@@ -75,6 +84,9 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
         }
     }
 
+    /**
+     * @return void
+     */
     public function newFolderAction()
     {
         try {
@@ -89,6 +101,9 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
+    /**
+     * @return void
+     */
     public function deleteFolderAction()
     {
         try {
@@ -102,6 +117,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
 
     /**
      * Delete file from media storage
+     * @return void
      */
     public function deleteFilesAction()
     {
@@ -132,6 +148,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
 
     /**
      * Files upload processing
+     * @return void
      */
     public function uploadAction()
     {
@@ -149,6 +166,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
 
     /**
      * Fire when select image
+     * @return void
      */
     public function onInsertAction()
     {
@@ -169,6 +187,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
 
     /**
      * Generate image thumbnail on the fly
+     * @return void
      */
     public function thumbnailAction()
     {

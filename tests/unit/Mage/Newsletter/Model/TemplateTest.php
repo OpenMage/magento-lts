@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Newsletter\Model;
 
+use Override;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Newsletter_Model_Template as Subject;
@@ -23,6 +24,7 @@ final class TemplateTest extends OpenMageTest
 
     private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

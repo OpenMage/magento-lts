@@ -45,6 +45,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->addData(['cache_lifetime' => false]);
@@ -60,6 +61,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * @return array
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         $shortCacheId = [
@@ -308,8 +310,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             $htmlChildren .= $this->_renderCategoryMenuItemHtml(
                 $child,
                 ($level + 1),
-                ($j == $activeChildrenCount - 1),
-                ($j == 0),
+                ($j === $activeChildrenCount - 1),
+                ($j === 0),
                 false,
                 $outermostItemClass,
                 $childrenWrapClass,
@@ -447,8 +449,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             $html .= $this->_renderCategoryMenuItemHtml(
                 $category,
                 $level,
-                ($j == $activeCategoriesCount - 1),
-                ($j == 0),
+                ($j === $activeCategoriesCount - 1),
+                ($j === 0),
                 true,
                 $outermostItemClass,
                 $childrenWrapClass,

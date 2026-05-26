@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Sales\Order\Email\Items\Order;
 
 // use Mage_Downloadable_Block_Sales_Order_Email_Items_Order_Downloadable as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Block\Sales\Order\Email\Items\Order\DownloadableTrait;
 
@@ -21,6 +22,7 @@ final class DownloadableTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

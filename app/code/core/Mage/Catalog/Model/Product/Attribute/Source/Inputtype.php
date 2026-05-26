@@ -18,6 +18,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Inputtype extends Mage_Eav_Mod
      * Get product input types as option array
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         $inputTypes = [

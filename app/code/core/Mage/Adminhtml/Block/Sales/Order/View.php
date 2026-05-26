@@ -26,9 +26,9 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
 
         parent::__construct();
 
-        $this->_removeButton('delete');
-        $this->_removeButton('reset');
-        $this->_removeButton('save');
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
         $this->setId('sales_order_view');
         $order = $this->getOrder();
         $coreHelper = Mage::helper('core');
@@ -211,6 +211,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         $extOrderId = ($extOrderId = $this->getOrder()->getExtOrderId()) ? '[' . $extOrderId . '] ' : '';
@@ -232,6 +233,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
      * @param  array  $params2
      * @return string
      */
+    #[Override]
     public function getUrl($params = '', $params2 = [])
     {
         $params2['order_id'] = $this->getOrderId();
@@ -340,6 +342,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
      *
      * @return string
      */
+    #[Override]
     public function getBackUrl()
     {
         if ($this->getOrder()->getBackUrl()) {
@@ -363,6 +366,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
      *
      * @return string
      */
+    #[Override]
     public function getHeaderHtml()
     {
         return '<h3 class="' . $this->getHeaderCssClass() . '">' . $this->escapeHtml($this->getHeaderText()) . '</h3>';

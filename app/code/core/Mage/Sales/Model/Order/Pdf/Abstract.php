@@ -324,7 +324,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
         $payment = explode('{{pdf_row_separator}}', $paymentInfo);
         foreach ($payment as $key => $value) {
-            if (strip_tags(trim($value)) == '') {
+            if (strip_tags(trim($value)) === '') {
                 unset($payment[$key]);
             }
         }
@@ -422,7 +422,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         }
 
         foreach ($payment as $value) {
-            if (trim($value) != '') {
+            if (trim($value) !== '') {
                 //Printing "Payment Method" lines
                 $value = preg_replace('/<br[^>]*>/i', "\n", $value);
                 foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $str) {
@@ -537,7 +537,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     protected function _getTotalsList($source)
     {
         $totals = Mage::getConfig()->getNode('global/pdf/totals')->asArray();
-        usort($totals, [$this, '_sortTotalsList']);
+        usort($totals, $this->_sortTotalsList(...));
         $totalModels = [];
         foreach ($totals as $totalInfo) {
             if (!empty($totalInfo['model'])) {
@@ -728,7 +728,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      *
      * @param Mage_Sales_Model_Order_Pdf_Items_Abstract $renderer
      *
-     * @return Mage_Sales_Model_Order_Pdf_Abstract
+     * @return $this
      */
     public function renderItem(Varien_Object $item, Zend_Pdf_Page $page, Mage_Sales_Model_Order $order, $renderer)
     {
@@ -816,7 +816,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Set PDF object
      *
-     * @return Mage_Sales_Model_Order_Pdf_Abstract
+     * @return $this
      */
     protected function _setPdf(Zend_Pdf $pdf)
     {

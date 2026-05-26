@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form   = new Varien_Data_Form([

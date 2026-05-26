@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Csp\Model\Observer;
 
 // use Mage;
 // use Mage_Csp_Model_Observer_Abstract as Subject;
+use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Csp\Model\Observer\AbstractTrait;
 
@@ -22,6 +23,7 @@ final class AbstractTest extends OpenMageTest
 
     // private static Subject $subject;
 
+    #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();

@@ -61,7 +61,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function __construct()
     {
-        $this->_modifiers['escape'] = [$this, 'modifierEscape'];
+        $this->_modifiers['escape'] = $this->modifierEscape(...);
         $this->_permissionVariable = Mage::getModel('admin/variable');
         $this->_permissionBlock = Mage::getModel('admin/block');
     }
@@ -356,9 +356,10 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * @return string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function varDirective($construction)
     {
-        if (count($this->_templateVars) == 0) {
+        if (count($this->_templateVars) === 0) {
             // If template preprocessing
             return $construction[0];
         }
@@ -554,6 +555,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * @param  string $value
      * @return string
      */
+    #[Override]
     public function filter($value)
     {
         try {
@@ -574,6 +576,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * @return string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getVariable($value, $default = '{no_value_defined}')
     {
         Mage::register('varProcessing', true);

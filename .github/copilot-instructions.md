@@ -60,6 +60,16 @@ This project aims to provide a stable and secure version of Magento 1.x, with on
 - Use strict comparisons (`===` and `!==`) instead of loose comparisons (`==` and `!=`) in new code.
 - Avoid using empty() function in new code. Use explicit checks instead.
 
+## PHPUnit Testing Standards
+
+- All PHPUnit data provider methods must be declared `public static` (required by PHPUnit 10+).
+- Data provider methods follow the naming convention `provide*` (e.g., `provideValidateData`).
+- Inside `static` data provider methods, never use `$this->`. Use `static::` to call other methods from traits or `self::` for calls in the same class.
+- When a helper method is made `static` (e.g., a method used inside a data provider), all callers — including regular (non-static) test methods — must also be updated from `$this->method()` to `self::method()`.
+- PHPStan is configured with `dynamicCallOnStaticMethod: true` in `.phpstan.dist.neon`. Never call a static method via `$this->` — it will cause a `staticMethod.dynamicCall` error.
+- Data provider trait helper methods (e.g., `getAllBlockClasses`, `getTestString`) that are consumed by static data providers must themselves be declared `static`.
+- Test class setup should use `setUpBeforeClass()` for shared static state and `setUp()` for per-test instance state.
+
 ## UI guidelines
 
 - Do not use prototype libraries. Use modern JavaScript (ES6+) features and libraries.

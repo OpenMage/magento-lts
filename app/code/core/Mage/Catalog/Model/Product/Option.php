@@ -400,6 +400,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * @throws Exception
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave()
     {
         $this->getValueInstance()->unsetValues();
@@ -565,6 +566,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _clearData()
     {
         $this->_data = [];
@@ -577,6 +579,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _clearReferences()
     {
         foreach ($this->_values as $value) {

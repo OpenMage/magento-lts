@@ -28,6 +28,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
      * @param  array $columns
      * @return array
      */
+    #[Override]
     protected function _loadPriceDataColumns($columns)
     {
         $columns = parent::_loadPriceDataColumns($columns);
@@ -41,6 +42,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
      * @param  Varien_Db_Select $select
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _loadPriceDataSelect($select)
     {
         $select->order('qty');

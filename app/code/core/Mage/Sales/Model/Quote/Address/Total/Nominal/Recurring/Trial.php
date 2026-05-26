@@ -28,6 +28,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Trial extends Mage_
      *
      * @return string
      */
+    #[Override]
     public function getLabel()
     {
         return Mage::helper('sales')->__('Trial Payment');

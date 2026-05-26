@@ -172,6 +172,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function authorize(Varien_Object $payment, $amount)
     {
         return $this->_placeOrder($payment, $amount);
@@ -183,6 +184,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      */
+    #[Override]
     public function void(Varien_Object $payment)
     {
         $this->_pro->void($payment);
@@ -197,6 +199,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function capture(Varien_Object $payment, $amount)
     {
         if ($this->_pro->capture($payment, $amount) === false) {
@@ -213,6 +216,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * @param  float                          $amount
      * @return $this
      */
+    #[Override]
     public function refund(Varien_Object $payment, $amount)
     {
         $this->_pro->refund($payment, $amount);
@@ -225,6 +229,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return $this
      */
+    #[Override]
     public function cancel(Varien_Object $payment)
     {
         $this->_pro->cancel($payment);
@@ -237,6 +242,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * @param  Mage_Sales_Model_Order_Payment $payment
      * @return bool
      */
+    #[Override]
     public function canReviewPayment(Mage_Payment_Model_Info $payment)
     {
         return parent::canReviewPayment($payment) && $this->_pro->canReviewPayment($payment);
@@ -249,6 +255,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * @return bool
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function acceptPayment(Mage_Payment_Model_Info $payment)
     {
         parent::acceptPayment($payment);
@@ -262,6 +269,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * @return bool
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function denyPayment(Mage_Payment_Model_Info $payment)
     {
         parent::denyPayment($payment);
@@ -271,6 +279,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     /**
      * @inheritDoc
      */
+    #[Override]
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
         return $this->_pro->fetchTransactionInfo($payment, $transactionId);
@@ -335,6 +344,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * @return string
      * @see Mage_Sales_Model_Payment::place()
      */
+    #[Override]
     public function getConfigPaymentAction()
     {
         return $this->_pro->getConfig()->getPaymentAction();

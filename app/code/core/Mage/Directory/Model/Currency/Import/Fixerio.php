@@ -66,6 +66,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
      *
      * @return array
      */
+    #[Override]
     public function fetchRates()
     {
         $data = [];

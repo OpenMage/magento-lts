@@ -85,6 +85,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         parent::_afterSave();

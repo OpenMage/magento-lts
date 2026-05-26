@@ -24,6 +24,7 @@ class Mage_Core_Block_Text_Tag_Meta extends Mage_Core_Block_Text
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->getContentType()) {

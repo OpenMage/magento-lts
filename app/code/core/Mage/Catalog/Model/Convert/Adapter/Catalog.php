@@ -15,6 +15,7 @@ class Mage_Catalog_Model_Convert_Adapter_Catalog extends Mage_Dataflow_Model_Con
     /**
      * @return object
      */
+    #[Override]
     public function getResource()
     {
         if (!$this->_resource) {

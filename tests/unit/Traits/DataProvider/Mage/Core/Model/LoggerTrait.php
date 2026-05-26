@@ -15,7 +15,7 @@ use Generator;
 
 trait LoggerTrait
 {
-    public function provideLogData(): Generator
+    public static function provideLogData(): Generator
     {
         yield 'file' => [
             'Test message',

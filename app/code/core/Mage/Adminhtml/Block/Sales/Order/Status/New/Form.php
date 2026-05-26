@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model  = Mage::registry('current_status');
@@ -81,7 +82,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
             ]);
             foreach ($website->getGroups() as $group) {
                 $stores = $group->getStores();
-                if (count($stores) == 0) {
+                if (count($stores) === 0) {
                     continue;
                 }
 

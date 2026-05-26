@@ -32,6 +32,7 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/product', ['_current' => true]);
@@ -41,6 +42,7 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $tagId = Mage::registry('current_tag')->getId();
@@ -60,6 +62,7 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('product_id', [
@@ -96,6 +99,7 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getIndex() === 'popularity') {
@@ -110,6 +114,7 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
      * @inheritDoc
      * @param Mage_Catalog_Model_Product $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);

@@ -159,7 +159,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Getter for template type
      *
-     * @return int|string
+     * @return null|int
      */
     abstract public function getType();
 }

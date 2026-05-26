@@ -435,7 +435,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @param  null|int                                       $websiteId
      * @param  null|int                                       $stockId
-     * @return Mage_CatalogInventory_Model_Stock_Status
+     * @return $this
      */
     public function addStockStatusToProducts($productCollection, $websiteId = null, $stockId = null)
     {
@@ -445,7 +445,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 
         if ($websiteId === null) {
             $websiteId = Mage::app()->getStore()->getWebsiteId();
-            if ((int) $websiteId == 0 && $productCollection->getStoreId()) {
+            if ((int) $websiteId === 0 && $productCollection->getStoreId()) {
                 $websiteId = Mage::app()->getStore($productCollection->getStoreId())->getWebsiteId();
             }
         }

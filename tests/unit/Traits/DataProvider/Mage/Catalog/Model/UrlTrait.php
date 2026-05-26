@@ -16,7 +16,7 @@ use Varien_Object;
 
 trait UrlTrait
 {
-    public function provideGeneratePathData(): Generator
+    public static function provideGeneratePathData(): Generator
     {
         $category = new Varien_Object([
             'id'        => '999',
@@ -62,7 +62,7 @@ trait UrlTrait
         ];
     }
 
-    public function provideGetSluggerConfig(): Generator
+    public static function provideGetSluggerConfig(): Generator
     {
         yield 'de_DE' => [
             ['de_DE' => [

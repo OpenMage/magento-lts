@@ -29,6 +29,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Grid_Collection extends Mage_Sa
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();

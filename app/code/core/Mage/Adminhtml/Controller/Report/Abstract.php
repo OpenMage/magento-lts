@@ -26,6 +26,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
      *
      * @return Mage_Admin_Model_Session
      */
+    #[Override]
     protected function _getSession()
     {
         if (is_null($this->_adminSession)) {
@@ -38,7 +39,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
     /**
      * Add report breadcrumbs
      *
-     * @return Mage_Adminhtml_Controller_Report_Abstract
+     * @return $this
      */
     public function _initAction()
     {
@@ -50,8 +51,8 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
     /**
      * Report action init operations
      *
-     * @param  array|Varien_Object                       $blocks
-     * @return Mage_Adminhtml_Controller_Report_Abstract
+     * @param  array|Varien_Object $blocks
+     * @return $this
      */
     public function _initReportAction($blocks)
     {
@@ -83,9 +84,9 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
     /**
      * Add refresh statistics links
      *
-     * @param  string                                    $flagCode
-     * @param  string                                    $refreshCode
-     * @return Mage_Adminhtml_Controller_Report_Abstract
+     * @param  string $flagCode
+     * @param  string $refreshCode
+     * @return $this
      */
     protected function _showLastExecutionTime($flagCode, $refreshCode)
     {
