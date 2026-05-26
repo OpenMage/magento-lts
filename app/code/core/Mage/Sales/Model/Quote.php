@@ -1894,7 +1894,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         }
 
-        return $countItems == 0 ? false : $isVirtual;
+        return $countItems === 0 ? false : $isVirtual;
     }
 
     /**

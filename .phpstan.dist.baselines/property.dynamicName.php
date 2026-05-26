@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 89 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable property access on Varien_Simplexml_Element|false.',

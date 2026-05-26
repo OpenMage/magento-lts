@@ -218,7 +218,7 @@ class Mage_Tax_Model_Config
      */
     public function discountTax($store = null)
     {
-        return ((int) $this->_getStoreConfig(self::CONFIG_XML_PATH_DISCOUNT_TAX, $store) == 1);
+        return ((int) $this->_getStoreConfig(self::CONFIG_XML_PATH_DISCOUNT_TAX, $store) === 1);
     }
 
     /**

@@ -1,8 +1,16 @@
 <?php declare(strict_types = 1);
 
-// total 16 errors
-
 $ignoreErrors = [];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$customer_group_id.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$website.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php',
+];
 $ignoreErrors[] = [
     'rawMessage' => 'Access to an undefined property Zend_Session_Namespace::$data.',
     'count' => 2,
@@ -22,6 +30,26 @@ $ignoreErrors[] = [
     'rawMessage' => 'Access to an undefined property Mage_Customer_Model_Customer::$_isSubscribed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Customer.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$sort_order.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$Code.',
+    'count' => 3,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$Desc.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Access to an undefined property object::$Fault.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Access to an undefined property Varien_Object::$domestic.',

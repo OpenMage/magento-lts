@@ -1,17 +1,10 @@
 <?php declare(strict_types = 1);
 
-// total 41 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable $billingAddress might not be defined.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Variable $adapters might not be defined.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable $operationName might not be defined.',

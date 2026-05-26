@@ -112,19 +112,19 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     }
 
     $errno &= error_reporting();
-    if ($errno == 0) {
+    if ($errno === 0) {
         return false;
     }
 
     // PEAR specific message handling
     if (stripos($errfile . $errstr, 'pear') !== false) {
         // ignore strict and deprecated notices
-        if ((PHP_VERSION_ID < 80400 && $errno == E_STRICT) || ($errno == E_DEPRECATED)) {
+        if ((PHP_VERSION_ID < 80400 && $errno === E_STRICT) || ($errno === E_DEPRECATED)) {
             return true;
         }
 
         // ignore attempts to read system files when open_basedir is set
-        if ($errno == E_WARNING && stripos($errstr, 'open_basedir') !== false) {
+        if ($errno === E_WARNING && stripos($errstr, 'open_basedir') !== false) {
             return true;
         }
     }
@@ -177,7 +177,7 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
     }
 
     foreach ($debugBacktrace as $index => $value) {
-        if (!$showFirst && $index == 0) {
+        if (!$showFirst && $index === 0) {
             continue;
         }
 
@@ -211,7 +211,7 @@ function mageDelTree($path)
     if (is_dir($path)) {
         $entries = scandir($path);
         foreach ($entries as $entry) {
-            if ($entry != '.' && $entry != '..') {
+            if ($entry !== '.' && $entry !== '..') {
                 mageDelTree($path . DS . $entry);
             }
         }
@@ -235,7 +235,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
     $counter = count($elements);
     for ($i = 0; $i < $counter; $i++) {
         $nquotes = substr_count($elements[$i], $enclosure);
-        if ($nquotes % 2 == 1) {
+        if ($nquotes % 2 === 1) {
             for ($j = $i + 1; $j < count($elements); $j++) {
                 if (substr_count($elements[$j], $enclosure) > 0) {
                     // Put the quoted string's pieces back together again

@@ -33,7 +33,6 @@ final class ServiceTest extends OpenMageTest
     /**
      * @covers \Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service::isEnabled()
      * @group Model
-     * @group test
      */
     public function testIsEnabled(): void
     {

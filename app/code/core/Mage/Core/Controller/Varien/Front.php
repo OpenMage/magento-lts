@@ -332,7 +332,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      */
     protected function _checkBaseUrl($request)
     {
-        if (!Mage::isInstalled() || $request->getPost() || strtolower($request->getMethod()) == 'post') {
+        if (!Mage::isInstalled() || $request->getPost() || strtolower($request->getMethod()) === 'post') {
             return;
         }
 
@@ -341,7 +341,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             return;
         }
 
-        if ($redirectCode != 301) {
+        if ($redirectCode !== 301) {
             $redirectCode = 302;
         }
 

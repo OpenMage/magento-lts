@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 80 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to method setCanDisplayContainer() of deprecated class Mage_GiftMessage_Block_Message_Helper:

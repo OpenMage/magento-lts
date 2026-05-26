@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 55 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable method call on mixed.',
@@ -205,12 +203,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable method call on Varien_Object.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Variable method call on array|(callable)|object.',
-    'count' => 2,
+    'rawMessage' => 'Variable method call on object.',
+    'count' => 3,
     'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 

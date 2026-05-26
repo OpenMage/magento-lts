@@ -97,7 +97,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
 
         foreach ($children as $child) {
             $child->setLevel($childLevel);
-            $child->setIsFirst($counter == 1);
+            $child->setIsFirst($counter === 1);
             $child->setIsLast($counter == $childrenCount);
             $child->setPositionClass($itemPositionClassPrefix . $counter);
 

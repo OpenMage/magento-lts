@@ -26,7 +26,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Sender extends Mage
             $str .= '[' . $this->escapeHtml($row->getTemplateSenderEmail()) . ']';
         }
 
-        if ($str == '') {
+        if ($str === '') {
             $str .= '---';
         }
 

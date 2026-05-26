@@ -395,7 +395,7 @@ class Mage_Core_Model_Translate
     {
         $text = array_shift($args);
 
-        if (is_string($text) && $text == ''
+        if (is_string($text) && $text === ''
             || is_null($text)
             || is_bool($text) && $text === false
             || is_object($text) && $text->getText() == ''

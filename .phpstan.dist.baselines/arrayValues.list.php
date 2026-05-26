@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 2 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $array (array{non-empty-string, non-empty-string}) of array_values is already a list, call has no effect.',

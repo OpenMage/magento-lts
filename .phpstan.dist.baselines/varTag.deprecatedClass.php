@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 8 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var references deprecated class Mage_GiftMessage_Block_Message_Form:

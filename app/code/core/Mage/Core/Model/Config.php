@@ -1047,7 +1047,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if ($this->_moduleNamespaces === null) {
             $this->_moduleNamespaces = [];
             foreach ($this->_xml->xpath('modules/*') as $config) {
-                if ((string) $config->active == 'true') {
+                if ((string) $config->active === 'true') {
                     $moduleName = $config->getName();
                     $module = strtolower($moduleName);
                     $this->_moduleNamespaces[substr($module, 0, strpos($module, '_'))][$module] = $moduleName;
@@ -1788,7 +1788,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected function _getResourceModelFactoryClassName($modelClass)
     {
         $classArray = explode('/', $modelClass);
-        if (count($classArray) != 2) {
+        if (count($classArray) !== 2) {
             return false;
         }
 

@@ -705,7 +705,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
         }
 
-        if (isset($data['empty_customer_cart']) && (int) $data['empty_customer_cart'] == 1) {
+        if (isset($data['empty_customer_cart']) && (int) $data['empty_customer_cart'] === 1) {
             $this->getCustomerCart()->removeAllItems()->collectTotals()->save();
         }
 
@@ -1646,7 +1646,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
         $items = $this->getQuote()->getAllItems();
 
-        if (count($items) == 0) {
+        if (count($items) === 0) {
             $this->_errors[] = Mage::helper('adminhtml')->__('You need to specify order items.');
         }
 

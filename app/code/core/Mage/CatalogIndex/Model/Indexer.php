@@ -602,7 +602,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     /** @var Mage_CatalogIndex_Model_Indexer_Abstract $indexer */
                     if ($indexer->isAttributeIndexable($attribute) && $values[$code]) {
                         if (isset($values[$code]['from']) && isset($values[$code]['to'])
-                            && (strlen($values[$code]['from']) == 0 && strlen($values[$code]['to']) == 0)
+                            && ((string) $values[$code]['from'] === '' && (string) $values[$code]['to'] === '')
                         ) {
                             continue;
                         }

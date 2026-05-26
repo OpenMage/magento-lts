@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 97 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Mage_Admin_Model_Session::__construct() does not call parent constructor from Varien_Object.',
@@ -452,11 +450,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Mage_Tax_Model_Resource_Report_Collection::__construct() does not call parent constructor from Mage_Core_Model_Resource_Db_Collection_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Resource/Report/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Mage_Usa_Model_Shipping_Carrier_Fedex::__construct() does not call parent constructor from Varien_Object.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Mage_Weee_Block_Renderer_Weee_Tax::__construct() does not call parent constructor from Mage_Core_Block_Abstract.',

@@ -193,7 +193,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
             $needDelete = false;
 
             $isGlobal   = true;
-            if (!$this->getCatalogHelper()->isPriceGlobal() && $websiteId != 0) {
+            if (!$this->getCatalogHelper()->isPriceGlobal() && $websiteId !== 0) {
                 $isGlobal = false;
             }
 

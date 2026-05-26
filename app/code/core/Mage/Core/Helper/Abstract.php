@@ -181,16 +181,17 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape html entities
      *
-     * @param  null|string|string[]                        $data
-     * @param  null|string[]                               $allowedTags
-     * @return ($data is array ? array<?string> : ?string)
+     * @template T of mixed|string|string[]
+     * @param  T                                                                 $data
+     * @param  null|string[]                                                     $allowedTags
+     * @return (T is array ? string[] : (T is null|bool|int|string ? T : mixed))
      */
     public function escapeHtml($data, $allowedTags = null)
     {
         if (is_array($data)) {
             $result = [];
             foreach ($data as $item) {
-                $result[] = $this->escapeHtml($item);
+                $result[] = $this->escapeHtml($item, $allowedTags);
             }
         } elseif (is_string($data) && strlen($data)) {
             // process single item

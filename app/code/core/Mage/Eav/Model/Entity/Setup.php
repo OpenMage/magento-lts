@@ -1376,7 +1376,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
         if (!empty($customTypes)) {
             foreach ($customTypes as $type => $fieldType) {
-                if (count($fieldType) != 2) {
+                if (count($fieldType) !== 2) {
                     throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Wrong type definition for %s', $type));
                 }
 

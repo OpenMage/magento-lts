@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 52 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',

@@ -621,12 +621,12 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if (is_array($option)) {
             $option = Mage::getModel('sales/quote_item_option')->setData($option)
                 ->setItem($this);
-        } elseif (($option instanceof Varien_Object) && !($option instanceof Mage_Sales_Model_Quote_Item_Option)) {
+        } elseif ($option instanceof Mage_Sales_Model_Quote_Item_Option) {
+            $option->setItem($this);
+        } elseif ($option instanceof Varien_Object) {
             $option = Mage::getModel('sales/quote_item_option')->setData($option->getData())
                 ->setProduct($option->getProduct())
                 ->setItem($this);
-        } elseif ($option instanceof Mage_Sales_Model_Quote_Item_Option) {
-            $option->setItem($this);
         } else {
             Mage::throwException(Mage::helper('sales')->__('Invalid item option format.'));
         }

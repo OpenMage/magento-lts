@@ -88,6 +88,7 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Zend\Acl::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Zend\Captcha::renameMethod())
         ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
+        ->withConfiguredRule(TypeDeclaration\ClassMethod\AddReturnTypeDeclarationRector::class, Migration\Mage\Adminhtml::addReturnTypeDeclaration())
         # skip: do not apply
         ->withSkip([
             # skip avoid renaming of methods in tests
@@ -132,8 +133,6 @@ try {
                 __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
             ],
             # ... +300 occurrences
-            CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class,
-            # ... +300 occurrences
             CodeQuality\If_\ExplicitBoolCompareRector::class,
             # ... review autoloading at all
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class,
@@ -174,10 +173,13 @@ try {
             # ... needs closer review
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class,
         ])
-        # WIP
+        # wait for rector support
         ->withSkip([
-            # https://github.com/OpenMage/magento-lts/pull/5434
-            Php81\Array_\ArrayToFirstClassCallableRector::class,
+            # https://github.com/rectorphp/rector/issues/9743
+            Php81\Array_\ArrayToFirstClassCallableRector::class => [
+                __DIR__ . '/app/code/core/Mage/Paypal/Model/Api/Abstract.php',
+                __DIR__ . '/app/code/core/Mage/Paypal/Model/Info.php',
+            ],
         ])
         ->withSkip([
             # skip: use static methods

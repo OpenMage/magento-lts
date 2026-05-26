@@ -357,7 +357,7 @@ class Varien_File_Uploader
 
     protected static function _addDirSeparator($dir)
     {
-        if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
+        if (substr($dir, -1) !== DIRECTORY_SEPARATOR) {
             $dir .= DIRECTORY_SEPARATOR;
         }
 
@@ -539,7 +539,7 @@ class Varien_File_Uploader
             return $this;
         }
 
-        if (substr($destinationFolder, -1) == DIRECTORY_SEPARATOR) {
+        if (substr($destinationFolder, -1) === DIRECTORY_SEPARATOR) {
             $destinationFolder = substr($destinationFolder, 0, -1);
         }
 

@@ -158,8 +158,8 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
         }
 
         if ($messages) {
-            $isMessageSole = (count($messages) == 1);
-            if ($isMessageSole && count($hasOptions) == 1) {
+            $isMessageSole = (count($messages) === 1);
+            if ($isMessageSole && count($hasOptions) === 1) {
                 $item = $hasOptions[0];
                 if ($isOwner) {
                     $item->delete();

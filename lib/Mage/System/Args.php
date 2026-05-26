@@ -55,13 +55,13 @@ class Mage_System_Args
                 $this->flags[$parts[0]] = true;
 
                 // Does not have an =, so choose the next arg as its value
-                if (count($parts) == 1 && isset($argv[$i + 1]) && preg_match('/^--?.+/', $argv[$i + 1]) == 0) {
+                if (count($parts) === 1 && isset($argv[$i + 1]) && preg_match('/^--?.+/', $argv[$i + 1]) == 0) {
                     $this->flags[$parts[0]] = $argv[$i + 1];
                     $argv[$i + 1] = null;
-                } elseif (count($parts) == 2) { // Has a =, so pick the second piece
+                } elseif (count($parts) === 2) { // Has a =, so pick the second piece
                     $this->flags[$parts[0]] = $parts[1];
                 }
-            } elseif (strlen($str) == 2 && $str[0] == '-') { // -a
+            } elseif (strlen($str) === 2 && $str[0] == '-') { // -a
                 $this->flags[$str[1]] = true;
                 if (isset($argv[$i + 1]) && preg_match('/^--?.+/', $argv[$i + 1]) == 0) {
                     $this->flags[$str[1]] = $argv[$i + 1];

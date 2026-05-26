@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 205 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 2 parameters, 0 required.',
@@ -49,11 +47,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Core_Model_Website::getStoreIds() invoked with 1 parameter, 0 required.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 1 parameter, 0 required.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Category/Attribute/Api.php',
@@ -82,11 +75,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product_Compare_Item::clean() invoked with 1 parameter, 0 required.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Compare/Item.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Core_Model_Website::getStoreIds() invoked with 1 parameter, 0 required.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Resource_Category_Tree::_getItemIsActive() invoked with 2 parameters, 1 required.',
@@ -172,11 +160,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Reports_Model_Resource_Order_Collection::_prepareSummaryAggregated() invoked with 4 parameters, 3 required.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Order/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Rule_Model_Condition_Abstract::loadArray() invoked with 2 parameters, 1 required.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rule/Model/Condition/Combine.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Eav_Model_Entity_Attribute_Source_Interface::getAllOptions() invoked with 1 parameter, 0 required.',

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 1 error
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter &$costArr by-ref type of method Mage_Usa_Model_Shipping_Carrier_Ups::processShippingRestRateForItem() expects array<float|string>, array given.',

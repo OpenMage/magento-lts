@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 529 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
@@ -312,11 +310,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Base.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
@@ -751,11 +744,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function array_search() requires parameter #3 to be set.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Helper/Mediafallback.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Helper/Mediafallback.php',
 ];
 $ignoreErrors[] = [

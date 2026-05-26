@@ -3,7 +3,7 @@ includes:
     - .phpstan.dist.baselines/_loader.php
     - phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
-    level: 5
+    level: 8
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
     treatPhpDocTypesAsCertain: false
@@ -112,27 +112,10 @@ parameters:
                 - app/design/adminhtml/base/default/template/tax/toolbar/class/save.phtml
                 - app/design/adminhtml/base/default/template/tax/toolbar/rule/save.phtml
         -
-             # tmp strict rule
-            identifier: empty.notAllowed
-            paths:
-                - lib/Varien/*
-        -
             # update phpstan plugin
             identifier: method.protected
             paths:
                 - app/design/*/*/template/*
-        -
-            # tmp strict rule
-            identifier: method.childParameterType
-            reportUnmatched: false
-        -
-            # tmp strict rule
-            identifier: method.childReturnType
-            reportUnmatched: false
-        -
-           # tmp level 8 rule
-            identifier: cast.string
-            reportUnmatched: false
         -
             identifier: phpunit.coversMethod
         -

@@ -170,12 +170,12 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
                      * Get state name from directory by iso name
                      * (only for US)
                      */
-                    if ($value && (string) $varNode['name'] == 'filter/country') {
+                    if ($value && (string) $varNode['name'] === 'filter/country') {
                         /**
                          * Save country for convert state iso to name (for US only)
                          */
                         $country = $value;
-                    } elseif ($value && (string) $varNode['name'] == 'filter/region' && $country == 'US') {
+                    } elseif ($value && (string) $varNode['name'] === 'filter/region' && $country === 'US') {
                         /**
                          * Get state name by iso for US
                          */

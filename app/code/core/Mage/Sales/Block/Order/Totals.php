@@ -286,7 +286,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
             $area = (string) $area;
             foreach ($this->_totals as $total) {
                 $totalArea = (string) $total->getArea();
-                if ($totalArea == $area) {
+                if ($totalArea === $area) {
                     $totals[] = $total;
                 }
             }

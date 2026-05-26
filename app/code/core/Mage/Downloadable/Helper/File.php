@@ -130,7 +130,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
 
         $file = $this->_prepareFileForPath($file);
 
-        if (substr($file, 0, 1) == DS) {
+        if (substr($file, 0, 1) === DS) {
             return $path . DS . substr($file, 1);
         }
 

@@ -446,7 +446,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 }
 
                 // Check to reconnect
-                if ($tries < 10 && $exception->getMessage() == $lostConnectionMessage) {
+                if ($tries < 10 && $exception->getMessage() === $lostConnectionMessage) {
                     $retry = true;
                     $tries++;
                 } else {
@@ -870,8 +870,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $onDelete = Varien_Db_Adapter_Interface::FK_ACTION_CASCADE
     ) {
         $onDelete = strtoupper($onDelete);
-        if ($onDelete == Varien_Db_Adapter_Interface::FK_ACTION_CASCADE
-            || $onDelete == Varien_Db_Adapter_Interface::FK_ACTION_RESTRICT
+        if ($onDelete === Varien_Db_Adapter_Interface::FK_ACTION_CASCADE
+            || $onDelete === Varien_Db_Adapter_Interface::FK_ACTION_RESTRICT
         ) {
             $sql = sprintf(
                 'DELETE p.* FROM %s AS p LEFT JOIN %s AS r ON p.%s = r.%s WHERE r.%s IS NULL',
@@ -882,7 +882,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $this->quoteIdentifier($refColumnName),
             );
             $this->raw_query($sql);
-        } elseif ($onDelete == Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL) {
+        } elseif ($onDelete === Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL) {
             $sql = sprintf(
                 'UPDATE %s AS p LEFT JOIN %s AS r ON p.%s = r.%s SET p.%s = NULL WHERE r.%s IS NULL',
                 $this->quoteIdentifier($tableName),
@@ -1394,11 +1394,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $fieldColumn    = 'Column_name';
                 $fieldIndexType = 'Index_type';
 
-                if (strtolower($row[$fieldKeyName]) == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY) {
+                if (strtolower($row[$fieldKeyName]) === Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY) {
                     $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY;
                 } elseif ($row[$fieldNonUnique] == 0) {
                     $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE;
-                } elseif (strtolower($row[$fieldIndexType]) == Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT) {
+                } elseif (strtolower($row[$fieldIndexType]) === Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT) {
                     $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT;
                 } else {
                     $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX;
@@ -1822,10 +1822,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $ddl = $this->loadDdlCache($cacheKey, self::DDL_DESCRIBE);
         if ($ddl === false) {
             $ddl = array_map(
-                [
-                    $this,
-                    'decorateTableInfo',
-                ],
+                $this->decorateTableInfo(...),
                 parent::describeTable($tableName, $schemaName),
             );
             /**
@@ -1866,7 +1863,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         if ($columnData['NULLABLE'] === false
-            && !($type == Varien_Db_Ddl_Table::TYPE_TEXT && isset($columnData['DEFAULT']) && strlen($columnData['DEFAULT']) != 0)
+            && !($type == Varien_Db_Ddl_Table::TYPE_TEXT && isset($columnData['DEFAULT']) && strlen($columnData['DEFAULT']) !== 0)
         ) {
             $options['nullable'] = false;
         }
@@ -2230,7 +2227,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $bind         = [];
         $columnsCount = count($columns);
         foreach ($data as $row) {
-            if ($columnsCount != count($row)) {
+            if ($columnsCount !== count($row)) {
                 throw new Zend_Db_Exception('Invalid data for insert');
             }
 
@@ -2415,7 +2412,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         // PRIMARY KEY
         if ($primary !== []) {
             asort($primary, SORT_NUMERIC);
-            $primary      = array_map([$this, 'quoteIdentifier'], array_keys($primary));
+            $primary      = array_map($this->quoteIdentifier(...), array_keys($primary));
             $definition[] = sprintf('  PRIMARY KEY (%s)', implode(', ', $primary));
         }
 
@@ -2503,7 +2500,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Retrieve table options definition array for create table
      *
-     * @return array
+     * @return array<int, string>
      * @throws Zend_Db_Exception
      */
     protected function _getOptionsDefinition(Varien_Db_Ddl_Table $table)
@@ -2619,14 +2616,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $length = empty($options['LENGTH']) ? Varien_Db_Ddl_Table::DEFAULT_TEXT_SIZE : $this->_parseTextSize($options['LENGTH']);
 
                 if ($length <= 255) {
-                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'varchar' : 'varbinary';
+                    $cType = $ddlType === Varien_Db_Ddl_Table::TYPE_TEXT ? 'varchar' : 'varbinary';
                     $cType = sprintf('%s(%d)', $cType, $length);
                 } elseif ($length <= 65536) {
-                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'text' : 'blob';
+                    $cType = $ddlType === Varien_Db_Ddl_Table::TYPE_TEXT ? 'text' : 'blob';
                 } elseif ($length <= 16777216) {
-                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'mediumtext' : 'mediumblob';
+                    $cType = $ddlType === Varien_Db_Ddl_Table::TYPE_TEXT ? 'mediumtext' : 'mediumblob';
                 } else {
-                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'longtext' : 'longblob';
+                    $cType = $ddlType === Varien_Db_Ddl_Table::TYPE_TEXT ? 'longtext' : 'longblob';
                 }
 
                 break;
@@ -2813,7 +2810,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     public function renameTablesBatch(array $tablePairs)
     {
-        if (count($tablePairs) == 0) {
+        if ($tablePairs === []) {
             throw new Zend_Db_Exception('Please provide tables for rename');
         }
 
@@ -2938,7 +2935,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             return true;
         }
 
-        if ($keyName == 'PRIMARY') {
+        if ($keyName === 'PRIMARY') {
             $cond = 'DROP PRIMARY KEY';
         } else {
             $cond = 'DROP KEY ' . $this->quoteIdentifier($indexList[$keyName]['KEY_NAME']);
@@ -3133,7 +3130,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 }
             } elseif (array_key_exists($key, $conditionKeyMap)) {
                 $value = $condition[$key];
-                if (($key == 'seq') || ($key == 'sneq')) {
+                if (($key === 'seq') || ($key === 'sneq')) {
                     $key = $this->_transformStringSqlCondition($key, $value);
                 }
 
@@ -3693,7 +3690,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         $query = sprintf('%s INTO %s', $query, $this->quoteIdentifier($table));
         if ($fields) {
-            $columns = array_map([$this, 'quoteIdentifier'], $fields);
+            $columns = array_map($this->quoteIdentifier(...), $fields);
             $query = sprintf('%s (%s)', $query, implode(', ', $columns));
         }
 
@@ -4024,7 +4021,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     protected function _getInsertSqlQuery($tableName, array $columns, array $values)
     {
         $tableName = $this->quoteIdentifier($tableName, true);
-        $columns   = array_map([$this, 'quoteIdentifier'], $columns);
+        $columns   = array_map($this->quoteIdentifier(...), $columns);
         $columns   = implode(',', $columns);
 
         $values    = implode(', ', $values);

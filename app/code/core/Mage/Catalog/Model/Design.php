@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     public function applyCustomDesign($design)
     {
         $designInfo = explode('/', $design);
-        if (count($designInfo) != 2) {
+        if (count($designInfo) !== 2) {
             return false;
         }
 
@@ -158,7 +158,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         }
 
         $designInfo = explode('/', $design);
-        if (count($designInfo) != 2) {
+        if (count($designInfo) !== 2) {
             return false;
         }
 

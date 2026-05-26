@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-// total 47 errors
-
 $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Implicit array creation is not allowed - variable $config does not exist.',
@@ -187,11 +185,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Implicit array creation is not allowed - variable $data does not exist.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Implicit array creation is not allowed - variable $resultArray does not exist.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Implicit array creation is not allowed - variable $params might not exist.',

@@ -214,7 +214,7 @@ class Mage_Core_Model_Date
     /**
      * @param  string              $dateTimeString
      * @param  string              $dateTimeFormat
-     * @return array
+     * @return array<int, int>
      * @throws Mage_Core_Exception
      */
     #[Deprecated(since: OpenMageVersionInterface::VERSION_1_1_7_0)]
