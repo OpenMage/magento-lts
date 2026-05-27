@@ -384,7 +384,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve name prefix dropdown options
      *
      * @param  null|int|Mage_Core_Model_Store|string $store
-     * @return array|bool
+     * @return array|false
      */
     public function getNamePrefixOptions($store = null)
     {
@@ -397,7 +397,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve name suffix dropdown options
      *
      * @param  null|int|Mage_Core_Model_Store|string $store
-     * @return array|bool
+     * @return array|false
      */
     public function getNameSuffixOptions($store = null)
     {
@@ -409,8 +409,8 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Unserialize and clear name prefix or suffix options
      *
-     * @param  string     $options
-     * @return array|bool
+     * @param  string      $options
+     * @return array|false
      */
     protected function _prepareNamePrefixSuffixOptions($options)
     {
