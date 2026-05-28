@@ -324,10 +324,12 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
          */
         $checkPaths = [];
         if (isset($optionValue['quote_path'])) {
+            $this->_validateOptionFilePath($optionValue['quote_path']);
             $checkPaths[] = Mage::getBaseDir() . $optionValue['quote_path'];
         }
 
         if (isset($optionValue['order_path']) && !$this->getUseQuotePath()) {
+            $this->_validateOptionFilePath($optionValue['order_path']);
             $checkPaths[] = Mage::getBaseDir() . $optionValue['order_path'];
         }
 
@@ -717,11 +719,13 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 throw new Exception();
             }
 
+            $this->_validateOptionFilePath($value['quote_path']);
             $quoteFileFullPath = Mage::getBaseDir() . $value['quote_path'];
             if (!is_file($quoteFileFullPath) || !is_readable($quoteFileFullPath)) {
                 throw new Exception();
             }
 
+            $this->_validateOptionFilePath($value['order_path']);
             $orderFileFullPath = Mage::getBaseDir() . $value['order_path'];
             $dir = pathinfo($orderFileFullPath, PATHINFO_DIRNAME);
             $this->_createWriteableDir($dir);
@@ -732,6 +736,48 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         }
 
         return $this;
+    }
+
+    /**
+     * Check if the given path contains traversal sequences
+     *
+     * @param string $fileName
+     * @return bool
+     */
+    public function _isValidPath(string $fileName): bool
+    {
+        $pattern =
+            '/(?:^|[\/\\\\])(' .
+            '(?:' .
+            '(?:\.\.|%2e%2e|%252e%252e|%c0%2e%2e|%c0%ae%c0%ae|%e0%40%ae%2e|%c0%2e%c0%2e)' .
+            '(?:[\/\\\\]|%2f|%5c|%255c)' .
+            ')' .
+            ')|\\x00|%00/i';
+        return !preg_match($pattern, $fileName);
+    }
+
+    /**
+     * Validate that a stored file path belongs to the expected custom_options directory
+     * and contains no path traversal sequences.
+     *
+     * @param string $filePath Relative path as stored in quote/order item option
+     * @throws Mage_Core_Exception
+     */
+    protected function _validateOptionFilePath(string $filePath): void
+    {
+        if (!$this->_isValidPath($filePath)) {
+            Mage::throwException(Mage::helper('catalog')->__('Invalid file path.'));
+        }
+        $allowedPrefixes = [
+            $this->getQuoteTargetDir(true),
+            $this->getOrderTargetDir(true),
+        ];
+        foreach ($allowedPrefixes as $prefix) {
+            if (strncmp($filePath, $prefix, strlen($prefix)) === 0) {
+                return;
+            }
+        }
+        Mage::throwException(Mage::helper('catalog')->__('Invalid file path.'));
     }
 
     /**
