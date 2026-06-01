@@ -12,14 +12,20 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
+/**
+ * Rewritten to vanilla JS — no Prototype.js dependency.
+ */
+
 /**************************** WEEE STUFF ********************************/
-function taxToggle(details, switcher, expandedClassName)
-{
-    if ($(details).style.display == 'none') {
-        $(details).show();
-        $(switcher).addClassName(expandedClassName);
+function taxToggle(details, switcher, expandedClassName) {
+    var detailsEl  = document.getElementById(details);
+    var switcherEl = document.getElementById(switcher);
+
+    if (detailsEl.style.display === 'none') {
+        detailsEl.style.display  = '';
+        switcherEl.classList.add(expandedClassName);
     } else {
-        $(details).hide();
-        $(switcher).removeClassName(expandedClassName);
+        detailsEl.style.display  = 'none';
+        switcherEl.classList.remove(expandedClassName);
     }
 }
