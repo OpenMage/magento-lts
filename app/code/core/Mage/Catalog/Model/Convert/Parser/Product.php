@@ -525,6 +525,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             if (isset($row['sku'])) {
                 $baseRowData['sku'] = $row['sku'];
             }
+
             unset($row);
 
             foreach ($productMediaGallery['images'] as $image) {
