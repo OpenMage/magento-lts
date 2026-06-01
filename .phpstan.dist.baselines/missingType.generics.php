@@ -987,11 +987,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Admin/Model/BlockTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Admin\\Model\\UserTest::provideAuthenticateData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Admin/Model/UserTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Admin\\Model\\UserTest::provideIsResetPasswordLinkTokenExpiredData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Admin/Model/UserTest.php',

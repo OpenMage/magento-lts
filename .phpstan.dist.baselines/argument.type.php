@@ -3402,11 +3402,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $unprocessedHtml of static method Pelago\\Emogrifier\\HtmlProcessor\\AbstractHtmlProcessor::fromHtml() expects non-empty-string, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App::getStore() expects bool|int|Mage_Core_Model_Store|string|null, Varien_Object|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Filter.php',
@@ -8835,11 +8830,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $scope of static method Mage_Cms_Helper_Page::getScopeInfoFromConfigScope() expects \'default\'|\'env\'|\'stores\'|\'websites\', string given.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Cms/Helper/PageTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $envStorage of method Mage_Core_Helper_EnvironmentConfigLoader::setEnvStore() expects array<string, int|string>, array<int|string, int> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/EnvironmentConfigLoaderTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $wantedPath of method Mage_Core_Helper_EnvironmentConfigLoader::hasPath() expects string, bool|string given.',
