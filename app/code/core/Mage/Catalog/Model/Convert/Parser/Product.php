@@ -521,7 +521,6 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $baseRowData = [
                 'store'     => $row['store'],
                 'website'   => $row['websites'],
-                'sku'       => $row['sku'],
             ];
             if (isset($row['sku'])) {
                 $baseRowData['sku'] = $row['sku'];
