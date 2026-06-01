@@ -137,7 +137,7 @@ final class UserTest extends OpenMageTest
     }
 
     /**
-     * @param AuthenticateData $methods
+     * @phpstan-param AuthenticateData $methods
      * @dataProvider provideAuthenticateData
      * @group Model
      * @group runInSeparateProcess
