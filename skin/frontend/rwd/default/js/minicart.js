@@ -85,7 +85,7 @@ Minicart.prototype = {
                 } else {
                     cart.showMessage(result);
                 }
-            }).error(function() {
+            }).fail(function() {
                 cart.hideOverlay();
                 cart.showError(cart.defaultErrorMessage);
             });
@@ -154,7 +154,7 @@ Minicart.prototype = {
             } else {
                 cart.showMessage(result);
             }
-        }).error(function() {
+        }).fail(function() {
             cart.hideOverlay();
             cart.showError(cart.defaultErrorMessage);
         });

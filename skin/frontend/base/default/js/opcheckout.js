@@ -50,6 +50,23 @@ var _opcAjax = function(url, opts) {
 };
 
 /**
+ * Helper: execute <script> elements inside a container (replaces Prototype's evalScripts).
+ */
+var _opcEvalScripts = function(container) {
+    if (!container) return;
+    var scripts = container.querySelectorAll('script');
+    scripts.forEach(function(old) {
+        var s = document.createElement('script');
+        if (old.src) {
+            s.src = old.src;
+        } else {
+            s.textContent = old.textContent;
+        }
+        old.parentNode.replaceChild(s, old);
+    });
+};
+
+/**
  * Helper: fetch HTML and put it into a container element (replaces Ajax.Updater).
  */
 var _opcAjaxUpdate = function(containerId, url, opts) {
@@ -59,7 +76,10 @@ var _opcAjaxUpdate = function(containerId, url, opts) {
     _opcAjax(url, Object.assign({}, opts, {
         onSuccess: function(transport) {
             var el = document.getElementById(containerId);
-            if (el) el.innerHTML = transport.responseText;
+            if (el) {
+                el.innerHTML = transport.responseText;
+                _opcEvalScripts(el);
+            }
             if (wrappedSuccess) wrappedSuccess(transport);
         },
         onComplete: function(transport) {
@@ -194,7 +214,7 @@ Checkout.prototype = {
             method: 'get',
             onFailure: this.ajaxFailure.bind(this),
             onComplete: function() {
-                self.checkout.resetPreviousSteps();
+                self.resetPreviousSteps();
             },
             parameters: prevStep ? { prevStep: prevStep } : null
         });
@@ -357,7 +377,10 @@ Checkout.prototype = {
     setStepResponse: function(response) {
         if (response.update_section) {
             var updateEl = document.getElementById('checkout-' + response.update_section.name + '-load');
-            if (updateEl) updateEl.innerHTML = response.update_section.html;
+            if (updateEl) {
+                updateEl.innerHTML = response.update_section.html;
+                _opcEvalScripts(updateEl);
+            }
         }
         if (response.allow_sections) {
             response.allow_sections.forEach(function(e) {
@@ -740,7 +763,10 @@ ShippingMethod.prototype = {
 
         if (response.update_section) {
             var updateEl = document.getElementById('checkout-' + response.update_section.name + '-load');
-            if (updateEl) updateEl.innerHTML = response.update_section.html;
+            if (updateEl) {
+                updateEl.innerHTML = response.update_section.html;
+                _opcEvalScripts(updateEl);
+            }
         }
 
         payment.initWhatIsCvvListeners();
@@ -753,7 +779,10 @@ ShippingMethod.prototype = {
 
         if (response.payment_methods_html) {
             var paymentLoad = document.getElementById('checkout-payment-method-load');
-            if (paymentLoad) paymentLoad.innerHTML = response.payment_methods_html;
+            if (paymentLoad) {
+                paymentLoad.innerHTML = response.payment_methods_html;
+                _opcEvalScripts(paymentLoad);
+            }
         }
 
         checkout.setShippingMethod();
@@ -1058,7 +1087,10 @@ Review.prototype = {
 
             if (response.update_section) {
                 var updateEl = document.getElementById('checkout-' + response.update_section.name + '-load');
-                if (updateEl) updateEl.innerHTML = response.update_section.html;
+                if (updateEl) {
+                    updateEl.innerHTML = response.update_section.html;
+                    _opcEvalScripts(updateEl);
+                }
             }
 
             if (response.goto_section) {

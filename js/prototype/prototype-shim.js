@@ -369,6 +369,18 @@
       try { JSON.parse(this); return true; } catch (e) { return false; }
     },
     stripTags: function () { return this.replace(/<\/?[^>]+>/gi, ''); },
+    stripScripts: function () { return this.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ''); },
+    evalScripts: function () {
+      var scripts = [];
+      this.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, function (m, src) { scripts.push(src); });
+      scripts.forEach(function (src) {
+        var el = document.createElement('script');
+        el.textContent = src;
+        document.head.appendChild(el);
+        document.head.removeChild(el);
+      });
+      return this.toString();
+    },
     escapeHTML: function () {
       return this.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     },
@@ -490,6 +502,8 @@
   String.prototype.evalJSON = stringMethods.evalJSON;
   String.prototype.isJSON = stringMethods.isJSON;
   String.prototype.stripTags = stringMethods.stripTags;
+  String.prototype.stripScripts = stringMethods.stripScripts;
+  String.prototype.evalScripts = stringMethods.evalScripts;
   String.prototype.escapeHTML = stringMethods.escapeHTML;
   String.prototype.unescapeHTML = stringMethods.unescapeHTML;
   String.prototype.toQueryParams = stringMethods.toQueryParams;

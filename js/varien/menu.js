@@ -13,6 +13,10 @@
  */
 
 /**
+ * Rewritten to vanilla JS — no Prototype.js dependency.
+ */
+
+/**
  * @classDescription simple Navigation with replacing old handlers
  * @param {String} id id of ul element with navigation lists
  * @param {Object} settings object with settings
@@ -20,85 +24,81 @@
 var mainNav = function() {
 
     var main = {
-        obj_nav :   $(arguments[0]) || $("nav"),
+        obj_nav: document.getElementById(arguments[0]) || document.getElementById('nav'),
 
-        settings :  {
-            show_delay      :   0,
-            hide_delay      :   0,
+        settings: {
+            show_delay: 0,
+            hide_delay: 0,
         },
 
-        init :  function(obj, level) {
-            obj.lists = obj.childElements();
-            obj.lists.each(function(el,ind){
+        init: function(obj, level) {
+            obj.lists = Array.from(obj.children);
+            obj.lists.forEach(function(el) {
                 main.handlNavElement(el);
             });
         },
 
-        handlNavElement :   function(list) {
-            if(list !== undefined){
-                list.onmouseover = function(){
-                    main.fireNavEvent(this,true);
+        handlNavElement: function(list) {
+            if (list !== undefined) {
+                list.onmouseover = function() {
+                    main.fireNavEvent(this, true);
                 };
-                list.onmouseout = function(){
-                    main.fireNavEvent(this,false);
+                list.onmouseout = function() {
+                    main.fireNavEvent(this, false);
                 };
-                if(list.down("ul")){
-                    main.init(list.down("ul"), true);
+                var subList = list.querySelector('ul');
+                if (subList) {
+                    main.init(subList, true);
                 }
             }
         },
 
-        fireNavEvent :  function(elm,ev) {
-            if(ev){
-                elm.addClassName("over");
-                elm.down("a").addClassName("over");
-                if (elm.childElements()[1]) {
-                    main.show(elm.childElements()[1]);
+        fireNavEvent: function(elm, ev) {
+            var children = Array.from(elm.children);
+            if (ev) {
+                elm.classList.add('over');
+                var a = elm.querySelector('a');
+                if (a) a.classList.add('over');
+                if (children[1]) {
+                    main.show(children[1]);
                 }
             } else {
-                elm.removeClassName("over");
-                elm.down("a").removeClassName("over");
-                if (elm.childElements()[1]) {
-                    main.hide(elm.childElements()[1]);
+                elm.classList.remove('over');
+                var a = elm.querySelector('a');
+                if (a) a.classList.remove('over');
+                if (children[1]) {
+                    main.hide(children[1]);
                 }
             }
         },
 
-        show : function (sub_elm) {
+        show: function(sub_elm) {
             if (sub_elm.hide_time_id) {
                 clearTimeout(sub_elm.hide_time_id);
             }
             sub_elm.show_time_id = setTimeout(function() {
-                if (!sub_elm.hasClassName("shown-sub")) {
-                    sub_elm.addClassName("shown-sub");
-                }
+                sub_elm.classList.add('shown-sub');
             }, main.settings.show_delay);
         },
 
-        hide : function (sub_elm) {
+        hide: function(sub_elm) {
             if (sub_elm.show_time_id) {
                 clearTimeout(sub_elm.show_time_id);
             }
-            sub_elm.hide_time_id = setTimeout(function(){
-                if (sub_elm.hasClassName("shown-sub")) {
-                    sub_elm.removeClassName("shown-sub");
-                }
+            sub_elm.hide_time_id = setTimeout(function() {
+                sub_elm.classList.remove('shown-sub');
             }, main.settings.hide_delay);
         }
-
     };
+
     if (arguments[1]) {
-        main.settings = Object.extend(main.settings, arguments[1]);
+        Object.assign(main.settings, arguments[1]);
     }
     if (main.obj_nav) {
         main.init(main.obj_nav, false);
     }
 };
 
-document.observe("dom:loaded", function() {
-    //run navigation without delays and with default id="#nav"
-    //mainNav();
-
-    //run navigation with delays
-    mainNav("nav", {"show_delay":"100","hide_delay":"100"});
+document.addEventListener('DOMContentLoaded', function() {
+    mainNav('nav', {'show_delay': '100', 'hide_delay': '100'});
 });
