@@ -94,4 +94,6 @@ interface OpenMageVersionInterface
     public const VERSION_20_17_0            = '20.17.0';
 
     public const VERSION_20_18_0            = '20.18.0';
+
+    public const VERSION_20_19_0            = '20.19.0';
 }
