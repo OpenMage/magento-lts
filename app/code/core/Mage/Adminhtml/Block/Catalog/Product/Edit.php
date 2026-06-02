@@ -22,9 +22,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
 
         $isConfigured   = $this->getIsConfigured();
         $isReadOnly     = $this->getProduct()->isReadonly();
-        $isPopup        = (bool)$this->getRequest()->getParam('popup');
-        $isProductId    = (bool)$this->getProductId();
-        $isProductSetId = (bool)$this->getProductSetId();
+        $isPopup        = (bool) $this->getRequest()->getParam('popup');
+        $isProductId    = (bool) $this->getProductId();
+        $isProductSetId = (bool) $this->getProductSetId();
 
         if ($isPopup) {
             $this->_addButton(self::BUTTON_TYPE_CLOSE, [
