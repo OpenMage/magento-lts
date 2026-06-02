@@ -1441,8 +1441,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $customerName = $this->getCustomerName();
         }
 
-        /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
-        $mailer = Mage::getModel('core/email_template_mailer');
+        $mailer = $this->getMailer();
         /** @var Mage_Core_Model_Email_Info $emailInfo */
         $emailInfo = Mage::getModel('core/email_info');
         $emailInfo->addTo($this->getCurrentCustomerEmail(), $customerName);
@@ -1534,8 +1533,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $customerName = $this->getCustomerName();
         }
 
-        /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
-        $mailer = Mage::getModel('core/email_template_mailer');
+        $mailer = $this->getMailer();
         if ($notifyCustomer) {
             /** @var Mage_Core_Model_Email_Info $emailInfo */
             $emailInfo = Mage::getModel('core/email_info');

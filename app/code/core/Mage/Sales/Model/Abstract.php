@@ -74,4 +74,13 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
             true,
         );
     }
+
+    protected function getMailer(): Mage_Core_Model_Email_Template_Mailer
+    {
+        /**
+         * @var Mage_Core_Model_Email_Template_Mailer $mailer
+         */
+        $mailer = Mage::getModel('core/email_template_mailer');
+        return $mailer;
+    }
 }

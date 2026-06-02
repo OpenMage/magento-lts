@@ -41,6 +41,16 @@
  */
 class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 {
+
+    public const ENTITY                                = 'shipment';
+
+    /**
+     * Event type names for order emails
+     */
+    public const EMAIL_EVENT_NAME_NEW_SHIPMENT    = 'new_shipment';
+
+    public const EMAIL_EVENT_NAME_UPDATE_SHIPMENT = 'update_shipment';
+
     public const STATUS_NEW    = 1;
 
     public const XML_PATH_EMAIL_TEMPLATE               = 'sales_email/shipment/template';
@@ -482,7 +492,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             $customerName = $order->getCustomerName();
         }
 
-        $mailer = Mage::getModel('core/email_template_mailer');
+        $mailer = $this->getMailer();
         if ($notifyCustomer) {
             $emailInfo = Mage::getModel('core/email_info');
             $emailInfo->addTo($order->getCurrentCustomerEmail(), $customerName);
@@ -516,7 +526,15 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             'billing'      => $order->getBillingAddress(),
             'payment_html' => $paymentBlockHtml,
         ]);
-        $mailer->send();
+
+        /** @var Mage_Core_Model_Email_Queue $emailQueue */
+        $emailQueue = Mage::getModel('core/email_queue');
+        $emailQueue->setEntityId($this->getId())
+            ->setEntityType(self::ENTITY)
+            ->setEventType(self::EMAIL_EVENT_NAME_NEW_SHIPMENT)
+            ->setIsForceCheck(true);
+
+        $mailer->setQueue($emailQueue)->send();
 
         return $this;
     }
@@ -554,7 +572,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             $customerName = $order->getCustomerName();
         }
 
-        $mailer = Mage::getModel('core/email_template_mailer');
+        $mailer = $this->getMailer();
         if ($notifyCustomer) {
             $emailInfo = Mage::getModel('core/email_info');
             $emailInfo->addTo($order->getCurrentCustomerEmail(), $customerName);
@@ -587,7 +605,15 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             'comment'  => $comment,
             'billing'  => $order->getBillingAddress(),
         ]);
-        $mailer->send();
+
+        /** @var Mage_Core_Model_Email_Queue $emailQueue */
+        $emailQueue = Mage::getModel('core/email_queue');
+        $emailQueue->setEntityId($this->getId())
+            ->setEntityType(self::ENTITY)
+            ->setEventType(self::EMAIL_EVENT_NAME_UPDATE_SHIPMENT)
+            ->setIsForceCheck(true);
+
+        $mailer->setQueue($emailQueue)->send();
 
         return $this;
     }
