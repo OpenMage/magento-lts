@@ -13,8 +13,21 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model;
 
 use Generator;
 
+/**
+ * @phpstan-type AuthenticateData array{
+ *     "getId": string,
+ *     "getUsername": string,
+ *     "getPassword": string,
+ *     "getIsActive": string,
+ *     "validatePasswordHash": bool,
+ *     "hasAssigned2Role": bool
+ * }
+ */
 trait UserTrait
 {
+    /**
+     * @return Generator<string, list{bool|string, AuthenticateData}, void, void>
+     */
     public static function provideAuthenticateData(): Generator
     {
         $validData = [

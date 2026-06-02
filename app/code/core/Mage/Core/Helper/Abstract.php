@@ -257,7 +257,7 @@ abstract class Mage_Core_Helper_Abstract
     {
         return htmlspecialchars(
             $this->escapeScriptIdentifiers((string) $data),
-            ENT_COMPAT | ENT_HTML5 | ENT_HTML401,
+            ENT_COMPAT | ENT_HTML5,
             'UTF-8',
         );
     }
