@@ -88,7 +88,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
 
     /**
      * @param  string     $configPath
-     * @return array|bool
+     * @return list<string>|false
      */
     protected function _getEmails($configPath)
     {
