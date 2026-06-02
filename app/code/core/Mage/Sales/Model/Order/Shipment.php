@@ -41,7 +41,6 @@
  */
 class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 {
-
     public const ENTITY                                = 'shipment';
 
     /**
