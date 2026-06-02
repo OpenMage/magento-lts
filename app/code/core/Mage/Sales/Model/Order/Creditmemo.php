@@ -114,7 +114,6 @@
  * @method $this                                                 setShippingTaxAmount(float $value)
  * @method $this                                                 setState(int $value)
  * @method $this                                                 setStoreCurrencyCode(string $value)
- * @method $this                                                 setStoreId(int $value)
  * @method $this                                                 setStoreToBaseRate(float $value)
  * @method $this                                                 setStoreToOrderRate(float $value)
  * @method $this                                                 setSubtotal(float $value)
@@ -960,20 +959,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $mailer->setQueue($emailQueue)->send();
 
         return $this;
-    }
-
-    /**
-     * @param  string     $configPath
-     * @return array|bool
-     */
-    protected function _getEmails($configPath)
-    {
-        $data = Mage::getStoreConfig($configPath, $this->getStoreId());
-        if (!empty($data)) {
-            return explode(',', $data);
-        }
-
-        return false;
     }
 
     /**

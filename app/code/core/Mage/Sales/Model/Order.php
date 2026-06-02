@@ -153,7 +153,6 @@
  * @method string                                     getState()
  * @method string                                     getStatus()
  * @method string                                     getStoreCurrencyCode()
- * @method int                                        getStoreId()
  * @method string                                     getStoreName()
  * @method float                                      getStoreToBaseRate()
  * @method float                                      getStoreToOrderRate()
@@ -302,7 +301,6 @@
  * @method $this                                      setShippingTaxRefunded(float $value)
  * @method $this                                      setStatus(string $value)
  * @method $this                                      setStoreCurrencyCode(string $value)
- * @method $this                                      setStoreId(int $value)
  * @method $this                                      setStoreName(string $value)
  * @method $this                                      setStoreToBaseRate(float $value)
  * @method $this                                      setStoreToOrderRate(float $value)
@@ -1591,20 +1589,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         $this->queueOrderUpdateEmail($notifyCustomer, $comment, true);
         return $this;
-    }
-
-    /**
-     * @param  string      $configPath
-     * @return array|false
-     */
-    protected function _getEmails($configPath)
-    {
-        $data = Mage::getStoreConfig($configPath, $this->getStoreId());
-        if (!empty($data)) {
-            return explode(',', $data);
-        }
-
-        return false;
     }
 
     /*********************** ADDRESSES ***************************/

@@ -24,7 +24,6 @@
  * @method Mage_Sales_Model_Resource_Order_Shipment_Collection getResourceCollection()
  * @method int                                                 getShipmentStatus()
  * @method int                                                 getShippingAddressId()
- * @method int                                                 getStoreId()
  * @method float                                               getTotalQty()
  * @method float                                               getTotalWeight()
  * @method $this                                               setBillingAddressId(int $value)
@@ -35,7 +34,6 @@
  * @method $this                                               setPackages(string $value)
  * @method $this                                               setShipmentStatus(int $value)
  * @method $this                                               setShippingAddressId(int $value)
- * @method $this                                               setStoreId(int $value)
  * @method $this                                               setTotalQty(float $value)
  * @method $this                                               setTotalWeight(float $value)
  */
@@ -615,20 +613,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         $mailer->setQueue($emailQueue)->send();
 
         return $this;
-    }
-
-    /**
-     * @param  string      $configPath
-     * @return array|false
-     */
-    protected function _getEmails($configPath)
-    {
-        $data = Mage::getStoreConfig($configPath, $this->getStoreId());
-        if (!empty($data)) {
-            return explode(',', $data);
-        }
-
-        return false;
     }
 
     /**

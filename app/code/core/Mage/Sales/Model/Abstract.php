@@ -17,8 +17,10 @@
  * @method bool                                     getForceUpdateGridRecords()
  * @method Mage_Sales_Model_Resource_Order_Abstract getResource()
  * @method Mage_Customer_Model_Address_Abstract     getShippingAddress()
+ * @method int                                      getStoreId()
  * @method $this                                    setBillingAddress(Mage_Customer_Model_Address_Abstract $address)
  * @method $this                                    setShippingAddress(Mage_Customer_Model_Address_Abstract $address)
+ * @method $this                                    setStoreId(int $value)
  * @method $this                                    setTransactionId(int $value)
  */
 abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
@@ -82,5 +84,19 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
          */
         $mailer = Mage::getModel('core/email_template_mailer');
         return $mailer;
+    }
+
+    /**
+     * @param  string     $configPath
+     * @return array|bool
+     */
+    protected function _getEmails($configPath)
+    {
+        $data = Mage::getStoreConfig($configPath, $this->getStoreId());
+        if (!empty($data)) {
+            return explode(',', $data);
+        }
+
+        return false;
     }
 }
