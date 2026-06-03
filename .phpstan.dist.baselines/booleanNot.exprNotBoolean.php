@@ -5042,21 +5042,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Info.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Payment_Model_Method_Abstract|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Billing/AgreementAbstract.php',
