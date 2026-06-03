@@ -22,7 +22,4 @@
  * @method $this  setParentId(int $value)
  * @method $this  setStoreId(int $value)
  */
-abstract class Mage_Sales_Model_Order_Comment_Abstract extends Mage_Sales_Model_Abstract
-{
-
-}
+abstract class Mage_Sales_Model_Order_Comment_Abstract extends Mage_Sales_Model_Abstract {}

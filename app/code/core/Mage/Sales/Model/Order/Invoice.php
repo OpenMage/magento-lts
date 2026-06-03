@@ -773,7 +773,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  bool                                                        $reload
+     * @param  bool                                                       $reload
      * @return Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection
      */
     public function getCommentsCollection($reload = false)
