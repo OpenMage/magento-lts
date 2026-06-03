@@ -236,7 +236,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             ->addAttributeToFilter('increment_id', $incrementId)
             ->getAllIds();
 
-        if (!empty($ids)) {
+        if ($ids !== []) {
             reset($ids);
             $this->load(current($ids));
         }
@@ -553,7 +553,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      */
     public function getItemsCollection()
     {
-        if (empty($this->_items)) {
+        if (is_null($this->_items)) {
             $this->_items = Mage::getResourceModel('sales/order_invoice_item_collection')
                 ->setInvoiceFilter($this->getId());
 

@@ -137,7 +137,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             ->addAttributeToFilter('increment_id', $incrementId)
             ->getAllIds();
 
-        if (!empty($ids)) {
+        if ($ids !== []) {
             reset($ids);
             $this->load(current($ids));
         }
