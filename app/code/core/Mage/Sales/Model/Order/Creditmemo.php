@@ -790,7 +790,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $copyTo = $this->_getEmails(self::XML_PATH_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $storeId);
         // Check if at least one recipient is found
-        if (!$notifyCustomer && $copyTo === false) {
+        if (!$notifyCustomer && !is_array($copyTo)) {
             return $this;
         }
 
@@ -806,18 +806,11 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
                 ->setIsSecureMode(true);
             $paymentBlock->getMethod()->setStore($storeId);
             $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $exception) {
+        } finally {
             // Stop store emulation process
             if (isset($appEmulation, $initialEnvironmentInfo)) {
                 $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
             }
-
-            throw $exception;
-        }
-
-        // Stop store emulation process
-        if (isset($appEmulation, $initialEnvironmentInfo)) {
-            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
         }
 
         // Retrieve corresponding email template id and customer name
@@ -902,7 +895,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $copyTo = $this->_getEmails(self::XML_PATH_UPDATE_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_COPY_METHOD, $storeId);
         // Check if at least one recipient is found
-        if (!$notifyCustomer && $copyTo === false) {
+        if (!$notifyCustomer && !is_array($copyTo)) {
             return $this;
         }
 

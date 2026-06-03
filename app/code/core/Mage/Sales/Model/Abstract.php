@@ -87,13 +87,13 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param  string     $configPath
-     * @return list<string>|false
+     * @param  string             $configPath
+     * @return false|list<string>
      */
     protected function _getEmails($configPath)
     {
         $data = Mage::getStoreConfig($configPath, $this->getStoreId());
-        if (!empty($data)) {
+        if (is_string($data) && $data !== '') {
             return explode(',', $data);
         }
 
