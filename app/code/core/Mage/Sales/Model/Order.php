@@ -1403,25 +1403,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $copyTo = $this->_getEmails(self::XML_PATH_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $storeId);
 
-        // Start store emulation process
-        if ($storeId != Mage::app()->getStore()->getId()) {
-            /** @var Mage_Core_Model_App_Emulation $appEmulation */
-            $appEmulation = Mage::getSingleton('core/app_emulation');
-            $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
-        }
-
-        try {
-            // Retrieve specified view block from appropriate design package (depends on emulated store)
-            $paymentBlock = Mage::helper('payment')->getInfoBlock($this->getPayment())
-                ->setIsSecureMode(true);
-            $paymentBlock->getMethod()->setStore($storeId);
-            $paymentBlockHtml = $paymentBlock->toHtml();
-        } finally {
-            // Stop store emulation process
-            if (isset($appEmulation, $initialEnvironmentInfo)) {
-                $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-            }
-        }
+        $paymentBlockHtml = $this->getPaymentBlockHtml($this);
 
         // Retrieve corresponding email template id and customer name
         if ($this->getCustomerIsGuest()) {
