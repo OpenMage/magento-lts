@@ -100,6 +100,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
                 $appEmulation = Mage::getSingleton('core/app_emulation');
                 $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
             }
+
             try {
                 // Retrieve specified view block from appropriate design package (depends on emulated store)
                 $paymentBlock = Mage::helper('payment')->getInfoBlock($payment)
@@ -113,6 +114,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return null;
     }
 
