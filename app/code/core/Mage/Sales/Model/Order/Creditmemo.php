@@ -743,7 +743,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 
     /**
      * @param  bool                                                        $reload
-     * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
+     * @return Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection
      * @throws Mage_Core_Exception
      */
     public function getCommentsCollection($reload = false)
