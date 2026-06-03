@@ -997,11 +997,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Controller/Action.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, array|false given on the left side.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, Mage_Sales_Model_Quote_Address|null given on the left side.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Api/Resource/Customer.php',

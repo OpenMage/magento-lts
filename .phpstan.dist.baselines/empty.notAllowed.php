@@ -1328,11 +1328,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Api/Resource.php',
 ];
