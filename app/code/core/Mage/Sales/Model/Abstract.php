@@ -96,7 +96,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
         $payment = $order->getPayment();
         if (!is_null($storeId) && $payment instanceof Mage_Payment_Model_Info) {
             // Start store emulation process
-            if ($storeId != Mage::app()->getStore()->getId()) {
+            if ($storeId !== Mage::app()->getStore()->getId()) {
                 $appEmulation = Mage::getSingleton('core/app_emulation');
                 $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
             }
