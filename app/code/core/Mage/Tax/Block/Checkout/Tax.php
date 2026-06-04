@@ -20,9 +20,7 @@ class Mage_Tax_Block_Checkout_Tax extends Mage_Checkout_Block_Total_Default
     protected $_template = 'tax/checkout/tax.phtml';
 
     /**
-     * The factory instance to get helper
-     *
-     * @var Mage_Core_Model_Factory
+     * @inheritDoc
      */
     protected $_factory;
 
