@@ -71,7 +71,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     protected function _isCallableAttributeInstance($instance, $method, $args)
     {
         if ($instance instanceof Mage_Eav_Model_Entity_Attribute_Backend_Abstract
-            && ($method === 'beforeSave' || $method === 'afterSave')
+            && (in_array($method, ['beforeSave', 'afterSave', 'validate'], true))
         ) {
             $attributeCode = $instance->getAttribute()->getAttributeCode();
             if (isset($args[0]) && $args[0] instanceof Varien_Object && $args[0]->getData($attributeCode) === false) {
