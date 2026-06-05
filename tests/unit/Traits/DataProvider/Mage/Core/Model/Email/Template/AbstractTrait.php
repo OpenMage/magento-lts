@@ -15,6 +15,9 @@ use Generator;
 
 trait AbstractTrait
 {
+    /**
+     * @return Generator<string, list{bool, string, string, bool}, void, void>
+     */
     public static function provideValidateFileExtension(): Generator
     {
         yield 'css file exists' => [
