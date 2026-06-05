@@ -234,7 +234,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             ],
         );
 
-        if ($this->validateFileExension($filePath, 'css') && is_readable($filePath)) {
+        if ($this->validateFileExtension($filePath, 'css') && is_readable($filePath)) {
             return (string) file_get_contents($filePath);
         }
 
@@ -242,7 +242,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         return '';
     }
 
-    public function validateFileExension(string $filePath, string $extension): bool
+    public function validateFileExtension(string $filePath, string $extension): bool
     {
         if ($extension === 'css') {
             $extension = ['css' => ['text/css', 'text/plain']];
