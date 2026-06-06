@@ -27,10 +27,10 @@ final class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @dataProvider provideValidateFileExension
+     * @dataProvider provideValidateFileExtension
      * @group Model
      */
-    public function testValidateFileExension(bool $expectedResult, string $filePath, string $extension, bool $fileExists): void
+    public function testValidateFileExtension(bool $expectedResult, string $filePath, string $extension, bool $fileExists): void
     {
         if ($fileExists) {
             self::assertFileExists($filePath);
@@ -38,6 +38,6 @@ final class AbstractTest extends OpenMageTest
             self::assertFileDoesNotExist($filePath);
         }
 
-        self::assertSame($expectedResult, self::$subject->validateFileExension($filePath, $extension));
+        self::assertSame($expectedResult, self::$subject->validateFileExtension($filePath, $extension));
     }
 }
