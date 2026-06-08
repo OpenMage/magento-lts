@@ -8,11 +8,13 @@
  */
 
 /**
- * Base payment iformation block
+ * Base payment information block
  *
  * @package    Mage_Payment
  *
- * @method bool hasIsSecureMode()
+ * @method bool  hasIsSecureMode()
+ * @method $this setInfo(Mage_Payment_Model_Info $info)
+ * @method $this setIsSecureMode(bool $val)
  */
 class Mage_Payment_Block_Info extends Mage_Core_Block_Template
 {
