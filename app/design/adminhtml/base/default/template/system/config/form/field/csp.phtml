@@ -62,8 +62,8 @@ $_colspan = $_colspan > 1 ? 'colspan="' . $_colspan . '"' : '';
 //<![CDATA[
 // create row creator
 var arrayRow<?php echo $_htmlId ?> = {
-    // define row prototypeJS template
-    template : new Template(
+    // define row template
+    templateStr :
         '<tr id="#{_id}">'
 <?php foreach ($this->_columns as $columnName => $column):?>
             +'<td>'
@@ -74,9 +74,8 @@ var arrayRow<?php echo $_htmlId ?> = {
             +'<td><button onclick="" class="scalable add" type="button" id="addAfterBtn#{_id}"><span><span><span><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Add after')) ?><\/span><\/span><\/span><\/button><\/td>'
 <?php endif ?>
             +'<td><button onclick="arrayRow<?php echo $_htmlId ?>.del(\'#{_id}\')" class="scalable delete" type="button"><span><span><span><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Delete')) ?><\/span><\/span><\/span><\/button><\/td>'
-        +'<\/tr>'
-    ),
-    templateReadonly : new Template(
+        +'<\/tr>',
+    templateReadonlyStr :
         '<tr id="#{_id}">'
 <?php foreach ($this->_columns as $columnName => $column):?>
             +'<td>'
@@ -87,8 +86,10 @@ var arrayRow<?php echo $_htmlId ?> = {
             +'<td><button onclick="" class="scalable add" type="button" id="addAfterBtn#{_id}"><span><span><span><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Add after')) ?><\/span><\/span><\/span><\/button><\/td>'
 <?php endif ?>
             +'<td style="vertical-align: middle;" class="scope-label">&lt;#{area}/&gt;<\/td>'
-        +'<\/tr>'
-    ),
+        +'<\/tr>',
+    evalTemplate : function(tpl, data) {
+        return tpl.replace(/#\{(\w+)\}/g, function(m, k) { return data[k] !== undefined ? data[k] : ''; });
+    },
 
     rowsCount : 0,
 
@@ -106,18 +107,18 @@ var arrayRow<?php echo $_htmlId ?> = {
         }
 
         if (templateData.readonly) {
-            var _newRow = this.templateReadonly.evaluate(templateData);
+            var _newRow = this.evalTemplate(this.templateReadonlyStr, templateData);
         } else {
-            var _newRow = this.template.evaluate(templateData);
+            var _newRow = this.evalTemplate(this.templateStr, templateData);
         }
 
         // insert before last row
         if ('' == insertAfterId) {
-            Element.insert($('addRow<?php echo $_htmlId ?>'), {before: _newRow});
+            document.getElementById('addRow<?php echo $_htmlId ?>').insertAdjacentHTML('beforebegin', _newRow);
         }
         // insert after specified row
         else {
-            Element.insert($(insertAfterId), {after: _newRow});
+            document.getElementById(insertAfterId).insertAdjacentHTML('afterend', _newRow);
         }
         // workaround for prototypeJS bug with disabled inputs
         if (templateData.readonly) {
@@ -132,7 +133,7 @@ var arrayRow<?php echo $_htmlId ?> = {
     }
 
 <?php if ($this->_addAfter):?>
-        Event.observe('addAfterBtn' + templateData._id, 'click', this.add.bind(this, '', templateData._id));
+        document.getElementById('addAfterBtn' + templateData._id).addEventListener('click', this.add.bind(this, '', templateData._id));
 <?php endif ?>
 
         this.rowsCount += 1;
@@ -140,7 +141,7 @@ var arrayRow<?php echo $_htmlId ?> = {
 
     del : function(rowId)
     {
-        $(rowId).remove();
+        document.getElementById(rowId).remove();
         this.rowsCount -= 1;
         if (0 == this.rowsCount) {
             this.showButtonOnly();
@@ -149,13 +150,13 @@ var arrayRow<?php echo $_htmlId ?> = {
 
     showButtonOnly : function()
     {
-        $('grid<?php echo $_htmlId ?>').hide();
-        $('empty<?php echo $_htmlId ?>').show();
+        document.getElementById('grid<?php echo $_htmlId ?>').style.display = 'none';
+        document.getElementById('empty<?php echo $_htmlId ?>').style.display = '';
     }
 }
 
 // bind add action to "Add" button in last row
-Event.observe('addToEndBtn<?php echo $_htmlId ?>', 'click', arrayRow<?php echo $_htmlId ?>.add.bind(arrayRow<?php echo $_htmlId ?>, '', ''));
+document.getElementById('addToEndBtn<?php echo $_htmlId ?>').addEventListener('click', arrayRow<?php echo $_htmlId ?>.add.bind(arrayRow<?php echo $_htmlId ?>, '', ''));
 
 // add existing rows
 <?php
@@ -167,10 +168,10 @@ foreach ($this->getArrayRows() as $_rowId => $_row) {
 ?>
 
 // initialize standalone button
-$('empty<?php echo $_htmlId ?>').hide();
-Event.observe('emptyAddBtn<?php echo $_htmlId ?>', 'click', function () {
-    $('grid<?php echo $_htmlId ?>').show();
-    $('empty<?php echo $_htmlId ?>').hide();
+document.getElementById('empty<?php echo $_htmlId ?>').style.display = 'none';
+document.getElementById('emptyAddBtn<?php echo $_htmlId ?>').addEventListener('click', function () {
+    document.getElementById('grid<?php echo $_htmlId ?>').style.display = '';
+    document.getElementById('empty<?php echo $_htmlId ?>').style.display = 'none';
     arrayRow<?php echo $_htmlId ?>.add('', '');
 });
 
@@ -181,7 +182,7 @@ arrayRow<?php echo $_htmlId ?>.showButtonOnly();
 
 // toggle the grid, if element is disabled (depending on scope)
 <?php if ($this->getElement()->getDisabled()):?>
-toggleValueElements({checked:true}, $('grid<?php echo $_htmlId ?>').parentNode);
+toggleValueElements({checked:true}, document.getElementById('grid<?php echo $_htmlId ?>').parentNode);
 <?php endif ?>
 //]]>
 </script>

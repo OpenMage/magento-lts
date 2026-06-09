@@ -108,14 +108,15 @@ var templateText =
         '<\/tr>';
 
 var attributeOption = {
-    table : $('attribute-options-table'),
+    table : document.getElementById('attribute-options-table'),
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : templateText,
     itemCount : 0,
     totalItems : 0,
     isReadOnly: <?php echo (int)$this->getReadOnly(); ?>,
     add : function(data) {
-        this.template = new Template(this.templateText, this.templateSyntax);
+        var _tplText = this.templateText, _syntax = this.templateSyntax;
+        this.template = { evaluate: function(obj) { return _tplText.replace(new RegExp(_syntax.source, 'g'), function(m, p1, p2, p3) { return p1 + (obj[p3] !== undefined ? obj[p3] : ''); }); } };
         var isNewOption = false;
         if(!data.id){
             data = {};
@@ -124,7 +125,7 @@ var attributeOption = {
         }
         if (!data.intype)
             data.intype = optionDefaultInputType;
-        Element.insert(this.table, {after: this.template.evaluate(data)});
+        this.table.insertAdjacentHTML('afterend', this.template.evaluate(data));
         if (isNewOption && !this.isReadOnly) {
             this.enableNewOptionDeleteButton(data.id);
         }
@@ -134,17 +135,13 @@ var attributeOption = {
         this.updateItemsCountField();
     },
     remove : function(event){
-        var element = $(Event.findElement(event, 'tr')); // !!! Button already
+        var element = event.target.closest('tr'); // !!! Button already
                                                                // have table parent in safari
-        // Safari workaround
-        element.ancestors().each(function(parentItem){
-           if (parentItem.hasClassName('option-row')) {
-               element = parentItem;
-               throw $break;
-           } else if (parentItem.hasClassName('box')) {
-               throw $break;
-           }
-        });
+        // Safari workaround - find the actual option-row ancestor
+        var optionRow = element.closest('.option-row');
+        if (optionRow) {
+            element = optionRow;
+        }
 
 
         if(element){
@@ -153,44 +150,44 @@ var attributeOption = {
                 elementFlags[0].value=1;
             }
 
-            element.addClassName('no-display');
-            element.addClassName('template');
-            element.hide();
+            element.classList.add('no-display');
+            element.classList.add('template');
+            element.style.display = 'none';
             this.totalItems--;
             this.updateItemsCountField();
         }
     },
     updateItemsCountField: function() {
         if (this.totalItems > 0) {
-            $('option-count-check').value = '1';
+            document.getElementById('option-count-check').value = '1';
         } else {
-            $('option-count-check').value = '';
+            document.getElementById('option-count-check').value = '';
         }
     },
     enableNewOptionDeleteButton: function(id) {
-        $$('#delete_button_container_' + id + ' button').each(function(button) {
-            button.enable();
-            button.removeClassName('disabled');
+        document.querySelectorAll('#delete_button_container_' + id + ' button').forEach(function(button) {
+            button.disabled = false;
+            button.classList.remove('disabled');
         });
     },
     bindRemoveButtons : function(){
-        var buttons = $$('.delete-option');
+        var buttons = document.querySelectorAll('.delete-option');
         for(var i=0;i<buttons.length;i++){
-            if(!$(buttons[i]).binded){
-                $(buttons[i]).binded = true;
-                Event.observe(buttons[i], 'click', this.remove.bind(this));
+            if(!buttons[i].binded){
+                buttons[i].binded = true;
+                buttons[i].addEventListener('click', this.remove.bind(this));
             }
         }
     }
 
 }
-if($('row-template')){
-    $('row-template').remove();
+if(document.getElementById('row-template')){
+    document.getElementById('row-template').remove();
 }
 attributeOption.bindRemoveButtons();
 
-if($('add_new_option_button')){
-    Event.observe('add_new_option_button', 'click', attributeOption.add.bind(attributeOption));
+if(document.getElementById('add_new_option_button')){
+    document.getElementById('add_new_option_button').addEventListener('click', attributeOption.add.bind(attributeOption));
 }
 Validation.addAllThese([
     ['required-option', '<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Failed')) ?>', function(v) {

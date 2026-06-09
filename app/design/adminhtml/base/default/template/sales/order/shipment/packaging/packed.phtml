@@ -183,17 +183,16 @@
 <script type="text/javascript">
 //<![CDATA[
     function showPackedWindow() {
-        var window = $('packed_window');
-        window.show().setStyle({
-            'marginLeft': -window.getDimensions().width/2 + 'px'
-        });
-        $('popup-window-mask').setStyle({
-            height: $('html-body').getHeight() + 'px'
-        }).show();
+        var packedWindow = document.getElementById('packed_window');
+        packedWindow.style.display = '';
+        packedWindow.style.marginLeft = -packedWindow.offsetWidth/2 + 'px';
+        var mask = document.getElementById('popup-window-mask');
+        mask.style.height = document.getElementById('html-body').scrollHeight + 'px';
+        mask.style.display = '';
     }
     function hidePackedWindow() {
-        $('packed_window').hide();
-        $('popup-window-mask').hide();
+        document.getElementById('packed_window').style.display = 'none';
+        document.getElementById('popup-window-mask').style.display = 'none';
     }
 //]]>
 </script>

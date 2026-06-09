@@ -116,14 +116,14 @@
         Validation.addAllThese(
         [
                ['validate-rating', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please select one of each of the ratings above')) ?>', function(v) {
-                    var trs = $('product-review-table').select('tr');
+                    var trs = document.getElementById('product-review-table').querySelectorAll('tr');
                     var inputs;
                     var error = 1;
 
                     for( var j=0; j < trs.length; j++ ) {
                         var tr = trs[j];
                         if( j > 0 ) {
-                            inputs = tr.select('input');
+                            inputs = tr.querySelectorAll('input');
 
                             for( i in inputs ) {
                                 if( inputs[i].checked == true ) {

@@ -33,9 +33,9 @@
 // re-bind form elements onchange
 varienWindowOnload(true);
 //show error message
-if ($('price_type')) {
-    if ($('price_type').value == '0' && $('dynamic-price-warrning')) {
-        $('dynamic-price-warrning').show();
+if (document.getElementById('price_type')) {
+    if (document.getElementById('price_type').value == '0' && document.getElementById('dynamic-price-warrning')) {
+        document.getElementById('dynamic-price-warrning').style.display = '';
     }
 }
 </script>

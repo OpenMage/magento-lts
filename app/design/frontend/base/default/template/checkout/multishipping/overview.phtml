@@ -201,8 +201,8 @@
                 if (submitted) {
                     return false;
                 }
-                if ($('checkout-agreements')) {
-                    var checkboxes = $$('#checkout-agreements input');
+                if (document.getElementById('checkout-agreements')) {
+                    var checkboxes = document.querySelectorAll('#checkout-agreements input');
                     for (var i=0, l=checkboxes.length; i<l; i++) {
                         if (!checkboxes[i].checked) {
                             alert("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please agree to all Terms and Conditions before placing the orders.')) ?>");
@@ -213,9 +213,9 @@
 
                 submitted = true;
                 var step='review';
-                Element.show(step+'-please-wait');
-                $(step+'-buttons-container').setStyle({opacity:.5});
-                $(step+'-buttons-container').descendants().each(function(s) {
+                document.getElementById(step+'-please-wait').style.display = '';
+                document.getElementById(step+'-buttons-container').style.opacity = .5;
+                document.getElementById(step+'-buttons-container').querySelectorAll('*').forEach(function(s) {
                       s.disabled = true;
                 });
                 return true;

@@ -61,12 +61,12 @@
             </strong>
             <!--input type="text" class="input-text" style="width:70px"/-->
             <br/>
-            <a href="#" onclick="$('order-shipping-method-info').hide();$('order-shipping-method-choose').show();return false">
+            <a href="#" onclick="document.getElementById('order-shipping-method-info').style.display='none';document.getElementById('order-shipping-method-choose').style.display='';return false">
                 <?php echo Mage::helper('sales')->__('Click to change shipping method') ?>
             </a>
         </div>
     <?php else: ?>
-        <script type="text/javascript">$('order-shipping-method-choose').show();</script>
+        <script type="text/javascript">document.getElementById('order-shipping-method-choose').style.display = '';</script>
     <?php endif ?>
 <?php elseif($this->getIsRateRequest()): ?>
     <strong><?php echo Mage::helper('sales')->__('Sorry, no quotes are available for this order at this time.') ?></strong>

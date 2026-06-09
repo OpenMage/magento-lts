@@ -12,28 +12,40 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-var Translate = Class.create();
+/**
+ * Rewritten to vanilla JS — no Prototype.js dependency.
+ *
+ * @constructor
+ * @param {Object} data - key/value translation map
+ */
+function Translate(data) {
+    this.data = {};
+    if (data && typeof data === 'object') {
+        var keys = Object.keys(data);
+        for (var i = 0; i < keys.length; i++) {
+            this.data[keys[i]] = data[keys[i]];
+        }
+    }
+}
+
 Translate.prototype = {
-    initialize: function(data){
-        this.data = $H(data);
-    },
-
-    translate : function(){
-        var args = arguments;
+    translate: function () {
         var text = arguments[0];
-
-        if(this.data.get(text)){
-            return this.data.get(text);
+        if (this.data.hasOwnProperty(text)) {
+            return this.data[text];
         }
         return text;
     },
-    add : function() {
+
+    add: function () {
         if (arguments.length > 1) {
-            this.data.set(arguments[0], arguments[1]);
-        } else if (typeof arguments[0] =='object') {
-            $H(arguments[0]).each(function (pair){
-                this.data.set(pair.key, pair.value);
-            }.bind(this));
+            this.data[arguments[0]] = arguments[1];
+        } else if (typeof arguments[0] === 'object') {
+            var obj = arguments[0];
+            var keys = Object.keys(obj);
+            for (var i = 0; i < keys.length; i++) {
+                this.data[keys[i]] = obj[keys[i]];
+            }
         }
     }
 };

@@ -34,8 +34,8 @@
                     <?php if ($_isRequired): ?>
                         <script type="text/javascript">
                         //<![CDATA[
-                            $('links_<?php echo $_link->getId() ?>').advaiceContainer = 'links-advice-container';
-                            $('links_<?php echo $_link->getId() ?>').callbackFunction = 'validateDownloadableCallback';
+                            document.getElementById('links_<?php echo $_link->getId() ?>').advaiceContainer = 'links-advice-container';
+                            document.getElementById('links_<?php echo $_link->getId() ?>').callbackFunction = 'validateDownloadableCallback';
                         //]]>
                         </script>
                     <?php endif ?>
@@ -56,12 +56,12 @@
             initialize : function(config){
                 this.config = config;
                 this.reloadPrice();
-                document.observe("dom:loaded", this.reloadPrice.bind(this));
+                document.addEventListener('DOMContentLoaded', this.reloadPrice.bind(this));
             },
             reloadPrice : function(){
                 var price = 0;
                 config = this.config;
-                $$('.product-downloadable-link').each(function(elm){
+                document.querySelectorAll('.product-downloadable-link').forEach(function(elm){
                     if (config[elm.value] && elm.checked) {
                         price += parseFloat(config[elm.value]);
                     }
@@ -79,13 +79,13 @@
         };
 
         function validateDownloadableCallback(elmId, result) {
-            var container = $('downloadable-links-list');
+            var container = document.getElementById('downloadable-links-list');
             if (result == 'failed') {
-                container.removeClassName('validation-passed');
-                container.addClassName('validation-failed');
+                container.classList.remove('validation-passed');
+                container.classList.add('validation-failed');
             } else {
-                container.removeClassName('validation-failed');
-                container.addClassName('validation-passed');
+                container.classList.remove('validation-failed');
+                container.classList.add('validation-passed');
             }
         }
 

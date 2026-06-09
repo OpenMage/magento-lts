@@ -32,14 +32,14 @@
 <!--
     var subscriberController = {
         checkCheckboxes: function(controlCheckbox) {
-            var elements = $('subscriberGrid').getElementsByClassName('subscriberCheckbox');
-            elements.each(function(obj){
+            var elements = document.getElementById('subscriberGrid').getElementsByClassName('subscriberCheckbox');
+            Array.from(elements).forEach(function(obj){
                 obj.checked = controlCheckbox.checked;
             });
         },
         rowClick: function (e) {
-            if(!Event.element(e).hasClassName('subscriberCheckbox')) {
-                var elements = Event.findElement(e, 'tr').getElementsByClassName('subscriberCheckbox');
+            if(!e.target.classList.contains('subscriberCheckbox')) {
+                var elements = e.target.closest('tr').getElementsByClassName('subscriberCheckbox');
                 if(elements.length != 1) {
                     return;
                 }
@@ -47,8 +47,8 @@
             }
         },
         addToQueue: function () {
-            var elements = $('subscriberGrid').getElementsByClassName('subscriberCheckbox');
-            elements.push($('queueList'));
+            var elements = Array.from(document.getElementById('subscriberGrid').getElementsByClassName('subscriberCheckbox'));
+            elements.push(document.getElementById('queueList'));
             var serializedElements = Form.serializeElements(elements, true);
             serializedElements.add = 'subscribers';
             serializedElements.form_key = FORM_KEY;

@@ -66,7 +66,7 @@
     <?php echo $this->getChildHtml('shipment_packaging') ?>
     <script type="text/javascript">
     //<![CDATA[
-        document.observe("dom:loaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
             setTimeout(function(){
                 packaging.setConfirmPackagingCallback(function(){
                     packaging.sendCreateLabelRequest();

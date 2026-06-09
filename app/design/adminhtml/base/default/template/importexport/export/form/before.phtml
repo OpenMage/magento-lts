@@ -20,22 +20,20 @@
      */
     varienForm.prototype.getFilter = function()
     {
-        if ($('entity') && $F('entity')) {
+        if (document.getElementById('entity') && document.getElementById('entity').value) {
             var url = "<?php echo $this->getUrl('*/*/getFilter') ?>";
-            url += ((url.slice(-1) != '/') ? '/' : '') + 'entity/' + $F('entity');
+            url += ((url.slice(-1) != '/') ? '/' : '') + 'entity/' + document.getElementById('entity').value;
 
-            new Ajax.Request(url, {
-                method:      'post',
-                //parameters:  $(this.formId).serialize(),
-                evalScripts: true,
-                onComplete:  function(transport) {
-                    var responseText = transport.responseText.replace(/>\s+</g, '><');
-                    $('export_filter_grid_container').update(responseText);
-                    $('export_filter_container').show();
-                }
+            fetch(url, {
+                method: 'POST',
+                headers: {'X-Requested-With': 'XMLHttpRequest'}
+            }).then(function(response) { return response.text(); }).then(function(responseText) {
+                    responseText = responseText.replace(/>\s+</g, '><');
+                    document.getElementById('export_filter_grid_container').innerHTML = responseText;
+                    document.getElementById('export_filter_container').style.display = '';
             });
         } else {
-            $('export_filter_container').hide();
+            document.getElementById('export_filter_container').style.display = 'none';
         }
     };
 
@@ -46,10 +44,10 @@
      */
     function getFile()
     {
-        if ($('entity') && $('file_format')) {
-            var form      = $('export_filter_form');
+        if (document.getElementById('entity') && document.getElementById('file_format')) {
+            var form      = document.getElementById('export_filter_form');
             var oldAction = form.action;
-            form.action   = oldAction + ((oldAction.slice(-1) != '/') ? '/' : '') + 'entity/' + $F('entity') + '/file_format/' + $F('file_format');
+            form.action   = oldAction + ((oldAction.slice(-1) != '/') ? '/' : '') + 'entity/' + document.getElementById('entity').value + '/file_format/' + document.getElementById('file_format').value;
             form.submit();
             form.action   = oldAction;
         } else {

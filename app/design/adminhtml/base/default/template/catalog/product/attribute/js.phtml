@@ -11,7 +11,7 @@
 function saveAndContinueEdit(){
     disableElements('save');
     var activeTab = product_attribute_tabsJsTabs.activeTab.id;
-    if (editForm.submit($('edit_form').action+'back/edit/tab/' + activeTab) == false) {
+    if (editForm.submit(document.getElementById('edit_form').action+'back/edit/tab/' + activeTab) == false) {
         enableElements('save');
      }
     varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function (){
@@ -30,14 +30,14 @@ function saveAttribute(){
 }
 
 function toggleApplyVisibility(select) {
-    if ($(select).value == 1) {
-        $(select).next('select').removeClassName('no-display');
-        $(select).next('select').removeClassName('ignore-validate');
+    if (document.getElementById(select).value == 1) {
+        document.getElementById(select).nextElementSibling.classList.remove('no-display');
+        document.getElementById(select).nextElementSibling.classList.remove('ignore-validate');
 
     } else {
-        $(select).next('select').addClassName('no-display');
-        $(select).next('select').addClassName('ignore-validate');
-        var options = $(select).next('select').options;
+        document.getElementById(select).nextElementSibling.classList.add('no-display');
+        document.getElementById(select).nextElementSibling.classList.add('ignore-validate');
+        var options = document.getElementById(select).nextElementSibling.options;
         for( var i=0; i < options.length; i++) {
             options[i].selected = false;
         }
@@ -45,13 +45,13 @@ function toggleApplyVisibility(select) {
 }
 
 function checkOptionsPanelVisibility(){
-    if($('matage-options-panel')){
-        var panel = $('matage-options-panel');
-        if($('frontend_input') && ($('frontend_input').value=='select' || $('frontend_input').value=='multiselect')){
-            panel.show();
+    if(document.getElementById('matage-options-panel')){
+        var panel = document.getElementById('matage-options-panel');
+        if(document.getElementById('frontend_input') && (document.getElementById('frontend_input').value=='select' || document.getElementById('frontend_input').value=='multiselect')){
+            panel.style.display = '';
         }
         else {
-            panel.hide();
+            panel.style.display = 'none';
         }
     }
 }
@@ -61,71 +61,71 @@ function bindAttributeInputType()
     checkOptionsPanelVisibility();
     switchDefaultValueField();
     checkIsConfigurableVisibility();
-    if($('frontend_input') && ($('frontend_input').value=='select' || $('frontend_input').value=='multiselect' || $('frontend_input').value=='price')){
-        if($('is_filterable') && !$('is_filterable').getAttribute('readonly')){
-            $('is_filterable').disabled = false;
+    if(document.getElementById('frontend_input') && (document.getElementById('frontend_input').value=='select' || document.getElementById('frontend_input').value=='multiselect' || document.getElementById('frontend_input').value=='price')){
+        if(document.getElementById('is_filterable') && !document.getElementById('is_filterable').getAttribute('readonly')){
+            document.getElementById('is_filterable').disabled = false;
         }
-        if($('is_filterable_in_search') && !$('is_filterable_in_search').getAttribute('readonly')){
-            $('is_filterable_in_search').disabled = false;
+        if(document.getElementById('is_filterable_in_search') && !document.getElementById('is_filterable_in_search').getAttribute('readonly')){
+            document.getElementById('is_filterable_in_search').disabled = false;
         }
-        if($('backend_type') && $('backend_type').options){
-            for(var i=0;i<$('backend_type').options.length;i++){
-                if($('backend_type').options[i].value=='int') $('backend_type').selectedIndex = i;
+        if(document.getElementById('backend_type') && document.getElementById('backend_type').options){
+            for(var i=0;i<document.getElementById('backend_type').options.length;i++){
+                if(document.getElementById('backend_type').options[i].value=='int') document.getElementById('backend_type').selectedIndex = i;
             }
         }
     }
     else {
-        if($('is_filterable')){
-            $('is_filterable').selectedIndex=0;
-            $('is_filterable').disabled = true;
+        if(document.getElementById('is_filterable')){
+            document.getElementById('is_filterable').selectedIndex=0;
+            document.getElementById('is_filterable').disabled = true;
         }
-        if($('is_filterable_in_search')){
-            $('is_filterable_in_search').disabled = true;
+        if(document.getElementById('is_filterable_in_search')){
+            document.getElementById('is_filterable_in_search').disabled = true;
         }
     }
 
-    if ($('frontend_input') && ($('frontend_input').value=='multiselect'
-        || $('frontend_input').value=='gallery'
-        || $('frontend_input').value=='textarea')) {
-        if ($('used_for_sort_by')) {
-            $('used_for_sort_by').disabled = true;
+    if (document.getElementById('frontend_input') && (document.getElementById('frontend_input').value=='multiselect'
+        || document.getElementById('frontend_input').value=='gallery'
+        || document.getElementById('frontend_input').value=='textarea')) {
+        if (document.getElementById('used_for_sort_by')) {
+            document.getElementById('used_for_sort_by').disabled = true;
         }
     }
     else {
-        if ($('used_for_sort_by') && !$('used_for_sort_by').getAttribute('readonly')) {
-            $('used_for_sort_by').disabled = false;
+        if (document.getElementById('used_for_sort_by') && !document.getElementById('used_for_sort_by').getAttribute('readonly')) {
+            document.getElementById('used_for_sort_by').disabled = false;
         }
     }
 
     setRowVisibility('is_wysiwyg_enabled', false);
     setRowVisibility('is_html_allowed_on_front', false);
 
-    switch ($('frontend_input').value) {
+    switch (document.getElementById('frontend_input').value) {
         case 'textarea':
             setRowVisibility('is_wysiwyg_enabled', true);
-            if($('is_wysiwyg_enabled').value == '0'){
+            if(document.getElementById('is_wysiwyg_enabled').value == '0'){
                 setRowVisibility('is_html_allowed_on_front', true);
-                $('is_html_allowed_on_front').disabled = false;
+                document.getElementById('is_html_allowed_on_front').disabled = false;
             }
-            $('frontend_class').value = '';
-            $('frontend_class').disabled = true;
+            document.getElementById('frontend_class').value = '';
+            document.getElementById('frontend_class').disabled = true;
             break;
         case 'text':
             setRowVisibility('is_html_allowed_on_front', true);
-            $('is_html_allowed_on_front').disabled = false;
+            document.getElementById('is_html_allowed_on_front').disabled = false;
 
-            if (!$('frontend_class').getAttribute('readonly')) {
-                $('frontend_class').disabled = false;
+            if (!document.getElementById('frontend_class').getAttribute('readonly')) {
+                document.getElementById('frontend_class').disabled = false;
             }
             break;
         case 'select':
         case 'multiselect':
             setRowVisibility('is_html_allowed_on_front', true);
-            $('is_html_allowed_on_front').disabled = false;
+            document.getElementById('is_html_allowed_on_front').disabled = false;
             break;
         default:
-            $('frontend_class').value = '';
-            $('frontend_class').disabled = true;
+            document.getElementById('frontend_class').value = '';
+            document.getElementById('frontend_class').disabled = true;
     }
 
     switchIsFilterable();
@@ -133,12 +133,12 @@ function bindAttributeInputType()
 
 function switchIsFilterable()
 {
-    if ($('is_filterable')) {
-        if ($('is_filterable').selectedIndex == 0) {
-            $('position').disabled = true;
+    if (document.getElementById('is_filterable')) {
+        if (document.getElementById('is_filterable').selectedIndex == 0) {
+            document.getElementById('position').disabled = true;
         } else {
-            if (!$('position').getAttribute('readonly')){
-                $('position').disabled = false;
+            if (!document.getElementById('position').getAttribute('readonly')){
+                document.getElementById('position').disabled = false;
             }
         }
     }
@@ -146,7 +146,7 @@ function switchIsFilterable()
 
 function disableApplyToValue(value)
 {
-    var applyToSelect = $('apply_to');
+    var applyToSelect = document.getElementById('apply_to');
     for (i=0;i<applyToSelect.options.length;i++) {
         if (value == applyToSelect.options[i].value) {
             applyToSelect.options[i].disabled = true;
@@ -157,11 +157,11 @@ function disableApplyToValue(value)
 
 function switchDefaultValueField()
 {
-    if (!$('frontend_input')) {
+    if (!document.getElementById('frontend_input')) {
         return;
     }
 
-    var currentValue = $('frontend_input').value;
+    var currentValue = document.getElementById('frontend_input').value;
 
     var defaultValueTextVisibility = false;
     var defaultValueTextareaVisibility = false;
@@ -200,7 +200,7 @@ function switchDefaultValueField()
             break;
     }
 
-    var applyToSelect = $('apply_to');
+    var applyToSelect = document.getElementById('apply_to');
     switch (currentValue) {
         <?php foreach (Mage::helper('catalog')->getAttributeDisabledTypes() as $type=>$disabled): ?>
             case '<?php echo $type; ?>':
@@ -218,8 +218,8 @@ function switchDefaultValueField()
 
     switch (currentValue) {
         case 'media_image':
-            $('front_fieldset').previous().hide();
-            $('front_fieldset').hide();
+            document.getElementById('front_fieldset').previousElementSibling.style.display = 'none'; void(0);
+            document.getElementById('front_fieldset').style.display = 'none';
 
             setRowVisibility('is_required', false);
             setRowVisibility('is_unique', false);
@@ -230,8 +230,8 @@ function switchDefaultValueField()
             case '<?php echo $type; ?>':
                 <?php foreach ($fields as $one): ?>
                     <?php if ($one == '_front_fieldset'): ?>
-                        $('front_fieldset').previous().hide();
-                        $('front_fieldset').hide();
+                        document.getElementById('front_fieldset').previousElementSibling.style.display = 'none'; void(0);
+                        document.getElementById('front_fieldset').style.display = 'none';
                     <?php elseif ($one == '_default_value'): ?>
                         defaultValueTextVisibility =
                         defaultValueTextareaVisibility =
@@ -247,8 +247,8 @@ function switchDefaultValueField()
         <?php endforeach ?>
 
         default:
-            $('front_fieldset').previous().show();
-            $('front_fieldset').show();
+            document.getElementById('front_fieldset').previousElementSibling.style.display = '';
+            document.getElementById('front_fieldset').style.display = '';
             setRowVisibility('is_required', true);
             setRowVisibility('is_unique', true);
             setRowVisibility('frontend_class', true);
@@ -270,23 +270,23 @@ function switchDefaultValueField()
 
 function setRowVisibility(id, isVisible)
 {
-    if ($(id)) {
-        var td = $(id).parentNode;
-        var tr = $(td.parentNode);
+    if (document.getElementById(id)) {
+        var td = document.getElementById(id).parentNode;
+        var tr = td.parentNode;
 
         if (isVisible) {
-            tr.show();
+            tr.style.display = '';
         } else {
             tr.blur();
-            tr.hide();
+            tr.style.display = 'none';
         }
     }
 }
 
 function checkIsConfigurableVisibility()
 {
-    if (!$('is_configurable') || !$('is_global') || !$('frontend_input')) return;
-    if ($F('is_global')==1 && $F('frontend_input')=='select') {
+    if (!document.getElementById('is_configurable') || !document.getElementById('is_global') || !document.getElementById('frontend_input')) return;
+    if (document.getElementById('is_global').value==1 && document.getElementById('frontend_input').value=='select') {
         setRowVisibility('is_configurable', true);
     } else {
         setRowVisibility('is_configurable', false);
@@ -295,25 +295,25 @@ function checkIsConfigurableVisibility()
 
 function updateRequriedOptions()
 {
-    if ($F('frontend_input')=='select' && $F('is_required')==1) {
-        $('option-count-check').addClassName('required-options-count');
+    if (document.getElementById('frontend_input').value=='select' && document.getElementById('is_required').value==1) {
+        document.getElementById('option-count-check').classList.add('required-options-count');
     } else {
-        $('option-count-check').removeClassName('required-options-count');
+        document.getElementById('option-count-check').classList.remove('required-options-count');
     }
 }
 
-if($('frontend_input')){
-    Event.observe($('frontend_input'), 'change', updateRequriedOptions);
-    Event.observe($('frontend_input'), 'change', bindAttributeInputType);
-    Event.observe($('is_global'), 'change', checkIsConfigurableVisibility);
+if(document.getElementById('frontend_input')){
+    document.getElementById('frontend_input').addEventListener('change', updateRequriedOptions);
+    document.getElementById('frontend_input').addEventListener('change', bindAttributeInputType);
+    document.getElementById('is_global').addEventListener('change', checkIsConfigurableVisibility);
 }
 
-if ($('is_filterable')) {
-    Event.observe($('is_filterable'), 'change', switchIsFilterable);
+if (document.getElementById('is_filterable')) {
+    document.getElementById('is_filterable').addEventListener('change', switchIsFilterable);
 }
 
-if ($('is_required')) {
-    Event.observe($('is_required'), 'change', updateRequriedOptions);
+if (document.getElementById('is_required')) {
+    document.getElementById('is_required').addEventListener('change', updateRequriedOptions);
 }
 bindAttributeInputType();
 //]]>

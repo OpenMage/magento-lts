@@ -16,30 +16,30 @@ trackingControl = {
     add : function () {
         this.index++;
         var data = {index:this.index};
-        Element.insert($('track_row_container'), {bottom: this.template.evaluate(data)});
-        $('trackingC' + this.index).disabled = false;
-        $('trackingT' + this.index).disabled = false;
-        $('trackingN' + this.index).disabled = false;
+        document.getElementById('track_row_container').insertAdjacentHTML('beforeend', this.template.replace(/#\{(\w+)\}/g, function(m,k){ return data[k] !== undefined ? data[k] : ''; }));
+        document.getElementById('trackingC' + this.index).disabled = false;
+        document.getElementById('trackingT' + this.index).disabled = false;
+        document.getElementById('trackingN' + this.index).disabled = false;
         this.bindCurrierOnchange();
     },
     deleteRow : function(event) {
-        var row = Event.findElement(event, 'tr');
+        var row = event.target.closest('tr');
         if (row) {
             row.parentNode.removeChild(row)
         }
     },
     bindCurrierOnchange : function() {
-        var elems = $('tracking_numbers_table').select('.select');
-        elems.each(function (elem) {
+        var elems = document.getElementById('tracking_numbers_table').querySelectorAll('.select');
+        elems.forEach(function (elem) {
             if (!elem.onchangeBound) {
                 elem.onchangeBound = true;
-                elem.valueInput = $(elem.parentNode.parentNode).select('.number-title')[0];
-                elem.observe('change', this.currierOnchange);
+                elem.valueInput = elem.parentNode.parentNode.querySelectorAll('.number-title')[0];
+                elem.addEventListener('change', this.currierOnchange);
             }
         }.bind(this));
     },
     currierOnchange : function(event) {
-        var elem = Event.element(event);
+        var elem = event.target;
         var option = elem.options[elem.selectedIndex];
         if (option.value && option.value != 'custom') {
             elem.valueInput.value = option.text;
@@ -88,6 +88,6 @@ trackingControl = {
 </div>
 <script type="text/javascript">
 //<![CDATA[
-trackingControl.template = new Template('<tr>' + $('track_row_template').innerHTML.replace(/__index__/g, '#{index}') + '<\/tr>');
+trackingControl.template = '<tr>' + document.getElementById('track_row_template').innerHTML.replace(/__index__/g, '#{index}') + '<\/tr>';
 //]]>
 </script>

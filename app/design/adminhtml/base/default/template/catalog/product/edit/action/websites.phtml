@@ -81,25 +81,26 @@
 </div>
 <script type="text/javascript">
 //<![CDATA[
-    var productWebsiteCheckboxes = $$('.website-checkbox');
+    var productWebsiteCheckboxes = document.querySelectorAll('.website-checkbox');
 
     for(var i=0;i<productWebsiteCheckboxes.length;i++){
-        Event.observe(productWebsiteCheckboxes[i], 'click', toggleStoreFromChoosers);
+        productWebsiteCheckboxes[i].addEventListener('click', toggleStoreFromChoosers);
     }
 
     function toggleStoreFromChoosers(event){
-        var element = Event.element(event);
-        var selects = $(element.id+'_data').getElementsBySelector('select');
-        var selectBlocks = $(element.id+'_data').getElementsByClassName('website-'+element.value+'-select');
+        var element = event.target;
+        var dataContainer = document.getElementById(element.id+'_data');
+        var selects = dataContainer.querySelectorAll('select');
+        var selectBlocks = dataContainer.getElementsByClassName('website-'+element.value+'-select');
         for (var i=0; i<selects.length; i++) {
             selects[i].disabled=!element.checked;
         }
         for (var i=0; i<selectBlocks.length; i++) {
             if (element.checked) {
-                selectBlocks[i].show();
+                selectBlocks[i].style.display = '';
             }
             else {
-                selectBlocks[i].hide();
+                selectBlocks[i].style.display = 'none';
             }
         }
     }

@@ -27,7 +27,7 @@
             <?php endif ?>
         <?php endforeach ?>
         </ul>
-        <script type="text/javascript">decorateGeneric($('order-info-tabs').select('LI'),['first','last']);</script>
+        <script type="text/javascript">decorateGeneric(document.getElementById('order-info-tabs').querySelectorAll('LI'),['first','last']);</script>
     </dd>
 </dl>
 <p class="order-date"><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAtStoreDate(), 'long')) ?></p>

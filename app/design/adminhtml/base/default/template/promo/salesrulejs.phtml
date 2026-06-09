@@ -13,25 +13,27 @@ var tmpButtonsActionsStorage = [];
 
 function disableEnableCouponsTabContent(disable) {
     var containerId = 'promo_catalog_edit_tabs_coupons_section_content';
-    if($(containerId)){
-        var dataFields = $(containerId).select('input', 'select', 'textarea', 'button');
+    var container = document.getElementById(containerId);
+    if(container){
+        var dataFields = container.querySelectorAll('input, select, textarea, button');
         for(var i = 0; i < dataFields.length; i++) {
-            disable ? dataFields[i].disable().addClassName('disabled')
-                : dataFields[i].enable().removeClassName('disabled');
+            dataFields[i].disabled = disable;
+            disable ? dataFields[i].classList.add('disabled')
+                : dataFields[i].classList.remove('disabled');
         }
     }
-    disable ? $('rule_coupon_code').enable() : $('rule_coupon_code').disable();
+    document.getElementById('rule_coupon_code').disabled = !disable;
 }
 
 function handleCouponsTabContentActivity() {
-    disableEnableCouponsTabContent(!$('rule_use_auto_generation').checked);
+    disableEnableCouponsTabContent(!document.getElementById('rule_use_auto_generation').checked);
 }
 
 function handleCouponTypeChange() {
-    $('rule_coupon_type').observe('change', function() {
-        var disable = $('rule_coupon_type').value != couponTypeSpecific;
+    document.getElementById('rule_coupon_type').addEventListener('change', function() {
+        var disable = document.getElementById('rule_coupon_type').value != couponTypeSpecific;
         if (!disable) {
-            disable = !$('rule_use_auto_generation').checked;
+            disable = !document.getElementById('rule_use_auto_generation').checked;
         }
         disableEnableCouponsTabContent(disable);
     });
@@ -43,63 +45,65 @@ function refreshCouponCodesGrid(grid, gridMassAction, transport) {
 }
 
 function generateCouponCodes(idPrefix, generateUrl, grid) {
-    $(idPrefix + 'information_fieldset').removeClassName('ignore-validate');
-    var validationResult = $(idPrefix + 'information_fieldset').select('input',
-            'select', 'textarea').collect( function(elm) {
+    var fieldset = document.getElementById(idPrefix + 'information_fieldset');
+    fieldset.classList.remove('ignore-validate');
+    var fieldElements = Array.from(fieldset.querySelectorAll('input, select, textarea'));
+    var validationResult = fieldElements.map(function(elm) {
         return Validation.validate(elm, {
             useTitle :false,
             onElementValidate : function() {
             }
         });
-    }).all();
-    $(idPrefix + 'information_fieldset').addClassName('ignore-validate');
+    }).every(function(v){ return v; });
+    fieldset.classList.add('ignore-validate');
 
     if (!validationResult) {
         return;
     }
-    var elements = $(idPrefix + 'information_fieldset').select('input', 'select', 'textarea');
+    var elements = Array.from(fieldset.querySelectorAll('input, select, textarea'));
 
-    elements = elements.concat(
-        $$('#rule_uses_per_coupon'),
-        $$('#rule_uses_per_customer'),
-        $$('#rule_to_date')
-    );
+    var extra = document.querySelectorAll('#rule_uses_per_coupon, #rule_uses_per_customer, #rule_to_date');
+    extra.forEach(function(el){ elements.push(el); });
 
     var params = Form.serializeElements(elements, true);
     params.form_key = FORM_KEY;
-    $('messages').update();
+    document.getElementById('messages').innerHTML = '';
     var couponCodesGrid = eval(grid);
-    new Ajax.Request(generateUrl, {
-        parameters :params,
-        method :'post',
-        onComplete : function (transport, param){
-            var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
+    fetch(generateUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams(params).toString()
+    }).then(function(r) { return r.text(); }).then(function(responseText) {
+        var response = {};
+        try { response = JSON.parse(responseText); } catch(e) {}
 
-            if (couponCodesGrid) {
-                couponCodesGrid.reload();
-            }
-            if (response && response.messages) {
-                $('messages').update(response.messages);
-            }
-            if (response && response.error) {
-                alert(response.error.stripTags().toString());
+        if (couponCodesGrid) {
+            couponCodesGrid.reload();
+        }
+        if (response && response.messages) {
+            document.getElementById('messages').innerHTML = response.messages;
+        }
+        if (response && response.error) {
+            alert(response.error.replace(/<[^>]*>/g, '').toString());
+        }
+    });
+}
+
+if (typeof Ajax !== 'undefined' && Ajax.Responders) {
+    Ajax.Responders.register({
+        onComplete: function() {
+            var el = document.getElementById('promo_catalog_edit_tabs_coupons_section_content');
+            if (el
+                && el.style.display !== 'none'
+                && Ajax.activeRequestCount == 0
+            ) {
+                handleCouponsTabContentActivity();
             }
         }
     });
 }
 
-Ajax.Responders.register({
-    onComplete: function() {
-        if ($('promo_catalog_edit_tabs_coupons_section_content')
-            && $('promo_catalog_edit_tabs_coupons_section_content').visible()
-            && Ajax.activeRequestCount == 0
-        ) {
-            handleCouponsTabContentActivity();
-        }
-    }
-});
-
-document.observe("dom:loaded", handleCouponsTabContentActivity);
-document.observe("dom:loaded", handleCouponTypeChange);
+document.addEventListener("DOMContentLoaded", handleCouponsTabContentActivity);
+document.addEventListener("DOMContentLoaded", handleCouponTypeChange);
 //]]>
 </script>

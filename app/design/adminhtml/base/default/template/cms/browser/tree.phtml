@@ -48,11 +48,11 @@ Ext.onReady(function(){
     tree.render();
     root.expand();
 
-    Event.observe($('tree_action_collapse'), 'click', function(){
+    document.getElementById('tree_action_collapse').addEventListener('click', function(){
         tree.collapseAll();
     });
 
-    Event.observe($('tree_action_expand'), 'click', function(){
+    document.getElementById('tree_action_expand').addEventListener('click', function(){
         tree.expandAll();
     });
 

@@ -42,8 +42,9 @@
 </div>
 <script type="text/javascript">
 //<![CDATA[
-Event.observe(window, 'load', function(){
-    var demensions = $('product-gallery-image').getDimensions();
+window.addEventListener('load', function(){
+    var imgEl = document.getElementById('product-gallery-image');
+    var demensions = {width: imgEl.offsetWidth, height: imgEl.offsetHeight};
     if (demensions.width < 300) {
         demensions.width = 300
     }

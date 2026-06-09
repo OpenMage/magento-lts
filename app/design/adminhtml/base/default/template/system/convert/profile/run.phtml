@@ -15,21 +15,21 @@
 function runProfile(popup)
 {
     var url = "<?php echo $this->getUrl('*/*/run', ['id' => $this->getProfileId()]) ?>";
-    if ($('profile_direction') != undefined
-        && $('profile_data_transfer') != undefined
+    if (document.getElementById('profile_direction') != undefined
+        && document.getElementById('profile_data_transfer') != undefined
         && getDirection() == 'import' && getTransferType() == 'interactive') {
         var file = getSelectedFiles();
         if (file == '') {
             alert('Please select imported files');
-            $('file_list').show();
+            document.getElementById('file_list').style.display = '';
             return false;
         }
         url += 'files/' + file + '/';
     }
 
     if (!popup) {
-        $('run_iframe').style.display = 'block';
-        $('run_iframe').src = url;
+        document.getElementById('run_iframe').style.display = 'block';
+        document.getElementById('run_iframe').src = url;
     } else {
         window.open(url);
     }
@@ -37,17 +37,17 @@ function runProfile(popup)
 
 function getDirection()
 {
-    return $('profile_direction').options[$('profile_direction').options.selectedIndex].value;
+    return document.getElementById('profile_direction').options[document.getElementById('profile_direction').options.selectedIndex].value;
 }
 
 function getSelectedFiles()
 {
-    return $('files').options[$('files').options.selectedIndex].value;
+    return document.getElementById('files').options[document.getElementById('files').options.selectedIndex].value;
 }
 
 function getTransferType()
 {
-    return $('profile_data_transfer').options[$('profile_data_transfer').options.selectedIndex].value;
+    return document.getElementById('profile_data_transfer').options[document.getElementById('profile_data_transfer').options.selectedIndex].value;
 }
 </script>
 <ul class="messages">
