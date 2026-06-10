@@ -26,7 +26,27 @@ function setSettings(urlTemplate, typeElement, packageThemeElement) {
 }
 
 function saveAndContinueEdit() {
-    editForm.submit(document.getElementById('edit_form').action + 'back/edit/');
+    var form = document.getElementById('edit_form');
+    var backInput = form.querySelector('input[name="back"]');
+    if (!backInput) {
+        backInput = document.createElement('input');
+        backInput.type = 'hidden';
+        backInput.name = 'back';
+        form.appendChild(backInput);
+    }
+    backInput.value = 'edit';
+    if (editForm.submit() === false) {
+        backInput.value = '';
+    }
+}
+
+function saveWidget() {
+    var form = document.getElementById('edit_form');
+    var backInput = form.querySelector('input[name="back"]');
+    if (backInput) {
+        backInput.value = '';
+    }
+    editForm.submit();
 }
 //]]>
 </script>

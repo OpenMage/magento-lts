@@ -1185,17 +1185,33 @@ Ext.lib.Anim = function(){
                         o.opacity = String(args.opacity.to);
                     break;
                     default:
-                        o[k] = String(args[k].to);
+                        var val = String(args[k].to);
+                        // Scriptaculous accepted bare hex colors (e.g. "ffffff"); CSS requires "#ffffff"
+                        if (/^[0-9a-fA-F]{6}$/.test(val) || /^[0-9a-fA-F]{3}$/.test(val)) {
+                            val = '#' + val;
+                        }
+                        o[k] = val;
                     break;
                 }
             }
             var anim = createAnim(cb, scope);
-            anim.effect = new Effect.Morph(Ext.id(el), {
-                duration: duration,
-                afterFinish: anim.proxyCallback,
-                transition: easings[easing] || Effect.Transitions.linear,
-                style: o
+            var domEl = Ext.getDom(el);
+            var easeMap = {easeOut: 'ease-out', easeIn: 'ease-in'};
+            var animation = domEl.animate([o], {
+                duration: (duration || 0.5) * 1000,
+                easing: easeMap[easing] || 'linear',
+                fill: 'forwards'
             });
+            animation.onfinish = function() {
+                for (var prop in o) {
+                    if (o.hasOwnProperty(prop)) { domEl.style[prop] = o[prop]; }
+                }
+                anim.proxyCallback();
+            };
+            anim.effect = {
+                cancel: function() { animation.cancel(); },
+                get state() { return animation.playState === 'running' ? 'running' : 'finished'; }
+            };
             return anim;
         }
     };

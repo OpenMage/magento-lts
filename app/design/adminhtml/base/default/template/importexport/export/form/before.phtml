@@ -26,11 +26,25 @@
 
             fetch(url, {
                 method: 'POST',
-                headers: {'X-Requested-With': 'XMLHttpRequest'}
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: new URLSearchParams({form_key: FORM_KEY}).toString()
             }).then(function(response) { return response.text(); }).then(function(responseText) {
-                    responseText = responseText.replace(/>\s+</g, '><');
-                    document.getElementById('export_filter_grid_container').innerHTML = responseText;
-                    document.getElementById('export_filter_container').style.display = '';
+                var container = document.getElementById('export_filter_grid_container');
+                container.innerHTML = responseText.replace(/>\s+</g, '><');
+                var scripts = container.querySelectorAll('script');
+                for (var s = 0; s < scripts.length; s++) {
+                    var scriptEl = document.createElement('script');
+                    if (scripts[s].src) {
+                        scriptEl.src = scripts[s].src;
+                    } else {
+                        scriptEl.text = scripts[s].text;
+                    }
+                    document.head.appendChild(scriptEl).parentNode.removeChild(scriptEl);
+                }
+                document.getElementById('export_filter_container').style.display = '';
             });
         } else {
             document.getElementById('export_filter_container').style.display = 'none';

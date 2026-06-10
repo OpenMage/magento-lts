@@ -59,7 +59,12 @@ document.getElementById('product_bundle_container').querySelectorAll('input, sel
 });
 <?php endif ?>
 Validation.add('validate-greater-zero-based-on-option', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please enter a number greater 0 in this field.')) ?>', function(v, el) {
-    var optionType = $(el).up('div.grid').previous('table.option-header').select('select.select-product-option-type')[0],
+    var grid = el.closest('div.grid');
+    var prev = grid ? grid.previousElementSibling : null;
+    while (prev && !prev.matches('table.option-header')) {
+        prev = prev.previousElementSibling;
+    }
+    var optionType = prev ? prev.querySelector('select.select-product-option-type') : null,
         v = Number(v) || 0;
 
     if (optionType && (optionType.value == 'checkbox' || optionType.value == 'multi') && v <= 0) {

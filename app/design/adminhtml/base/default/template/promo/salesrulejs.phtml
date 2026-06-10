@@ -65,14 +65,19 @@ function generateCouponCodes(idPrefix, generateUrl, grid) {
     var extra = document.querySelectorAll('#rule_uses_per_coupon, #rule_uses_per_customer, #rule_to_date');
     extra.forEach(function(el){ elements.push(el); });
 
-    var params = Form.serializeElements(elements, true);
-    params.form_key = FORM_KEY;
+    var params = new URLSearchParams();
+    elements.forEach(function(el) {
+        if (!el.name || el.disabled) return;
+        if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) return;
+        params.append(el.name, el.value);
+    });
+    params.append('form_key', FORM_KEY);
     document.getElementById('messages').innerHTML = '';
-    var couponCodesGrid = eval(grid);
+    var couponCodesGrid = window[grid];
     fetch(generateUrl, {
         method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: new URLSearchParams(params).toString()
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+        body: params.toString()
     }).then(function(r) { return r.text(); }).then(function(responseText) {
         var response = {};
         try { response = JSON.parse(responseText); } catch(e) {}

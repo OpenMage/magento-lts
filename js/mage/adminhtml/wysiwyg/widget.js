@@ -89,7 +89,7 @@ WysiwygWidget.Widget.prototype = {
     },
 
     switchOptionsContainer: function(containerId) {
-        $$('#' + this.widgetOptionsEl.id + ' div[id^=' + this.widgetOptionsEl.id + ']').each(function(e) {
+        Array.from(document.querySelectorAll('#' + this.widgetOptionsEl.id + ' div[id^="' + this.widgetOptionsEl.id + '"]')).forEach(function(e) {
             this.disableOptionsContainer(e.id);
         }.bind(this));
         if(containerId != undefined) {
@@ -99,32 +99,31 @@ WysiwygWidget.Widget.prototype = {
     },
 
     enableOptionsContainer: function(containerId) {
-        $$('#' + containerId + ' .widget-option').each(function(e) {
-            e.removeClassName('skip-submit');
-            if (e.hasClassName('obligatory')) {
-                e.removeClassName('obligatory');
-                e.addClassName('required-entry');
+        Array.from(document.querySelectorAll('#' + containerId + ' .widget-option')).forEach(function(e) {
+            e.classList.remove('skip-submit');
+            if (e.classList.contains('obligatory')) {
+                e.classList.remove('obligatory');
+                e.classList.add('required-entry');
             }
         });
-        $(containerId).removeClassName('no-display');
+        document.getElementById(containerId).classList.remove('no-display');
     },
 
     disableOptionsContainer: function(containerId) {
-        if ($(containerId).hasClassName('no-display')) {
+        var container = document.getElementById(containerId);
+        if (container.classList.contains('no-display')) {
             return;
         }
-        $$('#' + containerId + ' .widget-option').each(function(e) {
-            // Avoid submitting fields of unactive container
-            if (!e.hasClassName('skip-submit')) {
-                e.addClassName('skip-submit');
+        Array.from(document.querySelectorAll('#' + containerId + ' .widget-option')).forEach(function(e) {
+            if (!e.classList.contains('skip-submit')) {
+                e.classList.add('skip-submit');
             }
-            // Form validation workaround for unactive container
-            if (e.hasClassName('required-entry')) {
-                e.removeClassName('required-entry');
-                e.addClassName('obligatory');
+            if (e.classList.contains('required-entry')) {
+                e.classList.remove('required-entry');
+                e.classList.add('obligatory');
             }
         });
-        $(containerId).addClassName('no-display');
+        container.classList.add('no-display');
     },
 
     // Assign widget options values when existing widget selected in WYSIWYG

@@ -48,6 +48,15 @@
     /**
      * Update category content area
      */
+    function _reExecScripts(container) {
+        Array.from(container.querySelectorAll('script')).forEach(function(old) {
+            var s = document.createElement('script');
+            s.textContent = old.textContent;
+            document.head.appendChild(s);
+            document.head.removeChild(s);
+        });
+    }
+
     function updateContent(url, params, refreshTree) {
         if (!params) {
             params = {};
@@ -56,26 +65,21 @@
             params.form_key = FORM_KEY;
         }
 
-        toolbarToggle.stop();
-
-       /*if(params.node_name)
-       {
-           var currentNode = tree.getNodeById(tree.currentNodeId);
-           currentNode.setText(params.node_name);
-       }*/
+        try { toolbarToggle.stop(); } catch(e) {}
 
         var categoryContainer = document.getElementById('category-edit-container');
         var messagesContainer = document.getElementById('messages');
         var thisObj = this;
-        fetch(url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true'), {
+        var fetchUrl = url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true');
+        fetch(fetchUrl, {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
             body: new URLSearchParams(params).toString()
         }).then(function(resp) { return resp.text(); }).then(function(responseText) {
-            try {
-                var isJson = false;
-                try { JSON.parse(responseText); isJson = true; } catch(e) {}
-                if (isJson) {
+            var isJson = false;
+            try { JSON.parse(responseText); isJson = true; } catch(e) {}
+            if (isJson) {
+                try {
                     var response = JSON.parse(responseText);
                     var needUpdate = true;
                     if (response.error) {
@@ -89,19 +93,23 @@
                     if (needUpdate){
                         if (response.content){
                             categoryContainer.innerHTML = response.content;
+                            try {
+                                _reExecScripts(categoryContainer);
+                            } catch(scriptErr) {}
                         }
-                        if (response.messages){
+                        if (response.messages && messagesContainer){
                             messagesContainer.innerHTML = response.messages;
                         }
                     }
-                } else {
-                    categoryContainer.innerHTML = responseText;
-                }
-            }
-            catch (e) {
+                } catch(e) {}
+            } else {
                 categoryContainer.innerHTML = responseText;
+                try {
+                    _reExecScripts(categoryContainer);
+                } catch(scriptErr) {}
             }
             setTimeout(function() {
+                hideLoader();
                 try {
                     if (refreshTree) {
                         thisObj.refreshTreeArea();
@@ -111,6 +119,8 @@
                     alert(e.message);
                 };
             }, 25);
+        }).catch(function() {
+            hideLoader();
         });
     }
 

@@ -23,7 +23,7 @@ var catalogWysiwygEditor = {
             fetch(editorUrl, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
-                body: new URLSearchParams({element_id: elementId+'_editor', store_id: '<?php echo $this->getStoreId() ?>'}).toString()
+                body: new URLSearchParams({element_id: elementId+'_editor', store_id: '<?php echo $this->getStoreId() ?>', form_key: window.FORM_KEY}).toString()
             }).then(function(resp) { return resp.text(); }).then(function(responseText) {
                 try {
                     this.openDialogWindow(responseText, elementId);

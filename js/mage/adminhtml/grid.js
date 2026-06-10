@@ -267,7 +267,9 @@ varienGrid.prototype = {
         var re = new RegExp('\/('+varName+'\/.*?\/)');
         var parts = url.split(new RegExp('\\?'));
         url = parts[0].replace(re, '/');
-        url+= varName+'/'+varValue+'/';
+        if (varValue !== null && varValue !== undefined && varValue !== '') {
+            url+= varName+'/'+varValue+'/';
+        }
         if(parts.length>1) {
             url+= '?' + parts[1];
         }

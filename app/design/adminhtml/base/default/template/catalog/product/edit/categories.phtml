@@ -61,7 +61,7 @@ Ext.EventManager.onDocumentReady(function() {
         } else {
             categoryRemove(node.id);
         }
-        varienElementMethods.setHasChanges(node.getUI().checkbox);
+        varienElementMethods.setHasChanges.call(node.getUI().checkbox);
     }, tree);
 
     // set the root node
@@ -114,7 +114,7 @@ function categoryClick(node, e) {
         return;
     }
     node.getUI().check(!node.getUI().checked());
-    varienElementMethods.setHasChanges(e.target, e);
+    varienElementMethods.setHasChanges.call(e.target, e);
 };
 function categoryAdd(id) {
     var ids = document.getElementById('product_categories').value.split(',');

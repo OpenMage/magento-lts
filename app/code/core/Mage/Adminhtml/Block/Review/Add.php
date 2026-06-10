@@ -36,23 +36,30 @@ class Mage_Adminhtml_Block_Review_Add extends Mage_Adminhtml_Block_Widget_Form_C
             //<![CDATA[
             var review = function() {
                 return {
-                    productInfoUrl : null,
-                    formHidden : true,
+                    productInfoUrl: null,
+                    formHidden: true,
 
-                    gridRowClick : function(data, click) {
-                        if(Event.findElement(click,\'TR\').title){
-                            review.productInfoUrl = Event.findElement(click,\'TR\').title;
+                    gridRowClick: function(data, click) {
+                        var tr = (click.target || click.srcElement).closest("TR");
+                        if (tr && tr.title) {
+                            review.productInfoUrl = tr.title;
                             review.loadProductData();
                             review.showForm();
                             review.formHidden = false;
                         }
                     },
 
-                    loadProductData : function() {
-                        var con = new Ext.lib.Ajax.request(\'POST\', review.productInfoUrl, {success:review.reqSuccess,failure:review.reqFailure}, {form_key:FORM_KEY});
+                    loadProductData: function() {
+                        fetch(review.productInfoUrl, {
+                            method: "POST",
+                            headers: {"Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest"},
+                            body: new URLSearchParams({form_key: window.FORM_KEY}).toString()
+                        }).then(function(resp) { return resp.text(); }).then(function(text) {
+                            review.reqSuccess({responseText: text});
+                        });
                     },
 
-                    showForm : function() {
+                    showForm: function() {
                         toggleParentVis("add_review_form");
                         toggleVis("reviewProductGrid");
                         toggleVis("save_button");
@@ -60,39 +67,62 @@ class Mage_Adminhtml_Block_Review_Add extends Mage_Adminhtml_Block_Widget_Form_C
                     },
 
                     updateRating: function() {
-                        elements = [$("select_stores"), $("rating_detail").getElementsBySelector("input[type=\'radio\']")].flatten();
-                        $(\'save_button\').disabled = true;
-                        var params = Form.serializeElements(elements);
-                        if (!params.isAjax) {
-                            params.isAjax = "true";
+                        var selectEl = document.getElementById("select_stores");
+                        var params = new URLSearchParams();
+                        if (selectEl) {
+                            Array.from(selectEl.options).forEach(function(opt) {
+                                if (opt.selected) { params.append(selectEl.name, opt.value); }
+                            });
                         }
-                        if (!params.form_key) {
-                            params.form_key = FORM_KEY;
-                        }
-                        new Ajax.Updater("rating_detail", "' . $this->getUrl('*/*/ratingItems') . '", {parameters:params, evalScripts: true,  onComplete:function(){ $(\'save_button\').disabled = false; } });
+                        document.querySelectorAll("#rating_detail input[type=radio]").forEach(function(el) {
+                            if (el.checked) { params.append(el.name, el.value); }
+                        });
+                        params.append("form_key", window.FORM_KEY);
+                        document.getElementById("save_button").disabled = true;
+                        fetch("' . $this->getUrl('*/*/ratingItems') . '", {
+                            method: "POST",
+                            headers: {"Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest"},
+                            body: params.toString()
+                        }).then(function(resp) { return resp.text(); }).then(function(html) {
+                            var container = document.getElementById("rating_detail");
+                            container.innerHTML = html;
+                            container.querySelectorAll("script").forEach(function(s) {
+                                var ns = document.createElement("script");
+                                ns.textContent = s.textContent;
+                                document.head.appendChild(ns);
+                            });
+                            document.getElementById("save_button").disabled = false;
+                        });
                     },
 
-                    reqSuccess :function(o) {
-                        var response = Ext.util.JSON.decode(o.responseText);
-                        if( response.error ) {
+                    reqSuccess: function(o) {
+                        var response;
+                        try { response = JSON.parse(o.responseText); } catch(e) { return; }
+                        if (response.error) {
                             alert(response.message);
-                        } else if( response.id ){
-                            $("product_id").value = response.id;
-
-                            $("product_name").innerHTML = \'<a href="' . $this->getUrl('*/catalog_product/edit') . 'id/\' + response.id + \'" target="_blank">\' + response.name.escapeHTML() + \'</a>\';
-                        } else if( response.message ) {
+                        } else if (response.id) {
+                            document.getElementById("product_id").value = response.id;
+                            var link = document.createElement("a");
+                            link.href = "' . $this->getUrl('*/catalog_product/edit') . '" + "id/" + response.id;
+                            link.target = "_blank";
+                            link.textContent = response.name;
+                            var pname = document.getElementById("product_name");
+                            pname.innerHTML = "";
+                            pname.appendChild(link);
+                        } else if (response.message) {
                             alert(response.message);
                         }
                     }
-                }
+                };
             }();
 
-             Event.observe(window, \'load\', function(){
-                 if ($("select_stores")) {
-                     Event.observe($("select_stores"), \'change\', review.updateRating);
-                 }
-           });
-           //]]>
+            window.addEventListener("load", function() {
+                var selectStores = document.getElementById("select_stores");
+                if (selectStores) {
+                    selectStores.addEventListener("change", review.updateRating);
+                }
+            });
+            //]]>
         ';
     }
 

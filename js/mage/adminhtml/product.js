@@ -474,8 +474,7 @@ Product.Configurable.prototype = {
         }).bind(this));
 
         if (!this.readonly) {
-            // Creation of sortable for attributes sorting
-            Sortable.create(this.container, {
+            makeSortable(this.container, {
                 handle: 'attribute-name-container',
                 onUpdate: this.updatePositions.bind(this)
             });
@@ -696,7 +695,7 @@ Product.Configurable.prototype = {
         if (!isNaN(pricingValue)) {
             templateVariables['pricing_value'] = pricingValue;
         } else {
-            delete templateVariables['pricing_value'];
+            templateVariables['pricing_value'] = '';
         }
         this.valueAutoIndex++;
 
