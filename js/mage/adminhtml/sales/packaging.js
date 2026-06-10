@@ -220,6 +220,7 @@ Packaging.prototype = {
                     requestParams.append(key, this.paramsCreateLabelRequest[key]);
                 }
             }
+            requestParams.append('form_key', window.FORM_KEY);
             fetch(this.createLabelUrl, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
@@ -385,6 +386,7 @@ Packaging.prototype = {
 
             var requestParams = new URLSearchParams();
             requestParams.append('shipment_id', this.shipmentId);
+            requestParams.append('form_key', window.FORM_KEY);
 
             fetch(this.itemsGridUrl, {
                 method: 'POST',

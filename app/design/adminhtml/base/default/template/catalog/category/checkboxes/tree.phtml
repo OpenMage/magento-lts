@@ -164,7 +164,7 @@ Ext.onReady(function()
 
     tree.on('check', function(node, checked) {
         <?php echo $this->getJsFormObject() ?>.updateElement.value = this.getChecked().join(', ');
-        varienElementMethods.setHasChanges(node.getUI().checkbox);
+        varienElementMethods.setHasChanges.call(node.getUI().checkbox);
     }, tree);
 
     // set the root node

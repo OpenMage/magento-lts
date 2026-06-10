@@ -82,7 +82,7 @@ Ext.EventManager.onDocumentReady(function() {
 
 function resourceClick(node, e){
     node.getUI().check(!node.getUI().checked());
-    varienElementMethods.setHasChanges(e.target, e);
+    varienElementMethods.setHasChanges.call(e.target, e);
 };
 
 function bildResourcesTree(parent, config){

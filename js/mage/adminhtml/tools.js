@@ -158,6 +158,9 @@ function submitAndReloadArea(area, url) {
         fields.forEach(function(field) {
             if (field.name) params.append(field.name, field.value);
         });
+        if (!params.has('form_key') && window.FORM_KEY) {
+            params.append('form_key', window.FORM_KEY);
+        }
         url = url + (url.indexOf('?') !== -1 ? '&isAjax=true' : '?isAjax=true');
         fetch(url, {
             method: 'POST',
@@ -176,6 +179,12 @@ function submitAndReloadArea(area, url) {
                 }
             } catch (e) {
                 areaEl.innerHTML = text;
+                Array.from(areaEl.querySelectorAll('script')).forEach(function(oldScript) {
+                    var newScript = document.createElement('script');
+                    newScript.textContent = oldScript.textContent;
+                    document.head.appendChild(newScript);
+                    document.head.removeChild(newScript);
+                });
             }
         });
     }

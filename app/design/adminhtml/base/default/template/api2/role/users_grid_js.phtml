@@ -49,7 +49,7 @@
                     checkbox[0].checked = true;
                     if ( confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?')) ?>") ) {
                         checkBoxes.set(checkbox[0].value, checked);
-                        varienElementMethods.setHasChanges(checkbox[0]);
+                        varienElementMethods.setHasChanges.call(checkbox[0]);
                     } else {
                         checkbox[0].checked = false;
                     }

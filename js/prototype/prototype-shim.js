@@ -173,6 +173,10 @@
     return new Hash(obj).toQueryString();
   };
 
+  Object.toJSON = function (obj) {
+    return JSON.stringify(obj);
+  };
+
   if (!Object.keys) {
     Object.keys = function (o) {
       var r = [];
@@ -726,6 +730,7 @@
     if (insertions.bottom) this.insertAdjacentHTML('beforeend', String(insertions.bottom));
     if (insertions.before) this.insertAdjacentHTML('beforebegin', String(insertions.before));
     if (insertions.after) this.insertAdjacentHTML('afterend', String(insertions.after));
+    _evalScripts(this);
     return this;
   };
 
@@ -741,17 +746,18 @@
     return this;
   };
 
-  // Inline script evaluation helper
+  // Inline script evaluation helper — skips scripts already marked data-evaluated
   function _evalScripts(container) {
-    var scripts = container.querySelectorAll('script');
-    scripts.forEach(function (old) {
-      var s = document.createElement('script');
-      if (old.src) {
-        s.src = old.src;
+    var scripts = container.querySelectorAll('script:not([data-evaluated])');
+    scripts.forEach(function (s) {
+      s.setAttribute('data-evaluated', '1');
+      var ns = document.createElement('script');
+      if (s.src) {
+        ns.src = s.src;
       } else {
-        s.textContent = old.textContent;
+        ns.textContent = s.textContent;
       }
-      old.parentNode.replaceChild(s, old);
+      document.head.appendChild(ns).parentNode.removeChild(ns);
     });
   }
 
@@ -834,6 +840,18 @@
     return _getFieldValue(this);
   };
 
+  EP.setValue = function (val) {
+    var tag = this.tagName.toLowerCase();
+    if (tag === 'input' && (this.type === 'checkbox' || this.type === 'radio')) {
+      this.checked = (this.value == val);
+    } else if (tag === 'select') {
+      Array.from(this.options).forEach(function (opt) { opt.selected = (opt.value == val); });
+    } else {
+      this.value = val !== undefined ? val : '';
+    }
+    return this;
+  };
+
   // Per-element data storage (Prototype's Element.store / Element.retrieve)
   EP.store = function (key, value) {
     if (!this._protoStorage) this._protoStorage = {};
@@ -891,7 +909,7 @@
     'setStyle', 'getStyle', 'getDimensions', 'getHeight', 'getWidth',
     'readAttribute', 'writeAttribute',
     'ancestors', 'descendants', 'childElements',
-    'getValue', 'getInnerText',
+    'getValue', 'setValue', 'getInnerText',
     'store', 'retrieve',
     'disable', 'enable'
   ];
@@ -1068,6 +1086,24 @@
       return form;
     },
 
+    serializeElements: function (elements, options) {
+      var asObject = options === true || (options && options.hash);
+      var data = {};
+      elements.forEach(function (el) {
+        if (!el.name || el.disabled) return;
+        var val = _getFieldValue(el);
+        if (val === null) return;
+        if (data.hasOwnProperty(el.name)) {
+          if (!Array.isArray(data[el.name])) data[el.name] = [data[el.name]];
+          data[el.name].push(val);
+        } else {
+          data[el.name] = val;
+        }
+      });
+      if (asObject) return data;
+      return Object.toQueryString(data);
+    },
+
     reset: function (form) {
       form = typeof form === 'string' ? document.getElementById(form) : form;
       form.reset();
@@ -1234,9 +1270,8 @@
           }
 
           if (typeof self.options.onComplete === 'function') self.options.onComplete(response);
-          Ajax.Responders._dispatch('onComplete', self, response);
-
           Ajax.activeRequestCount--;
+          Ajax.Responders._dispatch('onComplete', self, response);
         });
       }).catch(function (err) {
         var response = {
@@ -1249,9 +1284,9 @@
         };
         if (typeof self.options.onFailure === 'function') self.options.onFailure(response);
         if (typeof self.options.onComplete === 'function') self.options.onComplete(response);
+        Ajax.activeRequestCount--;
         Ajax.Responders._dispatch('onFailure', self, response);
         Ajax.Responders._dispatch('onComplete', self, response);
-        Ajax.activeRequestCount--;
       });
     }
   });
@@ -1283,6 +1318,13 @@
             }
           } else {
             target.innerHTML = response.responseText;
+          }
+          if (options.evalScripts) {
+            target.querySelectorAll('script').forEach(function (s) {
+              var ns = document.createElement('script');
+              if (s.src) { ns.src = s.src; } else { ns.textContent = s.textContent; }
+              document.head.appendChild(ns).parentNode.removeChild(ns);
+            });
           }
         }
         if (typeof origSuccess === 'function') origSuccess(response);

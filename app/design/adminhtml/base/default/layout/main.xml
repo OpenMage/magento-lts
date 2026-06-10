@@ -141,7 +141,7 @@ Layout for editor element
             <action method="addJs"><name>lib/uploader/flow.min.js</name></action>
             <action method="addJs"><name>mage/adminhtml/uploader/instance.js</name></action>
             <action method="addJs"><script>mage/adminhtml/browser.js</script></action>
-            <action method="addJs"><script>prototype/window.js</script></action>
+            <action method="addJs"><script>mage/adminhtml/window.js</script></action>
             <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
             <action method="addCss"><name>lib/prototype/windows/themes/magento.css</name></action>
         </reference>

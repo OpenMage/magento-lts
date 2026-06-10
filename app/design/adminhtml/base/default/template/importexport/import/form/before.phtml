@@ -38,7 +38,7 @@
             showLoader();
 
             // temporary set new target and submit form
-            var formElem    = $(this.formId);
+            var formElem    = document.getElementById(this.formId);
             var oldTarget   = formElem.target;
             var oldAction   = formElem.action;
 
@@ -63,7 +63,7 @@
      */
     varienForm.prototype.postToFrameComplete = function(response)
     {
-        $(this.ifrElemName).remove();
+        document.getElementById(this.ifrElemName).remove();
         hideLoader();
         this.postToFrameProcessResponse(response);
     };
@@ -79,19 +79,20 @@
         if ('object' != typeof(response)) {
             return alert('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Invalid response')) ?>');
         }
-        $H(response).each(function(pair) {
-            switch (pair.key) {
+        Object.entries(response).forEach(function(pair) {
+            var key = pair[0], value = pair[1];
+            switch (key) {
                 case 'show':
                 case 'clear':
                 case 'hide':
-                    $H(pair.value).each(function(val) {var _el = document.getElementById(val.value); if (_el) { if (pair.key === 'show') _el.style.display = ''; else if (pair.key === 'hide') _el.style.display = 'none'; else if (pair.key === 'clear') _el.innerHTML = ''; }});
+                    Object.entries(value).forEach(function(val) {var _el = document.getElementById(val[1]); if (_el) { if (key === 'show') _el.style.display = ''; else if (key === 'hide') _el.style.display = 'none'; else if (key === 'clear') _el.innerHTML = ''; }});
                     break;
                 case 'innerHTML':
                 case 'value':
-                    $H(pair.value).each(function(val) {
-                        var el = document.getElementById(val.key);
+                    Object.entries(value).forEach(function(val) {
+                        var el = document.getElementById(val[0]);
                         if (el) {
-                            el[pair.key] = val.value;
+                            el[key] = val[1];
                             // if element does not visible
                             if (!el.offsetWidth) { var parent = el.closest('div.entry-edit'); if (parent) parent.style.display = ''; }
                         }
@@ -99,10 +100,10 @@
                     break;
                 case 'removeClassName':
                 case 'addClassName':
-                    $H(pair.value).each(function(val) {var _el = document.getElementById(val.key); if (_el) { if (pair.key === 'removeClassName') _el.classList.remove(val.value); else _el.classList.add(val.value); }});
+                    Object.entries(value).forEach(function(val) {var _el = document.getElementById(val[0]); if (_el) { if (key === 'removeClassName') _el.classList.remove(val[1]); else _el.classList.add(val[1]); }});
                     break;
                 default:
-                    alert(pair.key + ': ' + pair.value);
+                    alert(key + ': ' + value);
                     break;
             }
         });

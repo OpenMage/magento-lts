@@ -320,14 +320,16 @@ var WidgetInstance = {
         }
         if (chooser && url) {
             if (chooser.innerHTML == '') {
+                postParameters['form_key'] = FORM_KEY;
                 fetch(url, {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
                     body: new URLSearchParams(postParameters).toString()
                 }).then(function(r) { return r.text(); }).then(function(responseText) {
                     try {
                         if (responseText) {
                             chooser.insertAdjacentHTML('beforeend', responseText);
+                            responseText.evalScripts();
                             chooser.classList.remove('no-display');
                             chooser.style.display = '';
                         }
@@ -410,11 +412,12 @@ var WidgetInstance = {
                 parameters.block = value;
             }
             parameters.selected = selected;
+            parameters.form_key = FORM_KEY;
             if (url) {
                 (function(containerElm, element) {
                     fetch(url, {
                         method: 'POST',
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
                         body: new URLSearchParams(parameters).toString()
                     }).then(function(r) { return r.text(); }).then(function(responseText) {
                         try {

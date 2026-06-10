@@ -75,8 +75,9 @@ function _openMageCheckSession(text) {
         return;
     }
 
-    // Only patch if addMethods exists (full Prototype)
-    if (typeof Ajax.Request.addMethods === 'function') {
+    // Only patch in full Prototype.js — shim also provides addMethods but does not inject $super
+    // when there is no parent class. Ajax.getTransport exists only in full Prototype (shim is fetch-based).
+    if (typeof Ajax.getTransport === 'function') {
         Ajax.Request.addMethods({
             initialize: function ($super, url, options) {
                 $super(options);
@@ -234,7 +235,7 @@ varienLoader.prototype = {
 // varienUpdater — AJAX updater with session expiry check
 // -------------------------------------------------------------------------
 (function () {
-    if (typeof Ajax !== 'undefined' && typeof Ajax.Updater !== 'undefined' && typeof Class !== 'undefined') {
+    if (typeof Ajax !== 'undefined' && typeof Ajax.Updater !== 'undefined' && typeof Ajax.getTransport === 'function') {
         window.varienUpdater = Class.create(Ajax.Updater, {
             updateContent: function ($super, responseText) {
                 if (_openMageCheckSession(responseText)) {

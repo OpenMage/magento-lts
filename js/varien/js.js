@@ -165,13 +165,13 @@ function decorateDataList(list) {
  * Parse SID and produces the correct URL
  */
 function parseSidUrl(baseUrl, urlExt) {
-    var sidPos = baseUrl.indexOf('/?SID=');
+    var sidPos = baseUrl.indexOf('?');
     var sid = '';
     urlExt = (urlExt != undefined) ? urlExt : '';
 
-    if(sidPos > -1) {
-        sid = '?' + baseUrl.substring(sidPos + 2);
-        baseUrl = baseUrl.substring(0, sidPos + 1);
+    if (sidPos > -1) {
+        sid = baseUrl.substring(sidPos);
+        baseUrl = baseUrl.substring(0, sidPos);
     }
 
     return baseUrl+urlExt+sid;

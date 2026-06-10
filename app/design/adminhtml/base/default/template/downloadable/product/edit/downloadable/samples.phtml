@@ -99,12 +99,10 @@ var sampleTemplate = '<tr id="downloadable_sample_{{id}}">'+
                     '</tr>';
 var sampleItems = {
     tbody : document.getElementById('sample_items_body'),
-    templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : sampleTemplate,
     itemCount : 0,
     add : function(data) {
         alertAlreadyDisplayed = false;
-        this.template = new Template(this.templateText, this.templateSyntax);
 
         if(!data.sample_id){
             data = {};
@@ -120,7 +118,7 @@ var sampleItems = {
             data.file_checked = ' checked="checked"';
         }
 
-        this.tbody.insertAdjacentHTML('beforeend', this.template.evaluate(data));
+        this.tbody.insertAdjacentHTML('beforeend', this.templateText.replace(/{{(\w+)}}/g, function(_, key) { return data[key] !== undefined ? data[key] : ''; }));
 
         scopeTitle = document.getElementById('downloadable_sample_'+data.id+'_title');
         if (scopeTitle) {
@@ -151,7 +149,7 @@ var sampleItems = {
         new Downloadable.FileUploader(
             'samples',
             data.id,
-            sampleUrl.up('td').down('div.uploader'),
+            sampleUrl.closest('td').querySelector('div.uploader'),
             'downloadable[sample]['+data.id+']',
             data.file_save,
             'downloadable_sample_'+data.id+'_file',

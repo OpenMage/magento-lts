@@ -24,6 +24,18 @@ VarienRulesForm.prototype = {
         return div.innerHTML;
     },
 
+    _evalScripts: function (container) {
+        container.querySelectorAll('script').forEach(function (s) {
+            var ns = document.createElement('script');
+            if (s.src) {
+                ns.src = s.src;
+            } else {
+                ns.textContent = s.textContent;
+            }
+            document.head.appendChild(ns);
+        });
+    },
+
     _isJSON: function (str) {
         try {
             JSON.parse(str);
@@ -151,6 +163,7 @@ VarienRulesForm.prototype = {
             if (responseText === undefined) return;
             if (self._processSuccess(responseText)) {
                 chooser.innerHTML = responseText;
+                self._evalScripts(chooser);
                 self.showChooserLoaded(chooser);
             }
         }).catch(function () {
@@ -325,6 +338,7 @@ VarienRulesForm.prototype = {
             if (responseText === undefined) return;
             if (self._processSuccess(responseText)) {
                 new_elem.innerHTML = responseText;
+                self._evalScripts(new_elem);
             }
             self.onAddNewChildComplete(new_elem);
         }).catch(function () {

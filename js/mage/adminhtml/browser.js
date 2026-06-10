@@ -221,6 +221,7 @@ Mediabrowser.prototype = {
 
         var params = new URLSearchParams();
         params.append('node', this.currentNode.id);
+        params.append('form_key', window.FORM_KEY);
 
         fetch(this.contentsUrl, {
             method: 'POST',
@@ -318,6 +319,7 @@ Mediabrowser.prototype = {
         params.append('filename', div.id);
         params.append('node', this.currentNode.id);
         params.append('store', this.storeId);
+        params.append('form_key', window.FORM_KEY);
 
         if (targetEl.tagName && targetEl.tagName.toLowerCase() == 'textarea') {
             params.append('as_is', '1');
@@ -395,6 +397,7 @@ Mediabrowser.prototype = {
 
         var params = new URLSearchParams();
         params.append('name', folderName);
+        params.append('form_key', window.FORM_KEY);
 
         fetch(this.newFolderUrl, {
             method: 'POST',
@@ -437,7 +440,8 @@ Mediabrowser.prototype = {
 
         fetch(this.deleteFolderUrl, {
             method: 'POST',
-            headers: {'X-Requested-With': 'XMLHttpRequest'}
+            headers: {'X-Requested-With': 'XMLHttpRequest'},
+            body: new URLSearchParams({form_key: window.FORM_KEY})
         })
         .then(function(response) { return response.text(); })
         .then(function(responseText) {
@@ -466,6 +470,7 @@ Mediabrowser.prototype = {
 
         var params = new URLSearchParams();
         params.append('files', JSON.stringify(ids));
+        params.append('form_key', window.FORM_KEY);
 
         fetch(this.deleteFilesUrl, {
             method: 'POST',

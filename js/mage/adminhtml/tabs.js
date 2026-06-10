@@ -167,6 +167,12 @@ varienTabs.prototype = {
                         }
                     } catch (e) {
                         tabContentElement.innerHTML = text;
+                        Array.from(tabContentElement.querySelectorAll('script')).forEach(function(oldScript) {
+                            var newScript = document.createElement('script');
+                            newScript.textContent = oldScript.textContent;
+                            document.head.appendChild(newScript);
+                            document.head.removeChild(newScript);
+                        });
                         self.showTabContentImmediately(tab);
                     }
                 });
@@ -196,6 +202,12 @@ varienTabs.prototype = {
                     }
                 } catch (e) {
                     tabContentElement.innerHTML = text;
+                    Array.from(tabContentElement.querySelectorAll('script')).forEach(function(oldScript) {
+                        var newScript = document.createElement('script');
+                        newScript.textContent = oldScript.textContent;
+                        document.head.appendChild(newScript);
+                        document.head.removeChild(newScript);
+                    });
                     if (!tab.classList.contains('ajax') || !tab.classList.contains('only')) {
                         tab.classList.remove('notloaded');
                     }
