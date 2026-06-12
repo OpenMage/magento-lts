@@ -184,11 +184,8 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     #[Override]
     public function getConfigData($field, $storeId = null)
     {
-        if (isset($this->getConfig()->$field)) {
-            return $this->getConfig()->$field;
-        }
-
-        return parent::getConfigData($field, $storeId);
+        // @phpstan-ignore property.dynamicName
+        return $this->getConfig()->$field ?? parent::getConfigData($field, $storeId);
     }
 
     /**

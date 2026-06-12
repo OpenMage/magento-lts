@@ -158,11 +158,8 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
             return $this->getAllowedCcTypes();
         }
 
-        if (isset($this->_pro->getConfig()->$field)) {
-            return $this->_pro->getConfig()->$field;
-        }
-
-        return parent::getConfigData($field, $storeId);
+        // @phpstan-ignore property.dynamicName
+        return $this->_pro->getConfig()->$field ?? parent::getConfigData($field, $storeId);
     }
 
     /**
