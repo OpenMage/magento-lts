@@ -146,8 +146,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
     /**
      * Minimum Password Length
-     * @deprecated Use getMinPasswordLength() method instead
      */
+    #[Deprecated(message: 'Use getMinPasswordLength() method instead')]
     public const MINIMUM_PASSWORD_LENGTH = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
 
     /**

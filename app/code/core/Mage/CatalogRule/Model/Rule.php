@@ -448,9 +448,9 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @param string $format
      *
      * @return string
-     * @deprecated after 1.11.2.0
      */
     #[Override]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_11_2_0)]
     public function toString($format = '')
     {
         return '';
@@ -469,9 +469,9 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * )
      *
      * @return array
-     * @deprecated after 1.11.2.0
      */
     #[Override]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_11_2_0)]
     public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);

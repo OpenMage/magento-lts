@@ -267,8 +267,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * Replace '_' to '/', if was set from request(GET request)
      *
      * @return $this
-     * @deprecated after 1.6.1.0-alpha1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_1_0_ALPHA_1)]
     protected function _preparePackageTheme()
     {
         return $this;

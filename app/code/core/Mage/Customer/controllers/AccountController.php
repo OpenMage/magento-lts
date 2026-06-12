@@ -533,12 +533,13 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * Get model by path
+     *
      * @param  string                         $path
      * @param  null|array                     $arguments
      * @return false|Mage_Core_Model_Abstract
-     * @deprecated Use Mage::getModel() instead for PHPStan and IDE type hinting.
-     * Get model by path
      */
+    #[Deprecated(message: 'Use Mage::getModel() instead for PHPStan and IDE type hinting')]
     public function _getModel($path, $arguments = [])
     {
         return Mage::getModel($path, $arguments);
