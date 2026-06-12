@@ -123,17 +123,17 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable property access on Mage_Paypal_Model_Config.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Direct.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable property access on Mage_Paypal_Model_Config.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable property access on Mage_Paypal_Model_Config.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Standard.php',
 ];
 $ignoreErrors[] = [

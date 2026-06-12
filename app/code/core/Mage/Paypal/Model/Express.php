@@ -187,7 +187,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     /**
      * @inheritDoc
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     * @phpstan-ignore property.dynamicName
      */
     #[Override]
     public function getConfigData($field, $storeId = null)

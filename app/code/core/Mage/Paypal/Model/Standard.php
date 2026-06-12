@@ -180,7 +180,6 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     /**
      * @inheritDoc
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     * @phpstan-ignore property.dynamicName
      */
     #[Override]
     public function getConfigData($field, $storeId = null)
