@@ -150,6 +150,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * @inheritDoc
      * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     * @phpstan-ignore property.dynamicName
      */
     #[Override]
     public function getConfigData($field, $storeId = null)
