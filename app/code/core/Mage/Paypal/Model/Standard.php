@@ -184,7 +184,11 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     #[Override]
     public function getConfigData($field, $storeId = null)
     {
-        return $this->getConfig()->$field;
+        if (isset($this->getConfig()->$field)) {
+            return $this->getConfig()->$field;
+        }
+
+        return parent::getConfigData($field, $storeId);
     }
 
     /**

@@ -154,10 +154,15 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     #[Override]
     public function getConfigData($field, $storeId = null)
     {
-        return match ($field) {
-            'cctypes' => $this->getAllowedCcTypes(),
-            default => $this->_pro->getConfig()->$field,
-        };
+        if ('cctypes' === $field) {
+            return $this->getAllowedCcTypes();
+        }
+
+        if (isset($this->_pro->getConfig()->$field)) {
+            return $this->_pro->getConfig()->$field;
+        }
+
+        return parent::getConfigData($field, $storeId);
     }
 
     /**
