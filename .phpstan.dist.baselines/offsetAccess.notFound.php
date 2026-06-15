@@ -224,16 +224,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Offset \'dirname\' might not exist on array{dirname?: string, basename: string, extension?: string, filename: string}.',
     'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/File/Uploader.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Offset \'extension\' might not exist on array{dirname?: string, basename: string, extension?: string, filename: string}.',
-    'count' => 3,
-    'path' => __DIR__ . '/../lib/Varien/File/Uploader.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Offset \'dirname\' might not exist on array{dirname?: string, basename: string, extension?: string, filename: string}.',
-    'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Image/Adapter/Abstract.php',
 ];
 $ignoreErrors[] = [
