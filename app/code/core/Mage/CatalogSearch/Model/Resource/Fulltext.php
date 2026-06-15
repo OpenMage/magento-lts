@@ -334,8 +334,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         $bind = [];
         $like = [];
         $likeCond = '';
-        if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE
-            || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
+        if ($searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE
+            || $searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
         ) {
             $helper = Mage::getResourceHelper('core');
             $words = Mage::helper('core/string')->splitWords($queryText, true, $query->getMaxQueryWords());
@@ -362,16 +362,16 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             ->where($mainTableAlias . '.store_id = ?', (int) $query->getStoreId());
 
         $where = '';
-        if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT
-            || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
+        if ($searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT
+            || $searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
         ) {
             $bind[':query'] = implode(' ', $preparedTerms[0]);
             $where = $searchHelper->chooseFulltext($this->getMainTable(), $mainTableAlias, $select);
         }
 
-        if ($likeCond !== '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
+        if ($likeCond !== '' && $searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
             $where .= ($where ? ' OR ' : '') . $likeCond;
-        } elseif ($likeCond !== '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE) {
+        } elseif ($likeCond !== '' && $searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE) {
             $select->columns(['relevance' => new Zend_Db_Expr('0')]);
             $where = $likeCond;
         }
