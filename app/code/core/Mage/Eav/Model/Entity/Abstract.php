@@ -1603,7 +1603,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                 $this->_insertAttribute($object, $attribute, $newValue);
             } elseif ($origValueId !== false && ($newValue !== null)) {
                 $this->_updateAttribute($object, $attribute, $origValueId, $newValue);
-            } elseif ($origValueId !== false && ($newValue === null)) {
+            } elseif ($origValueId !== false) {
                 $adapter->delete($table, $where);
             }
 
