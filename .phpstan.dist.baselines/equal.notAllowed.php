@@ -5227,11 +5227,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/form/ccsave.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/permissions/userroles.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, max> and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/rating/detailed.phtml',
