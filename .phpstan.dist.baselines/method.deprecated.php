@@ -193,12 +193,6 @@ since 1.2',
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Update.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method revalidateCookie() of class Mage_Core_Model_Session_Abstract_Varien:
-after 1.4 cookie renew moved to session start method',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Session/Abstract/Varien.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method isCurrentlySecure() of class Mage_Core_Model_Store.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Store.php',
