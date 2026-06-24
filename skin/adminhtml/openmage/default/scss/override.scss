@@ -161,6 +161,10 @@ small {
   .entry-edit-head {
     @extend %extend_4;
 
+    &:not(.collapseable) {
+      padding: 4px 16px;
+    }
+
     h4 {
       color: $color_dark_grey;
       line-height: 32px;
