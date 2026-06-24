@@ -637,7 +637,7 @@ class Mage_Eav_Model_Config
      * @param  array $attributes
      * @return $this
      */
-    #[Deprecated(message: "No longer required to preload only collection attributes explicitly")]
+    #[Deprecated(message: 'No longer required to preload only collection attributes explicitly')]
     public function loadCollectionAttributes($entityType, $attributes)
     {
         return $this;

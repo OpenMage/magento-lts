@@ -19,7 +19,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     public const APPLY_FOR_CATEGORY    = 2;
 
     // Category / Custom Design / Apply To constants
-    #[Deprecated(message: "after 1.4.1.0")]
+    #[Deprecated(message: 'after 1.4.1.0')]
     public const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE = 1;
 
     public const CATEGORY_APPLY_CATEGORY_ONLY                  = 2;
