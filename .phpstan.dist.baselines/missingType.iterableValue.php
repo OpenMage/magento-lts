@@ -1962,11 +1962,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Helper/Catalog.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute::getProductIds() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Edit/Action/Attribute.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute::getProductsSetIds() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Edit/Action/Attribute.php',
