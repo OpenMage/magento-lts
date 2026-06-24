@@ -646,7 +646,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('catalog/product'), ['entity_id', 'sku'])
             ->where('entity_id IN (?)', $productIds);
-        
+
         /** @var list<array{entity_id: string, sku: string}> $result */
         $result = $this->_getReadAdapter()->fetchAll($select);
         return $result;
