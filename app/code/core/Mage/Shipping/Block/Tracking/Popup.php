@@ -84,10 +84,11 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
-     * @return false|Mage_Sales_Model_Order
      * Initialize order model instance
+     *
+     * @return false|Mage_Sales_Model_Order
      */
-    #[Deprecated(message: "after 1.4.0.0-alpha3")]
+    #[Deprecated(message: 'after 1.4.0.0-alpha3')]
     protected function _initOrder()
     {
         $order = Mage::getModel('sales/order')->load($this->getOrderId());
@@ -100,10 +101,11 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
-     * @return false|Mage_Sales_Model_Order_Shipment
      * Initialize ship model instance
+     *
+     * @return false|Mage_Sales_Model_Order_Shipment
      */
-    #[Deprecated(message: "after 1.4.0.0-alpha3")]
+    #[Deprecated(message: 'after 1.4.0.0-alpha3')]
     protected function _initShipment()
     {
         $ship = Mage::getModel('sales/order_shipment')->load($this->getShipId());
@@ -133,7 +135,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      *
      * @return array
      */
-    #[Deprecated(message: "after 1.4.0.0-alpha3")]
+    #[Deprecated(message: 'after 1.4.0.0-alpha3')]
     public function getTrackingInfoByOrder()
     {
         $shipTrack = [];
@@ -160,7 +162,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      * Retrieve all tracking by ship id
      * @return array
      */
-    #[Deprecated(message: "after 1.4.0.0-alpha3")]
+    #[Deprecated(message: 'after 1.4.0.0-alpha3')]
     public function getTrackingInfoByShip()
     {
         $shipTrack = [];
@@ -183,7 +185,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      * Retrieve tracking by tracking entity id
      * @return array
      */
-    #[Deprecated(message: "after 1.4.0.0-alpha3")]
+    #[Deprecated(message: 'after 1.4.0.0-alpha3')]
     public function getTrackingInfoByTrackId()
     {
         $track = Mage::getModel('sales/order_shipment_track')->load($this->getTrackId());

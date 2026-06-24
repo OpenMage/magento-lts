@@ -516,7 +516,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * @param  array  $fieldProp
      * @return string
      */
-    #[Deprecated(message: "since 1.5.0.0")]
+    #[Deprecated(message: 'since 1.5.0.0')]
     protected function _sqlColunmDefinition($fieldName, $fieldProp)
     {
         $fieldNameQuote = $this->_getWriteAdapter()->quoteIdentifier($fieldName);
@@ -548,7 +548,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      * @param  array  $indexProp
      * @return string
      */
-    #[Deprecated(message: "since 1.5.0.0")]
+    #[Deprecated(message: 'since 1.5.0.0')]
     protected function _sqlIndexDefinition($indexName, $indexProp)
     {
         $fields = $indexProp['fields'];
