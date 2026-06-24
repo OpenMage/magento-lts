@@ -167,9 +167,9 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     /**
      * @param  Varien_Simplexml_Element $source
      * @return array
-     * @deprecated due to conflict with PHP8 parent class update
      */
     #[ReturnTypeWillChange]
+    #[Deprecated(message: 'due to conflict with PHP8 parent class update')]
     public function getChildren($source = null)
     {
         Mage::log('Use of deprecated method: ' . __METHOD__);

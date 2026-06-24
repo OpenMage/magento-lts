@@ -2552,16 +2552,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/ProductController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Report_SalesController::refreshLifetimeAction() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/SalesController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Report_SalesController::refreshRecentAction() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/SalesController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Report_SalesController::refreshStatisticsAction() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/SalesController.php',

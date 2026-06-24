@@ -16,8 +16,8 @@ class Mage_Api2_Model_Route_ApiType extends Mage_Api2_Model_Route_Abstract imple
 {
     /**
      * API url template with API type variable
-     * @deprecated
      */
+    #[Deprecated]
     public const API_ROUTE = 'api/:api_type';
 
     /**

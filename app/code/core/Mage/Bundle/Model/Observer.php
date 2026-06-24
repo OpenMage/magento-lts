@@ -262,8 +262,8 @@ class Mage_Bundle_Model_Observer
      * Add price index to bundle product after load
      *
      * @return $this
-     * @deprecated since 1.4.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0)]
     public function catalogProductLoadAfter(Varien_Event_Observer $observer)
     {
         /** @var Mage_Catalog_Model_Product $product */
@@ -280,9 +280,9 @@ class Mage_Bundle_Model_Observer
      * CatalogIndex Indexer after plain reindex process
      *
      * @return $this
-     * @deprecated since 1.4.0.0
      * @see Mage_Bundle_Model_Resource_Indexer_Price
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0)]
     public function catalogIndexPlainReindexAfter(Varien_Event_Observer $observer)
     {
         $products = $observer->getEvent()->getProducts();

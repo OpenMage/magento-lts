@@ -144,8 +144,8 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      * @param array|string           $email
      * @param string                 $name
      * @param Mage_Sales_Model_Order $order
-     * @deprecated after 1.4.0.0-rc1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0_RC_1)]
     protected function _emailOrderConfirmation($email, $name, $order)
     {
         Mage::getModel('core/email')

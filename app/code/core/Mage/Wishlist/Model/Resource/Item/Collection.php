@@ -281,9 +281,9 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      * @param  string $attribute
      * @param  string $dir
      * @return $this
-     * @deprecated after 1.6.0.0-rc2
      * @see Varien_Data_Collection_Db::setOrder() is used instead
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_0_0_RC_2)]
     public function addWishListSortOrder($attribute = 'added_at', $dir = 'desc')
     {
         $this->setOrder($attribute, $dir);
@@ -348,8 +348,8 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      * - this method is useless because we can calculate days in php, and don't use MySQL for it
      *
      * @return $this
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function addDaysInWishlist()
     {
         $this->_addDaysInWishlist = true;

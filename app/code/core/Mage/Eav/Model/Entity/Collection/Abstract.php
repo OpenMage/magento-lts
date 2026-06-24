@@ -969,8 +969,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @return Varien_Db_Select
      * @throws Mage_Core_Exception
-     * @deprecated
      */
+    #[Deprecated]
     public function getAllIdsSql()
     {
         $idsSelect = clone $this->getSelect();
