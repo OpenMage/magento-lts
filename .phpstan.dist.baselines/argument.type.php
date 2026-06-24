@@ -4817,16 +4817,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Exception.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $haystack of function in_array expects array, array<string, class-string>|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $array of function uasort expects array, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $array of function array_key_exists expects array, array|int given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Info.php',
