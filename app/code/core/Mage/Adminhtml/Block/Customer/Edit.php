@@ -23,11 +23,12 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         if ($this->getCustomerId()
             && Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/create')
         ) {
-            $this->_addButton('order', [
-                'label'     => Mage::helper('customer')->__('Create Order'),
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreateOrderUrl()),
-                'class'     => 'add create-order',
-            ], 0);
+            $this->_addPreparedButton(
+                id: 'order',
+                label: Mage::helper('customer')->__('Create Order'),
+                class: 'add create-order',
+                onClickUrl: $this->getCreateOrderUrl(),
+            );
         }
 
         parent::__construct();
@@ -95,11 +96,12 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
     protected function _prepareLayout()
     {
         if (!Mage::registry('current_customer')->isReadonly()) {
-            $this->_addButton(self::BUTTON_TYPE_SAVE_EDIT, [
-                'label'     => Mage::helper('customer')->__('Save and Continue Edit'),
-                'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
-                'class'     => 'save continue',
-            ], 10);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_SAVE_EDIT,
+                level: 10,
+                module: 'customer',
+                onClick: Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
+            );
         }
 
         return parent::_prepareLayout();
