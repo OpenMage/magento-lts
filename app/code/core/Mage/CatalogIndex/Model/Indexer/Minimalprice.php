@@ -108,11 +108,12 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
         }
 
         $result = [];
-        $data = [];
 
+        $data = [];
         $data['store_id'] = $object->getStoreId();
         $data['entity_id'] = $object->getId();
 
+        $search = [];
         $search['store_id'] = $object->getStoreId();
         $search['entity_id'] = $searchEntityId;
         $search['attribute_id'] = $priceAttributeId;

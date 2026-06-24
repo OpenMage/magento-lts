@@ -15,9 +15,7 @@
 class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_Ordered
 {
     /**
-     * Cache key for collectors
-     *
-     * @var string
+     * @inheritDoc
      */
     protected $_collectorsCacheKey = 'sorted_collectors';
 
@@ -29,9 +27,7 @@ class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_O
     protected $_totalModels = [];
 
     /**
-     * Configuration path where to collect registered totals
-     *
-     * @var string
+     * @inheritDoc
      */
     protected $_totalsConfigNode = 'totals';
 
