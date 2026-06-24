@@ -54,19 +54,17 @@ a {
     color: $openmage_blue;
   }
 
-  &:focus {
-    color: $openmage_blue_dark;
-    text-decoration: none;
-  }
-
-  &:hover {
-    color: $openmage_blue_dark;
-    text-decoration: none;
-  }
-
+  &:hover,
+  &:focus,
   &:active {
     color: $openmage_blue_dark;
     text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline-offset: 0;
+    outline: 2px solid $openmage_blue_dark;
+    box-shadow: 0 0 4px 2px $openmage_blue;
   }
 
   &.error span {
@@ -164,6 +162,10 @@ small {
   .entry-edit-head {
     @extend %extend_4;
 
+    &:not(.collapseable) {
+      padding: 4px 16px;
+    }
+
     h4 {
       color: $color_dark_grey;
       line-height: 32px;
@@ -185,6 +187,7 @@ small {
 
     a {
       @extend %extend_10;
+      padding: 4px 16px;
     }
 
     button:not(:first-of-type) {
@@ -330,6 +333,12 @@ small {
             color: $color_alto_approx;
           }
 
+          &:focus-visible {
+            outline-offset: 0;
+            outline-color: white;
+            box-shadow: none;
+          }
+
           &.sort-arrow-desc {
             @extend %extend_6;
 
@@ -424,6 +433,18 @@ small {
       height: 40px;
       width: auto;
     }
+
+    &:focus,
+    &:hover,
+    &:active {
+      background: $openmage_base_blue_dark;
+    }
+
+    &:focus-visible {
+      outline-offset: -4px;
+      outline-color: white;
+      box-shadow: none;
+    }
   }
 }
 
@@ -508,6 +529,7 @@ ul {
     }
 
     a {
+      position: relative;
       background: $white;
       color: $color_dark_grey;
       padding: 8px 18px;
@@ -537,6 +559,10 @@ ul {
             font-weight: 400;
           }
         }
+      }
+
+      &:focus-visible {
+        z-index: 1;
       }
     }
 
@@ -692,6 +718,12 @@ div {
 
   .entry-edit .field-row label {
     vertical-align: middle;
+  }
+
+  .entry-edit fieldset {
+    display: flex;
+    align-items: center;
+    gap: 2px;
   }
 }
 
@@ -1023,9 +1055,14 @@ dl.accordion dt {
     @extend %extend_10;
     position: relative;
     background: none;
+    padding: 4px 16px;
 
     &:hover {
       @extend %extend_10;
+    }
+
+    &:focus-visible {
+      outline-offset: -4px;
     }
 
     &:after {

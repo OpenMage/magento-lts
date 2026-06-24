@@ -27,7 +27,8 @@
     text-align: left;
     float: left;
 
-    &:hover {
+    &:hover,
+    &:focus-within {
       z-index: 999;
 
       ul {
@@ -37,14 +38,16 @@
           left: -10000px;
         }
 
-        li:hover ul {
+        li:hover ul,
+        li:focus-within ul {
           left: 100px;
 
           ul {
             left: -10000px;
           }
 
-          li:hover ul {
+          li:hover ul,
+          li:focus-within ul {
             left: 100px;
           }
         }
@@ -78,9 +81,17 @@
         height: 38px;
         line-height: 38px;
 
-        &:hover {
+        &:focus,
+        &:hover,
+        &:active {
           background: $openmage_base_blue_dark;
           color: $white;
+        }
+
+        &:focus-visible {
+          outline-offset: -4px;
+          outline-color: white;
+          box-shadow: none;
         }
       }
 
@@ -133,7 +144,7 @@
 
     &.level1, &.level2, &.level3 {
       > a {
-        &.active:not(:hover) {
+        &.active:not(:hover):not(:focus) {
           background: $color_gallery_approx;
         }
       }
@@ -193,9 +204,17 @@
         color: $openmage_base_blue_text;
         font-size: 12px;
 
-        &:hover {
+        &:focus,
+        &:hover,
+        &:active {
           background: $openmage_base_blue_dark;
           color: $white;
+        }
+
+        &:focus-visible {
+          outline-offset: -4px;
+          outline-color: white;
+          box-shadow: none;
         }
       }
 
@@ -293,12 +312,20 @@
       color: $openmage_base_blue_text;
       text-decoration: none;
       display: block;
-    }
-    a:hover {
-      background: $openmage_base_blue_dark;
-      color: $white;
-      text-decoration: none;
-      display: block;
+
+      &:focus,
+      &:hover,
+      &:active {
+        background: $openmage_base_blue_dark;
+        color: $white;
+        text-decoration: none;
+        display: block;
+      }
+      &:focus-visible {
+        outline-offset: -4px;
+        outline-color: white;
+        box-shadow: none;
+      }
     }
   }
   li {
@@ -313,7 +340,8 @@
         padding: 9px 12px;
       }
     }
-    &:hover ul {
+    &:hover ul,
+    &:focus-within ul {
       right: 27px;
       display: block;
     }
@@ -321,9 +349,17 @@
   > li > a {
     padding: 0 27px 0 20px;
     display: block;
+    max-height: 40px;
+
     svg {
       height: 40px;
       width: auto;
+    }
+
+    &:focus-visible {
+      outline-offset: -6px;
+      outline-color: white;
+      box-shadow: none;
     }
   }
 }

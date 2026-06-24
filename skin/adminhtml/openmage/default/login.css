@@ -1,45 +1,24 @@
-.form-button {
-  background-image: none;
-  background-color: #71798e;
-  padding: 0 13px;
-  color: #fff;
-  border: 0;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 26px;
-  box-sizing: border-box;
-  margin: 0;
-  vertical-align: middle;
-}
-
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("fonts/opensans/OpenSans-Light.woff") format("woff"), url("fonts/opensans/OpenSans-Light.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("fonts/opensans/OpenSans-Light.woff") format("woff"), url("fonts/opensans/OpenSans-Light.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 300;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), url("fonts/opensans/OpenSans-Regular.woff") format("woff"), url("fonts/opensans/OpenSans-Regular.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), url("fonts/opensans/OpenSans-Regular.woff") format("woff"), url("fonts/opensans/OpenSans-Regular.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("fonts/opensans/OpenSans-Bold.woff") format("woff"), url("fonts/opensans/OpenSans-Bold.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("fonts/opensans/OpenSans-Bold.woff") format("woff"), url("fonts/opensans/OpenSans-Bold.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 600;
   font-style: normal;
 }
@@ -65,7 +44,7 @@ body#page-login {
 body#page-login:after {
   display: block;
   position: fixed;
-  content: '';
+  content: "";
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.25);
@@ -82,17 +61,13 @@ a {
 a:visited {
   color: #0090FF;
 }
-a:focus {
+a:hover, a:focus, a:active {
   color: #025988;
-  text-decoration: none;
 }
-a:hover {
-  color: #025988;
-  text-decoration: none;
-}
-a:active {
-  color: #025988;
-  text-decoration: none;
+a:focus-visible {
+  outline-offset: 0;
+  outline: 2px solid #025988;
+  box-shadow: 0 0 4px 2px #0090FF;
 }
 a.error span {
   color: #e63a3a !important;
@@ -137,7 +112,9 @@ input.input-text:hover {
   outline: 2px solid #eee;
 }
 input.input-text:focus {
-  outline: 2px solid #c8c8c8;
+  outline-offset: 0;
+  outline: 2px solid #025988;
+  box-shadow: 0 0 4px 2px #0090FF;
 }
 input.input-text:disabled {
   outline: none;
@@ -145,7 +122,25 @@ input.input-text:disabled {
 }
 
 .form-button {
-  background-color: #0090FF;
+  text-transform: none;
+  background: #0090FF;
+  padding: 0 12px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 28px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.form-button:hover, .form-button:focus, .form-button:active {
+  background: #025988;
+}
+.form-button:focus-visible {
+  outline-offset: -4px;
+  outline: 2px solid white;
 }
 
 #page-login {
@@ -211,7 +206,7 @@ input.input-text:disabled {
 .login-form .form-buttons .left {
   line-height: 32px;
 }
-.login-form input[type="submit"] {
+.login-form input[type=submit] {
   height: 32px;
 }
 
