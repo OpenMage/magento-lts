@@ -2282,7 +2282,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         $products = $this->_getResource()->getProductsSku($productIds);
         if (count($products)) {
-            return array_all($products, fn($product) => strlen($product['sku']));
+            return array_all($products, fn($product) => strlen($product['sku']) > 0);
         }
 
         return null;
