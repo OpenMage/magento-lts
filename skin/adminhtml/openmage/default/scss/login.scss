@@ -44,19 +44,15 @@ a {
     color: $openmage_blue;
   }
 
-  &:focus {
-    color: $openmage_blue_dark;
-    text-decoration: none;
-  }
-
-  &:hover {
-    color: $openmage_blue_dark;
-    text-decoration: none;
-  }
-
+  &:hover,
+  &:focus,
   &:active {
     color: $openmage_blue_dark;
-    text-decoration: none;
+  }
+
+  &:focus:not(:active) {
+    outline-offset: 2px;
+    outline: 2px dashed $openmage_blue_dark;
   }
 
   &.error span {
