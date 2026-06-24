@@ -435,6 +435,17 @@ small {
       height: 40px;
       width: auto;
     }
+
+    &:focus,
+    &:hover,
+    &:active {
+      background: $openmage_base_blue_dark;
+    }
+
+    &:focus:not(:active) {
+      outline-offset: -4px;
+      outline-color: white;
+    }
   }
 }
 

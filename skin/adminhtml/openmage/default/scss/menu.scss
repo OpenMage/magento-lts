@@ -90,7 +90,7 @@
 
         &:focus:not(:active) {
           outline-offset: -4px;
-          outline: 2px dashed white;
+          outline-color: white;
         }
       }
 
@@ -212,7 +212,7 @@
 
         &:focus:not(:active) {
           outline-offset: -4px;
-          outline: 2px dashed white;
+          outline-color: white;
         }
       }
 
@@ -310,13 +310,19 @@
       color: $openmage_base_blue_text;
       text-decoration: none;
       display: block;
-      outline: none !important;
-    }
-    a:hover {
-      background: $openmage_base_blue_dark;
-      color: $white;
-      text-decoration: none;
-      display: block;
+
+      &:focus,
+      &:hover,
+      &:active {
+        background: $openmage_base_blue_dark;
+        color: $white;
+        text-decoration: none;
+        display: block;
+      }
+      &:focus:not(:active) {
+        outline-offset: -4px;
+        outline-color: white;
+      }
     }
   }
   li {
@@ -331,7 +337,8 @@
         padding: 9px 12px;
       }
     }
-    &:hover ul {
+    &:hover ul,
+    &:focus-within ul {
       right: 27px;
       display: block;
     }
@@ -339,9 +346,16 @@
   > li > a {
     padding: 0 27px 0 20px;
     display: block;
+    max-height: 40px;
+
     svg {
       height: 40px;
       width: auto;
+    }
+
+    &:focus:not(:active) {
+      outline-offset: -6px;
+      outline-color: white;
     }
   }
 }
