@@ -11,6 +11,7 @@
  * Checkout default helper
  *
  * @package    Mage_Checkout
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -186,7 +187,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
 
         $copyTo = $this->_getEmails('checkout/payment_failed/copy_to', $checkout->getStoreId());
         $copyMethod = Mage::getStoreConfig('checkout/payment_failed/copy_method', $checkout->getStoreId());
-        if ($copyTo && $copyMethod == 'bcc') {
+        if (is_array($copyTo) && $copyMethod == 'bcc') {
             $mailTemplate->addBcc($copyTo);
         }
 
@@ -198,7 +199,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             ],
         ];
 
-        if ($copyTo && $copyMethod == 'copy') {
+        if (is_array($copyTo) && $copyMethod == 'copy') {
             foreach ($copyTo as $email) {
                 $sendTo[] = [
                     'email' => $email,
@@ -257,14 +258,14 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param  string      $configPath
-     * @param  int         $storeId
-     * @return array|false
+     * @param  string             $configPath
+     * @param  ConfigStoreId      $storeId
+     * @return false|list<string>
      */
     protected function _getEmails($configPath, $storeId)
     {
         $data = Mage::getStoreConfig($configPath, $storeId);
-        if (!empty($data)) {
+        if (is_string($data) && $data !== '') {
             return explode(',', $data);
         }
 

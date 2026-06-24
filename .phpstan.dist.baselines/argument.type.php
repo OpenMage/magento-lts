@@ -5827,22 +5827,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $info of method Mage_Payment_Helper_Data::getInfoBlock() expects Mage_Payment_Model_Info, Mage_Sales_Model_Order_Payment|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $item of method Mage_Sales_Model_Order_Item::setParentItem() expects Mage_Sales_Model_Order_Item, Mage_Sales_Model_Order_Item|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $rates of method Mage_Tax_Model_Calculation::reproduceProcess() expects array, int|list<array> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App_Emulation::startEnvironmentEmulation() expects int, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
 ];
@@ -5887,16 +5877,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $info of method Mage_Payment_Helper_Data::getInfoBlock() expects Mage_Payment_Model_Info, Mage_Sales_Model_Order_Payment|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App_Emulation::startEnvironmentEmulation() expects int, int|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_Email_Template_Mailer::setStoreId() expects int, int|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
@@ -5912,22 +5892,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo/Config.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $info of method Mage_Payment_Helper_Data::getInfoBlock() expects Mage_Payment_Model_Info, Mage_Sales_Model_Order_Payment|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $invoiceId of method Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection::setInvoiceFilter() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $invoiceId of method Mage_Sales_Model_Resource_Order_Invoice_Item_Collection::setInvoiceFilter() expects int, int|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App_Emulation::startEnvironmentEmulation() expects int, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice.php',
 ];
@@ -6067,11 +6037,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Pdf/Total/Default.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $info of method Mage_Payment_Helper_Data::getInfoBlock() expects Mage_Payment_Model_Info, Mage_Sales_Model_Order_Payment|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Shipment.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $shipmentId of method Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection::setShipmentFilter() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Shipment.php',
@@ -6083,11 +6048,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $shipmentId of method Mage_Sales_Model_Resource_Order_Shipment_Track_Collection::setShipmentFilter() expects int, int|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Shipment.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App_Emulation::startEnvironmentEmulation() expects int, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Shipment.php',
 ];
