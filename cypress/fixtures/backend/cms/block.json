@@ -1,0 +1,19 @@
+{
+    "default": {
+        "blockTitle" : {
+            "_": "input-block-title"
+        },
+        "blockIdentifier" : {
+            "_": "input-block-identifier"
+        },
+        "blockStoreId" : {
+            "_": "input-block-store-id"
+        },
+        "blockIsActive" : {
+            "_": "input-block-is-active"
+        },
+        "blockContent" : {
+            "_": "input-block-content"
+        }
+    }
+}

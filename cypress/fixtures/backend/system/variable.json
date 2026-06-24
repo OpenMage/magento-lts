@@ -1,0 +1,16 @@
+{
+    "default": {
+        "code" : {
+            "_": "input-code"
+        },
+        "name" : {
+            "_": "input-name"
+        },
+        "htmlValue" : {
+            "_": "input-html-value"
+        },
+        "plainValue" : {
+            "_": "input-plain-value"
+        }
+    }
+}
