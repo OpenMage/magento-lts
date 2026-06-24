@@ -75,8 +75,8 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      *
      * @param  string $table
      * @return $this
-     * @deprecated after 1.3.2.3
      */
+    #[Deprecated(message: 'after 1.3.2.3')]
     public function setJoinFlag($table)
     {
         $this->setFlag($table, true);
@@ -89,8 +89,8 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      *
      * @param  string $table
      * @return $this
-     * @deprecated after 1.3.2.3
      */
+    #[Deprecated(message: 'after 1.3.2.3')]
     public function unsetJoinFlag($table = null)
     {
         $this->setFlag($table, false);

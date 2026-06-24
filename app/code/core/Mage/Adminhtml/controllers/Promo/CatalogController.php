@@ -355,8 +355,8 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
 
     /**
      * @return void
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(message: 'since 1.5.0.0')]
     public function addToAlersAction() {}
 
     /**

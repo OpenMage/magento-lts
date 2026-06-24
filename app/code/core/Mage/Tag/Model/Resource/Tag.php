@@ -126,8 +126,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param  int   $tagId
      * @return array
-     * @deprecated after 1.4.0.0
      */
+    #[Deprecated(message: 'after 1.4.0.0')]
     protected function _getExistingBasePopularity($tagId)
     {
         $read = $this->_getReadAdapter();
@@ -147,8 +147,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param  int   $tagId
      * @return array
-     * @deprecated after 1.4.0.0
      */
+    #[Deprecated(message: 'after 1.4.0.0')]
     protected function _getAggregationPerStoreView($tagId)
     {
         $readAdapter = $this->_getReadAdapter();
@@ -217,8 +217,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param  int   $tagId
      * @return array
-     * @deprecated after 1.4.0.0
      */
+    #[Deprecated(message: 'after 1.4.0.0')]
     protected function _getGlobalAggregation($tagId)
     {
         $readAdapter = $this->_getReadAdapter();
@@ -281,8 +281,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * @return Mage_Tag_Model_Tag
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
-     * @deprecated after 1.4.0.0
      */
+    #[Deprecated(message: 'after 1.4.0.0')]
     public function aggregate($object)
     {
         $tagId   = (int) $object->getId();
@@ -359,8 +359,8 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      * @param  Mage_Tag_Model_Tag  $object
      * @return Mage_Tag_Model_Tag
      * @throws Mage_Core_Exception
-     * @deprecated after 1.4.0.0
      */
+    #[Deprecated(message: 'after 1.4.0.0')]
     public function addSummary($object)
     {
         $read = $this->_getReadAdapter();

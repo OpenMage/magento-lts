@@ -31,8 +31,8 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
      *
      * @param  string     $qty
      * @return null|float
-     * @deprecated
      */
+    #[Deprecated]
     protected function _processLocalizedQty($qty)
     {
         $qty = (float) $qty;

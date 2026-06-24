@@ -1566,8 +1566,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Grid url getter
      *
      * @return string current grid url
-     * @deprecated after 1.3.2.3 Use getAbsoluteGridUrl() method instead
      */
+    #[Deprecated(message: 'after 1.3.2.3 Use getAbsoluteGridUrl() method instead')]
     public function getGridUrl()
     {
         return $this->getCurrentUrl();
@@ -1651,8 +1651,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * @param  Varien_Object $row
      * @return string
-     * @deprecated since 1.1.7
      */
+    #[Deprecated(message: 'since 1.1.7')]
     public function getRowId($row)
     {
         return $this->getRowUrl($row);

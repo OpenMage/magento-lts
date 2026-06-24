@@ -189,8 +189,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
      * Retrieve gift message save model
      *
      * @return Mage_Adminhtml_Model_Giftmessage_Save
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(message: 'after 1.4.2.0')]
     protected function _getGiftmessageSaveModel()
     {
         return Mage::getSingleton('adminhtml/giftmessage_save');

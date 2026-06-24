@@ -564,8 +564,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Prepare Url Data object
      *
      * @return $this
-     * @deprecated after 1.7.0.2
      */
+    #[Deprecated(message: 'after 1.7.0.2')]
     protected function _prepareUrlDataObject()
     {
         $objects = [];
@@ -1138,8 +1138,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @return $this
      * @throws Mage_Core_Exception
-     * @deprecated after 1.7.0.2. Method is not used anywhere in the code.
      */
+    #[Deprecated(message: 'after 1.7.0.2. Method is not used anywhere in the code.')]
     public function joinUrlRewrite()
     {
         $this->joinTable(
@@ -1237,9 +1237,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add minimal price to product collection
      *
      * @return $this
-     * @deprecated since 1.3.2.2
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
      */
+    #[Deprecated(message: 'since 1.3.2.2')]
     protected function _addMinimalPrice()
     {
         return $this;
@@ -1471,9 +1471,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         return $this->_addTaxPercents;
     }
 
-    /**
-     * @deprecated from 1.3.0
-     */
+    #[Deprecated(message: 'from 1.3.0')]
     protected function _addTaxPercents()
     {
         $classToRate = [];
