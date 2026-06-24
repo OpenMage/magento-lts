@@ -128,20 +128,8 @@ moved to catalog attribute model',
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Catalog_Model_Resource_Eav_Attribute:
-moved to catalog attribute model',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method clear() of class Mage_Eav_Model_Config.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Catalog_Model_Resource_Eav_Attribute:
-moved to catalog attribute model',
-    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php',
 ];
 $ignoreErrors[] = [
@@ -476,11 +464,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/store/switcher/enhanced.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getSaveUrl() of class Mage_Adminhtml_Block_Tag_Edit.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/tag/edit/container.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
