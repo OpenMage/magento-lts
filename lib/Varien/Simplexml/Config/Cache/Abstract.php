@@ -58,6 +58,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
         if (empty($data) || !is_array($data)) {
             return false;
         }
+
         return array_all($data, fn($stat, $sourceFile) => !(empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile) !== $stat['mtime']));
     }
 

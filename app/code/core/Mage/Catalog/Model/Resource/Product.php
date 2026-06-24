@@ -638,7 +638,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Get SKU through product identifiers
      *
-     * @return array
+     * @param list<int|string>                             $productIds
+     * @return list<array{entity_id: string, sku: string}>
      */
     public function getProductsSku(array $productIds)
     {

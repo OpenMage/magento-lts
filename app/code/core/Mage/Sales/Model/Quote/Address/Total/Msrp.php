@@ -29,6 +29,7 @@ class Mage_Sales_Model_Quote_Address_Total_Msrp extends Mage_Sales_Model_Quote_A
         if (!count($items)) {
             return $this;
         }
+
         $canApplyMsrp = array_any($items, fn($item) => !$item->getParentItemId()
             && Mage::helper('catalog')->canApplyMsrp(
                 $item->getProductId(),

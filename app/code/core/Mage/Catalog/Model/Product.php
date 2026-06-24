@@ -2275,17 +2275,18 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Check for empty SKU on each product
      *
-     * @return null|bool
+     * @param list<int|string> $productIds
+     * @return bool
      * @throws Mage_Core_Exception
      */
     public function isProductsHasSku(array $productIds)
     {
         $products = $this->_getResource()->getProductsSku($productIds);
         if (count($products)) {
-            return array_all($products, fn($product) => strlen($product['sku']) > 0);
+            return array_all($products, fn($product) => (string) $product['sku'] !== '');
         }
 
-        return null;
+        return false;
     }
 
     /**
