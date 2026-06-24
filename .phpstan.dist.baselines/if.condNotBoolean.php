@@ -567,7 +567,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Review/Main.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',
+    'rawMessage' => 'Only booleans are allowed in an if condition, string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Review/Main.php',
 ];
@@ -9582,12 +9582,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/compare/sidebar.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, array<string|null>|string|null given.',
+    'rawMessage' => 'Only booleans are allowed in an if condition, int|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/gallery.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, int|false given.',
+    'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/gallery.phtml',
 ];

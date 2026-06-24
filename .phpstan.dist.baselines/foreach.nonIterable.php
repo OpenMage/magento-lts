@@ -677,11 +677,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/customer/address/book.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|true supplied for foreach, only iterables are supported.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/customer/widget/name.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type (iterable<Mage_Sales_Model_Order_Creditmemo>&Mage_Sales_Model_Resource_Order_Creditmemo_Collection)|false supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/sales/order/creditmemo/items.phtml',

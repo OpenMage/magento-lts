@@ -5463,7 +5463,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
-    'count' => 2,
+    'count' => 1,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/customer/widget/name.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
+    'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/customer/widget/name.phtml',
 ];
 $ignoreErrors[] = [
