@@ -42,9 +42,9 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Add visible in catalog filter to collection
      *
      * @return $this
-     * @deprecated since 1.3.0
      */
     #[Deprecated(message: 'use $collection->setVisibility(self::getVisibleInCatalogIds()) instead', since: '1.3.0')]
+    #[Deprecated(message: 'since 1.3.0')]
     public function addVisibleInCatalogFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $collection->setVisibility(self::getVisibleInCatalogIds());
@@ -55,9 +55,9 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Add visibility in searchfilter to collection
      *
      * @return $this
-     * @deprecated since 1.3.0
      */
     #[Deprecated(message: 'use $collection->setVisibility(self::getVisibleInSearchIds()) instead', since: '1.3.0')]
+    #[Deprecated(message: 'since 1.3.0')]
     public function addVisibleInSearchFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $collection->setVisibility(self::getVisibleInSearchIds());
@@ -68,9 +68,9 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Add visibility in site filter to collection
      *
      * @return $this
-     * @deprecated since 1.3.0
      */
     #[Deprecated(message: 'use $collection->setVisibility(self::getVisibleInSiteIds()) instead', since: '1.3.0')]
+    #[Deprecated(message: 'since 1.3.0')]
     public function addVisibleInSiteFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $collection->setVisibility(self::getVisibleInSiteIds());

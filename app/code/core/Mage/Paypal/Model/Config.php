@@ -139,9 +139,9 @@ class Mage_Paypal_Model_Config
     /**
      * Authorization amounts for Account Verification
      *
-     * @deprecated since 1.6.2.0
      * @var int
      */
+    #[Deprecated(message: 'since 1.6.2.0')]
     public const AUTHORIZATION_AMOUNT_ZERO = 0;
 
     public const AUTHORIZATION_AMOUNT_ONE = 1;
@@ -1417,8 +1417,8 @@ class Mage_Paypal_Model_Config
      * Returns array of possible Authorization Amounts for Account Verification
      *
      * @return array<void>
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(message: 'since 1.6.2.0')]
     public function getAuthorizationAmounts()
     {
         return [];

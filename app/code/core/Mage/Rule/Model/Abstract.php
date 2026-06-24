@@ -457,8 +457,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * @param string $format
      *
      * @return string
-     * @deprecated since 1.7.0.0
      */
+    #[Deprecated(message: 'since 1.7.0.0')]
     public function asString($format = '')
     {
         return '';
@@ -466,8 +466,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
 
     /**
      * @return string
-     * @deprecated since 1.7.0.0
      */
+    #[Deprecated(message: 'since 1.7.0.0')]
     public function asHtml()
     {
         return '';
@@ -477,8 +477,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * Returns rule as an array for admin interface
      *
      * @return array<void>
-     * @deprecated since 1.7.0.0
      */
+    #[Deprecated(message: 'since 1.7.0.0')]
     public function asArray(array $arrAttributes = [])
     {
         return [];
@@ -488,8 +488,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * Combine website ids to string
      *
      * @return $this
-     * @deprecated since 1.7.0.0
      */
+    #[Deprecated(message: 'since 1.7.0.0')]
     protected function _prepareWebsiteIds()
     {
         return $this;
