@@ -270,16 +270,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     }
 
     /**
-     * Revalidate cookie
-     * @return $this
-     */
-    #[Deprecated(message: 'after 1.4 cookie renew moved to session start method')]
-    public function revalidateCookie()
-    {
-        return $this;
-    }
-
-    /**
      * Init session with namespace
      *
      * @param  string $namespace
@@ -300,7 +290,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         $this->_data = &$_SESSION[$namespace];
 
         $this->validate();
-        $this->revalidateCookie();
 
         return $this;
     }
