@@ -11074,16 +11074,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "13.2.2",
+            "version": "13.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ecsphp/ecs.git",
-                "reference": "3da31a9c267ead69664eb1258aaea62bf9b66f79"
+                "reference": "94f56bce0420d4e837a85c4b2c6501293a5974eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/3da31a9c267ead69664eb1258aaea62bf9b66f79",
-                "reference": "3da31a9c267ead69664eb1258aaea62bf9b66f79",
+                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/94f56bce0420d4e837a85c4b2c6501293a5974eb",
+                "reference": "94f56bce0420d4e837a85c4b2c6501293a5974eb",
                 "shasum": ""
             },
             "require": {
@@ -11118,9 +11118,9 @@
                 "static analysis"
             ],
             "support": {
-                "source": "https://github.com/ecsphp/ecs/tree/13.2.2"
+                "source": "https://github.com/ecsphp/ecs/tree/13.2.3"
             },
-            "time": "2026-06-13T19:45:53+00:00"
+            "time": "2026-06-15T22:08:41+00:00"
         },
         {
             "name": "symplify/vendor-patches",
