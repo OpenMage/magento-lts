@@ -622,21 +622,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/CacheController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $productIds of method Mage_Catalog_Model_Product_Action::updateAttributes() expects array, array|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $productIds of method Mage_Catalog_Model_Product_Action::updateWebsites() expects array, array|string|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $value of function count expects array|Countable, array|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $value of method Zend_Filter_NormalizedToLocalized::filter() expects string, array|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
