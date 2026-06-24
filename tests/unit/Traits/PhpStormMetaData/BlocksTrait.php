@@ -295,9 +295,7 @@ use Mage_Adminhtml_Block_Permissions_Block_Edit_Form;
 use Mage_Adminhtml_Block_Permissions_Block_Grid;
 use Mage_Adminhtml_Block_Permissions_Buttons;
 use Mage_Adminhtml_Block_Permissions_Editroles;
-use Mage_Adminhtml_Block_Permissions_Edituser;
 use Mage_Adminhtml_Block_Permissions_Grid_Role;
-use Mage_Adminhtml_Block_Permissions_Grid_User;
 use Mage_Adminhtml_Block_Permissions_OrphanedResource;
 use Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid;
 use Mage_Adminhtml_Block_Permissions_Role;
@@ -306,8 +304,6 @@ use Mage_Adminhtml_Block_Permissions_Roles;
 use Mage_Adminhtml_Block_Permissions_Tab_Roleinfo;
 use Mage_Adminhtml_Block_Permissions_Tab_Rolesedit;
 use Mage_Adminhtml_Block_Permissions_Tab_Rolesusers;
-use Mage_Adminhtml_Block_Permissions_Tab_Useredit;
-use Mage_Adminhtml_Block_Permissions_Tab_Userroles;
 use Mage_Adminhtml_Block_Permissions_User;
 use Mage_Adminhtml_Block_Permissions_User_Edit;
 use Mage_Adminhtml_Block_Permissions_User_Edit_Form;
@@ -315,7 +311,6 @@ use Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main;
 use Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles;
 use Mage_Adminhtml_Block_Permissions_User_Edit_Tabs;
 use Mage_Adminhtml_Block_Permissions_User_Grid;
-use Mage_Adminhtml_Block_Permissions_Users;
 use Mage_Adminhtml_Block_Permissions_Variable;
 use Mage_Adminhtml_Block_Permissions_Variable_Edit;
 use Mage_Adminhtml_Block_Permissions_Variable_Edit_Form;
@@ -1607,9 +1602,7 @@ trait BlocksTrait
             'adminhtml/permissions_block_grid' => Mage_Adminhtml_Block_Permissions_Block_Grid::class,
             'adminhtml/permissions_buttons' => Mage_Adminhtml_Block_Permissions_Buttons::class,
             'adminhtml/permissions_editroles' => Mage_Adminhtml_Block_Permissions_Editroles::class,
-            'adminhtml/permissions_edituser' => Mage_Adminhtml_Block_Permissions_Edituser::class,
             'adminhtml/permissions_grid_role' => Mage_Adminhtml_Block_Permissions_Grid_Role::class,
-            'adminhtml/permissions_grid_user' => Mage_Adminhtml_Block_Permissions_Grid_User::class,
             'adminhtml/permissions_orphanedResource' => Mage_Adminhtml_Block_Permissions_OrphanedResource::class,
             'adminhtml/permissions_orphanedResource_grid' => Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid::class,
             'adminhtml/permissions_role' => Mage_Adminhtml_Block_Permissions_Role::class,
@@ -1618,8 +1611,6 @@ trait BlocksTrait
             'adminhtml/permissions_tab_roleinfo' => Mage_Adminhtml_Block_Permissions_Tab_Roleinfo::class,
             'adminhtml/permissions_tab_rolesedit' => Mage_Adminhtml_Block_Permissions_Tab_Rolesedit::class,
             'adminhtml/permissions_tab_rolesusers' => Mage_Adminhtml_Block_Permissions_Tab_Rolesusers::class,
-            'adminhtml/permissions_tab_useredit' => Mage_Adminhtml_Block_Permissions_Tab_Useredit::class,
-            'adminhtml/permissions_tab_userroles' => Mage_Adminhtml_Block_Permissions_Tab_Userroles::class,
             'adminhtml/permissions_user' => Mage_Adminhtml_Block_Permissions_User::class,
             'adminhtml/permissions_user_edit' => Mage_Adminhtml_Block_Permissions_User_Edit::class,
             'adminhtml/permissions_user_edit_form' => Mage_Adminhtml_Block_Permissions_User_Edit_Form::class,
@@ -1627,7 +1618,6 @@ trait BlocksTrait
             'adminhtml/permissions_user_edit_tab_roles' => Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles::class,
             'adminhtml/permissions_user_edit_tabs' => Mage_Adminhtml_Block_Permissions_User_Edit_Tabs::class,
             'adminhtml/permissions_user_grid' => Mage_Adminhtml_Block_Permissions_User_Grid::class,
-            'adminhtml/permissions_users' => Mage_Adminhtml_Block_Permissions_Users::class,
             'adminhtml/permissions_variable' => Mage_Adminhtml_Block_Permissions_Variable::class,
             'adminhtml/permissions_variable_edit' => Mage_Adminhtml_Block_Permissions_Variable_Edit::class,
             'adminhtml/permissions_variable_edit_form' => Mage_Adminhtml_Block_Permissions_Variable_Edit_Form::class,
@@ -2807,8 +2797,6 @@ trait BlocksTrait
             Mage_Adminhtml_Block_Dashboard_Diagrams::class,
             # Error: Class 'Mage__Helper_Data' not found
             Mage_Adminhtml_Block_Dashboard_Graph::class,
-            # Error: Call to undefined method Mage_Admin_Model_Resource_Roles_User_Collection::setUserFilter()
-            Mage_Adminhtml_Block_Permissions_Tab_Userroles::class,
             # ArgumentCountError: Too few arguments to function Varien_Data_Form_Element_Image::__construct(), 0 passed
             Mage_Adminhtml_Block_System_Config_Form_Field_Image::class,
             # ArgumentCountError: Too few arguments to function Mage_Adminhtml_Block_System_Config_Form_Field_Import::__construct(), 0 passed

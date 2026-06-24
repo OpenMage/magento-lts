@@ -787,16 +787,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Page/Header.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Permissions_Buttons::getUser() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Buttons.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Permissions_Edituser::getUser() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Edituser.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Permissions_Role_Grid_User::_getUsers() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Role/Grid/User.php',
@@ -820,16 +810,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles::_getSelectedRoles() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/User/Edit/Tab/Roles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Permissions_Users::getAddNewUrl() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Users.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Permissions_Users::getGridHtml() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Users.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Promo_Widget_Chooser::getRowClickCallback() has no return type specified.',
