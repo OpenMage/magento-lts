@@ -58,15 +58,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
         if (empty($data) || !is_array($data)) {
             return false;
         }
-
-        // check that no source files were changed or check file exists
-        foreach ($data as $sourceFile => $stat) {
-            if (empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile) !== $stat['mtime']) {
-                return false;
-            }
-        }
-
-        return true;
+        return array_all($data, fn($stat, $sourceFile) => !(empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile) !== $stat['mtime']));
     }
 
     public function getComponentsHash()
