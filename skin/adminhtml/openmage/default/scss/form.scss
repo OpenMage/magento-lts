@@ -65,190 +65,28 @@ select[size] {
   height: auto;
 }
 
-button {
+button,
+.form-button {
   text-transform: none;
-  @extend %extend_20;
+  background: $openmage_blue_gray;
+  padding: 0 12px;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 28px;
+  vertical-align: middle;
+  white-space: nowrap;
 
   span {
     padding: 0;
   }
 
-  &.cancel {
-    background: $openmage_red;
-    color: $white;
-    padding: 0 13px;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:hover {
-      background: $openmage_red_dark;
-    }
-  }
-
-  &.delete {
-    background: $openmage_red;
-    color: $white;
-    padding: 0 13px;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:hover,
-    &:focus {
-      background: $openmage_red_dark;
-    }
-  }
-
-  &.save {
-    @extend %extend_23;
-    padding: 0 13px;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:focus {
-      @extend %extend_24;
-    }
-
-    &:active {
-      @extend %extend_24;
-    }
-
-    &:hover {
-      background-color: $openmage_blue_dark;
-    }
-
-    &.disabled {
-      @extend %extend_25;
-    }
-  }
-
-  &.ok_button {
-    @extend %extend_23;
-    padding: 0 13px;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:focus {
-      @extend %extend_24;
-    }
-
-    &:active {
-      @extend %extend_24;
-    }
-
-    &:hover {
-      background-color: $openmage_blue_dark;
-    }
-
-    &.disabled {
-      @extend %extend_25;
-    }
-  }
-
-  &.add {
-    @extend %extend_23;
-    padding: 0 13px;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:focus {
-      @extend %extend_24;
-    }
-
-    &:active {
-      @extend %extend_24;
-    }
-
-    &:hover {
-      background-color: $openmage_blue_dark;
-    }
-
-    &.disabled {
-      @extend %extend_25;
-
-      span {
-        background: none;
-      }
-    }
-  }
-
-  &.back {
-    background: none;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:before {
-      content: "«";
-      padding-right: 4px;
-    }
-  }
-
-  &:focus,
-  &:active {
-    background: $color_dark_grey;
-    color: $white;
-    border: 0;
-    outline: thin dotted;
-    outline-offset: -2px;
-  }
-
-  &:hover {
-    background: $color_dark_grey;
-    color: $white;
-  }
-
-  &.disabled {
-    @extend %extend_22;
-    background: $color_dark_grey;
-  }
-
-  &.save[disabled] {
-    @extend %extend_25;
-  }
-
-  &.add[disabled] {
-    @extend %extend_25;
-  }
-
-  &.ok_button[disabled] {
-    @extend %extend_25;
-  }
-
-  &.fail {
-    background: $openmage_red;
-    color: $white;
-    padding: 0 13px;
-
-    &:hover {
-      background: $openmage_red_dark;
-    }
-  }
-
-  &.cancel_button {
-    background: $openmage_red;
-    color: $white;
-    padding: 0 13px;
-
-    &:hover {
-      background: $openmage_red_dark;
-    }
+  &.large {
+    font-size: 22px;
+    padding: 14px 22px 16px;
   }
 
   &.icon-btn {
@@ -261,76 +99,58 @@ button {
     }
   }
 
-  &.large {
-    font-size: 22px;
-    padding: 14px 22px 16px;
-  }
-
-  &.add-image span {
-    background: none;
-    padding: 0;
-  }
-
-  &.add-widget span {
-    background: none;
-    padding: 0;
-  }
-
-  &.go span {
-    background: none;
-    padding: 0;
-  }
-
-  &.add-variable span {
-    background: none;
-    padding: 0;
-  }
-}
-
-.form-button {
-  @extend %extend_20;
-
+  &:hover,
   &:focus,
   &:active {
     background: $color_dark_grey;
-    color: $white;
-    border: 0;
-    outline: thin dotted;
-    outline-offset: -2px;
   }
 
-  &:hover {
-    background: $color_dark_grey;
+  &:focus:not(:active) {
+    outline-offset: -4px;
+    outline: 2px dashed white;
   }
 
-  &.disabled {
-    @extend %extend_22;
+  &.disabled,
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.5;
   }
 
+  &.save,
+  &.add,
   &.ok_button {
-    @extend %extend_23;
+    background: $openmage_blue;
 
-    &:focus {
-      @extend %extend_24;
-    }
-
+    &:hover,
+    &:focus,
     &:active {
-      @extend %extend_24;
-    }
-
-    &:hover {
-      background-color: $openmage_blue_dark;
+      background: $openmage_blue_dark;
     }
   }
 
-  &.large {
-    font-size: 22px;
-    padding: 14px 22px 16px;
-  }
-}
+  &.cancel,
+  &.cancel_button,
+  &.delete,
+  &.fail {
+    background: $openmage_red;
 
-button[disabled] {
-  @extend %extend_22;
+    &:hover,
+    &:focus,
+    &:active {
+      background: $openmage_red_dark;
+    }
+  }
+
+  &.success {
+    background: $openmage_green;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: $openmage_green_dark;
+    }
+  }
 }
 
 .field-100 {
@@ -381,21 +201,13 @@ button[disabled] {
   }
 }
 
-.form-button[disabled] fieldset[disabled] button {
-  @extend %extend_22;
-}
-
 fieldset[disabled] button {
-  &.save {
-    @extend %extend_25;
-  }
-
-  &.add {
-    @extend %extend_25;
-  }
-
+  &.save,
+  &.add,
   &.ok_button {
-    @extend %extend_25;
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.5;
   }
 }
 

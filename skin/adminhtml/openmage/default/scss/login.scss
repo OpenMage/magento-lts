@@ -116,8 +116,29 @@ input {
 }
 
 .form-button {
-  @extend %extend_20;
-  background-color: $openmage_blue;
+  text-transform: none;
+  background: $openmage_blue;
+  padding: 0 12px;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 28px;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: $openmage_blue_dark;
+  }
+
+  &:focus:not(:active) {
+    outline-offset: -4px;
+    outline: 2px dashed white;
+  }
 }
 
 #page-login {
