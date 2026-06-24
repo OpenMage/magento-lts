@@ -122,11 +122,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, Varien_Data_Form_Element_Abstract|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Attributes.php',
