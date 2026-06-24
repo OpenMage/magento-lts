@@ -27,7 +27,8 @@
     text-align: left;
     float: left;
 
-    &:hover {
+    &:hover,
+    &:focus-within {
       z-index: 999;
 
       ul {
@@ -37,14 +38,16 @@
           left: -10000px;
         }
 
-        li:hover ul {
+        li:hover ul,
+        li:focus-within ul {
           left: 100px;
 
           ul {
             left: -10000px;
           }
 
-          li:hover ul {
+          li:hover ul,
+          li:focus-within ul {
             left: 100px;
           }
         }
@@ -78,9 +81,16 @@
         height: 38px;
         line-height: 38px;
 
-        &:hover {
+        &:focus,
+        &:hover,
+        &:active {
           background: $openmage_base_blue_dark;
           color: $white;
+        }
+
+        &:focus:not(:active) {
+          outline-offset: -4px;
+          outline: 2px dashed white;
         }
       }
 
@@ -133,7 +143,7 @@
 
     &.level1, &.level2, &.level3 {
       > a {
-        &.active:not(:hover) {
+        &.active:not(:hover):not(:focus) {
           background: $color_gallery_approx;
         }
       }
@@ -159,7 +169,6 @@
     padding: 0 12px;
     color: $white;
     cursor: pointer;
-    outline: none !important;
 
     &:hover {
       display: block;
@@ -194,9 +203,16 @@
         color: $openmage_base_blue_text;
         font-size: 12px;
 
-        &:hover {
+        &:focus,
+        &:hover,
+        &:active {
           background: $openmage_base_blue_dark;
           color: $white;
+        }
+
+        &:focus:not(:active) {
+          outline-offset: -4px;
+          outline: 2px dashed white;
         }
       }
 
