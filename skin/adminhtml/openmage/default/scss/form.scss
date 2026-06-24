@@ -5,11 +5,25 @@
 
 @import "base";
 
+input,
+textarea,
+select {
+  &:focus {
+    outline-offset: -2px;
+    outline: 2px dashed $openmage_blue_dark;
+  }
+}
+
 input {
   vertical-align: middle;
 
   &.input-text {
     @extend %extend_18;
+  }
+
+  &[type="checkbox"],
+  &[type="radio"] {
+    outline-offset: 2px;
   }
 }
 

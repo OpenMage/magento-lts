@@ -159,6 +159,7 @@
     padding: 0 12px;
     color: $white;
     cursor: pointer;
+    outline: none !important;
 
     &:hover {
       display: block;
@@ -293,6 +294,7 @@
       color: $openmage_base_blue_text;
       text-decoration: none;
       display: block;
+      outline: none !important;
     }
     a:hover {
       background: $openmage_base_blue_dark;

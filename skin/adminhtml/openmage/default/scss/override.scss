@@ -182,6 +182,11 @@ small {
 
     a {
       @extend %extend_10;
+      padding: 4px 16px;
+
+      &:focus:not(:active) {
+        outline-offset: -4px;
+      }
     }
 
     button:not(:first-of-type) {
@@ -325,6 +330,11 @@ small {
 
           &:hover {
             color: $color_alto_approx;
+          }
+
+          &:focus:not(:active) {
+            outline-offset: 0;
+            outline-color: white;
           }
 
           &.sort-arrow-desc {
@@ -534,6 +544,10 @@ ul {
             font-weight: 400;
           }
         }
+      }
+
+      &:focus:not(:active) {
+        outline-offset: -4px;
       }
     }
 
@@ -1020,9 +1034,14 @@ dl.accordion dt {
     @extend %extend_10;
     position: relative;
     background: none;
+    padding: 4px 16px;
 
     &:hover {
       @extend %extend_10;
+    }
+
+    &:focus:not(:active) {
+      outline-offset: -4px;
     }
 
     &:after {
