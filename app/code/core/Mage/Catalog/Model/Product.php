@@ -2275,7 +2275,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Check for empty SKU on each product
      *
-     * @param list<int|string> $productIds
+     * @param  list<int|string>    $productIds
      * @return bool
      * @throws Mage_Core_Exception
      */

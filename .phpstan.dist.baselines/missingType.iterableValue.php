@@ -5932,11 +5932,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Product::isProductsHasSku() has parameter $productIds with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Product::setCategoryIds() has parameter $ids with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product.php',
@@ -7608,16 +7603,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product::getProductEntitiesInfo() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product::getProductsSku() has parameter $productIds with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product::getProductsSku() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product.php',
 ];

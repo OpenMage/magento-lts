@@ -638,7 +638,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Get SKU through product identifiers
      *
-     * @param list<int|string>                             $productIds
+     * @param  list<int|string>                            $productIds
      * @return list<array{entity_id: string, sku: string}>
      */
     public function getProductsSku(array $productIds)
@@ -646,7 +646,10 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('catalog/product'), ['entity_id', 'sku'])
             ->where('entity_id IN (?)', $productIds);
-        return $this->_getReadAdapter()->fetchAll($select);
+        
+        /** @var list<array{entity_id: string, sku: string}> $result */
+        $result = $this->_getReadAdapter()->fetchAll($select);
+        return $result;
     }
 
     /**

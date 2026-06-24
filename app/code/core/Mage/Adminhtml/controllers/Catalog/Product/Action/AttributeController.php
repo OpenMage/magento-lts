@@ -201,7 +201,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
      */
     protected function _validateProducts()
     {
-        $error = false;
+        $error = null;
         $productIds = $this->_getHelper()->getProductIds();
         if (!is_array($productIds)) {
             $error = $this->__('Please select products for attributes update');
@@ -209,12 +209,12 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             $error = $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.');
         }
 
-        if ($error) {
+        if ($error !== null) {
             $this->_getSession()->addError($error);
             $this->_redirect('*/catalog_product/', ['_current' => true]);
         }
 
-        return !$error;
+        return $error !== null;
     }
 
     /**
