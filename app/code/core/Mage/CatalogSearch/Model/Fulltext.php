@@ -138,7 +138,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      */
     public function getSearchType($storeId = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_CATALOG_SEARCH_TYPE, $storeId);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_CATALOG_SEARCH_TYPE, $storeId);
     }
 
     // Deprecated methods

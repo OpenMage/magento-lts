@@ -2062,21 +2062,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Advanced.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<min, 0>|int<2, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<min, 1>|int<3, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php',
@@ -2303,7 +2288,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
-    'count' => 2,
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php',
 ];
 $ignoreErrors[] = [
