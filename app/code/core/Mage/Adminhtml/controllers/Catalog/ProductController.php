@@ -1003,6 +1003,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function massStatusAction()
     {
+        /**
+         * @var list<int|string> $productIds
+         */
         $productIds = (array) $this->getRequest()->getParam('product');
         $storeId    = (int) $this->getRequest()->getParam('store', 0);
         $status     = (int) $this->getRequest()->getParam('status');
@@ -1029,6 +1032,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Validate batch of products before theirs status will be set
      *
+     * @param  list<int|string>    $productIds
      * @param  int                 $status
      * @throws Mage_Core_Exception
      */
