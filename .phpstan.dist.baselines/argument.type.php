@@ -3387,11 +3387,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App::getStore() expects bool|int|Mage_Core_Model_Store|string|null, Varien_Object|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Filter.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $allowedTags of method Mage_Core_Helper_Abstract::escapeHtml() expects array<string>|null, list<string>|false|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Filter.php',
