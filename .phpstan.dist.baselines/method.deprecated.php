@@ -209,11 +209,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Attribute.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method _afterSetConfig() of class Mage_Eav_Model_Entity_Abstract.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface:
 after 1.5.1.0',
     'count' => 1,
