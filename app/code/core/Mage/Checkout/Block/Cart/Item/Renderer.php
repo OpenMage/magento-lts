@@ -258,7 +258,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             [
                 'id' => $this->getItem()->getId(),
                 Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
-                '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
+                '_secure' => $this->_getApp()->isCurrentlySecure(),
             ],
         );
     }
@@ -278,7 +278,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             [
                 'id' => $this->getItem()->getId(),
                 Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
-                '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
+                '_secure' => Mage::app()->isCurrentlySecure(),
             ],
         );
     }

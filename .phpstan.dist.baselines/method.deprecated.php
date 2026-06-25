@@ -193,11 +193,6 @@ since 1.2',
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Update.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isCurrentlySecure() of class Mage_Core_Model_Store.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Store.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface:
 after 1.5.1.0',
     'count' => 2,
