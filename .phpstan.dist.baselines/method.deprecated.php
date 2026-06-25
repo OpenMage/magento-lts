@@ -529,12 +529,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Catalog/Helper/Product/UrlTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isSwfDisabled() of class Mage_Cms_Helper_Data:
-since 19.5.0',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Cms/Helper/DataTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getRegionJson() of class Mage_Directory_Helper_Data:
 after 1.7.0.2',
     'count' => 1,
