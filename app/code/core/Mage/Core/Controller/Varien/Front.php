@@ -351,7 +351,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         $baseUrl = Mage::getBaseUrl(
             Mage_Core_Model_Store::URL_TYPE_WEB,
-            Mage::app()->getStore()->isCurrentlySecure(),
+            Mage::app()->isCurrentlySecure(),
         );
         if (!$baseUrl) {
             return;

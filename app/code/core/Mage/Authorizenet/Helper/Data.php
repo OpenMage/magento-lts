@@ -41,7 +41,7 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
         $params['_type'] = Mage_Core_Model_Store::URL_TYPE_LINK;
         if (isset($params['is_secure'])) {
             $params['_secure'] = (bool) $params['is_secure'];
-        } elseif (Mage::app()->getStore()->isCurrentlySecure()) {
+        } elseif (Mage::app()->isCurrentlySecure()) {
             $params['_secure'] = true;
         }
 
