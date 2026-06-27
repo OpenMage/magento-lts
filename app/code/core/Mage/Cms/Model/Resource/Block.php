@@ -109,7 +109,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             $field = 'identifier';
         }
 
-        if (!$object->getStoreId()) {
+        if ($object->getStoreId() === null) {
             return parent::load($object, $value, $field);
         }
 
