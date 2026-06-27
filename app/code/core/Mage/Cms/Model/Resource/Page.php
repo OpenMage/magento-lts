@@ -181,18 +181,18 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
         $read = $this->_getReadAdapter();
 
-        if ($read && !is_null($value)) {
+        if (!is_null($value)) {
             $data = $read->fetchRow(
                 $this->_getLoadSelectByStore($field, $value, $object, (int) $object->getStoreId()),
             );
 
-            if (!$data && (int) $object->getStoreId() !== Mage_Core_Model_App::ADMIN_STORE_ID) {
+            if ($data === false && (int) $object->getStoreId() !== Mage_Core_Model_App::ADMIN_STORE_ID) {
                 $data = $read->fetchRow(
                     $this->_getLoadSelectByStore($field, $value, $object, Mage_Core_Model_App::ADMIN_STORE_ID),
                 );
             }
 
-            if ($data) {
+            if ($data !== false) {
                 $object->setData($data);
             }
         }
@@ -223,7 +223,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param  string              $field
      * @param  mixed               $value
-     * @param  Mage_Cms_Model_Page $object
+    * @param  Mage_Core_Model_Abstract|Mage_Cms_Model_Page $object
      * @param  int                 $storeId
      * @return Zend_Db_Select
      * @throws Exception
