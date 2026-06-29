@@ -234,45 +234,48 @@ varienLoader.prototype = {
 // -------------------------------------------------------------------------
 // varienUpdater — AJAX updater with session expiry check
 // -------------------------------------------------------------------------
-(function () {
-    if (typeof Ajax !== 'undefined' && typeof Ajax.Updater !== 'undefined' && typeof Ajax.getTransport === 'function') {
-        window.varienUpdater = Class.create(Ajax.Updater, {
-            updateContent: function ($super, responseText) {
-                if (_openMageCheckSession(responseText)) {
-                    return;
-                }
-                $super(responseText);
-            }
-        });
+window.varienUpdater = function (containerId, url, options) {
+    var container = document.getElementById(containerId);
+    options = options || {};
+    var loaderArea = options.loaderArea;
+    var method = options.method || 'POST';
+    var parameters = _openMageInjectFormKey(options.parameters);
+    var requestUrl = _openMageAjaxUrl(url);
+    var fetchOptions = {
+        method: method,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    };
+
+    if (method.toUpperCase() === 'GET') {
+        requestUrl += '&' + new URLSearchParams(parameters).toString();
     } else {
-        // Vanilla fallback
-        window.varienUpdater = function (containerId, url, options) {
-            var container = document.getElementById(containerId);
-            options = options || {};
-            fetch(_openMageAjaxUrl(url), {
-                method: options.method || 'POST',
-                headers: { 'X-Requested-With': 'XMLHttpRequest' }
-            })
-            .then(function (resp) { return resp.text(); })
-            .then(function (text) {
-                if (_openMageCheckSession(text)) {
-                    return;
-                }
-                if (container) {
-                    container.innerHTML = text;
-                }
-                if (typeof options.onComplete === 'function') {
-                    options.onComplete({ responseText: text });
-                }
-            })
-            .catch(function () {
-                if (typeof options.onFailure === 'function') {
-                    options.onFailure();
-                }
-            });
-        };
+        fetchOptions.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        fetchOptions.body = new URLSearchParams(parameters).toString();
     }
-})();
+
+    showLoader(loaderArea);
+    fetch(requestUrl, fetchOptions)
+    .then(function (resp) { return resp.text(); })
+    .then(function (text) {
+        if (_openMageCheckSession(text)) {
+            hideLoader();
+            return;
+        }
+        if (container) {
+            container.innerHTML = text;
+        }
+        if (typeof options.onComplete === 'function') {
+            options.onComplete({ responseText: text });
+        }
+        hideLoader();
+    })
+    .catch(function () {
+        hideLoader();
+        if (typeof options.onFailure === 'function') {
+            options.onFailure();
+        }
+    });
+};
 
 // -------------------------------------------------------------------------
 // Loading mask — show/hide global loader

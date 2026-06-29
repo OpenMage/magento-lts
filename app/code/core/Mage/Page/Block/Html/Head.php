@@ -203,8 +203,9 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      */
     protected function _applyPrototypeMode()
     {
-        $mode = Mage::getStoreConfig('dev/js/prototype_mode');
-        if (!$mode || $mode === 'full') {
+        /** @var Mage_Core_Helper_Js $helper */
+        $helper = Mage::helper('core/js');
+        if ($helper->isPrototypeModeFull()) {
             return $this;
         }
 
@@ -213,7 +214,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             $this->removeItem('js', $file);
         }
 
-        if ($mode === 'shim') {
+        if ($helper->isPrototypeModeShim()) {
             // Insert shim as the very first JS item
             $shimItem = [
                 'type' => 'js',
@@ -223,8 +224,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 'cond' => null,
             ];
             $this->_data['items'] = ['js/prototype/prototype-shim.js' => $shimItem] + ($this->_data['items'] ?? []);
+        } elseif ($helper->isPrototypeModeNone()) {
+            // Fully migrated: drop the shim too. The layout XML adds it
+            // unconditionally (addJs prototype/prototype-shim.js), so it must
+            // be removed explicitly here, otherwise "none" still loads it.
+            $this->removeItem('js', 'prototype/prototype-shim.js');
         }
-        // mode === 'none': just remove, don't add anything
 
         return $this;
     }

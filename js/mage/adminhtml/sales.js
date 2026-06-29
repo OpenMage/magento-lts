@@ -1028,6 +1028,7 @@ AdminOrder.prototype = {
         if (!this.loadingAreas) this.loadingAreas = [];
         if (indicator) {
             this.loadingAreas = area;
+            showLoader(indicator);
             var queryString = new URLSearchParams(params).toString();
             fetch(url, {
                 method: 'POST',
@@ -1038,6 +1039,9 @@ AdminOrder.prototype = {
             }).then(function(text) {
                 var response = JSON.parse(text);
                 this.loadAreaResponseHandler(response);
+                hideLoader();
+            }.bind(this)).catch(function() {
+                hideLoader();
             }.bind(this));
         }
         else {
@@ -1079,6 +1083,16 @@ AdminOrder.prototype = {
                     wrapper.innerHTML = response[id] ? response[id] : '';
                     areaEl.innerHTML = '';
                     areaEl.appendChild(wrapper);
+                    var scripts = areaEl.querySelectorAll('script');
+                    for (var s = 0; s < scripts.length; s++) {
+                        var scriptEl = document.createElement('script');
+                        if (scripts[s].src) {
+                            scriptEl.src = scripts[s].src;
+                        } else {
+                            scriptEl.text = scripts[s].text;
+                        }
+                        document.head.appendChild(scriptEl).parentNode.removeChild(scriptEl);
+                    }
                 }
                 if (areaEl.callback) {
                     this[areaEl.callback]();
@@ -1254,7 +1268,8 @@ AdminOrder.prototype = {
     {
         var params = {
             country: document.getElementById(parameters.countryElementId).value,
-            vat: document.getElementById(parameters.vatElementId).value
+            vat: document.getElementById(parameters.vatElementId).value,
+            form_key: window.FORM_KEY || ''
         };
 
         if (this.storeId !== false) {
@@ -1267,6 +1282,7 @@ AdminOrder.prototype = {
         fetch(parameters.validateUrl, {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+            credentials: 'same-origin',
             body: queryString
         }).then(function(response) {
             return response.text();
@@ -1305,15 +1321,19 @@ AdminOrder.prototype = {
     processCustomerGroupChange: function(groupIdHtmlId, message, groupId)
     {
         var currentCustomerGroupId = document.getElementById(groupIdHtmlId).value;
-        var currentCustomerGroupTitle = document.querySelector('#' + groupIdHtmlId + ' > option[value="' + currentCustomerGroupId + '"]').text;
-        var customerGroupOption = document.querySelector('#' + groupIdHtmlId + ' > option[value="' + groupId + '"]');
-        var confirmText = message.replace(/%s/, customerGroupOption.text);
-        confirmText = confirmText.replace(/%s/, currentCustomerGroupTitle);
+        var currentGroupOption = document.querySelector('#' + groupIdHtmlId + ' option[value="' + currentCustomerGroupId + '"]');
+        var customerGroupOption = document.querySelector('#' + groupIdHtmlId + ' option[value="' + groupId + '"]');
+        var newGroupName = customerGroupOption ? customerGroupOption.text : ('#' + groupId);
+        var currentGroupName = currentGroupOption ? currentGroupOption.text : ('#' + currentCustomerGroupId);
+        var confirmText = message.replace(/%s/, newGroupName);
+        confirmText = confirmText.replace(/%s/, currentGroupName);
         if (confirm(confirmText)) {
-            document.querySelectorAll('#' + groupIdHtmlId + ' option').forEach(function(o) {
-                o.selected = o.getAttribute('value') == groupId;
-            });
-            this.accountGroupChange();
+            if (customerGroupOption) {
+                document.querySelectorAll('#' + groupIdHtmlId + ' option').forEach(function(o) {
+                    o.selected = o.getAttribute('value') == groupId;
+                });
+                this.accountGroupChange();
+            }
         }
     }
 };

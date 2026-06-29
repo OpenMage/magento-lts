@@ -66,6 +66,7 @@ varienForm.prototype = {
     _validate : function(){
         var self = this;
         var formEl = document.getElementById(this.formId);
+        showLoader();
         fetch(this.validationUrl, {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
@@ -86,17 +87,20 @@ varienForm.prototype = {
         }
         var response = JSON.parse(transport.responseText);
         if(response.error){
+            hideLoader();
             var messagesEl = document.getElementById('messages');
             if(messagesEl){
                 messagesEl.innerHTML = response.message;
             }
         }
         else{
+            hideLoader();
             this._submit();
         }
     },
 
     _processFailure : function(transport){
+        hideLoader();
         location.href = BASE_URL;
     },
 

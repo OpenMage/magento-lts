@@ -237,6 +237,17 @@ Mediabrowser.prototype = {
                 var contentsEl = document.getElementById('contents');
                 if (contentsEl != undefined) {
                     contentsEl.innerHTML = responseText;
+                    // innerHTML does not execute <script> tags; re-create them
+                    // so any inline scripts in the AJAX response still run
+                    contentsEl.querySelectorAll('script').forEach(function(script) {
+                        var newScript = document.createElement('script');
+                        if (script.src) {
+                            newScript.src = script.src;
+                        } else {
+                            newScript.textContent = script.textContent;
+                        }
+                        document.head.appendChild(newScript);
+                    });
                     var fileDivs = document.querySelectorAll('div.filecnt');
                     fileDivs.forEach(function(s) {
                         s.addEventListener('click', self.selectFile.bind(self));
