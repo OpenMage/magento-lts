@@ -374,6 +374,11 @@
     },
     stripTags: function () { return this.replace(/<\/?[^>]+>/gi, ''); },
     stripScripts: function () { return this.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ''); },
+    extractScripts: function () {
+      var scripts = [];
+      this.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, function (m, src) { scripts.push(src); });
+      return scripts;
+    },
     evalScripts: function () {
       var scripts = [];
       this.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, function (m, src) { scripts.push(src); });
@@ -507,6 +512,7 @@
   String.prototype.isJSON = stringMethods.isJSON;
   String.prototype.stripTags = stringMethods.stripTags;
   String.prototype.stripScripts = stringMethods.stripScripts;
+  String.prototype.extractScripts = stringMethods.extractScripts;
   String.prototype.evalScripts = stringMethods.evalScripts;
   String.prototype.escapeHTML = stringMethods.escapeHTML;
   String.prototype.unescapeHTML = stringMethods.unescapeHTML;
@@ -723,13 +729,27 @@
   };
 
   EP.insert = function (insertions) {
-    if (typeof insertions === 'string' || typeof insertions === 'number') {
+    if (typeof insertions === 'string' || typeof insertions === 'number' ||
+        (insertions && insertions.nodeType === 1)) {
       insertions = { bottom: insertions };
     }
-    if (insertions.top) this.insertAdjacentHTML('afterbegin', String(insertions.top));
-    if (insertions.bottom) this.insertAdjacentHTML('beforeend', String(insertions.bottom));
-    if (insertions.before) this.insertAdjacentHTML('beforebegin', String(insertions.before));
-    if (insertions.after) this.insertAdjacentHTML('afterend', String(insertions.after));
+    var self = this;
+    function _doInsert(where, content) {
+      if (!content) return;
+      if (content.nodeType === 1) {
+        if (where === 'top') self.insertBefore(content, self.firstChild);
+        else if (where === 'bottom') self.appendChild(content);
+        else if (where === 'before' && self.parentNode) self.parentNode.insertBefore(content, self);
+        else if (where === 'after' && self.parentNode) self.parentNode.insertBefore(content, self.nextSibling);
+      } else {
+        var posMap = { top: 'afterbegin', bottom: 'beforeend', before: 'beforebegin', after: 'afterend' };
+        self.insertAdjacentHTML(posMap[where], String(content));
+      }
+    }
+    if (insertions.top) _doInsert('top', insertions.top);
+    if (insertions.bottom) _doInsert('bottom', insertions.bottom);
+    if (insertions.before) _doInsert('before', insertions.before);
+    if (insertions.after) _doInsert('after', insertions.after);
     _evalScripts(this);
     return this;
   };

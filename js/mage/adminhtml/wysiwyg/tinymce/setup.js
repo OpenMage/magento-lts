@@ -12,14 +12,16 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-var tinyMceWysiwygSetup = Class.create();
+function tinyMceWysiwygSetup() {
+    if (this.initialize) this.initialize.apply(this, arguments);
+}
 tinyMceWysiwygSetup.prototype =
 {
     mediaBrowserCallback: null,
     mediaBrowserMetal: null,
     mediaBrowserValue: null,
 
-    openmagePluginsOptions: $H({}),
+    openmagePluginsOptions: {},
 
     initialize: function (htmlId, config) {
         this.id = htmlId;
@@ -28,9 +30,9 @@ tinyMceWysiwygSetup.prototype =
         varienGlobalEvents.attachEventHandler('tinymceChange', this.onChangeContent.bind(this));
 
         if (typeof tinyMceEditors === 'undefined') {
-            window.tinyMceEditors = $H({});
+            window.tinyMceEditors = {};
         }
-        tinyMceEditors.set(this.id, this);
+        tinyMceEditors[this.id] = this;
     },
 
     setup: function (mode) {
@@ -38,15 +40,15 @@ tinyMceWysiwygSetup.prototype =
 
         if (this.config.widget_plugin_src) {
             tinymce.PluginManager.load('openmagewidget', this.config.widget_plugin_src);
-            this.openmagePluginsOptions.set('openmagewidget', {
+            this.openmagePluginsOptions['openmagewidget'] = {
                 'widget_window_url': this.config.widget_window_url
-            });
+            };
         }
 
         if (this.config.plugins) {
-            (this.config.plugins).each(function (plugin) {
+            this.config.plugins.forEach(function (plugin) {
                 tinymce.PluginManager.load(plugin.name, plugin.src);
-                self.openmagePluginsOptions.set(plugin.name, plugin.options);
+                self.openmagePluginsOptions[plugin.name] = plugin.options;
             });
         }
 
@@ -60,9 +62,9 @@ tinyMceWysiwygSetup.prototype =
         // load and add to toolbar openmagePlugins
         if (this.openmagePluginsOptions) {
             var openmageToolbarButtons = '';
-            this.openmagePluginsOptions.each(function (plugin, key) {
-                plugins = plugin.key + ' ' + plugins;
-                openmageToolbarButtons = plugin.key + ' ' + openmageToolbarButtons;
+            Object.keys(this.openmagePluginsOptions).forEach(function (key) {
+                plugins = key + ' ' + plugins;
+                openmageToolbarButtons = key + ' ' + openmageToolbarButtons;
             });
             toolbar = openmageToolbarButtons + ' | ' + toolbar;
         }
@@ -174,7 +176,7 @@ tinyMceWysiwygSetup.prototype =
 
         MediabrowserUtility.openDialog(wUrl, false, false, typeTitle, {
             onBeforeShow: function (win) {
-                win.element.setStyle({ zIndex: 300200 });
+                win.element.style.zIndex = 300200;
             }
         });
     },
@@ -195,7 +197,7 @@ tinyMceWysiwygSetup.prototype =
         this.closePopups();
         this.setup();
         this.getPluginButtons().forEach(function (e) {
-            e.hide();
+            e.style.display = 'none';
         });
     },
 
@@ -205,7 +207,7 @@ tinyMceWysiwygSetup.prototype =
             tinymce.get(this.id).destroy();
         }
         this.getPluginButtons().forEach(function (e) {
-            e.show();
+            e.style.display = '';
         });
     },
 
@@ -233,8 +235,8 @@ tinyMceWysiwygSetup.prototype =
     onChangeContent: function () {
         if (this.config.tab_id) {
             var tab = document.querySelector('a[id$=' + this.config.tab_id + ']');
-            if ($(tab) != undefined && $(tab).hasClassName('tab-item-link')) {
-                $(tab).addClassName('changed');
+            if (tab && tab.classList.contains('tab-item-link')) {
+                tab.classList.add('changed');
             }
         }
     },
@@ -296,28 +298,28 @@ tinyMceWysiwygSetup.prototype =
 
     encodeDirectives: function (content) {
         // collect all HTML tags with attributes that contain directives
-        return content.gsub(/<([a-z0-9\-\_]+.+?)([a-z0-9\-\_]+=".*?\{\{.+?\}\}.*?".+?)>/i, function (match) {
-            var attributesString = match[2];
+        return content.replace(/<([a-z0-9\-\_]+.+?)([a-z0-9\-\_]+=".*?\{\{.+?\}\}.*?".+?)>/ig, function (full, p1, p2) {
+            var attributesString = p2;
             // process tag attributes string
-            attributesString = attributesString.gsub(/([a-z0-9\-\_]+)="(.*?)(\{\{.+?\}\})(.*?)"/i, function (m) {
-                return m[1] + '="' + m[2] + this.makeDirectiveUrl(Base64.mageEncode(m[3])) + m[4] + '"';
+            attributesString = attributesString.replace(/([a-z0-9\-\_]+)="(.*?)(\{\{.+?\}\})(.*?)"/ig, function (full2, m1, m2, m3, m4) {
+                return m1 + '="' + m2 + this.makeDirectiveUrl(Base64.mageEncode(m3)) + m4 + '"';
             }.bind(this));
 
-            return '<' + match[1] + attributesString + '>';
+            return '<' + p1 + attributesString + '>';
 
         }.bind(this));
     },
 
     encodeWidgets: function (content) {
-        return content.gsub(/\{\{widget(.*?)\}\}/i, function (match) {
-            var attributes = this.parseAttributesString(match[1]);
+        return content.replace(/\{\{widget(.*?)\}\}/ig, function (full, p1) {
+            var attributes = this.parseAttributesString(p1);
             if (attributes.type) {
                 var placeholderFilename = attributes.type.replace(/\//g, "__") + ".gif";
                 var imageSrc = this.config.widget_placeholders[placeholderFilename] ?? this.config.widget_placeholders["default.gif"];
                 var imageHtml = '<img';
-                imageHtml += ' id="' + Base64.idEncode(match[0]) + '"';
+                imageHtml += ' id="' + Base64.idEncode(full) + '"';
                 imageHtml += ' src="' + imageSrc + '"';
-                imageHtml += ' title="' + match[0].replace(/\{\{/g, '{').replace(/\}\}/g, '}').replace(/\"/g, '&quot;') + '"';
+                imageHtml += ' title="' + full.replace(/\{\{/g, '{').replace(/\}\}/g, '}').replace(/"/g, '&quot;') + '"';
                 imageHtml += '>';
 
                 return imageHtml;
@@ -328,30 +330,30 @@ tinyMceWysiwygSetup.prototype =
     decodeDirectives: function (content) {
         // escape special chars in directives url to use it in regular expression
         var url = this.makeDirectiveUrl('%directive%').replace(/([$^.?*!+:=()\[\]{}|\\])/g, '\\$1');
-        var reg = new RegExp(url.replace('%directive%', '([a-zA-Z0-9,_-]+)'));
-        return content.gsub(reg, function (match) {
-            return Base64.mageDecode(match[1]);
+        var reg = new RegExp(url.replace('%directive%', '([a-zA-Z0-9,_-]+)'), 'g');
+        return content.replace(reg, function (full, p1) {
+            return Base64.mageDecode(p1);
         }.bind(this));
     },
 
     decodeWidgets: function (content) {
-        return content.gsub(/<img([^>]+id=\"[^>]+)>/i, function (match) {
-            var attributes = this.parseAttributesString(match[1]);
+        return content.replace(/<img([^>]+id="[^>]+)>/ig, function (full, p1) {
+            var attributes = this.parseAttributesString(p1);
             if (attributes.id) {
                 var widgetCode = Base64.idDecode(attributes.id);
                 if (widgetCode.indexOf('{{widget') != -1) {
                     return widgetCode;
                 }
-                return match[0];
+                return full;
             }
-            return match[0];
+            return full;
         }.bind(this));
     },
 
     parseAttributesString: function (attributes) {
         var result = {};
-        attributes.gsub(/(\w+)(?:\s*=\s*(?:(?:"((?:\\.|[^"\\])*)")|(?:'((?:\\.|[^'\\])*)')|([^>\s]+)))?/, function (match) {
-            result[match[1]] = match[2];
+        attributes.replace(/(\w+)(?:\s*=\s*(?:(?:"((?:\\.|[^"\\])*)")|(?:'((?:\\.|[^'\\])*)')|([^>\s]+)))?/g, function (full, p1, p2) {
+            result[p1] = p2;
         });
         return result;
     },

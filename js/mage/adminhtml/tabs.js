@@ -150,6 +150,7 @@ varienTabs.prototype = {
 
             if (isAjax && (isEmpty || isNotLoaded)) {
                 var self = this;
+                showLoader();
                 fetch(tab.href, {
                     method: 'POST',
                     headers: { 'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -160,9 +161,11 @@ varienTabs.prototype = {
                     try {
                         var response = JSON.parse(text);
                         if (response.error) {
+                            hideLoader();
                             alert(response.message);
                         }
                         if (response.ajaxExpired && response.ajaxRedirect) {
+                            hideLoader();
                             setLocation(response.ajaxRedirect);
                         }
                     } catch (e) {
@@ -173,8 +176,11 @@ varienTabs.prototype = {
                             document.head.appendChild(newScript);
                             document.head.removeChild(newScript);
                         });
+                        hideLoader();
                         self.showTabContentImmediately(tab);
                     }
+                }).catch(function () {
+                    hideLoader();
                 });
             } else {
                 this.showTabContentImmediately(tab);
@@ -185,6 +191,7 @@ varienTabs.prototype = {
     loadShadowTab: function (tab) {
         var tabContentElement = document.getElementById(this.getTabContentElementId(tab));
         if (tabContentElement && tab.classList.contains('ajax') && tab.classList.contains('notloaded')) {
+            showLoader();
             fetch(tab.href, {
                 method: 'POST',
                 headers: { 'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -195,9 +202,11 @@ varienTabs.prototype = {
                 try {
                     var response = JSON.parse(text);
                     if (response.error) {
+                        hideLoader();
                         alert(response.message);
                     }
                     if (response.ajaxExpired && response.ajaxRedirect) {
+                        hideLoader();
                         setLocation(response.ajaxRedirect);
                     }
                 } catch (e) {
@@ -211,7 +220,10 @@ varienTabs.prototype = {
                     if (!tab.classList.contains('ajax') || !tab.classList.contains('only')) {
                         tab.classList.remove('notloaded');
                     }
+                    hideLoader();
                 }
+            }).catch(function () {
+                hideLoader();
             });
         }
     },

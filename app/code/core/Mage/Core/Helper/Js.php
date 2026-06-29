@@ -24,6 +24,14 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public const JAVASCRIPT_TRANSLATE_CONFIG_FILENAME = 'jstranslator.xml';
 
+    /**
+     * Config path and possible values for the Prototype.js loading mode
+     */
+    public const XML_PATH_PROTOTYPE_MODE = 'dev/js/prototype_mode';
+    public const PROTOTYPE_MODE_FULL = 'full';
+    public const PROTOTYPE_MODE_SHIM = 'shim';
+    public const PROTOTYPE_MODE_NONE = 'none';
+
     protected $_moduleName = 'Mage_Core';
 
     /**
@@ -224,5 +232,41 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     public function getSaveAndContinueEditJs(string $url): string
     {
         return "saveAndContinueEdit('" . $url . "')";
+    }
+
+    /**
+     * Get the configured Prototype.js loading mode (full|shim|none).
+     *
+     * Falls back to the shim — the config.xml default — when unset.
+     */
+    public function getPrototypeMode(): string
+    {
+        $mode = (string) Mage::getStoreConfig(self::XML_PATH_PROTOTYPE_MODE);
+        return $mode !== '' ? $mode : self::PROTOTYPE_MODE_SHIM;
+    }
+
+    /**
+     * Whether full Prototype.js + Scriptaculous should be loaded.
+     */
+    public function isPrototypeModeFull(): bool
+    {
+        return $this->getPrototypeMode() === self::PROTOTYPE_MODE_FULL;
+    }
+
+    /**
+     * Whether the lightweight Prototype.js compatibility shim should be loaded.
+     */
+    public function isPrototypeModeShim(): bool
+    {
+        return $this->getPrototypeMode() === self::PROTOTYPE_MODE_SHIM;
+    }
+
+    /**
+     * Whether neither Prototype.js nor the shim should be loaded
+     * (fully migrated sites).
+     */
+    public function isPrototypeModeNone(): bool
+    {
+        return $this->getPrototypeMode() === self::PROTOTYPE_MODE_NONE;
     }
 }

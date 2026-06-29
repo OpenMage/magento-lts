@@ -21,7 +21,7 @@ var Variables = {
     overlayHideEffectOptions: null,
     insertFunction: 'Variables.insertVariable',
     init: function(textareaElementId, insertFunction) {
-        if ($(textareaElementId)) {
+        if (document.getElementById(textareaElementId)) {
             this.textareaElementId = textareaElementId;
         }
         if (insertFunction) {
@@ -37,17 +37,18 @@ var Variables = {
     openVariableChooser: function(variables) {
         if (this.variablesContent == null && variables) {
             this.variablesContent = '<ul>';
-            variables.each(function(variableGroup) {
+            var self = this;
+            variables.forEach(function(variableGroup) {
                 if (variableGroup.label && variableGroup.value) {
-                    this.variablesContent += '<li><b>' + variableGroup.label + '</b></li>';
-                    (variableGroup.value).each(function(variable){
+                    self.variablesContent += '<li><b>' + variableGroup.label + '</b></li>';
+                    variableGroup.value.forEach(function(variable) {
                         if (variable.value && variable.label) {
-                            this.variablesContent += '<li style="padding-left: 20px;">' +
-                                this.prepareVariableRow(variable.value, variable.label) + '</li>';
+                            self.variablesContent += '<li style="padding-left: 20px;">' +
+                                self.prepareVariableRow(variable.value, variable.label) + '</li>';
                         }
-                    }.bind(this));
+                    });
                 }
-            }.bind(this));
+            });
             this.variablesContent += '</ul>';
         }
         if (this.variablesContent) {
@@ -55,7 +56,7 @@ var Variables = {
         }
     },
     openDialogWindow: function(variablesContent) {
-        if ($(this.dialogWindowId) && typeof(Windows) != 'undefined') {
+        if (document.getElementById(this.dialogWindowId) && typeof(Windows) != 'undefined') {
             Windows.focus(this.dialogWindowId);
             return;
         }
@@ -81,7 +82,10 @@ var Variables = {
             id:this.dialogWindowId,
             onClose: this.closeDialogWindow.bind(this)
         });
-        variablesContent.evalScripts.bind(variablesContent).defer();
+        // Run inline scripts after the dialog content has been inserted into the DOM.
+        setTimeout(function () {
+            variablesContent.evalScripts();
+        }, 0);
     },
     closeDialogWindow: function(window) {
         if (!window) {
@@ -100,7 +104,7 @@ var Variables = {
     },
     insertVariable: function(value) {
         this.closeDialogWindow(this.dialogWindow);
-        var textareaElm = $(this.textareaElementId);
+        var textareaElm = document.getElementById(this.textareaElementId);
         if (textareaElm) {
             var scrollPos = textareaElm.scrollTop;
             updateElementAtCursor(textareaElm, value);
@@ -125,11 +129,12 @@ OpenmagevariablePlugin = {
             new Ajax.Request(url, {
                 parameters: {},
                 onComplete: function (transport) {
-                    if (transport.responseText.isJSON()) {
+                    try {
+                        var data = JSON.parse(transport.responseText);
                         Variables.init(null, 'OpenmagevariablePlugin.insertVariable');
-                        this.variables = transport.responseText.evalJSON();
+                        this.variables = data;
                         this.openChooser(this.variables);
-                    }
+                    } catch(e) {}
                 }.bind(this)
              });
         } else {

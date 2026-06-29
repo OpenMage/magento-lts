@@ -207,6 +207,7 @@ Window.prototype = {
         this.element.style.width = this.width + 'px';
         if (this.content) {
             this.content.style.width = this.width + 'px';
+            this.content.style.height = this.height + 'px';
         }
     },
 

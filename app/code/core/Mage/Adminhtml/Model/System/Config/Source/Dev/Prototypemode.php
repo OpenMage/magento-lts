@@ -20,9 +20,9 @@ class Mage_Adminhtml_Model_System_Config_Source_Dev_Prototypemode
     public function toOptionArray()
     {
         return [
-            ['value' => 'full', 'label' => Mage::helper('adminhtml')->__('Full (Prototype + Scriptaculous)')],
-            ['value' => 'shim', 'label' => Mage::helper('adminhtml')->__('Shim (Lightweight compatibility layer)')],
-            ['value' => 'none', 'label' => Mage::helper('adminhtml')->__('None (Fully migrated sites only)')],
+            ['value' => Mage_Core_Helper_Js::PROTOTYPE_MODE_FULL, 'label' => Mage::helper('adminhtml')->__('Full (Prototype + Scriptaculous)')],
+            ['value' => Mage_Core_Helper_Js::PROTOTYPE_MODE_SHIM, 'label' => Mage::helper('adminhtml')->__('Shim (Lightweight compatibility layer)')],
+            ['value' => Mage_Core_Helper_Js::PROTOTYPE_MODE_NONE, 'label' => Mage::helper('adminhtml')->__('None (Fully migrated sites only)')],
         ];
     }
 }
