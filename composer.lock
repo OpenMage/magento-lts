@@ -5982,16 +5982,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "8.5.1",
+            "version": "8.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "265989e814097c17f3196d33244a778c4925e80b"
+                "reference": "4ec295845c55ee20abd551c98bc42f1079c43c83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/265989e814097c17f3196d33244a778c4925e80b",
-                "reference": "265989e814097c17f3196d33244a778c4925e80b",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/4ec295845c55ee20abd551c98bc42f1079c43c83",
+                "reference": "4ec295845c55ee20abd551c98bc42f1079c43c83",
                 "shasum": ""
             },
             "type": "component",
@@ -6035,9 +6035,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/8.5.1"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/8.6.0"
             },
-            "time": "2026-05-19T23:39:20+00:00"
+            "time": "2026-06-03T03:28:15+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
