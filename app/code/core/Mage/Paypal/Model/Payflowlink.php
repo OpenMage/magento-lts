@@ -559,8 +559,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @param Varien_Object $payment
      * @param string        $txnId
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(message: 'since 1.6.2.0')]
     protected function _addTransaction($payment, $txnId) {}
 
     /**
@@ -568,8 +568,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @param  mixed $amount
      * @return $this
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(message: 'since 1.6.2.0')]
     protected function _initialize(Varien_Object $payment, $amount)
     {
         return $this;
@@ -579,8 +579,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Check whether order review has enough data to initialize
      *
      * @param string $token
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(message: 'since 1.6.2.0')]
     public function prepareOrderReview($token = null) {}
 
     /**
@@ -590,8 +590,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param  Mage_Paypal_Model_Payment_Transaction $transaction
      * @param  string                                $txnId
      * @return $this
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(message: 'since 1.6.2.0')]
     protected function _authorize(Varien_Object $payment, $amount, $transaction, $txnId)
     {
         return $this;
@@ -599,9 +599,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
 
     /**
      * Operate with order or quote using information from silent post
-     *
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(message: 'since 1.6.2.0')]
     protected function _process(Varien_Object $document) {}
 
     /**
@@ -610,8 +609,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param  Mage_Paypal_Model_Payment_Transaction $transaction
      * @param  mixed                                 $amount
      * @return $this
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(message: 'since 1.6.2.0')]
     protected function _checkTransaction($transaction, $amount)
     {
         return $this;
@@ -619,9 +618,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
 
     /**
      * Check response from Payflow gateway.
-     *
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(message: 'since 1.6.2.0')]
     protected function _getDocumentFromResponse()
     {
         return null;

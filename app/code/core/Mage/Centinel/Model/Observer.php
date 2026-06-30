@@ -115,8 +115,8 @@ class Mage_Centinel_Model_Observer extends Varien_Object
      *
      * @param  Varien_Object $observer
      * @return $this
-     * @deprecated back compatibility alias for checkoutSubmitAllAfter
      */
+    #[Deprecated(message: 'back compatibility alias for checkoutSubmitAllAfter')]
     public function salesOrderPaymentPlaceEnd($observer)
     {
         $this->checkoutSubmitAllAfter($observer);

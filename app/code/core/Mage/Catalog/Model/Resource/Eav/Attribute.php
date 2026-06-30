@@ -308,8 +308,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      * Initialize store Labels for attributes
      *
      * @param int $storeId
-     * @deprecated
      */
+    #[Deprecated]
     public static function initLabels($storeId = null)
     {
         if (is_null(self::$_labels)) {

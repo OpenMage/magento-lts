@@ -57,11 +57,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Shipping/Tablerate.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|string|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|false supplied for foreach, only iterables are supported.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/CustomerController.php',

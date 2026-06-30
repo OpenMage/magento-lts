@@ -22,9 +22,7 @@ class Mage_Core_Model_Design_Package
 
     public const BASE_PACKAGE    = 'base';
 
-    /**
-     * @deprecated after 1.4.0.0-alpha3
-     */
+    #[Deprecated(message: 'after 1.4.0.0-alpha3')]
     public const FALLBACK_THEME  = 'default';
 
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
@@ -970,8 +968,8 @@ class Mage_Core_Model_Design_Package
     /**
      * Default theme getter
      * @return string
-     * @deprecated since 1.8.2.0
      */
+    #[Deprecated(message: 'since 1.8.2.0')]
     public function getFallbackTheme()
     {
         return Mage::getStoreConfig('design/theme/default', $this->getStore());

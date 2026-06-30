@@ -65,8 +65,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Checks whether memory limit is reached.
      *
      * @return bool
-     * @deprecated
      */
+    #[Deprecated]
     protected function _isMemoryLimitReached()
     {
         $limit = $this->_convertToByte(ini_get('memory_limit'));
@@ -90,9 +90,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      *
      * @param  string $memoryValue
      * @return int
-     * @deprecated
      * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
      */
+    #[Deprecated]
     protected function _convertToByte($memoryValue)
     {
         $memoryValue = trim($memoryValue);

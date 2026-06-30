@@ -23,9 +23,7 @@ class Mage_Install_Block_Begin extends Mage_Install_Block_Abstract
         $this->setTemplate('install/begin.phtml');
     }
 
-    /**
-     * @deprecated
-     */
+    #[Deprecated]
     public function getLanguages() {}
 
     /**

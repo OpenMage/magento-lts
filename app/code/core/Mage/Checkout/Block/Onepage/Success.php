@@ -26,8 +26,8 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      * Check order print availability
      *
      * @return bool
-     * @deprecated after 1.4.0.1
      */
+    #[Deprecated(message: 'after 1.4.0.1')]
     public function canPrint()
     {
         return $this->_getData('can_view_order');
