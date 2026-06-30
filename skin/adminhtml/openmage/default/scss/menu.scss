@@ -30,20 +30,11 @@
     &:hover {
       z-index: 999;
 
-      a {
-        color: $color_geyser_approx;
-      }
-
       ul {
         left: 0;
 
         ul {
           left: -10000px;
-        }
-
-        a {
-          color: $color_dorado_approx;
-          font-size: 12px;
         }
 
         li:hover ul {
@@ -88,7 +79,7 @@
         line-height: 38px;
 
         &:hover {
-          background: darken($openmage_base_blue,10);
+          background: $openmage_base_blue_dark;
           color: $white;
         }
       }
@@ -103,11 +94,6 @@
         border-style: solid;
         border-width: 5px 0 5px 6px;
         border-color: transparent transparent transparent $color_silver_approx;
-      }
-
-      &:hover > a {
-        background: darken($openmage_base_blue,12);
-        color: $white;
       }
     }
 
@@ -148,7 +134,7 @@
     &.level1, &.level2, &.level3 {
       > a {
         &.active:not(:hover) {
-          background: $wild_sand;
+          background: $color_gallery_approx;
         }
       }
     }
@@ -186,7 +172,7 @@
     top: 38px;
     left: -10000px;
     //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-    box-shadow: $black_18_0392 1px 3px 4px;
+    box-shadow: $color_silver_approx 1px 3px 4px;
 
     li {
       @extend %extend_17;
@@ -196,7 +182,7 @@
         @extend %extend_17;
 
         a {
-          color: $color_dorado_approx;
+          color: $openmage_base_blue_text;
           font-size: 12px;
         }
       }
@@ -204,11 +190,11 @@
       a {
         background: $white;
         padding: $menu_padding_v $menu_padding_h;
-        color: $color_dorado_approx;
+        color: $openmage_base_blue_text;
         font-size: 12px;
 
         &:hover {
-          background: $color_dorado_approx;
+          background: $openmage_base_blue_dark;
           color: $white;
         }
       }
@@ -280,7 +266,7 @@
 
     &.active > a {
       font-weight: 600;
-      background: darken($openmage_base_blue,14);
+      background: $openmage_base_blue_dark;
     }
   }
 }
@@ -292,20 +278,27 @@
   ul {
     position: absolute;
     width: 220px;
-    top: 40px;
+    top: 38px;
     right: -10000px;
     display: none;
     //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-    box-shadow: 0 0 0 1px $black_20_7843, 0 0 5px $black_20_7843;
+    box-shadow: $color_silver_approx 1px 3px 4px;
     background: $white;
     li {
-      a:hover {
-        @extend %extend_30;
-        background: $color_dorado_approx;
-      }
       &.last span {
         border-bottom: none;
       }
+    }
+    a {
+      color: $openmage_base_blue_text;
+      text-decoration: none;
+      display: block;
+    }
+    a:hover {
+      background: $openmage_base_blue_dark;
+      color: $white;
+      text-decoration: none;
+      display: block;
     }
   }
   li {
@@ -315,21 +308,14 @@
         display: block;
       }
       span {
-        border-bottom: 1px dotted $color-main-m;
         display: block;
-        line-height: 31px;
-        padding: 0 10px;
+        line-height: 1.3em;
+        padding: 9px 12px;
       }
     }
     &:hover ul {
       right: 27px;
       display: block;
-      a {
-        color: $header_background;
-        text-decoration: none;
-        background: $color-main-xs;
-        display: block;
-      }
     }
   }
   > li > a {

@@ -3,15 +3,6 @@
    Edit scss version and compile with sass from scss folder like this:
    $ sass form.scss ../form.css
  */
-/*
- 205 = default,
-   0 = red,
-  60 = yellow,
- 120 = green,
- 180 = turquoise,
- 240 = blue,
- 300 = purple
-*/
 select, textarea, input.input-text {
   font: 400 12px/1.33 "Open Sans", sans-serif;
   display: inline-block;
@@ -47,13 +38,6 @@ select, textarea, input.input-text {
   vertical-align: middle;
 }
 
-.form-button:active, .form-button:focus, button:active, button:focus {
-  background: #888;
-  border: 0;
-  outline: thin dotted;
-  outline-offset: -2px;
-}
-
 .form-button[disabled] fieldset[disabled] button, button[disabled], .form-button.disabled, button.disabled {
   cursor: default;
   pointer-events: none;
@@ -77,7 +61,7 @@ select, textarea, input.input-text {
 }
 
 .form-button.ok_button:active, .form-button.ok_button:focus, button.add:active, button.add:focus, button.ok_button:active, button.ok_button:focus, button.save:active, button.save:focus {
-  background-color: #026294;
+  background-color: #025988;
   outline: thin dotted;
   outline-offset: -2px;
   color: #fff;
@@ -156,7 +140,7 @@ button.cancel span {
   padding: 0;
 }
 button.cancel:hover {
-  background: #fa4545;
+  background: #963535;
 }
 button.delete {
   background: #e63a3a;
@@ -167,8 +151,8 @@ button.delete span {
   background: none;
   padding: 0;
 }
-button.delete:hover {
-  background: #fa4545;
+button.delete:hover, button.delete:focus {
+  background: #963535;
 }
 button.save {
   padding: 0 13px;
@@ -178,7 +162,7 @@ button.save span {
   padding: 0;
 }
 button.save:hover {
-  background-color: #0090FF;
+  background-color: #025988;
 }
 button.ok_button {
   padding: 0 13px;
@@ -188,7 +172,7 @@ button.ok_button span {
   padding: 0;
 }
 button.ok_button:hover {
-  background-color: #0090FF;
+  background-color: #025988;
 }
 button.add {
   padding: 0 13px;
@@ -198,7 +182,7 @@ button.add span {
   padding: 0;
 }
 button.add:hover {
-  background-color: #0090FF;
+  background-color: #025988;
 }
 button.add.disabled span {
   background: none;
@@ -214,17 +198,19 @@ button.back:before {
   content: "«";
   padding-right: 4px;
 }
+button:focus, button:active {
+  background: #2f2f2f;
+  color: #fff;
+  border: 0;
+  outline: thin dotted;
+  outline-offset: -2px;
+}
 button:hover {
-  background: #888;
+  background: #2f2f2f;
+  color: #fff;
 }
 button.disabled {
-  background: #888;
-}
-button.disabled:hover {
-  background: #888;
-}
-button.disabled:active {
-  background: #888;
+  background: #2f2f2f;
 }
 button.fail {
   background: #e63a3a;
@@ -232,7 +218,7 @@ button.fail {
   padding: 0 13px;
 }
 button.fail:hover {
-  background: #fa4545;
+  background: #963535;
 }
 button.cancel_button {
   background: #e63a3a;
@@ -240,7 +226,7 @@ button.cancel_button {
   padding: 0 13px;
 }
 button.cancel_button:hover {
-  background: #fa4545;
+  background: #963535;
 }
 button.icon-btn {
   width: auto !important;
@@ -271,11 +257,18 @@ button.add-variable span {
   padding: 0;
 }
 
+.form-button:focus, .form-button:active {
+  background: #2f2f2f;
+  color: #fff;
+  border: 0;
+  outline: thin dotted;
+  outline-offset: -2px;
+}
 .form-button:hover {
-  background: #888;
+  background: #2f2f2f;
 }
 .form-button.ok_button:hover {
-  background-color: #0090FF;
+  background-color: #025988;
 }
 .form-button.large {
   font-size: 22px;
