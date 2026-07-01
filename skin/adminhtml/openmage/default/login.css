@@ -1,21 +1,3 @@
-/*
- 205 = default,
-   0 = red,
-  60 = yellow,
- 120 = green,
- 180 = turquoise,
- 240 = blue,
- 300 = purple
-*/
-/*
- 205 = default,
-   0 = red,
-  60 = yellow,
- 120 = green,
- 180 = turquoise,
- 240 = blue,
- 300 = purple
-*/
 .form-button {
   background-image: none;
   background-color: #71798e;
@@ -67,15 +49,13 @@
 }
 
 body {
-  background: #e6e6e6;
   color: #2f2f2f;
   font: 400 12px/1.33 Open Sans, sans-serif;
-  background: #ebedef;
   font-size: 13px;
   overflow-x: hidden;
 }
 body#page-login {
-  background-color: #3d4f5c;
+  background-color: #273169;
   background-image: url(images/login_background.jpg);
   background-repeat: no-repeat;
   background-position: center top;
@@ -96,26 +76,26 @@ body#page-login:after {
 
 a {
   display: inline;
-  color: #269de7;
+  color: #0090FF;
   text-decoration: none;
 }
 a:visited {
-  color: #269de7;
+  color: #0090FF;
 }
 a:focus {
-  color: #3378a3;
+  color: #025988;
   text-decoration: none;
 }
 a:hover {
-  color: #3378a3;
+  color: #025988;
   text-decoration: none;
 }
 a:active {
-  color: #3378a3;
+  color: #025988;
   text-decoration: none;
 }
 a.error span {
-  color: #fa4545 !important;
+  color: #e63a3a !important;
 }
 
 :focus {
@@ -123,13 +103,13 @@ a.error span {
 }
 
 h2 {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   line-height: 1.4em;
   font-size: 1.7em;
 }
 
 p {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
 form {
@@ -148,16 +128,16 @@ input.input-text {
   font: 12px Arial, sans-serif, Helvetica;
   border-width: 1px;
   border-style: solid;
-  border-color: #aaa;
+  border-color: #999;
   padding: 2px 2px 3px;
   line-height: 18px;
   font-family: Open Sans, Helvetica Neue;
 }
 input.input-text:hover {
-  outline: 2px solid rgba(117, 146, 163, 0.1);
+  outline: 2px solid #eee;
 }
 input.input-text:focus {
-  box-shadow: 0 0 0 2px rgba(117, 146, 163, 0.25);
+  outline: 2px solid #c8c8c8;
 }
 input.input-text:disabled {
   outline: none;
@@ -169,7 +149,6 @@ input.input-text:disabled {
 }
 
 #page-login {
-  background: #f8f8f8;
   text-align: center;
 }
 
@@ -181,7 +160,7 @@ input.input-text:disabled {
 }
 .login-container .legal {
   margin: 0;
-  font-size: .95em;
+  font-size: 0.95em;
   background: none;
   padding: 0;
   border-style: none;
@@ -189,14 +168,14 @@ input.input-text:disabled {
   bottom: 30px;
   left: 0;
   width: 100%;
-  color: white;
+  color: #fff;
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .login-form {
   background: url(images/icon-error.png) no-repeat;
   text-align: left;
-  background: white;
+  background: #fff;
   border: none;
   padding: 40px 50px;
   box-shadow: 0 30px 150px rgba(0, 0, 0, 0.5);
