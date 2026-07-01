@@ -88,7 +88,7 @@
           color: $white;
         }
 
-        &:focus:not(:active) {
+        &:focus-visible {
           outline-offset: -4px;
           outline-color: white;
         }
@@ -210,7 +210,7 @@
           color: $white;
         }
 
-        &:focus:not(:active) {
+        &:focus-visible {
           outline-offset: -4px;
           outline-color: white;
         }
@@ -319,7 +319,7 @@
         text-decoration: none;
         display: block;
       }
-      &:focus:not(:active) {
+      &:focus-visible {
         outline-offset: -4px;
         outline-color: white;
       }
@@ -353,7 +353,7 @@
       width: auto;
     }
 
-    &:focus:not(:active) {
+    &:focus-visible {
       outline-offset: -6px;
       outline-color: white;
     }

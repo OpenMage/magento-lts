@@ -61,7 +61,7 @@ a {
     text-decoration: none;
   }
 
-  &:focus:not(:active) {
+  &:focus-visible {
     outline-offset: 2px;
     outline: 2px dashed $openmage_blue_dark;
   }
@@ -188,7 +188,7 @@ small {
       @extend %extend_10;
       padding: 4px 16px;
 
-      &:focus:not(:active) {
+      &:focus-visible {
         outline-offset: -4px;
       }
     }
@@ -336,7 +336,7 @@ small {
             color: $color_alto_approx;
           }
 
-          &:focus:not(:active) {
+          &:focus-visible {
             outline-offset: 0;
             outline-color: white;
           }
@@ -442,7 +442,7 @@ small {
       background: $openmage_base_blue_dark;
     }
 
-    &:focus:not(:active) {
+    &:focus-visible {
       outline-offset: -4px;
       outline-color: white;
     }
@@ -561,7 +561,7 @@ ul {
         }
       }
 
-      &:focus:not(:active) {
+      &:focus-visible {
         outline-offset: -4px;
       }
     }
@@ -1055,7 +1055,7 @@ dl.accordion dt {
       @extend %extend_10;
     }
 
-    &:focus:not(:active) {
+    &:focus-visible {
       outline-offset: -4px;
     }
 

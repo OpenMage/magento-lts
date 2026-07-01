@@ -8,7 +8,7 @@
 input,
 textarea,
 select {
-  &:focus {
+  &:focus-visible {
     outline-offset: -2px;
     outline: 2px dashed $openmage_blue_dark;
   }
@@ -119,7 +119,7 @@ button,
     background: $color_dark_grey;
   }
 
-  &:focus:not(:active) {
+  &:focus-visible {
     outline-offset: -4px;
     outline: 2px dashed white;
   }

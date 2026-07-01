@@ -50,7 +50,7 @@ a {
     color: $openmage_blue_dark;
   }
 
-  &:focus:not(:active) {
+  &:focus-visible {
     outline-offset: 2px;
     outline: 2px dashed $openmage_blue_dark;
   }
@@ -131,7 +131,7 @@ input {
     background: $openmage_blue_dark;
   }
 
-  &:focus:not(:active) {
+  &:focus-visible {
     outline-offset: -4px;
     outline: 2px dashed white;
   }
