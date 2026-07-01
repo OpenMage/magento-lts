@@ -60,12 +60,12 @@
 //<![CDATA[
 function selectCarrier(elem) {
     var option = elem.options[elem.selectedIndex];
-    $('tracking_title').value = option.value && option.value != 'custom' ? option.text : '';
+    document.getElementById('tracking_title').value = option.value && option.value != 'custom' ? option.text : '';
 }
 
 function deleteTrackingNumber(url) {
     if (confirm('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('sales')->__('Are you sure?')) ?>')) {
-        submitAndReloadArea($('shipment_tracking_info').parentNode, url)
+        submitAndReloadArea(document.getElementById('shipment_tracking_info').parentNode, url)
     }
 }
 //]]>

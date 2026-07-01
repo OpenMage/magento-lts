@@ -10,7 +10,7 @@
 ?>
 <?php if ($this->getLayout()->getBlock('head')->getItems('skin_js/js/configurableswatches/swatches-product.js')): ?>
     <script type="text/javascript">
-        document.observe('dom:loaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             var swatchesConfig = new Product.ConfigurableSwatches(spConfig);
         });
     </script>

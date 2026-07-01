@@ -57,11 +57,12 @@ selectOptionType = {
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : OptionTemplateSelectRow,
     add : function(data) {
-        this.template = new Template(this.templateText, this.templateSyntax);
+        var _syntax = this.templateSyntax;
+        this.template = { evaluate: function(obj) { return selectOptionType.templateText.replace(new RegExp(_syntax.source, 'g'), function(m, p1, p2, p3) { return p1 + (obj[p3] !== undefined ? obj[p3] : ''); }); } };
 
         if (data.target || data.srcElement) {//data is Event (work in IE and Firefox)
-            element = $(Event.findElement(data, 'button'));
-            optionId = element.readAttribute('id').sub('add_select_row_button_', '');
+            element = data.target.closest('button');
+            optionId = element.getAttribute('id').replace('add_select_row_button_', '');
             data = {};
             data.option_type_id = '-1';
             data.select_id = this.itemCount;
@@ -73,29 +74,31 @@ selectOptionType = {
 
         data.id  = optionId;
 
-        Element.insert($(this.div+'_'+data.id), {'bottom':this.template.evaluate(data)});
+        var targetEl = document.getElementById(this.div+'_'+data.id);
+        targetEl.insertAdjacentHTML('beforeend', this.template.evaluate(data));
 
-        var inputs = $$('#product_option_'+data.id+'_select_'+data.select_id+' input', '#product_option_'+data.id+'_select_'+data.select_id+' select', '#product_option_'+data.id+'_select_'+data.select_id+' textarea');
-        inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el)); });
-        var inputs = $$('#product_option_'+data.id+'_select_'+data.select_id+' button');
-        inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  });
+        var rowSelector = '#product_option_'+data.id+'_select_'+data.select_id;
+        var inputs = document.querySelectorAll(rowSelector+' input, '+rowSelector+' select, '+rowSelector+' textarea');
+        inputs.forEach(function(el) { el.addEventListener('change', el.setHasChanges.bind(el)); });
+        var buttons = document.querySelectorAll(rowSelector+' button');
+        buttons.forEach(function(el) { el.addEventListener('click', el.setHasChanges.bind(el));  });
 
         if (data.checkboxScopeTitle) {
             //set disabled
-            if ($('product_option_'+data.id+'_select_'+data.select_id+'_title') && data.scopeTitleDisabled) {
-                $('product_option_'+data.id+'_select_'+data.select_id+'_title').disable();
+            if (document.getElementById('product_option_'+data.id+'_select_'+data.select_id+'_title') && data.scopeTitleDisabled) {
+                document.getElementById('product_option_'+data.id+'_select_'+data.select_id+'_title').disabled = true;
             }
         }
         if (data.checkboxScopePrice) {
             //set disabled
-            if ($('product_option_'+data.id+'_select_'+data.select_id+'_price') && data.scopePriceDisabled) {
-                $('product_option_'+data.id+'_select_'+data.select_id+'_price').disable();
-                $('product_option_'+data.id+'_select_'+data.select_id+'_price_type').disable();
+            if (document.getElementById('product_option_'+data.id+'_select_'+data.select_id+'_price') && data.scopePriceDisabled) {
+                document.getElementById('product_option_'+data.id+'_select_'+data.select_id+'_price').disabled = true;
+                document.getElementById('product_option_'+data.id+'_select_'+data.select_id+'_price_type').disabled = true;
             }
         }
 
         if (data.price_type) {
-            $A($('product_option_'+data.id+'_select_'+data.select_id+'_price_type').options).each(function(option){
+            Array.from(document.getElementById('product_option_'+data.id+'_select_'+data.select_id+'_price_type').options).forEach(function(option){
                 if (option.value==data.price_type) option.selected = true;
             });
         }
@@ -104,49 +107,49 @@ selectOptionType = {
         this.bindRemoveButtons();
     },
     remove : function(event){
-        var element = $(Event.findElement(event, 'tr'));
+        var element = event.target.closest('tr');
 
         if(element){
-            $(element.readAttribute('id')+'_is_delete').value = '1';
-            element.addClassName('no-display');
-            element.addClassName('ignore-validate');
-            element.hide();
+            document.getElementById(element.getAttribute('id')+'_is_delete').value = '1';
+            element.classList.add('no-display');
+            element.classList.add('ignore-validate');
+            element.style.display = 'none';
         }
     },
     bindRemoveButtons : function(){
-        var buttons = $$('.delete-select-row');
+        var buttons = document.querySelectorAll('.delete-select-row');
         for(var i=0;i<buttons.length;i++){
-            if(!$(buttons[i]).binded){
-                $(buttons[i]).binded = true;
-                Event.observe(buttons[i], 'click', this.remove.bind(this));
+            if(!buttons[i].binded){
+                buttons[i].binded = true;
+                buttons[i].addEventListener('click', this.remove.bind(this));
             }
         }
     },
     bindAddButton : function()
     {
-        var buttons = $$('.add-select-row');
+        var buttons = document.querySelectorAll('.add-select-row');
         for(var i=0;i<buttons.length;i++){
-            if(!$(buttons[i]).binded){
-                $(buttons[i]).binded = true;
-                Event.observe(buttons[i], 'click', this.add.bind(this));
+            if(!buttons[i].binded){
+                buttons[i].binded = true;
+                buttons[i].addEventListener('click', this.add.bind(this));
             }
         }
     }
 }
 
-if ($('option_panel_type_select')) {
-    $('option_panel_type_select').remove();
+if (document.getElementById('option_panel_type_select')) {
+    document.getElementById('option_panel_type_select').remove();
 }
 
 selectOptionType.bindRemoveButtons();
 
 Validation.addAllThese([
     ['required-option-select-type-rows', <?php echo $this->helper('core')->jsonEncode(Mage::helper('catalog')->__('Please add rows to option.')); ?>, function(v, elm) {
-            var optionContainerElm = elm.up('div.grid');
+            var optionContainerElm = elm.closest('div.grid');
             var selectTypesFlag = false;
-            selectTypeElements = $$('#'+optionContainerElm.id+' .select-type-title');
-            selectTypeElements.each(function(elm){
-                if (elm.id && elm.up('tr').visible()) {
+            selectTypeElements = document.querySelectorAll('#'+optionContainerElm.id+' .select-type-title');
+            selectTypeElements.forEach(function(elm){
+                if (elm.id && elm.closest('tr').style.display !== 'none') {
                     selectTypesFlag = true;
                 }
             });
@@ -154,8 +157,8 @@ Validation.addAllThese([
         return selectTypesFlag;
 }]]);
 
-if($('add_select_row_button')){
-    Event.observe('add_select_row_button', 'click', selectOptionType.add.bind(selectOptionType));
+if(document.getElementById('add_select_row_button')){
+    document.getElementById('add_select_row_button').addEventListener('click', selectOptionType.add.bind(selectOptionType));
 }
 //]]>
 </script>

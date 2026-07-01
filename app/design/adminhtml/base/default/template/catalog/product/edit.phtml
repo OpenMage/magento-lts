@@ -37,15 +37,15 @@
     var productTemplateSyntax = /(^|.|\r|\n)({{(\w+)}})/;
     var productForm = new varienForm('product_edit_form', '<?php echo $this->getValidationUrl() ?>');
     productForm._processValidationResult = function(transport) {
-        var response = transport.responseText.evalJSON();
+        var response = JSON.parse(transport.responseText);
         if (response.error){
-            if (response.attribute && $(response.attribute)) {
-                $(response.attribute).setHasError(true, productForm);
-                Validation.ajaxError($(response.attribute), response.message);
-                $(response.attribute).focus();
+            if (response.attribute && document.getElementById(response.attribute)) {
+                document.getElementById(response.attribute).setHasError(true, productForm);
+                Validation.ajaxError(document.getElementById(response.attribute), response.message);
+                document.getElementById(response.attribute).focus();
             }
-            else if ($('messages')) {
-                $('messages').innerHTML = '<ul class="messages"><li class="error-msg"><ul><li>' + response.message + '</li></ul></li></ul>';
+            else if (document.getElementById('messages')) {
+                document.getElementById('messages').innerHTML = '<ul class="messages"><li class="error-msg"><ul><li>' + response.message + '</li></ul></li></ul>';
             }
         }
         else{
@@ -53,33 +53,31 @@
         }
     };
     function saveAndContinueEdit(urlTemplate) {
-        var template = new Template(urlTemplate, productTemplateSyntax);
-        var url = template.evaluate({tab_id:product_info_tabsJsTabs.activeTab.id});
+        var url = urlTemplate.replace(productTemplateSyntax, function(m, p1, p2, p3) { var obj = {tab_id:product_info_tabsJsTabs.activeTab.id}; return p1 + (obj[p3] !== undefined ? obj[p3] : ''); });
         productForm.submit(url);
     }
     function setSettings(urlTemplate, setElement, typeElement) {
-        var template = new Template(urlTemplate, productTemplateSyntax);
-        setLocation(template.evaluate({attribute_set:$F(setElement),type:$F(typeElement)}));
+        var obj = {attribute_set:document.getElementById(setElement).value,type:document.getElementById(typeElement).value};
+        var url = urlTemplate.replace(productTemplateSyntax, function(m, p1, p2, p3) { return p1 + (obj[p3] !== undefined ? obj[p3] : ''); });
+        setLocation(url);
     }
 
      function setSuperSettings(urlTemplate, attributesClass, validateField) {
-        var attributesFields = $$('.' + attributesClass);
-        var attributes = Form.serializeElements(attributesFields, true).attribute;
-        if(typeof attributes == 'string') {
-            attributes = [attributes];
-        }
-
+        var attributesFields = document.querySelectorAll('.' + attributesClass);
+        var attributes = Array.from(attributesFields).filter(function(el) { return el.name === 'attribute'; }).map(function(el) { return el.value; });
+        if (attributes.length === 0) attributes = null;
+        if (typeof attributes === 'string') attributes = [attributes];
         if(!attributes) {
-            $(validateField).value = 'no-attributes';
+            document.getElementById(validateField).value = 'no-attributes';
         } else {
-            $(validateField).value = 'has-attributes';
+            document.getElementById(validateField).value = 'has-attributes';
         }
 
         if (productForm.validator.validate()) {
-            var template = new Template(urlTemplate, productTemplateSyntax);
-            var url = template.evaluate({
+            var obj = {
                 attributes: encode_base64(attributes.join(',')).replace(new RegExp('/','g'),'%2F').replace(new RegExp('=','g'),'%3D')
-            });
+            };
+            var url = urlTemplate.replace(productTemplateSyntax, function(m, p1, p2, p3) { return p1 + (obj[p3] !== undefined ? obj[p3] : ''); });
             setLocation(url);
         }
     }
@@ -113,8 +111,8 @@
             windowClassName: "popup-window",
             title: '<?php echo $this->__('Duplicate Product') ?>',
             recenterAuto: false,
-            hideEffect: Element.hide,
-            showEffect: Element.show,
+            hideEffect: function(el){el.style.display='none'},
+            showEffect: function(el){el.style.display=''},
             id: "duplicate-product",
             buttonClass: "form-button",
             okLabel: "<?php echo $this->__('Duplicate with images'); ?>",
@@ -137,10 +135,10 @@
         });
     }
 
-Event.observe(window, 'load', function() {
+window.addEventListener('load', function() {
     var objName = '<?php echo $this->getSelectedTabId() ?>';
     if (objName) {
-        obj = $(objName);
+        obj = document.getElementById(objName);
         //IE fix (bubbling event model)
         product_info_tabsJsTabs.setSkipDisplayFirstTab();
         product_info_tabsJsTabs.showTabContent(obj);

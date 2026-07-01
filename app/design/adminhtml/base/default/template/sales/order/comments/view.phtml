@@ -45,11 +45,12 @@
     </ul>
 <script type="text/javascript">
 function submitComment() {
-    submitAndReloadArea($('comments_block').parentNode, '<?php echo $this->getSubmitUrl() ?>')
+    submitAndReloadArea(document.getElementById('comments_block').parentNode, '<?php echo $this->getSubmitUrl() ?>')
 }
 
-if ($('submit_comment_button')) {
-    $('submit_comment_button').observe('click', submitComment);
+var submitCommentBtn = document.getElementById('submit_comment_button');
+if (submitCommentBtn) {
+    submitCommentBtn.addEventListener('click', submitComment);
 }
 </script>
 </div>

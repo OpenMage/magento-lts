@@ -30,10 +30,8 @@
     {
         if(this.validate()){
             // create dynamic frame
-            if (!$(this.ifrElemName)) {
-                $('html-body').insert({
-                    bottom:'<iframe name="' + this.ifrElemName + '" id="' + this.ifrElemName + '" style="display:none;"/>'
-                });
+            if (!document.getElementById(this.ifrElemName)) {
+                document.getElementById('html-body').insertAdjacentHTML('beforeend', '<iframe name="' + this.ifrElemName + '" id="' + this.ifrElemName + '" style="display:none;"/>');
             }
 
             // show mask
@@ -86,22 +84,22 @@
                 case 'show':
                 case 'clear':
                 case 'hide':
-                    $H(pair.value).each(function(val) {if ($(val.value)) $(val.value)[pair.key]();});
+                    $H(pair.value).each(function(val) {var _el = document.getElementById(val.value); if (_el) { if (pair.key === 'show') _el.style.display = ''; else if (pair.key === 'hide') _el.style.display = 'none'; else if (pair.key === 'clear') _el.innerHTML = ''; }});
                     break;
                 case 'innerHTML':
                 case 'value':
                     $H(pair.value).each(function(val) {
-                        var el = $(val.key);
+                        var el = document.getElementById(val.key);
                         if (el) {
                             el[pair.key] = val.value;
                             // if element does not visible
-                            el.offsetWidth || el.up('div.entry-edit').show();
+                            if (!el.offsetWidth) { var parent = el.closest('div.entry-edit'); if (parent) parent.style.display = ''; }
                         }
                     });
                     break;
                 case 'removeClassName':
                 case 'addClassName':
-                    $H(pair.value).each(function(val) {if ($(val.key)) $(val.key)[pair.key](val.value);});
+                    $H(pair.value).each(function(val) {var _el = document.getElementById(val.key); if (_el) { if (pair.key === 'removeClassName') _el.classList.remove(val.value); else _el.classList.add(val.value); }});
                     break;
                 default:
                     alert(pair.key + ': ' + pair.value);
@@ -119,9 +117,9 @@
      */
     varienForm.prototype.startImport = function(newActionUrl, sourceFileField)
     {
-        $(sourceFileField).removeClassName('required-entry');
+        document.getElementById(sourceFileField).classList.remove('required-entry');
         this.postToFrame(newActionUrl);
-        $(sourceFileField).addClassName('required-entry');
+        document.getElementById(sourceFileField).classList.add('required-entry');
     };
 //]]>
 </script>

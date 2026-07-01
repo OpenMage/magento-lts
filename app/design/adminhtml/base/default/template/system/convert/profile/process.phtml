@@ -73,44 +73,54 @@
                         importData.push(data);
                     }
 
+                    function _evalTpl(tpl, data) {
+                        return tpl.replace(/#\{(\w+)\}/g, function(m, k) { return data[k] !== undefined ? data[k] : ''; });
+                    }
+                    function _escapeHTML(str) {
+                        var div = document.createElement('div');
+                        div.appendChild(document.createTextNode(str));
+                        return div.innerHTML;
+                    }
                     function execImportData() {
                         if (importData.length == 0) {
-                            $("updatedRows_img").src = config.styles.message.icon;
-                            $("updatedRows").style.backgroundColor = config.styles.message.bg;
-                            Element.insert($("liFinished"), {before: config.tpl.evaluate({
+                            document.getElementById("updatedRows_img").src = config.styles.message.icon;
+                            document.getElementById("updatedRows").style.backgroundColor = config.styles.message.bg;
+                            document.getElementById("liFinished").insertAdjacentHTML('beforebegin', _evalTpl(config.tpl, {
                                 style: "background-color:"+config.styles.message.bg,
                                 image: config.styles.message.icon,
-                                text: config.tplSccTxt.evaluate({updated:(countOfUpdated-countOfError)}),
+                                text: _evalTpl(config.tplSccTxt, {updated:(countOfUpdated-countOfError)}),
                                 id: "updatedFinish"
-                            })});
+                            }));
 
-                            if ($("liBeforeFinish")) {
-                                Element.insert($("liFinished"), {before: $("liBeforeFinish")});
-                                $("liBeforeFinish").show();
+                            var liBeforeFinish = document.getElementById("liBeforeFinish");
+                            if (liBeforeFinish) {
+                                document.getElementById("liFinished").parentNode.insertBefore(liBeforeFinish, document.getElementById("liFinished"));
+                                liBeforeFinish.style.display = '';
                             }
 
-                            new Ajax.Request("<?php echo $this->getUrl('*/*/batchFinish', ['id' => $batchId]);?>", {
-                                method: "post",
-                                parameters: {form_key: FORM_KEY},
-                                onComplete: function(transport) {
-                                    if (transport.responseText.isJSON()) {
-                                        var response = transport.responseText.evalJSON();
+                            fetch("<?php echo $this->getUrl('*/*/batchFinish', ['id' => $batchId]);?>", {
+                                method: "POST",
+                                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                body: new URLSearchParams({form_key: FORM_KEY}).toString()
+                            }).then(function(resp) { return resp.text(); }).then(function(responseText) {
+                                    try {
+                                        var response = JSON.parse(responseText);
                                         if (response.error) {
-                                            Element.insert($("liFinished"), {before: config.tpl.evaluate({
+                                            document.getElementById("liFinished").insertAdjacentHTML('beforebegin', _evalTpl(config.tpl, {
                                                 style: "background-color:"+config.styles.error.bg,
                                                 image: config.styles.error.icon,
-                                                text: response.error.escapeHTML(),
+                                                text: _escapeHTML(response.error),
                                                 id: "error-finish"
-                                            })});
+                                            }));
                                         }
+                                    } catch(e) {}
+
+                                    var bfImg = document.getElementById("before-finish-wait-img");
+                                    if (bfImg) {
+                                        bfImg.style.display = 'none';
                                     }
 
-                                    if ($("before-finish-wait-img")) {
-                                        $("before-finish-wait-img").hide();
-                                    }
-
-                                    $('liFinished').show();
-                                }
+                                    document.getElementById('liFinished').style.display = '';
                             });
                         } else {
                             sendImportData(importData.shift());
@@ -119,42 +129,43 @@
 
                     function sendImportData(data) {
                         if (!config.tpl) {
-                            config.tpl = new Template(config.template);
-                            config.tplTxt = new Template(config.text);
-                            config.tplSccTxt = new Template(config.successText);
+                            config.tpl = config.template;
+                            config.tplTxt = config.text;
+                            config.tplSccTxt = config.successText;
                         }
-                        if (!$("updatedRows")) {
-                            Element.insert($("liFinished"), {before: config.tpl.evaluate({
+                        if (!document.getElementById("updatedRows")) {
+                            document.getElementById("liFinished").insertAdjacentHTML('beforebegin', _evalTpl(config.tpl, {
                                 style: "background-color: #FFD;",
                                 image: config.styles.loader,
-                                text: config.tplTxt.evaluate({updated:countOfUpdated, percent:getPercent()}),
+                                text: _evalTpl(config.tplTxt, {updated:countOfUpdated, percent:getPercent()}),
                                 id: "updatedRows"
-                            })});
+                            }));
                         }
                         countOfStartedProfiles++;
                         if (!data.form_key) {
                             data.form_key = FORM_KEY;
                         }
 
-                        new Ajax.Request("<?php echo $this->getUrl('*/*/batchRun');?>", {
-                          method: "post",
-                          parameters: data,
-                          onSuccess: function(transport) {
+                        fetch("<?php echo $this->getUrl('*/*/batchRun');?>", {
+                          method: "POST",
+                          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                          body: new URLSearchParams(data).toString()
+                        }).then(function(resp) { return resp.text(); }).then(function(responseText) {
                             countOfStartedProfiles --;
                             countOfUpdated += data["rows[]"].length;
-                            if (transport.responseText.isJSON()) {
-                                addProfileRow(transport.responseText.evalJSON());
-                            } else {
-                                Element.insert($("updatedRows"), {before: config.tpl.evaluate({
+                            try {
+                                var parsed = JSON.parse(responseText);
+                                addProfileRow(parsed);
+                            } catch(e) {
+                                document.getElementById("updatedRows").insertAdjacentHTML('beforebegin', _evalTpl(config.tpl, {
                                     style: "background-color:"+config.styles.error.bg,
                                     image: config.styles.error.icon,
-                                    text: transport.responseText.escapeHTML(),
+                                    text: _escapeHTML(responseText),
                                     id: "error-" + countOfStartedProfiles
-                                })});
+                                }));
                                 countOfError += data["rows[]"].length;
                             }
                             execImportData();
-                          }
                         });
                     }
 
@@ -165,16 +176,16 @@
                     function addProfileRow(data) {
                         if (data.errors.length > 0) {
                             for (var i=0, length=data.errors.length; i<length; i++) {
-                                Element.insert($("updatedRows"), {before: config.tpl.evaluate({
+                                document.getElementById("updatedRows").insertAdjacentHTML('beforebegin', _evalTpl(config.tpl, {
                                     style: "background-color:"+config.styles.error.bg,
                                     image: config.styles.error.icon,
                                     text: data.errors[i],
                                     id: "id-" + (countOfUpdated + i + 1)
-                                })});
+                                }));
                                 countOfError ++;
                             }
                         }
-                        $("updatedRows_status").update(config.tplTxt.evaluate({updated:countOfUpdated, percent:getPercent()}));
+                        document.getElementById("updatedRows_status").innerHTML = _evalTpl(config.tplTxt, {updated:countOfUpdated, percent:getPercent()});
                     }
                 </script>
                 <?php $importData = $this->getImportData();?>
@@ -187,6 +198,6 @@
                 <?php endif ?>
             <?php endif ?>
             <?php if ($this->getShowFinished()):?>
-                <script type="text/javascript">$('liFinished').show();</script>
+                <script type="text/javascript">document.getElementById('liFinished').style.display = '';</script>
             <?php endif ?>
    <?php endif ?>

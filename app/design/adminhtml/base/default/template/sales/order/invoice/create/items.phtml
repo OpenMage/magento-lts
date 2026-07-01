@@ -132,42 +132,42 @@
 
 <script type="text/javascript">
 //<![CDATA[
-var submitButtons = $$('.submit-button');
-var updateButtons = $$('.update-button');
+var submitButtons = document.querySelectorAll('.submit-button');
+var updateButtons = document.querySelectorAll('.update-button');
 var enableSubmitButtons = <?php echo (int) !$this->getDisableSubmitButton() ?>;
-var fields = $$('.qty-input');
+var fields = document.querySelectorAll('.qty-input');
 
-updateButtons.each(function (elem) {elem.disabled=true;elem.addClassName('disabled');});
+updateButtons.forEach(function (elem) {elem.disabled=true;elem.classList.add('disabled');});
 
 for(var i=0;i<fields.length;i++){
-    fields[i].observe('change', checkButtonsRelation)
+    fields[i].addEventListener('change', checkButtonsRelation)
     fields[i].baseValue = fields[i].value;
 }
 
 function checkButtonsRelation() {
     var hasChanges = false;
-    fields.each(function (elem) {
+    fields.forEach(function (elem) {
         if (elem.baseValue != elem.value) {
             hasChanges = true;
         }
-    }.bind(this));
+    });
     if (hasChanges) {
-        submitButtons.each(function (elem) {elem.disabled=true;elem.addClassName('disabled');});
-        updateButtons.each(function (elem) {elem.disabled=false;elem.removeClassName('disabled');});
+        submitButtons.forEach(function (elem) {elem.disabled=true;elem.classList.add('disabled');});
+        updateButtons.forEach(function (elem) {elem.disabled=false;elem.classList.remove('disabled');});
     }
     else {
         if (enableSubmitButtons) {
-            submitButtons.each(function (elem) {elem.disabled=false;elem.removeClassName('disabled');});
+            submitButtons.forEach(function (elem) {elem.disabled=false;elem.classList.remove('disabled');});
         }
-        updateButtons.each(function (elem) {elem.disabled=true;elem.addClassName('disabled');});
+        updateButtons.forEach(function (elem) {elem.disabled=true;elem.classList.add('disabled');});
     }
 }
 
-var sendEmailCheckbox = $('send_email');
+var sendEmailCheckbox = document.getElementById('send_email');
 if (sendEmailCheckbox) {
-    var notifyCustomerCheckbox = $('notify_customer');
-    var invoiceCommentText = $('invoice_comment_text');
-    Event.observe(sendEmailCheckbox, 'change', bindSendEmail);
+    var notifyCustomerCheckbox = document.getElementById('notify_customer');
+    var invoiceCommentText = document.getElementById('invoice_comment_text');
+    sendEmailCheckbox.addEventListener('change', bindSendEmail);
     bindSendEmail();
 }
 function bindSendEmail()

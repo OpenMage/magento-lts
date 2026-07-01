@@ -28,7 +28,7 @@
                         </select>
                        <script type="text/javascript">
                        //<![CDATA[
-                           $('region_id').setAttribute('defaultValue',  "<?php echo $this->getEstimateRegionId() ?>");
+                           document.getElementById('region_id').setAttribute('defaultValue',  "<?php echo $this->getEstimateRegionId() ?>");
                        //]]>
                        </script>
                        <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getEstimateRegion()) ?>"  title="<?php echo Mage::helper('core')->quoteEscape($this->__('State/Province')) ?>" class="input-text" style="display:none;" />
@@ -100,7 +100,7 @@
             var countriesWithOptionalZip = <?php echo $this->helper('directory')->getCountriesWithOptionalZip(true) ?>;
 
             coShippingMethodForm.submit = function () {
-                var country = $F('country');
+                var country = document.getElementById('country').value;
                 var optionalZip = false;
 
                 for (i=0; i < countriesWithOptionalZip.length; i++) {
@@ -109,10 +109,10 @@
                     }
                 }
                 if (optionalZip) {
-                    $('postcode').removeClassName('required-entry');
+                    document.getElementById('postcode').classList.remove('required-entry');
                 }
                 else {
-                    $('postcode').addClassName('required-entry');
+                    document.getElementById('postcode').classList.add('required-entry');
                 }
                 return VarienForm.prototype.submit.bind(coShippingMethodForm)();
             }

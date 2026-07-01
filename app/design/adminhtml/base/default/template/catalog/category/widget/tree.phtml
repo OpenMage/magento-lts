@@ -47,7 +47,7 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
 
         if (firstLoad) {
             <?php if ($this->getNodeClickListener()): ?>
-                this.addListener('click', <?php echo $this->getNodeClickListener() ?>.createDelegate(this));
+                this.addListener('click', <?php echo $this->getNodeClickListener() ?>.bind(this));
             <?php endif ?>
         }
 
@@ -77,11 +77,11 @@ Ext.onReady(function()
                 if (useMassaction && config[i].is_anchor == isAnchorOnly) {
                     config[i].uiProvider = Ext.tree.CheckboxNodeUI;
                 }
-                var _node = Object.clone(config[i]);
+                var _node = Object.assign({},config[i]);
 
                 // Add empty node to reset category filter
                 if(!emptyNodeAdded) {
-                    var empty = Object.clone(_node);
+                    var empty = Object.assign({},_node);
                     empty.text = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('None')) ?>';
                     empty.children = [];
                     empty.id = 'none';
@@ -112,7 +112,7 @@ Ext.onReady(function()
         if (useMassaction && config.is_anchor == isAnchorOnly) {
             config.uiProvider = Ext.tree.CheckboxNodeUI;
         }
-        var _node = Object.clone(config);
+        var _node = Object.assign({},config);
         if (config.children && !config.children.length) {
             delete(config.children);
             node = new Ext.tree.AsyncTreeNode(config);
@@ -169,7 +169,7 @@ Ext.onReady(function()
 
     if (useMassaction) {
         tree<?php echo $this->getId() ?>.on('check', function(node) {
-            $('<?php echo $_divId; ?>').fire('node:changed', {node:node});
+            document.getElementById('<?php echo $_divId; ?>').dispatchEvent(new CustomEvent('node:changed', {bubbles:true, detail:{node:node}}));
         }, tree<?php echo $this->getId() ?>);
     }
 

@@ -19,4 +19,4 @@
     <li title="<?php echo $_step->getLabel() ?>"<?php if($_step->getIsActive()): ?> class="active"<?php endif ?>><span><?php echo $_step->getLabel() ?></span></li>
 <?php endforeach ?>
 </ul>
-<script type="text/javascript">decorateGeneric($$('#checkout-progress-state li'), ['first','last']);</script>
+<script type="text/javascript">decorateGeneric(document.querySelectorAll('#checkout-progress-state li'), ['first','last']);</script>

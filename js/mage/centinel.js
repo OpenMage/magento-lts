@@ -11,91 +11,78 @@
  * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-var CentinelAuthenticate = Class.create();
-CentinelAuthenticate.prototype = {
-    initialize : function(blockId, iframeId)
-    {
-        this._isAuthenticationStarted = false;
-        this._relatedBlocks = new Array();
-        this.centinelBlockId = blockId;
-        this.iframeId = iframeId;
-        if (this._isCentinelBlocksLoaded()) {
-            $(this.centinelBlockId).hide();
-        }
-    },
+function CentinelAuthenticate(blockId, iframeId) {
+    this._isAuthenticationStarted = false;
+    this._relatedBlocks = [];
+    this.centinelBlockId = blockId;
+    this.iframeId = iframeId;
+    if (this._isCentinelBlocksLoaded()) {
+        document.getElementById(this.centinelBlockId).style.display = 'none';
+    }
+}
 
-    isAuthenticationStarted : function()
-    {
-        return this._isAuthenticationStarted;
-    },
+CentinelAuthenticate.prototype.isAuthenticationStarted = function() {
+    return this._isAuthenticationStarted;
+};
 
-    addRelatedBlock : function(blockId)
-    {
-        this._relatedBlocks[this._relatedBlocks.size()] = blockId;
-    },
+CentinelAuthenticate.prototype.addRelatedBlock = function(blockId) {
+    this._relatedBlocks[this._relatedBlocks.length] = blockId;
+};
 
-    _hideRelatedBlocks : function()
-    {
-        for (var i = 0; i < this._relatedBlocks.size(); i++) {
-            $(this._relatedBlocks[i]).hide();
-        }
-    },
+CentinelAuthenticate.prototype._hideRelatedBlocks = function() {
+    for (var i = 0; i < this._relatedBlocks.length; i++) {
+        document.getElementById(this._relatedBlocks[i]).style.display = 'none';
+    }
+};
 
-    _showRelatedBlocks : function()
-    {
-        for (var i = 0; i < this._relatedBlocks.size(); i++) {
-            $(this._relatedBlocks[i]).show();
-        }
-    },
+CentinelAuthenticate.prototype._showRelatedBlocks = function() {
+    for (var i = 0; i < this._relatedBlocks.length; i++) {
+        document.getElementById(this._relatedBlocks[i]).style.display = '';
+    }
+};
 
-    _isRelatedBlocksLoaded : function()
-    {
-        for (var i = 0; i < this._relatedBlocks.size(); i++) {
-            if(!$(this._relatedBlocks[i])) {
-                return false;
-            }
-        }
-        return true;
-    },
-
-    _isCentinelBlocksLoaded : function()
-    {
-        if(!$(this.centinelBlockId) || !$(this.iframeId)) {
+CentinelAuthenticate.prototype._isRelatedBlocksLoaded = function() {
+    for (var i = 0; i < this._relatedBlocks.length; i++) {
+        if (!document.getElementById(this._relatedBlocks[i])) {
             return false;
         }
-        return true;
-    },
+    }
+    return true;
+};
 
-    start : function(authenticateUrl)
-    {
-        if (this._isRelatedBlocksLoaded() && this._isCentinelBlocksLoaded()) {
-            this._hideRelatedBlocks();
-            $(this.iframeId).src = authenticateUrl;
-            $(this.centinelBlockId).show();
-            this._isAuthenticationStarted = true;
-        }
-    },
+CentinelAuthenticate.prototype._isCentinelBlocksLoaded = function() {
+    if (!document.getElementById(this.centinelBlockId) || !document.getElementById(this.iframeId)) {
+        return false;
+    }
+    return true;
+};
 
-    success : function()
-    {
-        if (this._isRelatedBlocksLoaded() && this._isCentinelBlocksLoaded()) {
+CentinelAuthenticate.prototype.start = function(authenticateUrl) {
+    if (this._isRelatedBlocksLoaded() && this._isCentinelBlocksLoaded()) {
+        this._hideRelatedBlocks();
+        document.getElementById(this.iframeId).src = authenticateUrl;
+        document.getElementById(this.centinelBlockId).style.display = '';
+        this._isAuthenticationStarted = true;
+    }
+};
+
+CentinelAuthenticate.prototype.success = function() {
+    if (this._isRelatedBlocksLoaded() && this._isCentinelBlocksLoaded()) {
+        this._showRelatedBlocks();
+        document.getElementById(this.centinelBlockId).style.display = 'none';
+        this._isAuthenticationStarted = false;
+    }
+};
+
+CentinelAuthenticate.prototype.cancel = function() {
+    if (this._isAuthenticationStarted) {
+        if (this._isRelatedBlocksLoaded()) {
             this._showRelatedBlocks();
-            $(this.centinelBlockId).hide();
-            this._isAuthenticationStarted = false;
         }
-    },
-
-    cancel : function()
-    {
-        if (this._isAuthenticationStarted) {
-            if (this._isRelatedBlocksLoaded()) {
-                this._showRelatedBlocks();
-            }
-            if (this._isCentinelBlocksLoaded()) {
-                $(this.centinelBlockId).hide();
-                $(this.iframeId).src = '';
-            }
-            this._isAuthenticationStarted = false;
+        if (this._isCentinelBlocksLoaded()) {
+            document.getElementById(this.centinelBlockId).style.display = 'none';
+            document.getElementById(this.iframeId).src = '';
         }
+        this._isAuthenticationStarted = false;
     }
 };
