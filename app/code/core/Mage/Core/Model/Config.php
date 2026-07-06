@@ -1520,6 +1520,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!is_string($className)) {
             return null;
         }
+
         return new $className();
     }
 
