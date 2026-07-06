@@ -1517,6 +1517,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         $className = $config->getClassName();
+        if (!is_string($className)) {
+            return false;
+        }
         return new $className();
     }
 
