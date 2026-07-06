@@ -1507,18 +1507,18 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * @param  string $path
-     * @return bool
+     * @return object|null
      */
     public function getNodeClassInstance($path)
     {
         $config = Mage::getConfig()->getNode($path);
         if (!$config) {
-            return false;
+            return null;
         }
 
         $className = $config->getClassName();
         if (!is_string($className)) {
-            return false;
+            return null;
         }
         return new $className();
     }
