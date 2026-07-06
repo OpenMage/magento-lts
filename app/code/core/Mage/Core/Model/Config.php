@@ -1506,8 +1506,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * @param  string $path
-     * @return object|null
+     * @param  string      $path
+     * @return null|object
      */
     public function getNodeClassInstance($path)
     {
