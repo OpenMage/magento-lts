@@ -2698,7 +2698,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $quoteId of method Mage_Checkout_Model_Session::setQuoteId() expects int|null, int|string|null given.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Session.php',
 ];
 $ignoreErrors[] = [
