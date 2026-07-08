@@ -62,9 +62,10 @@ final class CustomerTest extends OpenMageTest
      * @dataProvider provideGetLoginAtTimestampData
      * @group Model
      */
-    public function testGetLoginAtTimestamp(bool $expectedResult, array $methods): void
+    public function testGetLoginAtTimestamp(bool $expectedResult, array $data): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $mock = $this->getMockWithCalledMethods(Subject::class, []);
+        $mock->setData($data);
 
         self::assertInstanceOf(Subject::class, $mock);
         if ($expectedResult) {

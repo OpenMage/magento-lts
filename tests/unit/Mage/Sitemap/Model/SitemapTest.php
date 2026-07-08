@@ -24,9 +24,10 @@ final class SitemapTest extends OpenMageTest
      * @dataProvider provideGetPreparedFilenameData
      * @group Model
      */
-    public function testGetPreparedFilename(array $methods): void
+    public function testGetPreparedFilename(array $data): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $mock = $this->getMockWithCalledMethods(Subject::class, []);
+        $mock->setData($data);
 
         self::assertInstanceOf(Subject::class, $mock);
         self::assertIsString($mock->getPreparedFilename());
@@ -39,16 +40,17 @@ final class SitemapTest extends OpenMageTest
      * @todo  test validation
      * @todo  test content of xml
      */
-    public function testGenerateXml(array $methods): void
+    public function testGenerateXml(array $data): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $mock = $this->getMockWithCalledMethods(Subject::class, ['save' => null]);
+        $mock->setData($data);
         self::assertInstanceOf(Subject::class, $mock);
 
         $result = $mock->generateXml();
         self::assertInstanceOf(Subject::class, $result);
 
         /** @var string $file */
-        $file = $methods['getSitemapFilename'];
+        $file = $data['sitemap_filename'];
         self::assertFileExists($file);
         unlink($file);
     }

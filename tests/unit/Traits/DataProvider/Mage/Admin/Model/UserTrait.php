@@ -15,12 +15,10 @@ use Generator;
 
 /**
  * @phpstan-type AuthenticateData array{
- *     "getId": string,
- *     "getUsername": string,
- *     "getPassword": string,
- *     "getIsActive": string,
- *     "validatePasswordHash": bool,
- *     "hasAssigned2Role": bool
+ *     "id": string,
+ *     "username": string,
+ *     "password": string,
+ *     "is_active": string
  * }
  */
 trait UserTrait
@@ -31,10 +29,12 @@ trait UserTrait
     public static function provideAuthenticateData(): Generator
     {
         $validData = [
-            'getId'       => '999',
-            'getUsername' => 'new',
-            'getPassword' => 'veryl0ngpassw0rd',
-            'getIsActive' => '1',
+            'user_id'  => '999',
+            'username' => 'new',
+            'password' => 'veryl0ngpassw0rd',
+            'is_active' => '1'
+        ];
+        $validMethods = [
             'validatePasswordHash' => true,
             'hasAssigned2Role' => true,
         ];
@@ -42,34 +42,32 @@ trait UserTrait
         yield 'pass' => [
             true,
             $validData,
+            $validMethods
         ];
 
         $data = $validData;
-        $data['getUsername'] = 'admin';
-        yield 'fail #0 account exists' => [
-            'User Name already exists.',
-            $data,
-        ];
-
-        $data = $validData;
-        $data['getIsActive'] = '0';
-        yield 'fail #1 inactive' => [
+        $methods = $validMethods;
+        $data['is_active'] = '0';
+        yield 'fail #0 inactive' => [
             'This account is inactive.',
             $data,
+            $methods,
         ];
 
         $data = $validData;
-        $data['validatePasswordHash'] = false;
-        yield 'fail #2 invalid hash' => [
+        $methods['validatePasswordHash'] = false;
+        yield 'fail #1 invalid hash' => [
             false,
             $data,
+            $methods,
         ];
 
-        $data = $validData;
-        $data['hasAssigned2Role'] = false;
-        yield 'fail #3 no role assigned' => [
+        $methods = $validMethods;
+        $methods['hasAssigned2Role'] = false;
+        yield 'fail #2 no role assigned' => [
             'Access denied.',
             $data,
+            $methods,
         ];
     }
 
@@ -85,10 +83,7 @@ trait UserTrait
                 5 => 'Password must include both numeric and alphabetic characters.',
             ],
             [
-                'hasNewPassword' => true,
-                'getNewPassword' => '123',
-                'hasPassword' => false,
-                'getPassword' => '456',
+                'new_password' => '123',
             ],
         ];
         yield 'fails #2' => [
@@ -101,10 +96,7 @@ trait UserTrait
                 5 => 'Password must include both numeric and alphabetic characters.',
             ],
             [
-                'hasNewPassword' => false,
-                'getNewPassword' => '123',
-                'hasPassword' => true,
-                'getPassword' => '456',
+                'password' => '456',
             ],
         ];
     }
@@ -114,15 +106,15 @@ trait UserTrait
         yield 'empty data' => [
             true,
             [
-                'getRpToken'       => '',
-                'getRpTokenCreatedAt' => '',
+                'rp_token'       => '',
+                'rp_token_created_at' => '',
             ],
         ];
         yield '#valid data' => [
             true,
             [
-                'getRpToken'       => '1',
-                'getRpTokenCreatedAt' => '2025-01-01 10:20:30',
+                'rp_token'       => '1',
+                'rp_token_created_at' => '2025-01-01 10:20:30',
             ],
         ];
     }

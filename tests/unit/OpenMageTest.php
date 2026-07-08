@@ -12,6 +12,8 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit;
 
 use Mage;
+use PHPUnit\Framework\InvalidArgumentException;
+use PHPUnit\Framework\MockObject\Exception as MockObjectException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -29,13 +31,13 @@ abstract class OpenMageTest extends TestCase
     }
 
     /**
-     * @param class-string $class
+     * @psalm-template RealInstanceType of object
+     * @psalm-param class-string<RealInstanceType> $class
+     * @psalm-return MockObject&RealInstanceType
      */
     public function getMockWithCalledMethods(string $class, array $methods, ?bool $expectOnce =  false): MockObject
     {
-        $mock = $this->getMockBuilder($class)
-            ->setMethods(array_keys($methods))
-            ->getMock();
+        $mock = $this->createPartialMock($class, array_keys($methods));
 
         if (is_null($expectOnce)) {
             return $mock;

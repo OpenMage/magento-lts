@@ -18,114 +18,132 @@ trait CustomerTrait
     public static function provideValidateCustomerData(): Generator
     {
         $validCustomer = [
-            'getFirstname' => 'John',
-            'getLastname' => 'Doe',
-            'getEmail' => 'john.doe@example.com',
-            'getPassword' => 'validpassword123',
-            'getPasswordConfirmation' => 'validpassword123',
-            'getDob' => '1981-01-01 00:00:00',
-            'getTaxvat' => '123456789',
-            'getGender' => '1',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
+            'email' => 'john.doe@example.com',
+            'password' => 'validpassword123',
+            'password_confirmation' => 'validpassword123',
+            'dob' => '1981-01-01 00:00:00',
+            'taxvat' => '123456789',
+            'gender' => '1',
+            'is_change_password' => true,
+        ];
+        $validMethods = [
             'shouldValidateDob' => false,
             'shouldValidateTaxvat' => false,
             'shouldValidateGender' => false,
-            'getIsChangePassword' => true,
         ];
 
         yield 'valid data' => [
             true,
             $validCustomer,
+            $validMethods,
         ];
 
         $data = $validCustomer;
-        $data['getFirstname'] = '';
+        $data['firstname'] = '';
         yield 'missing firstname' => [
             ['The first name cannot be empty.'],
             $data,
+            $validMethods,
         ];
 
         $data = $validCustomer;
-        $data['getLastname'] = '';
+        $data['lastname'] = '';
         yield 'missing lastname' => [
             ['The last name cannot be empty.'],
             $data,
+            $validMethods,
         ];
 
         $data = $validCustomer;
-        $data['getEmail'] = '';
+        $data['email'] = '';
         yield 'missing email' => [
             ['Invalid email address "".'],
             $data,
+            $validMethods,
         ];
 
         $data = $validCustomer;
-        $data['getEmail'] = 'invalid-email';
+        $data['email'] = 'invalid-email';
         yield 'invalid email' => [
             ['Invalid email address "invalid-email".'],
             $data,
+            $validMethods,
         ];
 
         $data = $validCustomer;
-        $data['getPasswordConfirmation'] = 'differentpassword';
+        $data['password_confirmation'] = 'differentpassword';
         yield 'passwords do not match' => [
             ['Please make sure your passwords match.'],
             $data,
+            $validMethods,
         ];
 
         $data = $validCustomer;
         $password = '123';
-        $data['getPassword'] = $password;
-        $data['getPasswordConfirmation'] = $password;
+        $data['password'] = $password;
+        $data['password_confirmation'] = $password;
         yield 'passwords to short' => [
             [
                 'The minimum password length is 7',
                 'Password must include both numeric and alphabetic characters.',
             ],
             $data,
+            $validMethods,
         ];
 
         $data = $validCustomer;
         $password = str_repeat('x', 257);
-        $data['getPassword'] = $password;
-        $data['getPasswordConfirmation'] = $password;
+        $data['password'] = $password;
+        $data['password_confirmation'] = $password;
         yield 'passwords to long' => [
             [
                 'Please enter a password with at most 256 characters.',
                 'Password must include both numeric and alphabetic characters.',
             ],
             $data,
+            $validMethods,
         ];
 
         $data = $validCustomer;
-        $data['getDob'] = '';
-        $data['shouldValidateDob'] = true;
+        $data['dob'] = '';
+        $methods = $validMethods;
+        $methods['shouldValidateDob'] = true;
         yield 'missing dob' => [
             ['The Date of Birth is required.'],
             $data,
+            $methods,
         ];
 
         $data = $validCustomer;
-        $data['getDob'] = 'abc';
-        $data['shouldValidateDob'] = true;
+        $data['dob'] = 'abc';
+        $methods = $validMethods;
+        $methods['shouldValidateDob'] = true;
         yield 'invalid dob' => [
             ['The Date of Birth is not a valid date.'],
             $data,
+            $methods,
         ];
 
         $data = $validCustomer;
-        $data['getTaxvat'] = '';
-        $data['shouldValidateTaxvat'] = true;
+        $data['taxvat'] = '';
+        $methods = $validMethods;
+        $methods['shouldValidateTaxvat'] = true;
         yield 'missing taxvat' => [
             ['The TAX/VAT number is required.'],
             $data,
+            $methods,
         ];
 
         $data = $validCustomer;
-        $data['getGender'] = '';
-        $data['shouldValidateGender'] = true;
+        $data['gender'] = '';
+        $methods = $validMethods;
+        $methods['shouldValidateGender'] = true;
         yield 'missing gender' => [
             ['Gender is required.'],
             $data,
+            $methods,
         ];
     }
 

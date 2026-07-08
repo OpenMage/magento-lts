@@ -20,7 +20,6 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 final class ConsumerTest extends OpenMageTest
 {
-    // @phpstan-ignore property.onlyWritten
     private static Subject $subject;
 
     #[Override]
@@ -33,26 +32,24 @@ final class ConsumerTest extends OpenMageTest
     /**
      * @dataProvider validateDataProvider
      * @group Model
-     * @param array<string, string> $methods
+     * @param array<string, string> $data
      */
-    public function testValidate(bool|string $expected, array $methods): void
+    public function testValidate(bool|string $expected, array $data): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-
-        self::assertInstanceOf(Subject::class, $mock);
+        self::$subject->setData($data);
 
         try {
-            self::assertTrue($mock->validate());
+            self::assertTrue(self::$subject->validate());
         } catch (Mage_Core_Exception $mageCoreException) {
             self::assertSame($expected, $mageCoreException->getMessage());
         }
     }
 
-    public function validateDataProvider(): Generator
+    public static function validateDataProvider(): Generator
     {
         $validData = [
-            'setKey'    => str_repeat('x', 32),
-            'setSecret' => str_repeat('x', 32),
+            'key'    => str_repeat('x', 32),
+            'secret' => str_repeat('x', 32),
         ];
 
         $error = 'This value should have exactly 32 characters.';

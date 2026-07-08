@@ -24,9 +24,11 @@ final class UserTest extends OpenMageTest
      * @param array|true $expectedResult
      * @group Model
      */
-    public function testValidate($expectedResult, array $methods): void
+    public function testValidate(array|bool $expectedResult, array $data, bool $userExists): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $mock = $this->createPartialMock(Subject::class, ['userExists']);
+        $mock->setData($data);
+        $mock->method('userExists')->willReturn($userExists);
 
         self::assertInstanceOf(Subject::class, $mock);
         self::assertSame($expectedResult, $mock->validate());

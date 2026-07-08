@@ -38,12 +38,10 @@ final class BlockTest extends OpenMageTest
      * @group Model
      * @throws Exception
      */
-    public function testValidate(array|bool $expectedResult, array $methods): void
+    public function testValidate(array|bool $expectedResult, array $data): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-
-        self::assertInstanceOf(Subject::class, $mock);
-        self::assertEquals($expectedResult, $mock->validate());
+        self::$subject->setData($data);
+        self::assertEquals($expectedResult, self::$subject->validate());
     }
 
     /**
