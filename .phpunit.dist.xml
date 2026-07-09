@@ -4,12 +4,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
         backupGlobals="false"
-        backupStaticAttributes="false"
+        backupStaticProperties="false"
         cacheResultFile=".cache/.phpunit.result.cache"
         colors="true"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
+        failOnNotice="true"
+        failOnWarning="true"
         displayDetailsOnPhpunitDeprecations="true"
         processIsolation="false"
         stopOnFailure="false"
@@ -19,11 +18,8 @@
         <env name="MAGE_IS_DEVELOPER_MODE" value="1"/>
         <env name="NO_XHGUI" value="1"/> <!-- @todo: still needed? -->
     </php>
-
-    <coverage
-            includeUncoveredFiles="true"
-            processUncoveredFiles="false"
-    >
+        
+    <source>
         <include>
             <file>Mage.php</file>
             <directory suffix=".php">app/code</directory>
@@ -37,6 +33,11 @@
             <directory>app/code/core/Mage/*/sql</directory>
             <directory>vendor</directory>
         </exclude>
+    <source>
+
+    <coverage
+            includeUncoveredFiles="true"
+    >
         <report>
             <clover outputFile="build/phpunit/report/clover.xml"/>
             <crap4j outputFile="build/phpunit/report/crap4j.xml"/>
@@ -47,7 +48,7 @@
     </logging>
 
     <extensions>
-        <extension class="OpenMage\Tests\Unit\LongRunningTestAlert" />
+        <bootstrap class="OpenMage\Tests\Unit\LongRunningTestAlert" />
     </extensions>
 
     <testsuites>
