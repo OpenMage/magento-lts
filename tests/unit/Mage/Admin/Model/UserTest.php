@@ -153,6 +153,7 @@ final class UserTest extends OpenMageTest
         foreach ($defaultMethods as $method) {
             $mock->method($method)->willReturnSelf();
         }
+
         foreach ($methods as $method => $result) {
             $mock->method($method)->willReturn($result);
         }
