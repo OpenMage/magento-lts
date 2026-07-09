@@ -249,7 +249,14 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
             'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['env_path'] => 1,
         ]);
-        $store = $config['store'];
+        $wantedStore = $store = $config['store'];
+        // unregister for test
+        if ($wantedStore === '') {
+            $wantedStore = 'default';
+        }
+
+        Mage::unregister("config_env_array_{$wantedStore}");
+
         $actual = $loader->getAsArray($store);
         $expected = $config['expected'];
         self::assertSame($expected, $actual);
