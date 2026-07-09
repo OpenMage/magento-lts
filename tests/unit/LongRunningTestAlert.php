@@ -33,7 +33,7 @@ class LongRunningTestAlert implements Extension, FinishedSubscriber
     public function notify(Finished $event): void
     {
         $test = $event->test()->name();
-        $time = $event->telemetryInfo()->durationSinceStart()->asFloat();
+        $time = $event->telemetryInfo()->durationSincePrevious()->asFloat();
         if ($time > self::MAX_SECONDS_ALLOWED) {
             file_put_contents('php://stderr', sprintf("\n\nThe %s test took %s seconds!\n\n", $test, $time));
         }
