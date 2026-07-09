@@ -25,7 +25,8 @@ class LongRunningTestAlert implements Extension, FinishedSubscriber
 {
     protected const MAX_SECONDS_ALLOWED = 1.0;
 
-    public function bootstrap(Configuration $configuration, Facade $facade, ParameterCollection $parameters ): void {
+    public function bootstrap(Configuration $configuration, Facade $facade, ParameterCollection $parameters): void
+    {
         $facade->registerSubscriber($this);
     }
 

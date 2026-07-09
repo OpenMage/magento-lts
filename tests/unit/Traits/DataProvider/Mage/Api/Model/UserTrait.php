@@ -13,7 +13,6 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model;
 
 use Generator;
 
-
 /**
  * @phpstan-type ValidateData array{
  *     "username": string,
@@ -26,7 +25,6 @@ use Generator;
  */
 trait UserTrait
 {
-
     /**
      * @return Generator<string, list{bool|string[], ValidateData, bool}, void, void>
      */
