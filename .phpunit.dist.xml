@@ -10,6 +10,7 @@
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
+        displayDetailsOnPhpunitDeprecations="true"
         processIsolation="false"
         stopOnFailure="false"
         bootstrap="tests/bootstrap.php"
