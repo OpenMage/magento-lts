@@ -15,16 +15,20 @@ use Generator;
 
 /**
  * @phpstan-type AuthenticateData array{
- *     "id": string,
+ *     "user_id": string,
  *     "username": string,
  *     "password": string,
  *     "is_active": string
+ * }
+ * @phpstan-type AuthenticateMethods array{
+ *      "validatePasswordHash": bool,
+ *      "hasAssigned2Role": bool
  * }
  */
 trait UserTrait
 {
     /**
-     * @return Generator<string, list{bool|string, AuthenticateData}, void, void>
+     * @return Generator<string, list{bool|string, AuthenticateData, AuthenticateMethods}, void, void>
      */
     public static function provideAuthenticateData(): Generator
     {
@@ -32,7 +36,7 @@ trait UserTrait
             'user_id'  => '999',
             'username' => 'new',
             'password' => 'veryl0ngpassw0rd',
-            'is_active' => '1'
+            'is_active' => '1',
         ];
         $validMethods = [
             'validatePasswordHash' => true,
@@ -42,7 +46,7 @@ trait UserTrait
         yield 'pass' => [
             true,
             $validData,
-            $validMethods
+            $validMethods,
         ];
 
         $data = $validData;

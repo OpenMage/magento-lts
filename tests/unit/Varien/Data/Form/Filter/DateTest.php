@@ -35,9 +35,13 @@ final class DateTest extends TestCase
         try {
             self::assertSame($expectedResult, $this->subject->inputFilter($value));
         } catch (Throwable $throwable) {
+            /**
+             * @var non-empty-string $expectedMessage
+             */
+            $expectedMessage = (string) $expectedResult;
             // PHP7: bcsub(): bcmath function argument is not well-formed
             // PHP8: bcsub(): Argument #1 ($num1) is not well-formed
-            self::assertStringStartsWith((string) $expectedResult, $throwable->getMessage());
+            self::assertStringStartsWith($expectedMessage, $throwable->getMessage());
         }
     }
 

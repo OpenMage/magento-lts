@@ -33,6 +33,7 @@ final class VariableTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateAdminVariableData
+     * @param array<string, string> $data
      * @group Model
      * @throws Exception
      */

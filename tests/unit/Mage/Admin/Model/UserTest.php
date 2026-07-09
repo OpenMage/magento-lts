@@ -22,6 +22,7 @@ use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\UserTrait;
 
 /**
  * @phpstan-import-type AuthenticateData from UserTrait
+ * @phpstan-import-type AuthenticateMethods from UserTrait
  */
 final class UserTest extends OpenMageTest
 {
@@ -138,10 +139,11 @@ final class UserTest extends OpenMageTest
 
     /**
      * @phpstan-param AuthenticateData $data
+     * @phpstan-param AuthenticateMethods $methods
      * @dataProvider provideAuthenticateData
      * @group Model
-     * @group ru-nInSeparateProcess
-     * @ru-nInSeparateProcess
+     * @group runInSeparateProcess
+     * @runInSeparateProcess
      */
     public function testAuthenticate(bool|string $expectedResult, array $data, array $methods): void
     {
@@ -194,7 +196,8 @@ final class UserTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateAdminUserData
-     * @param array|true $expectedResult
+     * @param array|true            $expectedResult
+     * @param array<string, string> $data
      * @group Model
      */
     public function testValidate(array|bool $expectedResult, array $data): void
@@ -267,6 +270,7 @@ final class UserTest extends OpenMageTest
 
     /**
      * @dataProvider provideIsResetPasswordLinkTokenExpiredData
+     * @param array<string, string> $data
      * @group Model
      */
     public function testIsResetPasswordLinkTokenExpired(bool $expectedResult, array $data): void

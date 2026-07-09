@@ -22,6 +22,7 @@ final class SitemapTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetPreparedFilenameData
+     * @param array<string, string> $data
      * @group Model
      */
     public function testGetPreparedFilename(array $data): void
@@ -35,6 +36,7 @@ final class SitemapTest extends OpenMageTest
 
     /**
      * @dataProvider provideGenerateXmlData
+     * @param array<string, string> $data
      * @group Model
      * @throws Throwable
      * @todo  test validation

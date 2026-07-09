@@ -13,8 +13,23 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model;
 
 use Generator;
 
+
+/**
+ * @phpstan-type ValidateData array{
+ *     "username": string,
+ *     "firstname": string,
+ *     "lastname": string,
+ *     "email": string,
+ *     "api_key": string,
+ *     "api_key_confirmation": string
+ * }
+ */
 trait UserTrait
 {
+
+    /**
+     * @return Generator<string, list{bool|string[], ValidateData, bool}, void, void>
+     */
     public static function provideValidateApiUserData(): Generator
     {
         $errorAlphaNumeric = 'Api Key must include both numeric and alphabetic characters.';
@@ -27,10 +42,8 @@ trait UserTrait
             'firstname' => 'John',
             'lastname' => 'Doe',
             'email' => 'john.doe@example.com',
-            'new_api_key' => null,
             'api_key' => 'validapikey123',
             'api_key_confirmation' => 'validapikey123',
-            'userExists' => false,
         ];
 
         yield 'valid data' => [

@@ -36,7 +36,7 @@ final class TokenTest extends OpenMageTest
      */
     public function testValidate(bool|string $expected, array $methods): void
     {
-        self::$subject->setConsumerId($methods['setConsumerId']);
+        self::$subject->setConsumerId((int)$methods['setConsumerId']);
         self::$subject->setCallbackUrl($methods['setCallbackUrl']);
         self::$subject->setSecret($methods['setSecret']);
         self::$subject->setToken($methods['setToken']);
@@ -49,7 +49,7 @@ final class TokenTest extends OpenMageTest
         }
     }
 
-    public function validateDataProvider(): Generator
+    public static function validateDataProvider(): Generator
     {
         $validData = [
             'setConsumerId'     => '1',

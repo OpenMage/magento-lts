@@ -637,11 +637,5 @@ since 1.4.0.0',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Wishlist/Model/ItemTest.php',
 ];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method setMethods() of class PHPUnit\\Framework\\MockObject\\MockBuilder:
-https://github.com/sebastianbergmann/phpunit/pull/3687',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/OpenMageTest.php',
-];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

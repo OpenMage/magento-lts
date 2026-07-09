@@ -12,8 +12,6 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit;
 
 use Mage;
-use PHPUnit\Framework\InvalidArgumentException;
-use PHPUnit\Framework\MockObject\Exception as MockObjectException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
