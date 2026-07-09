@@ -25,7 +25,6 @@ use Generator;
  */
 trait ReviewTrait
 {
-
     /**
      * @return Generator<string, list{bool|string[], ValidateData}, void, void>
      */

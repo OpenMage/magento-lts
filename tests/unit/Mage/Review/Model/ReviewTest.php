@@ -24,7 +24,7 @@ final class ReviewTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateReviewData
-     * @param string[]|true      $expectedResult
+     * @param string[]|true $expectedResult
      * @psalm-param ValidateData $data
      * @group Model
      */

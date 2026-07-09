@@ -35,7 +35,7 @@ final class CustomerTest extends OpenMageTest
     /**
      * @dataProvider provideValidateCustomerData
      * @group Model
-     * @param  string[]|true        $expectedResult
+     * @param string[]|true $expectedResult
      * @psalm-param ValidateData    $data
      * @psalm-param ValidateMethods $methods
      * @throws Mage_Core_Exception
