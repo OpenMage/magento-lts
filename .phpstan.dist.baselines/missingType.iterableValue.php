@@ -28332,11 +28332,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/ArrayTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Helper\\EnvironmentConfigLoaderTest::testAsArray() has parameter $config with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/EnvironmentConfigLoaderTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property OpenMage\\Tests\\Unit\\Mage\\Core\\Helper\\EnvironmentConfigLoaderTest::$storeData type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/EnvironmentConfigLoaderTest.php',
