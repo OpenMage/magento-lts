@@ -238,7 +238,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
      * @dataProvider envAsArrayDataProvider
      * @group Helper
      *
-     * @param array<string, array|string> $config
+     * @param array{'env_path': string, 'store': string, 'expected': array<string, int>} $config
      */
     public function testAsArray(array $config): void
     {
@@ -249,8 +249,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
             'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['env_path'] => 1,
         ]);
-        $store = $config['store'];
-        $wantedStore = $store;
+        $wantedStore = $store = $config['store'];
         // unregister for test
         if ($wantedStore === '') {
             $wantedStore = 'default';
