@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
