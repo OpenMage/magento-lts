@@ -13,8 +13,30 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer;
 
 use Generator;
 
+/**
+ * @phpstan-type ValidateData array{
+ *     "firstname": string,
+ *     "lastname": string,
+ *     "email": string,
+ *     "password": string,
+ *     "password_confirmation": string,
+ *     "dob": string,
+ *     "taxvat": string,
+ *     "gender": string,
+ *     "is_change_password": bool
+ * }
+ *
+ * @phpstan-type ValidateMethods array{
+ *     "shouldValidateDob": bool,
+ *     "shouldValidateTaxvat": bool,
+ *     "shouldValidateGender": bool
+ * }
+ */
 trait CustomerTrait
 {
+    /**
+     * @return Generator<string, list{bool|string[], ValidateData, ValidateMethods}, void, void>
+     */
     public static function provideValidateCustomerData(): Generator
     {
         $validCustomer = [

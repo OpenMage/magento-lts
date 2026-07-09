@@ -13,8 +13,22 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review;
 
 use Generator;
 
+/**
+ * @phpstan-type ValidateData array{
+ *     "title": string,
+ *     "detail": string,
+ *     "nickname": string,
+ *     "customer_id": int,
+ *     "entity_id": int,
+ *     "store_id": int
+ * }
+ */
 trait ReviewTrait
 {
+
+    /**
+     * @return Generator<string, list{bool|string[], ValidateData}, void, void>
+     */
     public static function provideValidateReviewData(): Generator
     {
         $validReview = [
