@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
 
         if ($customer->getWebsiteId() == 0) {
             $this->setForm($form);
-            return $this;
+            return parent::_prepareForm();
         }
 
         $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('customer')->__('Newsletter Information')]);
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
         }
 
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 
     public function getStatusChangedDate()

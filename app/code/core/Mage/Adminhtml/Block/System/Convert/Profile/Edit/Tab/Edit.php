@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit extends Mage_Adm
 
         $this->setForm($form);
 
-        return $this;
+        return parent::_prepareForm();
     }
 
     protected function getRegistryCurrentConvertProfile(): ?Mage_Dataflow_Model_Profile

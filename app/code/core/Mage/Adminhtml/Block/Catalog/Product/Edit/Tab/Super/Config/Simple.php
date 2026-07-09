@@ -166,7 +166,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
 
         $this->setForm($form);
 
-        return $this;
+        return parent::_prepareForm();
     }
 
     /**
