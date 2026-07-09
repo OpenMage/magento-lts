@@ -110,7 +110,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @runInSeparateProcess
      */
     public function testSet(): void
     {
@@ -135,7 +134,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @runInSeparateProcess
      */
     public function testDelete(): void
     {

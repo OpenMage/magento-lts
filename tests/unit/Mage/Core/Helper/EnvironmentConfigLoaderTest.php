@@ -146,7 +146,6 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @runInSeparateProcess
      * @dataProvider envOverridesCorrectConfigKeysDataProvider
      * @group Helper
      *
@@ -236,7 +235,6 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @runInSeparateProcess
      * @dataProvider envAsArrayDataProvider
      * @group Helper
      *
@@ -287,7 +285,6 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @runInSeparateProcess
      * @dataProvider envHasPathDataProvider
      * @group Helper
      *
@@ -333,7 +330,6 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @runInSeparateProcess
      * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
      * @group Helper
      *
