@@ -33,7 +33,7 @@
             <directory>app/code/core/Mage/*/sql</directory>
             <directory>vendor</directory>
         </exclude>
-    <source>
+    </source>
 
     <coverage
             includeUncoveredFiles="true"
