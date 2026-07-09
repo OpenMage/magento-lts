@@ -503,6 +503,8 @@ XML;
 
     private static function cleanupTestWebsite(string $websiteCode): void
     {
+        Mage::unregister('isSecureArea');
+        Mage::register('isSecureArea', true);
         $website = Mage::getModel('core/website')->load($websiteCode, 'code');
         $stores = Mage::getModel('core/store')
             ->getCollection()
@@ -514,6 +516,7 @@ XML;
             $store->delete();
         }
 
+        Mage::unregister('isSecureArea');
         Mage::app()->cleanCache();
         Mage::app()->reinitStores();
     }
