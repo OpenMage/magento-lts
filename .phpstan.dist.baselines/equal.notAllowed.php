@@ -2062,21 +2062,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Advanced.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<min, 0>|int<2, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int<min, 1>|int<3, max> and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php',
@@ -5225,11 +5210,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int|string and string is not allowed.',
     'count' => 3,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/form/ccsave.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/permissions/userroles.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, max> and mixed is not allowed.',

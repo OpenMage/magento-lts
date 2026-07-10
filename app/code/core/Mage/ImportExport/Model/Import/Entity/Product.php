@@ -1096,7 +1096,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 }
             }
 
-            if ($customOptions[$optionTable]) {
+            if ($customOptions[$optionTable] !== []) {
                 $this->_connection->insertMultiple($optionTable, $customOptions[$optionTable]);
             }
 
@@ -1112,7 +1112,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 $this->_connection->insertOnDuplicate($titleTable, $titleRows, ['title']);
             }
 
-            if ($customOptions[$priceTable]) {
+            if ($customOptions[$priceTable] !== []) {
                 $this->_connection->insertOnDuplicate(
                     $priceTable,
                     $customOptions[$priceTable],

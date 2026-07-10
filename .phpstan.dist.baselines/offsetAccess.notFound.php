@@ -182,21 +182,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Offset 1 might not exist on array{}|array{0: non-empty-string, 1: string, 2: numeric-string, 3?: string}.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Offset 2 might not exist on array{}|array{0: non-empty-string, 1: string, 2: numeric-string, 3?: string}.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Offset 3 might not exist on array{}|array{0: non-empty-string, 1: string, 2: numeric-string, 3?: string}.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Offset \'extension\' might not exist on array{dirname?: string, basename: string, extension?: string, filename: string}.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Uploader.php',
@@ -235,16 +220,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Offset 0 might not exist on array|null.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/System/Ftp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Offset \'dirname\' might not exist on array{dirname?: string, basename: string, extension?: string, filename: string}.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/File/Uploader.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Offset \'extension\' might not exist on array{dirname?: string, basename: string, extension?: string, filename: string}.',
-    'count' => 3,
-    'path' => __DIR__ . '/../lib/Varien/File/Uploader.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Offset \'dirname\' might not exist on array{dirname?: string, basename: string, extension?: string, filename: string}.',

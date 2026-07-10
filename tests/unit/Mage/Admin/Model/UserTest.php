@@ -20,6 +20,9 @@ use Mage_Core_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\UserTrait;
 
+/**
+ * @phpstan-import-type AuthenticateData from UserTrait
+ */
 final class UserTest extends OpenMageTest
 {
     use UserTrait;
@@ -134,6 +137,7 @@ final class UserTest extends OpenMageTest
     }
 
     /**
+     * @phpstan-param AuthenticateData $methods
      * @dataProvider provideAuthenticateData
      * @group Model
      * @group runInSeparateProcess

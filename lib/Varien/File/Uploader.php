@@ -336,7 +336,8 @@ class Varien_File_Uploader
         $fileInfo = pathinfo($fileName);
 
         if (preg_match('/^_+$/', $fileInfo['filename'])) {
-            return 'file.' . $fileInfo['extension'];
+            $ext = isset($fileInfo['extension']) ? '.' . $fileInfo['extension'] : '';
+            return 'file' . $ext;
         }
 
         return $fileName;
@@ -557,9 +558,11 @@ class Varien_File_Uploader
         $fileInfo = pathinfo($destFile);
         if (file_exists($destFile)) {
             $index = 1;
-            $baseName = $fileInfo['filename'] . '.' . $fileInfo['extension'];
-            while (file_exists($fileInfo['dirname'] . DIRECTORY_SEPARATOR . $baseName)) {
-                $baseName = $fileInfo['filename'] . '_' . $index . '.' . $fileInfo['extension'];
+            $ext = isset($fileInfo['extension']) ? '.' . $fileInfo['extension'] : '';
+            $baseName = $fileInfo['filename'] . $ext;
+            $dirName = isset($fileInfo['dirname']) ? $fileInfo['dirname'] . DIRECTORY_SEPARATOR : '';
+            while (file_exists($dirName . $baseName)) {
+                $baseName = $fileInfo['filename'] . '_' . $index . $ext;
                 $index++;
             }
 
