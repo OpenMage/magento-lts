@@ -2,13 +2,14 @@
 
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
         backupGlobals="false"
         backupStaticProperties="false"
         cacheResultFile=".cache/.phpunit.result.cache"
         colors="true"
         failOnNotice="true"
-        failOnWarning="false"
+        failOnWarning="true"
+        failOnPhpunitWarning="false"
         displayDetailsOnPhpunitDeprecations="true"
         processIsolation="false"
         stopOnFailure="false"
