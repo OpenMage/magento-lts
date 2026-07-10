@@ -781,6 +781,7 @@ class Varien_Object implements ArrayAccess
      * Implementation of ArrayAccess::offsetSet()
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetset.php
+     * @param string $offset
      */
     public function offsetSet($offset, $value): void
     {
