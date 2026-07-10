@@ -2288,12 +2288,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php',
 ];
 $ignoreErrors[] = [
