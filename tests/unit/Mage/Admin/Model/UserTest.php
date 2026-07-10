@@ -285,6 +285,7 @@ final class UserTest extends OpenMageTest
      */
     public function testSendPasswordResetConfirmationEmail(): void
     {
+        Mage::app()->getStore()->setConfig('system/smtp/disable', '1');
         self::assertInstanceOf(Subject::class, self::$subject->sendPasswordResetConfirmationEmail());
     }
 
@@ -311,6 +312,7 @@ final class UserTest extends OpenMageTest
      */
     public function testSendAdminNotification(): void
     {
+        Mage::app()->getStore()->setConfig('system/smtp/disable', '1');
         $methods = ['getUserCreateAdditionalEmail' => ['test@example.com']];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
