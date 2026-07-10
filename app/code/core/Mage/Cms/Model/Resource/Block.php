@@ -101,6 +101,9 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
     /**
      * @inheritDoc
+     *
+     * @param \Mage_Cms_Model_Block $object Cms Block Model
+     * @return $this
      */
     #[Override]
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
@@ -119,18 +122,18 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
         $read = $this->_getReadAdapter();
 
-        if ($read && !is_null($value)) {
+        if ($read !== false && !is_null($value)) {
             $data = $read->fetchRow(
                 $this->_getLoadSelectByStore($field, $value, $object, (int) $object->getStoreId()),
             );
 
-            if (!$data && (int) $object->getStoreId() !== Mage_Core_Model_App::ADMIN_STORE_ID) {
+            if (($data === false || $data === []) && (int) $object->getStoreId() !== Mage_Core_Model_App::ADMIN_STORE_ID) {
                 $data = $read->fetchRow(
                     $this->_getLoadSelectByStore($field, $value, $object, Mage_Core_Model_App::ADMIN_STORE_ID),
                 );
             }
 
-            if ($data) {
+            if ($data !== false && $data !== []) {
                 $object->setData($data);
             }
         }
