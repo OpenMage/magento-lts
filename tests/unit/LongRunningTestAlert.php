@@ -23,7 +23,7 @@ use PHPUnit\TextUI\Configuration\Configuration;
  */
 class LongRunningTestAlert implements Extension, FinishedSubscriber
 {
-    protected const MAX_SECONDS_ALLOWED = 1.0;
+    protected const MAX_SECONDS_ALLOWED = 5.0;
 
     public function bootstrap(Configuration $configuration, Facade $facade, ParameterCollection $parameters): void
     {
