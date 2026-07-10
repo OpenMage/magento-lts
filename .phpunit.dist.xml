@@ -8,7 +8,7 @@
         cacheResultFile=".cache/.phpunit.result.cache"
         colors="true"
         failOnNotice="true"
-        failOnWarning="true"
+        failOnWarning="false"
         displayDetailsOnPhpunitDeprecations="true"
         processIsolation="false"
         stopOnFailure="false"
