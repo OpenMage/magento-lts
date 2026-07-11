@@ -122,12 +122,14 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     protected function _prepareForm()
     {
         Mage::dispatchEvent('adminhtml_widget_form_prepare_form', [
-            'form' => $this,
+            'block' => $this,
+            'form' => $this->getForm(),
         ]);
 
         if ($this->_eventPrefix !== '') {
             Mage::dispatchEvent($this->_eventPrefix . '_prepare_form', [
-                'form' => $this,
+                'block' => $this,
+                'form' => $this->getForm(),
             ]);
         }
 
