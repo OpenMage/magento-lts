@@ -784,9 +784,7 @@ class Varien_Object implements ArrayAccess
      */
     public function offsetSet($offset, $value): void
     {
-        if (!is_null($offset)) {
-            $this->_data[$offset] = $value;
-        }
+        $this->_data[(string)$offset] = $value;
     }
 
     /**
