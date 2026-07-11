@@ -101,9 +101,6 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
     /**
      * @inheritDoc
-     *
-     * @param \Mage_Cms_Model_Block $object Cms Block Model
-     * @return $this
      */
     #[Override]
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
@@ -163,10 +160,10 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve select object for load object data for a specific store.
      *
-     * @param  string               $field
-     * @param  mixed                $value
-     * @param  Mage_Cms_Model_Block $object
-     * @param  int                  $storeId
+     * @param  string                   $field
+     * @param  mixed                    $value
+     * @param  Mage_Core_Model_Abstract $object
+     * @param  int                      $storeId
      * @return Zend_Db_Select
      * @throws Exception
      * @throws Mage_Core_Exception
