@@ -138,7 +138,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         }
 
         $this->setForm($form);
-        return parent::_prepareForm();
+        return $this;
     }
 
     /**

@@ -63,6 +63,6 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
 
         $this->setForm($form);
 
-        return parent::_prepareForm();
+        return $this;
     }
 }
