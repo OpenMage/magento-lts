@@ -14,7 +14,9 @@
                 <children>
                     <system>
                         <children>
-                            <api>
+                            <api translate="title" module="api2">
+                                <title>Web Services</title>
+                                <sort_order>0</sort_order>
                                 <children>
                                     <rest_roles translate="title" module="api2">
                                         <title>REST - Roles</title>
@@ -55,7 +57,9 @@
     <menu>
         <system>
             <children>
-                <api>
+                <api translate="title" module="api2">
+                    <title>Web Services</title>
+                    <sort_order>25</sort_order>
                     <children>
                         <rest_roles translate="title" module="api2">
                             <title>REST - Roles</title>

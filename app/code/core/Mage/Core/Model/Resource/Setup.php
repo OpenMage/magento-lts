@@ -226,6 +226,10 @@ class Mage_Core_Model_Resource_Setup
                 $className = $resource->setup->getClassName();
             }
 
+            if (!is_string($className)) {
+                continue;
+            }
+
             /** @var Mage_Core_Model_Resource_Setup $setupClass */
             $setupClass = new $className($resName);
             $setupClass->applyUpdates();
@@ -261,6 +265,10 @@ class Mage_Core_Model_Resource_Setup
             $className = self::class;
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
+            }
+
+            if (!is_string($className)) {
+                continue;
             }
 
             /** @var Mage_Core_Model_Resource_Setup $setupClass */
