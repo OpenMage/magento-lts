@@ -221,10 +221,10 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve select object for load object data for a specific store.
      *
-     * @param  string              $field
-     * @param  mixed               $value
+     * @param  string                                       $field
+     * @param  mixed                                        $value
      * @param  Mage_Core_Model_Abstract|Mage_Cms_Model_Page $object
-     * @param  int                 $storeId
+     * @param  int                                          $storeId
      * @return Zend_Db_Select
      * @throws Exception
      */
