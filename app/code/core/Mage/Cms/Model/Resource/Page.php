@@ -223,7 +223,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @param  string                                       $field
      * @param  mixed                                        $value
-     * @param  Mage_Core_Model_Abstract|Mage_Cms_Model_Page $object
+     * @param  Mage_Cms_Model_Page|Mage_Core_Model_Abstract $object
      * @param  int                                          $storeId
      * @return Zend_Db_Select
      * @throws Exception
