@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Base payment iformation block
  *
- * @category   Mage
  * @package    Mage_Payment
  *
  * @method bool hasIsSecureMode()
@@ -26,10 +19,14 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     /**
      * Payment rendered specific information
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_paymentSpecificInformation = null;
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -43,10 +40,11 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      */
     public function getInfo()
     {
-        $info = $this->getData('info');
+        $info = $this->getDataByKey('info');
         if (!($info instanceof Mage_Payment_Model_Info)) {
             Mage::throwException($this->__('Cannot retrieve the payment info model object.'));
         }
+
         return $info;
     }
 
@@ -85,6 +83,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
                 $result[] = $child->toPdf();
             }
         }
+
         return $result;
     }
 
@@ -101,8 +100,8 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     /**
      * Render the value as an array
      *
-     * @param mixed $value
-     * @param bool $escapeHtml
+     * @param  mixed $value
+     * @param  bool  $escapeHtml
      * @return array $array
      */
     public function getValueAsArray($value, $escapeHtml = false)
@@ -110,14 +109,17 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
         if (empty($value)) {
             return [];
         }
+
         if (!is_array($value)) {
             $value = [$value];
         }
+
         if ($escapeHtml) {
-            foreach ($value as $_key => $_val) {
-                $value[$_key] = $this->escapeHtml($_val);
+            foreach ($value as $key => $val) {
+                $value[$key] = $this->escapeHtml($val);
             }
         }
+
         return $value;
     }
 
@@ -131,21 +133,24 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     public function getIsSecureMode()
     {
         if ($this->hasIsSecureMode()) {
-            return (bool)(int)$this->_getData('is_secure_mode');
+            return (bool) (int) $this->_getData('is_secure_mode');
         }
+
         if (!$payment = $this->getInfo()) {
             return true;
         }
+
         if (!$method = $payment->getMethodInstance()) {
             return true;
         }
+
         return !Mage::app()->getStore($method->getStore())->isAdmin();
     }
 
     /**
      * Prepare information specific to current payment method
      *
-     * @param Varien_Object|array $transport
+     * @param  array|Varien_Object $transport
      * @return Varien_Object
      */
     protected function _prepareSpecificInformation($transport = null)
@@ -156,6 +161,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
             } elseif (is_array($transport)) {
                 $transport = new Varien_Object($transport);
             }
+
             Mage::dispatchEvent('payment_info_block_prepare_specific_information', [
                 'transport' => $transport,
                 'payment'   => $this->getInfo(),
@@ -163,6 +169,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
             ]);
             $this->_paymentSpecificInformation = $transport;
         }
+
         return $this->_paymentSpecificInformation;
     }
 }

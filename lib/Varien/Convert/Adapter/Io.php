@@ -1,26 +1,20 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Convert
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert IO adapter
  *
- * @category   Varien
  * @package    Varien_Convert
  */
 class Varien_Convert_Adapter_Io extends Varien_Convert_Adapter_Abstract
 {
+    #[Override]
     public function getResource()
     {
         if (!$this->_resource) {
@@ -29,10 +23,11 @@ class Varien_Convert_Adapter_Io extends Varien_Convert_Adapter_Abstract
             $this->_resource = new $className();
             try {
                 $this->_resource->open($this->getVars());
-            } catch (Exception $e) {
-                $this->addException('Error occured during file opening: ' . $e->getMessage(), Varien_Convert_Exception::FATAL);
+            } catch (Exception $exception) {
+                $this->addException('Error occured during file opening: ' . $exception->getMessage(), Varien_Convert_Exception::FATAL);
             }
         }
+
         return $this->_resource;
     }
 
@@ -45,6 +40,7 @@ class Varien_Convert_Adapter_Io extends Varien_Convert_Adapter_Abstract
         } else {
             $this->addException('Loaded successfully: ' . $filename . ' [' . strlen($data) . ' byte(s)]');
         }
+
         $this->setData($data);
         return $this;
     }
@@ -61,8 +57,10 @@ class Varien_Convert_Adapter_Io extends Varien_Convert_Adapter_Abstract
             if ($this->getVar('link')) {
                 $text .= ' <a href="' . $this->getVar('link') . '" target="_blank">Link</a>';
             }
+
             $this->addException($text);
         }
+
         return $this;
     }
 }

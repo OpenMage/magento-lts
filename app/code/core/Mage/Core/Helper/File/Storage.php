@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * File storage helper
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
@@ -26,7 +19,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
     /**
      * Current storage code
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_currentStorage = null;
 
@@ -36,7 +29,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      * @var array
      */
     protected $_internalStorageList = [
-        Mage_Core_Model_File_Storage::STORAGE_MEDIA_FILE_SYSTEM
+        Mage_Core_Model_File_Storage::STORAGE_MEDIA_FILE_SYSTEM,
     ];
 
     /**
@@ -67,12 +60,12 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
     /**
      * Check if storage is internal
      *
-     * @param  int|null $storage
+     * @param  null|int $storage
      * @return bool
      */
     public function isInternalStorage($storage = null)
     {
-        $storage = (!is_null($storage)) ? (int) $storage : $this->getCurrentStorageCode();
+        $storage = (is_null($storage)) ? $this->getCurrentStorageCode() : (int) $storage;
 
         return in_array($storage, $this->_internalStorageList);
     }
@@ -80,9 +73,9 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
     /**
      * Retrieve storage model
      *
-     * @param  int|null $storage
-     * @param  array $params
-     * @return Mage_Core_Model_File_Storage_File|Mage_Core_Model_File_Storage_Database
+     * @param  null|int                                                                $storage
+     * @param  array                                                                   $params
+     * @return Mage_Core_Model_File_Storage_Database|Mage_Core_Model_File_Storage_File
      */
     public function getStorageModel($storage = null, $params = [])
     {
@@ -94,7 +87,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      * if file exists in the storage
      *
      * @param  string $filename
-     * @return bool|int
+     * @return bool
      */
     public function processStorageFile($filename)
     {
@@ -118,7 +111,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      * Save file to file system
      *
      * @param  Mage_Core_Model_File_Storage_Database $file
-     * @return bool|int
+     * @return bool
      */
     public function saveFileToFileSystem($file)
     {

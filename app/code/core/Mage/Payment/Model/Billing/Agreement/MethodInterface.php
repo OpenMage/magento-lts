@@ -1,51 +1,38 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Interface for payment methods that support billing agreements management
  *
- * @category   Mage
  * @package    Mage_Payment
  */
 interface Mage_Payment_Model_Billing_Agreement_MethodInterface
 {
     /**
      * Init billing agreement
-     *
-     * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
      */
     public function initBillingAgreementToken(Mage_Payment_Model_Billing_AgreementAbstract $agreement);
 
     /**
      * Retrieve billing agreement details
-     *
-     * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
      */
     public function getBillingAgreementTokenInfo(Mage_Payment_Model_Billing_AgreementAbstract $agreement);
 
     /**
      * Create billing agreement
-     *
-     * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
      */
     public function placeBillingAgreement(Mage_Payment_Model_Billing_AgreementAbstract $agreement);
 
     /**
      * Update billing agreement status
-     *
-     * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
      */
     public function updateBillingAgreementStatus(Mage_Payment_Model_Billing_AgreementAbstract $agreement);
 }

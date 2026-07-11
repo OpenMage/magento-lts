@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Rss abstract controller
  *
- * @category   Mage
  * @package    Mage_Rss
  */
 class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
@@ -24,7 +17,7 @@ class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
     /**
      * Check feed enabled in config
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     protected function isFeedEnable($code)
@@ -37,7 +30,7 @@ class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
     /**
      * Do check feed enabled and prepare response
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     protected function checkFeedEnable($code)
@@ -56,7 +49,7 @@ class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
     /**
      * Retrieve helper instance
      *
-     * @param string $name
+     * @param  string                    $name
      * @return Mage_Core_Helper_Abstract
      */
     protected function _getHelper($name)

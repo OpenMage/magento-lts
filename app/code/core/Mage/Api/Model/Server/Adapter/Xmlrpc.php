@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservice XmlRpc adapter
  *
- * @category   Mage
  * @package    Mage_Api
  */
 class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage_Api_Model_Server_Adapter_Interface
@@ -31,7 +24,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
     /**
      * Set handler class name for webservice
      *
-     * @param string $handler
+     * @param  string $handler
      * @return $this
      */
     public function setHandler($handler)
@@ -47,13 +40,12 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
      */
     public function getHandler()
     {
-        return $this->getData('handler');
+        return $this->getDataByKey('handler');
     }
 
     /**
      * Set webservice api controller
      *
-     * @param Mage_Api_Controller_Action $controller
      * @return $this
      */
     public function setController(Mage_Api_Controller_Action $controller)
@@ -69,15 +61,16 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
      */
     public function getController()
     {
-        $controller = $this->getData('controller');
+        $controller = $this->getDataByKey('controller');
 
         if ($controller === null) {
             $controller = new Varien_Object(
-                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()]
+                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()],
             );
 
             $this->setData('controller', $controller);
         }
+
         return $controller;
     }
 
@@ -88,7 +81,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
      */
     public function run()
     {
-        $apiConfigCharset = Mage::getStoreConfig("api/config/charset");
+        $apiConfigCharset = Mage::getStoreConfig('api/config/charset');
 
         $this->_xmlRpc = new Zend_XmlRpc_Server();
         $this->_xmlRpc->setEncoding($apiConfigCharset)
@@ -103,8 +96,8 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
     /**
      * Dispatch webservice fault
      *
-     * @param int $code
-     * @param string $message
+     * @param  int    $code
+     * @param  string $message
      * @return never
      */
     public function fault($code, $message)

@@ -1,31 +1,27 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product attributes grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_attribute_grid';
+
     /**
      * Prepare product attributes grid collection object
      *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('catalog/product_attribute_collection')
@@ -39,14 +35,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
      * Prepare product attributes grid columns
      *
      * @return $this
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         parent::_prepareColumns();
 
         $this->addColumnAfter('is_visible', [
             'header' => Mage::helper('catalog')->__('Visible'),
-            'sortable' => true,
             'index' => 'is_visible_on_front',
             'type' => 'options',
             'options' => [
@@ -58,7 +55,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
 
         $this->addColumnAfter('is_global', [
             'header' => Mage::helper('catalog')->__('Scope'),
-            'sortable' => true,
             'index' => 'is_global',
             'type' => 'options',
             'options' => [
@@ -71,7 +67,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
 
         $this->addColumnAfter('is_searchable', [
             'header' => Mage::helper('catalog')->__('Searchable'),
-            'sortable' => true,
             'index' => 'is_searchable',
             'type' => 'options',
             'options' => [
@@ -83,7 +78,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
 
         $this->addColumnAfter('is_filterable', [
             'header' => Mage::helper('catalog')->__('Use in Layered Navigation'),
-            'sortable' => true,
             'index' => 'is_filterable',
             'type' => 'options',
             'options' => [
@@ -96,7 +90,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
 
         $this->addColumnAfter('is_comparable', [
             'header' => Mage::helper('catalog')->__('Comparable'),
-            'sortable' => true,
             'index' => 'is_comparable',
             'type' => 'options',
             'options' => [

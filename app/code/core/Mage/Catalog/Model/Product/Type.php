@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product type model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Type
@@ -25,31 +18,40 @@ class Mage_Catalog_Model_Product_Type
      * Available product types
      */
     public const TYPE_SIMPLE       = 'simple';
+
     public const TYPE_BUNDLE       = 'bundle';
+
     public const TYPE_CONFIGURABLE = 'configurable';
+
     public const TYPE_GROUPED      = 'grouped';
+
     public const TYPE_VIRTUAL      = 'virtual';
 
     public const DEFAULT_TYPE      = 'simple';
+
     public const DEFAULT_TYPE_MODEL    = 'catalog/product_type_simple';
+
     public const DEFAULT_PRICE_MODEL   = 'catalog/product_type_price';
 
     protected static $_types;
+
     protected static $_compositeTypes;
+
     protected static $_priceModels;
+
     protected static $_typesPriority;
 
     /**
      * Product type instance factory
      *
-     * @param Varien_Object|Mage_Catalog_Model_Product $product
-     * @param bool $singleton
-     * @return false|Mage_Core_Model_Abstract
+     * @param  Mage_Catalog_Model_Product|Varien_Object       $product
+     * @param  bool                                           $singleton
+     * @return false|Mage_Catalog_Model_Product_Type_Abstract
      */
     public static function factory($product, $singleton = false)
     {
         $types = self::getTypes();
-        $typeId = $product->getTypeId();
+        $typeId = (string) $product->getTypeId();
 
         if (!empty($types[$typeId]['model'])) {
             $typeModelName = $types[$typeId]['model'];
@@ -64,6 +66,7 @@ class Mage_Catalog_Model_Product_Type
             $typeModel = Mage::getModel($typeModelName);
             $typeModel->setProduct($product);
         }
+
         $typeModel->setConfig($types[$typeId]);
         return $typeModel;
     }
@@ -71,8 +74,8 @@ class Mage_Catalog_Model_Product_Type
     /**
      * Product type price model factory
      *
-     * @param   string $productType
-     * @return  Mage_Catalog_Model_Product_Type_Price
+     * @param  string                                                         $productType
+     * @return Mage_Catalog_Model_Product_Type_Price|Mage_Core_Model_Abstract
      */
     public static function priceFactory($productType)
     {
@@ -134,10 +137,11 @@ class Mage_Catalog_Model_Product_Type
         $res[] = ['value' => '', 'label' => ''];
         foreach (self::getOptionArray() as $index => $value) {
             $res[] = [
-               'value' => $index,
-               'label' => $value
+                'value' => $index,
+                'label' => $value,
             ];
         }
+
         return $res;
     }
 
@@ -149,16 +153,17 @@ class Mage_Catalog_Model_Product_Type
         $res = [];
         foreach (self::getOptionArray() as $index => $value) {
             $res[] = [
-               'value' => $index,
-               'label' => $value
+                'value' => $index,
+                'label' => $value,
             ];
         }
+
         return $res;
     }
 
     /**
-     * @param string $optionId
-     * @return mixed|null
+     * @param  string     $optionId
+     * @return null|mixed
      */
     public static function getOptionText($optionId)
     {
@@ -167,7 +172,7 @@ class Mage_Catalog_Model_Product_Type
     }
 
     /**
-     * @return array|string
+     * @return array<array-key, array{label: string, model?: string, price_model?: string, index_priority?: int, composite?: bool}>
      */
     public static function getTypes()
     {
@@ -178,6 +183,7 @@ class Mage_Catalog_Model_Product_Type
                 $translatedLabel = Mage::helper($moduleName)->__($productConfig['label']);
                 $productTypes[$productKey]['label'] = $translatedLabel;
             }
+
             self::$_types = $productTypes;
         }
 
@@ -200,6 +206,7 @@ class Mage_Catalog_Model_Product_Type
                 }
             }
         }
+
         return self::$_compositeTypes;
     }
 
@@ -217,7 +224,7 @@ class Mage_Catalog_Model_Product_Type
 
             $types = self::getTypes();
             foreach ($types as $typeId => $typeInfo) {
-                $priority = isset($typeInfo['index_priority']) ? abs((int) $typeInfo['index_priority']) : 0;
+                $priority = isset($typeInfo['index_priority']) ? abs($typeInfo['index_priority']) : 0;
                 if (!empty($typeInfo['composite'])) {
                     $b[$typeId] = $priority;
                 } else {
@@ -231,10 +238,12 @@ class Mage_Catalog_Model_Product_Type
             foreach (array_keys($a) as $typeId) {
                 self::$_typesPriority[$typeId] = $types[$typeId];
             }
+
             foreach (array_keys($b) as $typeId) {
                 self::$_typesPriority[$typeId] = $types[$typeId];
             }
         }
+
         return self::$_typesPriority;
     }
 }

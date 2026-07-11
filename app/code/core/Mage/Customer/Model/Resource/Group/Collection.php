@@ -1,26 +1,24 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer group collection
  *
- * @category   Mage
  * @package    Mage_Customer
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Customer_Model_Group>
  */
 class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('customer/group');
@@ -29,14 +27,14 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     /**
      * Set tax group filter
      *
-     * @param mixed $classId
+     * @param  mixed $classId
      * @return $this
      */
     public function setTaxGroupFilter($classId)
     {
         $this->getSelect()->joinLeft(
             ['tax_class_group' => $this->getTable('tax/tax_class_group')],
-            'tax_class_group.class_group_id = main_table.customer_group_id'
+            'tax_class_group.class_group_id = main_table.customer_group_id',
         );
         $this->addFieldToFilter('tax_class_group.class_parent_id', $classId);
         return $this;
@@ -45,7 +43,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     /**
      * Set ignore ID filter
      *
-     * @param array $indexes
+     * @param  array $indexes
      * @return $this
      */
     public function setIgnoreIdFilter($indexes)
@@ -53,6 +51,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
         if (count($indexes)) {
             $this->addFieldToFilter('main_table.customer_group_id', ['nin' => $indexes]);
         }
+
         return $this;
     }
 
@@ -75,7 +74,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     {
         $this->getSelect()->joinLeft(
             ['tax_class_table' => $this->getTable('tax/tax_class')],
-            "main_table.tax_class_id = tax_class_table.class_id"
+            'main_table.tax_class_id = tax_class_table.class_id',
         );
         return $this;
     }
@@ -85,6 +84,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return parent::_toOptionArray('customer_group_id', 'customer_group_code');
@@ -95,6 +95,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
      *
      * @return array
      */
+    #[Override]
     public function toOptionHash()
     {
         return parent::_toOptionHash('customer_group_id', 'customer_group_code');

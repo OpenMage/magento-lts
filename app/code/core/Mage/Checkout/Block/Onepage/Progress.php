@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * One page checkout status
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_Abstract
@@ -78,9 +71,9 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
     /**
      * Get is step completed. if is set 'toStep' then all steps after him is not completed.
      *
-     * @param string $currentStep
-     *  @see: Mage_Checkout_Block_Onepage_Abstract::_getStepCodes() for allowed values
+     * @param  string $currentStep
      * @return bool
+     * @see Mage_Checkout_Block_Onepage_Abstract::_getStepCodes() for allowed values
      */
     public function isStepComplete($currentStep)
     {
@@ -101,7 +94,7 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
 
     /**
      * Get quote shipping price including tax
-     * @return float
+     * @return float|string
      */
     public function getShippingPriceInclTax()
     {
@@ -110,7 +103,7 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
     }
 
     /**
-     * @return string
+     * @return float|string
      */
     public function getShippingPriceExclTax()
     {
@@ -118,8 +111,8 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
     }
 
     /**
-     * @param float $price
-     * @return string
+     * @param  float        $price
+     * @return float|string
      */
     public function formatPrice($price)
     {

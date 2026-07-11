@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Auth session model
  *
- * @category   Mage
  * @package    Mage_Rss
  */
 class Mage_Rss_Model_Rss
@@ -24,7 +17,7 @@ class Mage_Rss_Model_Rss
     protected $_feedArray = [];
 
     /**
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function _addHeader($data = [])
@@ -34,7 +27,7 @@ class Mage_Rss_Model_Rss
     }
 
     /**
-     * @param array $entries
+     * @param  array $entries
      * @return $this
      */
     public function _addEntries($entries)
@@ -44,7 +37,7 @@ class Mage_Rss_Model_Rss
     }
 
     /**
-     * @param array $entry
+     * @param  array $entry
      * @return $this
      */
     public function _addEntry($entry)
@@ -69,8 +62,8 @@ class Mage_Rss_Model_Rss
         try {
             $rssFeedFromArray = Zend_Feed::importArray($this->getFeedArray(), 'rss');
             return $rssFeedFromArray->saveXml();
-        } catch (Exception $e) {
-            return Mage::helper('rss')->__('Error in processing xml. %s', $e->getMessage());
+        } catch (Exception $exception) {
+            return Mage::helper('rss')->__('Error in processing xml. %s', $exception->getMessage());
         }
     }
 }

@@ -1,0 +1,33 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Sales_Order_Create_Form $this */
+?>
+<script type="text/javascript">
+    var order = new AdminOrder(<?php echo $this->getOrderDataJson() ?>);
+    order.setLoadBaseUrl('<?php echo $this->getLoadBlockUrl() ?>');
+    var payment = {};
+    payment.switchMethod = order.switchPaymentMethod.bind(order);
+</script>
+<form id="edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
+    <?php echo $this->getBlockHtml('formkey')?>
+    <div id="order-message">
+        <?php echo $this->getChildHtml('message') ?>
+    </div>
+    <div id="order-customer-selector" style="display:<?php echo $this->getCustomerSelectorDisplay() ?>">
+        <?php if (!$this->getCustomerId()): ?>
+            <?php echo $this->getChildHtml('customer') ?>
+        <?php endif ?>
+    </div>
+    <div id="order-store-selector" style="display:<?php echo $this->getStoreSelectorDisplay() ?>">
+        <?php echo $this->getChildHtml('store') ?>
+    </div>
+    <div id="order-data" style="display:<?php echo $this->getDataSelectorDisplay() ?>">
+        <?php echo $this->getChildHtml('data') ?>
+    </div>
+</form>

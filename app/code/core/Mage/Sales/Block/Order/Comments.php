@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
@@ -27,16 +20,16 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
     protected $_entity;
 
     /**
-     * Currect comments collection
+     * Current comments collection
      *
-     * @var Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract|null
+     * @var null|Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
      */
     protected $_commentCollection;
 
     /**
      * Sets comments parent model instance
      *
-     * @param Mage_Sales_Model_Abstract $entity
+     * @param  Mage_Sales_Model_Abstract $entity
      * @return $this
      */
     public function setEntity($entity)
@@ -75,7 +68,9 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
                 Mage::throwException(Mage::helper('sales')->__('Invalid entity model'));
             }
 
-            $this->_commentCollection = Mage::getResourceModel($collectionClass);
+            /** @var Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract $commentCollection */
+            $commentCollection = Mage::getResourceModel($collectionClass);
+            $this->_commentCollection = $commentCollection;
             $this->_commentCollection->setParentFilter($entity)
                ->setCreatedAtOrder()
                ->addVisibleOnFrontFilter();

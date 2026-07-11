@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Rule product condition attribute data model
  *
- * @category   Mage
  * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mage_Rule_Model_Condition_Product_Abstract
@@ -44,7 +37,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
 
     /**
      * A cached options list
-     * @var array|null
+     * @var null|array
      */
     protected $_cachedOperatorSelectOptionsCache = null;
 
@@ -59,7 +52,6 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
 
     /**
      * Retrieve a product instance and initialize if needed
-     * @param Varien_Object $object
      *
      * @return Mage_Catalog_Model_Product
      */
@@ -77,7 +69,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
     {
         $this->_operatorSelectOptionsHash = [
             self::OPERATOR_ATTRIBUTE_IS_ASSIGNED        => $this->_getHelper()->__('is assigned'),
-            self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED    => $this->_getHelper()->__('is not assigned')
+            self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED    => $this->_getHelper()->__('is not assigned'),
         ];
 
         parent::__construct();
@@ -87,6 +79,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
      * Retrieves unary operators of the attribute assignment state
      * @return array
      */
+    #[Override]
     public function getOperatorSelectOptions()
     {
         if (is_null($this->_cachedOperatorSelectOptionsCache)) {
@@ -94,7 +87,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
             foreach ($this->_operatorSelectOptionsHash as $operatorValue => $operatorLabel) {
                 $this->_cachedOperatorSelectOptionsCache[] = [
                     'label' => $operatorLabel,
-                    'value' => $operatorValue
+                    'value' => $operatorValue,
                 ];
             }
         }
@@ -106,6 +99,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
      * Retrieve an operator name
      * @return string
      */
+    #[Override]
     public function getOperatorName()
     {
         return $this->getOperator() && array_key_exists($this->getOperator(), $this->_operatorSelectOptionsHash)
@@ -115,25 +109,28 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
 
     /**
      * Validate a product, check whether the attribute is assigned to the product
-     * @param Varien_Object $object
      *
      * @return bool
      */
+    #[Override]
     public function validate(Varien_Object $object)
     {
         $product    = $this->_getProduct($object);
         $attributes = $product->getAttributes();
+        if ($this->getOperator() == self::OPERATOR_ATTRIBUTE_IS_ASSIGNED
+            && array_key_exists($this->getAttribute(), $attributes)) {
+            return true;
+        }
 
-        return $this->getOperator() == self::OPERATOR_ATTRIBUTE_IS_ASSIGNED
-            && array_key_exists($this->getAttribute(), $attributes)
-            || $this->getOperator() == self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED
-            && !array_key_exists($this->getAttribute(), $attributes);
+        return $this->getOperator() == self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED
+        && !array_key_exists($this->getAttribute(), $attributes);
     }
 
     /**
      * Generate a condition html
      * @return string
      */
+    #[Override]
     public function asHtml()
     {
         return $this->_getHelper()->__(
@@ -141,7 +138,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
             $this->getAttributeElementHtml(),
             $this->getOperatorElementHtml(),
             $this->getRemoveLinkHtml(),
-            $this->getTypeElementHtml()
+            $this->getTypeElementHtml(),
         );
     }
 }

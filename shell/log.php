@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shell
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 require_once 'abstract.php';
@@ -18,7 +12,6 @@ require_once 'abstract.php';
 /**
  * Magento Log Shell Script
  *
- * @category   Mage
  * @package    Mage_Shell
  */
 class Mage_Shell_Log extends Mage_Shell_Abstract
@@ -26,7 +19,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     /**
      * Log instance
      *
-     * @var Mage_Log_Model_Log|null
+     * @var null|Mage_Log_Model_Log
      */
     protected $_log;
 
@@ -40,20 +33,22 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
         if (is_null($this->_log)) {
             $this->_log = Mage::getModel('log/log');
         }
+
         return $this->_log;
     }
 
     /**
      * Convert count to human view
      *
-     * @param int $number
+     * @param  int    $number
      * @return string
      */
     protected function _humanCount($number)
     {
         if ($number < 1000) {
-            return (string)$number;
+            return (string) $number;
         }
+
         if ($number < 1000000) {
             return sprintf('%.2fK', $number / 1000);
         }
@@ -68,7 +63,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     /**
      * Convert size to human view
      *
-     * @param int $number
+     * @param  int    $number
      * @return string
      */
     protected function _humanSize($number)
@@ -90,7 +85,6 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
 
     /**
      * Run script
-     *
      */
     public function run()
     {
@@ -99,6 +93,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
             if ($days > 0) {
                 Mage::app()->getStore()->setConfig(Mage_Log_Model_Log::XML_LOG_CLEAN_DAYS, $days);
             }
+
             $this->_getLog()->clean();
             echo "Log cleaned\n";
         } elseif ($this->getArg('status')) {
@@ -165,8 +160,8 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
 
     /**
      * Retrieve Usage Help Message
-     *
      */
+    #[Override]
     public function usageHelp()
     {
         return <<<USAGE

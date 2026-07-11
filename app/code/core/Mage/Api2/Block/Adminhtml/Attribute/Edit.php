@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Attribute Edit block
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Block_Adminhtml_Attribute_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
@@ -32,8 +25,8 @@ class Mage_Api2_Block_Adminhtml_Attribute_Edit extends Mage_Adminhtml_Block_Widg
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', $this->__('Save'))
-            ->_removeButton('delete');
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', $this->__('Save'))
+            ->_removeButton(self::BUTTON_TYPE_DELETE);
     }
 
     /**
@@ -41,6 +34,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Edit extends Mage_Adminhtml_Block_Widg
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         $userTypes = Mage_Api2_Model_Auth_User::getUserTypes();

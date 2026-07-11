@@ -1,24 +1,17 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Customer
  *
  * @method DateTime getTime()
- * @method $this setTime(string $value)
+ * @method $this    setTime(string $value)
  */
 class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
 {
@@ -29,7 +22,8 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     protected $_dateInputs = [];
 
-    public function _construct()
+    #[Override]
+    protected function _construct()
     {
         parent::_construct();
 
@@ -42,7 +36,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function isEnabled()
     {
-        return (bool)$this->_getAttribute('dob')->getIsVisible();
+        return (bool) $this->_getAttribute('dob')->getIsVisible();
     }
 
     /**
@@ -50,11 +44,11 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function isRequired()
     {
-        return (bool)$this->_getAttribute('dob')->getIsRequired();
+        return (bool) $this->_getAttribute('dob')->getIsRequired();
     }
 
     /**
-     * @param string $date
+     * @param  string $date
      * @return $this
      */
     public function setDate($date)
@@ -63,8 +57,8 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
             try {
                 $dateTime = new DateTime($date);
                 $this->setTime($dateTime);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -102,7 +96,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function getYear()
     {
-        return ($this->hasTime()) ? $this->getTime()->format('o') : '';
+        return ($this->hasTime()) ? $this->getTime()->format('Y') : '';
     }
 
     /**
@@ -140,7 +134,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
             '%d' => '%2$s',
             '%e' => '%2$s',
             '%Y' => '%3$s',
-            '%y' => '%3$s'
+            '%y' => '%3$s',
         ];
 
         $dateFormat = preg_replace('/[^\%\w]/', '\\1', $this->getDateFormat());
@@ -149,7 +143,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
             strtr($dateFormat, $strtr),
             $this->_dateInputs['m'],
             $this->_dateInputs['d'],
-            $this->_dateInputs['y']
+            $this->_dateInputs['y'],
         );
     }
 }

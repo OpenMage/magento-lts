@@ -1,42 +1,49 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml tax report grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method Varien_Object getFilterData()
+ * @method string        getPeriodType()
+ * @method $this         setPeriodType(string $value)
  */
 class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
+    protected string $_eventPrefix = 'adminhtml_report_sales_tax_grid';
+
     protected $_columnGroupBy = 'period';
 
     public function __construct()
     {
         parent::__construct();
-        $this->setCountTotals(true);
-        $this->setCountSubTotals(true);
+        $this->setCountTotals();
+        $this->setCountSubTotals();
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function getResourceCollectionName()
     {
-        return ($this->getFilterData()->getData('report_type') == 'updated_at_order')
+        return ($this->getFilterData()->getDataByKey('report_type') === 'updated_at_order')
             ? 'tax/report_updatedat_collection'
             : 'tax/report_collection';
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('period', [
@@ -55,7 +62,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
             'header'    => Mage::helper('sales')->__('Tax'),
             'index'     => 'code',
             'type'      => 'string',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('percent', [
@@ -63,7 +70,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
             'index'     => 'percent',
             'type'      => 'number',
             'width'     => '100',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('orders_count', [
@@ -72,12 +79,13 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
             'total'     => 'sum',
             'type'      => 'number',
             'width'     => '100',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         if ($this->getFilterData()->getStoreIds()) {
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
+
         $currencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('tax_base_amount_sum', [
@@ -97,11 +105,11 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
     }
 
     /**
-     * Preparing collection
      * Filter canceled statuses for orders in taxes
      *
-     *@return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $filterData = $this->getFilterData();
@@ -109,13 +117,15 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
             $orderConfig = Mage::getModel('sales/order_config');
             $statusValues = [];
             $canceledStatuses = $orderConfig->getStateStatuses(Mage_Sales_Model_Order::STATE_CANCELED);
-            foreach ($orderConfig->getStatuses() as $code => $label) {
+            foreach (array_keys($orderConfig->getStatuses()) as $code) {
                 if (!isset($canceledStatuses[$code])) {
                     $statusValues[] = $code;
                 }
             }
+
             $filterData->setOrderStatuses($statusValues);
         }
+
         return parent::_prepareCollection();
     }
 }

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product description block
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Template
@@ -24,13 +17,14 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
     protected $_product = null;
 
     /**
-     * @return mixed|null
+     * @return null|mixed
      */
     public function getProduct()
     {
         if (!$this->_product) {
             $this->_product = Mage::registry('product');
         }
+
         return $this->_product;
     }
 
@@ -38,8 +32,8 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
      * $excludeAttr is optional array of attribute codes to
      * exclude them from additional data array
      *
-     * @param array $excludeAttr
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getAdditionalData(array $excludeAttr = [])
     {
@@ -55,18 +49,19 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
                 } elseif (is_null($value) || $value === false || $value === '') {
                     $value = Mage::helper('catalog')->__('No');
                 } elseif ($attribute->getFrontendInput() == 'price' && is_string($value)) {
-                    $value = Mage::app()->getStore()->convertPrice($value, true);
+                    $value = Mage::app()->getStore()->convertPrice((float) $value, true);
                 }
 
                 if (is_string($value) && strlen($value)) {
                     $data[$attribute->getAttributeCode()] = [
                         'label' => $attribute->getStoreLabel(),
                         'value' => $value,
-                        'code'  => $attribute->getAttributeCode()
+                        'code'  => $attribute->getAttributeCode(),
                     ];
                 }
             }
         }
+
         return $data;
     }
 }

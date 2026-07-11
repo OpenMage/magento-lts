@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model;
+
+use Generator;
+
+trait SecurityTrait
+{
+    public static string $testString = 'This is a bold <b>string</b>';
+
+    public static function provideHtmlEscapedStringAsStringData(): Generator
+    {
+        yield 'tags null' => [
+            'This is a bold &lt;b&gt;string&lt;/b&gt;',
+            self::$testString,
+            null,
+        ];
+        yield 'tags array' => [
+            self::$testString,
+            self::$testString,
+            ['b'],
+        ];
+    }
+
+    public static function provideHtmlEscapedStringGetUnescapedValueData(): Generator
+    {
+        yield 'tags null' => [
+            self::$testString,
+            self::$testString,
+            null,
+        ];
+        yield 'tags array' => [
+            self::$testString,
+            self::$testString,
+            ['some-invalid-value'],
+        ];
+    }
+}

@@ -1,22 +1,17 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Configurable product data retriever
  *
- * @category   Mage
  * @package    Mage_CatalogIndex
  */
 class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_Data_Abstract
@@ -24,7 +19,7 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     /**
      * Defines when product type has children
      *
-     * @var int[]|bool[]
+     * @var bool[]|int[]
      */
     protected $_haveChildren = [
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => false,
@@ -39,16 +34,21 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
      */
     protected $_haveParents = false;
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         $this->_init('catalogindex/data_configurable');
     }
 
     /**
-      * Retrieve product type code
-      *
-      * @return string
-      */
+     * Retrieve product type code
+     *
+     * @return string
+     */
+    #[Override]
     public function getTypeCode()
     {
         return Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE;
@@ -57,14 +57,15 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     /**
      * Get child link table and field settings
      *
-     * @return mixed
+     * @return array<string, string>
      */
+    #[Override]
     protected function _getLinkSettings()
     {
         return [
-                    'table' => 'catalog/product_super_link',
-                    'parent_field' => 'parent_id',
-                    'child_field' => 'product_id',
+            'table' => 'catalog/product_super_link',
+            'parent_field' => 'parent_id',
+            'child_field' => 'product_id',
         ];
     }
 }

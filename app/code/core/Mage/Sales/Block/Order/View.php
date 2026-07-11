@@ -1,26 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales order view block
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -30,6 +27,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Page_Block_Html_Head $headBlock */
@@ -42,7 +40,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
         $helper = $this->helper('payment');
         $this->setChild(
             'payment_info',
-            $helper->getInfoBlock($this->getOrder()->getPayment())
+            $helper->getInfoBlock($this->getOrder()->getPayment()),
         );
 
         return parent::_prepareLayout();
@@ -76,6 +74,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return Mage::getUrl('*/*/history');
         }
+
         return Mage::getUrl('*/*/form');
     }
 
@@ -89,11 +88,12 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return Mage::helper('sales')->__('Back to My Orders');
         }
+
         return Mage::helper('sales')->__('View Another Order');
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getInvoiceUrl($order)
@@ -102,7 +102,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getShipmentUrl($order)
@@ -111,11 +111,36 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getCreditmemoUrl($order)
     {
         return Mage::getUrl('*/*/creditmemo', ['order_id' => $order->getId()]);
+    }
+
+    public function canDisplayGiftmessageItems(): bool
+    {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable($helper::TYPE_ITEMS, $this->getOrder());
+    }
+
+    public function canDisplayGiftmessageOrder(): bool
+    {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable(
+            $helper::TYPE_ORDER,
+            $this->getOrder(),
+        ) && $this->getOrder()->getGiftMessageId();
     }
 }

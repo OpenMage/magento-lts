@@ -1,30 +1,25 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Billing agreements resource collection
  *
- * @category   Mage
  * @package    Mage_Sales
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Sales_Model_Billing_Agreement>
  */
 class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * Mapping for fields
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_map = ['fields' => [
         'customer_email'       => 'ce.email',
@@ -36,8 +31,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
     ]];
 
     /**
-     * Collection initialization
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -45,7 +39,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
     }
 
     /**
-     * Add cutomer details(email, firstname, lastname) to select
+     * Add customer details(email, firstname, lastname) to select
      *
      * @return $this
      */
@@ -54,7 +48,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
         $select = $this->getSelect()->joinInner(
             ['ce' => $this->getTable('customer/entity')],
             'ce.entity_id = main_table.customer_id',
-            ['customer_email' => 'email']
+            ['customer_email' => 'email'],
         );
 
         $customer = Mage::getResourceSingleton('customer/customer');
@@ -67,7 +61,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
         $select->joinLeft(
             ['firstname' => $attr->getBackend()->getTable()],
             $joinExpr,
-            ['customer_firstname' => 'value']
+            ['customer_firstname' => 'value'],
         );
 
         $attr     = $customer->getAttribute('middlename');
@@ -78,7 +72,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
         $select->joinLeft(
             ['middlename' => $attr->getBackend()->getTable()],
             $joinExpr,
-            ['customer_middlename' => 'value']
+            ['customer_middlename' => 'value'],
         );
 
         $attr = $customer->getAttribute('lastname');
@@ -89,7 +83,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
         $select->joinLeft(
             ['lastname' => $attr->getBackend()->getTable()],
             $joinExpr,
-            ['customer_lastname' => 'value']
+            ['customer_lastname' => 'value'],
         );
         return $this;
     }

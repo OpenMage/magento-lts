@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_ConfigurableSwatches_Helper_Productlist
  *
- * @category   Mage
  * @package    Mage_ConfigurableSwatches
  */
 class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abstract
@@ -26,28 +19,30 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
     /**
      * ID of attribute to be used for swatches on product listing
      *
-     * @var string|false|null
+     * @var null|false|string
      */
     protected $_swatchAttributeId = null;
 
     /**
      * Attribute model to be used for swatches on product listing
      *
-     * @var Mage_Catalog_Model_Product_Type_Configurable_Attribute|false|null
+     * @var null|false|Mage_Catalog_Model_Product_Type_Configurable_Attribute
      */
     protected $_swatchAttribute = null;
 
     /**
      * The current value for the swatch attribute that the product list is being filtered by.
      *
-     * @var int|false|null
+     * @var null|false|int
      */
     protected $_swatchAttributeFilteredValue = null;
 
     /**
      * Convert a catalog layer block with the right templates
      *
-     * @param string $blockName
+     * @param  string              $blockName
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function convertLayerBlock($blockName)
     {
@@ -84,16 +79,18 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
     public function getSwatchAttributeId()
     {
         if (is_null($this->_swatchAttributeId)) {
-            $this->_swatchAttributeId =
-                Mage::getStoreConfig(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_LIST_SWATCH_ATTRIBUTE);
+            $this->_swatchAttributeId
+                = Mage::getStoreConfig(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_LIST_SWATCH_ATTRIBUTE);
         }
+
         return $this->_swatchAttributeId;
     }
 
     /**
      * Get model of attribute that should be used for swatches on product listing
      *
-     * @return Mage_Catalog_Model_Product_Type_Configurable_Attribute|Mage_Eav_Model_Entity_Attribute_Abstract|false
+     * @return false|Mage_Catalog_Model_Product_Type_Configurable_Attribute|Mage_Eav_Model_Entity_Attribute_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getSwatchAttribute()
     {
@@ -101,13 +98,14 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
             $this->_swatchAttribute = Mage::getSingleton('eav/config')
                 ->getAttribute('catalog_product', $this->getSwatchAttributeId());
         }
+
         return $this->_swatchAttribute;
     }
 
     /**
      * If the product list is currently filtered by the swatch attribute, get the selected value.
      *
-     * @return int | false
+     * @return false|int
      */
     protected function _getSwatchAttributeFilteredValue()
     {
@@ -123,13 +121,14 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
                 }
             }
         }
+
         return $this->_swatchAttributeFilteredValue;
     }
 
     /**
      * See if the swatch matches a filter currently applied to the product list.
      *
-     * @param int $optionId
+     * @param  int  $optionId
      * @return bool
      */
     public function swatchMatchesFilter($optionId)

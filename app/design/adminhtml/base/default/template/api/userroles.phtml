@@ -1,0 +1,31 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Api_Tab_Userroles
+ * @var Mage_Adminhtml_Block_Api_Tab_Userroles $this
+ */
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('User Roles') ?></h4>
+    </div>
+    <fieldset id="user_roles">
+    <?php foreach ($roles as $role): ?>
+    <?php
+        $checked = false;
+        foreach($user_roles->getItems() as $user_role) {
+            if($user_role->getParentId() == $role->getRoleId()) {
+                $checked = true;
+            }
+        }
+        ?>
+        <input type="checkbox" value="<?php echo $role->getRoleId(); ?>" <?php echo($checked ? 'checked' : ''); ?> name="roles[]" id="_<?php echo $role->getRoleId(); ?>" /> <label for="_<?php echo $role->getRoleId(); ?>" class="normal"><?php echo $role->getRoleName(); ?></label><br />
+    <?php endforeach ?>
+    </fieldset>
+</div>

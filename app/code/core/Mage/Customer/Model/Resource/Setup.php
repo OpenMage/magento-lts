@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer resource setup model
  *
- * @category   Mage
  * @package    Mage_Customer
  */
 class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
@@ -24,23 +17,23 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Prepare customer attribute values to save in additional table
      *
-     * @param array $attr
+     * @param  array $attr
      * @return array
      */
+    #[Override]
     protected function _prepareValues($attr)
     {
         $data = parent::_prepareValues($attr);
-        $data = array_merge($data, [
+
+        return array_merge($data, [
             'is_visible'                => $this->_getValue($attr, 'visible', 1),
             'is_system'                 => $this->_getValue($attr, 'system', 1),
-            'input_filter'              => $this->_getValue($attr, 'input_filter', null),
+            'input_filter'              => $this->_getValue($attr, 'input_filter'),
             'multiline_count'           => $this->_getValue($attr, 'multiline_count', 0),
-            'validate_rules'            => $this->_getValue($attr, 'validate_rules', null),
-            'data_model'                => $this->_getValue($attr, 'data', null),
-            'sort_order'                => $this->_getValue($attr, 'position', 0)
+            'validate_rules'            => $this->_getValue($attr, 'validate_rules'),
+            'data_model'                => $this->_getValue($attr, 'data'),
+            'sort_order'                => $this->_getValue($attr, 'position', 0),
         ]);
-
-        return $data;
     }
 
     /**
@@ -48,14 +41,14 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      */
     public function installCustomerForms()
     {
-        $customer           = (int)$this->getEntityTypeId('customer');
-        $customerAddress    = (int)$this->getEntityTypeId('customer_address');
+        $customer           = (int) $this->getEntityTypeId('customer');
+        $customerAddress    = (int) $this->getEntityTypeId('customer_address');
 
         $attributeIds       = [];
         $select = $this->getConnection()->select()
             ->from(
                 ['ea' => $this->getTable('eav/attribute')],
-                ['entity_type_id', 'attribute_code', 'attribute_id']
+                ['entity_type_id', 'attribute_code', 'attribute_id'],
             )
             ->where('ea.entity_type_id IN(?)', [$customer, $customerAddress]);
         foreach ($this->getConnection()->fetchAll($select) as $row) {
@@ -67,8 +60,8 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         $attributes = $entities['customer']['attributes'];
         foreach ($attributes as $attributeCode => $attribute) {
             $attributeId = $attributeIds[$customer][$attributeCode];
-            $attribute['system'] = $attribute['system'] ?? true;
-            $attribute['visible'] = $attribute['visible'] ?? true;
+            $attribute['system'] ??= true;
+            $attribute['visible'] ??= true;
             if ($attribute['system'] != true || $attribute['visible'] != false) {
                 $usedInForms = [
                     'customer_account_create',
@@ -80,13 +73,15 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 } else {
                     $usedInForms[] = 'adminhtml_customer';
                 }
+
                 if (!empty($attribute['admin_checkout'])) {
                     $usedInForms[] = 'adminhtml_checkout';
                 }
+
                 foreach ($usedInForms as $formCode) {
                     $data[] = [
                         'form_code'     => $formCode,
-                        'attribute_id'  => $attributeId
+                        'attribute_id'  => $attributeId,
                     ];
                 }
             }
@@ -95,18 +90,18 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         $attributes = $entities['customer_address']['attributes'];
         foreach ($attributes as $attributeCode => $attribute) {
             $attributeId = $attributeIds[$customerAddress][$attributeCode];
-            $attribute['system'] = $attribute['system'] ?? true;
-            $attribute['visible'] = $attribute['visible'] ?? true;
+            $attribute['system'] ??= true;
+            $attribute['visible'] ??= true;
             if (($attribute['system'] == true && $attribute['visible'] == false) === false) {
                 $usedInForms = [
                     'adminhtml_customer_address',
                     'customer_address_edit',
-                    'customer_register_address'
+                    'customer_register_address',
                 ];
                 foreach ($usedInForms as $formCode) {
                     $data[] = [
                         'form_code'     => $formCode,
-                        'attribute_id'  => $attributeId
+                        'attribute_id'  => $attributeId,
                     ];
                 }
             }
@@ -120,7 +115,7 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Retrieve default entities: customer, customer_address
      *
-     * @return array
+     * @return array<string, non-empty-array<\lowercase-string, (lowercase-string|non-empty-array<lowercase-string, array>)>>
      */
     public function getDefaultEntities()
     {
@@ -215,7 +210,7 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'         => 80,
                         'validate_rules'     => 'a:1:{s:16:"input_validation";s:5:"email";}',
                         'position'           => 80,
-                        'admin_checkout'    => 1
+                        'admin_checkout'    => 1,
                     ],
                     'group_id'           => [
                         'type'               => 'static',
@@ -309,9 +304,9 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'validate_rules'     => 'a:0:{}',
                         'position'           => 110,
                         'admin_checkout'     => 1,
-                        'option'             => ['values' => ['Male', 'Female']]
+                        'option'             => ['values' => ['Male', 'Female']],
                     ],
-                ]
+                ],
             ],
 
             'customer_address'               => [
@@ -446,8 +441,8 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
                         'position'           => 130,
                     ],
-                ]
-            ]
+                ],
+            ],
         ];
     }
 }

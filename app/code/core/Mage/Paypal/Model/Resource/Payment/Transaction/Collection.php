@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payment transactions collection
  *
- * @category   Mage
  * @package    Mage_Paypal
  * @deprecated since 1.6.2.0
  */
@@ -27,9 +20,10 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
      *
      * @var string
      */
-    protected $_createdBefore          = "";
+    protected $_createdBefore          = '';
+
     /**
-     * Initialize collection items factory class
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -40,7 +34,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
     /**
      * CreatedAt filter setter
      *
-     * @param string $date
+     * @param  string $date
      * @return $this
      */
     public function addCreatedBeforeFilter($date)
@@ -54,6 +48,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeLoad()
     {
         parent::_beforeLoad();
@@ -66,6 +61,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
         if ($this->_createdBefore) {
             $this->getSelect()->where('main_table.created_at < ?', $this->_createdBefore);
         }
+
         return $this;
     }
 
@@ -74,11 +70,13 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         foreach ($this->_items as $item) {
             $this->getResource()->unserializeFields($item);
         }
+
         return parent::_afterLoad();
     }
 }

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Resource Model CatalogIndex Aggregation
  *
- * @category   Mage
  * @package    Mage_CatalogIndex
  */
 class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Abstract
@@ -36,8 +29,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     protected $_toTagTable;
 
     /**
-     * Initialize resource tables
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -49,8 +41,8 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     /**
      * Get aggregated cache data by data key and store
      *
-     * @param string $key
-     * @param int $storeId
+     * @param  string $key
+     * @param  int    $storeId
      * @return array
      */
     public function getCacheData($key, $storeId)
@@ -61,20 +53,19 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             ->where('a.key=?', $key);
         $data = $this->_getReadAdapter()->fetchOne($select);
         if ($data) {
-            $data = unserialize($data, ['allowed_classes' => false]);
-        } else {
-            $data = [];
+            return unserialize($data, ['allowed_classes' => false]);
         }
-        return $data;
+
+        return [];
     }
 
     /**
-     * Save data to aggreagation table with tags relations
+     * Save data to aggregation table with tags relations
      *
-     * @param array $data
-     * @param string $key
-     * @param array|string $tags
-     * @param int $storeId
+     * @param  array        $data
+     * @param  string       $key
+     * @param  array|string $tags
+     * @param  int          $storeId
      * @return $this
      */
     public function saveCacheData($data, $key, $tags, $storeId)
@@ -108,9 +99,9 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
 
         $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), [
             'store_id'  => $storeId,
-            'created_at' => $this->formatDate(time()),
+            'created_at' => $this->formatDate(Mage::helper('core/clock')->getTimestamp()),
             'key'       => $key,
-            'data'      => $data
+            'data'      => $data,
         ], ['created_at', 'data']);
 
         $id = $this->_getWriteAdapter()->lastInsertId($this->getMainTable());
@@ -122,8 +113,8 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     /**
      * Clear data in cache
      *
-     * @param   array $tags
-     * @param   int|null|string $storeId
+     * @param  array           $tags
+     * @param  null|int|string $storeId
      * @return $this
      */
     public function clearCacheData($tags, $storeId)
@@ -132,6 +123,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         if (!$write = $this->_getWriteAdapter()) {
             return $this;
         }
+
         if (!empty($tags)) {
             $tagIds = $this->_getTagIds($tags);
             $select = $write->select()
@@ -149,10 +141,10 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     }
 
     /**
-     * Save related tags for aggreagation data
+     * Save related tags for aggregation data
      *
-     * @param int $aggregationId
-     * @param array $tags
+     * @param  int   $aggregationId
+     * @param  array $tags
      * @return $this
      */
     protected function _saveTagRelations($aggregationId, $tags)
@@ -162,6 +154,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         foreach ($tags as $tagId) {
             $data[] = $aggregationId . ',' . $tagId;
         }
+
         $query .= '(' . implode('),(', $data) . ')';
         $this->_getWriteAdapter()->query($query);
         return $this;
@@ -171,7 +164,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      * Get identifiers of tags
      * if some tags not exist they will be added
      *
-     * @param array $tags
+     * @param  array $tags
      * @return array
      */
     protected function _getTagIds($tags)
@@ -190,20 +183,21 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
          * Detect new tags
          */
         $newTags = array_diff($tags, array_keys($tagIds));
-        if (!empty($newTags)) {
+        if ($newTags !== []) {
             $this->_addTags($newTags);
             $select->reset(Zend_Db_Select::WHERE)
                 ->where('tags.tag_code IN (?)', $newTags);
             $newTags = $this->_getReadAdapter()->fetchPairs($select);
             $tagIds = array_merge($tagIds, $newTags);
         }
+
         return $tagIds;
     }
 
     /**
      * Insert tags to tag table
      *
-     * @param string | array $tags
+     * @param  array|string $tags
      * @return $this
      */
     protected function _addTags($tags)
@@ -213,20 +207,22 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             foreach ($tags as $index => $tag) {
                 $tags[$index] = $this->_getWriteAdapter()->quote($tag);
             }
-            $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (" . implode('),(', $tags) . ")";
+
+            $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (" . implode('),(', $tags) . ')';
             $this->_getWriteAdapter()->query($query);
         } else {
             $this->_getWriteAdapter()->insert($this->_tagTable, [
-                'tag_code' => $tags
+                'tag_code' => $tags,
             ]);
         }
+
         return $this;
     }
 
     /**
      * ProductCategoryPaths getter
      *
-     * @param array $productIds
+     * @param  array $productIds
      * @return array
      */
     public function getProductCategoryPaths($productIds)
@@ -237,9 +233,9 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
                 ['cat_prod' => $this->getTable('catalog/category_product')],
                 $this->_getReadAdapter()->quoteInto(
                     'cat.entity_id=cat_prod.category_id AND cat_prod.product_id IN (?)',
-                    $productIds
+                    $productIds,
                 ),
-                []
+                [],
             );
         return $this->_getReadAdapter()->fetchCol($select);
     }

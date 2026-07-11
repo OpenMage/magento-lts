@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Flat observer
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Flat_Observer
@@ -44,7 +37,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Catalog Entity attribute after save process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogEntityAttributeSaveAfter(Varien_Event_Observer $observer)
@@ -60,10 +52,10 @@ class Mage_Catalog_Model_Product_Flat_Observer
             || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getOrigData('is_filterable') > 0)
             || ($attribute->getOrigData('used_in_product_listing') == 1)
             || ($attribute->getOrigData('used_for_sort_by') == 1);
-        $enableAfter    = ($attribute->getData('backend_type') == 'static')
-            || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getData('is_filterable') > 0)
-            || ($attribute->getData('used_in_product_listing') == 1)
-            || ($attribute->getData('used_for_sort_by') == 1);
+        $enableAfter    = ($attribute->getDataByKey('backend_type') == 'static')
+            || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getDataByKey('is_filterable') > 0)
+            || ($attribute->getDataByKey('used_in_product_listing') == 1)
+            || ($attribute->getDataByKey('used_for_sort_by') == 1);
 
         if (!$enableAfter && !$enableBefore) {
             return $this;
@@ -82,7 +74,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Catalog Product Status Update
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductStatusUpdate(Varien_Event_Observer $observer)
@@ -104,7 +95,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Catalog Product Website(s) update
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductWebsiteUpdate(Varien_Event_Observer $observer)
@@ -133,7 +123,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Catalog Product After Save
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductSaveAfter(Varien_Event_Observer $observer)
@@ -153,7 +142,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Add new store flat process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function storeAdd(Varien_Event_Observer $observer)
@@ -172,7 +160,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Store edit action, check change store group
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function storeEdit(Varien_Event_Observer $observer)
@@ -193,7 +180,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Store delete after process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function storeDelete(Varien_Event_Observer $observer)
@@ -213,7 +199,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Store Group Save process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function storeGroupSave(Varien_Event_Observer $observer)
@@ -238,7 +223,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Catalog Product Import After process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductImportAfter(Varien_Event_Observer $observer)
@@ -255,7 +239,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Customer Group save after process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function customerGroupSaveAfter(Varien_Event_Observer $observer)
@@ -271,15 +254,15 @@ class Mage_Catalog_Model_Product_Flat_Observer
         ) {
             $this->_getIndexer()->updateEventAttributes();
         }
+
         return $this;
     }
 
     /**
      * Update category ids in flat
      *
-     * @deprecated 1.3.2.2
-     * @param Varien_Event_Observer $observer
      * @return $this
+     * @deprecated 1.3.2.2
      */
     public function catalogCategoryChangeProducts(Varien_Event_Observer $observer)
     {

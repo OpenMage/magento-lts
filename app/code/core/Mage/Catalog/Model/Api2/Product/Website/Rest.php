@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract API2 class for product website resource
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog_Model_Api2_Product_Website
@@ -40,13 +33,13 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
         foreach ($this->_loadProductById($this->getRequest()->getParam('product_id'))->getWebsiteIds() as $websiteId) {
             $return[] = ['website_id' => $websiteId];
         }
+
         return $return;
     }
 
     /**
      * Product website assign
      *
-     * @param array $data
      * @return string
      */
     protected function _create(array $data)
@@ -59,6 +52,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
@@ -83,10 +77,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                         ->save();
                 }
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
@@ -95,8 +89,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
 
     /**
      * Product website assign
-     *
-     * @param array $data
      */
     protected function _multiCreate(array $data)
     {
@@ -108,6 +100,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                     $this->_errorMessage(self::RESOURCE_DATA_INVALID, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
                 }
+
                 /** @var Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website $validator */
                 $validator = Mage::getModel('catalog/api2_product_website_validator_admin_website');
                 if (!$validator->isValidDataForWebsiteAssignmentToProduct($product, $singleData)) {
@@ -117,6 +110,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                             'product_id' => $product->getId(),
                         ]);
                     }
+
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
                 }
 
@@ -146,28 +140,28 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                     [
                         'website_id' => $website->getId(),
                         'product_id' => $product->getId(),
-                    ]
+                    ],
                 );
-            } catch (Mage_Api2_Exception $e) {
+            } catch (Mage_Api2_Exception $mageApi2Exception) {
                 // pre-validation errors are already added
-                if ($e->getMessage() != self::RESOURCE_DATA_PRE_VALIDATION_ERROR) {
+                if ($mageApi2Exception->getMessage() !== self::RESOURCE_DATA_PRE_VALIDATION_ERROR) {
                     $this->_errorMessage(
-                        $e->getMessage(),
-                        $e->getCode(),
+                        $mageApi2Exception->getMessage(),
+                        $mageApi2Exception->getCode(),
                         [
                             'website_id' => $singleData['website_id'] ?? null,
                             'product_id' => $product->getId(),
-                        ]
+                        ],
                     );
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_errorMessage(
                     Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
                     [
                         'website_id' => $singleData['website_id'] ?? null,
                         'product_id' => $product->getId(),
-                    ]
+                    ],
                 );
             }
         }
@@ -175,8 +169,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
 
     /**
      * Product websites update is not available
-     *
-     * @param array $data
      */
     protected function _update(array $data)
     {
@@ -198,6 +190,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
@@ -208,10 +201,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
 
         try {
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_critical($mageCoreException->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -219,21 +212,22 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
     /**
      * Get resource location
      *
-     * @param Mage_Core_Model_Website $website
-     * @return string URL
+     * @param  Mage_Core_Model_Website $website
+     * @return string                  URL
      */
+    #[Override]
     protected function _getLocation($website)
     {
         /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
-            new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
+            new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType())),
         );
         $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'product_id' => $this->getRequest()->getParam('product_id'),
-            'website_id' => $website->getId()
+            'website_id' => $website->getId(),
         ];
         $uri = $chain->assemble($params);
 

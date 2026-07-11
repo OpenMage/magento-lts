@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract storage resource model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_Model_Resource_Db_Abstract
@@ -31,8 +24,8 @@ abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_
     /**
      * Sets name of connection the resource will use
      *
-     * @param string $name
-     * @return Mage_Core_Model_Resource_File_Storage_Abstract
+     * @param  string $name
+     * @return $this
      */
     public function setConnectionName($name)
     {
@@ -45,6 +38,7 @@ abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_
      *
      * @return Varien_Db_Adapter_Interface
      */
+    #[Override]
     protected function _getReadAdapter()
     {
         return $this->_getConnection($this->_connectionName);
@@ -55,6 +49,7 @@ abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_
      *
      * @return Varien_Db_Adapter_Interface
      */
+    #[Override]
     protected function _getWriteAdapter()
     {
         return $this->_getConnection($this->_connectionName);
@@ -63,9 +58,10 @@ abstract class Mage_Core_Model_Resource_File_Storage_Abstract extends Mage_Core_
     /**
      * Get connection by name or type
      *
-     * @param string $connectionName
+     * @param  string                      $connectionName
      * @return Varien_Db_Adapter_Interface
      */
+    #[Override]
     protected function _getConnection($connectionName)
     {
         if (isset($this->_connections[$connectionName])) {

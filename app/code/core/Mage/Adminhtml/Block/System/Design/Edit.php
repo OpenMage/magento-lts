@@ -1,21 +1,14 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widget
@@ -30,6 +23,7 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -38,8 +32,8 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
                 ->setData([
                     'label'     => Mage::helper('core')->__('Back'),
                     'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
-                    'class'     => 'back'
-                ])
+                    'class'     => 'back',
+                ]),
         );
 
         $this->setChild(
@@ -48,8 +42,8 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
                 ->setData([
                     'label'     => Mage::helper('core')->__('Save'),
                     'onclick'   => 'designForm.submit()',
-                    'class'     => 'save'
-                ])
+                    'class'     => 'save',
+                ]),
         );
 
         $this->setChild(
@@ -58,9 +52,20 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
                 ->setData([
                     'label'     => Mage::helper('core')->__('Delete'),
                     'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()),
-                    'class'     => 'delete'
-                ])
+                    'class'     => 'delete',
+                ]),
         );
+
+        $this->setChild(
+            'reset_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('adminhtml')->__('Reset'),
+                    'onclick'   => 'document.location.reload()',
+                    'class'     => 'reset',
+                ]),
+        );
+
         return parent::_prepareLayout();
     }
 
@@ -76,7 +81,7 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
     {
         return $this->getUrlSecure('*/*/delete', [
             'id' => $this->getDesignChangeId(),
-            Mage_Core_Model_Url::FORM_KEY => $this->getFormKey()
+            Mage_Core_Model_Url::FORM_KEY => $this->getFormKey(),
         ]);
     }
 
@@ -104,6 +109,7 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
         if (Mage::registry('design')->getId()) {
             return Mage::helper('core')->__('Edit Design Change');
         }
+
         return Mage::helper('core')->__('New Design Change');
     }
 }

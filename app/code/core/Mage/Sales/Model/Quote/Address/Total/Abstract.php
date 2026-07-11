@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Quote Address Total  abstract model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
@@ -38,6 +31,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * @var bool
      */
     protected $_canAddAmountToAddress = true;
+
     protected $_canSetAddressAmount   = true;
 
     /**
@@ -50,8 +44,8 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Set total code code name
      *
-     * @param string $code
-     * @return Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @param  string $code
+     * @return $this
      */
     public function setCode($code)
     {
@@ -82,7 +76,6 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Collect totals process.
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
@@ -99,8 +92,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Fetch (Retrieve data as array)
      *
-     * @param Mage_Sales_Model_Quote_Address $address
-     * @return array
+     * @return $this|array
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
@@ -111,8 +103,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Set address which can be used inside totals calculation
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @return $this
      */
     protected function _setAddress(Mage_Sales_Model_Quote_Address $address)
     {
@@ -124,78 +115,82 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * Get quote address object
      *
      * @throw   Mage_Core_Exception if address not declared
-     * @return  Mage_Sales_Model_Quote_Address
+     * @return Mage_Sales_Model_Quote_Address
      */
     protected function _getAddress()
     {
         if ($this->_address === null) {
             Mage::throwException(
-                Mage::helper('sales')->__('Address model is not defined.')
+                Mage::helper('sales')->__('Address model is not defined.'),
             );
         }
+
         return $this->_address;
     }
 
     /**
      * Set total model amount value to address
      *
-     * @param   float $amount
-     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @param  float $amount
+     * @return $this
      */
     protected function _setAmount($amount)
     {
         if ($this->_canSetAddressAmount) {
             $this->_getAddress()->setTotalAmount($this->getCode(), $amount);
         }
+
         return $this;
     }
 
     /**
      * Set total model base amount value to address
      *
-     * @param   float $baseAmount
-     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @param  float $baseAmount
+     * @return $this
      */
     protected function _setBaseAmount($baseAmount)
     {
         if ($this->_canSetAddressAmount) {
             $this->_getAddress()->setBaseTotalAmount($this->getCode(), $baseAmount);
         }
+
         return $this;
     }
 
     /**
      * Add total model amount value to address
      *
-     * @param   float $amount
-     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @param  float $amount
+     * @return $this
      */
     protected function _addAmount($amount)
     {
         if ($this->_canAddAmountToAddress) {
             $this->_getAddress()->addTotalAmount($this->getCode(), $amount);
         }
+
         return $this;
     }
 
     /**
      * Add total model base amount value to address
      *
-     * @param   float $baseAmount
-     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @param  float $baseAmount
+     * @return $this
      */
     protected function _addBaseAmount($baseAmount)
     {
         if ($this->_canAddAmountToAddress) {
             $this->_getAddress()->addBaseTotalAmount($this->getCode(), $baseAmount);
         }
+
         return $this;
     }
 
     /**
      * Get all items except nominals
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return Mage_Sales_Model_Quote_Address_Item[]
      */
     protected function _getAddressItems(Mage_Sales_Model_Quote_Address $address)
@@ -206,7 +201,6 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Getter for row default total
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return float
      */
     public function getItemRowTotal(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -214,13 +208,13 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if (!$this->_itemRowTotalKey) {
             return 0;
         }
+
         return $item->getDataUsingMethod($this->_itemRowTotalKey);
     }
 
     /**
      * Getter for row default base total
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return float
      */
     public function getItemBaseRowTotal(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -228,30 +222,27 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
         if (!$this->_itemRowTotalKey) {
             return 0;
         }
+
         return $item->getDataUsingMethod('base_' . $this->_itemRowTotalKey);
     }
 
     /**
      * Whether the item row total may be compounded with others
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return bool
      */
     public function getIsItemRowTotalCompoundable(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
-        if ($item->getData("skip_compound_{$this->_itemRowTotalKey}")) {
-            return false;
-        }
-        return true;
+        return !$item->getDataByKey("skip_compound_{$this->_itemRowTotalKey}");
     }
 
     /**
      * Process model configuration array.
      * This method can be used for changing models apply sort order
      *
-     * @param   array $config
-     * @param   Mage_Core_Model_Store $store
-     * @return  array
+     * @param  array                 $config
+     * @param  Mage_Core_Model_Store $store
+     * @return array
      */
     public function processConfigArray($config, $store)
     {

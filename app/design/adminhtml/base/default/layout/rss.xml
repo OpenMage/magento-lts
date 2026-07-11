@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+-->
+
+<layout>
+
+<!--
+
+-->
+    <adminhtml_rss_catalog_review>
+        <block type="rss/catalog_review" output="toHtml" name="rss.catalog.review" />
+    </adminhtml_rss_catalog_review>
+
+    <adminhtml_rss_catalog_notifystock>
+        <block type="rss/catalog_notifyStock" output="toHtml" name="rss.catalog.notifystock" />
+    </adminhtml_rss_catalog_notifystock>
+
+    <adminhtml_rss_order_new>
+        <block type="rss/order_new" output="toHtml" name="rss.order.new"/>
+    </adminhtml_rss_order_new>
+</layout>

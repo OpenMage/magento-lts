@@ -1,21 +1,18 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_CatalogRule
+ *
+ * @extends Mage_Rule_Model_Resource_Rule_Collection_Abstract<Mage_CatalogRule_Model_Rule>
  */
 class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Resource_Rule_Collection_Abstract
 {
@@ -28,12 +25,12 @@ class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Re
         'website' => [
             'associations_table' => 'catalogrule/website',
             'rule_id_field'      => 'rule_id',
-            'entity_id_field'    => 'website_id'
-        ]
+            'entity_id_field'    => 'website_id',
+        ],
     ];
 
     /**
-     * Set resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -43,7 +40,7 @@ class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Re
     /**
      * Find product attribute in conditions or actions
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return $this
      */
     public function addAttributeInConditionFilter($attributeCode)

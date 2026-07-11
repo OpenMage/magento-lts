@@ -1,26 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * sales admin controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * @return $this
+     */
     public function _initAction()
     {
         $this->loadLayout()
@@ -28,6 +24,9 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function searchAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('Search Terms'));
@@ -43,6 +42,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Export search report grid to CSV format
+     * @return void
      */
     public function exportSearchCsvAction()
     {
@@ -55,6 +55,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Export search report to Excel XML format
+     * @return void
      */
     public function exportSearchExcelAction()
     {
@@ -68,14 +69,15 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    #[Override]
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'search':
-                return Mage::getSingleton('admin/session')->isAllowed('report/search');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('report');
-        }
+        $aclPath = match ($action) {
+            'search' => 'report/search',
+            default => 'report',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

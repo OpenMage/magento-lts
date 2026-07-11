@@ -1,33 +1,25 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Options Resource Collection
  *
- * @category   Mage
  * @package    Mage_Bundle
  *
- * @method Mage_Bundle_Model_Option[] getItems()
- * @method Mage_Bundle_Model_Option getItemById($idValue)
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Bundle_Model_Option>
  */
 class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
      * All item ids cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_itemIds;
 
@@ -39,8 +31,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     protected $_selectionsAppended   = false;
 
     /**
-     * Init model and resource model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -50,7 +41,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * Joins values to options
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function joinValues($storeId)
@@ -59,14 +50,14 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
             ->joinLeft(
                 ['option_value_default' => $this->getTable('bundle/option_value')],
                 'main_table.option_id = option_value_default.option_id and option_value_default.store_id = 0',
-                []
+                [],
             )
             ->columns(['default_title' => 'option_value_default.title']);
 
         $title = $this->getConnection()->getCheckSql(
             'option_value.title IS NOT NULL',
             'option_value.title',
-            'option_value_default.title'
+            'option_value_default.title',
         );
         if ($storeId !== null) {
             $this->getSelect()
@@ -75,18 +66,19 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
                     ['option_value' => $this->getTable('bundle/option_value')],
                     $this->getConnection()->quoteInto(
                         'main_table.option_id = option_value.option_id and option_value.store_id = ?',
-                        $storeId
+                        $storeId,
                     ),
-                    []
+                    [],
                 );
         }
+
         return $this;
     }
 
     /**
      * Sets product id filter
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return $this
      */
     public function setProductIdFilter($productId)
@@ -112,9 +104,9 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
      * stripBefore - indicates to reload
      * appendAll - indicates do we need to filter by saleable and required custom options
      *
-     * @param Mage_Bundle_Model_Resource_Selection_Collection $selectionsCollection
-     * @param bool $stripBefore
-     * @param bool $appendAll
+     * @param  Mage_Bundle_Model_Resource_Selection_Collection $selectionsCollection
+     * @param  bool                                            $stripBefore
+     * @param  bool                                            $appendAll
      * @return array
      */
     public function appendSelections($selectionsCollection, $stripBefore = false, $appendAll = true)
@@ -124,16 +116,17 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         }
 
         if (!$this->_selectionsAppended) {
-            foreach ($selectionsCollection->getItems() as $key => $_selection) {
-                if ($_option = $this->getItemById($_selection->getOptionId())) {
-                    if ($appendAll || ($_selection->isSalable() && !$_selection->getRequiredOptions())) {
-                        $_selection->setOption($_option);
-                        $_option->addSelection($_selection);
+            foreach ($selectionsCollection->getItems() as $key => $selection) {
+                if ($option = $this->getItemById($selection->getOptionId())) {
+                    if ($appendAll || ($selection->isSalable() && !$selection->getRequiredOptions())) {
+                        $selection->setOption($option);
+                        $option->addSelection($selection);
                     } else {
                         $selectionsCollection->removeItemByKey($key);
                     }
                 }
             }
+
             $this->_selectionsAppended = true;
         }
 
@@ -150,6 +143,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         foreach ($this->getItems() as $option) {
             $option->setSelections([]);
         }
+
         $this->_selectionsAppended = false;
         return $this;
     }
@@ -157,7 +151,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * Sets filter by option id
      *
-     * @param array|int $ids
+     * @param  array|int $ids
      * @return $this
      */
     public function setIdFilter($ids)
@@ -167,6 +161,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         } elseif ($ids != '') {
             $this->addFieldToFilter('main_table.option_id', $ids);
         }
+
         return $this;
     }
 
@@ -186,11 +181,13 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
      *
      * @return array
      */
+    #[Override]
     public function getAllIds()
     {
         if (is_null($this->_itemIds)) {
             $this->_itemIds = parent::getAllIds();
         }
+
         return $this->_itemIds;
     }
 }

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Address Total Collector model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Config_Ordered
@@ -57,15 +50,14 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
     /**
      * Init corresponding total models
      *
-     * @param array $options
+     * @param  array                           $options
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function __construct($options)
     {
-        if (isset($options['store'])) {
-            $this->_store = $options['store'];
-        } else {
-            $this->_store = Mage::app()->getStore();
-        }
+        $this->_store = $options['store'] ?? Mage::app()->getStore();
+
         $this->_initModels()
             ->_initCollectors()
             ->_initRetrievers();
@@ -94,10 +86,10 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
     /**
      * Init model class by configuration
      *
-     * @param string $class
-     * @param string $totalCode
-     * @param array $totalConfig
-     * @return false|Mage_Core_Model_Abstract
+     * @param  string                                              $class
+     * @param  string                                              $totalCode
+     * @param  Mage_Core_Model_Config_Element                      $totalConfig
+     * @return false|Mage_Sales_Model_Quote_Address_Total_Abstract
      * @throws Mage_Core_Exception
      */
     protected function _initModelInstance($class, $totalCode, $totalConfig)
@@ -105,7 +97,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
         $model = Mage::getModel($class);
         if (!$model instanceof Mage_Sales_Model_Quote_Address_Total_Abstract) {
             Mage::throwException(
-                Mage::helper('sales')->__('The address total model should be extended from Mage_Sales_Model_Quote_Address_Total_Abstract.')
+                Mage::helper('sales')->__('The address total model should be extended from Mage_Sales_Model_Quote_Address_Total_Abstract.'),
             );
         }
 
@@ -113,7 +105,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
         $this->_modelsConfig[$totalCode] = $this->_prepareConfigArray($totalCode, $totalConfig);
         $this->_modelsConfig[$totalCode] = $model->processConfigArray(
             $this->_modelsConfig[$totalCode],
-            $this->_store
+            $this->_store,
         );
 
         return $model;
@@ -123,7 +115,9 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
      * Initialize total models configuration and objects
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _initModels()
     {
         $totalsConfig = Mage::getConfig()->getNode($this->_totalsConfigNode);
@@ -134,6 +128,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
                 $this->_models[$totalCode] = $this->_initModelInstance($class, $totalCode, $totalConfig);
             }
         }
+
         return $this;
     }
 
@@ -153,14 +148,17 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
                 while (isset($this->_retrievers[$retrieverId])) {
                     $retrieverId++;
                 }
+
                 $this->_retrievers[$retrieverId] = $this->_models[$code];
             }
         }
+
         ksort($this->_retrievers);
         $notSorted = array_diff(array_keys($this->_models), array_keys($sorts));
         foreach ($notSorted as $code) {
             $this->_retrievers[] = $this->_models[$code];
         }
+
         return $this;
     }
 }

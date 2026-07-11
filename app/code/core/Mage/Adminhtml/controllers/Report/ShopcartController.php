@@ -1,35 +1,34 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping Cart reports admin controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * @return $this
+     */
     public function _initAction()
     {
-        $act = $this->getRequest()->getActionName();
+        $this->getRequest()->getActionName();
         $this->loadLayout()
             ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Shopping Cart'), Mage::helper('reports')->__('Shopping Cart'));
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function customerAction()
     {
         $this->_title($this->__('Reports'))
@@ -45,6 +44,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export shopcart customer report to CSV format
+     * @return void
      */
     public function exportCustomerCsvAction()
     {
@@ -57,6 +57,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export shopcart customer report to Excel XML format
+     * @return void
      */
     public function exportCustomerExcelAction()
     {
@@ -67,6 +68,9 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function productAction()
     {
         $this->_title($this->__('Reports'))
@@ -82,6 +86,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export products report grid to CSV format
+     * @return void
      */
     public function exportProductCsvAction()
     {
@@ -94,6 +99,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export products report to Excel XML format
+     * @return void
      */
     public function exportProductExcelAction()
     {
@@ -104,6 +110,9 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @return void
+     */
     public function abandonedAction()
     {
         $this->_title($this->__('Reports'))
@@ -119,6 +128,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export abandoned carts report grid to CSV format
+     * @return void
      */
     public function exportAbandonedCsvAction()
     {
@@ -131,6 +141,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 
     /**
      * Export abandoned carts report to Excel XML format
+     * @return void
      */
     public function exportAbandonedExcelAction()
     {
@@ -144,18 +155,17 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    #[Override]
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'customer':
-                return Mage::getSingleton('admin/session')->isAllowed('report/shopcart/customer');
-            case 'product':
-                return Mage::getSingleton('admin/session')->isAllowed('report/shopcart/product');
-            case 'abandoned':
-                return Mage::getSingleton('admin/session')->isAllowed('report/shopcart/abandoned');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('report/shopcart');
-        }
+        $aclPath = match ($action) {
+            'customer' => 'report/shopcart/customer',
+            'product' => 'report/shopcart/product',
+            'abandoned' => 'report/shopcart/abandoned',
+            default => 'report/shopcart',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

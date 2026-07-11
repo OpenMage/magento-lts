@@ -1,27 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paygate
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Paygate
  */
 class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
 {
     /**
-     * Set block template
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -78,6 +72,7 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setChild('cards', $this->getCardsBlock());
@@ -100,7 +95,7 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
     /**
      * Return partial authorization confirmation message and unset it in payment model
      *
-     * @return string|false
+     * @return false|string
      */
     public function getPartialAuthorizationConfirmationMessage()
     {
@@ -108,10 +103,13 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
         if ($lastActionState == Mage_Paygate_Model_Authorizenet::PARTIAL_AUTH_LAST_SUCCESS) {
             $this->getMethod()->unsetPartialAuthorizationLastActionState();
             return Mage::helper('paygate')->__('The amount on your credit card is insufficient to complete your purchase. The available amount has been put on hold. To complete your purchase click OK and specify additional credit card number. To cancel the purchase and release the amount on hold, click Cancel.');
-        } elseif ($lastActionState == Mage_Paygate_Model_Authorizenet::PARTIAL_AUTH_LAST_DECLINED) {
+        }
+
+        if ($lastActionState == Mage_Paygate_Model_Authorizenet::PARTIAL_AUTH_LAST_DECLINED) {
             $this->getMethod()->unsetPartialAuthorizationLastActionState();
             return Mage::helper('paygate')->__('Your credit card has been declined. Click OK to specify another credit card to complete your purchase. Click Cancel to release the amount on hold and select another payment method.');
         }
+
         return false;
     }
 
@@ -135,9 +133,11 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
                 $message = Mage::helper('paygate')->__('Your order has not been placed, because contents of the shopping cart and/or address has been changed. Authorized amounts from your previous payment that were left pending are now released. Please go through the checkout process for your recent cart contents.');
                 break;
         }
+
         if ($message) {
             $this->getMethod()->unsetPartialAuthorizationLastActionState();
         }
+
         return $message;
     }
 
@@ -172,7 +172,7 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
             ->setData([
                 'id'      => 'payment_cancel',
                 'label'   => Mage::helper('paygate')->__('Cancel'),
-                'onclick' => 'cancelPaymentAuthorizations()'
+                'onclick' => 'cancelPaymentAuthorizations()',
             ]);
         return $cancelButton->toHtml();
     }

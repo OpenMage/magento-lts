@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Form element collection
  *
- * @category   Varien
  * @package    Varien_Data
  */
 class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggregate, Countable
@@ -26,13 +19,15 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @var array
      */
-    private $_elements;
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
+    private $_elements = [];
 
     /**
      * Elements container
      *
      * @var Varien_Data_Form_Abstract
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_container;
 
     /**
@@ -42,7 +37,6 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      */
     public function __construct($container)
     {
-        $this->_elements = [];
         $this->_container = $container;
     }
 
@@ -51,7 +45,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @return ArrayIterator
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->_elements);
     }
@@ -70,10 +64,10 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Implementation of ArrayAccess:offsetGet()
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($key)
     {
         return $this->_elements[$key];
@@ -93,7 +87,6 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Implementation of ArrayAccess:offsetExists()
      *
      * @param mixed $key
-     * @return bool
      */
     public function offsetExists($key): bool
     {
@@ -104,9 +97,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Add element to collection
      *
      * @todo get it straight with $after
-     * @param Varien_Data_Form_Element_Abstract $element
-     * @param bool|string $after
-     *
+     * @param  false|string                      $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function add(Varien_Data_Form_Element_Abstract $element, $after = false)
@@ -130,8 +121,10 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
                     $this->_elements = array_merge($newOrderElements, array_slice($this->_elements, $index + 1));
                     return $element;
                 }
+
                 $newOrderElements[] = $currElement;
             }
+
             $this->_elements[] = $element;
         }
 
@@ -141,8 +134,8 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Sort elements by values using a user-defined comparison function
      *
-     * @param mixed $callback
-     * @return Varien_Data_Form_Element_Collection
+     * @param  mixed $callback
+     * @return $this
      */
     public function usort($callback)
     {
@@ -153,8 +146,8 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Remove element from collection
      *
-     * @param mixed $elementId
-     * @return Varien_Data_Form_Element_Collection
+     * @param  mixed $elementId
+     * @return $this
      */
     public function remove($elementId)
     {
@@ -163,6 +156,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
                 unset($this->_elements[$index]);
             }
         }
+
         // Renumber elements for further correct adding and removing other elements
         $this->_elements = array_merge($this->_elements, []);
         return $this;
@@ -170,8 +164,6 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
 
     /**
      * Count elements in collection
-     *
-     * @return int
      */
     public function count(): int
     {
@@ -181,8 +173,8 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
     /**
      * Find element by ID
      *
-     * @param mixed $elementId
-     * @return Varien_Data_Form_Element_Abstract|null
+     * @param  mixed                                  $elementId
+     * @return null|Varien_Data_Form_Element_Abstract
      */
     public function searchById($elementId)
     {
@@ -191,6 +183,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
                 return $element;
             }
         }
+
         return null;
     }
 }

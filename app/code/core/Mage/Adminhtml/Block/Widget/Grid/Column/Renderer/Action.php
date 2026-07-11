@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Grid column widget for rendering action grid cells
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
@@ -24,9 +17,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
     /**
      * Renders column
      *
-     * @param Varien_Object $row
      * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $actions = $this->getColumn()->getActions();
@@ -51,15 +44,14 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
                 $out .= $this->_toOptionHtml($action, $row);
             }
         }
-        $out .= '</select>';
-        return $out;
+
+        return $out . '</select>';
     }
 
     /**
      * Render single action as dropdown option html
      *
-     * @param array $action
-     * @param Varien_Object $row
+     * @param  array  $action
      * @return string
      */
     protected function _toOptionHtml($action, Varien_Object $row)
@@ -77,8 +69,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
     /**
      * Render single action as link html
      *
-     * @param array $action
-     * @param Varien_Object $row
+     * @param  array  $action
      * @return string
      */
     protected function _toLinkHtml($action, Varien_Object $row)
@@ -89,9 +80,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
         $this->_transformActionData($action, $actionCaption, $row);
 
         if (isset($action['confirm'])) {
-            $action['onclick'] = 'return window.confirm(\''
+            $action['onclick'] = "return window.confirm('"
                                . addslashes($this->escapeHtml($action['confirm']))
-                               . '\')';
+                               . "')";
             unset($action['confirm']);
         }
 
@@ -102,14 +93,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
     /**
      * Prepares action data for html render
      *
-     * @param array $action
-     * @param string $actionCaption
-     * @param Varien_Object $row
+     * @param  array  $action
+     * @param  string $actionCaption
      * @return $this
      */
     protected function _transformActionData(&$action, &$actionCaption, Varien_Object $row)
     {
-        foreach ($action as $attribute => $value) {
+        foreach (array_keys($action) as $attribute) {
             if (isset($action[$attribute]) && !is_array($action[$attribute])) {
                 $this->getColumn()->setFormat($action[$attribute]);
                 $action[$attribute] = parent::render($row);
@@ -129,20 +119,23 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
                         if (isset($action['url']['params'])) {
                             $params = array_merge($action['url']['params'], $params);
                         }
+
                         $action['href'] = $this->getUrl($action['url']['base'], $params);
                         unset($action['field']);
                     } else {
                         $action['href'] = $action['url'];
                     }
+
                     unset($action['url']);
                     break;
 
                 case 'popup':
-                    $action['onclick'] =
-                        'popWin(this.href,\'_blank\',\'width=800,height=700,resizable=1,scrollbars=1\');return false;';
+                    $action['onclick']
+                        = "popWin(this.href,'_blank','width=800,height=700,resizable=1,scrollbars=1');return false;";
                     break;
             }
         }
+
         return $this;
     }
 }

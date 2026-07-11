@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Page layout helper
  *
- * @category   Mage
  * @package    Mage_Page
  */
 class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
@@ -26,7 +19,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
     /**
      * Apply page layout handle
      *
-     * @param string $pageLayout
+     * @param  string $pageLayout
      * @return $this
      */
     public function applyHandle($pageLayout)
@@ -48,23 +41,19 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
      * Apply page layout template
      * (for old design packages)
      *
-     * @param string $pageLayout
+     * @param  string $pageLayout
      * @return $this
      */
     public function applyTemplate($pageLayout = null)
     {
-        if ($pageLayout === null) {
-            $pageLayout = $this->getCurrentPageLayout();
-        } else {
-            $pageLayout = $this->_getConfig()->getPageLayout($pageLayout);
-        }
+        $pageLayout = $pageLayout === null ? $this->getCurrentPageLayout() : $this->_getConfig()->getPageLayout($pageLayout);
 
         if (!$pageLayout) {
             return $this;
         }
 
-        if ($this->getLayout()->getBlock('root') &&
-            !$this->getLayout()->getBlock('root')->getIsHandle()
+        if ($this->getLayout()->getBlock('root')
+            && !$this->getLayout()->getBlock('root')->getIsHandle()
         ) {
             // If not applied handle
             $this->getLayout()
@@ -78,12 +67,12 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
     /**
      * Retrieve current applied page layout
      *
-     * @return Varien_Object|false
+     * @return false|Varien_Object
      */
     public function getCurrentPageLayout()
     {
-        if ($this->getLayout()->getBlock('root') &&
-            $this->getLayout()->getBlock('root')->getLayoutCode()
+        if ($this->getLayout()->getBlock('root')
+            && $this->getLayout()->getBlock('root')->getLayoutCode()
         ) {
             return $this->_getConfig()->getPageLayout($this->getLayout()->getBlock('root')->getLayoutCode());
         }
@@ -95,7 +84,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
         // Applied page layout handles
         $appliedHandles = array_intersect($handles, $pageLayoutHandles);
 
-        if (empty($appliedHandles)) {
+        if ($appliedHandles === []) {
             return false;
         }
 

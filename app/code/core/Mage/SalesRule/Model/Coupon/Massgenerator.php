@@ -1,39 +1,34 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * SalesRule Mass Coupon Generator
  *
- * @category   Mage
  * @package    Mage_SalesRule
  *
- * @method Mage_SalesRule_Model_Resource_Coupon getResource()
- *
- * @method string getDash()
- * @method string getFormat()
- * @method string getLength()
- * @method $this setLength(int $value)
- * @method int getMaxAttempts()
- * @method int getMaxProbability()
- * @method string getPrefix()
- * @method int getQty()
- * @method int getRuleId()
- * @method string getSuffix()
- * @method string getToDate()
- * @method int getUsesPerCoupon()
- * @method int getUsesPerCustomer()
+ * @method Mage_SalesRule_Model_Resource_Coupon            _getResource()
+ * @method Mage_SalesRule_Model_Resource_Coupon_Collection getCollection()
+ * @method string                                          getDash()
+ * @method string                                          getFormat()
+ * @method string                                          getLength()
+ * @method int                                             getMaxAttempts()
+ * @method int                                             getMaxProbability()
+ * @method string                                          getPrefix()
+ * @method int                                             getQty()
+ * @method Mage_SalesRule_Model_Resource_Coupon            getResource()
+ * @method Mage_SalesRule_Model_Resource_Coupon_Collection getResourceCollection()
+ * @method int                                             getRuleId()
+ * @method string                                          getSuffix()
+ * @method string                                          getToDate()
+ * @method int                                             getUsesPerCoupon()
+ * @method int                                             getUsesPerCustomer()
+ * @method $this                                           setLength(int $value)
  */
 class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract implements Mage_SalesRule_Model_Coupon_CodegeneratorInterface
 {
@@ -41,6 +36,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
      * Maximum probability of guessing the coupon on the first attempt
      */
     public const MAX_PROBABILITY_OF_GUESSING = 0.25;
+
     public const MAX_GENERATE_ATTEMPTS = 10;
 
     /**
@@ -50,7 +46,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
     protected $_generatedCount = 0;
 
     /**
-     * Initialize resource
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -61,6 +57,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
      * Generate coupon code
      *
      * @return string
+     * @throws Exception
      */
     public function generateCode()
     {
@@ -68,6 +65,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
         if (!$format) {
             $format = Mage_SalesRule_Helper_Coupon::COUPON_FORMAT_ALPHANUMERIC;
         }
+
         $length  = max(1, (int) $this->getLength());
         $split   = max(0, (int) $this->getDash());
         $suffix  = $this->getSuffix();
@@ -78,16 +76,16 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
 
         $code = '';
         $charsetSize = count($charset);
-        for ($i = 0; $i < $length; $i++) {
+        for ($index = 0; $index < $length; $index++) {
             $char = $charset[random_int(0, $charsetSize - 1)];
-            if ($split > 0 && ($i % $split) == 0 && $i != 0) {
+            if ($split > 0 && $index % $split === 0 && $index !== 0) {
                 $char = $splitChar . $char;
             }
+
             $code .= $char;
         }
 
-        $code = $prefix . $code . $suffix;
-        return $code;
+        return $prefix . $code . $suffix;
     }
 
     /**
@@ -97,17 +95,19 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
      */
     public function getDelimiter()
     {
-        if ($this->getData('delimiter')) {
-            return $this->getData('delimiter');
-        } else {
-            return Mage::helper('salesrule/coupon')->getCodeSeparator();
+        if ($this->getDataByKey('delimiter')) {
+            return $this->getDataByKey('delimiter');
         }
+
+        return Mage::helper('salesrule/coupon')->getCodeSeparator();
     }
 
     /**
      * Generate Coupons Pool
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function generatePool()
     {
@@ -122,28 +122,30 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
 
         $chars = count(Mage::helper('salesrule/coupon')->getCharset($this->getFormat()));
         $length = (int) $this->getLength();
-        $maxCodes = pow($chars, $length);
+        $maxCodes = $chars ** $length;
         $probability = $size / $maxCodes;
         //increase the length of Code if probability is low
         if ($probability > $maxProbability) {
             do {
                 $length++;
-                $maxCodes = pow($chars, $length);
+                $maxCodes = $chars ** $length;
                 $probability = $size / $maxCodes;
             } while ($probability > $maxProbability);
+
             $this->setLength($length);
         }
 
         $now = $this->getResource()->formatDate(
-            Mage::getSingleton('core/date')->gmtTimestamp()
+            Mage::getSingleton('core/date')->gmtTimestamp(),
         );
 
-        for ($i = 0; $i < $size; $i++) {
+        for ($index = 0; $index < $size; $index++) {
             $attempt = 0;
             do {
                 if ($attempt >= $maxAttempts) {
                     Mage::throwException(Mage::helper('salesrule')->__('Unable to create requested Coupon Qty. Please check settings and try again.'));
                 }
+
                 $code = $this->generateCode();
                 $attempt++;
             } while ($this->getResource()->exists($code));
@@ -165,20 +167,21 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
 
             $this->_generatedCount++;
         }
+
         return $this;
     }
 
     /**
      * Validate input
      *
-     * @param array $data
+     * @param  array $data
      * @return bool
      */
     public function validateData($data)
     {
         return !empty($data) && !empty($data['qty']) && !empty($data['rule_id'])
             && !empty($data['length']) && !empty($data['format'])
-            && (int)$data['qty'] > 0 && (int) $data['rule_id'] > 0
+            && (int) $data['qty'] > 0 && (int) $data['rule_id'] > 0
             && (int) $data['length'] > 0;
     }
 

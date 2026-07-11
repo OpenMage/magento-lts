@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Captcha
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Captcha image model
  *
- * @category   Mage
  * @package    Mage_Captcha
  */
 class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
@@ -50,7 +43,6 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_captcha = [];
 
     /**
-     * @return bool
      * @since 19.4.19 / 20.0.17
      */
     public function isEnabled(): bool
@@ -62,8 +54,8 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get Captcha
      *
-     * @param string $formId
-     * @return Mage_Captcha_Model_Interface
+     * @param  string                  $formId
+     * @return Mage_Captcha_Model_Zend
      */
     public function getCaptcha($formId)
     {
@@ -71,14 +63,15 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
             $type = $this->getConfigNode('type');
             $this->_captcha[$formId] = Mage::getModel('captcha/' . $type, ['formId' => $formId]);
         }
+
         return $this->_captcha[$formId];
     }
 
     /**
      * Returns value of the node with respect to current area (frontend or backend)
      *
-     * @param string $id The last part of XML_PATH_$area_CAPTCHA_ constant (case insensitive)
-     * @param Mage_Core_Model_Store $store
+     * @param  string                         $id    The last part of XML_PATH_$area_CAPTCHA_ constant (case-insensitive)
+     * @param  Mage_Core_Model_Store          $store
      * @return Mage_Core_Model_Config_Element
      */
     public function getConfigNode($id, $store = null)
@@ -101,33 +94,34 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
         if ($node) {
             foreach ($node->children() as $fontName => $fontNode) {
                 $fonts[$fontName] = [
-                   'label' => (string)$fontNode->label,
-                   'path' => Mage::getBaseDir('base') . DS . $fontNode->path
+                    'label' => (string) $fontNode->label,
+                    'path' => Mage::getBaseDir('base') . DS . $fontNode->path,
                 ];
             }
         }
+
         return $fonts;
     }
 
     /**
      * Get captcha image directory
      *
-     * @param mixed $website
+     * @param  mixed  $website
      * @return string
      */
     public function getImgDir($website = null)
     {
         $websiteCode = Mage::app()->getWebsite($website)->getCode();
         $captchaDir = Mage::getBaseDir('media') . DS . 'captcha' . DS . $websiteCode . DS;
-        $io = new Varien_Io_File();
-        $io->checkAndCreateFolder($captchaDir, 0755);
+        $ioFile = new Varien_Io_File();
+        $ioFile->checkAndCreateFolder($captchaDir, 0755);
         return $captchaDir;
     }
 
     /**
      * Get captcha image base URL
      *
-     * @param mixed $website
+     * @param  mixed  $website
      * @return string
      */
     public function getImgUrl($website = null)

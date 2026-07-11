@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Select grid column filter
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
@@ -35,21 +28,23 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
         }
 
         $colOptions = $this->getColumn()->getOptions();
-        if (!empty($colOptions) && is_array($colOptions)) {
+        if (is_array($colOptions) && $colOptions !== []) {
             $options = [$emptyOption];
             foreach ($colOptions as $value => $label) {
                 $options[] = ['value' => $value, 'label' => $label];
             }
+
             return $options;
         }
+
         return [];
     }
 
     /**
      * Render an option with selected value
      *
-     * @param array $option
-     * @param string|null $value
+     * @param  array       $option
+     * @param  null|string $value
      * @return string
      */
     protected function _renderOption($option, $value)
@@ -61,6 +56,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
     /**
      * @return string
      */
+    #[Override]
     public function getHtml()
     {
         $html = '<select name="' . $this->_getHtmlName() . '" id="' . $this->_getHtmlId() . '" class="no-changes">';
@@ -71,23 +67,26 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
                 foreach ($option['value'] as $subOption) {
                     $html .= $this->_renderOption($subOption, $value);
                 }
+
                 $html .= '</optgroup>';
             } else {
                 $html .= $this->_renderOption($option, $value);
             }
         }
-        $html .= '</select>';
-        return $html;
+
+        return $html . '</select>';
     }
 
     /**
-     * @return array|null
+     * @inheritDoc
      */
+    #[Override]
     public function getCondition()
     {
         if (is_null($this->getValue())) {
             return null;
         }
+
         return ['eq' => $this->getValue()];
     }
 }

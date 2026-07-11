@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Centinel
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * 3D Secure Validation Api
  *
- * @category   Mage
  * @package    Mage_Centinel
  */
 class Mage_Centinel_Model_Api extends Varien_Object
@@ -74,6 +67,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
         if (empty($this->_clientInstance)) {
             $this->_clientInstance = new Mage_Centinel_Model_Api_Client();
         }
+
         return $this->_clientInstance;
     }
 
@@ -88,7 +82,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
     }
 
     /**
-     * Return transaction type. according centinel documetation it should be "C"
+     * Return transaction type. according centinel documentation it should be "C"
      *
      * @return string "C"
      */
@@ -121,7 +115,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
      * Call centinel api methods by given method name and data
      *
      * @param string $method
-     * @param array $data
+     * @param array  $data
      *
      * @return Mage_Centinel_Model_Api_Client
      */
@@ -143,11 +137,12 @@ class Mage_Centinel_Model_Api extends Varien_Object
             foreach ($request as $key => $val) {
                 $client->add($key, $val);
             }
+
             $client->sendHttp($this->_getApiEndpointUrl(), $this->_getTimeoutConnect(), $this->_getTimeoutRead());
-        } catch (Exception $e) {
-            $debugData['response'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+        } catch (Exception $exception) {
+            $debugData['response'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
             $this->_debug($debugData);
-            throw $e;
+            throw $exception;
         }
 
         $debugData['response'] = $client->response;
@@ -167,10 +162,12 @@ class Mage_Centinel_Model_Api extends Varien_Object
         if ($this->getIsTestMode()) {
             return 'https://centineltest.cardinalcommerce.com/maps/txns.asp';
         }
+
         $url = $this->getApiEndpointUrl();
         if (!$url) {
             throw new Exception('Centinel API endpoint URL is not configured properly.');
         }
+
         return $url;
     }
 
@@ -183,12 +180,12 @@ class Mage_Centinel_Model_Api extends Varien_Object
     {
         $result = new Varien_Object();
 
-        $month = strlen($data->getCardExpMonth()) == 1 ? '0' . $data->getCardExpMonth() : $data->getCardExpMonth();
+        $month = strlen($data->getCardExpMonth()) === 1 ? '0' . $data->getCardExpMonth() : $data->getCardExpMonth();
         $currencyCode = $data->getCurrencyCode();
         $currencyNumber = self::$_iso4217Currencies[$currencyCode] ?? '';
         if (!$currencyNumber) {
             return $result->setErrorNo(1)->setErrorDesc(
-                Mage::helper('payment')->__('Unsupported currency code: %s.', $currencyCode)
+                Mage::helper('payment')->__('Unsupported currency code: %s.', $currencyCode),
             );
         }
 
@@ -198,7 +195,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
             'CardNumber' =>  $data->getCardNumber(),
             'CardExpMonth' => $month,
             'CardExpYear' =>  $data->getCardExpYear(),
-            'OrderNumber' => $data->getOrderNumber()
+            'OrderNumber' => $data->getOrderNumber(),
         ]);
 
         $result->setErrorNo($clientResponse->getValue('ErrorNo'));

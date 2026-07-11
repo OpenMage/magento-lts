@@ -1,0 +1,76 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Newsletter_Problem $this */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="width:50%;"><h3 class="icon-head head-newsletter"><?php echo Mage::helper('newsletter')->__('Newsletter Problem Reports') ?></h3></td>
+            <td class="form-buttons"></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <?php echo $this->getChildHtml('grid') ?>
+</div>
+<?php if($this->getShowButtons()): ?>
+<div class="form-buttons">
+    <?php echo $this->getUnsubscribeButtonHtml(); ?>
+    <?php echo $this->getDeleteButtonHtml(); ?>
+</div>
+<?php endif ?>
+<script type="text/javascript">
+<!--
+    var problemController = {
+        checkCheckboxes: function(controlCheckbox) {
+            var elements = $('problemGrid').getElementsByClassName('problemCheckbox');
+            elements.each(function(obj){
+                obj.checked = controlCheckbox.checked;
+            });
+        },
+        rowClick: function (e) {
+            if(!Event.element(e).hasClassName('problemCheckbox')) {
+                var elements = Event.findElement(e, 'tr').getElementsByClassName('problemCheckbox');
+                if(elements.length != 1) {
+                    return;
+                }
+                elements[0].checked = !elements[0].checked;
+            }
+        },
+
+        unsubscribe: function () {
+            var elements = $$('input.problemCheckbox');
+            var serializedElements = Form.serializeElements(elements, true);
+            serializedElements._unsubscribe = '1';
+            serializedElements.form_key = FORM_KEY;
+            var url = problemGridJsObject.url;
+
+            new Ajax.Updater('problemGrid', url + '?ajax=1',
+                             {parameters:  serializedElements,
+                              evalScripts: true,
+                              onComplete:problemGridJsObject.initGrid.bind(problemGridJsObject)});
+        },
+
+        deleteSelected: function () {
+            var elements = $$('input.problemCheckbox');
+            var serializedElements = Form.serializeElements(elements, true);
+            serializedElements._delete = '1';
+            serializedElements.form_key = FORM_KEY;
+            var url = problemGridJsObject.url;
+
+            new Ajax.Updater('problemGrid', url + '?ajax=1',
+                             {parameters:  serializedElements,
+                              evalScripts: true,
+                              onComplete:problemGridJsObject.initGrid.bind(problemGridJsObject)});
+        }
+    }
+
+    varienGlobalEvents.attachEventHandler('gridRowClick', problemController.rowClick.bind(problemController));
+//-->
+</script>

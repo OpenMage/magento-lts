@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Layer category filter
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_Filter_Abstract
@@ -24,7 +17,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     /**
      * Active Category Id
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_categoryId;
 
@@ -61,22 +54,25 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
                 return $pathIds[1];
             }
         }
+
         return null;
     }
 
     /**
      * Apply category filter to layer
      *
-     * @param   Zend_Controller_Request_Abstract $request
-     * @param   null $filterBlock
-     * @return  Mage_Catalog_Model_Layer_Filter_Category
+     * @param  Varien_Object       $filterBlock
+     * @return $this
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
         $filter = (int) $request->getParam($this->getRequestVar());
         if (!$filter) {
             return $this;
         }
+
         $this->_categoryId = $filter;
 
         Mage::register('current_category_filter', $this->getCategory(), true);
@@ -90,7 +86,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
                 ->addCategoryFilter($this->_appliedCategory);
 
             $this->getLayer()->getState()->addFilter(
-                $this->_createItem($this->_appliedCategory->getName(), $filter)
+                $this->_createItem($this->_appliedCategory->getName(), $filter),
             );
         }
 
@@ -100,7 +96,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     /**
      * Validate category for be using as filter
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param  Mage_Catalog_Model_Category $category
      * @return int
      */
     protected function _isValidCategory($category)
@@ -113,6 +109,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
      *
      * @return string
      */
+    #[Override]
     public function getName()
     {
         return Mage::helper('catalog')->__('Category');
@@ -132,14 +129,15 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
                 return $category;
             }
         }
+
         return $this->getLayer()->getCurrentCategory();
     }
 
     /**
-     * Get data array for building category filter items
-     *
-     * @return array
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getItemsData()
     {
         $key = $this->getLayer()->getStateKey() . '_SUBCATEGORIES';
@@ -162,9 +160,11 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
                     ];
                 }
             }
+
             $tags = $this->getLayer()->getStateTags();
             $this->getLayer()->getAggregator()->saveCacheData($data, $key, $tags);
         }
+
         return $data;
     }
 }

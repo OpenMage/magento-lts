@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Flat sales order shipment resource
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource_Order_Abstract
@@ -43,6 +36,9 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
      */
     protected $_entityTypeForIncrementId     = 'shipment';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/shipment', 'entity_id');
@@ -53,6 +49,7 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
      *
      * @return $this
      */
+    #[Override]
     protected function _initVirtualGridColumns()
     {
         parent::_initVirtualGridColumns();
@@ -65,27 +62,27 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
             $adapter->quote(' '),
             $checkedMidllename,
             $adapter->quote(' '),
-            $checkedLastname
+            $checkedLastname,
         ]);
-        $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
+        $concatName = new Zend_Db_Expr("TRIM(REPLACE({$concatName},'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'shipping_name',
             'sales/order_address',
             ['shipping_address_id' => 'entity_id'],
-            $concatName
+            $concatName,
         )
         ->addVirtualGridColumn(
             'order_increment_id',
             'sales/order',
             ['order_id' => 'entity_id'],
-            'increment_id'
+            'increment_id',
         )
         ->addVirtualGridColumn(
             'order_created_at',
             'sales/order',
             ['order_id' => 'entity_id'],
-            'created_at'
+            'created_at',
         );
 
         return $this;

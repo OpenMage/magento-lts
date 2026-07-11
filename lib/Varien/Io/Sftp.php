@@ -1,76 +1,70 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Io
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use phpseclib3\Net\SFTP;
 
 /**
  * Sftp client interface
  *
- * @category   Varien
  * @package    Varien_Io
  * @link        http://www.php.net/manual/en/function.ssh2-connect.php
  */
 class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 {
     public const REMOTE_TIMEOUT = 10;
+
     public const SSH2_PORT = 22;
 
     /**
-     * @var \phpseclib3\Net\SFTP $_connection
+     * @var SFTP
      */
     protected $_connection = null;
 
     /**
      * Open a SFTP connection to a remote site.
      *
-     * @param array $args Connection arguments
-     * @param string $args[host] Remote hostname
-     * @param string $args[username] Remote username
-     * @param string $args[password] Connection password
-     * @param int $args[timeout] Connection timeout [=10]
-     *
+     * @param  array{host?: mixed, username?: mixed, password?: mixed, timeout?: int} $args Connection arguments
+     * @throws Exception
      */
+    #[Override]
     public function open(array $args = [])
     {
         if (!isset($args['timeout'])) {
             $args['timeout'] = self::REMOTE_TIMEOUT;
         }
-        if (strpos($args['host'], ':') !== false) {
-            list($host, $port) = explode(':', $args['host'], 2);
+
+        if (str_contains($args['host'], ':')) {
+            [$host, $port] = explode(':', $args['host'], 2);
         } else {
             $host = $args['host'];
             $port = self::SSH2_PORT;
         }
-        $this->_connection = new \phpseclib3\Net\SFTP($host, $port, $args['timeout']);
+
+        $this->_connection = new SFTP($host, $port, $args['timeout']);
         if (!$this->_connection->login($args['username'], $args['password'])) {
-            throw new Exception(sprintf(__("Unable to open SFTP connection as %s@%s", $args['username'], $args['host'])));
+            throw new Exception(__('Unable to open SFTP connection as %s@%s', $args['username'], $args['host']));
         }
     }
 
     /**
      * Close a connection
-     *
      */
     public function close()
     {
-        return $this->_connection->disconnect();
+        $this->_connection->disconnect();
     }
 
     /**
      * Create a directory
      *
-     * @param $mode Ignored here; uses logged-in user's umask
-     * @param $recursive Analogous to mkdir -p
+     * @param int  $mode      Ignored here; uses logged-in user's umask
+     * @param bool $recursive Analogous to mkdir -p
      *
      * Note: if $recursive is true and an error occurs mid-execution,
      * false is returned and some part of the hierarchy might be created.
@@ -86,16 +80,16 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             while ($no_errors && ($dir_item = next($dirlist))) {
                 $no_errors = ($this->_connection->mkdir($dir_item) && $this->_connection->chdir($dir_item));
             }
+
             $this->_connection->chdir($cwd);
             return $no_errors;
-        } else {
-            return $this->_connection->mkdir($dir);
         }
+
+        return $this->_connection->mkdir($dir);
     }
 
     /**
      * Delete a directory
-     *
      */
     public function rmdir($dir, $recursive = false)
     {
@@ -103,33 +97,33 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             $no_errors = true;
             $cwd = $this->_connection->pwd();
             if (!$this->_connection->chdir($dir)) {
-                throw new Exception("chdir(): $dir: Not a directory");
+                throw new Exception("chdir(): {$dir}: Not a directory");
             }
+
             $list = $this->_connection->nlist();
             if (!count($list)) {
                 // Go back
                 $this->_connection->chdir($cwd);
                 return $this->rmdir($dir, false);
-            } else {
-                foreach ($list as $filename) {
-                    if ($this->_connection->chdir($filename)) { // This is a directory
-                        $this->_connection->chdir('..');
-                        $no_errors = $no_errors && $this->rmdir($filename, $recursive);
-                    } else {
-                        $no_errors = $no_errors && $this->rm($filename);
-                    }
+            }
+
+            foreach ($list as $filename) {
+                if ($this->_connection->chdir($filename)) { // This is a directory
+                    $this->_connection->chdir('..');
+                    $no_errors = $no_errors && $this->rmdir($filename, $recursive);
+                } else {
+                    $no_errors = $no_errors && $this->rm($filename);
                 }
             }
-            $no_errors = $no_errors && ($this->_connection->chdir($cwd) && $this->_connection->rmdir($dir));
-            return $no_errors;
-        } else {
-            return $this->_connection->rmdir($dir);
+
+            return $no_errors && ($this->_connection->chdir($cwd) && $this->_connection->rmdir($dir));
         }
+
+        return $this->_connection->rmdir($dir);
     }
 
     /**
      * Get current working directory
-     *
      */
     public function pwd()
     {
@@ -138,7 +132,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Change current working directory
-     *
      */
     public function cd($dir)
     {
@@ -147,19 +140,19 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Read a file
-     *
      */
     public function read($filename, $dest = null)
     {
         if (is_null($dest)) {
             $dest = false;
         }
+
         return $this->_connection->get($filename, $dest);
     }
 
     /**
      * Write a file
-     * @param $src Must be a local file name
+     * @param resource|string $src Must be a local file name
      */
     public function write($filename, $src, $mode = null)
     {
@@ -168,7 +161,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Delete a file
-     *
      */
     public function rm($filename)
     {
@@ -177,7 +169,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Rename or move a directory or a file
-     *
      */
     public function mv($src, $dest)
     {
@@ -186,7 +177,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Chamge mode of a directory or a file
-     *
      */
     public function chmod($filename, $mode)
     {
@@ -195,7 +185,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Get list of cwd subdirectories and files
-     *
      */
     public function ls($grep = null)
     {
@@ -208,23 +197,23 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
                 'id' => "{$pwd}{$name}",
             ];
         }
+
         return $result;
     }
 
     public function rawls()
     {
-        $list = $this->_connection->rawlist();
-        return $list;
+        return $this->_connection->rawlist();
     }
 
     /**
      * Write a file
      * @param  string $filename remote filename
-     * @param  string $src local filename
-     * @return boolean
+     * @param  string $src      local filename
+     * @return bool
      */
     public function writeFile($filename, $src)
     {
-        return $this->_connection->put($filename, $src, \phpseclib3\Net\SFTP::SOURCE_LOCAL_FILE);
+        return $this->_connection->put($filename, $src, SFTP::SOURCE_LOCAL_FILE);
     }
 }

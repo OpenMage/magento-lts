@@ -1,0 +1,43 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php
+/**
+ * @see Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
+ * @var Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element $this 
+ */
+?>
+<?php $_element = $this->getElement() ?>
+<?php $this->checkFieldDisable() ?>
+<?php
+    $elementToggleCode = $_element->getToggleCode() ? $_element->getToggleCode()
+        : 'toggleValueElements(this, this.parentNode.parentNode)';
+?>
+
+<?php if ($_element->getType()=='hidden'): ?>
+<tr>
+    <td class="hidden" colspan="100"><?php echo trim($_element->getElementHtml()) ?></td>
+</tr>
+<?php else: ?>
+<tr>
+    <td class="label"><?php echo trim($this->getElementLabelHtml()) ?></td>
+    <td class="value">
+        <?php echo trim($this->getElementHtml()) ?>
+        <?php if ($_element->getNote()) : ?>
+            <p class="note"><?php echo $this->__($_element->getNote()); ?></p>
+        <?php endif ?>
+    </td>
+    <td class="scope-label"><span class="nobr"><?php echo $this->getScopeLabel() ?></span></td>
+    <?php if ($this->canDisplayUseDefault()): ?>
+    <td class="value use-default">
+        <input <?php if($_element->getReadonly()):?> disabled="disabled"<?php endif ?> type="checkbox" name="use_default[]" id="<?php echo $_element->getHtmlId() ?>_default"<?php if ($this->usedDefault()): ?> checked="checked"<?php endif ?> onclick="<?php echo $elementToggleCode; ?>" value="<?php echo $this->getAttributeCode() ?>"/>
+        <label for="<?php echo $_element->getHtmlId() ?>_default" class="normal"><?php echo $this->__('Use Default Value') ?></label>
+    </td>
+    <?php endif ?>
+</tr>
+<?php endif ?>

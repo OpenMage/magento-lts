@@ -1,37 +1,35 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Currency model
  *
- * @category   Mage
  * @package    Mage_Directory
  *
- * @method Mage_Directory_Model_Resource_Currency _getResource()
- * @method $this unsRate()
+ * @method Mage_Directory_Model_Resource_Currency            _getResource()
+ * @method Mage_Directory_Model_Resource_Currency_Collection getCollection()
+ * @method Mage_Directory_Model_Resource_Currency            getResource()
+ * @method Mage_Directory_Model_Resource_Currency_Collection getResourceCollection()
+ * @method $this                                             unsRate()
  */
 class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
 {
     /**
      * CONFIG path constant: ALLOW
-    */
+     */
     public const XML_PATH_CURRENCY_ALLOW   = 'currency/options/allow';
+
     /**
      * CONFIG path constant: DEFAULT
      */
     public const XML_PATH_CURRENCY_DEFAULT = 'currency/options/default';
+
     /**
      * CONFIG path constant: BASE
      */
@@ -50,7 +48,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     protected $_rates;
 
     /**
-     * Class constructor
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -90,7 +88,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Currency Rates setter
      *
-     * @param array $rates Currency Rates
+     * @param  array $rates Currency Rates
      * @return $this
      */
     public function setRates(array $rates)
@@ -102,10 +100,11 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Loading currency data
      *
-     * @param   string $id
-     * @param   string $field
-     * @return  $this
+     * @param  string $id
+     * @param  string $field
+     * @return $this
      */
+    #[Override]
     public function load($id, $field = null)
     {
         $this->unsRate();
@@ -116,7 +115,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Get currency rate (only base=>allowed)
      *
-     * @param string|Mage_Directory_Model_Currency $toCurrency
+     * @param  Mage_Directory_Model_Currency|string $toCurrency
      * @return float|int
      * @throws Mage_Core_Exception
      */
@@ -129,18 +128,20 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         } else {
             throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency.'));
         }
+
         $rates = $this->getRates();
         if (!isset($rates[$code])) {
             $rates[$code] = $this->_getResource()->getRate($this->getCode(), $toCurrency);
             $this->setRates($rates);
         }
+
         return $rates[$code];
     }
 
     /**
      * Get currency rate (base=>allowed or allowed=>base)
      *
-     * @param string|Mage_Directory_Model_Currency $toCurrency
+     * @param  Mage_Directory_Model_Currency|string $toCurrency
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -153,19 +154,21 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         } else {
             throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency.'));
         }
+
         $rates = $this->getRates();
         if (!isset($rates[$code])) {
             $rates[$code] = $this->_getResource()->getAnyRate($this->getCode(), $toCurrency);
             $this->setRates($rates);
         }
+
         return $rates[$code];
     }
 
     /**
      * Convert price to currency format
      *
-     * @param float $price
-     * @param null|string|Mage_Directory_Model_Currency $toCurrency
+     * @param  float                                     $price
+     * @param  null|Mage_Directory_Model_Currency|string $toCurrency
      * @return float
      * @throws Exception
      */
@@ -173,17 +176,17 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     {
         if (is_null($toCurrency)) {
             return $price;
-        } else {
-            $rate = $this->getRate($toCurrency);
-            if ($rate) {
-                return $price * $rate;
-            }
+        }
+
+        $rate = $this->getRate($toCurrency);
+        if ($rate) {
+            return $price * $rate;
         }
 
         throw new Exception(Mage::helper('directory')->__(
             'Undefined rate from "%s-%s".',
             $this->getCode(),
-            $toCurrency instanceof Mage_Directory_Model_Currency ? $toCurrency->getCode() : $toCurrency
+            $toCurrency instanceof Mage_Directory_Model_Currency ? $toCurrency->getCode() : $toCurrency,
         ));
     }
 
@@ -204,10 +207,10 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Format price to currency format
      *
-     * @param float $price
-     * @param array $options
-     * @param bool $includeContainer
-     * @param bool $addBrackets
+     * @param  float  $price
+     * @param  array  $options
+     * @param  bool   $includeContainer
+     * @param  bool   $addBrackets
      * @return string
      */
     public function format($price, $options = [], $includeContainer = true, $addBrackets = false)
@@ -218,12 +221,12 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Apply currency format to number with specific rounding precision
      *
-     * @param   float $price
-     * @param   int $precision
-     * @param   array $options
-     * @param   bool $includeContainer
-     * @param   bool $addBrackets
-     * @return  string
+     * @param  float  $price
+     * @param  int    $precision
+     * @param  array  $options
+     * @param  bool   $includeContainer
+     * @param  bool   $addBrackets
+     * @return string
      */
     public function formatPrecision(
         $price,
@@ -235,18 +238,20 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if (!isset($options['precision'])) {
             $options['precision'] = $precision;
         }
+
         if ($includeContainer) {
-            return '<span class="price">' . ($addBrackets ? '[' : '') . $this->formatTxt($price, $options) .
-                ($addBrackets ? ']' : '') . '</span>';
+            return '<span class="price">' . ($addBrackets ? '[' : '') . $this->formatTxt($price, $options)
+                . ($addBrackets ? ']' : '') . '</span>';
         }
+
         return $this->formatTxt($price, $options);
     }
 
     /**
      * Returns the formatted price
      *
-     * @param float $price
-     * @param null|array $options
+     * @param  float      $price
+     * @param  null|array $options
      * @return string
      */
     public function formatTxt($price, $options = [])
@@ -254,16 +259,18 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if (!is_numeric($price)) {
             $price = Mage::app()->getLocale()->getNumber($price);
         }
+
         /**
          * Fix problem with 12 000 000, 1 200 000
          *
          * %f - the argument is treated as a float, and presented as a floating-point number (locale aware).
          * %F - the argument is treated as a float, and presented as a floating-point number (non-locale aware).
          */
-        $price = sprintf("%F", $price);
+        $price = sprintf('%F', $price);
         if ($price == -0) {
             $price = 0;
         }
+
         return Mage::app()->getLocale()->currency($this->getCode())->toCurrency($price, $options);
     }
 
@@ -291,6 +298,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if (!in_array($appBaseCurrencyCode, $allowedCurrencies)) {
             $allowedCurrencies[] = $appBaseCurrencyCode;
         }
+
         foreach (Mage::app()->getStores() as $store) {
             $code = $store->getBaseCurrencyCode();
             if (!in_array($code, $allowedCurrencies)) {
@@ -324,8 +332,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Retrieve currency rates to other currencies
      *
-     * @param string $currency
-     * @param array $toCurrencies
+     * @param  array|Mage_Directory_Model_Currency|string $currency
+     * @param  array                                      $toCurrencies
      * @return array
      */
     public function getCurrencyRates($currency, $toCurrencies = null)
@@ -333,13 +341,14 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if ($currency instanceof Mage_Directory_Model_Currency) {
             $currency = $currency->getCode();
         }
+
         return $this->_getResource()->getCurrencyRates($currency, $toCurrencies);
     }
 
     /**
      * Save currency rates
      *
-     * @param array $rates
+     * @param  array  $rates
      * @return object
      */
     public function saveRates($rates)

@@ -1,28 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Rule_Model_Action_Collection
  *
- * @category   Mage
  * @package    Mage_Rule
  *
- * @method array getActions()
- * @method $this setActions(array $value)
- * @method $this setType(string $value)
+ * @method array                    getActions()
  * @method Mage_Rule_Model_Abstract getRule()
+ * @method $this                    setActions(array $value)
+ * @method $this                    setType(string $value)
  */
 class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
 {
@@ -42,9 +35,9 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      *   {action::asArray}
      * )
      *
-     * @param array $arrAttributes
      * @return array
      */
+    #[Override]
     public function asArray(array $arrAttributes = [])
     {
         $out = parent::asArray();
@@ -52,13 +45,14 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
         foreach ($this->getActions() as $item) {
             $out['actions'][] = $item->asArray();
         }
+
         return $out;
     }
 
     /**
-     * @param array $arr
-     * @return $this|Mage_Rule_Model_Action_Abstract
+     * @return $this
      */
+    #[Override]
     public function loadArray(array $arr)
     {
         if (!empty($arr['actions']) && is_array($arr['actions'])) {
@@ -66,16 +60,18 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
                 if (empty($actArr['type'])) {
                     continue;
                 }
+
+                /** @var Mage_Rule_Model_Action_Abstract $action */
                 $action = Mage::getModel($actArr['type']);
                 $action->loadArray($actArr);
                 $this->addAction($action);
             }
         }
+
         return $this;
     }
 
     /**
-     * @param Mage_Rule_Model_Action_Interface $action
      * @return $this
      */
     public function addAction(Mage_Rule_Model_Action_Interface $action)
@@ -96,12 +92,14 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     /**
      * @return string
      */
+    #[Override]
     public function asHtml()
     {
         $html = $this->getTypeElement()->toHtml() . 'Perform following actions: ';
         if ($this->getId() != '1') {
             $html .= $this->getRemoveLinkHtml();
         }
+
         return $html;
     }
 
@@ -110,56 +108,69 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      */
     public function getNewChildElement()
     {
-        return $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', [
-           'name' => 'rule[actions][' . $this->getId() . '][new_child]',
-           'values' => $this->getNewChildSelectOptions(),
-           'value_name' => $this->getNewChildName(),
-        ])->setRenderer(Mage::getBlockSingleton('rule/newchild'));
+        $element = $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', [
+            'name' => 'rule[actions][' . $this->getId() . '][new_child]',
+            'values' => $this->getNewChildSelectOptions(),
+            'value_name' => $this->getNewChildName(),
+        ]);
+
+        $renderer = Mage::getBlockSingleton('rule/newchild');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**
      * @return string
      */
+    #[Override]
     public function asHtmlRecursive()
     {
         $html = $this->asHtml() . '<ul id="action:' . $this->getId() . ':children">';
         foreach ($this->getActions() as $cond) {
             $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
-        $html .= '<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>';
-        return $html;
+
+        return $html . ('<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>');
     }
 
     /**
-     * @param string $format
+     * @param  string $format
      * @return string
      */
+    #[Override]
     public function asString($format = '')
     {
-        return Mage::helper('rule')->__("Perform following actions");
+        return Mage::helper('rule')->__('Perform following actions');
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
+    #[Override]
     public function asStringRecursive($level = 0)
     {
         $str = $this->asString();
         foreach ($this->getActions() as $action) {
             $str .= "\n" . $action->asStringRecursive($level + 1);
         }
+
         return $str;
     }
 
     /**
      * @return $this|Mage_Rule_Model_Action_Abstract
      */
+    #[Override]
     public function process()
     {
         foreach ($this->getActions() as $action) {
             $action->process();
         }
+
         return $this;
     }
 }

@@ -1,26 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sitemap
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sitemap resource product collection model
  *
- * @category   Mage
  * @package    Mage_Sitemap
  */
 class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Resource_Catalog_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product', 'entity_id');
@@ -29,7 +25,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
     /**
      * Get product collection array
      *
-     * @param int $storeId
+     * @param  int         $storeId
      * @return array|false
      */
     public function getCollection($storeId)
@@ -44,11 +40,11 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
             ->join(
                 ['w' => $this->getTable('catalog/product_website')],
                 'main_table.entity_id = w.product_id',
-                []
+                [],
             )
             ->where('w.website_id=?', $store->getWebsiteId());
 
-        $storeId = (int)$store->getId();
+        $storeId = (int) $store->getId();
 
         $urlRewrite = $this->_factory->getProductUrlRewriteHelper();
         $urlRewrite->joinTableToSelect($this->_select, $storeId);
@@ -56,49 +52,36 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
         $this->_addFilter(
             $storeId,
             'visibility',
-            Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds(),
-            'in'
+            Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds(),
+            'in',
         );
         $this->_addFilter(
             $storeId,
             'status',
             Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
-            'in'
+            'in',
         );
 
         return $this->_loadEntities();
     }
 
     /**
-     * Prepare product
-     *
-     * @deprecated after 1.7.0.2
-     *
-     * @param array $productRow
-     * @return Varien_Object
-     */
-    protected function _prepareProduct(array $productRow)
-    {
-        return $this->_prepareObject($productRow);
-    }
-
-    /**
      * Retrieve entity url
      *
-     * @param array $row
-     * @param Varien_Object $entity
+     * @param  array         $row
+     * @param  Varien_Object $entity
      * @return string
      */
     protected function _getEntityUrl($row, $entity)
     {
-        return !empty($row['request_path']) ? $row['request_path'] : 'catalog/product/view/id/' . $entity->getId();
+        return empty($row['request_path']) ? 'catalog/product/view/id/' . $entity->getId() : $row['request_path'];
     }
 
     /**
      * Loads product attribute by given attribute code
      *
-     * @param string $attributeCode
-     * @return Mage_Sitemap_Model_Resource_Catalog_Abstract
+     * @param  string $attributeCode
+     * @return $this
      */
     protected function _loadAttribute($attributeCode)
     {
@@ -109,7 +92,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
             'attribute_id'   => $attribute->getId(),
             'table'          => $attribute->getBackend()->getTable(),
             'is_global'      => $attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-            'backend_type'   => $attribute->getBackendType()
+            'backend_type'   => $attribute->getBackendType(),
         ];
         return $this;
     }

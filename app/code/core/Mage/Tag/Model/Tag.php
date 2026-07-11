@@ -1,58 +1,55 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tag model
  *
- * @category   Mage
  * @package    Mage_Tag
  *
- * @method Mage_Tag_Model_Resource_Tag _getResource()
- * @method Mage_Tag_Model_Resource_Tag getResource()
+ * @method Mage_Tag_Model_Resource_Tag            _getResource()
+ * @method int                                    getBasePopularity()
  * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
+ * @method int                                    getFirstCustomerId()
+ * @method int                                    getFirstStoreId()
+ * @method Mage_Tag_Model_Resource_Tag            getResource()
  * @method Mage_Tag_Model_Resource_Tag_Collection getResourceCollection()
- *
- * @method bool hasBasePopularity()
- * @method int getBasePopularity()
- * @method $this setBasePopularity(int $value)
- * @method int getFirstCustomerId()
- * @method $this setFirstCustomerId(int $value)
- * @method int getFirstStoreId()
- * @method $this setFirstStoreId(int $value)
- * @method $this setName(string $value)
- * @method int getStatus()
- * @method $this setStatus(int $value)
- * @method array getStatusFilter()
- * @method int getStore()
- * @method $this setStore(int $value)
- * @method bool hasStoreId()
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method array getVisibleInStoreIds()
- * @method $this setVisibleInStoreIds(array $value)
+ * @method int                                    getStatus()
+ * @method array                                  getStatusFilter()
+ * @method int                                    getStore()
+ * @method int                                    getStoreId()
+ * @method array                                  getVisibleInStoreIds()
+ * @method bool                                   hasBasePopularity()
+ * @method bool                                   hasStoreId()
+ * @method $this                                  setBasePopularity(int $value)
+ * @method $this                                  setFirstCustomerId(int $value)
+ * @method $this                                  setFirstStoreId(int $value)
+ * @method $this                                  setName(string $value)
+ * @method $this                                  setStatus(int $value)
+ * @method $this                                  setStore(int $value)
+ * @method $this                                  setStoreId(int $value)
+ * @method $this                                  setVisibleInStoreIds(array $value)
  */
 class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
 {
     public const STATUS_DISABLED = -1;
+
     public const STATUS_PENDING = 0;
+
     public const STATUS_APPROVED = 1;
 
     // statuses for tag relation add
     public const ADD_STATUS_SUCCESS = 'success';
+
     public const ADD_STATUS_NEW = 'new';
+
     public const ADD_STATUS_EXIST = 'exist';
+
     public const ADD_STATUS_REJECTED = 'rejected';
 
     /**
@@ -75,6 +72,9 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     protected $_addBasePopularity = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tag/tag');
@@ -85,13 +85,14 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     public function afterCommitCallback()
     {
         parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this,
             self::ENTITY,
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         );
         return $this;
     }
@@ -99,7 +100,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Setter for addBasePopularity flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setAddBasePopularity($flag = true)
@@ -121,7 +122,6 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Product event tags collection getter
      *
-     * @param  Varien_Event_Observer $observer
      * @return Mage_Tag_Model_Resource_Tag_Collection
      */
     protected function _getProductEventTagsCollection(Varien_Event_Observer $observer)
@@ -166,7 +166,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $ratio
+     * @param  int   $ratio
      * @return $this
      */
     public function setRatio($ratio)
@@ -176,7 +176,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $name
+     * @param  string $name
      * @return $this
      */
     public function loadByName($name)
@@ -195,7 +195,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function productEventAggregate($observer)
@@ -219,9 +219,9 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Add summary data to current object
      *
-     * @deprecated after 1.4.0.0
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
+     * @deprecated after 1.4.0.0
      */
     public function addSummary($storeId)
     {
@@ -328,19 +328,20 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Checks is available current tag in specified store
      *
-     * @param int $storeId
+     * @param  int  $storeId
      * @return bool
      */
     public function isAvailableInStore($storeId = null)
     {
-        $storeId = (is_null($storeId)) ? Mage::app()->getStore()->getId() : $storeId;
+        $storeId ??= Mage::app()->getStore()->getId();
         return in_array($storeId, $this->getVisibleInStoreIds());
     }
 
     /**
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -350,9 +351,9 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Save tag relation with product, customer and store
      *
-     * @param int $productId
-     * @param int $customerId
-     * @param int $storeId
+     * @param  int    $productId
+     * @param  int    $customerId
+     * @param  int    $storeId
      * @return string - relation add status
      */
     public function saveRelation($productId, $customerId, $storeId)
@@ -364,8 +365,9 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
             ->setProductId($productId)
             ->setCustomerId($customerId)
             ->setActive(Mage_Tag_Model_Tag_Relation::STATUS_ACTIVE)
-            ->setCreatedAt($relationModel->getResource()->formatDate(time()));
+            ->setCreatedAt($relationModel->getResource()->formatDate($this->getClockHelper()->getTimestamp()));
 
+        $result = '';
         $relationModelSaveNeed = false;
         switch ($this->getStatus()) {
             case $this->getApprovedStatus():
@@ -380,11 +382,13 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                     } else {
                         $relationModelSaveNeed = true;
                     }
+
                     $result = self::ADD_STATUS_EXIST;
                 } else {
                     $relationModelSaveNeed = true;
                     $result = self::ADD_STATUS_SUCCESS;
                 }
+
                 break;
             case $this->getPendingStatus():
                 $relation = $this->_getLinkBetweenTagCustomerProduct($relationModel);
@@ -396,6 +400,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                 } else {
                     $relationModelSaveNeed = true;
                 }
+
                 $result = self::ADD_STATUS_NEW;
                 break;
             case $this->getDisabledStatus():
@@ -406,8 +411,10 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                     $relationModelSaveNeed = true;
                     $result = self::ADD_STATUS_NEW;
                 }
+
                 break;
         }
+
         if ($relationModelSaveNeed) {
             $relationModel->save();
         }
@@ -418,7 +425,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Check whether product is already marked in store with tag
      *
-     * @param Mage_Tag_Model_Tag_Relation $relationModel
+     * @param  Mage_Tag_Model_Tag_Relation $relationModel
      * @return bool
      */
     protected function _checkLinkBetweenTagProduct($relationModel)
@@ -433,7 +440,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Check whether product is already marked in store with tag by customer
      *
-     * @param Mage_Tag_Model_Tag_Relation $relationModel
+     * @param  Mage_Tag_Model_Tag_Relation $relationModel
      * @return bool
      */
     protected function _checkLinkBetweenTagCustomerProduct($relationModel)
@@ -444,7 +451,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Get relation model for product marked in store with tag by customer
      *
-     * @param Mage_Tag_Model_Tag_Relation $relationModel
+     * @param  Mage_Tag_Model_Tag_Relation $relationModel
      * @return Mage_Tag_Model_Tag_Relation
      */
     protected function _getLinkBetweenTagCustomerProduct($relationModel)
@@ -453,20 +460,21 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
             $relationModel->getProductId(),
             $this->getId(),
             $relationModel->getCustomerId(),
-            $relationModel->getStoreId()
+            $relationModel->getStoreId(),
         );
     }
 
     /**
      * Processing object after save data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         if ($this->hasData('tag_assigned_products')) {
             $tagRelationModel = Mage::getModel('tag/tag_relation');
-            $tagRelationModel->addRelations($this, $this->getData('tag_assigned_products'));
+            $tagRelationModel->addRelations($this, $this->getDataByKey('tag_assigned_products'));
         }
 
         return parent::_afterSave();

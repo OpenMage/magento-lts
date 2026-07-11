@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog entity setup
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
@@ -24,18 +17,19 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Prepare catalog attribute values to save
      *
-     * @param array $attr
+     * @param  array $attr
      * @return array
      */
+    #[Override]
     protected function _prepareValues($attr)
     {
         $data = parent::_prepareValues($attr);
-        $data = array_merge($data, [
+        return array_merge($data, [
             'frontend_input_renderer'       => $this->_getValue($attr, 'input_renderer'),
             'is_global'                     => $this->_getValue(
                 $attr,
                 'global',
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
             ),
             'is_visible'                    => $this->_getValue($attr, 'visible', 1),
             'is_searchable'                 => $this->_getValue($attr, 'searchable', 0),
@@ -51,15 +45,14 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             'apply_to'                      => $this->_getValue($attr, 'apply_to'),
             'position'                      => $this->_getValue($attr, 'position', 0),
             'is_configurable'               => $this->_getValue($attr, 'is_configurable', 1),
-            'is_used_for_promo_rules'       => $this->_getValue($attr, 'used_for_promo_rules', 0)
+            'is_used_for_promo_rules'       => $this->_getValue($attr, 'used_for_promo_rules', 0),
         ]);
-        return $data;
     }
 
     /**
-     * Default entites and attributes
+     * Default entities and attributes
      *
-     * @return array
+     * @return array<string, non-empty-array<\lowercase-string, mixed>>
      */
     public function getDefaultEntities()
     {
@@ -349,7 +342,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Display Settings',
                     ],
-                ]
+                ],
             ],
             'catalog_product'                => [
                 'entity_model'                   => 'catalog/product',
@@ -669,8 +662,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'input'                      => 'select',
                         'source'                     => 'eav/entity_attribute_source_boolean',
                         'required'                   => false,
-                        'note'                       =>
-                            'Products with recurring profile participate in catalog as nominal items.',
+                        'note'
+                            => 'Products with recurring profile participate in catalog as nominal items.',
                         'sort_order'                 => 1,
                         'apply_to'                   => 'simple,virtual',
                         'is_configurable'            => false,
@@ -826,16 +819,16 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 20,
                         'visible'                    => false,
                     ],
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
     /**
      * Converts old tree to new
      *
-     * @deprecated since 1.5.0.0
      * @return $this
+     * @deprecated since 1.5.0.0
      */
     public function convertOldTreeToNew()
     {
@@ -847,6 +840,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 
         $select = $this->getConnection()->select();
         $select->from($this->getTable('catalog/category'));
+
         $categories = $this->getConnection()->fetchAll($select);
 
         if (is_array($categories)) {
@@ -854,7 +848,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 $path = $this->_getCategoryPath($category);
                 $path = array_reverse($path);
                 $path = implode('/', $path);
-                if ($category['entity_id'] != 1 && substr($path, 0, 2) != '1/') {
+                if ($category['entity_id'] != 1 && !str_starts_with($path, '1/')) {
                     $path = "1/{$path}";
                 }
 
@@ -863,17 +857,18 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     ->update(
                         $this->getTable('catalog/category'),
                         ['path' => $path],
-                        ['entity_id = ?' => $category['entity_id']]
+                        ['entity_id = ?' => $category['entity_id']],
                     );
             }
         }
+
         return $this;
     }
 
     /**
      * Returns category entity row by category id
      *
-     * @param int $entityId
+     * @param  int   $entityId
      * @return array
      */
     protected function _getCategoryEntityRow($entityId)
@@ -889,9 +884,9 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Returns category path as array
      *
-     * @param array $category
-     * @param array $path
-     * @return string
+     * @param  array $category
+     * @param  array $path
+     * @return array
      */
     protected function _getCategoryPath($category, $path = [])
     {
@@ -910,8 +905,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Creates level values for categories and saves them
      *
-     * @deprecated since 1.5.0.0
      * @return $this
+     * @deprecated since 1.5.0.0
      */
     public function rebuildCategoryLevels()
     {
@@ -926,9 +921,10 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             $adapter->update(
                 $this->getTable('catalog/category'),
                 ['level' => $level],
-                ['entity_id = ?' => $category['entity_id']]
+                ['entity_id = ?' => $category['entity_id']],
             );
         }
+
         return $this;
     }
 }

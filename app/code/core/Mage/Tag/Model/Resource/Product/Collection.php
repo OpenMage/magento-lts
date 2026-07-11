@@ -1,25 +1,16 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tagged Product(s) Collection
  *
- * @category   Mage
  * @package    Mage_Tag
- *
- * @method Mage_Catalog_Model_Product[] getItems()
  */
 class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -49,6 +40,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         parent::_initSelect();
@@ -68,10 +60,9 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * Set flag about joined table.
      * setFlag method must be used in future.
      *
-     * @deprecated after 1.3.2.3
-     *
-     * @param string $table
+     * @param  string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function setJoinFlag($table)
     {
@@ -80,27 +71,12 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     }
 
     /**
-     * Get flag's status about joined table.
-     * getFlag method must be used in future.
-     *
-     * @deprecated after 1.3.2.3
-     *
-     * @param string $table
-     * @return bool
-     */
-    public function getJoinFlag($table)
-    {
-        return $this->getFlag($table);
-    }
-
-    /**
      * Unset value of join flag.
      * Set false (bool) value to flag instead in future.
      *
-     * @deprecated after 1.3.2.3
-     *
-     * @param string $table
+     * @param  string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function unsetJoinFlag($table = null)
     {
@@ -132,7 +108,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         }
 
         $tagsStores = [];
-        if (count($tagIds)) {
+        if ($tagIds !== []) {
             $select = $this->getConnection()->select()
                 ->from($this->getTable('tag/relation'), ['store_id', 'tag_id'])
                 ->where('tag_id IN(?)', $tagIds);
@@ -171,14 +147,16 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Add Store ID filter
      *
-     * @param int|array $store
+     * @param  array|int $store
      * @return $this
      */
+    #[Override]
     public function addStoreFilter($store = null)
     {
         if (!is_null($store)) {
             $this->getSelect()->where('relation.store_id IN (?)', $store);
         }
+
         return $this;
     }
 
@@ -188,7 +166,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * then condition with IS NULL or IS NOT NULL will be added.
      * Otherwise condition with IN() will be added
      *
-     * @param int|array $customerId
+     * @param  array|int $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)
@@ -198,6 +176,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
             $this->getSelect()->where('relation.customer_id ' . $condition);
             return $this;
         }
+
         $this->getSelect()->where('relation.customer_id IN(?)', $customerId);
         $this->_customerFilterId = $customerId;
         return $this;
@@ -206,7 +185,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Set tag filter
      *
-     * @param int $tagId
+     * @param  int   $tagId
      * @return $this
      */
     public function addTagFilter($tagId)
@@ -219,7 +198,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Add tag status filter
      *
-     * @param int $status
+     * @param  int   $status
      * @return $this
      */
     public function addStatusFilter($status)
@@ -231,7 +210,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Set DESC order to collection
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function setDescOrder($dir = 'DESC')
@@ -243,8 +222,8 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Add Popularity
      *
-     * @param int $tagId
-     * @param int $storeId
+     * @param  int   $tagId
+     * @param  int   $storeId
      * @return $this
      */
     public function addPopularity($tagId, $storeId = null)
@@ -252,17 +231,18 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         $tagRelationTable = $this->getTable('tag/relation');
 
         $condition = [
-            'prelation.product_id=e.entity_id'
+            'prelation.product_id=e.entity_id',
         ];
 
         if (!is_null($storeId)) {
             $condition[] = $this->getConnection()->quoteInto('prelation.store_id = ?', $storeId);
         }
+
         $condition = implode(' AND ', $condition);
         $innerSelect = $this->getConnection()->select()
             ->from(
                 ['relation' => $tagRelationTable],
-                ['product_id', 'store_id', 'popularity' => 'COUNT(DISTINCT relation.tag_relation_id)']
+                ['product_id', 'store_id', 'popularity' => 'COUNT(DISTINCT relation.tag_relation_id)'],
             )
             ->where('relation.tag_id = ?', $tagId)
             ->group(['product_id', 'store_id']);
@@ -271,7 +251,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
             ->joinLeft(
                 ['prelation' => $innerSelect],
                 $condition,
-                ['popularity' => 'prelation.popularity']
+                ['popularity' => 'prelation.popularity'],
             );
 
         $this->_tagIdFilter = $tagId;
@@ -282,7 +262,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     /**
      * Add Popularity Filter
      *
-     * @param mixed $condition
+     * @param  mixed $condition
      * @return $this
      */
     public function addPopularityFilter($condition)
@@ -301,7 +281,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
             $prodIds[] = $item['product_id'];
         }
 
-        if (count($prodIds)) {
+        if ($prodIds !== []) {
             $this->getSelect()->where('e.entity_id IN(?)', $prodIds);
         } else {
             $this->getSelect()->where('e.entity_id IN(0)');
@@ -322,13 +302,14 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         if ($this->getFlag('prelation')) {
             $this->getSelect()->where('prelation.active = ?', $active);
         }
+
         return $this;
     }
 
     /**
      * Add Product Tags
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addProductTags($storeId = null)
@@ -381,9 +362,9 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
                     'store_id'   => $this->getConnection()->getCheckSql(
                         't.first_store_id = 0',
                         'relation.store_id',
-                        't.first_store_id'
-                    )
-                ]
+                        't.first_store_id',
+                    ),
+                ],
             );
 
         return $this;
@@ -394,6 +375,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -404,7 +386,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
 
         if (count($this) > 0) {
             Mage::dispatchEvent('tag_tag_product_collection_load_after', [
-                'collection' => $this
+                'collection' => $this,
             ]);
         }
 
@@ -416,6 +398,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();
@@ -426,11 +409,8 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $countSelect->reset(Zend_Db_Select::GROUP);
 
-        if ($this->getFlag('group_tag')) {
-            $field = 'relation.tag_id';
-        } else {
-            $field = 'e.entity_id';
-        }
+        $field = $this->getFlag('group_tag') ? 'relation.tag_id' : 'e.entity_id';
+
         $expr = new Zend_Db_Expr('COUNT('
             . ($this->getFlag('distinct') ? 'DISTINCT ' : '')
             . $field . ')');
@@ -445,6 +425,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      *
      * @return $this
      */
+    #[Override]
     protected function _renderOrders()
     {
         if (!$this->_isOrdersRendered) {
@@ -455,7 +436,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
 
             $appliedOrders = [];
             foreach ($orders as $order) {
-                $appliedOrders[(string)$order[0]] = true;
+                $appliedOrders[(string) $order[0]] = true;
             }
 
             foreach ($this->_orders as $field => $direction) {
@@ -464,6 +445,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
                 }
             }
         }
+
         return $this;
     }
 

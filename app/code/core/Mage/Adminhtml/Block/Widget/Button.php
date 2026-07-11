@@ -1,39 +1,44 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Button widget
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method string getAfterHtml()
+ * @method string getBeforeHtml()
+ * @method string getClass()
+ * @method bool   getDisabled()
+ * @method string getElementName()
+ * @method string getLabel()
+ * @method string getStyle()
+ * @method string getTitle()
+ * @method string getValue()
  */
 class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
 {
     public function getType()
     {
-        return ($type = $this->getData('type')) ? $type : 'button';
+        return ($type = $this->getDataByKey('type')) ? $type : 'button';
     }
 
     public function getOnClick()
     {
-        if (!$this->getData('on_click')) {
-            return $this->getData('onclick');
+        if (!$this->getDataByKey('on_click')) {
+            return $this->getDataByKey('onclick');
         }
-        return $this->getData('on_click');
+
+        return $this->getDataByKey('on_click');
     }
 
+    #[Override]
     protected function _toHtml()
     {
         return $this->getBeforeHtml() . '<button '
@@ -46,6 +51,7 @@ class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
             . ' class="scalable ' . $this->getClass() . ($this->getDisabled() ? ' disabled' : '') . '"'
             . ' onclick="' . $this->getOnClick() . '"'
             . ' style="' . $this->getStyle() . '"'
+            . ($this->getTestId() ? ' data-test="' . $this->getTestId() . '"' : '')
             . ($this->getValue() ? ' value="' . $this->getValue() . '"' : '')
             . ($this->getDisabled() ? ' disabled="disabled"' : '')
             . '><span><span><span>' . $this->getLabel() . '</span></span></span></button>' . $this->getAfterHtml();

@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Dataflow
  */
 class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_Convert_Adapter_Abstract
@@ -29,10 +22,12 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
         if ($mapperCb = $this->_parseCallback($this->getVar('mapper'), 'mapRow')) {
             $callbacks[] = $mapperCb;
         }
+
         if ($adapterCb = $this->_parseCallback($this->getVar('adapter'), 'saveRow')) {
             $callbacks[] = $adapterCb;
         }
-        $callbacks[] = [$this, 'updateProgress'];
+
+        $callbacks[] = $this->updateProgress(...);
 
         echo $this->_getProgressBarHtml($sessionId, $total['cnt']);
 
@@ -61,7 +56,7 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
 <script type="text/javascript">
 function updateProgress(sessionId, idx, time, memory) {
     var total_rows = ' . $totalRows . ';
-    var elapsed_time = time-' . time() . ';
+    var elapsed_time = time-' . Mage::helper('core/clock')->getTimestamp() . ';
     var total_time = Math.round(elapsed_time*total_rows/idx);
     var eta = total_time-elapsed_time;
     var eta_str = "";
@@ -75,13 +70,13 @@ function updateProgress(sessionId, idx, time, memory) {
     } else {
         if (eta_hours) {
             eta_str += eta_hours+" "+(eta_hours>1 ? \''
-            . Mage::helper('core')->jsQuoteEscape($this->__('hours')) . '\' : \''
+            . Mage::helper('core')->jsQuoteEscape($this->__('hours')) . "' : '"
             . Mage::helper('core')->jsQuoteEscape($this->__('hour')) . '\'");
         }
         if (eta_minutes) {
             eta_str += eta_minutes+" "+(eta_minutes>1 ? \''
             . Mage::helper('core')->jsQuoteEscape($this->__('minutes'))
-            . '\' : \'' . Mage::helper('core')->jsQuoteEscape($this->__('minute')) . '\');
+            . "' : '" . Mage::helper('core')->jsQuoteEscape($this->__('minute')) . '\');
         }
     }
 
@@ -93,11 +88,14 @@ function updateProgress(sessionId, idx, time, memory) {
 </script>';
     }
 
+    /**
+     * @return array<void>
+     */
     public function updateProgress($args)
     {
-        $memory = !empty($args['memory']) ? $args['memory'] : '';
+        $memory = empty($args['memory']) ? '' : $args['memory'];
         echo '<script type="text/javascript">updateProgress("'
-            . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . time() . '", "' . $memory . '");</script>';
+            . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . Mage::helper('core/clock')->getTimestamp() . '", "' . $memory . '");</script>';
         echo '<li>' . $memory . '</li>';
 
         return [];
@@ -108,12 +106,15 @@ function updateProgress(sessionId, idx, time, memory) {
         if (!preg_match('#^([a-z0-9_/]+)(::([a-z0-9_]+))?$#i', $callback, $match)) {
             return false;
         }
+
         if (!($model = Mage::getModel($match[1]))) {
             return false;
         }
+
         if (!($method = $match[3] ? $match[3] : $defaultMethod)) {
             return false;
         }
+
         return [$model, $method];
     }
 }

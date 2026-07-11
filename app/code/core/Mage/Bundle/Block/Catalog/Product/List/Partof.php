@@ -1,29 +1,25 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product related items block
  *
- * @category   Mage
  * @package    Mage_Bundle
  */
 class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_Product_Abstract
 {
     protected $_columnCount = 4;
+
     protected $_items;
+
     protected $_itemCollection;
+
     protected $_product = null;
 
     /**
@@ -36,19 +32,17 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
             ->addAttributeToSort('position', 'asc')
             ->addStoreFilter()
             ->addAttributeToFilter('status', [
-                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
             ])
-            ->addMinimalPrice()
+            ->addPriceData()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->joinTable('bundle/option', 'parent_id=entity_id', ['option_id' => 'option_id'])
             ->joinTable('bundle/selection', 'option_id=option_id', ['product_id' => 'product_id'], '{{table}}.product_id=' . $this->getProduct()->getId());
 
-        $ids = Mage::getSingleton('checkout/cart')->getProductIds();
-
-        if (count($ids)) {
-            $collection->addIdFilter(Mage::getSingleton('checkout/cart')->getProductIds(), true);
+        if ($ids = Mage::getSingleton('checkout/cart')->getProductIds()) {
+            $collection->addIdFilter($ids, true);
         }
 
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
         $collection->getSelect()->group('entity_id');
 
         $collection->load();
@@ -58,8 +52,9 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
     }
 
     /**
-     * @return Mage_Catalog_Block_Product_Abstract
+     * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->_prepareData();
@@ -82,6 +77,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         if (is_null($this->_items)) {
             $this->_items = $this->getItemCollection()->getItems();
         }
+
         return $this->_items;
     }
 
@@ -94,7 +90,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
     }
 
     /**
-     * @param array $columns
+     * @param  array $columns
      * @return $this
      */
     public function setColumnCount($columns)
@@ -102,12 +98,14 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         if ((int) $columns > 0) {
             $this->_columnCount = (int) $columns;
         }
+
         return $this;
     }
 
     /**
      * @return int
      */
+    #[Override]
     public function getColumnCount()
     {
         return $this->_columnCount;
@@ -134,11 +132,13 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
      *
      * @return Mage_Catalog_Model_Product
      */
+    #[Override]
     public function getProduct()
     {
         if (!$this->_product) {
             $this->_product = Mage::registry('product');
         }
+
         return $this->_product;
     }
 }

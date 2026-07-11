@@ -1,36 +1,35 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Directory country format model
  *
- * @category   Mage
  * @package    Mage_Directory
  *
- * @method Mage_Directory_Model_Resource_Country_Format _getResource()
- * @method Mage_Directory_Model_Resource_Country_Format getResource()
+ * @method Mage_Directory_Model_Resource_Country_Format            _getResource()
  * @method Mage_Directory_Model_Resource_Country_Format_Collection getCollection()
- * @method string getCountryId()
- * @method $this setCountryId(string $value)
- * @method string getType()
- * @method $this setType(string $value)
- * @method string getFormat()
- * @method $this setFormat(string $value)
+ * @method string                                                  getCountryId()
+ * @method string                                                  getFormat()
+ * @method Mage_Directory_Model_Resource_Country_Format            getResource()
+ * @method Mage_Directory_Model_Resource_Country_Format_Collection getResourceCollection()
+ * @method string                                                  getType()
+ * @method $this                                                   setCountryId(string $value)
+ * @method $this                                                   setFormat(string $value)
+ * @method $this                                                   setType(string $value)
  */
 class Mage_Directory_Model_Country_Format extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('directory/country_format');

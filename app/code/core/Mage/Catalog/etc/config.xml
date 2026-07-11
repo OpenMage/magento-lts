@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -216,7 +209,6 @@
             </catalog>
             <catalog_resource>
                 <class>Mage_Catalog_Model_Resource</class>
-                <deprecatedNode>catalog_resource_eav_mysql4</deprecatedNode>
                 <entities>
                     <product>
                         <table>catalog_product_entity</table>
@@ -711,6 +703,20 @@
                     </catalog>
                 </observers>
             </sales_convert_quote_item_to_order_item>
+            <controller_action_predispatch_catalogsearch_advanced_index>
+                <observers>
+                    <disable_advanced_search>
+                        <class>catalog/observer_disableAdvancedSearch</class>
+                    </disable_advanced_search>
+                </observers>
+            </controller_action_predispatch_catalogsearch_advanced_index>
+            <controller_action_predispatch_catalogsearch_advanced_result>
+                <observers>
+                    <disable_advanced_search>
+                        <class>catalog/observer_disableAdvancedSearch</class>
+                    </disable_advanced_search>
+                </observers>
+            </controller_action_predispatch_catalogsearch_advanced_result>
         </events>
         <translate>
             <modules>
@@ -794,10 +800,14 @@
             <product>
                 <default_tax_group>2</default_tax_group>
             </product>
+            <price>
+                <rounding_precision>2</rounding_precision>
+            </price>
             <product_image>
                 <base_width>1800</base_width>
                 <small_width>210</small_width>
                 <max_dimension>5000</max_dimension>
+                <images_on_duplicate_action>-1</images_on_duplicate_action>
             </product_image>
             <seo>
                 <product_url_suffix>.html</product_url_suffix>
@@ -811,7 +821,7 @@
             <custom_options>
                 <date_fields_order>m,d,y</date_fields_order>
                 <time_format>12h</time_format>
-                <forbidden_extensions>php,exe</forbidden_extensions>
+                <forbidden_extensions>exe</forbidden_extensions>
             </custom_options>
             <layered_navigation>
                 <price_range_calculation>auto</price_range_calculation>
@@ -821,6 +831,9 @@
                 <interval_division_limit>9</interval_division_limit>
                 <display_product_count>1</display_product_count>
             </layered_navigation>
+            <search>
+                <enable_advanced_search>1</enable_advanced_search>
+            </search>
         </catalog>
         <system>
             <media_storage_configuration>

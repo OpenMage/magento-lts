@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog composite product configuration controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController extends Mage_Adminhtml_Controller_Action
@@ -28,16 +21,16 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
     public const ADMIN_RESOURCE = 'customer/manage';
 
     /**
-    * Wishlist we're working with
-    *
-    * @var Mage_Wishlist_Model_Wishlist
-    */
+     * Wishlist we're working with
+     *
+     * @var Mage_Wishlist_Model_Wishlist
+     */
     protected $_wishlist = null;
 
     /**
      * Wishlist item we're working with
      *
-     * @var Mage_Wishlist_Model_Wishlist
+     * @var Mage_Wishlist_Model_Item
      */
     protected $_wishlistItem = null;
 
@@ -86,9 +79,9 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
             $configureResult->setCurrentCustomerId($this->_wishlist->getCustomerId());
 
             $configureResult->setOk(true);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $configureResult->setError(true);
-            $configureResult->setMessage($e->getMessage());
+            $configureResult->setMessage($exception->getMessage());
         }
 
         /** @var Mage_Adminhtml_Helper_Catalog_Product_Composite $helper */
@@ -118,10 +111,11 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
                 ->save();
 
             $updateResult->setOk(true);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $updateResult->setError(true);
-            $updateResult->setMessage($e->getMessage());
+            $updateResult->setMessage($exception->getMessage());
         }
+
         $updateResult->setJsVarName($this->getRequest()->getParam('as_js_varname'));
         Mage::getSingleton('adminhtml/session')->setCompositeProductResult($updateResult);
         $this->_redirect('*/catalog_product/showUpdateResult');

@@ -1,30 +1,25 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Eav
  */
 abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
     protected $_storesById;
+
     protected $_attributeSetsById;
+
     protected $_attributeSetsByName;
 
     /**
-     * @param array $stores
+     * @param  string      $stores
      * @return array|false
      */
     public function getStoreIds($stores)
@@ -41,25 +36,27 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
                     if (!$storeNode) {
                         return false;
                     }
-                    $storeIds[] = (int)$storeNode->system->store->id;
+
+                    $storeIds[] = (int) $storeNode->system->store->id;
                 }
             }
         }
+
         return $storeIds;
     }
 
     /**
-     * @param int $storeId
+     * @param  int                             $storeId
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreCode($storeId)
     {
-        return Mage::app()->getStore($storeId ? $storeId : 0)->getCode();
+        return Mage::app()->getStore($storeId ?: 0)->getCode();
     }
 
     /**
-     * @param int $entityTypeId
+     * @param  int   $entityTypeId
      * @return $this
      */
     public function loadAttributeSets($entityTypeId)
@@ -70,20 +67,21 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         $this->_attributeSetsById = [];
         $this->_attributeSetsByName = [];
         /**
-         * @var int $id
+         * @var int                                 $setId
          * @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet
          */
-        foreach ($attributeSetCollection as $id => $attributeSet) {
+        foreach ($attributeSetCollection as $setId => $attributeSet) {
             $name = $attributeSet->getAttributeSetName();
-            $this->_attributeSetsById[$id] = $name;
-            $this->_attributeSetsByName[$name] = $id;
+            $this->_attributeSetsById[$setId] = $name;
+            $this->_attributeSetsByName[$name] = $setId;
         }
+
         return $this;
     }
 
     /**
-     * @param int $entityTypeId
-     * @param int $id
+     * @param  int  $entityTypeId
+     * @param  int  $id
      * @return bool
      */
     public function getAttributeSetName($entityTypeId, $id)
@@ -91,12 +89,13 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsById) {
             $this->loadAttributeSets($entityTypeId);
         }
+
         return $this->_attributeSetsById[$id] ?? false;
     }
 
     /**
-     * @param int $entityTypeId
-     * @param string $name
+     * @param  int    $entityTypeId
+     * @param  string $name
      * @return bool
      */
     public function getAttributeSetId($entityTypeId, $name)
@@ -104,21 +103,22 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsByName) {
             $this->loadAttributeSets($entityTypeId);
         }
+
         return $this->_attributeSetsByName[$name] ?? false;
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute_Source_Interface $source
-     * @param string $value
-     * @return string|null
+     * @param  string      $value
+     * @return null|string
      */
     public function getSourceOptionId(Mage_Eav_Model_Entity_Attribute_Source_Interface $source, $value)
     {
         foreach ($source->getAllOptions() as $option) {
-            if (strcasecmp($option['label'], $value) == 0) {
+            if (strcasecmp($option['label'], $value) === 0) {
                 return $option['value'];
             }
         }
+
         return null;
     }
 }

@@ -1,30 +1,23 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /** @var $this Mage_Checkout_Block_Onepage_Shipping_Method_Available */ ?>
+<?php /** @var Mage_Checkout_Block_Onepage_Shipping_Method_Available $this */ ?>
 <?php $_shippingRateGroups = $this->getShippingRates(); ?>
 <?php if (!$_shippingRateGroups): ?>
     <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
 <?php else: ?>
     <dl class="sp-methods">
     <?php $shippingCodePrice = []; ?>
-    <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
+    <?php $_sole = count($_shippingRateGroups) === 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
         <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
         <dd>
             <ul>
-            <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+            <?php $_sole = $_sole && count($_rates) === 1; foreach ($_rates as $_rate): ?>
                 <?php $shippingCodePrice[] = "'".$_rate->getCode()."':".(float)$_rate->getPrice(); ?>
                 <li>
                    <?php if ($_rate->getErrorMessage()): ?>
@@ -61,7 +54,7 @@
     </dl>
 <script type="text/javascript">
 //<![CDATA[
-    <?php if (!empty($shippingCodePrice)): ?>
+    <?php if ($shippingCodePrice !== []): ?>
         var shippingCodePrice = {<?php echo implode(',',$shippingCodePrice); ?>};
     <?php endif ?>
 
@@ -69,7 +62,7 @@
         Event.observe(el, 'click', function(){
             if (el.checked == true) {
                 var getShippingCode = el.getValue();
-                <?php if (!empty($shippingCodePrice)): ?>
+                <?php if ($shippingCodePrice !== []): ?>
                     var newPrice = shippingCodePrice[getShippingCode];
                     if (!lastPrice) {
                         lastPrice = newPrice;

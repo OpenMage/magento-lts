@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
@@ -90,6 +83,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->_query->setQueryText($this->getQueryText());
             }
         }
+
         return $this->_query;
     }
 
@@ -112,7 +106,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getQueryText()
     {
-        if (!isset($this->_queryText)) {
+        if (is_null($this->_queryText)) {
             $this->_queryText = $this->_getRequest()->getParam($this->getQueryParamName());
             if ($this->_queryText === null) {
                 $this->_queryText = '';
@@ -129,6 +123,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $this->_queryText;
     }
 
@@ -156,14 +151,14 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve result page url and set "secure" param to avoid confirm
      * message when we submit form from secure page to unsecure
      *
-     * @param   string $query
-     * @return  string
+     * @param  string $query
+     * @return string
      */
     public function getResultUrl($query = null)
     {
         return $this->_getUrl('catalogsearch/result', [
             '_query' => [self::QUERY_VAR_NAME => $query],
-            '_secure' => $this->_getApp()->getFrontController()->getRequest()->isSecure()
+            '_secure' => $this->_getApp()->getFrontController()->getRequest()->isSecure(),
         ]);
     }
 
@@ -175,7 +170,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     public function getSuggestUrl()
     {
         return $this->_getUrl('catalogsearch/ajax/suggest', [
-            '_secure' => $this->_getApp()->getStore()->isCurrentlySecure()
+            '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
         ]);
     }
 
@@ -212,7 +207,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve minimum query length
      *
-     * @param mixed $store
+     * @param  mixed      $store
      * @return int|string
      */
     public function getMinQueryLength($store = null)
@@ -223,7 +218,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve maximum query length
      *
-     * @param mixed $store
+     * @param  mixed      $store
      * @return int|string
      */
     public function getMaxQueryLength($store = null)
@@ -234,7 +229,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve maximum query words count for like search
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return int
      */
     public function getMaxQueryWords($store = null)
@@ -245,7 +240,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Add Note message
      *
-     * @param string $message
+     * @param  string $message
      * @return $this
      */
     public function addNoteMessage($message)
@@ -257,7 +252,6 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Set Note messages
      *
-     * @param array $messages
      * @return $this
      */
     public function setNoteMessages(array $messages)
@@ -297,9 +291,9 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             $wordsFull = $stringHelper->splitWords($this->getQueryText(), true);
             $wordsLike = $stringHelper->splitWords($this->getQueryText(), true, $this->getMaxQueryWords());
             if (count($wordsFull) > count($wordsLike)) {
-                $wordsCut = array_map([$this, 'escapeHtml'], array_diff($wordsFull, $wordsLike));
+                $wordsCut = array_map($this->escapeHtml(...), array_diff($wordsFull, $wordsLike));
                 $this->addNoteMessage(
-                    $this->__('Maximum words count is %1$s. In your search query was cut next part: %2$s.', $this->getMaxQueryWords(), implode(' ', $wordsCut))
+                    $this->__('Maximum words count is %1$s. In your search query was cut next part: %2$s.', $this->getMaxQueryWords(), implode(' ', $wordsCut)),
                 );
             }
         }
@@ -309,8 +303,8 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Join index array to string by separator
      * Support 2 level array gluing
      *
-     * @param array $index
-     * @param string $separator
+     * @param  array  $index
+     * @param  string $separator
      * @return string
      */
     public function prepareIndexdata($index, $separator = ' ')
@@ -323,6 +317,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 $_index = array_merge($_index, $value);
             }
         }
+
         return implode($separator, $_index);
     }
 
@@ -347,6 +342,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                     $this->_engine = $model;
                 }
             }
+
             if (!$this->_engine) {
                 $this->_engine = Mage::getResourceSingleton('catalogsearch/fulltext_engine');
             }

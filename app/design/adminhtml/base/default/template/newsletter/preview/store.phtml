@@ -1,0 +1,44 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Store_Switcher $this */
+?>
+
+<?php if ($websites = $this->getWebsites()): ?>
+<label for="store_switcher"><?php echo $this->__('Choose Store View:') ?></label>
+<select name="store_switcher" id="store_switcher">
+    <?php foreach ($websites as $website): ?>
+        <?php $showWebsite=false; ?>
+        <?php foreach ($website->getGroups() as $group): ?>
+            <?php $showGroup=false; ?>
+            <?php foreach ($this->getStores($group) as $store): ?>
+                <?php if ($showWebsite === false): ?>
+                    <?php $showWebsite = true; ?>
+                    <optgroup label="<?php echo $this->escapeHtml($website->getName()); ?>"></optgroup>
+                <?php endif ?>
+                <?php if ($showGroup === false): ?>
+                    <?php $showGroup = true; ?>
+                    <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($group->getName()); ?>">
+                <?php endif ?>
+                <option value="<?php echo $store->getId() ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($store->getName()); ?></option>
+            <?php endforeach ?>
+            <?php if ($showGroup): ?>
+                </optgroup>
+            <?php endif ?>
+        <?php endforeach ?>
+    <?php endforeach ?>
+</select>
+<script type="text/javascript">
+//<![CDATA[
+Event.observe($('store_switcher'), 'change', function(event) {
+    var element = Event.element(event);
+    $('preview_store_id').value = element.value;
+});
+//]]>
+</script>
+<?php endif ?>

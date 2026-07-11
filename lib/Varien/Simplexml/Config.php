@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Simplexml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Base class for simplexml based configurations
  *
- * @category   Varien
  * @package    Varien_Simplexml
  */
 class Varien_Simplexml_Config
@@ -24,7 +17,7 @@ class Varien_Simplexml_Config
     /**
      * Configuration xml
      *
-     * @var Varien_Simplexml_Element|SimpleXMLElement
+     * @var SimpleXMLElement|Varien_Simplexml_Element
      */
     protected $_xml = null;
 
@@ -44,12 +37,12 @@ class Varien_Simplexml_Config
     protected $_cacheLifetime = null;
 
     /**
-     * @var string|false|null
+     * @var null|false|string
      */
     protected $_cacheChecksum = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $_cacheSaved = false;
 
@@ -72,24 +65,25 @@ class Varien_Simplexml_Config
      *
      * @example <allResources extends="/config/modules//resource"/>
      */
-    protected $_xpathExtends = "//*[@extends]";
+    protected $_xpathExtends = '//*[@extends]';
 
     /**
      * Constructor
      *
      * Initializes XML for this configuration
      *
-     * @see self::setXml
      * @param string|Varien_Simplexml_Element $sourceData
+     * @see self::setXml
      */
     public function __construct($sourceData = null)
     {
         if (is_null($sourceData)) {
             return;
         }
+
         if ($sourceData instanceof Varien_Simplexml_Element) {
             $this->setXml($sourceData);
-        } elseif (is_string($sourceData) && !empty($sourceData)) {
+        } elseif (is_string($sourceData) && $sourceData !== '') {
             if (strlen($sourceData) < 1000 && is_readable($sourceData)) {
                 $this->loadFile($sourceData);
             } else {
@@ -101,7 +95,6 @@ class Varien_Simplexml_Config
     /**
      * Sets xml for this configuration
      *
-     * @param Varien_Simplexml_Element $node
      * @return $this
      */
     public function setXml(Varien_Simplexml_Element $node)
@@ -113,28 +106,30 @@ class Varien_Simplexml_Config
     /**
      * Returns node found by the $path
      *
+     * @param  string                         $path
+     * @return false|Varien_Simplexml_Element
      * @see     Varien_Simplexml_Element::descend
-     * @param   string $path
-     * @return  Varien_Simplexml_Element|false
      */
     public function getNode($path = null)
     {
         if (!$this->_xml instanceof Varien_Simplexml_Element) {
             return false;
-        } elseif ($path === null) {
-            return $this->_xml;
-        } else {
-            return $this->_xml->descend($path);
         }
+
+        if ($path === null) {
+            return $this->_xml;
+        }
+
+        return $this->_xml->descend($path);
     }
 
     /**
      * Returns nodes found by xpath expression
      *
-     * @param string $xpath
-     * @return Varien_Simplexml_Element[]|false
+     * @param  string                           $xpath
+     * @return false|Varien_Simplexml_Element[]
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getXpath($xpath)
     {
@@ -150,7 +145,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param Varien_Simplexml_Config_Cache_Abstract $cache
+     * @param  Varien_Simplexml_Config_Cache_Abstract $cache
      * @return $this
      */
     public function setCache($cache)
@@ -168,7 +163,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param boolean $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setCacheSaved($flag)
@@ -186,7 +181,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param string $id
+     * @param  string $id
      * @return $this
      */
     public function setCacheId($id)
@@ -204,7 +199,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param array $tags
+     * @param  array $tags
      * @return $this
      */
     public function setCacheTags($tags)
@@ -222,7 +217,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param int $lifetime
+     * @param  int   $lifetime
      * @return $this
      */
     public function setCacheLifetime($lifetime)
@@ -240,7 +235,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param string|null $data
+     * @param  null|string $data
      * @return $this
      */
     public function setCacheChecksum($data)
@@ -252,11 +247,12 @@ class Varien_Simplexml_Config
         } else {
             $this->_cacheChecksum = md5($data);
         }
+
         return $this;
     }
 
     /**
-     * @param string|false $data
+     * @param  false|string $data
      * @return $this
      */
     public function updateCacheChecksum($data)
@@ -264,16 +260,18 @@ class Varien_Simplexml_Config
         if (false === $this->getCacheChecksum()) {
             return $this;
         }
+
         if (false === $data || 0 === $data) {
             $this->_cacheChecksum = false;
         } else {
             $this->setCacheChecksum($this->getCacheChecksum() . ':' . $data);
         }
+
         return $this;
     }
 
     /**
-     * @return string|false|null
+     * @return null|false|string
      */
     public function getCacheChecksum()
     {
@@ -305,9 +303,11 @@ class Varien_Simplexml_Config
         if (false === $newChecksum) {
             return false;
         }
+
         if (is_null($newChecksum)) {
             return true;
         }
+
         $cachedChecksum = $this->getCache()->load($this->getCacheChecksumId());
         return $newChecksum === false && $cachedChecksum === false || $newChecksum === $cachedChecksum;
     }
@@ -335,7 +335,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param array $tags
+     * @param  array $tags
      * @return $this
      */
     public function saveCache($tags = null)
@@ -343,6 +343,7 @@ class Varien_Simplexml_Config
         if ($this->getCacheSaved()) {
             return $this;
         }
+
         if (false === $this->getCacheChecksum()) {
             return $this;
         }
@@ -384,7 +385,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param string $id
+     * @param  string $id
      * @return bool
      */
     protected function _loadCache($id)
@@ -393,10 +394,10 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param string $data
-     * @param string $id
-     * @param array $tags
-     * @param int|boolean $lifetime
+     * @param  string   $data
+     * @param  string   $id
+     * @param  array    $tags
+     * @param  bool|int $lifetime
      * @return bool
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
@@ -406,7 +407,7 @@ class Varien_Simplexml_Config
 
     /**
      * @todo check this, as there are no caches that implement remove() method
-     * @param string $id
+     * @param  string $id
      * @return mixed
      */
     protected function _removeCache($id)
@@ -417,7 +418,7 @@ class Varien_Simplexml_Config
     /**
      * Imports XML file
      *
-     * @param string $filePath
+     * @param  string $filePath
      * @return bool
      */
     public function loadFile($filePath)
@@ -429,11 +430,13 @@ class Varien_Simplexml_Config
 
         $fileData = file_get_contents($filePath);
         $fileData = $this->processFileData($fileData);
+
         $success = $this->loadString($fileData, $this->_elementClass);
 
         if ($success === false) {
             Mage::throwException('Cannot parse XML file at ' . $filePath);
         }
+
         return $success;
     }
 
@@ -455,20 +458,21 @@ class Varien_Simplexml_Config
         } else {
             Mage::logException(new InvalidArgumentException('"$string" parameter for simplexml_load_string is not a string'));
         }
+
         return false;
     }
 
     /**
      * Imports DOM node
      *
-     * @param DOMNode $dom
+     * @param  DOMNode $dom
      * @return bool
      */
     public function loadDom($dom)
     {
         $xml = simplexml_import_dom($dom, $this->_elementClass);
 
-        if ($xml) {
+        if ($xml instanceof SimpleXMLElement) {
             $this->_xml = $xml;
             return true;
         }
@@ -479,14 +483,14 @@ class Varien_Simplexml_Config
     /**
      * Create node by $path and set its value.
      *
-     * @param string $path separated by slashes
-     * @param string $value
-     * @param boolean $overwrite
+     * @param  string $path      separated by slashes
+     * @param  string $value
+     * @param  bool   $overwrite
      * @return $this
      */
     public function setNode($path, $value, $overwrite = true)
     {
-        $xml = $this->_xml->setNode($path, $value, $overwrite);
+        $this->_xml->setNode($path, $value, $overwrite);
         return $this;
     }
 
@@ -503,20 +507,21 @@ class Varien_Simplexml_Config
         }
 
         foreach ($targets as $target) {
-            $sources = $this->getXpath((string)$target['extends']);
+            $sources = $this->getXpath((string) $target['extends']);
             if ($sources) {
                 foreach ($sources as $source) {
                     $target->extend($source);
                 }
             }
         }
+
         return $this;
     }
 
     /**
      * Stub method for processing file data right after loading the file text
      *
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     public function processFileData($text)
@@ -525,8 +530,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param Varien_Simplexml_Config $config
-     * @param boolean $overwrite
+     * @param  bool  $overwrite
      * @return $this
      */
     public function extend(Varien_Simplexml_Config $config, $overwrite = true)

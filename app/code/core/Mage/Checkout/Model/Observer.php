@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Checkout observer model
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Model_Observer
@@ -30,19 +23,16 @@ class Mage_Checkout_Model_Observer
     {
         try {
             Mage::getSingleton('checkout/session')->loadCustomerQuote();
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('checkout/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             Mage::getSingleton('checkout/session')->addException(
-                $e,
-                Mage::helper('checkout')->__('Load customer quote error')
+                $exception,
+                Mage::helper('checkout')->__('Load customer quote error'),
             );
         }
     }
 
-    /**
-     * @param Varien_Event_Observer $observer
-     */
     public function salesQuoteSaveAfter(Varien_Event_Observer $observer)
     {
         $quote = $observer->getEvent()->getQuote();

@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Factory
@@ -35,19 +28,17 @@ class Mage_Core_Model_Factory
 
     /**
      * Initialize factory
-     *
-     * @param array $arguments
      */
     public function __construct(array $arguments = [])
     {
-        $this->_config = !empty($arguments['config']) ? $arguments['config'] : Mage::getConfig();
+        $this->_config = empty($arguments['config']) ? Mage::getConfig() : $arguments['config'];
     }
 
     /**
      * Retrieve model object
      *
-     * @param string $modelClass
-     * @param array|object $arguments
+     * @param  string                        $modelClass
+     * @param  array|object                  $arguments
      * @return bool|Mage_Core_Model_Abstract
      */
     public function getModel($modelClass = '', $arguments = [])
@@ -58,8 +49,7 @@ class Mage_Core_Model_Factory
     /**
      * Retrieve model object singleton
      *
-     * @param string $modelClass
-     * @param array $arguments
+     * @param  string                   $modelClass
      * @return Mage_Core_Model_Abstract
      */
     public function getSingleton($modelClass = '', array $arguments = [])
@@ -70,8 +60,8 @@ class Mage_Core_Model_Factory
     /**
      * Retrieve object of resource model
      *
-     * @param string $modelClass
-     * @param array $arguments
+     * @param  string $modelClass
+     * @param  array  $arguments
      * @return Object
      */
     public function getResourceModel($modelClass, $arguments = [])
@@ -82,7 +72,7 @@ class Mage_Core_Model_Factory
     /**
      * Retrieve helper instance
      *
-     * @param string $helperClass
+     * @param  string                    $helperClass
      * @return Mage_Core_Helper_Abstract
      */
     public function getHelper($helperClass)
@@ -107,7 +97,9 @@ class Mage_Core_Model_Factory
      */
     public function getUrlRewriteInstance()
     {
-        return $this->getModel($this->getUrlRewriteClassAlias());
+        /** @var Mage_Core_Model_Url_Rewrite $model */
+        $model = $this->getModel($this->getUrlRewriteClassAlias());
+        return $model;
     }
 
     /**
@@ -117,7 +109,7 @@ class Mage_Core_Model_Factory
      */
     public function getUrlRewriteClassAlias()
     {
-        return (string)$this->_config->getNode(self::XML_PATH_URL_REWRITE_MODEL);
+        return (string) $this->_config->getNode(self::XML_PATH_URL_REWRITE_MODEL);
     }
 
     /**
@@ -125,6 +117,6 @@ class Mage_Core_Model_Factory
      */
     public function getIndexClassAlias()
     {
-        return (string)$this->_config->getNode(self::XML_PATH_INDEX_INDEX_MODEL);
+        return (string) $this->_config->getNode(self::XML_PATH_INDEX_INDEX_MODEL);
     }
 }

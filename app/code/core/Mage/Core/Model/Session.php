@@ -1,36 +1,28 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core session model
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method null|bool getCookieShouldBeReceived()
- * @method $this setCookieShouldBeReceived(bool $value)
- * @method $this unsCookieShouldBeReceived()
- * @method $this unsSessionHosts()
- * @method string getCurrencyCode()
- * @method $this setCurrencyCode(string $value)
- * @method $this setFormData(array $value)
- * @method int getJustVotedPoll()
- * @method array getOrderIds()
- * @method $this setOrderIds(array $value)
- * @method $this setJustVotedPoll(int $value)
- * @method $this setLastUrl(string $value)
+ * @method string    getCurrencyCode()
+ * @method int       getJustVotedPoll()
+ * @method $this     setCookieShouldBeReceived(bool $value)
+ * @method $this     setCurrencyCode(string $value)
+ * @method $this     setFormData(array $value)
+ * @method $this     setJustVotedPoll(int $value)
+ * @method $this     setLastUrl(string $value)
+ * @method $this     setOrderIds(array $value)
+ * @method $this     unsCookieShouldBeReceived()
+ * @method $this     unsSessionHosts()
  */
 class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -50,10 +42,11 @@ class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getFormKey()
     {
-        if (!$this->getData('_form_key')) {
+        if (!$this->getDataByKey('_form_key')) {
             $this->renewFormKey();
         }
-        return $this->getData('_form_key');
+
+        return $this->getDataByKey('_form_key');
     }
 
     /**
@@ -67,11 +60,16 @@ class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Validates Form key
      *
-     * @param string|null $formKey
+     * @param  null|string $formKey
      * @return bool
      */
     public function validateFormKey($formKey)
     {
         return ($formKey === $this->getFormKey());
+    }
+
+    public function getOrderIds(bool $clear = false): array
+    {
+        return $this->getData('order_ids', $clear) ?? [];
     }
 }

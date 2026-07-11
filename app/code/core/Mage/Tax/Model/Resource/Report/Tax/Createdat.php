@@ -1,26 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax report resource model with aggregation by created at
  *
- * @category   Mage
  * @package    Mage_Tax
  */
 class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Resource_Report_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/tax_order_aggregated_created', 'id');
@@ -29,56 +25,56 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
     /**
      * Aggregate Tax data by order created at
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
-        return $this->_aggregateByOrder('created_at', $from, $to);
+        return $this->_aggregateByOrder('created_at', $dateFrom, $dateTo);
     }
 
     /**
      * Aggregate Tax data by orders
      *
-     * @throws Exception
-     * @param string $aggregationField
-     * @param mixed $from
-     * @param mixed $to
+     * @param  string      $aggregationField
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
+     * @throws Exception
      */
-    protected function _aggregateByOrder($aggregationField, $from, $to)
+    protected function _aggregateByOrder($aggregationField, $dateFrom, $dateTo)
     {
         // convert input dates to UTC to be comparable with DATETIME fields in DB
-        $from = $this->_dateToUtc($from);
-        $to = $this->_dateToUtc($to);
+        $dateFrom = $this->_dateToUtc($dateFrom);
+        $dateTo = $this->_dateToUtc($dateTo);
 
-        $this->_checkDates($from, $to);
+        $this->_checkDates($dateFrom, $dateTo);
         $writeAdapter = $this->_getWriteAdapter();
         $writeAdapter->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
+            if ($dateFrom !== null || $dateTo !== null) {
                 $subSelect = $this->_getTableDateRangeSelect(
                     $this->getTable('sales/order'),
                     'created_at',
                     'updated_at',
-                    $from,
-                    $to
+                    $dateFrom,
+                    $dateTo,
                 );
             } else {
                 $subSelect = null;
             }
 
-            $this->_clearTableByDateRange($this->getMainTable(), $from, $to, $subSelect);
+            $this->_clearTableByDateRange($this->getMainTable(), $dateFrom, $dateTo, $subSelect);
             // convert dates from UTC to current admin timezone
             $periodExpr = $writeAdapter->getDatePartSql(
                 $this->getStoreTZOffsetQuery(
                     ['e' => $this->getTable('sales/order')],
                     'e.' . $aggregationField,
-                    $from,
-                    $to
-                )
+                    $dateFrom,
+                    $dateTo,
+                ),
             );
 
             $columns = [
@@ -88,7 +84,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                 'order_status'          => 'e.status',
                 'percent'               => 'MAX(tax.' . $writeAdapter->quoteIdentifier('percent') . ')',
                 'orders_count'          => 'COUNT(DISTINCT e.entity_id)',
-                'tax_base_amount_sum'   => 'SUM(tax.base_amount * e.base_to_global_rate)'
+                'tax_base_amount_sum'   => 'SUM(tax.base_amount * e.base_to_global_rate)',
             ];
 
             $select = $writeAdapter->select();
@@ -98,7 +94,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
 
             $select->where('e.state NOT IN (?)', [
                 Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
-                Mage_Sales_Model_Order::STATE_NEW
+                Mage_Sales_Model_Order::STATE_NEW,
             ]);
 
             if ($subSelect !== null) {
@@ -114,12 +110,12 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
 
             $columns = [
                 'period'                => 'period',
-                'store_id'              => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
+                'store_id'              => new Zend_Db_Expr((string) Mage_Core_Model_App::ADMIN_STORE_ID),
                 'code'                  => 'code',
                 'order_status'          => 'order_status',
                 'percent'               => 'MAX(' . $writeAdapter->quoteIdentifier('percent') . ')',
                 'orders_count'          => 'SUM(orders_count)',
-                'tax_base_amount_sum'   => 'SUM(tax_base_amount_sum)'
+                'tax_base_amount_sum'   => 'SUM(tax_base_amount_sum)',
             ];
 
             $select
@@ -134,9 +130,9 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
             $insertQuery = $writeAdapter->insertFromSelect($select, $this->getMainTable(), array_keys($columns));
             $writeAdapter->query($insertQuery);
             $writeAdapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $writeAdapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

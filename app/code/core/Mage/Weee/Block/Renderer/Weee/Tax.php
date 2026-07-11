@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml weee tax item renderer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget implements Varien_Data_Form_Element_Renderer_Interface
@@ -31,14 +24,14 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     /**
      * List of countries
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_countries = null;
 
     /**
      * List of websites
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_websites = null;
 
@@ -63,8 +56,6 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     /**
      * Renders html of block
      *
-     * @param Varien_Data_Form_Element_Abstract $element
-     *
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -76,8 +67,6 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
 
     /**
      * Sets internal reference to element
-     *
-     * @param Varien_Data_Form_Element_Abstract $element
      *
      * @return $this
      */
@@ -100,7 +89,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     /**
      * Retrieves list of values
      *
-     * @return array
+     * @return array<string, mixed>|array<void>
      */
     public function getValues()
     {
@@ -108,9 +97,10 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
         $data = $this->getElement()->getValue();
 
         if (is_array($data) && count($data)) {
-            usort($data, [$this, '_sortWeeeTaxes']);
+            usort($data, $this->_sortWeeeTaxes(...));
             $values = $data;
         }
+
         return $values;
     }
 
@@ -127,9 +117,11 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
         if ($a['website_id'] != $b['website_id']) {
             return $a['website_id'] < $b['website_id'] ? -1 : 1;
         }
+
         if ($a['country'] != $b['country']) {
             return $a['country'] < $b['country'] ? -1 : 1;
         }
+
         return 0;
     }
 
@@ -178,10 +170,11 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
         if (!is_null($this->_websites)) {
             return $this->_websites;
         }
+
         $websites = [];
         $websites[0] = [
             'name' => $this->__('All Websites'),
-            'currency' => Mage::app()->getBaseCurrencyCode()
+            'currency' => Mage::app()->getBaseCurrencyCode(),
         ];
 
         if (!Mage::app()->isSingleStoreMode() && !$this->getElement()->getEntityAttribute()->isScopeGlobal()) {
@@ -196,6 +189,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
                     if (!in_array($website->getId(), $this->getProduct()->getWebsiteIds())) {
                         continue;
                     }
+
                     $websites[$website->getId()] = [
                         'name' => $website->getName(),
                         'currency' => $website->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
@@ -203,6 +197,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
                 }
             }
         }
+
         $this->_websites = $websites;
         return $this->_websites;
     }
@@ -215,11 +210,11 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
         $this->setChild(
             'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(['id' => "add_tax_" . $this->getElement()->getHtmlId(),
-                'label' => Mage::helper('catalog')->__('Add Tax'),
-                'onclick' => "weeeTaxControl.addItem('" . $this->getElement()->getHtmlId() . "')",
-                'class' => 'add'
-                ])
+                ->setData(['id' => 'add_tax_' . $this->getElement()->getHtmlId(),
+                    'label' => Mage::helper('catalog')->__('Add Tax'),
+                    'onclick' => "weeeTaxControl.addItem('" . $this->getElement()->getHtmlId() . "')",
+                    'class' => 'add',
+                ]),
         );
     }
 

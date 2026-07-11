@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Radio buttons collection
  *
- * @category   Varien
  * @package    Varien_Data
  */
 class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
@@ -36,16 +29,18 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
      */
     public function getSeparator()
     {
-        $separator = $this->getData('separator');
+        $separator = $this->getDataByKey('separator');
         if (is_null($separator)) {
-            $separator = '&nbsp;';
+            return '&nbsp;';
         }
+
         return $separator;
     }
 
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $html = '';
@@ -55,13 +50,13 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
                 $html .= $this->_optionToHtml($option, $value);
             }
         }
-        $html .= $this->getAfterElementHtml();
-        return $html;
+
+        return $html . $this->getAfterElementHtml();
     }
 
     /**
-     * @param array|Varien_Object $option
-     * @param $selected
+     * @param  array|Varien_Object $option
+     * @param                      $selected
      * @return string
      */
     protected function _optionToHtml($option, $selected)
@@ -72,6 +67,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
             if ($option['value'] == $selected) {
                 $html .= ' checked="checked"';
             }
+
             $html .= ' />';
             $html .= '<label class="inline" for="' . $this->getHtmlId() . $option['value'] . '">' . $option['label'] . '</label>';
         } elseif ($option instanceof Varien_Object) {
@@ -79,10 +75,11 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
             if (in_array($option->getValue(), $selected)) {
                 $html .= ' checked="checked"';
             }
+
             $html .= ' />';
             $html .= '<label class="inline" for="' . $this->getHtmlId() . $option->getValue() . '">' . $option->getLabel() . '</label>';
         }
-        $html .= $this->getSeparator() . "\n";
-        return $html;
+
+        return $html . ($this->getSeparator() . "\n");
     }
 }

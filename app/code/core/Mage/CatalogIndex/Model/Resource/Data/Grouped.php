@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CatalogIndex Grouped Products Data Retriever Resource Model
  *
- * @category   Mage
  * @package    Mage_CatalogIndex
  */
 class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Model_Resource_Data_Abstract
@@ -24,11 +17,12 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
     /**
      * Return minimal prices for specified products
      *
-     * @param array $products
-     * @param array $priceAttributes
-     * @param int $store
+     * @param  array $products
+     * @param  array $priceAttributes
+     * @param  int   $store
      * @return array
      */
+    #[Override]
     public function getMinimalPrice($products, $priceAttributes, $store)
     {
         $result = [];
@@ -65,6 +59,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                         if ($tier['customer_group_id'] != $customerGroup && !$tier['all_groups']) {
                             continue;
                         }
+
                         if (($resultMinimal === null) || ($tier['value'] < $resultMinimal)) {
                             $resultMinimal    = $tier['value'];
                             $resultTaxClassId = $retreiver->getTaxClassId($tier['entity_id'], $store);
@@ -90,7 +85,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                 $result[] = [
                     'customer_group_id' => $customerGroup,
                     'minimal_value'     => $resultMinimal,
-                    'tax_class_id'      => $taxClassId
+                    'tax_class_id'      => $taxClassId,
                 ];
             }
         }
@@ -101,12 +96,12 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
     /**
      * Prepare select statement before 'fetchLinkInformation' function result fetch
      *
-     * @param int $store
+     * @param int    $store
      * @param string $table
      * @param string $idField
      * @param string $whereField
-     * @param int $id
-     * @param array $additionalWheres
+     * @param int    $id
+     * @param array  $additionalWheres
      */
     protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {

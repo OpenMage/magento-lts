@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Request content interpreter query adapter
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Request_Interpreter_Query implements Mage_Api2_Model_Request_Interpreter_Interface
@@ -29,8 +22,8 @@ class Mage_Api2_Model_Request_Interpreter_Query implements Mage_Api2_Model_Reque
     /**
      * Parse request body into array of params
      *
-     * @param string $body  Posted content from request
-     * @return array        Return always array
+     * @param  string                        $body Posted content from request
+     * @return array                         Return always array
      * @throws Exception|Mage_Api2_Exception
      */
     public function interpret($body)
@@ -42,7 +35,7 @@ class Mage_Api2_Model_Request_Interpreter_Query implements Mage_Api2_Model_Reque
         if (!$this->_validateQuery($body)) {
             throw new Mage_Api2_Exception(
                 'Invalid data type. Check Content-Type.',
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
 

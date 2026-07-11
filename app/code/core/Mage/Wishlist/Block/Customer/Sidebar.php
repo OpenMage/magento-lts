@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist sidebar block
  *
- * @category   Mage
  * @package    Mage_Wishlist
  */
 class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
@@ -34,9 +27,10 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
     /**
      * Add sidebar conditions to collection
      *
-     * @param Mage_Wishlist_Model_Resource_Item_Collection $collection
+     * @param  Mage_Wishlist_Model_Resource_Item_Collection $collection
      * @return $this
      */
+    #[Override]
     protected function _prepareCollection($collection)
     {
         $collection->setCurPage(1)
@@ -52,6 +46,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if ($this->getItemCount()) {
@@ -64,8 +59,8 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
     /**
      * Can Display wishlist
      *
-     * @deprecated after 1.6.2.0
      * @return bool
+     * @deprecated after 1.6.2.0
      */
     public function getCanDisplayWishlist()
     {
@@ -73,34 +68,11 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
     }
 
     /**
-     * Retrieve URL for removing item from wishlist
-     *
-     * @deprecated back compatibility alias for getItemRemoveUrl
-     * @param  Mage_Wishlist_Model_Item $item
-     * @return string
-     */
-    public function getRemoveItemUrl($item)
-    {
-        return $this->getItemRemoveUrl($item);
-    }
-
-    /**
-     * Retrieve URL for adding product to shopping cart and remove item from wishlist
-     *
-     * @deprecated
-     * @param  Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $product
-     * @return string
-     */
-    public function getAddToCartItemUrl($product)
-    {
-        return $this->getItemAddToCartUrl($product);
-    }
-
-    /**
      * Retrieve Wishlist Product Items collection
      *
      * @return Mage_Wishlist_Model_Resource_Item_Collection
      */
+    #[Override]
     public function getWishlistItems()
     {
         if (is_null($this->_collection)) {
@@ -127,6 +99,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
      *
      * @return bool
      */
+    #[Override]
     public function hasWishlistItems()
     {
         return $this->getItemCount() > 0;
@@ -137,11 +110,13 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         if ($this->getItemCount()) {
             $this->addModelTags($this->_getHelper()->getWishlist());
         }
+
         return parent::getCacheTags();
     }
 }

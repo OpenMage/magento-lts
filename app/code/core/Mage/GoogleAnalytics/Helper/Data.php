@@ -1,23 +1,20 @@
 <?php
+
+use Monolog\Level;
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GoogleAnalytics
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * GoogleAnalytics data helper
  *
- * @category   Mage
  * @package    Mage_GoogleAnalytics
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -25,12 +22,17 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * Config paths for using throughout the code
      */
     public const XML_PATH_ACTIVE        = 'google/analytics/active';
+
     public const XML_PATH_TYPE          = 'google/analytics/type';
+
     public const XML_PATH_ACCOUNT       = 'google/analytics/account';
+
     public const XML_PATH_DEBUG         = 'google/analytics/debug';
+
     public const XML_PATH_USERID        = 'google/analytics/user_id';
 
     public const XML_PATH_GTM_ACTIVE    = 'google/gtm/active';
+
     public const XML_PATH_GTM_CONTAINER_ID   = 'google/gtm/container_id';
 
     /**
@@ -46,7 +48,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GTM is ready to use
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function isGoogleTagManagerAvailable($store = null)
@@ -58,7 +60,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA is ready to use
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function isGoogleAnalyticsAvailable($store = null)
@@ -70,7 +72,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
+     * @param  ConfigStoreId $store
      * @return bool
      * @deprecated
      */
@@ -82,7 +84,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get GA account id
      *
-     * @param string $store
+     * @param  string $store
      * @return string
      */
     public function getAccountId($store = null)
@@ -93,7 +95,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get GTM account id
      *
-     * @param string $store
+     * @param  string $store
      * @return string
      */
     public function getGoogleTagManagerContainerId($store = null)
@@ -104,7 +106,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns true if should use Google Universal Analytics
      *
-     * @param string $store
+     * @param  string $store
      * @return bool
      * @deprecated
      */
@@ -116,7 +118,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns true if should use Google Tag Manager
      *
-     * @param string $store
+     * @param  string $store
      * @return bool
      */
     public function isUseGoogleTagManager($store = null)
@@ -127,7 +129,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns true if should use Google Universal Analytics 4
      *
-     * @param string $store
+     * @param  string $store
      * @return bool
      */
     public function isUseAnalytics4($store = null)
@@ -138,7 +140,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA Debug Mode is enabled (only for development IP)
      *
-     * @param null $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isDebugModeEnabled($store = null)
@@ -154,13 +156,13 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public function log($message = null)
     {
         $filename = sprintf('google%s.log', Mage::getStoreConfig(self::XML_PATH_TYPE));
-        Mage::log($message, Zend_Log::DEBUG, $filename, true);
+        Mage::log($message, Level::Debug, $filename, true);
     }
 
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param null $store
+     * @param  ConfigStoreId $store
      * @return bool
      */
     public function isUserIdEnabled($store = null)
@@ -172,7 +174,6 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns last category name
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return string
      */
     public function getLastCategoryName($product): string
     {
@@ -182,15 +183,14 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
             ->addAttributeToSelect('name')
             ->addIdFilter($product->getCategoryIds())
             ->addIsActiveFilter()
-            ->addFieldToFilter('path', ['like' => $storeRootCategory->getPath() . "/%"])
+            ->addFieldToFilter('path', ['like' => $storeRootCategory->getPath() . '/%'])
             ->addOrder('level')
             ->getFirstItem();
         return $lastCategory->getName() ?: '';
     }
 
     /**
-     * @param int|float|string $price
-     * @return string
+     * @param float|int|string $price
      */
     public function formatPrice($price): string
     {

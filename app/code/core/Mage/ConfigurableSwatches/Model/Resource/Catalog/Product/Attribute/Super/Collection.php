@@ -1,31 +1,34 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_ConfigurableSwatches
  */
 class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_Collection extends Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
 {
+    /**
+     * Flag to indicate whether eav attributes have been joined
+     *
+     * @var bool
+     */
     private $_eavAttributesJoined = false;
+
+    /**
+     * Store ID
+     *
+     * @var null|int
+     */
     private $_storeId = null;
 
     /**
      * Filter parent products to these IDs
      *
-     * @param array $parentProductIds
      * @return $this
      */
     public function addParentProductsFilter(array $parentProductIds)
@@ -47,7 +50,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
 
         $this->join(
             ['eav_attributes' => 'eav/attribute'],
-            '`eav_attributes`.`attribute_id` = `main_table`.`attribute_id`'
+            '`eav_attributes`.`attribute_id` = `main_table`.`attribute_id`',
         );
 
         $this->_eavAttributesJoined = true;
@@ -57,7 +60,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
     /**
      * Set store ID
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -71,9 +74,10 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
      *
      * @return int
      */
+    #[Override]
     public function getStoreId()
     {
-        return (int)$this->_storeId;
+        return (int) $this->_storeId;
     }
 
     /**
@@ -81,6 +85,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         Mage_Core_Model_Resource_Db_Collection_Abstract::_afterLoad();
@@ -99,6 +104,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
         foreach ($this->getItems() as $item) {
             $item->setOptionLabels($labels);
         }
+
         return $this;
     }
 
@@ -119,19 +125,22 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
                 [
                     'label' => 'labels.value',
                     'store_id' => 'labels.store_id',
-                ]
+                ],
             )
             ->where('options.attribute_id IN (?)', $attributeIds)
             ->where(
                 'labels.store_id IN (?)',
-                [Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID, $this->getStoreId()]
-            );
+                [Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID, $this->getStoreId()],
+            )
+            ->order('options.sort_order ASC')
+            ->order('labels.value ASC');
 
         $resultSet = $this->getConnection()->query($select);
         $labels = [];
         while ($option = $resultSet->fetch()) {
             $labels[$option['option_id']][$option['store_id']] = $option['label'];
         }
+
         return $labels;
     }
 
@@ -146,8 +155,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
         foreach ($this->getItems() as $item) {
             $attributeIds[] = $item->getAttributeId();
         }
-        $attributeIds = array_unique($attributeIds);
 
-        return $attributeIds;
+        return array_unique($attributeIds);
     }
 }

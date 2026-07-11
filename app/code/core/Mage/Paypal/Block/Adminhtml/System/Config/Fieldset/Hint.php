@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Renderer for PayPal banner in System Configuration
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
@@ -26,7 +19,6 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint extends Mage_Admin
     /**
      * Render fieldset html
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -35,7 +27,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint extends Mage_Admin
         if (isset($elementOriginalData['help_link'])) {
             $this->setHelpLink($elementOriginalData['help_link']);
         }
-        $js = '
+
+        $str = '
             paypalToggleSolution = function(id, url) {
                 var doScroll = false;
                 Fieldset.toggleCollapse(id, url);
@@ -83,6 +76,6 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint extends Mage_Admin
 
         /** @var Mage_Adminhtml_Helper_Js $helper */
         $helper = $this->helper('adminhtml/js');
-        return $this->toHtml() . $helper->getScript($js);
+        return $this->toHtml() . $helper->getScript($str);
     }
 }

@@ -1,26 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * SalesRule Model Resource Coupon_Usage
  *
- * @category   Mage
  * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('salesrule/coupon_usage', '');
@@ -29,10 +25,9 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
     /**
      * Increment times_used counter
      *
-     *
-     * @param int $customerId
-     * @param int $couponId
-     * @param bool $decrement   Decrement instead of increment times_used
+     * @param int  $customerId
+     * @param int  $couponId
+     * @param bool $decrement  Decrement instead of increment times_used
      */
     public function updateCustomerCouponTimesUsed($customerId, $couponId, $decrement = false)
     {
@@ -50,12 +45,12 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
                 $this->_getWriteAdapter()->update(
                     $this->getMainTable(),
                     [
-                        'times_used' => $timesUsed
+                        'times_used' => $timesUsed,
                     ],
                     [
                         'coupon_id = ?' => $couponId,
                         'customer_id = ?' => $customerId,
-                    ]
+                    ],
                 );
             }
         } else {
@@ -64,8 +59,8 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
                 [
                     'coupon_id' => $couponId,
                     'customer_id' => $customerId,
-                    'times_used' => 1
-                ]
+                    'times_used' => 1,
+                ],
             );
         }
     }
@@ -73,10 +68,8 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
     /**
      * Load an object by customer_id & coupon_id
      *
-     *
-     * @param Varien_Object $object
-     * @param int $customerId
-     * @param int $couponId
+     * @param  int   $customerId
+     * @param  int   $couponId
      * @return $this
      */
     public function loadByCustomerCoupon(Varien_Object $object, $customerId, $couponId)
@@ -92,9 +85,11 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
                 $object->setData($data);
             }
         }
+
         if ($object instanceof Mage_Core_Model_Abstract) {
             $this->_afterLoad($object);
         }
+
         return $this;
     }
 }

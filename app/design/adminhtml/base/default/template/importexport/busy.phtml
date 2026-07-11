@@ -1,0 +1,30 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Core_Block_Template
+ * @var Mage_Core_Block_Template $this
+ */
+?>
+<div class="content-header">
+    <h3><?php echo $this->__('System busy'); ?></h3>
+</div>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4><?php echo $this->__('Status'); ?></h4>
+    </div>
+    <div class="fieldset ">
+        <ul class="messages">
+            <li class="success-msg">
+                <ul>
+                    <li><?php echo $this->getStatusMessage(); ?></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

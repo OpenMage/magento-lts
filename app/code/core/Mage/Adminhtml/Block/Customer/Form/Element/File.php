@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer Widget Form File Element Block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_Element_Abstract
@@ -37,6 +30,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $this->addClass('input-file');
@@ -51,7 +45,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
             $this->getName(),
             $this->serialize($this->getHtmlAttributes()),
             $this->getAfterElementHtml(),
-            $this->_getHiddenInput()
+            $this->_getHiddenInput(),
         );
 
         return $this->_getPreviewHtml() . $element . $this->_getDeleteCheckboxHtml();
@@ -72,10 +66,10 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
                 'name'  => sprintf('%s[delete]', $this->getName()),
                 'value' => '1',
                 'class' => 'checkbox',
-                'id'    => $checkboxId
+                'id'    => $checkboxId,
             ];
             $label      = [
-                'for'   => $checkboxId
+                'for'   => $checkboxId,
             ];
             if ($this->getDisabled()) {
                 $checkbox['disabled'] = 'disabled';
@@ -87,6 +81,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
             $html .= $this->_drawElementHtml('label', $label, false) . $this->_getDeleteCheckboxLabel() . '</label>';
             $html .= '</span>';
         }
+
         return $html;
     }
 
@@ -123,7 +118,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
                 'alt'   => Mage::helper('adminhtml')->__('Download'),
                 'title' => Mage::helper('adminhtml')->__('Download'),
                 'src'   => Mage::getDesign()->getSkinUrl('images/fam_bullet_disk.gif'),
-                'class' => 'v-middle'
+                'class' => 'v-middle',
             ];
             $url = $this->_getPreviewUrl();
             $html .= '<span>';
@@ -131,6 +126,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
             $html .= '<a href="' . $url . '">' . Mage::helper('adminhtml')->__('Download') . '</a>';
             $html .= '</span>';
         }
+
         return $html;
     }
 
@@ -145,7 +141,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
             'type'  => 'hidden',
             'name'  => sprintf('%s[value]', $this->getName()),
             'id'    => sprintf('%s_value', $this->getHtmlId()),
-            'value' => $this->getEscapedValue()
+            'value' => $this->getEscapedValue(),
         ]);
     }
 
@@ -156,7 +152,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
      */
     protected function _getPreviewUrl()
     {
-        return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', [
+        return Mage::helper('adminhtml')::getUrl('adminhtml/customer/viewfile', [
             'file'      => Mage::helper('core')->urlEncode($this->getValue()),
         ]);
     }
@@ -164,16 +160,16 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     /**
      * Return Element HTML
      *
-     * @param string $element
-     * @param array $attributes
-     * @param bool $closed
+     * @param  string                          $element
+     * @param  array<string, false|int|string> $attributes
+     * @param  bool                            $closed
      * @return string
      */
     protected function _drawElementHtml($element, array $attributes, $closed = true)
     {
         $parts = [];
-        foreach ($attributes as $k => $v) {
-            $parts[] = sprintf('%s="%s"', $k, $v);
+        foreach ($attributes as $key => $value) {
+            $parts[] = sprintf('%s="%s"', $key, $value);
         }
 
         return sprintf('<%s %s%s>', $element, implode(' ', $parts), $closed ? ' /' : '');
@@ -182,9 +178,10 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     /**
      * Return escaped value
      *
-     * @param string|null $index
+     * @param  null|string  $index
      * @return false|string
      */
+    #[Override]
     public function getEscapedValue($index = null)
     {
         $value = $this->getValue();

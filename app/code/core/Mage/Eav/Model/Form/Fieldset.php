@@ -1,36 +1,30 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Eav Form Fieldset Model
  *
- * @category   Mage
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Resource_Form_Fieldset _getResource()
- * @method Mage_Eav_Model_Resource_Form_Fieldset getResource()
+ * @method Mage_Eav_Model_Resource_Form_Fieldset            _getResource()
+ * @method string                                           getCode()
  * @method Mage_Eav_Model_Resource_Form_Fieldset_Collection getCollection()
- * @method int getTypeId()
- * @method $this setTypeId(int $value)
- * @method string getCode()
- * @method $this setCode(string $value)
- * @method string getLabel()
- * @method bool hasLabels()
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method bool hasStoreId()
+ * @method string                                           getLabel()
+ * @method Mage_Eav_Model_Resource_Form_Fieldset            getResource()
+ * @method Mage_Eav_Model_Resource_Form_Fieldset_Collection getResourceCollection()
+ * @method int                                              getSortOrder()
+ * @method int                                              getTypeId()
+ * @method bool                                             hasLabels()
+ * @method bool                                             hasStoreId()
+ * @method $this                                            setCode(string $value)
+ * @method $this                                            setSortOrder(int $value)
+ * @method $this                                            setTypeId(int $value)
  */
 class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
 {
@@ -41,6 +35,9 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'eav_form_fieldset';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/form_fieldset');
@@ -52,11 +49,13 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         if (!$this->getTypeId()) {
             Mage::throwException(Mage::helper('eav')->__('Invalid form type.'));
         }
+
         if (!$this->getStoreId() && $this->getLabel()) {
             $this->setStoreLabel($this->getStoreId(), $this->getLabel());
         }
@@ -74,6 +73,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
         if (!$this->hasData('labels')) {
             $this->setData('labels', $this->_getResource()->getLabels($this));
         }
+
         return $this->_getData('labels');
     }
 
@@ -81,7 +81,6 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
      * Set fieldset store labels
      * Input array where key - store_id and value = label
      *
-     * @param array $labels
      * @return $this
      */
     public function setLabels(array $labels)
@@ -92,8 +91,8 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
     /**
      * Set fieldset store label
      *
-     * @param int $storeId
-     * @param string $label
+     * @param  int    $storeId
+     * @param  string $label
      * @return $this
      */
     public function setStoreLabel($storeId, $label)
@@ -114,6 +113,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
         if (!$this->hasStoreId()) {
             $this->setData('store_id', Mage::app()->getStore()->getId());
         }
+
         return $this->_getData('store_id');
     }
 }

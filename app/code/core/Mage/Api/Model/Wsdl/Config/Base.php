@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wsdl base config
  *
- * @category   Mage
  * @package    Mage_Api
  */
 class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
@@ -45,8 +38,8 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
         $this->_wsdlVariables = new Varien_Object(
             [
                 'name' => 'OpenMage',
-                'url'  => Mage::helper('api')->getServiceUrl('*/*/*', ['_query' => $queryParams], true)
-            ]
+                'url'  => Mage::helper('api')->getServiceUrl('*/*/*', ['_query' => $queryParams], true),
+            ],
         );
         parent::__construct($sourceData);
     }
@@ -54,7 +47,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
     /**
      * Set handler
      *
-     * @param string $handler
+     * @param  string $handler
      * @return $this
      */
     public function setHandler($handler)
@@ -76,9 +69,10 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
     /**
      * Processing file data
      *
-     * @param string $text
+     * @param  string $text
      * @return string
      */
+    #[Override]
     public function processFileData($text)
     {
         /** @var Mage_Core_Model_Email_Template_Filter $template */
@@ -92,7 +86,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
     }
 
     /**
-     * @param string $file
+     * @param  string $file
      * @return $this
      */
     public function addLoadedFile($file)
@@ -100,30 +94,34 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
         if (!in_array($file, $this->_loadedFiles)) {
             $this->_loadedFiles[] = $file;
         }
+
         return $this;
     }
 
     /**
-     * @param string $file
+     * @param  string      $file
      * @return $this|false
      */
+    #[Override]
     public function loadFile($file)
     {
         if (in_array($file, $this->_loadedFiles)) {
             return false;
         }
+
         $res = parent::loadFile($file);
         if ($res) {
             $this->addLoadedFile($file);
         }
+
         return $this;
     }
 
     /**
      * Set variable to be used in WSDL template processing
      *
-     * @param string $key Varible key
-     * @param string $value Variable value
+     * @param  string $key   Variable key
+     * @param  string $value Variable value
      * @return $this
      */
     public function setWsdlVariable($key, $value)

@@ -1,42 +1,38 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * SalesRule Resource Coupon
  *
- * @category   Mage
  * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('salesrule/coupon', 'coupon_id');
         $this->addUniqueField([
             'field' => 'code',
-            'title' => Mage::helper('salesrule')->__('Coupon with the same code')
+            'title' => Mage::helper('salesrule')->__('Coupon with the same code'),
         ]);
     }
 
     /**
      * Perform actions before object save
      *
-     * @param Mage_Core_Model_Abstract|Mage_SalesRule_Model_Coupon $object
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
-    public function _beforeSave(Mage_Core_Model_Abstract $object)
+    #[Override]
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getExpirationDate()) {
             $object->setExpirationDate(null);
@@ -53,20 +49,14 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     /**
      * Load primary coupon (is_primary = 1) for specified rule
      *
-     *
-     * @param Mage_SalesRule_Model_Coupon $object
-     * @param Mage_SalesRule_Model_Rule|int $rule
+     * @param  int|Mage_SalesRule_Model_Rule $rule
      * @return bool
      */
     public function loadPrimaryByRule(Mage_SalesRule_Model_Coupon $object, $rule)
     {
         $read = $this->_getReadAdapter();
 
-        if ($rule instanceof Mage_SalesRule_Model_Rule) {
-            $ruleId = $rule->getId();
-        } else {
-            $ruleId = (int)$rule;
-        }
+        $ruleId = $rule instanceof Mage_SalesRule_Model_Rule ? $rule->getId() : (int) $rule;
 
         $select = $read->select()->from($this->getMainTable())
             ->where('rule_id = :rule_id')
@@ -87,7 +77,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     /**
      * Check if code exists
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     public function exists($code)
@@ -96,17 +86,12 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
         $select = $read->select();
         $select->from($this->getMainTable(), 'code');
         $select->where('code = :code');
-
-        if ($read->fetchOne($select, ['code' => $code]) === false) {
-            return false;
-        }
-        return true;
+        return $read->fetchOne($select, ['code' => $code]) !== false;
     }
 
     /**
      * Update auto generated Specific Coupon if it's rule changed
      *
-     * @param Mage_SalesRule_Model_Rule $rule
      * @return $this
      */
     public function updateSpecificCoupons(Mage_SalesRule_Model_Rule $rule)
@@ -135,7 +120,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
             $this->_getWriteAdapter()->update(
                 $this->getTable('salesrule/coupon'),
                 $updateArray,
-                ['rule_id = ?' => $rule->getId()]
+                ['rule_id = ?' => $rule->getId()],
             );
         }
 

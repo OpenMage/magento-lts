@@ -1,30 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product View block
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
- * @method int getProductId()
- * @method $this setCustomAddToCartUrl(string $value)
- * @method bool hasCustomAddToCartUrl()
- * @method string getCustomAddToCartUrl()
- * @method bool hasCustomAddToCartPostUrl()
  * @method string getCustomAddToCartPostUrl()
+ * @method string getCustomAddToCartUrl()
+ * @method int    getProductId()
+ * @method bool   hasCustomAddToCartPostUrl()
+ * @method bool   hasCustomAddToCartUrl()
+ * @method $this  setCustomAddToCartUrl(string $value)
  */
 class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstract
 {
@@ -40,6 +33,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->getLayout()->createBlock('catalog/breadcrumbs');
@@ -52,6 +46,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             if ($title) {
                 $headBlock->setTitle($title);
             }
+
             $keyword = $product->getMetaKeyword();
             $currentCategory = Mage::registry('current_category');
             if ($keyword) {
@@ -59,6 +54,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             } elseif ($currentCategory) {
                 $headBlock->setKeywords($product->getName());
             }
+
             $description = $product->getMetaDescription();
             if ($description) {
                 $headBlock->setDescription(($description));
@@ -83,12 +79,14 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * @return Mage_Catalog_Model_Product
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getProduct()
     {
         if (!Mage::registry('product') && $this->getProductId()) {
             $product = Mage::getModel('catalog/product')->load($this->getProductId());
             Mage::register('product', $product);
         }
+
         return Mage::registry('product');
     }
 
@@ -106,11 +104,12 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Retrieve url for direct adding product to cart
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      * @throws Exception
      */
+    #[Override]
     public function getAddToCartUrl($product, $additional = [])
     {
         return $this->getAddToCartUrlCustom($product, $additional);
@@ -136,7 +135,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         $compositeProductHelper = $this->helper('catalog/product_type_composite');
         $config = array_merge(
             $compositeProductHelper->prepareJsonGeneralConfig(),
-            $compositeProductHelper->prepareJsonProductConfig($product)
+            $compositeProductHelper->prepareJsonProductConfig($product),
         );
 
         $responseObject = new Varien_Object();
@@ -158,10 +157,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      */
     public function hasOptions()
     {
-        if ($this->getProduct()->getTypeInstance(true)->hasOptions($this->getProduct())) {
-            return true;
-        }
-        return false;
+        return $this->getProduct()->getTypeInstance(true)->hasOptions($this->getProduct());
     }
 
     /**
@@ -186,15 +182,19 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      */
     public function isStartCustomization()
     {
-        return $this->getProduct()->getConfigureMode() || Mage::app()->getRequest()->getParam('startcustomization');
+        if ($this->getProduct()->getConfigureMode()) {
+            return true;
+        }
+
+        return (bool) Mage::app()->getRequest()->getParam('startcustomization');
     }
 
     /**
      * Get default qty - either as preconfigured, or as 1.
      * Also restricts it by minimal qty.
      *
-     * @param null|Mage_Catalog_Model_Product $product
-     * @return int|float
+     * @param  null|Mage_Catalog_Model_Product $product
+     * @return float|int
      * @throws Mage_Core_Exception
      */
     public function getProductDefaultQty($product = null)
@@ -212,6 +212,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * @return array
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->getProduct()->getCacheIdTags());
@@ -220,17 +221,20 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Retrieve url for direct adding product to cart with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
+     * @param  bool                       $addFormKey
      * @return string
      * @throws Exception
      */
+    #[Override]
     public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {
         if (!$addFormKey && $this->hasCustomAddToCartPostUrl()) {
             return $this->getCustomAddToCartPostUrl();
-        } elseif ($this->hasCustomAddToCartUrl()) {
+        }
+
+        if ($this->hasCustomAddToCartUrl()) {
             return $this->getCustomAddToCartUrl();
         }
 
@@ -239,8 +243,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         }
 
         $addUrlValue = Mage::getUrl('*/*/*', ['_use_rewrite' => true, '_current' => true]);
-        $additional[Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED] =
-            Mage::helper('core')->urlEncode($addUrlValue);
+        $additional[Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED]
+            = Mage::helper('core')->urlEncode($addUrlValue);
 
         /** @var Mage_Checkout_Helper_Cart $helper */
         $helper = $this->helper('checkout/cart');
@@ -248,6 +252,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         if (!$addFormKey) {
             return $helper->getAddUrlCustom($product, $additional, false);
         }
+
         return $helper->getAddUrl($product, $additional);
     }
 }

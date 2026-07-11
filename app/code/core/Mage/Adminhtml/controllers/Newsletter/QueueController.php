@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Mage_Newsletter_Model_Queue as Queue;
@@ -18,7 +12,6 @@ use Mage_Newsletter_Model_Queue as Queue;
 /**
  * Adminhtml newsletter queue controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controller_Action
@@ -31,6 +24,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
     /**
      * Queue list action
+     * @return void
      */
     public function indexAction()
     {
@@ -46,7 +40,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $this->_setActiveMenu('newsletter/queue');
 
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/newsletter_queue', 'queue')
+            $this->getLayout()->createBlock('adminhtml/newsletter_queue', 'queue'),
         );
 
         $this->_addBreadcrumb(Mage::helper('newsletter')->__('Newsletter Queue'), Mage::helper('newsletter')->__('Newsletter Queue'));
@@ -56,6 +50,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
     /**
      * Drop Newsletter queue template
+     * @return void
      */
     public function dropAction()
     {
@@ -63,12 +58,14 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         if ($request->getParam('text') && !$request->getPost('text')) {
             $this->getResponse()->setRedirect($this->getUrl('*/newsletter_queue'));
         }
+
         $this->loadLayout('newsletter_queue_preview');
         $this->renderLayout();
     }
 
     /**
      * Preview Newsletter queue template
+     * @return null|$this
      */
     public function previewAction()
     {
@@ -84,16 +81,21 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
         $this->getLayout()->getBlock('preview_form')->setFormData($data);
         $this->renderLayout();
+        return null;
     }
 
     /**
      * Queue list Ajax action
+     * @return void
      */
     public function gridAction()
     {
         $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/newsletter_queue_grid')->toHtml());
     }
 
+    /**
+     * @return void
+     */
     public function startAction()
     {
         $queue = Mage::getModel('newsletter/queue')
@@ -112,6 +114,9 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $this->_redirect('*/*');
     }
 
+    /**
+     * @return void
+     */
     public function pauseAction()
     {
         $queue = Mage::getSingleton('newsletter/queue')
@@ -128,6 +133,9 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $this->_redirect('*/*');
     }
 
+    /**
+     * @return void
+     */
     public function resumeAction()
     {
         $queue = Mage::getSingleton('newsletter/queue')
@@ -144,6 +152,9 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $this->_redirect('*/*');
     }
 
+    /**
+     * @return void
+     */
     public function cancelAction()
     {
         $queue = Mage::getSingleton('newsletter/queue')
@@ -160,6 +171,9 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $this->_redirect('*/*');
     }
 
+    /**
+     * @return void
+     */
     public function sendingAction()
     {
         // Todo: put it somewhere in config!
@@ -175,6 +189,9 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $collection->walk('sendPerSubscriber', [$countOfSubscritions]);
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Queue'));
@@ -185,10 +202,10 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $templateId = $this->getRequest()->getParam('template_id');
 
         if ($id) {
-            $queue = Mage::registry('current_queue')->load($id);
+            Mage::registry('current_queue')->load($id);
         } elseif ($templateId) {
             $template = Mage::getModel('newsletter/template')->load($templateId);
-            $queue = Mage::registry('current_queue')->setTemplateId($template->getId());
+            Mage::registry('current_queue')->setTemplateId($template->getId());
         }
 
         $this->_title($this->__('Edit Queue'));
@@ -200,13 +217,16 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
         $this->_addBreadcrumb(
             Mage::helper('newsletter')->__('Newsletter Queue'),
             Mage::helper('newsletter')->__('Newsletter Queue'),
-            $this->getUrl('*/newsletter_queue')
+            $this->getUrl('*/newsletter_queue'),
         );
         $this->_addBreadcrumb(Mage::helper('newsletter')->__('Edit Queue'), Mage::helper('newsletter')->__('Edit Queue'));
 
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function saveAction()
     {
         try {
@@ -233,7 +253,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
                 return;
             }
 
-            if ($queue->getQueueStatus() == Queue::STATUS_NEVER) {
+            if ($queue->getQueueStatus() === Queue::STATUS_NEVER) {
                 $queue->setQueueStartAtByString($this->getRequest()->getParam('start_at'));
             }
 
@@ -252,8 +272,8 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
 
             $queue->save();
             $this->_redirect('*/*');
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
             $id = $this->getRequest()->getParam('id');
             if ($id) {
                 $this->_redirect('*/*/edit', ['id' => $id]);

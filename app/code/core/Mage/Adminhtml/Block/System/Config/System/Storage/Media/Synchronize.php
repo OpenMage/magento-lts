@@ -1,29 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Synchronize button renderer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
-     * Set template
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -33,9 +27,9 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
     /**
      * Remove scope label
      *
-     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
+    #[Override]
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
@@ -45,9 +39,9 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
     /**
      * Return element html
      *
-     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
+    #[Override]
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         return $this->_toHtml();
@@ -84,7 +78,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
             ->setData([
                 'id'        => 'synchronize_button',
                 'label'     => $this->helper('adminhtml')->__('Synchronize'),
-                'onclick'   => 'javascript:synchronize(); return false;'
+                'onclick'   => 'javascript:synchronize(); return false;',
             ]);
 
         return $button->toHtml();
@@ -99,7 +93,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
      *  => connection_name  string
      * )
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getSyncStorageParams()
     {
@@ -120,7 +114,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
 
         return [
             'storage_type'      => $storageType,
-            'connection_name'   => $connectionName
+            'connection_name'   => $connectionName,
         ];
     }
 }

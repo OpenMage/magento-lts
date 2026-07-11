@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sitemap
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sitemap resource catalog collection model
  *
- * @category   Mage
  * @package    Mage_Sitemap
  */
 abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Model_Resource_Db_Abstract
@@ -24,39 +17,39 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Collection Zend Db select
      *
-     * @var Zend_Db_Select
+     * @var Varien_Db_Select
      */
     protected $_select;
 
     /**
      * Attribute cache
      *
-     * @var array
+     * @var array<void>|array{string: array{attribute_id: int, backend_type: string, is_global: bool, table: string}}
      */
     protected $_attributesCache = [];
 
     /**
      * Catalog factory instance
      *
-     * @var Mage_Catalog_Model_Factory
+     * @var Mage_Catalog_Model_Factory|string
      */
     protected $_factory;
 
     /**
      * Initialize factory instance
      *
-     * @param array $args
+     * @param array<void>|array{factory: string} $args
      */
     public function __construct(array $args = [])
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
+        $this->_factory = empty($args['factory']) ? Mage::getSingleton('catalog/factory') : $args['factory'];
         parent::__construct();
     }
 
     /**
      * Retrieve catalog collection
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return array
      */
     abstract public function getCollection($storeId);
@@ -64,11 +57,11 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Add attribute to filter
      *
-     * @param int $storeId
-     * @param string $attributeCode
-     * @param mixed $value
-     * @param string $type
-     * @return Zend_Db_Select|false
+     * @param  int                  $storeId
+     * @param  string               $attributeCode
+     * @param  mixed                $value
+     * @param  string               $type
+     * @return false|Zend_Db_Select
      */
     protected function _addFilter($storeId, $attributeCode, $value, $type = '=')
     {
@@ -99,7 +92,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
             $this->_select->join(
                 ['t1_' . $attributeCode => $attribute['table']],
                 'main_table.entity_id=t1_' . $attributeCode . '.entity_id AND t1_' . $attributeCode . '.store_id=0',
-                []
+                [],
             )
                 ->where('t1_' . $attributeCode . '.attribute_id=?', $attribute['attribute_id']);
 
@@ -109,7 +102,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
                 $ifCase = $this->_select->getAdapter()->getCheckSql(
                     't2_' . $attributeCode . '.value_id > 0',
                     't2_' . $attributeCode . '.value',
-                    't1_' . $attributeCode . '.value'
+                    't1_' . $attributeCode . '.value',
                 );
                 $this->_select->joinLeft(
                     ['t2_' . $attributeCode => $attribute['table']],
@@ -117,9 +110,9 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
                         't1_' . $attributeCode . '.entity_id = t2_' . $attributeCode . '.entity_id AND t1_'
                             . $attributeCode . '.attribute_id = t2_' . $attributeCode . '.attribute_id AND t2_'
                             . $attributeCode . '.store_id = ?',
-                        $storeId
+                        $storeId,
                     ),
-                    []
+                    [],
                 )
                 ->where('(' . $ifCase . ')' . $conditionRule, $value);
             }
@@ -131,8 +124,8 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Prepare catalog object
      *
-     * @param array $row
      * @return Varien_Object
+     * @throws Mage_Core_Exception
      */
     protected function _prepareObject(array $row)
     {
@@ -146,6 +139,9 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
      * Load and prepare entities
      *
      * @return array
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     protected function _loadEntities()
     {
@@ -155,14 +151,15 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
             $entity = $this->_prepareObject($row);
             $entities[$entity->getId()] = $entity;
         }
+
         return $entities;
     }
 
     /**
      * Retrieve entity url
      *
-     * @param array $row
-     * @param Varien_Object $entity
+     * @param  array         $row
+     * @param  Varien_Object $entity
      * @return string
      */
     abstract protected function _getEntityUrl($row, $entity);
@@ -170,7 +167,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Loads attribute by given attribute_code
      *
-     * @param string $attributeCode
+     * @param  string                                       $attributeCode
      * @return Mage_Sitemap_Model_Resource_Catalog_Abstract
      */
     abstract protected function _loadAttribute($attributeCode);

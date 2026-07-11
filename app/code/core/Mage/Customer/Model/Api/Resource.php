@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer abstract API resource
  *
- * @category   Mage
  * @package    Mage_Customer
  */
 class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
@@ -38,15 +31,13 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Check is attribute allowed
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param array|null $filter
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return bool
      */
     protected function _isAllowedAttribute($attribute, ?array $filter = null)
     {
         if (!is_null($filter)
-            && !(in_array($attribute->getAttributeCode(), $filter)
-                  || in_array($attribute->getAttributeId(), $filter))
+            && (!in_array($attribute->getAttributeCode(), $filter) && !in_array($attribute->getAttributeId(), $filter))
         ) {
             return false;
         }
@@ -58,15 +49,16 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Return list of allowed attributes
      *
-     * @param Mage_Eav_Model_Entity_Abstract $entity
-     * @param array|null $filter
+     * @param  Mage_Customer_Model_Address|Mage_Customer_Model_Customer $entity
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getAllowedAttributes($entity, ?array $filter = null)
     {
         $attributes = $entity->getResource()
-                        ->loadAllAttributes($entity)
-                        ->getAttributesByCode();
+            ->loadAllAttributes($entity)
+            ->getAttributesByCode();
+
         $result = [];
         foreach ($attributes as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $filter)) {

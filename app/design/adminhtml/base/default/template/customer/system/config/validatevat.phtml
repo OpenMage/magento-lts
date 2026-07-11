@@ -1,0 +1,48 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php
+/**
+ * @see Mage_Adminhtml_Block_Customer_System_Config_Validatevat
+ * @var Mage_Adminhtml_Block_Customer_System_Config_Validatevat $this
+ */
+?>
+<script type="text/javascript">
+//<![CDATA[
+    function validateVat() {
+        var elem = $('<?php echo $this->getHtmlId() ?>');
+
+        params = {
+            country: $('general_store_information_merchant_country').value,
+            vat: $('general_store_information_merchant_vat_number').value
+        };
+
+        new Ajax.Request('<?php echo $this->getAjaxUrl() ?>', {
+            parameters: params,
+            onSuccess: function(response) {
+                result = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Invalid')) ?>';
+                try {
+                    response = response.responseText;
+                    if (response == 1) {
+                        result = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Valid')) ?>';
+                        elem.removeClassName('fail').addClassName('success')
+                    } else {
+                        elem.removeClassName('success').addClassName('fail')
+                    }
+                } catch (e) {
+                    elem.removeClassName('success').addClassName('fail')
+                }
+                $('validation_result').update(result);
+            }
+        });
+    }
+//]]>
+</script>
+<button onclick="javascript:validateVat(); return false;" class="scalable" type="button" id="<?php echo $this->getHtmlId() ?>">
+    <span id="validation_result"><?php echo $this->escapeHtml($this->getButtonLabel()) ?></span>
+</button>

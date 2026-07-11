@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Coupons Report collection
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_Entity_Order_Collection
@@ -38,14 +31,14 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
     /**
      * Set date range
      *
-     * @param string $from
-     * @param string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
-        $this->_from = $from;
-        $this->_to   = $to;
+        $this->_from = $dateFrom;
+        $this->_to   = $dateTo;
         $this->_reset();
         return $this;
     }
@@ -53,7 +46,7 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
     /**
      * Set store ids
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)
@@ -65,14 +58,14 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
     /**
      * Join fields
      *
-     * @param string $from
-     * @param string $to
-     * @param array $storeIds
+     * @param null|string $dateFrom
+     * @param null|string $dateTo
+     * @param array       $storeIds
      */
-    public function joinFields($from, $to, $storeIds = [])
+    public function joinFields($dateFrom, $dateTo, $storeIds = [])
     {
         $this->groupByAttribute('coupon_code')
-            ->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to, 'datetime' => true])
+            ->addAttributeToFilter('created_at', ['from' => $dateFrom, 'to' => $dateTo, 'datetime' => true])
             ->addAttributeToFilter('coupon_code', ['neq' => ''])
             ->getSelect()->columns(['uses' => 'COUNT(e.entity_id)'])
             ->having('uses > ?', 0)
@@ -84,33 +77,33 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
             $this->addExpressionAttributeToSelect(
                 'subtotal',
                 'SUM({{base_subtotal}})',
-                ['base_subtotal']
+                ['base_subtotal'],
             )
             ->addExpressionAttributeToSelect(
                 'discount',
                 'SUM({{base_discount_amount}})',
-                ['base_discount_amount']
+                ['base_discount_amount'],
             )
             ->addExpressionAttributeToSelect(
                 'total',
                 'SUM({{base_subtotal}}-{{base_discount_amount}})',
-                ['base_subtotal', 'base_discount_amount']
+                ['base_subtotal', 'base_discount_amount'],
             );
         } else {
             $this->addExpressionAttributeToSelect(
                 'subtotal',
                 'SUM({{base_subtotal}}*{{base_to_global_rate}})',
-                ['base_subtotal', 'base_to_global_rate']
+                ['base_subtotal', 'base_to_global_rate'],
             )
             ->addExpressionAttributeToSelect(
                 'discount',
                 'SUM({{base_discount_amount}}*{{base_to_global_rate}})',
-                ['base_discount_amount', 'base_to_global_rate']
+                ['base_discount_amount', 'base_to_global_rate'],
             )
             ->addExpressionAttributeToSelect(
                 'total',
                 'SUM(({{base_subtotal}}-{{base_discount_amount}})*{{base_to_global_rate}})',
-                ['base_subtotal', 'base_discount_amount', 'base_to_global_rate']
+                ['base_subtotal', 'base_discount_amount', 'base_to_global_rate'],
             );
         }
     }
@@ -120,6 +113,7 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();

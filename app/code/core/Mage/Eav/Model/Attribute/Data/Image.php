@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV Entity Attribute Image File Data Model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_File
@@ -25,11 +18,12 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
      * Validate file by attribute validate rules
      * Return array of errors
      *
-     * @param array $value
+     * @param  array $value
      * @return array
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _validateByRules($value)
     {
         $label  = Mage::helper('eav')->__($this->getAttribute()->getStoreLabel());
@@ -39,7 +33,7 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
 
         if (!is_uploaded_file($value['tmp_name']) || !$imageProp) {
             return [
-                Mage::helper('eav')->__('"%s" is not a valid file', $label)
+                Mage::helper('eav')->__('"%s" is not a valid file', $label),
             ];
         }
 
@@ -47,12 +41,12 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
             1   => 'gif',
             2   => 'jpg',
             3   => 'png',
-            18  => 'webp'
+            18  => 'webp',
         ];
 
         if (!isset($allowImageTypes[$imageProp[2]])) {
             return [
-                Mage::helper('eav')->__('"%s" is not a valid image format', $label)
+                Mage::helper('eav')->__('"%s" is not a valid image format', $label),
             ];
         }
 
@@ -70,17 +64,14 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
             }
         }
 
-        if (!empty($rules['max_image_width'])) {
-            if ($rules['max_image_width'] < $imageProp[0]) {
-                $r = $rules['max_image_width'];
-                $errors[] = Mage::helper('eav')->__('"%s" width exceeds allowed value of %s px.', $label, $r);
-            }
+        if (!empty($rules['max_image_width']) && $rules['max_image_width'] < $imageProp[0]) {
+            $rule = $rules['max_image_width'];
+            $errors[] = Mage::helper('eav')->__('"%s" width exceeds allowed value of %s px.', $label, $rule);
         }
-        if (!empty($rules['max_image_heght'])) {
-            if ($rules['max_image_heght'] < $imageProp[1]) {
-                $r = $rules['max_image_heght'];
-                $errors[] = Mage::helper('eav')->__('"%s" height exceeds allowed value of %s px.', $label, $r);
-            }
+
+        if (!empty($rules['max_image_heght']) && $rules['max_image_heght'] < $imageProp[1]) {
+            $rule = $rules['max_image_heght'];
+            $errors[] = Mage::helper('eav')->__('"%s" height exceeds allowed value of %s px.', $label, $rule);
         }
 
         return $errors;

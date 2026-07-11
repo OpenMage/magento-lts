@@ -1,28 +1,25 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Invoice view  comments form
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
 {
     protected $_links = [];
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -32,6 +29,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Page_Block_Html_Head $headBlock */
@@ -44,7 +42,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         $helper = $this->helper('payment');
         $this->setChild(
             'payment_info',
-            $helper->getInfoBlock($this->getOrder()->getPayment())
+            $helper->getInfoBlock($this->getOrder()->getPayment()),
         );
 
         return parent::_prepareLayout();
@@ -69,9 +67,9 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $name
-     * @param string $path
-     * @param string $label
+     * @param  string $name
+     * @param  string $path
+     * @param  string $label
      * @return $this
      */
     public function addLink($name, $path, $label)
@@ -79,7 +77,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         $this->_links[$name] = new Varien_Object([
             'name' => $name,
             'label' => $label,
-            'url' => empty($path) ? '' : Mage::getUrl($path, ['order_id' => $this->getOrder()->getId()])
+            'url' => empty($path) ? '' : Mage::getUrl($path, ['order_id' => $this->getOrder()->getId()]),
         ]);
         return $this;
     }
@@ -87,7 +85,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     /**
      * Remove a link
      *
-     * @param string $name of the link
+     * @param  string $name of the link
      * @return $this
      */
     public function removeLink($name)
@@ -95,6 +93,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         if (isset($this->_links[$name])) {
             unset($this->_links[$name]);
         }
+
         return $this;
     }
 
@@ -113,9 +112,11 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         if (!$order->hasInvoices()) {
             unset($this->_links['invoice']);
         }
+
         if (!$order->hasShipments()) {
             unset($this->_links['shipment']);
         }
+
         if (!$order->hasCreditmemos()) {
             unset($this->_links['creditmemo']);
         }
@@ -124,30 +125,32 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     /**
      * Get url for reorder action
      *
-     * @deprecated after 1.6.0.0, logic moved to new block
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
+     * @deprecated after 1.6.0.0, logic moved to new block
      */
     public function getReorderUrl($order)
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             return $this->getUrl('sales/guest/reorder', ['order_id' => $order->getId()]);
         }
+
         return $this->getUrl('sales/order/reorder', ['order_id' => $order->getId()]);
     }
 
     /**
      * Get url for printing order
      *
-     * @deprecated after 1.6.0.0, logic moved to new block
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
+     * @deprecated after 1.6.0.0, logic moved to new block
      */
     public function getPrintUrl($order)
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             return $this->getUrl('sales/guest/print', ['order_id' => $order->getId()]);
         }
+
         return $this->getUrl('sales/order/print', ['order_id' => $order->getId()]);
     }
 }

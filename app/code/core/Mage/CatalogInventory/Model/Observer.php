@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog inventory module observer
  *
- * @category   Mage
  * @package    Mage_CatalogInventory
  */
 class Mage_CatalogInventory_Model_Observer
@@ -56,8 +49,8 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Add stock information to product
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_CatalogInventory_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function addInventoryData($observer)
     {
@@ -67,17 +60,19 @@ class Mage_CatalogInventory_Model_Observer
             if (!isset($this->_stockItemsArray[$productId])) {
                 $this->_stockItemsArray[$productId] = Mage::getModel('cataloginventory/stock_item');
             }
+
             $productStockItem = $this->_stockItemsArray[$productId];
             $productStockItem->assignProduct($product);
         }
+
         return $this;
     }
 
     /**
      * Remove stock information from static variable
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_CatalogInventory_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function removeInventoryData($observer)
     {
@@ -88,6 +83,7 @@ class Mage_CatalogInventory_Model_Observer
         ) {
             unset($this->_stockItemsArray[$product->getId()]);
         }
+
         return $this;
     }
 
@@ -95,8 +91,8 @@ class Mage_CatalogInventory_Model_Observer
      * Add information about producs stock status to collection
      * Used in for product collection after load
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_CatalogInventory_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function addStockStatusToCollection($observer)
     {
@@ -105,19 +101,21 @@ class Mage_CatalogInventory_Model_Observer
         if ($productCollection->hasFlag('no_stock_data')) {
             return $this;
         }
+
         if ($productCollection->hasFlag('require_stock_items')) {
             Mage::getModel('cataloginventory/stock')->addItemsToProducts($productCollection);
         } else {
             Mage::getModel('cataloginventory/stock_status')->addStockStatusToProducts($productCollection);
         }
+
         return $this;
     }
 
     /**
      * Add Stock items to product collection
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_CatalogInventory_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function addInventoryDataToCollection($observer)
     {
@@ -129,8 +127,8 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Saving product inventory data. Product qty calculated dynamically.
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_CatalogInventory_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function saveInventoryData($observer)
     {
@@ -142,6 +140,7 @@ class Mage_CatalogInventory_Model_Observer
                 Mage::getSingleton('cataloginventory/stock_status')
                     ->updateStatus($product->getId());
             }
+
             return $this;
         }
 
@@ -149,6 +148,7 @@ class Mage_CatalogInventory_Model_Observer
         if (!$item) {
             $item = Mage::getModel('cataloginventory/stock_item');
         }
+
         $this->_prepareItemForSave($item, $product);
         $item->save();
         return $this;
@@ -157,8 +157,8 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Copy product inventory data (used for product duplicate functionality)
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_CatalogInventory_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function copyInventoryData($observer)
     {
@@ -168,22 +168,24 @@ class Mage_CatalogInventory_Model_Observer
         $newProduct = $observer->getEvent()->getNewProduct();
 
         $newProduct->unsStockItem();
+
         $stockData = [
             'use_config_min_qty'        => 1,
             'use_config_min_sale_qty'   => 1,
             'use_config_max_sale_qty'   => 1,
             'use_config_backorders'     => 1,
-            'use_config_notify_stock_qty' => 1
+            'use_config_notify_stock_qty' => 1,
         ];
         $currentStockItem = $currentProduct->getStockItem();
         if ($currentStockItem) {
             $stockData += [
-                'use_config_enable_qty_inc'  => $currentStockItem->getData('use_config_enable_qty_inc'),
-                'enable_qty_increments'             => $currentStockItem->getData('enable_qty_increments'),
-                'use_config_qty_increments'         => $currentStockItem->getData('use_config_qty_increments'),
-                'qty_increments'                    => $currentStockItem->getData('qty_increments'),
+                'use_config_enable_qty_inc'  => $currentStockItem->getDataByKey('use_config_enable_qty_inc'),
+                'enable_qty_increments'             => $currentStockItem->getDataByKey('enable_qty_increments'),
+                'use_config_qty_increments'         => $currentStockItem->getDataByKey('use_config_qty_increments'),
+                'qty_increments'                    => $currentStockItem->getDataByKey('qty_increments'),
             ];
         }
+
         $newProduct->setStockData($stockData);
 
         return $this;
@@ -192,8 +194,8 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Prepare stock item data for save
      *
-     * @param Mage_CatalogInventory_Model_Stock_Item $item
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_CatalogInventory_Model_Stock_Item $item
+     * @param  Mage_Catalog_Model_Product             $product
      * @return $this
      */
     protected function _prepareItemForSave($item, $product)
@@ -207,48 +209,56 @@ class Mage_CatalogInventory_Model_Observer
         ) {
             $item->setData('use_config_min_qty', false);
         }
+
         if (!is_null($product->getData('stock_data/min_sale_qty'))
             && is_null($product->getData('stock_data/use_config_min_sale_qty'))
         ) {
             $item->setData('use_config_min_sale_qty', false);
         }
+
         if (!is_null($product->getData('stock_data/max_sale_qty'))
             && is_null($product->getData('stock_data/use_config_max_sale_qty'))
         ) {
             $item->setData('use_config_max_sale_qty', false);
         }
+
         if (!is_null($product->getData('stock_data/backorders'))
             && is_null($product->getData('stock_data/use_config_backorders'))
         ) {
             $item->setData('use_config_backorders', false);
         }
+
         if (!is_null($product->getData('stock_data/notify_stock_qty'))
             && is_null($product->getData('stock_data/use_config_notify_stock_qty'))
         ) {
             $item->setData('use_config_notify_stock_qty', false);
         }
+
         $originalQty = $product->getData('stock_data/original_inventory_qty');
         if (is_numeric($originalQty)) {
             $item->setQtyCorrection($item->getQty() - $originalQty);
         }
+
         if (!is_null($product->getData('stock_data/enable_qty_increments'))
             && is_null($product->getData('stock_data/use_config_enable_qty_inc'))
         ) {
             $item->setData('use_config_enable_qty_inc', false);
         }
+
         if (!is_null($product->getData('stock_data/qty_increments'))
             && is_null($product->getData('stock_data/use_config_qty_increments'))
         ) {
             $item->setData('use_config_qty_increments', false);
         }
+
         return $this;
     }
 
     /**
      * Removes error statuses from quote and item, set by this observer
      *
-     * @param Mage_Sales_Model_Quote_Item $item
-     * @param int $code
+     * @param  Mage_Sales_Model_Quote_Item $item
+     * @param  int                         $code
      * @return $this
      */
     protected function _removeErrorsFromQuoteAndItem($item, $code)
@@ -256,7 +266,7 @@ class Mage_CatalogInventory_Model_Observer
         if ($item->getHasError()) {
             $params = [
                 'origin' => 'cataloginventory',
-                'code' => $code
+                'code' => $code,
             ];
             $item->removeErrorInfosByParams($params);
         }
@@ -287,7 +297,7 @@ class Mage_CatalogInventory_Model_Observer
         if ($quote->getHasError() && $canRemoveErrorFromQuote) {
             $params = [
                 'origin' => 'cataloginventory',
-                'code' => $code
+                'code' => $code,
             ];
             $quote->removeErrorInfosByParams(null, $params);
         }
@@ -300,6 +310,7 @@ class Mage_CatalogInventory_Model_Observer
      *
      * @param  Varien_Event_Observer $observer
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function checkQuoteItemQty($observer)
     {
@@ -324,24 +335,25 @@ class Mage_CatalogInventory_Model_Observer
         if ($quoteItem->getParentItem()) {
             $parentStockItem = $quoteItem->getParentItem()->getProduct()->getStockItem();
         }
+
         if ($stockItem) {
             if (!$stockItem->getIsInStock() || ($parentStockItem && !$parentStockItem->getIsInStock())) {
                 $quoteItem->addErrorInfo(
                     'cataloginventory',
                     Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    Mage::helper('cataloginventory')->__('This product is currently out of stock.')
+                    Mage::helper('cataloginventory')->__('This product is currently out of stock.'),
                 );
                 $quoteItem->getQuote()->addErrorInfo(
                     'stock',
                     'cataloginventory',
                     Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    Mage::helper('cataloginventory')->__('Some of the products are currently out of stock.')
+                    Mage::helper('cataloginventory')->__('Some of the products are currently out of stock.'),
                 );
                 return $this;
-            } else {
-                // Delete error from item and its quote, if it was set due to item out of stock
-                $this->_removeErrorsFromQuoteAndItem($quoteItem, Mage_CatalogInventory_Helper_Data::ERROR_QTY);
             }
+
+            // Delete error from item and its quote, if it was set due to item out of stock
+            $this->_removeErrorsFromQuoteAndItem($quoteItem, Mage_CatalogInventory_Helper_Data::ERROR_QTY);
         }
 
         /**
@@ -358,20 +370,20 @@ class Mage_CatalogInventory_Model_Observer
                     $quoteItem->addErrorInfo(
                         'cataloginventory',
                         Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS,
-                        $result->getMessage()
+                        $result->getMessage(),
                     );
 
                     $quoteItem->getQuote()->addErrorInfo(
                         $result->getQuoteMessageIndex(),
                         'cataloginventory',
                         Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS,
-                        $result->getQuoteMessage()
+                        $result->getQuoteMessage(),
                     );
                 } else {
                     // Delete error from item and its quote, if it was set due to qty problems
                     $this->_removeErrorsFromQuoteAndItem(
                         $quoteItem,
-                        Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS
+                        Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS,
                     );
                 }
             }
@@ -393,7 +405,7 @@ class Mage_CatalogInventory_Model_Observer
                 /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
                 if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                     Mage::throwException(
-                        Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.')
+                        Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.'),
                     );
                 }
 
@@ -409,7 +421,7 @@ class Mage_CatalogInventory_Model_Observer
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
                     $option->getProduct()->getId(),
                     $quoteItem->getId(),
-                    $increaseOptionQty
+                    $increaseOptionQty,
                 );
 
                 $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $optionValue);
@@ -427,10 +439,12 @@ class Mage_CatalogInventory_Model_Observer
                      */
                     $quoteItem->setData('qty', (int) $qty);
                 }
+
                 if (!is_null($result->getMessage())) {
                     $option->setMessage($result->getMessage());
                     $quoteItem->setMessage($result->getMessage());
                 }
+
                 if (!is_null($result->getItemBackorders())) {
                     $option->setBackorders($result->getItemBackorders());
                 }
@@ -442,14 +456,14 @@ class Mage_CatalogInventory_Model_Observer
                     $quoteItem->addErrorInfo(
                         'cataloginventory',
                         Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                        $result->getMessage()
+                        $result->getMessage(),
                     );
 
                     $quoteItem->getQuote()->addErrorInfo(
                         $result->getQuoteMessageIndex(),
                         'cataloginventory',
                         Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                        $result->getQuoteMessage()
+                        $result->getQuoteMessage(),
                     );
                 } elseif (!$quoteItemHasErrors) {
                     // Delete error from item and its quote, if it was set due to qty lack
@@ -475,7 +489,7 @@ class Mage_CatalogInventory_Model_Observer
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
                     $quoteItem->getProduct()->getId(),
                     $quoteItem->getId(),
-                    0
+                    0,
                 );
             } else {
                 $increaseQty = $quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty;
@@ -483,17 +497,15 @@ class Mage_CatalogInventory_Model_Observer
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
                     $quoteItem->getProduct()->getId(),
                     $quoteItem->getId(),
-                    $increaseQty
+                    $increaseQty,
                 );
             }
 
             $productTypeCustomOption = $quoteItem->getProduct()->getCustomOption('product_type');
-            if (!is_null($productTypeCustomOption)) {
-                // Check if product related to current item is a part of grouped product
-                if ($productTypeCustomOption->getValue() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
-                    $stockItem->setProductName($quoteItem->getProduct()->getName());
-                    $stockItem->setIsChildItem(true);
-                }
+            // Check if product related to current item is a part of grouped product
+            if (!is_null($productTypeCustomOption) && $productTypeCustomOption->getValue() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
+                $stockItem->setProductName($quoteItem->getProduct()->getName());
+                $stockItem->setIsChildItem(true);
             }
 
             $result = $stockItem->checkQuoteItemQty($rowQty, $qtyForCheck, $qty);
@@ -527,6 +539,7 @@ class Mage_CatalogInventory_Model_Observer
             if (!is_null($result->getItemUseOldQty())) {
                 $quoteItem->setUseOldQty($result->getItemUseOldQty());
             }
+
             if (!is_null($result->getMessage())) {
                 $quoteItem->setMessage($result->getMessage());
             }
@@ -539,14 +552,14 @@ class Mage_CatalogInventory_Model_Observer
                 $quoteItem->addErrorInfo(
                     'cataloginventory',
                     Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    $result->getMessage()
+                    $result->getMessage(),
                 );
 
                 $quoteItem->getQuote()->addErrorInfo(
                     $result->getQuoteMessageIndex(),
                     'cataloginventory',
                     Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    $result->getQuoteMessage()
+                    $result->getQuoteMessage(),
                 );
             } else {
                 // Delete error from item and its quote, if it was set due to qty lack
@@ -561,8 +574,8 @@ class Mage_CatalogInventory_Model_Observer
      * Get product qty includes information from all quote items
      * Need be used only in sungleton mode
      *
-     * @param int $productId
-     * @param float $itemQty
+     * @param  int         $productId
+     * @param  float       $itemQty
      * @return float|mixed
      * @deprecated after 1.4.2.0-rc1
      */
@@ -572,6 +585,7 @@ class Mage_CatalogInventory_Model_Observer
         if (isset($this->_checkedProductsQty[$productId])) {
             $qty += $this->_checkedProductsQty[$productId];
         }
+
         $this->_checkedProductsQty[$productId] = $qty;
         return $qty;
     }
@@ -580,16 +594,16 @@ class Mage_CatalogInventory_Model_Observer
      * Get product qty includes information from all quote items
      * Need be used only in sungleton mode
      *
-     * @param int   $productId
-     * @param int   $quoteItemId
-     * @param float $itemQty
-     * @return int
+     * @param  int   $productId
+     * @param  int   $quoteItemId
+     * @param  float $itemQty
+     * @return float
      */
     protected function _getQuoteItemQtyForCheck($productId, $quoteItemId, $itemQty)
     {
         $qty = $itemQty;
-        if (isset($this->_checkedQuoteItems[$productId]['qty']) &&
-            !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])
+        if (isset($this->_checkedQuoteItems[$productId]['qty'])
+            && !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])
         ) {
             $qty += $this->_checkedQuoteItems[$productId]['qty'];
         }
@@ -603,7 +617,6 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Subtract qtys of quote item products after multishipping checkout
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function checkoutAllSubmitAfter(Varien_Event_Observer $observer)
@@ -614,6 +627,7 @@ class Mage_CatalogInventory_Model_Observer
             $this->subtractQuoteInventory($observer);
             $this->reindexQuoteInventory($observer);
         }
+
         return $this;
     }
 
@@ -623,8 +637,7 @@ class Mage_CatalogInventory_Model_Observer
      * Used before order placing to make order save/place transaction smaller
      * Also called after every successful order placement to ensure subtraction of inventory
      *
-     * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogInventory_Model_Observer|void
+     * @return null|Mage_CatalogInventory_Model_Observer
      */
     public function subtractQuoteInventory(Varien_Event_Observer $observer)
     {
@@ -634,8 +647,9 @@ class Mage_CatalogInventory_Model_Observer
         // Maybe we've already processed this quote in some event during order placement
         // e.g. call in event 'sales_model_service_quote_submit_before' and later in 'checkout_submit_all_after'
         if ($quote->getInventoryProcessed()) {
-            return;
+            return null;
         }
+
         $items = $this->_getProductsQty($quote->getAllItems());
 
         /**
@@ -673,7 +687,7 @@ class Mage_CatalogInventory_Model_Observer
      * )
      *
      * @param Mage_Sales_Model_Quote_Item $quoteItem
-     * @param array $items
+     * @param array                       $items
      */
     protected function _addItemToQtyArray($quoteItem, &$items)
     {
@@ -681,6 +695,7 @@ class Mage_CatalogInventory_Model_Observer
         if (!$productId) {
             return;
         }
+
         if (isset($items[$productId])) {
             $items[$productId]['qty'] += $quoteItem->getTotalQty();
         } else {
@@ -688,9 +703,10 @@ class Mage_CatalogInventory_Model_Observer
             if ($quoteItem->getProduct()) {
                 $stockItem = $quoteItem->getProduct()->getStockItem();
             }
+
             $items[$productId] = [
                 'item' => $stockItem,
-                'qty'  => $quoteItem->getTotalQty()
+                'qty'  => $quoteItem->getTotalQty(),
             ];
         }
     }
@@ -704,7 +720,7 @@ class Mage_CatalogInventory_Model_Observer
      *      'item'  => $stockItems|null
      *  )
      * )
-     * @param array $relatedItems
+     * @param  array $relatedItems
      * @return array
      */
     protected function _getProductsQty($relatedItems)
@@ -715,6 +731,7 @@ class Mage_CatalogInventory_Model_Observer
             if (!$productId) {
                 continue;
             }
+
             $children = $item->getChildrenItems();
             if ($children) {
                 foreach ($children as $childItem) {
@@ -724,14 +741,15 @@ class Mage_CatalogInventory_Model_Observer
                 $this->_addItemToQtyArray($item, $items);
             }
         }
+
         return $items;
     }
 
     /**
      * Refresh stock index for specific stock items after successful order placement
      *
-     * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogInventory_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function reindexQuoteInventory($observer)
     {
@@ -759,7 +777,7 @@ class Mage_CatalogInventory_Model_Observer
          * This limits the number of stock re-indexing that takes place,
          * especially in stores where stock is not managed
          **/
-        $productIds = array_map('\intval', $productIds);
+        $productIds = array_map(\intval(...), $productIds);
         $stockCollection = Mage::getModel('cataloginventory/stock_item')->getCollection()
             ->addFieldToFilter('product_id', ['in' => $productIds])
             ->addFieldToFilter('manage_stock', ['eq' => 1]);
@@ -773,9 +791,11 @@ class Mage_CatalogInventory_Model_Observer
         // Reindex previously remembered items
         $productIds = [];
         foreach ($this->_itemsForReindex as $item) {
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $item->save();
             $productIds[] = $item->getProductId();
         }
+
         Mage::getResourceSingleton('catalog/product_indexer_price')->reindexProductIds($productIds);
 
         $this->_itemsForReindex = []; // Clear list of remembered items - we don't need it anymore
@@ -803,6 +823,7 @@ class Mage_CatalogInventory_Model_Observer
             } elseif (Mage::helper('cataloginventory')->isAutoReturnEnabled()) {
                 $return = true;
             }
+
             if ($return) {
                 $parentOrderId = $item->getOrderItem()->getParentItemId();
                 /** @var Mage_Sales_Model_Order_Creditmemo_Item $parentItem */
@@ -818,14 +839,15 @@ class Mage_CatalogInventory_Model_Observer
                 }
             }
         }
+
         Mage::getSingleton('cataloginventory/stock')->revertProductsSale($items);
     }
 
     /**
      * Cancel order item
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_CatalogInventory_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function cancelOrderItem($observer)
     {
@@ -846,8 +868,8 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Update items stock status and low stock date.
      *
-     * @param Varien_Event_Observer $observer
-     * @return  Mage_CatalogInventory_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function updateItemsStockUponConfigChange($observer)
     {
@@ -860,7 +882,6 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Update Only product status observer
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function productStatusUpdate(Varien_Event_Observer $observer)
@@ -874,7 +895,6 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Catalog Product website update
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductWebsiteUpdate(Varien_Event_Observer $observer)
@@ -895,7 +915,6 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Add stock status to prepare index select
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function addStockStatusToPrepareIndexSelect(Varien_Event_Observer $observer)
@@ -912,7 +931,6 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Add stock status limitation to catalog product price index select object
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function prepareCatalogProductIndexSelect(Varien_Event_Observer $observer)
@@ -930,7 +948,6 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Add stock status filter to select
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function addStockStatusFilterToSelect(Varien_Event_Observer $observer)
@@ -946,6 +963,7 @@ class Mage_CatalogInventory_Model_Observer
         if (!($entityField instanceof Zend_Db_Expr)) {
             $entityField = new Zend_Db_Expr($entityField);
         }
+
         if (!($websiteField instanceof Zend_Db_Expr)) {
             $websiteField = new Zend_Db_Expr($websiteField);
         }
@@ -961,9 +979,9 @@ class Mage_CatalogInventory_Model_Observer
      *
      * We need do it for resolving problems with inventory on placing
      * some orders in one time
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      * @deprecated after 1.4
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_CatalogInventory_Model_Observer
      */
     public function lockOrderInventoryData($observer)
     {
@@ -984,7 +1002,7 @@ class Mage_CatalogInventory_Model_Observer
             }
         }
 
-        if (!empty($productIds)) {
+        if ($productIds !== []) {
             Mage::getSingleton('cataloginventory/stock')->lockProductItems($productIds);
         }
 
@@ -994,9 +1012,9 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Register saving order item
      *
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      * @deprecated after 1.4
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_CatalogInventory_Model_Observer
      */
     public function createOrderItem($observer)
     {
@@ -1018,9 +1036,9 @@ class Mage_CatalogInventory_Model_Observer
     /**
      * Back refunded item qty to stock
      *
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      * @deprecated after 1.4
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_CatalogInventory_Model_Observer
      */
     public function refundOrderItem($observer)
     {
@@ -1031,26 +1049,28 @@ class Mage_CatalogInventory_Model_Observer
         ) {
             Mage::getSingleton('cataloginventory/stock')->backItemQty($productId, $qty);
         }
+
         return $this;
     }
 
     /**
      * Reindex all events of product-massAction type
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
+     * @throws Exception
      */
     public function reindexProductsMassAction($observer)
     {
         Mage::getSingleton('index/indexer')->indexEvents(
             Mage_Catalog_Model_Product::ENTITY,
-            Mage_Index_Model_Event::TYPE_MASS_ACTION
+            Mage_Index_Model_Event::TYPE_MASS_ACTION,
         );
     }
 
     /**
      * Detects whether product status should be shown
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function displayProductStatusInfo($observer)

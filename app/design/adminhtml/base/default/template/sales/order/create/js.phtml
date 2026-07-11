@@ -1,0 +1,23 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Template $this */
+ ?>
+<script type="text/javascript">
+    order.sidebarHide();
+    Event.observe(window, 'load',  function() {
+        if (window.productConfigure) {
+            productConfigure.addListType('product_to_add', {
+                urlFetch: '<?php echo $this->getUrl('*/sales_order_create/configureProductToAdd') ?>'
+            });
+            productConfigure.addListType('quote_items', {
+                urlFetch: '<?php echo $this->getUrl('*/sales_order_create/configureQuoteItems') ?>'
+            });
+        }
+    });
+</script>

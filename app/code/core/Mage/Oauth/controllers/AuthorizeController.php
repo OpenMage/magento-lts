@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * oAuth authorize controller
  *
- * @category   Mage
  * @package    Mage_Oauth
  */
 class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
@@ -31,7 +24,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
     /**
      * Init authorize page
      *
-     * @param bool $simple      Is simple page?
+     * @param  bool  $simple Is simple page?
      * @return $this
      */
     protected function _initForm($simple = false)
@@ -44,14 +37,14 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
         $isException = false;
         try {
             $server->checkAuthorizeRequest();
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Mage_Oauth_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Mage_Oauth_Exception $mageOauthException) {
             $isException = true;
-            $session->addException($e, $this->__('An error occurred. Your authorization request is invalid.'));
-        } catch (Exception $e) {
+            $session->addException($mageOauthException, $this->__('An error occurred. Your authorization request is invalid.'));
+        } catch (Exception $exception) {
             $isException = true;
-            $session->addException($e, $this->__('An error occurred.'));
+            $session->addException($exception, $this->__('An error occurred.'));
         }
 
         $this->loadLayout();
@@ -83,7 +76,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
     /**
      * Init confirm page
      *
-     * @param bool $simple      Is simple page?
+     * @param  bool  $simple Is simple page?
      * @return $this
      */
     protected function _initConfirmPage($simple = false)
@@ -115,16 +108,16 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
             if (($callback = $helper->getFullCallbackUrl($token))) { //false in case of OOB
                 $this->_redirectUrl($callback . ($simple ? '&simple=1' : ''));
                 return $this;
-            } else {
-                $block->setVerifier($token->getVerifier());
-                $session->addSuccess($this->__('Authorization confirmed.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Mage_Oauth_Exception $e) {
-            $session->addException($e, $this->__('An error occurred. Your authorization request is invalid.'));
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('An error occurred on confirm authorize.'));
+
+            $block->setVerifier($token->getVerifier());
+            $session->addSuccess($this->__('Authorization confirmed.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Mage_Oauth_Exception $mageOauthException) {
+            $session->addException($mageOauthException, $this->__('An error occurred. Your authorization request is invalid.'));
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('An error occurred on confirm authorize.'));
         }
 
         $this->_initLayoutMessages($this->_sessionName);
@@ -136,7 +129,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
     /**
      * Init reject page
      *
-     * @param bool $simple      Is simple page?
+     * @param  bool  $simple Is simple page?
      * @return $this
      */
     protected function _initRejectPage($simple = false)
@@ -160,13 +153,13 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
             if (($callback = $helper->getFullCallbackUrl($token, true))) {
                 $this->_redirectUrl($callback . ($simple ? '&simple=1' : ''));
                 return $this;
-            } else {
-                $session->addNotice($this->__('The application access request is rejected.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('An error occurred on reject authorize.'));
+
+            $session->addNotice($this->__('The application access request is rejected.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('An error occurred on reject authorize.'));
         }
 
         $this->_initLayoutMessages($this->_sessionName);
@@ -177,6 +170,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * Index action.
+     * @return void
      */
     public function indexAction()
     {
@@ -187,6 +181,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * OAuth authorize or allow decline access simple page
+     * @return void
      */
     public function simpleAction()
     {
@@ -197,6 +192,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * Confirm token authorization action
+     * @return void
      */
     public function confirmAction()
     {
@@ -205,6 +201,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * Confirm token authorization simple page
+     * @return void
      */
     public function confirmSimpleAction()
     {
@@ -213,6 +210,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * Reject token authorization action
+     * @return void
      */
     public function rejectAction()
     {
@@ -221,6 +219,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * Reject token authorization simple page
+     * @return void
      */
     public function rejectSimpleAction()
     {

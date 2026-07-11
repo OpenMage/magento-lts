@@ -1,23 +1,18 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Flat sales order collection
  *
- * @category   Mage
  * @package    Mage_Sales
+ * @template T of Mage_Core_Model_Abstract
+ * @extends Mage_Sales_Model_Resource_Collection_Abstract<T>
  */
 abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_Sales_Model_Resource_Collection_Abstract
 {
@@ -38,7 +33,7 @@ abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_
     /**
      * Set sales order model as parent collection object
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return $this
      */
     public function setSalesOrder($order)
@@ -48,7 +43,7 @@ abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_
             Mage::dispatchEvent($this->_eventPrefix . '_set_sales_order', [
                 'collection' => $this,
                 $this->_eventObject => $this,
-                'order' => $order
+                'order' => $order,
             ]);
         }
 
@@ -58,7 +53,7 @@ abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_
     /**
      * Retrieve sales order as parent collection object
      *
-     * @return Mage_Sales_Model_Order|null
+     * @return null|Mage_Sales_Model_Order
      */
     public function getSalesOrder()
     {
@@ -68,7 +63,7 @@ abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_
     /**
      * Add order filter
      *
-     * @param int|Mage_Sales_Model_Order $order
+     * @param  null|array|int|Mage_Sales_Model_Order|string $order
      * @return $this
      */
     public function setOrderFilter($order)
@@ -85,6 +80,7 @@ abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_
         } else {
             $this->addFieldToFilter($this->_orderField, $order);
         }
+
         return $this;
     }
 }

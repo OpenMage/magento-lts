@@ -1,47 +1,38 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Index data retriever factory
  *
- * @category   Mage
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Retreiver _getResource()
+ * @method int                                        getAttributeSetId()
+ * @method int                                        getEntityTypeId()
+ * @method int                                        getHasOptions()
+ * @method int                                        getRequiredOptions()
  * @method Mage_CatalogIndex_Model_Resource_Retreiver getResource()
- * @method int getEntityTypeId()
- * @method $this setEntityTypeId(int $value)
- * @method int getAttributeSetId()
- * @method $this setAttributeSetId(int $value)
- * @method string getTypeId()
- * @method $this setTypeId(string $value)
- * @method string getSku()
- * @method $this setSku(string $value)
- * @method int getHasOptions()
- * @method $this setHasOptions(int $value)
- * @method int getRequiredOptions()
- * @method $this setRequiredOptions(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
+ * @method string                                     getSku()
+ * @method string                                     getTypeId()
+ * @method $this                                      setAttributeSetId(int $value)
+ * @method $this                                      setEntityTypeId(int $value)
+ * @method $this                                      setHasOptions(int $value)
+ * @method $this                                      setRequiredOptions(int $value)
+ * @method $this                                      setSku(string $value)
+ * @method $this                                      setTypeId(string $value)
  */
 class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
 {
     public const CHILDREN_FOR_TIERS = 1;
+
     public const CHILDREN_FOR_PRICES = 2;
+
     public const CHILDREN_FOR_ATTRIBUTES = 3;
 
     protected $_attributeIdCache = [];
@@ -49,7 +40,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     /**
      * Customer group cache
      *
-     * @var Mage_Customer_Model_Resource_Group_Collection|null
+     * @var null|Mage_Customer_Model_Resource_Group_Collection
      */
     protected $_customerGroups;
 
@@ -62,7 +53,6 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
 
     /**
      * Retriever factory init, load retriever settings
-     *
      */
     protected function _construct()
     {
@@ -79,17 +69,19 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     /**
      * Returns data retriever model by specified product type
      *
-     * @param string $type
-     * @return Mage_CatalogIndex_Model_Data_Abstract|false
+     * @param  string                                      $type
+     * @return false|Mage_CatalogIndex_Model_Data_Abstract
      * @throws Mage_Core_Exception
      */
     public function getRetreiver($type)
     {
         if (isset($this->_retreivers[$type])) {
-            return Mage::getSingleton($this->_retreivers[$type]);
-        } else {
-            Mage::throwException("Data retreiver for '{$type}' is not defined");
+            /** @var false|Mage_CatalogIndex_Model_Data_Abstract $model */
+            $model = Mage::getSingleton($this->_retreivers[$type]);
+            return $model;
         }
+
+        Mage::throwException("Data retreiver for '{$type}' is not defined");
     }
 
     /**
@@ -102,13 +94,14 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
         if (is_null($this->_customerGroups)) {
             $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
         }
+
         return $this->_customerGroups;
     }
 
     /**
      * Return product ids sorted by type
      *
-     * @param array $products
+     * @param  array $products
      * @return array
      */
     public function assignProductTypes($products)
@@ -118,6 +111,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
         foreach ($flat as $one) {
             $result[$one['type']][] = $one['id'];
         }
+
         return $result;
     }
 }

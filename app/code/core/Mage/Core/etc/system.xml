@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -74,6 +67,8 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Number of seconds between each allowed request.</comment>
+                            <depends><active>1</active></depends>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </timeframe>
                     </fields>
                 </rate_limit>
@@ -330,6 +325,7 @@
                         </template_ua_regexp>
                         <skin translate="label">
                             <label>Skin (Images / CSS)</label>
+                            <validate>validate-no-html-tags</validate>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -556,6 +552,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><template_hints_admin>1</template_hints_admin></depends>
                         </template_hints_blocks_admin>
                         <head_front>
                             <label>Frontend</label>
@@ -582,6 +579,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><template_hints>1</template_hints></depends>
                         </template_hints_blocks>
                     </fields>
                 </debug>
@@ -660,6 +658,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Messages with a priority lower than the selected one will not be logged. Log Levels are ordered from highest to lowest priority.</comment>
+                            <depends><active>1</active></depends>
                         </max_level>
                         <file translate="label comment">
                             <label>System Log File Name</label>
@@ -669,6 +668,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Logging from Mage::log(). File is located in {{base_dir}}/var/log. Allowed file extensions: log, txt, html, csv</comment>
+                            <depends><active>1</active></depends>
                         </file>
                         <exception_file translate="label comment">
                             <label>Exceptions Log File Name</label>
@@ -678,6 +678,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Logging from Mage::logException(). File is located in {{base_dir}}/var/log. Allowed file extensions: log, txt, html, csv</comment>
+                            <depends><active>1</active></depends>
                         </exception_file>
                     </fields>
                 </log>
@@ -717,6 +718,24 @@
                         </merge_css_files>
                     </fields>
                 </css>
+                <jquery translate="label">
+                    <label>jQuery Settings</label>
+                    <sort_order>120</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <migrate translate="label">
+                            <label>Load jQuery-migration.js</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </migrate>
+                    </fields>
+                </jquery>
             </groups>
         </dev>
         <general translate="label" module="core">
@@ -917,6 +936,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>For Windows server only.</comment>
+                            <depends><disable>0</disable></depends>
                         </host>
                         <port translate="label">
                             <label>Port (25)</label>
@@ -925,6 +945,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>For Windows server only.</comment>
+                            <depends><disable>0</disable></depends>
                         </port>
                         <!--
                         <auth translate="label">
@@ -935,6 +956,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><disable>0</disable></depends>
                         </auth>
                         <username translate="label">
                             <label>Username</label>
@@ -942,6 +964,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><disable>0</disable></depends>
                         </username>
                         <password translate="label">
                             <label>Password</label>
@@ -949,6 +972,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><disable>0</disable></depends>
                         </password>
                         -->
                         <set_return_path translate="label">
@@ -959,6 +983,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><disable>0</disable></depends>
                         </set_return_path>
                         <return_path_email translate="label">
                             <label>Return-Path Email</label>
@@ -968,7 +993,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><set_return_path>2</set_return_path></depends>
+                            <depends>
+                                <disable>0</disable>
+                                <set_return_path>2</set_return_path>
+                            </depends>
                         </return_path_email>
                     </fields>
                 </smtp>
@@ -1016,6 +1044,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </configuration_update_time>
                     </fields>
                 </media_storage_configuration>
@@ -1111,6 +1140,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </password_reset_link_expiration_period>
                         <admin_notification_email_template translate="label">
                             <label>New Admin User Email Template</label>
@@ -1293,6 +1323,18 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </enable_charts>
+                        <chart_type translate="label">
+                            <label>Chart Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_dashboard_chart_type</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <enable_charts>1</enable_charts>
+                            </depends>
+                        </chart_type>
                     </fields>
                 </dashboard>
             </groups>
@@ -1520,13 +1562,6 @@
                         </no_route>
                     </fields>
                 </default>
-                <polls translate="label">
-                    <label>Polls</label>
-                    <sort_order>40</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                </polls>
                 <cookie translate="label">
                     <label>Session Cookie Management</label>
                     <sort_order>50</sort_order>
@@ -1540,6 +1575,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <frontend_class>validate-digits</frontend_class>
                         </cookie_lifetime>
                         <cookie_path translate="label">
                             <label>Cookie Path</label>

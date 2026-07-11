@@ -1,28 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Tax_Model_Class_Source_Product
  *
- * @category   Mage
  * @package    Mage_Tax
  */
 class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
     /**
-     * @param bool $withEmpty
+     * @param  bool  $withEmpty
      * @return array
      */
     public function getAllOptions($withEmpty = false)
@@ -39,15 +32,17 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
         if ($withEmpty) {
             array_unshift($options, ['value' => '', 'label' => Mage::helper('tax')->__('-- Please Select --')]);
         }
+
         return $options;
     }
 
     /**
      * Get a text for option value
      *
-     * @param string|int $value
-     * @return string|false
+     * @param  int|string   $value
+     * @return false|string
      */
+    #[Override]
     public function getOptionText($value)
     {
         $options = $this->getAllOptions(false);
@@ -57,6 +52,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
                 return $item['label'];
             }
         }
+
         return false;
     }
 
@@ -71,17 +67,16 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     }
 
     /**
-     * Retrieve flat column definition
-     *
-     * @return array
+     * @inheritDoc
      */
+    #[Override]
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $column = [
             'unsigned'  => true,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
         ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
@@ -99,8 +94,8 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     /**
      * Retrieve Select for update attribute value in flat table
      *
-     * @param   int $store
-     * @return  Varien_Db_Select|null
+     * @param  int                   $store
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {

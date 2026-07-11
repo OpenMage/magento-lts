@@ -1,0 +1,33 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Report_Wishlist
+ * @var Mage_Adminhtml_Block_Report_Wishlist $this
+ */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3 class="icon-head head-online-visitors"><?php echo Mage::helper('reports')->__('Wishlist Report') ?></h3></td>
+        </tr>
+    </table>
+</div>
+<?php echo $this->getChildHtml('grid') ?>
+
+<div class="switcher f-left" style="margin: 10px 10px 10px 0px; padding:15px;">
+<?php echo Mage::helper('reports')->__('Customers that have wishlist: %s%', $this->customer_with_wishlist) ?>
+</div>
+
+<div class="switcher" style="float: right; margin: 10px 0px 10px 10px; padding:15px;">
+    <?php echo Mage::helper('reports')->__('Number of wishlists: %s', $this->wishlists_count) ?><br />
+    <?php echo Mage::helper('reports')->__('Number of items bought from a wishlist: %s', $this->items_bought) ?><br />
+    <?php echo Mage::helper('reports')->__('Number of times wishlists have been shared (emailed): %s', $this->shared_count) ?><br />
+    <?php echo Mage::helper('reports')->__('Number of wishlist referrals: %s', $this->referrals_count) ?><br />
+    <?php echo Mage::helper('reports')->__('Number of wishlist conversions: %s', $this->conversions_count) ?><br />
+</div>

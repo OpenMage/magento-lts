@@ -1,59 +1,53 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Flag model
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Flag _getResource()
+ * @method string                        getFlagCode()
+ * @method string                        getLastUpdate()
  * @method Mage_Core_Model_Resource_Flag getResource()
- * @method string getFlagCode()
- * @method $this setFlagCode(string $value)
- * @method int getState()
- * @method $this setState(int $value)
- * @method string getLastUpdate()
- * @method $this setLastUpdate(string $value)
- * @method bool hasFlagData()
+ * @method int                           getState()
+ * @method bool                          hasFlagData()
+ * @method $this                         setFlagCode(string $value)
+ * @method $this                         setLastUpdate(string $value)
+ * @method $this                         setState(int $value)
  */
 class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
 {
     /**
      * Flag code
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_flagCode = null;
 
     /**
      * Init resource model
      * Set flag_code if it is specified in arguments
-     *
      */
     protected function _construct()
     {
         if ($this->hasData('flag_code')) {
-            $this->_flagCode = $this->getData('flag_code');
+            $this->_flagCode = $this->getDataByKey('flag_code');
         }
+
         $this->_init('core/flag');
     }
 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave()
     {
         if (is_null($this->_flagCode)) {
@@ -74,16 +68,16 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     public function getFlagData()
     {
         if ($this->hasFlagData()) {
-            return unserialize($this->getData('flag_data'), ['allowed_classes' => false]);
-        } else {
-            return null;
+            return unserialize($this->getDataByKey('flag_data'), ['allowed_classes' => false]);
         }
+
+        return null;
     }
 
     /**
      * Set flag data
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return $this
      */
     public function setFlagData($value)

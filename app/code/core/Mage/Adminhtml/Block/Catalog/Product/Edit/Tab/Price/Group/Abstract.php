@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml group price item abstract renderer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract extends Mage_Adminhtml_Block_Widget implements Varien_Data_Form_Element_Renderer_Interface
@@ -38,7 +31,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Websites cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_websites;
 
@@ -55,7 +48,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Render HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -67,7 +59,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Set form element instance
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return $this
      */
     public function setElement(Varien_Data_Form_Element_Abstract $element)
@@ -89,7 +80,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Prepare group price values
      *
-     * @return array
+     * @return array<string, mixed>|array<void>
      */
     public function getValues()
     {
@@ -112,7 +103,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Sort values
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _sortValues($data)
@@ -123,15 +114,16 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Retrieve allowed customer groups
      *
-     * @param int|null $groupId  return name by customer group id
+     * @param  null|int     $groupId return name by customer group id
      * @return array|string
      */
     public function getCustomerGroups($groupId = null)
     {
         if ($this->_customerGroups === null) {
-            if (!Mage::helper('catalog')->isModuleEnabled('Mage_Customer')) {
+            if (!$this->isModuleEnabled('Mage_Customer', 'catalog')) {
                 return [];
             }
+
             $collection = Mage::getModel('customer/group')->getCollection();
             $this->_customerGroups = $this->_getInitialCustomerGroups();
 
@@ -151,7 +143,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Retrieve list of initial customer groups
      *
-     * @return array
+     * @return array<int, string>|array<void>
      */
     protected function _getInitialCustomerGroups()
     {
@@ -192,8 +184,8 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         $this->_websites = [
             0 => [
                 'name' => Mage::helper('catalog')->__('All Websites'),
-                'currency' => Mage::app()->getBaseCurrencyCode()
-            ]
+                'currency' => Mage::app()->getBaseCurrencyCode(),
+            ],
         ];
 
         if (!$this->isScopeGlobal() && $this->getProduct()->getStoreId()) {
@@ -202,7 +194,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
 
             $this->_websites[$website->getId()] = [
                 'name' => $website->getName(),
-                'currency' => $website->getBaseCurrencyCode()
+                'currency' => $website->getBaseCurrencyCode(),
             ];
         } elseif (!$this->isScopeGlobal()) {
             $websites = Mage::app()->getWebsites(false);
@@ -211,9 +203,10 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
                 if (!in_array($website->getId(), $productWebsiteIds)) {
                     continue;
                 }
+
                 $this->_websites[$website->getId()] = [
                     'name' => $website->getName(),
-                    'currency' => $website->getBaseCurrencyCode()
+                    'currency' => $website->getBaseCurrencyCode(),
                 ];
             }
         }
@@ -241,6 +234,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         if ($this->isShowWebsiteColumn() && !$this->isAllowChangeWebsite()) {
             return Mage::app()->getStore($this->getProduct()->getStoreId())->getWebsiteId();
         }
+
         return 0;
     }
 
@@ -257,28 +251,30 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Retrieve customized price column header
      *
-     * @param string $default
+     * @param  string $default
      * @return string
      */
     public function getPriceColumnHeader($default)
     {
         if ($this->hasData('price_column_header')) {
-            return $this->getData('price_column_header');
+            return $this->getDataByKey('price_column_header');
         }
+
         return $default;
     }
 
     /**
      * Retrieve customized price column header
      *
-     * @param string $default
+     * @param  string $default
      * @return string
      */
     public function getPriceValidation($default)
     {
         if ($this->hasData('price_validation')) {
-            return $this->getData('price_validation');
+            return $this->getDataByKey('price_validation');
         }
+
         return $default;
     }
 
@@ -309,10 +305,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
      */
     public function isShowWebsiteColumn()
     {
-        if ($this->isScopeGlobal() || Mage::app()->isSingleStoreMode()) {
-            return false;
-        }
-        return true;
+        return !$this->isScopeGlobal() && !Mage::app()->isSingleStoreMode();
     }
 
     /**
@@ -322,9 +315,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
      */
     public function isAllowChangeWebsite()
     {
-        if (!$this->isShowWebsiteColumn() || $this->getProduct()->getStoreId()) {
-            return false;
-        }
-        return true;
+        return $this->isShowWebsiteColumn() && !$this->getProduct()->getStoreId();
     }
 }

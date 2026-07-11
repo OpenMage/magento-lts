@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin abstract reports controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_Controller_Action
@@ -33,18 +26,20 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
      *
      * @return Mage_Admin_Model_Session
      */
+    #[Override]
     protected function _getSession()
     {
         if (is_null($this->_adminSession)) {
             $this->_adminSession = Mage::getSingleton('admin/session');
         }
+
         return $this->_adminSession;
     }
 
     /**
      * Add report breadcrumbs
      *
-     * @return Mage_Adminhtml_Controller_Report_Abstract
+     * @return $this
      */
     public function _initAction()
     {
@@ -56,8 +51,8 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
     /**
      * Report action init operations
      *
-     * @param array|Varien_Object $blocks
-     * @return Mage_Adminhtml_Controller_Report_Abstract
+     * @param  array|Varien_Object $blocks
+     * @return $this
      */
     public function _initReportAction($blocks)
     {
@@ -78,7 +73,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
 
         foreach ($blocks as $block) {
             if ($block) {
-                $block->setPeriodType($params->getData('period_type'));
+                $block->setPeriodType($params->getDataByKey('period_type'));
                 $block->setFilterData($params);
             }
         }
@@ -89,9 +84,9 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
     /**
      * Add refresh statistics links
      *
-     * @param string $flagCode
-     * @param string $refreshCode
-     * @return Mage_Adminhtml_Controller_Report_Abstract
+     * @param  string $flagCode
+     * @param  string $refreshCode
+     * @return $this
      */
     protected function _showLastExecutionTime($flagCode, $refreshCode)
     {
@@ -100,7 +95,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
             ? Mage::app()->getLocale()->storeDate(
                 0,
                 new Zend_Date($flag->getLastUpdate(), Varien_Date::DATETIME_INTERNAL_FORMAT),
-                true
+                true,
             )
             : 'undefined';
 

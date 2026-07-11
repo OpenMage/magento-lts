@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer address helper
  *
- * @category   Mage
  * @package    Mage_Customer
  */
 class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
@@ -25,9 +18,13 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      * VAT Validation parameters XML paths
      */
     public const XML_PATH_VIV_DISABLE_AUTO_ASSIGN_DEFAULT  = 'customer/create_account/viv_disable_auto_group_assign_default';
+
     public const XML_PATH_VIV_ON_EACH_TRANSACTION          = 'customer/create_account/viv_on_each_transaction';
+
     public const XML_PATH_VAT_VALIDATION_ENABLED           = 'customer/create_account/auto_group_assign';
+
     public const XML_PATH_VIV_TAX_CALCULATION_ADDRESS_TYPE = 'customer/create_account/tax_calculation_address_type';
+
     public const XML_PATH_VAT_FRONTEND_VISIBILITY          = 'customer/create_account/vat_frontend_visibility';
 
     protected $_moduleName = 'Mage_Customer';
@@ -35,7 +32,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Array of Customer Address Attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_attributes;
 
@@ -52,46 +49,39 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      * @var array
      */
     protected $_streetLines     = [];
+
     protected $_formatTemplate  = [];
 
     /**
      * Addresses url
      */
-    public function getBookUrl()
-    {
-    }
+    public function getBookUrl() {}
 
-    public function getEditUrl()
-    {
-    }
+    public function getEditUrl() {}
 
-    public function getDeleteUrl()
-    {
-    }
+    public function getDeleteUrl() {}
 
-    public function getCreateUrl()
-    {
-    }
+    public function getCreateUrl() {}
 
     /**
-     * @param mixed $renderer
+     * @param  mixed $renderer
      * @return mixed
      */
     public function getRenderer($renderer)
     {
         if (is_string($renderer) && $className = Mage::getConfig()->getBlockClassName($renderer)) {
             return new $className();
-        } else {
-            return $renderer;
         }
+
+        return $renderer;
     }
 
     /**
      * Return customer address config value by key and store
      *
-     * @param string $key
-     * @param Mage_Core_Model_Store|int|string $store
-     * @return string|null
+     * @param  string                           $key
+     * @param  int|Mage_Core_Model_Store|string $store
+     * @return null|string
      */
     public function getConfig($key, $store = null)
     {
@@ -100,13 +90,14 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
         if (!isset($this->_config[$websiteId])) {
             $this->_config[$websiteId] = Mage::getStoreConfig('customer/address', $store);
         }
-        return isset($this->_config[$websiteId][$key]) ? (string)$this->_config[$websiteId][$key] : null;
+
+        return isset($this->_config[$websiteId][$key]) ? (string) $this->_config[$websiteId][$key] : null;
     }
 
     /**
      * Return Number of Lines in a Street Address for store
      *
-     * @param Mage_Core_Model_Store|int|string $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return int
      */
     public function getStreetLines($store = null)
@@ -115,10 +106,11 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
         if (!isset($this->_streetLines[$websiteId])) {
             /** @var Mage_Eav_Model_Attribute $attribute */
             $attribute = Mage::getSingleton('eav/config')->getAttribute('customer_address', 'street');
-            $lines = (int)$attribute->getMultilineCount();
+            $lines = (int) $attribute->getMultilineCount();
             if ($lines <= 0) {
                 $lines = 2;
             }
+
             $this->_streetLines[$websiteId] = min(20, $lines);
         }
 
@@ -126,7 +118,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $code
+     * @param  string $code
      * @return string
      */
     public function getFormat($code)
@@ -138,12 +130,12 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Determine if specified address config value can be shown
      *
-     * @param string $key
+     * @param  string $key
      * @return bool
      */
     public function canShowConfig($key)
     {
-        return (bool)$this->getConfig($key);
+        return (bool) $this->getConfig($key);
     }
 
     /**
@@ -161,13 +153,14 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
                 $this->_attributes[$attributeCode] = $config->getAttribute('customer_address', $attributeCode);
             }
         }
+
         return $this->_attributes;
     }
 
     /**
      * Get string with frontend validation classes for attribute
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return string
      */
     public function getAttributeValidationClass($attributeCode)
@@ -183,7 +176,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
 
             /** @var Mage_Customer_Model_Attribute $customerAttribute */
             $customerAttribute = Mage::getSingleton('eav/config')->getAttribute('customer', $attributeCode);
-            $class .= $customerAttribute && $customerAttribute->getIsVisible()
+            $class = $customerAttribute && $customerAttribute->getIsVisible()
                 ? $customerAttribute->getFrontend()->getClass() : '';
             $class = implode(' ', array_unique(array_filter(explode(' ', $class))));
         }
@@ -202,15 +195,15 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      *  Result:
      *   array('street1 street2', 'street3 street4')
      *
-     * @param array $origStreets
-     * @param int   $toCount
+     * @param  array $origStreets
+     * @param  int   $toCount
      * @return array
      */
     public function convertStreetLines($origStreets, $toCount)
     {
         $lines = [];
         if (!empty($origStreets) && $toCount > 0) {
-            $countArgs = (int)floor(count($origStreets) / $toCount);
+            $countArgs = (int) floor(count($origStreets) / $toCount);
             $modulo = count($origStreets) % $toCount;
             $offset = 0;
             $neededLinesCount = 0;
@@ -221,6 +214,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
                     ++$neededLinesCount;
                     --$modulo;
                 }
+
                 $values = array_slice($origStreets, $offset, $neededLinesCount);
                 $lines[] = implode(' ', $values);
             }
@@ -232,7 +226,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Check whether VAT ID validation is enabled
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isVatValidationEnabled($store = null)
@@ -253,7 +247,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Retrieve 'validate on each transaction' value
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function getValidateOnEachTransaction($store = null)
@@ -264,12 +258,12 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Retrieve customer address type on which tax calculation must be based
      *
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param  null|int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getTaxCalculationAddressType($store = null)
     {
-        return (string)Mage::getStoreConfig(self::XML_PATH_VIV_TAX_CALCULATION_ADDRESS_TYPE, $store);
+        return (string) Mage::getStoreConfig(self::XML_PATH_VIV_TAX_CALCULATION_ADDRESS_TYPE, $store);
     }
 
     /**

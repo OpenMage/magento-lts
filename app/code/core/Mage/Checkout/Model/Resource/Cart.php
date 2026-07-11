@@ -1,26 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Resource model for Checkout Cart
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/quote', 'entity_id');
@@ -29,7 +25,7 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Fetch items summary
      *
-     * @param int $quoteId
+     * @param  int   $quoteId
      * @return array
      */
     public function fetchItemsSummary($quoteId)
@@ -46,7 +42,7 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Fetch items
      *
-     * @param int $quoteId
+     * @param  int   $quoteId
      * @return array
      */
     public function fetchItems($quoteId)
@@ -55,7 +51,7 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
         $select = $read->select()
             ->from(
                 ['qi' => $this->getTable('sales/quote_item')],
-                ['id' => 'item_id', 'product_id', 'super_product_id', 'qty', 'created_at']
+                ['id' => 'item_id', 'product_id', 'super_product_id', 'qty', 'created_at'],
             )
             ->where('qi.quote_id = :quote_id');
 
@@ -65,8 +61,8 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Make collection not to load products that are in specified quote
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @param int $quoteId
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  int                                            $quoteId
      * @return $this
      */
     public function addExcludeProductFilter($collection, $quoteId)

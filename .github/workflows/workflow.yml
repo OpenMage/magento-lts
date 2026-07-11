@@ -4,32 +4,36 @@ on:
   push:
     paths:
       - '.github/workflows/*'
+      - '.phpstan.dist.baselines/*'
       - 'composer.json'
       - 'composer.lock'
       - '**.php'
+      - '**.phtml'
       - '**.js'
+      - '**.md'
       - '**.xml'
       - '.php-cs-fixer.dist.php'
-      - '.phpcs.xml.dist'
-      - '.phpcs.ecg.xml.dist'
-      - '.phpcs.php.xml.dist'
-      - 'phpstan.dist.neon'
-      - 'phpstan.dist.baseline.neon'
+      - '.phpcs.dist.xml'
+      - '.phpcs.dist.ecg.xml'
+      - '.phpcs.dist.php.xml'
+      - '.phpstan.dist.neon'
 
   pull_request:
     paths:
       - '.github/workflows/*'
+      - '.phpstan.dist.baselines/*'
       - 'composer.json'
       - 'composer.lock'
       - '**.php'
+      - '**.phtml'
       - '**.js'
+      - '**.md'
       - '**.xml'
       - '.php-cs-fixer.dist.php'
-      - '.phpcs.xml.dist'
-      - '.phpcs.ecg.xml.dist'
-      - '.phpcs.php.xml.dist'
-      - 'phpstan.dist.neon'
-      - 'phpstan.dist.baseline.neon'
+      - '.phpcs.dist.xml'
+      - '.phpcs.dist.ecg.xml'
+      - '.phpcs.dist.php.xml'
+      - '.phpstan.dist.neon'
 
 jobs:
   debug:
@@ -82,21 +86,32 @@ jobs:
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/php-cs-fixer.yml
 
+  phpmd:
+    name: PHPMD
+    needs: [check, composer]
+    if: |
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.phpmd > 0 ||
+      needs.check.outputs.composer > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/phpmd.yml
+
   phpstan:
     name: PHPStan
     needs: [check, composer]
     if: |
       needs.check.outputs.php > 0 ||
+      needs.check.outputs.phtml > 0 ||
       needs.check.outputs.phpstan > 0 ||
       needs.check.outputs.composer > 0 ||
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpstan.yml
 
   # DOES NOT run by default
-  # runs on schedule or when worklfow changed
+  # runs on schedule or when workflow changed
   syntax_php:
     name: PHP Syntax
-    needs: [check, phpcs, php-cs-fixer]
+    needs: [check, php-cs-fixer]
     if: needs.check.outputs.workflow > 0
     uses: ./.github/workflows/syntax-php.yml
 
@@ -106,25 +121,42 @@ jobs:
     if: needs.check.outputs.xml > 0
     uses: ./.github/workflows/syntax-xml.yml
 
-  # DOES NOT run by default
-  # runs on schedule or when worklfow or unit tests changed
-  sonar:
-    name: Unit Tests (Sonar)
-    needs: [check, phpcs, php-cs-fixer]
+  rector:
+    name: Rector
+    needs: [check, php-cs-fixer, phpstan]
     if: |
-      needs.check.outputs.phpunit-test > 0 ||
-      needs.check.outputs.phpunit > 0 ||
-      needs.check.outputs.sonar > 0 ||
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.composer > 0 ||
       needs.check.outputs.workflow > 0
-    uses: ./.github/workflows/sonar.yml
+    uses: ./.github/workflows/rector.yml
 
-  # DOES NOT run by default
-  # runs on schedule or when worklfow or unit tests changed
   unit_tests:
-    name: Unit Tests (OpenMage)
-    needs: [check, sonar]
+    name: PHPUnit
+    needs: [check, php-cs-fixer, phpstan]
     if: |
+      needs.check.outputs.php > 0 ||
       needs.check.outputs.phpunit-test > 0 ||
       needs.check.outputs.phpunit > 0 ||
+      needs.check.outputs.composer > 0 ||
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpunit.yml
+
+  spellcheck:
+    name: Spellcheck
+    needs: [check]
+    if: |
+      needs.check.outputs.markdown > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/spellcheck.yml
+
+  cypress:
+    name: Cypress E2E Tests
+    needs: [check]
+    if: |
+      needs.check.outputs.composer > 0 ||
+      needs.check.outputs.cypress > 0 ||
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.phtml > 0 ||
+      needs.check.outputs.xml > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/cypress.yml

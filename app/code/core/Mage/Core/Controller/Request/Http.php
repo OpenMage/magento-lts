@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -18,13 +12,14 @@
  *
  * Allows dispatching before and after events for each controller action
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 {
     public const XML_NODE_DIRECT_FRONT_NAMES = 'global/request/direct_front_name';
+
     public const DEFAULT_HTTP_PORT = 80;
+
     public const DEFAULT_HTTPS_PORT = 443;
 
     /**
@@ -32,7 +27,9 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @var string
      */
     protected $_originalPathInfo = '';
+
     protected $_storeCode       = null;
+
     protected $_requestString   = '';
 
     /**
@@ -41,19 +38,22 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @var null|array
      */
     protected $_rewritedPathInfo = null;
+
     protected $_requestedRouteName = null;
+
     protected $_routingInfo = [];
 
     protected $_route;
 
     protected $_directFrontNames = null;
+
     protected $_controllerModule = null;
 
     /**
      * Streight request flag.
      * If flag is determined no additional logic is applicable
      *
-     * @var bool $_isStraight
+     * @var bool
      */
     protected $_isStraight = false;
 
@@ -83,11 +83,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (empty($this->_originalPathInfo)) {
             $this->setPathInfo();
         }
+
         return $this->_originalPathInfo;
     }
 
     /**
-     * @return string|null
+     * @return null|string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreCodeFromPath()
@@ -95,14 +96,14 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (!$this->_storeCode) {
             // get store view code
             if ($this->_canBeStoreCodeInUrl()) {
-                $p = explode('/', trim($this->getPathInfo(), '/'));
-                $storeCode = $p[0];
+                $path = explode('/', trim($this->getPathInfo(), '/'));
+                $storeCode = $path[0];
 
                 $stores = Mage::app()->getStores(true, true);
 
                 if ($storeCode !== '' && isset($stores[$storeCode])) {
-                    array_shift($p);
-                    $this->setPathInfo(implode('/', $p));
+                    array_shift($path);
+                    $this->setPathInfo(implode('/', $path));
                     $this->_storeCode = $storeCode;
                     Mage::app()->setCurrentStore($storeCode);
                 } else {
@@ -112,6 +113,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 $this->_storeCode = Mage::app()->getStore()->getCode();
             }
         }
+
         return $this->_storeCode;
     }
 
@@ -119,9 +121,10 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Set the PATH_INFO string
      * Set the ORIGINAL_PATH_INFO string
      *
-     * @param string|null $pathInfo
-     * @return Zend_Controller_Request_Http
+     * @param  null|string $pathInfo
+     * @return $this
      */
+    #[Override]
     public function setPathInfo($pathInfo = null)
     {
         if ($pathInfo === null) {
@@ -163,7 +166,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 }
             }
 
-            $this->_originalPathInfo = (string) $pathInfo;
+            $this->_originalPathInfo = $pathInfo;
 
             $this->_requestString = $pathInfo . ($pos !== false ? substr($requestUri, $pos) : '');
         }
@@ -176,14 +179,15 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Specify new path info
      * It happen when occur rewrite based on configuration
      *
-     * @param   string $pathInfo
-     * @return  Mage_Core_Controller_Request_Http
+     * @param  string $pathInfo
+     * @return $this
      */
     public function rewritePathInfo($pathInfo)
     {
         if (($pathInfo != $this->getPathInfo()) && ($this->_rewritedPathInfo === null)) {
             $this->_rewritedPathInfo = explode('/', trim($this->getPathInfo(), '/'));
         }
+
         $this->setPathInfo($pathInfo);
         return $this;
     }
@@ -202,8 +206,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * Check if code declared as direct access frontend name
      * this mean what this url can be used without store code
      *
-     * @param   string $code
-     * @return  bool
+     * @param  string $code
+     * @return bool
      */
     public function isDirectAccessFrontendName($code)
     {
@@ -226,6 +230,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 return [];
             }
         }
+
         return $this->_directFrontNames;
     }
 
@@ -250,30 +255,30 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * @return string
      */
+    #[Override]
     public function getBasePath()
     {
         $path = parent::getBasePath();
         if (empty($path)) {
-            $path = '/';
-        } else {
-            $path = str_replace('\\', '/', $path);
+            return '/';
         }
-        return $path;
+
+        return str_replace('\\', '/', $path);
     }
 
     /**
-     * @param bool $raw
+     * @param  bool   $raw
      * @return string
      */
+    #[Override]
     public function getBaseUrl($raw = false)
     {
         $url = parent::getBaseUrl($raw);
-        $url = str_replace('\\', '/', $url);
-        return $url;
+        return str_replace('\\', '/', $url);
     }
 
     /**
-     * @param string $route
+     * @param  string $route
      * @return $this
      */
     public function setRouteName($route)
@@ -283,10 +288,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (!$router) {
             return $this;
         }
+
         $module = $router->getFrontNameByRoute($route);
         if ($module) {
             $this->setModuleName($module);
         }
+
         return $this;
     }
 
@@ -303,26 +310,32 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @return string
      */
+    #[Override]
     public function getScheme()
     {
         return $this->getServer('HTTPS') == 'on'
           || $this->getServer('HTTP_X_FORWARDED_PROTO') == 'https'
-          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure()) ?
-            self::SCHEME_HTTPS :
-            self::SCHEME_HTTP;
+          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure())
+            ? self::SCHEME_HTTPS
+            : self::SCHEME_HTTP;
     }
 
     /**
      * Retrieve HTTP HOST
      *
-     * @param bool $trimPort
+     * @param  bool         $trimPort
      * @return false|string
+     *
+     * @SuppressWarnings("PHPMD.ExitExpression")
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     public function getHttpHost($trimPort = true)
     {
         if (!isset($_SERVER['HTTP_HOST'])) {
             return false;
         }
+
         $host = $_SERVER['HTTP_HOST'];
         if ($trimPort) {
             $hostParts = explode(':', $_SERVER['HTTP_HOST']);
@@ -341,11 +354,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Set a member of the $_POST superglobal
      *
-     * @param string|array $key
-     * @param mixed $value
-     *
+     * @param  array|string $key
+     * @param  mixed        $value
      * @return $this
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     public function setPost($key, $value = null)
     {
         if (is_array($key)) {
@@ -353,14 +367,15 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         } else {
             $_POST[$key] = $value;
         }
+
         return $this;
     }
 
     /**
      * Specify module name where was found currently used controller
      *
-     * @param   string $module
-     * @return  Mage_Core_Controller_Request_Http
+     * @param  string $module
+     * @return $this
      */
     public function setControllerModule($module)
     {
@@ -371,7 +386,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     /**
      * Get module name of currently used controller
      *
-     * @return  string
+     * @return string
      */
     public function getControllerModule()
     {
@@ -383,24 +398,29 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @return string
      */
+    #[Override]
     public function getModuleName()
     {
         return $this->_module;
     }
+
     /**
      * Retrieve the controller name
      *
      * @return string
      */
+    #[Override]
     public function getControllerName()
     {
         return $this->_controller;
     }
+
     /**
      * Retrieve the action name
      *
      * @return string
      */
+    #[Override]
     public function getActionName()
     {
         return $this->_action;
@@ -411,9 +431,10 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * Retrieve the actual key represented by the alias $name.
      *
-     * @param string $name
-     * @return string|null Returns null when no alias exists
+     * @param  string      $name
+     * @return null|string Returns null when no alias exists
      */
+    #[Override]
     public function getAlias($name)
     {
         $aliases = $this->getAliases();
@@ -425,6 +446,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @return array
      */
+    #[Override]
     public function getAliases()
     {
         return $this->_routingInfo['aliases'] ?? parent::getAliases();
@@ -440,6 +462,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_route'])) {
             return $this->_routingInfo['requested_route'];
         }
+
         if ($this->_requestedRouteName === null) {
             if ($this->_rewritedPathInfo !== null && isset($this->_rewritedPathInfo[0])) {
                 $fronName = $this->_rewritedPathInfo[0];
@@ -450,6 +473,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 return $this->getRouteName();
             }
         }
+
         return $this->_requestedRouteName;
     }
 
@@ -463,9 +487,11 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_controller'])) {
             return $this->_routingInfo['requested_controller'];
         }
+
         if (($this->_rewritedPathInfo !== null) && isset($this->_rewritedPathInfo[1])) {
             return $this->_rewritedPathInfo[1];
         }
+
         return $this->getControllerName();
     }
 
@@ -479,16 +505,18 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_action'])) {
             return $this->_routingInfo['requested_action'];
         }
+
         if (($this->_rewritedPathInfo !== null) && isset($this->_rewritedPathInfo[2])) {
             return $this->_rewritedPathInfo[2];
         }
+
         return $this->getActionName();
     }
 
     /**
      * Set routing info data
      *
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function setRoutingInfo($data)
@@ -496,6 +524,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (is_array($data)) {
             $this->_routingInfo = $data;
         }
+
         return $this;
     }
 
@@ -507,12 +536,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function initForward()
     {
-        if (empty($this->_beforeForwardInfo)) {
+        if ($this->_beforeForwardInfo === []) {
             $this->_beforeForwardInfo = [
                 'params' => $this->getParams(),
                 'action_name' => $this->getActionName(),
                 'controller_name' => $this->getControllerName(),
-                'module_name' => $this->getModuleName()
+                'module_name' => $this->getModuleName(),
             ];
         }
 
@@ -524,24 +553,22 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * If property was not changed during _forward call null will be returned.
      * If passed name will be null whole state array will be returned.
      *
-     * @param string $name
-     * @return array|string|null
+     * @param  string            $name
+     * @return null|array|string
      */
     public function getBeforeForwardInfo($name = null)
     {
         if (is_null($name)) {
             return $this->_beforeForwardInfo;
-        } elseif (isset($this->_beforeForwardInfo[$name])) {
-            return $this->_beforeForwardInfo[$name];
         }
 
-        return null;
+        return $this->_beforeForwardInfo[$name] ?? null;
     }
 
     /**
      * Specify/get _isStraight flag value
      *
-     * @param bool $flag
+     * @param  bool $flag
      * @return bool
      */
     public function isStraight($flag = null)
@@ -549,6 +576,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if ($flag !== null) {
             $this->_isStraight = $flag;
         }
+
         return $this->_isStraight;
     }
 
@@ -562,21 +590,23 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if ($this->isXmlHttpRequest()) {
             return true;
         }
-        if ($this->getParam('ajax') || $this->getParam('isAjax')) {
+
+        if ($this->getParam('ajax')) {
             return true;
         }
-        return false;
+
+        return (bool) $this->getParam('isAjax');
     }
 
     /**
      * Define that request was forwarded internally
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setInternallyForwarded($flag = true)
     {
-        $this->_internallyForwarded = (bool)$flag;
+        $this->_internallyForwarded = (bool) $flag;
         return $this;
     }
 

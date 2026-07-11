@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
+
+use Override;
+use Mage_Adminhtml_Block_Template as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
+
+final class TemplateTest extends OpenMageTest
+{
+    use CoreTrait;
+
+    private static Subject $subject;
+
+    #[Override]
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
+    }
+
+    /**
+     * @see Mage_Core_Model_Session::getFormKey()
+     * @group Block
+     * @group runInSeparateProcess
+     * @runInSeparateProcess
+     */
+    public function testGetFormKey(): void
+    {
+        self::assertIsString(self::$subject->getFormKey());
+    }
+
+    /**
+     * @covers Mage_Adminhtml_Block_Template::isModuleOutputEnabled()
+     * @dataProvider provideIsModuleOutputEnabledData
+     * @group Block
+     */
+    public function testIsModuleOutputEnabled(bool $expectedResult, ?string $moduleName): void
+    {
+        self::assertSame($expectedResult, self::$subject->isModuleOutputEnabled($moduleName));
+    }
+
+    /**
+     * @group Block
+     */
+    public function testGetModuleName(): void
+    {
+        self::assertSame('Mage_Adminhtml', self::$subject->getModuleName());
+    }
+
+    /**
+     * @see Mage_Core_Model_Input_Filter_MaliciousCode::filter()
+     * @group Block
+     */
+    public function testMaliciousCodeFilter(): void
+    {
+        self::assertIsString(self::$subject->maliciousCodeFilter(''));
+    }
+}

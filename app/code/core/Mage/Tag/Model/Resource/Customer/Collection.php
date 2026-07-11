@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tags customer collection
  *
- * @category   Mage
  * @package    Mage_Tag
  */
 class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Resource_Customer_Collection
@@ -47,7 +40,8 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @return $this
      */
-    public function _initSelect()
+    #[Override]
+    protected function _initSelect()
     {
         parent::_initSelect();
         $this->_joinFields();
@@ -59,10 +53,9 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * Set flag about joined table.
      * setFlag method must be used in future.
      *
-     * @deprecated after 1.3.2.3
-     *
-     * @param string $table
+     * @param  string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function setJoinFlag($table)
     {
@@ -74,10 +67,9 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * Get flag's status about joined table.
      * getFlag method must be used in future.
      *
-     * @deprecated after 1.3.2.3
-     *
-     * @param string $table
+     * @param  string $table
      * @return bool
+     * @deprecated after 1.3.2.3
      */
     public function getJoinFlag($table)
     {
@@ -88,10 +80,9 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      * Unset value of join flag.
      * Set false (bool) value to flag instead in future.
      *
-     * @deprecated after 1.3.2.3
-     *
-     * @param string $table
+     * @param  string $table
      * @return $this
+     * @deprecated after 1.3.2.3
      */
     public function unsetJoinFlag($table = null)
     {
@@ -102,7 +93,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Adds filter by tag is
      *
-     * @param int $tagId
+     * @param  int   $tagId
      * @return $this
      */
     public function addTagFilter($tagId)
@@ -115,7 +106,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * adds filter by product id
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return $this
      */
     public function addProductFilter($productId)
@@ -128,7 +119,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Apply filter by store id(s).
      *
-     * @param int|array $storeId
+     * @param  array|int $storeId
      * @return $this
      */
     public function addStoreFilter($storeId)
@@ -140,7 +131,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Adds filter by status
      *
-     * @param int $status
+     * @param  int   $status
      * @return $this
      */
     public function addStatusFilter($status)
@@ -210,7 +201,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Adds filter by customer id
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)
@@ -221,7 +212,6 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
 
     /**
      * Joins tables to select
-     *
      */
     protected function _joinFields()
     {
@@ -238,7 +228,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         ->join(
             ['tr' => $tagRelationTable],
             'tr.customer_id = e.entity_id',
-            ['tag_relation_id', 'product_id', 'active', 'added_in' => 'store_id']
+            ['tag_relation_id', 'product_id', 'active', 'added_in' => 'store_id'],
         )
         ->join(['t' => $tagTable], 't.tag_id = tr.tag_id', ['*']);
     }
@@ -248,6 +238,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = parent::getSelectCountSql();
@@ -257,6 +248,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
             $countSelect->reset(Zend_Db_Select::GROUP);
             $countSelect->columns('COUNT(DISTINCT ' . $this->getCountAttribute() . ')');
         }
+
         return $countSelect;
     }
 
@@ -268,6 +260,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     public function addProductName()
     {
         $productsId   = [];
+        $productsSku  = [];
         $productsData = [];
 
         foreach ($this->getItems() as $item) {
@@ -277,7 +270,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         $productsId = array_unique($productsId);
 
         /* small fix */
-        if (!count($productsId)) {
+        if ($productsId === []) {
             return $this;
         }
 
@@ -297,6 +290,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
             $item->setProduct($productsData[$item->getProductId()]);
             $item->setProductSku($productsSku[$item->getProductId()]);
         }
+
         return $this;
     }
 
@@ -315,7 +309,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
             $this->_select->joinLeft(
                 [$field => $attr->getBackend()->getTable()],
                 'tr.product_id = ' . $field . '.entity_id AND ' . $field . '.attribute_id = ' . $attr->getId(),
-                ['product_' . $field => $fieldName]
+                ['product_' . $field => $fieldName],
             );
         }
 
@@ -323,7 +317,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         $this->_select->joinLeft(
             ['p' => $this->getTable('catalog/product')],
             'tr.product_id = p.entity_id',
-            ['product_sku' => 'sku']
+            ['product_sku' => 'sku'],
         );
 
         return $this;
@@ -332,7 +326,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Sets attribute for count
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setCountAttribute($value)
@@ -342,7 +336,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     }
 
     /**
-     * Gets attribure for count
+     * Gets attribute for count
      *
      * @return string
      */
@@ -356,15 +350,16 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @inheritDoc
      */
+    #[Override]
     public function addFieldToFilter($attribute, $condition = null)
     {
         if ($attribute == 'name') {
             $where = $this->_getConditionSql('t.name', $condition);
             $this->getSelect()->where($where, null, Varien_Db_Select::TYPE_CONDITION);
             return $this;
-        } else {
-            return parent::addFieldToFilter($attribute, $condition);
         }
+
+        return parent::addFieldToFilter($attribute, $condition);
     }
 
     /**
@@ -372,6 +367,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @return $this
      */
+    #[Override]
     protected function _renderOrders()
     {
         if (!$this->_isOrdersRendered) {
@@ -391,6 +387,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
                 }
             }
         }
+
         return $this;
     }
 }

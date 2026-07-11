@@ -1,0 +1,19 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Widget_Form_Renderer_Element $this */
+?>
+<?php $_element = $this->getElement() ?>
+<?php if($_element->getNoSpan() !== true): ?>
+<span class="field-row">
+<?php endif ?>
+<?php echo $_element->getLabelHtml() ?>
+<?php echo $_element->getElementHtml() ?>
+<?php if($_element->getNoSpan() !== true): ?>
+</span>
+<?php endif ?>

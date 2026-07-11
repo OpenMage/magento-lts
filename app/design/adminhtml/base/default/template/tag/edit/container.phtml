@@ -1,0 +1,43 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Tag_Edit $this */
+?>
+<?php echo $this->getFormInitScripts() ?>
+<div class="content-header">
+    <?php echo $this->getHeaderHtml() ?>
+    <p class="content-buttons form-buttons"><?php echo $this->getButtonsHtml('header') ?></p>
+</div>
+<?php if( !$this->isSingleStoreMode() ): ?>
+    <?php echo $this->getStoreSwitcherHtml() ?>
+<?php endif ?>
+
+<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="edit_form">
+    <?php echo $this->getFormHtml() ?>
+
+    <?php echo $this->getTagAssignAccordionHtml() ?>
+
+<script type="text/javascript">
+    function saveAndContinueEdit(url) {
+        var tagForm = new varienForm('edit_form');
+        tagForm.submit(url);
+    }
+</script>
+
+</form>
+
+<?php if ($this->hasFooterButtons()): ?>
+    <div class="content-footer">
+        <p class="content-buttons form-buttons"><?php echo $this->getButtonsHtml('footer') ?></p>
+    </div>
+<?php endif ?>
+<script type="text/javascript">
+    var editForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl() ?>');
+</script>
+<?php echo $this->getFormScripts() ?>
+<?php echo $this->getAcordionsHtml() ?>

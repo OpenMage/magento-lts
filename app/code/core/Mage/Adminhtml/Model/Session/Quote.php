@@ -1,40 +1,37 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml quote session
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
- * @method array getAllowQuoteItemsGiftMessage()
- * @method $this setAllowQuoteItemsGiftMessage(array $value)
- * @method string getCurrencyId()
- * @method $this setCurrencyId(string $value)
- * @method bool hasCustomerId()
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method int getCustomerGroupId()
+ * @method array      getAllowQuoteItemsGiftMessage()
+ * @method string     getCurrencyId()
+ * @method int        getCustomerGroupId()
+ * @method int        getCustomerId()
+ * @method bool       getCustomerIsGuest()
  * @method int|string getOrderId()
- * @method $this setOrderId(int|string $value)
  * @method int|string getQuoteId()
- * @method $this setQuoteId(int|string $value)
- * @method $this setReordered(int|string $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method bool getUseOldShippingMethod(bool $value)
+ * @method int|string getReordered()
+ * @method int        getStoreId()
+ * @method bool       getUseOldShippingMethod(bool $value)
+ * @method bool       hasCustomerId()
+ * @method $this      setAllowQuoteItemsGiftMessage(array $value)
+ * @method $this      setCurrencyId(string $value)
+ * @method $this      setCustomerGroupId(int $value)
+ * @method $this      setCustomerId(int $value)
+ * @method $this      setCustomerIsGuest(bool $value)
+ * @method $this      setOrderId(int|string $value)
+ * @method $this      setQuoteId(int|string $value)
+ * @method $this      setReordered(int|string $value)
+ * @method $this      setStoreId(int $value)
  */
 class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstract
 {
@@ -43,28 +40,28 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
     /**
      * Quote model object
      *
-     * @var Mage_Sales_Model_Quote|null
+     * @var null|Mage_Sales_Model_Quote
      */
     protected $_quote   = null;
 
     /**
      * Customer mofrl object
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer = null;
 
     /**
      * Store model object
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store   = null;
 
     /**
      * Order model object
      *
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_order   = null;
 
@@ -103,16 +100,17 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
                     ->save();
                 $this->setQuoteId($this->_quote->getId());
             }
+
             $this->_quote->setIgnoreOldQty(true);
             $this->_quote->setIsSuperMode(true);
         }
+
         return $this->_quote;
     }
 
     /**
      * Set customer model object
      * To enable quick switch of preconfigured customer
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
@@ -123,8 +121,8 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
 
     /**
      * Retrieve customer model object
-     * @param bool $forceReload
-     * @param bool $useSetStore
+     * @param  bool                         $forceReload
+     * @param  bool                         $useSetStore
      * @return Mage_Customer_Model_Customer
      */
     public function getCustomer($forceReload = false, $useSetStore = false)
@@ -134,13 +132,16 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
             if ($useSetStore && $this->getStore()->getId()) {
                 $this->_customer->setStore($this->getStore());
             }
+
             if ($customerId = $this->getCustomerId()) {
                 $this->_customer->load($customerId);
             }
+
             if ($this->getCustomerIsGuest()) {
                 $this->_customer->setGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
             }
         }
+
         return $this->_customer;
     }
 
@@ -157,6 +158,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
                 $this->_store->setCurrentCurrencyCode($currencyId);
             }
         }
+
         return $this->_store;
     }
 
@@ -173,6 +175,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
                 $this->_order->load($this->getOrderId());
             }
         }
+
         return $this->_order;
     }
 }

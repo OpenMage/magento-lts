@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Form textarea element
  *
- * @category   Varien
  * @package    Varien_Data
  *
  * @method $this setCols(int $int)
@@ -38,8 +31,9 @@ class Varien_Data_Form_Element_Textarea extends Varien_Data_Form_Element_Abstrac
     }
 
     /**
-     * @return array
+     * @return array<int, string>
      */
+    #[Override]
     public function getHtmlAttributes()
     {
         return ['title', 'class', 'style', 'onclick', 'onchange', 'rows', 'cols', 'readonly', 'disabled', 'onkeyup', 'tabindex'];
@@ -48,13 +42,18 @@ class Varien_Data_Form_Element_Textarea extends Varien_Data_Form_Element_Abstrac
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $this->addClass('textarea');
-        $html = '<textarea id="' . $this->getHtmlId() . '" name="' . $this->getName() . '" ' . $this->serialize($this->getHtmlAttributes()) . ' >';
-        $html .= $this->getEscapedValue();
-        $html .= "</textarea>";
-        $html .= $this->getAfterElementHtml();
-        return $html;
+        $html = '<textarea id="' . $this->getHtmlId() . '" 
+            name="' . $this->getName() . '" 
+            data-test="' . $this->getTestId() . '"
+            ' . $this->serialize($this->getHtmlAttributes()) . '
+        >'
+        . $this->getEscapedValue()
+        . '</textarea>';
+
+        return $html . $this->getAfterElementHtml();
     }
 }

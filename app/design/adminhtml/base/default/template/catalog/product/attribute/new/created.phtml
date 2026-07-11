@@ -1,0 +1,41 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created
+ * @var Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created $this
+ */
+?>
+<script type="text/javascript">
+var added = false;
+function addAttribute(closeAfter) {
+    if(window.opener!=null && !added) {
+        window.opener.Product.AttributesBridge.addAttributeRow(<?php echo $this->getAttributesBlockJson() ?>);
+        added = true;
+    }
+
+    if(closeAfter)
+    {
+        closeWindow();
+    }
+}
+
+function closeWindow()
+{
+    if (window.opener) {
+        window.opener.focus();
+    }
+    window.close();
+}
+
+addAttribute(false);
+setTimeout(closeWindow, 3000);
+</script>
+<div class="a-center">
+<?php echo $this->getCloseButtonHtml() ?>
+</div>

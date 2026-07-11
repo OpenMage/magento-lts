@@ -1,35 +1,32 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Date
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Converter of date formats
  * Internal dates
  *
- * @category Varien
  * @package  Varien_Date
  */
 class Varien_Date
 {
     /**
      * Date format, used as default. Compatible with Zend_Date
-     *
      */
     public const DATETIME_INTERNAL_FORMAT = 'yyyy-MM-dd HH:mm:ss';
+
     public const DATE_INTERNAL_FORMAT = 'yyyy-MM-dd';
 
     public const DATETIME_PHP_FORMAT       = 'Y-m-d H:i:s';
+
     public const DATE_PHP_FORMAT           = 'Y-m-d';
 
     /**
@@ -50,8 +47,9 @@ class Varien_Date
         'd'    => '%e',
         'yyyy' => '%Y',
         'yy'   => '%Y',
-        'y'    => '%Y'
+        'y'    => '%Y',
     ];
+
     /**
      * Zend Date To local time according Map array
      *
@@ -66,15 +64,15 @@ class Varien_Date
         'mm' => '%M',
         'ss' => '%S',
         'z'  => '%Z',
-        'v'  => '%Z'
+        'v'  => '%Z',
     ];
 
     /**
      * Convert Zend Date format to local time/date according format
      *
-     * @param string $value
-     * @param boolean $convertDate
-     * @param boolean $convertTime
+     * @param  string $value
+     * @param  bool   $convertDate
+     * @param  bool   $convertTime
      * @return string
      */
     public static function convertZendToStrftime($value, $convertDate = true, $convertTime = true)
@@ -82,17 +80,19 @@ class Varien_Date
         if ($convertTime) {
             $value = self::_convert($value, self::$_convertZendToStrftimeTime);
         }
+
         if ($convertDate) {
-            $value = self::_convert($value, self::$_convertZendToStrftimeDate);
+            return self::_convert($value, self::$_convertZendToStrftimeDate);
         }
+
         return $value;
     }
 
     /**
      * Convert value by dictionary
      *
-     * @param string $value
-     * @param array $dictionary
+     * @param  string $value
+     * @param  array  $dictionary
      * @return string
      */
     protected static function _convert($value, $dictionary)
@@ -100,14 +100,16 @@ class Varien_Date
         foreach ($dictionary as $search => $replace) {
             $value = preg_replace('/(^|[^%])' . $search . '/', '$1' . $replace, $value);
         }
+
         return $value;
     }
+
     /**
      * Convert date to UNIX timestamp
      * Returns current UNIX timestamp if date is true
      *
-     * @param Zend_Date|string|true $date
-     * @return int
+     * @param  string|true|Zend_Date $date
+     * @return false|int
      */
     public static function toTimestamp($date)
     {
@@ -116,16 +118,20 @@ class Varien_Date
         }
 
         if ($date === true) {
-            return time();
+            return Carbon::now()->getTimestamp();
         }
 
-        return strtotime($date);
+        try {
+            return Carbon::parse($date)->getTimestamp();
+        } catch (InvalidFormatException) {
+            return false;
+        }
     }
 
     /**
      * Retrieve current date in internal format
      *
-     * @param boolean $withoutTime day only flag
+     * @param  bool   $withoutTime day only flag
      * @return string
      */
     public static function now($withoutTime = false)
@@ -137,9 +143,9 @@ class Varien_Date
     /**
      * Format date to internal format
      *
-     * @param int|string|Zend_Date|bool|null $date
-     * @param bool $includeTime
-     * @return string|null
+     * @param  null|bool|int|string|Zend_Date $date
+     * @param  bool                           $includeTime
+     * @return null|string
      */
     public static function formatDate($date, $includeTime = true)
     {
@@ -150,9 +156,9 @@ class Varien_Date
         if ($date instanceof Zend_Date) {
             if ($includeTime) {
                 return $date->toString(self::DATETIME_INTERNAL_FORMAT);
-            } else {
-                return $date->toString(self::DATE_INTERNAL_FORMAT);
             }
+
+            return $date->toString(self::DATE_INTERNAL_FORMAT);
         }
 
         if (empty($date)) {
@@ -164,6 +170,6 @@ class Varien_Date
         }
 
         $format = $includeTime ? self::DATETIME_PHP_FORMAT : self::DATE_PHP_FORMAT;
-        return date($format, $date);
+        return Carbon::createFromTimestamp($date)->format($format);
     }
 }

@@ -62,14 +62,52 @@ $dc run --rm --no-deps cli chmod -R g+ws media var/cache var/log var/locks var/s
 
 echo "Starting services..."
 $dc up -d mysql redis php-fpm
-sleep 4
-for i in $(seq 1 20); do
-  sleep 1
-  $dc exec mysql mysql -e 'show databases;' 2>/dev/null | grep -qF "$MYSQL_DATABASE" && break
-done
 
 echo "Installing Composer dependencies..."
 $dc run --rm -u "$(id -u):$(id -g)" cli composer install --no-progress
+
+for i in $(seq 1 30); do
+  sleep 1
+  $dc exec mysql mysql -e 'show databases;' 2>/dev/null | grep -qF "$MYSQL_DATABASE" && break
+  echo "Waiting for MySQL to be ready..."
+done
+
+if [[ -n "${SAMPLE_DATA:-}" ]]; then
+  echo "Installing Sample Data..."
+
+  SAMPLE_DATA_KEEP_FLAG="${SAMPLE_DATA_KEEP_FLAG:-0}"
+  SAMPLE_DATA_URL=https://github.com/Vinai/compressed-magento-sample-data/raw/master/compressed-magento-sample-data-1.9.2.4.tgz
+  SAMPLE_DATA_DIRECTORY="${SRC_DIR}/var/sample_data"
+  SAMPLE_DATA_FILE=sample_data.tgz
+
+  if [[ ! -d "${SAMPLE_DATA_DIRECTORY}" ]]; then
+    mkdir -p "${SAMPLE_DATA_DIRECTORY}"
+  fi
+
+  if [[ ! -f "${SAMPLE_DATA_DIRECTORY}/${SAMPLE_DATA_FILE}" ]]; then
+    echo "Downloading Sample Data..."
+    wget "${SAMPLE_DATA_URL}" -O "${SAMPLE_DATA_DIRECTORY}/${SAMPLE_DATA_FILE}"
+  fi
+
+  echo "Uncompressing Sample Data..."
+  tar xf "${SAMPLE_DATA_DIRECTORY}/${SAMPLE_DATA_FILE}" -C "${SAMPLE_DATA_DIRECTORY}"
+
+  echo "Copying Sample Data into the OpenMage directory..."
+  cp -r "${SAMPLE_DATA_DIRECTORY}"/magento-sample-data-1.9.2.4/media/* "${SRC_DIR}/media/"
+  cp -r "${SAMPLE_DATA_DIRECTORY}"/magento-sample-data-1.9.2.4/skin/* "${SRC_DIR}/skin/"
+
+  echo "Importing Sample Data into the database..."
+  $dc exec -T mysql mysql ${MYSQL_DATABASE} < "${SAMPLE_DATA_DIRECTORY}"/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql
+
+  # remove sample data
+  if [[ ${SAMPLE_DATA_KEEP_FLAG} -eq 1 ]]; then
+    echo "Removing uncompressed files..."
+    rm -rf "${SAMPLE_DATA_DIRECTORY}/magento-sample-data-1.9.2.4/"
+  else
+    echo "Removing sample data..."
+    rm -rf "${SAMPLE_DATA_DIRECTORY}"
+  fi
+fi
 
 echo "Installing OpenMage LTS..."
 $dc run --rm cli php install.php \
@@ -86,6 +124,7 @@ $dc run --rm cli php install.php \
   --use_secure "$([[ $BASE_URL == https* ]] && echo yes || echo no)" \
   --secure_base_url "$BASE_URL" \
   --use_secure_admin "$([[ $ADMIN_URL == https* ]] && echo yes || echo no)" \
+  --enable_charts 'yes' \
   --skip_url_validation \
   --admin_firstname "${ADMIN_FIRSTNAME:-OpenMage}"  \
   --admin_lastname "${ADMIN_LASTNAME:-User}" \
@@ -95,6 +134,7 @@ $dc run --rm cli php install.php \
 
 # Update URL config to split frontend/admin
 $dc exec mysql mysql -e "
+DELETE FROM core_config_data WHERE path IN ('admin/url/use_custom', 'web/unsecure/base_url', 'web/secure/base_url');
 INSERT INTO core_config_data (scope, scope_id, path, value) VALUES
 ('default',0,'admin/url/use_custom','1'),
 ('stores',0,'web/unsecure/base_url','$ADMIN_URL'),
@@ -109,7 +149,7 @@ if command -v curl >/dev/null 2>&1; then
     sleep 1
     curl --silent --fail ${BASE_URL} >/dev/null && break
   done
-  curl --silent --show-error --fail ${BASE_URL} || true
+  curl --silent --show-error --fail ${BASE_URL} -o /dev/null || echo "Frontend test failed: ${BASE_URL}"
 fi
 
 echo ""

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml catalog product composite helper
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_Abstract
@@ -26,7 +19,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
     /**
      * Init layout of product configuration update result
      *
-     * @param Mage_Adminhtml_Controller_Action $controller
+     * @param  Mage_Adminhtml_Controller_Action $controller
      * @return $this
      */
     protected function _initUpdateResultLayout($controller)
@@ -41,8 +34,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      * Prepares and render result of composite product configuration update for a case
      * when single configuration submitted
      *
-     * @param Mage_Adminhtml_Controller_Action $controller
-     * @param Varien_Object $updateResult
+     * @param  Mage_Adminhtml_Controller_Action $controller
      * @return $this
      */
     public function renderUpdateResult($controller, Varien_Object $updateResult)
@@ -55,16 +47,16 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
     }
 
     /**
-    * Init composite product configuration layout
-    *
-    * $isOk - true or false, whether action was completed nicely or with some error
-    * If $isOk is FALSE (some error during configuration), so $productType must be null
-    *
-    * @param Mage_Adminhtml_Controller_Action $controller
-    * @param bool $isOk
-    * @param string $productType
-    * @return $this
-    */
+     * Init composite product configuration layout
+     *
+     * $isOk - true or false, whether action was completed nicely or with some error
+     * If $isOk is FALSE (some error during configuration), so $productType must be null
+     *
+     * @param  Mage_Adminhtml_Controller_Action $controller
+     * @param  bool                             $isOk
+     * @param  string                           $productType
+     * @return $this
+     */
     protected function _initConfigureResultLayout($controller, $isOk, $productType)
     {
         $update = $controller->getLayout()->getUpdate();
@@ -74,6 +66,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
         } else {
             $update->addHandle('ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE_ERROR');
         }
+
         $controller->loadLayoutUpdates()->generateLayoutXml()->generateLayoutBlocks();
         return $this;
     }
@@ -85,8 +78,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
      *  - 'ok' = true, and 'product_id', 'buy_request', 'current_store_id', 'current_customer' or 'current_customer_id'
      *  - 'error' = true, and 'message' to show
      *
-     * @param Mage_Adminhtml_Controller_Action $controller
-     * @param Varien_Object $configureResult
+     * @param  Mage_Adminhtml_Controller_Action $controller
      * @return $this
      */
     public function renderConfigureResult($controller, Varien_Object $configureResult)
@@ -107,6 +99,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
             if (!$product->getId()) {
                 Mage::throwException($this->__('Product is not loaded.'));
             }
+
             Mage::register('current_product', $product);
             Mage::register('product', $product);
 
@@ -119,6 +112,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
                         ->load($currentCustomerId);
                 }
             }
+
             if ($currentCustomer) {
                 Mage::register('current_customer', $currentCustomer);
             }
@@ -131,10 +125,10 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
 
             $isOk = true;
             $productType = $product->getTypeId();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $isOk = false;
             $productType = null;
-            Mage::register('composite_configure_result_error_message', $e->getMessage());
+            Mage::register('composite_configure_result_error_message', $exception->getMessage());
         }
 
         $this->_initConfigureResultLayout($controller, $isOk, $productType);

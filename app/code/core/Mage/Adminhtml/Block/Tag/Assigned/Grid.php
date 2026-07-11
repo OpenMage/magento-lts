@@ -1,28 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml assigned products grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tag_assigned_grid';
+
     protected $_currentTagModel;
 
     /**
@@ -34,7 +29,6 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
         $this->_currentTagModel = Mage::registry('current_tag');
         $this->setId('tag_assigned_product_grid');
         $this->setDefaultSort('entity_id');
-        $this->setDefaultDir('DESC');
         $this->setUseAjax(true);
         if ($this->_getTagId()) {
             $this->setDefaultFilter(['in_products' => 1]);
@@ -65,9 +59,11 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Add filter to grid columns
      *
-     * @param mixed $column
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
@@ -76,6 +72,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
             if (empty($productIds)) {
                 $productIds = 0;
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
             } elseif ($productIds) {
@@ -84,14 +81,16 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
     /**
      * Retrieve Products Collection
      *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $store = $this->_getStore();
@@ -107,7 +106,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'qty',
                 'product_id=entity_id',
                 '{{table}}.stock_id=1',
-                'left'
+                'left',
             );
 
         if ($store->getId()) {
@@ -131,7 +130,9 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('in_products', [
@@ -140,25 +141,22 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
             'field_name'        => 'in_products',
             'values'            => $this->_getSelectedProducts(),
             'align'             => 'center',
-            'index'             => 'entity_id'
+            'index'             => 'entity_id',
         ]);
 
         $this->addColumn(
             'entity_id',
             [
                 'header' => Mage::helper('catalog')->__('ID'),
-                'width' => 50,
-                'sortable'  => true,
-                'type'  => 'number',
                 'index' => 'entity_id',
-            ]
+            ],
         );
         $this->addColumn(
             'name',
             [
                 'header' => Mage::helper('catalog')->__('Name'),
                 'index' => 'name',
-            ]
+            ],
         );
 
         $store = $this->_getStore();
@@ -168,7 +166,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 [
                     'header' => Mage::helper('catalog')->__('Name in %s', $this->escapeHtml($store->getName())),
                     'index' => 'custom_name',
-                ]
+                ],
             );
         }
 
@@ -179,8 +177,8 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'width'     => 100,
                 'index'     => 'type_id',
                 'type'      => 'options',
-                'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
-            ]
+                'options'   => Mage::getSingleton('catalog/product_type')::getOptionArray(),
+            ],
         );
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -196,7 +194,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'index'     => 'attribute_set_id',
                 'type'      => 'options',
                 'options'   => $sets,
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -205,18 +203,16 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'header' => Mage::helper('catalog')->__('SKU'),
                 'width' => 80,
                 'index' => 'sku',
-            ]
+            ],
         );
 
         $store = $this->_getStore();
         $this->addColumn(
             'price',
             [
-                'header'        => Mage::helper('catalog')->__('Price'),
                 'type'          => 'price',
                 'currency_code' => $store->getBaseCurrency()->getCode(),
-                'index'         => 'price',
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -226,8 +222,8 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'width'     => 100,
                 'index'     => 'visibility',
                 'type'      => 'options',
-                'options'   => Mage::getModel('catalog/product_visibility')->getOptionArray(),
-            ]
+                'options'   => Mage::getModel('catalog/product_visibility')::getOptionArray(),
+            ],
         );
 
         $this->addColumn(
@@ -237,8 +233,8 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'width'     => 70,
                 'index'     => 'status',
                 'type'      => 'options',
-                'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
-            ]
+                'options'   => Mage::getSingleton('catalog/product_status')::getOptionArray(),
+            ],
         );
 
         return parent::_prepareColumns();
@@ -248,13 +244,15 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve related products
      *
      * @return array
+     * @throws Exception
      */
     protected function _getSelectedProducts()
     {
-        $products = $this->getRequest()->getPost('assigned_products', null);
+        $products = $this->getRequest()->getPost('assigned_products');
         if (!is_array($products)) {
-            $products = $this->getRelatedProducts();
+            return $this->getRelatedProducts();
         }
+
         return $products;
     }
 
@@ -263,6 +261,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/assignedGridOnly', ['_current' => true]);

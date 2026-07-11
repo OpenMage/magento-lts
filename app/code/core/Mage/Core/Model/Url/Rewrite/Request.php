@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Url rewrite request model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Url_Rewrite_Request
@@ -70,18 +63,16 @@ class Mage_Core_Model_Url_Rewrite_Request
      *   config   - Mage_Core_Model_Config
      *   factory  - Mage_Core_Model_Factory
      *   routers  - array
-     *
-     * @param array $args
      */
     public function __construct(array $args)
     {
-        $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getModel('core/factory');
-        $this->_app     = !empty($args['app']) ? $args['app'] : Mage::app();
-        $this->_config  = !empty($args['config']) ? $args['config'] : Mage::getConfig();
-        $this->_request = !empty($args['request'])
-            ? $args['request'] : Mage::app()->getFrontController()->getRequest();
-        $this->_rewrite = !empty($args['rewrite'])
-            ? $args['rewrite'] : $this->_factory->getModel('core/url_rewrite');
+        $this->_factory = empty($args['factory']) ? Mage::getModel('core/factory') : $args['factory'];
+        $this->_app     = empty($args['app']) ? Mage::app() : $args['app'];
+        $this->_config  = empty($args['config']) ? Mage::getConfig() : $args['config'];
+        $this->_request = empty($args['request'])
+            ? Mage::app()->getFrontController()->getRequest() : $args['request'];
+        $this->_rewrite = empty($args['rewrite'])
+            ? $this->_factory->getModel('core/url_rewrite') : $args['rewrite'];
 
         if (!empty($args['routers'])) {
             $this->_routers = $args['routers'];
@@ -157,7 +148,7 @@ class Mage_Core_Model_Url_Rewrite_Request
 
         $this->_request->setAlias(
             Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-            $this->_rewrite->getRequestPath()
+            $this->_rewrite->getRequestPath(),
         );
         $this->_processRedirectOptions();
 
@@ -228,22 +219,29 @@ class Mage_Core_Model_Url_Rewrite_Request
         if (!$config) {
             return false;
         }
+
         foreach ($config->children() as $rewrite) {
-            $from = (string)$rewrite->from;
-            $to = (string)$rewrite->to;
-            if (empty($from) || empty($to)) {
+            $rewriteFrom = (string) $rewrite->from;
+            $rewriteTo   = (string) $rewrite->to;
+            if (empty($rewriteFrom)) {
                 continue;
             }
-            $from = $this->_processRewriteUrl($from);
-            $to   = $this->_processRewriteUrl($to);
 
-            $pathInfo = preg_replace($from, $to, $this->_request->getPathInfo());
+            if (empty($rewriteTo)) {
+                continue;
+            }
+
+            $rewriteFrom = $this->_processRewriteUrl($rewriteFrom);
+            $rewriteTo   = $this->_processRewriteUrl($rewriteTo);
+
+            $pathInfo = preg_replace($rewriteFrom, $rewriteTo, $this->_request->getPathInfo());
             if (isset($rewrite->complete)) {
                 $this->_request->setPathInfo($pathInfo);
             } else {
                 $this->_request->rewritePathInfo($pathInfo);
             }
         }
+
         return true;
     }
 
@@ -255,13 +253,13 @@ class Mage_Core_Model_Url_Rewrite_Request
      * - with and without slashes at the end ("/somepath/" and "/somepath").
      * Choose any matched rewrite, but in priority order that depends on same presence of slash and query params.
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getRequestCases()
     {
         $pathInfo = $this->_request->getPathInfo();
         $requestPath = trim($pathInfo, '/');
-        $origSlash = (substr($pathInfo, -1) == '/') ? '/' : '';
+        $origSlash = (str_ends_with($pathInfo, '/')) ? '/' : '';
         // If there were final slash - add nothing to less priority paths. And vice versa.
         $altSlash = $origSlash ? '' : '/';
 
@@ -272,6 +270,7 @@ class Mage_Core_Model_Url_Rewrite_Request
             $requestCases[] = $requestPath . $origSlash . '?' . $queryString;
             $requestCases[] = $requestPath . $altSlash . '?' . $queryString;
         }
+
         $requestCases[] = $requestPath . $origSlash;
         $requestCases[] = $requestPath . $altSlash;
         return $requestCases;
@@ -281,7 +280,8 @@ class Mage_Core_Model_Url_Rewrite_Request
      * Add location header and disable browser page caching
      *
      * @param string $url
-     * @param bool $isPermanent
+     * @param bool   $isPermanent
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _sendRedirectHeaders($url, $isPermanent = false)
     {
@@ -299,6 +299,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      * Prepare and return QUERY_STRING
      *
      * @return bool|string
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _getQueryString()
     {
@@ -306,25 +307,27 @@ class Mage_Core_Model_Url_Rewrite_Request
             $queryParams = [];
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
-            foreach ($queryParams as $key => $value) {
-                if (substr($key, 0, 3) === '___') {
+            foreach (array_keys($queryParams) as $key) {
+                if (str_starts_with($key, '___')) {
                     unset($queryParams[$key]);
                     $hasChanges = true;
                 }
             }
+
             if ($hasChanges) {
                 return http_build_query($queryParams);
-            } else {
-                return $_SERVER['QUERY_STRING'];
             }
+
+            return $_SERVER['QUERY_STRING'];
         }
+
         return false;
     }
 
     /**
      * Replace route name placeholders in url to front name
      *
-     * @param string $url
+     * @param  string $url
      * @return string
      */
     protected function _processRewriteUrl($url)
@@ -339,14 +342,15 @@ class Mage_Core_Model_Url_Rewrite_Request
                 $url = str_replace('{' . $routeName . '}', $frontName, $url);
             }
         }
+
         return $url;
     }
 
     /**
      * Retrieve router by name
      *
-     * @param string $name
-     * @return Mage_Core_Controller_Varien_Router_Abstract|false
+     * @param  string                                            $name
+     * @return false|Mage_Core_Controller_Varien_Router_Abstract
      */
     protected function _getRouter($name)
     {
@@ -356,7 +360,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     /**
      * Retrieve router by name
      *
-     * @param string $routeName
+     * @param  string                                      $routeName
      * @return Mage_Core_Controller_Varien_Router_Abstract
      */
     protected function _getRouterByRoute($routeName)
@@ -378,6 +382,7 @@ class Mage_Core_Model_Url_Rewrite_Request
                 $router = $this->_getRouter('default');
             }
         }
+
         return $router;
     }
 }

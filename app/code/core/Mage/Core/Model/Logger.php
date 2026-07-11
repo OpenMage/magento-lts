@@ -1,46 +1,108 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Mage_Core_Helper_Log as HelperLog;
+use Monolog\Level;
+use Monolog\Logger;
 
 /**
  * Logger model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Logger
 {
+    /** Loggers storage
+     *
+     * @var Logger[]
+     */
+    private static array $loggers = [];
+
     /**
      * Log wrapper
      *
-     * @param string $message
-     * @param int $level
-     * @param string $file
-     * @param bool $forceLog
+     * @param string   $message
+     * @param Level::* $level
+     * @param string   $file
+     * @param bool     $forceLog
+     * @param array    $context  additional context for the log entry
+     * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
-    public function log($message, $level = null, $file = '', $forceLog = false)
+    public function log($message, $level = null, $file = '', $forceLog = false, array $context = [])
     {
-        Mage::log($message, $level, $file, $forceLog);
+        if (is_null($file)) {
+            $file = '';
+        }
+
+        $useStdout = in_array($file, ['php://stdout', 'php://stderr'], true);
+
+        if (!(bool) $forceLog) {
+            $forceLog = Mage::getIsDeveloperMode();
+        }
+
+        try {
+            $logActive = Mage::getStoreConfigFlag(HelperLog::XML_PATH_DEV_LOG_ENABLED);
+            if ($file === '') {
+                $file = Mage::getStoreConfig(HelperLog::XML_PATH_DEV_LOG_FILE);
+            }
+        } catch (Throwable) {
+            $logActive = true;
+        }
+
+        if (!$logActive && !$forceLog) {
+            return;
+        }
+
+        $levelValue = HelperLog::getLogLevelValue($level);
+
+        if ($levelValue > HelperLog::getLogLevelMaxValue() && !$forceLog) {
+            return;
+        }
+
+        if (!$useStdout) {
+            $file = $file === '' ? HelperLog::getConfigLogFile() : basename($file);
+        }
+
+        try {
+            if (!isset(self::$loggers[$file])) {
+                if ($useStdout) {
+                    $logFile = $file;
+                } else {
+                    $logFile = HelperLog::getLogFilePath($file);
+                    if ($logFile === null) {
+                        return;
+                    }
+                }
+
+                $handler = HelperLog::getHandler($logFile);
+
+                $logger = new Logger('OpenMage');
+                $logger->pushHandler($handler);
+                self::$loggers[$file] = $logger;
+            }
+
+            if (is_array($message) || is_object($message)) {
+                $message = print_r($message, true);
+            }
+
+            $message = addcslashes($message, '<?');
+            self::$loggers[$file]->log($levelValue, $message, $context);
+        } catch (Exception) {
+            // Silent catch
+        }
     }
 
     /**
      * Log exception wrapper
-     *
-     * @param Exception $e
      */
-    public function logException(Exception $e)
+    public function logException(Exception $exception)
     {
-        Mage::logException($e);
+        Mage::logException($exception);
     }
 }

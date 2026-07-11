@@ -1,29 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart api
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resource
 {
     /**
-     * @param  int $quoteId
-     * @param  string $couponCode
+     * @param  int        $quoteId
+     * @param  string     $couponCode
      * @param  int|string $store
      * @return bool
      */
@@ -33,7 +26,7 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
      * @return bool
      */
@@ -44,7 +37,7 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
      * @return string
      */
@@ -56,8 +49,8 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
     }
 
     /**
-     * @param  int $quoteId
-     * @param  string $couponCode
+     * @param  int        $quoteId
+     * @param  string     $couponCode
      * @param  int|string $store
      * @return bool
      */
@@ -79,14 +72,12 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
             $quote->setCouponCode(strlen($couponCode) ? $couponCode : '')
                 ->collectTotals()
                 ->save();
-        } catch (Exception $e) {
-            $this->_fault("cannot_apply_coupon_code", $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('cannot_apply_coupon_code', $exception->getMessage());
         }
 
-        if ($couponCode) {
-            if (!$couponCode == $quote->getCouponCode()) {
-                $this->_fault('coupon_code_is_not_valid');
-            }
+        if ($couponCode && (!$couponCode == $quote->getCouponCode())) {
+            $this->_fault('coupon_code_is_not_valid');
         }
 
         return true;

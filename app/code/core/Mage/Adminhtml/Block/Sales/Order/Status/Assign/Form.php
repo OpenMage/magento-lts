@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Assign order status to order state form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml_Block_Widget_Form
@@ -30,17 +23,18 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
     /**
      * Prepare form fields
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
-            'method'    => 'post'
+            'method'    => 'post',
         ]);
 
         $fieldset   = $form->addFieldset('base_fieldset', [
-            'legend'    => Mage::helper('sales')->__('Assignment Information')
+            'legend'    => Mage::helper('sales')->__('Assignment Information'),
         ]);
 
         $statuses = Mage::getResourceModel('sales/order_status_collection')
@@ -59,7 +53,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
                 'class'     => 'required-entry',
                 'values'    => $statuses,
                 'required'  => true,
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -71,7 +65,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
                 'class'     => 'required-entry',
                 'values'    => $states,
                 'required'  => true,
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -81,7 +75,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
                 'name'      => 'is_default',
                 'label'     => Mage::helper('sales')->__('Use Order Status As Default'),
                 'value'     => 1,
-            ]
+            ],
         );
 
         $form->setAction($this->getUrl('*/sales_order_status/assignPost'));

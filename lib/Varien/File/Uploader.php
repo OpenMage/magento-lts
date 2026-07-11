@@ -1,17 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_File
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Validation;
 
 /**
  * File upload class
@@ -19,7 +15,6 @@
  * ATTENTION! This class must be used like abstract class and must added
  * validation by protected file extension list to extended class
  *
- * @category   Varien
  * @package    Varien_File
  */
 
@@ -32,7 +27,7 @@ class Varien_File_Uploader
         UPLOAD_ERR_NO_FILE => 'No file was uploaded',
         UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
         UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
-        UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload'
+        UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload',
     ];
 
     /**
@@ -77,8 +72,8 @@ class Varien_File_Uploader
     protected $_uploadedFileDir;
 
     /**
-     * If this variable is set to TRUE, our library will be able to automaticaly create
-     * non-existant directories.
+     * If this variable is set to TRUE, our library will be able to automatically create
+     * non-existent directories.
      *
      * @var bool
      * @access protected
@@ -138,6 +133,7 @@ class Varien_File_Uploader
     protected $_validateCallbacks = [];
 
     public const SINGLE_STYLE = 0;
+
     public const MULTIPLE_STYLE = 1;
 
     /**
@@ -148,8 +144,8 @@ class Varien_File_Uploader
     /**
      * Resulting of uploaded file
      *
-     * @var array|bool      Array with file info keys: path, file. Result is
-     *                      FALSE when file not uploaded
+     * @var array|bool Array with file info keys: path, file. Result is
+     *                 FALSE when file not uploaded
      */
     protected $_result;
 
@@ -170,7 +166,7 @@ class Varien_File_Uploader
      * After save logic
      *
      * @param  array $result
-     * @return Varien_File_Uploader
+     * @return $this
      */
     protected function _afterSave($result)
     {
@@ -201,7 +197,7 @@ class Varien_File_Uploader
         $this->_result = false;
 
         $destinationFile = $destinationFolder;
-        $fileName = isset($newFileName) ? $newFileName : $this->_file['name'];
+        $fileName = $newFileName ?? $this->_file['name'];
         $fileName = self::getCorrectFileName($fileName);
         if ($this->_enableFilesDispersion) {
             $fileName = $this->correctFileNameCase($fileName);
@@ -225,9 +221,10 @@ class Varien_File_Uploader
                 $fileName = str_replace(
                     DIRECTORY_SEPARATOR,
                     '/',
-                    self::_addDirSeparator($this->_dispretionPath)
+                    self::_addDirSeparator($this->_dispretionPath),
                 ) . $fileName;
             }
+
             $this->_uploadedFileName = $fileName;
             $this->_uploadedFileDir = $destinationFolder;
             $this->_result = $this->_file;
@@ -243,8 +240,8 @@ class Varien_File_Uploader
     /**
      * Move files from TMP folder into destination folder
      *
-     * @param string $tmpPath
-     * @param string $destPath
+     * @param  string $tmpPath
+     * @param  string $destPath
      * @return bool
      */
     protected function _moveFile($tmpPath, $destPath)
@@ -296,17 +293,17 @@ class Varien_File_Uploader
     /**
      * Add validation callback model for us in self::_validateFile()
      *
-     * @param string $callbackName
-     * @param object $callbackObject
-     * @param string $callbackMethod    Method name of $callbackObject. It must
-     *                                  have interface (string $tmpFilePath)
-     * @return Varien_File_Uploader
+     * @param  string $callbackName
+     * @param  object $callbackObject
+     * @param  string $callbackMethod Method name of $callbackObject. It must
+     *                                have interface (string $tmpFilePath)
+     * @return $this
      */
     public function addValidateCallback($callbackName, $callbackObject, $callbackMethod)
     {
         $this->_validateCallbacks[$callbackName] = [
-           'object' => $callbackObject,
-           'method' => $callbackMethod
+            'object' => $callbackObject,
+            'method' => $callbackMethod,
         ];
         return $this;
     }
@@ -316,20 +313,21 @@ class Varien_File_Uploader
      *
      * @param string $callbackName
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
      */
     public function removeValidateCallback($callbackName)
     {
         if (isset($this->_validateCallbacks[$callbackName])) {
             unset($this->_validateCallbacks[$callbackName]);
         }
+
         return $this;
     }
 
     /**
      * Correct filename with special chars and spaces
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return string
      */
     public static function getCorrectFileName($fileName)
@@ -338,15 +336,17 @@ class Varien_File_Uploader
         $fileInfo = pathinfo($fileName);
 
         if (preg_match('/^_+$/', $fileInfo['filename'])) {
-            $fileName = 'file.' . $fileInfo['extension'];
+            $ext = isset($fileInfo['extension']) ? '.' . $fileInfo['extension'] : '';
+            return 'file' . $ext;
         }
+
         return $fileName;
     }
 
     /**
      * Convert filename to lowercase in case of case-insensitive file names
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return string
      */
     public function correctFileNameCase($fileName)
@@ -354,14 +354,16 @@ class Varien_File_Uploader
         if ($this->_caseInsensitiveFilenames) {
             return strtolower($fileName);
         }
+
         return $fileName;
     }
 
     protected static function _addDirSeparator($dir)
     {
-        if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
+        if (substr($dir, -1) !== DIRECTORY_SEPARATOR) {
             $dir .= DIRECTORY_SEPARATOR;
         }
+
         return $dir;
     }
 
@@ -376,11 +378,14 @@ class Varien_File_Uploader
     {
         try {
             if (count($validTypes) > 0) {
-                $validator = new Zend_Validate_File_MimeType($validTypes);
-                return $validator->isValid($this->_file['tmp_name']);
+                $validator = Validation::createValidator();
+                return $validator->validate($this->_file['tmp_name'], [
+                    new File(mimeTypes: $validTypes),
+                ])->count() === 0;
             }
+
             return true;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }
@@ -397,11 +402,12 @@ class Varien_File_Uploader
     }
 
     /**
-     * Used to set {@link _allowCreateFolders} value
+     * Used to set the _allowCreateFolders value
      *
      * @param mixed $flag
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
+     * @see _allowCreateFolders
      */
     public function setAllowCreateFolders($flag)
     {
@@ -410,11 +416,12 @@ class Varien_File_Uploader
     }
 
     /**
-     * Used to set {@link _allowRenameFiles} value
+     * Used to set the _allowRenameFiles value
      *
      * @param mixed $flag
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
+     * @see _allowRenameFiles
      */
     public function setAllowRenameFiles($flag)
     {
@@ -423,11 +430,12 @@ class Varien_File_Uploader
     }
 
     /**
-     * Used to set {@link _enableFilesDispersion} value
+     * Used to set the _enableFilesDispersion value
      *
      * @param mixed $flag
      * @access public
-     * @return Varien_File_Uploader
+     * @return $this
+     * @see _enableFilesDispersion
      */
     public function setFilesDispersion($flag)
     {
@@ -438,8 +446,8 @@ class Varien_File_Uploader
     /**
      * Filenames Case-sensitivity  setter
      *
-     * @param mixed $flag
-     * @return Varien_File_Uploader
+     * @param  mixed $flag
+     * @return $this
      */
     public function setFilenamesCaseSensitivity($flag)
     {
@@ -449,17 +457,18 @@ class Varien_File_Uploader
 
     public function setAllowedExtensions($extensions = [])
     {
-        foreach ((array)$extensions as $extension) {
+        foreach ((array) $extensions as $extension) {
             $this->_allowedExtensions[] = strtolower($extension);
         }
+
         return $this;
     }
 
     /**
      * Set valid MIME-types.
      *
-     * @param array $mimeTypes
-     * @return Varien_File_Uploader
+     * @param  array $mimeTypes
+     * @return $this
      */
     public function setValidMimeTypes($mimeTypes = [])
     {
@@ -467,18 +476,19 @@ class Varien_File_Uploader
         foreach ((array) $mimeTypes as $mimeType) {
             $this->_validMimeTypes[] = $mimeType;
         }
+
         return $this;
     }
 
     /**
      * Check if specified extension is allowed
      *
-     * @param string $extension
-     * @return boolean
+     * @param  string $extension
+     * @return bool
      */
     public function checkAllowedExtension($extension)
     {
-        if (!is_array($this->_allowedExtensions) || empty($this->_allowedExtensions)) {
+        if (!is_array($this->_allowedExtensions) || $this->_allowedExtensions === []) {
             return true;
         }
 
@@ -486,19 +496,13 @@ class Varien_File_Uploader
     }
 
     /**
+     * @param  string $extension
+     * @return bool
      * @deprecated after 1.5.0.0-beta2
-     *
-     * @param string $extension
-     * @return boolean
      */
     public function chechAllowedExtension($extension)
     {
         return $this->checkAllowedExtension($extension);
-    }
-
-    private function _getMimeType()
-    {
-        return $this->_file['type'];
     }
 
     private function _setUploadFileId($fileId)
@@ -510,31 +514,27 @@ class Varien_File_Uploader
         if (is_array($fileId)) {
             $this->_uploadType = self::MULTIPLE_STYLE;
             $this->_file = $fileId;
-        } else {
-            if (preg_match('/^(\w+)\[(\w+)\]$/', $fileId, $file)) {
-                array_shift($file);
-                $this->_uploadType = self::MULTIPLE_STYLE;
-
-                $fileAttributes = $_FILES[$file[0]];
-                $tmp_var = [];
-
-                foreach ($fileAttributes as $attributeName => $attributeValue) {
-                    $tmp_var[$attributeName] = $attributeValue[$file[1]];
-                }
-
-                $fileAttributes = $tmp_var;
-                $this->_file = $fileAttributes;
-            } elseif (!empty($fileId) && isset($_FILES[$fileId])) {
-                $this->_uploadType = self::SINGLE_STYLE;
-                $this->_file = $_FILES[$fileId];
-            } elseif ($fileId == '') {
-                throw new Exception('Invalid parameter given. A valid $_FILES[] identifier is expected.');
+        } elseif (preg_match('/^(\w+)\[(\w+)\]$/', $fileId, $file)) {
+            array_shift($file);
+            $this->_uploadType = self::MULTIPLE_STYLE;
+            $fileAttributes = $_FILES[$file[0]];
+            $tmp_var = [];
+            foreach ($fileAttributes as $attributeName => $attributeValue) {
+                $tmp_var[$attributeName] = $attributeValue[$file[1]];
             }
+
+            $fileAttributes = $tmp_var;
+            $this->_file = $fileAttributes;
+        } elseif (!empty($fileId) && isset($_FILES[$fileId])) {
+            $this->_uploadType = self::SINGLE_STYLE;
+            $this->_file = $_FILES[$fileId];
+        } elseif ($fileId == '') {
+            throw new Exception('Invalid parameter given. A valid $_FILES[] identifier is expected.');
         }
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     private function _createDestinationFolder($destinationFolder)
     {
@@ -542,13 +542,14 @@ class Varien_File_Uploader
             return $this;
         }
 
-        if (substr($destinationFolder, -1) == DIRECTORY_SEPARATOR) {
+        if (substr($destinationFolder, -1) === DIRECTORY_SEPARATOR) {
             $destinationFolder = substr($destinationFolder, 0, -1);
         }
 
-        if (!(@is_dir($destinationFolder) || @mkdir($destinationFolder, 0777, true))) {
+        if (!@is_dir($destinationFolder) && !@mkdir($destinationFolder, 0777, true)) {
             throw new Exception("Unable to create directory '{$destinationFolder}'.");
         }
+
         return $this;
     }
 
@@ -557,11 +558,14 @@ class Varien_File_Uploader
         $fileInfo = pathinfo($destFile);
         if (file_exists($destFile)) {
             $index = 1;
-            $baseName = $fileInfo['filename'] . '.' . $fileInfo['extension'];
-            while (file_exists($fileInfo['dirname'] . DIRECTORY_SEPARATOR . $baseName)) {
-                $baseName = $fileInfo['filename'] . '_' . $index . '.' . $fileInfo['extension'];
+            $ext = isset($fileInfo['extension']) ? '.' . $fileInfo['extension'] : '';
+            $baseName = $fileInfo['filename'] . $ext;
+            $dirName = isset($fileInfo['dirname']) ? $fileInfo['dirname'] . DIRECTORY_SEPARATOR : '';
+            while (file_exists($dirName . $baseName)) {
+                $baseName = $fileInfo['filename'] . '_' . $index . $ext;
                 $index++;
             }
+
             $destFileName = $baseName;
         } else {
             return $fileInfo['basename'];
@@ -582,8 +586,10 @@ class Varien_File_Uploader
                 $dispretionPath = self::_addDirSeparator($dispretionPath)
                       . ('.' == $fileName[$char] ? '_' : $fileName[$char]);
             }
+
             $char++;
         }
+
         return $dispretionPath;
     }
 }

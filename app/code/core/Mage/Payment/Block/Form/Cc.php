@@ -1,24 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Payment
  */
 class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -36,7 +33,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     }
 
     /**
-     * Retrieve availables credit card types
+     * Retrieve available credit card types
      *
      * @return array
      */
@@ -47,13 +44,14 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             $availableTypes = $method->getConfigData('cctypes');
             if ($availableTypes) {
                 $availableTypes = explode(',', $availableTypes);
-                foreach ($types as $code => $name) {
-                    if (!in_array($code, $availableTypes)) {
+                foreach (array_keys($types) as $code) {
+                    if (!in_array($code, $availableTypes, true)) {
                         unset($types[$code]);
                     }
                 }
             }
         }
+
         return $types;
     }
 
@@ -64,12 +62,13 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
      */
     public function getCcMonths()
     {
-        $months = $this->getData('cc_months');
+        $months = $this->getDataByKey('cc_months');
         if (is_null($months)) {
             $months[0] =  $this->__('Month');
             $months = array_merge($months, $this->_getConfig()->getMonths());
             $this->setData('cc_months', $months);
         }
+
         return $months;
     }
 
@@ -80,12 +79,13 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
      */
     public function getCcYears()
     {
-        $years = $this->getData('cc_years');
+        $years = $this->getDataByKey('cc_years');
         if (is_null($years)) {
             $years = $this->_getConfig()->getYears();
             $years = [0 => $this->__('Year')] + $years;
             $this->setData('cc_years', $years);
         }
+
         return $years;
     }
 
@@ -101,8 +101,10 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             if (is_null($configData)) {
                 return true;
             }
+
             return (bool) $configData;
         }
+
         return true;
     }
 
@@ -116,10 +118,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     {
         $availableTypes = explode(',', $this->getMethod()->getConfigData('cctypes'));
         $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
-        if ($availableTypes && count($ssPresenations) > 0) {
-            return true;
-        }
-        return false;
+        return $availableTypes && $ssPresenations !== [];
     }
 
     /*
@@ -132,14 +131,14 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     public function getSsStartYears()
     {
         $years = [];
-        $first = date("Y");
+        $first = (int) Mage::helper('core/clock')->format('Y');
 
         for ($index = 5; $index >= 0; $index--) {
             $year = $first - $index;
             $years[$year] = $year;
         }
-        $years = [0 => $this->__('Year')] + $years;
-        return $years;
+
+        return [0 => $this->__('Year')] + $years;
     }
 
     /**
@@ -147,10 +146,11 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         Mage::dispatchEvent('payment_form_block_to_html_before', [
-            'block'     => $this
+            'block'     => $this,
         ]);
         return parent::_toHtml();
     }

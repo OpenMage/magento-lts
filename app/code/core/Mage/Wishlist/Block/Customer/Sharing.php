@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist customer sharing block
  *
- * @category   Mage
  * @package    Mage_Wishlist
  */
 class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
@@ -24,7 +17,7 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     /**
      * Entered Data cache
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_enteredData = null;
 
@@ -33,12 +26,14 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
             $headBlock->setTitle($this->__('Wishlist Sharing'));
         }
+
         return $this;
     }
 
@@ -55,7 +50,7 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     /**
      * Retrieve Entered Data by key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getEnteredData($key)
@@ -67,9 +62,9 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
 
         if (!$this->_enteredData || !isset($this->_enteredData[$key])) {
             return null;
-        } else {
-            return $this->escapeHtml($this->_enteredData[$key]);
         }
+
+        return $this->escapeHtml($this->_enteredData[$key]);
     }
 
     /**

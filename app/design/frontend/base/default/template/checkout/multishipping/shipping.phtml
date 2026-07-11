@@ -1,16 +1,9 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -18,7 +11,7 @@
  * Multishipping checkout shipping template
  *
  * @see Mage_Checkout_Block_Multishipping_Shipping
- * @var $this Mage_Checkout_Block_Multishipping_Shipping
+ * @var Mage_Checkout_Block_Multishipping_Shipping $this
  */
 ?>
 <div class="multiple-checkout">
@@ -49,11 +42,11 @@
                             <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
                         <?php else: ?>
                         <dl class="sp-methods">
-                            <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
+                            <?php $_sole = count($_shippingRateGroups) === 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
                                 <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
                                 <dd>
                                     <ul>
-                                    <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+                                    <?php $_sole = $_sole && count($_rates) === 1; foreach ($_rates as $_rate): ?>
                                         <li<?php if ($_rate->getErrorMessage()) echo ' class="error-msg"' ?>>
                                            <?php if ($_rate->getErrorMessage()): ?>
                                                 <?php echo $this->escapeHtml($_rate->getCarrierTitle()) ?>: <?php echo $this->escapeHtml($_rate->getErrorMessage()) ?>
@@ -83,7 +76,9 @@
                 </div>
             </div>
             <div class="col-2 col-wide">
-                <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress_checkbox', $_address); ?>
+                <?php if ($this->helper('core')->isModuleOutputEnabled('Mage_GiftMessage')): ?>
+                    <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress_checkbox', $_address); ?>
+                <?php endif ?>
                 <h3><?php echo $this->__('Items') ?> <span class="separator">|</span> <a href="<?php echo $this->getItemsEditUrl($_address) ?>"><?php echo $this->__('Edit Items') ?></a></h3>
                 <table class="data-table" id="shipping-table-<?php echo $_address->getId() ?>">
                     <col />
@@ -106,7 +101,9 @@
                     </tbody>
                 </table>
                 <script type="text/javascript">decorateTable('shipping-table-<?php echo $_address->getId() ?>')</script>
-                <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress', $_address); ?>
+                <?php if ($this->helper('core')->isModuleOutputEnabled('Mage_GiftMessage')): ?>
+                    <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress', $_address); ?>
+                <?php endif ?>
             </div>
         </div>
         <?php endforeach ?>

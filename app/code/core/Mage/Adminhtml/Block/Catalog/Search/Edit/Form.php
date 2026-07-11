@@ -1,29 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml tag edit form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
      * Init Form properties
-     *
      */
     public function __construct()
     {
@@ -37,6 +29,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('current_catalog_search');
@@ -44,8 +37,8 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
 
         $form = new Varien_Data_Form([
             'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
-            'method' => 'post'
+            'action'    => $this->getDataByKey('action'),
+            'method' => 'post',
         ]);
 
         $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('catalog')->__('General Information')]);
@@ -53,11 +46,11 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
         $yesno = [
             [
                 'value' => 0,
-                'label' => Mage::helper('catalog')->__('No')
+                'label' => Mage::helper('catalog')->__('No'),
             ],
             [
                 'value' => 1,
-                'label' => Mage::helper('catalog')->__('Yes')
+                'label' => Mage::helper('catalog')->__('Yes'),
             ]];
 
         if ($model->getId()) {
@@ -81,11 +74,14 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(true, false),
                 'required'  => true,
             ]);
+
             $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
-            $field->setRenderer($renderer);
+            if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                $field->setRenderer($renderer);
+            }
         } else {
             $fieldset->addField('store_id', 'hidden', [
-                'name'      => 'store_id'
+                'name'      => 'store_id',
             ]);
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }

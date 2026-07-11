@@ -1,29 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Archive
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
-* Helper class that simplifies gz files stream reading and writing
-*
-* @category    Mage
-* @package     Mage_Archive
-*/
+ * Helper class that simplifies gz files stream reading and writing
+ *
+ * @category    Mage
+ * @package     Mage_Archive
+ */
 class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
 {
     /**
      * Overwritten Mage_Archive_Helper_File constructor with zlib extension check
-     * @param string $filePath
+     * @param  string         $filePath
      * @throws Mage_Exception
      */
     public function __construct($filePath)
@@ -38,8 +32,9 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
     /**
      * @see Mage_Archive_Helper_File::_open()
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _open($mode)
     {
         $this->_fileHandler = @gzopen($this->_filePath, $mode);
@@ -52,8 +47,9 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
     /**
      * @see Mage_Archive_Helper_File::_write()
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _write($data)
     {
         $result = @gzwrite($this->_fileHandler, $data);
@@ -66,6 +62,7 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
     /**
      * @see Mage_Archive_Helper_File::_read()
      */
+    #[Override]
     protected function _read($length)
     {
         return gzread($this->_fileHandler, $length);
@@ -74,6 +71,7 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
     /**
      * @see Mage_Archive_Helper_File::_eof()
      */
+    #[Override]
     protected function _eof()
     {
         return gzeof($this->_fileHandler);
@@ -82,6 +80,7 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
     /**
      * @see Mage_Archive_Helper_File::_close()
      */
+    #[Override]
     protected function _close()
     {
         gzclose($this->_fileHandler);

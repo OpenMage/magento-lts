@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   php-fpm:
     image: ghcr.io/colinmollenhour/docker-openmage:8.2-fpm

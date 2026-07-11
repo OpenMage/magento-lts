@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Quote submit service model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Service_Quote
@@ -57,7 +50,7 @@ class Mage_Sales_Model_Service_Quote
     protected $_order = null;
 
     /**
-     * If it is true, quote will be inactivate after submitting order or nominal items
+     * If it is true, quote will be inactivated after submitting order or nominal items
      *
      * @var bool
      */
@@ -65,8 +58,6 @@ class Mage_Sales_Model_Service_Quote
 
     /**
      * Class constructor
-     *
-     * @param Mage_Sales_Model_Quote $quote
      */
     public function __construct(Mage_Sales_Model_Quote $quote)
     {
@@ -75,10 +66,9 @@ class Mage_Sales_Model_Service_Quote
     }
 
     /**
-     * Quote convertor declaration
+     * Quote converter declaration
      *
-     * @param   Mage_Sales_Model_Convert_Quote $convertor
-     * @return  Mage_Sales_Model_Service_Quote
+     * @return $this
      */
     public function setConvertor(Mage_Sales_Model_Convert_Quote $convertor)
     {
@@ -99,7 +89,6 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Specify additional order data
      *
-     * @param array $data
      * @return $this
      */
     public function setOrderData(array $data)
@@ -134,6 +123,7 @@ class Mage_Sales_Model_Service_Quote
         if ($quote->getCustomerId()) {
             $transaction->addObject($quote->getCustomer());
         }
+
         $transaction->addObject($quote);
 
         $quote->reserveOrderId();
@@ -142,16 +132,19 @@ class Mage_Sales_Model_Service_Quote
         } else {
             $order = $this->_convertor->addressToOrder($quote->getShippingAddress());
         }
+
         $order->setBillingAddress($this->_convertor->addressToOrderAddress($quote->getBillingAddress()));
         if ($quote->getBillingAddress()->getCustomerAddress()) {
             $order->getBillingAddress()->setCustomerAddress($quote->getBillingAddress()->getCustomerAddress());
         }
+
         if (!$isVirtual) {
             $order->setShippingAddress($this->_convertor->addressToOrderAddress($quote->getShippingAddress()));
             if ($quote->getShippingAddress()->getCustomerAddress()) {
                 $order->getShippingAddress()->setCustomerAddress($quote->getShippingAddress()->getCustomerAddress());
             }
         }
+
         $order->setPayment($this->_convertor->paymentToOrderPayment($quote->getPayment()));
 
         foreach ($this->_orderData as $key => $value) {
@@ -163,14 +156,15 @@ class Mage_Sales_Model_Service_Quote
             if ($item->getParentItem()) {
                 $orderItem->setParentItem($order->getItemByQuoteItemId($item->getParentItem()->getId()));
             }
+
             $order->addItem($orderItem);
         }
 
         $order->setQuote($quote);
 
         $transaction->addObject($order);
-        $transaction->addCommitCallback([$order, 'place']);
-        $transaction->addCommitCallback([$order, 'save']);
+        $transaction->addCommitCallback($order->place(...));
+        $transaction->addCommitCallback($order->save(...));
 
         Mage::unregister('current_order');
         Mage::register('current_order', $order);
@@ -182,7 +176,7 @@ class Mage_Sales_Model_Service_Quote
         Mage::dispatchEvent('sales_model_service_quote_submit_before', ['order' => $order, 'quote' => $quote]);
         try {
             $transaction->save();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
                 // reset customer ID's on exception, because customer not saved
                 $quote->getCustomer()->setId(null);
@@ -197,8 +191,9 @@ class Mage_Sales_Model_Service_Quote
             }
 
             Mage::dispatchEvent('sales_model_service_quote_submit_failure', ['order' => $order, 'quote' => $quote]);
-            throw $e;
+            throw $exception;
         }
+
         $this->_inactivateQuote();
         Mage::dispatchEvent('sales_model_service_quote_submit_success', ['order' => $order, 'quote' => $quote]);
         Mage::dispatchEvent('sales_model_service_quote_submit_after', ['order' => $order, 'quote' => $quote]);
@@ -208,7 +203,6 @@ class Mage_Sales_Model_Service_Quote
 
     /**
      * Submit nominal items
-     *
      */
     public function submitNominalItems()
     {
@@ -224,21 +218,23 @@ class Mage_Sales_Model_Service_Quote
      */
     public function submitAll()
     {
-        // don't allow submitNominalItems() to inactivate quote
+        // don't allow submitNominalItems() to deactivate quote
         $shouldInactivateQuoteOld = $this->_shouldInactivateQuote;
         $this->_shouldInactivateQuote = false;
         try {
             $this->submitNominalItems();
             $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_shouldInactivateQuote = $shouldInactivateQuoteOld;
-            throw $e;
+            throw $exception;
         }
+
         // no need to submit the order if there are no normal items remained
         if (!$this->_quote->getAllVisibleItems()) {
             $this->_inactivateQuote();
             return;
         }
+
         $this->submitOrder();
     }
 
@@ -263,7 +259,7 @@ class Mage_Sales_Model_Service_Quote
     }
 
     /**
-     * Inactivate quote
+     * Deactivate quote
      *
      * @return $this
      */
@@ -272,6 +268,7 @@ class Mage_Sales_Model_Service_Quote
         if ($this->_shouldInactivateQuote) {
             $this->_quote->setIsActive(false);
         }
+
         return $this;
     }
 
@@ -287,9 +284,10 @@ class Mage_Sales_Model_Service_Quote
             $addressValidation = $address->validate();
             if ($addressValidation !== true) {
                 Mage::throwException(
-                    Mage::helper('sales')->__('Please check shipping address information. %s', implode(' ', $addressValidation))
+                    Mage::helper('sales')->__('Please check shipping address information. %s', implode(' ', $addressValidation)),
                 );
             }
+
             $method = $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
             if (!$this->getQuote()->isVirtual() && (!$method || !$rate)) {
@@ -300,7 +298,7 @@ class Mage_Sales_Model_Service_Quote
         $addressValidation = $this->getQuote()->getBillingAddress()->validate();
         if ($addressValidation !== true) {
             Mage::throwException(
-                Mage::helper('sales')->__('Please check billing address information. %s', implode(' ', $addressValidation))
+                Mage::helper('sales')->__('Please check billing address information. %s', implode(' ', $addressValidation)),
             );
         }
 
@@ -321,8 +319,10 @@ class Mage_Sales_Model_Service_Quote
             if (!$profile->isValid()) {
                 Mage::throwException($profile->getValidationErrors(true, true));
             }
+
             $profile->submit();
         }
+
         $this->_recurringPaymentProfiles = $profiles;
     }
 

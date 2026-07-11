@@ -1,26 +1,20 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order history block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block_Template
 {
+    #[Override]
     protected function _prepareLayout()
     {
         $onclick = "submitAndReloadArea($('order_history_block').parentNode, '" . $this->getSubmitUrl() . "')";
@@ -28,7 +22,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
             ->setData([
                 'label'   => Mage::helper('sales')->__('Submit Comment'),
                 'class'   => 'save',
-                'onclick' => $onclick
+                'onclick' => $onclick,
             ]);
         $this->setChild('submit_button', $button);
         return parent::_prepareLayout();
@@ -57,8 +51,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
 
     public function canAddComment()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/comment') &&
-               $this->getOrder()->canComment();
+        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/comment')
+               && $this->getOrder()->canComment();
     }
 
     public function getSubmitUrl()
@@ -69,7 +63,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
     /**
      * Customer Notification Applicable check method
      *
-     * @param  Mage_Sales_Model_Order_Status_History $history
      * @return bool
      */
     public function isCustomerNotificationNotApplicable(Mage_Sales_Model_Order_Status_History $history)
@@ -80,10 +73,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
     /**
      * Replace links in string
      *
-     * @param array|string $data
-     * @param null|array $allowedTags
-     * @return string
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
+    #[Override]
     public function escapeHtml($data, $allowedTags = null)
     {
         return Mage::helper('adminhtml/sales')->escapeHtmlWithLinks($data, $allowedTags);

@@ -1,28 +1,24 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tag Frontend controller
  *
- * @category   Mage
  * @package    Mage_Tag
  */
 class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
 {
     /**
      * Saving tag and relation between tag, customer, product and store
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function saveAction()
     {
@@ -30,8 +26,9 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
         if (!$customerSession->authenticate($this)) {
             return;
         }
+
         $tagName    = (string) $this->getRequest()->getQuery('productTagName');
-        $productId  = (int)$this->getRequest()->getParam('product');
+        $productId  = (int) $this->getRequest()->getParam('product');
 
         if (strlen($tagName) && $productId) {
             $session = Mage::getSingleton('catalog/session');
@@ -51,7 +48,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                         Mage_Tag_Model_Tag::ADD_STATUS_NEW => [],
                         Mage_Tag_Model_Tag::ADD_STATUS_EXIST => [],
                         Mage_Tag_Model_Tag::ADD_STATUS_SUCCESS => [],
-                        Mage_Tag_Model_Tag::ADD_STATUS_REJECTED => []
+                        Mage_Tag_Model_Tag::ADD_STATUS_REJECTED => [],
                     ];
 
                     $tagNamesArr = $this->_cleanTags($this->_extractTags($tagName));
@@ -67,23 +64,26 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                                 ->setStatus($tagModel->getPendingStatus())
                                 ->save();
                         }
+
                         $relationStatus = $tagModel->saveRelation($productId, $customerId, $storeId);
                         $counter[$relationStatus][] = $tagName;
                     }
+
                     $this->_fillMessageBox($counter);
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                     $session->addError($this->__('Unable to save tag(s).'));
                 }
             }
         }
+
         $this->_redirectReferer();
     }
 
     /**
-     * Checks inputed tags on the correctness of symbols and split string to array of tags
+     * Checks inputted tags on the correctness of symbols and split string to array of tags
      *
-     * @param string $tagNamesInString
+     * @param  string $tagNamesInString
      * @return array
      */
     protected function _extractTags($tagNamesInString)
@@ -94,18 +94,18 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Clears the tag from the separating characters.
      *
-     * @param array $tagNamesArr
      * @return array
      */
     protected function _cleanTags(array $tagNamesArr)
     {
-        foreach ($tagNamesArr as $key => $tagName) {
-            $tagNamesArr[$key] = trim($tagNamesArr[$key], '\'');
+        foreach (array_keys($tagNamesArr) as $key) {
+            $tagNamesArr[$key] = trim($tagNamesArr[$key], "'");
             $tagNamesArr[$key] = trim($tagNamesArr[$key]);
             if ($tagNamesArr[$key] == '') {
                 unset($tagNamesArr[$key]);
             }
         }
+
         return $tagNamesArr;
     }
 
@@ -121,14 +121,14 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
 
         if (count($counter[Mage_Tag_Model_Tag::ADD_STATUS_NEW])) {
             $session->addSuccess(
-                $this->__('%s tag(s) have been accepted for moderation.', count($counter[Mage_Tag_Model_Tag::ADD_STATUS_NEW]))
+                $this->__('%s tag(s) have been accepted for moderation.', count($counter[Mage_Tag_Model_Tag::ADD_STATUS_NEW])),
             );
         }
 
         if (count($counter[Mage_Tag_Model_Tag::ADD_STATUS_EXIST])) {
             foreach ($counter[Mage_Tag_Model_Tag::ADD_STATUS_EXIST] as $tagName) {
                 $session->addNotice(
-                    $this->__('Tag "%s" has already been added to the product.', $helper->escapeHtml($tagName))
+                    $this->__('Tag "%s" has already been added to the product.', $helper->escapeHtml($tagName)),
                 );
             }
         }
@@ -136,7 +136,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
         if (count($counter[Mage_Tag_Model_Tag::ADD_STATUS_SUCCESS])) {
             foreach ($counter[Mage_Tag_Model_Tag::ADD_STATUS_SUCCESS] as $tagName) {
                 $session->addSuccess(
-                    $this->__('Tag "%s" has been added to the product.', $helper->escapeHtml($tagName))
+                    $this->__('Tag "%s" has been added to the product.', $helper->escapeHtml($tagName)),
                 );
             }
         }
@@ -144,7 +144,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
         if (count($counter[Mage_Tag_Model_Tag::ADD_STATUS_REJECTED])) {
             foreach ($counter[Mage_Tag_Model_Tag::ADD_STATUS_REJECTED] as $tagName) {
                 $session->addNotice(
-                    $this->__('Tag "%s" has been rejected by administrator.', $helper->escapeHtml($tagName))
+                    $this->__('Tag "%s" has been rejected by administrator.', $helper->escapeHtml($tagName)),
                 );
             }
         }

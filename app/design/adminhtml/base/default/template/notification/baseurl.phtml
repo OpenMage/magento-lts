@@ -1,0 +1,19 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Notification_Baseurl
+ * @var Mage_Adminhtml_Block_Notification_Baseurl $this 
+ */
+?>
+<?php $_url = $this->getConfigUrl()?>
+<?php if ($_url): ?>
+<div class="notification-global notification-global-notice">
+    <?php echo $this->helper('adminhtml')->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $_url)?>
+</div>
+<?php endif ?>

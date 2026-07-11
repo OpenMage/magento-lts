@@ -14,17 +14,17 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -33,5 +33,20 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
+      - name: Restore result cache
+        uses: actions/cache/restore@v6
+        with:
+          path: .cache/.ecs.cache
+          key: ecs-cache-${{ github.run_id }}
+          restore-keys: |
+            ecs-cache-
+
       - name: PHP-CS-Fixer
-        run: php vendor/bin/php-cs-fixer fix --diff --dry-run
+        run: php vendor/bin/ecs --config=.php-cs-fixer.dist.php
+
+      - name: Save result cache
+        uses: actions/cache/save@v6
+        if: always()
+        with:
+          path: .cache/.ecs.cache
+          key: ecs-cache-${{ github.run_id }}

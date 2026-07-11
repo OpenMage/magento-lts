@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Install
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource data model
  *
- * @category   Mage
  * @package    Mage_Install
  */
 abstract class Mage_Install_Model_Installer_Db_Abstract
@@ -85,10 +78,11 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
                 'username'  => $this->_configData['db_user'],
                 'password'  => $this->_configData['db_pass'],
                 'dbname'    => $this->_configData['db_name'],
-                'pdoType'   => $this->getPdoType()
+                'pdoType'   => $this->getPdoType(),
             ];
             $this->_connectionData = $connectionData;
         }
+
         return $this->_connectionData;
     }
 
@@ -109,18 +103,17 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
      */
     protected function _getConnection()
     {
-        if (!isset($this->_connection)) {
+        if (is_null($this->_connection)) {
             $resource   = Mage::getSingleton('core/resource');
             $connection = $resource->createConnection('install', $this->getType(), $this->getConnectionData());
             $this->_connection = $connection;
         }
+
         return $this->_connection;
     }
 
     /**
      * Return pdo type
-     *
-     * @return null
      */
     public function getPdoType()
     {
@@ -134,11 +127,7 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
      */
     public function getRequiredExtensions()
     {
-        $extensions = [];
-        $configExt = (array)Mage::getConfig()->getNode(sprintf('install/databases/%s/extensions', $this->getModel()));
-        foreach ($configExt as $name => $value) {
-            $extensions[] = $name;
-        }
-        return $extensions;
+        $configExt = (array) Mage::getConfig()->getNode(sprintf('install/databases/%s/extensions', $this->getModel()));
+        return array_keys($configExt);
     }
 }

@@ -1,26 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widget Instance Resource Model
  *
- * @category   Mage
  * @package    Mage_Widget
  */
 class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('widget/widget_instance', 'instance_id');
@@ -31,12 +27,13 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
             ->from($this->getTable('widget/widget_instance_page'))
-            ->where('instance_id = ?', (int)$object->getId());
+            ->where('instance_id = ?', (int) $object->getId());
         $result = $adapter->fetchAll($select);
         $object->setData('page_groups', $result);
         return parent::_afterLoad($object);
@@ -46,8 +43,10 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Perform actions after object save
      *
      * @inheritDoc
+     * @param  Mage_Widget_Model_Widget_Instance $object
      * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $pageTable         = $this->getTable('widget/widget_instance_page');
@@ -57,12 +56,12 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
 
         $select = $readAdapter->select()
             ->from($pageTable, 'page_id')
-            ->where('instance_id = ?', (int)$object->getId());
+            ->where('instance_id = ?', (int) $object->getId());
         $pageIds = $readAdapter->fetchCol($select);
 
-        $removePageIds = array_diff($pageIds, $object->getData('page_group_ids'));
+        $removePageIds = array_diff($pageIds, $object->getDataByKey('page_group_ids'));
 
-        if (is_array($pageIds) && count($pageIds) > 0) {
+        if (is_array($pageIds) && $pageIds !== []) {
             $inCond = $readAdapter->prepareSqlCondition('page_id', ['in' => $pageIds]);
 
             $select = $readAdapter->select()
@@ -76,7 +75,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
 
         $this->_deleteWidgetInstancePages($removePageIds);
 
-        foreach ($object->getData('page_groups') as $pageGroup) {
+        foreach ($object->getDataByKey('page_groups') as $pageGroup) {
             $pageLayoutUpdateIds = $this->_saveLayoutUpdates($object, $pageGroup);
             $data = [
                 'page_group'      => $pageGroup['group'],
@@ -88,21 +87,22 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
             ];
             $pageId = $pageGroup['page_id'];
             if (in_array($pageGroup['page_id'], $pageIds)) {
-                $writeAdapter->update($pageTable, $data, ['page_id = ?' => (int)$pageId]);
+                $writeAdapter->update($pageTable, $data, ['page_id = ?' => (int) $pageId]);
             } else {
                 $writeAdapter->insert(
                     $pageTable,
                     array_merge(
                         ['instance_id' => $object->getId()],
-                        $data
-                    )
+                        $data,
+                    ),
                 );
                 $pageId = $writeAdapter->lastInsertId($pageTable);
             }
+
             foreach ($pageLayoutUpdateIds as $layoutUpdateId) {
                 $writeAdapter->insert($pageLayoutTable, [
                     'page_id' => $pageId,
-                    'layout_update_id' => $layoutUpdateId
+                    'layout_update_id' => $layoutUpdateId,
                 ]);
             }
         }
@@ -113,9 +113,9 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
     /**
      * Prepare and save layout updates data
      *
-     * @param Mage_Widget_Model_Widget_Instance $widgetInstance
-     * @param array $pageGroupData
-     * @return array of inserted layout updates ids
+     * @param  Mage_Widget_Model_Widget_Instance $widgetInstance
+     * @param  array                             $pageGroupData
+     * @return array                             of inserted layout updates ids
      */
     protected function _saveLayoutUpdates($widgetInstance, $pageGroupData)
     {
@@ -128,11 +128,11 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
         foreach ($pageGroupData['layout_handle_updates'] as $handle) {
             $xml = $widgetInstance->generateLayoutUpdateXml(
                 $pageGroupData['block_reference'],
-                $pageGroupData['template']
+                $pageGroupData['template'],
             );
             $insert = [
-                    'handle'     => $handle,
-                    'xml'        => $xml
+                'handle'     => $handle,
+                'xml'        => $xml,
             ];
             if (strlen($widgetInstance->getSortOrder())) {
                 $insert['sort_order'] = $widgetInstance->getSortOrder();
@@ -151,8 +151,10 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
                     'theme'            => $widgetInstance->getTheme(),
                     'layout_update_id' => $layoutUpdateId];
             }
+
             $writeAdapter->insertMultiple($layoutUpdateLinkTable, $data);
         }
+
         return $pageLayoutUpdateIds;
     }
 
@@ -160,14 +162,15 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Prepare store ids.
      * If one of store id is default (0) return all store ids
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return array
      */
     protected function _prepareStoreIds($storeIds)
     {
         if (in_array('0', $storeIds)) {
-            $storeIds = [0];
+            return [0];
         }
+
         return $storeIds;
     }
 
@@ -175,9 +178,9 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Perform actions before object delete.
      * Collect page ids and layout update ids and set to object for further delete
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
+    #[Override]
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
         $writeAdapter = $this->_getWriteAdapter();
@@ -186,7 +189,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
             ->joinInner(
                 ['layout_page_table' => $this->getTable('widget/widget_instance_page_layout')],
                 'layout_page_table.page_id = main_table.page_id',
-                ['layout_update_id']
+                ['layout_update_id'],
             )
             ->where('main_table.instance_id=?', $object->getId());
         $result = $writeAdapter->fetchCol($select);
@@ -200,6 +203,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
         $this->_deleteLayoutUpdates($object->getLayoutUpdateIdsToDelete());
@@ -209,7 +213,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
     /**
      * Delete widget instance pages by given ids
      *
-     * @param array $pageIds
+     * @param  array $pageIds
      * @return $this
      */
     protected function _deleteWidgetInstancePages($pageIds)
@@ -217,20 +221,21 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
         $writeAdapter = $this->_getWriteAdapter();
         if ($pageIds) {
             $inCond = $writeAdapter->prepareSqlCondition('page_id', [
-                'in' => $pageIds
+                'in' => $pageIds,
             ]);
             $writeAdapter->delete(
                 $this->getTable('widget/widget_instance_page'),
-                $inCond
+                $inCond,
             );
         }
+
         return $this;
     }
 
     /**
      * Delete layout updates by given ids
      *
-     * @param array $layoutUpdateIds
+     * @param  array $layoutUpdateIds
      * @return $this
      */
     protected function _deleteLayoutUpdates($layoutUpdateIds)
@@ -238,20 +243,21 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
         $writeAdapter = $this->_getWriteAdapter();
         if ($layoutUpdateIds) {
             $inCond = $writeAdapter->prepareSqlCondition('layout_update_id', [
-                'in' => $layoutUpdateIds
+                'in' => $layoutUpdateIds,
             ]);
             $writeAdapter->delete(
                 $this->getTable('core/layout_update'),
-                $inCond
+                $inCond,
             );
         }
+
         return $this;
     }
 
     /**
      * Get store ids to which specified item is assigned
      *
-     * @param int $id
+     * @param  int   $id
      * @return array
      */
     public function lookupStoreIds($id)
@@ -259,7 +265,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
             ->from($this->getMainTable(), 'store_ids')
-            ->where("{$this->getIdFieldName()} = ?", (int)$id);
+            ->where("{$this->getIdFieldName()} = ?", (int) $id);
         $storeIds = $adapter->fetchOne($select);
         return $storeIds ? explode(',', $storeIds) : [];
     }

@@ -1,20 +1,13 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /**
- * @var $this Mage_ProductAlert_Block_Email_Stock
+ * @var Mage_ProductAlert_Block_Email_Stock $this
  */
 ?>
 <?php if ($products = $this->getProducts()): ?>
@@ -30,10 +23,10 @@
                 <p><small><?php echo $shortDescription ?></small></p>
             <?php endif ?>
             <p><?php if ($product->getPrice() != $product->getFinalPrice()): ?>
-                <?php echo $this->__('Regular Price:') ?> <strong style="text-decoration:line-through;"><?php echo Mage::helper('core')->currency($product->getPrice()) ?></strong><br />
-                <strong><?php echo $this->__('Special price:') ?> <span style="color:#FF0000;"><?php echo Mage::helper('core')->currency($product->getFinalPrice()) ?></span></strong>
+                <?php echo $this->__('Regular Price:') ?> <strong style="text-decoration:line-through;"><?php echo Mage::helper('core')::currency($product->getPrice()) ?></strong><br />
+                <strong><?php echo $this->__('Special price:') ?> <span style="color:#FF0000;"><?php echo Mage::helper('core')::currency($product->getFinalPrice()) ?></span></strong>
             <?php else: ?>
-                <strong><?php echo $this->__('Price:') ?></strong> <?php echo Mage::helper('core')->currency($product->getPrice()) ?>
+                <strong><?php echo $this->__('Price:') ?></strong> <?php echo Mage::helper('core')::currency($product->getPrice()) ?>
             <?php endif ?></p>
             <p><small><a href="<?php echo $this->getProductUnsubscribeUrl($product->getId()) ?>"><?php echo $this->__('Click here not to receive alerts for this product') ?></a></small></p>
         </td>

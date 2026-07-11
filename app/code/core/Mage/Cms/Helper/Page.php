@@ -1,41 +1,38 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Mage_Adminhtml_Block_System_Config_Form as Form;
 
 /**
  * CMS Page Helper
  *
- * @category   Mage
  * @package    Mage_Cms
  */
 class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_NO_ROUTE_PAGE        = 'web/default/cms_no_route';
+
     public const XML_PATH_NO_COOKIES_PAGE      = 'web/default/cms_no_cookies';
+
     public const XML_PATH_HOME_PAGE            = 'web/default/cms_home_page';
 
     protected $_moduleName = 'Mage_Cms';
 
     /**
-    * Renders CMS page on front end
-    *
-    * Call from controller action
-    *
-    * @param Mage_Core_Controller_Front_Action $action
-    * @param string $pageId
-    * @return bool
-    */
+     * Renders CMS page on front end
+     *
+     * Call from controller action
+     *
+     * @param  string              $pageId
+     * @return bool
+     * @throws Mage_Core_Exception
+     */
     public function renderPage(Mage_Core_Controller_Front_Action $action, $pageId = null)
     {
         return $this->_renderPage($action, $pageId);
@@ -44,18 +41,18 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     /**
      * Renders CMS page
      *
-     * @param Mage_Core_Controller_Varien_Action $action
-     * @param string $pageId
-     * @param bool $renderLayout
+     * @param  string              $pageId
+     * @param  bool                $renderLayout
      * @return bool
+     * @throws Mage_Core_Exception
      */
-    protected function _renderPage(Mage_Core_Controller_Varien_Action  $action, $pageId = null, $renderLayout = true)
+    protected function _renderPage(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
     {
         $page = Mage::getSingleton('cms/page');
         if (!is_null($pageId) && $pageId !== $page->getId()) {
-            $delimeterPosition = strrpos($pageId, '|');
-            if ($delimeterPosition) {
-                $pageId = substr($pageId, 0, $delimeterPosition);
+            $delimiterPosition = strrpos($pageId, '|');
+            if ($delimiterPosition) {
+                $pageId = substr($pageId, 0, $delimiterPosition);
             }
 
             $page->setStoreId(Mage::app()->getStore()->getId());
@@ -71,13 +68,11 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         $inRange = Mage::app()->getLocale()
             ->isStoreDateInInterval(null, $page->getCustomThemeFrom(), $page->getCustomThemeTo());
 
-        if ($page->getCustomTheme()) {
-            if ($inRange) {
-                list($package, $theme) = explode('/', $page->getCustomTheme());
-                Mage::getSingleton('core/design_package')
-                    ->setPackageName($package)
-                    ->setTheme($theme);
-            }
+        if ($page->getCustomTheme() && $inRange) {
+            [$package, $theme] = explode('/', $page->getCustomTheme());
+            Mage::getSingleton('core/design_package')
+                ->setPackageName($package)
+                ->setTheme($theme);
         }
 
         $action->getLayout()->getUpdate()
@@ -133,10 +128,10 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * Allows to use also backend action as first parameter.
      * Also takes third parameter which allows not run renderLayout method.
      *
-     * @param Mage_Core_Controller_Varien_Action $action
-     * @param string $pageId
-     * @param bool $renderLayout
+     * @param  string              $pageId
+     * @param  bool                $renderLayout
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function renderPageExtended(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
     {
@@ -146,8 +141,9 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     /**
      * Retrieve page direct URL
      *
-     * @param string $pageId
-     * @return string|null
+     * @param  string                          $pageId
+     * @return null|string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getPageUrl($pageId = null)
     {
@@ -164,5 +160,98 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         }
 
         return Mage::getUrl(null, ['_direct' => $page->getIdentifier()]);
+    }
+
+    public static function getUsedInStoreConfigPaths(?array $paths = []): array
+    {
+        $searchPaths = [
+            self::XML_PATH_NO_ROUTE_PAGE,
+            self::XML_PATH_NO_COOKIES_PAGE,
+            self::XML_PATH_HOME_PAGE,
+        ];
+
+        if (is_array($paths) && $paths !== []) {
+            $searchPaths = array_merge($searchPaths, $paths);
+        }
+
+        if (is_null($paths)) {
+            return [];
+        }
+
+        return $searchPaths;
+    }
+
+    /**
+     * @param self::XML_PATH_* $path
+     */
+    public static function getConfigLabelFromConfigPath(string $path): string
+    {
+        return match ($path) {
+            self::XML_PATH_NO_ROUTE_PAGE => Mage::helper('cms')->__('No Route Page'),
+            self::XML_PATH_NO_COOKIES_PAGE => Mage::helper('cms')->__('No Cookies Page'),
+            self::XML_PATH_HOME_PAGE => Mage::helper('cms')->__('Home Page'),
+            default => $path,
+        };
+    }
+
+    /**
+     * @param  Form::SCOPE_*       $scope
+     * @throws Mage_Core_Exception
+     */
+    public static function getScopeInfoFromConfigScope(string $scope, string $scopeId): string
+    {
+        return match ($scope) {
+            Form::SCOPE_ENV => Mage::helper('cms')->__('Environment Config'),
+            Form::SCOPE_DEFAULT => Mage::helper('cms')->__('Default Config'),
+            Form::SCOPE_WEBSITES => Mage::app()->getWebsite($scopeId)->getName(),
+            Form::SCOPE_STORES => sprintf(
+                '%s - %s',
+                Mage::app()->getStore($scopeId)->getGroup()->getName(),
+                Mage::app()->getStore($scopeId)->getName(),
+            ),
+        };
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    public static function getValidateConfigErrorMessage(Mage_Core_Model_Resource_Db_Collection_Abstract $isUsedInConfig): string
+    {
+        $messages = [];
+
+        $data = $isUsedInConfig->getData();
+        foreach ($data as $key => $item) {
+            $path = $item['path'];
+            unset($item['config_id'], $item['path'], $item['updated_at'], $item['value']);
+            $data[$path][] = $item;
+            unset($data[$key], $key, $path);
+        }
+
+        foreach ($data as $path => $items) {
+            $scopes = [];
+            foreach ($items as $item) {
+                $scopes[] = self::getScopeInfoFromConfigScope($item['scope'], $item['scope_id']);
+            }
+
+            $messages[] = sprintf(
+                '%s (%s)',
+                self::getConfigLabelFromConfigPath($path),
+                implode(', ', $scopes),
+            );
+        }
+
+        unset($data, $path, $items, $item, $scopes);
+
+        return implode(', ', $messages);
+    }
+
+    /**
+     * Get CMS page identifier without trailing page ID
+     *
+     * @param Mage_Cms_Helper_Page::XML_PATH_* $path
+     */
+    public function getIdentifierFromConfigPath(string $path): string
+    {
+        return explode('|', (string) Mage::getStoreConfig($path))[0];
     }
 }

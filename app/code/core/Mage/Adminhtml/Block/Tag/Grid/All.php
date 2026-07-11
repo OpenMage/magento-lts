@@ -1,42 +1,34 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml all tags grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Mage_Adminhtml_Block_Tag_Grid_All constructor.
-     */
+    protected string $_eventPrefix = 'adminhtml_tag_grid_all';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('tagsGrid');
         $this->setDefaultSort('tag_id');
-        $this->setDefaultDir('desc');
     }
 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('tag/tag_collection')->addStoresVisibility();
@@ -48,7 +40,7 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
      * @inheritDoc
      * @throws Exception
      */
-
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -83,9 +75,9 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($this->getCollection() && $column->getFilter()->getValue()) {
@@ -95,13 +87,15 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
                 $this->getCollection()->addStoreFilter($column->getFilter()->getCondition());
             }
         }
+
         return $this;
     }
 
     /**
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return string
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/products', ['tag_id' => $row->getId()]);

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Lock resource model
  *
- * @category   Mage
  * @package    Mage_Index
  */
 class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
@@ -32,8 +25,9 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
      * @param string $name
      * @param string $extendConfigWith
      *
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
+    #[Override]
     public function getConnection($name, $extendConfigWith = '')
     {
         $index = $name . $extendConfigWith;
@@ -43,14 +37,17 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
                 $connection->setCacheAdapter(Mage::app()->getCache());
                 unset($this->_skippedConnections[$index]);
             }
+
             return $connection;
         }
+
         $connConfig = Mage::getConfig()->getResourceConnectionConfig($name);
 
         if (!$connConfig) {
             $this->_connections[$index] = $this->_getDefaultConnection($name, $extendConfigWith);
             return $this->_connections[$index];
         }
+
         if (!$connConfig->is('active', '1')) {
             return false;
         }
@@ -76,7 +73,7 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
             }
         }
 
-        $connection = $this->_newConnection((string)$connConfig->type, $connConfig);
+        $connection = $this->_newConnection((string) $connConfig->type, $connConfig);
         if ($connection) {
             if (Mage::app()->getIsCacheLocked()) {
                 $this->_skippedConnections[$index] = true;
@@ -99,13 +96,15 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
      * @param string $requiredConnectionName
      * @param string $extendConfigWith
      *
-     * @return Varien_Db_Adapter_Interface|false
+     * @return false|Varien_Db_Adapter_Interface
      */
+    #[Override]
     protected function _getDefaultConnection($requiredConnectionName, $extendConfigWith = '')
     {
         if (str_contains($requiredConnectionName, 'read')) {
             return $this->getConnection(self::DEFAULT_READ_RESOURCE, $extendConfigWith);
         }
+
         return $this->getConnection(self::DEFAULT_WRITE_RESOURCE, $extendConfigWith);
     }
 }

@@ -1,0 +1,30 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Paygate_Block_Authorizenet_Info_Cc
+ * @var Mage_Paygate_Block_Authorizenet_Info_Cc $this
+ */
+?>
+
+<?php
+    $cards = $this->getCards();
+    $showCount = count($cards) > 1;
+?>
+
+<?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?>{{pdf_row_separator}}
+<?php foreach ($cards as $key => $card): ?>
+    <?php if ($showCount): ?>
+       <?php echo sprintf($this->__('Credit Card %s'), $key + 1); ?>
+       {{pdf_row_separator}}
+    <?php endif ?>
+
+    <?php foreach ($card as $_label => $_value):?>
+        <?php echo $_label ?>: <?php echo implode(' ', $this->getValueAsArray($_value))?>{{pdf_row_separator}}
+     <?php endforeach ?>
+<?php endforeach ?>

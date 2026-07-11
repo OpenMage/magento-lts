@@ -1,0 +1,63 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist $this */
+?>
+<?php echo $this->getGridParentHtml() ?>
+<?php if($this->canDisplayContainer()): ?>
+<script type="text/javascript">
+//<!--
+wishlistControl = {
+    reload: function (urlParams) {
+        if (!urlParams) {
+            urlParams = '';
+        }
+        var url = <?php echo $this->getJsObjectName() ?>.url + '?ajax=true' + urlParams;
+        new Ajax.Updater(
+            <?php echo $this->getJsObjectName() ?>.containerId,
+            url,
+            {
+                parameters: {form_key: FORM_KEY},
+                onComplete: <?php echo $this->getJsObjectName() ?>.initGrid.bind(<?php echo $this->getJsObjectName() ?>),
+                evalScripts:true
+            }
+        );
+    },
+
+    configureItem: function (itemId) {
+        productConfigure.setOnLoadIFrameCallback('wishlist', this.cbOnLoadIframe.bind(this));
+        productConfigure.showItemConfiguration('wishlist', itemId);
+        return false;
+    },
+
+    cbOnLoadIframe: function (response) {
+        if (!response.ok) {
+            return;
+        }
+        this.reload();
+    },
+
+    removeItem: function (itemId) {
+        if(!confirm('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('customer')->__('Are you sure that you want to remove this item?')) ?>')) {
+            return false;
+        }
+        this.reload('&delete=' + itemId);
+        return false;
+    }
+}
+
+productConfigure.addListType(
+    'wishlist',
+    {
+        urlFetch: '<?php echo $this->getUrl('*/customer_wishlist_product_composite_wishlist/configure') ?>',
+        urlConfirm: '<?php echo $this->getUrl('*/customer_wishlist_product_composite_wishlist/update') ?>'
+    }
+);
+//-->
+</script>
+<?php endif ?>

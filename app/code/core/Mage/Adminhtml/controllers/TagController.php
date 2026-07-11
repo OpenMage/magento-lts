@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product tags admin controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
@@ -34,7 +27,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     /**
      * Prepare tag model for manipulation
      *
-     * @return Mage_Tag_Model_Tag | false
+     * @return false|Mage_Tag_Model_Tag
      */
     protected function _initTag()
     {
@@ -58,7 +51,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Show grid action
-     *
+     * @return void
      */
     public function indexAction()
     {
@@ -74,7 +67,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Action to draw grid loaded by ajax
-     *
+     * @return void
      */
     public function ajaxGridAction()
     {
@@ -84,7 +77,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Action to draw pending tags grid loaded by ajax
-     *
+     * @return void
      */
     public function ajaxPendingGridAction()
     {
@@ -94,7 +87,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * New tag action
-     *
+     * @return void
      */
     public function newAction()
     {
@@ -103,7 +96,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Edit tag action
-     *
+     * @return $this|void
      */
     public function editAction()
     {
@@ -134,7 +127,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save tag action
-     *
+     * @return $this|void
      */
     public function saveAction()
     {
@@ -157,7 +150,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
             if (isset($postData['tag_assigned_products'])) {
                 $productIds = Mage::helper('adminhtml/js')->decodeGridSerializedInput(
-                    $postData['tag_assigned_products']
+                    $postData['tag_assigned_products'],
                 );
                 $model->setData('tag_assigned_products', $productIds);
             }
@@ -170,11 +163,11 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
                 if (($continue = $this->getRequest()->getParam('continue'))) {
                     return $this->_redirect('*/tag/edit', ['tag_id' => $model->getId(), 'store' => $model->getStoreId(), 'ret' => $continue]);
-                } else {
-                    return $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
                 }
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+
+                return $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 Mage::getSingleton('adminhtml/session')->setTagData($data);
 
                 return $this->_redirect('*/*/edit', ['tag_id' => $model->getId(), 'store' => $model->getStoreId()]);
@@ -186,6 +179,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Delete tag action
+     * @return void
      */
     public function deleteAction()
     {
@@ -196,8 +190,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
             try {
                 $model->delete();
                 $session->addSuccess(Mage::helper('adminhtml')->__('The tag has been deleted.'));
-            } catch (Exception $e) {
-                $session->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $session->addError($exception->getMessage());
             }
         } else {
             $session->addError(Mage::helper('adminhtml')->__('Unable to find a tag to delete.'));
@@ -208,7 +202,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Pending tags
-     *
+     * @return void
      */
     public function pendingAction()
     {
@@ -224,7 +218,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Assigned products (with serializer block)
-     *
+     * @return void
      */
     public function assignedAction()
     {
@@ -237,7 +231,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Assigned products grid
-     *
+     * @return void
      */
     public function assignedGridOnlyAction()
     {
@@ -248,7 +242,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Tagged products
-     *
+     * @return void
      */
     public function productAction()
     {
@@ -259,7 +253,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Customers
-     *
+     * @return void
      */
     public function customerAction()
     {
@@ -270,7 +264,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Massaction for removing tags
-     *
+     * @return void
      */
     public function massDeleteAction()
     {
@@ -283,11 +277,12 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                     $tag = Mage::getModel('tag/tag')->load($tagId);
                     $tag->delete();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    $this->__('Total of %d record(s) have been deleted.', count($tagIds))
+                    $this->__('Total of %d record(s) have been deleted.', count($tagIds)),
                 );
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
             }
         }
 
@@ -296,12 +291,11 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Massaction for changing status of selected tags
-     *
+     * @return void
      */
     public function massStatusAction()
     {
         $tagIds = $this->getRequest()->getParam('tag');
-        $storeId = (int)$this->getRequest()->getParam('store', 0);
         if (!is_array($tagIds)) {
             // No products selected
             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
@@ -313,13 +307,15 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                         ->setStatus($this->getRequest()->getParam('status'));
                     $tag->save();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    $this->__('Total of %d record(s) have been updated.', count($tagIds))
+                    $this->__('Total of %d record(s) have been updated.', count($tagIds)),
                 );
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
             }
         }
+
         $ret = $this->getRequest()->getParam('ret') ? $this->getRequest()->getParam('ret') : 'index';
         $this->_redirect('*/*/' . $ret);
     }
@@ -327,16 +323,16 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    #[Override]
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'pending':
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/pending');
-            case 'all':
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/all');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag');
-        }
+        $aclPath = match ($action) {
+            'pending' => 'catalog/tag/pending',
+            'all' => 'catalog/tag/all',
+            default => 'catalog/tag',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

@@ -1,27 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart item render block
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_Block_Cart_Item_Renderer
 {
     public const CONFIGURABLE_PRODUCT_IMAGE = 'checkout/cart/configurable_product_image';
+
     public const USE_PARENT_IMAGE          = 'parent';
 
     /**
@@ -34,6 +28,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
         if ($option = $this->getItem()->getOptionByCode('product_type')) {
             return $option->getProduct();
         }
+
         return $this->getProduct();
     }
 
@@ -47,6 +42,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
         if ($option = $this->getItem()->getOptionByCode('simple_product')) {
             return $option->getProduct();
         }
+
         return $this->getProduct();
     }
 
@@ -55,11 +51,12 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      *
      * @return Mage_Catalog_Helper_Image
      */
+    #[Override]
     public function getProductThumbnail()
     {
         $product = $this->getChildProduct();
-        if (!$product || !$product->getData('thumbnail')
-            || ($product->getData('thumbnail') === 'no_selection')
+        if (!$product || !$product->getDataByKey('thumbnail')
+            || ($product->getDataByKey('thumbnail') === 'no_selection')
             || (Mage::getStoreConfig(self::CONFIGURABLE_PRODUCT_IMAGE) === self::USE_PARENT_IMAGE)
         ) {
             $product = $this->getProduct();
@@ -75,6 +72,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      *
      * @return string
      */
+    #[Override]
     public function getProductName()
     {
         return $this->getProduct()->getName();
@@ -97,6 +95,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      *
      * @return array
      */
+    #[Override]
     public function getOptionList()
     {
         /** @var Mage_Catalog_Helper_Product_Configuration $helper */
@@ -109,6 +108,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->getConfigurableProduct()->getCacheIdTags());

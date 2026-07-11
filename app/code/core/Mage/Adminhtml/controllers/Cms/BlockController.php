@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Cms manage blocks controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Action
@@ -32,9 +25,10 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions('delete');
+        $this->_setForcedFormKeyActions(['delete', 'massDelete']);
         return parent::preDispatch();
     }
 
@@ -56,6 +50,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -67,6 +62,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Create new CMS block
+     * @return void
      */
     public function newAction()
     {
@@ -76,6 +72,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Edit CMS block
+     * @return void
      */
     public function editAction()
     {
@@ -114,6 +111,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Save action
+     * @return void
      */
     public function saveAction()
     {
@@ -145,12 +143,13 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                     $this->_redirect('*/*/edit', ['block_id' => $model->getId()]);
                     return;
                 }
+
                 // go to grid
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 // save data in session
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
@@ -158,39 +157,110 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
         // check if we know what should be deleted
         if ($id = $this->getRequest()->getParam('block_id')) {
-            $title = "";
             try {
                 // init model and delete
                 $model = Mage::getModel('cms/block');
                 $model->load($id);
-                $title = $model->getTitle();
                 $model->delete();
                 // display success message
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('cms')->__('The block has been deleted.'));
                 // go to grid
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 // go back to edit form
                 $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return;
             }
         }
+
         // display error message
         Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('Unable to find a block to delete.'));
         // go to grid
         $this->_redirect('*/*/');
+    }
+
+    /**
+     * @return void
+     */
+    public function massDeleteAction()
+    {
+        $blockIds = $this->getRequest()->getParam('block');
+        if (!is_array($blockIds)) {
+            $this->_getSession()->addError($this->__('Please select block(s).'));
+        } elseif ($blockIds !== []) {
+            try {
+                $collection = Mage::getResourceModel('cms/block_collection');
+                $collection->addFieldToFilter('block_id', ['in' => $blockIds]);
+                $collection->delete();
+
+                $this->_getSession()->addSuccess(
+                    $this->__('Total of %d record(s) have been deleted.', count($blockIds)),
+                );
+            } catch (Throwable $throwable) {
+                $this->_getSession()->addError($throwable->getMessage());
+            }
+        }
+
+        $this->_redirect('*/*/index');
+    }
+
+    /**
+     * @return void
+     */
+    public function massStatusAction()
+    {
+        $blockIds = (array) $this->getRequest()->getParam('block');
+        $status   = (int) $this->getRequest()->getParam('status');
+
+        try {
+            // is_active/disabled is defined as 0
+            if ($status === 2) {
+                $status = 0;
+            }
+
+            $collection = Mage::getResourceModel('cms/block_collection');
+            $collection->addFieldToFilter('block_id', ['in' => $blockIds]);
+            $collection->walk('setIsActive', [$status]);
+            $collection->save();
+
+            $this->_getSession()->addSuccess(
+                $this->__('Total of %d record(s) have been updated.', count($blockIds)),
+            );
+        } catch (Throwable $throwable) {
+            $this->_getSession()->addError($throwable->getMessage());
+        }
+
+        $this->_redirect('*/*/index');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    #[Override]
+    protected function _isAllowed(): bool
+    {
+        $action = strtolower($this->getRequest()->getActionName());
+        $aclPath = match ($action) {
+            'new', 'save', 'massstatus' => self::ADMIN_RESOURCE . '/save',
+            'delete', 'massdelete' => self::ADMIN_RESOURCE . '/delete',
+            default => self::ADMIN_RESOURCE,
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

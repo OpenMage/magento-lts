@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax Setup Resource Model
  *
- * @category   Mage
  * @package    Mage_Tax
  */
 class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
@@ -72,7 +65,11 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
         }
 
         foreach ($oldRules as $rule) {
-            if (!isset($ratesByType[$rule['tax_rate_type_id']]) || !count($ratesByType[$rule['tax_rate_type_id']])) {
+            if (!isset($ratesByType[$rule['tax_rate_type_id']])) {
+                continue;
+            }
+
+            if ($ratesByType[$rule['tax_rate_type_id']] === []) {
                 continue;
             }
 
@@ -92,7 +89,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
                 'tax_customer_class'    => $customerTaxClasses,
                 'code'                  => $code,
                 'priority'              => 1,
-                'position'              => 1
+                'position'              => 1,
             ];
             Mage::getModel('tax/calculation_rule')->setData($ruleData)->save();
         }
@@ -103,7 +100,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
     /**
      * Load Tax Table Data
      *
-     * @param string $table
+     * @param  string $table
      * @return array
      */
     protected function _loadTableData($table)
@@ -116,10 +113,10 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
 
     /**
      * Load Old Rate Data
-     * @deprecated since 1.5.0.0
      *
-     * @param array $oldRateTypes
+     * @param  array $oldRateTypes
      * @return array
+     * @deprecated since 1.5.0.0
      */
     protected function _loadOldRates($oldRateTypes)
     {
@@ -131,9 +128,10 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
             $select->joinLeft(
                 ["data_{$id}" => $this->getTable('tax_rate_data')],
                 "data_{$id}.rate_type_id = {$id} AND data_{$id}.tax_rate_id = main_table.tax_rate_id",
-                ["data_{$id}" => 'rate_value']
+                ["data_{$id}" => 'rate_value'],
             );
         }
+
         return $this->_conn->fetchAll($select);
     }
 }

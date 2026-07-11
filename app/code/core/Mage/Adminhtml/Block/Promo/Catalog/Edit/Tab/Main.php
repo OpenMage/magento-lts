@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Rule General Information Tab
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
@@ -64,6 +57,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('current_promo_catalog_rule');
@@ -74,7 +68,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend ' => Mage::helper('catalogrule')->__('General Information')]
+            ['legend ' => Mage::helper('catalogrule')->__('General Information')],
         );
 
         $fieldset->addField('auto_apply', 'hidden', [
@@ -116,7 +110,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
             $websiteId = Mage::app()->getStore(true)->getWebsiteId();
             $fieldset->addField('website_ids', 'hidden', [
                 'name'     => 'website_ids[]',
-                'value'    => $websiteId
+                'value'    => $websiteId,
             ]);
             $model->setWebsiteIds($websiteId);
         } else {
@@ -125,9 +119,9 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
                 'label'     => Mage::helper('catalogrule')->__('Websites'),
                 'title'     => Mage::helper('catalogrule')->__('Websites'),
                 'required' => true,
-                'values'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm()
+                'values'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm(),
             ]);
-            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $renderer = $this->getStoreSwitcherRenderer();
             $field->setRenderer($renderer);
         }
 
@@ -136,7 +130,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
             'label'     => Mage::helper('catalogrule')->__('Customer Groups'),
             'title'     => Mage::helper('catalogrule')->__('Customer Groups'),
             'required'  => true,
-            'values'    => Mage::getResourceModel('customer/group_collection')->toOptionArray()
+            'values'    => Mage::getResourceModel('customer/group_collection')->toOptionArray(),
         ]);
 
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
@@ -146,7 +140,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
             'title'  => Mage::helper('catalogrule')->__('From Date'),
             'image'  => $this->getSkinUrl('images/grid-cal.gif'),
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
-            'format'       => $dateFormatIso
+            'format'       => $dateFormatIso,
         ]);
         $fieldset->addField('to_date', 'date', [
             'name'   => 'to_date',
@@ -154,7 +148,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
             'title'  => Mage::helper('catalogrule')->__('To Date'),
             'image'  => $this->getSkinUrl('images/grid-cal.gif'),
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
-            'format'       => $dateFormatIso
+            'format'       => $dateFormatIso,
         ]);
 
         $fieldset->addField('sort_order', 'text', [

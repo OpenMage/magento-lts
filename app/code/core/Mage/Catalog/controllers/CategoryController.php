@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category controller
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
@@ -24,7 +17,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize requested category object
      *
-     * @return Mage_Catalog_Model_Category|false
+     * @return false|Mage_Catalog_Model_Category
      * @throws Mage_Core_Exception
      */
     protected function _initCategory()
@@ -42,6 +35,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
         if (!Mage::helper('catalog/category')->canShow($category)) {
             return false;
         }
+
         Mage::getSingleton('catalog/session')->setLastVisitedCategoryId($category->getId());
         Mage::register('current_category', $category);
         Mage::register('current_entity_key', $category->getPath());
@@ -51,11 +45,11 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                 'catalog_controller_category_init_after',
                 [
                     'category' => $category,
-                    'controller_action' => $this
-                ]
+                    'controller_action' => $this,
+                ],
             );
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
             return false;
         }
 
@@ -63,27 +57,14 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Initialize requested category object
-     *
-     * @return Mage_Catalog_Model_Category
-     * @throws Mage_Core_Exception
-     * @deprecated use method _initCategory
-     *
-     */
-    protected function _initCatagory()
-    {
-        return $this->_initCategory();
-    }
-
-    /**
      * Recursively apply custom design settings to category if it's option
-     * custom_use_parent_settings is setted to 1 while parent option is not
+     * custom_use_parent_settings is set to 1 while parent option is not
      *
-     * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
-     * @param Mage_Catalog_Model_Category $category
+     * @param Mage_Catalog_Model_Category   $category
      * @param Mage_Core_Model_Layout_Update $update
      *
      * @return $this
+     * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
      */
     protected function _applyCustomDesignSettings($category, $update)
     {
@@ -96,14 +77,15 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
         $validityDate = $category->getCustomDesignDate();
 
-        if (array_key_exists('from', $validityDate) &&
-            array_key_exists('to', $validityDate) &&
-            Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])
+        if (array_key_exists('from', $validityDate)
+            && array_key_exists('to', $validityDate)
+            && Mage::app()->getLocale()->isStoreDateInInterval(null, $validityDate['from'], $validityDate['to'])
         ) {
             if ($category->getPageLayout()) {
                 $this->getLayout()->helper('page/layout')
                     ->applyHandle($category->getPageLayout());
             }
+
             $update->addUpdate($category->getCustomLayoutUpdate());
         }
 
@@ -112,6 +94,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
     /**
      * Category view action
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function viewAction()
@@ -140,11 +123,9 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
             $this->loadLayoutUpdates();
 
             // apply custom layout update once layout is loaded
-            if ($layoutUpdates = $settings->getLayoutUpdates()) {
-                if (is_array($layoutUpdates)) {
-                    foreach ($layoutUpdates as $layoutUpdate) {
-                        $update->addUpdate($layoutUpdate);
-                    }
+            if (($layoutUpdates = $settings->getLayoutUpdates()) && is_array($layoutUpdates)) {
+                foreach ($layoutUpdates as $layoutUpdate) {
+                    $update->addUpdate($layoutUpdate);
                 }
             }
 

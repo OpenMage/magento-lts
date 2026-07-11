@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Images manage controller for Cms WYSIWYG editor
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Controller_Action
@@ -38,48 +31,62 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $storeId = (int) $this->getRequest()->getParam('store');
 
         try {
             Mage::helper('cms/wysiwyg_images')->getCurrentPath();
-        } catch (Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Exception $exception) {
+            $this->_getSession()->addError($exception->getMessage());
         }
+
         $this->_initAction()->loadLayout('overlay_popup');
         $block = $this->getLayout()->getBlock('wysiwyg_images.js');
         if ($block) {
             $block->setStoreId($storeId);
         }
+
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function treeJsonAction()
     {
         try {
             $this->_initAction();
             $this->getResponse()->setBody(
                 $this->getLayout()->createBlock('adminhtml/cms_wysiwyg_images_tree')
-                    ->getTreeJson()
+                    ->getTreeJson(),
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([]));
         }
     }
 
+    /**
+     * @return void
+     */
     public function contentsAction()
     {
         try {
             $this->_initAction()->_saveSessionCurrentPath();
             $this->loadLayout('empty');
             $this->renderLayout();
-        } catch (Exception $e) {
-            $result = ['error' => true, 'message' => $e->getMessage()];
+        } catch (Exception $exception) {
+            $result = ['error' => true, 'message' => $exception->getMessage()];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
 
+    /**
+     * @return void
+     */
     public function newFolderAction()
     {
         try {
@@ -87,25 +94,30 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $name = $this->getRequest()->getPost('name');
             $path = $this->getStorage()->getSession()->getCurrentPath();
             $result = $this->getStorage()->createDirectory($name, $path);
-        } catch (Exception $e) {
-            $result = ['error' => true, 'message' => $e->getMessage()];
+        } catch (Exception $exception) {
+            $result = ['error' => true, 'message' => $exception->getMessage()];
         }
+
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
+    /**
+     * @return void
+     */
     public function deleteFolderAction()
     {
         try {
             $path = $this->getStorage()->getSession()->getCurrentPath();
             $this->getStorage()->deleteDirectory($path);
-        } catch (Exception $e) {
-            $result = ['error' => true, 'message' => $e->getMessage()];
+        } catch (Exception $exception) {
+            $result = ['error' => true, 'message' => $exception->getMessage()];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
 
     /**
      * Delete file from media storage
+     * @return void
      */
     public function deleteFilesAction()
     {
@@ -113,6 +125,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             if (!$this->getRequest()->isPost()) {
                 throw new Exception('Wrong request.');
             }
+
             $files = Mage::helper('core')->jsonDecode($this->getRequest()->getParam('files'));
 
             /** @var Mage_Cms_Helper_Wysiwyg_Images $helper */
@@ -120,21 +133,22 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $path = $this->getStorage()->getSession()->getCurrentPath();
             foreach ($files as $file) {
                 $file = $helper->idDecode($file);
-                $_filePath = realpath($path . DS . $file);
-                if (str_starts_with($_filePath, realpath($path)) &&
-                    str_starts_with($_filePath, realpath($helper->getStorageRoot()))
+                $filePath = realpath($path . DS . $file);
+                if (str_starts_with($filePath, realpath($path))
+                    && str_starts_with($filePath, realpath($helper->getStorageRoot()))
                 ) {
                     $this->getStorage()->deleteFile($path . DS . $file);
                 }
             }
-        } catch (Exception $e) {
-            $result = ['error' => true, 'message' => $e->getMessage()];
+        } catch (Exception $exception) {
+            $result = ['error' => true, 'message' => $exception->getMessage()];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
 
     /**
      * Files upload processing
+     * @return void
      */
     public function uploadAction()
     {
@@ -143,14 +157,16 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $this->_initAction();
             $targetPath = $this->getStorage()->getSession()->getCurrentPath();
             $result = $this->getStorage()->uploadFile($targetPath, $this->getRequest()->getParam('type'));
-        } catch (Exception $e) {
-            $result = ['error' => $e->getMessage(), 'errorcode' => $e->getCode()];
+        } catch (Exception $exception) {
+            $result = ['error' => $exception->getMessage(), 'errorcode' => $exception->getCode()];
         }
+
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
     /**
      * Fire when select image
+     * @return void
      */
     public function onInsertAction()
     {
@@ -159,6 +175,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
 
         $filename = $this->getRequest()->getParam('filename');
         $filename = $helper->idDecode($filename);
+
         $asIs = $this->getRequest()->getParam('as_is');
 
         Mage::helper('catalog')->setStoreId($storeId);
@@ -170,11 +187,13 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
 
     /**
      * Generate image thumbnail on the fly
+     * @return void
      */
     public function thumbnailAction()
     {
         $file = $this->getRequest()->getParam('file');
         $file = Mage::helper('cms/wysiwyg_images')->idDecode($file);
+
         $thumb = $this->getStorage()->resizeOnTheFly($file);
         if ($thumb !== false) {
             $image = Varien_Image_Adapter::factory('GD2');
@@ -200,6 +219,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $storage = Mage::getModel('cms/wysiwyg_images_storage');
             Mage::register('storage', $storage);
         }
+
         return Mage::registry('storage');
     }
 
@@ -215,6 +235,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
                 ->getSession()
                 ->setCurrentPath(Mage::helper('cms/wysiwyg_images')->getCurrentPath());
         }
+
         return $this;
     }
 }

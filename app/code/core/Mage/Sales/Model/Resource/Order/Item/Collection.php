@@ -1,25 +1,18 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Flat sales order payment collection
  *
- * @category   Mage
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Order_Item getItemById(int $value)
+ * @extends Mage_Sales_Model_Resource_Order_Collection_Abstract<Mage_Sales_Model_Order_Item>
  */
 class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
@@ -40,6 +33,9 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
      */
     protected $_orderField     = 'order_id';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_item');
@@ -50,6 +46,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -61,6 +58,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
                 $item->setParentItem($this->getItemById($item->getParentItemId()));
             }
         }
+
         return $this;
     }
 
@@ -78,7 +76,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Set filter by item id
      *
-     * @param mixed $item
+     * @param  mixed $item
      * @return $this
      */
     public function addIdFilter($item)
@@ -90,13 +88,14 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
         } else {
             $this->addFieldToFilter('item_id', $item);
         }
+
         return $this;
     }
 
     /**
      * Filter collection by specified product types
      *
-     * @param array $typeIds
+     * @param  array $typeIds
      * @return $this
      */
     public function filterByTypes($typeIds)
@@ -108,7 +107,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Filter collection by parent_item_id
      *
-     * @param int $parentId
+     * @param  int   $parentId
      * @return $this
      */
     public function filterByParent($parentId = null)
@@ -118,6 +117,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
         } else {
             $this->addFieldToFilter('parent_item_id', $parentId);
         }
+
         return $this;
     }
 
@@ -129,7 +129,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function addAvailableFilter()
     {
         $fieldExpression = '(qty_shipped - qty_returned)';
-        $resultCondition = $this->_getConditionSql($fieldExpression, ["gt" => 0]);
+        $resultCondition = $this->_getConditionSql($fieldExpression, ['gt' => 0]);
         $this->getSelect()->where($resultCondition);
         return $this;
     }
@@ -137,7 +137,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Filter by customerId
      *
-     * @param int|array $customerId
+     * @param  array|int $customerId
      * @return $this
      */
     public function addFilterByCustomerId($customerId)
@@ -145,7 +145,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
         $this->getSelect()->joinInner(
             ['order' => $this->getTable('sales/order')],
             'main_table.order_id = order.entity_id',
-            []
+            [],
         )
             ->where('order.customer_id IN(?)', $customerId);
 

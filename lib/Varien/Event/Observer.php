@@ -1,31 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Event
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Event observer object
  *
- * @category   Varien
  * @package    Varien_Event
  */
 class Varien_Event_Observer extends Varien_Object
 {
     /**
-     * Checkes the observer's event_regex against event's name
+     * Checks the observer's event_regex against event's name
      *
-     * @param Varien_Event $event
-     * @return boolean
+     * @return bool
      */
     public function isValidFor(Varien_Event $event)
     {
@@ -35,7 +27,6 @@ class Varien_Event_Observer extends Varien_Object
     /**
      * Dispatches an event to observer's callback
      *
-     * @param Varien_Event $event
      * @return $this
      */
     public function dispatch(Varien_Event $event)
@@ -47,10 +38,10 @@ class Varien_Event_Observer extends Varien_Object
         $callback = $this->getCallback();
         $this->setEvent($event);
 
-        $_profilerKey = 'OBSERVER: ' . (is_object($callback[0]) ? get_class($callback[0]) : (string)$callback[0]) . ' -> ' . $callback[1];
-        Varien_Profiler::start($_profilerKey);
+        $profilerKey = 'OBSERVER: ' . (is_object($callback[0]) ? $callback[0]::class : (string) $callback[0]) . ' -> ' . $callback[1];
+        Varien_Profiler::start($profilerKey);
         call_user_func($callback, $this);
-        Varien_Profiler::stop($_profilerKey);
+        Varien_Profiler::stop($profilerKey);
 
         return $this;
     }
@@ -60,11 +51,11 @@ class Varien_Event_Observer extends Varien_Object
      */
     public function getName()
     {
-        return $this->getData('name');
+        return $this->getDataByKey('name');
     }
 
     /**
-     * @param string $data
+     * @param  string $data
      * @return $this
      */
     public function setName($data)
@@ -77,11 +68,11 @@ class Varien_Event_Observer extends Varien_Object
      */
     public function getEventName()
     {
-        return $this->getData('event_name');
+        return $this->getDataByKey('event_name');
     }
 
     /**
-     * @param string $data
+     * @param  string $data
      * @return $this
      */
     public function setEventName($data)
@@ -94,11 +85,11 @@ class Varien_Event_Observer extends Varien_Object
      */
     public function getCallback()
     {
-        return $this->getData('callback');
+        return $this->getDataByKey('callback');
     }
 
     /**
-     * @param $data
+     * @param        $data
      * @return $this
      */
     public function setCallback($data)
@@ -113,11 +104,11 @@ class Varien_Event_Observer extends Varien_Object
      */
     public function getEvent()
     {
-        return $this->getData('event');
+        return $this->getDataByKey('event');
     }
 
     /**
-     * @param Varien_Event $data
+     * @param  Varien_Event $data
      * @return $this
      */
     public function setEvent($data)

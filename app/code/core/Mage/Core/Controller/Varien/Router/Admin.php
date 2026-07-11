@@ -1,20 +1,15 @@
 <?php
+
+use Monolog\Level;
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Varien_Router_Standard
@@ -22,14 +17,15 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     /**
      * Fetch default path
      */
+    #[Override]
     public function fetchDefault()
     {
         // set defaults
-        $d = explode('/', $this->_getDefaultPath());
+        $path = explode('/', $this->_getDefaultPath());
         $this->getFront()->setDefault([
-            'module'     => !empty($d[0]) ? $d[0] : '',
-            'controller' => !empty($d[1]) ? $d[1] : 'index',
-            'action'     => !empty($d[2]) ? $d[2] : 'index'
+            'module'     => empty($path[0]) ? '' : $path[0],
+            'controller' => empty($path[1]) ? 'index' : $path[1],
+            'action'     => empty($path[2]) ? 'index' : $path[2],
         ]);
     }
 
@@ -37,18 +33,41 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      * Get router default request path
      * @return string
      */
+    #[Override]
     protected function _getDefaultPath()
     {
-        return (string)Mage::getConfig()->getNode('default/web/default/admin');
+        return (string) Mage::getConfig()->getNode('default/web/default/admin');
     }
 
     /**
-     * dummy call to pass through checking
+     * Validate admin domain before routing
      *
      * @return bool
      */
+    #[Override]
     protected function _beforeModuleMatch()
     {
+        // Check if custom admin domain is configured
+        if ($adminUrl = Mage_Adminhtml_Helper_Data::getCustomAdminUrl()) {
+            $adminHost = parse_url($adminUrl, PHP_URL_HOST);
+            if (!$adminHost) {
+                // Should never happen - URL is validated when saved
+                // If it does, fail secure (possible database corruption/bypass)
+                Mage::log(
+                    "Unable to parse custom admin URL host: {$adminUrl}. Access denied for security.",
+                    Level::Error,
+                    'system.log',
+                );
+                return false;
+            }
+
+            $currentHost = $this->getFront()->getRequest()->getHttpHost();
+            // Strip port for comparison (getHttpHost may include port)
+            $currentHost = preg_replace('/:\d+$/', '', $currentHost);
+
+            return strtolower($adminHost) === strtolower($currentHost);
+        }
+
         return true;
     }
 
@@ -56,7 +75,9 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      * checking if we installed or not and doing redirect
      *
      * @return bool
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
+    #[Override]
     protected function _afterModuleMatch()
     {
         if (!Mage::isInstalled()) {
@@ -65,6 +86,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
                 ->sendResponse();
             exit;
         }
+
         return true;
     }
 
@@ -74,6 +96,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      *
      * @return bool
      */
+    #[Override]
     protected function _noRouteShouldBeApplied()
     {
         return true;
@@ -82,22 +105,24 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     /**
      * Check whether URL for corresponding path should use https protocol
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
+    #[Override]
     protected function _shouldBeSecure($path)
     {
-        return substr((string)Mage::getConfig()->getNode('default/web/unsecure/base_url'), 0, 5) === 'https'
+        return str_starts_with((string) Mage::getConfig()->getNode('default/web/unsecure/base_url'), 'https')
             || Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML, Mage_Core_Model_App::ADMIN_STORE_ID)
-                && substr((string)Mage::getConfig()->getNode('default/web/secure/base_url'), 0, 5) === 'https';
+                && str_starts_with((string) Mage::getConfig()->getNode('default/web/secure/base_url'), 'https');
     }
 
     /**
      * Retrieve current secure url
      *
-     * @param Mage_Core_Controller_Request_Http $request
+     * @param  Mage_Core_Controller_Request_Http $request
      * @return string
      */
+    #[Override]
     protected function _getCurrentSecureUrl($request)
     {
         return Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID)
@@ -108,17 +133,19 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      * Emulate custom admin url
      *
      * @param string $configArea
-     * @param bool $useRouterName
+     * @param bool   $useRouterName
      */
+    #[Override]
     public function collectRoutes($configArea, $useRouterName)
     {
-        if ((string)Mage::getConfig()->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_USE_CUSTOM_ADMIN_PATH)) {
-            $customUrl = (string)Mage::getConfig()->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_CUSTOM_ADMIN_PATH);
+        if ((string) Mage::getConfig()->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_USE_CUSTOM_ADMIN_PATH)) {
+            $customUrl = (string) Mage::getConfig()->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_CUSTOM_ADMIN_PATH);
             $xmlPath = Mage_Adminhtml_Helper_Data::XML_PATH_ADMINHTML_ROUTER_FRONTNAME;
-            if ((string)Mage::getConfig()->getNode($xmlPath) != $customUrl) {
+            if ((string) Mage::getConfig()->getNode($xmlPath) !== $customUrl) {
                 Mage::getConfig()->setNode($xmlPath, $customUrl, true);
             }
         }
+
         parent::collectRoutes($configArea, $useRouterName);
     }
 
@@ -127,27 +154,29 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      *
      * @inheritDoc
      */
+    #[Override]
     public function addModule($frontName, $moduleName, $routeName)
     {
-        $isExtensionsCompatibilityMode = (bool)(string)Mage::getConfig()->getNode(
-            'default/admin/security/extensions_compatibility_mode'
+        $isExtensionsCompatibilityMode = (bool) (string) Mage::getConfig()->getNode(
+            'default/admin/security/extensions_compatibility_mode',
         );
-        $configRouterFrontName = (string)Mage::getConfig()->getNode(
-            Mage_Adminhtml_Helper_Data::XML_PATH_ADMINHTML_ROUTER_FRONTNAME
+        $configRouterFrontName = (string) Mage::getConfig()->getNode(
+            Mage_Adminhtml_Helper_Data::XML_PATH_ADMINHTML_ROUTER_FRONTNAME,
         );
         if ($isExtensionsCompatibilityMode || ($frontName == $configRouterFrontName)) {
             return parent::addModule($frontName, $moduleName, $routeName);
-        } else {
-            return $this;
         }
+
+        return $this;
     }
 
     /**
      * Check if current controller instance is allowed in current router.
      *
-     * @param Mage_Core_Controller_Varien_Action $controllerInstance
+     * @param  Mage_Core_Controller_Varien_Action $controllerInstance
      * @return true
      */
+    #[Override]
     protected function _validateControllerInstance($controllerInstance)
     {
         return true;

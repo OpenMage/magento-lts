@@ -1,29 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Entity/Attribute/Model - attribute backend default
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
      * Returns date format if it matches a certain mask.
-     * @param string $date
+     * @param  string      $date
      * @return null|string
      */
     protected function _getFormat($date)
@@ -33,15 +26,18 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
         ) {
             return 'yyyy-MM-dd HH:mm:ss';
         }
+
         return null;
     }
+
     /**
      * Set created date
      * Set created date in UTC time zone
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param  Mage_Core_Model_Abstract $object
      * @return $this
      */
+    #[Override]
     public function beforeSave($object)
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
@@ -62,9 +58,10 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
     /**
      * Convert create date from UTC to current store time zone
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
+    #[Override]
     public function afterLoad($object)
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();

@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -164,6 +157,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </lines_perpage>
                     </fields>
                 </sitemap>
@@ -181,6 +175,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </base_width>
                         <small_width translate="label comment">
                             <label>Small Image Width</label>
@@ -189,6 +184,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </small_width>
                         <max_dimension translate="label comment">
                             <label>Maximum resolution for upload image</label>
@@ -197,6 +193,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </max_dimension>
                         <progressive_threshold translate="label comment">
                             <label>Enable Progressive Images Threshold</label>
@@ -204,7 +201,18 @@
                             <validate>validate-number</validate>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
+                            <validate>validate-digits validate-greater-than-zero</validate>
                         </progressive_threshold>
+                        <images_on_duplicate_action translate="label comment">
+                            <label>Duplicate Product Images</label>
+                            <comment>The "Ask" option only applies to the Admin interface. By default, programmatic duplication preserves images.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_catalog_imageDuplicate</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </images_on_duplicate_action>
                     </fields>
                 </product_image>
                 <placeholder translate="label">
@@ -320,6 +328,16 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </scope>
+                        <rounding_precision translate="label comment">
+                            <comment><![CDATA[0, 1, 2, 3, 4]]>.</comment>
+                            <label>Catalog Price Rounding Precision</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <validate>required-entry validate-number-range number-range-0-4</validate>
+                        </rounding_precision>
                     </fields>
                 </price>
                 <layered_navigation translate="label">
@@ -400,6 +418,7 @@
                             <label>Maximal Depth</label>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
+                            <frontend_class>validate-digits</frontend_class>
                         </max_depth>
                     </fields>
                 </navigation>
@@ -427,6 +446,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><use_calendar>1</use_calendar></depends>
                         </date_fields_order>
                         <time_format translate="label">
                             <label>Time Format</label>
@@ -436,6 +456,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><use_calendar>1</use_calendar></depends>
                         </time_format>
                         <year_range translate="label comment">
                             <label>Year Range</label>
@@ -445,6 +466,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><use_calendar>1</use_calendar></depends>
                         </year_range>
                     </fields>
                 </custom_options>
@@ -465,6 +487,20 @@
                     </fields>
                 </layer>
 -->
+
+                <search>
+                    <fields>
+                        <enable_advanced_search translate="label">
+                            <label>Enable Advanced Search</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>800</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_advanced_search>
+                    </fields>
+                </search>
             </groups>
         </catalog>
         <design>
@@ -563,6 +599,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment><![CDATA[<strong style="color:red">Warning!</strong> Applying MAP by default will hide all product prices on the frontend.]]></comment>
+                            <depends><enabled>1</enabled></depends>
                         </apply_for_all>
                         <display_price_type translate="label">
                             <label>Display Actual Price</label>
@@ -572,6 +609,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </display_price_type>
                         <explanation_message translate="label">
                             <label>Default Popup Text Message</label>
@@ -580,6 +618,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </explanation_message>
                         <explanation_message_whats_this translate="label">
                             <label>Default "What's This" Text Message</label>
@@ -588,6 +627,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </explanation_message_whats_this>
                     </fields>
                 </msrp>

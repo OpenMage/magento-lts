@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category edit block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Block_Catalog_Category_Abstract
@@ -34,6 +27,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         $this->setTemplate('catalog/category/edit/form.phtml');
     }
 
+    /**
+     * Prepare Global Layout
+     *
+     * @return $this
+     */
+    #[Override]
     protected function _prepareLayout()
     {
         $category = $this->getCategory();
@@ -41,7 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
 
         $this->setChild(
             'tabs',
-            $this->getLayout()->createBlock('adminhtml/catalog_category_tabs', 'tabs')
+            $this->getLayout()->createBlock('adminhtml/catalog_category_tabs', 'tabs'),
         );
 
         // Save button
@@ -50,10 +49,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
                 'save_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
-                        'label'     => Mage::helper('catalog')->__('Save Category'),
+                        'label'     => Mage::helper('catalog')->__('Save'),
                         'onclick'   => "categorySubmit('" . $this->getSaveUrl() . "', true)",
-                        'class' => 'save'
-                    ])
+                        'class'     => 'save',
+                    ]),
             );
         }
 
@@ -63,10 +62,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
                 'delete_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
-                        'label'     => Mage::helper('catalog')->__('Delete Category'),
+                        'label'     => Mage::helper('catalog')->__('Delete'),
                         'onclick'   => "categoryDelete('" . $this->getUrl('*/*/delete', ['_current' => true]) . "', true, {$categoryId})",
-                        'class' => 'delete'
-                    ])
+                        'class'     => 'delete',
+                    ]),
             );
         }
 
@@ -78,14 +77,19 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => "categoryReset('" . $this->getUrl($resetPath, ['_current' => true]) . "',true)"
-                    ])
+                        'onclick'   => "categoryReset('" . $this->getUrl($resetPath, ['_current' => true]) . "',true)",
+                        'class'     => 'reset',
+                    ]),
             );
         }
 
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getStoreConfigurationUrl()
     {
         $storeId = (int) $this->getRequest()->getParam('store');
@@ -96,27 +100,39 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
             $params['website'] = $store->getWebsite()->getCode();
             $params['store']   = $store->getCode();
         }
+
         return $this->getUrl('*/system_store', $params);
     }
 
+    /**
+     * @return string
+     */
     public function getDeleteButtonHtml()
     {
         return $this->getChildHtml('delete_button');
     }
 
+    /**
+     * @return string
+     */
     public function getSaveButtonHtml()
     {
         if ($this->hasStoreRootCategory()) {
             return $this->getChildHtml('save_button');
         }
+
         return '';
     }
 
+    /**
+     * @return string
+     */
     public function getResetButtonHtml()
     {
         if ($this->hasStoreRootCategory()) {
             return $this->getChildHtml('reset_button');
         }
+
         return '';
     }
 
@@ -131,14 +147,15 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         foreach ($this->_additionalButtons as $childName) {
             $html .= $this->getChildHtml($childName);
         }
+
         return $html;
     }
 
     /**
      * Add additional button
      *
-     * @param string $alias
-     * @param array $config
+     * @param  string $alias
+     * @param  array  $config
      * @return $this
      */
     public function addAdditionalButton($alias, $config)
@@ -146,9 +163,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         if (isset($config['name'])) {
             $config['element_name'] = $config['name'];
         }
+
         $this->setChild(
             $alias . '_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config)
+            $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config),
         );
         $this->_additionalButtons[$alias] = $alias . '_button';
         return $this;
@@ -157,7 +175,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
     /**
      * Remove additional button
      *
-     * @param string $alias
+     * @param  string $alias
      * @return $this
      */
     public function removeAdditionalButton($alias)
@@ -180,15 +198,16 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         if ($this->hasStoreRootCategory()) {
             if ($this->getCategoryId()) {
                 return $this->getCategoryName();
-            } else {
-                $parentId = (int) $this->getRequest()->getParam('parent');
-                if ($parentId && ($parentId != Mage_Catalog_Model_Category::TREE_ROOT_ID)) {
-                    return Mage::helper('catalog')->__('New Subcategory');
-                } else {
-                    return Mage::helper('catalog')->__('New Root Category');
-                }
             }
+
+            $parentId = (int) $this->getRequest()->getParam('parent');
+            if ($parentId && ($parentId !== Mage_Catalog_Model_Category::TREE_ROOT_ID)) {
+                return Mage::helper('catalog')->__('New Subcategory');
+            }
+
+            return Mage::helper('catalog')->__('New Root Category');
         }
+
         return Mage::helper('catalog')->__('Set Root Category for Store');
     }
 
@@ -202,7 +221,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
     /**
      * Return URL for refresh input element 'path' in form
      *
-     * @param array $args
      * @return string
      */
     public function getRefreshPathUrl(array $args = [])
@@ -215,14 +233,19 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
     public function getProductsJson()
     {
         $products = $this->getCategory()->getProductsPosition();
-        if (!empty($products)) {
+        if (is_array($products) && $products !== []) {
             return Mage::helper('core')->jsonEncode($products);
         }
+
         return '{}';
     }
 
     public function isAjax()
     {
-        return Mage::app()->getRequest()->isXmlHttpRequest() || Mage::app()->getRequest()->getParam('isAjax');
+        if (Mage::app()->getRequest()->isXmlHttpRequest()) {
+            return true;
+        }
+
+        return (bool) Mage::app()->getRequest()->getParam('isAjax');
     }
 }

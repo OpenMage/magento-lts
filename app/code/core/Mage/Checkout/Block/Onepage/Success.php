@@ -1,39 +1,27 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * One page checkout success page
  *
- * @category   Mage
  * @package    Mage_Checkout
  *
- * @method $this setCanViewProfiles(bool $value)
- * @method $this setRecurringProfiles(Mage_Sales_Model_Recurring_Profile[] $value)
- * @method string getOrderId()
- * @method string getPrintUrl()
- * @method bool getCanPrintOrder()
- * @method bool getCanViewOrder()
+ * @method bool                   getCanPrintOrder()
+ * @method bool                   getCanViewOrder()
  * @method Mage_Sales_Model_Order getOrder()
+ * @method string                 getOrderId()
+ * @method string                 getPrintUrl()
+ * @method $this                  setCanViewProfiles(bool $value)
+ * @method $this                  setRecurringProfiles(Mage_Sales_Model_Recurring_Profile[] $value)
  */
 class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
 {
-    /**
-     * @deprecated after 1.4.0.1
-     */
-    private $_order;
-
     /**
      * Check order print availability
      *
@@ -62,13 +50,12 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      */
     public function isOrderVisible()
     {
-        return (bool)$this->_getData('is_order_visible');
+        return (bool) $this->_getData('is_order_visible');
     }
 
     /**
      * Getter for recurring profile view page
      *
-     * @param Varien_Object|Mage_Sales_Model_Recurring_Profile $profile
      * @return string
      */
     public function getProfileUrl(Varien_Object $profile)
@@ -79,6 +66,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
     /**
      * Initialize data and prepare it for output
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->_prepareLastOrder();
@@ -98,7 +86,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
             if ($order->getId()) {
                 $isVisible = !in_array(
                     $order->getState(),
-                    Mage::getSingleton('sales/order_config')->getInvisibleOnFrontStates()
+                    Mage::getSingleton('sales/order_config')->getInvisibleOnFrontStates(),
                 );
                 $this->addData([
                     'is_order_visible' => $isVisible,
@@ -127,7 +115,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
                     'agreement_ref_id' => $agreement->getReferenceId(),
                     'agreement_url' => $this->getUrl(
                         'sales/billing_agreement/view',
-                        ['agreement' => $agreementId]
+                        ['agreement' => $agreementId],
                     ),
                     'agreement' => $agreement,
                 ]);
@@ -149,6 +137,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
             foreach ($collection as $profile) {
                 $profiles[] = $profile;
             }
+
             if ($profiles) {
                 $this->setRecurringProfiles($profiles);
                 if (Mage::getSingleton('customer/session')->isLoggedIn()) {

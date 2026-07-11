@@ -1,36 +1,31 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Persistent
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Persistent Session Model
  *
- * @category   Mage
  * @package    Mage_Persistent
  *
+ * @method Mage_Persistent_Model_Resource_Session _getResource()
+ * @method int                                    getCustomerId()
+ * @method string                                 getInfo()
+ * @method string                                 getKey()
  * @method Mage_Persistent_Model_Resource_Session getResource()
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method string getInfo()
- * @method $this setInfo(string $value)
- * @method string getKey()
- * @method $this setKey(string $value)
- * @method $this setWebsiteId(int|string|null $value)
+ * @method $this                                  setCustomerId(int $value)
+ * @method $this                                  setInfo(string $value)
+ * @method $this                                  setKey(string $value)
+ * @method $this                                  setWebsiteId(null|int|string $value)
  */
 class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
 {
     public const KEY_LENGTH = 50;
+
     public const COOKIE_NAME = 'persistent_shopping_cart';
 
     /**
@@ -48,7 +43,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     protected $_loadExpired = false;
 
     /**
-     * Define resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -58,7 +53,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Set if load expired persistent session
      *
-     * @param bool $loadExpired
+     * @param  bool  $loadExpired
      * @return $this
      */
     public function setLoadExpired($loadExpired = true)
@@ -80,14 +75,14 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Get date-time before which persistent session is expired
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return string
      */
     public function getExpiredBefore($store = null)
     {
         return gmdate(
             Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT,
-            time() - Mage::helper('persistent')->getLifeTime($store)
+            Mage::helper('core/clock')->getTimestamp() - Mage::helper('persistent')->getLifeTime($store),
         );
     }
 
@@ -97,6 +92,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -108,6 +104,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
                 $info[$index] = $value;
             }
         }
+
         $this->setInfo(Mage::helper('core')->jsonEncode($info));
 
         if ($this->isObjectNew()) {
@@ -126,6 +123,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -135,13 +133,14 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
                 $this->setData($key, $value);
             }
         }
+
         return $this;
     }
 
     /**
      * Get persistent session by cookie key
      *
-     * @param string $key
+     * @param  string $key
      * @return $this
      */
     public function loadByCookieKey($key = null)
@@ -149,6 +148,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if (is_null($key)) {
             $key = Mage::getSingleton('core/cookie')->get(self::COOKIE_NAME);
         }
+
         if ($key) {
             $this->load($key, 'key');
         }
@@ -159,7 +159,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Load session model by specified customer id
      *
-     * @param int $id
+     * @param  int                      $id
      * @return Mage_Core_Model_Abstract
      */
     public function loadByCustomerId($id)
@@ -170,8 +170,8 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Delete customer persistent session by customer id
      *
-     * @param int $customerId
-     * @param bool $clearCookie
+     * @param  int   $customerId
+     * @param  bool  $clearCookie
      * @return $this
      */
     public function deleteByCustomerId($customerId, $clearCookie = true)
@@ -179,6 +179,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if ($clearCookie) {
             $this->removePersistentCookie();
         }
+
         $this->getResource()->deleteByCustomerId($customerId);
         return $this;
     }
@@ -197,7 +198,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Delete expired persistent sessions for the website
      *
-     * @param int|null $websiteId
+     * @param  null|int $websiteId
      * @return $this
      */
     public function deleteExpired($websiteId = null)
@@ -209,13 +210,13 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         $lifetime = Mage::getConfig()->getNode(
             Mage_Persistent_Helper_Data::XML_PATH_LIFE_TIME,
             'website',
-            (int) $websiteId
+            (int) $websiteId,
         );
 
         if ($lifetime) {
             $this->getResource()->deleteExpired(
                 $websiteId,
-                gmdate(Varien_Date::DATETIME_PHP_FORMAT, time() - $lifetime)
+                gmdate(Varien_Date::DATETIME_PHP_FORMAT, Mage::helper('core/clock')->getTimestamp() - $lifetime),
             );
         }
 
@@ -227,6 +228,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterDeleteCommit()
     {
         Mage::getSingleton('core/cookie')->delete(Mage_Persistent_Model_Session::COOKIE_NAME);
@@ -238,6 +240,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     public function save()
     {
         $this->setUpdatedAt(gmdate(Varien_Date::DATETIME_PHP_FORMAT));

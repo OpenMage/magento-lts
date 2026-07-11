@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Cms index controller
  *
- * @category   Mage
  * @package    Mage_Cms
  */
 class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
@@ -24,7 +17,9 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Renders CMS Home page
      *
-     * @param string $coreRoute
+     * @param  string              $coreRoute
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function indexAction($coreRoute = null)
     {
@@ -38,6 +33,9 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
      * Default index action (with 404 Not Found headers)
      * Used if default page don't configure or available
      *
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function defaultIndexAction()
     {
@@ -51,9 +49,12 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Render CMS 404 Not found page
      *
-     * @param string $coreRoute
+     * @param  string              $coreRoute
+     * @return void
+     * @throws Mage_Core_Exception
      */
-    public function noRouteAction($coreRoute = null)
+    #[Override]
+    public function norouteAction($coreRoute = null)
     {
         $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
         $this->getResponse()->setHeader('Status', '404 File not found');
@@ -68,6 +69,9 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
      * Default no route page action
      * Used if no route page don't configure or available
      *
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function defaultNoRouteAction()
     {
@@ -81,7 +85,10 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Render Disable cookies page
      *
+     * @return void
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function noCookiesAction()
     {
         $pageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE);
@@ -94,6 +101,9 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
      * Default no cookies page action
      * Used if no cookies page don't configure or available
      *
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function defaultNoCookiesAction()
     {

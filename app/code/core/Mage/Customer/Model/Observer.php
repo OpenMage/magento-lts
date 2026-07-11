@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer module observer
  *
- * @category   Mage
  * @package    Mage_Customer
  */
 class Mage_Customer_Model_Observer
@@ -34,31 +27,45 @@ class Mage_Customer_Model_Observer
     /**
      * Check whether specified billing address is default for its customer
      *
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return bool
      */
     protected function _isDefaultBilling($address)
     {
-        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultBilling())
-            || $address->getIsPrimaryBilling() || $address->getIsDefaultBilling();
+        if ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultBilling()) {
+            return true;
+        }
+
+        if ($address->getIsPrimaryBilling()) {
+            return true;
+        }
+
+        return $address->getIsDefaultBilling();
     }
 
     /**
      * Check whether specified shipping address is default for its customer
      *
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return bool
      */
     protected function _isDefaultShipping($address)
     {
-        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultShipping())
-            || $address->getIsPrimaryShipping() || $address->getIsDefaultShipping();
+        if ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultShipping()) {
+            return true;
+        }
+
+        if ($address->getIsPrimaryShipping()) {
+            return true;
+        }
+
+        return $address->getIsDefaultShipping();
     }
 
     /**
      * Check whether specified address should be processed in after_save event handler
      *
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return bool
      */
     protected function _canProcessAddress($address)
@@ -75,6 +82,7 @@ class Mage_Customer_Model_Observer
         if ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING) {
             return $this->_isDefaultShipping($address);
         }
+
         return $this->_isDefaultBilling($address);
     }
 
@@ -157,13 +165,13 @@ class Mage_Customer_Model_Observer
             } else {
                 $result = $customerHelper->checkVatNumber(
                     $customerAddress->getCountryId(),
-                    $customerAddress->getVatId()
+                    $customerAddress->getVatId(),
                 );
 
                 $newGroupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
                     $customerAddress->getCountryId(),
                     $result,
-                    $customer->getStore()
+                    $customer->getStore(),
                 );
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $newGroupId) {
@@ -175,7 +183,7 @@ class Mage_Customer_Model_Observer
                     $validationMessage = Mage::helper('customer')->getVatValidationUserMessage(
                         $customerAddress,
                         $customer->getDisableAutoGroupChange(),
-                        $result
+                        $result,
                     );
 
                     if (!$validationMessage->getIsError()) {
@@ -185,7 +193,7 @@ class Mage_Customer_Model_Observer
                     }
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::register(self::VIV_PROCESSED_FLAG, false, true);
         }
     }
@@ -209,14 +217,13 @@ class Mage_Customer_Model_Observer
         }
 
         $customer->setGroupId(
-            $customer->getOrigData('group_id')
+            $customer->getOrigData('group_id'),
         );
         $customer->save();
     }
 
     /**
      * Clear customer flow password table
-     *
      */
     public function deleteCustomerFlowPassword()
     {
@@ -250,6 +257,7 @@ class Mage_Customer_Model_Observer
                 break;
             }
         }
+
         if (Mage_Core_Model_Encryption::HASH_VERSION_SHA256 !== $currentVersionHash) {
             $model->changePassword($password, false);
         }

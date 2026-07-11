@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Authorizenet Data Helper
  *
- * @category   Mage
  * @package    Mage_Authorizenet
  */
 class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
@@ -26,8 +19,8 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return URL for admin area
      *
-     * @param string $route
-     * @param array $params
+     * @param  string $route
+     * @param  array  $params
      * @return string
      */
     public function getAdminUrl($route, $params)
@@ -38,31 +31,33 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Set secure url checkout is secure for current store.
      *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
+     * @param  string $route
+     * @param  array  $params
+     * @return string
      */
+    #[Override]
     protected function _getUrl($route, $params = [])
     {
         $params['_type'] = Mage_Core_Model_Store::URL_TYPE_LINK;
         if (isset($params['is_secure'])) {
-            $params['_secure'] = (bool)$params['is_secure'];
+            $params['_secure'] = (bool) $params['is_secure'];
         } elseif (Mage::app()->getStore()->isCurrentlySecure()) {
             $params['_secure'] = true;
         }
+
         return parent::_getUrl($route, $params);
     }
 
     /**
      * Retrieve save order url params
      *
-     * @param string $controller
-     * @return array
+     * @param  string                $controller
+     * @return array<string, string>
      */
     public function getSaveOrderUrlParams($controller)
     {
         $route = [];
-        if ($controller === "onepage") {
+        if ($controller === 'onepage') {
             $route['action'] = 'saveOrder';
             $route['controller'] = 'onepage';
             $route['module'] = 'checkout';
@@ -72,41 +67,10 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve redirect iframe url
-     * @param array $params
-     * @return string
-     */
-    public function getRedirectIframeUrl($params)
-    {
-        return $this->_getUrl('authorizenet/directpost_payment/redirect', $params);
-    }
-
-    /**
-     * Retrieve place order url on front
-     *
-     * @return  string
-     */
-    public function getPlaceOrderFrontUrl()
-    {
-        $params = [Mage_Core_Model_Url::FORM_KEY => Mage::getSingleton('core/session')->getFormKey()];
-        return $this->_getUrl('authorizenet/directpost_payment/place', $params);
-    }
-
-    /**
-     * Retrieve place order url in admin
-     *
-     * @return  string
-     */
-    public function getPlaceOrderAdminUrl()
-    {
-        return $this->getAdminUrl('*/authorizenet_directpost_payment/place', []);
-    }
-
-    /**
      * Retrieve place order url
      *
-     * @param array $params
-     * @return  string
+     * @param  array  $params
+     * @return string
      */
     public function getSuccessOrderUrl($params)
     {
@@ -126,8 +90,6 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Update all child and parent order's edit increment numbers.
      * Needed for Admin area.
-     *
-     * @param Mage_Sales_Model_Order $order
      */
     public function updateOrderEditIncrements(Mage_Sales_Model_Order $order)
     {
@@ -135,7 +97,7 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
             $collection = $order->getCollection();
             $quotedIncrId = $collection->getConnection()->quote($order->getOriginalIncrementId());
             $collection->getSelect()->where(
-                "original_increment_id = {$quotedIncrId} OR increment_id = {$quotedIncrId}"
+                "original_increment_id = {$quotedIncrId} OR increment_id = {$quotedIncrId}",
             );
 
             foreach ($collection as $orderToUpdate) {

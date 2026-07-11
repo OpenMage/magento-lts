@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin product tax class add form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_Form
@@ -41,6 +34,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareForm()
     {
         $rateObject = new Varien_Object(Mage::getSingleton('tax/calculation_rate')->getData());
@@ -74,7 +68,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
         if ($rateObject->getTaxCalculationRateId() > 0) {
             $fieldset->addField('tax_calculation_rate_id', 'hidden', [
                 'name'  => 'tax_calculation_rate_id',
-                'value' => $rateObject->getTaxCalculationRateId()
+                'value' => $rateObject->getTaxCalculationRateId(),
             ]);
         }
 
@@ -90,13 +84,13 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
             'name'     => 'tax_country_id',
             'label'    => Mage::helper('tax')->__('Country'),
             'required' => true,
-            'values'   => $countries
+            'values'   => $countries,
         ]);
 
         $fieldset->addField('tax_region_id', 'select', [
             'name'   => 'tax_region_id',
             'label'  => Mage::helper('tax')->__('State'),
-            'values' => $regions
+            'values' => $regions,
         ]);
 
         $fieldset->addField('zip_is_range', 'select', [
@@ -105,7 +99,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
             'options' => [
                 '0' => Mage::helper('tax')->__('No'),
                 '1' => Mage::helper('tax')->__('Yes'),
-            ]
+            ],
         ]);
 
         if (!$rateObject->hasTaxPostcode()) {
@@ -123,7 +117,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
             'label'     => Mage::helper('tax')->__('Range From'),
             'required'  => true,
             'maxlength' => 9,
-            'class'     => 'validate-digits'
+            'class'     => 'validate-digits',
         ]);
 
         $fieldset->addField('zip_to', 'text', [
@@ -131,7 +125,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
             'label'     => Mage::helper('tax')->__('Range To'),
             'required'  => true,
             'maxlength' => 9,
-            'class'     => 'validate-digits'
+            'class'     => 'validate-digits',
         ]);
 
         $fieldset->addField('rate', 'text', [
@@ -139,7 +133,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
             'label'    => Mage::helper('tax')->__('Rate Percent'),
             'title'    => Mage::helper('tax')->__('Rate Percent'),
             'required' => true,
-            'class'    => 'validate-not-negative-number'
+            'class'    => 'validate-not-negative-number',
         ]);
 
         $form->setAction($this->getUrl('*/tax_rate/save'));
@@ -153,8 +147,9 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
 
         $rateData = $rateObject->getData();
         if ($rateObject->getZipIsRange()) {
-            list($rateData['zip_from'], $rateData['zip_to']) = explode('-', $rateData['tax_postcode']);
+            [$rateData['zip_from'], $rateData['zip_to']] = explode('-', $rateData['tax_postcode']);
         }
+
         $form->setValues($rateData);
         $this->setForm($form);
 

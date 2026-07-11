@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV attribute resource model (Using Forms)
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Entity_Attribute
@@ -27,7 +20,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      * Get table, where website-dependent attribute parameters are stored
      * If realization doesn't demand this functionality, let this function just return null
      *
-     * @return string|null
+     * @return null|string
      */
     abstract protected function _getEavWebsiteTable();
 
@@ -36,7 +29,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      *
      * Get table, where dependency between form name and attribute ids are stored
      *
-     * @return string|null
+     * @return null|string
      */
     abstract protected function _getFormAttributeTable();
 
@@ -45,27 +38,30 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        $validateRules = $object->getData('validate_rules');
+        $validateRules = $object->getDataByKey('validate_rules');
         if (is_array($validateRules)) {
             $object->setData('validate_rules', serialize($validateRules));
         }
+
         return parent::_beforeSave($object);
     }
 
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Attribute $object
+     * @param  string                                            $field
+     * @param  mixed                                             $value
+     * @param  Mage_Core_Model_Abstract|Mage_Eav_Model_Attribute $object
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select     = parent::_getLoadSelect($field, $value, $object);
-        $websiteId  = (int)$object->getWebsite()->getId();
+        $websiteId  = (int) $object->getWebsite()->getId();
         if ($websiteId) {
             $adapter    = $this->_getReadAdapter();
             $columns    = [];
@@ -75,14 +71,15 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
             foreach (array_keys($describe) as $columnName) {
                 $columns['scope_' . $columnName] = $columnName;
             }
+
             $conditionSql = $adapter->quoteInto(
                 $this->getMainTable() . '.attribute_id = scope_table.attribute_id AND scope_table.website_id =?',
-                $websiteId
+                $websiteId,
             );
             $select->joinLeft(
                 ['scope_table' => $scopeTable],
                 $conditionSql,
-                $columns
+                $columns,
             );
         }
 
@@ -95,9 +92,10 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
      * @param Mage_Eav_Model_Attribute $object
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $forms      = $object->getData('used_in_forms');
+        $forms      = $object->getDataByKey('used_in_forms');
         $adapter    = $this->_getWriteAdapter();
         if (is_array($forms)) {
             $where = ['attribute_id=?' => $object->getId()];
@@ -107,7 +105,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
             foreach ($forms as $formCode) {
                 $data[] = [
                     'form_code'     => $formCode,
-                    'attribute_id'  => (int)$object->getId()
+                    'attribute_id'  => (int) $object->getId(),
                 ];
             }
 
@@ -119,12 +117,12 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
         // update sort order
         if (!$object->isObjectNew() && $object->dataHasChangedFor('sort_order')) {
             $data  = ['sort_order' => $object->getSortOrder()];
-            $where = ['attribute_id=?' => (int)$object->getId()];
+            $where = ['attribute_id=?' => (int) $object->getId()];
             $adapter->update($this->getTable('eav/entity_attribute'), $data, $where);
         }
 
         // save scope attributes
-        $websiteId = (int)$object->getWebsite()->getId();
+        $websiteId = (int) $object->getWebsite()->getId();
         if ($websiteId) {
             $table      = $this->_getEavWebsiteTable();
             $describe   = $this->_getReadAdapter()->describeTable($table);
@@ -133,8 +131,8 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
                 $data = $this->getScopeValues($object);
             }
 
-            $data['attribute_id']   = (int)$object->getId();
-            $data['website_id']     = (int)$websiteId;
+            $data['attribute_id']   = (int) $object->getId();
+            $data['website_id']     = (int) $websiteId;
             unset($describe['attribute_id']);
             unset($describe['website_id']);
 
@@ -153,15 +151,14 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
     /**
      * Return scope values for attribute and website
      *
-     * @param Mage_Eav_Model_Attribute $object
      * @return array
      */
     public function getScopeValues(Mage_Eav_Model_Attribute $object)
     {
         $adapter = $this->_getReadAdapter();
         $bind    = [
-            'attribute_id' => (int)$object->getId(),
-            'website_id'   => (int)$object->getWebsite()->getId()
+            'attribute_id' => (int) $object->getId(),
+            'website_id'   => (int) $object->getWebsite()->getId(),
         ];
         $select = $adapter->select()
             ->from($this->_getEavWebsiteTable())
@@ -171,7 +168,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
         $result = $adapter->fetchRow($select, $bind);
 
         if (!$result) {
-            $result = [];
+            return [];
         }
 
         return $result;
@@ -180,13 +177,12 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
     /**
      * Return forms in which the attribute
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return array
      */
     public function getUsedInForms(Mage_Core_Model_Abstract $object)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = ['attribute_id' => (int)$object->getId()];
+        $bind    = ['attribute_id' => (int) $object->getId()];
         $select  = $adapter->select()
             ->from($this->_getFormAttributeTable(), 'form_code')
             ->where('attribute_id = :attribute_id');

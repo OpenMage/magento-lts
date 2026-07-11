@@ -1,28 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product price block
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
- * @method $this setPriceElementIdPrefix(string $value)
- * @method bool hasRealPriceHtml()
  * @method string getRealPriceHtml()
- * @method $this setRealPriceHtml(string $value)
+ * @method bool   hasRealPriceHtml()
+ * @method $this  setPriceElementIdPrefix(string $value)
+ * @method $this  setRealPriceHtml(string $value)
  */
 class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstract
 {
@@ -45,12 +38,14 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      *
      * @return Mage_Catalog_Model_Product
      */
+    #[Override]
     public function getProduct()
     {
         $product = $this->_getData('product');
         if (!$product) {
-            $product = Mage::registry('product');
+            return Mage::registry('product');
         }
+
         return $product;
     }
 
@@ -67,7 +62,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
     /**
      * Sets the id suffix
      *
-     * @param string $idSuffix
+     * @param  string $idSuffix
      * @return $this
      */
     public function setIdSuffix($idSuffix)
@@ -89,15 +84,17 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
     /**
      * Get tier prices (formatted)
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Catalog_Model_Product $parent
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $parent
      * @return array
      */
+    #[Override]
     public function getTierPrices($product = null, $parent = null)
     {
         if (is_null($product)) {
             $product = $this->getProduct();
         }
+
         $prices = $product->getFormatedTierPrice();
 
         // if our parent is a bundle, then we need to further adjust our tier prices
@@ -109,7 +106,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         $res = [];
         if (is_array($prices)) {
             foreach ($prices as $price) {
-                $price['price_qty'] = $price['price_qty'] * 1;
+                $price['price_qty'] *= 1;
 
                 $productPrice = $product->getPrice();
                 if ($product->getPrice() != $product->getFinalPrice()) {
@@ -133,13 +130,13 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
                     }
 
                     $tierPrice = Mage::app()->getStore()->convertPrice(
-                        Mage::helper('tax')->getPrice($product, $price['website_price'])
+                        Mage::helper('tax')->getPrice($product, $price['website_price']),
                     );
                     $price['formated_price'] = Mage::app()->getStore()->formatPrice($tierPrice);
                     $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
                         Mage::app()->getStore()->convertPrice(
-                            Mage::helper('tax')->getPrice($product, $price['website_price'], true)
-                        )
+                            Mage::helper('tax')->getPrice($product, $price['website_price'], true),
+                        ),
                     );
 
                     if (Mage::helper('catalog')->canApplyMsrp($product)) {
@@ -166,10 +163,11 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
     /**
      * Retrieve url for direct adding product to cart
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
+    #[Override]
     public function getAddToCartUrl($product, $additional = [])
     {
         return $this->getAddToCartUrlCustom($product, $additional);
@@ -180,18 +178,20 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->getProduct() || $this->getProduct()->getCanShowPrice() === false) {
             return '';
         }
+
         return parent::_toHtml();
     }
 
     /**
      * Get Product Price valid JS string
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getRealPriceJs($product)
@@ -205,6 +205,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->getProduct()->getCacheIdTags());
@@ -215,8 +216,8 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      *
      * If attribute is not found false is returned
      *
-     * @param string|int|Mage_Core_Model_Config_Element $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract | false
+     * @param  int|Mage_Core_Model_Config_Element|string      $attribute
+     * @return false|Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getProductAttribute($attribute)
     {
@@ -226,11 +227,12 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
     /**
      * Retrieve url for direct adding product to cart with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
+     * @param  bool                       $addFormKey
      * @return string
      */
+    #[Override]
     public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {
         /** @var Mage_Checkout_Helper_Cart $helper */
@@ -239,6 +241,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         if (!$addFormKey) {
             return $helper->getAddUrlCustom($product, $additional, false);
         }
+
         return $helper->getAddUrl($product, $additional);
     }
 }

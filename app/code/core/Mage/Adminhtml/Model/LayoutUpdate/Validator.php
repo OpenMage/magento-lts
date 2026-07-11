@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -18,20 +12,22 @@
  *
  * Validator checked XML validation and protected expressions
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
+class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Model_Validate_Abstract
 {
     public const XML_INVALID                             = 'invalidXml';
+
     public const INVALID_TEMPLATE_PATH                   = 'invalidTemplatePath';
+
     public const INVALID_BLOCK_NAME                      = 'invalidBlockName';
+
     public const PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR = 'protectedAttrHelperInActionVar';
 
     /**
      * The Varien SimpleXml object
      *
-     * @var Varien_Simplexml_Element
+     * @inheritDoc
      */
     protected $_value;
 
@@ -72,6 +68,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
      *
      * @return array
      */
+    #[Override]
     public function getMessages()
     {
         return $this->_validator->getMessages();
@@ -84,10 +81,10 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
-     * @throws Exception            Throw exception when xml object is not
-     *                              instance of Varien_Simplexml_Element
-     * @param Varien_Simplexml_Element|string $value
+     * @param  string|Varien_Simplexml_Element $value
      * @return bool
+     * @throws Exception                       Throw exception when xml object is not
+     *                                         instance of Varien_Simplexml_Element
      */
     public function isValid($value)
     {
@@ -109,23 +106,24 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
     /**
      * Initialize messages templates with translating
      *
-     * @return Mage_Adminhtml_Model_LayoutUpdate_Validator
+     * @return $this
      */
     protected function _initMessageTemplates()
     {
         if (!$this->_messageTemplates) {
             $this->_messageTemplates = [
-                self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR =>
-                    Mage::helper('adminhtml')->__('Helper attributes should not be used in custom layout updates.'),
+                self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR
+                    => Mage::helper('adminhtml')->__('Helper attributes should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('adminhtml')->__('XML data is invalid.'),
                 self::INVALID_TEMPLATE_PATH => Mage::helper('adminhtml')->__(
-                    'Invalid template path used in layout update.'
+                    'Invalid template path used in layout update.',
                 ),
                 self::INVALID_BLOCK_NAME => Mage::helper('adminhtml')->__('Disallowed block name for frontend.'),
-                Mage_Core_Model_Layout_Validator::INVALID_XML_OBJECT_EXCEPTION =>
-                    Mage::helper('adminhtml')->__('XML object is not instance of "Varien_Simplexml_Element".'),
+                Mage_Core_Model_Layout_Validator::INVALID_XML_OBJECT_EXCEPTION
+                    => Mage::helper('adminhtml')->__('XML object is not instance of "Varien_Simplexml_Element".'),
             ];
         }
+
         return $this;
     }
 
@@ -152,8 +150,6 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
     /**
      * Validate template path for preventing access to the directory above
      * If template path value has "../" @throws Exception
-     *
-     * @param array $templatePaths
      */
     protected function _validateTemplatePath(array $templatePaths)
     {

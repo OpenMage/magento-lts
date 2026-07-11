@@ -1,19 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 
 /** @var Mage_Customer_Helper_Address $addressHelper */
@@ -36,15 +30,15 @@ foreach ($websites as $website) {
         'suffix',
         'dob',
         'taxvat',
-        'gender'
+        'gender',
     ];
 
     foreach ($attributes as $attributeCode) {
         /** @var Mage_Customer_Model_Attribute $attribute */
         $attribute      = $eavConfig->getAttribute('customer', $attributeCode);
         $configValue    = $addressHelper->getConfig($attributeCode . '_show', $store);
-        $isVisible      = $attribute->getData('is_visible');
-        $isRequired     = $attribute->getData('is_required');
+        $isVisible      = $attribute->getDataByKey('is_visible');
+        $isRequired     = $attribute->getDataByKey('is_required');
 
         if ($configValue == 'opt' || $configValue == '1') {
             $scopeIsVisible     = '1';
@@ -75,8 +69,8 @@ foreach ($websites as $website) {
     foreach ($attributes as $attributeCode) {
         $attribute      = $eavConfig->getAttribute('customer_address', $attributeCode);
         $configValue    = $addressHelper->getConfig($attributeCode . '_show', $store);
-        $isVisible      = $attribute->getData('is_visible');
-        $isRequired     = $attribute->getData('is_required');
+        $isVisible      = $attribute->getDataByKey('is_visible');
+        $isRequired     = $attribute->getDataByKey('is_required');
 
         if ($configValue == 'opt' || $configValue == '1') {
             $scopeIsVisible     = '1';
@@ -99,7 +93,7 @@ foreach ($websites as $website) {
 
     $attribute = $eavConfig->getAttribute('customer_address', 'street');
     $value     = $addressHelper->getConfig('street_lines', $store);
-    if ($attribute->getData('multiline_count') != $value) {
+    if ($attribute->getDataByKey('multiline_count') != $value) {
         $attribute->setWebsite($website);
         $attribute->setScopeMultilineCount($value);
         $attribute->save();

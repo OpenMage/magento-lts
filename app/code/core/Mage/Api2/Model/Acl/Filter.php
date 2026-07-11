@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API ACL filter
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Acl_Filter
@@ -44,8 +37,6 @@ class Mage_Api2_Model_Acl_Filter
 
     /**
      * Object constructor
-     *
-     * @param Mage_Api2_Model_Resource $resource
      */
     public function __construct(Mage_Api2_Model_Resource $resource)
     {
@@ -55,24 +46,25 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Return only the data which keys are allowed
      *
-     * @param array $allowedAttributes List of attributes available to use
-     * @param array $data Associative array attribute to value
+     * @param  array $allowedAttributes List of attributes available to use
+     * @param  array $data              Associative array attribute to value
      * @return array
      */
     protected function _filter(array $allowedAttributes, array $data)
     {
-        foreach ($data as $attribute => $value) {
+        foreach (array_keys($data) as $attribute) {
             if (!in_array($attribute, $allowedAttributes)) {
                 unset($data[$attribute]);
             }
         }
+
         return $data;
     }
 
     /**
      * Strip attributes in of collection items
      *
-     * @param array $items
+     * @param  array $items
      * @return array
      */
     public function collectionIn($items)
@@ -80,13 +72,14 @@ class Mage_Api2_Model_Acl_Filter
         foreach ($items as &$data) {
             $data = is_array($data) ? $this->in($data) : [];
         }
+
         return $items;
     }
 
     /**
      * Strip attributes out of collection items
      *
-     * @param array $items
+     * @param  array $items
      * @return array
      */
     public function collectionOut($items)
@@ -94,13 +87,14 @@ class Mage_Api2_Model_Acl_Filter
         foreach ($items as &$data) {
             $data = $this->out($data);
         }
+
         return $items;
     }
 
     /**
      * Fetch array of allowed attributes for given resource type, operation and user type.
      *
-     * @param string $operationType OPTIONAL One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param  Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType OPTIONAL
      * @return array
      */
     public function getAllowedAttributes($operationType = null)
@@ -112,18 +106,20 @@ class Mage_Api2_Model_Acl_Filter
             if ($operationType === null) {
                 $operationType = $helper->getTypeOfOperation($this->_resource->getOperation());
             }
+
             if ($helper->isAllAttributesAllowed($this->_resource->getUserType())) {
                 $this->_allowedAttributes = array_keys($this->_resource->getAvailableAttributes(
                     $this->_resource->getUserType(),
-                    $operationType
+                    $operationType,
                 ));
             } else {
                 $this->_allowedAttributes = $helper->getAllowedAttributes(
                     $this->_resource->getUserType(),
                     $this->_resource->getResourceType(),
-                    $operationType
+                    $operationType,
                 );
             }
+
             // force attributes to be no filtered
             foreach ($this->_resource->getForcedAttributes() as $forcedAttr) {
                 if (!in_array($forcedAttr, $this->_allowedAttributes)) {
@@ -131,6 +127,7 @@ class Mage_Api2_Model_Acl_Filter
                 }
             }
         }
+
         return $this->_allowedAttributes;
     }
 
@@ -155,14 +152,15 @@ class Mage_Api2_Model_Acl_Filter
                 $this->_attributesToInclude = $allowedAttrs;
             }
         }
+
         return $this->_attributesToInclude;
     }
 
     /**
      * Filter data for write operations
      *
-     * @param array $requestData
      * @return array
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function in(array $requestData)
     {
@@ -174,7 +172,6 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Filter data before output
      *
-     * @param array $retrievedData
      * @return array
      */
     public function out(array $retrievedData)

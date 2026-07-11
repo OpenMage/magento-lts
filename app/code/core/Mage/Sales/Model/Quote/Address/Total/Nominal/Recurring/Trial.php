@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Total model for recurring profile trial payment
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Trial extends Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract
@@ -27,6 +20,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Trial extends Mage_
      * @var string
      */
     protected $_itemRowTotalKey = 'recurring_trial_payment';
+
     protected $_profileDataKey = 'trial_billing_amount';
 
     /**
@@ -34,6 +28,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Trial extends Mage_
      *
      * @return string
      */
+    #[Override]
     public function getLabel()
     {
         return Mage::helper('sales')->__('Trial Payment');
@@ -42,9 +37,9 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal_Recurring_Trial extends Mage_
     /**
      * Prevent compounding nominal subtotal in case if the trial payment exists
      *
-     * @see Mage_Sales_Model_Quote_Address_Total_Nominal_Subtotal
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param Mage_Sales_Model_Quote_Address       $address
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @see Mage_Sales_Model_Quote_Address_Total_Nominal_Subtotal
      */
     protected function _afterCollectSuccess($address, $item)
     {

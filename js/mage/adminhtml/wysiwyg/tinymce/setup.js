@@ -8,7 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2018 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2023-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -68,6 +68,7 @@ tinyMceWysiwygSetup.prototype =
         }
 
         var settings = {
+            license_key: "gpl",
             selector: this.selector,
             config: this.config,
             valid_children: '+body[style]',
@@ -90,6 +91,7 @@ tinyMceWysiwygSetup.prototype =
             automatic_uploads: false,
             branding: false,
             promotion: false,
+            convert_unsafe_embeds: true, // default in TinyMCE v7.0
             convert_urls: false,
             relative_urls: true,
             skin: this.config.skin,
@@ -311,10 +313,7 @@ tinyMceWysiwygSetup.prototype =
             var attributes = this.parseAttributesString(match[1]);
             if (attributes.type) {
                 var placeholderFilename = attributes.type.replace(/\//g, "__") + ".gif";
-                if (!this.widgetPlaceholderExist(placeholderFilename)) {
-                    placeholderFilename = 'default.gif';
-                }
-                var imageSrc = this.config.widget_images_url + placeholderFilename;
+                var imageSrc = this.config.widget_placeholders[placeholderFilename] ?? this.config.widget_placeholders["default.gif"];
                 var imageHtml = '<img';
                 imageHtml += ' id="' + Base64.idEncode(match[0]) + '"';
                 imageHtml += ' src="' + imageSrc + '"';
@@ -351,14 +350,10 @@ tinyMceWysiwygSetup.prototype =
 
     parseAttributesString: function (attributes) {
         var result = {};
-        attributes.gsub(/(\w+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/, function (match) {
+        attributes.gsub(/(\w+)(?:\s*=\s*(?:(?:"((?:\\.|[^"\\])*)")|(?:'((?:\\.|[^'\\])*)')|([^>\s]+)))?/, function (match) {
             result[match[1]] = match[2];
         });
         return result;
-    },
-
-    widgetPlaceholderExist: function (filename) {
-        return this.config.widget_placeholders.indexOf(filename) != -1;
     },
 
     getMediaBrowserCallback: function () {

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order Rss Resource Model
  *
- * @category   Mage
  * @package    Mage_Rss
  */
 class Mage_Rss_Model_Resource_Order
@@ -34,7 +27,7 @@ class Mage_Rss_Model_Resource_Order
     /**
      * Retrieve order comments
      *
-     * @param int $orderId
+     * @param  int   $orderId
      * @return array
      */
     public function getAllCommentCollection($orderId)
@@ -54,17 +47,18 @@ class Mage_Rss_Model_Resource_Order
             $select = $read->select()
                 ->from(['main' => $mainTable], [
                     'entity_id' => 'order_id',
-                    'entity_type_code' => new Zend_Db_Expr("'$entityTypeCode'")
+                    'entity_type_code' => new Zend_Db_Expr("'{$entityTypeCode}'"),
                 ])
                 ->join(['slave' => $slaveTable], 'main.entity_id = slave.parent_id', $fields)
                 ->where('main.order_id = ?', $orderId);
             $commentSelects[] = '(' . $select . ')';
         }
+
         $select = $read->select()
             ->from($res->getTableName('sales/order_status_history'), [
                 'entity_id' => 'parent_id',
-                'entity_type_code' => new Zend_Db_Expr("'order'")
-                ] + $fields)
+                'entity_type_code' => new Zend_Db_Expr("'order'"),
+            ] + $fields)
             ->where('parent_id = ?', $orderId)
             ->where('is_visible_on_front > 0');
         $commentSelects[] = '(' . $select . ')';

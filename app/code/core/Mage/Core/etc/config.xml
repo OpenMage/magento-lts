@@ -1,23 +1,16 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Core>
-            <version>1.6.0.10</version>
+            <version>1.6.0.12</version>
         </Mage_Core>
     </modules>
     <global>
@@ -149,7 +142,7 @@
         </request>
         <log>
             <core>
-                <writer_model>Zend_Log_Writer_Stream</writer_model>
+                <writer_model>Monolog\Handler\StreamHandler</writer_model>
             </core>
         </log>
         <url_rewrite>
@@ -303,13 +296,16 @@
             </translate_inline>
             <log>
                 <active>0</active>
-                <max_level>7</max_level>
+                <max_level>600</max_level>
                 <file>system.log</file>
                 <exception_file>exception.log</exception_file>
             </log>
             <js>
                 <merge_files>0</merge_files>
             </js>
+            <jquery>
+                <migrate>0</migrate>
+            </jquery>
         </dev>
         <system>
             <csrf>
@@ -507,6 +503,60 @@
                 </disallowed_block>
             </custom_layout>
         </validators>
+        <url>
+            <convert>
+                <de_DE>
+                    <replach_percent>
+                        <from><![CDATA[%]]></from>
+                        <to>prozent</to>
+                    </replach_percent>
+                    <replace_and>
+                        <from><![CDATA[&]]></from>
+                        <to>und</to>
+                    </replace_and>
+                </de_DE>
+                <en_US>
+                    <replach_percent>
+                        <from><![CDATA[%]]></from>
+                        <to>percent</to>
+                    </replach_percent>
+                    <replace_and>
+                        <from><![CDATA[&]]></from>
+                        <to>and</to>
+                    </replace_and>
+                </en_US>
+                <fr_FR>
+                    <replach_percent>
+                        <from><![CDATA[%]]></from>
+                        <to>pour cent</to>
+                    </replach_percent>
+                    <replace_and>
+                        <from><![CDATA[&]]></from>
+                        <to>et</to>
+                    </replace_and>
+                </fr_FR>
+                <it_IT>
+                    <replach_percent>
+                        <from><![CDATA[%]]></from>
+                        <to>per cento</to>
+                    </replach_percent>
+                    <replace_and>
+                        <from><![CDATA[&]]></from>
+                        <to>e</to>
+                    </replace_and>
+                </it_IT>
+                <es_ES>
+                    <replach_percent>
+                        <from><![CDATA[%]]></from>
+                        <to>por ciento</to>
+                    </replach_percent>
+                    <replace_and>
+                        <from><![CDATA[&]]></from>
+                        <to>et</to>
+                    </replace_and>
+                </es_ES>
+            </convert>
+        </url>
     </default>
     <stores>
         <default>

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core data helper
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
@@ -34,11 +27,11 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Truncate a string to a certain length if necessary, appending the $etc string.
      * $remainder will contain the string that has been replaced with $etc.
      *
-     * @param string $string
-     * @param int $length
-     * @param string $etc
-     * @param string &$remainder
-     * @param bool $breakWords
+     * @param  null|string $string
+     * @param  int         $length
+     * @param  string      $etc
+     * @param  string      &$remainder
+     * @param  bool        $breakWords
      * @return string
      */
     public function truncate($string, $length = 80, $etc = '...', &$remainder = '', $breakWords = true)
@@ -54,12 +47,14 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             if ($length <= 0) {
                 return '';
             }
+
             $preparedString = $string;
             $preparedlength = $length;
             if (!$breakWords) {
                 $preparedString = preg_replace('/\s+?(\S+)?$/u', '', $this->substr($string, 0, $length + 1));
                 $preparedlength = $this->strlen($preparedString);
             }
+
             $remainder = $this->substr($string, $preparedlength, $originalLength);
             return $this->substr($preparedString, 0, $length) . $etc;
         }
@@ -70,7 +65,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Retrieve string length using default charset
      *
-     * @param string $string
+     * @param  string $string
      * @return int
      */
     public function strlen($string)
@@ -81,9 +76,9 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Passthrough to iconv_substr()
      *
-     * @param string $string
-     * @param int $offset
-     * @param int $length
+     * @param  string $string
+     * @param  int    $offset
+     * @param  int    $length
      * @return string
      */
     public function substr($string, $offset, $length = null)
@@ -91,20 +86,22 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (is_null($string)) {
             return '';
         }
+
         $string = $this->cleanString($string);
         if (is_null($length)) {
             $length = $this->strlen($string) - $offset;
         }
+
         return iconv_substr($string, $offset, $length, self::ICONV_CHARSET);
     }
 
     /**
      * Split string and appending $insert string after $needle
      *
-     * @param string $str
-     * @param int $length
-     * @param string $needle
-     * @param string $insert
+     * @param  string $str
+     * @param  int    $length
+     * @param  string $needle
+     * @param  string $insert
      * @return string
      */
     public function splitInjection($str, $length = 50, $needle = '-', $insert = ' ')
@@ -114,7 +111,6 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         foreach ($str as $part) {
             if ($this->strlen($part) >= $length) {
                 $lastDelimetr = $this->strpos($this->strrev($part), $needle);
-                $tmpNewStr = '';
                 $tmpNewStr = $this->substr($this->strrev($part), 0, $lastDelimetr)
                     . $insert . $this->substr($this->strrev($part), $lastDelimetr);
                 $newStr .= $this->strrev($tmpNewStr);
@@ -122,13 +118,14 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 $newStr .= $part;
             }
         }
+
         return $newStr;
     }
 
     /**
      * Binary-safe strrev()
      *
-     * @param string $str
+     * @param  string $str
      * @return string
      */
     public function strrev($str)
@@ -138,9 +135,11 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (!$strlen) {
             return $result;
         }
+
         for ($i = $strlen - 1; $i >= 0; $i--) {
             $result .= $this->substr($str, $i, 1);
         }
+
         return $result;
     }
 
@@ -150,12 +149,13 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * + option to trim spaces (between each word)
      * + option to set character(s) (pcre pattern) to be considered as words separator
      *
-     * @param string $str
-     * @param int $length
-     * @param bool $keepWords
-     * @param bool $trim
-     * @param string $wordSeparatorRegex
+     * @param  string $str
+     * @param  int    $length
+     * @param  bool   $keepWords
+     * @param  bool   $trim
+     * @param  string $wordSeparatorRegex
      * @return array
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function str_split($str, $length = 1, $keepWords = false, $trim = false, $wordSeparatorRegex = '\s')
@@ -165,6 +165,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if ((!$strlen) || (!is_int($length)) || ($length <= 0)) {
             return $result;
         }
+
         // trim
         if ($trim) {
             $str = trim(preg_replace('/\s{2,}/siu', ' ', $str));
@@ -176,6 +177,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
              */
             $strlen = $this->strlen($str);
         }
+
         // do a usual str_split, but safe for our encoding
         if ((!$keepWords) || ($length < 2)) {
             for ($offset = 0; $offset < $strlen; $offset += $length) {
@@ -192,9 +194,11 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                     if ($key % 2) {
                         continue;
                     }
+
                     $space    = ' ';
                     $spaceLen = 1;
                 }
+
                 /**
                  * The empty($result[$i]) is not appropriate, because in case with empty("0") expression returns "true",
                  * so in cases when string have "0" symbol, the "0" will lost.
@@ -210,6 +214,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 } else {
                     $currentLength = $this->strlen($result[$i]);
                 }
+
                 $partLength = $this->strlen($part);
                 // add part to current last element
                 if (($currentLength + $spaceLen + $partLength) <= $length) {
@@ -225,26 +230,27 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         // remove last element, if empty
-        if ($count = count($result)) {
-            if ($result[$count - 1] === '') {
-                unset($result[$count - 1]);
-            }
+        if (($count = count($result)) && $result[$count - 1] === '') {
+            unset($result[$count - 1]);
         }
+
         // remove first element, if empty
         if (isset($result[0]) && $result[0] === '') {
             array_shift($result);
         }
+
         return $result;
     }
 
     /**
      * Split words
      *
-     * @param string $str The source string
-     * @param bool $uniqueOnly Unique words only
-     * @param int $maxWordLength Limit words count
-     * @param string $wordSeparatorRegexp
+     * @param  null|string $str                 The source string
+     * @param  bool        $uniqueOnly          Unique words only
+     * @param  int         $maxWordLength       Limit words count
+     * @param  string      $wordSeparatorRegexp
      * @return array
      */
     public function splitWords($str, $uniqueOnly = false, $maxWordLength = 0, $wordSeparatorRegexp = '\s')
@@ -252,6 +258,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (is_null($str)) {
             return [];
         }
+
         $result = [];
         $split = preg_split('#' . $wordSeparatorRegexp . '#siu', $str, -1, PREG_SPLIT_NO_EMPTY);
         foreach ($split as $word) {
@@ -261,16 +268,18 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 $result[] = $word;
             }
         }
+
         if ($maxWordLength && count($result) > $maxWordLength) {
-            $result = array_slice($result, 0, $maxWordLength);
+            return array_slice($result, 0, $maxWordLength);
         }
+
         return $result;
     }
 
     /**
      * Clean non UTF-8 characters
      *
-     * @param string $string
+     * @param  null|string $string
      * @return string
      */
     public function cleanString($string)
@@ -278,7 +287,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (is_null($string)) {
             return '';
         }
-        return '"libiconv"' == ICONV_IMPL
+
+        return '"libiconv"' === ICONV_IMPL
             ? iconv(self::ICONV_CHARSET, self::ICONV_CHARSET . '//IGNORE', $string)
             : $string;
     }
@@ -286,10 +296,10 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Find position of first occurrence of a string
      *
-     * @param string $haystack
-     * @param string $needle
-     * @param int $offset
-     * @return int|false
+     * @param  string    $haystack
+     * @param  string    $needle
+     * @param  int       $offset
+     * @return false|int
      */
     public function strpos($haystack, $needle, $offset = 0)
     {
@@ -299,15 +309,15 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Sorts array with multibyte string keys
      *
-     * @param array $sort
      * @return array|false
      */
     public function ksortMultibyte(array &$sort)
     {
-        if (empty($sort)) {
+        if ($sort === []) {
             return false;
         }
-        $oldLocale = setlocale(LC_COLLATE, "0");
+
+        $oldLocale = setlocale(LC_COLLATE, '0');
         $localeCode = Mage::app()->getLocale()->getLocaleCode();
         // use fallback locale if $localeCode is not available
         setlocale(LC_COLLATE, $localeCode . '.UTF8', 'C.UTF-8', 'en_US.utf8');
@@ -320,7 +330,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Parse query string to array
      *
-     * @param string $str
+     * @param  string $str
      * @return array
      */
     public function parseQueryStr($str)
@@ -328,6 +338,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (is_null($str)) {
             return [];
         }
+
         $argSeparator = '&';
         $result = [];
         $partsQueryStr = explode($argSeparator, $str);
@@ -339,28 +350,26 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 $result = $this->_appendParam($result, $param);
             }
         }
+
         return $result;
     }
 
     /**
      * Validate query pair string
      *
-     * @param string $str
+     * @param  string $str
      * @return bool
      */
     protected function _validateQueryStr($str)
     {
-        if (!$str || !str_contains($str, '=')) {
-            return false;
-        }
-        return true;
+        return $str && str_contains($str, '=');
     }
 
     /**
      * Prepare param
      *
-     * @param string $str
-     * @return array
+     * @param  string                $str
+     * @return array<string, string>
      */
     protected function _explodeAndDecodeParam($str)
     {
@@ -375,8 +384,6 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Append param to general result
      *
-     * @param array $result
-     * @param array $param
      * @return array
      */
     protected function _appendParam(array $result, array $param)
@@ -399,7 +406,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Handle param recursively
      *
-     * @param array $param
+     * @param  array<string, array<int|string, string>|string> $param
      * @return array
      */
     protected function _handleRecursiveParamForQueryStr(array $param)
@@ -410,11 +417,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         $subKeyBrackets = $this->_getLastSubkey($key);
         $subKey = $this->_getLastSubkey($key, false);
         if ($subKeyBrackets) {
-            if ($subKey) {
-                $param['value'] = [$subKey => $value];
-            } else {
-                $param['value'] = [$value];
-            }
+            $param['value'] = $subKey ? [$subKey => $value] : [$value];
+
             $param['key'] = $this->_removeSubkeyPartFromKey($key, $subKeyBrackets);
             $param = $this->_handleRecursiveParamForQueryStr($param);
         }
@@ -425,8 +429,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Remove subkey part from key
      *
-     * @param string $key
-     * @param string $subKeyBrackets
+     * @param  string $key
+     * @param  string $subKeyBrackets
      * @return string
      */
     protected function _removeSubkeyPartFromKey($key, $subKeyBrackets)
@@ -437,8 +441,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Get last part key from query array
      *
-     * @param string $key
-     * @param bool $withBrackets
+     * @param  string $key
+     * @param  bool   $withBrackets
      * @return string
      */
     protected function _getLastSubkey($key, $withBrackets = true)
@@ -460,13 +464,14 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 $subKey = rtrim($subKey, $rightBracketSymbol);
             }
         }
+
         return $subKey;
     }
 
     /**
      * Set array helper
      *
-     * @param Mage_Core_Helper_Abstract|Mage_Core_Helper_Array $helper
+     * @param  Mage_Core_Helper_Array $helper
      * @return $this
      */
     public function setArrayHelper(Mage_Core_Helper_Abstract $helper)
@@ -485,31 +490,32 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (!$this->_arrayHelper) {
             $this->_arrayHelper = Mage::helper('core/array');
         }
+
         return $this->_arrayHelper;
     }
 
     /**
      * Unicode compatible ord() method
      *
-     * @param  string $c char to get value from
+     * @param  string $char char to get value from
      * @return int
      */
-    public function uniOrd($c)
+    public function uniOrd($char)
     {
         $ord = 0;
-        $h   = ord($c[0]);
+        $num = ord($char[0]);
 
-        if ($h <= 0x7F) {
-            $ord = $h;
-        } elseif ($h < 0xC2) {
+        if ($num <= 0x7F) {
+            $ord = $num;
+        } elseif ($num < 0xC2) {
             $ord = 0;
-        } elseif ($h <= 0xDF) {
-            $ord = (($h & 0x1F) << 6 | (ord($c[1]) & 0x3F));
-        } elseif ($h <= 0xEF) {
-            $ord = (($h & 0x0F) << 12 | (ord($c[1]) & 0x3F) << 6 | (ord($c[2]) & 0x3F));
-        } elseif ($h <= 0xF4) {
-            $ord = (($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12 |
-                (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
+        } elseif ($num <= 0xDF) {
+            $ord = (($num & 0x1F) << 6 | (ord($char[1]) & 0x3F));
+        } elseif ($num <= 0xEF) {
+            $ord = (($num & 0x0F) << 12 | (ord($char[1]) & 0x3F) << 6 | (ord($char[2]) & 0x3F));
+        } elseif ($num <= 0xF4) {
+            $ord = (($num & 0x0F) << 18 | (ord($char[1]) & 0x3F) << 12
+                | (ord($char[2]) & 0x3F) << 6 | (ord($char[3]) & 0x3F));
         }
 
         return $ord;
@@ -517,8 +523,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 
     /**
      * UnSerialize string
-     * @param string $str
-     * @return mixed|null
+     * @param  null|string $str
+     * @return null|void
      * @throws Exception
      */
     public function unserialize($str)
@@ -526,14 +532,18 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (is_null($str)) {
             return null;
         }
+
         $reader = new Unserialize_Reader_ArrValue('data');
         $prevChar = null;
-        for ($i = 0; $i < strlen($str); $i++) {
+
+        $strLen = strlen($str);
+        for ($i = 0; $i < $strLen; $i++) {
             $char = $str[$i];
             $result = $reader->read($char, $prevChar);
             if (!is_null($result)) {
                 return $result;
             }
+
             $prevChar = $char;
         }
     }
@@ -541,20 +551,20 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Detect serialization of data Array or Object
      *
-     * @param mixed $data
+     * @param  mixed $data
      * @return bool
      */
     public function isSerializedArrayOrObject($data)
     {
-        $pattern =
-            '/^a:\d+:\{(i:\d+;|s:\d+:\".+\";|N;|O:\d+:\"\w+\":\d+:\{\w:\d+:)+|^O:\d+:\"\w+\":\d+:\{(s:\d+:\"|i:\d+;)/';
+        $pattern
+            = '/^a:\d+:\{(i:\d+;|s:\d+:\".+\";|N;|O:\d+:\"\w+\":\d+:\{\w:\d+:)+|^O:\d+:\"\w+\":\d+:\{(s:\d+:\"|i:\d+;)/';
         return is_string($data) && preg_match($pattern, $data);
     }
 
     /**
      * Validate is Serialized Data Object in string
      *
-     * @param string $str
+     * @param  string $str
      * @return bool
      */
     public function validateSerializedObject($str)
@@ -562,7 +572,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if ($this->isSerializedArrayOrObject($str)) {
             try {
                 $this->unserialize($str);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return false;
             }
         }

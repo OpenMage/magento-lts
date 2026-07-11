@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shipping table rates collection
  *
- * @category   Mage
  * @package    Mage_Shipping
  */
 class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -44,8 +37,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     protected $_regionTable;
 
     /**
-     * Define resource model and item
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -60,7 +52,8 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
      *
      * @return $this
      */
-    public function _initSelect()
+    #[Override]
+    protected function _initSelect()
     {
         parent::_initSelect();
 
@@ -68,12 +61,12 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
             ->joinLeft(
                 ['country_table' => $this->_countryTable],
                 'country_table.country_id = main_table.dest_country_id',
-                ['dest_country' => 'iso3_code']
+                ['dest_country' => 'iso3_code'],
             )
             ->joinLeft(
                 ['region_table' => $this->_regionTable],
                 'region_table.region_id = main_table.dest_region_id',
-                ['dest_region' => 'code']
+                ['dest_region' => 'code'],
             );
 
         $this->addOrder('dest_country', self::SORT_ORDER_ASC);
@@ -87,7 +80,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     /**
      * Add website filter to collection
      *
-     * @param int $websiteId
+     * @param  int   $websiteId
      * @return $this
      */
     public function setWebsiteFilter($websiteId)
@@ -98,7 +91,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     /**
      * Add condition name (code) filter to collection
      *
-     * @param string $conditionName
+     * @param  string $conditionName
      * @return $this
      */
     public function setConditionFilter($conditionName)
@@ -109,7 +102,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     /**
      * Add country filter to collection
      *
-     * @param string $countryId
+     * @param  string $countryId
      * @return $this
      */
     public function setCountryFilter($countryId)

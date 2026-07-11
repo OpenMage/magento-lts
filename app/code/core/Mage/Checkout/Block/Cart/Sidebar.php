@@ -1,27 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist sidebar block
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 {
     public const XML_PATH_CHECKOUT_SIDEBAR_COUNT                  = 'checkout/sidebar/count';
+
     public const XML_PATH_CHECKOUT_MINICART_VISIBLE_ITEMS_COUNT   = 'checkout/cart/minicart_visible_items';
 
     /**
@@ -40,18 +34,19 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      */
     public function getItemCount()
     {
-        $count = $this->getData('item_count');
+        $count = $this->getDataByKey('item_count');
         if (is_null($count)) {
             $count = Mage::getStoreConfig(self::XML_PATH_CHECKOUT_SIDEBAR_COUNT);
             $this->setData('item_count', $count);
         }
+
         return $count;
     }
 
     /**
      * Get array of last added items
      *
-     * @param int|null $count
+     * @param  null|int $count
      * @return array
      */
     public function getRecentItems($count = null)
@@ -59,9 +54,11 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         if (!$this->getSummaryCount()) {
             return [];
         }
+
         if ($count === null) {
             $count = $this->getItemCount();
         }
+
         return array_slice(array_reverse($this->getItems()), 0, $count);
     }
 
@@ -70,8 +67,8 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * It will include tax, if required by config settings.
      *
-     * @param   bool $skipTax flag for getting price with tax or not. Ignored when we display just subtotal incl.tax
-     * @return  float
+     * @param  bool  $skipTax flag for getting price with tax or not. Ignored when we display just subtotal incl.tax
+     * @return float
      */
     public function getSubtotal($skipTax = true)
     {
@@ -80,11 +77,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         $config = Mage::getSingleton('tax/config');
         if (isset($totals['subtotal'])) {
             if ($config->displayCartSubtotalBoth()) {
-                if ($skipTax) {
-                    $subtotal = $totals['subtotal']->getValueExclTax();
-                } else {
-                    $subtotal = $totals['subtotal']->getValueInclTax();
-                }
+                $subtotal = $skipTax ? $totals['subtotal']->getValueExclTax() : $totals['subtotal']->getValueInclTax();
             } elseif ($config->displayCartSubtotalInclTax()) {
                 $subtotal = $totals['subtotal']->getValueInclTax();
             } else {
@@ -94,6 +87,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
                 }
             }
         }
+
         return $subtotal;
     }
 
@@ -108,27 +102,8 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         if (!Mage::getSingleton('tax/config')->displayCartSubtotalBoth()) {
             return 0;
         }
-        return $this->getSubtotal(false);
-    }
 
-    /**
-     * Add tax to amount
-     *
-     * @param float $price
-     * @param bool $exclShippingTax
-     * @return float
-     */
-    private function _addTax($price, $exclShippingTax = true)
-    {
-        $totals = $this->getTotals();
-        if (isset($totals['tax'])) {
-            if ($exclShippingTax) {
-                $price += $totals['tax']->getValue() - $this->_getShippingTaxAmount();
-            } else {
-                $price += $totals['tax']->getValue();
-            }
-        }
-        return $price;
+        return $this->getSubtotal(false);
     }
 
     /**
@@ -145,7 +120,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     /**
      * Get incl/excl tax label
      *
-     * @param bool $flag
+     * @param  bool   $flag
      * @return string
      */
     public function getIncExcTax($flag)
@@ -194,6 +169,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * @return array
      */
+    #[Override]
     public function getItems()
     {
         if ($this->getCustomQuote()) {
@@ -208,12 +184,14 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * @return array
      */
+    #[Override]
     public function getTotalsCache()
     {
         if (empty($this->_totals)) {
             $quote = $this->getCustomQuote() ?: $this->getQuote();
             $this->_totals = $quote->getTotals();
         }
+
         return $this->_totals;
     }
 
@@ -222,6 +200,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         $cacheKeyInfo = parent::getCacheKeyInfo();
@@ -240,13 +219,14 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         foreach ($this->_itemRenders as $type => $renderer) {
             $result[] = implode('|', [$type, $renderer['block'], $renderer['template']]);
         }
+
         return implode('|', $result);
     }
 
     /**
      * Deserialize renders from string
      *
-     * @param string $renders
+     * @param  string $renders
      * @return $this
      */
     public function deserializeRenders($renders)
@@ -256,13 +236,22 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         }
 
         $renders = explode('|', $renders);
-        while (!empty($renders)) {
+        while ($renders !== []) {
             $template = array_pop($renders);
             $block = array_pop($renders);
             $type = array_pop($renders);
-            if (!$template || !$block || !$type) {
+            if (!$template) {
                 continue;
             }
+
+            if (!$block) {
+                continue;
+            }
+
+            if (!$type) {
+                continue;
+            }
+
             $this->addItemRender($type, $block, $template);
         }
 
@@ -274,6 +263,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         $quoteTags = $this->getQuote()->getCacheIdTags();
@@ -286,17 +276,18 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 
         return array_merge(
             parent::getCacheTags(),
-            (!$quoteTags) ? [] : $quoteTags,
-            $this->getItemsTags($items)
+            ($quoteTags) ? $quoteTags : [],
+            $this->getItemsTags($items),
         );
     }
 
     /**
      * Processing block html after rendering
      *
-     * @param   string $html
-     * @return  string
+     * @param  string $html
+     * @return string
      */
+    #[Override]
     protected function _afterToHtml($html)
     {
         $html = parent::_afterToHtml($html);
@@ -307,7 +298,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             [
                 'block' => $this,
                 'transport' => $transport,
-            ]
+            ],
         );
         return $transport->getHtml();
     }

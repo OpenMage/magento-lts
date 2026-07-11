@@ -1,28 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Directory storage database resource model class
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core_Model_Resource_File_Storage_Abstract
 {
     /**
-     * Define table name and id field for resource
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -47,30 +40,30 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'primary'   => true
+                'primary'   => true,
             ], 'Directory Id')
             ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, 100, [
-                'nullable' => false
+                'nullable' => false,
             ], 'Directory Name')
             ->addColumn('path', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
                 'default' => null], 'Path to the Directory')
             ->addColumn('upload_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
                 'nullable' => false,
-                'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
+                'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
             ], 'Upload Timestamp')
             ->addColumn('parent_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
                 'nullable' => true,
                 'default' => null,
-                'unsigned' => true
+                'unsigned' => true,
             ], 'Parent Directory Id')
             ->addIndex(
                 $adapter->getIndexName(
                     $table,
                     ['name', 'parent_id'],
-                    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+                    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
                 ),
                 ['name', 'parent_id'],
-                ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+                ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
             )
             ->addIndex($adapter->getIndexName($table, ['parent_id']), ['parent_id'])
             ->addForeignKey(
@@ -79,7 +72,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
                 $table,
                 'directory_id',
                 Varien_Db_Ddl_Table::ACTION_CASCADE,
-                Varien_Db_Ddl_Table::ACTION_CASCADE
+                Varien_Db_Ddl_Table::ACTION_CASCADE,
             )
             ->setComment('Directory Storage');
 
@@ -90,7 +83,6 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Load entity by path
      *
-     * @param  Mage_Core_Model_File_Storage_Directory_Database $object
      * @param  string $path
      * @return $this
      */
@@ -100,7 +92,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
 
         $name = basename($path);
         $path = dirname($path);
-        if ($path == '.') {
+        if ($path === '.') {
             $path = '';
         }
 
@@ -121,8 +113,8 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Return parent id
      *
-     * @param string $path
-     * @return int
+     * @param  string $path
+     * @return string
      */
     public function getParentId($path)
     {
@@ -130,14 +122,14 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
 
         $name = basename($path);
         $path = dirname($path);
-        if ($path == '.') {
+        if ($path === '.') {
             $path = '';
         }
 
         $select = $adapter->select()
             ->from(
                 ['e' => $this->getMainTable()],
-                ['directory_id']
+                ['directory_id'],
             )
             ->where('name = ?', $name)
             ->where($adapter->prepareSqlCondition('path', ['seq' => $path]));
@@ -161,9 +153,9 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Export directories from database
      *
-     * @param int $offset
-     * @param int $count
-     * @return mixed
+     * @param  int   $offset
+     * @param  int   $count
+     * @return array
      */
     public function exportDirectories($offset, $count = 100)
     {
@@ -172,7 +164,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
         $select = $adapter->select()
             ->from(
                 ['e' => $this->getMainTable()],
-                ['name', 'path']
+                ['name', 'path'],
             )
             ->order('directory_id')
             ->limit($count, $offset);
@@ -183,8 +175,8 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Return directory file listing
      *
-     * @param string $directory
-     * @return mixed
+     * @param  string $directory
+     * @return array
      */
     public function getSubdirectories($directory)
     {
@@ -194,7 +186,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
         $select = $adapter->select()
             ->from(
                 ['e' => $this->getMainTable()],
-                ['name', 'path']
+                ['name', 'path'],
             )
             ->where($adapter->prepareSqlCondition('path', ['seq' => $directory]))
             ->order('directory_id');

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Base front controller
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Action
@@ -50,6 +43,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         $this->getLayout()->setArea($this->_currentArea);
@@ -63,12 +57,14 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return $this
      */
+    #[Override]
     public function postDispatch()
     {
         parent::postDispatch();
         if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
             Mage::getSingleton('core/session')->setLastUrl(Mage::getUrl('*/*/*', ['_current' => true]));
         }
+
         return $this;
     }
 
@@ -76,6 +72,8 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      * Translate a phrase
      *
      * @return string
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function __()
     {
@@ -88,13 +86,15 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     /**
      * Declare headers and content file in response for file download
      *
-     * @param string $fileName
-     * @param string|array $content set to null to avoid starting output, $contentLength should be set explicitly in
-     *                              that case
-     * @param string $contentType
-     * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
+     * @param  string       $fileName
+     * @param  array|string $content       set to null to avoid starting output, $contentLength should be set explicitly in
+     *                                     that case
+     * @param  string       $contentType
+     * @param  int          $contentLength explicit content length, if strlen($content) isn't applicable
      * @return $this
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
+    #[Override]
     protected function _prepareDownloadResponse(
         $fileName,
         $content,
@@ -113,6 +113,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             if (!isset($content['type']) || !isset($content['value'])) {
                 return $this;
             }
+
             if ($content['type'] == 'filename') {
                 $isFile         = true;
                 $file           = $content['value'];
@@ -125,9 +126,9 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             ->setHeader('Pragma', 'public', true)
             ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
             ->setHeader('Content-type', $contentType, true)
-            ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength)
+            ->setHeader('Content-Length', $contentLength ?? strlen($content))
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
-            ->setHeader('Last-Modified', date('r'));
+            ->setHeader('Last-Modified', Mage::helper('core/clock')->format('r'));
 
         if (!is_null($content)) {
             if ($isFile) {
@@ -138,21 +139,24 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                 if (!$ioAdapter->fileExists($file)) {
                     Mage::throwException(Mage::helper('core')->__('File not found'));
                 }
+
                 $ioAdapter->open(['path' => $ioAdapter->dirname($file)]);
                 $ioAdapter->streamOpen($file, 'r');
                 while ($buffer = $ioAdapter->streamRead()) {
                     print $buffer;
                 }
+
                 $ioAdapter->streamClose();
                 if (!empty($content['rm'])) {
                     $ioAdapter->rm($file);
                 }
 
                 exit(0);
-            } else {
-                $this->getResponse()->setBody($content);
             }
+
+            $this->getResponse()->setBody($content);
         }
+
         return $this;
     }
 
@@ -161,12 +165,14 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return bool
      */
+    #[Override]
     protected function _validateFormKey()
     {
         $validated = true;
         if ($this->_isFormKeyEnabled()) {
-            $validated = parent::_validateFormKey();
+            return parent::_validateFormKey();
         }
+
         return $validated;
     }
 

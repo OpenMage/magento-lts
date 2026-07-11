@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Catalog Comapare Products Sidebar Block
+ * Catalog Compare Products Sidebar Block
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Product_Compare_Abstract
@@ -24,14 +17,14 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
     /**
      * Compare Products Collection
      *
-     * @var null|Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
+     * @var null|Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     protected $_itemsCollection = null;
 
     /**
-     * Initialize block
-     *
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setId('compare');
@@ -40,20 +33,21 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
     /**
      * Retrieve Compare Products Collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     public function getItems()
     {
         if ($this->_itemsCollection) {
             return $this->_itemsCollection;
         }
+
         return $this->_getHelper()->getItemCollection();
     }
 
     /**
      * Set Compare Products Collection
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Compare_Item_Collection $collection
      * @return $this
      */
     public function setItems($collection)
@@ -97,15 +91,17 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         $compareItem = Mage::getModel('catalog/product_compare_item');
         foreach ($this->getItems() as $product) {
             $this->addModelTags($product);
             $this->addModelTags(
-                $compareItem->setId($product->getCatalogCompareItemId())
+                $compareItem->setId($product->getCatalogCompareItemId()),
             );
         }
+
         return parent::getCacheTags();
     }
 }

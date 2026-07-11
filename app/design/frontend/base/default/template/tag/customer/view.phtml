@@ -1,17 +1,12 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/** @var Mage_Tag_Block_Customer_View $this */
 ?>
 <div class="page-title">
     <h1><?php echo $this->__('My Tags') ?></h1>
@@ -25,13 +20,14 @@
 <?php echo $this->getToolbarHtml() ?>
 <table class="data-table" id="my-tags-table">
 <?php if(count($this->getMyProducts()) > 0): ?>
+    <?php $params[Mage_Core_Model_Url::FORM_KEY] = $this->getFormKey() ?>
     <col width="1" />
     <col />
     <col width="1" />
     <tbody>
     <?php $iterator = 0 ?>
     <?php foreach($this->getMyProducts() as $_product): ?>
-        <tr<?php if($iterator % 2 == 0): ?> class="odd"<?php $iterator++;endif; ?>>
+        <tr<?php if($iterator % 2 === 0): ?> class="odd"<?php $iterator++;endif; ?>>
             <td><a href="<?php echo $_product->getProductUrl(); ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(100, 100); ?>" width="100" height="100" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" /></a></td>
             <td>
                 <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a></h2>
@@ -41,14 +37,20 @@
             </td>
             <td>
                 <?php if($_product->isSaleable()): ?>
-                    <?php $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey() ?>
                     <?php $params['product'] = $_product->getId(); ?>
                     <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart/add', $params) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                 <?php endif ?>
                 <?php if ($this->helper('wishlist')->isAllow()) : ?>
                 <ul class="add-to-links">
                     <li>
-                        <a href="<?php echo $this->getUrl('wishlist/index/add', ['product'=>$_product->getId()]) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a>
+                        <a href="#"
+                           class="link-wishlist"
+                           onclick="customFormSubmit(
+                                   '<?php echo $this->getAddToWishlistUrlCustom($_product, false) ?>',
+                                   '<?php echo $this->escapeHtml(json_encode(['form_key' => $params[Mage_Core_Model_Url::FORM_KEY]])) ?>',
+                                   'post')">
+                            <?php echo $this->__('Add to Wishlist') ?>
+                        </a>
                     </li>
                 </ul>
                 <?php endif ?>

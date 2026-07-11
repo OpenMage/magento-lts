@@ -1,19 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Catalog_Model_Resource_Setup  $installer */
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 
 /** @var Mage_Catalog_Model_Resource_Eav_Attribute $eavResource */
@@ -28,7 +22,7 @@ foreach ($multiSelectAttributeCodes as $attributeCode) {
         $attributeTable = $installer->getAttributeTable('catalog_product', $attributeCode);
         $select = $installer->getConnection()->select()
             ->from(['e' => $attributeTable])
-            ->where("e.attribute_id=?", $attribute['attribute_id'])
+            ->where('e.attribute_id=?', $attribute['attribute_id'])
             ->where('e.value LIKE "%,,%"');
         $result = $installer->getConnection()->fetchAll($select);
 
@@ -40,7 +34,7 @@ foreach ($multiSelectAttributeCodes as $attributeCode) {
 
                     if ($replaceCnt) {
                         $installer->getConnection()
-                            ->update($attributeTable, ['value' => $row['value']], "value_id=" . $row['value_id']);
+                            ->update($attributeTable, ['value' => $row['value']], 'value_id=' . $row['value_id']);
                     }
                 }
             }

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Order Pdf Items renderer Abstract
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model_Abstract
@@ -24,43 +17,42 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Order model
      *
-     * @var Mage_Sales_Model_Order|null
+     * @var null|Mage_Sales_Model_Order
      */
     protected $_order;
 
     /**
      * Source model (invoice, shipment, creditmemo)
      *
-     * @var Mage_Core_Model_Abstract|null
+     * @var null|Mage_Core_Model_Abstract
      */
     protected $_source;
 
     /**
      * Item object
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_item;
 
     /**
      * Pdf object
      *
-     * @var Mage_Sales_Model_Order_Pdf_Abstract|null
+     * @var null|Mage_Sales_Model_Order_Pdf_Abstract
      */
     protected $_pdf;
 
     /**
      * Pdf current page
      *
-     * @var Zend_Pdf_Page|null
+     * @var null|Zend_Pdf_Page
      */
     protected $_pdfPage;
 
     /**
      * Set order model
      *
-     * @param  Mage_Sales_Model_Order $order
-     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     * @return $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -71,8 +63,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set Source model
      *
-     * @param  Mage_Core_Model_Abstract $source
-     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     * @return $this
      */
     public function setSource(Mage_Core_Model_Abstract $source)
     {
@@ -83,8 +74,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set item object
      *
-     * @param  Varien_Object $item
-     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     * @return $this
      */
     public function setItem(Varien_Object $item)
     {
@@ -95,8 +85,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set Pdf model
      *
-     * @param  Mage_Sales_Model_Order_Pdf_Abstract $pdf
-     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     * @return $this
      */
     public function setPdf(Mage_Sales_Model_Order_Pdf_Abstract $pdf)
     {
@@ -107,8 +96,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set current page
      *
-     * @param  Zend_Pdf_Page $page
-     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     * @return $this
      */
     public function setPage(Zend_Pdf_Page $page)
     {
@@ -119,84 +107,91 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Retrieve order object
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     public function getOrder()
     {
         if (is_null($this->_order)) {
             Mage::throwException(Mage::helper('sales')->__('Order object is not specified.'));
         }
+
         return $this->_order;
     }
 
     /**
      * Retrieve source object
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getSource()
     {
         if (is_null($this->_source)) {
             Mage::throwException(Mage::helper('sales')->__('Source object is not specified.'));
         }
+
         return $this->_source;
     }
 
     /**
      * Retrieve item object
      *
-     * @throws Mage_Core_Exception
      * @return Varien_Object
+     * @throws Mage_Core_Exception
      */
     public function getItem()
     {
         if (is_null($this->_item)) {
             Mage::throwException(Mage::helper('sales')->__('Item object is not specified.'));
         }
+
         return $this->_item;
     }
 
     /**
      * Retrieve Pdf model
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Order_Pdf_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getPdf()
     {
         if (is_null($this->_pdf)) {
             Mage::throwException(Mage::helper('sales')->__('PDF object is not specified.'));
         }
+
         return $this->_pdf;
     }
 
     /**
      * Retrieve Pdf page object
      *
-     * @throws Mage_Core_Exception
      * @return Zend_Pdf_Page
+     * @throws Mage_Core_Exception
      */
     public function getPage()
     {
         if (is_null($this->_pdfPage)) {
             Mage::throwException(Mage::helper('sales')->__('PDF page object is not specified.'));
         }
+
         return $this->_pdfPage;
     }
 
     /**
      * Draw item line
      *
+     * @return void
      */
     abstract public function draw();
 
     /**
      * Format option value process
      *
-     * @param  array|string $value
+     * @param  array|string        $value
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _formatOptionValue($value)
     {
@@ -211,18 +206,19 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
             $resultValue .= $value['title'];
 
             if (isset($value['price'])) {
-                $resultValue .= " " . $order->formatPrice($value['price']);
+                $resultValue .= ' ' . $order->formatPrice($value['price']);
             }
+
             return  $resultValue;
-        } else {
-            return $value;
         }
+
+        return $value;
     }
 
     /**
-     * @deprecated To be Removed on next release
-     *
      * @return array
+     * @throws Mage_Core_Exception
+     * @deprecated To be Removed on next release
      */
     protected function _parseDescription()
     {
@@ -244,6 +240,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      *  )
      * )
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getItemPricesForDisplay()
     {
@@ -254,12 +251,12 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
                 [
                     'label'    => Mage::helper('tax')->__('Excl. Tax') . ':',
                     'price'    => $order->formatPriceTxt($item->getPrice()),
-                    'subtotal' => $order->formatPriceTxt($item->getRowTotal())
+                    'subtotal' => $order->formatPriceTxt($item->getRowTotal()),
                 ],
                 [
                     'label'    => Mage::helper('tax')->__('Incl. Tax') . ':',
                     'price'    => $order->formatPriceTxt($item->getPriceInclTax()),
-                    'subtotal' => $order->formatPriceTxt($item->getRowTotalInclTax())
+                    'subtotal' => $order->formatPriceTxt($item->getRowTotalInclTax()),
                 ],
             ];
         } elseif (Mage::helper('tax')->displaySalesPriceInclTax()) {
@@ -273,6 +270,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
                 'subtotal' => $order->formatPriceTxt($item->getRowTotal()),
             ]];
         }
+
         return $prices;
     }
 
@@ -280,6 +278,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      * Retrieve item options
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getItemOptions()
     {
@@ -288,21 +287,26 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (isset($options['attributes_info'])) {
                 $result = array_merge($result, $options['attributes_info']);
             }
         }
+
         return $result;
     }
 
     /**
      * Set font as regular
      *
-     * @param  int $size
+     * @param  int                    $size
      * @return Zend_Pdf_Resource_Font
+     * @throws Mage_Core_Exception
+     * @throws Zend_Pdf_Exception
      */
     protected function _setFontRegular($size = 7)
     {
@@ -314,8 +318,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set font as bold
      *
-     * @param  int $size
+     * @param  int                    $size
      * @return Zend_Pdf_Resource_Font
+     * @throws Mage_Core_Exception
+     * @throws Zend_Pdf_Exception
      */
     protected function _setFontBold($size = 7)
     {
@@ -327,8 +333,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Set font as italic
      *
-     * @param  int $size
+     * @param  int                    $size
      * @return Zend_Pdf_Resource_Font
+     * @throws Mage_Core_Exception
+     * @throws Zend_Pdf_Exception
      */
     protected function _setFontItalic($size = 7)
     {
@@ -340,15 +348,15 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * Return item Sku
      *
-     * @param Mage_Sales_Model_Order_Invoice_Item|Mage_Sales_Model_Order_Creditmemo_Item $item
+     * @param  Mage_Sales_Model_Order_Creditmemo_Item|Mage_Sales_Model_Order_Invoice_Item|Varien_Object $item
      * @return string
      */
     public function getSku($item)
     {
         if ($item->getOrderItem()->getProductOptionByCode('simple_sku')) {
             return $item->getOrderItem()->getProductOptionByCode('simple_sku');
-        } else {
-            return $item->getSku();
         }
+
+        return $item->getSku();
     }
 }

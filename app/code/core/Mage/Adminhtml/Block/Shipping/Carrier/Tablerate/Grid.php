@@ -1,31 +1,26 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shipping carrier table rate grid block
  * WARNING: This grid used for export table rates
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_shipping_carrier_tablerate_grid';
+
     /**
      * Website filter
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_websiteId;
 
@@ -49,8 +44,9 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Set current website
      *
-     * @param int $websiteId
+     * @param  int                 $websiteId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setWebsiteId($websiteId)
     {
@@ -62,19 +58,21 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      * Retrieve current website id
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getWebsiteId()
     {
         if (is_null($this->_websiteId)) {
             $this->_websiteId = Mage::app()->getWebsite()->getId();
         }
+
         return $this->_websiteId;
     }
 
     /**
      * Set current website
      *
-     * @param int $name
+     * @param  string $name
      * @return $this
      */
     public function setConditionName($name)
@@ -94,8 +92,10 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Prepare shipping table rate collection
      *
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection $collection */
@@ -109,10 +109,11 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     }
 
     /**
-     * Prepare table columns
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('dest_country', [

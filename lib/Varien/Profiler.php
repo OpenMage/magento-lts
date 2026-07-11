@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Profiler
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Varien_Profiler
@@ -21,7 +15,9 @@ class Varien_Profiler
      * @var array
      */
     private static $_timers = [];
+
     private static $_enabled = false;
+
     private static $_memory_get_usage = false;
 
     public static function enable()
@@ -55,10 +51,12 @@ class Varien_Profiler
         if (empty(self::$_timers[$timerName])) {
             self::reset($timerName);
         }
+
         if (self::$_memory_get_usage) {
             self::$_timers[$timerName]['realmem_start'] = memory_get_usage(true);
             self::$_timers[$timerName]['emalloc_start'] = memory_get_usage();
         }
+
         self::$_timers[$timerName]['start'] = microtime(true);
         self::$_timers[$timerName]['count']++;
     }
@@ -79,6 +77,7 @@ class Varien_Profiler
         if (empty(self::$_timers[$timerName])) {
             self::reset($timerName);
         }
+
         if (false !== self::$_timers[$timerName]['start']) {
             self::$_timers[$timerName]['sum'] += $time - self::$_timers[$timerName]['start'];
             self::$_timers[$timerName]['start'] = false;
@@ -98,31 +97,36 @@ class Varien_Profiler
     {
         if (empty(self::$_timers[$timerName])) {
             return false;
-        } elseif (empty($key)) {
+        }
+
+        if (empty($key)) {
             return self::$_timers[$timerName];
         }
+
         switch ($key) {
             case 'sum':
                 $sum = self::$_timers[$timerName]['sum'];
                 if (self::$_timers[$timerName]['start'] !== false) {
                     $sum += microtime(true) - self::$_timers[$timerName]['start'];
                 }
+
                 return $sum;
 
             case 'count':
-                $count = self::$_timers[$timerName]['count'];
-                return $count;
+                return self::$_timers[$timerName]['count'];
 
             case 'realmem':
                 if (!isset(self::$_timers[$timerName]['realmem'])) {
                     self::$_timers[$timerName]['realmem'] = -1;
                 }
+
                 return self::$_timers[$timerName]['realmem'];
 
             case 'emalloc':
                 if (!isset(self::$_timers[$timerName]['emalloc'])) {
                     self::$_timers[$timerName]['emalloc'] = -1;
                 }
+
                 return self::$_timers[$timerName]['emalloc'];
 
             default:
@@ -130,6 +134,7 @@ class Varien_Profiler
                     return self::$_timers[$timerName][$key];
                 }
         }
+
         return false;
     }
 
@@ -140,13 +145,13 @@ class Varien_Profiler
 
     /**
      * Output SQl Zend_Db_Profiler
-     *
      */
     public static function getSqlProfiler($res)
     {
         if (!$res) {
             return '';
         }
+
         $out = '';
         $profiler = $res->getProfiler();
         if ($profiler->getEnabled()) {
@@ -162,12 +167,13 @@ class Varien_Profiler
                 }
             }
 
-            $out .= 'Executed ' . $queryCount . ' queries in ' . $totalTime . ' seconds' . "<br>";
-            $out .= 'Average query length: ' . $totalTime / $queryCount . ' seconds' . "<br>";
-            $out .= 'Queries per second: ' . $queryCount / $totalTime . "<br>";
-            $out .= 'Longest query length: ' . $longestTime . "<br>";
-            $out .= 'Longest query: <br>' . $longestQuery . "<hr>";
+            $out .= 'Executed ' . $queryCount . ' queries in ' . $totalTime . ' seconds' . '<br>';
+            $out .= 'Average query length: ' . $totalTime / $queryCount . ' seconds' . '<br>';
+            $out .= 'Queries per second: ' . $queryCount / $totalTime . '<br>';
+            $out .= 'Longest query length: ' . $longestTime . '<br>';
+            $out .= 'Longest query: <br>' . $longestQuery . '<hr>';
         }
+
         return $out;
     }
 }

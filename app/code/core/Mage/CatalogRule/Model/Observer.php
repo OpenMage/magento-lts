@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Price rules observer model
  *
- * @category   Mage
  * @package    Mage_CatalogRule
  */
 class Mage_CatalogRule_Model_Observer
@@ -39,8 +32,8 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Apply all catalog price rules for specific product
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function applyAllRulesOnProduct($observer)
     {
@@ -59,8 +52,8 @@ class Mage_CatalogRule_Model_Observer
      * Load matched catalog price rules for specific product.
      * Is used for comparison in Mage_CatalogRule_Model_Resource_Rule::applyToProduct method
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function loadProductRules($observer)
     {
@@ -69,6 +62,7 @@ class Mage_CatalogRule_Model_Observer
         if (!$product instanceof Mage_Catalog_Model_Product) {
             return $this;
         }
+
         Mage::getModel('catalogrule/rule')->loadProductRules($product);
         return $this;
     }
@@ -77,9 +71,9 @@ class Mage_CatalogRule_Model_Observer
      * Apply all price rules for current date.
      * Handle catalog_product_import_after event
      *
-     * @param   Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer
      *
-     * @return  $this
+     * @return $this
      */
     public function applyAllRules($observer)
     {
@@ -96,9 +90,7 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Preload all price rules for all items in quote
      *
-     * @param   Varien_Event_Observer $observer
-     *
-     * @return  $this
+     * @return $this
      */
     public function preloadPriceRules(Varien_Event_Observer $observer)
     {
@@ -131,9 +123,9 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Apply catalog price rules to product on frontend
      *
-     * @param   Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer
      *
-     * @return  $this
+     * @return $this
      */
     public function processFrontFinalPrice($observer)
     {
@@ -142,11 +134,7 @@ class Mage_CatalogRule_Model_Observer
         $pId        = $product->getId();
         $storeId    = $product->getStoreId();
 
-        if ($observer->hasDate()) {
-            $date = $observer->getEvent()->getDate();
-        } else {
-            $date = Mage::app()->getLocale()->storeTimeStamp($storeId);
-        }
+        $date = $observer->hasDate() ? $observer->getEvent()->getDate() : Mage::app()->getLocale()->storeTimeStamp($storeId);
 
         if ($observer->hasWebsiteId()) {
             $wId = $observer->getEvent()->getWebsiteId();
@@ -168,19 +156,21 @@ class Mage_CatalogRule_Model_Observer
                 ->getRulePrice($date, $wId, $gId, $pId);
             $this->_rulePrices[$key] = $rulePrice;
         }
+
         if ($this->_rulePrices[$key] !== false) {
-            $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
+            $finalPrice = min($product->getDataByKey('final_price'), $this->_rulePrices[$key]);
             $product->setFinalPrice($finalPrice);
         }
+
         return $this;
     }
 
     /**
      * Apply catalog price rules to product in admin
      *
-     * @param   Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer
      *
-     * @return  $this
+     * @return $this
      */
     public function processAdminFinalPrice($observer)
     {
@@ -204,13 +194,14 @@ class Mage_CatalogRule_Model_Observer
         }
 
         if ($key) {
-            if (!isset($this->_rulePrices[$key])) {
+            if (isset($wId, $gId, $pId) && !isset($this->_rulePrices[$key])) {
                 $rulePrice = Mage::getResourceModel('catalogrule/rule')
                     ->getRulePrice($date, $wId, $gId, $pId);
                 $this->_rulePrices[$key] = $rulePrice;
             }
+
             if ($this->_rulePrices[$key] !== false) {
-                $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
+                $finalPrice = min($product->getDataByKey('final_price'), $this->_rulePrices[$key]);
                 $product->setFinalPrice($finalPrice);
             }
         }
@@ -220,8 +211,6 @@ class Mage_CatalogRule_Model_Observer
 
     /**
      * Calculate price using catalog price rules of configurable product
-     *
-     * @param Varien_Event_Observer $observer
      *
      * @return $this
      */
@@ -248,9 +237,9 @@ class Mage_CatalogRule_Model_Observer
      * This method is called from cron process, cron is working in UTC time and
      * we should generate data for interval -1 day ... +1 day
      *
-     * @param   Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer
      *
-     * @return  $this
+     * @return $this
      */
     public function dailyCatalogUpdate($observer)
     {
@@ -272,7 +261,6 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Calculate minimal final price with catalog rule price
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function prepareCatalogProductPriceIndexTable(Varien_Event_Observer $observer)
@@ -294,7 +282,7 @@ class Mage_CatalogRule_Model_Observer
                 $customerGroupId,
                 $websiteId,
                 $updateFields,
-                $websiteDate
+                $websiteDate,
             );
 
         return $this;
@@ -307,6 +295,7 @@ class Mage_CatalogRule_Model_Observer
      * @param string $attributeCode
      *
      * @return $this
+     * @throws Throwable
      */
     protected function _checkCatalogRulesAvailability($attributeCode)
     {
@@ -315,10 +304,9 @@ class Mage_CatalogRule_Model_Observer
             ->addAttributeInConditionFilter($attributeCode);
 
         $disabledRulesCount = 0;
+        /** @var Mage_CatalogRule_Model_Rule $rule */
         foreach ($collection as $rule) {
-            /** @var Mage_CatalogRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /** @var $rule->getConditions() Mage_CatalogRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $rule->save();
 
@@ -328,7 +316,7 @@ class Mage_CatalogRule_Model_Observer
         if ($disabledRulesCount) {
             Mage::getModel('catalogrule/rule')->applyAll();
             Mage::getSingleton('adminhtml/session')->addWarning(
-                Mage::helper('catalogrule')->__('%d Catalog Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode)
+                Mage::helper('catalogrule')->__('%d Catalog Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode),
             );
         }
 
@@ -349,19 +337,19 @@ class Mage_CatalogRule_Model_Observer
             if ($condition instanceof Mage_CatalogRule_Model_Rule_Condition_Combine) {
                 $this->_removeAttributeFromConditions($condition, $attributeCode);
             }
-            if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract) {
-                if ($condition->getAttribute() == $attributeCode) {
-                    unset($conditions[$conditionId]);
-                }
+
+            if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract
+                && $condition->getAttribute() == $attributeCode
+            ) {
+                unset($conditions[$conditionId]);
             }
         }
+
         $combine->setConditions($conditions);
     }
 
     /**
      * After save attribute if it is not used for promo rules already check rules for containing this attribute
-     *
-     * @param Varien_Event_Observer $observer
      *
      * @return $this
      */
@@ -379,7 +367,6 @@ class Mage_CatalogRule_Model_Observer
     /**
      * After delete attribute check rules that contains deleted attribute
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogAttributeDeleteAfter(Varien_Event_Observer $observer)
@@ -394,7 +381,6 @@ class Mage_CatalogRule_Model_Observer
     }
 
     /**
-     * @param Varien_Event_Observer $observer
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -415,6 +401,7 @@ class Mage_CatalogRule_Model_Observer
                 $groupId = Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
             }
         }
+
         if ($observer->getEvent()->hasDate()) {
             $date = $observer->getEvent()->getDate();
         } else {
@@ -444,8 +431,6 @@ class Mage_CatalogRule_Model_Observer
 
     /**
      * Create catalog rule relations for imported products
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function createCatalogRulesRelations(Varien_Event_Observer $observer)
     {
@@ -469,8 +454,6 @@ class Mage_CatalogRule_Model_Observer
 
     /**
      * Runs Catalog Product Price Reindex
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function runCatalogProductPriceReindex(Varien_Event_Observer $observer)
     {
@@ -483,7 +466,7 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Generate key for rule prices
      *
-     * @param array $keyInfo
+     * @param  array  $keyInfo
      * @return string
      */
     protected function _getRulePricesKey($keyInfo)

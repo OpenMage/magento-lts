@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
@@ -24,11 +17,11 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     /**
      * Display price attribute value in base order currency and in place order currency
      *
-     * @param   Varien_Object $dataObject
-     * @param   string $code
-     * @param   bool $strong
-     * @param   string $separator
-     * @return  string
+     * @param  Varien_Object $dataObject
+     * @param  string        $code
+     * @param  bool          $strong
+     * @param  string        $separator
+     * @return string
      */
     public function displayPriceAttribute($dataObject, $code, $strong = false, $separator = '<br/>')
     {
@@ -37,29 +30,23 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
             $dataObject->getData('base_' . $code),
             $dataObject->getData($code),
             $strong,
-            $separator
+            $separator,
         );
     }
 
     /**
      * Get "double" prices html (block with base and place currency)
      *
-     * @param   Varien_Object $dataObject
-     * @param   float $basePrice
-     * @param   float $price
-     * @param   bool $strong
-     * @param   string $separator
-     * @return  string
+     * @param  Varien_Object $dataObject
+     * @param  float         $basePrice
+     * @param  float         $price
+     * @param  bool          $strong
+     * @param  string        $separator
+     * @return string
      */
     public function displayPrices($dataObject, $basePrice, $price, $strong = false, $separator = '<br/>')
     {
-        $order = false;
-        if ($dataObject instanceof Mage_Sales_Model_Order) {
-            $order = $dataObject;
-        } else {
-            $order = $dataObject->getOrder();
-        }
-
+        $order = $dataObject instanceof Mage_Sales_Model_Order ? $dataObject : $dataObject->getOrder();
         if ($order && $order->isCurrencyDifferent()) {
             $res = '<strong>';
             $res .= $order->formatBasePrice($basePrice);
@@ -76,14 +63,15 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                 $res = '<strong>' . $res . '</strong>';
             }
         }
+
         return $res;
     }
 
     /**
      * Filter collection by removing not available product types
      *
-     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function applySalableProductTypesFilter($collection)
     {
@@ -99,54 +87,60 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
             } else {
                 $type = '';
             }
+
             if (!in_array($type, $productTypes)) {
                 $collection->removeItemByKey($key);
             }
         }
+
         return $collection;
     }
 
     /**
      * Escape string preserving links
      *
-     * @param array|string $data
-     * @param null|array $allowedTags
-     * @return string
+     * @param  null|string|string[]                        $data
+     * @param  null|string[]                               $allowedTags
+     * @return ($data is array ? array<?string> : ?string)
      */
     public function escapeHtmlWithLinks($data, $allowedTags = null)
     {
         if (!empty($data) && is_array($allowedTags) && in_array('a', $allowedTags)) {
             $links = [];
-            $i = 1;
+            $index = 1;
             $data = str_replace('%', '%%', $data);
             $regexp = "/<a\s[^>]*href\s*?=\s*?([\"\']??)([^\" >]*?)\\1[^>]*>(.*)<\/a>/siU";
             while (preg_match($regexp, $data, $matches)) {
                 //Revert the sprintf escaping
                 $url = str_replace('%%', '%', $matches[2]);
                 $text = str_replace('%%', '%', $matches[3]);
-                //Check for an valid url
+                //Check for a valid url
                 if ($url) {
                     $urlScheme = strtolower(parse_url($url, PHP_URL_SCHEME));
                     if ($urlScheme !== 'http' && $urlScheme !== 'https') {
                         $url = null;
                     }
                 }
+
                 //Use hash tag as fallback
                 if (!$url) {
                     $url = '#';
                 }
+
                 //Recreate a minimalistic secure a tag
                 $links[] = sprintf(
                     '<a href="%s">%s</a>',
                     htmlspecialchars($url, ENT_QUOTES, 'UTF-8', false),
-                    parent::escapeHtml($text)
+                    parent::escapeHtml($text),
                 );
-                $data = str_replace($matches[0], '%' . $i . '$s', $data);
-                ++$i;
+                $data = str_replace($matches[0], '%' . $index . '$s', $data);
+                ++$index;
             }
+
             $data = parent::escapeHtml($data, $allowedTags);
             return vsprintf($data, $links);
         }
+
         return parent::escapeHtml($data, $allowedTags);
     }
 }

@@ -1,29 +1,24 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring profile orders grid
  *
- * @category   Mage
  * @package    Mage_Sales
+ *
+ * @method bool  getSkipGenerateContent()
+ * @method $this setSkipGenerateContent(bool $value)
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
-    /**
-     * Initialize basic parameters
-     */
+    protected string $_eventPrefix = 'adminhtml_sales_recurring_profile_view_tab_orders';
+
     public function __construct()
     {
         parent::__construct();
@@ -34,10 +29,9 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * Prepare grid collection object
-     *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_grid_collection')
@@ -48,12 +42,10 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * Prepare grid columns
-     *
-     * TODO: fix up this mess
-     *
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('real_order_id', [
@@ -66,9 +58,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', [
                 'header'    => Mage::helper('sales')->__('Purchased From (Store)'),
-                'index'     => 'store_id',
                 'type'      => 'store',
-                'store_view' => true,
                 'display_deleted' => true,
             ]);
         }
@@ -115,23 +105,19 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
             $this->addColumn(
                 'action',
                 [
-                    'header'    => Mage::helper('sales')->__('Action'),
-                    'width'     => '50px',
                     'type'      => 'action',
                     'getter'     => 'getId',
                     'actions'   => [
                         [
                             'caption' => Mage::helper('sales')->__('View'),
                             'url'     => ['base' => '*/sales_order/view'],
-                            'field'   => 'order_id'
-                        ]
+                            'field'   => 'order_id',
+                        ],
                     ],
-                    'filter'    => false,
-                    'sortable'  => false,
                     'index'     => 'stores',
                     'is_system' => true,
                     'data-column' => 'action',
-                ]
+                ],
             );
         }
 
@@ -139,21 +125,19 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * Return row url for js event handlers
-     *
+     * @inheritDoc
      * @param Varien_Object $row
-     * @return string
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
     }
 
     /**
-     * Url for ajax grid submission
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getTabUrl();
@@ -180,9 +164,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * Label getter
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabLabel()
     {
@@ -190,9 +172,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * Same as label getter
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabTitle()
     {
@@ -200,7 +180,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * @return bool
+     * @inheritDoc
      */
     public function canShowTab()
     {
@@ -208,7 +188,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
-     * @return bool
+     * @inheritDoc
      */
     public function isHidden()
     {

@@ -1,23 +1,17 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
 /**
  * Template for filter items block
  *
- * @see Mage_Catalog_Block_Layer_Filter
+ * @see Mage_Catalog_Block_Layer_Filter_Attribute
+ * @var Mage_Catalog_Block_Layer_Filter_Attribute $this
  */
 
 $_dimHelper = Mage::helper('configurableswatches/swatchdimensions');
@@ -35,7 +29,7 @@ $_swatchOuterHeight = $_dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Help
         $_swatchUrl = Mage::helper('configurableswatches/productimg')->getGlobalSwatchUrl($_item, $_label, $_swatchInnerWidth, $_swatchInnerHeight);
         $_hasImage = (!empty($_swatchUrl));
         $_linkClass = 'swatch-link' . (($_hasImage) ? ' has-image' : '');
-        $_linkCss = 'height:' . $_swatchOuterHeight . 'px; ' . ((!$_hasImage) ? 'min-' : '') . 'width:' . $_swatchOuterWidth . 'px;';
+        $_linkCss = 'height:' . $_swatchOuterHeight . 'px; ' . (($_hasImage) ? '' : 'min-') . 'width:' . $_swatchOuterWidth . 'px;';
         $_lineHeight = $_swatchOuterHeight + 2;
         ?>
         <li<?php if ($_hasImage){ echo ' style="line-height: ' . $_lineHeight . 'px;"'; } ?>>

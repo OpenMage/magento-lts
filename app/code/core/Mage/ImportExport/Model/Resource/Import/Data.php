@@ -1,31 +1,27 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * ImportExport import data resource model
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resource_Db_Abstract implements IteratorAggregate
 {
     /**
-     * @var IteratorIterator|null
+     * @var null|ArrayIterator<int|string, mixed>
      */
     protected $_iterator = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('importexport/importdata', 'id');
@@ -34,9 +30,9 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     /**
      * Retrieve an external iterator
      *
-     * @return IteratorIterator
+     * @return ArrayIterator<(int|string), mixed>
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function getIterator()
     {
         $adapter = $this->_getWriteAdapter();
@@ -47,14 +43,13 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
 
         $stmt->setFetchMode(Zend_Db::FETCH_NUM);
         if ($stmt instanceof IteratorAggregate) {
-            $iterator = $stmt->getIterator();
-        } else {
-            // Statement doesn't support iterating, so fetch all records and create iterator ourself
-            $rows = $stmt->fetchAll();
-            $iterator = new ArrayIterator($rows);
+            return $stmt->getIterator();
         }
 
-        return $iterator;
+        // Statement doesn't support iterating, so fetch all records and create iterator ourself
+        $rows = $stmt->fetchAll();
+
+        return new ArrayIterator($rows);
     }
 
     /**
@@ -70,45 +65,47 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     /**
      * Return behavior from import data table.
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getBehavior()
     {
         $adapter = $this->_getReadAdapter();
         $behaviors = array_unique($adapter->fetchCol(
             $adapter->select()
-                ->from($this->getMainTable(), ['behavior'])
+                ->from($this->getMainTable(), ['behavior']),
         ));
-        if (count($behaviors) != 1) {
+        if (count($behaviors) !== 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: behaviors are mixed'));
         }
+
         return $behaviors[0];
     }
 
     /**
      * Return entity type code from import data table.
      *
-     * @throws Exception
      * @return string
+     * @throws Exception
      */
     public function getEntityTypeCode()
     {
         $adapter = $this->_getReadAdapter();
         $entityCodes = array_unique($adapter->fetchCol(
             $adapter->select()
-                ->from($this->getMainTable(), ['entity'])
+                ->from($this->getMainTable(), ['entity']),
         ));
-        if (count($entityCodes) != 1) {
+        if (count($entityCodes) !== 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: entity codes are mixed'));
         }
+
         return $entityCodes[0];
     }
 
     /**
      * Get next bunch of validated rows.
      *
-     * @return array|null
+     * @return null|array
      */
     public function getNextBunch()
     {
@@ -116,6 +113,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
             $this->_iterator = $this->getIterator();
             $this->_iterator->rewind();
         }
+
         if ($this->_iterator->valid()) {
             $dataRow = $this->_iterator->current();
             $dataRow = Mage::helper('core')->jsonDecode($dataRow[0]);
@@ -124,22 +122,22 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
             $this->_iterator = null;
             $dataRow = null;
         }
+
         return $dataRow;
     }
 
     /**
      * Save import rows bunch.
      *
-     * @param string $entity
-     * @param string $behavior
-     * @param array $data
+     * @param  string $entity
+     * @param  string $behavior
      * @return int
      */
     public function saveBunch($entity, $behavior, array $data)
     {
         return $this->_getWriteAdapter()->insert(
             $this->getMainTable(),
-            ['behavior' => $behavior, 'entity' => $entity, 'data' => Mage::helper('core')->jsonEncode($data)]
+            ['behavior' => $behavior, 'entity' => $entity, 'data' => Mage::helper('core')->jsonEncode($data)],
         );
     }
 }

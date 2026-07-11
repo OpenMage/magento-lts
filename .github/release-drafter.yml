@@ -1,0 +1,54 @@
+name-template: 'v$RESOLVED_VERSION 🌈'
+tag-template: 'v$RESOLVED_VERSION'
+categories:
+  - title: '🚨 Security'
+    labels:
+      - 'security'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+  - title: '🚀 Features'
+    labels:
+      - 'new feature'
+  - title: '🦾 Enhancements'
+    labels:
+      - 'enhancement'
+      - 'improvement'
+  - title: '📖 Documentation'
+    labels:
+      - 'documentation'
+  - title: '🔨 Maintenance'
+    labels:
+      - 'chore'
+      - 'Cleanup'
+  - title: '↗️ Dependencies'
+    labels:
+      - 'dependencies'
+change-template: '- $TITLE ([#$NUMBER](https://github.com/OpenMage/magento-lts/pull/$NUMBER))'
+change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+exclude-labels:
+  - 'allcontributors-bot'
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+      - 'enhancement'
+      - 'new feature'
+  patch:
+    labels:
+      - 'patch'
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+  default: minor
+template: |
+  ## Changes
+
+  $CHANGES
+
+  $CONTRIBUTORS

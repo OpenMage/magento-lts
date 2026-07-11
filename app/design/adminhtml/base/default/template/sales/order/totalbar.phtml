@@ -1,0 +1,28 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Sales_Order_Totalbar $this */
+?>
+<?php if(count($this->getTotals()) > 0): ?>
+<div class="box">
+    <div class="entry-edit">
+        <table border="0" cellspacing="0" width="100%">
+            <tr>
+            <?php foreach( $this->getTotals() as $_total ): ?>
+                <td class="a-center">
+                    <div <?php if ($_total['grand']): ?>class="grand-total"<?php endif ?>>
+                        <?php echo $_total['label'] ?><br />
+                        <?php echo $_total['value'] ?>
+                    </div>
+                </td>
+            <?php endforeach ?>
+            </tr>
+        </table>
+    </div>
+</div>
+<?php endif ?>

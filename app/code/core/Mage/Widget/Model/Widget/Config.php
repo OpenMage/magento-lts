@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widgets Insertion Plugin Config for Editor HTML Element
  *
- * @category   Mage
  * @package    Mage_Widget
  */
 class Mage_Widget_Model_Widget_Config extends Varien_Object
@@ -24,57 +17,37 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Return config settings for widgets insertion plugin based on editor element config
      *
-     * @param Varien_Object $config
-     * @return array
+     * @param  Varien_Object                               $config
+     * @return array<string, array<string, string>|string>
+     * @throws Exception
      */
     public function getPluginSettings($config)
     {
         return [
             'widget_plugin_src'   => Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tinymce/plugins/openmagewidget.js',
-            'widget_images_url'   => $this->getPlaceholderImagesBaseUrl(),
-            'widget_placeholders' => $this->getAvailablePlaceholderFilenames(),
-            'widget_window_url'   => $this->getWidgetWindowUrl($config)
+            'widget_placeholders' => $this->getPlaceholderImages(),
+            'widget_window_url'   => $this->getWidgetWindowUrl($config),
         ];
     }
 
     /**
-     * Return Widget placeholders images URL
-     *
-     * @return string
+     * @return array<string, string>
+     * @throws Exception
      */
-    public function getPlaceholderImagesBaseUrl()
+    public function getPlaceholderImages(): array
     {
-        return Mage::getDesign()->getSkinUrl('images/widget/');
-    }
+        // i want glob able path
+        $dir = Mage::getBaseDir('skin') . DS . Mage::getDesign()->getArea()
+            . DS . '*' . DS . '*' . DS . 'images' . DS . 'widget' . DS . '*.gif';
+        $glob = glob($dir);
+        if ($glob === false) {
+            return [];
+        }
 
-    /**
-     * Return Widget placeholders images dir
-     *
-     * @return string
-     */
-    public function getPlaceholderImagesBaseDir()
-    {
-        return Mage::getDesign()->getSkinBaseDir() . DS . 'images' . DS . 'widget';
-    }
-
-    /**
-     * Return list of existing widget image placeholders
-     *
-     * @return array
-     */
-    public function getAvailablePlaceholderFilenames()
-    {
+        $files = array_unique(array_map(basename(...), $glob));
         $result = [];
-        $targetDir = $this->getPlaceholderImagesBaseDir();
-        if (is_dir($targetDir) && is_readable($targetDir)) {
-            $collection = new Varien_Data_Collection_Filesystem();
-            $collection->addTargetDir($targetDir)
-                ->setCollectDirs(false)
-                ->setCollectFiles(true)
-                ->setCollectRecursively(false);
-            foreach ($collection as $file) {
-                $result[] = $file->getBasename();
-            }
+        foreach ($files as $file) {
+            $result[$file] = Mage::getDesign()->getSkinUrl('images/widget/' . $file);
         }
 
         return $result;
@@ -83,17 +56,17 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Return Widgets Insertion Plugin Window URL
      *
-     * @param Varien_Object $config Editor element config
+     * @param  Varien_Object $config Editor element config
      * @return string
      */
     public function getWidgetWindowUrl($config)
     {
         $params = [];
 
-        $skipped = is_array($config->getData('skip_widgets')) ? $config->getData('skip_widgets') : [];
+        $skipped = is_array($config->getDataByKey('skip_widgets')) ? $config->getDataByKey('skip_widgets') : [];
         if ($config->hasData('widget_filters')) {
             $all = Mage::getModel('widget/widget')->getWidgetsXml();
-            $filtered = Mage::getModel('widget/widget')->getWidgetsXml($config->getData('widget_filters'));
+            $filtered = Mage::getModel('widget/widget')->getWidgetsXml($config->getDataByKey('widget_filters'));
             $reflection = new ReflectionObject($filtered);
             foreach ($all as $code => $widget) {
                 if (!$reflection->hasProperty($code)) {
@@ -102,16 +75,17 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
             }
         }
 
-        if (count($skipped) > 0) {
+        if ($skipped !== []) {
             $params['skip_widgets'] = $this->encodeWidgetsToQuery($skipped);
         }
+
         return Mage::getSingleton('adminhtml/url')->getUrl('*/widget/index', $params);
     }
 
     /**
      * Encode list of widget types into query param
      *
-     * @param array $widgets List of widgets
+     * @param  array  $widgets List of widgets
      * @return string Query param value
      */
     public function encodeWidgetsToQuery($widgets)
@@ -124,8 +98,8 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
     /**
      * Decode URL query param and return list of widgets
      *
-     * @param string $queryParam Query param value to decode
-     * @return array Array of widget types
+     * @param  string $queryParam Query param value to decode
+     * @return array  Array of widget types
      */
     public function decodeWidgetsFromQuery($queryParam)
     {

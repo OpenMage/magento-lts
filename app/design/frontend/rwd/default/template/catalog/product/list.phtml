@@ -1,16 +1,9 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -18,8 +11,8 @@
  * Product list template
  *
  * @see Mage_Catalog_Block_Product_List
+ * @var Mage_Catalog_Block_Product_List $this 
  */
-/* @var $this Mage_Catalog_Block_Product_List */
 ?>
 <?php
     $_productCollection = $this->getLoadedProductCollection();
@@ -138,7 +131,7 @@
         <?php $i=0; foreach ($_productCollection as $_product): ?>
             <?php /*if ($i++%$_columnCount==0): ?>
             <?php endif*/ ?>
-            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif ?>">
+            <li class="item<?php if(($i - 1) % $_columnCount === 0): ?> first<?php elseif($i % $_columnCount === 0): ?> last<?php endif ?>">
                 <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
                     <?php $_imgSize = 210; ?>
                     <img id="product-collection-image-<?php echo $_product->getId(); ?>"

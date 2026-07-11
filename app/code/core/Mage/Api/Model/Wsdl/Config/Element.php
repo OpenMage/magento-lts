@@ -1,31 +1,25 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wsdl element model
  *
- * @category   Mage
  * @package    Mage_Api
  */
 class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
 {
     /**
-     * @param Varien_Simplexml_Element $source
-     * @param bool $overwrite
+     * @param  Varien_Simplexml_Element       $source
+     * @param  bool                           $overwrite
      * @return $this|Varien_Simplexml_Element
      */
+    #[Override]
     public function extend($source, $overwrite = false)
     {
         if (!$source instanceof Varien_Simplexml_Element) {
@@ -44,11 +38,12 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     /**
      * Extends one node
      *
-     * @param Varien_Simplexml_Element $source
-     * @param bool $overwrite
-     * @param string $elmNamespace
-     * @return Varien_Simplexml_Element
+     * @param  Varien_Simplexml_Element $source
+     * @param  bool                     $overwrite
+     * @param  string                   $elmNamespace
+     * @return $this
      */
+    #[Override]
     public function extendChild($source, $overwrite = false, $elmNamespace = '')
     {
         // this will be our new target node
@@ -72,12 +67,14 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                 if (self::_getChildren($elm)) {
                     return $this;
                 }
+
                 if ($overwrite) {
                     unset($elm);
                 } else {
                     return $this;
                 }
             }
+
             $targetChild = $this->addChild($sourceName, $source->xmlentities(), $elmNamespace);
             $targetChild->setParent($this);
             foreach ($this->getAttributes($source) as $namespace => $attributes) {
@@ -92,6 +89,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                     $targetChild->addAttribute($key, $this->xmlentities($value), $namespace);
                 }
             }
+
             return $this;
         }
 
@@ -99,6 +97,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
         if (!is_null($elm)) {
             $targetChild = $elm;
         }
+
         if (is_null($targetChild)) {
             // if child target is not found create new and descend
             $targetChild = $this->addChild($sourceName, null, $elmNamespace);
@@ -111,13 +110,14 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                     } elseif (array_key_exists($namespace, $_namespacesPrefix)) {
                         $key = $_namespacesPrefix[$namespace] . ':' . $key;
                     }
+
                     $targetChild->addAttribute($key, $this->xmlentities($value), $namespace);
                 }
             }
         }
 
         foreach ($sourceChildren as $elmNamespace => $children) {
-            foreach ($children as $childKey => $childNode) {
+            foreach ($children as $childNode) {
                 $targetChild->extendChild($childNode, $overwrite, $elmNamespace);
             }
         }
@@ -135,8 +135,8 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      *   )
      * )
      *
-     * @param Varien_Simplexml_Element $source
-     * @param null|string $namespace
+     * @param  Varien_Simplexml_Element $source
+     * @param  null|string              $namespace
      * @return array
      */
     public function getAttributes($source, $namespace = null)
@@ -146,23 +146,30 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
             $attributes[$namespace] = $source->attributes($namespace);
             return $attributes;
         }
+
         $namespaces = $source->getNamespaces(true);
         $attributes[''] = $source->attributes('');
         foreach ($namespaces as $key => $value) {
-            if ($key == '' || $key == 'soap') {
+            if ($key == '') {
                 continue;
             }
+
+            if ($key == 'soap') {
+                continue;
+            }
+
             $attributes[$value] = $source->attributes($value);
         }
+
         return $attributes;
     }
 
     /**
-     * @deprecated due to conflict with PHP8 parent class update
-     * @param Varien_Simplexml_Element $source
+     * @param  Varien_Simplexml_Element $source
      * @return array
+     * @deprecated due to conflict with PHP8 parent class update
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function getChildren($source = null)
     {
         Mage::log('Use of deprecated method: ' . __METHOD__);
@@ -172,7 +179,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     /**
      * Return children of all namespaces
      *
-     * @param Varien_Simplexml_Element $source
+     * @param  Varien_Simplexml_Element $source
      * @return array
      */
     protected static function _getChildren($source)
@@ -183,11 +190,17 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
         $isWsi = Mage::helper('api/data')->isComplianceWSI();
 
         foreach ($namespaces as $key => $value) {
-            if ($key == '' || (!$isWsi && $key == 'wsdl')) {
+            if ($key == '') {
                 continue;
             }
+
+            if (!$isWsi && $key == 'wsdl') {
+                continue;
+            }
+
             $children[$value] = $source->children($value);
         }
+
         $children[''] = $source->children('');
         return $children;
     }
@@ -197,7 +210,8 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      *
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
+    #[Override]
     public function hasChildren()
     {
         if (!self::_getChildren($this)) {
@@ -205,26 +219,27 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
         }
 
         // simplexml bug: @attributes is in children() but invisible in foreach
-        foreach (self::_getChildren($this) as $namespace => $children) {
-            foreach ($children as $k => $child) {
+        foreach (self::_getChildren($this) as $children) {
+            foreach ($children as $ignored) {
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Return element by tag name, and checking attributes with namespaces
      *
-     * @param Varien_Simplexml_Element $source
-     * @param string $elmNamespace
-     * @return SimpleXMLElement|Varien_Simplexml_Element|null
+     * @param  Varien_Simplexml_Element                       $source
+     * @param  string                                         $elmNamespace
+     * @return null|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getElementByName($source, $elmNamespace = '')
     {
         $sourceName = $source->getName();
         $extendElmAttributes = $this->getAttributes($source);
-        foreach ($this->children($elmNamespace) as $k => $child) {
+        foreach ($this->children($elmNamespace) as $child) {
             if ($child->getName() == $sourceName) {
                 $elm = true;
                 foreach ($extendElmAttributes as $namespace => $attributes) {
@@ -234,6 +249,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                         }
                     }
                 }
+
                 /**
                  * if count of namespaces attributes of element to extend is 0,
                  * but current element has namespaces attributes - different elements
@@ -241,24 +257,27 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                 if (!count($extendElmAttributes) && count($this->getAttributes($child))) {
                     $elm = false;
                 }
+
                 if ($elm) {
                     return $child;
                 }
             }
         }
+
         return null;
     }
 
     /**
      * Returns attribute value by attribute name
      *
-     * @param string $name
-     * @param string $namespace
-     * @return string|null
+     * @param  string      $name
+     * @param  string      $namespace
+     * @return null|string
      */
+    #[Override]
     public function getAttribute($name, $namespace = '')
     {
         $attrs = $this->attributes($namespace);
-        return isset($attrs[$name]) ? (string)$attrs[$name] : null;
+        return isset($attrs[$name]) ? (string) $attrs[$name] : null;
     }
 }

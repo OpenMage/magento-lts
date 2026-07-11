@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Model_Condition_Combine
@@ -36,7 +29,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Products attributes info
-     * @var array|null
+     * @var null|array
      */
     protected $_productAttributesInfo = null;
 
@@ -51,7 +44,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Check whether the attribute is a quote item attribute
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return bool
      */
     protected function _getIsQuoteItemAttribute($attributeCode)
@@ -78,7 +71,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
         $this->_productAttributesInfo[$conditionType][$conditionKey] = [
             'label' => $attributeLabel,
-            'value' => $conditionKey
+            'value' => $conditionKey,
         ];
 
         return $this;
@@ -115,19 +108,19 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
                         self::PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM,
                         'salesrule/rule_condition_product',
                         $attributeCode,
-                        $attributeLabel
+                        $attributeLabel,
                     );
                 } else {
                     $this->_addAttributeToConditionGroup(
                         self::PRODUCT_ATTRIBUTES_TYPE_PRODUCT,
                         'salesrule/rule_condition_product',
                         $attributeCode,
-                        $attributeLabel
+                        $attributeLabel,
                     )->_addAttributeToConditionGroup(
                         self::PRODUCT_ATTRIBUTES_TYPE_ISSET,
                         'salesrule/rule_condition_product_attribute_assigned',
                         $attributeCode,
-                        $attributeLabel
+                        $attributeLabel,
                     );
                 }
             }
@@ -149,19 +142,20 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
      * Generate a conditions data
      * @return array
      */
+    #[Override]
     public function getNewChildSelectOptions()
     {
         $conditions = parent::getNewChildSelectOptions();
-        $conditions = array_merge_recursive(
+        return array_merge_recursive(
             $conditions,
             [
                 [
                     'label' => Mage::helper('catalog')->__('Conditions Combination'),
-                    'value' => 'salesrule/rule_condition_product_combine'
+                    'value' => 'salesrule/rule_condition_product_combine',
                 ],
                 [
                     'label' => Mage::helper('catalog')->__('Cart Item Attribute'),
-                    'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM)
+                    'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM),
                 ],
                 [
                     'label' => Mage::helper('catalog')->__('Product Attribute'),
@@ -169,16 +163,15 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
                 ],
                 [
                     'label' => $this->_getHelper()->__('Product Attribute Assigned'),
-                    'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_ISSET)
-                ]
-            ]
+                    'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_ISSET),
+                ],
+            ],
         );
-        return $conditions;
     }
 
     /**
      * Collect all validated attributes
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return $this
      */
     public function collectValidatedAttributes($productCollection)
@@ -186,15 +179,16 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         foreach ($this->getConditions() as $condition) {
             $condition->collectValidatedAttributes($productCollection);
         }
+
         return $this;
     }
 
     /**
      * Validate a condition with the checking of the child value
-     * @param Varien_Object $object
      *
      * @return bool
      */
+    #[Override]
     public function validate(Varien_Object $object)
     {
         /** @var Mage_Catalog_Model_Product $product */

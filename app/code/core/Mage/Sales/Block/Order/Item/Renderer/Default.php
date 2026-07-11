@@ -1,28 +1,20 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order item render block
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Template
 {
     /**
-     * @param Varien_Object $item
      * @return $this
      */
     public function setItem(Varien_Object $item)
@@ -56,9 +48,9 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     {
         if ($this->getItem() instanceof Mage_Sales_Model_Order_Item) {
             return $this->getItem();
-        } else {
-            return $this->getItem()->getOrderItem();
         }
+
+        return $this->getItem()->getOrderItem();
     }
 
     /**
@@ -67,17 +59,22 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     public function getItemOptions()
     {
         $result = [];
-        if ($options = $this->getOrderItem()->getProductOptions()) {
+        $options = $this->getOrderItem()->getProductOptions();
+
+        if ($options) {
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (isset($options['attributes_info'])) {
                 $result = array_merge($result, $options['attributes_info']);
             }
         }
+
         return $result;
     }
 
@@ -85,19 +82,19 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
      * Accept option value and return its formatted view
      *
      * @param mixed $optionValue
-     * Method works well with these $optionValue format:
-     *      1. String
-     *      2. Indexed array e.g. array(val1, val2, ...)
-     *      3. Associative array, containing additional option info, including option value, e.g.
-     *          array
-     *          (
-     *              [label] => ...,
-     *              [value] => ...,
-     *              [print_value] => ...,
-     *              [option_id] => ...,
-     *              [option_type] => ...,
-     *              [custom_view] =>...,
-     *          )
+     *                           Method works well with these $optionValue format:
+     *                           1. String
+     *                           2. Indexed array e.g. array(val1, val2, ...)
+     *                           3. Associative array, containing additional option info, including option value, e.g.
+     *                           array
+     *                           (
+     *                           [label] => ...,
+     *                           [value] => ...,
+     *                           [print_value] => ...,
+     *                           [option_id] => ...,
+     *                           [option_type] => ...,
+     *                           [custom_view] =>...,
+     *                           )
      *
      * @return array
      */
@@ -124,28 +121,29 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
                 try {
                     $group = Mage::getModel('catalog/product_option')->groupFactory($optionInfo['option_type']);
                     return ['value' => $group->getCustomizedView($optionInfo)];
-                } catch (Exception $e) {
+                } catch (Exception) {
                     return $_default;
                 }
             }
+
             return $_default;
         }
 
         // truncate standard view
         $result = [];
         if (is_array($optionValue)) {
-            $_truncatedValue = implode("\n", $optionValue);
-            $_truncatedValue = nl2br($_truncatedValue);
-            return ['value' => $_truncatedValue];
-        } else {
-            $_truncatedValue = Mage::helper('core/string')->truncate($optionValue, 55, '');
-            $_truncatedValue = nl2br($_truncatedValue);
+            $truncatedValue = implode("\n", $optionValue);
+            $truncatedValue = nl2br($truncatedValue);
+            return ['value' => $truncatedValue];
         }
 
-        $result = ['value' => $_truncatedValue];
+        $truncatedValue = Mage::helper('core/string')->truncate($optionValue, 55, '');
+        $truncatedValue = nl2br($truncatedValue);
+
+        $result = ['value' => $truncatedValue];
 
         if (Mage::helper('core/string')->strlen($optionValue) > 55) {
-            $result['value'] = $result['value'] . ' <a href="#" class="dots" onclick="return false">...</a>';
+            $result['value'] .= ' <a href="#" class="dots" onclick="return false">...</a>';
             $optionValue = nl2br($optionValue);
             $result = array_merge($result, ['full_view' => $optionValue]);
         }
@@ -169,10 +167,40 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     /**
      * Return product additional information block
      *
-     * @return Mage_Core_Block_Abstract
+     * TODO set return type
+     * @return null|Mage_Core_Block_Abstract
      */
     public function getProductAdditionalInformationBlock()
     {
         return $this->getLayout()->getBlock('additional.product.info');
+    }
+
+    public function canDisplayGiftmessage(): bool
+    {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable(
+            $helper::TYPE_ORDER_ITEM,
+            $this->getOrderItem(),
+        ) && $this->getItem()->getGiftMessageId();
+    }
+
+    public function getGiftMessage(): ?Mage_GiftMessage_Model_Message
+    {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return null;
+        }
+
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        if ($this->getItem()->getGiftMessageId()) {
+            return $helper->getGiftMessage($this->getItem()->getGiftMessageId());
+        }
+
+        return null;
     }
 }

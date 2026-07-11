@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product Reviews Page
  *
- * @category   Mage
  * @package    Mage_Review
  */
 class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
@@ -29,6 +22,7 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->getProduct()->setShortDescription(null);
@@ -40,12 +34,12 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
      * Replace review summary html with more detailed review summary
      * Reviews collection count will be jerked here
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param bool $templateType
-     * @param bool $displayIfNoReviews
+     * @param  false|string                                        $templateType
+     * @param  bool                                                $displayIfNoReviews
      * @return string
-     * @throws Mage_Core_Model_Store_Exception|Mage_Core_Exception
+     * @throws Mage_Core_Exception|Mage_Core_Model_Store_Exception
      */
+    #[Override]
     public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false, $displayIfNoReviews = false)
     {
         /** @var Mage_Core_Block_Template $reviewContBlock */
@@ -54,8 +48,7 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
             $this->getLayout()->createBlock('rating/entity_detailed')
                 ->setEntityId($this->getProduct()->getId())
                 ->toHtml()
-            .
-            $reviewContBlock
+            . $reviewContBlock
                 ->assign('count', $this->getReviewsCollection()->getSize())
                 ->toHtml()
         ;
@@ -63,7 +56,7 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
 
     /**
      * @return Mage_Review_Model_Resource_Review_Collection
-     * @throws Mage_Core_Model_Store_Exception|Mage_Core_Exception
+     * @throws Mage_Core_Exception|Mage_Core_Model_Store_Exception
      */
     public function getReviewsCollection()
     {
@@ -74,6 +67,7 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
                 ->addEntityFilter('product', $this->getProduct()->getId())
                 ->setDateOrder();
         }
+
         return $this->_reviewsCollection;
     }
 
@@ -82,6 +76,7 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
      *
      * @return false
      */
+    #[Override]
     public function hasOptions()
     {
         return false;

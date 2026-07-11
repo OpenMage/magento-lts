@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * GiftMessage api
  *
- * @category   Mage
  * @package    Mage_GiftMessage
  */
 class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Product
@@ -24,7 +17,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
     /**
      * Return an Array of attributes.
      *
-     * @param array $arr
+     * @param  array $arr
      * @return array
      */
     protected function _prepareData($arr)
@@ -32,15 +25,16 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         if (is_array($arr)) {
             return $arr;
         }
+
         return [];
     }
 
     /**
      * Raise event for setting a giftMessage.
      *
-     * @param String $entityId
-     * @param Mage_Core_Controller_Request_Http $request
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  String                            $entityId
+     * @param  Mage_Core_Controller_Request_Http $request
+     * @param  Mage_Sales_Model_Quote            $quote
      * @return array
      */
     protected function _setGiftMessage($entityId, $request, $quote)
@@ -53,20 +47,20 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         try {
             Mage::dispatchEvent(
                 'checkout_controller_onepage_save_shipping_method',
-                ['request' => $request, 'quote' => $quote]
+                ['request' => $request, 'quote' => $quote],
             );
             return ['entityId' => $entityId, 'result' => true, 'error' => ''];
-        } catch (Exception $e) {
-            return ['entityId' => $entityId, 'result' => false, 'error' => $e->getMessage()];
+        } catch (Exception $exception) {
+            return ['entityId' => $entityId, 'result' => false, 'error' => $exception->getMessage()];
         }
     }
 
     /**
      * Set GiftMessage for a Quote.
      *
-     * @param int $quoteId
-     * @param array[] $giftMessage
-     * @param string $store
+     * @param  int     $quoteId
+     * @param  array[] $giftMessage
+     * @param  string  $store
      * @return array[]
      */
     public function setForQuote($quoteId, $giftMessage, $store = null)
@@ -81,7 +75,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         $giftMessage['type'] = 'quote';
         $giftMessages = [$quoteId => $giftMessage];
         $request = new Mage_Core_Controller_Request_Http();
-        $request->setParam("giftmessage", $giftMessages);
+        $request->setParam('giftmessage', $giftMessages);
 
         return $this->_setGiftMessage($quote->getId(), $request, $quote);
     }
@@ -89,9 +83,9 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
     /**
      * Set a GiftMessage to QuoteItem by product
      *
-     * @param int $quoteId
-     * @param array $productsAndMessages
-     * @param string $store
+     * @param  int    $quoteId
+     * @param  array  $productsAndMessages
+     * @param  string $store
      * @return array
      */
     public function setForQuoteProduct($quoteId, $productsAndMessages, $store = null)
@@ -103,7 +97,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
             $this->_fault('invalid_data');
         }
 
-        if (count($productsAndMessages) == 2
+        if (count($productsAndMessages) === 2
                 && isset($productsAndMessages['product'])
                 && isset($productsAndMessages['message'])
         ) {
@@ -117,15 +111,16 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
                 if (empty($product)) {
                     $this->_fault('product_invalid_data');
                 }
+
                 $message = $this->_prepareData($productAndMessage['message']);
                 if (empty($message)) {
                     $this->_fault('giftmessage_invalid_data');
                 }
 
                 if (isset($product['product_id'])) {
-                    $productByItem = $this->_getProduct($product['product_id'], $store, "id");
+                    $productByItem = $this->_getProduct($product['product_id'], $store, 'id');
                 } elseif (isset($product['sku'])) {
-                    $productByItem = $this->_getProduct($product['sku'], $store, "sku");
+                    $productByItem = $this->_getProduct($product['sku'], $store, 'sku');
                 } else {
                     continue;
                 }
@@ -142,9 +137,9 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
     /**
      * Set GiftMessage for a QuoteItem by its Id.
      *
-     * @param string $quoteItemId
-     * @param array[] $giftMessage
-     * @param string $store
+     * @param  string  $quoteItemId
+     * @param  array[] $giftMessage
+     * @param  string  $store
      * @return array[]
      */
     public function setForQuoteItem($quoteItemId, $giftMessage, $store = null)
@@ -152,7 +147,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         /** @var Mage_Sales_Model_Quote_Item $quoteItem */
         $quoteItem = Mage::getModel('sales/quote_item')->load($quoteItemId);
         if (is_null($quoteItem->getId())) {
-            $this->_fault("quote_item_not_exists");
+            $this->_fault('quote_item_not_exists');
         }
 
         $quote = $this->_getQuote($quoteItem->getQuoteId(), $store);
@@ -163,7 +158,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         $giftMessages = [$quoteItem->getId() => $giftMessage];
 
         $request = new Mage_Core_Controller_Request_Http();
-        $request->setParam("giftmessage", $giftMessages);
+        $request->setParam('giftmessage', $giftMessages);
 
         return $this->_setGiftMessage($quoteItemId, $request, $quote);
     }

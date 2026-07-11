@@ -8,49 +8,120 @@ on:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
+permissions:
+  checks: write
+  pull-requests: write
+
 jobs:
   unit-tests:
-    runs-on: [ubuntu-latest]
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['8.1', '8.5']
+        mysql-version: ['5.7', '8.0', '8.4']
+
+    services:
+      mysql:
+        image: mysql:${{ matrix.mysql-version }}
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: db
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          repository: OpenMage/Testfield
-          path: ./
+      - name: Validate mysql service
+        run: |
+          echo "Checking mysql service"
+          sudo apt-get install -y mysql-client
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -proot -e "SHOW DATABASES"
 
-      - name: Validate composer
-        run: composer validate
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: xdebug #optional, setup coverage driver
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v7
 
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+        run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
-      - name: Checkout OpenMage repo
-        uses: actions/checkout@v4
+      - name: Install OpenMage
+        run: |
+          php -f install.php -- \
+          --license_agreement_accepted 'yes' \
+          --locale 'en_US' \
+          --timezone 'America/New_York' \
+          --db_host '127.0.0.1' \
+          --db_name 'db' \
+          --db_user 'root' \
+          --db_pass 'root' \
+          --db_prefix '' \
+          --url 'http://openmage.local' \
+          --use_rewrites 'yes' \
+          --use_secure 'yes' \
+          --secure_base_url 'http://openmage.local' \
+          --use_secure_admin 'yes' \
+          --admin_username 'admin' \
+          --admin_lastname 'Administrator' \
+          --admin_firstname 'OpenMage' \
+          --admin_email 'admin@example.com' \
+          --admin_password 'veryl0ngpassw0rd' \
+          --session_save 'files' \
+          --admin_frontname 'admin' \
+          --backend_frontname 'admin' \
+          --default_currency 'USD' \
+          --enable_charts 'yes' \
+          --skip_url_validation 'yes'
+
+      - name: Restore result cache
+        uses: actions/cache/restore@v6
         with:
-          path: openmage
+          path: .cache/.phpunit.result.cache
+          key: phpunit-result-cache-${{ matrix.php-versions }}-${{ matrix.mysql-version }}-${{ github.run_id }}
+          restore-keys: |
+            phpunit-result-cache-
 
-      - name: Install OpenMage dependencies
-        working-directory: ./openmage
-        run: composer install --prefer-dist --no-progress --ignore-platform-reqs --no-dev
+      - name: Run phpUnit
+        run: php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien
 
-      - name: run phpUnit
-        run: bash ./run_unit_tests.sh
+      - name: Save result cache
+        uses: actions/cache/save@v6
+        if: always()
+        with:
+          path: .cache/.phpunit.result.cache
+          key: phpunit-result-cache-${{ matrix.php-versions }}-${{ matrix.mysql-version }}-${{ github.run_id }}
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2.7
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
-        continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: output/*.xml
+          files: build/phpunit/logging/*.xml
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v8
+        continue-on-error: true
+        if: ${{ (matrix.php-versions == '8.1') && (matrix.mysql-version == '5.7') }}
+        with:
+          args: >
+            -Dproject.settings=tests/sonar-project.properties
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

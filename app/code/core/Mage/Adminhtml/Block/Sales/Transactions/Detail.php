@@ -1,24 +1,35 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
 
 /**
  * Adminhtml transaction detail
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method string getCreatedAtHtml()
+ * @method string getIsClosedHtml()
+ * @method string getOrderIdUrlHtml()
+ * @method string getOrderIncrementIdHtml()
+ * @method string getParentTxnIdHtml()
+ * @method string getParentTxnIdUrlHtml()
+ * @method string getTxnIdHtml()
+ * @method string getTxnTypeHtml()
+ * @method $this  setCreatedAtHtml(string $value)
+ * @method $this  setIsClosedHtml(string $value)
+ * @method $this  setOrderIdUrlHtml(string $value)
+ * @method $this  setOrderIncrementIdHtml(string $value)
+ * @method $this  setParentTxnIdHtml(string $value)
+ * @method $this  setParentTxnIdUrlHtml(string $value)
+ * @method $this  setTxnIdHtml(string $value)
+ * @method $this  setTxnTypeHtml(string $value)
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Block_Widget_Container
 {
@@ -39,10 +50,10 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $this->_txn = Mage::registry('current_transaction');
 
         $backUrl = ($this->_txn->getOrderUrl()) ? $this->_txn->getOrderUrl() : $this->getUrl('*/*/');
-        $this->_addButton('back', [
+        $this->_addButton(self::BUTTON_TYPE_BACK, [
             'label'   => Mage::helper('sales')->__('Back'),
             'onclick' => Mage::helper('core/js')->getSetLocationJs($backUrl),
-            'class'   => 'back'
+            'class'   => 'back',
         ]);
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch')
@@ -51,7 +62,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
             $this->_addButton('fetch', [
                 'label'   => Mage::helper('sales')->__('Fetch'),
                 'onclick' => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/fetch', ['_current' => true])),
-                'class'   => 'button'
+                'class'   => 'button',
             ]);
         }
     }
@@ -61,35 +72,37 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         return Mage::helper('sales')->__(
-            "Transaction # %s | %s",
+            'Transaction # %s | %s',
             $this->_txn->getTxnId(),
             $this->formatDate(
                 $this->_txn->getCreatedAt(),
                 Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
-                true
-            )
+                true,
+            ),
         );
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setTxnIdHtml(Mage::helper('adminhtml/sales')->escapeHtmlWithLinks(
             $this->_txn->getHtmlTxnId(),
-            ['a']
+            ['a'],
         ));
 
         $this->setParentTxnIdUrlHtml(
-            $this->escapeHtml($this->getUrl('*/sales_transactions/view', ['txn_id' => $this->_txn->getParentId()]))
+            $this->escapeHtml($this->getUrl('*/sales_transactions/view', ['txn_id' => $this->_txn->getParentId()])),
         );
 
         $this->setParentTxnIdHtml(
-            $this->escapeHtml($this->_txn->getParentTxnId())
+            $this->escapeHtml($this->_txn->getParentTxnId()),
         );
 
         $this->setOrderIncrementIdHtml($this->escapeHtml($this->_txn->getOrder()->getIncrementId()));
@@ -97,14 +110,14 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $this->setTxnTypeHtml($this->escapeHtml($this->_txn->getTxnType()));
 
         $this->setOrderIdUrlHtml(
-            $this->escapeHtml($this->getUrl('*/sales_order/view', ['order_id' => $this->_txn->getOrderId()]))
+            $this->escapeHtml($this->getUrl('*/sales_order/view', ['order_id' => $this->_txn->getOrderId()])),
         );
 
         $this->setIsClosedHtml(
-            ($this->_txn->getIsClosed()) ? Mage::helper('sales')->__('Yes') : Mage::helper('sales')->__('No')
+            ($this->_txn->getIsClosed()) ? Mage::helper('sales')->__('Yes') : Mage::helper('sales')->__('No'),
         );
 
-        $createdAt = (strtotime($this->_txn->getCreatedAt()))
+        $createdAt = (Carbon::parse($this->_txn->getCreatedAt())->getTimestamp())
             ? $this->formatDate($this->_txn->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true)
             : $this->__('N/A');
         $this->setCreatedAtHtml($this->escapeHtml($createdAt));

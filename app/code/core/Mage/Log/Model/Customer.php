@@ -1,42 +1,34 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer log model
  *
- * @category   Mage
  * @package    Mage_Log
  *
  * @method Mage_Log_Model_Resource_Customer _getResource()
+ * @method int                              getCustomerId()
+ * @method string                           getLoginAt()
+ * @method string                           getLogoutAt()
  * @method Mage_Log_Model_Resource_Customer getResource()
- * @method int getVisitorId()
- * @method $this setVisitorId(int $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method string getLoginAt()
- * @method $this setLoginAt(string $value)
- * @method string getLogoutAt()
- * @method $this setLogoutAt(string $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
+ * @method int                              getStoreId()
+ * @method int                              getVisitorId()
+ * @method $this                            setCustomerId(int $value)
+ * @method $this                            setLoginAt(string $value)
+ * @method $this                            setLogoutAt(string $value)
+ * @method $this                            setStoreId(int $value)
+ * @method $this                            setVisitorId(int $value)
  */
 class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
 {
     /**
-     * Define resource model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -47,7 +39,7 @@ class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Load last log by customer id
      *
-     * @param Mage_Log_Model_Customer|int $customer
+     * @param  int|Mage_Log_Model_Customer $customer
      * @return $this
      */
     public function loadByCustomer($customer)
@@ -62,7 +54,7 @@ class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Return last login at in Unix time format
      *
-     * @return int|null
+     * @return null|int
      */
     public function getLoginAtTimestamp()
     {

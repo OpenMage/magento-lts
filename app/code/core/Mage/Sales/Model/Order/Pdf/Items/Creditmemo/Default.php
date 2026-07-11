@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Order Creditmemo Pdf default items renderer
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Model_Order_Pdf_Items_Abstract
@@ -42,7 +35,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
         $lines[0][] = [
             'text'  => Mage::helper('core/string')->str_split($this->getSku($item), 17),
             'feed'  => 255,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         // draw Total (ex)
@@ -58,7 +51,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
             'text'  => $order->formatPriceTxt(-$item->getDiscountAmount()),
             'feed'  => 380,
             'font'  => 'bold',
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         // draw QTY
@@ -74,7 +67,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
             'text'  => $order->formatPriceTxt($item->getTaxAmount()),
             'feed'  => 495,
             'font'  => 'bold',
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         // draw Total (inc)
@@ -84,7 +77,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
             'text'  => $order->formatPriceTxt($subtotal),
             'feed'  => 565,
             'font'  => 'bold',
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         // draw options
@@ -95,21 +88,21 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
                 $lines[][] = [
                     'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 40, true, true),
                     'font' => 'italic',
-                    'feed' => 35
+                    'feed' => 35,
                 ];
 
                 // draw options value
-                $_printValue = $option['print_value'] ?? strip_tags($option['value']);
+                $printValue = $option['print_value'] ?? strip_tags($option['value']);
                 $lines[][] = [
-                    'text' => Mage::helper('core/string')->str_split($_printValue, 30, true, true),
-                    'feed' => 40
+                    'text' => Mage::helper('core/string')->str_split($printValue, 30, true, true),
+                    'feed' => 40,
                 ];
             }
         }
 
         $lineBlock = [
             'lines'  => $lines,
-            'height' => 20
+            'height' => 20,
         ];
 
         $page = $pdf->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);

@@ -1,25 +1,18 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax rate collection
  *
- * @category   Mage
  * @package    Mage_Tax
  *
- * @method Mage_Tax_Model_Calculation_Rate[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Tax_Model_Calculation_Rate>
  */
 class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -28,6 +21,9 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      */
     public const TAX_RULES_CHUNK_SIZE = 1000;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tax/calculation_rate');
@@ -43,7 +39,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
         $this->_select->join(
             ['country_table' => $this->getTable('directory/country')],
             'main_table.tax_country_id = country_table.country_id',
-            ['country_name' => 'iso2_code']
+            ['country_name' => 'iso2_code'],
         );
 
         return $this;
@@ -59,7 +55,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
         $this->_select->joinLeft(
             ['region_table' => $this->getTable('directory/country_region')],
             'main_table.tax_region_id = region_table.region_id',
-            ['region_name' => 'code']
+            ['region_name' => 'code'],
         );
         return $this;
     }
@@ -67,17 +63,17 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
     /**
      * Join rate title for specified store
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function joinTitle($store = null)
     {
-        $storeId = (int)Mage::app()->getStore($store)->getId();
+        $storeId = (int) Mage::app()->getStore($store)->getId();
         $this->_select->joinLeft(
             ['title_table' => $this->getTable('tax/tax_calculation_rate_title')],
             $this->getConnection()->quoteInto('main_table.tax_calculation_rate_id = title_table.tax_calculation_rate_id'
                 . ' AND title_table.store_id = ?', $storeId),
-            ['title' => 'value']
+            ['title' => 'value'],
         );
 
         return $this;
@@ -95,21 +91,22 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
             $tableAlias    = sprintf('title_table_%s', $store->getId());
             $joinCondition = implode(' AND ', [
                 "main_table.tax_calculation_rate_id = {$tableAlias}.tax_calculation_rate_id",
-                $this->getConnection()->quoteInto($tableAlias . '.store_id = ?', $store->getId())
+                $this->getConnection()->quoteInto($tableAlias . '.store_id = ?', $store->getId()),
             ]);
             $this->_select->joinLeft(
                 [$tableAlias => $this->getTable('tax/tax_calculation_rate_title')],
                 $joinCondition,
-                [$tableAlias => 'value']
+                [$tableAlias => 'value'],
             );
         }
+
         return $this;
     }
 
     /**
      * Add rate filter
      *
-     * @param int $rateId
+     * @param  int   $rateId
      * @return $this
      */
     public function addRateFilter($rateId)
@@ -126,6 +123,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         return $this->_toOptionArray('tax_calculation_rate_id', 'code');
@@ -136,6 +134,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      *
      * @return array
      */
+    #[Override]
     public function toOptionHash()
     {
         return $this->_toOptionHash('tax_calculation_rate_id', 'code');
@@ -145,9 +144,8 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      * Convert items array to hash for select options
      * unsing fetchItem method
      *
+     * @return array
      * @see     _toOptionHashOptimized()
-     *
-     * @return  array
      */
     public function toOptionHashOptimized()
     {
@@ -170,7 +168,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
             $this->getSelect()
                 ->from(
                     ['rates' => $this->getMainTable()],
-                    ['tax_calculation_rate_id', 'code']
+                    ['tax_calculation_rate_id', 'code'],
                 )
                 ->limit($size, $offset);
 

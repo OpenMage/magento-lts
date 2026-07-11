@@ -1,30 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Order Shipment PDF model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abstract
 {
     /**
      * Draw table header for product items
-     *
-     * @param  Zend_Pdf_Page $page
      */
     protected function _drawHeader(Zend_Pdf_Page $page)
     {
@@ -45,18 +36,18 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
 
         $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Qty'),
-            'feed'  => 35
+            'feed'  => 35,
         ];
 
         $lines[0][] = [
             'text'  => Mage::helper('sales')->__('SKU'),
             'feed'  => 565,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         $lineBlock = [
             'lines'  => $lines,
-            'height' => 10
+            'height' => 10,
         ];
 
         $this->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);
@@ -67,7 +58,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
     /**
      * Return PDF document
      *
-     * @param  Mage_Sales_Model_Order_Shipment[] $shipments
+     * @param  array|Mage_Sales_Model_Resource_Order_Shipment_Collection $shipments
      * @return Zend_Pdf
      */
     public function getPdf($shipments = [])
@@ -84,6 +75,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
                 Mage::app()->getLocale()->emulate($shipment->getStoreId());
                 Mage::app()->setCurrentStore($shipment->getStoreId());
             }
+
             $page  = $this->newPage();
             $order = $shipment->getOrder();
             /* Add image */
@@ -94,12 +86,12 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
             $this->insertOrder(
                 $page,
                 $shipment,
-                Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID, $order->getStoreId())
+                Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID, $order->getStoreId()),
             );
             /* Add document text and number */
             $this->insertDocumentNumber(
                 $page,
-                Mage::helper('sales')->__('Packingslip # ') . $shipment->getIncrementId()
+                Mage::helper('sales')->__('Packingslip # ') . $shipment->getIncrementId(),
             );
             /* Add table */
             $this->_drawHeader($page);
@@ -108,24 +100,27 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
                 if ($item->getOrderItem()->getParentItem()) {
                     continue;
                 }
+
                 /* Draw item */
                 $this->_drawItem($item, $page, $order);
                 $page = end($pdf->pages);
             }
         }
+
         $this->_afterGetPdf();
-        if ($shipment->getStoreId()) {
+        if (isset($shipment) && $shipment->getStoreId()) {
             Mage::app()->getLocale()->revert();
         }
+
         return $pdf;
     }
 
     /**
      * Create new page and assign to PDF object
      *
-     * @param  array $settings
      * @return Zend_Pdf_Page
      */
+    #[Override]
     public function newPage(array $settings = [])
     {
         /* Add new table head */
@@ -135,6 +130,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
         if (!empty($settings['table_header'])) {
             $this->_drawHeader($page);
         }
+
         return $page;
     }
 }

@@ -1,47 +1,49 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Session Abstract model
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method string getErrorMessage()
- * @method $this setErrorMessage(string $value)
- * @method $this unsErrorMessage()
  * @method string getSuccessMessage()
- * @method $this setSuccessMessage(string $value)
- * @method $this unsSuccessMessage()
- * @method $this setMessages(Mage_Core_Model_Abstract|Mage_Core_Model_Message_Collection $value)
+ * @method $this  setErrorMessage(string $value)
+ * @method $this  setMessages(Mage_Core_Model_Abstract|Mage_Core_Model_Message_Collection $value)
+ * @method $this  setSuccessMessage(string $value)
+ * @method $this  unsErrorMessage()
+ * @method $this  unsSuccessMessage()
  */
 class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_Varien
 {
     public const XML_PATH_COOKIE_DOMAIN        = 'web/cookie/cookie_domain';
+
     public const XML_PATH_COOKIE_PATH          = 'web/cookie/cookie_path';
+
     public const XML_PATH_COOKIE_LIFETIME      = 'web/cookie/cookie_lifetime';
+
     public const XML_NODE_SESSION_SAVE         = 'global/session_save';
+
     public const XML_NODE_SESSION_SAVE_PATH    = 'global/session_save_path';
 
     public const XML_PATH_USE_REMOTE_ADDR      = 'web/session/use_remote_addr';
+
     public const XML_PATH_USE_HTTP_VIA         = 'web/session/use_http_via';
+
     public const XML_PATH_USE_X_FORWARDED      = 'web/session/use_http_x_forwarded_for';
+
     public const XML_PATH_USE_USER_AGENT       = 'web/session/use_http_user_agent';
+
     public const XML_PATH_USE_FRONTEND_SID     = 'web/session/use_frontend_sid';
 
     public const XML_NODE_USET_AGENT_SKIP      = 'global/session/validation/http_user_agent_skip';
+
     public const XML_PATH_LOG_EXCEPTION_FILE   = 'dev/log/exception_file';
 
     public const SESSION_ID_QUERY_PARAM        = 'SID';
@@ -70,10 +72,11 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Init session
      *
-     * @param string $namespace
-     * @param string $sessionName
+     * @param  string $namespace
+     * @param  string $sessionName
      * @return $this
      */
+    #[Override]
     public function init($namespace, $sessionName = null)
     {
         parent::init($namespace, $sessionName);
@@ -116,13 +119,15 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @return bool
      */
+    #[Override]
     public function useValidateRemoteAddr()
     {
         $use = Mage::getStoreConfig(self::XML_PATH_USE_REMOTE_ADDR);
         if (is_null($use)) {
             return parent::useValidateRemoteAddr();
         }
-        return (bool)$use;
+
+        return (bool) $use;
     }
 
     /**
@@ -130,13 +135,15 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @return bool
      */
+    #[Override]
     public function useValidateHttpVia()
     {
         $use = Mage::getStoreConfig(self::XML_PATH_USE_HTTP_VIA);
         if (is_null($use)) {
             return parent::useValidateHttpVia();
         }
-        return (bool)$use;
+
+        return (bool) $use;
     }
 
     /**
@@ -144,13 +151,15 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @return bool
      */
+    #[Override]
     public function useValidateHttpXForwardedFor()
     {
         $use = Mage::getStoreConfig(self::XML_PATH_USE_X_FORWARDED);
         if (is_null($use)) {
             return parent::useValidateHttpXForwardedFor();
         }
-        return (bool)$use;
+
+        return (bool) $use;
     }
 
     /**
@@ -158,13 +167,15 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @return bool
      */
+    #[Override]
     public function useValidateHttpUserAgent()
     {
         $use = Mage::getStoreConfig(self::XML_PATH_USE_USER_AGENT);
         if (is_null($use)) {
             return parent::useValidateHttpUserAgent();
         }
-        return (bool)$use;
+
+        return (bool) $use;
     }
 
     /**
@@ -175,51 +186,55 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function useSid()
     {
-        return Mage::app()->getStore()->isAdmin() || Mage::getStoreConfig(self::XML_PATH_USE_FRONTEND_SID);
+        if (Mage::app()->getStore()->isAdmin()) {
+            return true;
+        }
+
+        return (bool) Mage::getStoreConfig(self::XML_PATH_USE_FRONTEND_SID);
     }
 
     /**
-     * Retrieve skip User Agent validation strings (Flash etc)
-     *
-     * @return array
+     * @inheritDoc
      */
+    #[Override]
     public function getValidateHttpUserAgentSkip()
     {
         $userAgents = [];
         $skip = Mage::getConfig()->getNode(self::XML_NODE_USET_AGENT_SKIP);
         foreach ($skip->children() as $userAgent) {
-            $userAgents[] = (string)$userAgent;
+            $userAgents[] = (string) $userAgent;
         }
+
         return $userAgents;
     }
 
     /**
      * Retrieve messages from session
      *
-     * @param   bool $clear
-     * @return  Mage_Core_Model_Message_Collection
+     * @param  bool                               $clear
+     * @return Mage_Core_Model_Message_Collection
      */
     public function getMessages($clear = false)
     {
-        if (!$this->getData('messages')) {
+        if (!$this->getDataByKey('messages')) {
             $this->setMessages(Mage::getModel('core/message_collection'));
         }
 
         if ($clear) {
-            $messages = clone $this->getData('messages');
-            $this->getData('messages')->clear();
+            $messages = clone $this->getDataByKey('messages');
+            $this->getDataByKey('messages')->clear();
             Mage::dispatchEvent('core_session_abstract_clear_messages');
             return $messages;
         }
-        return $this->getData('messages');
+
+        return $this->getDataByKey('messages');
     }
 
     /**
      * Not Mage exception handling
      *
-     * @param   Exception $exception
-     * @param   string $alternativeText
-     * @return  $this
+     * @param  string $alternativeText
+     * @return $this
      */
     public function addException(Exception $exception, $alternativeText)
     {
@@ -231,8 +246,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Adding new message to message collection
      *
-     * @param   Mage_Core_Model_Message_Abstract $message
-     * @return  $this
+     * @return $this
      */
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
     {
@@ -244,8 +258,8 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Adding new error message
      *
-     * @param   string $message
-     * @return  $this
+     * @param  string $message
+     * @return $this
      */
     public function addError($message)
     {
@@ -256,8 +270,8 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Adding new warning message
      *
-     * @param   string $message
-     * @return  $this
+     * @param  string $message
+     * @return $this
      */
     public function addWarning($message)
     {
@@ -268,8 +282,8 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Adding new notice message
      *
-     * @param   string $message
-     * @return  $this
+     * @param  string $message
+     * @return $this
      */
     public function addNotice($message)
     {
@@ -280,8 +294,8 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Adding new success message
      *
-     * @param   string $message
-     * @return  $this
+     * @param  string $message
+     * @return $this
      */
     public function addSuccess($message)
     {
@@ -292,8 +306,8 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Adding messages array to message collection
      *
-     * @param   array $messages
-     * @return  $this
+     * @param  array $messages
+     * @return $this
      */
     public function addMessages($messages)
     {
@@ -302,20 +316,22 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
                 $this->addMessage($message);
             }
         }
+
         return $this;
     }
 
     /**
      * Adds messages array to message collection, but doesn't add duplicates to it
      *
-     * @param   array|string|Mage_Core_Model_Message_Abstract $messages
-     * @return  $this
+     * @param  array|Mage_Core_Model_Message_Abstract|string $messages
+     * @return $this
      */
     public function addUniqueMessages($messages)
     {
         if (!is_array($messages)) {
             $messages = [$messages];
         }
+
         if (!$messages) {
             return $this;
         }
@@ -330,6 +346,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
             } else {
                 continue; // Some unknown object, do not put it in already existing messages
             }
+
             $messagesAlready[$text] = true;
         }
 
@@ -347,8 +364,10 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
                 if (isset($messagesAlready[$text])) {
                     continue;
                 }
+
                 $messagesAlready[$text] = true;
             }
+
             $this->addMessage($message);
         }
 
@@ -359,13 +378,15 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Specify session identifier
      *
      * @inheritDoc
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Override]
     public function setSessionId($id = null)
     {
         if (is_null($id) && $this->useSid()) {
-            $_queryParam = $this->getSessionIdQueryParam();
-            if (isset($_GET[$_queryParam]) && Mage::getSingleton('core/url')->isOwnOriginUrl()) {
-                $id = $_GET[$_queryParam];
+            $queryParam = $this->getSessionIdQueryParam();
+            if (isset($_GET[$queryParam]) && Mage::getSingleton('core/url')->isOwnOriginUrl()) {
+                $id = $_GET[$queryParam];
             }
         }
 
@@ -384,6 +405,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (!self::$_encryptedSessionId) {
             self::$_encryptedSessionId = $this->getSessionId();
         }
+
         return self::$_encryptedSessionId;
     }
 
@@ -392,17 +414,18 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function getSessionIdQueryParam()
     {
-        $_sessionName = $this->getSessionName();
-        if ($_sessionName && $queryParam = (string)Mage::getConfig()->getNode($_sessionName . '/session/query_param')) {
+        $sessionName = $this->getSessionName();
+        if ($sessionName && $queryParam = (string) Mage::getConfig()->getNode($sessionName . '/session/query_param')) {
             return $queryParam;
         }
+
         return self::SESSION_ID_QUERY_PARAM;
     }
 
     /**
      * Set skip flag if need skip generating of _GET session_id_key param
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setSkipSessionIdFlag($flag)
@@ -424,8 +447,9 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * If session cookie is not applicable due to host or path mismatch - add session id to query
      *
-     * @param string $urlHost can be host or url
+     * @param  string $urlHost can be host or url
      * @return string {session_id_key}={session_id_encrypted}
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getSessionIdForHost($urlHost)
     {
@@ -442,6 +466,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (!empty($urlHostArr[2])) {
             $urlHost = $urlHostArr[2];
         }
+
         $urlPath = empty($urlHostArr[3]) ? '' : $urlHostArr[3];
 
         if (!isset(self::$_urlHostCache[$urlHost])) {
@@ -459,7 +484,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Check if session is valid for given hostname
      *
-     * @param string $host
+     * @param  string $host
      * @return bool
      */
     public function isValidForHost($host)
@@ -472,13 +497,13 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Check if session is valid for given path
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     public function isValidForPath($path)
     {
         $cookiePath = trim($this->getCookiePath(), '/') . '/';
-        if ($cookiePath == '/') {
+        if ($cookiePath === '/') {
             return true;
         }
 
@@ -490,15 +515,13 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Add hostname to session
      *
-     * @param string $host
+     * @param  string $host
      * @return $this
      */
     public function addHost($host)
     {
-        if ($host === true) {
-            if (!$host = Mage::app()->getFrontController()->getRequest()->getHttpHost()) {
-                return $this;
-            }
+        if ($host === true && !$host = Mage::app()->getFrontController()->getRequest()->getHttpHost()) {
+            return $this;
         }
 
         if (!$host) {
@@ -516,6 +539,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @return array
      */
+    #[Override]
     public function getSessionHosts()
     {
         return parent::getSessionHosts();
@@ -524,26 +548,30 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Retrieve session save method
      *
-     * @return string
+     * @return Mage_Core_Model_Config_Element|string
      */
+    #[Override]
     public function getSessionSaveMethod()
     {
-        if (Mage::isInstalled() && $sessionSave = Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE)) {
+        if (Mage::isInstalled() && ($sessionSave = Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE))) {
             return $sessionSave;
         }
+
         return parent::getSessionSaveMethod();
     }
 
     /**
      * Get session save path
      *
-     * @return string
+     * @return Mage_Core_Model_Config_Element|string
      */
+    #[Override]
     public function getSessionSavePath()
     {
         if (Mage::isInstalled() && $sessionSavePath = Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE_PATH)) {
             return $sessionSavePath;
         }
+
         return parent::getSessionSavePath();
     }
 
@@ -562,7 +590,8 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_array($sessionHosts)) {
             foreach (array_keys($sessionHosts) as $host) {
                 // Delete cookies with the same name for parent domains
-                if (strpos($currentCookieDomain, $host) > 0) {
+                if (strpos($currentCookieDomain, (string) $host) > 0) {
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $this->getCookie()->delete($this->getSessionName(), null, $host);
                 }
             }

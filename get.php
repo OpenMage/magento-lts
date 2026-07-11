@@ -1,23 +1,19 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
 
 $start = microtime(true);
 /**
  * Error reporting
  */
-ini_set('display_errors', 0);
+ini_set('display_errors', '0');
 
 $ds = DIRECTORY_SEPARATOR;
 $ps = PATH_SEPARATOR;
@@ -44,11 +40,12 @@ Varien_Autoload::register();
 /** AUTOLOADER PATCH **/
 $autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
 if (!$autoloaderPath) {
-    $autoloaderPath = dirname($bp) . $ds .  'vendor';
+    $autoloaderPath = dirname($bp) . $ds . 'vendor';
     if (!is_dir($autoloaderPath)) {
         $autoloaderPath = $bp . $ds . 'vendor';
     }
 }
+
 require_once $autoloaderPath . $ds . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
@@ -61,7 +58,7 @@ if (file_exists($configCacheFile) && is_readable($configCacheFile)) {
     $config = json_decode(file_get_contents($configCacheFile), true);
 
     //checking update time
-    if (filemtime($configCacheFile) + $config['update_time'] > time()) {
+    if (filemtime($configCacheFile) + $config['update_time'] > Carbon::now()->getTimestamp()) {
         $mediaDirectory = trim(str_replace($bp . $ds, '', $config['media_directory']), $ds);
         $allowedResources = array_merge($allowedResources, $config['allowed_resources']);
     }
@@ -104,7 +101,7 @@ if (empty($mediaDirectory)) {
         $mageRunCode,
         $mageRunType,
         ['cache' => ['disallow_save' => true]],
-        $config['loaded_modules'] ?? ['Mage_Core']
+        $config['loaded_modules'] ?? ['Mage_Core'],
     );
 }
 
@@ -115,13 +112,14 @@ if (!$mediaDirectory) {
 
     $relativeFilename = str_replace($mediaDirectory . '/', '', $pathInfo);
 
-    $fp = fopen($configCacheFile, 'w');
-    if (flock($fp, LOCK_EX | LOCK_NB)) {
-        ftruncate($fp, 0);
-        fwrite($fp, json_encode($config));
+    $resource = fopen($configCacheFile, 'w');
+    if (flock($resource, LOCK_EX | LOCK_NB)) {
+        ftruncate($resource, 0);
+        fwrite($resource, json_encode($config));
     }
-    flock($fp, LOCK_UN);
-    fclose($fp);
+
+    flock($resource, LOCK_UN);
+    fclose($resource);
 
     checkResource($relativeFilename, $allowedResources);
 }
@@ -129,6 +127,7 @@ if (!$mediaDirectory) {
 if (0 !== stripos($pathInfo, $mediaDirectory . '/')) {
     sendNotFoundPage();
 }
+
 if (substr_count($relativeFilename, '/') > 10) {
     sendNotFoundPage();
 }
@@ -144,18 +143,20 @@ try {
     if ($localStorage->lockCreateFile($relativeFilename)) {
         try {
             $remoteStorage->loadByFilename($relativeFilename);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
+
         if ($remoteStorage->getId()) {
             $localStorage->saveFile($remoteStorage, false);
         } else {
             $localStorage->removeLockedFile($relativeFilename);
         }
     }
+
     sendFile($filePath);
-} catch (Exception $e) {
-    Mage::logException($e);
+} catch (Exception $exception) {
+    Mage::logException($exception);
 }
 
 sendNotFoundPage();
@@ -173,13 +174,12 @@ function sendNotFoundPage()
  * Check resource by whitelist
  *
  * @param string $resource
- * @param array $allowedResources
  */
 function checkResource($resource, array $allowedResources)
 {
     $isResourceAllowed = false;
     foreach ($allowedResources as $allowedResource) {
-        if (0 === stripos($resource, $allowedResource)) {
+        if (0 === stripos($resource, (string) $allowedResource)) {
             $isResourceAllowed = true;
         }
     }

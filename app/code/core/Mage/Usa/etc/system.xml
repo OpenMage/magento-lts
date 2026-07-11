@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Usa
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -31,6 +24,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </account>
                         <active translate="label">
                             <label>Enabled for Checkout</label>
@@ -50,6 +44,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </allowed_methods>
                         <contentdesc translate="label">
                             <label>Package Description</label>
@@ -57,6 +52,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </contentdesc>
                         <!--
                         If the free_shipping_enable flag enable, the system will check free_shipping_subtotal to give free shipping
@@ -70,6 +66,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_shipping_enable>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
@@ -78,6 +75,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_shipping_subtotal>
                         <dutiable translate="label">
                             <label>Shipment Dutiable</label>
@@ -87,6 +85,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </dutiable>
                         <dutypaymenttype translate="label">
                             <label>Shipment Duty Payment Type</label>
@@ -96,6 +95,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </dutypaymenttype>
                         <free_method translate="label">
                             <label>Free Method</label>
@@ -106,6 +106,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_method>
                         <gateway_url translate="label">
                             <label>Gateway URL</label>
@@ -114,6 +115,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </gateway_url>
                         <verify_peer translate="label">
                             <label>Enable SSL Verification</label>
@@ -123,6 +125,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </verify_peer>
                         <handling_type translate="label">
                             <label>Calculate Handling Fee</label>
@@ -132,6 +135,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_type>
                         <handling_action translate="label">
                             <label>Handling Applied</label>
@@ -141,6 +145,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_action>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
@@ -149,6 +154,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_fee>
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
@@ -157,6 +163,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </max_package_weight>
                         <id translate="label">
                             <label>Access ID</label>
@@ -166,6 +173,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </id>
                         <password translate="label">
                             <label>Password</label>
@@ -175,6 +183,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </password>
                         <shipment_requesttype translate="label">
                             <label>Packages Request Type</label>
@@ -184,6 +193,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </shipment_requesttype>
                         <shipment_type translate="label">
                             <label>Shipment Type</label>
@@ -193,6 +203,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </shipment_type>
                         <shipping_intlkey translate="label">
                             <label>Shipping Key (International)</label>
@@ -202,6 +213,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </shipping_intlkey>
                         <shipping_key translate="label">
                             <label>Shipping Key</label>
@@ -211,6 +223,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </shipping_key>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -218,6 +231,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -225,6 +239,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </title>
                         <sallowspecific translate="label">
                             <label>Ship to Applicable Countries</label>
@@ -235,6 +250,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sallowspecific>
                         <specificcountry translate="label">
                             <label>Ship to Specific Countries</label>
@@ -245,6 +261,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show Method if Not Applicable</label>
@@ -255,6 +272,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </showmethod>
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>
@@ -263,6 +281,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </specificerrmsg>
 
                         <additional_protection_enabled translate="label">
@@ -273,6 +292,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </additional_protection_enabled>
                         <additional_protection_min_value translate="label">
                             <label>Additional Protection Min Subtotal</label>
@@ -281,6 +301,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </additional_protection_min_value>
                         <additional_protection_use_subtotal translate="label">
                             <label>Additional Protection Value</label>
@@ -290,6 +311,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </additional_protection_use_subtotal>
                         <additional_protection_value translate="label comment">
                             <label>Additional Protection Configuration Value</label>
@@ -298,6 +320,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </additional_protection_value>
 
                         <additional_protection_rounding translate="label">
@@ -308,6 +331,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </additional_protection_rounding>
 
                         <hazardous_materials translate="label">
@@ -318,6 +342,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </hazardous_materials>
 
                         <default_length translate="label">
@@ -326,6 +351,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </default_length>
                         <default_width translate="label">
                             <label>Default Package Width</label>
@@ -333,6 +359,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </default_width>
                         <default_height translate="label">
                             <label>Default Package Height</label>
@@ -340,6 +367,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </default_height>
 
                         <shipment_days translate="label">
@@ -351,6 +379,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </shipment_days>
 
                         <intl_shipment_days translate="label">
@@ -362,6 +391,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </intl_shipment_days>
                         <debug translate="label">
                             <label>Debug</label>
@@ -371,6 +401,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </debug>
                     </fields>
                 </dhl>
@@ -396,6 +427,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </title>
                         <account translate="label comment">
                             <label>Account ID</label>
@@ -406,34 +438,50 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment>Please make sure to use only digits here. No dashes are allowed.</comment>
+                            <depends><active>1</active></depends>
                         </account>
-                        <meter_number translate="label">
-                            <label>Meter Number</label>
+                        <client_id translate="label comment">
+                            <label>Rates &amp; Ship Client ID</label>
+                            <comment><![CDATA[Client ID for the developer.fedex.com app subscribed to <strong>Rates &amp; Transit Times</strong> and <strong>Ship</strong>. FedEx apps are per-API: the Track API requires its own app (see below).]]></comment>
                             <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <sort_order>50</sort_order>
+                            <sort_order>42</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </meter_number>
-                        <key translate="label">
-                            <label>Key</label>
+                            <depends><active>1</active></depends>
+                        </client_id>
+                        <client_secret translate="label">
+                            <label>Rates &amp; Ship Client Secret</label>
                             <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <sort_order>60</sort_order>
+                            <sort_order>44</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </key>
-                        <password translate="label">
-                            <label>Password</label>
+                            <depends><active>1</active></depends>
+                        </client_secret>
+                        <tracking_client_id translate="label comment">
+                            <label>Tracking Client ID</label>
+                            <comment><![CDATA[Client ID for the developer.fedex.com app subscribed to the <strong>Track</strong> API. This must be a separate app from the Rates &amp; Ship credentials above.]]></comment>
                             <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <sort_order>70</sort_order>
+                            <sort_order>46</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </password>
+                            <depends><active>1</active></depends>
+                        </tracking_client_id>
+                        <tracking_client_secret translate="label">
+                            <label>Tracking Client Secret</label>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>48</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </tracking_client_secret>
                         <sandbox_mode translate="label">
                             <label>Sandbox Mode</label>
                             <frontend_type>select</frontend_type>
@@ -442,6 +490,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sandbox_mode>
                         <shipment_requesttype translate="label">
                             <label>Packages Request Type</label>
@@ -451,6 +500,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </shipment_requesttype>
                         <packaging translate="label">
                             <label>Packaging</label>
@@ -460,6 +510,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </packaging>
                         <dropoff translate="label">
                             <label>Dropoff</label>
@@ -469,6 +520,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </dropoff>
                         <unit_of_measure translate="label">
                             <label>Weight Unit</label>
@@ -478,6 +530,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </unit_of_measure>
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
@@ -486,6 +539,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </max_package_weight>
                         <handling_type translate="label">
                             <label>Calculate Handling Fee</label>
@@ -495,6 +549,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_type>
                         <handling_action translate="label">
                             <label>Handling Applied</label>
@@ -504,6 +559,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_action>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
@@ -512,6 +568,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_fee>
                         <residence_delivery translate="label">
                             <label>Residential Delivery</label>
@@ -521,6 +578,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </residence_delivery>
                         <allowed_methods translate="label">
                             <label>Allowed Methods</label>
@@ -531,6 +589,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </allowed_methods>
                         <smartpost_hubid translate="label comment">
                             <label>Hub ID</label>
@@ -539,6 +598,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment>The field is applicable if the Smart Post method is selected.</comment>
+                            <depends><active>1</active></depends>
                         </smartpost_hubid>
                         <free_method translate="label">
                             <label>Free Method</label>
@@ -549,6 +609,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_method>
                         <free_shipping_enable translate="label">
                             <label>Free Shipping with Minimum Order Amount</label>
@@ -558,6 +619,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_shipping_enable>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
@@ -566,6 +628,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_shipping_subtotal>
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>
@@ -574,6 +637,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </specificerrmsg>
                         <sallowspecific translate="label">
                             <label>Ship to Applicable Countries</label>
@@ -584,6 +648,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sallowspecific>
                         <specificcountry translate="label">
                             <label>Ship to Specific Countries</label>
@@ -594,6 +659,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </specificcountry>
                         <debug translate="label">
                             <label>Debug</label>
@@ -603,6 +669,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </debug>
                         <showmethod translate="label">
                             <label>Show Method if Not Applicable</label>
@@ -613,6 +680,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </showmethod>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -620,7 +688,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        0</sort_order>
+                            <depends><active>1</active></depends>
+                        </sort_order>
                     </fields>
                 </fedex>
                 <ups translate="label" module="usa">
@@ -638,6 +707,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </access_license_number>
                         <active translate="label">
                             <label>Enabled for Checkout</label>
@@ -657,6 +727,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </allowed_methods>
                         <shipment_requesttype translate="label">
                             <label>Packages Request Type</label>
@@ -666,6 +737,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </shipment_requesttype>
                         <container translate="label">
                             <label>Container</label>
@@ -675,6 +747,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </container>
                         <free_shipping_enable translate="label">
                             <label>Free Shipping with Minimum Order Amount</label>
@@ -684,6 +757,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_shipping_enable>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
@@ -692,6 +766,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_shipping_subtotal>
                         <dest_type translate="label">
                             <label>Destination Type</label>
@@ -701,6 +776,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </dest_type>
                         <free_method translate="label">
                             <label>Free Method</label>
@@ -712,6 +788,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_method>
                         <verify_peer translate="label">
                             <label>Enable SSL Verification</label>
@@ -721,6 +798,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </verify_peer>
                         <gateway_xml_url translate="label">
                             <label>Gateway XML URL</label>
@@ -729,6 +807,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </gateway_xml_url>
                         <gateway_rest_url translate="label">
                             <label>Gateway REST URL</label>
@@ -737,6 +816,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </gateway_rest_url>
                         <tracking_xml_url translate="label">
                             <label>Tracking XML URL</label>
@@ -745,6 +825,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </tracking_xml_url>
                         <tracking_rest_url translate="label">
                             <label>Tracking REST URL</label>
@@ -753,6 +834,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </tracking_rest_url>
                         <shipconfirm_xml_url translate="label">
                             <label>Shipping Confirm XML URL</label>
@@ -761,6 +843,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </shipconfirm_xml_url>
                         <shipconfirm_rest_url translate="label">
                             <label>Shipping Confirm REST URL</label>
@@ -769,6 +852,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </shipconfirm_rest_url>
                         <shipaccept_xml_url translate="label">
                             <label>Shipping Accept XML URL</label>
@@ -777,6 +861,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </shipaccept_xml_url>
                         <handling_type translate="label">
                             <label>Calculate Handling Fee</label>
@@ -786,6 +871,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_type>
                         <handling_action translate="label">
                             <label>Handling Applied</label>
@@ -795,6 +881,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_action>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
@@ -803,6 +890,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_fee>
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
@@ -811,6 +899,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </max_package_weight>
                         <min_package_weight translate="label">
                             <label>Minimum Package Weight (Please consult your shipping carrier for minimum supported shipping weight)</label>
@@ -819,6 +908,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </min_package_weight>
                         <origin_shipment translate="label">
                             <label>Origin of the Shipment</label>
@@ -829,6 +919,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </origin_shipment>
                         <client_id translate="label comment">
                             <label>Client ID</label>
@@ -839,6 +930,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </client_id>
                         <client_secret translate="label">
                             <label>Client Secret</label>
@@ -848,6 +940,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </client_secret>
                         <password translate="label">
                             <label>Password</label>
@@ -857,6 +950,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </password>
                         <pickup translate="label">
                             <label>Pickup Method</label>
@@ -866,6 +960,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </pickup>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -873,6 +968,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -880,6 +976,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </title>
                         <type translate="label">
                             <label>UPS Type</label>
@@ -890,6 +987,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </type>
                         <unit_of_measure translate="label comment">
                             <label>Weight Unit</label>
@@ -899,6 +997,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </unit_of_measure>
                         <username translate="label">
                             <label>User ID</label>
@@ -908,6 +1007,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </username>
                         <negotiated_active translate="label">
                             <label>Enable Negotiated Rates</label>
@@ -917,6 +1017,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </negotiated_active>
                         <shipper_number translate="label comment">
                             <label>Shipper Number</label>
@@ -925,6 +1026,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment>Required for negotiated rates; 6-character UPS.</comment>
+                            <depends><active>1</active></depends>
                         </shipper_number>
                         <sallowspecific translate="label">
                             <label>Ship to Applicable Countries</label>
@@ -935,6 +1037,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sallowspecific>
                         <specificcountry translate="label">
                             <label>Ship to Specific Countries</label>
@@ -945,6 +1048,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show Method if Not Applicable</label>
@@ -955,6 +1059,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </showmethod>
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>
@@ -963,6 +1068,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </specificerrmsg>
                         <mode_xml translate="label comment">
                             <label>Mode</label>
@@ -973,6 +1079,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </mode_xml>
                         <debug translate="label">
                             <label>Debug</label>
@@ -982,6 +1089,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </debug>
                     </fields>
                 </ups>
@@ -992,6 +1100,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
+                        <!-- Core Settings -->
                         <active translate="label">
                             <label>Enabled for Checkout</label>
                             <frontend_type>select</frontend_type>
@@ -1001,176 +1110,303 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </active>
-                        <gateway_url translate="label">
-                            <label>Gateway URL</label>
+                        <environment translate="label comment tooltip">
+                            <label>API Environment</label>
+                            <comment><![CDATA[<strong>Production:</strong> https://apis.usps.com/ (Live transactions)<br/><strong>Sandbox:</strong> https://apis-tem.usps.com/ (Testing only)]]></comment>
+                            <tooltip>Select Sandbox for testing with test credentials. Switch to Production for live customer transactions. URLs are automatically configured.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_environment</source_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </gateway_url>
-                        <gateway_secure_url translate="label">
-                            <label>Secure Gateway URL</label>
+                            <depends><active>1</active></depends>
+                        </environment>
+                        <gateway_url translate="label comment tooltip">
+                            <label>Gateway URL</label>
+                            <tooltip>This field auto-populates when you select an environment above. You can manually edit it if you need to use a custom USPS API endpoint.</tooltip>
+                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </gateway_secure_url>
-                        <title translate="label">
-                            <label>Title</label>
+                            <depends><active>1</active></depends>
+                        </gateway_url>
+                        <client_id translate="label tooltip">
+                            <label>Consumer Key (Client ID)</label>
+                            <tooltip>OAuth2 Client ID from your USPS Business Account. Required for all API operations including rate quotes.</tooltip>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </title>
-                        <userid translate="label">
-                            <label>User ID</label>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </client_id>
+                        <client_secret translate="label tooltip">
+                            <label>Consumer Secret (Client Secret)</label>
+                            <tooltip>OAuth2 Client Secret from your USPS Business Account. Keep this secure - never share or expose in frontend code.</tooltip>
                             <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </userid>
-                        <password translate="label">
-                            <label>Password</label>
-                            <frontend_type>obscure</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <depends><active>1</active></depends>
+                        </client_secret>
+                        
+                        <test_connection translate="label">
+                            <label>Test API Connection</label>
+                            <frontend_model>usa/adminhtml_system_config_form_field_usps_testconnection</frontend_model>
+                            <sort_order>52</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </test_connection>
+                        
+                        <test_rate_quote translate="label comment">
+                            <label>Test Rate Quote</label>
+                            <comment>Test API with sample package (1lb, 6x4x2in from 10001 to 90210)</comment>
+                            <frontend_model>usa/adminhtml_system_config_form_field_usps_testratequote</frontend_model>
                             <sort_order>53</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </password>
-                        <mode translate="label">
-                            <label>Mode</label>
-                            <frontend_type>select</frontend_type>
-                            <sort_order>54</sort_order>
-                            <source_model>usa/shipping_carrier_abstract_source_mode</source_model>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </mode>
-                        <shipment_requesttype translate="label">
-                            <label>Packages Request Type</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>usa/shipping_carrier_abstract_source_requesttype</source_model>
-                            <sort_order>55</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </shipment_requesttype>
-                        <container translate="label">
-                            <label>Container</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>usa/shipping_carrier_usps_source_container</source_model>
-                            <sort_order>60</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </container>
-                        <size translate="label">
-                            <label>Size</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>usa/shipping_carrier_usps_source_size</source_model>
-                            <sort_order>70</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </size>
-                        <width translate="label">
-                            <label>Width</label>
-                            <sort_order>73</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
-                        </width>
-                        <length translate="label">
-                            <label>Length</label>
-                            <sort_order>72</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
-                        </length>
-                        <height translate="label">
-                            <label>Height</label>
-                            <sort_order>74</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
-                        </height>
-                        <girth translate="label">
-                            <label>Girth</label>
-                            <sort_order>76</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><size>LARGE</size></depends>
-                        </girth>
-                        <machinable translate="label">
-                            <label>Machinable</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>usa/shipping_carrier_usps_source_machinable</source_model>
-                            <sort_order>80</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </machinable>
-                        <max_package_weight translate="label">
-                            <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
-                            <validate>validate-number validate-zero-or-greater</validate>
-                            <sort_order>90</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </max_package_weight>
-                        <handling_type translate="label">
-                            <label>Calculate Handling Fee</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>shipping/source_handlingType</source_model>
+                            <depends><active>1</active></depends>
+                        </test_rate_quote>
+                        
+                        <!-- Shipping Options -->
+                        <title translate="label">
+                            <label>Title</label>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </handling_type>
-                        <handling_action translate="label">
-                            <label>Handling Applied</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>shipping/source_handlingAction</source_model>
-                            <sort_order>110</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </handling_action>
-                        <handling_fee translate="label">
-                            <label>Handling Fee</label>
-                            <validate>validate-number validate-zero-or-greater</validate>
-                            <sort_order>120</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </handling_fee>
+                            <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
+                        </title>
                         <allowed_methods translate="label">
                             <label>Allowed Methods</label>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>usa/shipping_carrier_usps_source_method</source_model>
-                            <sort_order>130</sort_order>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </allowed_methods>
                         <free_method translate="label">
                             <label>Free Method</label>
                             <frontend_type>select</frontend_type>
                             <frontend_class>free-method</frontend_class>
                             <source_model>usa/shipping_carrier_usps_source_freemethod</source_model>
-                            <sort_order>140</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_method>
+                        
+                        <!-- Package Configuration -->
+                        <max_package_weight translate="label">
+                            <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>190</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </max_package_weight>
+                        
+                        <!-- Fees & Handling -->
+                        <handling_type translate="label">
+                            <label>Calculate Handling Fee</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shipping/source_handlingType</source_model>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </handling_type>
+                        <handling_action translate="label">
+                            <label>Handling Applied</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shipping/source_handlingAction</source_model>
+                            <sort_order>310</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </handling_action>
+                        <handling_fee translate="label">
+                            <label>Handling Fee</label>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>320</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </handling_fee>
+                        
+                        <!-- Advanced Account Options -->
+                        <account_type translate="label tooltip">
+                            <label>Account Type</label>
+                            <tooltip>EPS (Electronic Payment System) for most businesses. PERMIT for permit imprint accounts. METER for legacy postage meter accounts. Only sent to API when using COMMERCIAL pricing.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_accounttype</source_model>
+                            <sort_order>400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </account_type>
+                        <price_type translate="label tooltip">
+                            <label>Pricing Options</label>
+                            <tooltip>EPS: Standard electronic payment rates (no account number needed). COMMERCIAL: Negotiated business rates (requires account number). Choose based on your USPS business account type.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_pricetype</source_model>
+                            <sort_order>410</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </price_type>
+                        <account_number translate="label comment tooltip">
+                            <label>Account Number</label>
+                            <comment>Required only for COMMERCIAL pricing. Leave empty for EPS pricing.</comment>
+                            <tooltip>Your USPS business account number. Only needed when Pricing Options is set to COMMERCIAL to retrieve your negotiated rates. Leave blank for standard EPS rates.</tooltip>
+                            <sort_order>420</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </account_number>
+                        <crid translate="label comment tooltip">
+                            <label>Customer Registration ID (CRID)</label>
+                            <comment>Required for shipping label generation. Leave empty if only using rate quotes.</comment>
+                            <tooltip>Your USPS Customer Registration ID. Required for creating shipping labels via REST API. Not needed for rate quotes - leave empty if only displaying shipping rates at checkout.</tooltip>
+                            <sort_order>430</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </crid>
+                        <mid translate="label comment tooltip">
+                            <label>Mailer Identifier (MID)</label>
+                            <comment>Required for shipping label generation. 9-digit Mailer ID assigned by USPS.</comment>
+                            <tooltip>9-digit USPS Mailer ID assigned to your business. Required for creating shipping labels and manifests. Not needed for rate quotes - leave empty if only displaying shipping rates at checkout.</tooltip>
+                            <sort_order>440</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </mid>
+                        <mmid translate="label comment tooltip">
+                            <label>Manifest MID</label>
+                            <comment>Optional - Only required for shipping label manifests (not implemented yet)</comment>
+                            <tooltip>Manifest Mailer ID for SCAN forms and shipping manifests. Required only when generating labels and manifests. Not needed for rate quotes.</tooltip>
+                            <sort_order>450</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </mmid>
+                        <eps_account_number translate="label comment tooltip">
+                            <label>EPS Account Number</label>
+                            <comment>Required for shipping label generation. Your EPS permit/account for postage payment.</comment>
+                            <tooltip>Your EPS permit/account number for label postage payment. This is different from "Account Number" above, which is for negotiated pricing rates. Not needed for rate quotes.</tooltip>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>455</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </eps_account_number>
+                        <permit_zip translate="label comment tooltip">
+                            <label>Permit ZIP Code</label>
+                            <comment>Required only for PERMIT account type. Leave empty for EPS accounts.</comment>
+                            <tooltip>The 5-digit ZIP code associated with your USPS Permit account. Required for payment authorization when using PERMIT account type. Not needed for EPS or METER accounts.</tooltip>
+                            <validate>validate-digits validate-length maximum-length-5</validate>
+                            <sort_order>456</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </permit_zip>
+                        
+                        <!-- Feature Toggles -->
+                        <heading_feature_toggles translate="label">
+                            <label>Feature Toggles</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>500</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </heading_feature_toggles>
+                        <enable_labels translate="label comment tooltip">
+                            <label>Enable Label Generation</label>
+                            <comment>Requires CRID, MID, and EPS Account Number to be configured above</comment>
+                            <tooltip>When enabled, shipping labels can be generated from Sales > Orders > Ship. Requires valid USPS business account credentials configured above (CRID, MID, EPS Account Number).</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>510</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </enable_labels>
+                        <verify_addresses translate="label comment tooltip">
+                            <label>Enable Address Verification</label>
+                            <comment>Validate shipping addresses during checkout using USPS Address API</comment>
+                            <tooltip>When enabled, shipping addresses are verified against USPS database during checkout. If corrections are suggested, customer sees a confirmation modal. Confirmed corrections are auto-applied to the order.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>520</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </verify_addresses>
+                        <show_delivery_estimates translate="label comment tooltip">
+                            <label>Show Delivery Estimates</label>
+                            <comment>Display estimated delivery dates alongside shipping rates at checkout</comment>
+                            <tooltip>When enabled, queries USPS Service Standards API to show "Arrives by [date]" or "X-Y business days" next to each shipping option. May slightly increase checkout load time due to additional API call.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>530</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </show_delivery_estimates>
+                        <cache_ttl translate="label comment tooltip">
+                            <label>API Response Cache TTL (seconds)</label>
+                            <comment>How long to cache rate quotes. Default: 3600 (1 hour). Set to 0 to disable caching.</comment>
+                            <tooltip>Caching reduces API calls and improves checkout speed. USPS rates rarely change more than once per day. For high-volume stores, 1-4 hours (3600-14400 seconds) is recommended.</tooltip>
+                            <validate>validate-digits validate-zero-or-greater</validate>
+                            <sort_order>540</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </cache_ttl>
+                        
+                        <aesitn translate="label comment tooltip">
+                            <label>AES/ITN</label>
+                            <comment>Optional - Only required for international shipping labels (not implemented yet)</comment>
+                            <tooltip>Automated Export System/International Transaction Number. Required for international shipping labels when items exceed $2,500 or require export licenses. Not needed for rate quotes. Exemptions apply for Canada and items under $2,500 classified under Schedule B codes.</tooltip>
+                            <sort_order>460</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </aesitn>
+                        
+                        <!-- Free Shipping -->
                         <free_shipping_enable translate="label">
                             <label>Free Shipping with Minimum Order Amount</label>
                             <frontend_type>select</frontend_type>
@@ -1179,69 +1415,173 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_shipping_enable>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
                             <validate>validate-number validate-zero-or-greater</validate>
-                            <sort_order>160</sort_order>
+                            <sort_order>1510</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_shipping_subtotal>
+                        
+                        <!-- Package Defaults (fallback when products lack dimensions) -->
+                        <create_dimensions translate="label comment">
+                            <label>Create Dimension Attributes</label>
+                            <comment><![CDATA[One-click setup: Creates <strong>package_length</strong>, <strong>package_width</strong>, <strong>package_height</strong> attributes. Run once before configuring product dimensions.]]></comment>
+                            <frontend_model>usa/adminhtml_system_config_form_field_usps_createdimensions</frontend_model>
+                            <sort_order>245</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </create_dimensions>
+                        <heading_package_defaults translate="label">
+                            <label>Default Package Dimensions</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>250</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </heading_package_defaults>
+                        <container translate="label comment">
+                            <label>Container</label>
+                            <comment>Fallback container type when product attribute not set</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_container</source_model>
+                            <sort_order>260</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </container>
+                        <size translate="label comment">
+                            <label>Size</label>
+                            <comment>Fallback package size classification</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_size</source_model>
+                            <sort_order>270</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </size>
+                        <machinable translate="label comment">
+                            <label>Machinable</label>
+                            <comment>Can package be processed by automated equipment?</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_usps_source_machinable</source_model>
+                            <sort_order>280</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </machinable>
+                        <length translate="label comment">
+                            <label>Length (inches)</label>
+                            <comment>Fallback when product package_length not set. Default: 6"</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>290</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </length>
+                        <width translate="label comment">
+                            <label>Width (inches)</label>
+                            <comment>Fallback when product package_width not set. Default: 4"</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>295</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </width>
+                        <height translate="label comment">
+                            <label>Height (inches)</label>
+                            <comment>Fallback when product package_height not set. Default: 1"</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>297</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </height>
+                        <girth translate="label comment">
+                            <label>Girth (inches)</label>
+                            <comment>For non-rectangular packages: (2×width) + (2×height)</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>298</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
+                        </girth>
+                        
+                        <!-- Geographic & Display -->
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>
                             <frontend_type>textarea</frontend_type>
-                            <sort_order>170</sort_order>
+                            <sort_order>1920</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </specificerrmsg>
                         <sallowspecific translate="label">
                             <label>Ship to Applicable Countries</label>
                             <frontend_type>select</frontend_type>
-                            <sort_order>180</sort_order>
+                            <sort_order>1900</sort_order>
                             <frontend_class>shipping-applicable-country</frontend_class>
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sallowspecific>
                         <specificcountry translate="label">
                             <label>Ship to Specific Countries</label>
                             <frontend_type>multiselect</frontend_type>
-                            <sort_order>190</sort_order>
+                            <sort_order>1910</sort_order>
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </specificcountry>
                         <debug translate="label">
                             <label>Debug</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>200</sort_order>
+                            <sort_order>1930</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </debug>
                         <showmethod translate="label">
                             <label>Show Method if Not Applicable</label>
                             <frontend_type>select</frontend_type>
-                            <sort_order>210</sort_order>
+                            <sort_order>1940</sort_order>
                             <frontend_class>shipping-skip-hide</frontend_class>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </showmethod>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <sort_order>220</sort_order>
+                            <sort_order>2000</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        0</sort_order>
+                            <depends><active>1</active></depends>
+                        </sort_order>
                     </fields>
                 </usps>
                 <dhlint translate="label" module="usa">
@@ -1266,6 +1606,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </gateway_url>
                         <verify_peer translate="label">
                             <label>Enable SSL Verification</label>
@@ -1275,6 +1616,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </verify_peer>
                         <title translate="label">
                             <label>Title</label>
@@ -1282,6 +1624,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </title>
                         <id translate="label">
                             <label>Access ID</label>
@@ -1291,6 +1634,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </id>
                         <password translate="label">
                             <label>Password</label>
@@ -1300,6 +1644,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </password>
                         <account translate="label">
                             <label>Account Number</label>
@@ -1307,6 +1652,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </account>
                         <content_type translate="label">
                             <label>Content Type</label>
@@ -1316,6 +1662,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </content_type>
                         <handling_type translate="label">
                             <label>Calculate Handling Fee</label>
@@ -1325,6 +1672,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_type>
                         <handling_action translate="label comment">
                             <label>Handling Applied</label>
@@ -1335,6 +1683,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_action>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
@@ -1343,6 +1692,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_fee>
                         <divide_order_weight translate="label comment">
                             <label>Divide Order Weight</label>
@@ -1353,6 +1703,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </divide_order_weight>
                         <unit_of_measure translate="label">
                             <label>Weight Unit</label>
@@ -1363,6 +1714,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </unit_of_measure>
                         <size translate="label">
                             <label>Size</label>
@@ -1372,6 +1724,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </size>
                         <height translate="label">
                             <label>Height</label>
@@ -1379,7 +1732,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><size>1</size></depends>
+                            <depends>
+                                <active>1</active>
+                                <size>1</size>
+                            </depends>
                         </height>
                         <depth translate="label">
                             <label>Depth</label>
@@ -1387,7 +1743,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><size>1</size></depends>
+                            <depends>
+                                <active>1</active>
+                                <size>1</size>
+                            </depends>
                         </depth>
                         <width translate="label">
                             <label>Width</label>
@@ -1395,7 +1754,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><size>1</size></depends>
+                            <depends>
+                                <active>1</active>
+                                <size>1</size>
+                            </depends>
                         </width>
                         <doc_methods translate="label">
                             <label>Allowed Methods</label>
@@ -1405,7 +1767,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><content_type>D</content_type></depends>
+                            <depends>
+                                <active>1</active>
+                                <content_type>D</content_type>
+                            </depends>
                         </doc_methods>
                         <nondoc_methods translate="label">
                             <label>Allowed Methods</label>
@@ -1415,7 +1780,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><content_type>N</content_type></depends>
+                            <depends>
+                                <active>1</active>
+                                <content_type>N</content_type>
+                            </depends>
                         </nondoc_methods>
                         <ready_time>
                             <label>Ready time</label>
@@ -1424,6 +1792,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </ready_time>
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>
@@ -1432,6 +1801,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </specificerrmsg>
                         <!--
                         If the free_shipping_enable flag enable, the system will check free_shipping_subtotal to give free shipping
@@ -1446,7 +1816,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><content_type>D</content_type></depends>
+                            <depends>
+                                <active>1</active>
+                                <content_type>D</content_type>
+                            </depends>
                         </free_method_doc>
                         <free_method_nondoc translate="label">
                             <label>Free Method</label>
@@ -1457,7 +1830,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <depends><content_type>N</content_type></depends>
+                            <depends>
+                                <active>1</active>
+                                <content_type>N</content_type>
+                            </depends>
                         </free_method_nondoc>
                         <free_shipping_enable translate="label">
                             <label>Free Shipping with Minimum Order Amount</label>
@@ -1467,6 +1843,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_shipping_enable>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
@@ -1475,6 +1852,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_shipping_subtotal>
                         <sallowspecific translate="label">
                             <label>Ship to Applicable Countries</label>
@@ -1485,6 +1863,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sallowspecific>
                         <specificcountry translate="label">
                             <label>Ship to Specific Countries</label>
@@ -1495,6 +1874,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show Method if Not Applicable</label>
@@ -1505,6 +1885,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </showmethod>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -1512,6 +1893,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sort_order>
                         <debug translate="label">
                             <label>Debug</label>
@@ -1521,6 +1903,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </debug>
                     </fields>
                 </dhlint>

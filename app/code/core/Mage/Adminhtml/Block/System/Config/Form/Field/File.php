@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * File config field renderer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field_File extends Varien_Data_Form_Element_File
@@ -26,11 +19,11 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_File extends Varien_Data_For
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $html = parent::getElementHtml();
-        $html .= $this->_getDeleteCheckbox();
-        return $html;
+        return $html . $this->_getDeleteCheckbox();
     }
 
     /**
@@ -41,7 +34,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_File extends Varien_Data_For
     protected function _getDeleteCheckbox()
     {
         $html = '';
-        if ((string)$this->getValue()) {
+        if ((string) $this->getValue()) {
             $label = Mage::helper('adminhtml')->__('Delete File');
             $html .= '<div>' . Mage::helper('adminhtml')->escapeHtml($this->getValue()) . ' ';
             $html .= '<input type="checkbox" name="' . parent::getName() . '[delete]" value="1" class="checkbox" id="' . $this->getHtmlId() . '_delete"' . ($this->getDisabled() ? ' disabled="disabled"' : '') . '/>';
@@ -49,6 +42,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_File extends Varien_Data_For
             $html .= '<input type="hidden" name="' . parent::getName() . '[value]" value="' . $this->getValue() . '" />';
             $html .= '</div>';
         }
+
         return $html;
     }
 }

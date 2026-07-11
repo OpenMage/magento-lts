@@ -15,5 +15,5 @@
  */
 -->
 <theme>
-    <parent />
+    <parent>base/default</parent>
 </theme>

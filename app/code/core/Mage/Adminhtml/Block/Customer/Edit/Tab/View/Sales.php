@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml customer view wishlist block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_Block_Template
@@ -24,11 +17,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
     /**
      * Sales entity collection
      *
-     * @var Mage_Sales_Model_Entity_Sale_Collection
+     * @var Mage_Sales_Model_Resource_Sale_Collection
      */
     protected $_collection;
 
     protected $_groupedCollection;
+
     protected $_websiteCounts;
 
     /**
@@ -44,17 +38,22 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
         $this->setId('customer_view_sales_grid');
     }
 
-    public function _beforeToHtml()
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    #[Override]
+    protected function _beforeToHtml()
     {
         $this->_currency = Mage::getModel('directory/currency')
-            ->load(Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE))
-        ;
+            ->load(Mage_Directory_Helper_Data::getConfigCurrencyBase());
 
-        $this->_collection = Mage::getResourceModel('sales/sale_collection')
+        /** @var Mage_Sales_Model_Resource_Sale_Collection $model */
+        $model = Mage::getResourceModel('sales/sale_collection')
             ->setCustomerFilter(Mage::registry('current_customer'))
             ->setOrderStateFilter(Mage_Sales_Model_Order::STATE_CANCELED, true)
-            ->load()
-        ;
+            ->load();
+        $this->_collection = $model;
 
         $this->_groupedCollection = [];
 
@@ -100,10 +99,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
     }
 
     /**
-     * @deprecated after 1.4.0.0-rc1
-     *
-     * @param float $price
+     * @param  float  $price
      * @return string
+     * @deprecated after 1.4.0.0-rc1
      */
     public function getPriceFormatted($price)
     {
@@ -113,8 +111,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
     /**
      * Format price by specified website
      *
-     * @param float $price
-     * @param null|int $websiteId
+     * @param  float    $price
+     * @param  null|int $websiteId
      * @return string
      */
     public function formatCurrency($price, $websiteId = null)

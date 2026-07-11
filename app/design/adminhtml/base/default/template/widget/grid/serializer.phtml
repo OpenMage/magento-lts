@@ -1,0 +1,33 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Widget_Grid_Serializer $this */
+?>
+<?php $_id = 'id_' . md5(microtime()) ?>
+<?php $formId = $this->getFormId()?>
+<?php if (!empty($formId)) :?>
+<script type="text/javascript">
+    Event.observe(window, "load", function(){
+        var serializeInput  = document.createElement('input');
+        serializeInput.type = 'hidden';
+        serializeInput.name = '<?php echo $this->getInputElementName()?>';
+        serializeInput.id   = '<?php echo $_id?>';
+        try {
+            document.getElementById('<?php echo $formId?>').appendChild(serializeInput);
+            new serializerController('<?php echo $_id?>', <?php echo $this->getDataAsJSON() ?>, <?php echo $this->getColumnInputNames(true) ?>, <?php echo $this->getGridBlock()->getJsObjectName() ?>, '<?php echo $this->getReloadParamName()?>');
+        } catch(e) {
+            //Error add serializer
+        }
+    });
+</script>
+<?php else: ?>
+<input type="hidden" name="<?php echo $this->getInputElementName()?>"  value="" id="<?php echo $_id?>" />
+<script type="text/javascript">
+    new serializerController('<?php echo $_id?>', <?php echo $this->getDataAsJSON() ?>, <?php echo $this->getColumnInputNames(true) ?>, <?php echo $this->getGridBlock()->getJsObjectName() ?>, '<?php echo $this->getReloadParamName()?>');
+</script>
+<?php endif ?>

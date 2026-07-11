@@ -1,0 +1,37 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php
+/**
+ * Directory contents template for Wysiwyg Images
+ *
+ * @see Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files
+ * @var Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files $this
+ */
+?>
+<?php
+$_width  = $this->getImagesWidth();
+$_height = $this->getImagesHeight();
+?>
+<?php if ($this->getFilesCount() > 0): ?>
+    <?php foreach ($this->getFiles() as $file): ?>
+    <div class="filecnt" id="<?php echo $this->getFileId($file) ?>">
+        <p class="nm" style="height:<?php echo $_height ?>px;width:<?php echo $_width ?>px;">
+        <?php if($this->getFileThumbUrl($file)):?>
+            <img src="<?php echo $this->getFileThumbUrl($file) ?>" alt="<?php echo $this->escapeHtml($this->getFileName($file)) ?>"/>
+        <?php endif ?>
+        </p>
+        <?php if($this->getFileWidth($file)): ?>
+            <small><?php echo $this->getFileWidth($file) ?>x<?php echo $this->getFileHeight($file) ?> <?php echo $this->helper('cms')->__('px.') ?></small><br/>
+        <?php endif ?>
+        <small><?php echo $this->getFileShortName($file); ?></small>
+    </div>
+    <?php endforeach ?>
+<?php else: ?>
+    <?php echo $this->helper('cms')->__('No files found') ?>
+<?php endif ?>

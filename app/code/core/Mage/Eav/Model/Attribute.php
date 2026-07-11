@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV attribute resource model (Using Forms)
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
@@ -37,15 +30,15 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Active Website instance
      *
-     * @var Mage_Core_Model_Website|null
+     * @var null|Mage_Core_Model_Website
      */
     protected $_website;
 
     /**
      * Set active website instance
      *
-     * @param Mage_Core_Model_Website|int $website
-     * @return Mage_Eav_Model_Attribute
+     * @param  int|Mage_Core_Model_Website $website
+     * @return $this
      */
     public function setWebsite($website)
     {
@@ -72,6 +65,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         Mage::getSingleton('eav/config')->clear();
@@ -85,11 +79,12 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      */
     public function getUsedInForms()
     {
-        $forms = $this->getData('used_in_forms');
+        $forms = $this->getDataByKey('used_in_forms');
         if (is_null($forms)) {
             $forms = $this->_getResource()->getUsedInForms($this);
             $this->setData('used_in_forms', $forms);
         }
+
         return $forms;
     }
 
@@ -100,20 +95,23 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      */
     public function getValidateRules()
     {
-        $rules = $this->getData('validate_rules');
+        $rules = $this->getDataByKey('validate_rules');
         if (is_array($rules)) {
             return $rules;
-        } elseif (!empty($rules)) {
+        }
+
+        if (is_string($rules) && $rules !== '') {
             return Mage::helper('core/unserializeArray')->unserialize($rules);
         }
+
         return [];
     }
 
     /**
      * Set validate rules
      *
-     * @param array|string $rules
-     * @return Mage_Eav_Model_Attribute
+     * @param  array|string $rules
+     * @return $this
      */
     public function setValidateRules($rules)
     {
@@ -122,6 +120,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
         } elseif (is_array($rules)) {
             $rules = serialize($rules);
         }
+
         $this->setData('validate_rules', $rules);
 
         return $this;
@@ -130,7 +129,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     /**
      * Return scope value by key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     protected function _getScopeValue($key)
@@ -164,6 +163,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      *
      * @return mixed
      */
+    #[Override]
     public function getDefaultValue()
     {
         return $this->_getScopeValue('default_value');

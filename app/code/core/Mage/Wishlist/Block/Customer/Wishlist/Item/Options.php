@@ -1,26 +1,19 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist block customer items
  *
- * @category   Mage
  * @package    Mage_Wishlist
  *
  * @method Mage_Wishlist_Model_Item getItem()
- * @method $this setOptionList(array $value)
+ * @method $this                    setOptionList(array $value)
  */
 class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_Block_Abstract
 {
@@ -31,7 +24,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
      */
     protected $_optionsCfg = ['default' => [
         'helper' => 'catalog/product_configuration',
-        'template' => 'wishlist/options_list.phtml'
+        'template' => 'wishlist/options_list.phtml',
     ]];
 
     /**
@@ -46,9 +39,9 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
     /**
      * Adds config for rendering product type options
      *
-     * @param string $productType
-     * @param string $helperName
-     * @param null|string $template
+     * @param  string      $productType
+     * @param  string      $helperName
+     * @param  null|string $template
      * @return $this
      */
     public function addOptionsRenderCfg($productType, $helperName, $template = null)
@@ -60,18 +53,12 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
     /**
      * Get item options renderer config
      *
-     * @param string $productType
-     * @return array|null
+     * @param  string     $productType
+     * @return null|array
      */
     public function getOptionsRenderCfg($productType)
     {
-        if (isset($this->_optionsCfg[$productType])) {
-            return $this->_optionsCfg[$productType];
-        } elseif (isset($this->_optionsCfg['default'])) {
-            return $this->_optionsCfg['default'];
-        } else {
-            return null;
-        }
+        return $this->_optionsCfg[$productType] ?? $this->_optionsCfg['default'] ?? null;
     }
 
     /**
@@ -97,6 +84,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
      *
      * @return string
      */
+    #[Override]
     public function getTemplate()
     {
         $template = parent::getTemplate();
@@ -121,6 +109,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->setOptionList($this->getConfiguredOptions());

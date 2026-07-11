@@ -1,27 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category chooser for Wysiwyg CMS widget
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtml_Block_Catalog_Category_Tree
 {
     protected $_selectedCategories = [];
+
+    protected $_withProductCount = false;
 
     /**
      * Block construction
@@ -31,13 +26,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     {
         parent::__construct();
         $this->setTemplate('catalog/category/widget/tree.phtml');
-        $this->_withProductCount = false;
     }
 
     /**
      * Setter
      *
-     * @param array $selectedCategories
+     * @param  array $selectedCategories
      * @return $this
      */
     public function setSelectedCategories($selectedCategories)
@@ -59,7 +53,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * Prepare chooser element HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element Form Element
+     * @param  Varien_Data_Form_Element_Abstract $element Form Element
      * @return Varien_Data_Form_Element_Abstract
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -67,7 +61,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         $uniqId = Mage::helper('core')->uniqHash($element->getId());
         $sourceUrl = $this->getUrl(
             '*/catalog_category_widget/chooser',
-            ['uniq_id' => $uniqId, 'use_massaction' => false]
+            ['uniq_id' => $uniqId, 'use_massaction' => false],
         );
 
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
@@ -84,6 +78,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
             if (isset($value[0]) && isset($value[1]) && $value[0] == 'category') {
                 $categoryId = $value[1];
             }
+
             if ($categoryId) {
                 $label = $this->_getModelAttributeByEntityId('catalog/category', 'name', $categoryId);
                 $chooser->setLabel($label);
@@ -97,9 +92,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * Retrieve model attribute value
      *
-     * @param string $modelType Model Type
-     * @param string $attributeName Attribute Name
-     * @param string $entityId Form Entity ID
+     * @param  string $modelType     Model Type
+     * @param  string $attributeName Attribute Name
+     * @param  string $entityId      Form Entity ID
      * @return string
      */
     protected function _getModelAttributeByEntityId($modelType, $attributeName, $entityId)
@@ -111,10 +106,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
             ->addAttributeToFilter('entity_id', $entityId)
             ->getFirstItem();
         if ($model) {
-            $result = $model->getData($attributeName);
+            return $model->getData($attributeName);
         }
+
         return $result;
     }
+
     /**
      * Category Tree node onClick listener js function
      *
@@ -122,63 +119,66 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      */
     public function getNodeClickListener()
     {
-        if ($this->getData('node_click_listener')) {
-            return $this->getData('node_click_listener');
+        if ($this->getDataByKey('node_click_listener')) {
+            return $this->getDataByKey('node_click_listener');
         }
+
         if ($this->getUseMassaction()) {
-            $js = '
+            return '
                 function (node, e) {
                     if (node.ui.toggleCheck) {
                         node.ui.toggleCheck(true);
                     }
                 }
             ';
-        } else {
-            $chooserJsObject = $this->getId();
-            $js = '
+        }
+
+        $chooserJsObject = $this->getId();
+
+        return '
                 function (node, e) {
                     ' . $chooserJsObject . '.setElementValue("category/" + node.attributes.id);
                     ' . $chooserJsObject . '.setElementLabel(node.text);
                     ' . $chooserJsObject . '.close();
                 }
             ';
-        }
-        return $js;
     }
 
     /**
      * Get JSON of a tree node or an associative array
      *
-     * @param Varien_Data_Tree_Node|array $node
-     * @param int $level
+     * @param  array|Varien_Data_Tree_Node $node
+     * @param  int                         $level
      * @return array
      */
+    #[Override]
     protected function _getNodeJson($node, $level = 0)
     {
         $item = parent::_getNodeJson($node, $level);
         if (in_array($node->getId(), $this->getSelectedCategories())) {
             $item['checked'] = true;
         }
-        $item['is_anchor'] = (int)$node->getIsAnchor();
-        $item['url_key'] = $node->getData('url_key');
+
+        $item['is_anchor'] = (int) $node->getIsAnchor();
+        $item['url_key'] = $node->getDataByKey('url_key');
         return $item;
     }
 
     /**
      * Adds some extra params to categories collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     * @return Mage_Catalog_Model_Resource_Category_Collection
      */
+    #[Override]
     public function getCategoryCollection()
     {
         return parent::getCategoryCollection()->addAttributeToSelect('url_key')->addAttributeToSelect('is_anchor');
     }
 
     /**
-     * Tree JSON source URL
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getLoadTreeUrl($expanded = null)
     {
         return $this->getUrl('*/catalog_category_widget/categoriesJson', [

@@ -1,0 +1,27 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Api_Users
+ * @var Mage_Adminhtml_Block_Api_Users $this
+ */
+?>
+<div class="content-header">
+<table cellspacing="0">
+    <tr>
+        <td style="width:50%;"><h3><?php echo $this->__('Users') ?></h3></td>
+        <td class="a-right">
+        <button class="scalable add" onclick="window.location='<?php echo $this->getAddNewUrl() ?>'"><span><span><span><?php echo $this->__('Add New User') ?></span></span></span></button>
+        </td>
+    </tr>
+</table>
+</div>
+<div>
+    <?php echo $this->getGridHtml() ?>
+</div>
+

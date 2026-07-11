@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Resource Resource Model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abstract
@@ -24,17 +17,20 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Database versions
      *
-     * @var array|null
+     * @var null|array
      */
     protected static $_versions        = null;
 
     /**
      * Resource data versions cache array
      *
-     * @var array|null
+     * @var null|array
      */
     protected static $_dataVersions    = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/resource', 'store_id');
@@ -47,8 +43,9 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      * information on main purpose of calling this routine, and even when 'data' column is absent - it won't require
      * reissuing new sql just to get 'db' version of module.
      *
-     * @param string $needType Can be 'db' or 'data'
+     * @param  string $needType Can be 'db' or 'data'
      * @return $this
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     protected function _loadVersionData($needType)
     {
@@ -61,13 +58,15 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
             if ($this->_getReadAdapter()->isTableExists($this->getMainTable())) {
                 $select = $this->_getReadAdapter()->select()
                     ->from($this->getMainTable(), '*');
-                $rowset = $this->_getReadAdapter()->fetchAll($select);
-                foreach ($rowset as $row) {
+                // phpcs:ignore Ecg.Performance.FetchAll.Found
+                $rowSet = $this->_getReadAdapter()->fetchAll($select);
+                foreach ($rowSet as $row) {
                     self::$_versions[$row['code']] = $row['version'];
                     if (array_key_exists('data_version', $row)) {
                         if (is_null(self::$_dataVersions)) {
                             self::$_dataVersions = [];
                         }
+
                         self::$_dataVersions[$row['code']] = $row['data_version'];
                     }
                 }
@@ -80,14 +79,16 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Get Module version from DB
      *
-     * @param string $resName
-     * @return bool|string
+     * @param  string       $resName
+     * @return false|string
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getDbVersion($resName)
     {
         if (!$this->_getReadAdapter()) {
             return false;
         }
+
         $this->_loadVersionData('db');
         return self::$_versions[$resName] ?? false;
     }
@@ -95,9 +96,10 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Set module version into DB
      *
-     * @param string $resName
-     * @param string $version
+     * @param  string $resName
+     * @param  string $version
      * @return int
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function setDbVersion($resName, $version)
     {
@@ -111,19 +113,20 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
             return $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
                 $dbModuleInfo,
-                ['code = ?' => $resName]
+                ['code = ?' => $resName],
             );
-        } else {
-            self::$_versions[$resName] = $version;
-            return $this->_getWriteAdapter()->insert($this->getMainTable(), $dbModuleInfo);
         }
+
+        self::$_versions[$resName] = $version;
+        return $this->_getWriteAdapter()->insert($this->getMainTable(), $dbModuleInfo);
     }
 
     /**
      * Get resource data version
      *
-     * @param string $resName
-     * @return string|false
+     * @param  string       $resName
+     * @return false|string
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getDataVersion($resName)
     {
@@ -139,15 +142,16 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Specify resource data version
      *
-     * @param string $resName
-     * @param string $version
+     * @param  string $resName
+     * @param  string $version
      * @return $this
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function setDataVersion($resName, $version)
     {
         $data = [
             'code'          => $resName,
-            'data_version'  => $version
+            'data_version'  => $version,
         ];
 
         if ($this->getDbVersion($resName) || $this->getDataVersion($resName)) {
@@ -157,6 +161,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
             self::$_dataVersions[$resName] = $version;
             $this->_getWriteAdapter()->insert($this->getMainTable(), $data);
         }
+
         return $this;
     }
 }

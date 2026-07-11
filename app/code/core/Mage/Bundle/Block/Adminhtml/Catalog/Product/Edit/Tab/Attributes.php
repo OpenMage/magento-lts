@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle product attributes tab
  *
- * @category   Mage
  * @package    Mage_Bundle
  *
  * @method bool getCanEditPrice()
@@ -28,15 +21,16 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         parent::_prepareForm();
 
-        $special_price = $this->getForm()->getElement('special_price');
-        if ($special_price) {
-            $special_price->setRenderer(
+        $specialPrice = $this->getForm()->getElement('special_price');
+        if ($specialPrice) {
+            $specialPrice->setRenderer(
                 $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_attributes_special')
-                    ->setDisableChild(false)
+                    ->setDisableChild(false),
             );
         }
 
@@ -44,7 +38,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
         if ($sku) {
             $sku->setRenderer(
                 $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_attributes_extend')
-                    ->setDisableChild(false)
+                    ->setDisableChild(false),
             );
         }
 
@@ -53,8 +47,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
             $price->setRenderer(
                 $this->getLayout()->createBlock(
                     'bundle/adminhtml_catalog_product_edit_tab_attributes_extend',
-                    'adminhtml.catalog.product.bundle.edit.tab.attributes.price'
-                )->setDisableChild(true)
+                    'adminhtml.catalog.product.bundle.edit.tab.attributes.price',
+                )->setDisableChild(true),
             );
         }
 
@@ -86,7 +80,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
                 });
                 //]]>
                 "
-                . '</script>'
+                . '</script>',
             );
         }
 
@@ -94,16 +88,16 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
         if ($weight) {
             $weight->setRenderer(
                 $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_attributes_extend')
-                    ->setDisableChild(true)
+                    ->setDisableChild(true),
             );
         }
 
-        $tier_price = $this->getForm()->getElement('tier_price');
-        if ($tier_price) {
-            $tier_price->setRenderer(
+        $tierPrice = $this->getForm()->getElement('tier_price');
+        if ($tierPrice) {
+            $tierPrice->setRenderer(
                 $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_tier')
                     ->setPriceColumnHeader(Mage::helper('bundle')->__('Percent Discount'))
-                    ->setPriceValidation('validate-greater-than-zero validate-percents')
+                    ->setPriceValidation('validate-greater-than-zero validate-percents'),
             );
         }
 
@@ -113,7 +107,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
                 $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_group')
                     ->setPriceColumnHeader(Mage::helper('bundle')->__('Percent Discount'))
                     ->setIsPercent(true)
-                    ->setPriceValidation('validate-greater-than-zero validate-percents')
+                    ->setPriceValidation('validate-greater-than-zero validate-percents'),
             );
         }
 
@@ -145,7 +139,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
                     changePriceTypeMap();
                 });
                 "
-                . '</script>'
+                . '</script>',
             );
         }
 
@@ -159,9 +153,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
      */
     public function getProduct()
     {
-        if (!$this->getData('product')) {
+        if (!$this->getDataByKey('product')) {
             $this->setData('product', Mage::registry('product'));
         }
-        return $this->getData('product');
+
+        return $this->getDataByKey('product');
     }
 }

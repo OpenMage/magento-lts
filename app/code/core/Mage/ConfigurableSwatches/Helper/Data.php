@@ -1,32 +1,39 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_ConfigurableSwatches
  */
 class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const CONFIG_PATH_BASE = 'configswatches';
+
     public const CONFIG_PATH_ENABLED = 'configswatches/general/enabled';
+
     public const CONFIG_PATH_SWATCH_ATTRIBUTES = 'configswatches/general/swatch_attributes';
+
     public const CONFIG_PATH_LIST_SWATCH_ATTRIBUTE = 'configswatches/general/product_list_attribute';
 
     protected $_moduleName = 'Mage_ConfigurableSwatches';
 
+    /**
+     * Is the extension enabled
+     *
+     * @var null|bool
+     */
     protected $_enabled = null;
+
+    /**
+     * Swatch attribute IDs from config
+     *
+     * @var null|string[]
+     */
     protected $_configAttributeIds = null;
 
     /**
@@ -42,14 +49,16 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
                 && Mage::helper('configurableswatches/productlist')->getSwatchAttributeId()
             );
         }
+
         return $this->_enabled;
     }
 
     /**
      * Return the formatted hyphenated string
      *
-     * @param string $str
-     * @return string
+     * @param  string      $str
+     * @return null|string
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getHyphenatedString($str)
     {
@@ -69,7 +78,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
      * Trims and lower-cases strings used as array indexes in json and for string matching in a
      * multi-byte compatible way if the mbstring module is available.
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     public static function normalizeKey($key)
@@ -77,16 +86,26 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
         if ($key === null || $key === '') {
             return '';
         }
+
         if (function_exists('mb_strtolower')) {
             return trim(mb_strtolower($key, 'UTF-8'));
         }
+
         return trim(strtolower($key));
+    }
+
+    /**
+     * Wraps a key in a Normalized object that normalizes to lowercase but preserves original value
+     */
+    public static function normalizeKeyToObject(?string $key): Mage_ConfigurableSwatches_Model_String_Normalized
+    {
+        return new Mage_ConfigurableSwatches_Model_String_Normalized($key);
     }
 
     /**
      * Get list of attributes that should use swatches
      *
-     * @return array
+     * @return string[]
      */
     public function getSwatchAttributeIds()
     {
@@ -96,20 +115,23 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->_configAttributeIds = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_SWATCH_ATTRIBUTES));
             }
         }
+
         return $this->_configAttributeIds;
     }
 
     /**
      * Determine if an attribute should be a swatch
      *
-     * @param int|Mage_Eav_Model_Attribute $attr
+     * @param  int|Mage_Eav_Model_Attribute $attr
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function attrIsSwatchType($attr)
     {
         if ($attr instanceof Varien_Object) {
             $attr = $attr->getId();
         }
+
         $configAttrs = $this->getSwatchAttributeIds();
         return in_array($attr, $configAttrs);
     }
@@ -117,7 +139,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get swatches product javascript
      *
-     * @return string|null
+     * @return null|string
      */
     public function getSwatchesProductJs()
     {
@@ -134,6 +156,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return null;
     }
 }

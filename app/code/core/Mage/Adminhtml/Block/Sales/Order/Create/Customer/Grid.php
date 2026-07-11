@@ -1,26 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales order create block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_create_customer_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -30,6 +25,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminht
         $this->setDefaultSort('entity_id');
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('customer/customer_collection')
@@ -48,27 +47,30 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminht
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('sales')->__('ID'),
-            'width'     => '50px',
             'index'     => 'entity_id',
-            'align'     => 'right',
         ]);
         $this->addColumn('name', [
             'header'    => Mage::helper('sales')->__('Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
         $this->addColumn('email', [
             'header'    => Mage::helper('sales')->__('Email'),
             'width'     => '150px',
-            'index'     => 'email'
+            'index'     => 'email',
         ]);
         $this->addColumn('Telephone', [
             'header'    => Mage::helper('sales')->__('Telephone'),
             'width'     => '100px',
-            'index'     => 'billing_telephone'
+            'index'     => 'billing_telephone',
         ]);
         $this->addColumn('billing_postcode', [
             'header'    => Mage::helper('sales')->__('ZIP/Post Code'),
@@ -100,16 +102,27 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminht
     /**
      * @deprecated since 1.1.7
      */
+    #[Override]
     public function getRowId($row)
     {
         return $row->getId();
     }
 
+    /**
+     * @inheritDoc
+     * @param  Mage_Customer_Model_Customer $row
+     * @throws Mage_Core_Exception
+     */
+    #[Override]
     public function getRowUrl($row)
     {
         return $row->getId();
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/loadBlock', ['block' => 'customer_grid']);

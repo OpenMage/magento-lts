@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wsdl config model
  *
- * @category   Mage
  * @package    Mage_Api
  */
 class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
@@ -35,7 +28,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     /**
      * Return wsdl content
      *
-     * @return string|bool
+     * @return bool|string
      */
     public function getWsdlContent()
     {
@@ -56,42 +49,47 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
                 self::$_namespacesPrefix[$namespace->asArray()] = $prefix;
             }
         }
+
         return self::$_namespacesPrefix;
     }
 
     /**
      * @return Varien_Simplexml_Config_Cache_Abstract|Zend_Cache_Core
      */
+    #[Override]
     public function getCache()
     {
         return Mage::app()->getCache();
     }
 
     /**
-     * @param string $id
-     * @return bool|mixed
+     * @param  string       $id
+     * @return false|string
      */
+    #[Override]
     protected function _loadCache($id)
     {
         return Mage::app()->loadCache($id);
     }
 
     /**
-     * @param string $data
-     * @param string $id
-     * @param array $tags
-     * @param int|false|null $lifetime
-     * @return bool|Mage_Core_Model_App
+     * @param  string              $data
+     * @param  string              $id
+     * @param  array               $tags
+     * @param  null|false|int      $lifetime
+     * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
     {
         return Mage::app()->saveCache($data, $id, $tags, $lifetime);
     }
 
     /**
-     * @param string $id
+     * @param  string              $id
      * @return Mage_Core_Model_App
      */
+    #[Override]
     protected function _removeCache($id)
     {
         return Mage::app()->removeCache($id);
@@ -103,7 +101,6 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     public function init()
     {
         $this->setCacheChecksum(null);
-        $saveCache = true;
 
         if (Mage::app()->useCache('config')) {
             $loaded = $this->loadCache();
@@ -120,9 +117,9 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
              * Exclude Mage_Api wsdl xml file because it used for previous version
              * of API wsdl declaration
              */
-            $mergeWsdl->addLoadedFile(Mage::getConfig()->getModuleDir('etc', "Mage_Api") . DS . 'wsi.xml');
+            $mergeWsdl->addLoadedFile(Mage::getConfig()->getModuleDir('etc', 'Mage_Api') . DS . 'wsi.xml');
 
-            $baseWsdlFile = Mage::getConfig()->getModuleDir('etc', "Mage_Api") . DS . 'wsi.xml';
+            $baseWsdlFile = Mage::getConfig()->getModuleDir('etc', 'Mage_Api') . DS . 'wsi.xml';
             $this->loadFile($baseWsdlFile);
             Mage::getConfig()->loadModulesConfiguration('wsi.xml', $this, $mergeWsdl);
         } else {
@@ -130,9 +127,9 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
              * Exclude Mage_Api wsdl xml file because it used for previous version
              * of API wsdl declaration
              */
-            $mergeWsdl->addLoadedFile(Mage::getConfig()->getModuleDir('etc', "Mage_Api") . DS . 'wsdl.xml');
+            $mergeWsdl->addLoadedFile(Mage::getConfig()->getModuleDir('etc', 'Mage_Api') . DS . 'wsdl.xml');
 
-            $baseWsdlFile = Mage::getConfig()->getModuleDir('etc', "Mage_Api") . DS . 'wsdl2.xml';
+            $baseWsdlFile = Mage::getConfig()->getModuleDir('etc', 'Mage_Api') . DS . 'wsdl2.xml';
             $this->loadFile($baseWsdlFile);
             Mage::getConfig()->loadModulesConfiguration('wsdl.xml', $this, $mergeWsdl);
         }
@@ -147,8 +144,9 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     /**
      * Return Xml of node as string
      *
-     * @return string|bool
+     * @return bool|string
      */
+    #[Override]
     public function getXmlString()
     {
         return $this->getNode()->asXML();

@@ -1,19 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 
@@ -46,7 +40,7 @@ $table = $installer->getConnection()
     ], 'Store ID')
     ->addIndex(
         $installer->getIdxName('log/customer', ['visitor_id']),
-        ['visitor_id']
+        ['visitor_id'],
     )
     ->setComment('Log Customers Table');
 $installer->getConnection()->createTable($table);
@@ -151,7 +145,7 @@ $table = $installer->getConnection()
     ], 'Visit Time')
     ->addIndex(
         $installer->getIdxName('log/url_table', ['visitor_id']),
-        ['visitor_id']
+        ['visitor_id'],
     )
     ->setComment('Log URL Table');
 $installer->getConnection()->createTable($table);
@@ -262,15 +256,15 @@ $table = $installer->getConnection()
     ], 'Last URL')
     ->addIndex(
         $installer->getIdxName('log/visitor_online', ['visitor_type']),
-        ['visitor_type']
+        ['visitor_type'],
     )
     ->addIndex(
         $installer->getIdxName('log/visitor_online', ['first_visit_at', 'last_visit_at']),
-        ['first_visit_at', 'last_visit_at']
+        ['first_visit_at', 'last_visit_at'],
     )
     ->addIndex(
         $installer->getIdxName('log/visitor_online', ['customer_id']),
-        ['customer_id']
+        ['customer_id'],
     )
     ->setComment('Log Visitor Online Table');
 $installer->getConnection()->createTable($table);

@@ -1,44 +1,33 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml customer grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Initialize Grid block
-     *
-     */
+    protected string $_eventPrefix = 'adminhtml_customer_online_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('onlineGrid');
         $this->setSaveParametersInSession(true);
         $this->setDefaultSort('last_activity');
-        $this->setDefaultDir('DESC');
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Log_Model_Resource_Visitor_Online_Collection $collection */
@@ -48,49 +37,47 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
         $collection->addCustomerData();
 
         $this->setCollection($collection);
-        parent::_prepareCollection();
 
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('customer_id', [
             'header'    => Mage::helper('customer')->__('ID'),
             'width'     => '40px',
-            'align'     => 'right',
             'type'      => 'number',
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'customer_id'
+            'index'     => 'customer_id',
         ]);
 
         $this->addColumn('firstname', [
             'header'    => Mage::helper('customer')->__('First Name'),
             'default'   => Mage::helper('customer')->__('Guest'),
-            'index'     => 'customer_firstname'
+            'index'     => 'customer_firstname',
         ]);
 
         $this->addColumn('middlename', [
             'header'    => Mage::helper('customer')->__('Middle Name'),
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'customer_middlename'
+            'index'     => 'customer_middlename',
         ]);
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('customer')->__('Last Name'),
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'customer_lastname'
+            'index'     => 'customer_lastname',
         ]);
 
         $this->addColumn('email', [
             'header'    => Mage::helper('customer')->__('Email'),
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'customer_email'
+            'index'     => 'customer_email',
         ]);
 
         $this->addColumn('ip_address', [
@@ -99,7 +86,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'index'     => 'remote_addr',
             'renderer'  => 'adminhtml/customer_online_grid_renderer_ip',
             'filter'    => false,
-            'sort'      => false
+            'sort'      => false,
         ]);
 
         $this->addColumn('session_start_time', [
@@ -107,7 +94,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'align'     => 'left',
             'type'      => 'datetime',
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'first_visit_at'
+            'index'     => 'first_visit_at',
         ]);
 
         $this->addColumn('last_activity', [
@@ -115,7 +102,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'align'     => 'left',
             'type'      => 'datetime',
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'last_visit_at'
+            'index'     => 'last_visit_at',
         ]);
 
         $typeOptions = [
@@ -127,7 +114,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'header'    => Mage::helper('customer')->__('Type'),
             'type'      => 'options',
             'options'   => $typeOptions,
-            'index'     => 'visitor_type'
+            'index'     => 'visitor_type',
         ]);
 
         $this->addColumn('last_url', [
@@ -136,21 +123,23 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'lineLength' => '60',
             'default'   => Mage::helper('customer')->__('n/a'),
             'renderer'  => 'adminhtml/customer_online_grid_renderer_url',
-            'index'     => 'last_url'
+            'index'     => 'last_url',
         ]);
 
         return parent::_prepareColumns();
     }
 
     /**
-     * Retrieve Row URL
-     *
-     * @param Mage_Core_Model_Abstract $row
-     * @return string
+     * @inheritDoc
+     * @param Mage_Log_Model_Visitor_Online $row
      */
+    #[Override]
     public function getRowUrl($row)
     {
-        return (Mage::getSingleton('admin/session')->isAllowed('customer/manage') && $row->getCustomerId())
-            ? $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId()]) : '';
+        if ($this->isAllowed('customer/manage') && $row->getCustomerId()) {
+            return $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId()]);
+        }
+
+        return '';
     }
 }

@@ -1,28 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Hosted Pro Checkout Controller
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
 {
     /**
      * When a customer return to website from gateway.
+     * @return void
      */
     public function returnAction()
     {
@@ -35,6 +29,7 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
 
     /**
      * When a customer cancel payment from gateway.
+     * @return void
      */
     public function cancelAction()
     {
@@ -49,7 +44,7 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
     /**
      * Cancel order, return quote to customer
      *
-     * @param string $errorMsg
+     * @param  string       $errorMsg
      * @return false|string
      */
     protected function _cancelPayment($errorMsg = '')
@@ -59,8 +54,9 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
         $helper = Mage::helper('paypal/checkout');
         $helper->cancelCurrentOrder($errorMsg);
         if ($helper->restoreQuote()) {
-            $gotoSection = 'payment';
+            return 'payment';
         }
+
         return $gotoSection;
     }
 
@@ -82,7 +78,8 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
     protected function _getIframeBlock()
     {
         $this->loadLayout('paypal_hosted_pro_iframe');
-        return $this->getLayout()
-            ->getBlock('hosted.pro.iframe');
+        /** @var Mage_Paypal_Block_Hosted_Pro_Iframe $block */
+        $block = $this->getLayout()->getBlock('hosted.pro.iframe');
+        return $block;
     }
 }

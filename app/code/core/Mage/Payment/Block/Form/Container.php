@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -18,7 +12,6 @@
  *
  * @method Mage_Sales_Model_Quote getQuote()
  *
- * @category   Mage
  * @package    Mage_Payment
  */
 class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
@@ -26,6 +19,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     /**
      * Prepare children blocks
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Payment_Helper_Data $helper */
@@ -37,7 +31,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
         foreach ($this->getMethods() as $method) {
             $this->setChild(
                 'payment.method.' . $method->getCode(),
-                $helper->getMethodFormBlock($method)
+                $helper->getMethodFormBlock($method),
             );
         }
 
@@ -47,7 +41,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     /**
      * Check payment method model
      *
-     * @param Mage_Payment_Model_Method_Abstract $method
+     * @param  Mage_Payment_Model_Method_Abstract $method
      * @return bool
      */
     protected function _canUseMethod($method)
@@ -62,7 +56,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      *
      * Redeclare this method in child classes for declaring method info instance
      *
-     * @param Mage_Payment_Model_Method_Abstract $method
+     * @param  Mage_Payment_Model_Method_Abstract $method
      * @return $this
      */
     protected function _assignMethod($method)
@@ -74,17 +68,16 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     /**
      * Declare template for payment method form block
      *
-     * @param   string $method
-     * @param   string $template
-     * @return  $this
+     * @param  string $method
+     * @param  string $template
+     * @return $this
      */
     public function setMethodFormTemplate($method = '', $template = '')
     {
-        if (!empty($method) && !empty($template)) {
-            if ($block = $this->getChild('payment.method.' . $method)) {
-                $block->setTemplate($template);
-            }
+        if (!empty($method) && !empty($template) && $block = $this->getChild('payment.method.' . $method)) {
+            $block->setTemplate($template);
         }
+
         return $this;
     }
 
@@ -95,7 +88,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      */
     public function getMethods()
     {
-        $methods = $this->getData('methods');
+        $methods = $this->getDataByKey('methods');
         if ($methods === null) {
             /** @var Mage_Payment_Helper_Data $helper */
             $helper = $this->helper('payment');
@@ -111,15 +104,17 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
                     $methods[] = $method;
                 }
             }
+
             $this->setData('methods', $methods);
         }
+
         return $methods;
     }
 
     /**
      * Retrieve code of current payment method
      *
-     * @return string|false
+     * @return false|string
      */
     public function getSelectedMethodCode()
     {
@@ -128,6 +123,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
             reset($methods);
             return current($methods)->getCode();
         }
+
         return false;
     }
 }

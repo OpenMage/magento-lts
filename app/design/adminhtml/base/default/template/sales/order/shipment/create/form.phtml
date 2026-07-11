@@ -1,0 +1,98 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form $this */
+?>
+<form id="edit_form" method="post" action="<?php echo $this->getSaveUrl() ?>">
+    <?php echo $this->getBlockHtml('formkey')?>
+    <?php  $_order = $this->getShipment()->getOrder() ?>
+    <?php echo $this->getChildHtml('order_info') ?>
+
+
+    <div class="box-left">
+        <!--Billing Address-->
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-payment-method"><?php echo Mage::helper('sales')->__('Payment Information') ?></h4>
+            </div>
+            <fieldset>
+                <div><?php echo $this->getPaymentHtml() ?></div>
+                <div><?php echo Mage::helper('sales')->__('The order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="box-right">
+        <!--Shipping Address-->
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-shipping-method"><?php echo Mage::helper('sales')->__('Shipping Information') ?></h4>
+            </div>
+            <fieldset>
+                <div>
+                    <strong><?php echo $this->escapeHtml($_order->getShippingDescription()) ?></strong>
+                    <?php echo $this->helper('sales')->__('Total Shipping Charges'); ?>:
+
+                    <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
+                        <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
+                    <?php else: ?>
+                        <?php $_excl = $this->displayPriceAttribute('shipping_amount', false, ' '); ?>
+                    <?php endif ?>
+                    <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
+
+                    <?php echo $_excl; ?>
+                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                    <?php endif ?>
+                </div>
+                <div><?php echo $this->getChildHtml('shipment_tracking') ?></div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-products"><?php echo Mage::helper('sales')->__('Items to Ship') ?></h4>
+        </div>
+    </div>
+    <div id="ship_items_container">
+            <?php echo $this->getItemsHtml() ?>
+    </div>
+</form>
+<?php echo $this->getChildHtml('shipment_packaging') ?>
+<script type="text/javascript">
+//<![CDATA[
+    document.observe("dom:loaded", function() {
+        setTimeout(function(){
+            packaging.setConfirmPackagingCallback(function(){
+                packaging.setParamsCreateLabelRequest($('edit_form').serialize(true));
+                packaging.sendCreateLabelRequest();
+            });
+            packaging.setLabelCreatedCallback(function(response){
+                setLocation("<?php echo $this->getUrl(
+                    '*/sales_order/view',
+                    ['order_id' => $this->getShipment()->getOrderId()]
+                ); ?>");
+            });
+            packaging.setCancelCallback(function() {
+                packaging.cleanPackages();
+                $('create_shipping_label').checked = false;
+                toggleCreateLabelCheckbox();
+            });
+            packaging.setItemQtyCallback(function(itemId){
+                var item = $$('[name="shipment[items]['+itemId+']"]')[0];
+                if (item && !isNaN(item.value)) {
+                    return item.value;
+                }
+            });
+        }, 500);
+    });
+
+    editForm = new varienForm('edit_form');
+//]]>
+</script>

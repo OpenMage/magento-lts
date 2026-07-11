@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Website Payments Pro Hosted Solution payment gateway model
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
@@ -58,14 +51,18 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     protected $_code = Mage_Paypal_Model_Config::METHOD_HOSTEDPRO;
 
     protected $_formBlockType = 'paypal/hosted_pro_form';
+
     protected $_infoBlockType = 'paypal/hosted_pro_info';
 
     /**
      * Availability options
      */
     protected $_canUseInternal          = false;
+
     protected $_canUseForMultishipping  = false;
+
     protected $_canSaveCc               = false;
+
     protected $_isInitializeNeeded      = true;
 
     /**
@@ -74,6 +71,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      *
      * @return bool
      */
+    #[Override]
     public function getAllowedCcTypes()
     {
         return true;
@@ -99,16 +97,17 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     {
         if ($this->getConfigData('mobile_optimized')) {
             return self::MOBILE_LAYOUT_TEMPLATE;
-        } else {
-            return self::LAYOUT_TEMPLATE;
         }
+
+        return self::LAYOUT_TEMPLATE;
     }
 
     /**
      * Do not validate payment form using server methods
      *
-     * @return  bool
+     * @return bool
      */
+    #[Override]
     public function validate()
     {
         return true;
@@ -117,9 +116,10 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Instantiate state and set it to state object
      *
-     * @param string $paymentAction
+     * @param string        $paymentAction
      * @param Varien_Object $stateObject
      */
+    #[Override]
     public function initialize($paymentAction, $stateObject)
     {
         switch ($paymentAction) {
@@ -146,8 +146,6 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
 
     /**
      * Sends API request to PayPal to get form URL, then sets this URL to $payment object.
-     *
-     * @param Mage_Payment_Model_Info $payment
      */
     protected function _setPaymentFormUrl(Mage_Payment_Model_Info $payment)
     {
@@ -163,7 +161,6 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Returns request object with needed data for API request to PayPal to get form URL.
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return Mage_Paypal_Model_Hostedpro_Request
      */
     protected function _buildFormUrlRequest(Mage_Payment_Model_Info $payment)
@@ -176,8 +173,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Returns form URL from request to PayPal.
      *
-     * @param Mage_Paypal_Model_Hostedpro_Request $request
-     * @return string | false
+     * @return false|string
      */
     protected function _sendFormUrlRequest(Mage_Paypal_Model_Hostedpro_Request $request)
     {
@@ -198,7 +194,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
         $request->setData([
             'METHOD'     => self::BM_BUTTON_METHOD,
             'BUTTONCODE' => self::BM_BUTTON_CODE,
-            'BUTTONTYPE' => self::BM_BUTTON_TYPE
+            'BUTTONTYPE' => self::BM_BUTTON_TYPE,
         ]);
         return $request;
     }
@@ -206,7 +202,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Get return URL
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getReturnUrl($storeId = null)
@@ -217,7 +213,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Get notify (IPN) URL
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getNotifyUrl($storeId = null)
@@ -228,7 +224,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Get cancel URL
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getCancelUrl($storeId = null)
@@ -239,17 +235,17 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Build URL for store
      *
-     * @param string $path
-     * @param int $storeId
-     * @param bool $secure
+     * @param  string $path
+     * @param  int    $storeId
+     * @param  bool   $secure
      * @return string
      */
     protected function _getUrl($path, $storeId, $secure = null)
     {
         $store = Mage::app()->getStore($storeId);
         return Mage::getUrl($path, [
-            "_store"   => $store,
-            "_secure"  => is_null($secure) ? $store->isCurrentlySecure() : $secure
+            '_store'   => $store,
+            '_secure'  => $secure ?? $store->isCurrentlySecure(),
         ]);
     }
 }

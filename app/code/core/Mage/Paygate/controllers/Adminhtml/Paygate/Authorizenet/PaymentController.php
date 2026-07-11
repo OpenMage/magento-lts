@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paygate
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Authorize Payment Controller
  *
- * @category   Mage
  * @package    Mage_Paygate
  */
 class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage_Adminhtml_Controller_Action
@@ -29,6 +22,7 @@ class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage
 
     /**
      * Cancel active partail authorizations
+     * @return void
      */
     public function cancelAction()
     {
@@ -42,11 +36,11 @@ class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage
 
             $result['success']  = true;
             $result['update_html'] = $this->_getPaymentMethodsHtml();
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
-            $result['error_message'] = $e->getMessage();
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
+            $result['error_message'] = $mageCoreException->getMessage();
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $result['error_message'] = $this->__('There was an error canceling transactions. Please contact us or try again later.');
         }
 
@@ -64,6 +58,7 @@ class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage
         $layout = $this->getLayout();
         $update = $layout->getUpdate();
         $update->load('checkout_onepage_paymentmethod');
+
         $layout->generateXml();
         $layout->generateBlocks();
         return $layout->getOutput();

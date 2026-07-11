@@ -1,30 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Rules Grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Initialize grid
-     * Set sort settings
-     */
+    protected string $_eventPrefix = 'adminhtml_promo_catalog_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -36,10 +27,10 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
 
     /**
      * Add websites to catalog rules collection
-     * Set collection
      *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_CatalogRule_Model_Resource_Rule_Collection $collection */
@@ -48,15 +39,14 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
         $collection->addWebsitesToResult();
         $this->setCollection($collection);
 
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Add grid columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('rule_id', [
@@ -95,7 +85,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
             'type'      => 'options',
             'options'   => [
                 1 => Mage::helper('catalogrule')->__('Active'),
-                0 => Mage::helper('catalogrule')->__('Inactive')
+                0 => Mage::helper('catalogrule')->__('Inactive'),
             ],
         ]);
 
@@ -111,17 +101,14 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
             ]);
         }
 
-        parent::_prepareColumns();
-        return $this;
+        return parent::_prepareColumns();
     }
 
     /**
-     * Retrieve row click URL
-     *
+     * @inheritDoc
      * @param Mage_CatalogRule_Model_Rule $row
-     *
-     * @return string
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getRuleId()]);

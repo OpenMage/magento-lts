@@ -1,26 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template db resource
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/email_template', 'template_id');
@@ -29,7 +25,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
     /**
      * Load by template code from DB.
      *
-     * @param string $templateCode
+     * @param  string $templateCode
      * @return array
      */
     public function loadByCode($templateCode)
@@ -42,13 +38,13 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
         if (!$result) {
             return [];
         }
+
         return $result;
     }
 
     /**
      * Check usage of template code in other templates
      *
-     * @param Mage_Core_Model_Email_Template $template
      * @return bool
      */
     public function checkCodeUsage(Mage_Core_Model_Email_Template $template)
@@ -58,7 +54,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
                 ->from($this->getMainTable(), 'COUNT(*)')
                 ->where('template_code = :template_code');
             $bind = [
-                'template_code' => $template->getTemplateCode()
+                'template_code' => $template->getTemplateCode(),
             ];
 
             $templateId = $template->getId();
@@ -72,6 +68,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
                 return true;
             }
         }
+
         return false;
     }
 
@@ -81,22 +78,24 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
      * @param Mage_Core_Model_Email_Template $object
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if ($object->isObjectNew()) {
             $object->setCreatedAt($this->formatDate(true));
         }
+
         $object->setModifiedAt($this->formatDate(true));
-        $object->setTemplateType((int)$object->getTemplateType());
+        $object->setTemplateType((int) $object->getTemplateType());
 
         return parent::_beforeSave($object);
     }
 
     /**
-     * Retrieve config scope and scope id of specified email template by email pathes
+     * Retrieve config scope and scope id of specified email template by email paths
      *
-     * @param array $paths
-     * @param int|string $templateId
+     * @param  array      $paths
+     * @param  int|string $templateId
      * @return array
      */
     public function getSystemConfigByPathsAndTemplateId($paths, $templateId)
@@ -110,6 +109,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
             $bind[$pathAlias] = $path;
             $pathesCounter++;
         }
+
         $bind['template_id'] = $templateId;
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('core/config_data'), ['scope', 'scope_id', 'path'])

@@ -1,31 +1,27 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 roles controller
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_Action
 {
+    public const ADMIN_RESOURCE = 'system/api/rest_roles';
+
     /**
      * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions(['delete', 'save']);
@@ -34,6 +30,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Show grid
+     * @return void
      */
     public function indexAction()
     {
@@ -41,8 +38,8 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
              ->_title($this->__('Web Services'))
              ->_title($this->__('REST Roles'));
 
-        $this->loadLayout()->_setActiveMenu('system/services/roles');
-        $this->_addBreadcrumb($this->__('Web services'), $this->__('Web services'));
+        $this->loadLayout()->_setActiveMenu('system/api/rest_roles');
+        $this->_addBreadcrumb($this->__('Web Services'), $this->__('Web Services'));
         $this->_addBreadcrumb($this->__('REST Roles'), $this->__('REST Roles'));
         $this->_addBreadcrumb($this->__('Roles'), $this->__('Roles'));
 
@@ -51,6 +48,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Updating grid by ajax
+     * @return void
      */
     public function gridAction()
     {
@@ -60,6 +58,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Updating users grid by ajax
+     * @return void
      */
     public function usersGridAction()
     {
@@ -75,6 +74,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Create new role
+     * @return void
      */
     public function newAction()
     {
@@ -82,8 +82,8 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
              ->_title($this->__('Web Services'))
              ->_title($this->__('Rest Roles'));
 
-        $this->loadLayout()->_setActiveMenu('system/services/roles');
-        $this->_addBreadcrumb($this->__('Web services'), $this->__('Web services'));
+        $this->loadLayout()->_setActiveMenu('system/api/rest_roles');
+        $this->_addBreadcrumb($this->__('Web Services'), $this->__('Web Services'));
         $this->_addBreadcrumb($this->__('REST Roles'), $this->__('REST Roles'));
         $this->_addBreadcrumb($this->__('Roles'), $this->__('Roles'));
 
@@ -98,6 +98,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Edit role
+     * @return void
      */
     public function editAction()
     {
@@ -146,6 +147,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Save role
+     * @return void
      */
     public function saveAction()
     {
@@ -157,14 +159,14 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
         if (!$role->getId() && $id) {
             $this->_getSession()->addError(
-                $this->__('Role "%s" no longer exists', $role->getData('role_name'))
+                $this->__('Role "%s" no longer exists', $role->getDataByKey('role_name')),
             );
             $this->_redirect('*/*/');
             return;
         }
 
         //Validate current admin password
-        $currentPassword = $request->getParam('current_password', null);
+        $currentPassword = $request->getParam('current_password');
         $request->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -172,15 +174,17 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             if ($id) {
                 $this->_redirect('*/*/edit', ['id' => $id]);
             } else {
                 $this->_redirect('*/*/new');
             }
+
             return;
         }
 
-        $roleUsers  = $request->getParam('in_role_users', null);
+        $roleUsers  = $request->getParam('in_role_users');
         parse_str($roleUsers, $roleUsers);
         $roleUsers = array_keys($roleUsers);
 
@@ -220,7 +224,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             /** @var Mage_Api2_Model_Acl_Global_Rule_Tree $ruleTree */
             $ruleTree = Mage::getSingleton(
                 'api2/acl_global_rule_tree',
-                ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_PRIVILEGE]
+                ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_PRIVILEGE],
             );
             $resources = $ruleTree->getPostResources();
             $id = $role->getId();
@@ -241,10 +245,10 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             }
 
             $session->addSuccess($this->__('The role has been saved.'));
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('An error occurred while saving role.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('An error occurred while saving role.'));
         }
 
         $this->_redirect('*/*/edit', ['id' => $id]);
@@ -252,13 +256,14 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
     /**
      * Delete role
+     * @return void
      */
     public function deleteAction()
     {
         $id = $this->getRequest()->getParam('id', false);
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -266,36 +271,28 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/edit', ['id' => $id]);
             return;
         }
 
         try {
             /** @var Mage_Api2_Model_Acl_Global_Role $model */
-            $model = Mage::getModel("api2/acl_global_role");
+            $model = Mage::getModel('api2/acl_global_role');
             $model->load($id)->delete();
             $this->_getSession()->addSuccess($this->__('Role has been deleted.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()->addException($e, $this->__('An error occurred while deleting the role.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $this->_getSession()->addException($exception, $this->__('An error occurred while deleting the role.'));
         }
 
-        $this->_redirect("*/*/");
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _isAllowed()
-    {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/rest_roles');
+        $this->_redirect('*/*/');
     }
 
     /**
      * Get API2 roles ajax grid action
+     * @return void
      */
     public function rolesGridAction()
     {
@@ -311,12 +308,12 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     /**
      * Get users possessing the role
      *
-     * @param int $id
+     * @param  int         $id
      * @return array|mixed
      */
     protected function _getUsers($id)
     {
-        if ($this->getRequest()->getParam('in_role_users') != "") {
+        if ($this->getRequest()->getParam('in_role_users') != '') {
             return $this->getRequest()->getParam('in_role_users');
         }
 
@@ -328,7 +325,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         $users = $resource->getRoleUsers($role);
 
         if (!count($users)) {
-            $users = [];
+            return [];
         }
 
         return $users;
@@ -337,8 +334,8 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     /**
      * Take away user role
      *
-     * @param int $adminId
-     * @param int $roleId
+     * @param  int   $adminId
+     * @param  int   $roleId
      * @return $this
      */
     protected function _deleteUserFromRole($adminId, $roleId)
@@ -352,8 +349,8 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     /**
      * Give user a role
      *
-     * @param int $adminId
-     * @param int $roleId
+     * @param  int   $adminId
+     * @param  int   $roleId
      * @return $this
      */
     protected function _addUserToRole($adminId, $roleId)

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable Product Links part block
  *
- * @category   Mage
  * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_Product_Abstract
@@ -60,7 +53,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * @param Mage_Downloadable_Model_Link $link
+     * @param  Mage_Downloadable_Model_Link    $link
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -95,15 +88,14 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
                 $priceStr .= ' (+' . $coreHelper::currencyByStore($_priceInclTax, $store) . ' ' . $this->__('Incl. Tax') . ')';
             }
         }
-        $priceStr .= '</span>';
 
-        return $priceStr;
+        return $priceStr . '</span>';
     }
 
     /**
      * Returns price converted to current currency rate
      *
-     * @param float $price
+     * @param  float $price
      * @return float
      */
     public function getCurrencyPrice($price)
@@ -130,7 +122,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * @param Mage_Downloadable_Model_Link $link
+     * @param  Mage_Downloadable_Model_Link $link
      * @return string
      */
     public function getLinkSamlpeUrl($link)
@@ -148,6 +140,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
         if ($this->getProduct()->getLinksTitle()) {
             return $this->getProduct()->getLinksTitle();
         }
+
         return Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
     }
 
@@ -164,7 +157,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     /**
      * Returns whether link checked by default or not
      *
-     * @param Mage_Downloadable_Model_Link $link
+     * @param  Mage_Downloadable_Model_Link $link
      * @return bool
      */
     public function getIsLinkChecked($link)
@@ -174,13 +167,13 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
             return false;
         }
 
-        return $configValue && (in_array($link->getId(), $configValue));
+        return in_array($link->getId(), $configValue);
     }
 
     /**
      * Returns value for link's input checkbox - either 'checked' or ''
      *
-     * @param Mage_Downloadable_Model_Link $link
+     * @param  Mage_Downloadable_Model_Link $link
      * @return string
      */
     public function getLinkCheckedValue($link)

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: run PHPMD
+## Usage: phpmd-no-baseline
+## Example: ddev phpmd-no-baseline <path-to-files>
+
+php vendor/bin/phpmd "$@" text .phpmd.dist.xml

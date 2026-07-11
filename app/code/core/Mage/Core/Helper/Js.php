@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * JavaScript helper
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
@@ -34,7 +27,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Core';
 
     /**
-     * Array of senteces of JS translations
+     * Array of sentences of JS translations
      *
      * @var array
      */
@@ -43,7 +36,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Translate config
      *
-     * @var Varien_Simplexml_Config|null
+     * @var null|Varien_Simplexml_Config
      */
     protected $_config = null;
 
@@ -71,8 +64,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve framed javascript
      *
-     * @param   string $script
-     * @return  string script
+     * @param  string $script
+     * @return string script
      */
     public function getScript($script)
     {
@@ -84,8 +77,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve javascript include code
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function includeScript($file)
     {
@@ -95,8 +88,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function includeSkinScript($file)
     {
@@ -106,8 +99,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve JS file url
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function getJsUrl($file)
     {
@@ -117,8 +110,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve skin JS file url
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function getJsSkinUrl($file)
     {
@@ -137,8 +130,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
             $messages = $this->_getXmlConfig()->getXpath('*/message');
             if (!empty($messages)) {
                 foreach ($messages as $message) {
-                    $messageText = (string)$message;
-                    $module = $message->getParent()->getAttribute("module");
+                    $messageText = (string) $message;
+                    $module = $message->getParent()->getAttribute('module');
                     $this->_translateData[$messageText] = Mage::helper(empty($module) ? 'core' : $module)->__($messageText);
                 }
             }
@@ -149,6 +142,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $this->_translateData;
     }
 
@@ -173,21 +167,21 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                     Mage::app()->saveCache(
                         $xmlConfig->getXmlString(),
                         self::JAVASCRIPT_TRANSLATE_CONFIG_KEY,
-                        [Mage_Core_Model_Config::CACHE_TAG]
+                        [Mage_Core_Model_Config::CACHE_TAG],
                     );
                 }
             }
+
             $this->_config = $xmlConfig;
         }
+
         return $this->_config;
     }
 
     /**
      * Helper for "onclick.deleteConfirm"
      *
-     * @param string $url
-     * @param string|null $message null for default message, do not use jsQuoteEscape() before
-     * @return string
+     * @param null|string $message null for default message, do not use jsQuoteEscape() before
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getDeleteConfirmJs(string $url, ?string $message = null): string
@@ -197,15 +191,13 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
         }
 
         $message = Mage::helper('core')->jsQuoteEscape($message);
-        return 'deleteConfirm(\'' . $message . '\', \'' . $url . '\')';
+        return "deleteConfirm('" . $message . "', '" . $url . "')";
     }
 
     /**
      * Helper for "onclick.confirmSetLocation"
      *
-     * @param string $url
-     * @param string|null $message null for default message, do not use jsQuoteEscape() before
-     * @return string
+     * @param null|string $message null for default message, do not use jsQuoteEscape() before
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getConfirmSetLocationJs(string $url, ?string $message = null): string
@@ -220,23 +212,17 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
 
     /**
      * Helper for "onclick.setLocation"
-     *
-     * @param string $url
-     * @return string
      */
     public function getSetLocationJs(string $url): string
     {
-        return 'setLocation(\'' . $url . '\')';
+        return "setLocation('" . $url . "')";
     }
 
     /**
      * Helper for "onclick.saveAndContinueEdit"
-     *
-     * @param string $url
-     * @return string
      */
     public function getSaveAndContinueEditJs(string $url): string
     {
-        return 'saveAndContinueEdit(\'' . $url . '\')';
+        return "saveAndContinueEdit('" . $url . "')";
     }
 }

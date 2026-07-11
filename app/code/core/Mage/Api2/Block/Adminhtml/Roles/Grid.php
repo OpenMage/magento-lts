@@ -1,26 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Roles grid block
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'api2_adminhtml_roles_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -32,31 +27,27 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
         $collection = Mage::getModel('api2/acl_global_role')->getCollection();
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
             'header' => Mage::helper('oauth')->__('ID'),
             'index'  => 'entity_id',
-            'align'  => 'right',
-            'width'  => '50px',
         ]);
 
         $this->addColumn('role_name', [
@@ -68,67 +59,56 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
         $this->addColumn('tole_user_type', [
             'header'         => Mage::helper('oauth')->__('User Type'),
             'sortable'       => false,
-            'frame_callback' => [$this, 'decorateUserType']
+            'frame_callback' => $this->decorateUserType(...),
         ]);
 
         $this->addColumn('created_at', [
             'header' => Mage::helper('oauth')->__('Created At'),
-            'index'  => 'created_at'
+            'index'  => 'created_at',
         ]);
 
-        parent::_prepareColumns();
-        return $this;
+        return parent::_prepareColumns();
     }
 
     /**
-     * Get grid URL
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 
     /**
-     * Get row URL
-     *
-     * @param Mage_Api2_Model_Acl_Global_Role $row
-     * @return string|null
+     * @inheritDoc
+     * @param  Mage_Api2_Model_Acl_Global_Role $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-
-        if ($session->isAllowed('system/api/roles/edit')) {
+        if ($this->isAllowed('system/api/roles/edit')) {
             return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
         }
-        return null;
+
+        return '';
     }
 
     /**
      * Decorate 'User Type' column
      *
-     * @param string $renderedValue Rendered value
-     * @param Mage_Api2_Model_Acl_Global_Role $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool $isExport
+     * @param  string                                  $renderedValue Rendered value
+     * @param  Mage_Api2_Model_Acl_Global_Role         $row
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  bool                                    $isExport
      * @return string
      */
     public function decorateUserType($renderedValue, $row, $column, $isExport)
     {
-        switch ($row->getEntityId()) {
-            case Mage_Api2_Model_Acl_Global_Role::ROLE_GUEST_ID:
-                $userType = Mage::helper('api2')->__('Guest');
-                break;
-            case Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID:
-                $userType = Mage::helper('api2')->__('Customer');
-                break;
-            default:
-                $userType = Mage::helper('api2')->__('Admin');
-                break;
-        }
-        return $userType;
+        return match ($row->getEntityId()) {
+            Mage_Api2_Model_Acl_Global_Role::ROLE_GUEST_ID => Mage::helper('api2')->__('Guest'),
+            Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID => Mage::helper('api2')->__('Customer'),
+            default => Mage::helper('api2')->__('Admin'),
+        };
     }
 }

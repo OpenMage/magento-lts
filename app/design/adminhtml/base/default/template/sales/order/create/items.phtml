@@ -1,0 +1,17 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Sales_Order_Create_Items $this */
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-cart"><?php echo $this->getHeaderText() ?></h4>
+        <div class="form-buttons"><?php echo $this->getButtonsHtml() ?></div>
+    </div>
+    <?php echo $this->getChildHtml() ?>
+</div>

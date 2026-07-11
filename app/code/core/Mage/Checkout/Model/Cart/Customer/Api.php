@@ -1,29 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart api for customer data
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Resource_Customer
 {
     public function __construct()
     {
-        $this->_storeIdSessionField = "cart_store_id";
+        $this->_storeIdSessionField = 'cart_store_id';
 
         $this->_attributesMap['quote'] = ['quote_id' => 'entity_id'];
         $this->_attributesMap['quote_customer'] = ['customer_id' => 'entity_id'];
@@ -33,9 +26,9 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
     /**
      * Set customer for shopping cart
      *
-     * @param int $quoteId
-     * @param array $customerData
-     * @param int|string $store
+     * @param  int        $quoteId
+     * @param  array      $customerData
+     * @param  int|string $store
      * @return true
      */
     public function set($quoteId, $customerData, $store = null)
@@ -70,6 +63,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 if ($isCustomerValid !== true && is_array($isCustomerValid)) {
                     $this->_fault('customer_data_invalid', implode(PHP_EOL, $isCustomerValid));
                 }
+
                 break;
         }
 
@@ -79,16 +73,16 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 ->setCheckoutMethod($customer->getMode())
                 ->setPasswordHash($customer->encryptPassword($customer->getPassword()))
                 ->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('customer_not_set', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('customer_not_set', $mageCoreException->getMessage());
         }
 
         return true;
     }
 
     /**
-     * @param  int $quoteId
-     * @param  array $customerAddressData of array|object
+     * @param  int        $quoteId
+     * @param  array      $customerAddressData of array|object
      * @param  int|string $store
      * @return true
      */
@@ -103,7 +97,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
 
         foreach ($customerAddressData as $addressItem) {
             /** @var Mage_Sales_Model_Quote_Address $address */
-            $address = Mage::getModel("sales/quote_address");
+            $address = Mage::getModel('sales/quote_address');
             $addressMode = $addressItem['mode'];
             unset($addressItem['mode']);
 
@@ -112,6 +106,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 if ($customerAddress->getCustomerId() != $quote->getCustomerId()) {
                     $this->_fault('address_not_belong_customer');
                 }
+
                 $address->importCustomerAddress($customerAddress);
             } else {
                 $address->setData($addressItem);
@@ -130,7 +125,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
             switch ($addressMode) {
                 case self::ADDRESS_BILLING:
                     if (!$quote->isVirtual()) {
-                        $usingCase = isset($addressItem['use_for_shipping']) ? (int)$addressItem['use_for_shipping'] : 0;
+                        $usingCase = isset($addressItem['use_for_shipping']) ? (int) $addressItem['use_for_shipping'] : 0;
                         switch ($usingCase) {
                             case 0:
                                 $shippingAddress = $quote->getShippingAddress();
@@ -149,6 +144,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                                 break;
                         }
                     }
+
                     $quote->setBillingAddress($address);
                     break;
 
@@ -164,8 +160,8 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
             $quote
                 ->collectTotals()
                 ->save();
-        } catch (Exception $e) {
-            $this->_fault('address_is_not_set', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('address_is_not_set', $exception->getMessage());
         }
 
         return true;
@@ -174,7 +170,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
     /**
      * Prepare customer entered data for implementing
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _prepareCustomerData($data)
@@ -185,14 +181,15 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 unset($data[$attributeAlias]);
             }
         }
+
         return $data;
     }
 
     /**
      * Prepare customer entered data for implementing
      *
-     * @param  array $data
-     * @return array|null
+     * @param  array      $data
+     * @return null|array
      */
     protected function _prepareCustomerAddressData($data)
     {
@@ -208,8 +205,10 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                     unset($addressItem[$attributeAlias]);
                 }
             }
+
             $dataAddresses[] = $addressItem;
         }
+
         return $dataAddresses;
     }
 }

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist resource model
  *
- * @category   Mage
  * @package    Mage_Wishlist
  */
 class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_Abstract
@@ -36,7 +29,7 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     protected $_customerIdFieldName = 'customer_id';
 
     /**
-     * Set main entity table name and primary key field name
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -46,11 +39,12 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     /**
      * Prepare wishlist load select query
      *
-     * @param string $field
-     * @param mixed $value
-     * @param mixed $object
+     * @param  string         $field
+     * @param  mixed          $value
+     * @param  mixed          $object
      * @return Zend_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);
@@ -58,6 +52,7 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
             $select->order('wishlist_id ' . Zend_Db_Select::SQL_ASC)
                 ->limit(1);
         }
+
         return $select;
     }
 
@@ -74,7 +69,7 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     /**
      * Setter for customer ID field name
      *
-     * @param string $fieldName
+     * @param  string $fieldName
      * @return $this
      */
     public function setCustomerIdFieldName($fieldName)
@@ -86,12 +81,9 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     /**
      * Retrieve wishlist items count
      *
+     * @return int
      * @deprecated after 1.6.0.0-rc2
      * @see Mage_Wishlist_Model_Wishlist::getItemsCount()
-     *
-     * @param Mage_Wishlist_Model_Wishlist $wishlist
-     *
-     * @return int
      */
     public function fetchItemsCount(Mage_Wishlist_Model_Wishlist $wishlist)
     {

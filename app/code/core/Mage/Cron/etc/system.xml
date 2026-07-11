@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Cron
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -32,6 +25,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </schedule_generate_every>
                         <schedule_ahead_for translate="label">
                             <label>Schedule Ahead for</label>
@@ -39,6 +33,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </schedule_ahead_for>
                         <schedule_lifetime translate="label">
                             <label>Missed if Not Run Within</label>
@@ -46,6 +41,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </schedule_lifetime>
                         <history_cleanup_every translate="label">
                             <label>History Cleanup Every</label>
@@ -53,6 +49,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </history_cleanup_every>
                         <history_success_lifetime translate="label">
                             <label>Success History Lifetime</label>
@@ -60,6 +57,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </history_success_lifetime>
                         <history_failure_lifetime translate="label">
                             <label>Failure History Lifetime</label>
@@ -67,6 +65,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </history_failure_lifetime>
                     </fields>
                 </cron>

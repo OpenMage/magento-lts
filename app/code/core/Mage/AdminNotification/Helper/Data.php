@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_AdminNotification
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * AdminNotification Data helper
  *
- * @category   Mage
  * @package    Mage_AdminNotification
  */
 class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
@@ -26,14 +19,14 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Last Notice object
      *
-     * @var Mage_AdminNotification_Model_Inbox|null
+     * @var null|Mage_AdminNotification_Model_Inbox
      */
     protected $_latestNotice;
 
     /**
      * count of unread notes by type
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_unreadNoticeCounts;
 
@@ -47,13 +40,14 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_null($this->_latestNotice)) {
             $this->_latestNotice = Mage::getModel('adminnotification/inbox')->loadLatestNotice();
         }
+
         return $this->_latestNotice;
     }
 
     /**
      * Retrieve count of unread notes by type
      *
-     * @param int $severity
+     * @param  int $severity
      * @return int
      */
     public function getUnreadNoticeCount($severity)
@@ -61,13 +55,14 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_null($this->_unreadNoticeCounts)) {
             $this->_unreadNoticeCounts = Mage::getModel('adminnotification/inbox')->getNoticeStatus();
         }
+
         return $this->_unreadNoticeCounts[$severity] ?? 0;
     }
 
     /**
      * Retrieve Widget Popup Notification Object URL
      *
-     * @param bool $withExt
+     * @param  bool   $withExt
      * @return string
      * @deprecated v19.4.16
      */

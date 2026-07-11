@@ -8,7 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var varienForm = new Class.create();
@@ -552,8 +552,10 @@ FormElementDependenceController.prototype = {
         if (shouldShowUp) {
             ele.select('input', 'select', 'td').each(function (item) {
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
+                // don't touch ENV-locked fields
                 if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)
-                    && !(cnf.can_edit_price != undefined && !cnf.can_edit_price)) {
+                    && !(cnf.can_edit_price != undefined && !cnf.can_edit_price)
+                    && !item.hasClassName('env-locked')) {
                     item.disabled = false;
                 }
             });
@@ -561,7 +563,9 @@ FormElementDependenceController.prototype = {
         } else {
             ele.select('input', 'select', 'td', 'div').each(function (item){
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
-                if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)) {
+                // don't touch ENV-locked fields
+                if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)
+                    && !item.hasClassName('env-locked')) {
                     item.disabled = true;
                 }
             });

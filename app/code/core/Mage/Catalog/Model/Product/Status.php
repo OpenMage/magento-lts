@@ -1,36 +1,30 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product status functionality model
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Status _getResource()
+ * @method int                                        getProductId()
  * @method Mage_Catalog_Model_Resource_Product_Status getResource()
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method int getVisibility()
- * @method $this setVisibility(int $value)
+ * @method int                                        getStoreId()
+ * @method int                                        getVisibility()
+ * @method $this                                      setProductId(int $value)
+ * @method $this                                      setStoreId(int $value)
+ * @method $this                                      setVisibility(int $value)
  */
 class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
 {
     public const STATUS_ENABLED    = 1;
+
     public const STATUS_DISABLED   = 2;
 
     /**
@@ -40,6 +34,9 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     protected $_attribute;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_status');
@@ -48,7 +45,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Product Attribute by code
      *
-     * @param string $attributeCode
+     * @param  string                                   $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getProductAttribute($attributeCode)
@@ -59,9 +56,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Add visible filter to Product Collection
      *
-     * @deprecated remove on new builds
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @return $this
+     * @deprecated remove on new builds
      */
     public function addVisibleFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
@@ -71,9 +67,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Add saleable filter to Product Collection
      *
-     * @deprecated remove on new builds
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @return $this
+     * @deprecated remove on new builds
      */
     public function addSaleableFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
@@ -83,7 +78,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Visible Status Ids
      *
-     * @return array
+     * @return array<int, int>
      */
     public function getVisibleStatusIds()
     {
@@ -94,7 +89,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Retrieve Saleable Status Ids
      * Default Product Enable status
      *
-     * @return array
+     * @return array<int, int>
      */
     public function getSaleableStatusIds()
     {
@@ -104,13 +99,13 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve option array
      *
-     * @return array
+     * @return array<int, string>
      */
     public static function getOptionArray()
     {
         return [
             self::STATUS_ENABLED    => Mage::helper('catalog')->__('Enabled'),
-            self::STATUS_DISABLED   => Mage::helper('catalog')->__('Disabled')
+            self::STATUS_DISABLED   => Mage::helper('catalog')->__('Disabled'),
         ];
     }
 
@@ -146,22 +141,23 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
         $res = [
             [
                 'value' => '',
-                'label' => Mage::helper('catalog')->__('-- Please Select --')
-            ]
+                'label' => Mage::helper('catalog')->__('-- Please Select --'),
+            ],
         ];
         foreach (self::getOptionArray() as $index => $value) {
             $res[] = [
-               'value' => $index,
-               'label' => $value
+                'value' => $index,
+                'label' => $value,
             ];
         }
+
         return $res;
     }
 
     /**
      * Retrieve option text by option value
      *
-     * @param string $optionId
+     * @param  string $optionId
      * @return string
      */
     public static function getOptionText($optionId)
@@ -173,10 +169,10 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Update status value for product
      *
-     * @param   int $productId
-     * @param   int $storeId
-     * @param   int $value
-     * @return  Mage_Catalog_Model_Product_Status
+     * @param  int   $productId
+     * @param  int   $storeId
+     * @param  int   $value
+     * @return $this
      */
     public function updateProductStatus($productId, $storeId, $value)
     {
@@ -199,7 +195,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
             Mage::dispatchEvent('catalog_product_status_update', [
                 'product_id'    => $productId,
                 'store_id'      => $storeId,
-                'status'        => $value
+                'status'        => $value,
             ]);
         }
 
@@ -210,8 +206,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Retrieve Product(s) status for store
      * Return array where key is product, value - status
      *
-     * @param int|array $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return array
      */
     public function getProductStatus($productIds, $storeId = null)
@@ -234,7 +230,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
         $column = [
             'unsigned'  => true,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
         ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
@@ -261,7 +257,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
         $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
         $indexes[$index] = [
             'type'      => 'index',
-            'fields'    => [$this->getAttribute()->getAttributeCode()]
+            'fields'    => [$this->getAttribute()->getAttributeCode()],
         ];
 
         return $indexes;
@@ -270,8 +266,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $store
-     * @return Varien_Db_Select|null
+     * @param  int                   $store
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {
@@ -282,8 +278,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Set attribute instance
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return Mage_Catalog_Model_Product_Status
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @return $this
      */
     public function setAttribute($attribute)
     {
@@ -304,8 +300,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     /**
      * Add Value Sort To Collection Select
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @param string $dir direction
+     * @param  Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param  string                                    $dir        direction
      * @return Mage_Catalog_Model_Product_Status
      * @throws Mage_Core_Exception
      */
@@ -323,7 +319,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
                     "e.entity_id={$tableName}.entity_id"
                         . " AND {$tableName}.attribute_id='{$attributeId}'"
                         . " AND {$tableName}.store_id='0'",
-                    []
+                    [],
                 );
             $valueExpr = $tableName . '.value';
         } else {
@@ -335,20 +331,20 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
                     "e.entity_id={$valueTable1}.entity_id"
                         . " AND {$valueTable1}.attribute_id='{$attributeId}'"
                         . " AND {$valueTable1}.store_id='0'",
-                    []
+                    [],
                 )
                 ->joinLeft(
                     [$valueTable2 => $attributeTable],
                     "e.entity_id={$valueTable2}.entity_id"
                         . " AND {$valueTable2}.attribute_id='{$attributeId}'"
                         . " AND {$valueTable2}.store_id='{$collection->getStoreId()}'",
-                    []
+                    [],
                 );
 
             $valueExpr = $collection->getConnection()->getCheckSql(
                 $valueTable2 . '.value_id > 0',
                 $valueTable2 . '.value',
-                $valueTable1 . '.value'
+                $valueTable1 . '.value',
             );
         }
 

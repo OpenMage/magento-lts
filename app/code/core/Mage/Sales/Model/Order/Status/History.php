@@ -1,38 +1,31 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order status history comments
  *
- * @category   Mage
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Status_History _getResource()
- * @method Mage_Sales_Model_Resource_Order_Status_History getResource()
- * @method string getComment()
- * @method $this setComment(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method int getIsCustomerNotified()
- * @method $this setEntityName(string $value)
- * @method int getParentId()
- * @method $this setParentId(int $value)
- * @method string getStatus()
- * @method $this setStatus(string $value)
- * @method int getIsVisibleOnFront()
- * @method $this setIsVisibleOnFront(int $value)
+ * @method Mage_Sales_Model_Resource_Order_Status_History            _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getCollection()
+ * @method string                                                    getComment()
+ * @method int                                                       getIsCustomerNotified()
+ * @method int                                                       getIsVisibleOnFront()
+ * @method int                                                       getParentId()
+ * @method Mage_Sales_Model_Resource_Order_Status_History            getResource()
+ * @method Mage_Sales_Model_Resource_Order_Status_History_Collection getResourceCollection()
+ * @method string                                                    getStatus()
+ * @method $this                                                     setComment(string $value)
+ * @method $this                                                     setEntityName(string $value)
+ * @method $this                                                     setIsVisibleOnFront(int $value)
+ * @method $this                                                     setParentId(int $value)
+ * @method $this                                                     setStatus(string $value)
  */
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {
@@ -45,16 +38,13 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
      */
     protected $_order;
 
-    /**
-     * Whether setting order again is required (for example when setting non-saved yet order)
-     * @deprecated after 1.4, wrong logic of setting order id
-     * @var bool
-     */
-    private $_shouldSetOrderBeforeSave = false;
-
     protected $_eventPrefix = 'sales_order_status_history';
+
     protected $_eventObject = 'status_history';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_status_history');
@@ -63,8 +53,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     /**
      * Set order object
      *
-     * @param   Mage_Sales_Model_Order $order
-     * @return  $this
+     * @return $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -127,6 +116,8 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
         if ($this->getOrder()) {
             return $this->getOrder()->getConfig()->getStatusLabel($this->getStatus());
         }
+
+        return '';
     }
 
     /**
@@ -140,6 +131,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
         if ($this->getOrder()) {
             return $this->getOrder()->getStore();
         }
+
         return Mage::app()->getStore();
     }
 
@@ -148,6 +140,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeSave()
     {
         parent::_beforeSave();

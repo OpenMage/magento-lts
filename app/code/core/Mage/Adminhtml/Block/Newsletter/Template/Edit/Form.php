@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml Newsletter Template Edit Form Block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
@@ -36,6 +29,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model  = $this->getModel();
@@ -45,13 +39,13 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
 
         $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
-            'method'    => 'post'
+            'action'    => $this->getDataByKey('action'),
+            'method'    => 'post',
         ]);
 
         $fieldset   = $form->addFieldset('base_fieldset', [
             'legend'    => Mage::helper('newsletter')->__('Template Information'),
-            'class'     => 'fieldset-wide'
+            'class'     => 'fieldset-wide',
         ]);
 
         if ($model->getId()) {
@@ -95,7 +89,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
             'required'  => true,
             'value'     => $model->getId() !== null
                 ? $model->getTemplateSenderEmail()
-                : $identityEmail
+                : $identityEmail,
         ]);
 
         $widgetFilters = ['is_email_compatible' => 1];
@@ -103,6 +97,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
         if ($model->isPlain()) {
             $wysiwygConfig->setEnabled(false);
         }
+
         $fieldset->addField('text', 'editor', [
             'name'      => 'text',
             'label'     => Mage::helper('newsletter')->__('Template Content'),
@@ -111,7 +106,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
             'state'     => 'html',
             'style'     => 'height:36em;',
             'value'     => $model->getTemplateText(),
-            'config'    => $wysiwygConfig
+            'config'    => $wysiwygConfig,
         ]);
 
         if (!$model->isPlain()) {
@@ -119,7 +114,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
                 'name'          => 'styles',
                 'label'         => Mage::helper('newsletter')->__('Template Styles'),
                 'container_id'  => 'field_template_styles',
-                'value'         => $model->getTemplateStyles()
+                'value'         => $model->getTemplateStyles(),
             ]);
         }
 

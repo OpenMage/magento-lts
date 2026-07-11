@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -18,7 +12,6 @@
  *
  * Tab "My Applications" in the Customer Account
  *
- * @category   Mage
  * @package    Mage_Oauth
  */
 class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Action
@@ -42,6 +35,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
      *
      * Check customer authentication for some actions
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -51,11 +45,13 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
         if (!$this->_session->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+
         return $this;
     }
 
     /**
      * Render grid page
+     * @return void
      */
     public function indexAction()
     {
@@ -75,12 +71,14 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
         if (Mage::app()->getStore()->getBaseUrl() == $url) {
             $url = Mage::getUrl('*/*/index');
         }
+
         $this->_redirectUrl($url);
         return $this;
     }
 
     /**
      * Update revoke status action
+     * @return void
      */
     public function revokeAction()
     {
@@ -122,21 +120,24 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
                 } else {
                     $message = $this->__('Application "%s" has been enabled.', $name);
                 }
+
                 $this->_session->addSuccess($message);
             } else {
                 $this->_session->addError($this->__('Application not found.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_session->addError($this->__('An error occurred on update revoke status.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
+
         $this->_redirectBack();
     }
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -163,17 +164,18 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
                 $name = $model->getName();
                 $model->delete();
                 $this->_session->addSuccess(
-                    $this->__('Application "%s" has been deleted.', $name)
+                    $this->__('Application "%s" has been deleted.', $name),
                 );
             } else {
                 $this->_session->addError($this->__('Application not found.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_session->addError($this->__('An error occurred on delete application.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
+
         $this->_redirectBack();
     }
 }

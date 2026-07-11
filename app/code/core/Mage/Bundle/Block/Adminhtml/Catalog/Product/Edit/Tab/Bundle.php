@@ -1,27 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml catalog product bundle items tab block
  *
- * @category   Mage
  * @package    Mage_Bundle
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     protected $_product = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -50,6 +44,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -59,16 +54,16 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
                     'label' => Mage::helper('bundle')->__('Add New Option'),
                     'class' => 'add',
                     'id'    => 'add_new_option',
-                    'on_click' => 'bOption.add()'
-                ])
+                    'on_click' => 'bOption.add()',
+                ]),
         );
 
         $this->setChild(
             'options_box',
             $this->getLayout()->createBlock(
                 'bundle/adminhtml_catalog_product_edit_tab_bundle_option',
-                'adminhtml.catalog.product.edit.tab.bundle.option'
-            )
+                'adminhtml.catalog.product.edit.tab.bundle.option',
+            ),
         );
 
         return parent::_prepareLayout();

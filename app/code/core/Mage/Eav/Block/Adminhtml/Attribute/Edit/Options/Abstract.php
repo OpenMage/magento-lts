@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Attribute add/edit form options tab
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends Mage_Adminhtml_Block_Widget
@@ -32,6 +25,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -39,8 +33,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label' => Mage::helper('eav')->__('Delete'),
-                    'class' => 'delete delete-option'
-                ])
+                    'class' => 'delete delete-option',
+                ]),
         );
 
         $this->setChild(
@@ -49,8 +43,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->setData([
                     'label' => Mage::helper('eav')->__('Add Option'),
                     'class' => 'add',
-                    'id'    => 'add_new_option_button'
-                ])
+                    'id'    => 'add_new_option_button',
+                ]),
         );
         return parent::_prepareLayout();
     }
@@ -82,7 +76,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
      */
     public function getStores()
     {
-        $stores = $this->getData('stores');
+        $stores = $this->getDataByKey('stores');
         if (is_null($stores)) {
             $stores = Mage::getModel('core/store')
                 ->getResourceCollection()
@@ -90,6 +84,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->load();
             $this->setData('stores', $stores);
         }
+
         return $stores;
     }
 
@@ -103,24 +98,18 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         $attributeType = $this->getAttributeObject()->getFrontendInput();
         $defaultValues = $this->getAttributeObject()->getDefaultValue();
         if ($attributeType === 'select' || $attributeType === 'multiselect') {
-            $defaultValues = explode(',', (string)$defaultValues);
+            $defaultValues = explode(',', (string) $defaultValues);
         } else {
             $defaultValues = [];
         }
 
-        switch ($attributeType) {
-            case 'select':
-                $inputType = 'radio';
-                break;
-            case 'multiselect':
-                $inputType = 'checkbox';
-                break;
-            default:
-                $inputType = '';
-                break;
-        }
+        $inputType = match ($attributeType) {
+            'select' => 'radio',
+            'multiselect' => 'checkbox',
+            default => '',
+        };
 
-        $values = $this->getData('option_values');
+        $values = $this->getDataByKey('option_values');
         if (is_null($values)) {
             $values = [];
             $optionCollection = Mage::getResourceModel('eav/entity_attribute_option_collection')
@@ -132,11 +121,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             /** @var Mage_Eav_Model_Entity_Attribute_Option $option */
             foreach ($optionCollection as $option) {
                 $value = [];
-                if (in_array($option->getId(), $defaultValues)) {
-                    $value['checked'] = 'checked="checked"';
-                } else {
-                    $value['checked'] = '';
-                }
+                $value['checked'] = in_array($option->getId(), $defaultValues) ? 'checked="checked"' : '';
 
                 $value['intype'] = $inputType;
                 $value['id'] = $option->getId();
@@ -146,13 +131,17 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                     $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
                         ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
                 }
+
                 if ($this->isConfigurableSwatchesEnabled()) {
                     $value['swatch'] = $option->getSwatchValue();
                 }
+
                 $values[] = new Varien_Object($value);
             }
+
             $this->setData('option_values', $values);
         }
+
         return $values;
     }
 
@@ -168,6 +157,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         if (is_array($frontendLabel)) {
             return $frontendLabel;
         }
+
         $values[0] = $frontendLabel;
         $storeLabels = $this->getAttributeObject()->getStoreLabels();
         foreach ($this->getStores() as $store) {
@@ -175,13 +165,14 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 $values[$store->getId()] = $storeLabels[$store->getId()] ?? '';
             }
         }
+
         return $values;
     }
 
     /**
      * Retrieve attribute option values for given store id
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return array
      */
     public function getStoreOptionValues($storeId)
@@ -197,8 +188,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             foreach ($valuesCollection as $item) {
                 $values[$item->getId()] = $item->getValue();
             }
+
             $this->setData('store_option_values_' . $storeId, $values);
         }
+
         return $values;
     }
 
@@ -217,7 +210,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
      */
     public function isConfigurableSwatchesEnabled(): bool
     {
-        return Mage::helper('core')->isModuleEnabled('Mage_ConfigurableSwatches')
+        return $this->isModuleEnabled('Mage_ConfigurableSwatches')
             && Mage::helper('configurableswatches')->attrIsSwatchType($this->getAttributeObject());
     }
 }

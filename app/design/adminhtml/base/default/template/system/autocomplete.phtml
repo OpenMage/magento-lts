@@ -1,0 +1,22 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Template
+ * @var Mage_Adminhtml_Block_Template $this
+ */
+?>
+<ul>
+<?php foreach ($items as $item): ?>
+    <li id="<?php echo $item['id'] ?>" url="<?php echo $item['url'] ?>">
+        <div style="float:right; color:red; font-weight:bold;">[<?php echo $item['type'] ?>]</div>
+        <strong><?php echo $this->escapeHtml($item['name']) ?></strong><br/>
+        <span class="informal"><?php echo $this->escapeHtml($item['description']) ?></span>
+    </li>
+<?php endforeach ?>
+</ul>

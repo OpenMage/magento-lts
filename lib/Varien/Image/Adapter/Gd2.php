@@ -1,22 +1,18 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Image
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
-    protected $_requiredExtensions = ["gd"];
+    protected $_requiredExtensions = ['gd'];
+
     private static $_callbacks = [
+        IMAGETYPE_AVIF => ['output' => 'imageavif', 'create' => 'imagecreatefromavif'],
         IMAGETYPE_WEBP => ['output' => 'imagewebp', 'create' => 'imagecreatefromwebp'],
         IMAGETYPE_GIF  => ['output' => 'imagegif',  'create' => 'imagecreatefromgif'],
         IMAGETYPE_JPEG => ['output' => 'imagejpeg', 'create' => 'imagecreatefromjpeg'],
@@ -41,11 +37,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Destroy object image on shutdown
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function destruct()
     {
-        if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof \GdImage)) {
+        if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof GdImage)) {
             @imagedestroy($this->_imageHandler);
         }
     }
@@ -53,12 +49,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Opens image file.
      *
-     * @param string $filename
+     * @param  string           $fileName
+     * @throws Exception
      * @throws Varien_Exception
      */
-    public function open($filename)
+    public function open($fileName)
     {
-        $this->_fileName = $filename;
+        $this->_fileName = $fileName;
         $this->getMimeType();
         $this->_getFileAttributes();
         $this->_imageHandler = call_user_func($this->_getCallback('create'), $this->_fileName);
@@ -67,8 +64,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Checks whether memory limit is reached.
      *
-     * @deprecated
      * @return bool
+     * @deprecated
      */
     protected function _isMemoryLimitReached()
     {
@@ -79,6 +76,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if ($limit === 0) {
             return false;
         }
+
         $size = getimagesize($this->_fileName);
         $requiredMemory = $size[0] * $size[1] * 3;
 
@@ -90,11 +88,10 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Notation in value is supported only for PHP
      * Shorthand byte options are case insensitive
      *
-     * @deprecated
-     * @param string $memoryValue
-     * @throws Varien_Exception
-     * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
+     * @param  string $memoryValue
      * @return int
+     * @deprecated
+     * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
      */
     protected function _convertToByte($memoryValue)
     {
@@ -102,9 +99,10 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if (empty($memoryValue)) {
             return 0;
         }
+
         if (preg_match('~^([1-9][0-9]*)[\s]*(k|m|g)b?$~i', $memoryValue, $matches)) {
             $option = strtolower($matches[2]);
-            $memoryValue = (int)$matches[1];
+            $memoryValue = (int) $matches[1];
             switch ($option) {
                 case 'g':
                     $memoryValue *= 1024;
@@ -119,35 +117,37 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     break;
             }
         }
-        $memoryValue = (int)$memoryValue;
 
-        return $memoryValue > 0 ? $memoryValue : 0;
+        $memoryValue = (int) $memoryValue;
+
+        return max($memoryValue, 0);
     }
 
+    /**
+     * @throws Exception
+     */
     public function save($destination = null, $newName = null)
     {
-        $fileName = (!isset($destination)) ? $this->_fileName : $destination;
-
         if (isset($destination) && isset($newName)) {
-            $fileName = $destination . "/" . $newName;
-        } elseif (isset($destination) && !isset($newName)) {
+            $fileName = $destination . '/' . $newName;
+        } elseif (isset($destination)) {
             $info = pathinfo($destination);
             $fileName = $destination;
             $destination = $info['dirname'];
-        } elseif (!isset($destination) && isset($newName)) {
-            $fileName = $this->_fileSrcPath . "/" . $newName;
+        } elseif (isset($newName)) {
+            $fileName = $this->_fileSrcPath . '/' . $newName;
         } else {
             $fileName = $this->_fileSrcPath . $this->_fileSrcName;
         }
 
-        $destinationDir = (isset($destination)) ? $destination : $this->_fileSrcPath;
+        $destinationDir = $destination ?? $this->_fileSrcPath;
 
         if (!is_writable($destinationDir)) {
             try {
-                $io = new Varien_Io_File();
-                $io->mkdir($destination);
-            } catch (Exception $e) {
-                throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.");
+                $ioFile = new Varien_Io_File();
+                $ioFile->mkdir($destination);
+            } catch (Exception $exception) {
+                throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.", $exception->getCode(), $exception);
             }
         }
 
@@ -167,6 +167,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 } else {
                     $newImage = imagecreate($this->_imageSrcWidth, $this->_imageSrcHeight);
                 }
+
                 $this->_fillBackgroundColor($newImage);
                 imagecopy(
                     $newImage,
@@ -176,7 +177,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     0,
                     0,
                     $this->_imageSrcWidth,
-                    $this->_imageSrcHeight
+                    $this->_imageSrcHeight,
                 );
                 $this->_imageHandler = $newImage;
             }
@@ -195,7 +196,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if ($this->_fileType == IMAGETYPE_JPEG) {
             $threshold = (int) Mage::getStoreConfig('catalog/product_image/progressive_threshold');
             if ($threshold && $threshold <= (imagesx($this->_imageHandler) * imagesy($this->_imageHandler) / 1000000)) {
-                imageinterlace($this->_imageHandler, 1);
+                imageinterlace($this->_imageHandler, true);
             }
         }
 
@@ -207,17 +208,20 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         call_user_func_array($this->_getCallback('output'), $functionParameters);
     }
 
+    /**
+     * @throws Exception
+     */
     public function display()
     {
-        header("Content-type: " . $this->getMimeTypeWithOutFileType());
+        header('Content-type: ' . $this->getMimeTypeWithOutFileType());
         call_user_func($this->_getCallback('output'), $this->_imageHandler);
     }
 
     /**
      * Obtain function name, basing on image type and callback type
      *
-     * @param string $callbackType
-     * @param int $fileType
+     * @param  string    $callbackType
+     * @param  int       $fileType
      * @return string
      * @throws Exception
      */
@@ -226,15 +230,21 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if (null === $fileType) {
             $fileType = $this->_fileType;
         }
+
         if (empty(self::$_callbacks[$fileType])) {
             throw new Exception("{$unsupportedText}. Type: {$fileType}. File: {$this->_fileName}");
         }
+
         if (empty(self::$_callbacks[$fileType][$callbackType])) {
             throw new Exception("Callback not found. Callbacktype: {$callbackType}. File: {$this->_fileName}");
         }
+
         return self::$_callbacks[$fileType][$callbackType];
     }
 
+    /**
+     * @throws Exception
+     */
     private function _fillBackgroundColor(&$imageResourceTo)
     {
         // try to keep transparency, if any
@@ -247,41 +257,52 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     if (!imagealphablending($imageResourceTo, false)) {
                         throw new Exception('Failed to set alpha blending for PNG image. File: {$this->_fileName}');
                     }
+
                     $transparentAlphaColor = imagecolorallocatealpha($imageResourceTo, 0, 0, 0, 127);
                     if (false === $transparentAlphaColor) {
                         throw new Exception('Failed to allocate alpha transparency for PNG image. File: {$this->_fileName}');
                     }
+
                     if (!imagefill($imageResourceTo, 0, 0, $transparentAlphaColor)) {
                         throw new Exception('Failed to fill PNG image with alpha transparency. File: {$this->_fileName}');
                     }
+
                     if (!imagesavealpha($imageResourceTo, true)) {
                         throw new Exception('Failed to save alpha transparency into PNG image. File: {$this->_fileName}');
                     }
 
                     return $transparentAlphaColor;
-                } elseif (false !== $transparentIndex) { // fill image with indexed non-alpha transparency
+                }
+
+                // fill truecolor png with alpha transparency
+                if (false !== $transparentIndex) {
+                    // fill image with indexed non-alpha transparency
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
-                        list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
-                        $transparentColor = imagecolorallocate($imageResourceTo, (int)$r, (int)$g, (int)$b);
+                        [$rgbR, $rgbG, $rgbB]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
+                        $transparentColor = imagecolorallocate($imageResourceTo, (int) $rgbR, (int) $rgbG, (int) $rgbB);
                     }
+
                     if (false === $transparentColor) {
                         throw new Exception('Failed to allocate transparent color for image.');
                     }
+
                     if (!imagefill($imageResourceTo, 0, 0, $transparentColor)) {
                         throw new Exception('Failed to fill image with transparency.');
                     }
+
                     imagecolortransparent($imageResourceTo, $transparentColor);
                     return $transparentColor;
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // fallback to default background color
             }
         }
-        list($r, $g, $b) = $this->_backgroundColor;
-        $color = imagecolorallocate($imageResourceTo, (int)$r, (int)$g, (int)$b);
+
+        [$rgbR, $rgbG, $rgbB] = $this->_backgroundColor;
+        $color = imagecolorallocate($imageResourceTo, (int) $rgbR, (int) $rgbG, (int) $rgbB);
         if (!imagefill($imageResourceTo, 0, 0, $color)) {
-            throw new Exception("Failed to fill image background with color {$r} {$g} {$b}. File: {$this->_fileName}");
+            throw new Exception("Failed to fill image background with color {$rgbR} {$rgbG} {$rgbB}. File: {$this->_fileName}");
         }
 
         return $color;
@@ -290,12 +311,12 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Gives true for a PNG with alpha, false otherwise
      *
-     * @param string $fileName
-     * @return boolean
+     * @param  string $fileName
+     * @return bool
      */
     public function checkAlpha($fileName)
     {
-        return ((ord(file_get_contents($fileName, false, null, 25, 1)) & 6) & 4) == 4;
+        return (ord(file_get_contents($fileName, false, null, 25, 1)) & 6 & 4) === 4;
     }
 
     private function _getTransparency($imageResource, $fileType, &$isAlpha = false, &$isTrueColor = false)
@@ -303,80 +324,82 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $isAlpha     = false;
         $isTrueColor = false;
         // assume that transparency is supported by gif/png/webp only
-        if (($fileType === IMAGETYPE_GIF) || ($fileType === IMAGETYPE_PNG) || ($fileType === IMAGETYPE_WEBP)) {
+        if (in_array($fileType, [IMAGETYPE_GIF, IMAGETYPE_PNG, IMAGETYPE_WEBP], true)) {
             // check for specific transparent color
             $transparentIndex = imagecolortransparent($imageResource);
             if ($transparentIndex >= 0) {
                 return $transparentIndex;
-            } elseif ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
+            }
+
+            if ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
                 $isAlpha = $this->checkAlpha($this->_fileName);
                 $isTrueColor = true;
-                return $transparentIndex; // -1
+                return $transparentIndex;
+                // -1
             }
         }
+
         if ($fileType === IMAGETYPE_JPEG) {
             $isTrueColor = true;
         }
+
         return false;
     }
 
     /**
      * Change the image size
      *
-     * @param int $frameWidth
-     * @param int $frameHeight
+     * @param  int       $width
+     * @param  int       $height
+     * @throws Exception
      */
-    public function resize($frameWidth = null, $frameHeight = null)
+    public function resize($width = null, $height = null)
     {
-        if (empty($frameWidth) && empty($frameHeight)) {
+        if (empty($width) && empty($height)) {
             throw new Exception('Invalid image dimensions. File: {$this->_fileName}');
         }
 
         // calculate lacking dimension
         if (!$this->_keepFrame) {
-            if (null === $frameWidth) {
-                $frameWidth = round($frameHeight * ($this->_imageSrcWidth / $this->_imageSrcHeight));
-            } elseif (null === $frameHeight) {
-                $frameHeight = round($frameWidth * ($this->_imageSrcHeight / $this->_imageSrcWidth));
+            if (null === $width) {
+                $width = round($height * ($this->_imageSrcWidth / $this->_imageSrcHeight));
+            } elseif (null === $height) {
+                $height = round($width * ($this->_imageSrcHeight / $this->_imageSrcWidth));
             }
-        } else {
-            if (null === $frameWidth) {
-                $frameWidth = $frameHeight;
-            } elseif (null === $frameHeight) {
-                $frameHeight = $frameWidth;
-            }
+        } elseif (null === $width) {
+            $width = $height;
+        } elseif (null === $height) {
+            $height = $width;
         }
 
         // define coordinates of image inside new frame
         $srcX = 0;
         $srcY = 0;
-        $dstX = 0;
-        $dstY = 0;
-        $dstWidth  = $frameWidth;
-        $dstHeight = $frameHeight;
+        $dstWidth  = $width;
+        $dstHeight = $height;
         if ($this->_keepAspectRatio) {
             // do not make picture bigger, than it is, if required
-            if ($this->_constrainOnly) {
-                if (($frameWidth >= $this->_imageSrcWidth) && ($frameHeight >= $this->_imageSrcHeight)) {
-                    $dstWidth  = $this->_imageSrcWidth;
-                    $dstHeight = $this->_imageSrcHeight;
-                }
+            if ($this->_constrainOnly && ($width >= $this->_imageSrcWidth && $height >= $this->_imageSrcHeight)) {
+                $dstWidth  = $this->_imageSrcWidth;
+                $dstHeight = $this->_imageSrcHeight;
             }
+
             // keep aspect ratio
-            if ($this->_imageSrcWidth / $this->_imageSrcHeight >= $frameWidth / $frameHeight) {
+            if ($this->_imageSrcWidth / $this->_imageSrcHeight >= $width / $height) {
                 $dstHeight = round(($dstWidth / $this->_imageSrcWidth) * $this->_imageSrcHeight);
             } else {
                 $dstWidth = round(($dstHeight / $this->_imageSrcHeight) * $this->_imageSrcWidth);
             }
         }
+
         // define position in center (TODO: add positions option)
-        $dstY = round(($frameHeight - $dstHeight) / 2);
-        $dstX = round(($frameWidth - $dstWidth) / 2);
+        $dstY = round(($height - $dstHeight) / 2);
+        $dstX = round(($width - $dstWidth) / 2);
 
         // get rid of frame (fallback to zero position coordinates)
         if (!$this->_keepFrame) {
-            $frameWidth  = $dstWidth;
-            $frameHeight = $dstHeight;
+            $width  = $dstWidth;
+            $height = $dstHeight;
             $dstY = 0;
             $dstX = 0;
         }
@@ -385,11 +408,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $isAlpha     = false;
         $isTrueColor = false;
         $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha, $isTrueColor);
-        if ($isTrueColor) {
-            $newImage = imagecreatetruecolor($frameWidth, $frameHeight);
-        } else {
-            $newImage = imagecreate($frameWidth, $frameHeight);
-        }
+        $newImage = $isTrueColor ? imagecreatetruecolor($width, $height) : imagecreate($width, $height);
 
         // fill new image with required color
         $this->_fillBackgroundColor($newImage);
@@ -405,7 +424,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $dstWidth,
             $dstHeight,
             $this->_imageSrcWidth,
-            $this->_imageSrcHeight
+            $this->_imageSrcHeight,
         );
         $this->_imageHandler = $newImage;
         $this->refreshImageDimensions();
@@ -430,19 +449,22 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->refreshImageDimensions();
     }
 
+    /**
+     * @throws Exception
+     */
     public function watermark($watermarkImage, $positionX = 0, $positionY = 0, $watermarkImageOpacity = 30, $repeat = false)
     {
-        list($watermarkSrcWidth, $watermarkSrcHeight, $watermarkFileType, ) = getimagesize($watermarkImage);
+        [$watermarkSrcWidth, $watermarkSrcHeight, $watermarkFileType, ] = getimagesize($watermarkImage);
         $this->_getFileAttributes();
         $watermark = call_user_func($this->_getCallback(
             'create',
             $watermarkFileType,
-            'Unsupported watermark image format.'
+            'Unsupported watermark image format.',
         ), $watermarkImage);
 
-        if ($this->getWatermarkWidth() &&
-            $this->getWatermarkHeigth() &&
-            ($this->getWatermarkPosition() != self::POSITION_STRETCH)
+        if ($this->getWatermarkWidth()
+            && $this->getWatermarkHeigth()
+            && ($this->getWatermarkPosition() != self::POSITION_STRETCH)
         ) {
             $newWatermark = imagecreatetruecolor($this->getWatermarkWidth(), $this->getWatermarkHeigth());
             imagealphablending($newWatermark, false);
@@ -461,7 +483,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 $this->getWatermarkWidth(),
                 $this->getWatermarkHeigth(),
                 imagesx($watermark),
-                imagesy($watermark)
+                imagesy($watermark),
             );
             $watermark = $newWatermark;
         }
@@ -486,7 +508,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 $this->_imageSrcWidth,
                 $this->_imageSrcHeight,
                 imagesx($watermark),
-                imagesy($watermark)
+                imagesy($watermark),
             );
             $watermark = $newWatermark;
         } elseif ($this->getWatermarkPosition() == self::POSITION_CENTER) {
@@ -501,7 +523,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         } elseif ($this->getWatermarkPosition() == self::POSITION_TOP_RIGHT) {
             $positionX = ($this->_imageSrcWidth - imagesx($watermark));
@@ -514,7 +536,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         } elseif ($this->getWatermarkPosition() == self::POSITION_TOP_LEFT) {
             imagecopymerge(
@@ -526,7 +548,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         } elseif ($this->getWatermarkPosition() == self::POSITION_BOTTOM_RIGHT) {
             $positionX = ($this->_imageSrcWidth - imagesx($watermark));
@@ -540,7 +562,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         } elseif ($this->getWatermarkPosition() == self::POSITION_BOTTOM_LEFT) {
             $positionY = ($this->_imageSrcHeight - imagesy($watermark));
@@ -553,7 +575,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         }
 
@@ -567,7 +589,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         } else {
             $offsetX = $positionX;
@@ -583,10 +605,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                         0,
                         imagesx($watermark),
                         imagesy($watermark),
-                        $this->getWatermarkImageOpacity()
+                        $this->getWatermarkImageOpacity(),
                     );
                     $offsetX += imagesx($watermark);
                 }
+
                 $offsetX = $positionX;
                 $offsetY += imagesy($watermark);
             }
@@ -621,13 +644,16 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $newWidth,
             $newHeight,
             $newWidth,
-            $newHeight
+            $newHeight,
         );
 
         $this->_imageHandler = $canvas;
         $this->refreshImageDimensions();
     }
 
+    /**
+     * @throws Exception
+     */
     public function checkDependencies()
     {
         foreach ($this->_requiredExtensions as $value) {

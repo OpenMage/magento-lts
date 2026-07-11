@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Gift message inline edit form
  *
- * @category   Mage
  * @package    Mage_GiftMessage
  *
  * @method $this setDontDisplayContainer(bool $value)
@@ -24,9 +17,15 @@
 class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
 {
     protected $_entity = null;
+
     protected $_type   = null;
+
     protected $_giftMessage = null;
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -36,7 +35,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Set entity
      *
-     * @param mixed $entity
+     * @param  mixed $entity
      * @return $this
      */
     public function setEntity($entity)
@@ -58,7 +57,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Set type
      *
-     * @param string $type
+     * @param  string $type
      * @return $this
      */
     public function setType($type)
@@ -91,6 +90,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      * Init message
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initMessage()
     {
@@ -109,9 +109,9 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     {
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return Mage::getSingleton('customer/session')->getCustomer()->getName();
-        } else {
-            return $this->getEntity()->getBillingAddress()->getName();
         }
+
+        return $this->getEntity()->getBillingAddress()->getName();
     }
 
     /**
@@ -123,16 +123,17 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     {
         if ($this->getEntity()->getShippingAddress()) {
             return $this->getEntity()->getShippingAddress()->getName();
-        } else {
-            return $this->getEntity()->getName();
         }
+
+        return $this->getEntity()->getName();
     }
 
     /**
      * Retrieve message
      *
-     * @param mixed $entity
+     * @param  mixed               $entity
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getMessage($entity = null)
     {
@@ -146,6 +147,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
                 $helper = $this->helper('giftmessage/message');
                 $entity->setGiftMessage($helper->getGiftMessage($entity->getGiftMessageId()));
             }
+
             return $entity->getGiftMessage();
         }
 
@@ -159,7 +161,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     public function getItems()
     {
-        if (!$this->getData('items')) {
+        if (!$this->getDataByKey('items')) {
             $items = [];
 
             $entityItems = $this->getEntity()->getAllItems();
@@ -169,13 +171,16 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
                 if ($item->getParentItem()) {
                     continue;
                 }
+
                 if ($this->isItemMessagesAvailable($item) || $item->getIsGiftOptionsAvailable()) {
                     $items[] = $item;
                 }
             }
+
             $this->setData('items', $items);
         }
-        return $this->getData('items');
+
+        return $this->getDataByKey('items');
     }
 
     /**
@@ -220,6 +225,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
                 return true;
             }
         }
+
         return false;
     }
 
@@ -236,37 +242,40 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Return escaped value
      *
-     * @param string $value
-     * @param string $defaultValue
+     * @param  string $value
+     * @param  string $defaultValue
      * @return string
      */
     public function getEscaped($value, $defaultValue = '')
     {
-        if ($value === null || strlen($value) == 0) {
+        if ($value === null || (string) $value === '') {
             return $defaultValue;
         }
+
         return $this->escapeHtml(trim($value));
     }
 
     /**
      * Check availability of giftmessages for specified entity
      *
-     * @return bool|int
+     * @return bool
      */
     public function isMessagesAvailable()
     {
-        return Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $this->getEntity());
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->isMessagesAvailable(Mage_GiftMessage_Helper_Message::TYPE_CONFIG, $this->getEntity());
     }
 
     /**
      * Check availability of giftmessages for specified entity item
      *
-     * @param Mage_Sales_Model_Quote_Item $item
+     * @param  Mage_Sales_Model_Quote_Item $item
      * @return bool|int
      */
     public function isItemMessagesAvailable($item)
     {
-        $type = substr($this->getType(), 0, 5) === 'multi' ? 'address_item' : 'item';
+        $type = str_starts_with($this->getType(), 'multi') ? 'address_item' : 'item';
         return Mage::helper('giftmessage/message')->isMessagesAvailable($type, $item);
     }
 }

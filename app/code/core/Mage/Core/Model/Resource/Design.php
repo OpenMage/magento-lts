@@ -1,26 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Design Resource Model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/design_change', 'design_change_id');
@@ -29,16 +25,22 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * @param Mage_Core_Model_Design $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
-    public function _beforeSave(Mage_Core_Model_Abstract $object)
+    #[Override]
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $dateFrom = $object->getDateFrom();
         $dateTo = $object->getDateTo();
         if (!empty($dateFrom) && !empty($dateTo)) {
-            $validator = new Zend_Validate_Date();
-            if (!$validator->isValid($dateFrom) || !$validator->isValid($dateTo)) {
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator = Mage::helper('core/validate');
+            if ($validator->validateDateTime(value: $dateFrom)->count() > 0
+                || $validator->validateDateTime(value: $dateTo)->count() > 0
+            ) {
                 Mage::throwException(Mage::helper('core')->__('Invalid date'));
             }
+
             if (Varien_Date::toTimestamp($dateFrom) > Varien_Date::toTimestamp($dateTo)) {
                 Mage::throwException(Mage::helper('core')->__('Start date cannot be greater than end date.'));
             }
@@ -48,12 +50,12 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             $object->getStoreId(),
             $dateFrom,
             $dateTo,
-            $object->getId()
+            $object->getId(),
         );
 
         if ($check) {
             Mage::throwException(
-                Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.')
+                Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.'),
             );
         }
 
@@ -63,10 +65,10 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Check intersections
      *
-     * @param int $storeId
-     * @param string $dateFrom
-     * @param string $dateTo
-     * @param int $currentId
+     * @param  int    $storeId
+     * @param  string $dateFrom
+     * @param  string $dateTo
+     * @param  int    $currentId
      * @return string
      */
     protected function _checkIntersection($storeId, $dateFrom, $dateTo, $currentId)
@@ -117,13 +119,14 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         $bind = [
-            'store_id'   => (int)$storeId,
-            'current_id' => (int)$currentId,
+            'store_id'   => (int) $storeId,
+            'current_id' => (int) $currentId,
         ];
 
         if (!empty($dateTo)) {
             $bind['date_to'] = $dateTo;
         }
+
         if (!empty($dateFrom)) {
             $bind['date_from'] = $dateFrom;
         }
@@ -134,8 +137,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Load changes for specific store and date
      *
-     * @param int $storeId
-     * @param string $date
+     * @param  int    $storeId
+     * @param  string $date
      * @return array
      */
     public function loadChange($storeId, $date = null)
@@ -151,8 +154,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             ->where('date_to >= :required_date or date_to IS NULL');
 
         $bind = [
-            'store_id'      => (int)$storeId,
-            'required_date' => $date
+            'store_id'      => (int) $storeId,
+            'required_date' => $date,
         ];
 
         return $this->_getReadAdapter()->fetchRow($select, $bind);

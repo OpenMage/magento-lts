@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Export entity abstract model
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 abstract class Mage_ImportExport_Model_Export_Entity_Abstract
@@ -52,7 +45,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type id.
      *
-     * @var int
+     * @var null|int
      */
     protected $_entityTypeId;
 
@@ -170,19 +163,23 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     {
         $entityCode = $this->getEntityTypeCode();
         $this->_entityTypeId = Mage::getSingleton('eav/config')->getEntityType($entityCode)->getEntityTypeId();
-        $this->_connection   = Mage::getSingleton('core/resource')->getConnection('write');
+
+        /** @var Varien_Db_Adapter_Pdo_Mysql $_connection */
+        $_connection         = Mage::getSingleton('core/resource')->getConnection('write');
+        $this->_connection   = $_connection;
     }
 
     /**
-    * Initialize website values.
-    *
-    * @return $this
-    */
+     * Initialize website values.
+     *
+     * @return $this
+     */
     protected function _initWebsites()
     {
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
+
         return $this;
     }
 
@@ -197,6 +194,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
             $this->_storeIdToCode[$store->getId()]      = $store->getCode();
             $this->_storeIdToWebsiteId[$store->getId()] = $store->getWebsiteId();
         }
+
         ksort($this->_storeIdToCode); // to ensure that 'admin' store (ID is zero) goes first
         sort($this->_storeIdToWebsiteId);
 
@@ -218,6 +216,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
             } else {
                 $skipAttr = [];
             }
+
             $attrCodes = [];
 
             foreach ($this->filterAttributeCollection($this->getAttributeCollection()) as $attribute) {
@@ -227,28 +226,30 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                     $attrCodes[] = $attribute->getAttributeCode();
                 }
             }
+
             self::$attrCodes = $attrCodes;
         }
+
         return self::$attrCodes;
     }
 
     /**
      * Initialize attribute option values.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     * @return $this
      */
     protected function _initAttrValues()
     {
         foreach ($this->getAttributeCollection() as $attribute) {
             $this->_attributeValues[$attribute->getAttributeCode()] = $this->getAttributeOptions($attribute);
         }
+
         return $this;
     }
 
     /**
      * Apply filter to collection and add not skipped attributes to select.
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
     protected function _prepareEntityCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
@@ -260,6 +261,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
         } else {
             $exportFilter = $this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP];
         }
+
         $exportAttrCodes = $this->_getExportAttrCodes();
 
         foreach ($this->filterAttributeCollection($this->getAttributeCollection()) as $attribute) {
@@ -278,45 +280,49 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         $collection->addAttributeToFilter($attrCode, ['like' => "%{$exportFilter[$attrCode]}%"]);
                     }
                 } elseif (Mage_ImportExport_Model_Export::FILTER_TYPE_DATE == $attrFilterType) {
-                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) == 2) {
-                        $from = array_shift($exportFilter[$attrCode]);
-                        $to   = array_shift($exportFilter[$attrCode]);
+                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) === 2) {
+                        $source = array_shift($exportFilter[$attrCode]);
+                        $target = array_shift($exportFilter[$attrCode]);
 
-                        if (is_scalar($from) && !empty($from)) {
-                            $date = Mage::app()->getLocale()->date($from, null, null, false)->toString('MM/dd/YYYY');
+                        if (is_scalar($source) && !empty($source)) {
+                            $date = Mage::app()->getLocale()->date($source, null, null, false)->toString('MM/dd/YYYY');
                             $collection->addAttributeToFilter($attrCode, ['from' => $date, 'date' => true]);
                         }
-                        if (is_scalar($to) && !empty($to)) {
-                            $date = Mage::app()->getLocale()->date($to, null, null, false)->toString('MM/dd/YYYY');
+
+                        if (is_scalar($target) && !empty($target)) {
+                            $date = Mage::app()->getLocale()->date($target, null, null, false)->toString('MM/dd/YYYY');
                             $collection->addAttributeToFilter($attrCode, ['to' => $date, 'date' => true]);
                         }
                     }
                 } elseif (Mage_ImportExport_Model_Export::FILTER_TYPE_NUMBER == $attrFilterType) {
-                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) == 2) {
-                        $from = array_shift($exportFilter[$attrCode]);
-                        $to   = array_shift($exportFilter[$attrCode]);
+                    if (is_array($exportFilter[$attrCode]) && count($exportFilter[$attrCode]) === 2) {
+                        $source = array_shift($exportFilter[$attrCode]);
+                        $target   = array_shift($exportFilter[$attrCode]);
 
-                        if (is_numeric($from)) {
-                            $collection->addAttributeToFilter($attrCode, ['from' => $from]);
+                        if (is_numeric($source)) {
+                            $collection->addAttributeToFilter($attrCode, ['from' => $source]);
                         }
-                        if (is_numeric($to)) {
-                            $collection->addAttributeToFilter($attrCode, ['to' => $to]);
+
+                        if (is_numeric($target)) {
+                            $collection->addAttributeToFilter($attrCode, ['to' => $target]);
                         }
                     }
                 }
             }
+
             if (in_array($attrCode, $exportAttrCodes)) {
                 $collection->addAttributeToSelect($attrCode);
             }
         }
+
         return $collection;
     }
 
     /**
      * Add error with corresponding current data source row number.
      *
-     * @param string $errorCode Error code or simply column name
-     * @param int $errorRowNum Row number.
+     * @param  string $errorCode   Error code or simply column name
+     * @param  int    $errorRowNum row number
      * @return $this
      */
     public function addRowError($errorCode, $errorRowNum)
@@ -331,8 +337,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Add message template for specific error code from outside.
      *
-     * @param string $errorCode Error code
-     * @param string $message Message template
+     * @param  string $errorCode Error code
+     * @param  string $message   Message template
      * @return $this
      */
     public function addMessageTemplate($errorCode, $message)
@@ -345,9 +351,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Export process.
      *
-     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
-     *
      * @return string
+     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
      */
     abstract public function export();
 
@@ -362,15 +367,14 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *     'type'  => 'file'
      * )
      *
-     * @throws Mage_Core_Exception
      * @return array
+     * @throws Mage_Core_Exception
      */
     abstract public function exportFile();
 
     /**
      * Clean up attribute collection.
      *
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
@@ -382,6 +386,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                 $collection->removeItemByKey($attribute->getId());
             }
         }
+
         return $collection;
     }
 
@@ -395,7 +400,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Returns attributes all values in label-value or value-value pairs form. Labels are lower-cased.
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return array
      */
     public function getAttributeOptions(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
@@ -418,10 +422,11 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         }
                     }
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // ignore exceptions connected with source models
             }
         }
+
         return $options;
     }
 
@@ -436,7 +441,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type ID getter.
      *
-     * @return int
+     * @return null|int
      */
     public function getEntityTypeId()
     {
@@ -457,6 +462,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                 : Mage::helper('importexport')->__("Invalid value for '%s' column", $errorCode);
             $messages[$message] = $errorRows;
         }
+
         return $messages;
     }
 
@@ -503,22 +509,22 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Inner writer object getter.
      *
-     * @throws Exception
      * @return Mage_ImportExport_Model_Export_Adapter_Abstract
+     * @throws Exception
      */
     public function getWriter()
     {
         if (!$this->_writer) {
             Mage::throwException(Mage::helper('importexport')->__('No writer specified'));
         }
+
         return $this->_writer;
     }
 
     /**
      * Set parameters.
      *
-     * @param array $parameters
-     * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     * @return $this
      */
     public function setParameters(array $parameters)
     {
@@ -530,8 +536,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Writer model setter.
      *
-     * @param Mage_ImportExport_Model_Export_Adapter_Abstract $writer
-     * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     * @return $this
      */
     public function setWriter(Mage_ImportExport_Model_Export_Adapter_Abstract $writer)
     {

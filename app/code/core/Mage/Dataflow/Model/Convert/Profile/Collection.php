@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert profile collection
  *
- * @category   Mage
  * @package    Mage_Dataflow
  */
 class Mage_Dataflow_Model_Convert_Profile_Collection
@@ -43,6 +36,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
             $this->_containers = new $this->_containerCollectionDefaultClass();
             $this->_containers->setDefaultClass($this->_containerDefaultClass);
         }
+
         return $this->_containers;
     }
 
@@ -53,8 +47,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
     public function addContainer($name, Mage_Dataflow_Model_Convert_Container_Interface $container)
     {
-        $container = $this->getContainers()->addItem($name, $container);
-        return $container;
+        return $this->getContainers()->addItem($name, $container);
     }
 
     public function getProfiles()
@@ -67,6 +60,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         if (!isset($this->_profiles[$name])) {
             $this->importProfileXml($name);
         }
+
         return $this->_profiles[$name];
     }
 
@@ -75,6 +69,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         if (is_null($profile)) {
             $profile = new $this->_profileDefaultClass();
         }
+
         $this->_profiles[$name] = $profile;
         return $profile;
     }
@@ -90,26 +85,37 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         return $type;
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
     public function importXml($xml)
     {
         if (is_string($xml)) {
             $xml = @simplexml_load_string($xml, $this->_simplexmlDefaultClass);
         }
+
         if (!$xml instanceof SimpleXMLElement) {
             return $this;
         }
+
         $this->_xml = $xml;
 
         foreach ($xml->container as $containerNode) {
-            if (!$containerNode['name'] || !$containerNode['type']) {
+            if (!$containerNode['name']) {
                 continue;
             }
-            $class = $this->getClassNameByType((string)$containerNode['type']);
-            $container = $this->addContainer((string)$containerNode['name'], new $class());
+
+            if (!$containerNode['type']) {
+                continue;
+            }
+
+            $class = $this->getClassNameByType((string) $containerNode['type']);
+            $container = $this->addContainer((string) $containerNode['name'], new $class());
             foreach ($containerNode->var as $varNode) {
-                $container->setVar((string)$varNode['name'], (string)$varNode);
+                $container->setVar((string) $varNode['name'], (string) $varNode);
             }
         }
+
         return $this;
     }
 
@@ -118,10 +124,12 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         if (!$this->_xml) {
             return $this;
         }
+
         $nodes = $this->_xml->xpath("//profile[@name='" . $name . "']");
         if (!$nodes) {
             return $this;
         }
+
         $profileNode = $nodes[0];
 
         $profile = $this->addProfile($name);
@@ -129,15 +137,16 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         foreach ($profileNode->action as $actionNode) {
             $action = $profile->addAction();
             foreach ($actionNode->attributes() as $key => $value) {
-                $action->setParam($key, (string)$value);
+                $action->setParam($key, (string) $value);
             }
 
             if ($actionNode['use']) {
-                $container = $profile->getContainer((string)$actionNode['use']);
+                $container = $profile->getContainer((string) $actionNode['use']);
             } else {
-                $action->setParam('class', $this->getClassNameByType((string)$actionNode['type']));
+                $action->setParam('class', $this->getClassNameByType((string) $actionNode['type']));
                 $container = $action->getContainer();
             }
+
             $action->setContainer($container);
             if ($action->getParam('name')) {
                 $this->addContainer($action->getParam('name'), $container);
@@ -146,26 +155,27 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
             $country = '';
 
             /** @var Varien_Simplexml_Element $varNode */
-            foreach ($actionNode->var as $key => $varNode) {
+            foreach ($actionNode->var as $varNode) {
                 if ($varNode['name'] == 'map') {
                     $mapData = [];
                     foreach ($varNode->map as $mapNode) {
-                        $mapData[(string)$mapNode['name']] = (string)$mapNode;
+                        $mapData[(string) $mapNode['name']] = (string) $mapNode;
                     }
-                    $container->setVar((string)$varNode['name'], $mapData);
+
+                    $container->setVar((string) $varNode['name'], $mapData);
                 } else {
-                    $value = (string)$varNode;
+                    $value = (string) $varNode;
 
                     /**
                      * Get state name from directory by iso name
                      * (only for US)
                      */
-                    if ($value && (string)$varNode['name'] == 'filter/country') {
+                    if ($value && (string) $varNode['name'] === 'filter/country') {
                         /**
                          * Save country for convert state iso to name (for US only)
                          */
                         $country = $value;
-                    } elseif ($value && (string)$varNode['name'] == 'filter/region' && $country == 'US') {
+                    } elseif ($value && (string) $varNode['name'] === 'filter/region' && $country === 'US') {
                         /**
                          * Get state name by iso for US
                          */
@@ -178,7 +188,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
                         }
                     }
 
-                    $container->setVar((string)$varNode['name'], $value);
+                    $container->setVar((string) $varNode['name'], $value);
                 }
             }
         }

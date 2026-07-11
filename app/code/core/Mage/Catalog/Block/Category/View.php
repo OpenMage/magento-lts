@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category View block
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
@@ -25,6 +18,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
      * @return $this|Mage_Core_Block_Template
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -38,9 +32,11 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             if ($title = $category->getMetaTitle()) {
                 $headBlock->setTitle($title);
             }
+
             if ($description = $category->getMetaDescription()) {
                 $headBlock->setDescription($description);
             }
+
             if ($keywords = $category->getMetaKeywords()) {
                 $headBlock->setKeywords($keywords);
             }
@@ -50,6 +46,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             if ($helper->canUseCanonicalTag()) {
                 $headBlock->addLinkRel('canonical', $category->getUrl());
             }
+
             /*
             want to show rss feed in the url
             */
@@ -88,8 +85,8 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             'rss/catalog/category',
             [
                 'cid' => $this->getCurrentCategory()->getId(),
-                'store_id' => Mage::app()->getStore()->getId()
-            ]
+                'store_id' => Mage::app()->getStore()->getId(),
+            ],
         );
     }
 
@@ -111,7 +108,8 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
         if (!$this->hasData('current_category')) {
             $this->setData('current_category', Mage::registry('current_category'));
         }
-        return $this->getData('current_category');
+
+        return $this->getDataByKey('current_category');
     }
 
     /**
@@ -119,13 +117,14 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
      */
     public function getCmsBlockHtml()
     {
-        if (!$this->getData('cms_block_html')) {
+        if (!$this->getDataByKey('cms_block_html')) {
             $html = $this->getLayout()->createBlock('cms/block')
                 ->setBlockId($this->getCurrentCategory()->getLandingPage())
                 ->toHtml();
             $this->setData('cms_block_html', $html);
         }
-        return $this->getData('cms_block_html');
+
+        return $this->getDataByKey('cms_block_html');
     }
 
     /**
@@ -165,6 +164,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
                 }
             }
         }
+
         return $res;
     }
 
@@ -173,6 +173,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->getCurrentCategory()->getCacheIdTags());

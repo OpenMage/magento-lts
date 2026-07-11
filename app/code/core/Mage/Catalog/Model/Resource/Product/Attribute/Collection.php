@@ -1,30 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product EAV additional attribute resource collection
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
     /**
-     * Resource model initialization
-     *
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_init('catalog/resource_eav_attribute', 'eav/entity_attribute');
@@ -35,9 +28,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
-        $entityTypeId = (int)Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
+        $entityTypeId = (int) Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
         $columns = $this->getConnection()->describeTable($this->getResource()->getMainTable());
         unset($columns['attribute_id']);
         $retColumns = [];
@@ -49,11 +43,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
                 $retColumns[$labelColumn] = $helper->castField('main_table.' . $labelColumn);
             }
         }
+
         $this->getSelect()
             ->from(['main_table' => $this->getResource()->getMainTable()], $retColumns)
             ->join(
                 ['additional_table' => $this->getTable('catalog/eav_attribute')],
-                'additional_table.attribute_id = main_table.attribute_id'
+                'additional_table.attribute_id = main_table.attribute_id',
             )
             ->where('main_table.entity_type_id = ?', $entityTypeId);
         return $this;
@@ -63,9 +58,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
      * Specify attribute entity type filter.
      * Entity type is defined.
      *
-     * @param  int $typeId
+     * @param  int   $typeId
      * @return $this
      */
+    #[Override]
     public function setEntityTypeFilter($typeId)
     {
         return $this;
@@ -76,6 +72,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
      *
      * @return array
      */
+    #[Override]
     protected function _getLoadDataFields()
     {
         return array_merge(
@@ -83,8 +80,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
             [
                 'additional_table.is_global',
                 'additional_table.is_html_allowed_on_front',
-                'additional_table.is_wysiwyg_enabled'
-            ]
+                'additional_table.is_wysiwyg_enabled',
+            ],
         );
     }
 
@@ -151,7 +148,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
     /**
      * Specify filter for attributes that have to be indexed
      *
-     * @param bool $addRequiredCodes
+     * @param  bool  $addRequiredCodes
      * @return $this
      */
     public function addToIndexFilter($addRequiredCodes = false)
@@ -161,13 +158,13 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
             'additional_table.is_visible_in_advanced_search = 1',
             'additional_table.is_filterable > 0',
             'additional_table.is_filterable_in_search = 1',
-            'additional_table.used_for_sort_by = 1'
+            'additional_table.used_for_sort_by = 1',
         ];
 
         if ($addRequiredCodes) {
             $conditions[] = $this->getConnection()->quoteInto(
                 'main_table.attribute_code IN (?)',
-                ['status', 'visibility']
+                ['status', 'visibility'],
             );
         }
 
@@ -184,8 +181,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
     public function addSearchableAttributeFilter()
     {
         $this->getSelect()->where(
-            'additional_table.is_searchable = 1 OR ' .
-            $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', ['status', 'visibility'])
+            'additional_table.is_searchable = 1 OR '
+            . $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', ['status', 'visibility']),
         );
 
         return $this;

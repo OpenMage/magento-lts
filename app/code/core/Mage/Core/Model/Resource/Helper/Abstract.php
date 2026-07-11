@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource helper class
  *
- * @category   Mage
  * @package    Mage_Core
  */
 abstract class Mage_Core_Model_Resource_Helper_Abstract
@@ -49,7 +42,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      */
     public function __construct($module)
     {
-        $this->_modulePrefix = (string)$module;
+        $this->_modulePrefix = (string) $module;
     }
 
     /**
@@ -83,7 +76,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
     /**
      * Retrieves connection to the resource
      *
-     * @param string $name
+     * @param  string                      $name
      * @return Varien_Db_Adapter_Interface
      */
     protected function _getConnection($name)
@@ -109,26 +102,28 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      * - 'position' ('any', 'start', 'end') - expression will be formed so that $value will be found at position within string,
      *     by default when nothing set - string must be fully matched with $value
      *
-     * @param string $value
-     * @param array $options
+     * @param  string $value
+     * @param  array  $options
      * @return string
      */
     public function escapeLikeValue($value, $options = [])
     {
         $value = str_replace('\\', '\\\\', $value);
 
-        $from = [];
-        $to = [];
+        $search  = [];
+        $replace = [];
         if (empty($options['allow_symbol_mask'])) {
-            $from[] = '_';
-            $to[] = '\_';
+            $search[] = '_';
+            $replace[] = '\_';
         }
+
         if (empty($options['allow_string_mask'])) {
-            $from[] = '%';
-            $to[] = '\%';
+            $search[] = '%';
+            $replace[] = '\%';
         }
-        if ($from) {
-            $value = str_replace($from, $to, $value);
+
+        if ($search) {
+            $value = str_replace($search, $replace, $value);
         }
 
         if (isset($options['position'])) {
@@ -137,7 +132,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                     $value = '%' . $value . '%';
                     break;
                 case 'start':
-                    $value = $value . '%';
+                    $value .= '%';
                     break;
                 case 'end':
                     $value = '%' . $value;
@@ -152,8 +147,8 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      * Escapes, quotes and adds escape symbol to LIKE expression.
      * For options and escaping see escapeLikeValue().
      *
-     * @param string $value
-     * @param array $options
+     * @param  string       $value
+     * @param  array        $options
      * @return Zend_Db_Expr
      *
      * @see escapeLikeValue()
@@ -164,9 +159,9 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      * Returns case insensitive LIKE construction.
      * For options and escaping see escapeLikeValue().
      *
-     * @param string $field
-     * @param string $value
-     * @param array $options
+     * @param  string       $field
+     * @param  string       $value
+     * @param  array        $options
      * @return Zend_Db_Expr
      *
      * @see escapeLikeValue()
@@ -183,8 +178,8 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      *
      * E.g. Converts type 'varchar(255)' to array('type' => Varien_Db_Ddl_Table::TYPE_TEXT, 'length' => 255)
      *
-     * @param array $column
-     * @return array
+     * @param  array                $column
+     * @return array<string, mixed>
      */
     public function convertOldColumnDefinition($column)
     {
@@ -194,7 +189,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
         if (!preg_match('/([^(]*)(\\((.*)\\))?/', $definition, $matches)) {
             throw Mage::exception(
                 'Mage_Core',
-                Mage::helper('core')->__("Wrong old style column type definition: {$definition}.")
+                Mage::helper('core')->__("Wrong old style column type definition: {$definition}."),
             );
         }
 
@@ -212,6 +207,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = 255;
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 break;
             case 'text':
@@ -219,6 +215,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '64k';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 break;
             case 'mediumtext':
@@ -226,6 +223,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '16M';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 break;
             case 'longtext':
@@ -233,6 +231,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '4G';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 break;
             case 'blob':
@@ -240,6 +239,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '64k';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_BLOB;
                 break;
             case 'mediumblob':
@@ -247,6 +247,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '16M';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_BLOB;
                 break;
             case 'longblob':
@@ -254,6 +255,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '4G';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_BLOB;
                 break;
             case 'tinyint':
@@ -289,7 +291,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
             default:
                 throw Mage::exception(
                     'Mage_Core',
-                    Mage::helper('core')->__("Unknown old style column type definition: {$definition}.")
+                    Mage::helper('core')->__("Unknown old style column type definition: {$definition}."),
                 );
         }
 

@@ -1,18 +1,11 @@
 <?php
-/**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
 
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage
+ */
 
 /**
  * There are two modes to run this script:
@@ -104,7 +97,6 @@
  * --admin_password             // required, admin user password
  * Encryption key:
  * --encryption_key             // optional, will be automatically generated and displayed on success, if not specified
- *
  */
 
 set_include_path(__DIR__ . PATH_SEPARATOR . get_include_path());
@@ -117,7 +109,8 @@ $app = Mage::app('default');
 $installer = Mage::getSingleton('install/installer_console');
 
 try {
-    if ($installer->init($app)          // initialize installer
+    if (
+        $installer->init($app)          // initialize installer
         && $installer->checkConsole()   // check if the script is run in shell, otherwise redirect to web-installer
         && $installer->setArgs()        // set and validate script arguments
         && $installer->install()        // do install
@@ -125,17 +118,16 @@ try {
         echo 'SUCCESS: ' . $installer->getEncryptionKey() . "\n";
         exit;
     }
-} catch (Exception $e) {
-    Mage::printException($e);
+} catch (Exception $exception) {
+    Mage::printException($exception);
 }
 
 // print all errors if there were any
-if ($installer instanceof Mage_Install_Model_Installer_Console) {
-    if ($installer->getErrors()) {
-        echo "\nFAILED\n";
-        foreach ($installer->getErrors() as $error) {
-            echo $error . "\n";
-        }
+if ($installer instanceof Mage_Install_Model_Installer_Console && $installer->getErrors()) {
+    echo "\nFAILED\n";
+    foreach ($installer->getErrors() as $error) {
+        echo $error . "\n";
     }
 }
+
 exit(1); // don't delete this as this should notify about failed installation

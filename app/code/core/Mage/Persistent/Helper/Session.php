@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Persistent
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Persistent Shopping Cart Data Helper
  *
- * @category   Mage
  * @package    Mage_Persistent
  */
 class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
@@ -26,21 +19,21 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
     /**
      * Instance of Session Model
      *
-     * @var Mage_Persistent_Model_Session|null
+     * @var null|Mage_Persistent_Model_Session
      */
     protected $_sessionModel;
 
     /**
      * Persistent customer
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer;
 
     /**
      * Is "Remember Me" checked
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_isRememberMeChecked;
 
@@ -55,14 +48,15 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
             $this->_sessionModel = Mage::getModel('persistent/session');
             $this->_sessionModel->loadByCookieKey();
         }
+
         return $this->_sessionModel;
     }
 
     /**
      * Force setting session model
      *
-     * @param Mage_Persistent_Model_Session|null $sessionModel null to unset session
-     * @return Mage_Persistent_Model_Session|null
+     * @param  null|Mage_Persistent_Model_Session $sessionModel null to unset session
+     * @return null|Mage_Persistent_Model_Session
      */
     public function setSession($sessionModel)
     {
@@ -101,7 +95,7 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
             return $helper->isEnabled() && $helper->isRememberMeEnabled() && $helper->isRememberMeCheckedDefault();
         }
 
-        return (bool)$this->_isRememberMeChecked;
+        return (bool) $this->_isRememberMeChecked;
     }
 
     /**
@@ -125,6 +119,7 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
             $customerId = $this->getSession()->getCustomerId();
             $this->_customer = Mage::getModel('customer/customer')->load($customerId);
         }
+
         return $this->_customer;
     }
 }

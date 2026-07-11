@@ -1,0 +1,131 @@
+includes:
+    - vendor/macopedia/phpstan-magento1/extension.neon
+    - .phpstan.dist.baselines/_loader.php
+    - phar://phpstan.phar/conf/bleedingEdge.neon
+parameters:
+    level: 8
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+    treatPhpDocTypesAsCertain: false
+#    universalObjectCratesClasses:
+#        - Varien_Object
+    phpVersion:
+        min: 80100
+        max: 80599
+    strictRules:
+        allRules: true
+    stubFiles:
+        - dev/phpstan/stubs/Zend/Log.stub
+        - dev/phpstan/stubs/Zend/Measure.stub
+        - dev/phpstan/stubs/Zend/Validate.stub
+    tmpDir: .cache/.phpstan.cache
+    magentoRootPath: %currentWorkingDirectory%
+    fileExtensions:
+      - php
+      - phtml
+    paths:
+        - api.php
+        - cron.php
+        - get.php
+        - index.php
+        - install.php
+        - app/Mage.php
+        - app/code/core/Mage
+        - app/design/
+        - errors
+        - lib/Mage
+        - lib/Magento
+        - lib/Varien
+        - shell
+        - tests/unit
+    excludePaths:
+        #incompatible interfaces
+        - lib/Varien/Directory/Collection.php
+        - lib/Varien/Directory/Factory.php
+        - lib/Varien/File/Object.php
+
+        # deprecated _getHelper()
+        - app/code/core/Mage/Adminhtml/Controller/Rss/Abstract.php
+        - app/code/core/Mage/Adminhtml/controllers/Rss/OrderController.php
+        - app/code/core/Mage/Adminhtml/controllers/Rss/CatalogController.php
+
+        # contains 1 abstract method and must therefore be declared abstract or implement the remaining methods
+        - app/code/core/Mage/Dataflow/Model/Session/Adapter/Http.php
+        - app/code/core/Mage/Dataflow/Model/Convert/Iterator/Http.php
+        - app/code/core/Mage/Dataflow/Model/Convert/Iterator/File/Csv.php
+        - lib/Varien/Convert/Validator/Column.php
+
+        # Cannot declare class Varien_Date, because the name is already in use
+        - app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
+
+        # Cannot declare class XMLParser, because the name is already in use
+        - app/code/core/Mage/Centinel/Model/Api.php
+        - app/code/core/Mage/Centinel/Model/Api/Client.php
+
+        # Class phpseclib\Net\SSH2 not found.
+        - app/code/core/Mage/Paypal/Model/Report/Settlement.php
+        - lib/Varien/Io/Sftp.php
+
+        # Dataflow/Model/Convert/Iterator.php
+        - app/code/core/Mage/Dataflow/Model/Convert/Iterator.php
+
+        # requires Mycrypt
+        - lib/Magento/Crypt.php
+        - lib/Varien/Crypt/Mcrypt.php
+
+        # Instantiated class not found
+        - lib/Varien/Image/Adapter.php
+    ignoreErrors:
+        -
+            message: '#^Cannot call method [a-zA-Z0-9\\_]+\(\) on Mage_Core_Model_Store\|null\.$#'
+            reportUnmatched: false
+        -
+            # @todo remove unused classes/template
+            # @todo add classes to widgets
+            message: '#^Variable \$this might not be defined\.$#'
+            paths:
+                - app/design/adminhtml/base/default/template/api/usernroles.phtml
+                - app/design/adminhtml/base/default/template/dashboard/searches.phtml
+                - app/design/adminhtml/base/default/template/dashboard/store/switcher.phtml
+                - app/design/adminhtml/base/default/template/empty.phtml
+                - app/design/adminhtml/base/default/template/overlay_popup.phtml
+                - app/design/adminhtml/base/default/template/popup.phtml
+                - app/design/adminhtml/base/default/template/promo/form.phtml
+                - app/design/adminhtml/base/default/template/rating/stars/detailed.phtml
+                - app/design/adminhtml/base/default/template/review/add.phtml
+                - app/design/adminhtml/base/default/template/sales/billing/agreement/form.phtml
+                - app/design/adminhtml/base/default/template/sales/items/renderer/default.phtml
+                - app/design/adminhtml/base/default/template/sales/order/shipment/create/items/renderer/configurable.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/discount.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/due.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/footer.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/grand.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/item.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/main.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/paid.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/refunded.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/shipping.phtml
+                - app/design/adminhtml/base/default/template/sales/order/totals/subtotal.phtml
+                - app/design/adminhtml/base/default/template/sales/order/view/tracking.phtml
+                - app/design/adminhtml/base/default/template/system/info.phtml
+                - app/design/adminhtml/base/default/template/tax/class/page/edit.phtml
+                - app/design/adminhtml/base/default/template/tax/toolbar/class/save.phtml
+                - app/design/adminhtml/base/default/template/tax/toolbar/rule/save.phtml
+        -
+            # update phpstan plugin
+            identifier: method.protected
+            paths:
+                - app/design/*/*/template/*
+        -
+            identifier: phpunit.coversMethod
+        -
+            # update phpstan plugin
+            identifier: property.protected
+            paths:
+                - app/design/*/*/template/*
+        -
+            identifier: variable.undefined
+            paths:
+                - app/design/*/*/template/*
+                - errors/*
+                - lib/Varien/*

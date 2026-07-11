@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Currency rate import model (From www.currencyconverterapi.com)
  *
- * @category   Mage
  * @package    Mage_Directory
  */
 class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Directory_Model_Currency_Import_Abstract
@@ -61,7 +54,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _convert($currencyFrom, $currencyTo)
     {
@@ -73,6 +66,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      *
      * @return array
      */
+    #[Override]
     public function fetchRates()
     {
         $data = [];
@@ -94,10 +88,9 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     /**
      * Batch import of currency rates
      *
-     * @param array $data
-     * @param string $currencyFrom
-     * @param array $currenciesTo
+     * @param  string $currencyFrom
      * @return array
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _convertBatch(array $data, $currencyFrom, array $currenciesTo)
     {
@@ -114,7 +107,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
             $url = str_replace(
                 ['{{API_KEY}}', '{{CURRENCY_FROM}}_{{CURRENCY_TO}}'],
                 [$apiKey, $currenciesCombined],
-                $this->_url
+                $this->_url,
             );
 
             $timeLimitCalculated = 2 * Mage::getStoreConfigAsInt(self::XML_PATH_CURRENCY_CONVERTER_TIMEOUT)
@@ -123,20 +116,18 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
             @set_time_limit($timeLimitCalculated);
             try {
                 $response = $this->_getServiceResponse($url);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 ini_restore('max_execution_time');
             }
 
             if ($currencyFrom == $currencyTo) {
                 $data[$currencyFrom][$currencyTo] = $this->_numberFormat(1);
+            } elseif (empty($response)) {
+                $this->_messages[] = Mage::helper('directory')
+                    ->__("We can't retrieve a rate from %s for %s.", $url, $currencyTo);
+                $data[$currencyFrom][$currencyTo] = null;
             } else {
-                if (empty($response)) {
-                    $this->_messages[] = Mage::helper('directory')
-                        ->__('We can\'t retrieve a rate from %s for %s.', $url, $currencyTo);
-                    $data[$currencyFrom][$currencyTo] = null;
-                } else {
-                    $data[$currencyFrom][$currencyTo] = $this->_numberFormat((float) $response[$currenciesCombined]);
-                }
+                $data[$currencyFrom][$currencyTo] = $this->_numberFormat((float) $response[$currenciesCombined]);
             }
         }
 
@@ -146,8 +137,8 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     /**
      * Get response from external service
      *
-     * @param string $url
-     * @param int $retry
+     * @param  string $url
+     * @param  int    $retry
      * @return array
      */
     protected function _getServiceResponse($url, $retry = 0)
@@ -161,7 +152,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
                 ->getBody();
 
             $response = json_decode($jsonResponse, true);
-        } catch (Exception $e) {
+        } catch (Exception) {
             if ($retry === 0) {
                 $response = $this->_getServiceResponse($url, 1);
             }
@@ -173,7 +164,6 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     /**
      * Fill simulated response with empty data
      *
-     * @param array $currenciesTo
      * @return array
      */
     protected function _makeEmptyResponse(array $currenciesTo)

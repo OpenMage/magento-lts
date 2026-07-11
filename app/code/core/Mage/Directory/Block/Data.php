@@ -1,30 +1,26 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Directory data block
  *
- * @category   Mage
  * @package    Mage_Directory
+ * @phpstan-type Option array{label: string, value: non-falsy-string}
  *
  * @method int getRegionId()
  */
 class Mage_Directory_Block_Data extends Mage_Core_Block_Template
 {
     /**
+     * @codeCoverageIgnore
      * @return string
+     * @deprecated
      */
     public function getLoadrRegionUrl()
     {
@@ -36,7 +32,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
      */
     public function getCountryCollection()
     {
-        $collection = $this->getData('country_collection');
+        $collection = $this->getDataByKey('country_collection');
         if (is_null($collection)) {
             $collection = Mage::getModel('directory/country')->getResourceCollection()
                 ->loadByStore();
@@ -47,11 +43,11 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string|null $defValue
-     * @param string $name
-     * @param string $id
-     * @param string $title
-     * @return mixed
+     * @param  null|string                     $defValue
+     * @param  string                          $name
+     * @param  string                          $id
+     * @param  string                          $title
+     * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getCountryHtmlSelect($defValue = null, $name = 'country_id', $id = 'country', $title = 'Country')
@@ -60,6 +56,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
         if (is_null($defValue)) {
             $defValue = $this->getCountryId();
         }
+
         $cacheKey = 'DIRECTORY_COUNTRY_SELECT_STORE_' . Mage::app()->getStore()->getCode();
         if (Mage::app()->useCache('config') && $cache = Mage::app()->loadCache($cacheKey)) {
             $options = unserialize($cache, ['allowed_classes' => false]);
@@ -69,13 +66,14 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
                 Mage::app()->saveCache(serialize($options), $cacheKey, ['config']);
             }
         }
+
         $html = $this->getLayout()->createBlock('core/html_select')
             ->setName($name)
             ->setId($id)
             ->setTitle(Mage::helper('directory')->__($title))
             ->setClass('validate-select')
             ->setValue($defValue)
-            ->setOptions($options)
+            ->setOptions($this->sortCountryOptions($options))
             ->getHtml();
 
         Varien_Profiler::stop('TEST: ' . __METHOD__);
@@ -83,11 +81,11 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
     }
 
     /**
-     * @return mixed
+     * @return Mage_Directory_Model_Resource_Region_Collection
      */
     public function getRegionCollection()
     {
-        $collection = $this->getData('region_collection');
+        $collection = $this->getDataByKey('region_collection');
         if (is_null($collection)) {
             $collection = Mage::getModel('directory/region')->getResourceCollection()
                 ->addCountryFilter($this->getCountryId())
@@ -95,11 +93,12 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
 
             $this->setData('region_collection', $collection);
         }
+
         return $collection;
     }
 
     /**
-     * @return mixed
+     * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getRegionHtmlSelect()
@@ -114,6 +113,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
                 Mage::app()->saveCache(serialize($options), $cacheKey, ['config']);
             }
         }
+
         $html = $this->getLayout()->createBlock('core/html_select')
             ->setName('region')
             ->setTitle(Mage::helper('directory')->__('State/Province'))
@@ -131,10 +131,11 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
      */
     public function getCountryId()
     {
-        $countryId = $this->getData('country_id');
+        $countryId = $this->getDataByKey('country_id');
         if (is_null($countryId)) {
-            $countryId = Mage::helper('core')->getDefaultCountry();
+            return Mage::helper('core')->getDefaultCountry();
         }
+
         return $countryId;
     }
 
@@ -144,12 +145,13 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
     public function getRegionsJs()
     {
         Varien_Profiler::start('TEST: ' . __METHOD__);
-        $regionsJs = $this->getData('regions_js');
+        $regionsJs = $this->getDataByKey('regions_js');
         if (!$regionsJs) {
             $countryIds = [];
             foreach ($this->getCountryCollection() as $country) {
                 $countryIds[] = $country->getCountryId();
             }
+
             $collection = Mage::getModel('directory/region')->getResourceCollection()
                 ->addCountryFilter($countryIds)
                 ->load();
@@ -159,14 +161,43 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
                 if (!$region->getRegionId()) {
                     continue;
                 }
+
                 $regions[$region->getCountryId()][$region->getRegionId()] = [
                     'code' => $region->getCode(),
-                    'name' => $region->getName()
+                    'name' => $region->getName(),
                 ];
             }
+
             $regionsJs = Mage::helper('core')->jsonEncode($regions);
         }
+
         Varien_Profiler::stop('TEST: ' . __METHOD__);
         return $regionsJs;
+    }
+
+    /**
+     * @template T of Option[]
+     * @param  T                                                                                           $countryOptions
+     * @return array{0: array{label: string, value: Option[]}, 1: array{label: string, value: Option[]}}|T
+     */
+    private function sortCountryOptions(array $countryOptions): array
+    {
+        $topCountryCodes = $this->helper('directory')->getTopCountryCodes();
+        $headOptions = [];
+        $tailOptions = [];
+
+        foreach ($countryOptions as $countryOption) {
+            if (in_array($countryOption['value'], $topCountryCodes)) {
+                $headOptions[] = $countryOption;
+            } else {
+                $tailOptions[] = $countryOption;
+            }
+        }
+
+        if ($headOptions === []) {
+            return $countryOptions;
+        }
+
+        return [['label' => $this->__('Popular'), 'value' => $headOptions], ['label' => $this->__('Others'), 'value' => $tailOptions]];
     }
 }

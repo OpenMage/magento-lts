@@ -1,29 +1,25 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Log Cron Model
  *
- * @category   Mage
  * @package    Mage_Log
  */
 class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
 {
     public const XML_PATH_EMAIL_LOG_CLEAN_TEMPLATE     = 'system/log/error_email_template';
+
     public const XML_PATH_EMAIL_LOG_CLEAN_IDENTITY     = 'system/log/error_email_identity';
+
     public const XML_PATH_EMAIL_LOG_CLEAN_RECIPIENT    = 'system/log/error_email';
+
     public const XML_PATH_LOG_CLEAN_ENABLED            = 'system/log/enabled';
 
     /**
@@ -43,6 +39,7 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
         if (!$this->_errors) {
             return $this;
         }
+
         if (!Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_RECIPIENT)) {
             return $this;
         }
@@ -59,7 +56,7 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
                 Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_IDENTITY),
                 Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_RECIPIENT),
                 null,
-                ['warnings' => implode("\n", $this->_errors)]
+                ['warnings' => implode("\n", $this->_errors)],
             );
 
         $translate->setTranslateInline(true);
@@ -82,9 +79,9 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
 
         try {
             Mage::getModel('log/log')->clean();
-        } catch (Exception $e) {
-            $this->_errors[] = $e->getMessage();
-            $this->_errors[] = $e->getTrace();
+        } catch (Exception $exception) {
+            $this->_errors[] = $exception->getMessage();
+            $this->_errors[] = $exception->getTrace();
         }
 
         $this->_sendLogCleanEmail();

@@ -1,22 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
 
 /**
  * Reports summary collection
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Varien_Data_Collection
@@ -31,41 +28,43 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     /**
      * Filters the summaries by some period
      *
-     * @param string $periodType
-     * @param string|int|null $customStart
-     * @param string|int|null $customEnd
+     * @param  string          $periodType
+     * @param  null|int|string $customStart
+     * @param  null|int|string $customEnd
      * @return $this
      */
     public function setSelectPeriod($periodType, $customStart = null, $customEnd = null)
     {
         switch ($periodType) {
-            case "24h":
+            case '24h':
                 $customStart = Varien_Date::toTimestamp(true) - 86400;
                 $customEnd   = Varien_Date::toTimestamp(true);
                 break;
 
-            case "7d":
+            case '7d':
                 $customStart = Varien_Date::toTimestamp(true) - 604800;
                 $customEnd   = Varien_Date::toTimestamp(true);
                 break;
 
-            case "30d":
+            case '30d':
                 $customStart = Varien_Date::toTimestamp(true) - 2592000;
                 $customEnd   = Varien_Date::toTimestamp(true);
                 break;
 
-            case "1y":
+            case '1y':
                 $customStart = Varien_Date::toTimestamp(true) - 31536000;
                 $customEnd   = Varien_Date::toTimestamp(true);
                 break;
 
             default:
                 if (is_string($customStart)) {
-                    $customStart = strtotime($customStart);
+                    $customStart = Carbon::parse($customStart)->getTimestamp();
                 }
+
                 if (is_string($customEnd)) {
-                    $customEnd = strtotime($customEnd);
+                    $customEnd = Carbon::parse($customEnd)->getTimestamp();
                 }
+
                 break;
         }
 
@@ -75,7 +74,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     /**
      * Set date period
      *
-     * @param int $period
+     * @param  int   $period
      * @return $this
      */
     public function setDatePeriod($period)
@@ -86,7 +85,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     /**
      * Set store filter
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreFilter($storeId)
@@ -101,9 +100,10 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
      */
     public function getCollection()
     {
-        if (empty($this->_entityCollection)) {
+        if (is_null($this->_entityCollection)) {
             $this->_initCollection();
         }
+
         return $this->_entityCollection;
     }
 

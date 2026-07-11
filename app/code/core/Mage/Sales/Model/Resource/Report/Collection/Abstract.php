@@ -1,22 +1,17 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Report collection abstract model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_Model_Resource_Report_Collection_Abstract
@@ -24,14 +19,14 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
     /**
      * Order status
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_orderStatus = null;
 
     /**
      * Set status filter
      *
-     * @param string $orderStatus
+     * @param  string $orderStatus
      * @return $this
      */
     public function addOrderStatusFilter($orderStatus)
@@ -50,10 +45,12 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
         if (is_null($this->_orderStatus)) {
             return $this;
         }
+
         $orderStatus = $this->_orderStatus;
         if (!is_array($orderStatus)) {
             $orderStatus = [$orderStatus];
         }
+
         $this->getSelect()->where('order_status IN(?)', $orderStatus);
         return $this;
     }
@@ -63,6 +60,7 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
      *
      * @return $this
      */
+    #[Override]
     protected function _applyCustomFilter()
     {
         return $this->_applyOrderStatusFilter();

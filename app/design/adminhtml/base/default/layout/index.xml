@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+-->
+<layout>
+    <default>
+        <reference name="notifications">
+            <block type="index/adminhtml_notifications" name="index_notifications" template="index/notifications.phtml"></block>
+        </reference>
+    </default>
+
+    <adminhtml_process_edit>
+        <reference name="content">
+            <block type="index/adminhtml_process_edit" name="process_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="index/adminhtml_process_edit_tabs" name="index_edit_tabs">
+                <action method="addTab"><name>main_section</name><block>index/adminhtml_process_edit_tab_main</block></action>
+            </block>
+        </reference>
+    </adminhtml_process_edit>
+
+    <adminhtml_process_list>
+        <reference name="content">
+            <block type="index/adminhtml_process" name="process" />
+        </reference>
+    </adminhtml_process_list>
+</layout>

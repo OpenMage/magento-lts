@@ -1,21 +1,14 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_File
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Csv parse
- *
  */
 class Varien_File_Transfer_Adapter_Http
 {
@@ -62,13 +55,13 @@ class Varien_File_Transfer_Adapter_Http
         'psd' => 'image/vnd.adobe.photoshop',
         'ai' => 'application/postscript',
         'eps' => 'application/postscript',
-        'ps' => 'application/postscript'
+        'ps' => 'application/postscript',
     ];
 
     /**
      * Send the file to the client (Download)
      *
-     * @param  string|array $options Options for the file(s) to send
+     * @param  array|string $options Options for the file(s) to send
      * @throws Exception
      */
     public function send($options = null)
@@ -78,7 +71,7 @@ class Varien_File_Transfer_Adapter_Http
         } elseif (is_array($options)) {
             $filepath = $options['filepath'];
         } else {
-            throw new Exception("Filename is not set.");
+            throw new Exception('Filename is not set.');
         }
 
         if (!is_file($filepath) || !is_readable($filepath)) {
@@ -89,7 +82,7 @@ class Varien_File_Transfer_Adapter_Http
 
         $response = new Zend_Controller_Response_Http();
 
-        $response->setHeader('Content-length', (string)filesize($filepath));
+        $response->setHeader('Content-length', (string) filesize($filepath));
         $response->setHeader('Content-Type', $mimeType);
 
         $response->sendHeaders();
@@ -100,8 +93,8 @@ class Varien_File_Transfer_Adapter_Http
     /**
      * Internal method to detect the mime type of a file
      *
-     * @param  array $value File infos
-     * @return string|null Mime type of given file
+     * @param  array       $value File infos
+     * @return null|string Mime type of given file
      */
     protected function _detectMimeType($value)
     {
@@ -124,7 +117,7 @@ class Varien_File_Transfer_Adapter_Http
         }
 
         if (empty($result)) {
-            $result = 'application/octet-stream';
+            return 'application/octet-stream';
         }
 
         return $result;

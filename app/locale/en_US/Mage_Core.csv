@@ -175,6 +175,7 @@
 "Invalid URL scheme.","Invalid URL scheme."
 "Invalid base url type","Invalid base url type"
 "Invalid block type: %s","Invalid block type: %s"
+"Invalid block type: %s (not instance of Mage_Core_Block_Abstract)","Invalid block type: %s (not instance of Mage_Core_Block_Abstract)"
 "Invalid block: %s","Invalid block: %s"
 "Invalid connection","Invalid connection"
 "Invalid date","Invalid date"

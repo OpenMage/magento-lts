@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,162 +17,141 @@
  *  sales_quote_delete_before
  *  sales_quote_delete_after
  *
- * @category   Mage
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Quote _getResource()
- * @method Mage_Sales_Model_Resource_Quote getResource()
- *
- * @method bool hasCanApplyMsrp()
- * @method bool getCanApplyMsrp()
- * @method string getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string $value)
- *
- * @method string getBaseCurrencyCode()
- * @method $this setBaseCurrencyCode(string $value)
- * @method float getBaseGrandTotal()
- * @method $this setBaseGrandTotal(float $value)
- * @method float getBaseSubtotal()
- * @method $this setBaseSubtotal(float $value)
- * @method float getBaseSubtotalWithDiscount()
- * @method $this setBaseSubtotalWithDiscount(float $value)
- * @method float getBaseToGlobalRate()
- * @method $this setBaseToGlobalRate(float $value)
- * @method float getBaseToQuoteRate()
- * @method $this setBaseToQuoteRate(float $value)
- *
- * @method bool hasChangedFlag()
- * @method bool getChangedFlag()
- * @method $this setCheckoutMethod(string $value)
- * @method string getConvertedAt()
- * @method $this setConvertedAt(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getCustomerDob()
- * @method $this setCustomerDob(string $value)
- * @method string getCustomerEmail()
- * @method $this setCustomerEmail(string $value)
- * @method string getCustomerFirstname()
- * @method $this setCustomerFirstname(string $value)
- * @method string getCustomerGender()
- * @method $this setCustomerGender(string $value)
- * @method $this setCustomerGroupId(int $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method int getCustomerIsGuest()
- * @method $this setCustomerIsGuest(int $value)
- * @method string getCustomerLastname()
- * @method $this setCustomerLastname(string $value)
- * @method string getCustomerMiddlename()
- * @method $this setCustomerMiddlename(string $value)
- * @method string getCustomerNote()
- * @method $this setCustomerNote(string $value)
- * @method int getCustomerNoteNotify()
- * @method $this setCustomerNoteNotify(int $value)
- * @method string getCustomerPrefix()
- * @method $this setCustomerPrefix(string $value)
- * @method string getCustomerSuffix()
- * @method $this setCustomerSuffix(string $value)
- * @method $this setCustomerTaxClassId(int $value)
- * @method string getCustomerTaxvat()
- * @method $this setCustomerTaxvat(string $value)
- *
- * @method string getExtShippingInfo()
- * @method $this setExtShippingInfo(string $value)
- *
- * @method bool hasForcedCurrency()
- * @method string getForcedCurrency()
- *
- * @method $this setGiftMessage(string $value)
- * @method int getGiftMessageId()
- * @method $this setGiftMessageId(int $value)
- * @method string getGlobalCurrencyCode()
- * @method $this setGlobalCurrencyCode(string $value)
- * @method float getGrandTotal()
- * @method $this setGrandTotal(float $value)
- *
- * @method bool getHasError()
- *
- * @method bool getIgnoreOldQty()
- * @method $this setIgnoreOldQty(bool $value)
- * @method bool getInventoryProcessed()
- * @method $this setInventoryProcessed(bool $value)
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method int getIsChanged()
- * @method $this setIsChanged(int $value)
- * @method $this setIsCheckoutCart(bool $value)
- * @method bool getIsCheckoutCart()
- * @method bool getIsMultiPayment()
- * @method int getIsMultiShipping()
- * @method $this setIsMultiShipping(int $value)
- * @method bool getIsPersistent()
- * @method $this setIsPersistent(bool $value)
- * @method bool getIsSuperMode()
- * @method $this setIsSuperMode(bool $value)
- * @method $this setIsVirtual(int $value)
- * @method bool hasItemsCollection()
- * @method int getItemsCount()
- * @method $this setItemsCount(int $value)
- * @method float getItemsQty()
- * @method $this setItemsQty(float $value)
- *
- * @method string getMethod()
- *
- * @method $this setOrderId(int $value)
- * @method int getOrigOrderId()
- * @method $this setOrigOrderId(int $value)
- *
- * @method string getPasswordHash()
- * @method $this setPasswordHash(string $value)
- *
- * @method string getQuoteCurrencyCode()
- * @method $this setQuoteCurrencyCode(string $value)
- *
- * @method string getRemoteIp()
- * @method $this setRemoteIp(string $value)
- * @method string getReservedOrderId()
- * @method $this setReservedOrderId(string $value)
- *
- * @method $this setSharedStoreIds(array $value)
- * @method string getStoreCurrencyCode()
- * @method $this setStoreCurrencyCode(string $value)
- * @method bool hasStoreId()
- * @method $this setStoreId(int $value)
- * @method float getStoreToBaseRate()
- * @method $this setStoreToBaseRate(float $value)
- * @method float getStoreToQuoteRate()
- * @method $this setStoreToQuoteRate(float $value)
- * @method float getSubtotal()
- * @method $this setSubtotal(float $value)
- * @method float getSubtotalWithDiscount()
- * @method $this setSubtotalWithDiscount(float $value)
- *
- * @method array getTaxesForItems()
- * @method $this setTaxesForItems(array $itemTaxGroups)
- * @method bool getTotalsCollectedFlag()
- * @method $this setTotalsCollectedFlag(bool $value)
- * @method int getTriggerRecollect()
- * @method $this setTriggerRecollect(int $value)
- *
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
- * @method bool getUseCustomerBalance()
- * @method $this setUseCustomerBalance(bool $value)
- * @method bool getUseRewardPoints()
- * @method $this setUseRewardPoints(bool $value)
- *
- * @method float getVirtualItemsQty()
- * @method $this setVirtualItemsQty(float $value)
- *
- * @method Mage_Core_Model_Website getWebsite()
- * @method $this setWebsite(Mage_Core_Model_Website $value)
- *
- * @method $this setXForwardedFor(string $value)
+ * @method Mage_Sales_Model_Resource_Quote            _getResource()
+ * @method array|string                               getAppliedRuleIds()
+ * @method string                                     getBaseCurrencyCode()
+ * @method float                                      getBaseGrandTotal()
+ * @method float                                      getBaseSubtotal()
+ * @method float                                      getBaseSubtotalWithDiscount()
+ * @method float                                      getBaseToGlobalRate()
+ * @method float                                      getBaseToQuoteRate()
+ * @method bool                                       getCanApplyMsrp()
+ * @method bool                                       getChangedFlag()
+ * @method Mage_Sales_Model_Resource_Quote_Collection getCollection()
+ * @method string                                     getConvertedAt()
+ * @method string                                     getCustomerDob()
+ * @method string                                     getCustomerEmail()
+ * @method string                                     getCustomerFirstname()
+ * @method string                                     getCustomerGender()
+ * @method null|int                                   getCustomerId()
+ * @method int                                        getCustomerIsGuest()
+ * @method string                                     getCustomerLastname()
+ * @method string                                     getCustomerMiddlename()
+ * @method string                                     getCustomerNote()
+ * @method int                                        getCustomerNoteNotify()
+ * @method string                                     getCustomerPrefix()
+ * @method string                                     getCustomerSuffix()
+ * @method string                                     getCustomerTaxvat()
+ * @method string                                     getExtShippingInfo()
+ * @method string                                     getForcedCurrency()
+ * @method int                                        getGiftMessageId()
+ * @method string                                     getGlobalCurrencyCode()
+ * @method float                                      getGrandTotal()
+ * @method bool                                       getHasError()
+ * @method bool                                       getIgnoreOldQty()
+ * @method bool                                       getInventoryProcessed()
+ * @method int                                        getIsActive()
+ * @method int                                        getIsChanged()
+ * @method bool                                       getIsCheckoutCart()
+ * @method bool                                       getIsMultiPayment()
+ * @method int                                        getIsMultiShipping()
+ * @method bool                                       getIsPersistent()
+ * @method bool                                       getIsSuperMode()
+ * @method int                                        getItemsCount()
+ * @method float                                      getItemsQty()
+ * @method string                                     getMethod()
+ * @method int                                        getOrigOrderId()
+ * @method string                                     getPasswordHash()
+ * @method string                                     getQuoteCurrencyCode()
+ * @method string                                     getRemoteIp()
+ * @method string                                     getReservedOrderId()
+ * @method Mage_Sales_Model_Resource_Quote            getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Collection getResourceCollection()
+ * @method string                                     getStoreCurrencyCode()
+ * @method float                                      getStoreToBaseRate()
+ * @method float                                      getStoreToQuoteRate()
+ * @method float                                      getSubtotal()
+ * @method float                                      getSubtotalWithDiscount()
+ * @method array                                      getTaxesForItems()
+ * @method bool                                       getTotalsCollectedFlag()
+ * @method int                                        getTriggerRecollect()
+ * @method bool                                       getUseCustomerBalance()
+ * @method bool                                       getUseRewardPoints()
+ * @method float                                      getVirtualItemsQty()
+ * @method Mage_Core_Model_Website                    getWebsite()
+ * @method bool                                       hasCanApplyMsrp()
+ * @method bool                                       hasChangedFlag()
+ * @method bool                                       hasForcedCurrency()
+ * @method bool                                       hasItemsCollection()
+ * @method bool                                       hasStoreId()
+ * @method $this                                      setAppliedRuleIds(array|string $value)
+ * @method $this                                      setBaseCurrencyCode(string $value)
+ * @method $this                                      setBaseGrandTotal(float $value)
+ * @method $this                                      setBaseSubtotal(float $value)
+ * @method $this                                      setBaseSubtotalWithDiscount(float $value)
+ * @method $this                                      setBaseToGlobalRate(float $value)
+ * @method $this                                      setBaseToQuoteRate(float $value)
+ * @method $this                                      setCheckoutMethod(string $value)
+ * @method $this                                      setConvertedAt(string $value)
+ * @method $this                                      setCustomerDob(string $value)
+ * @method $this                                      setCustomerEmail(string $value)
+ * @method $this                                      setCustomerFirstname(string $value)
+ * @method $this                                      setCustomerGender(string $value)
+ * @method $this                                      setCustomerGroupId(int $value)
+ * @method $this                                      setCustomerId(null|int $value)
+ * @method $this                                      setCustomerIsGuest(int $value)
+ * @method $this                                      setCustomerLastname(string $value)
+ * @method $this                                      setCustomerMiddlename(string $value)
+ * @method $this                                      setCustomerNote(string $value)
+ * @method $this                                      setCustomerNoteNotify(int $value)
+ * @method $this                                      setCustomerPrefix(string $value)
+ * @method $this                                      setCustomerSuffix(string $value)
+ * @method $this                                      setCustomerTaxClassId(int $value)
+ * @method $this                                      setCustomerTaxvat(string $value)
+ * @method $this                                      setExtShippingInfo(string $value)
+ * @method $this                                      setGiftMessage(string $value)
+ * @method $this                                      setGiftMessageId(int $value)
+ * @method $this                                      setGlobalCurrencyCode(string $value)
+ * @method $this                                      setGrandTotal(float $value)
+ * @method $this                                      setIgnoreOldQty(bool $value)
+ * @method $this                                      setInventoryProcessed(bool $value)
+ * @method $this                                      setIsActive(int $value)
+ * @method $this                                      setIsChanged(int $value)
+ * @method $this                                      setIsCheckoutCart(bool $value)
+ * @method $this                                      setIsMultiShipping(int $value)
+ * @method $this                                      setIsPersistent(bool $value)
+ * @method $this                                      setIsSuperMode(bool $value)
+ * @method $this                                      setIsVirtual(int $value)
+ * @method $this                                      setItemsCount(int $value)
+ * @method $this                                      setItemsQty(float $value)
+ * @method $this                                      setOrderId(int $value)
+ * @method $this                                      setOrigOrderId(int $value)
+ * @method $this                                      setPasswordHash(string $value)
+ * @method $this                                      setQuoteCurrencyCode(string $value)
+ * @method $this                                      setRemoteIp(string $value)
+ * @method $this                                      setReservedOrderId(string $value)
+ * @method $this                                      setSharedStoreIds(array $value)
+ * @method $this                                      setStoreCurrencyCode(string $value)
+ * @method $this                                      setStoreId(int $value)
+ * @method $this                                      setStoreToBaseRate(float $value)
+ * @method $this                                      setStoreToQuoteRate(float $value)
+ * @method $this                                      setSubtotal(float $value)
+ * @method $this                                      setSubtotalWithDiscount(float $value)
+ * @method $this                                      setTaxesForItems(array $itemTaxGroups)
+ * @method $this                                      setTotalsCollectedFlag(bool $value)
+ * @method $this                                      setTriggerRecollect(int $value)
+ * @method $this                                      setUseCustomerBalance(bool $value)
+ * @method $this                                      setUseRewardPoints(bool $value)
+ * @method $this                                      setVirtualItemsQty(float $value)
+ * @method $this                                      setWebsite(Mage_Core_Model_Website $value)
+ * @method $this                                      setXForwardedFor(string $value)
  */
 class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 {
     protected $_eventPrefix = 'sales_quote';
+
     protected $_eventObject = 'quote';
 
     /**
@@ -186,35 +159,35 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * When you use true - all cache will be clean
      *
-     * @var string|true
+     * @inheritDoc
      */
     protected $_cacheTag = 'quote';
 
     /**
      * Quote customer model object
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer;
 
     /**
      * Quote addresses collection
      *
-     * @var Mage_Sales_Model_Resource_Order_Address_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Quote_Address_Collection
      */
     protected $_addresses = null;
 
     /**
      * Quote items collection
      *
-     * @var Mage_Sales_Model_Resource_Quote_Item_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Quote_Item_Collection
      */
     protected $_items = null;
 
     /**
      * Quote payments
      *
-     * @var Mage_Sales_Model_Resource_Quote_Payment_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Quote_Payment_Collection
      */
     protected $_payments = null;
 
@@ -233,7 +206,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     protected $_preventSaving = false;
 
     /**
-     * Init resource model
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -244,7 +217,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -261,13 +234,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$this->hasStoreId()) {
             return Mage::app()->getStore()->getId();
         }
-        return $this->_getData('store_id');
+
+        return (int) $this->_getData('store_id');
     }
 
     /**
      * Get quote store model object
      *
-     * @return  Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store
      */
     public function getStore()
     {
@@ -277,14 +251,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Declare quote store model
      *
-     * @param   Mage_Core_Model_Store $store
-     * @return  $this
+     * @return $this
      */
     public function setStore(Mage_Core_Model_Store $store)
     {
         if ($this->getStoreId() != $store->getId()) {
             $this->setStoreId($store->getId());
         }
+
         return $this;
     }
 
@@ -292,16 +266,19 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Get all available store ids for quote
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getSharedStoreIds()
     {
         $ids = $this->_getData('shared_store_ids');
-        if (is_null($ids) || !is_array($ids)) {
+        if (!is_array($ids)) {
             if ($website = $this->getWebsite()) {
                 return $website->getStoreIds();
             }
+
             return $this->getStore()->getWebsite()->getStoreIds();
         }
+
         return $ids;
     }
 
@@ -309,6 +286,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         /**
@@ -332,11 +310,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $globalCurrencyCode  = Mage::app()->getBaseCurrencyCode();
         $baseCurrency = $this->getStore()->getBaseCurrency();
 
-        if ($this->hasForcedCurrency()) {
-            $quoteCurrency = $this->getForcedCurrency();
-        } else {
-            $quoteCurrency = $this->getStore()->getCurrentCurrency();
-        }
+        $quoteCurrency = $this->hasForcedCurrency() ? $this->getForcedCurrency() : $this->getStore()->getCurrentCurrency();
 
         $this->setGlobalCurrencyCode($globalCurrencyCode);
         $this->setBaseCurrencyCode($baseCurrency->getCode());
@@ -367,7 +341,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Save related items
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave()
     {
         parent::_afterSave();
@@ -383,22 +359,21 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($this->_payments !== null) {
             $this->getPaymentsCollection()->save();
         }
+
         return $this;
     }
 
     /**
      * Loading quote data by customer
      *
-     * @param int|Mage_Customer_Model_Customer $customer
+     * @param  int|Mage_Customer_Model_Customer $customer
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByCustomer($customer)
     {
-        if ($customer instanceof Mage_Customer_Model_Customer) {
-            $customerId = $customer->getId();
-        } else {
-            $customerId = (int) $customer;
-        }
+        $customerId = $customer instanceof Mage_Customer_Model_Customer ? $customer->getId() : (int) $customer;
+
         $this->_getResource()->loadByCustomerId($this, $customerId);
         $this->_afterLoad();
         $this->setOrigData();
@@ -409,8 +384,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Loading only active quote
      *
-     * @param int $quoteId
+     * @param  int                 $quoteId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadActive($quoteId)
     {
@@ -424,8 +400,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Loading quote by identifier
      *
-     * @param int $quoteId
+     * @param  int                 $quoteId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByIdWithoutStore($quoteId)
     {
@@ -439,8 +416,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Assign customer model object data to quote
      *
-     * @param   Mage_Customer_Model_Customer $customer
-     * @return  $this
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function assignCustomer(Mage_Customer_Model_Customer $customer)
     {
@@ -450,9 +427,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Assign customer model to quote with billing and shipping address change
      *
-     * @param Mage_Customer_Model_Customer $customer
-     * @param Mage_Sales_Model_Quote_Address|null $billingAddress
-     * @param Mage_Sales_Model_Quote_Address|null $shippingAddress
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -484,6 +458,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                     $shippingAddress = Mage::getModel('sales/quote_address');
                 }
             }
+
             $this->setShippingAddress($shippingAddress);
         }
 
@@ -493,8 +468,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Define customer object
      *
-     * @param   Mage_Customer_Model_Customer $customer
-     * @return  $this
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
@@ -508,6 +483,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Retrieve customer model object
      *
      * @return Mage_Customer_Model_Customer
+     * @throws Mage_Core_Exception
      */
     public function getCustomer()
     {
@@ -520,6 +496,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $this->_customer;
     }
 
@@ -527,16 +504,20 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Retrieve customer group id
      *
      * @return int
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCustomerGroupId()
     {
         if ($this->hasData('customer_group_id')) {
-            return $this->getData('customer_group_id');
-        } elseif ($this->getCustomerId()) {
-            return $this->getCustomer()->getGroupId();
-        } else {
-            return Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
+            return $this->getDataByKey('customer_group_id');
         }
+
+        if ($this->getCustomerId()) {
+            return $this->getCustomer()->getGroupId();
+        }
+
+        return Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
     }
 
     /**
@@ -548,18 +529,19 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         * tax class can vary at any time. so instead of using the value from session,
         * we need to retrieve from db every time to get the correct tax class
         */
-        //if (!$this->getData('customer_group_id') && !$this->getData('customer_tax_class_id')) {
+        //if (!$this->getDataByKey('customer_group_id') && !$this->getDataByKey('customer_tax_class_id')) {
         $classId = Mage::getModel('customer/group')->getTaxClassId($this->getCustomerGroupId());
         $this->setCustomerTaxClassId($classId);
         //}
 
-        return $this->getData('customer_tax_class_id');
+        return $this->getDataByKey('customer_tax_class_id');
     }
 
     /**
      * Retrieve quote address collection
      *
-     * @return Mage_Sales_Model_Resource_Order_Address_Collection
+     * @return Mage_Sales_Model_Resource_Quote_Address_Collection
+     * @throws Mage_Core_Exception
      */
     public function getAddressesCollection()
     {
@@ -573,14 +555,16 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $this->_addresses;
     }
 
     /**
      * Retrieve quote address by type
      *
-     * @param   string $type
-     * @return  Mage_Sales_Model_Quote_Address
+     * @param  string                         $type
+     * @return Mage_Sales_Model_Quote_Address
+     * @throws Mage_Core_Exception
      */
     protected function _getAddressByType($type)
     {
@@ -599,6 +583,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Retrieve quote billing address
      *
      * @return Mage_Sales_Model_Quote_Address
+     * @throws Mage_Core_Exception
      */
     public function getBillingAddress()
     {
@@ -609,6 +594,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Retrieve quote shipping address
      *
      * @return Mage_Sales_Model_Quote_Address
+     * @throws Mage_Core_Exception
      */
     public function getShippingAddress()
     {
@@ -617,6 +603,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Quote_Address[]
+     * @throws Mage_Core_Exception
      */
     public function getAllShippingAddresses()
     {
@@ -628,11 +615,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $addresses[] = $address;
             }
         }
+
         return $addresses;
     }
 
     /**
      * @return Mage_Sales_Model_Quote_Address[]
+     * @throws Mage_Core_Exception
      */
     public function getAllAddresses()
     {
@@ -642,13 +631,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $addresses[] = $address;
             }
         }
+
         return $addresses;
     }
 
     /**
-     *
-     * @param int $addressId
-     * @return Mage_Sales_Model_Quote_Address|false
+     * @param  int                                  $addressId
+     * @return false|Mage_Sales_Model_Quote_Address
+     * @throws Mage_Core_Exception
      */
     public function getAddressById($addressId)
     {
@@ -657,12 +647,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $address;
             }
         }
+
         return false;
     }
 
     /**
-     * @param int $addressId
-     * @return Mage_Sales_Model_Quote_Address|false
+     * @param  int                                  $addressId
+     * @return false|Mage_Sales_Model_Quote_Address
+     * @throws Mage_Core_Exception
      */
     public function getAddressByCustomerAddressId($addressId)
     {
@@ -671,12 +663,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $address;
             }
         }
+
         return false;
     }
 
     /**
-     * @param int $addressId
-     * @return Mage_Sales_Model_Quote_Address|false
+     * @param  int                                  $addressId
+     * @return false|Mage_Sales_Model_Quote_Address
+     * @throws Mage_Core_Exception
      */
     public function getShippingAddressByCustomerAddressId($addressId)
     {
@@ -687,12 +681,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $address;
             }
         }
+
         return false;
     }
 
     /**
-     * @param int $addressId
+     * @param  int                 $addressId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeAddress($addressId)
     {
@@ -702,6 +698,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 break;
             }
         }
+
         return $this;
     }
 
@@ -709,6 +706,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Leave no more than one billing and one shipping address, fill them with default data
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeAllAddresses()
     {
@@ -721,14 +719,15 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if (!isset($addressByType[$type]) || $addressByType[$type]->getId() > $address->getId()) {
                 $addressByType[$type] = $address;
             }
+
             $address->isDeleted(true);
         }
 
         // create new billing and shipping addresses filled with default values, set this data to existing records
         foreach ($addressByType as $type => $address) {
-            $id = $address->getId();
+            $addressId = $address->getId();
             $emptyAddress = $this->_getAddressByType($type);
-            $address->setData($emptyAddress->getData())->setId($id)->isDeleted(false);
+            $address->setData($emptyAddress->getData())->setId($addressId)->isDeleted(false);
             $emptyAddress->setDeleteImmediately(true);
         }
 
@@ -743,8 +742,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
+     * @throws Exception
      * @throws Mage_Core_Exception
      */
     public function addAddress(Mage_Sales_Model_Quote_Address $address)
@@ -753,12 +752,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$address->getId()) {
             $this->getAddressesCollection()->addItem($address);
         }
+
         return $this;
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setBillingAddress(Mage_Sales_Model_Quote_Address $address)
     {
@@ -769,12 +769,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } else {
             $this->addAddress($address->setAddressType(Mage_Sales_Model_Quote_Address::TYPE_BILLING));
         }
+
         return $this;
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setShippingAddress(Mage_Sales_Model_Quote_Address $address)
     {
@@ -789,12 +790,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $this->addAddress($address->setAddressType(Mage_Sales_Model_Quote_Address::TYPE_SHIPPING));
             }
         }
+
         return $this;
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addShippingAddress(Mage_Sales_Model_Quote_Address $address)
     {
@@ -805,18 +807,21 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve quote items collection
      *
-     * @param bool $useCache
+     * @param  bool                                            $useCache
      * @return Mage_Sales_Model_Resource_Quote_Item_Collection
+     * @throws Mage_Core_Exception
      */
     public function getItemsCollection($useCache = true)
     {
         if ($this->hasItemsCollection()) {
-            return $this->getData('items_collection');
+            return $this->getDataByKey('items_collection');
         }
+
         if (is_null($this->_items)) {
             $this->_items = Mage::getModel('sales/quote_item')->getCollection();
             $this->_items->setQuote($this);
         }
+
         return $this->_items;
     }
 
@@ -824,6 +829,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Retrieve quote items array
      *
      * @return Mage_Sales_Model_Quote_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getAllItems()
     {
@@ -833,6 +839,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $items[] =  $item;
             }
         }
+
         return $items;
     }
 
@@ -840,6 +847,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Get array of all items what can be display directly
      *
      * @return Mage_Sales_Model_Quote_Item[]
+     * @throws Mage_Core_Exception
      */
     public function getAllVisibleItems()
     {
@@ -849,6 +857,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $items[] =  $item;
             }
         }
+
         return $items;
     }
 
@@ -856,6 +865,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Checking items availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasItems()
     {
@@ -866,6 +876,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Checking availability of items with decimal qty
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasItemsWithDecimalQty()
     {
@@ -876,14 +887,16 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Checking product exist in Quote
      *
-     * @param int $productId
+     * @param  int                 $productId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasProductId($productId)
     {
@@ -899,30 +912,30 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve item model object by item identifier
      *
-     * @param   int $itemId
-     * @return  Mage_Sales_Model_Quote_Item
+     * @param  int                              $itemId
+     * @return null|Mage_Sales_Model_Quote_Item
+     * @throws Mage_Core_Exception
      */
     public function getItemById($itemId)
     {
-        $quoteItem = null;
         if ($quoteItem = $this->getItemsCollection()->getItemById($itemId)) {
             return $quoteItem;
-        } else {
-            foreach ($this->getItemsCollection() as $item) {
-                if ($item->getId() == $itemId) {
-                    $quoteItem = $item;
-                    return $quoteItem;
-                }
+        }
+
+        foreach ($this->getItemsCollection() as $item) {
+            if ($item->getId() == $itemId) {
+                return $item;
             }
         }
-        return $quoteItem;
+
+        return null;
     }
 
     /**
      * Delete quote item. If it does not have identifier then it will be only removed from collection
      *
-     * @param   Mage_Sales_Model_Quote_Item $item
-     * @return  $this
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function deleteItem(Mage_Sales_Model_Quote_Item $item)
     {
@@ -936,6 +949,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                     $items[] = $child;
                 }
             }
+
             foreach ($quoteItems as $key => $quoteItem) {
                 foreach ($items as $item) {
                     if ($quoteItem->compare($item)) {
@@ -951,8 +965,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Remove quote item by item identifier
      *
-     * @param   int $itemId
-     * @return  $this
+     * @param  int                 $itemId
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeItem($itemId)
     {
@@ -986,6 +1001,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Mark all quote items as deleted (empty quote)
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removeAllItems()
     {
@@ -996,14 +1012,16 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $item->isDeleted(true);
             }
         }
+
         return $this;
     }
 
     /**
      * Adding new item to quote
      *
-     * @param   Mage_Sales_Model_Quote_Item $item
-     * @return  $this
+     * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function addItem(Mage_Sales_Model_Quote_Item $item)
     {
@@ -1017,7 +1035,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
          */
         if ($item->isNominal() && $this->hasItems() || $this->hasNominalItems()) {
             Mage::throwException(
-                Mage::helper('sales')->__('Nominal item can be purchased standalone only. To proceed please remove other items from the quote.')
+                Mage::helper('sales')->__('Nominal item can be purchased standalone only. To proceed please remove other items from the quote.'),
             );
         }
 
@@ -1026,6 +1044,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->getItemsCollection()->addItem($item);
             Mage::dispatchEvent('sales_quote_add_item', ['quote_item' => $item]);
         }
+
         return $this;
     }
 
@@ -1033,19 +1052,21 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Advanced func to add product to quote - processing mode can be specified there.
      * Returns error message if product type instance can't prepare product.
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param null|float|Varien_Object $request
-     * @param null|string $processMode
+     * @param  null|float|Varien_Object           $request
+     * @param  null|string                        $processMode
      * @return Mage_Sales_Model_Quote_Item|string
+     * @throws Mage_Core_Exception
      */
     public function addProductAdvanced(Mage_Catalog_Model_Product $product, $request = null, $processMode = null)
     {
         if ($request === null) {
             $request = 1;
         }
+
         if (is_numeric($request)) {
             $request = new Varien_Object(['qty' => $request]);
         }
+
         if (!($request instanceof Varien_Object)) {
             Mage::throwException(Mage::helper('sales')->__('Invalid request for adding product to quote.'));
         }
@@ -1078,6 +1099,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if ($request->getResetCount() && !$stickWithinParent && $item->getId() === $request->getId()) {
                 $item->setData('qty', 0);
             }
+
             $items[] = $item;
 
             /**
@@ -1086,6 +1108,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if (!$parentItem) {
                 $parentItem = $item;
             }
+
             if ($parentItem && $candidate->getParentProductId()) {
                 $item->setParentItem($parentItem);
             }
@@ -1098,12 +1121,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             // collect errors instead of throwing first one
             if ($item->getHasError()) {
                 $message = $item->getMessage();
+                /** @var string $message */
                 if (!in_array($message, $errors)) { // filter duplicate messages
                     $errors[] = $message;
                 }
             }
         }
-        if (!empty($errors)) {
+
+        if ($errors !== []) {
             Mage::throwException(implode("\n", $errors));
         }
 
@@ -1117,25 +1142,25 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * return error message if product type instance can't prepare product
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param null|float|Varien_Object $request
+     * @param  null|float|Varien_Object           $request
      * @return Mage_Sales_Model_Quote_Item|string
+     * @throws Mage_Core_Exception
      */
     public function addProduct(Mage_Catalog_Model_Product $product, $request = null)
     {
         return $this->addProductAdvanced(
             $product,
             $request,
-            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
+            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL,
         );
     }
 
     /**
      * Adding catalog product object data to quote
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param int $qty
-     * @return  Mage_Sales_Model_Quote_Item
+     * @param  int                             $qty
+     * @return Mage_Sales_Model_Quote_Item
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
@@ -1150,6 +1175,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             } else {
                 $item->setStoreId(Mage::app()->getStore()->getId());
             }
+
             $newItem = true;
         }
 
@@ -1185,11 +1211,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * For more options see Mage_Catalog_Helper_Product->addParamsToBuyRequest()
      *
-     * @param int $itemId
-     * @param Varien_Object $buyRequest
-     * @param null|array|Varien_Object $params
-     * @return Mage_Sales_Model_Quote_Item
-     *
+     * @param  int                                  $itemId
+     * @param  Varien_Object                        $buyRequest
+     * @param  null|array|Varien_Object             $params
+     * @return Mage_Sales_Model_Quote_Item_Abstract
+     * @throws Mage_Core_Exception
      * @see Mage_Catalog_Helper_Product::addParamsToBuyRequest()
      */
     public function updateItem($itemId, $buyRequest, $params = null)
@@ -1198,6 +1224,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$item) {
             Mage::throwException(Mage::helper('sales')->__('Wrong quote item id to update configuration.'));
         }
+
         $productId = $item->getProduct()->getId();
 
         //We need to create new clear product instance with same $productId
@@ -1211,10 +1238,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } elseif (is_array($params)) {
             $params = new Varien_Object($params);
         }
+
         $params->setCurrentConfig($item->getBuyRequest());
         $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest($buyRequest, $params);
 
         $buyRequest->setResetCount(true);
+
         $resultItem = $this->addProduct($product, $buyRequest);
 
         if (is_string($resultItem)) {
@@ -1234,13 +1263,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
             $items = $this->getAllItems();
             foreach ($items as $item) {
-                if (($item->getProductId() == $productId) && ($item->getId() != $resultItem->getId())) {
-                    if ($resultItem->compare($item)) {
-                        // Product configuration is same as in other quote item
-                        $resultItem->setQty($resultItem->getQty() + $item->getQty());
-                        $this->removeItem($item->getId());
-                        break;
-                    }
+                if ($item->getProductId() == $productId
+                    && $item->getId() != $resultItem->getId()
+                    && $resultItem->compare($item)
+                ) {
+                    // Product configuration is same as in other quote item
+                    $resultItem->setQty($resultItem->getQty() + $item->getQty());
+                    $this->removeItem($item->getId());
+                    break;
                 }
             }
         } else {
@@ -1253,8 +1283,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve quote item by product id
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Sales_Model_Quote_Item|false
+     * @param  Mage_Catalog_Model_Product        $product
+     * @return false|Mage_Sales_Model_Quote_Item
+     * @throws Mage_Core_Exception
      */
     public function getItemByProduct($product)
     {
@@ -1263,15 +1294,17 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $item;
             }
         }
+
         return false;
     }
 
     /**
      * @return float|int|mixed
+     * @throws Mage_Core_Exception
      */
     public function getItemsSummaryQty()
     {
-        $qty = $this->getData('all_items_qty');
+        $qty = $this->getDataByKey('all_items_qty');
         if (is_null($qty)) {
             $qty = 0;
             foreach ($this->getAllItems() as $item) {
@@ -1287,17 +1320,20 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                     $qty += $item->getQty();
                 }
             }
+
             $this->setData('all_items_qty', $qty);
         }
+
         return $qty;
     }
 
     /**
      * @return int|mixed
+     * @throws Mage_Core_Exception
      */
     public function getItemVirtualQty()
     {
-        $qty = $this->getData('virtual_items_qty');
+        $qty = $this->getDataByKey('virtual_items_qty');
         if (is_null($qty)) {
             $qty = 0;
             foreach ($this->getAllItems() as $item) {
@@ -1311,14 +1347,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                             $qty += $child->getQty();
                         }
                     }
-                } else {
-                    if ($item->getProduct()->getIsVirtual()) {
-                        $qty += $item->getQty();
-                    }
+                } elseif ($item->getProduct()->getIsVirtual()) {
+                    $qty += $item->getQty();
                 }
             }
+
             $this->setData('virtual_items_qty', $qty);
         }
+
         return $qty;
     }
 
@@ -1326,6 +1362,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * @return Mage_Sales_Model_Resource_Quote_Payment_Collection
+     * @throws Mage_Core_Exception
      */
     public function getPaymentsCollection()
     {
@@ -1339,11 +1376,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $this->_payments;
     }
 
     /**
      * @return Mage_Sales_Model_Quote_Payment
+     * @throws Mage_Core_Exception
      */
     public function getPayment()
     {
@@ -1352,14 +1391,16 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $payment;
             }
         }
+
         $payment = Mage::getModel('sales/quote_payment');
         $this->addPayment($payment);
         return $payment;
     }
 
     /**
-     * @param int $paymentId
+     * @param  int                                  $paymentId
      * @return false|Mage_Sales_Model_Quote_Payment
+     * @throws Mage_Core_Exception
      */
     public function getPaymentById($paymentId)
     {
@@ -1368,12 +1409,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $payment;
             }
         }
+
         return false;
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Payment $payment
      * @return $this
+     * @throws Exception
      * @throws Mage_Core_Exception
      */
     public function addPayment(Mage_Sales_Model_Quote_Payment $payment)
@@ -1382,18 +1424,20 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$payment->getId()) {
             $this->getPaymentsCollection()->addItem($payment);
         }
+
         return $this;
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Payment $payment
      * @return Mage_Sales_Model_Quote_Payment
+     * @throws Mage_Core_Exception
      */
     public function setPayment(Mage_Sales_Model_Quote_Payment $payment)
     {
         if (!$this->getIsMultiPayment() && ($old = $this->getPayment())) {
             $payment->setId($old->getId());
         }
+
         $this->addPayment($payment);
 
         return $payment;
@@ -1401,6 +1445,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function removePayment()
     {
@@ -1412,6 +1457,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Collect totals
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function collectTotals()
     {
@@ -1421,6 +1467,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($this->getTotalsCollectedFlag()) {
             return $this;
         }
+
         Mage::dispatchEvent($this->_eventPrefix . '_collect_totals_before', [$this->_eventObject => $this]);
 
         $this->setSubtotal(0);
@@ -1445,10 +1492,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setBaseSubtotal((float) $this->getBaseSubtotal() + $address->getBaseSubtotal());
 
             $this->setSubtotalWithDiscount(
-                (float) $this->getSubtotalWithDiscount() + $address->getSubtotalWithDiscount()
+                (float) $this->getSubtotalWithDiscount() + $address->getSubtotalWithDiscount(),
             );
             $this->setBaseSubtotalWithDiscount(
-                (float) $this->getBaseSubtotalWithDiscount() + $address->getBaseSubtotalWithDiscount()
+                (float) $this->getBaseSubtotalWithDiscount() + $address->getBaseSubtotalWithDiscount(),
             );
 
             $this->setGrandTotal((float) $this->getGrandTotal() + $address->getGrandTotal());
@@ -1479,6 +1526,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if ($item->getProduct()->getIsVirtual()) {
                 $this->setVirtualItemsQty($this->getVirtualItemsQty() + $item->getQty());
             }
+
             $this->setItemsCount($this->getItemsCount() + 1);
             $this->setItemsQty((float) $this->getItemsQty() + $item->getQty());
         }
@@ -1497,6 +1545,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Method process quote states isVirtual and isMultiShipping
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getTotals()
     {
@@ -1512,9 +1561,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $totals = $shippingAddress->getTotals();
         // Going through all quote addresses and merge their totals
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->isDeleted() || $address === $shippingAddress) {
+            if ($address->isDeleted()) {
                 continue;
             }
+
+            if ($address === $shippingAddress) {
+                continue;
+            }
+
             foreach ($address->getTotals() as $code => $total) {
                 if (isset($totals[$code])) {
                     $totals[$code]->merge($total);
@@ -1531,17 +1585,18 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $sortedTotals[$total->getCode()] = $totals[$total->getCode()];
             }
         }
+
         return $sortedTotals;
     }
 
     /**
-     * @param string $message
-     * @param string $index
+     * @param  string $message
+     * @param  string $index
      * @return $this
      */
     public function addMessage($message, $index = 'error')
     {
-        $messages = $this->getData('messages');
+        $messages = $this->getDataByKey('messages');
         if (is_null($messages)) {
             $messages = [];
         }
@@ -1566,18 +1621,19 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getMessages()
     {
-        $messages = $this->getData('messages');
+        $messages = $this->getDataByKey('messages');
         if (is_null($messages)) {
             $messages = [];
             $this->setData('messages', $messages);
         }
+
         return $messages;
     }
 
     /**
      * Retrieve current quote errors
      *
-     * @return array
+     * @return Mage_Core_Model_Message_Abstract[]
      */
     public function getErrors()
     {
@@ -1587,13 +1643,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $errors[] = $message;
             }
         }
+
         return $errors;
     }
 
     /**
      * Sets flag, whether this quote has some error associated with it.
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     protected function _setHasError($flag)
@@ -1607,7 +1664,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * When FALSE - clears whole list of quote errors.
      * It's recommended to use addErrorInfo() instead - to be able to remove error statuses later.
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      * @see addErrorInfo()
      */
@@ -1618,6 +1675,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } else {
             $this->_clearErrorInfo();
         }
+
         return $this;
     }
 
@@ -1638,11 +1696,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Adds error information to the quote.
      * Automatically sets error flag.
      *
-     * @param string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
-     * @param string|null $origin Usually a name of module, that embeds error
-     * @param int|null $code Error code, unique for origin, that sets it
-     * @param string|null $message Error message
-     * @param Varien_Object|null $additionalData Any additional data, that caller would like to store
+     * @param  string             $type           An internal error type ('error', 'qty', etc.), passed then to adding messages routine
+     * @param  null|string        $origin         Usually a name of module, that embeds error
+     * @param  null|int           $code           Error code, unique for origin, that sets it
+     * @param  null|string        $message        Error message
+     * @param  null|Varien_Object $additionalData Any additional data, that caller would like to store
      * @return $this
      */
     public function addErrorInfo($type = 'error', $origin = null, $code = null, $message = null, $additionalData = null)
@@ -1656,6 +1714,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($message !== null) {
             $this->addMessage($message, $type);
         }
+
         $this->_setHasError(true);
 
         return $this;
@@ -1663,11 +1722,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * Removes error infos, that have parameters equal to passed in $params.
-     * $params can have following keys (if not set - then any item is good for this key):
+     * $params can have the following keys (if not set - then any item is good for this key):
      *   'origin', 'code', 'message'
      *
-     * @param string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
-     * @param array $params
+     * @param  null|string $type   An internal error type ('error', 'qty', etc.), passed then to adding messages routine
+     * @param  array       $params
      * @return $this
      */
     public function removeErrorInfosByParams($type, $params)
@@ -1699,6 +1758,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 break;
             }
         }
+
         if (!$errorsExist) {
             $this->_setHasError(false);
         }
@@ -1709,13 +1769,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Removes message by text
      *
-     * @param string $type
-     * @param string $text
+     * @param  string $type
+     * @param  string $text
      * @return $this
      */
     public function removeMessageByText($type, $text)
     {
-        $messages = $this->getData('messages');
+        $messages = $this->getDataByKey('messages');
         if (is_null($messages)) {
             $messages = [];
         }
@@ -1730,10 +1790,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } elseif (!is_string($message)) {
             return $this;
         }
+
         if ($message == $text) {
             unset($messages[$type]);
             $this->setData('messages', $messages);
         }
+
         return $this;
     }
 
@@ -1741,24 +1803,25 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Generate new increment order id and associate it with current quote
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function reserveOrderId()
     {
         if (!$this->getReservedOrderId()) {
             $this->setReservedOrderId($this->_getResource()->getReservedOrderId($this));
-        } else {
+        } elseif ($this->_getResource()->isOrderIncrementIdUsed($this->getReservedOrderId())) {
             //checking if reserved order id was already used for some order
             //if yes reserving new one if not using old one
-            if ($this->_getResource()->isOrderIncrementIdUsed($this->getReservedOrderId())) {
-                $this->setReservedOrderId($this->_getResource()->getReservedOrderId($this));
-            }
+            $this->setReservedOrderId($this->_getResource()->getReservedOrderId($this));
         }
+
         return $this;
     }
 
     /**
-     * @param bool $multishipping
+     * @param  bool                $multishipping
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function validateMinimumAmount($multishipping = false)
     {
@@ -1788,6 +1851,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 foreach ($addresses as $address) {
                     $baseTotal += $address->getBaseSubtotalWithDiscount();
                 }
+
                 if ($baseTotal < $minAmount) {
                     return false;
                 }
@@ -1799,6 +1863,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return true;
     }
 
@@ -1806,29 +1871,37 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Check quote for virtual product only
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isVirtual()
     {
         $isVirtual = true;
         $countItems = 0;
-        foreach ($this->getItemsCollection() as $_item) {
-            /** @var Mage_Sales_Model_Quote_Item $_item */
-            if ($_item->isDeleted() || $_item->getParentItemId()) {
+        /** @var Mage_Sales_Model_Quote_Item $item */
+        foreach ($this->getItemsCollection() as $item) {
+            if ($item->isDeleted()) {
                 continue;
             }
+
+            if ($item->getParentItemId()) {
+                continue;
+            }
+
             $countItems++;
-            if (!$_item->getProduct()->getIsVirtual()) {
+            if (!$item->getProduct()->getIsVirtual()) {
                 $isVirtual = false;
                 break;
             }
         }
-        return $countItems == 0 ? false : $isVirtual;
+
+        return $countItems === 0 ? false : $isVirtual;
     }
 
     /**
      * Check quote for virtual product only
      *
-     * @return bool
+     * @return int
+     * @throws Mage_Core_Exception
      */
     public function getIsVirtual()
     {
@@ -1839,35 +1912,38 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Has a virtual products on quote
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasVirtualItems()
     {
         $hasVirtual = false;
-        foreach ($this->getItemsCollection() as $_item) {
-            if ($_item->getParentItemId()) {
+        foreach ($this->getItemsCollection() as $quoteItem) {
+            if ($quoteItem->getParentItemId()) {
                 continue;
             }
-            if ($_item->getProduct()->isVirtual()) {
+
+            if ($quoteItem->getProduct()->isVirtual()) {
                 $hasVirtual = true;
             }
         }
+
         return $hasVirtual;
     }
 
     /**
      * Merge quotes
      *
-     * @param   Mage_Sales_Model_Quote $quote
-     * @return  $this
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function merge(Mage_Sales_Model_Quote $quote)
     {
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_before',
             [
-                 $this->_eventObject => $this,
-                 'source' => $quote
-            ]
+                $this->_eventObject => $this,
+                'source' => $quote,
+            ],
         );
 
         foreach ($quote->getAllVisibleItems() as $item) {
@@ -1884,6 +1960,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $newItem = clone $item;
                 $this->addItem($newItem);
                 if ($item->getHasChildren()) {
+                    /** @var Mage_Sales_Model_Quote_Item $child */
                     foreach ($item->getChildren() as $child) {
                         $newChild = clone $child;
                         $newChild->setParentItem($newItem);
@@ -1908,9 +1985,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_after',
             [
-                 $this->_eventObject => $this,
-                 'source' => $quote
-            ]
+                $this->_eventObject => $this,
+                'source' => $quote,
+            ],
         );
 
         return $this;
@@ -1920,6 +1997,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Whether there are recurring items
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasRecurringItems()
     {
@@ -1928,6 +2006,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return true;
             }
         }
+
         return false;
     }
 
@@ -1935,8 +2014,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Getter whether quote has nominal items
      * Can bypass treating virtual items as nominal
      *
-     * @param bool $countVirtual
+     * @param  bool                $countVirtual
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasNominalItems($countVirtual = true)
     {
@@ -1945,9 +2025,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 if ((!$countVirtual) && $item->getProduct()->isVirtual()) {
                     continue;
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -1955,6 +2037,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Whether quote has nominal items only
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isNominal()
     {
@@ -1963,6 +2046,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return false;
             }
         }
+
         return true;
     }
 
@@ -1970,6 +2054,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Create recurring payment profiles basing on the current items
      *
      * @return Mage_Payment_Model_Recurring_Profile[]
+     * @throws Exception
      */
     public function prepareRecurringPaymentProfiles()
     {
@@ -1989,11 +2074,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $result[] = $profile;
             }
         }
+
         return $result;
     }
 
     /**
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _validateCouponCode()
     {
@@ -2007,11 +2094,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                         $addressHasCoupon = true;
                     }
                 }
+
                 if (!$addressHasCoupon) {
                     $this->setCouponCode('');
                 }
             }
         }
+
         return $this;
     }
 
@@ -2019,14 +2108,19 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Trigger collect totals after loading, if required
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
+     * @throws Throwable
+     * @throws Zend_Db_Adapter_Exception
      */
+    #[Override]
     protected function _afterLoad()
     {
         // collect totals and save me, if required
-        if ($this->getData('trigger_recollect') == 1) {
+        if ($this->getDataByKey('trigger_recollect') == 1) {
             $this->setTriggerRecollect(0)->getResource()->save($this);
             $this->collectTotals()->save();
         }
+
         return parent::_afterLoad();
     }
 
@@ -2034,29 +2128,32 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @deprecated after 1.4 beta1 - one page checkout responsibility
      */
     public const CHECKOUT_METHOD_REGISTER  = 'register';
+
     public const CHECKOUT_METHOD_GUEST     = 'guest';
+
     public const CHECKOUT_METHOD_LOGIN_IN  = 'login_in';
 
     /**
      * Return quote checkout method code
      *
-     * @deprecated after 1.4 beta1 it is checkout module responsibility
-     * @param bool $originalMethod if true return defined method from begining
+     * @param  bool   $originalMethod if true return defined method from beginning
      * @return string
+     * @deprecated after 1.4 beta1 it is checkout module responsibility
      */
     public function getCheckoutMethod($originalMethod = false)
     {
         if ($this->getCustomerId() && !$originalMethod) {
             return self::CHECKOUT_METHOD_LOGIN_IN;
         }
+
         return $this->_getData('checkout_method');
     }
 
     /**
      * Check is allow Guest Checkout
      *
-     * @deprecated after 1.4 beta1 it is checkout module responsibility
      * @return bool
+     * @deprecated after 1.4 beta1 it is checkout module responsibility
      */
     public function isAllowedGuestCheckout()
     {
@@ -2079,24 +2176,22 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     public function save()
     {
         if ($this->_preventSaving) {
             return $this;
         }
+
         return parent::save();
     }
 
-    /**
-     * @return string
-     */
     public function getCouponCode(): string
     {
-        return (string)$this->_getData('coupon_code');
+        return (string) $this->_getData('coupon_code');
     }
 
     /**
-     * @param string|null $couponCode
      * @return $this
      */
     public function setCouponCode(?string $couponCode)

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml Newsletter Template Edit Block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block_Widget
@@ -41,6 +34,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         // Load Wysiwyg on demand and Prepare layout
@@ -54,8 +48,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Back'),
                     'onclick'   => "window.location.href = '" . $this->getUrl('*/*') . "'",
-                    'class'     => 'back'
-                ])
+                    'class'     => 'back',
+                ]),
         );
 
         $this->setChild(
@@ -63,8 +57,9 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Reset'),
-                    'onclick'   => 'window.location.href = window.location.href'
-                ])
+                    'onclick'   => 'window.location.href = window.location.href',
+                    'class'     => 'reset',
+                ]),
         );
 
         $this->setChild(
@@ -74,8 +69,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                     'label'     => Mage::helper('newsletter')->__('Convert to Plain Text'),
                     'onclick'   => 'templateControl.stripTags();',
                     'id'        => 'convert_button',
-                    'class'     => 'task'
-                ])
+                    'class'     => 'task to-plain',
+                ]),
         );
 
         $this->setChild(
@@ -86,18 +81,18 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                     'onclick'   => 'templateControl.unStripTags();',
                     'id'        => 'convert_button_back',
                     'style'     => 'display:none',
-                    'class'     => 'task'
-                ])
+                    'class'     => 'task to-html',
+                ]),
         );
 
         $this->setChild(
             'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Save Template'),
+                    'label'     => Mage::helper('newsletter')->__('Save'),
                     'onclick'   => 'templateControl.save();',
-                    'class'     => 'save'
-                ])
+                    'class'     => 'save',
+                ]),
         );
 
         $this->setChild(
@@ -106,8 +101,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save As'),
                     'onclick'   => 'templateControl.saveAs();',
-                    'class'     => 'save'
-                ])
+                    'class'     => 'save save-as',
+                ]),
         );
 
         $this->setChild(
@@ -116,18 +111,18 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Preview Template'),
                     'onclick'   => 'templateControl.preview();',
-                    'class'     => 'task'
-                ])
+                    'class'     => 'task preview',
+                ]),
         );
 
         $this->setChild(
             'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Delete Template'),
+                    'label'     => Mage::helper('newsletter')->__('Delete'),
                     'onclick'   => 'templateControl.deleteTemplate();',
-                    'class'     => 'delete'
-                ])
+                    'class'     => 'delete',
+                ]),
         );
 
         return parent::_prepareLayout();
@@ -216,12 +211,12 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * Set edit flag for block
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setEditMode($value = true)
     {
-        $this->_editMode = (bool)$value;
+        $this->_editMode = (bool) $value;
         return $this;
     }
 
@@ -245,6 +240,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
         if ($this->getEditMode()) {
             return Mage::helper('newsletter')->__('Edit Newsletter Template');
         }
+
         return  Mage::helper('newsletter')->__('New Newsletter Template');
     }
 
@@ -269,6 +265,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
         if ($templateCode === null) {
             return '';
         }
+
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return addcslashes($this->escapeHtml($templateCode), "\"\r\n\\");
     }
 

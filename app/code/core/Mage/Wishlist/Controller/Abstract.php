@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist Abstract Front Controller Action
  *
- * @category   Mage
  * @package    Mage_Wishlist
  */
 abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Front_Action
@@ -36,29 +29,34 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
     /**
      * Processes localized qty (entered by user at frontend) into internal php format
      *
-     * @param string $qty
-     * @return float|int|null
+     * @param  string     $qty
+     * @return null|float
      * @deprecated
      */
     protected function _processLocalizedQty($qty)
     {
-        $qty = (float)$qty;
+        $qty = (float) $qty;
         if ($qty < 0) {
-            $qty = null;
+            return null;
         }
+
         return $qty;
     }
 
     /**
      * Retrieve current wishlist instance
      *
-     * @return Mage_Wishlist_Model_Wishlist|false
+     * @return false|Mage_Wishlist_Model_Wishlist
      */
     abstract protected function _getWishlist();
 
     /**
      * Add all items from wishlist to shopping cart
      *
+     * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Throwable
      */
     public function allcartAction()
     {
@@ -72,6 +70,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             $this->_forward('noRoute');
             return;
         }
+
         $isOwner    = $wishlist->isOwner(Mage::getSingleton('customer/session')->getCustomerId());
 
         $messages   = [];
@@ -85,7 +84,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
 
         $qtysString = $this->getRequest()->getParam('qty');
         if (isset($qtysString)) {
-            $qtys = array_filter(json_decode($qtysString), fn ($tmpString) => strlen($tmpString ?? ''));
+            $qtys = array_filter(json_decode($qtysString), fn($tmpString) => strlen($tmpString ?? ''));
         }
 
         /** @var Mage_Wishlist_Model_Item $item */
@@ -101,26 +100,27 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
                         $item->setQty($qty);
                     }
                 }
+
                 $item->getProduct()->setDisableAddToCart($disableAddToCart);
                 // Add to cart
                 if ($item->addToCart($cart, $isOwner)) {
                     $addedItems[] = $item->getProduct();
                 }
-            } catch (Mage_Core_Exception $e) {
-                if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                if ($mageCoreException->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
                     $notSalable[] = $item;
-                } elseif ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
+                } elseif ($mageCoreException->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
                     $hasOptions[] = $item;
                 } else {
-                    $messages[] = $this->__('%s for "%s".', trim($e->getMessage(), '.'), $item->getProduct()->getName());
+                    $messages[] = $this->__('%s for "%s".', trim($mageCoreException->getMessage(), '.'), $item->getProduct()->getName());
                 }
 
                 $cartItem = $cart->getQuote()->getItemByProduct($item->getProduct());
                 if ($cartItem) {
                     $cart->getQuote()->deleteItem($cartItem);
                 }
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $messages[] = Mage::helper('wishlist')->__('Cannot add the item to shopping cart.');
             }
         }
@@ -130,6 +130,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
         } else {
             $indexUrl = Mage::getUrl('wishlist/shared', ['code' => $wishlist->getSharingCode()]);
         }
+
         if (Mage::helper('checkout/cart')->getShouldRedirectToCart()) {
             $redirectUrl = Mage::helper('checkout/cart')->getCartUrl();
         } elseif ($this->_getRefererUrl()) {
@@ -143,6 +144,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             foreach ($notSalable as $item) {
                 $products[] = '"' . $item->getProduct()->getName() . '"';
             }
+
             $messages[] = Mage::helper('wishlist')->__('Unable to add the following product(s) to shopping cart: %s.', implode(', ', $products));
         }
 
@@ -151,22 +153,25 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             foreach ($hasOptions as $item) {
                 $products[] = '"' . $item->getProduct()->getName() . '"';
             }
+
             $messages[] = Mage::helper('wishlist')->__('Product(s) %s have required options. Each of them can be added to cart separately only.', implode(', ', $products));
         }
 
         if ($messages) {
-            $isMessageSole = (count($messages) == 1);
-            if ($isMessageSole && count($hasOptions) == 1) {
+            $isMessageSole = (count($messages) === 1);
+            if ($isMessageSole && count($hasOptions) === 1) {
                 $item = $hasOptions[0];
                 if ($isOwner) {
                     $item->delete();
                 }
+
                 $redirectUrl = $item->getProductUrl();
             } else {
                 $wishlistSession = Mage::getSingleton('wishlist/session');
                 foreach ($messages as $message) {
                     $wishlistSession->addError($message);
                 }
+
                 $redirectUrl = $indexUrl;
             }
         }
@@ -175,7 +180,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             // save wishlist model for setting date of last update
             try {
                 $wishlist->save();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Mage::getSingleton('wishlist/session')->addError($this->__('Cannot update wishlist'));
                 $redirectUrl = $indexUrl;
             }
@@ -186,7 +191,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             }
 
             Mage::getSingleton('checkout/session')->addSuccess(
-                Mage::helper('wishlist')->__('%d product(s) have been added to shopping cart: %s.', count($addedItems), implode(', ', $products))
+                Mage::helper('wishlist')->__('%d product(s) have been added to shopping cart: %s.', count($addedItems), implode(', ', $products)),
             );
 
             // save cart and collect totals

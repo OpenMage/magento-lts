@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Mysql4 session save handler
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
@@ -29,7 +22,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Session lifetime
      *
-     * @var string|int|null
+     * @var null|int|string
      */
     protected $_lifeTime;
 
@@ -72,8 +65,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     }
 
     /**
-     * Destrucor
-     *
+     * Destructor
      */
     public function __destruct()
     {
@@ -88,8 +80,8 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     public function getLifeTime()
     {
         if (is_null($this->_lifeTime)) {
-            $configNode = Mage::app()->getStore()->isAdmin() ?
-                    'admin/security/session_cookie_lifetime' : 'web/cookie/cookie_lifetime';
+            $configNode = Mage::app()->getStore()->isAdmin()
+                    ? 'admin/security/session_cookie_lifetime' : 'web/cookie/cookie_lifetime';
             $this->_lifeTime = Mage::getStoreConfigAsInt($configNode);
 
             if ($this->_lifeTime < 60) {
@@ -104,6 +96,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
                 $this->_lifeTime = self::SEESION_MAX_COOKIE_LIFETIME; // 100 years
             }
         }
+
         return $this->_lifeTime;
     }
 
@@ -117,11 +110,8 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
         if (!$this->_read) {
             return false;
         }
-        if (!$this->_read->isTableExists($this->_sessionTable)) {
-            return false;
-        }
 
-        return true;
+        return $this->_read->isTableExists($this->_sessionTable);
     }
 
     /**
@@ -133,16 +123,17 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     {
         if ($this->hasConnection()) {
             session_set_save_handler(
-                [$this, 'open'],
-                [$this, 'close'],
-                [$this, 'read'],
-                [$this, 'write'],
-                [$this, 'destroy'],
-                [$this, 'gc']
+                $this->open(...),
+                $this->close(...),
+                $this->read(...),
+                $this->write(...),
+                $this->destroy(...),
+                $this->gc(...),
             );
         } else {
             session_save_path(Mage::getBaseDir('session'));
         }
+
         return $this;
     }
 
@@ -158,11 +149,11 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Open session
      *
-     * @param string $savePath ignored
-     * @param string $sessName ignored
+     * @param  string $savePath ignored
+     * @param  string $sessName ignored
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function open($savePath, $sessName)
     {
         return true;
@@ -173,7 +164,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      *
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function close()
     {
         $this->gc($this->getLifeTime());
@@ -184,10 +175,10 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Fetch session data
      *
-     * @param string $sessId
+     * @param  string $sessId
      * @return string
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function read($sessId)
     {
         $select = $this->_read->select()
@@ -196,26 +187,26 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
                 ->where('session_expires > :session_expires');
         $bind = [
             'session_id'      => $sessId,
-            'session_expires' => Varien_Date::toTimestamp(true)
+            'session_expires' => Varien_Date::toTimestamp(true),
         ];
 
         $data = $this->_read->fetchOne($select, $bind);
 
-        return (string)$data;
+        return (string) $data;
     }
 
     /**
      * Update session
      *
-     * @param string $sessId
-     * @param string $sessData
+     * @param  string $sessId
+     * @param  string $sessData
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function write($sessId, $sessData)
     {
         $bindValues = [
-            'session_id'      => $sessId
+            'session_id'      => $sessId,
         ];
         $select = $this->_write->select()
                 ->from($this->_sessionTable)
@@ -224,11 +215,11 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
 
         $bind = [
             'session_expires' => Varien_Date::toTimestamp(true) + $this->getLifeTime(),
-            'session_data' => $sessData
+            'session_data' => $sessData,
         ];
         if ($exists) {
             $where = [
-                'session_id=?' => $sessId
+                'session_id=?' => $sessId,
             ];
             $this->_write->update($this->_sessionTable, $bind, $where);
         } else {
@@ -242,10 +233,10 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Destroy session
      *
-     * @param string $sessId
+     * @param  string $sessId
      * @return bool
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function destroy($sessId)
     {
         $where = ['session_id = ?' => $sessId];
@@ -256,20 +247,20 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Garbage collection
      *
-     * @param int $sessMaxLifeTime ignored
+     * @param  int  $sessMaxLifeTime ignored
      * @return bool
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function gc($sessMaxLifeTime)
     {
-        if ($this->_automaticCleaningFactor > 0) {
-            if ($this->_automaticCleaningFactor == 1 ||
-                rand(1, $this->_automaticCleaningFactor) == 1
-            ) {
-                $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
-                $this->_write->delete($this->_sessionTable, $where);
-            }
+        if ($this->_automaticCleaningFactor > 0
+            && ($this->_automaticCleaningFactor == 1 || random_int(1, $this->_automaticCleaningFactor) === 1)
+        ) {
+            $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
+            $this->_write->delete($this->_sessionTable, $where);
         }
+
         return true;
     }
 }

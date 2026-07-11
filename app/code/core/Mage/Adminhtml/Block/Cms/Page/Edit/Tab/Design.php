@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
@@ -31,16 +24,13 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         /*
          * Checking if user have permissions to save information
          */
-        if ($this->_isAllowedAction('save')) {
-            $isElementDisabled = false;
-        } else {
-            $isElementDisabled = true;
-        }
+        $isElementDisabled = !$this->_isAllowedAction('save');
 
         $form = new Varien_Data_Form();
 
@@ -51,7 +41,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
         $layoutFieldset = $form->addFieldset('layout_fieldset', [
             'legend' => Mage::helper('cms')->__('Page Layout'),
             'class'  => 'fieldset-wide',
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         $layoutFieldset->addField('root_template', 'select', [
@@ -59,7 +49,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
             'label'    => Mage::helper('cms')->__('Layout'),
             'required' => true,
             'values'   => Mage::getSingleton('page/source_layout')->toOptionArray(),
-            'disabled' => $isElementDisabled
+            'disabled' => $isElementDisabled,
         ]);
         if (!$model->getId()) {
             $model->setRootTemplate(Mage::getSingleton('page/source_layout')->getDefaultValue());
@@ -69,17 +59,17 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
             'name'      => 'layout_update_xml',
             'label'     => Mage::helper('cms')->__('Layout Update XML'),
             'style'     => 'height:24em;',
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         $designFieldset = $form->addFieldset('design_fieldset', [
             'legend' => Mage::helper('cms')->__('Custom Design'),
             'class'  => 'fieldset-wide',
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(
-            Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
+            Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
         );
 
         $designFieldset->addField('custom_theme_from', 'date', [
@@ -88,7 +78,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
             'image'     => $this->getSkinUrl('images/grid-cal.gif'),
             'format'    => $dateFormatIso,
             'disabled'  => $isElementDisabled,
-            'class'     => 'validate-date validate-date-range date-range-custom_theme-from'
+            'class'     => 'validate-date validate-date-range date-range-custom_theme-from',
         ]);
 
         $designFieldset->addField('custom_theme_to', 'date', [
@@ -97,28 +87,28 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
             'image'     => $this->getSkinUrl('images/grid-cal.gif'),
             'format'    => $dateFormatIso,
             'disabled'  => $isElementDisabled,
-            'class'     => 'validate-date validate-date-range date-range-custom_theme-to'
+            'class'     => 'validate-date validate-date-range date-range-custom_theme-to',
         ]);
 
         $designFieldset->addField('custom_theme', 'select', [
             'name'      => 'custom_theme',
             'label'     => Mage::helper('cms')->__('Custom Theme'),
             'values'    => Mage::getModel('core/design_source_design')->getAllOptions(),
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         $designFieldset->addField('custom_root_template', 'select', [
             'name'      => 'custom_root_template',
             'label'     => Mage::helper('cms')->__('Custom Layout'),
             'values'    => Mage::getSingleton('page/source_layout')->toOptionArray(true),
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         $designFieldset->addField('custom_layout_update_xml', 'textarea', [
             'name'      => 'custom_layout_update_xml',
             'label'     => Mage::helper('cms')->__('Custom Layout Update XML'),
             'style'     => 'height:24em;',
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         Mage::dispatchEvent('adminhtml_cms_page_edit_tab_design_prepare_form', ['form' => $form]);
@@ -173,7 +163,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
     /**
      * Check permission for passed action
      *
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     protected function _isAllowedAction($action)

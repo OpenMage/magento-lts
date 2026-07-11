@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product qty increments block
  *
- * @category   Mage
  * @package    Mage_CatalogInventory
  */
 class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
@@ -24,7 +17,7 @@ class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
     /**
      * Qty Increments cache
      *
-     * @var float|false
+     * @var false|float
      */
     protected $_qtyIncrements;
 
@@ -51,7 +44,7 @@ class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
     /**
      * Retrieve product qty increments
      *
-     * @return float|false
+     * @return false|float
      */
     public function getProductQtyIncrements()
     {
@@ -61,6 +54,7 @@ class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
                 $this->_qtyIncrements = false;
             }
         }
+
         return $this->_qtyIncrements;
     }
 
@@ -69,6 +63,7 @@ class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->_getProduct()->getCacheIdTags());

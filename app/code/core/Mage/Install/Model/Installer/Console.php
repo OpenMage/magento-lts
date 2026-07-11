@@ -1,21 +1,14 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Install
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Console installer
- * @category   Mage
  * @package    Mage_Install
  */
 class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_Abstract
@@ -23,7 +16,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Available options
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_options;
 
@@ -37,7 +30,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Installer data model to store data between installations steps
      *
-     * @var Mage_Install_Model_Installer_Data|Mage_Install_Model_Session|null
+     * @var null|Mage_Install_Model_Installer_Data|Mage_Install_Model_Session
      */
     protected $_dataModel;
 
@@ -84,14 +77,16 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
                 'enable_charts'     => ['comment' => ''],
             ];
         }
+
         return $this->_options;
     }
 
     /**
      * Set and validate arguments
      *
-     * @param array $args
+     * @param  array $args
      * @return bool
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function setArgs($args = null)
     {
@@ -109,13 +104,14 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
             if (preg_match('/^--(.*)$/', $arg, $match)) {
                 // argument name
                 $currentArg = $match[1];
-                // in case if argument doen't need a value
+                // in case if argument doesn't need a value
                 $args[$currentArg] = true;
             } else {
                 // argument value
                 if ($currentArg) {
                     $args[$currentArg] = $arg;
                 }
+
                 $currentArg = false;
             }
         }
@@ -130,10 +126,11 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
          */
         foreach ($this->_getOptions() as $name => $option) {
             if (isset($option['required']) && $option['required'] && !isset($args[$name])) {
-                $error = 'ERROR: ' . 'You should provide the value for --' . $name . ' parameter';
+                $error = 'ERROR: You should provide the value for --' . $name . ' parameter';
                 if (!empty($option['comment'])) {
                     $error .= ': ' . $option['comment'];
                 }
+
                 $this->addError($error);
             }
         }
@@ -147,7 +144,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
          */
         if (!$this->_checkFlag($args['license_agreement_accepted'])) {
             $this->addError(
-                'ERROR: You have to accept Magento license agreement terms and conditions to continue installation'
+                'ERROR: You have to accept Magento license agreement terms and conditions to continue installation',
             );
             return false;
         }
@@ -155,7 +152,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         /**
          * Set args values
          */
-        foreach ($this->_getOptions() as $name => $option) {
+        foreach (array_keys($this->_getOptions()) as $name) {
             $this->_args[$name] = $args[$name] ?? '';
         }
 
@@ -165,7 +162,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Add error
      *
-     * @param string $error
+     * @param  string $error
      * @return $this
      */
     public function addError($error)
@@ -200,7 +197,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Returns true for 'yes', 1, 'true'
      * Case insensitive
      *
-     * @param string $value
+     * @param  string $value
      * @return bool
      */
     protected function _checkFlag($value)
@@ -219,6 +216,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         if (is_null($this->_dataModel)) {
             $this->_dataModel = Mage::getModel('install/installer_data');
         }
+
         return $this->_dataModel;
     }
 
@@ -235,7 +233,6 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Init installation
      *
-     * @param Mage_Core_Model_App $app
      * @return bool
      */
     public function init(Mage_Core_Model_App $app)
@@ -255,7 +252,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     }
 
     /**
-     * Prepare data ans save it in data model
+     * Prepare data and save it in data model
      *
      * @return $this
      */
@@ -310,7 +307,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      *
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function install()
     {
@@ -422,8 +419,8 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
              */
             @chmod('var/cache', 0777);
             @chmod('var/session', 0777);
-        } catch (Exception $e) {
-            $this->addError('ERROR: ' . $e->getMessage());
+        } catch (Exception $exception) {
+            $this->addError('ERROR: ' . $exception->getMessage());
             return false;
         }
 
@@ -449,7 +446,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Check if installer is run in shell, and redirect if run on web
      *
-     * @param string $url fallback url to redirect to
+     * @param  string $url fallback url to redirect to
      * @return bool
      */
     public function checkConsole($url = null)
@@ -457,10 +454,12 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         if (defined('STDIN') && defined('STDOUT') && (defined('STDERR'))) {
             return true;
         }
+
         if (is_null($url)) {
             $url = preg_replace('/install\.php/i', '', Mage::getBaseUrl());
             $url = preg_replace('/\/\/$/', '/', $url);
         }
+
         header('Location: ' . $url);
         return false;
     }

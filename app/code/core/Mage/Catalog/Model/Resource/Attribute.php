@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog attribute resource model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Entity_Attribute
@@ -26,12 +19,14 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $applyTo = $object->getApplyTo();
         if (is_array($applyTo)) {
             $object->setApplyTo(implode(',', $applyTo));
         }
+
         return parent::_beforeSave($object);
     }
 
@@ -39,7 +34,9 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      * Perform actions after object save
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $this->_clearUselessAttributeValues($object);
@@ -51,6 +48,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
      *
      * @param  Mage_Catalog_Model_Resource_Eav_Attribute $object
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _clearUselessAttributeValues(Mage_Core_Model_Abstract $object)
     {
@@ -61,11 +59,11 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
             && Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL != $origData['is_global']
         ) {
             $attributeStoreIds = array_keys(Mage::app()->getStores());
-            if (!empty($attributeStoreIds)) {
+            if ($attributeStoreIds !== []) {
                 $delCondition = [
                     'entity_type_id=?' => $object->getEntityTypeId(),
                     'attribute_id = ?' => $object->getId(),
-                    'store_id IN(?)'   => $attributeStoreIds
+                    'store_id IN(?)'   => $attributeStoreIds,
                 ];
                 $this->_getWriteAdapter()->delete($object->getBackendTable(), $delCondition);
             }
@@ -77,9 +75,10 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
     /**
      * Delete entity
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function deleteEntity(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getEntityAttributeId()) {
@@ -88,7 +87,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
 
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('eav/entity_attribute'))
-            ->where('entity_attribute_id = ?', (int)$object->getEntityAttributeId());
+            ->where('entity_attribute_id = ?', (int) $object->getEntityAttributeId());
         $result = $this->_getReadAdapter()->fetchRow($select);
 
         if ($result) {
@@ -98,6 +97,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
             if ($this->isUsedBySuperProducts($attribute, $result['attribute_set_id'])) {
                 Mage::throwException(Mage::helper('eav')->__("Attribute '%s' used in configurable products", $attribute->getAttributeCode()));
             }
+
             $backendTable = $attribute->getBackend()->getTable();
             if ($backendTable) {
                 $select = $this->_getWriteAdapter()->select()
@@ -107,7 +107,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
                 $clearCondition = [
                     'entity_type_id =?' => $attribute->getEntityTypeId(),
                     'attribute_id =?'   => $attribute->getId(),
-                    'entity_id IN (?)'  => $select
+                    'entity_id IN (?)'  => $select,
                 ];
                 $this->_getWriteAdapter()->delete($backendTable, $clearCondition);
             }
@@ -122,9 +122,8 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
     /**
      * Defines is Attribute used by super products
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @param int $attributeSet
-     * @return int
+     * @param  int               $attributeSet
+     * @return null|false|string
      */
     public function isUsedBySuperProducts(Mage_Core_Model_Abstract $object, $attributeSet = null)
     {

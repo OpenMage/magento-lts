@@ -1,23 +1,16 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
 /**
  * Customer "Remember Me" template
  *
- * @var $this Mage_Persistent_Block_Form_Remember
+ * @var Mage_Persistent_Block_Form_Remember $this
  */
 ?>
 <li id="remember-me-box" class="control">
@@ -26,5 +19,5 @@
         <input type="checkbox" name="persistent_remember_me" class="checkbox" id="<?php echo $rememberMeId; ?>"<?php if ($this->isRememberMeChecked()): ?> checked="checked"<?php endif ?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remember Me')) ?>" />
     </div>
     <label for="<?php echo $rememberMeId; ?>"><?php echo $this->__('Remember Me') ?></label>
-    <a class="link-tip" href="#"><?php echo $this->__('What\'s this?') ?></a>
+    <a class="link-tip" href="#"><?php echo $this->__("What's this?") ?></a>
 </li>

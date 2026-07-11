@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml invoice items grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
@@ -28,6 +21,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $onclick = "submitAndReloadArea($('invoice_item_container'),'" . $this->getUpdateUrl() . "')";
@@ -35,35 +29,37 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
             'update_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'class'     => 'update-button',
-                'label'     => Mage::helper('sales')->__('Update Qty\'s'),
+                'label'     => Mage::helper('sales')->__("Update Qty's"),
                 'onclick'   => $onclick,
-            ])
+            ]),
         );
         $this->_disableSubmitButton = true;
-        $_submitButtonClass = ' disabled';
+        $submitButtonClass = ' disabled';
         foreach ($this->getInvoice()->getAllItems() as $item) {
             /**
              * @see bug #14839
              */
-            if ($item->getQty()/* || $this->getSource()->getData('base_grand_total')*/) {
+            if ($item->getQty()/* || $this->getSource()->getDataByKey('base_grand_total')*/) {
                 $this->_disableSubmitButton = false;
-                $_submitButtonClass = '';
+                $submitButtonClass = '';
                 break;
             }
         }
+
         if ($this->getOrder()->getForcedDoShipmentWithInvoice()) {
-            $_submitLabel = Mage::helper('sales')->__('Submit Invoice and Shipment');
+            $submitLabel = Mage::helper('sales')->__('Submit Invoice and Shipment');
         } else {
-            $_submitLabel = Mage::helper('sales')->__('Submit Invoice');
+            $submitLabel = Mage::helper('sales')->__('Submit Invoice');
         }
+
         $this->setChild(
             'submit_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => $_submitLabel,
-                'class'     => 'save submit-button' . $_submitButtonClass,
+                'label'     => $submitLabel,
+                'class'     => 'save submit-button' . $submitButtonClass,
                 'onclick'   => 'disableElements(\'submit-button\');$(\'edit_form\').submit()',
-                'disabled'  => $this->_disableSubmitButton
-            ])
+                'disabled'  => $this->_disableSubmitButton,
+            ]),
         );
 
         return parent::_prepareLayout();
@@ -84,6 +80,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
      *
      * @return Mage_Sales_Model_Order
      */
+    #[Override]
     public function getOrder()
     {
         return $this->getInvoice()->getOrder();
@@ -94,6 +91,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
      *
      * @return Mage_Sales_Model_Order_Invoice
      */
+    #[Override]
     public function getSource()
     {
         return $this->getInvoice();
@@ -104,6 +102,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
      *
      * @return Mage_Sales_Model_Order_Invoice
      */
+    #[Override]
     public function getInvoice()
     {
         return Mage::registry('current_invoice');
@@ -112,7 +111,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     /**
      * Retrieve order totals block settings
      *
-     * @return array
+     * @return array<void>
      */
     public function getOrderTotalData()
     {
@@ -122,7 +121,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     /**
      * Retrieve order totalbar block data
      *
-     * @return array
+     * @return array<int, array<int, bool|string>>
      */
     public function getOrderTotalbarData()
     {
@@ -137,6 +136,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
         return $totalbarData;
     }
 
+    #[Override]
     public function formatPrice($price)
     {
         return $this->getInvoice()->getOrder()->formatPrice($price);
@@ -157,6 +157,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
      *
      * @return bool
      */
+    #[Override]
     public function canCreateShipment()
     {
         foreach ($this->getInvoice()->getAllItems() as $item) {
@@ -164,14 +165,17 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
                 return true;
             }
         }
+
         return false;
     }
 
+    #[Override]
     public function canEditQty()
     {
         if ($this->getInvoice()->getOrder()->getPayment()->canCapture()) {
             return $this->getInvoice()->getOrder()->getPayment()->canCapturePartial();
         }
+
         return true;
     }
 
@@ -188,6 +192,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
      * Check if invoice can be captured
      * @return bool
      */
+    #[Override]
     public function canCapture()
     {
         return $this->getInvoice()->canCapture();

@@ -1,35 +1,28 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Html page block
  *
- * @category   Mage
  * @package    Mage_Page
  *
  * @method $this setCanLoadCalendarJs(bool $value)
+ * @method $this setCanLoadTinyMce(bool $value)
  * @method $this setDescription(string $value)
  * @method $this setKeywords(string $value)
- * @method $this setCanLoadTinyMce(bool $value)
  */
 class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 {
     /**
-     * Initialize template
-     *
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('page/html/head.phtml');
@@ -38,13 +31,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Add CSS file to HEAD entity
      *
-     * @param string $name
-     * @param string $params
-     * @param string $referenceName
-     * @param bool $before
+     * @param  string $name
+     * @param  string $params
+     * @param  string $referenceName
+     * @param  bool   $before
      * @return $this
      */
-    public function addCss($name, $params = "", $referenceName = "*", $before = null)
+    public function addCss($name, $params = '', $referenceName = '*', $before = null)
     {
         $this->addItem('skin_css', $name, $params, null, null, $referenceName, $before);
         return $this;
@@ -53,13 +46,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Add JavaScript file to HEAD entity
      *
-     * @param string $name
-     * @param string $params
-     * @param string $referenceName
-     * @param bool $before
+     * @param  string $name
+     * @param  string $params
+     * @param  string $referenceName
+     * @param  bool   $before
      * @return $this
      */
-    public function addJs($name, $params = "", $referenceName = "*", $before = null)
+    public function addJs($name, $params = '', $referenceName = '*', $before = null)
     {
         $this->addItem('js', $name, $params, null, null, $referenceName, $before);
         return $this;
@@ -68,14 +61,14 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Add CSS file for Internet Explorer only to HEAD entity
      *
-     * @param string $name
-     * @param string $params
-     * @param string $referenceName
-     * @param bool $before
+     * @param  string $name
+     * @param  string $params
+     * @param  string $referenceName
+     * @param  bool   $before
      * @return $this
      * @deprecated
      */
-    public function addCssIe($name, $params = "", $referenceName = "*", $before = null)
+    public function addCssIe($name, $params = '', $referenceName = '*', $before = null)
     {
         return $this;
     }
@@ -83,14 +76,14 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Add JavaScript file for Internet Explorer only to HEAD entity
      *
-     * @param string $name
-     * @param string $params
-     * @param string $referenceName
-     * @param bool $before
+     * @param  string $name
+     * @param  string $params
+     * @param  string $referenceName
+     * @param  bool   $before
      * @return $this
      * @deprecated
      */
-    public function addJsIe($name, $params = "", $referenceName = "*", $before = null)
+    public function addJsIe($name, $params = '', $referenceName = '*', $before = null)
     {
         return $this;
     }
@@ -98,8 +91,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Add Link element to HEAD entity
      *
-     * @param string $rel forward link types
-     * @param string $href URI for linked resource
+     * @param  string $rel  forward link types
+     * @param  string $href URI for linked resource
      * @return $this
      */
     public function addLinkRel($rel, $href)
@@ -118,24 +111,26 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *  - skin_css
      *  - rss
      *
-     * @param string $type
-     * @param string $name
-     * @param string $params
-     * @param string $if
-     * @param string $cond
-     * @param string $referenceName name of the item to insert the element before. If name is not found, insert at the end, * has special meaning (before all / before all)
-     * @param string|bool $before If true insert before the $referenceName instead of after
+     * @param  string      $type
+     * @param  string      $name
+     * @param  string      $params
+     * @param  string      $ifCond
+     * @param  string      $cond
+     * @param  string      $referenceName name of the item to insert the element before. If name is not found, insert at the end, * has special meaning (before all / before all)
+     * @param  bool|string $before        If true insert before the $referenceName instead of after
      * @return $this
      */
-    public function addItem($type, $name, $params = null, $if = null, $cond = null, $referenceName = "*", $before = false)
+    public function addItem($type, $name, $params = null, $ifCond = null, $cond = null, $referenceName = '*', $before = false)
     {
         // allow skipping of parameters in the layout XML files via empty-string
         if ($params === '') {
             $params = null;
         }
-        if ($if === '') {
-            $if = null;
+
+        if ($ifCond === '') {
+            $ifCond = null;
         }
+
         if ($cond === '') {
             $cond = null;
         }
@@ -143,11 +138,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if ($type === 'skin_css' && empty($params)) {
             $params = 'media="all"';
         }
+
         $this->_data['items'][$type . '/' . $name] = [
             'type' => $type,
             'name' => $name,
             'params' => $params,
-            'if' => $if,
+            'if' => $ifCond,
             'cond' => $cond,
         ];
 
@@ -164,8 +160,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Remove Item from HEAD entity
      *
-     * @param string $type
-     * @param string $name
+     * @param  string $type
+     * @param  string $name
      * @return $this
      */
     public function removeItem($type, $name)
@@ -185,20 +181,25 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         // separate items by types
         $lines  = [];
         foreach ($this->_data['items'] as $item) {
-            if (!is_null($item['cond']) && !$this->getData($item['cond']) || !isset($item['name'])) {
+            if (!is_null($item['cond']) && !$this->getData($item['cond'])) {
                 continue;
             }
-            $if     = !empty($item['if']) ? $item['if'] : '';
-            $params = !empty($item['params']) ? $item['params'] : '';
+
+            if (!isset($item['name'])) {
+                continue;
+            }
+
+            $ifCond = empty($item['if']) ? '' : $item['if'];
+            $params = empty($item['params']) ? '' : $item['params'];
             switch ($item['type']) {
                 case 'js':        // js/*.js
                 case 'skin_js':   // skin/*/*.js
                 case 'js_css':    // js/*.css
                 case 'skin_css':  // skin/*/*.css
-                    $lines[$if][$item['type']][$params][$item['name']] = $item['name'];
+                    $lines[$ifCond][$item['type']][$params][$item['name']] = $item['name'];
                     break;
                 default:
-                    $this->_separateOtherHtmlHeadElements($lines, $if, $item['type'], $params, $item['name'], $item);
+                    $this->_separateOtherHtmlHeadElements($lines, $ifCond, $item['type'], $params, $item['name'], $item);
                     break;
             }
         }
@@ -207,11 +208,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $shouldMergeJs = Mage::getStoreConfigFlag('dev/js/merge_files');
         $shouldMergeCss = Mage::getStoreConfigFlag('dev/css/merge_css_files');
         $html   = '';
-        foreach ($lines as $if => $items) {
+        foreach ($lines as $ifCond => $items) {
             if (empty($items)) {
                 continue;
             }
-            if (!empty($if)) {
+
+            if (!empty($ifCond)) {
                 // @deprecated
                 continue;
             }
@@ -221,7 +223,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 '<link rel="stylesheet" href="%s"%s >' . PHP_EOL,
                 empty($items['js_css']) ? [] : $items['js_css'],
                 empty($items['skin_css']) ? [] : $items['skin_css'],
-                $shouldMergeCss ? [Mage::getDesign(), 'getMergedCssUrl'] : null
+                $shouldMergeCss ? [Mage::getDesign(), 'getMergedCssUrl'] : null,
             );
 
             // static and skin javascripts
@@ -229,7 +231,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 '<script src="%s"%s></script>' . PHP_EOL,
                 empty($items['js']) ? [] : $items['js'],
                 empty($items['skin_js']) ? [] : $items['skin_js'],
-                $shouldMergeJs ? [Mage::getDesign(), 'getMergedJsUrl'] : null
+                $shouldMergeJs ? [Mage::getDesign(), 'getMergedJsUrl'] : null,
             );
 
             // other stuff
@@ -237,6 +239,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 $html .= $this->_prepareOtherHtmlHeadElements($items['other']) . PHP_EOL;
             }
         }
+
         return $html;
     }
 
@@ -247,18 +250,14 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * filenames, rather than render urls.
      * The merger callback is responsible for checking whether files exist, merging them and giving result URL
      *
-     * @param string $format - HTML element format for sprintf('<element src="%s"%s>', $src, $params)
-     * @param array $staticItems - array of relative names of static items to be grabbed from js/ folder
-     * @param array $skinItems - array of relative names of skin items to be found in skins according to design config
-     * @param callable $mergeCallback
+     * @param  string   $format        - HTML element format for sprintf('<element src="%s"%s>', $src, $params)
+     * @param  array    $staticItems   - array of relative names of static items to be grabbed from js/ folder
+     * @param  array    $skinItems     - array of relative names of skin items to be found in skins according to design config
+     * @param  callable $mergeCallback
      * @return string
      */
-    protected function &_prepareStaticAndSkinElements(
-        $format,
-        array $staticItems,
-        array $skinItems,
-        $mergeCallback = null
-    ) {
+    protected function &_prepareStaticAndSkinElements($format, array $staticItems, array $skinItems, $mergeCallback = null)
+    {
         $designPackage = Mage::getDesign();
         $baseJsUrl = Mage::getBaseUrl('js');
         $items = [];
@@ -285,9 +284,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         foreach ($items as $params => $rows) {
             // attempt to merge
             $mergedUrl = false;
-            if ($mergeCallback) {
+            if ($mergeCallback !== null) {
                 $mergedUrl = call_user_func($mergeCallback, $rows);
             }
+
             // render elements
             $params = trim($params);
             $params = $params ? ' ' . $params : '';
@@ -299,19 +299,20 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 }
             }
         }
+
         return $html;
     }
 
     /**
      * Classify HTML head item and queue it into "lines" array
      *
-     * @see self::getCssJsHtml()
-     * @param array $lines
+     * @param array  $lines
      * @param string $itemIf
      * @param string $itemType
      * @param string $itemParams
      * @param string $itemName
-     * @param array $itemThe
+     * @param array  $itemThe
+     * @see self::getCssJsHtml()
      */
     protected function _separateOtherHtmlHeadElements(&$lines, $itemIf, $itemType, $itemParams, $itemName, $itemThe)
     {
@@ -322,7 +323,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 $lines[$itemIf]['other'][] = sprintf(
                     '<link href="%s"%s rel="alternate" type="application/rss+xml">',
                     $href,
-                    $params
+                    $params,
                 );
                 break;
             case 'link_rel':
@@ -334,9 +335,9 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Render arbitrary HTML head items
      *
-     * @see self::getCssJsHtml()
-     * @param array $items
+     * @param  array  $items
      * @return string
+     * @see self::getCssJsHtml()
      */
     protected function _prepareOtherHtmlHeadElements($items)
     {
@@ -346,9 +347,9 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Retrieve Chunked Items
      *
-     * @param array $items
-     * @param string $prefix
-     * @param int $maxLen
+     * @param  array  $items
+     * @param  string $prefix
+     * @param  int    $maxLen
      * @return array
      */
     public function getChunkedItems($items, $prefix = '', $maxLen = 450)
@@ -360,8 +361,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 $chunks[] = $chunk;
                 $chunk = $prefix;
             }
+
             $chunk .= ',' . $item;
         }
+
         $chunks[] = $chunk;
         return $chunks;
     }
@@ -376,6 +379,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['content_type'])) {
             $this->_data['content_type'] = $this->getMediaType() . '; charset=' . $this->getCharset();
         }
+
         return $this->_data['content_type'];
     }
 
@@ -389,6 +393,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['media_type'])) {
             $this->_data['media_type'] = Mage::getStoreConfig('design/head/default_media_type');
         }
+
         return $this->_data['media_type'];
     }
 
@@ -402,13 +407,14 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['charset'])) {
             $this->_data['charset'] = Mage::getStoreConfig('design/head/default_charset');
         }
+
         return $this->_data['charset'];
     }
 
     /**
      * Set title element text
      *
-     * @param string $title
+     * @param  string $title
      * @return $this
      */
     public function setTitle($title)
@@ -428,6 +434,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['title'])) {
             $this->_data['title'] = $this->getDefaultTitle();
         }
+
         return htmlspecialchars(html_entity_decode(trim($this->_data['title']), ENT_QUOTES, 'UTF-8'));
     }
 
@@ -451,6 +458,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['description'])) {
             $this->_data['description'] = Mage::getStoreConfig('design/head/default_description');
         }
+
         return $this->_data['description'];
     }
 
@@ -464,6 +472,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['keywords'])) {
             $this->_data['keywords'] = Mage::getStoreConfig('design/head/default_keywords');
         }
+
         return $this->_data['keywords'];
     }
 
@@ -477,11 +486,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['robots'])) {
             $this->_data['robots'] = Mage::getStoreConfig('design/head/default_robots');
         }
+
         return $this->_data['robots'];
     }
 
     /**
-     * Get miscellanious scripts/styles to be included in head before head closing tag
+     * Get miscellaneous scripts/styles to be included in head before head closing tag
      *
      * @return string
      */
@@ -490,6 +500,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['includes'])) {
             $this->_data['includes'] = Mage::getStoreConfig('design/head/includes');
         }
+
         return $this->_data['includes'];
     }
 
@@ -503,6 +514,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (empty($this->_data['favicon_file'])) {
             $this->_data['favicon_file'] = $this->_getFaviconFile();
         }
+
         return $this->_data['favicon_file'];
     }
 
@@ -519,17 +531,16 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $absolutePath = Mage::getBaseDir('media') . '/' . $folderName . '/' . $storeConfig;
 
         if (!is_null($storeConfig) && $this->_isFile($absolutePath)) {
-            $url = $faviconFile;
-        } else {
-            $url = $this->getSkinUrl('favicon.ico');
+            return $faviconFile;
         }
-        return $url;
+
+        return $this->getSkinUrl('favicon.ico');
     }
 
     /**
      * If DB file storage is on - find there, otherwise - just file_exists
      *
-     * @param string $filename
+     * @param  string $filename
      * @return bool
      */
     protected function _isFile($filename)
@@ -537,21 +548,22 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if (Mage::helper('core/file_storage_database')->checkDbUsage() && !is_file($filename)) {
             Mage::helper('core/file_storage_database')->saveFileToFilesystem($filename);
         }
+
         return is_file($filename);
     }
 
     /**
-     * @param string $referenceName
-     * @param string|bool $before
-     * @param string $type
+     * @param string      $referenceName
+     * @param bool|string $before
+     * @param string      $type
      */
     protected function _sortItems($referenceName, $before, $type)
     {
-        $items = $this->_data['items'];
+        // Convert string values ("true"/"false") to bool
+        $before = filter_var($before, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
-        // get newly inserted item so we do not have to reproduce the functionality of the parent
-        end($items);
-        $newKey = key($items);
+        $items = $this->_data['items'];
+        $newKey = array_key_last($items);
         $newVal = array_pop($items);
 
         $newItems = [];

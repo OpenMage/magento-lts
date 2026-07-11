@@ -1,22 +1,17 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Io
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
 
 /**
  * Filesystem client
  *
- * @category   Varien
  * @package    Varien_Io
  */
 class Varien_Io_File extends Varien_Io_Abstract
@@ -50,8 +45,8 @@ class Varien_Io_File extends Varien_Io_Abstract
     public const GREP_DIRS = 'dirs_only';
 
     /**
-     * If this variable is set to TRUE, our library will be able to automaticaly create
-     * non-existant directories.
+     * If this variable is set to TRUE, our library will be able to automatically create
+     * non-existent directories.
      *
      * @var bool
      * @access protected
@@ -61,7 +56,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Stream open file pointer
      *
-     * @var resource|null
+     * @var null|resource
      */
     protected $_streamHandler;
 
@@ -75,7 +70,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Stream mode chmod
      *
-     * @var string
+     * @var int
      */
     protected $_streamChmod;
 
@@ -94,7 +89,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * @var string[]
      */
-    public const ALLOWED_IMAGES_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'bmp'];
+    public const ALLOWED_IMAGES_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'avif'];
 
     public function __construct()
     {
@@ -116,30 +111,28 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Open file in stream mode
      * For set folder for file use open method
      *
-     * @param string $fileName
-     * @param string $mode
+     * @param  string $fileName
+     * @param  string $mode
      * @return bool
-     *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @throws Exception
      */
     public function streamOpen($fileName, $mode = 'w+', $chmod = 0666)
     {
         $writeableMode = preg_match('#^[wax]#i', $mode);
-        if ($writeableMode && !is_writeable($this->_cwd)) {
+        if ($writeableMode && !is_writable($this->_cwd)) {
             throw new Exception('Permission denied for write to ' . $this->getFilteredPath($this->_cwd));
-        }
-
-        if (PHP_VERSION_ID < 80100 && !ini_get('auto_detect_line_endings')) {
-            ini_set('auto_detect_line_endings', 1);
         }
 
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $this->_streamHandler = @fopen($fileName, $mode);
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         if ($this->_streamHandler === false) {
             throw new Exception('Error write to file ' . $this->getFilteredPath($fileName));
         }
@@ -159,6 +152,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!$this->_streamHandler) {
             return false;
         }
+
         $this->_streamLocked = true;
         $lock = $exclusive ? LOCK_EX : LOCK_SH;
         return flock($this->_streamHandler, $lock);
@@ -174,6 +168,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!$this->_streamHandler || !$this->_streamLocked) {
             return false;
         }
+
         $this->_streamLocked = false;
         return flock($this->_streamHandler, LOCK_UN);
     }
@@ -181,62 +176,64 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Binary-safe file read
      *
-     * @param int $length
+     * @param  int         $length
      * @return bool|string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function streamRead($length = 1024)
     {
         if (!$this->_streamHandler) {
             return false;
         }
+
         if (feof($this->_streamHandler)) {
             return false;
         }
+
         return @fgets($this->_streamHandler, $length);
     }
 
     /**
      * Gets line from file pointer and parse for CSV fields
      *
-     * @return array|false|null
+     * @return null|array|false
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function streamReadCsv($delimiter = ',', $enclosure = '"')
     {
         if (!$this->_streamHandler) {
             return false;
         }
-        return @fgetcsv($this->_streamHandler, 0, $delimiter, $enclosure);
+
+        return @fgetcsv($this->_streamHandler, 0, $delimiter, $enclosure, '\\');
     }
 
     /**
      * Binary-safe file write
      *
-     * @param string $str
+     * @param  string   $str
      * @return bool|int
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function streamWrite($str)
     {
         if (!$this->_streamHandler) {
             return false;
         }
+
         return @fwrite($this->_streamHandler, $str);
     }
 
     /**
      * Format line as CSV and write to file pointer
      *
-     * @param array $row
-     * @param string $delimiter
-     * @param string $enclosure
+     * @param  string   $delimiter
+     * @param  string   $enclosure
      * @return bool|int
-     *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function streamWriteCsv(array $row, $delimiter = ',', $enclosure = '"')
     {
@@ -244,7 +241,7 @@ class Varien_Io_File extends Varien_Io_Abstract
             return false;
         }
 
-        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure);
+        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure, '\\');
     }
 
     /**
@@ -253,7 +250,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function streamClose()
     {
@@ -264,9 +261,11 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_streamLocked) {
             $this->streamUnlock();
         }
+
         if ($this->_isValidSource($this->_streamHandler)) {
             @fclose($this->_streamHandler);
         }
+
         $this->_streamHandler = null;
         $this->chmod($this->_streamFileName, $this->_streamChmod);
         return true;
@@ -275,21 +274,23 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Retrieve open file statistic
      *
-     * @param string $part the part of statistic
-     * @param mixed $default default value for part
-     * @return array|bool
+     * @param  string             $part    the part of statistic
+     * @param  mixed              $default default value for part
+     * @return array|false|string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function streamStat($part = null, $default = null)
     {
         if (!$this->_streamHandler) {
             return false;
         }
+
         $stat = @fstat($this->_streamHandler);
         if (!is_null($part)) {
-            return isset($stat[$part]) ? $stat[$part] : $default;
+            return $stat[$part] ?? $default;
         }
+
         return $stat;
     }
 
@@ -309,9 +310,10 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Possible arguments:
      * - path     default current path
      *
-     * @param array $args
-     * @return boolean
+     * @return bool
+     * @throws Exception
      */
+    #[Override]
     public function open(array $args = [])
     {
         if (!empty($args['path']) && $this->_allowCreateFolders) {
@@ -319,17 +321,19 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
 
         $this->_iwd = getcwd();
-        $this->cd(!empty($args['path']) ? $args['path'] : $this->_iwd);
+        $this->cd(empty($args['path']) ? $this->_iwd : $args['path']);
         return true;
     }
 
     /**
-     * Used to set {@link _allowCreateFolders} value
+     * Used to set the _allowCreateFolders value
      *
      * @param bool $flag
      * @access public
      * @return $this
+     * @see _allowCreateFolders
      */
+    #[Override]
     public function setAllowCreateFolders($flag)
     {
         $this->_allowCreateFolders = $flag;
@@ -339,7 +343,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Close a connection
      *
-     * @return boolean
+     * @return bool
      */
     public function close()
     {
@@ -349,12 +353,12 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Create a directory
      *
-     * @param string $dir
-     * @param int $mode
-     * @param boolean $recursive
-     * @return boolean
+     * @param  string $dir
+     * @param  int    $mode
+     * @param  bool   $recursive
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function mkdir($dir, $mode = 0777, $recursive = true)
     {
@@ -366,39 +370,43 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($result) {
             @chmod($dir, $mode);
         }
+
         if ($this->_iwd) {
             chdir($this->_iwd);
         }
+
         return $result;
     }
 
     /**
      * Delete a directory
      *
-     * @param string $dir
-     * @return boolean
+     * @param  string $dir
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function rmdir($dir, $recursive = false)
     {
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $result = self::rmdirRecursive($dir, $recursive);
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         return $result;
     }
 
     /**
      * Delete a directory recursively
-     * @param string $dir
-     * @param bool $recursive
+     * @param  string $dir
+     * @param  bool   $recursive
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public static function rmdirRecursive($dir, $recursive = true)
     {
@@ -406,11 +414,17 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($recursive) {
             if (is_dir($dir)) {
                 foreach (scandir($dir) as $item) {
-                    if (!strcmp($item, '.') || !strcmp($item, '..')) {
+                    if (!strcmp($item, '.')) {
                         continue;
                     }
-                    self::rmdirRecursive($dir . "/" . $item, $recursive);
+
+                    if (!strcmp($item, '..')) {
+                        continue;
+                    }
+
+                    self::rmdirRecursive($dir . '/' . $item, $recursive);
                 }
+
                 $result = @rmdir($dir);
             } elseif (file_exists($dir)) {
                 $result = @unlink($dir);
@@ -418,6 +432,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         } else {
             $result = @rmdir($dir);
         }
+
         return $result;
     }
 
@@ -434,11 +449,11 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Change current working directory
      *
-     * @param string $dir
-     * @return boolean
+     * @param  string    $dir
+     * @return bool
      * @throws Exception
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function cd($dir)
     {
@@ -446,9 +461,9 @@ class Varien_Io_File extends Varien_Io_Abstract
             @chdir($this->_iwd);
             $this->_cwd = realpath($dir);
             return true;
-        } else {
-            throw new Exception('Unable to list current working directory.');
         }
+
+        throw new Exception('Unable to list current working directory.');
     }
 
     /**
@@ -457,11 +472,11 @@ class Varien_Io_File extends Varien_Io_Abstract
      * If $dest is null the output will be returned.
      * Otherwise it will be saved to the file or stream and operation result is returned.
      *
-     * @param string $filename
-     * @param string|resource $dest
-     * @return boolean|string
+     * @param  string          $filename
+     * @param  resource|string $dest
+     * @return bool|string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function read($filename, $dest = null)
     {
@@ -482,11 +497,11 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Write a file from string, file or stream
      *
-     * @param string $filename
-     * @param string|resource $src
-     * @param int $mode
+     * @param string          $filename
+     * @param resource|string $src
+     * @param int             $mode
      *
-     * @return int|boolean
+     * @return bool|int
      * @throws Exception
      */
     public function write($filename, $src, $mode = null)
@@ -519,10 +534,10 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Check source is valid
      *
-     * @param string|resource $src
+     * @param  resource|string $src
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _isValidSource($src)
     {
@@ -531,22 +546,21 @@ class Varien_Io_File extends Varien_Io_Abstract
             // If its a file we check for null byte
             // If it's not a valid path, file_exists() will return a falsey value, and the @ will keep it from complaining about the bad string.
             return !(@file_exists($src) && str_contains($src, chr(0)));
-        } elseif (is_resource($src)) {
-            return true;
         }
 
-        return false;
+        // In case of a string
+        return is_resource($src);
     }
 
     /**
      * Check filename is writeable
      * If filename not exist check dirname writeable
      *
-     * @param string $filename
-     * @throws Varien_Io_Exception
+     * @param  string              $filename
      * @return bool
+     * @throws Varien_Io_Exception
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _isFilenameWriteable($filename)
     {
@@ -554,8 +568,9 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         if (file_exists($filename)) {
-            if (!is_writeable($filename)) {
+            if (!is_writable($filename)) {
                 $error = "File '{$this->getFilteredPath($filename)}' isn't writeable";
             }
         } else {
@@ -564,6 +579,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                 $error = "Folder '{$this->getFilteredPath($folder)}' isn't writeable";
             }
         }
+
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
@@ -571,22 +587,23 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($error) {
             throw new Varien_Io_Exception($error);
         }
+
         return true;
     }
 
     /**
      * Check source is file
      *
-     * @param string $src
+     * @param  string $src
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _checkSrcIsFile($src)
     {
         $result = false;
         if (is_string($src) && @is_readable($src) && is_file($src)) {
-            $result = true;
+            return true;
         }
 
         return $result;
@@ -595,18 +612,19 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * File put content wrapper
      *
-     * @param string $filename
-     * @param string|resource $src
+     * @param string          $filename
+     * @param resource|string $src
      *
      * @return int
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function filePutContent($filename, $src)
     {
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $result = @file_put_contents($filename, $src);
         if ($this->_iwd) {
             chdir($this->_iwd);
@@ -616,163 +634,178 @@ class Varien_Io_File extends Varien_Io_Abstract
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function fileExists($file, $onlyFile = true)
     {
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $result = file_exists($file);
         if ($result && $onlyFile) {
             $result = is_file($file);
         }
+
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         return $result;
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function isWriteable($path)
     {
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
-        $result = is_writeable($path);
+
+        $result = is_writable($path);
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         return $result;
     }
 
     public function getDestinationFolder($filepath)
     {
         preg_match('/^(.*[!\/])/', $filepath, $mathces);
-        if (isset($mathces[0])) {
-            return $mathces[0];
-        }
-        return false;
+        return $mathces[0] ?? false;
     }
 
     /**
      * Create destination folder
      *
-     * @param string $path
+     * @param  string    $path
      * @return bool
+     * @throws Exception
      */
     public function createDestinationDir($path)
     {
         if (!$this->_allowCreateFolders) {
             return false;
         }
+
         return $this->checkAndCreateFolder($this->getCleanPath($path));
     }
 
     /**
      * Check and create if not exists folder
      *
-     * @param string $folder
-     * @param int $mode
-     * @throws Exception
+     * @param  string    $folder
+     * @param  int       $mode
      * @return bool
+     * @throws Exception
      */
     public function checkAndCreateFolder($folder, $mode = 0777)
     {
         if (is_dir($folder)) {
             return true;
         }
+
         if (!is_dir(dirname($folder))) {
             $this->checkAndCreateFolder(dirname($folder), $mode);
         }
+
         if (!is_dir($folder) && !$this->mkdir($folder, $mode)) {
             throw new Exception("Unable to create directory '{$this->getFilteredPath($folder)}'. Access forbidden.");
         }
+
         return true;
     }
 
     /**
      * Delete a file
      *
-     * @param string $filename
-     * @return boolean
+     * @param  string $filename
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function rm($filename)
     {
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $result = @unlink($filename);
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         return $result;
     }
 
     /**
      * Rename or move a directory or a file
      *
-     * @param string $src
-     * @param string $dest
-     * @return boolean
+     * @param  string $src
+     * @param  string $dest
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function mv($src, $dest)
     {
         if ($this->_cwd) {
             chdir($this->_cwd);
         }
+
         $result = @rename($src, $dest);
         if ($this->_iwd) {
             chdir($this->_iwd);
         }
+
         return $result;
     }
 
     /**
      * Copy a file
      *
-     * @param string $src
-     * @param string $dest
-     * @return boolean
+     * @param  string $src
+     * @param  string $dest
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function cp($src, $dest)
     {
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $result = @copy($src, $dest);
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         return $result;
     }
 
     /**
      * Change mode of a directory or a file
      *
-     * @param string $filename
-     * @param int $mode
-     * @return boolean
+     * @param  string $filename
+     * @param  int    $mode
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function chmod($filename, $mode)
     {
         if ($this->_cwd) {
             chdir($this->_cwd);
         }
-        $result = file_exists($filename) ? @chmod($filename, $mode) : false;
+
+        $result = file_exists($filename) && @chmod($filename, $mode);
         if ($this->_iwd) {
             chdir($this->_iwd);
         }
+
         return $result;
     }
 
@@ -789,6 +822,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param Varien_Io_File $grep const
      * @access public
      * @return array
+     * @throws Exception
      */
     public function ls($grep = null)
     {
@@ -804,53 +838,57 @@ class Varien_Io_File extends Varien_Io_Abstract
 
         $list = [];
 
-        if ($dh = opendir($dir)) {
-            while (($entry = readdir($dh)) !== false) {
-                $list_item = [];
+        if ($dirHandle = opendir($dir)) {
+            while (($entry = readdir($dirHandle)) !== false) {
+                $listItem = [];
 
                 $fullpath = $dir . DIRECTORY_SEPARATOR . $entry;
-
                 if (($grep == self::GREP_DIRS) && (!is_dir($fullpath))) {
-                    continue;
-                } elseif (($grep == self::GREP_FILES) && (!is_file($fullpath))) {
-                    continue;
-                } elseif (in_array($entry, $ignoredDirectories)) {
                     continue;
                 }
 
-                $list_item['text'] = $entry;
-                $list_item['mod_date'] = date(Varien_Date::DATETIME_PHP_FORMAT, filectime($fullpath));
-                $list_item['permissions'] = $this->_parsePermissions(fileperms($fullpath));
-                $list_item['owner'] = $this->_getFileOwner($fullpath);
+                if (($grep == self::GREP_FILES) && (!is_file($fullpath))) {
+                    continue;
+                }
+
+                if (in_array($entry, $ignoredDirectories, true)) {
+                    continue;
+                }
+
+                $listItem['text'] = $entry;
+                $listItem['mod_date'] = Carbon::createFromTimestamp(filectime($fullpath))->format(Varien_Date::DATETIME_PHP_FORMAT);
+                $listItem['permissions'] = $this->_parsePermissions(fileperms($fullpath));
+                $listItem['owner'] = $this->_getFileOwner($fullpath);
 
                 if (is_file($fullpath)) {
                     $pathinfo = pathinfo($fullpath);
-                    $list_item['size'] = filesize($fullpath);
-                    $list_item['leaf'] = true;
+                    $listItem['size'] = filesize($fullpath);
+                    $listItem['leaf'] = true;
                     if (isset($pathinfo['extension'])
-                        && in_array(strtolower($pathinfo['extension']), self::ALLOWED_IMAGES_EXTENSIONS)
-                        && $list_item['size'] > 0
+                        && in_array(strtolower($pathinfo['extension']), self::ALLOWED_IMAGES_EXTENSIONS, true)
+                        && $listItem['size'] > 0
                     ) {
-                        $list_item['is_image'] = true;
-                        $list_item['filetype'] = $pathinfo['extension'];
-                    } elseif ($list_item['size'] == 0) {
-                        $list_item['is_image'] = false;
-                        $list_item['filetype'] = 'unknown';
+                        $listItem['is_image'] = true;
+                        $listItem['filetype'] = $pathinfo['extension'];
+                    } elseif ($listItem['size'] == 0) {
+                        $listItem['is_image'] = false;
+                        $listItem['filetype'] = 'unknown';
                     } elseif (isset($pathinfo['extension'])) {
-                        $list_item['is_image'] = false;
-                        $list_item['filetype'] = $pathinfo['extension'];
+                        $listItem['is_image'] = false;
+                        $listItem['filetype'] = $pathinfo['extension'];
                     } else {
-                        $list_item['is_image'] = false;
-                        $list_item['filetype'] = 'unknown';
+                        $listItem['is_image'] = false;
+                        $listItem['filetype'] = 'unknown';
                     }
                 } else {
-                    $list_item['leaf'] = false;
-                    $list_item['id'] = $fullpath;
+                    $listItem['leaf'] = false;
+                    $listItem['id'] = $fullpath;
                 }
 
-                $list[] = $list_item;
+                $list[] = $listItem;
             }
-            closedir($dh);
+
+            closedir($dirHandle);
         } else {
             throw new Exception('Unable to list current working directory. Access forbidden.');
         }
@@ -861,7 +899,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Convert integer permissions format into human readable
      *
-     * @param integer $mode
+     * @param int $mode
      * @access protected
      * @return string
      */
@@ -898,20 +936,22 @@ class Varien_Io_File extends Varien_Io_Abstract
 
         /* Adjust for SUID, SGID and sticky bit */
         if ($mode & 0x800) {
-            $owner["execute"] = ($owner['execute'] == 'x') ? 's' : 'S';
-        }
-        if ($mode & 0x400) {
-            $group["execute"] = ($group['execute'] == 'x') ? 's' : 'S';
-        }
-        if ($mode & 0x200) {
-            $world["execute"] = ($world['execute'] == 'x') ? 't' : 'T';
+            $owner['execute'] = ($owner['execute'] == 'x') ? 's' : 'S';
         }
 
-        $s = sprintf('%1s', $type);
-        $s .= sprintf('%1s%1s%1s', $owner['read'], $owner['write'], $owner['execute']);
-        $s .= sprintf('%1s%1s%1s', $group['read'], $group['write'], $group['execute']);
-        $s .= sprintf('%1s%1s%1s', $world['read'], $world['write'], $world['execute']);
-        return trim($s);
+        if ($mode & 0x400) {
+            $group['execute'] = ($group['execute'] == 'x') ? 's' : 'S';
+        }
+
+        if ($mode & 0x200) {
+            $world['execute'] = ($world['execute'] == 'x') ? 't' : 'T';
+        }
+
+        $str = sprintf('%1s', $type);
+        $str .= sprintf('%1s%1s%1s', $owner['read'], $owner['write'], $owner['execute']);
+        $str .= sprintf('%1s%1s%1s', $group['read'], $group['write'], $group['execute']);
+        $str .= sprintf('%1s%1s%1s', $world['read'], $world['write'], $world['execute']);
+        return trim($str);
     }
 
     /**
@@ -928,11 +968,12 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
 
         $owner     = posix_getpwuid(fileowner($filename));
-        $groupinfo = posix_getgrnam(filegroup($filename));
+        $groupinfo = posix_getgrnam((string) filegroup($filename));
 
         return $owner['name'] . ' / ' . $groupinfo;
     }
 
+    #[Override]
     public function dirsep()
     {
         return DIRECTORY_SEPARATOR;

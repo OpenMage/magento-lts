@@ -1,42 +1,35 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Categories tree block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Catalog_Category_Abstract
 {
-    protected $_withProductCount;
+    protected $_withProductCount = true;
 
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('catalog/category/tree.phtml');
         $this->setUseAjax(true);
-        $this->_withProductCount = true;
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
-        $addUrl = $this->getUrl("*/*/add", [
+        $addUrl = $this->getUrl('*/*/add', [
             '_current' => true,
             'id' => null,
-            '_query' => false
+            '_query' => false,
         ]);
 
         $this->setChild(
@@ -47,8 +40,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
                     'onclick'   => "addNew('" . $addUrl . "', false)",
                     'class'     => 'add',
                     'id'        => 'add_subcategory_button',
-                    'style'     => $this->canAddSubCategory() ? '' : 'display: none;'
-                ])
+                    'style'     => $this->canAddSubCategory() ? '' : 'display: none;',
+                ]),
         );
 
         if ($this->canAddRootCategory()) {
@@ -59,8 +52,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
                         'label'     => Mage::helper('catalog')->__('Add Root Category'),
                         'onclick'   => "addNew('" . $addUrl . "', true)",
                         'class'     => 'add',
-                        'id'        => 'add_root_category_button'
-                    ])
+                        'id'        => 'add_root_category_button',
+                    ]),
             );
         }
 
@@ -68,7 +61,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
             'store_switcher',
             $this->getLayout()->createBlock('adminhtml/store_switcher')
                 ->setSwitchUrl($this->getUrl('*/*/*', ['_current' => true, '_query' => false, 'store' => null]))
-                ->setTemplate('store/switcher/enhanced.phtml')
+                ->setTemplate('store/switcher/enhanced.phtml'),
         );
         return parent::_prepareLayout();
     }
@@ -81,11 +74,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     public function getCategoryCollection()
     {
         $storeId = $this->getRequest()->getParam('store', $this->_getDefaultStoreId());
-        $collection = $this->getData('category_collection');
+        $collection = $this->getDataByKey('category_collection');
         if (is_null($collection)) {
             $collection = Mage::getModel('catalog/category')->getCollection();
 
-            /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection $collection */
+            /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
             $collection->addAttributeToSelect('name')
                 ->addAttributeToSelect('is_active')
                 ->setProductStoreId($storeId)
@@ -94,6 +87,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
             $this->setData('category_collection', $collection);
         }
+
         return $collection;
     }
 
@@ -122,14 +116,21 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         return $this->getChildHtml('store_switcher');
     }
 
+    /**
+     * Tree JSON source URL
+     *
+     * @param  null|bool $expanded
+     * @return string
+     */
     public function getLoadTreeUrl($expanded = null)
     {
         $params = ['_current' => true, 'id' => null,'store' => null];
         if ((is_null($expanded) && Mage::getSingleton('admin/session')->getIsTreeWasExpanded())
-            || $expanded == true
+            || $expanded
         ) {
             $params['expand_all'] = true;
         }
+
         return $this->getUrl('*/*/categoriesJson', $params);
     }
 
@@ -141,8 +142,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     public function getSwitchTreeUrl()
     {
         return $this->getUrl(
-            "*/catalog_category/tree",
-            ['_current' => true, 'store' => null, '_query' => false, 'id' => null, 'parent' => null]
+            '*/catalog_category/tree',
+            ['_current' => true, 'store' => null, '_query' => false, 'id' => null, 'parent' => null],
         );
     }
 
@@ -171,8 +172,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     /**
      * Get JSON of array of categories, that are breadcrumbs for specified category path
      *
-     * @param string $path
-     * @param string $javascriptVarName
+     * @param  string $path
+     * @param  string $javascriptVarName
      * @return string
      */
     public function getBreadcrumbsJavascript($path, $javascriptVarName)
@@ -186,9 +187,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         if (empty($categories)) {
             return '';
         }
+
         foreach ($categories as $key => $category) {
             $categories[$key] = $this->_getNodeJson($category);
         }
+
         return
             '<script type="text/javascript">'
             . $javascriptVarName . ' = ' . Mage::helper('core')->jsonEncode($categories) . ';'
@@ -201,9 +204,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     /**
      * Get JSON of a tree node or an associative array
      *
-     * @param Varien_Data_Tree_Node|array $node
-     * @param int $level
-     * @return array
+     * @param  array|Varien_Data_Tree_Node $node
+     * @param  int                         $level
+     * @return array<string, mixed>
      */
     protected function _getNodeJson($node, $level = 0)
     {
@@ -222,7 +225,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
         $item['id']  = $node->getId();
         $item['store']  = (int) $this->getStore()->getId();
-        $item['path'] = $node->getData('path');
+        $item['path'] = $node->getDataByKey('path');
 
         $item['cls'] = 'folder ' . ($node->getIsActive() ? 'active-category' : 'no-active-category');
         //$item['allowDrop'] = ($level<3) ? true : false;
@@ -231,7 +234,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         // disallow drag if it's first level and category is root of a store
         $item['allowDrag'] = $allowMove && !($node->getLevel() == 1 && $rootForStores);
 
-        if ((int)$node->getChildrenCount() > 0) {
+        if ((int) $node->getChildrenCount() > 0) {
             $item['children'] = [];
         }
 
@@ -256,7 +259,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     /**
      * Get category name
      *
-     * @param Varien_Object $node
+     * @param  Varien_Object $node
      * @return string
      */
     public function buildNodeName($node)
@@ -265,6 +268,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         if ($this->_withProductCount) {
             $result .= ' (' . $node->getProductCount() . ')';
         }
+
         return $result;
     }
 
@@ -272,12 +276,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     {
         $options = new Varien_Object([
             'is_moveable' => true,
-            'category' => $node
+            'category' => $node,
         ]);
 
         Mage::dispatchEvent(
             'adminhtml_catalog_category_tree_is_moveable',
-            ['options' => $options]
+            ['options' => $options],
         );
 
         return $options->getIsMoveable();
@@ -318,8 +322,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
             [
                 'category' => $this->getCategory(),
                 'options'   => $options,
-                'store'    => $this->getStore()->getId()
-            ]
+                'store'    => $this->getStore()->getId(),
+            ],
         );
 
         return $options->getIsAllow();
@@ -338,8 +342,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
             [
                 'category' => $this->getCategory(),
                 'options'   => $options,
-                'store'    => $this->getStore()->getId()
-            ]
+                'store'    => $this->getStore()->getId(),
+            ],
         );
 
         return $options->getIsAllow();

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sitemap edit form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
@@ -31,14 +24,15 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
         $this->setTitle(Mage::helper('adminhtml')->__('Sitemap Information'));
     }
 
+    #[Override]
     protected function _prepareForm()
     {
         $model = Mage::registry('sitemap_sitemap');
 
         $form = new Varien_Data_Form([
             'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
-            'method'    => 'post'
+            'action'    => $this->getDataByKey('action'),
+            'method'    => 'post',
         ]);
 
         $fieldset = $form->addFieldset('add_sitemap_form', ['legend' => Mage::helper('sitemap')->__('Sitemap')]);
@@ -54,7 +48,7 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
             'name'  => 'sitemap_filename',
             'required' => true,
             'note'  => Mage::helper('adminhtml')->__('example: sitemap.xml'),
-            'value' => $model->getSitemapFilename()
+            'value' => $model->getSitemapFilename(),
         ]);
 
         $fieldset->addField('sitemap_path', 'text', [
@@ -62,7 +56,7 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
             'name'  => 'sitemap_path',
             'required' => true,
             'note'  => Mage::helper('adminhtml')->__('example: "sitemap/" or "/" for base path (path must be writeable)'),
-            'value' => $model->getSitemapPath()
+            'value' => $model->getSitemapPath(),
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -74,19 +68,19 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
                 'value'    => $model->getStoreId(),
                 'values'   => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
             ]);
-            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $renderer = $this->getStoreSwitcherRenderer();
             $field->setRenderer($renderer);
         } else {
             $fieldset->addField('store_id', 'hidden', [
                 'name'     => 'store_id',
-                'value'    => Mage::app()->getStore(true)->getId()
+                'value'    => Mage::app()->getStore(true)->getId(),
             ]);
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }
 
         $fieldset->addField('generate', 'hidden', [
             'name'     => 'generate',
-            'value'    => ''
+            'value'    => '',
         ]);
 
         $form->setValues($model->getData());

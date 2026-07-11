@@ -1,30 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Order Creditmemo PDF model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_Abstract
 {
     /**
      * Draw table header for product items
-     *
-     * @param  Zend_Pdf_Page $page
      */
     protected function _drawHeader(Zend_Pdf_Page $page)
     {
@@ -45,7 +36,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
         $lines[0][] = [
             'text'  => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('SKU'), 12, true, true),
             'feed'  => 255,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         $lines[0][] = [
@@ -79,12 +70,12 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
         $lines[0][] = [
             'text'  => Mage::helper('core/string')->str_split(Mage::helper('sales')->__('Total (inc)'), 12, true, true),
             'feed'  => 565,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         $lineBlock = [
             'lines'  => $lines,
-            'height' => 10
+            'height' => 10,
         ];
 
         $this->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);
@@ -95,7 +86,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
     /**
      * Return PDF document
      *
-     * @param  Mage_Sales_Model_Order_Creditmemo[] $creditmemos
+     * @param  array|Mage_Sales_Model_Resource_Order_Creditmemo_Collection $creditmemos
      * @return Zend_Pdf
      */
     public function getPdf($creditmemos = [])
@@ -113,6 +104,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
                 Mage::app()->getLocale()->emulate($creditmemo->getStoreId());
                 Mage::app()->setCurrentStore($creditmemo->getStoreId());
             }
+
             $page  = $this->newPage();
             $order = $creditmemo->getOrder();
             /* Add image */
@@ -123,12 +115,12 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
             $this->insertOrder(
                 $page,
                 $order,
-                Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID, $order->getStoreId())
+                Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID, $order->getStoreId()),
             );
             /* Add document text and number */
             $this->insertDocumentNumber(
                 $page,
-                Mage::helper('sales')->__('Credit Memo # ') . $creditmemo->getIncrementId()
+                Mage::helper('sales')->__('Credit Memo # ') . $creditmemo->getIncrementId(),
             );
             /* Add table head */
             $this->_drawHeader($page);
@@ -137,32 +129,37 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
                 if ($item->getOrderItem()->getParentItem()) {
                     continue;
                 }
+
                 /* Draw item */
                 $this->_drawItem($item, $page, $order);
                 $page = end($pdf->pages);
             }
+
             /* Add totals */
             $this->insertTotals($page, $creditmemo);
         }
+
         $this->_afterGetPdf();
-        if ($creditmemo->getStoreId()) {
+        if (isset($creditmemo) && $creditmemo->getStoreId()) {
             Mage::app()->getLocale()->revert();
         }
+
         return $pdf;
     }
 
     /**
      * Create new page and assign to PDF object
      *
-     * @param  array $settings
      * @return Zend_Pdf_Page
      */
+    #[Override]
     public function newPage(array $settings = [])
     {
         $page = parent::newPage($settings);
         if (!empty($settings['table_header'])) {
             $this->_drawHeader($page);
         }
+
         return $page;
     }
 }

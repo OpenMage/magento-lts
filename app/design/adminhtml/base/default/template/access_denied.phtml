@@ -1,0 +1,23 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php
+/**
+ * @see Mage_Adminhtml_Block_Denied
+ * @var Mage_Adminhtml_Block_Denied $this
+ */
+?>
+<h1 class="page-heading"><?php echo $this->helper('adminhtml')->__('Access denied') ?></h1>
+<?php if (!$this->hasAvailaleResources()): ?>
+<p>
+<?php echo $this->helper('adminhtml')->__('Please try to logout and sign in again.') ?><br/>
+<?php echo $this->helper('adminhtml')->__('If this message persists, please contact the store owner.') ?>
+</p>
+<?php else: ?>
+<p><?php echo $this->helper('adminhtml')->__('Access denied.') ?></p>
+<?php endif ?>

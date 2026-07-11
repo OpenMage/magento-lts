@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Adminhtml_Permissions_BlockController
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controller_Action
@@ -33,7 +26,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('system/acl')
+            ->_setActiveMenu('system/acl/blocks')
             ->_addBreadcrumb($this->__('System'), $this->__('System'))
             ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
             ->_addBreadcrumb($this->__('Blocks'), $this->__('Blocks'));
@@ -42,6 +35,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -58,6 +52,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
     /**
      * New action
+     * @return void
      */
     public function newAction()
     {
@@ -66,6 +61,9 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
     /**
      * Edit action
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function editAction()
     {
@@ -95,11 +93,8 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
 
         Mage::register('permissions_block', $model);
 
-        if (isset($id)) {
-            $breadcrumb = $this->__('Edit Block');
-        } else {
-            $breadcrumb = $this->__('New Block');
-        }
+        $breadcrumb = $id ? $this->__('Edit Block') : $this->__('New Block');
+
         $this->_initAction()
             ->_addBreadcrumb($breadcrumb, $breadcrumb);
 
@@ -112,7 +107,8 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
     /**
      * Save action
      *
-     * @return $this|void
+     * @return null|$this
+     * @throws Mage_Core_Exception
      */
     public function saveAction()
     {
@@ -122,13 +118,14 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
             if (!$model->getId() && $id) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This block no longer exists.'));
                 $this->_redirect('*/*/');
-                return;
+                return null;
             }
 
             $model->setData($data);
             if ($id) {
                 $model->setId($id);
             }
+
             $result = $model->validate();
 
             if (is_array($result)) {
@@ -136,9 +133,11 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 foreach ($result as $message) {
                     Mage::getSingleton('adminhtml/session')->addError($message);
                 }
+
                 $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return $this;
             }
+
             try {
                 $model->save();
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The block has been saved.'));
@@ -146,22 +145,25 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
 
                 $this->_redirect('*/*/');
-                return;
-            } catch (Exception $e) {
+                return null;
+            } catch (Exception $exception) {
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 // save data in session
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
                 $this->_redirect('*/*/edit', ['block_id' => $id]);
-                return;
+                return null;
             }
         }
+
         $this->_redirect('*/*/');
+        return null;
     }
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -174,18 +176,20 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Block has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError($this->__('Unable to find a block to delete.'));
         $this->_redirect('*/*/');
     }
 
     /**
      * Grid action
+     * @return void
      */
     public function blockGridAction()
     {
@@ -200,6 +204,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');

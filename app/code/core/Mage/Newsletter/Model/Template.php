@@ -1,50 +1,43 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template model
  *
- * @category   Mage
  * @package    Mage_Newsletter
  *
- * @method Mage_Newsletter_Model_Resource_Template _getResource()
- * @method Mage_Newsletter_Model_Resource_Template getResource()
- * @method string getTemplateCode()
- * @method $this setTemplateCode(string $value)
- * @method $this setTemplateText(string $value)
- * @method $this setTemplateTextPreprocessed(string $value)
- * @method string getTemplateStyles()
- * @method $this setTemplateStyles(string $value)
- * @method int getTemplateType()
- * @method $this setTemplateType(int $value)
- * @method string getTemplateSubject()
- * @method $this setTemplateSubject(string $value)
- * @method string getTemplateSenderName()
- * @method $this setTemplateSenderName(string $value)
- * @method string getTemplateSenderEmail()
- * @method $this setTemplateSenderEmail(string $value)
- * @method bool hasTemplateActual()
- * @method int getTemplateActual()
- * @method $this setTemplateActual(int $value)
- * @method bool hasAddedAt()
- * @method string getAddedAt()
- * @method $this setAddedAt(string $value)
- * @method string getModifiedAt()
- * @method $this setModifiedAt(string $value)
- * @method bool getIsSystem()
- * @method $this setInlineCssFile(bool|string $value)
+ * @method Mage_Newsletter_Model_Resource_Template            _getResource()
+ * @method string                                             getAddedAt()
+ * @method Mage_Newsletter_Model_Resource_Template_Collection getCollection()
+ * @method bool                                               getIsSystem()
+ * @method string                                             getModifiedAt()
+ * @method Mage_Newsletter_Model_Resource_Template            getResource()
+ * @method Mage_Newsletter_Model_Resource_Template_Collection getResourceCollection()
+ * @method int                                                getTemplateActual()
+ * @method string                                             getTemplateCode()
+ * @method string                                             getTemplateSenderEmail()
+ * @method string                                             getTemplateSenderName()
+ * @method string                                             getTemplateStyles()
+ * @method string                                             getTemplateSubject()
+ * @method bool                                               hasAddedAt()
+ * @method bool                                               hasTemplateActual()
+ * @method $this                                              setAddedAt(string $value)
+ * @method $this                                              setInlineCssFile(bool|string $value)
+ * @method $this                                              setModifiedAt(string $value)
+ * @method $this                                              setTemplateActual(int $value)
+ * @method $this                                              setTemplateCode(string $value)
+ * @method $this                                              setTemplateSenderEmail(string $value)
+ * @method $this                                              setTemplateSenderName(string $value)
+ * @method $this                                              setTemplateStyles(string $value)
+ * @method $this                                              setTemplateSubject(string $value)
+ * @method $this                                              setTemplateText(string $value)
+ * @method $this                                              setTemplateTextPreprocessed(string $value)
  */
 class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abstract
 {
@@ -58,13 +51,12 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Mail object
      *
-     * @var Zend_Mail|null
+     * @var null|Zend_Mail
      */
     protected $_mail;
 
     /**
-     * Initialize resource model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -78,31 +70,49 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function validate()
     {
-        $validators = [
-            'template_code'         => [Zend_Filter_Input::ALLOW_EMPTY => false],
-            'template_type'         => 'Int',
-            'template_sender_email' => 'EmailAddress',
-            'template_sender_name'  => [Zend_Filter_Input::ALLOW_EMPTY => false]
-        ];
-        $data = [];
-        foreach (array_keys($validators) as $validateField) {
-            $data[$validateField] = $this->getDataUsingMethod($validateField);
-        }
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        $validateInput = new Zend_Filter_Input([], $validators, $data);
-        if (!$validateInput->isValid()) {
-            $errorMessages = [];
-            foreach ($validateInput->getMessages() as $messages) {
-                if (is_array($messages)) {
-                    foreach ($messages as $message) {
-                        $errorMessages[] = $message;
-                    }
-                } else {
-                    $errorMessages[] = $messages;
-                }
-            }
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getDataUsingMethod('template_code'),
+            message: Mage::helper('adminhtml')->__(
+                "You must give a non-empty value for field '%s'.",
+                'template_code',
+            ),
+        ));
 
-            Mage::throwException(implode("\n", $errorMessages));
+        $templateType = $this->getDataUsingMethod('template_type');
+
+        $violations->append($validator->validateChoice(
+            value: $templateType,
+            choices: [Mage_Core_Model_Template::TYPE_TEXT, Mage_Core_Model_Template::TYPE_HTML],
+            message: Mage::helper('adminhtml')->__(
+                'The value %1$s you selected for "%3$s" is not a valid choices %2$s.',
+                '{{ value }}',
+                '{{ choices }}',
+                'template_type',
+            ),
+        ));
+
+        $violations->append($validator->validateEmail(
+            value: $this->getDataUsingMethod('template_sender_email'),
+            message: Mage::helper('adminhtml')->__(
+                "You must give a non-empty value for field '%s'.",
+                'template_sender_email',
+            ),
+        ));
+
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getDataUsingMethod('template_sender_name'),
+            message: Mage::helper('adminhtml')->__(
+                "You must give a non-empty value for field '%s'.",
+                'template_sender_name',
+            ),
+        ));
+
+        $errors = $validator->getErrorMessages($violations);
+        if ($errors instanceof ArrayObject) {
+            Mage::throwException(implode("\n", iterator_to_array($errors)));
         }
     }
 
@@ -110,7 +120,9 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Processing object before save data
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeSave()
     {
         $this->validate();
@@ -120,7 +132,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Load template by code
      *
-     * @param string $templateCode
+     * @param  string $templateCode
      * @return $this
      */
     public function loadByCode($templateCode)
@@ -144,9 +156,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     }
 
     /**
-     * Getter for template type
-     *
-     * @return int|string
+     * @inheritDoc
      */
     public function getType()
     {
@@ -160,7 +170,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function isPreprocessed()
     {
-        return strlen($this->getTemplateTextPreprocessed()) > 0;
+        return $this->getTemplateTextPreprocessed() !== '';
     }
 
     /**
@@ -174,14 +184,13 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             $this->setTemplateTextPreprocessed($this->getProcessedTemplate());
         }
 
-        return $this->getData('template_text_preprocessed');
+        return (string) $this->getDataByKey('template_text_preprocessed');
     }
 
     /**
      * Retrieve processed template
      *
-     * @param array $variables
-     * @param bool $usePreprocess
+     * @param  bool   $usePreprocess
      * @return string
      */
     public function getProcessedTemplate(array $variables = [], $usePreprocess = false)
@@ -203,8 +212,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         $variables = $this->_addEmailVariables($variables, $processor->getStoreId());
 
         $processor
-            ->setTemplateProcessor([$this, 'getTemplateByConfigPath'])
-            ->setIncludeProcessor([$this, 'getInclude'])
+            ->setTemplateProcessor($this->getTemplateByConfigPath(...))
+            ->setIncludeProcessor($this->getInclude(...))
             ->setVariables($variables);
 
         // Filter the template text so that all HTML content will be present
@@ -214,19 +223,17 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
 
         // Now that all HTML has been assembled, run email through CSS inlining process
         if ($usePreprocess && $this->isPreprocessed()) {
-            $processedResult = $this->getPreparedTemplateText(true, $result);
-        } else {
-            $processedResult = $this->getPreparedTemplateText(false, $result);
+            return $this->getPreparedTemplateText(true, $result);
         }
 
-        return $processedResult;
+        return $this->getPreparedTemplateText(false, $result);
     }
 
     /**
      * Makes additional text preparations for HTML templates
      *
-     * @param bool $usePreprocess Use Preprocessed text or original text
-     * @param string|null $html
+     * @param  bool        $usePreprocess Use Preprocessed text or original text
+     * @param  null|string $html
      * @return string
      */
     public function getPreparedTemplateText($usePreprocess = false, $html = null)
@@ -249,8 +256,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve included template
      *
-     * @param string $templateCode
-     * @param array $variables
+     * @param  string $templateCode
      * @return string
      */
     public function getInclude($templateCode, array $variables)
@@ -271,17 +277,19 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         if (is_null($this->_mail)) {
             $this->_mail = new Zend_Mail('utf-8');
         }
+
         return $this->_mail;
     }
 
     /**
      * Send mail to subscriber
      *
-     * @param   Mage_Newsletter_Model_Subscriber|string   $subscriber   subscriber Model or E-mail
-     * @param   array                                     $variables    template variables
-     * @param   string|null                               $name         receiver name (if subscriber model not specified)
-     * @param   Mage_Newsletter_Model_Queue|null          $queue        queue model, used for problems reporting.
+     * @param  Mage_Newsletter_Model_Subscriber|string $subscriber subscriber Model or E-mail
+     * @param  array                                   $variables  template variables
+     * @param  null|string                             $name       receiver name (if subscriber model not specified)
+     * @param  null|Mage_Newsletter_Model_Queue        $queue      queue model, used for problems reporting
      * @return bool
+     * @throws Exception|Throwable
      * @deprecated since 1.4.0.1
      **/
     public function send($subscriber, array $variables = [], $name = null, ?Mage_Newsletter_Model_Queue $queue = null)
@@ -309,6 +317,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
 
         $mail = $this->getMail();
         $mail->addTo($email, $name);
+
         $text = $this->getProcessedTemplate($variables, true);
 
         if ($this->isPlain()) {
@@ -327,7 +336,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 'mail'       => $mail,
                 'transport'  => $transport,
                 'template'   => $this,
-                'subscriber' => $subscriber
+                'subscriber' => $subscriber,
             ]);
 
             if ($transport->getTransport()) {
@@ -341,13 +350,13 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 'html'       => !$this->isPlain(),
                 'queue'      => $queue,
                 'subject'    => $mail->getSubject(),
-                'email_body' => $text
+                'email_body' => $text,
             ]);
             $this->_mail = null;
             if (!is_null($queue)) {
                 $subscriber->received($queue);
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
                 // If letter sent for subscriber, we create a problem report entry
                 $problem = Mage::getModel('newsletter/problem');
@@ -355,7 +364,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 if (!is_null($queue)) {
                     $problem->addQueueData($queue);
                 }
-                $problem->addErrorData($e);
+
+                $problem->addErrorData($exception);
                 $problem->save();
 
                 if (!is_null($queue)) {
@@ -363,8 +373,9 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 }
             } else {
                 // Otherwise throw error to upper level
-                throw $e;
+                throw $exception;
             }
+
             return false;
         }
 
@@ -375,6 +386,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Prepare Process (with save)
      *
      * @return $this
+     * @throws Throwable
      * @deprecated since 1.4.0.1
      */
     public function preprocess()
@@ -388,8 +400,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve processed template subject
      *
-     * @param array $variables
      * @return string
+     * @throws Exception
      */
     public function getProcessedTemplateSubject(array $variables)
     {
@@ -410,13 +422,27 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function getTemplateText()
     {
-        if (!$this->getData('template_text') && !$this->getId()) {
+        if (!$this->getDataByKey('template_text') && !$this->getId()) {
             $this->setData(
                 'template_text',
-                Mage::helper('newsletter')->__('Follow this link to unsubscribe <!-- This tag is for unsubscribe link  --><a href="{{var subscriber.getUnsubscriptionLink()}}">{{var subscriber.getUnsubscriptionLink()}}</a>')
+                Mage::helper('newsletter')->__('Follow this link to unsubscribe <!-- This tag is for unsubscribe link  --><a href="{{var subscriber.getUnsubscriptionLink()}}">{{var subscriber.getUnsubscriptionLink()}}</a>'),
             );
         }
 
-        return $this->getData('template_text');
+        return $this->getDataByKey('template_text');
+    }
+
+    /**
+     * @param  Mage_Core_Model_Template::TYPE_* $type
+     * @return $this
+     */
+    public function setTemplateType(int $type)
+    {
+        return $this->setData('template_type', $type);
+    }
+
+    public function getTemplateType(): ?int
+    {
+        return $this->getDataByKey('template_type');
     }
 }

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Fieldset renderer for deprecated PayPal solutions
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
@@ -24,7 +17,6 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
     /**
      * Get was enabled config path
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getWasActiveConfigPath(Varien_Data_Form_Element_Abstract $element)
@@ -36,7 +28,6 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
     /**
      * Check whether solution was enabled
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return bool
      */
     protected function _wasActive(Varien_Data_Form_Element_Abstract $element)
@@ -44,13 +35,12 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
         $wasActiveConfigPath = $this->_getWasActiveConfigPath($element);
         return empty($wasActiveConfigPath)
             ? false
-            : (bool)(string)$this->_getConfigDataModel()->getConfigDataValue($wasActiveConfigPath);
+            : (bool) (string) $this->_getConfigDataModel()->getConfigDataValue($wasActiveConfigPath);
     }
 
     /**
      * Set solution as was enabled
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return $this
      */
     protected function _setWasActive(Varien_Data_Form_Element_Abstract $element)
@@ -91,16 +81,17 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
     /**
      * Check whether current payment method is enabled on any scope
      *
-     * @param string $activityPath
+     * @param  string $activityPath
      * @return bool
      */
     public function isPaymentEnabledAnyScope($activityPath)
     {
-        if ((bool)(string)$this->_getConfigModel()->getNode($activityPath, 'default')) {
+        if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'default')) {
             return true;
         }
+
         foreach ($this->_getWebsites() as $website) {
-            if ((bool)(string)$this->_getConfigModel()->getNode($activityPath, 'website', (int)$website->getId())) {
+            if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'website', (int) $website->getId())) {
                 return true;
             }
         }
@@ -111,12 +102,12 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
     /**
      * Do not render solution if disabled
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
+    #[Override]
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        $isPaymentEnabled = $this->_isPaymentEnabled($element, [$this, 'isPaymentEnabledAnyScope']);
+        $isPaymentEnabled = $this->_isPaymentEnabled($element, $this->isPaymentEnabledAnyScope(...));
         if ($this->_wasActive($element) && $isPaymentEnabled) {
             return parent::render($element);
         }

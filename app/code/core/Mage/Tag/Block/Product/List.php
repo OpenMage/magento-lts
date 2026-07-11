@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Tag
  */
 class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
@@ -24,7 +17,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     /**
      * Unique Html Id
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_uniqueHtmlId = null;
 
@@ -54,6 +47,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         if ($product = Mage::registry('current_product')) {
             return $product->getId();
         }
+
         return false;
     }
 
@@ -74,16 +68,18 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
                 ->setActiveFilter()
                 ->load();
         }
+
         return $this->_collection;
     }
 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         if (!$this->getProductId()) {
-            return false;
+            return $this;
         }
 
         return parent::_beforeToHtml();
@@ -97,15 +93,15 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         return Mage::getUrl('tag/index/save', [
             'product' => $this->getProductId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core/url')->getEncodedUrl(),
-            '_secure' => $this->_isSecure()
+            '_secure' => $this->_isSecure(),
         ]);
     }
 
     /**
      * Render tags by specified pattern and implode them by specified 'glue' string
      *
-     * @param string $pattern
-     * @param string $glue
+     * @param  string                          $pattern
+     * @param  string                          $glue
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -117,16 +113,17 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
                 $pattern,
                 $tag->getTaggedProductsUrl(),
                 $this->escapeHtml($tag->getName()),
-                $tag->getProducts()
+                $tag->getProducts(),
             );
         }
+
         return implode($glue, $out);
     }
 
     /**
      * Generate unique html id
      *
-     * @param string $prefix
+     * @param  string $prefix
      * @return string
      */
     public function getUniqueHtmlId($prefix = '')
@@ -134,6 +131,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         if (is_null($this->_uniqueHtmlId)) {
             $this->_uniqueHtmlId = Mage::helper('core/data')->uniqHash($prefix);
         }
+
         return $this->_uniqueHtmlId;
     }
 }

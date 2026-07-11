@@ -1,27 +1,23 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Translate expression object
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Translate_Expr
 {
     protected $_text;
+
     protected $_module;
 
     /**
@@ -35,7 +31,7 @@ class Mage_Core_Model_Translate_Expr
     }
 
     /**
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function setText($text)
@@ -45,7 +41,7 @@ class Mage_Core_Model_Translate_Expr
     }
 
     /**
-     * @param string $module
+     * @param  string $module
      * @return $this
      */
     public function setModule($module)
@@ -77,8 +73,8 @@ class Mage_Core_Model_Translate_Expr
     /**
      * Retrieve expression code
      *
-     * @param   string $separator
-     * @return  string
+     * @param  string $separator
+     * @return string
      */
     public function getCode($separator = '::')
     {

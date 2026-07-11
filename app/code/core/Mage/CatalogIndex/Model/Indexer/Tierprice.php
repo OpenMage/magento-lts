@@ -1,44 +1,36 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tier Price indexer
  *
- * @category   Mage
  * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price _getResource()
+ * @method int                                            getCustomerGroupId()
+ * @method float                                          getFinalPrice()
+ * @method float                                          getMaxPrice()
+ * @method float                                          getMinPrice()
+ * @method float                                          getPrice()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price getResource()
- *
- * @method $this setEntityId(int $value)
- * @method int getCustomerGroupId()
- * @method $this setCustomerGroupId(int $value)
- * @method int getWebsiteId()
- * @method $this setWebsiteId(int $value)
- * @method int getTaxClassId()
- * @method $this setTaxClassId(int $value)
- * @method float getPrice()
- * @method $this setPrice(float $value)
- * @method float getFinalPrice()
- * @method $this setFinalPrice(float $value)
- * @method float getMinPrice()
- * @method $this setMinPrice(float $value)
- * @method float getMaxPrice()
- * @method $this setMaxPrice(float $value)
- * @method float getTierPrice()
- * @method $this setTierPrice(float $value)
+ * @method int                                            getTaxClassId()
+ * @method float                                          getTierPrice()
+ * @method int                                            getWebsiteId()
+ * @method $this                                          setCustomerGroupId(int $value)
+ * @method $this                                          setEntityId(int $value)
+ * @method $this                                          setFinalPrice(float $value)
+ * @method $this                                          setMaxPrice(float $value)
+ * @method $this                                          setMinPrice(float $value)
+ * @method $this                                          setPrice(float $value)
+ * @method $this                                          setTaxClassId(int $value)
+ * @method $this                                          setTierPrice(float $value)
+ * @method $this                                          setWebsiteId(int $value)
  */
 class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
@@ -54,6 +46,9 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
 
     protected $_processChildren = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogindex/indexer_price');
@@ -64,8 +59,6 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $object
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|null $attribute
      * @return array
      */
     public function createIndexData(Mage_Catalog_Model_Product $object, ?Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
@@ -105,26 +98,21 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return bool
      */
+    #[Override]
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
-        if ($attribute->getAttributeCode() != 'tier_price') {
-            return false;
-        }
-
-        return true;
+        return $attribute->getAttributeCode() == 'tier_price';
     }
 
     /**
-     * @return array
+     * @inheritDoc
+     * @return array<string, string>
      */
+    #[Override]
     protected function _getIndexableAttributeConditions()
     {
-        $conditions = [];
-        $conditions['attribute_code'] = 'tier_price';
-
-        return $conditions;
+        return ['attribute_code' => 'tier_price'];
     }
 }

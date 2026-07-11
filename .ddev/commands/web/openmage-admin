@@ -29,14 +29,14 @@ fi
 RANDOM_STRING=$({ tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; })
 
 if [[ "${ACTION}" =~ ^(update|u) ]]; then
-  if mysql -u db -h db db -e "UPDATE "${TABLE_PREFIX}"admin_user SET password=CONCAT(MD5('"${RANDOM_STRING}""${ADMIN_PASSWORD}"'),':"${RANDOM_STRING}"') WHERE username='"${ADMIN_USER}"'"; then
+  if mysql -u db -pdb -h db db -e "UPDATE "${TABLE_PREFIX}"admin_user SET password=CONCAT(MD5('"${RANDOM_STRING}""${ADMIN_PASSWORD}"'),':"${RANDOM_STRING}"') WHERE username='"${ADMIN_USER}"'"; then
     echo "If the account "${ADMIN_USER}" exists it has been updated."
   else
     exit 1
   fi
 elif [[ "${ACTION}" =~ ^(create|c) ]]; then
-  if mysql -u db -h db db -e "INSERT INTO "${TABLE_PREFIX}"admin_user (firstname, lastname, email, username, password) VALUES ('"${ADMIN_FIRSTNAME}"', '"${ADMIN_LASTNAME}"', '"${ADMIN_EMAIL}"', '"${ADMIN_USER}"', CONCAT(MD5('"${RANDOM_STRING}""${ADMIN_PASSWORD}"'), ':"${RANDOM_STRING}"'))"; then
-    mysql -u db -h db db -e "INSERT INTO "${TABLE_PREFIX}"admin_role(parent_id, tree_level, sort_order, role_type, user_id, role_name)
+  if mysql -u db -pdb -h db db -e "INSERT INTO "${TABLE_PREFIX}"admin_user (firstname, lastname, email, username, password) VALUES ('"${ADMIN_FIRSTNAME}"', '"${ADMIN_LASTNAME}"', '"${ADMIN_EMAIL}"', '"${ADMIN_USER}"', CONCAT(MD5('"${RANDOM_STRING}""${ADMIN_PASSWORD}"'), ':"${RANDOM_STRING}"'))"; then
+    mysql -u db -pdb -h db db -e "INSERT INTO "${TABLE_PREFIX}"admin_role(parent_id, tree_level, sort_order, role_type, user_id, role_name)
     VALUES (1, 2, 0, 'U',(SELECT user_id FROM "${TABLE_PREFIX}"admin_user WHERE username = '"${ADMIN_USER}"'),'"${ADMIN_FIRSTNAME}"')"
     echo "The account "$ADMIN_USER" has been created."
   else

@@ -1,27 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Checkout default helper
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_GUEST_CHECKOUT = 'checkout/options/guest_checkout';
+
     public const XML_PATH_CUSTOMER_MUST_BE_LOGGED = 'checkout/options/customer_must_be_logged';
 
     protected $_moduleName = 'Mage_Checkout';
@@ -49,7 +43,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param float $price
+     * @param  float  $price
      * @return string
      */
     public function formatPrice($price)
@@ -58,8 +52,8 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param float $price
-     * @param bool $format
+     * @param  float $price
+     * @param  bool  $format
      * @return float
      */
     public function convertPrice($price, $format = true)
@@ -68,7 +62,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return array|null
+     * @return null|array
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getRequiredAgreementIds()
@@ -83,6 +77,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                     ->getAllIds();
             }
         }
+
         return $this->_agreements;
     }
 
@@ -100,14 +95,15 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      * Get sales item (quote item, order item etc) price including tax based on row total and tax amount
      * excluding weee tax
      *
-     * @param   Mage_Core_Model_Abstract $item
-     * @return  float
+     * @param  Mage_Core_Model_Abstract|Varien_Object $item
+     * @return float
      */
     public function getPriceInclTax($item)
     {
         if ($item->getPriceInclTax()) {
             return $item->getPriceInclTax();
         }
+
         $qty = ($item->getQty() ? $item->getQty() : ($item->getQtyOrdered() ? $item->getQtyOrdered() : 1));
 
         //Unit price is rowtotal/qty
@@ -117,14 +113,15 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get sales item (quote item, order item etc) row total price including tax
      *
-     * @param   Mage_Core_Model_Abstract $item
-     * @return  float
+     * @param  Mage_Core_Model_Abstract|Varien_Object $item
+     * @return float
      */
     public function getSubtotalInclTax($item)
     {
         if ($item->getRowTotalInclTax()) {
             return $item->getRowTotalInclTax();
         }
+
         //Since tax amount contains weee tax
         $tax = $item->getTaxAmount() + $item->getDiscountTaxCompensation()
             - $this->_getWeeeHelper()->getTotalRowTaxAppliedForWeeeTax($item);
@@ -145,7 +142,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get the base price of the item including tax , excluding weee
      *
-     * @param Mage_Core_Model_Abstract $item
+     * @param  Mage_Core_Model_Abstract|Varien_Object $item
      * @return float
      */
     public function getBasePriceInclTax($item)
@@ -158,7 +155,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get sales item (quote item, order item etc) row total price including tax excluding wee
      *
-     * @param Mage_Core_Model_Abstract $item
+     * @param  Mage_Core_Model_Abstract|Varien_Object $item
      * @return float
      */
     public function getBaseSubtotalInclTax($item)
@@ -171,9 +168,9 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Send email id payment was failed
      *
-     * @param Mage_Sales_Model_Quote $checkout
-     * @param string $message
-     * @param string $checkoutType
+     * @param  Mage_Sales_Model_Quote $checkout
+     * @param  string                 $message
+     * @param  string                 $checkoutType
      * @return $this
      */
     public function sendPaymentFailedEmail($checkout, $message, $checkoutType = 'onepage')
@@ -197,18 +194,19 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $sendTo = [
             [
                 'email' => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/email', $checkout->getStoreId()),
-                'name'  => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/name', $checkout->getStoreId())
-            ]
+                'name'  => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/name', $checkout->getStoreId()),
+            ],
         ];
 
         if ($copyTo && $copyMethod == 'copy') {
             foreach ($copyTo as $email) {
                 $sendTo[] = [
                     'email' => $email,
-                    'name'  => null
+                    'name'  => null,
                 ];
             }
         }
+
         $shippingMethod = '';
         if ($shippingInfo = $checkout->getShippingAddress()->getShippingMethod()) {
             $data = explode('_', $shippingInfo);
@@ -221,12 +219,13 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $items = '';
-        foreach ($checkout->getAllVisibleItems() as $_item) {
-            /** @var Mage_Sales_Model_Quote_Item $_item */
-            $items .= $_item->getProduct()->getName() . '  x ' . $_item->getQty() . '  '
+        foreach ($checkout->getAllVisibleItems() as $item) {
+            /** @var Mage_Sales_Model_Quote_Item $item */
+            $items .= $item->getProduct()->getName() . '  x ' . $item->getQty() . '  '
                 . $checkout->getStoreCurrencyCode() . ' '
-                . $_item->getProduct()->getFinalPrice($_item->getQty()) . "\n";
+                . $item->getProduct()->getFinalPrice($item->getQty()) . "\n";
         }
+
         $total = $checkout->getStoreCurrencyCode() . ' ' . $checkout->getGrandTotal();
 
         foreach ($sendTo as $recipient) {
@@ -248,7 +247,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                         'paymentMethod'   => Mage::getStoreConfig('payment/' . $paymentMethod . '/title'),
                         'items'           => nl2br($items),
                         'total'           => $total,
-                    ]
+                    ],
                 );
         }
 
@@ -258,8 +257,8 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $configPath
-     * @param int $storeId
+     * @param  string      $configPath
+     * @param  int         $storeId
      * @return array|false
      */
     protected function _getEmails($configPath, $storeId)
@@ -268,6 +267,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if (!empty($data)) {
             return explode(',', $data);
         }
+
         return false;
     }
 
@@ -284,6 +284,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ((!$quote) || !$quote->hasItems()) {
             return $isMultiShipping;
         }
+
         $maximumQty = Mage::getStoreConfigAsInt('shipping/option/checkout_multiple_maximum_qty');
         return $isMultiShipping
             && !$quote->hasItemsWithDecimalQty()
@@ -298,8 +299,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      * Check is allowed Guest Checkout
      * Use config settings and observer
      *
-     * @param Mage_Sales_Model_Quote $quote
-     * @param int|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store $store
      * @return bool
      */
     public function isAllowedGuestCheckout(Mage_Sales_Model_Quote $quote, $store = null)
@@ -307,6 +307,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ($store === null) {
             $store = $quote->getStoreId();
         }
+
         $guestCheckout = Mage::getStoreConfigFlag(self::XML_PATH_GUEST_CHECKOUT, $store);
 
         if ($guestCheckout == true) {
@@ -315,7 +316,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::dispatchEvent('checkout_allow_guest', [
                 'quote'  => $quote,
                 'store'  => $store,
-                'result' => $result
+                'result' => $result,
             ]);
 
             $guestCheckout = $result->getIsAllowed();

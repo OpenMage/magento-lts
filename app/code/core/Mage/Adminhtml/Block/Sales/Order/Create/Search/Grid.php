@@ -1,30 +1,26 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales order create search products block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
+ * @method bool                                           getIsCollapsed()
+ * @method $this                                          setIsCollapsed(bool $value)
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_create_search_grid';
+
     /**
-     * Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid constructor.
      * @throws Exception
      */
     public function __construct()
@@ -60,10 +56,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
@@ -72,6 +69,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             if (empty($productIds)) {
                 $productIds = 0;
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
             } elseif ($productIds) {
@@ -80,14 +78,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
     /**
-     * Prepare collection to be displayed in the grid
-     *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $attributes = Mage::getSingleton('catalog/config')->getProductAttributes();
@@ -100,10 +98,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             ->addAttributeToSelect('gift_message_available')
             ->addStoreFilter()
             ->addAttributeToFilter('type_id', array_keys(
-                Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()
+                Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray(),
             ))
             ->addAttributeToFilter('status', [
-                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
             ]);
 
         $this->setCollection($collection);
@@ -112,33 +110,32 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
 
     /**
      * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('sales')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60',
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
         $this->addColumn('name', [
             'header'    => Mage::helper('sales')->__('Product Name'),
             'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_product',
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
         $this->addColumn('sku', [
             'header'    => Mage::helper('sales')->__('SKU'),
             'width'     => '80',
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
         $this->addColumn('price', [
-            'header'    => Mage::helper('sales')->__('Price'),
             'column_css_class' => 'price',
             'align'     => 'center',
             'type'      => 'currency',
             'currency_code' => $this->getStore()->getCurrentCurrencyCode(),
             'rate'      => $this->getStore()->getBaseCurrency()->getRate($this->getStore()->getCurrentCurrencyCode()),
-            'index'     => 'price',
             'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_price',
         ]);
 
@@ -173,6 +170,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     /**
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/loadBlock', ['block' => 'search_grid', '_current' => true, 'collapse' => null]);
@@ -190,8 +188,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     /**
      * Retrieve gift message save model
      *
-     * @deprecated after 1.4.2.0
      * @return Mage_Adminhtml_Model_Giftmessage_Save
+     * @deprecated after 1.4.2.0
      */
     protected function _getGiftmessageSaveModel()
     {
@@ -202,7 +200,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
      * Add custom options to product collection
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _afterLoadCollection()
     {
         $this->getCollection()->addOptionsToResult();

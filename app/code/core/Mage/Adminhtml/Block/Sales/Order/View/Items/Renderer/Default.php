@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales order item renderer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_Adminhtml_Block_Sales_Items_Abstract
@@ -29,7 +22,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve real html id for field
      *
-     * @param string $id
+     * @param  string $id
      * @return string
      */
     public function getFieldId($id)
@@ -62,15 +55,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Giftmessage object
      *
      * @deprecated after 1.4.2.0
-     * @var Mage_GiftMessage_Model_Message
+     * @var array|Mage_GiftMessage_Model_Message
      */
     protected $_giftMessage = [];
 
     /**
      * Retrieve default value for giftmessage sender
      *
-     * @deprecated after 1.4.2.0
      * @return string
+     * @deprecated after 1.4.2.0
      */
     public function getDefaultSender()
     {
@@ -88,8 +81,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve default value for giftmessage recipient
      *
-     * @deprecated after 1.4.2.0
      * @return string
+     * @deprecated after 1.4.2.0
      */
     public function getDefaultRecipient()
     {
@@ -121,9 +114,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve real name for field
      *
-     * @deprecated after 1.4.2.0
-     * @param string $name
+     * @param  string $name
      * @return string
+     * @deprecated after 1.4.2.0
      */
     public function getFieldName($name)
     {
@@ -133,21 +126,22 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Initialize gift message for entity
      *
-     * @deprecated after 1.4.2.0
      * @return $this
+     * @deprecated after 1.4.2.0
      */
     protected function _initMessage()
     {
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
 
-        $this->_giftMessage[$this->getItem()->getGiftMessageId()] =
-            $helper->getGiftMessage($this->getItem()->getGiftMessageId());
+        $this->_giftMessage[$this->getItem()->getGiftMessageId()]
+            = $helper->getGiftMessage($this->getItem()->getGiftMessageId());
 
         // init default values for giftmessage form
         if (!$this->getMessage()->getSender()) {
             $this->getMessage()->setSender($this->getDefaultSender());
         }
+
         if (!$this->getMessage()->getRecipient()) {
             $this->getMessage()->setRecipient($this->getDefaultRecipient());
         }
@@ -158,8 +152,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve gift message for entity
      *
-     * @deprecated after 1.4.2.0
      * @return Mage_GiftMessage_Model_Message
+     * @deprecated after 1.4.2.0
      */
     public function getMessage()
     {
@@ -181,15 +175,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
         return $this->getUrl('*/sales_order_view_giftmessage/save', [
             'entity'    => $this->getItem()->getId(),
             'type'      => 'order_item',
-            'reload'    => true
+            'reload'    => true,
         ]);
     }
 
     /**
      * Retrieve block html id
      *
-     * @deprecated after 1.4.2.0
      * @return string
+     * @deprecated after 1.4.2.0
      */
     public function getHtmlId()
     {
@@ -199,49 +193,54 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Indicates that block can display giftmessages form
      *
-     * @deprecated after 1.4.2.0
+     * TODO set return type
      * @return bool
      */
     public function canDisplayGiftmessage()
     {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable(
-            'order_item',
+            $helper::TYPE_ORDER_ITEM,
             $this->getItem(),
-            $this->getItem()->getOrder()->getStoreId()
+            $this->getItem()->getOrder()->getStoreId(),
         );
     }
 
     /**
      * Display susbtotal price including tax
      *
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return string
      */
+    #[Override]
     public function displaySubtotalInclTax($item)
     {
         /** @var Mage_Checkout_Helper_Data $helper */
         $helper = $this->helper('checkout');
         return $this->displayPrices(
             $helper->getBaseSubtotalInclTax($item),
-            $helper->getSubtotalInclTax($item)
+            $helper->getSubtotalInclTax($item),
         );
     }
 
     /**
      * Display item price including tax
      *
-     * @param Mage_Sales_Model_Order_Item|Varien_Object $item
      * @return string
      */
+    #[Override]
     public function displayPriceInclTax(Varien_Object $item)
     {
         /** @var Mage_Checkout_Helper_Data $helper */
         $helper = $this->helper('checkout');
         return $this->displayPrices(
             $helper->getBasePriceInclTax($item),
-            $helper->getPriceInclTax($item)
+            $helper->getPriceInclTax($item),
         );
     }
 }

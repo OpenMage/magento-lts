@@ -1,29 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CatalogSearch Fulltext Index Engine resource model
  *
- * @category   Mage
  * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Init resource model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -33,10 +25,10 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     /**
      * Add entity data to fulltext search table
      *
-     * @param int $entityId
-     * @param int $storeId
-     * @param array $index
-     * @param string $entity 'product'|'cms'
+     * @param  int    $entityId
+     * @param  int    $storeId
+     * @param  array  $index
+     * @param  string $entity   'product'|'cms'
      * @return $this
      */
     public function saveEntityIndex($entityId, $storeId, $index, $entity = 'product')
@@ -44,7 +36,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
         $this->_getWriteAdapter()->insert($this->getMainTable(), [
             'product_id'    => $entityId,
             'store_id'      => $storeId,
-            'data_index'    => $index
+            'data_index'    => $index,
         ]);
         return $this;
     }
@@ -52,20 +44,20 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     /**
      * Multi add entities data to fulltext search table
      *
-     * @param int $storeId
-     * @param array $entityIndexes
-     * @param string $entity 'product'|'cms'
+     * @param  int    $storeId
+     * @param  array  $entityIndexes
+     * @param  string $entity        'product'|'cms'
      * @return $this
      */
     public function saveEntityIndexes($storeId, $entityIndexes, $entity = 'product')
     {
         $data    = [];
-        $storeId = (int)$storeId;
+        $storeId = (int) $storeId;
         foreach ($entityIndexes as $entityId => $index) {
             $data[] = [
-                'product_id'    => (int)$entityId,
+                'product_id'    => (int) $entityId,
                 'store_id'      => $storeId,
-                'data_index'    => $index
+                'data_index'    => $index,
             ];
         }
 
@@ -85,7 +77,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
      */
     public function getAllowedVisibility()
     {
-        return Mage::getSingleton('catalog/product_visibility')->getVisibleInSearchIds();
+        return Mage::getSingleton('catalog/product_visibility')::getVisibleInSearchIds();
     }
 
     /**
@@ -101,9 +93,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     /**
      * Remove entity data from fulltext search table
      *
-     * @param int $storeId
-     * @param int $entityId
-     * @param string $entity 'product'|'cms'
+     * @param  int    $storeId
+     * @param  int    $entityId
+     * @param  string $entity   'product'|'cms'
      * @return $this
      */
     public function cleanIndex($storeId = null, $entityId = null, $entity = 'product')
@@ -113,6 +105,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
         if (!is_null($storeId)) {
             $where[] = $this->_getWriteAdapter()->quoteInto('store_id=?', $storeId);
         }
+
         if (!is_null($entityId)) {
             $where[] = $this->_getWriteAdapter()->quoteInto('product_id IN (?)', $entityId);
         }
@@ -125,8 +118,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     /**
      * Prepare index array as a string glued by separator
      *
-     * @param array $index
-     * @param string $separator
+     * @param  array  $index
+     * @param  string $separator
      * @return string
      */
     public function prepareEntityIndex($index, $separator = ' ')
@@ -136,8 +129,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
 
     /**
      * Stub method for compatibility with other search engines
-     *
-     * @return null
      */
     public function getResourceName()
     {
@@ -175,7 +166,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     }
 
     /**
-     * Define if engine is avaliable
+     * Define if engine is available
      *
      * @return bool
      */

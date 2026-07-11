@@ -1,26 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widget Instance edit container
  *
- * @category   Mage
  * @package    Mage_Widget
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -45,21 +42,23 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      *
      * @inheritDoc
      */
-    protected function _preparelayout()
+    #[Override]
+    protected function _prepareLayout()
     {
         if ($this->getWidgetInstance()->isCompleteToCreate()) {
             $this->_addButton(
                 'save_and_edit_button',
                 [
                     'label'     => Mage::helper('widget')->__('Save and Continue Edit'),
-                    'class'     => 'save',
-                    'onclick'   => 'saveAndContinueEdit()'
+                    'class'     => 'save continue',
+                    'onclick'   => 'saveAndContinueEdit()',
                 ],
-                100
+                100,
             );
         } else {
             $this->removeButton('save');
         }
+
         return parent::_prepareLayout();
     }
 
@@ -68,11 +67,13 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if ($this->getWidgetInstance()->getId()) {
             return Mage::helper('widget')->__('Widget "%s"', $this->escapeHtml($this->getWidgetInstance()->getTitle()));
         }
+
         return Mage::helper('widget')->__('New Widget Instance');
     }
 
@@ -91,6 +92,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      *
      * @return string
      */
+    #[Override]
     public function getSaveUrl()
     {
         return $this->getUrl('*/*/save', ['_current' => true, 'back' => null]);

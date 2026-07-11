@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservice API2 renderer of XML type model
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
@@ -37,11 +30,11 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
      * @var array
      */
     protected $_replacementInTagName = [
-        '!' => '', '"' => '', '#' => '', '$' => '', '%' => '', '&' => '', '\'' => '',
+        '!' => '', '"' => '', '#' => '', '$' => '', '%' => '', '&' => '', "'" => '',
         '(' => '', ')' => '', '*' => '', '+' => '', ',' => '', '/' => '', ';' => '',
         '<' => '', '=' => '', '>' => '', '?' => '', '@' => '', '[' => '', '\\' => '',
         ']' => '', '^' => '', '`' => '', '{' => '', '|' => '', '}' => '', '~' => '',
-        ' ' => '_', ':' => '_'
+        ' ' => '_', ':' => '_',
     ];
 
     /**
@@ -50,7 +43,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
      * @var array
      */
     protected $_replacementInTagValue = [
-        '&' => '&amp;' // replace "&" with HTML entity, because by default not replaced
+        '&' => '&amp;', // replace "&" with HTML entity, because by default not replaced
     ];
 
     /**
@@ -63,14 +56,14 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     /**
      * Convert Array to XML
      *
-     * @param mixed $data
+     * @param  mixed  $data
      * @return string
      */
     public function render($data)
     {
         /** @var Mage_Api2_Model_Renderer_Xml_Writer $writer */
         $writer = Mage::getModel('api2/renderer_xml_writer', [
-            'config' => new Zend_Config($this->_prepareData($data, true))
+            'config' => new Zend_Config($this->_prepareData($data, true)),
         ]);
         return $writer->render();
     }
@@ -78,8 +71,8 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     /**
      * Prepare convert data
      *
-     * @param array|Varien_Object $data
-     * @param bool $root
+     * @param  array|Varien_Object $data
+     * @param  bool                $root
      * @return array
      * @throws Exception
      */
@@ -92,7 +85,8 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
                 throw new Exception('Prepare data must be an object or an array.');
             }
         }
-        $data = $data instanceof Varien_Object ? $data->toArray() : (array)$data;
+
+        $data = $data instanceof Varien_Object ? $data->toArray() : (array) $data;
         $isAssoc = !preg_match('/^\d+$/', implode('', array_keys($data)));
 
         $preparedData = [];
@@ -104,28 +98,33 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
                 $preparedData[self::ARRAY_NON_ASSOC_ITEM_NAME][] = $value;
             }
         }
+
         return $preparedData;
     }
 
     /**
      * Prepare value
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     protected function _prepareValue($value)
     {
+        if ($value === null) {
+            return '';
+        }
+
         return str_replace(
             array_keys($this->_replacementInTagValue),
             array_values($this->_replacementInTagValue),
-            $value
+            $value,
         );
     }
 
     /**
      * Prepare key and replace unavailable chars
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     protected function _prepareKey($key)
@@ -133,8 +132,9 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
         $key = str_replace(array_keys($this->_replacementInTagName), array_values($this->_replacementInTagName), $key);
         $key = trim($key, '_');
         if (preg_match($this->_protectedTagNamePattern, $key)) {
-            $key = self::ARRAY_NON_ASSOC_ITEM_NAME . '_' . $key;
+            return self::ARRAY_NON_ASSOC_ITEM_NAME . '_' . $key;
         }
+
         return $key;
     }
 

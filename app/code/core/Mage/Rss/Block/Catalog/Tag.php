@@ -1,26 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Review form block
  *
- * @category   Mage
  * @package    Mage_Rss
  */
 class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         /*
@@ -30,6 +27,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         if ($tagModel) {
             $this->setCacheKey('rss_catalog_tag_' . $this->getStoreId() . '_' . $tagModel->getName());
         }
+
         $this->setCacheLifetime(600);
     }
 
@@ -37,6 +35,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         //store id is store view id
@@ -51,25 +50,25 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
             'description' => $title,
             'link'        => $newurl,
             'charset'     => 'UTF-8',
-            'language'    => $lang
+            'language'    => $lang,
         ];
         $rssObj->_addHeader($data);
 
-        $_collection = $tagModel->getEntityCollection()
+        $collection = $tagModel->getEntityCollection()
             ->addTagFilter($tagModel->getId())
             ->addStoreFilter($storeId);
 
-        $_collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
+        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds());
 
         $product = Mage::getModel('catalog/product');
 
         /** @var Mage_Core_Model_Resource_Helper_Mysql4 $resourceHelper */
         $resourceHelper = Mage::getResourceHelper('core');
         Mage::getSingleton('core/resource_iterator')->walk(
-            $resourceHelper->getQueryUsingAnalyticFunction($_collection->getSelect()),
-            [[$this, 'addTaggedItemXml']],
+            $resourceHelper->getQueryUsingAnalyticFunction($collection->getSelect()),
+            [$this->addTaggedItemXml(...)],
             ['rssObj' => $rssObj, 'product' => $product],
-            $_collection->getSelect()->getAdapter()
+            $collection->getSelect()->getAdapter(),
         );
 
         return $rssObj->createRssXml();

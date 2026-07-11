@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml entity sets controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Controller_Action
@@ -27,6 +20,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
      */
     public const ADMIN_RESOURCE = 'catalog/attributes/sets';
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('Catalog'))
@@ -41,7 +37,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(
             Mage::helper('catalog')->__('Manage Attribute Sets'),
-            Mage::helper('catalog')->__('Manage Attribute Sets')
+            Mage::helper('catalog')->__('Manage Attribute Sets'),
         );
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_toolbar_main'));
@@ -50,6 +46,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_title($this->__('Catalog'))
@@ -76,7 +75,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(
             Mage::helper('catalog')->__('Manage Product Sets'),
-            Mage::helper('catalog')->__('Manage Product Sets')
+            Mage::helper('catalog')->__('Manage Product Sets'),
         );
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main'));
@@ -84,13 +83,16 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function setGridAction()
     {
         $this->_setTypeId();
         $this->getResponse()->setBody(
             $this->getLayout()
                 ->createBlock('adminhtml/catalog_product_attribute_set_grid')
-            ->toHtml()
+            ->toHtml(),
         );
     }
 
@@ -99,7 +101,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
      *
      * [POST] Create attribute set from another set and redirect to edit page
      * [AJAX] Save attribute set data
-     *
+     * @return void
      */
     public function saveAction()
     {
@@ -124,9 +126,11 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                 if ($attributeSetId) {
                     $model->load($attributeSetId);
                 }
+
                 if (!$model->getId()) {
                     Mage::throwException(Mage::helper('catalog')->__('This attribute set no longer exists.'));
                 }
+
                 $data = Mage::helper('core')->jsonDecode($this->getRequest()->getPost('data'));
 
                 //filter html tags
@@ -140,15 +144,16 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                 $model->save();
                 $model->initFromSkeleton($this->getRequest()->getParam('skeleton_set'));
             }
+
             $model->save();
             $this->_getSession()->addSuccess(Mage::helper('catalog')->__('The attribute set has been saved.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
             $hasError = true;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getSession()->addException(
-                $e,
-                Mage::helper('catalog')->__('An error occurred while saving the attribute set.')
+                $exception,
+                Mage::helper('catalog')->__('An error occurred while saving the attribute set.'),
             );
             $hasError = true;
         }
@@ -169,10 +174,14 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                 $response['error']   = 0;
                 $response['url']     = $this->getUrl('*/*/');
             }
+
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
         }
     }
 
+    /**
+     * @return void
+     */
     public function addAction()
     {
         $this->_title($this->__('Catalog'))
@@ -190,6 +199,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         $setId = $this->getRequest()->getParam('id');
@@ -200,7 +212,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
             $this->_getSession()->addSuccess($this->__('The attribute set has been removed.'));
             $this->getResponse()->setRedirect($this->getUrl('*/*/'));
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_getSession()->addError($this->__('An error occurred while deleting this set.'));
             $this->_redirectReferer();
         }
@@ -211,6 +223,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
@@ -219,13 +232,12 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
     /**
      * Define in register catalog_product entity type code as entityType
-     *
      */
     protected function _setTypeId()
     {
         Mage::register(
             'entityType',
-            Mage::getModel('catalog/product')->getResource()->getTypeId()
+            Mage::getModel('catalog/product')->getResource()->getTypeId(),
         );
     }
 
@@ -239,6 +251,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         if (is_null(Mage::registry('entityType'))) {
             $this->_setTypeId();
         }
+
         return Mage::registry('entityType');
     }
 }

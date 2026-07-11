@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales order create billing address block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
@@ -46,6 +39,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address extends Mage_Admin
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $this->setJsVariablePrefix('billingAddress');
@@ -59,20 +53,18 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address extends Mage_Admin
     }
 
     /**
-     * Return Form Elements values
-     *
-     * @return array
+     * @inheritDoc
      */
+    #[Override]
     public function getFormValues()
     {
         return $this->getCreateOrderModel()->getBillingAddress()->getData();
     }
 
     /**
-     * Return customer address id
-     *
-     * @return int|bool
+     * @inheritDoc
      */
+    #[Override]
     public function getAddressId()
     {
         return $this->getCreateOrderModel()->getBillingAddress()->getCustomerAddressId();
@@ -81,7 +73,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address extends Mage_Admin
     /**
      * Return billing address object
      *
-     * @return Mage_Customer_Model_Address
+     * @return Mage_Sales_Model_Quote_Address
      */
     public function getAddress()
     {

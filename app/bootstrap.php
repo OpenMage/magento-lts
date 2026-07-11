@@ -1,17 +1,24 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+/**
+ * Disable the phar stream wrapper to prevent phar deserialization attacks.
+ * Functions like file_exists(), getimagesize(), etc. can trigger deserialization
+ * when processing phar:// paths, potentially leading to remote code execution.
+ *
+ * @link https://blog.ripstech.com/2018/new-php-exploitation-technique/
+ */
+if (in_array('phar', stream_get_wrappers(), true)) {
+    stream_wrapper_unregister('phar');
+}
 
 /**
  * Apply workaround for the libxml PHP bugs:

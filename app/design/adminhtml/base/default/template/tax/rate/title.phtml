@@ -1,0 +1,30 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Tax_Rate_Title $this */
+?>
+<?php /* <table class="dynamic-grid" cellspacing="0" id="tax-rate-titles-table"> */ ?>
+    <tr class="dynamic-grid">
+    <?php foreach ($this->getStores() as $_store): ?>
+        <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
+    <?php endforeach ?>
+    </tr>
+    <tr class="dynamic-grid">
+        <?php $_labels = $this->getTitles() ?>
+        <?php foreach ($this->getStores() as $_store): ?>
+        <td>
+            <input class="input-text<?php if($_store->getId()==0): ?> required-entry<?php endif ?>" type="text" name="title[<?php echo $_store->getId() ?>]" value="<?php echo $_labels[$_store->getId()] ?>" />
+        </td>
+        <?php endforeach ?>
+    </tr>
+    <tr class="dynamic-grid">
+        <td colspan="<?php echo count($this->getStores()); ?>" class="tax-rate-titles-note-td">
+            <p><strong><?php echo $this->__('Note:'); ?></strong> <?php echo $this->__('Leave empty to use tax identifier'); ?></p>
+        </td>
+    </tr>
+<?php /* </table> */ ?>

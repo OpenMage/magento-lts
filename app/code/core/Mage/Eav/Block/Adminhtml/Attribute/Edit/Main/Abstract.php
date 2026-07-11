@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product attribute add/edit form main tab
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mage_Adminhtml_Block_Widget_Form
@@ -24,7 +17,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     protected $_attribute = null;
 
     /**
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return $this
      */
     public function setAttributeObject($attribute)
@@ -45,20 +38,24 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      * Preparing default form elements for editing attribute
      *
      * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Locale_Exception
      */
+    #[Override]
     protected function _prepareForm()
     {
         $attributeObject = $this->getAttributeObject();
 
         $form = new Varien_Data_Form([
             'id' => 'edit_form',
-            'action' => $this->getData('action'),
-            'method' => 'post'
+            'action' => $this->getDataByKey('action'),
+            'method' => 'post',
         ]);
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend' => Mage::helper('eav')->__('Attribute Properties')]
+            ['legend' => Mage::helper('eav')->__('Attribute Properties')],
         );
         if ($attributeObject->getAttributeId()) {
             $fieldset->addField('attribute_id', 'hidden', [
@@ -72,7 +69,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $validateClass = sprintf(
             'validate-code validate-length maximum-length-%d',
-            Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH
+            Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH,
         );
         $fieldset->addField('attribute_code', 'text', [
             'name'  => 'attribute_code',
@@ -90,7 +87,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'label' => Mage::helper('eav')->__('Catalog Input Type for Store Owner'),
             'title' => Mage::helper('eav')->__('Catalog Input Type for Store Owner'),
             'value' => 'text',
-            'values' => $inputTypes
+            'values' => $inputTypes,
         ]);
 
         $fieldset->addField('default_value_text', 'text', [
@@ -115,7 +112,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'title'  => Mage::helper('eav')->__('Default Value'),
             'image'  => $this->getSkinUrl('images/grid-cal.gif'),
             'value'  => $attributeObject->getDefaultValue(),
-            'format'       => $dateFormatIso
+            'format'       => $dateFormatIso,
         ]);
 
         $fieldset->addField('default_value_textarea', 'textarea', [
@@ -144,7 +141,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'name'  => 'frontend_class',
             'label' => Mage::helper('eav')->__('Input Validation for Store Owner'),
             'title' => Mage::helper('eav')->__('Input Validation for Store Owner'),
-            'values' => Mage::helper('eav')->getFrontendClasses($attributeObject->getEntityType()->getEntityTypeCode())
+            'values' => Mage::helper('eav')->getFrontendClasses($attributeObject->getEntityType()->getEntityTypeCode()),
         ]);
 
         if ($attributeObject->getId()) {
@@ -161,10 +158,11 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     }
 
     /**
-     * Initialize form fileds values
+     * Initialize form fields values
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _initFormValues()
     {
         Mage::dispatchEvent('adminhtml_block_eav_attribute_edit_form_init', ['form' => $this->getForm()]);
@@ -176,8 +174,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     /**
      * This method is called before rendering HTML
      *
-     * @return Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+     * @return $this
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         parent::_beforeToHtml();
@@ -189,12 +189,13 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             if (isset($disableAttributeFields[$attributeObject->getAttributeCode()])) {
                 foreach ($disableAttributeFields[$attributeObject->getAttributeCode()] as $field) {
                     if ($elm = $form->getElement($field)) {
-                        $elm->setDisabled(1);
-                        $elm->setReadonly(1);
+                        $elm->setDisabled(true);
+                        $elm->setReadonly(true);
                     }
                 }
             }
         }
+
         return $this;
     }
 
@@ -202,9 +203,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
      * Processing block html after rendering
      * Adding js block to the end of this block
      *
-     * @param   string $html
-     * @return  string
+     * @param  string $html
+     * @return string
      */
+    #[Override]
     protected function _afterToHtml($html)
     {
         $jsScripts = $this->getLayout()

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_HTTP
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class to work with HTTP protocol using sockets
  *
- * @category   Mage
  * @package    Mage_HTTP
  */
 class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
@@ -44,12 +37,6 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * @var array
      */
     private $_headers = [];
-
-    /**
-     * Fields for POST method - hash
-     * @var array
-     */
-    private $_postFields = [];
 
     /**
      * Request cookies
@@ -82,12 +69,6 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     private $_timeout = 300;
 
     /**
-     * TODO
-     * @var int
-     */
-    private $_redirectCount = 0;
-
-    /**
      * Set request timeout, msec
      *
      * @param int $value
@@ -100,7 +81,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Constructor
      * @param string $host
-     * @param int $port
+     * @param int    $port
      */
     public function __construct($host = null, $port = 80)
     {
@@ -113,7 +94,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * Set connection params
      *
      * @param string $host
-     * @param int $port
+     * @param int    $port
      */
     public function connect($host, $port = 80)
     {
@@ -124,7 +105,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Disconnect
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function disconnect()
     {
@@ -144,8 +125,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Add header
      *
-     * @param $name name, ex. "Location"
-     * @param $value value ex. "http://google.com"
+     * @param string $name  name, ex. "Location"
+     * @param string $value value ex. "http://google.com"
      */
     public function addHeader($name, $value)
     {
@@ -167,12 +148,12 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * Login credentials support
      *
      * @param string $login username
-     * @param string $pass password
+     * @param string $pass  password
      */
     public function setCredentials($login, $pass)
     {
-        $val = base64_encode("$login:$pass");
-        $this->addHeader("Authorization", "Basic $val");
+        $val = base64_encode("{$login}:{$pass}");
+        $this->addHeader('Authorization', "Basic {$val}");
     }
 
     /**
@@ -221,14 +202,14 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      */
     public function get($uri)
     {
-        $this->makeRequest("GET", $this->parseUrl($uri));
+        $this->makeRequest('GET', $this->parseUrl($uri));
     }
 
     /**
      * Set host, port from full url
      * and return relative url
      *
-     * @param string $uri ex. http://google.com/index.php?a=b
+     * @param  string $uri ex. http://google.com/index.php?a=b
      * @return string ex. /index.php?a=b
      */
     protected function parseUrl($uri)
@@ -237,8 +218,9 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         if (!empty($parts['user']) && !empty($parts['pass'])) {
             $this->setCredentials($parts['user'], $parts['pass']);
         }
+
         if (!empty($parts['port'])) {
-            $this->_port = (int) $parts['port'];
+            $this->_port = $parts['port'];
         }
 
         if (!empty($parts['host'])) {
@@ -252,9 +234,11 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         } else {
             throw new InvalidArgumentException("Uri doesn't contain path part");
         }
+
         if (!empty($parts['query'])) {
-            $requestUri .= "?" . $parts['query'];
+            $requestUri .= '?' . $parts['query'];
         }
+
         return $requestUri;
     }
 
@@ -263,7 +247,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      */
     public function post($uri, $params)
     {
-        $this->makeRequest("POST", $this->parseUrl($uri), $params);
+        $this->makeRequest('POST', $this->parseUrl($uri), $params);
     }
 
     /**
@@ -296,19 +280,27 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         if (empty($this->_responseHeaders['Set-Cookie'])) {
             return [];
         }
+
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
-            $values = explode("; ", $row);
-            $c = count($values);
-            if (!$c) {
+            $values = explode('; ', $row);
+            $count = count($values);
+            if (!$count) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+
+            [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
+            if (is_null($val)) {
                 continue;
             }
+
+            if (!strlen($key)) {
+                continue;
+            }
+
             $out[$key] = $val;
         }
+
         return $out;
     }
 
@@ -322,28 +314,37 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         if (empty($this->_responseHeaders['Set-Cookie'])) {
             return [];
         }
+
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
-            $values = explode("; ", $row);
-            $c = count($values);
-            if (!$c) {
+            $values = explode('; ', $row);
+            $count = count($values);
+            if (!$count) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+
+            [$key, $val] = array_pad(array_map(trim(...), explode('=', $values[0])), 2, null);
+            if (is_null($val)) {
                 continue;
             }
+
+            if (!strlen($key)) {
+                continue;
+            }
+
             $out[$key] = ['value' => $val];
             array_shift($values);
-            $c--;
-            if (!$c) {
+            $count--;
+            if (!$count) {
                 continue;
             }
-            for ($i = 0; $i < $c; $i++) {
-                list($subkey, $val) = explode("=", $values[$i]);
+
+            for ($i = 0; $i < $count; $i++) {
+                [$subkey, $val] = explode('=', $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
         }
+
         return $out;
     }
 
@@ -359,17 +360,21 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if ($line === $crlf) {
                 return;
             }
-            $name = $value = '';
-            $out = explode(": ", trim($line), 2);
-            if (count($out) == 2) {
+
+            $name = '';
+            $value = '';
+            $out = explode(': ', trim($line), 2);
+            if (count($out) === 2) {
                 $name = $out[0];
                 $value = $out[1];
             }
+
             if (!empty($value)) {
-                if ($name == "Set-Cookie") {
+                if ($name === 'Set-Cookie') {
                     if (!isset($this->_responseHeaders[$name])) {
                         $this->_responseHeaders[$name] = [];
                     }
+
                     $this->_responseHeaders[$name][] = $value;
                 } else {
                     $this->_responseHeaders[$name] = $value;
@@ -381,7 +386,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Process response body
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function processResponseBody()
     {
@@ -397,18 +402,17 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      */
     protected function processResponse()
     {
-        $response = '';
         $responseLine = trim(fgets($this->_sock, 1024));
 
-        $line = explode(" ", $responseLine, 3);
-        if (count($line) != 3) {
-            return $this->doError("Invalid response line returned from server: " . $responseLine);
+        $line = explode(' ', $responseLine, 3);
+        if (count($line) !== 3) {
+            return $this->doError('Invalid response line returned from server: ' . $responseLine);
         }
+
         $this->_responseStatus = (int) $line[1];
+
         $this->processResponseHeaders();
-
         $this->processRedirect();
-
         $this->processResponseBody();
     }
 
@@ -422,7 +426,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Get response status code
-     * @see lib/Mage/HTTP/Mage_HTTP_Client#getStatus()
+     * @see Mage_HTTP_Client::getStatus()
      */
     public function getStatus()
     {
@@ -433,20 +437,21 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * Make request
      * @param string $method
      * @param string $uri
-     * @param array $params
+     * @param array  $params
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function makeRequest($method, $uri, $params = [])
     {
-        $errno = $errstr = '';
+        $errno = '';
+        $errstr = '';
         $this->_sock = @fsockopen($this->_host, $this->_port, $errno, $errstr, $this->_timeout);
         if (!$this->_sock) {
-            return $this->doError(sprintf("[errno: %d] %s", $errno, $errstr));
+            return $this->doError(sprintf('[errno: %d] %s', $errno, $errstr));
         }
 
         $crlf = "\r\n";
-        $isPost = $method == "POST";
+        $isPost = $method == 'POST';
 
         $appendHeaders = [];
         $paramsStr = false;
@@ -468,10 +473,10 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     }
 
     /**
-     * Throw error excpetion
-     * @param $string
-     * @throws Exception
+     * Throw error exception
+     * @param            $string
      * @return never
+     * @throws Exception
      */
     public function doError($string)
     {
@@ -480,21 +485,22 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Convert headers hash to string
-     * @param $delimiter
-     * @param $append
+     * @param         $append
+     * @param         $delimiter
      * @return string
      */
     protected function headersToString($append = [])
     {
         $headers = [];
-        $headers["Host"] = $this->_host;
-        $headers['Connection'] = "close";
+        $headers['Host'] = $this->_host;
+        $headers['Connection'] = 'close';
         $headers = array_merge($headers, $this->_headers, $append);
         $str = [];
-        foreach ($headers as $k => $v) {
-            $str [] = "$k: $v\r\n";
+        foreach ($headers as $key => $header) {
+            $str [] = "{$key}: {$header}\r\n";
         }
-        return implode($str);
+
+        return implode('', $str);
     }
 
     /**

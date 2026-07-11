@@ -1,50 +1,42 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Io
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Install and upgrade client abstract class
  *
- * @category   Varien
  * @package    Varien_Io
  */
 abstract class Varien_Io_Abstract implements Varien_Io_Interface
 {
     /**
-     * If this variable is set to true, our library will be able to automaticaly
-     * create non-existant directories
+     * If this variable is set to true, our library will be able to automatically
+     * create non-existent directories
      *
      * @var bool
      */
     protected $_allowCreateFolders = false;
 
     /**
-     * Allow automaticaly create non-existant directories
+     * Allow automatically create non-existent directories
      *
-     * @param bool $flag
-     * @return Varien_Io_Abstract
+     * @param  bool  $flag
+     * @return $this
      */
     public function setAllowCreateFolders($flag)
     {
-        $this->_allowCreateFolders = (bool)$flag;
+        $this->_allowCreateFolders = (bool) $flag;
         return $this;
     }
 
     /**
      * Open a connection
      *
-     * @param array $args
      * @return bool
      */
     public function open(array $args = [])
@@ -63,9 +55,9 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
             return './';
         }
 
-        $path = trim(preg_replace("/\\\\/", "/", (string)$path));
+        $path = trim(preg_replace('/\\\\/', '/', (string) $path));
 
-        if (!preg_match("/(\.\w{1,4})$/", $path) && !preg_match("/\?[^\\/]+$/", $path) && !preg_match("/\\/$/", $path)) {
+        if (!preg_match("/(\.\w{1,4})$/", $path) && !preg_match("/\?[^\\/]+$/", $path) && !preg_match('/\\/$/', $path)) {
             $path .= '/';
         }
 
@@ -76,19 +68,20 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
         $pathTokR = $matches[0][1];
         $pathTokP = $matches[0][2];
 
-        $pathTokP = preg_replace(["/^\\/+/", "/\\/+/"], ["", "/"], $pathTokP);
+        $pathTokP = preg_replace(['/^\\/+/', '/\\/+/'], ['', '/'], $pathTokP);
 
-        $pathParts = explode("/", $pathTokP);
+        $pathParts = explode('/', $pathTokP);
         $realPathParts = [];
+        $counter = count($pathParts);
 
-        for ($i = 0, $realPathParts = []; $i < count($pathParts); $i++) {
+        for ($i = 0, $realPathParts = []; $i < $counter; $i++) {
             if ($pathParts[$i] == '.') {
                 continue;
-            } elseif ($pathParts[$i] == '..') {
-                if ((isset($realPathParts[0])  &&  $realPathParts[0] != '..') || ($pathTokR != "")) {
-                    array_pop($realPathParts);
-                    continue;
-                }
+            }
+
+            if ($pathParts[$i] == '..' && (isset($realPathParts[0]) && $realPathParts[0] != '..' || $pathTokR !== '')) {
+                array_pop($realPathParts);
+                continue;
             }
 
             $realPathParts[] = $pathParts[$i];
@@ -99,13 +92,13 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
 
     public function allowedPath($haystackPath, $needlePath)
     {
-        return strpos($this->getCleanPath($haystackPath), $this->getCleanPath($needlePath)) === 0;
+        return str_starts_with($this->getCleanPath($haystackPath), $this->getCleanPath($needlePath));
     }
 
     /**
      * Replace full path to relative
      *
-     * @param $path
+     * @param         $path
      * @return string
      */
     public function getFilteredPath($path)
@@ -113,8 +106,9 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
         $dir = pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME);
         $position = strpos($path, $dir);
         if ($position !== false && $position < 1) {
-            $path = substr_replace($path, '.', 0, strlen($dir));
+            return substr_replace($path, '.', 0, strlen($dir));
         }
+
         return $path;
     }
 }

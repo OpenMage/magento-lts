@@ -1,0 +1,49 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Sales_Order_Shipment_Tracking_Info
+ * @var Mage_Adminhtml_Block_Sales_Order_Shipment_Tracking_Info $this
+ */
+?>
+<span class="field-row grid" id="shipment_tracking_info">
+<?php if($this->getTrackingInfo()): ?>
+    <?php if ($this->getTrackingInfo()->getErrorMessage()): ?>
+        <?php echo $this->getTrackingInfo()->getErrorMessage() ?>
+    <?php else: ?>
+        <?php if ($this->getTrackingInfo()->getUrl()): ?>
+            Please, visit for more info: <a href="<?php echo $this->getTrackingInfo()->getUrl() ?>" target="_blank"><?php echo $this->escapeHtml($this->trackingInfo->getCarrierTitle()) ?></a><br/>
+        <?php endif ?>
+
+        <?php if ($this->getTrackingInfo()->getStatus()): ?>
+            Status: <?php echo $this->getTrackingInfo()->getStatus() ?><br/>
+        <?php endif ?>
+
+        <?php if ($this->getTrackingInfo()->getDeliverydate()): ?>
+            Delivery Date: <?php echo $this->getTrackingInfo()->getDeliverydate() ?><br/>
+        <?php endif ?>
+
+        <?php if ($this->getTrackingInfo()->getDeliverytime()): ?>
+            Delivery Time: <?php echo $this->getTrackingInfo()->getDeliverytime() ?><br/>
+        <?php endif ?>
+
+        <?php if ($this->getTrackingInfo()->getDeliverylocation()): ?>
+            Delivery Location: <?php echo $this->getTrackingInfo()->getDeliverylocation() ?><br/>
+        <?php endif ?>
+
+        <?php if ($this->getTrackingInfo()->getSignedby()): ?>
+            Signed by: <?php echo $this->getTrackingInfo()->getSignedby() ?><br/>
+        <?php endif ?>
+
+        <?php if ($this->getTrackingInfo()->getTrackSummary()): ?>
+            Tracking summary: <?php echo $this->getTrackingInfo()->getTrackSummary() ?><br/>
+        <?php endif ?>
+
+    <?php endif ?>
+<?php endif ?>
+</span>

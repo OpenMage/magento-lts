@@ -1,36 +1,33 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Catalog product option date type
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
- * @method array|null getUserValue()
- * @method $this setUserValue(array|null $userValue)
+ * @method null|array getUserValue()
+ * @method $this      setUserValue(null|array $userValue)
  */
 class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Product_Option_Type_Default
 {
     /**
      * Validate user input for option
      *
+     * @param  array               $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @return $this
      * @throws Mage_Core_Exception
-     * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
-     * @return Mage_Catalog_Model_Product_Option_Type_Default
      */
+    #[Override]
     public function validateUserValue($values)
     {
         parent::validateUserValue($values);
@@ -67,7 +64,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     'minute' => isset($value['minute']) ? (int) $value['minute'] : 0,
                     'day_part' => $value['day_part'] ?? '',
                     'date_internal' => $value['date_internal'] ?? '',
-                ]
+                ],
             );
         } elseif (!$isValid && $option->getIsRequire() && !$this->getSkipCheckRequiredOption()) {
             $this->setIsValid(false);
@@ -89,13 +86,15 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Prepare option value for cart
      *
+     * @return mixed                 Prepared option value
      * @throws Mage_Core_Exception
-     * @return mixed Prepared option value
+     * @throws Zend_Date_Exception
+     * @throws Zend_Locale_Exception
      */
+    #[Override]
     public function prepareForCart()
     {
         if ($this->getIsValid() && $this->getUserValue() !== null) {
-            $option = $this->getOption();
             $value = $this->getUserValue();
 
             if (isset($value['date_internal']) && $value['date_internal'] != '') {
@@ -113,13 +112,14 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     $timestamp += mktime(0, 0, 0, $value['month'], $value['day'], $value['year']);
                 }
             } else {
-                $timestamp += mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+                $now = Mage::helper('core/clock')->now();
+                $timestamp += mktime(0, 0, 0, $now->format('m'), $now->format('d'), $now->format('Y'));
             }
 
             if ($this->_timeExists()) {
                 // 24hr hour conversion
                 if (!$this->is24hTimeFormat()) {
-                    $pmDayPart = (strtolower($value['day_part']) == 'pm');
+                    $pmDayPart = (strtolower($value['day_part']) === 'pm');
                     if ($value['hour'] == 12) {
                         $value['hour'] = $pmDayPart ? 12 : 0;
                     } elseif ($pmDayPart) {
@@ -137,21 +137,24 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             $this->_setInternalInRequest($result);
 
             return $result;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
      * Return formatted option value for quote option
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string                $optionValue Prepared for cart option value
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
+     * @throws Zend_Locale_Exception
      */
+    #[Override]
     public function getFormattedOptionValue($optionValue)
     {
         if ($this->_formattedOptionValue === null) {
-            $option = $this->getOption();
             if ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE) {
                 $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
                 $result = Mage::app()->getLocale()->date($optionValue, Zend_Date::ISO_8601, null, false)
@@ -162,21 +165,24 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     ->date($optionValue, Varien_Date::DATETIME_INTERNAL_FORMAT, null, false)->toString($format);
             } elseif ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME) {
                 $date = new Zend_Date($optionValue);
-                $result = date($this->is24hTimeFormat() ? 'H:i' : 'h:i a', $date->getTimestamp());
+                $result = Carbon::createFromTimestamp($date->getTimestamp())->format($this->is24hTimeFormat() ? 'H:i' : 'h:i a');
             } else {
                 $result = $optionValue;
             }
+
             $this->_formattedOptionValue = $result;
         }
+
         return $this->_formattedOptionValue;
     }
 
     /**
      * Return printable option value
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string $optionValue Prepared for cart option value
      * @return string
      */
+    #[Override]
     public function getPrintableOptionValue($optionValue)
     {
         return $this->getFormattedOptionValue($optionValue);
@@ -185,9 +191,10 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Return formatted option value ready to edit, ready to parse
      *
-     * @param string $optionValue Prepared for cart option value
+     * @param  string $optionValue Prepared for cart option value
      * @return string
      */
+    #[Override]
     public function getEditableOptionValue($optionValue)
     {
         return $this->getFormattedOptionValue($optionValue);
@@ -196,13 +203,20 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Parse user input value and return cart prepared value
      *
-     * @param string $optionValue
-     * @param array $productOptionValues Values for product option
-     * @return string|null
+     * @param  string              $optionValue
+     * @param  array               $productOptionValues Values for product option
+     * @return null|string
+     * @throws Zend_Date_Exception
      */
+    #[Override]
     public function parseOptionValue($optionValue, $productOptionValues)
     {
-        $timestamp = strtotime($optionValue);
+        try {
+            $timestamp = Carbon::parse($optionValue)->getTimestamp();
+        } catch (InvalidFormatException) {
+            $timestamp = false;
+        }
+
         if ($timestamp === false || $timestamp == -1) {
             return null;
         }
@@ -214,9 +228,10 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Prepare option value for info buy request
      *
-     * @param string $optionValue
+     * @param  string $optionValue
      * @return mixed
      */
+    #[Override]
     public function prepareOptionValueForRequest($optionValue)
     {
         $confItem = $this->getConfigurationItem();
@@ -225,10 +240,10 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             $value = unserialize($infoBuyRequest->getValue());
             if (is_array($value) && isset($value['options']) && isset($value['options'][$this->getOption()->getId()])) {
                 return $value['options'][$this->getOption()->getId()];
-            } else {
-                return ['date_internal' => $optionValue];
             }
-        } catch (Exception $e) {
+
+            return ['date_internal' => $optionValue];
+        } catch (Exception) {
             return ['date_internal' => $optionValue];
         }
     }
@@ -240,7 +255,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     public function useCalendar()
     {
-        return (bool)$this->getConfigData('use_calendar');
+        return (bool) $this->getConfigData('use_calendar');
     }
 
     /**
@@ -250,43 +265,43 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     public function is24hTimeFormat()
     {
-        return (bool)($this->getConfigData('time_format') == '24h');
+        return $this->getConfigData('time_format') === '24h';
     }
 
     /**
      * Year range start
      *
-     * @return mixed
+     * @return string
      */
     public function getYearStart()
     {
         $_range = explode(',', $this->getConfigData('year_range'));
         if (isset($_range[0]) && !empty($_range[0])) {
             return $_range[0];
-        } else {
-            return date('Y');
         }
+
+        return Mage::helper('core/clock')->format('Y');
     }
 
     /**
      * Year range end
      *
-     * @return mixed
+     * @return string
      */
     public function getYearEnd()
     {
         $_range = explode(',', $this->getConfigData('year_range'));
         if (isset($_range[1]) && !empty($_range[1])) {
             return $_range[1];
-        } else {
-            return date('Y');
         }
+
+        return Mage::helper('core/clock')->format('Y');
     }
 
     /**
      * Save internal value of option in infoBuy_request
      *
-     * @param string $internalValue Datetime value in internal format
+     * @param  string              $internalValue Datetime value in internal format
      * @throws Mage_Core_Exception
      */
     protected function _setInternalInRequest($internalValue)
@@ -295,6 +310,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
         if (!isset($requestOptions[$this->getOption()->getId()])) {
             $requestOptions[$this->getOption()->getId()] = [];
         }
+
         $requestOptions[$this->getOption()->getId()]['date_internal'] = $internalValue;
         $this->getRequest()->setOptions($requestOptions);
     }
@@ -303,12 +319,13 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * Does option have date?
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _dateExists()
     {
         return in_array($this->getOption()->getType(), [
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE,
-            Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME
+            Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME,
         ]);
     }
 
@@ -316,12 +333,13 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * Does option have time?
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _timeExists()
     {
         return in_array($this->getOption()->getType(), [
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME,
-            Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME
+            Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME,
         ]);
     }
 }

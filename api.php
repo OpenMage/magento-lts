@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $magentoRootDir = getcwd();
@@ -21,10 +15,12 @@ if (!file_exists($bootstrapFilename)) {
     echo 'Bootstrap file not found';
     exit;
 }
+
 if (!file_exists($mageFilename)) {
     echo 'Mage file not found';
     exit;
 }
+
 require $bootstrapFilename;
 require $mageFilename;
 
@@ -50,17 +46,15 @@ if (in_array($apiAlias, Mage_Api2_Model_Server::getApiTypes())) {
 
     $server->run();
 } else {
-    /* @var $server Mage_Api_Model_Server */
+    /** @var Mage_Api_Model_Server $server */
     $server = Mage::getSingleton('api/server');
-    if (!$apiAlias) {
-        $adapterCode = 'default';
-    } else {
-        $adapterCode = $server->getAdapterCodeByAlias($apiAlias);
-    }
+    $adapterCode = $apiAlias ? $server->getAdapterCodeByAlias($apiAlias) : 'default';
+
     // if no adapters found in aliases - find it by default, by code
     if (null === $adapterCode) {
         $adapterCode = $apiAlias;
     }
+
     try {
         $server->initialize($adapterCode);
         // emulate index.php entry point for correct URLs generation in API
@@ -68,10 +62,10 @@ if (in_array($apiAlias, Mage_Api2_Model_Server::getApiTypes())) {
         $server->run();
 
         Mage::app()->getResponse()->sendResponse();
-    } catch (Exception $e) {
-        Mage::logException($e);
+    } catch (Exception $exception) {
+        Mage::logException($exception);
 
-        echo $e->getMessage();
+        echo $exception->getMessage();
         exit;
     }
 }

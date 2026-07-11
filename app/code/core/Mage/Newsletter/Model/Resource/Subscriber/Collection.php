@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter subscribers collection
  *
- * @category   Mage
  * @package    Mage_Newsletter
  */
 class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -56,6 +49,9 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      */
     protected $_countFilterPart    = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -77,14 +73,13 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Set loading mode subscribers by queue
      *
-     * @param Mage_Newsletter_Model_Queue $queue
      * @return $this
      */
     public function useQueue(Mage_Newsletter_Model_Queue $queue)
     {
         $this->getSelect()
-            ->join(['link' => $this->_queueLinkTable], "link.subscriber_id = main_table.subscriber_id", [])
-            ->where("link.queue_id = ? ", $queue->getId());
+            ->join(['link' => $this->_queueLinkTable], 'link.subscriber_id = main_table.subscriber_id', [])
+            ->where('link.queue_id = ? ', $queue->getId());
         $this->_queueJoinedFlag = true;
         return $this;
     }
@@ -121,19 +116,19 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
                 ['customer_lastname_table' => $lastname->getBackend()->getTable()],
                 $adapter->quoteInto('customer_lastname_table.entity_id=main_table.customer_id
                     AND customer_lastname_table.attribute_id = ?', (int) $lastname->getAttributeId()),
-                ['customer_lastname' => 'value']
+                ['customer_lastname' => 'value'],
             )
             ->joinLeft(
                 ['customer_middlename_table' => $middlename->getBackend()->getTable()],
                 $adapter->quoteInto('customer_middlename_table.entity_id=main_table.customer_id
                     AND customer_middlename_table.attribute_id = ?', (int) $middlename->getAttributeId()),
-                ['customer_middlename' => 'value']
+                ['customer_middlename' => 'value'],
             )
             ->joinLeft(
                 ['customer_firstname_table' => $firstname->getBackend()->getTable()],
                 $adapter->quoteInto('customer_firstname_table.entity_id=main_table.customer_id
                     AND customer_firstname_table.attribute_id = ?', (int) $firstname->getAttributeId()),
-                ['customer_firstname' => 'value']
+                ['customer_firstname' => 'value'],
             );
 
         return $this;
@@ -161,7 +156,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
         $this->getSelect()->join(
             ['store' => $this->_storeTable],
             'store.store_id = main_table.store_id',
-            ['group_id', 'website_id']
+            ['group_id', 'website_id'],
         );
 
         return $this;
@@ -170,10 +165,9 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Returns field table alias
      *
+     * @param  string              $field
+     * @return string|Zend_Db_Expr
      * @deprecated after 1.4.0.0-rc1
-     *
-     * @param string $field
-     * @return string
      */
     public function _getFieldTableAlias($field)
     {
@@ -197,6 +191,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $select = parent::getSelectCountSql();
@@ -232,7 +227,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Filter collection by specified store ids
      *
-     * @param array|int $storeIds
+     * @param  array|int $storeIds
      * @return $this
      */
     public function addStoreFilter($storeIds)

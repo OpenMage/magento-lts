@@ -1,27 +1,20 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer account billing agreement view block
  *
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method $this setAgreementCreatedAt(string $value)
- * @method $this setAgreementUpdatedAt(string $value)
  * @method $this setAgreementStatus(string $value)
+ * @method $this setAgreementUpdatedAt(string $value)
  * @method $this setBackUrl(string $value)
  * @method $this setCanCancel(bool $value)
  * @method $this setCancelUrl(string $value)
@@ -40,14 +33,14 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
     /**
      * Billing Agreement instance
      *
-     * @var Mage_Sales_Model_Billing_Agreement|null
+     * @var null|Mage_Sales_Model_Billing_Agreement
      */
     protected $_billingAgreementInstance = null;
 
     /**
      * Related orders collection
      *
-     * @var Mage_Sales_Model_Resource_Order_Collection|null
+     * @var null|Mage_Sales_Model_Resource_Order_Collection
      */
     protected $_relatedOrders = null;
 
@@ -64,19 +57,19 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                 ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
                 ->addFieldToFilter(
                     'state',
-                    ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]
+                    ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()],
                 )
                 ->addBillingAgreementsFilter($this->_billingAgreementInstance->getAgreementId())
                 ->setOrder('created_at', 'desc');
         }
+
         return $this->_relatedOrders;
     }
 
     /**
      * Retrieve order item value by key
      *
-     * @param Mage_Sales_Model_Order $order
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     public function getOrderItemValue(Mage_Sales_Model_Order $order, $key)
@@ -106,19 +99,22 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             default:
                 $value = ($order->getData($key)) ?: $this->__('N/A');
         }
+
         return ($escape) ? $this->escapeHtml($value) : $value;
     }
 
     /**
      * Set pager
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if (is_null($this->_billingAgreementInstance)) {
             $this->_billingAgreementInstance = Mage::registry('current_billing_agreement');
         }
+
         parent::_prepareLayout();
 
         $pager = $this->getLayout()->createBlock('page/html_pager')
@@ -143,6 +139,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                 $this->_paymentMethods[$paymentMethod->getCode()] = $paymentMethod->getTitle();
             }
         }
+
         return $this->_paymentMethods;
     }
 
@@ -151,6 +148,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $this->_loadPaymentMethods();
@@ -161,7 +159,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             $this->setCancelUrl(
                 $this->getUrl('*/billing_agreement/cancel', [
                     '_current' => true,
-                    'payment_method' => $this->_billingAgreementInstance->getMethodCode()])
+                    'payment_method' => $this->_billingAgreementInstance->getMethodCode()]),
             );
 
             $paymentMethodTitle = $this->_billingAgreementInstance->getAgreementLabel();
@@ -170,11 +168,12 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             $createdAt = $this->_billingAgreementInstance->getCreatedAt();
             $updatedAt = $this->_billingAgreementInstance->getUpdatedAt();
             $this->setAgreementCreatedAt(
-                ($createdAt) ? $this->formatDate($createdAt, 'short', true) : $this->__('N/A')
+                ($createdAt) ? $this->formatDate($createdAt, 'short', true) : $this->__('N/A'),
             );
             if ($updatedAt) {
                 $this->setAgreementUpdatedAt($this->formatDate($updatedAt, 'short', true));
             }
+
             $this->setAgreementStatus($this->_billingAgreementInstance->getStatusLabel());
         }
 

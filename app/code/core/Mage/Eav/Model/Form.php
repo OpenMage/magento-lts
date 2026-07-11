@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV Entity Form Model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 abstract class Mage_Eav_Model_Form
@@ -38,21 +31,21 @@ abstract class Mage_Eav_Model_Form
     /**
      * Current store instance
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store;
 
     /**
      * Current entity type instance
      *
-     * @var Mage_Eav_Model_Entity_Type|null
+     * @var null|Mage_Eav_Model_Entity_Type
      */
     protected $_entityType;
 
     /**
      * Current entity instance
      *
-     * @var Mage_Core_Model_Abstract|null
+     * @var null|Mage_Core_Model_Abstract
      */
     protected $_entity;
 
@@ -66,21 +59,21 @@ abstract class Mage_Eav_Model_Form
     /**
      * Array of form attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_attributes;
 
     /**
      * Array of form system attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_systemAttributes;
 
     /**
      * Array of form user defined attributes
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_userAttributes;
 
@@ -108,6 +101,7 @@ abstract class Mage_Eav_Model_Form
         if (empty($this->_moduleName)) {
             Mage::throwException(Mage::helper('eav')->__('Current module pathname is undefined'));
         }
+
         if (empty($this->_entityTypeCode)) {
             Mage::throwException(Mage::helper('eav')->__('Current module EAV entity is undefined'));
         }
@@ -126,7 +120,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set current store
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return $this
      */
     public function setStore($store)
@@ -138,7 +132,6 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set entity instance
      *
-     * @param Mage_Core_Model_Abstract $entity
      * @return $this
      */
     public function setEntity(Mage_Core_Model_Abstract $entity)
@@ -147,13 +140,14 @@ abstract class Mage_Eav_Model_Form
         if ($entity->getEntityTypeId()) {
             $this->setEntityType($entity->getEntityTypeId());
         }
+
         return $this;
     }
 
     /**
      * Set entity type instance
      *
-     * @param Mage_Eav_Model_Entity_Type|string|int $entityType
+     * @param  int|Mage_Eav_Model_Entity_Type|string $entityType
      * @return $this
      */
     public function setEntityType($entityType)
@@ -165,7 +159,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set form code
      *
-     * @param string $formCode
+     * @param  string $formCode
      * @return $this
      */
     public function setFormCode($formCode)
@@ -184,20 +178,22 @@ abstract class Mage_Eav_Model_Form
         if (is_null($this->_store)) {
             $this->_store = Mage::app()->getStore();
         }
+
         return $this->_store;
     }
 
     /**
      * Return current form code
      *
-     * @throws Mage_Core_Exception
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getFormCode()
     {
         if (empty($this->_formCode)) {
             Mage::throwException(Mage::helper('eav')->__('Form code is not defined'));
         }
+
         return $this->_formCode;
     }
 
@@ -212,20 +208,22 @@ abstract class Mage_Eav_Model_Form
         if (is_null($this->_entityType)) {
             $this->setEntityType($this->_entityTypeCode);
         }
+
         return $this->_entityType;
     }
 
     /**
      * Return current entity instance
      *
-     * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getEntity()
     {
         if (is_null($this->_entity)) {
             Mage::throwException(Mage::helper('eav')->__('Entity instance is not defined'));
         }
+
         return $this->_entity;
     }
 
@@ -257,22 +255,20 @@ abstract class Mage_Eav_Model_Form
                 }
             }
         }
+
         return $this->_attributes;
     }
 
     /**
      * Return attribute instance by code or false
      *
-     * @param string $attributeCode
-     * @return Mage_Eav_Model_Entity_Attribute|false
+     * @param  string                                $attributeCode
+     * @return false|Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($attributeCode)
     {
         $attributes = $this->getAttributes();
-        if (isset($attributes[$attributeCode])) {
-            return $attributes[$attributeCode];
-        }
-        return false;
+        return $attributes[$attributeCode] ?? false;
     }
 
     /**
@@ -286,6 +282,7 @@ abstract class Mage_Eav_Model_Form
             // load attributes
             $this->getAttributes();
         }
+
         return $this->_userAttributes;
     }
 
@@ -300,13 +297,13 @@ abstract class Mage_Eav_Model_Form
             // load attributes
             $this->getAttributes();
         }
+
         return $this->_systemAttributes;
     }
 
     /**
      * Return attribute data model by attribute
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     protected function _getAttributeDataModel(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -320,7 +317,6 @@ abstract class Mage_Eav_Model_Form
     /**
      * Prepare request with data and returns it
      *
-     * @param array $data
      * @return Zend_Controller_Request_Http
      */
     public function prepareRequest(array $data)
@@ -336,9 +332,8 @@ abstract class Mage_Eav_Model_Form
     /**
      * Extract data from request and return associative data array
      *
-     * @param Zend_Controller_Request_Http $request
-     * @param string $scope the request scope
-     * @param bool $scopeOnly search value only in scope or search value in global too
+     * @param  string $scope     the request scope
+     * @param  bool   $scopeOnly search value only in scope or search value in global too
      * @return array
      */
     public function extractData(Zend_Controller_Request_Http $request, $scope = null, $scopeOnly = true)
@@ -348,19 +343,20 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setRequestScope($scope);
             $dataModel->setRequestScopeOnly($scopeOnly);
             $data[$attribute->getAttributeCode()] = $dataModel->extractValue($request);
         }
+
         return $data;
     }
 
     /**
      * Validate data array and return true or array of errors
      *
-     * @param array $data
-     * @return bool|array
+     * @return array|bool
      */
     public function validateData(array $data)
     {
@@ -369,18 +365,20 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             if (!isset($data[$attribute->getAttributeCode()])) {
                 $data[$attribute->getAttributeCode()] = null;
             }
+
             $result = $dataModel->validateValue($data[$attribute->getAttributeCode()]);
             if ($result !== true) {
                 $errors = array_merge($errors, $result);
             }
         }
 
-        if (count($errors) == 0) {
+        if ($errors === []) {
             return true;
         }
 
@@ -390,7 +388,6 @@ abstract class Mage_Eav_Model_Form
     /**
      * Compact data array to current entity
      *
-     * @param array $data
      * @return $this
      */
     public function compactData(array $data)
@@ -399,11 +396,13 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             if (!isset($data[$attribute->getAttributeCode()])) {
                 $data[$attribute->getAttributeCode()] = false;
             }
+
             $dataModel->compactValue($data[$attribute->getAttributeCode()]);
         }
 
@@ -413,7 +412,6 @@ abstract class Mage_Eav_Model_Form
     /**
      * Restore data array from SESSION to current entity
      *
-     * @param array $data
      * @return $this
      */
     public function restoreData(array $data)
@@ -422,20 +420,23 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             if (!isset($data[$attribute->getAttributeCode()])) {
                 $data[$attribute->getAttributeCode()] = false;
             }
+
             $dataModel->restoreValue($data[$attribute->getAttributeCode()]);
         }
+
         return $this;
     }
 
     /**
      * Return array of entity formatted values
      *
-     * @param string $format
+     * @param  string $format
      * @return array
      */
     public function outputData($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
@@ -445,10 +446,12 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             $data[$attribute->getAttributeCode()] = $dataModel->outputValue($format);
         }
+
         return $data;
     }
 
@@ -463,21 +466,23 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $value = $this->getEntity()->getOrigData($attribute->getAttributeCode());
             $this->getEntity()->setData($attribute->getAttributeCode(), $value);
         }
+
         return $this;
     }
 
     /**
      * Set is AJAX Request flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setIsAjaxRequest($flag = true)
     {
-        $this->_isAjax = (bool)$flag;
+        $this->_isAjax = (bool) $flag;
         return $this;
     }
 
@@ -506,35 +511,34 @@ abstract class Mage_Eav_Model_Form
                 }
             }
         }
+
         return $this;
     }
 
     /**
      * Combined getter/setter whether to omit invisible attributes during rendering/validation
      *
-     * @param mixed $setValue
-     * @return bool|$this
+     * @param  mixed      $setValue
+     * @return $this|bool
      */
     public function ignoreInvisible($setValue = null)
     {
         if ($setValue !== null) {
-            $this->_ignoreInvisible = (bool)$setValue;
+            $this->_ignoreInvisible = (bool) $setValue;
             return $this;
         }
+
         return $this->_ignoreInvisible;
     }
 
     /**
      * Whether the specified attribute needs to skip rendering/validation
      *
-     * @param Mage_Eav_Model_Attribute $attribute
+     * @param  Mage_Eav_Model_Attribute $attribute
      * @return bool
      */
     protected function _isAttributeOmitted($attribute)
     {
-        if ($this->_ignoreInvisible && !$attribute->getIsVisible()) {
-            return true;
-        }
-        return false;
+        return $this->_ignoreInvisible && !$attribute->getIsVisible();
     }
 }

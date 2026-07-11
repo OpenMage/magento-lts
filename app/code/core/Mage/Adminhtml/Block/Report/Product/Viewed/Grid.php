@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml most viewed products report grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
@@ -41,14 +34,15 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
     public function __construct()
     {
         parent::__construct();
-        $this->setCountTotals(true);
+        $this->setCountTotals();
     }
 
     /**
      * Custom columns preparation
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('period', [
@@ -66,16 +60,16 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
             'header'    => Mage::helper('adminhtml')->__('Product Name'),
             'index'     => 'product_name',
             'type'      => 'string',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         if ($this->getFilterData()->getStoreIds()) {
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
+
         $currencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('product_price', [
-            'header'        => Mage::helper('adminhtml')->__('Price'),
             'type'          => 'currency',
             'currency_code' => $currencyCode,
             'index'         => 'product_price',
@@ -88,7 +82,7 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
             'index'     => 'views_num',
             'type'      => 'number',
             'total'     => 'sum',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addExportType('*/*/exportViewedCsv', Mage::helper('adminhtml')->__('CSV'));
@@ -100,10 +94,11 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
     /**
      * Don't use orders in collection
      *
-     * @param Mage_Reports_Model_Resource_Report_Collection_Abstract $collection
-     * @param Varien_Object $filterData
-     * @return Mage_Adminhtml_Block_Report_Grid_Abstract
+     * @param  Mage_Reports_Model_Resource_Report_Collection_Abstract $collection
+     * @param  Varien_Object                                          $filterData
+     * @return $this
      */
+    #[Override]
     protected function _addOrderStatusFilter($collection, $filterData)
     {
         return $this;

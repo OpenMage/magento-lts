@@ -1,18 +1,13 @@
 <?php
-/**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
- * @package    Varien_Filter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
 
+declare(strict_types=1);
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Varien_Filter
+ */
 class Varien_Filter_FormElementName extends Zend_Filter_Alnum
 {
     /**
@@ -23,6 +18,7 @@ class Varien_Filter_FormElementName extends Zend_Filter_Alnum
      * @param  string $value
      * @return string
      */
+    #[Override]
     public function filter($value)
     {
         $whiteSpace = $this->allowWhiteSpace ? '\s' : '';
@@ -31,11 +27,12 @@ class Varien_Filter_FormElementName extends Zend_Filter_Alnum
             $pattern = '/[^a-zA-Z0-9\[\];_\-' . $whiteSpace . ']/';
         } elseif (self::$_meansEnglishAlphabet) {
             //The Alphabet means english alphabet.
-            $pattern = '/[^a-zA-Z0-9\[\];_\-'  . $whiteSpace . ']/u';
+            $pattern = '/[^a-zA-Z0-9\[\];_\-' . $whiteSpace . ']/u';
         } else {
             //The Alphabet means each language's alphabet.
             $pattern = '/[^\p{L}\p{N}\[\];_\-' . $whiteSpace . ']/u';
         }
+
         return preg_replace($pattern, '', (string) $value);
     }
 }

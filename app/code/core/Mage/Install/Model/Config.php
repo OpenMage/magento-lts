@@ -1,28 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Install
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Install config
  *
- * @category   Mage
  * @package    Mage_Install
  */
 class Mage_Install_Model_Config extends Varien_Simplexml_Config
 {
     public const XML_PATH_WIZARD_STEPS     = 'wizard/steps';
+
     public const XML_PATH_CHECK_WRITEABLE  = 'check/filesystem/writeable';
+
     public const XML_PATH_CHECK_EXTENSIONS = 'check/php/extensions';
 
     protected $_optionsMapping = [self::XML_PATH_CHECK_WRITEABLE => [
@@ -41,18 +36,19 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
     /**
      * Get array of wizard steps
      *
-     * array($inndex => Varien_Object )
+     * array($index => Varien_Object )
      *
-     * @return array
+     * @return array<array-key, Varien_Object>
      */
     public function getWizardSteps()
     {
         $steps = [];
-        foreach ((array)$this->getNode(self::XML_PATH_WIZARD_STEPS) as $stepName => $step) {
-            $stepObject = new Varien_Object((array)$step);
+        foreach ((array) $this->getNode(self::XML_PATH_WIZARD_STEPS) as $stepName => $step) {
+            $stepObject = new Varien_Object((array) $step);
             $stepObject->setName($stepName);
             $steps[] = $stepObject;
         }
+
         return $steps;
     }
 
@@ -68,9 +64,8 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      *      )
      * )
      *
+     * @return array<string, non-empty-list<array>>
      * @deprecated since 1.7.1.0
-     *
-     * @return array
      */
     public function getPathForCheck()
     {
@@ -95,13 +90,15 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
         $paths = [];
         $items = (array) $this->getNode(self::XML_PATH_CHECK_WRITEABLE);
         foreach ($items as $nodeKey => $item) {
-            $value = (array)$item;
+            /** @var array{path: string, existence: string, recursive: string} $value */
+            $value = (array) $item;
             if (isset($this->_optionsMapping[self::XML_PATH_CHECK_WRITEABLE][$nodeKey])) {
                 $configKey = $this->_optionsMapping[self::XML_PATH_CHECK_WRITEABLE][$nodeKey];
                 $value['path'] = Mage::app()->getConfig()->getOptions()->getData($configKey);
             } else {
                 $value['path'] = dirname(Mage::getRoot()) . $value['path'];
             }
+
             $paths[$nodeKey] = $value;
         }
 
@@ -121,7 +118,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
         foreach ($items as $name => $value) {
             if (!empty($value)) {
                 $res[$name] = [];
-                foreach ($value as $subname => $subvalue) {
+                foreach ($value as $subname => $ignored) {
                     $res[$name][] = $subname;
                 }
             } else {

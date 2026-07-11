@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring profiles view/management controller
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_Action
@@ -28,23 +21,30 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Make sure customer is logged in and put it into registry
+     *
+     * @return null|$this
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
         if (!$this->getRequest()->isDispatched()) {
-            return;
+            return null;
         }
+
         $this->_session = Mage::getSingleton('customer/session');
         if (!$this->_session->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
+
         Mage::register('current_customer', $this->_session->getCustomer());
         return $this;
     }
 
     /**
      * Profiles listing
+     * @return void
      */
     public function indexAction()
     {
@@ -56,6 +56,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Profile main view
+     * @return void
      */
     public function viewAction()
     {
@@ -64,6 +65,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Profile related orders view
+     * @return void
      */
     public function ordersAction()
     {
@@ -72,6 +74,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Attempt to set profile state
+     * @return void
      */
     public function updateStateAction()
     {
@@ -90,13 +93,15 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
                     $profile->activate();
                     break;
             }
+
             $this->_session->addSuccess($this->__('The profile state has been updated.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_session->addError($this->__('Failed to update the profile.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
+
         if ($profile) {
             $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
@@ -106,6 +111,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Fetch an update with profile
+     * @return void
      */
     public function updateProfileAction()
     {
@@ -119,12 +125,13 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
             } else {
                 $this->_session->addNotice($this->__('The profile has no changes.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_session->addError($this->__('Failed to update the profile.'));
-            Mage::logException($e);
+            Mage::logException($exception);
         }
+
         if ($profile) {
             $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
@@ -146,13 +153,15 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
             if ($navigationBlock) {
                 $navigationBlock->setActive('sales/recurring_profile/');
             }
+
             $this->renderLayout();
             return;
-        } catch (Mage_Core_Exception $e) {
-            $this->_session->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -169,6 +178,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
         if (!$profile->getId() || $this->_session->getCustomerId() != $profile->getCustomerId()) {
             Mage::throwException($this->__('Specified profile does not exist.'));
         }
+
         Mage::register('current_recurring_profile', $profile);
         return $profile;
     }

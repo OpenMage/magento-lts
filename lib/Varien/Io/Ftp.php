@@ -1,32 +1,31 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Io
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * FTP client
  *
- * @category   Varien
  * @package    Varien_Io
  */
 class Varien_Io_Ftp extends Varien_Io_Abstract
 {
     public const ERROR_EMPTY_HOST = 1;
+
     public const ERROR_INVALID_CONNECTION = 2;
+
     public const ERROR_INVALID_LOGIN = 3;
+
     public const ERROR_INVALID_PATH = 4;
+
     public const ERROR_INVALID_MODE = 5;
+
     public const ERROR_INVALID_DESTINATION = 6;
+
     public const ERROR_INVALID_SOURCE = 7;
 
     /**
@@ -39,7 +38,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * An FTP connection
      *
-     * @var resource
+     * @var false|FTP\Connection
      */
     protected $_conn;
 
@@ -66,11 +65,10 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * - path        default empty
      * - file_mode   default FTP_BINARY
      *
-     * @param array $args
-     * @return boolean
-     *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @return bool
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     public function open(array $args = [])
     {
         if (empty($args['host'])) {
@@ -106,6 +104,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         } else {
             $this->_conn = @ftp_ssl_connect($this->_config['host'], $this->_config['port'], $this->_config['timeout']);
         }
+
         if (!$this->_conn) {
             $this->_error = self::ERROR_INVALID_CONNECTION;
             throw new Varien_Io_Exception('Could not establish FTP connection, invalid host or port');
@@ -117,20 +116,16 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
             throw new Varien_Io_Exception('Invalid user name or password');
         }
 
-        if (!empty($this->_config['path'])) {
-            if (!@ftp_chdir($this->_conn, $this->_config['path'])) {
-                $this->_error = self::ERROR_INVALID_PATH;
-                $this->close();
-                throw new Varien_Io_Exception('Invalid path');
-            }
+        if (!empty($this->_config['path']) && !@ftp_chdir($this->_conn, $this->_config['path'])) {
+            $this->_error = self::ERROR_INVALID_PATH;
+            $this->close();
+            throw new Varien_Io_Exception('Invalid path');
         }
 
-        if (!empty($this->_config['passive'])) {
-            if (!@ftp_pasv($this->_conn, true)) {
-                $this->_error = self::ERROR_INVALID_MODE;
-                $this->close();
-                throw new Varien_Io_Exception('Invalid file transfer mode');
-            }
+        if (!empty($this->_config['passive']) && !@ftp_pasv($this->_conn, true)) {
+            $this->_error = self::ERROR_INVALID_MODE;
+            $this->close();
+            throw new Varien_Io_Exception('Invalid file transfer mode');
         }
 
         return true;
@@ -139,9 +134,9 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Close a connection
      *
-     * @return boolean
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function close()
     {
@@ -152,12 +147,12 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Create a directory
      *
      * @todo implement $mode and $recursive
-     * @param string $dir
-     * @param int $mode
-     * @param boolean $recursive
-     * @return boolean
+     * @param  string $dir
+     * @param  int    $mode
+     * @param  bool   $recursive
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function mkdir($dir, $mode = 0777, $recursive = true)
     {
@@ -167,10 +162,10 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Delete a directory
      *
-     * @param string $dir
-     * @return boolean
+     * @param  string $dir
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function rmdir($dir, $recursive = false)
     {
@@ -182,7 +177,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @return string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function pwd()
     {
@@ -192,10 +187,10 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Change current working directory
      *
-     * @param string $dir
-     * @return boolean
+     * @param  string $dir
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function cd($dir)
     {
@@ -205,8 +200,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Read a file to result, file or stream
      *
-     * @param string $filename
-     * @param string|resource|null $dest destination file name, stream, or if null will return file contents
+     * @param  string               $filename
+     * @param  null|resource|string $dest     destination file name, stream, or if null will return file contents
      * @return bool|string
      */
     public function read($filename, $dest = null)
@@ -228,53 +223,56 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
             if (is_null($dest)) {
                 fseek($stream, 0);
                 $result = '';
-                for ($result = ''; $s = fread($stream, 4096); $result .= $s);
+                for ($result = ''; $str = fread($stream, 4096); $result .= $str);
+
                 fclose($stream);
             }
         }
+
         return $result;
     }
 
     /**
      * Write a file from string, file or stream
      *
-     * @param string $filename
-     * @param string|resource $src filename, string data or source stream
-     * @return int|boolean
+     * @param  string          $filename
+     * @param  resource|string $src      filename, string data or source stream
+     * @return bool|int
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function write($filename, $src, $mode = null)
     {
         if (is_string($src) && is_readable($src)) {
             return @ftp_put($this->_conn, $filename, $src, $this->_config['file_mode']);
-        } else {
-            if (is_string($src)) {
-                $stream = tmpfile();
-                fputs($stream, $src);
-                fseek($stream, 0);
-            } elseif (is_resource($src)) {
-                $stream = $src;
-            } else {
-                $this->_error = self::ERROR_INVALID_SOURCE;
-                return false;
-            }
-
-            $result = ftp_fput($this->_conn, $filename, $stream, $this->_config['file_mode']);
-            if (is_string($src)) {
-                fclose($stream);
-            }
-            return $result;
         }
+
+        if (is_string($src)) {
+            $stream = tmpfile();
+            fwrite($stream, $src);
+            fseek($stream, 0);
+        } elseif (is_resource($src)) {
+            $stream = $src;
+        } else {
+            $this->_error = self::ERROR_INVALID_SOURCE;
+            return false;
+        }
+
+        $result = ftp_fput($this->_conn, $filename, $stream, $this->_config['file_mode']);
+        if (is_string($src)) {
+            fclose($stream);
+        }
+
+        return $result;
     }
 
     /**
      * Delete a file
      *
-     * @param string $filename
-     * @return boolean
+     * @param  string $filename
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function rm($filename)
     {
@@ -284,11 +282,11 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Rename or move a directory or a file
      *
-     * @param string $src
-     * @param string $dest
-     * @return boolean
+     * @param  string $src
+     * @param  string $dest
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function mv($src, $dest)
     {
@@ -298,11 +296,11 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Change mode of a directory or a file
      *
-     * @param string $filename
-     * @param int $mode
-     * @return boolean
+     * @param  string $filename
+     * @param  int    $mode
+     * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function chmod($filename, $mode)
     {
@@ -310,7 +308,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function ls($grep = null)
     {
@@ -330,8 +328,9 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     protected function _tmpFilename($new = false)
     {
         if ($new || !$this->_tmpFilename) {
-            $this->_tmpFilename = tempnam(md5(uniqid(rand(), true)), '');
+            $this->_tmpFilename = tempnam(md5(uniqid((string) random_int(0, mt_getrandmax()), true)), '');
         }
+
         return $this->_tmpFilename;
     }
 }

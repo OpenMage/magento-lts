@@ -1,26 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * SalesRule Model Resource Coupon_Collection
  *
- * @category   Mage
  * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -30,17 +26,13 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
     /**
      * Add rule to filter
      *
-     * @param Mage_SalesRule_Model_Rule|int $rule
+     * @param int|Mage_SalesRule_Model_Rule $rule
      *
      * @return $this
      */
     public function addRuleToFilter($rule)
     {
-        if ($rule instanceof Mage_SalesRule_Model_Rule) {
-            $ruleId = $rule->getId();
-        } else {
-            $ruleId = (int)$rule;
-        }
+        $ruleId = $rule instanceof Mage_SalesRule_Model_Rule ? $rule->getId() : (int) $rule;
 
         $this->addFieldToFilter('rule_id', $ruleId);
 
@@ -49,8 +41,6 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
 
     /**
      * Add rule IDs to filter
-     *
-     * @param array $ruleIds
      *
      * @return $this
      */
@@ -75,13 +65,13 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
      * Callback function that filters collection by field "Used" from grid
      *
      * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column         $column
      */
     public function addIsUsedFilterCallback($collection, $column)
     {
         $filterValue = $column->getFilter()->getCondition();
 
-        $fieldExpression = $this->getConnection()->getCheckSql('main_table.times_used > 0', 1, 0);
+        $fieldExpression = $this->getConnection()->getCheckSql('main_table.times_used > 0', '1', '0');
         $resultCondition = $this->_getConditionSql($fieldExpression, ['eq' => $filterValue]);
         $collection->getSelect()->where($resultCondition);
     }

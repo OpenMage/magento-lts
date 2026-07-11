@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter subscribe controller
  *
- * @category   Mage
  * @package    Mage_Newsletter
  */
 class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Action
@@ -27,8 +20,9 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
     public const XML_CSRF_USE_FLAG_CONFIG_PATH = 'newsletter/security/enable_form_key';
 
     /**
-      * New subscription action
-      */
+     * New subscription action
+     * @return void
+     */
     public function newAction()
     {
         if (!$this->_validateFormKey()) {
@@ -41,13 +35,16 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             $customerSession    = Mage::getSingleton('customer/session');
             $email              = (string) $this->getRequest()->getPost('email');
 
+            /** @var Mage_Core_Helper_Validate $validator */
+            $validator          = Mage::helper('core/validate');
+
             try {
-                if (!Zend_Validate::is($email, 'EmailAddress')) {
+                if ($validator->validateEmail($email)->count() > 0) {
                     Mage::throwException($this->__('Please enter a valid email address.'));
                 }
 
-                if (Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG) != 1 &&
-                    !$customerSession->isLoggedIn()
+                if (Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG) != 1
+                    && !$customerSession->isLoggedIn()
                 ) {
                     Mage::throwException($this->__('Sorry, but administrator denied subscription for guests. Please <a href="%s">register</a>.', Mage::helper('customer')->getRegisterUrl()));
                 }
@@ -66,17 +63,19 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                 } else {
                     $session->addSuccess($this->__('Thank you for your subscription.'));
                 }
-            } catch (Mage_Core_Exception $e) {
-                $session->addException($e, $this->__('There was a problem with the subscription: %s', $e->getMessage()));
-            } catch (Exception $e) {
-                $session->addException($e, $this->__('There was a problem with the subscription.'));
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $session->addException($mageCoreException, $this->__('There was a problem with the subscription: %s', $mageCoreException->getMessage()));
+            } catch (Exception $exception) {
+                $session->addException($exception, $this->__('There was a problem with the subscription.'));
             }
         }
+
         $this->_redirectReferer();
     }
 
     /**
      * Subscription confirm action
+     * @return void
      */
     public function confirmAction()
     {
@@ -106,6 +105,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
 
     /**
      * Unsubscribe newsletter
+     * @return void
      */
     public function unsubscribeAction()
     {
@@ -119,12 +119,13 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                     ->setCheckCode($code)
                     ->unsubscribe();
                 $session->addSuccess($this->__('You have been unsubscribed.'));
-            } catch (Mage_Core_Exception $e) {
-                $session->addException($e, $e->getMessage());
-            } catch (Exception $e) {
-                $session->addException($e, $this->__('There was a problem with the un-subscription.'));
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $session->addException($mageCoreException, $mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                $session->addException($exception, $this->__('There was a problem with the un-subscription.'));
             }
         }
+
         $this->_redirectReferer();
     }
 
@@ -133,6 +134,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
      *
      * @return bool
      */
+    #[Override]
     protected function _isFormKeyEnabled()
     {
         return Mage::getStoreConfigFlag(self::XML_CSRF_USE_FLAG_CONFIG_PATH);

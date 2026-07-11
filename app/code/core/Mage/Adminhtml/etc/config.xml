@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -28,7 +21,6 @@
             </adminhtml>
             <adminhtml_resource>
                 <class>Mage_Adminhtml_Model_Resource</class>
-                <deprecatedNode>adminhtml_mysql4</deprecatedNode>
             </adminhtml_resource>
         </models>
         <blocks>
@@ -187,9 +179,6 @@
                 <forgot_email_template>system_emails_forgot_email_template</forgot_email_template>
                 <forgot_email_identity>general</forgot_email_identity>
             </emails>
-            <dashboard>
-                <enable_charts>1</enable_charts>
-            </dashboard>
             <catalog>
                 <frontend>
                     <allowed_html_tags_list>a,abbr,acronym,address,applet,area,base,basefont,bdo,big,blockquote,br,button,caption,center,cite,code,col,colgroup,dd,del,dfn,dir,div,dl,dt,em,i,fieldset,font,form,frame,frameset,h1,h2,h3,h4,h5,h6,hr,img,input,ins,kbd,label,legend,li,map,menu,meta,noscript,ol,optgroup,option,p,param,pre,q,s,samp,select,small,span,strike,strong,b,sub,sup,table,tbody,td,textarea,tfoot,th,thead,title,tr,tt,u,ul,var</allowed_html_tags_list>
@@ -223,6 +212,10 @@
             <global_search>
                 <enable>1</enable>
             </global_search>
+            <dashboard>
+                <enable_charts>1</enable_charts>
+                <chart_type>bar</chart_type>
+            </dashboard>
         </admin>
     </default>
     <stores>
@@ -230,10 +223,10 @@
             <design>
                 <package>
                     <name>default</name>
+                    <openmage>openmage</openmage>
                 </package>
                 <theme>
                     <default>default</default>
-                    <openmage>openmage</openmage>
                 </theme>
             </design>
         </admin>
@@ -252,4 +245,49 @@
             </web>
         </admin>
     </websites>
+    <grid>
+        <column>
+            <default>
+                <index>
+                    <entity_id>
+                        <align>right</align>
+                        <type>number</type>
+                    </entity_id>
+                </index>
+                <type>
+                    <action>
+                        <filter>false</filter>
+                        <sortable>false</sortable>
+                        <width>40</width>
+                    </action>
+                    <concat>
+                        <separator> </separator>
+                    </concat>
+                    <currency>
+                        <align>right</align>
+                        <index>price</index>
+                    </currency>
+                    <date>
+                        <width>140</width>
+                    </date>
+                    <datetime>
+                        <width>170</width>
+                    </datetime>
+                    <number>
+                        <align>right</align>
+                        <width>1</width>
+                    </number>
+                    <price>
+                        <align>right</align>
+                        <index>price</index>
+                    </price>
+                    <store>
+                        <index>store_id</index>
+                        <store_view>true</store_view>
+                        <width>160</width>
+                    </store>
+                </type>
+            </default>
+        </column>
+    </grid>
 </config>

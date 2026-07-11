@@ -1,31 +1,31 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract message model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 abstract class Mage_Core_Model_Message_Abstract
 {
     protected $_type;
+
     protected $_code;
+
     protected $_class;
+
     protected $_method;
+
     protected $_identifier;
+
     protected $_isSticky = false;
 
     /**
@@ -64,7 +64,7 @@ abstract class Mage_Core_Model_Message_Abstract
     }
 
     /**
-     * @param string $class
+     * @param  string $class
      * @return $this
      */
     public function setClass($class)
@@ -74,7 +74,7 @@ abstract class Mage_Core_Model_Message_Abstract
     }
 
     /**
-     * @param string $method
+     * @param  string $method
      * @return $this
      */
     public function setMethod($method)
@@ -94,8 +94,8 @@ abstract class Mage_Core_Model_Message_Abstract
     /**
      * Set message identifier
      *
-     * @param string $id
-     * @return Mage_Core_Model_Message_Abstract
+     * @param  string $id
+     * @return $this
      */
     public function setIdentifier($id)
     {
@@ -106,7 +106,7 @@ abstract class Mage_Core_Model_Message_Abstract
     /**
      * Get message identifier
      *
-     *  @return string
+     * @return string
      */
     public function getIdentifier()
     {
@@ -116,8 +116,8 @@ abstract class Mage_Core_Model_Message_Abstract
     /**
      * Set message sticky status
      *
-     * @param bool $isSticky
-     * @return Mage_Core_Model_Message_Abstract
+     * @param  bool  $isSticky
+     * @return $this
      */
     public function setIsSticky($isSticky = true)
     {
@@ -138,8 +138,8 @@ abstract class Mage_Core_Model_Message_Abstract
     /**
      * Set code
      *
-     * @param string $code
-     * @return Mage_Core_Model_Message_Abstract
+     * @param  string $code
+     * @return $this
      */
     public function setCode($code)
     {

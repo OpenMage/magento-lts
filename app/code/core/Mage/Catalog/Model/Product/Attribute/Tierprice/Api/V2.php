@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product tier price api V2
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog_Model_Product_Attribute_Tierprice_Api
@@ -24,10 +17,11 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
     /**
      *  Prepare tier prices for save
      *
-     *  @param      Mage_Catalog_Model_Product $product
-     *  @param      array $tierPrices
-     *  @return     array|null
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $tierPrices
+     * @return null|array
      */
+    #[Override]
     public function prepareTierPrices($product, $tierPrices = null)
     {
         if (!is_array($tierPrices)) {
@@ -45,11 +39,11 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
             }
 
             if (!isset($tierPrice->website) || $tierPrice->website == 'all') {
-                $tierPrice->website = 0; // @phpstan-ignore-line
+                $tierPrice->website = 0;
             } else {
                 try {
                     $tierPrice->website = Mage::app()->getWebsite($tierPrice->website)->getId();
-                } catch (Mage_Core_Exception $e) {
+                } catch (Mage_Core_Exception) {
                     $tierPrice->website = 0;
                 }
             }
@@ -59,7 +53,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
             }
 
             if (!isset($tierPrice->customer_group_id)) {
-                $tierPrice->customer_group_id = 'all'; // @phpstan-ignore-line
+                $tierPrice->customer_group_id = 'all';
             }
 
             if ($tierPrice->customer_group_id == 'all') {
@@ -70,7 +64,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
                 'website_id' => $tierPrice->website,
                 'cust_group' => $tierPrice->customer_group_id,
                 'price_qty'  => $tierPrice->qty,
-                'price'      => $tierPrice->price
+                'price'      => $tierPrice->price,
             ];
         }
 

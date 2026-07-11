@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +17,6 @@
  * getErrors() will return an array of errors that explain why the
  * validation failed.
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 abstract class Mage_Api2_Model_Resource_Validator
@@ -38,8 +31,7 @@ abstract class Mage_Api2_Model_Resource_Validator
     /**
      * Set an array of errors
      *
-     * @param array $data
-     * @return Mage_Api2_Model_Resource_Validator
+     * @return $this
      */
     protected function _setErrors(array $data)
     {
@@ -50,22 +42,23 @@ abstract class Mage_Api2_Model_Resource_Validator
     /**
      * Add errors
      *
-     * @param array $errors
-     * @return Mage_Api2_Model_Resource_Validator
+     * @param  array $errors
+     * @return $this
      */
     protected function _addErrors($errors)
     {
         foreach ($errors as $error) {
             $this->_addError($error);
         }
+
         return $this;
     }
 
     /**
      * Add error
      *
-     * @param string $error
-     * @return Mage_Api2_Model_Resource_Validator
+     * @param  string $error
+     * @return $this
      */
     protected function _addError($error)
     {

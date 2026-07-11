@@ -1,16 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -45,91 +41,79 @@
  *   - container: CP
  *   - address: RES
  *
- * @category   Mage
  * @package    Mage_Shipping
  *
  * @method Mage_Sales_Model_Quote_Item[] getAllItems()
- * @method $this setAllItems(array $items)
+ * @method Mage_Directory_Model_Currency getBaseCurrency()
+ * @method float                         getBaseSubtotalInclTax()
+ * @method array|string                  getConditionName()
+ * @method string                        getDestCity()
+ * @method string                        getDestCountryId()
+ * @method string                        getDestPostcode()
+ * @method string                        getDestRegionCode()
+ * @method int                           getDestRegionId()
+ * @method string                        getDestStreet()
+ * @method float                         getFreeMethodWeight()
+ * @method bool                          getFreeShipping()
+ * @method string                        getLimitCarrier()
+ * @method string                        getLimitMethod()
+ * @method float                         getOptionHandling()
+ * @method bool                          getOptionInsurance()
+ * @method float                         getOrderSubtotal()
+ * @method float                         getOrderTotalQty()
+ * @method string                        getOrigCity()
+ * @method string                        getOrigCountryId()
+ * @method string                        getOrigPostcode()
+ * @method int                           getOrigRegionId()
+ * @method Mage_Directory_Model_Currency getPackageCurrency()
+ * @method int                           getPackageDepth()
+ * @method int                           getPackageHeight()
+ * @method float                         getPackagePhysicalValue()
+ * @method float                         getPackageQty()
+ * @method float                         getPackageValue()
+ * @method float                         getPackageValueWithDiscount()
+ * @method float                         getPackageWeight()
+ * @method int                           getPackageWidth()
+ * @method Mage_Core_Model_Store         getStore()
+ * @method int                           getStoreId()
+ * @method int                           getWebsiteId()
+ * @method $this                         setAllItems(array $items)
+ * @method $this                         setBaseCurrency(Mage_Directory_Model_Currency $value)
+ * @method $this                         setBaseSubtotalInclTax(float $value)
+ * @method $this                         setCity(string $value)
+ * @method $this                         setConditionName(array|string $value)
+ * @method $this                         setCountryId(string $value)
+ * @method $this                         setDestCity(string $value)
+ * @method $this                         setDestCountryId(string $value)
+ * @method $this                         setDestPostcode(string $value)
+ * @method $this                         setDestRegionCode(string $value)
+ * @method $this                         setDestRegionId(int $value)
+ * @method $this                         setDestStreet(string $value)
+ * @method $this                         setFreeMethodWeight(float $value)
+ * @method $this                         setFreeShipping(bool $flag)
+ * @method $this                         setLimitCarrier(string $value)
+ * @method $this                         setLimitMethod(string $value)
+ * @method $this                         setOptionHandling(float $flag)
+ * @method $this                         setOptionInsurance(bool $value)
+ * @method $this                         setOrderSubtotal(float $value)
+ * @method $this                         setOrderTotalQty(float $value)
+ * @method $this                         setOrigCity(string $value)
+ * @method $this                         setOrigCountryId(string $value)
+ * @method $this                         setOrigPostcode(string $value)
+ * @method $this                         setOrigRegionId(int $value)
+ * @method $this                         setPackageCurrency(Mage_Directory_Model_Currency $value)
+ * @method $this                         setPackageDepth(int $value)
+ * @method $this                         setPackageHeight(int $value)
+ * @method $this                         setPackagePhysicalValue(float $value)
+ * @method $this                         setPackageQty(float $value)
+ * @method $this                         setPackageValue(float $value)
+ * @method $this                         setPackageValueWithDiscount(float $value)
+ * @method $this                         setPackageWeight(float $value)
  *
- * @method string getBaseCurrency()
- * @method $this setBaseCurrency(string $value)
- * @method float getBaseSubtotalInclTax()
- * @method $this setBaseSubtotalInclTax(float $value)
- *
- * @method $this setCity(string $value)
- * @method string getConditionName()
- * @method $this setConditionName(array $value)
- * @method $this setCountryId(string $value)
- *
- * @method string getDestCountryId()
- * @method $this setDestCountryId(string $value)
- * @method int getDestRegionId()
- * @method $this setDestRegionId(int $value)
- * @method string getDestRegionCode()
- * @method $this setDestRegionCode(string $value)
- * @method string getDestPostcode()
- * @method $this setDestPostcode(string $value)
- * @method string getDestCity()
- * @method $this setDestCity(string $value)
- * @method string getDestStreet()
- * @method $this setDestStreet(string $value)
- *
- * @method bool getFreeShipping()
- * @method $this setFreeShipping(bool $flag)
- * @method float getFreeMethodWeight()
- * @method $this setFreeMethodWeight(float $value)
- *
- * @method string getLimitCarrier()
- * @method $this setLimitCarrier(string $value)
- * @method string getLimitMethod()
- * @method $this setLimitMethod(string $value)
- *
- * @method bool getOptionInsurance()
- * @method $this setOptionInsurance(bool $value)
- * @method float getOptionHandling()
- * @method $this setOptionHandling(float $flag)
- * @method float getOrderTotalQty()
- * @method $this setOrderTotalQty(float $value)
- * @method float getOrderSubtotal()
- * @method $this setOrderSubtotal(float $value)
- * @method string getOrigCountryId()
- * @method $this setOrigCountryId(string $value)
- * @method int getOrigRegionId()
- * @method $this setOrigRegionId(int $value)
- * @method string getOrigPostcode()
- * @method $this setOrigPostcode(string $value)
- * @method string getOrigCity()
- * @method $this setOrigCity(string $value)
- *
- * @method float getPackageValue()
- * @method $this setPackageValue(float $value)
- * @method float getPackageValueWithDiscount()
- * @method $this setPackageValueWithDiscount(float $value)
- * @method float getPackagePhysicalValue()
- * @method $this setPackagePhysicalValue(float $value)
- * @method float getPackageQty()
- * @method $this setPackageQty(float $value)
- * @method float getPackageWeight()
- * @method $this setPackageWeight(float $value)
- * @method int getPackageHeight()
- * @method $this setPackageHeight(int $value)
- * @method int getPackageWidth()
  * @method $this setPackageWidth(int $value)
- * @method int getPackageDepth()
- * @method $this setPackageDepth(int $value)
- * @method string getPackageCurrency()
- * @method $this setPackageCurrency(string $value)
  * @method $this setPostcode(string $value)
- *
  * @method $this setRegionId(string $value)
- *
- * @method Mage_Core_Model_Store getStore()
- * @method int getStoreId()
  * @method $this setStoreId(int $value)
- *
- * @method int getWebsiteId()
  * @method $this setWebsiteId(int $value)
  */
-class Mage_Shipping_Model_Rate_Request extends Varien_Object
-{
-}
+class Mage_Shipping_Model_Rate_Request extends Varien_Object {}

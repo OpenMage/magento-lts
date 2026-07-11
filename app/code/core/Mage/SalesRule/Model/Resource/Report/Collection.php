@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales report coupons collection
  *
- * @category   Mage
  * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_Resource_Report_Collection_Abstract
@@ -24,7 +17,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     /**
      * Period format for report (day, month, year)
      *
-     * @var string
+     * @var Zend_Db_Expr
      */
     protected $_periodFormat;
 
@@ -51,7 +44,6 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
 
     /**
      * Initialize custom resource model
-     *
      */
     public function __construct()
     {
@@ -72,8 +64,8 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         if ($this->_period == 'month') {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
         } elseif ($this->_period == 'year') {
-            $this->_periodFormat =
-                $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
+            $this->_periodFormat
+                = $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
         } else {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m-%d');
         }
@@ -98,9 +90,9 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         }
 
         if ($this->isSubTotals()) {
-            $this->_selectedColumns =
-                $this->getAggregatedColumns() +
-                    ['period' => $this->_periodFormat];
+            $this->_selectedColumns
+                = $this->getAggregatedColumns()
+                    + ['period' => $this->_periodFormat];
         }
 
         return $this->_selectedColumns;
@@ -111,6 +103,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         $this->getSelect()->from($this->getResource()->getMainTable(), $this->_getSelectedColumns());
@@ -119,7 +112,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         } elseif (!$this->isTotals()) {
             $this->getSelect()->group([
                 $this->_periodFormat,
-                'coupon_code'
+                'coupon_code',
             ]);
         }
 
@@ -129,7 +122,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     /**
      * Add filtering by rules ids
      *
-     * @param array $rulesList
+     * @param  array $rulesList
      * @return $this
      */
     public function addRuleFilter($rulesList)
@@ -157,11 +150,12 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
             if (!isset($rulesList[$ruleId])) {
                 continue;
             }
+
             $ruleName = $rulesList[$ruleId];
             $rulesFilterSqlParts[] = $this->getConnection()->quoteInto('rule_name = ?', $ruleName);
         }
 
-        if (!empty($rulesFilterSqlParts)) {
+        if ($rulesFilterSqlParts !== []) {
             $this->getSelect()->where(implode(' OR ', $rulesFilterSqlParts));
         }
 
@@ -173,6 +167,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
      *
      * @return Mage_Sales_Model_Resource_Report_Collection_Abstract
      */
+    #[Override]
     protected function _applyCustomFilter()
     {
         $this->_applyRulesFilter();

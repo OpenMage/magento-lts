@@ -1,31 +1,24 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * WYSIWYG widget options form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
- * @method $this setConfig(Varien_Object $value)
- * @method $this setElement(Varien_Data_Form_Element_Abstract $value)
- * @method $this setFieldsetId(string $value)
  * @method string getLabel()
- * @method $this setTranslationHelper(Mage_Core_Helper_Abstract $value)
- * @method $this setSourceUrl(string $value)
- * @method $this setUniqId(string $value)
+ * @method $this  setConfig(array|Varien_Object  $value)
+ * @method $this  setElement(Varien_Data_Form_Element_Abstract $value)
+ * @method $this  setFieldsetId(string $value)
+ * @method $this  setSourceUrl(string $value)
+ * @method $this  setTranslationHelper(Mage_Core_Helper_Abstract $value)
+ * @method $this  setUniqId(string $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Template
 {
@@ -64,7 +57,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         $config = new Varien_Object();
         $this->setConfig($config);
         if (!is_array($configArray)) {
-            return $this->_getData('config');
+            /** @var Varien_Object $configData */
+            $configData = $this->_getData('config');
+            return $configData;
         }
 
         // define chooser label
@@ -75,16 +70,19 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         // chooser control buttons
         $buttons = [
             'open'  => Mage::helper('widget')->__('Choose...'),
-            'close' => Mage::helper('widget')->__('Close')
+            'close' => Mage::helper('widget')->__('Close'),
         ];
         if (isset($configArray['button']) && is_array($configArray['button'])) {
             foreach ($configArray['button'] as $id => $label) {
                 $buttons[$id] = $this->getTranslationHelper()->__($label);
             }
         }
+
         $config->setButtons($buttons);
 
-        return $this->_getData('config');
+        /** @var Varien_Object $configData */
+        $configData = $this->_getData('config');
+        return $configData;
     }
 
     /**
@@ -97,6 +95,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         if ($this->_getData('translation_helper') instanceof Mage_Core_Helper_Abstract) {
             return $this->_getData('translation_helper');
         }
+
         return $this->helper('widget');
     }
 
@@ -127,7 +126,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
      */
     public function getHiddenEnabled()
     {
-        return $this->hasData('hidden_enabled') ? (bool)$this->_getData('hidden_enabled') : true;
+        return $this->hasData('hidden_enabled') ? (bool) $this->_getData('hidden_enabled') : true;
     }
 
     /**
@@ -135,6 +134,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $element   = $this->getElement();
@@ -155,6 +155,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
             if ($element->getRequired()) {
                 $hidden->addClass('required-entry');
             }
+
             $hiddenHtml = $hidden->getElementHtml();
             $element->setValue('');
         }

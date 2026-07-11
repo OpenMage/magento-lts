@@ -1,39 +1,32 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product option select type model
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
+ * @method Mage_Catalog_Model_Resource_Product_Option_Value            _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getCollection()
- * @method Mage_Catalog_Model_Resource_Product_Option_Value _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Option_Value getResource()
- * @method int getOptionId()
- * @method $this setOptionId(int $value)
- * @method int getOptionTypeId()
- * @method $this setOptionTypeId(int $value)
- * @method string getPriceType()
- * @method string getSku()
- * @method $this setSku(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method float getStorePrice()
- * @method string getStoreTitle()
- * @method string getTitle()
+ * @method null|int                                                    getOptionId()
+ * @method null|int                                                    getOptionTypeId()
+ * @method string                                                      getPriceType()
+ * @method Mage_Catalog_Model_Resource_Product_Option_Value            getResource()
+ * @method string                                                      getSku()
+ * @method int                                                         getSortOrder()
+ * @method float                                                       getStorePrice()
+ * @method string                                                      getStoreTitle()
+ * @method string                                                      getTitle()
+ * @method $this                                                       setOptionId(null|int $value)
+ * @method $this                                                       setOptionTypeId(null|int $value)
+ * @method $this                                                       setSku(string $value)
+ * @method $this                                                       setSortOrder(int $value)
  */
 class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 {
@@ -43,13 +36,16 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 
     protected $_option;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_option_value');
     }
 
     /**
-     * @param string $value
+     * @param  array $value
      * @return $this
      */
     public function addValue($value)
@@ -67,7 +63,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param array $values
+     * @param  array $values
      * @return $this
      */
     public function setValues($values)
@@ -86,7 +82,6 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Catalog_Model_Product_Option $option
      * @return $this
      */
     public function setOption(Mage_Catalog_Model_Product_Option $option)
@@ -113,7 +108,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setProduct($product)
@@ -130,6 +125,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
         if (is_null($this->_product)) {
             $this->_product = $this->getOption()->getProduct();
         }
+
         return $this->_product;
     }
 
@@ -144,21 +140,25 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
                 ->setData('option_id', $this->getOption()->getId())
                 ->setData('store_id', $this->getOption()->getStoreId());
 
-            if ($this->getData('option_type_id') == '-1') {//change to 0
+            if ($this->getDataByKey('option_type_id') == '-1') {//change to 0
                 $this->unsetData('option_type_id');
             } else {
-                $this->setId($this->getData('option_type_id'));
+                $this->setId($this->getDataByKey('option_type_id'));
             }
 
-            if ($this->getData('is_delete') == '1') {
+            if ($this->getDataByKey('is_delete') == '1') {
                 if ($this->getId()) {
                     $this->deleteValues($this->getId());
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $this->delete();
                 }
             } else {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $this->save();
             }
-        }//eof foreach()
+        }
+
+        //eof foreach()
         return $this;
     }
 
@@ -166,7 +166,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
      * Return price. If $flag is true and price is percent
      *  return converted percent to price
      *
-     * @param bool $flag
+     * @param  bool      $flag
      * @return float|int
      */
     public function getPrice($flag = false)
@@ -175,11 +175,11 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
             $basePrice = $this->getOption()->getProduct()->getFinalPrice();
             return $basePrice * ($this->_getData('price') / 100);
         }
+
         return $this->_getData('price');
     }
 
     /**
-     * @param Mage_Catalog_Model_Product_Option $option
      * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
     public function getValuesCollection(Mage_Catalog_Model_Product_Option $option)
@@ -190,35 +190,35 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param array $optionIds
-     * @param int $option_id
-     * @param int $store_id
+     * @param  array                                                       $optionIds
+     * @param  int                                                         $optionId
+     * @param  int                                                         $storeId
      * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
-    public function getValuesByOption($optionIds, $option_id, $store_id)
+    public function getValuesByOption($optionIds, $optionId, $storeId)
     {
         return Mage::getResourceModel('catalog/product_option_value_collection')
-            ->addFieldToFilter('option_id', $option_id)
-            ->getValuesByOption($optionIds, $store_id);
+            ->addFieldToFilter('option_id', $optionId)
+            ->getValuesByOption($optionIds, $storeId);
     }
 
     /**
-     * @param int $option_id
+     * @param  int|string $optionId
      * @return $this
      */
-    public function deleteValue($option_id)
+    public function deleteValue($optionId)
     {
-        $this->getResource()->deleteValue($option_id);
+        $this->getResource()->deleteValue($optionId);
         return $this;
     }
 
     /**
-     * @param int $option_type_id
+     * @param  int   $optionTypeId
      * @return $this
      */
-    public function deleteValues($option_type_id)
+    public function deleteValues($optionTypeId)
     {
-        $this->getResource()->deleteValues($option_type_id);
+        $this->getResource()->deleteValues($optionTypeId);
         return $this;
     }
 
@@ -238,8 +238,8 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     /**
      * Duplicate product options value
      *
-     * @param int $oldOptionId
-     * @param int $newOptionId
+     * @param  int   $oldOptionId
+     * @param  int   $newOptionId
      * @return $this
      */
     public function duplicate($oldOptionId, $newOptionId)

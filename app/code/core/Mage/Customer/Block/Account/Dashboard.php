@@ -1,26 +1,19 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer dashboard block
  *
- * @category   Mage
  * @package    Mage_Customer
  *
  * @method string getRefererUrl()
- * @method $this setRefererUrl(string $value)
+ * @method $this  setRefererUrl(string $value)
  */
 class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
 {
@@ -51,7 +44,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return string
      */
     public function getAddressEditUrl($address)
@@ -86,9 +79,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
     /**
      * @todo LTS add tags URL
      */
-    public function getTagsUrl()
-    {
-    }
+    public function getTagsUrl() {}
 
     /**
      * @return Mage_Newsletter_Model_Subscriber
@@ -131,6 +122,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
         if (empty($addresses)) {
             return false;
         }
+
         return $addresses;
     }
 
@@ -149,6 +141,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
         if ($this->getRefererUrl()) {
             return $this->getRefererUrl();
         }
+
         return $this->getUrl('customer/account/');
     }
 }

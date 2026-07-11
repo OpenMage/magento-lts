@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer Show Customer Model
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method string getField()
@@ -36,12 +29,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
     /**
      * Retrieve attribute objects
      *
-     * @return array
+     * @return array<int, mixed>
      */
     protected function _getAttributeObjects()
     {
         return [
-            Mage::getSingleton('eav/config')->getAttribute('customer', $this->_getAttributeCode())
+            Mage::getSingleton('eav/config')->getAttribute('customer', $this->_getAttributeCode()),
         ];
     }
 
@@ -50,6 +43,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         $result = parent::_afterSave();
@@ -77,6 +71,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
                 $attributeObject->setWebsite($website);
                 $attributeObject->load($attributeObject->getId());
             }
+
             $attributeObject->setData($dataFieldPrefix . 'is_required', $data['is_required']);
             $attributeObject->setData($dataFieldPrefix . 'is_visible', $data['is_visible']);
             $attributeObject->save();
@@ -88,8 +83,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
     /**
      * Processing object after delete data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _afterDelete()
     {
         $result = parent::_afterDelete();
