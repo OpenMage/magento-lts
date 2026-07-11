@@ -64,15 +64,16 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         }
 
         Mage::dispatchEvent('adminhtml_widget_form_prepare_layout', [
-            'form' => $this,
+            'block' => $this,
+            'form'  => $this->getForm(),
         ]);
 
         if ($this->_eventPrefix !== '') {
             Mage::dispatchEvent($this->_eventPrefix . '_prepare_layout', [
-                'form' => $this,
+                'block' => $this,
+                'form'  => $this->getForm(),
             ]);
         }
-
         return parent::_prepareLayout();
     }
 
