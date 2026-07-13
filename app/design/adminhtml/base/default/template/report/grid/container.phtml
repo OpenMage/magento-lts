@@ -35,7 +35,9 @@
         }
         var validator  = new Validation('filter_form');
         if (validator.validate()) {
-            setLocation(parseSidUrl('<?php echo $this->getFilterUrl(); ?>', 'filter/'+encode_base64(Form.serializeElements(elements))+'/'));
+            var serialized = new URLSearchParams();
+            elements.forEach(function(el) { if (el.name) serialized.append(el.name, el.value); });
+            setLocation(parseSidUrl('<?php echo $this->getFilterUrl(); ?>', 'filter/'+encode_base64(serialized.toString())+'/'));
         }
     }
 //]]>

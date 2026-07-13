@@ -24,14 +24,16 @@
 //<![CDATA[
     opFile<?php echo $_rand; ?> = {
         initializeFile: function(inputBox) {
-            this.inputFile = inputBox.select('input[name="<?php echo $_fileName; ?>"]')[0];
-            this.inputFileAction = inputBox.select('input[name="<?php echo $_fieldNameAction; ?>"]')[0];
-            this.fileNameBox = inputBox.up('dd').select('.<?php echo $_fileNamed ?>')[0];
+            this.inputFile = inputBox.querySelector('input[name="<?php echo $_fileName; ?>"]');
+            this.inputFileAction = inputBox.querySelector('input[name="<?php echo $_fieldNameAction; ?>"]');
+            var dd = inputBox.closest('dd');
+            this.fileNameBox = dd ? dd.querySelector('.<?php echo $_fileNamed ?>') : null;
         },
 
         toggleFileChange: function(inputBox) {
             this.initializeFile(inputBox);
-            inputBox.toggle();
+            var isHidden = inputBox.style.display === 'none' || window.getComputedStyle(inputBox).display === 'none';
+            inputBox.style.display = isHidden ? '' : 'none';
             this.fileChangeFlag = this.fileChangeFlag ? false : true;
             if (!this.fileDeleteFlag) {
                 if (this.fileChangeFlag) {
@@ -50,11 +52,11 @@
             if (this.fileDeleteFlag) {
                 this.inputFileAction.value = '';
                 this.inputFile.disabled = true;
-                this.fileNameBox.setStyle({'text-decoration': 'line-through'});
+                if (this.fileNameBox) this.fileNameBox.style.textDecoration = 'line-through';
             } else {
                 this.inputFileAction.value = this.fileChangeFlag ? 'save_new' : 'save_old';
                 this.inputFile.disabled = (this.fileChangeFlag == 'save_old');
-                this.fileNameBox.setStyle({'text-decoration': 'none'});
+                if (this.fileNameBox) this.fileNameBox.style.textDecoration = 'none';
             }
         }
     };
@@ -66,11 +68,11 @@
 <dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
     <?php if ($_fileExists): ?>
         <span class="<?php echo $_fileNamed ?>"><?php echo $this->escapeHtml($_fileInfo->getTitle()); ?></span>
-        <a href="javascript:void(0)" class="label" onclick="opFile<?php echo $_rand; ?>.toggleFileChange($(this).next('.input-box'))">
+        <a href="javascript:void(0)" class="label" onclick="opFile<?php echo $_rand; ?>.toggleFileChange(this.closest('dd').querySelector('.input-box'))">
             <?php echo Mage::helper('catalog')->__('Change') ?>
         </a>&nbsp;
         <?php if (!$_option->getIsRequire()): ?>
-           <input type="checkbox" onclick="opFile<?php echo $_rand; ?>.toggleFileDelete($(this), $(this).next('.input-box'))" />
+           <input type="checkbox" onclick="opFile<?php echo $_rand; ?>.toggleFileDelete(this, this.closest('dd').querySelector('.input-box'))" />
            <span class="label"><?php echo Mage::helper('catalog')->__('Delete') ?></span>
         <?php endif ?>
     <?php endif ?>

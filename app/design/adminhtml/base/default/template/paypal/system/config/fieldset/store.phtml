@@ -20,20 +20,20 @@ window.addEventListener('load', function () {
     pConfigDisabler.disableMethods(disabledMethods);
 });
 
-PaypalConfigDisabler = Class.create();
+function PaypalConfigDisabler() {
+    this.methods = {
+        express: {fieldset: 'express'},
+        wps: {fieldset: 'wps'},
+        wpp: {fieldset: 'wpp'},
+        wpppe: {fieldset: 'wpp_pe'},
+        expresspe: {fieldset: 'express_pe'},
+        verisign: {fieldset: 'verisign'},
+        wpppl: {fieldset: 'payflow_link'},
+        hosted_pro: {fieldset: 'hosted_pro'}
+    };
+}
 PaypalConfigDisabler.prototype = {
-    initialize: function () {
-        this.methods = {
-            express: {fieldset: 'express'},
-            wps: {fieldset: 'wps'},
-            wpp: {fieldset: 'wpp'},
-            wpppe: {fieldset: 'wpp_pe'},
-            expresspe: {fieldset: 'express_pe'},
-            verisign: {fieldset: 'verisign'},
-            wpppl: {fieldset: 'payflow_link'},
-            hosted_pro: {fieldset: 'hosted_pro'}
-        };
-    },
+    constructor: PaypalConfigDisabler,
 
     getMethods: function ()
     {

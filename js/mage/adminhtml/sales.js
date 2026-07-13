@@ -1276,7 +1276,9 @@ AdminOrder.prototype = {
             params.store_id = this.storeId;
         }
 
-        var currentCustomerGroupId = document.getElementById(parameters.groupIdHtmlId).value;
+        // guest orders have no customer group selector, so group changes do not apply
+        var groupIdElement = document.getElementById(parameters.groupIdHtmlId);
+        var currentCustomerGroupId = groupIdElement ? groupIdElement.value : null;
 
         var queryString = new URLSearchParams(params).toString();
         fetch(parameters.validateUrl, {
@@ -1294,16 +1296,16 @@ AdminOrder.prototype = {
 
                 if (true === response.valid) {
                     message = parameters.vatValidMessage;
-                    if (currentCustomerGroupId != response.group) {
+                    if (groupIdElement && currentCustomerGroupId != response.group) {
                         message = parameters.vatValidAndGroupChangeMessage;
                         groupChangeRequired = true;
                     }
                 } else if (response.success) {
                     message = parameters.vatInvalidMessage.replace(/%s/, params.vat);
-                    groupChangeRequired = true;
+                    groupChangeRequired = !!groupIdElement;
                 } else {
                     message = parameters.vatValidationFailedMessage;
-                    groupChangeRequired = true;
+                    groupChangeRequired = !!groupIdElement;
                 }
 
             } catch (e) {

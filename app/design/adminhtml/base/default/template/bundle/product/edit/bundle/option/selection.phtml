@@ -59,22 +59,17 @@ var bundleTemplateRow ='<td>' +
                 '<td class="a-center"><input onclick="bSelection.checkGroup(event)" type="{{option_type}}" class="default" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][is_default]" value="1" {{checked}}></td>' +
                 '<td class="last"><span title="Delete Row"><?php echo $this->getSelectionDeleteButtonHtml() ?></span></td>';
 
-Bundle.Selection = Class.create();
+Bundle.Selection = function() {
+    this.gridSelection = new Map();
+    this.templateBox = '<div class="grid tier form-list" id="' + this.idLabel + '_box_{{parentIndex}}">' + bundleTemplateBox + '</div>';
+    this.templateRow = '<tr class="selection" id="' + this.idLabel + '_row_{{index}}">' + bundleTemplateRow + '</tr>';
+};
 Bundle.Selection.prototype = {
+    constructor: Bundle.Selection,
     idLabel : '<?php echo $this->getFieldId() ?>',
     scopePrice : <?php echo (int) $this->isUsedWebsitePrice() ?>,
-    templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
-    templateBox : '',
-    templateRow : '',
     itemsCount : 0,
     row : null,
-    gridSelection : new Hash(),
-
-    initialize : function() {
-        this.templateBox = '<div class="grid tier form-list" id="' + this.idLabel + '_box_{{parentIndex}}">' + bundleTemplateBox + '</div>';
-
-        this.templateRow = '<tr class="selection" id="' + this.idLabel + '_row_{{index}}">' + bundleTemplateRow + '</tr>';
-    },
 
     showSearch : function(event) {
         var element = event.target.closest('div');
@@ -87,13 +82,25 @@ Bundle.Selection.prototype = {
             products.push(inputs[i].value);
         }
 
-        this.gridSelection.set(parts[2], $H({}));
+        this.gridSelection.set(parts[2], {});
 
-        new Ajax.Updater(bOption.idLabel + '_search_' + parts[2], '<?php echo $this->getSelectionSearchUrl() ?>', {
-            method: 'post',
-            parameters : {'index' : parts[2], 'products[]' : products, 'form_key': FORM_KEY},
-            evalScripts : true
-        });
+        var _targetId = bOption.idLabel + '_search_' + parts[2];
+        var _body = new URLSearchParams();
+        _body.append('index', parts[2]);
+        _body.append('form_key', FORM_KEY);
+        products.forEach(function(p) { _body.append('products[]', p); });
+        fetch('<?php echo $this->getSelectionSearchUrl() ?>', {method: 'POST', body: _body})
+            .then(function(r) { return r.text(); })
+            .then(function(html) {
+                var _target = document.getElementById(_targetId);
+                _target.innerHTML = html;
+                Array.from(_target.querySelectorAll('script')).forEach(function(old) {
+                    var s = document.createElement('script');
+                    s.textContent = old.textContent;
+                    document.head.appendChild(s);
+                    document.head.removeChild(s);
+                });
+            });
 
         if (event.target.tagName.toLowerCase() != 'button') {
             var button = event.target.closest('button');
@@ -141,10 +148,9 @@ Bundle.Selection.prototype = {
             data.checked = 'checked="checked"';
         }
 
-        this.template = new Template(this.templateRow, this.templateSyntax);
         var tbody = document.querySelectorAll('#' + this.idLabel + '_box_' + parentIndex + ' tbody');
 
-        tbody[0].insertAdjacentHTML('beforeend', this.template.evaluate(data));
+        tbody[0].insertAdjacentHTML('beforeend', this.templateRow.replace(/{{(\w+)}}/g, function(_, k) { return data[k] !== undefined ? data[k] : ''; }));
 
         if (typeof data.selection_price_type !== 'undefined') {
             Array.from(document.getElementById(this.idLabel + '_'+data.index+'_price_type').options).forEach(function(option){
@@ -214,23 +220,22 @@ Bundle.Selection.prototype = {
         if (element == undefined) {
             element = event.target;
         }
-        var priceValue = document.getElementById(element.id.sub('scope', 'value'));
-        var priceType = document.getElementById(element.id.sub('scope', 'type'));
+        var priceValue = document.getElementById(element.id.replace('scope', 'value'));
+        var priceType = document.getElementById(element.id.replace('scope', 'type'));
 
         if (element.checked) {
-            priceValue.disable();
-            priceType.disable();
+            priceValue.disabled = true;
+            priceType.disabled = true;
         } else {
-            priceValue.enable();
-            priceType.enable();
+            priceValue.disabled = false;
+            priceType.disabled = false;
         }
     },
 
     addBox : function (parentIndex) {
         var div = document.getElementById(bOption.idLabel + '_' + parentIndex)
-        this.template = new Template(this.templateBox, this.templateSyntax);
         var data = {'parentIndex' : parentIndex};
-        div.insertAdjacentHTML('beforeend', this.template.evaluate(data));
+        div.insertAdjacentHTML('beforeend', this.templateBox.replace(/{{(\w+)}}/g, function(_, k) { return data[k] !== undefined ? data[k] : ''; }));
     },
 
     remove : function(event) {
@@ -276,16 +281,16 @@ Bundle.Selection.prototype = {
         document.getElementById(bOption.idLabel + '_search_' + parts[2]).innerHTML = '';
         document.getElementById(bOption.idLabel + '_' + parts[2] + '_add_button').style.display = '';
 
-        this.gridSelection.get(parts[2]).each(
+        Object.entries(this.gridSelection.get(parts[2])).forEach(
             function(pair) {
-                var qty = pair.value.get('qty');
+                var qty = pair[1].qty;
                 var data = {
-                    'name' : pair.value.get('name'),
+                    'name' : pair[1].name,
                     'selection_price_value' : 0,
                     'selection_qty' : (qty == '' ? 1 : qty),
-                    'sku' : pair.value.get('sku'),
+                    'sku' : pair[1].sku,
                     'position' : 0,
-                    'product_id' : pair.key,
+                    'product_id' : pair[0],
                     'option_id' : document.getElementById(bOption.idLabel + '_id_' + parts[2]).value
                 };
                 bSelection.addRow(parts[2], data);
@@ -309,14 +314,14 @@ Bundle.Selection.prototype = {
             if (element.checked) {
                 var tr = element.parentNode.parentNode;
                 if (!this.gridSelection.get(id)) {
-                    this.gridSelection.set(id, new Hash());
+                    this.gridSelection.set(id, {});
                 }
-                this.gridSelection.get(id).set(element.value, $H({}));
-                this.gridSelection.get(id).get(element.value).set('name', tr.querySelector('td.name').innerHTML);
-                this.gridSelection.get(id).get(element.value).set('qty', tr.querySelector('input.qty').value);
-                this.gridSelection.get(id).get(element.value).set('sku', tr.querySelector('td.sku').innerHTML);
+                this.gridSelection.get(id)[element.value] = {};
+                this.gridSelection.get(id)[element.value].name = tr.querySelector('td.name').innerHTML;
+                this.gridSelection.get(id)[element.value].qty = tr.querySelector('input.qty').value;
+                this.gridSelection.get(id)[element.value].sku = tr.querySelector('td.sku').innerHTML;
             } else {
-                this.gridSelection.get(id).unset(element.value);
+                delete this.gridSelection.get(id)[element.value];
             }
         }
     },
@@ -339,7 +344,7 @@ Bundle.Selection.prototype = {
             return;
         }
         var id = element.closest('table').id.split('_')[4];
-        this.gridSelection.get(id).get(element.checkbox.value).set('qty', element.value);
+        this.gridSelection.get(id)[element.checkbox.value].qty = element.value;
     }
 }
 

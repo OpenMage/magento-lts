@@ -263,6 +263,15 @@ window.varienUpdater = function (containerId, url, options) {
         }
         if (container) {
             container.innerHTML = text;
+            // innerHTML does not execute <script> tags; re-create them so
+            // inline init scripts in the AJAX response run (unless evalScripts:false)
+            if (options.evalScripts !== false) {
+                container.querySelectorAll('script').forEach(function (old) {
+                    var s = document.createElement('script');
+                    if (old.src) { s.src = old.src; } else { s.textContent = old.textContent; }
+                    old.parentNode.replaceChild(s, old);
+                });
+            }
         }
         if (typeof options.onComplete === 'function') {
             options.onComplete({ responseText: text });
@@ -291,8 +300,8 @@ varienLoaderHandler.handler = {
         }
         showLoader();
     },
-    onComplete: function () {
-        if (typeof Ajax !== 'undefined' && Ajax.activeRequestCount === 0) {
+    onComplete: function (request) {
+        if (!request || typeof Ajax === 'undefined' || Ajax.activeRequestCount === 0) {
             hideLoader();
         }
     }

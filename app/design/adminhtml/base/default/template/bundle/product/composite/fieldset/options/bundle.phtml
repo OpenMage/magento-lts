@@ -24,7 +24,9 @@
 </div>
 
 <script>
-var BundleControl = Class.create();
+var BundleControl = function() {
+    this.initialize.apply(this, arguments);
+};
 BundleControl.prototype = {
     initialize: function (config) {
         this.config = config;

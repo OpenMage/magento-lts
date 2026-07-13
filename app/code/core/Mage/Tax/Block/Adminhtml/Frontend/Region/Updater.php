@@ -23,12 +23,12 @@ class Mage_Tax_Block_Adminhtml_Frontend_Region_Updater extends Mage_Adminhtml_Bl
         $str = '<script type="text/javascript">
                var updater = new RegionUpdater("tax_defaults_country", "none", "tax_defaults_region", %s, "nullify");
                if(updater.lastCountryId) {
-                   var tmpRegionId = $("tax_defaults_region").value;
+                   var tmpRegionId = document.getElementById("tax_defaults_region").value;
                    var tmpCountryId = updater.lastCountryId;
                    updater.lastCountryId=false;
                    updater.update();
                    updater.lastCountryId = tmpCountryId;
-                   $("tax_defaults_region").value = tmpRegionId;
+                   document.getElementById("tax_defaults_region").value = tmpRegionId;
                } else {
                    updater.update();
                }

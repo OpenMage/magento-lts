@@ -72,7 +72,7 @@
             this.unconvertedText = document.getElementById(this.id).value;
             document.getElementById('convert_button').style.display = 'none';
             document.getElementById('convert_button_back').style.display = '';
-            document.getElementById(this.id).value = document.getElementById(this.id).value.stripScripts().stripTags();
+            document.getElementById(this.id).value = document.getElementById(this.id).value.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '').replace(/<\/?[^>]+>/gi, '');
             document.getElementById('field_template_styles').style.display = 'none';
             this.typeChange = true;
             return false;

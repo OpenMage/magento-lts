@@ -157,10 +157,31 @@ var pageGroupTemplate = '<div class="options-box page_group_container" id="page_
 var WidgetInstance = {
     pageGroupTemplate    : pageGroupTemplate,
     pageGroupContainerId : 'page_group_container',
-    templatePattern : /(^|.|\r|\n)({{(\w+)}})/,
+    templatePattern : /\{\{(\w+)\}\}/g,
     count : 0,
     activePageGroups : {},
     selectedItems : {},
+
+    renderPageGroupTemplate : function(data) {
+        return this.pageGroupTemplate.replace(this.templatePattern, function(match, key) {
+            return data[key] !== undefined && data[key] !== null ? data[key] : '';
+        });
+    },
+
+    /**
+     * Execute <script> elements inside a container (replaces Prototype's String#evalScripts)
+     */
+    evalScripts : function(container) {
+        container.querySelectorAll('script').forEach(function(s) {
+            var ns = document.createElement('script');
+            if (s.src) {
+                ns.src = s.src;
+            } else {
+                ns.textContent = s.textContent;
+            }
+            document.head.appendChild(ns);
+        });
+    },
 
     addPageGroup : function(data) {
         if (this.pageGroupTemplate && (pageGroupContainer = document.getElementById(this.pageGroupContainerId))) {
@@ -178,8 +199,7 @@ var WidgetInstance = {
                     }
                 }
             }
-            pageGroupTemplateObj = new Template(this.pageGroupTemplate, this.templatePattern);
-            pageGroupContainer.insertAdjacentHTML('afterbegin', pageGroupTemplateObj.evaluate(data));
+            pageGroupContainer.insertAdjacentHTML('afterbegin', this.renderPageGroupTemplate(data));
             if (data.group) {
                 pageGroup = document.getElementById(data.group+'_'+data.id);
                 additional = {};
@@ -329,11 +349,12 @@ var WidgetInstance = {
                     try {
                         if (responseText) {
                             chooser.insertAdjacentHTML('beforeend', responseText);
-                            responseText.evalScripts();
+                            WidgetInstance.evalScripts(chooser);
                             chooser.classList.remove('no-display');
                             chooser.style.display = '';
                         }
                     } catch (e) {
+                        console.error(e);
                         alert('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Error occurs during loading chooser.')) ?>');
                     }
                 });
@@ -429,6 +450,7 @@ var WidgetInstance = {
                                 }
                             }
                         } catch (e) {
+                            console.error(e);
                             alert('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Error occurs during loading chooser.')) ?>');
                         }
                     });

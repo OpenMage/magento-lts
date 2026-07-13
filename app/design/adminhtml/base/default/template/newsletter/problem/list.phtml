@@ -44,30 +44,40 @@
             }
         },
 
-        unsubscribe: function () {
-            var elements = document.querySelectorAll('input.problemCheckbox');
-            var serializedElements = Form.serializeElements(elements, true);
-            serializedElements._unsubscribe = '1';
-            serializedElements.form_key = FORM_KEY;
-            var url = problemGridJsObject.url;
+        _request: function (extraParams) {
+            var params = new URLSearchParams();
+            document.querySelectorAll('input.problemCheckbox').forEach(function (cb) {
+                if (cb.checked && cb.name) {
+                    params.append(cb.name, cb.value);
+                }
+            });
+            Object.keys(extraParams).forEach(function (k) { params.append(k, extraParams[k]); });
+            params.append('form_key', FORM_KEY);
 
-            new Ajax.Updater('problemGrid', url + '?ajax=1',
-                             {parameters:  serializedElements,
-                              evalScripts: true,
-                              onComplete:problemGridJsObject.initGrid.bind(problemGridJsObject)});
+            var container = document.getElementById('problemGrid');
+            fetch(problemGridJsObject.url + '?ajax=1', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: params.toString()
+            })
+            .then(function (r) { return r.text(); })
+            .then(function (text) {
+                container.innerHTML = text;
+                container.querySelectorAll('script').forEach(function (old) {
+                    var s = document.createElement('script');
+                    if (old.src) { s.src = old.src; } else { s.textContent = old.textContent; }
+                    old.parentNode.replaceChild(s, old);
+                });
+                problemGridJsObject.initGrid();
+            });
+        },
+
+        unsubscribe: function () {
+            this._request({_unsubscribe: '1'});
         },
 
         deleteSelected: function () {
-            var elements = document.querySelectorAll('input.problemCheckbox');
-            var serializedElements = Form.serializeElements(elements, true);
-            serializedElements._delete = '1';
-            serializedElements.form_key = FORM_KEY;
-            var url = problemGridJsObject.url;
-
-            new Ajax.Updater('problemGrid', url + '?ajax=1',
-                             {parameters:  serializedElements,
-                              evalScripts: true,
-                              onComplete:problemGridJsObject.initGrid.bind(problemGridJsObject)});
+            this._request({_delete: '1'});
         }
     }
 

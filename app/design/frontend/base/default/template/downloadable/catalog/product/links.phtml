@@ -50,7 +50,9 @@
     </dl>
     <script type="text/javascript">
     //<![CDATA[
-        Product.Downloadable = Class.create();
+        Product.Downloadable = function() {
+            this.initialize.apply(this, arguments);
+        };
         Product.Downloadable.prototype = {
             config : {},
             initialize : function(config){

@@ -190,49 +190,56 @@ ProductConfigure.prototype = {
         }
         var url = this.listTypes[listType].urlFetch;
         if (url) {
-            new Ajax.Request(url, {
-                parameters: {id: itemId},
-                onSuccess: function(transport) {
-                    var response = transport.responseText;
-                    try {
-                        var json = JSON.parse(response);
-                        if (json.error) {
-                            this.blockMsg.style.display = '';
-                            this.blockMsgError.innerHTML = json.message;
-                            this.blockCancelBtn.style.display = 'none';
-                            this.setConfirmCallback(listType, null);
-                            this._showWindow();
-                        }
-                    } catch(e) {
-                        if (response) {
-                            response = response + '';
-                            this.blockFormFields.innerHTML = response;
-
-                            Array.from(this.blockFormFields.querySelectorAll('script')).forEach(function (script) {
-                                var executableScript = document.createElement('script');
-                                if (script.src) {
-                                    executableScript.src = script.src;
-                                } else {
-                                    executableScript.textContent = script.textContent;
-                                }
-                                document.head.appendChild(executableScript).parentNode.removeChild(executableScript);
-                            });
-
-                            // Add special div to hold mage data, e.g. scripts to execute on every popup show
-                            var mageData = {};
-                            var scripts = response.extractScripts();
-                            mageData.scripts = scripts;
-
-                            var scriptHolder = document.createElement('div');
-                            scriptHolder.style.display = 'none';
-                            scriptHolder.mageData = mageData;
-                            this.blockFormFields.appendChild(scriptHolder);
-
-                            // Show window
-                            this._showWindow();
-                        }
+            var self = this;
+            fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: 'id=' + encodeURIComponent(itemId) + '&isAjax=true' + (window.FORM_KEY ? '&form_key=' + encodeURIComponent(window.FORM_KEY) : '')
+            })
+            .then(function (resp) { return resp.text(); })
+            .then(function (response) {
+                try {
+                    var json = JSON.parse(response);
+                    if (json.error) {
+                        self.blockMsg.style.display = '';
+                        self.blockMsgError.innerHTML = json.message;
+                        self.blockCancelBtn.style.display = 'none';
+                        self.setConfirmCallback(listType, null);
+                        self._showWindow();
                     }
-                }.bind(this)
+                } catch(e) {
+                    if (response) {
+                        response = response + '';
+                        self.blockFormFields.innerHTML = response;
+
+                        Array.from(self.blockFormFields.querySelectorAll('script')).forEach(function (script) {
+                            var executableScript = document.createElement('script');
+                            if (script.src) {
+                                executableScript.src = script.src;
+                            } else {
+                                executableScript.textContent = script.textContent;
+                            }
+                            document.head.appendChild(executableScript).parentNode.removeChild(executableScript);
+                        });
+
+                        // Add special div to hold mage data, e.g. scripts to execute on every popup show
+                        var mageData = {};
+                        var scripts = [];
+                        response.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, function (match, src) {
+                            scripts.push(src);
+                            return match;
+                        });
+                        mageData.scripts = scripts;
+
+                        var scriptHolder = document.createElement('div');
+                        scriptHolder.style.display = 'none';
+                        scriptHolder.mageData = mageData;
+                        self.blockFormFields.appendChild(scriptHolder);
+
+                        // Show window
+                        self._showWindow();
+                    }
+                }
             });
         }
     },

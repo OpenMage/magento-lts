@@ -59,22 +59,29 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
                 . "
                 //<![CDATA[
                 function changeTaxClassId() {
-                    if ($('price_type').value == '" . Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC . "') {
-                        $('tax_class_id').disabled = true;
-                        $('tax_class_id').value = '0';
-                        $('tax_class_id').removeClassName('required-entry');
-                        if ($('advice-required-entry-tax_class_id')) {
-                            $('advice-required-entry-tax_class_id').remove();
+                    var priceTypeElement = document.getElementById('price_type');
+                    var taxClassElement = document.getElementById('tax_class_id');
+                    var taxClassAdviceElement = document.getElementById('advice-required-entry-tax_class_id');
+                    if (!priceTypeElement || !taxClassElement) {
+                        return;
+                    }
+                    if (priceTypeElement.value == '" . Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC . "') {
+                        taxClassElement.disabled = true;
+                        taxClassElement.value = '0';
+                        taxClassElement.classList.remove('required-entry');
+                        if (taxClassAdviceElement) {
+                            taxClassAdviceElement.remove();
                         }
                     } else {
-                        $('tax_class_id').disabled = false;
-                        " . ($tax->getRequired() ? "$('tax_class_id').addClassName('required-entry');" : '') . "
+                        taxClassElement.disabled = false;
+                        " . ($tax->getRequired() ? "taxClassElement.classList.add('required-entry');" : '') . "
                     }
                 }
 
-                document.observe('dom:loaded', function() {
-                    if ($('price_type')) {
-                        $('price_type').observe('change', changeTaxClassId);
+                document.addEventListener('DOMContentLoaded', function() {
+                    var priceTypeElement = document.getElementById('price_type');
+                    if (priceTypeElement) {
+                        priceTypeElement.addEventListener('change', changeTaxClassId);
                         changeTaxClassId();
                     }
                 });
@@ -117,26 +124,36 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
                 '<script type="text/javascript">'
                 . "
                 function changePriceTypeMap() {
-                    if ($('price_type').value == " . Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC . ") {
-                        $('msrp_enabled').setValue("
+                    var priceTypeElement = document.getElementById('price_type');
+                    var msrpEnabledElement = document.getElementById('msrp_enabled');
+                    var msrpDisplayElement = document.getElementById('msrp_display_actual_price_type');
+                    var msrpElement = document.getElementById('msrp');
+                    if (!priceTypeElement || !msrpEnabledElement || !msrpDisplayElement || !msrpElement) {
+                        return;
+                    }
+                    if (priceTypeElement.value == " . Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC . ") {
+                        msrpEnabledElement.value = " 
                         . Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled::MSRP_ENABLE_NO
-                        . ");
-                        $('msrp_enabled').disable();
-                        $('msrp_display_actual_price_type').setValue("
+                        . ";
+                        msrpEnabledElement.disabled = true;
+                        msrpDisplayElement.value = " 
                         . Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price::TYPE_USE_CONFIG
-                        . ");
-                        $('msrp_display_actual_price_type').disable();
-                        $('msrp').setValue('');
-                        $('msrp').disable();
+                        . ";
+                        msrpDisplayElement.disabled = true;
+                        msrpElement.value = '';
+                        msrpElement.disabled = true;
                     } else {
-                        $('msrp_enabled').enable();
-                        $('msrp_display_actual_price_type').enable();
-                        $('msrp').enable();
+                        msrpEnabledElement.disabled = false;
+                        msrpDisplayElement.disabled = false;
+                        msrpElement.disabled = false;
                     }
                 }
-                document.observe('dom:loaded', function() {
-                    $('price_type').observe('change', changePriceTypeMap);
-                    changePriceTypeMap();
+                document.addEventListener('DOMContentLoaded', function() {
+                    var priceTypeElement = document.getElementById('price_type');
+                    if (priceTypeElement) {
+                        priceTypeElement.addEventListener('change', changePriceTypeMap);
+                        changePriceTypeMap();
+                    }
                 });
                 "
                 . '</script>',

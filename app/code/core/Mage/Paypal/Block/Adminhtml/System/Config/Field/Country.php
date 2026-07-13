@@ -84,7 +84,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
         $urlString = $this->helper('core')
             ->jsQuoteEscape(Mage::getModel('adminhtml/url')->getUrl('*/*/*', $urlParams));
         $jsString = '
-            $("' . $element->getHtmlId() . '").observe("change", function () {
+            document.getElementById("' . $element->getHtmlId() . '").addEventListener("change", function () {
                 location.href = \'' . $urlString . '\'.replace("__country__", this.value);
             });
         ';
@@ -95,7 +95,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
                 ->jsQuoteEscape(Mage::getModel('adminhtml/url')->getUrl('*/*/*', $urlParams));
             $jsParentCountry = $this->helper('core')->jsQuoteEscape($this->_defaultCountry);
             $jsString .= '
-                $("' . $element->getHtmlId() . '_inherit").observe("click", function () {
+                document.getElementById("' . $element->getHtmlId() . '_inherit").addEventListener("click", function () {
                     if (this.checked) {
                         location.href = \'' . $urlString . '\'.replace("__country__", \'' . $jsParentCountry . '\')
                             .replace("__default__", "1");
@@ -107,6 +107,10 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
         /** @var Mage_Adminhtml_Helper_Js $helper */
         $helper = $this->helper('adminhtml/js');
         return parent::_getElementHtml($element)
-            . $helper->getScript('document.observe("dom:loaded", function() {' . $jsString . '});');
+            . $helper->getScript(
+                '(function() { var run = function() {' . $jsString . '};'
+                . ' if (document.readyState === "loading") {'
+                . ' document.addEventListener("DOMContentLoaded", run); } else { run(); } })();',
+            );
     }
 }

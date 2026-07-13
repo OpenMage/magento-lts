@@ -83,87 +83,67 @@ var Downloadable = {
     }
 };
 
-Downloadable.FileUploader = Class.create();
-Downloadable.FileUploader.prototype = {
-    type : null,
-    key : null, //key, identifier of uploader obj
-    elmContainer : null, //insert Flex object and templates to elmContainer
-    fileValueName : null, //name of field of JSON data of saved file
-    fileValue : null,
-    idName : null, //id name of elements for unique uploader
-    uploaderText: uploaderTemplate,
-    uploaderSyntax : /(^|.|\r|\n)(\[\[(\w+)\]\])/,
-    uploaderObj : new Map(),
-    config : null,
-    initialize: function (type, key, elmContainer, fileValueName, fileValue ,idName, config) {
-        this.type = type;
-        this.key = key;
-        this.elmContainer = elmContainer;
-        this.fileValueName = fileValueName;
-        this.fileValue = fileValue;
-        this.idName = idName;
-        this.config = config;
-        uploaderTemplate = new Template(this.uploaderText, this.uploaderSyntax);
-        <?php if (!$this->isReadonly()):?>
-        elmContainer.insertAdjacentHTML(
-            'afterbegin',
-            uploaderTemplate.evaluate({
-                    'idName' : this.idName,
-                    'fileValueName' : this.fileValueName,
-                    'uploaderObj' : 'Downloadable.getUploaderObj(\''+this.type+'\', \''+this.key+'\')'
-                })
-        );
-        if (document.getElementById(this.idName+'_save')) {
-            document.getElementById(this.idName+'_save').value = JSON.stringify(this.fileValue);
-        }
-        var uploaderConfig = (typeof this.config === 'string' ? JSON.parse(this.config) : this.config);
-        Downloadable.setUploaderObj(
-            this.type,
-            this.key,
-            new Uploader(uploaderConfig)
-        );
-        if (varienGlobalEvents) {
-            varienGlobalEvents.attachEventHandler('tabChangeBefore', Downloadable.getUploaderObj(type, key).onContainerHideBefore);
-        }
-        new Downloadable.FileList(this.idName, Downloadable.getUploaderObj(type, key));
-        <?php endif ?>
+Downloadable.FileUploader = function(type, key, elmContainer, fileValueName, fileValue, idName, config) {
+    this.type = type;
+    this.key = key;
+    this.elmContainer = elmContainer;
+    this.fileValueName = fileValueName;
+    this.fileValue = fileValue;
+    this.idName = idName;
+    this.config = config;
+    <?php if (!$this->isReadonly()):?>
+    var _tplData = {
+        'idName' : this.idName,
+        'fileValueName' : this.fileValueName,
+        'uploaderObj' : 'Downloadable.getUploaderObj(\''+this.type+'\', \''+this.key+'\')'
+    };
+    elmContainer.insertAdjacentHTML(
+        'afterbegin',
+        uploaderTemplate.replace(/\[\[(\w+)\]\]/g, function(_, k) { return _tplData[k] !== undefined ? _tplData[k] : ''; })
+    );
+    if (document.getElementById(this.idName+'_save')) {
+        document.getElementById(this.idName+'_save').value = JSON.stringify(this.fileValue);
     }
-}
+    var uploaderConfig = (typeof this.config === 'string' ? JSON.parse(this.config) : this.config);
+    Downloadable.setUploaderObj(
+        this.type,
+        this.key,
+        new Uploader(uploaderConfig)
+    );
+    if (varienGlobalEvents) {
+        varienGlobalEvents.attachEventHandler('tabChangeBefore', Downloadable.getUploaderObj(type, key).onContainerHideBefore);
+    }
+    new Downloadable.FileList(this.idName, Downloadable.getUploaderObj(type, key));
+    <?php endif ?>
+};
 
-Downloadable.FileList = Class.create();
+Downloadable.FileList = function(containerId, uploader) {
+    this.file = [];
+    this.containerId = containerId;
+    this.container = document.getElementById(this.containerId);
+    this.uploader = uploader;
+    document.addEventListener('uploader:fileSuccess', function(event) {
+        var memo = event.memo || event.detail || {};
+        if(this._checkCurrentContainer(memo.containerId)) {
+            this.handleUploadComplete([{response: memo.response}]);
+            this.handleButtonsSwap();
+        }
+    }.bind(this));
+    document.addEventListener('uploader:fileError', function(event) {
+        var memo = event.memo || event.detail || {};
+        if(this._checkCurrentContainer(memo.containerId)) {
+            this.handleButtonsSwap();
+        }
+    }.bind(this));
+    document.addEventListener('upload:simulateDelete', this.handleFileRemoveAll.bind(this));
+    document.addEventListener('uploader:simulateNewUpload', this.handleFileNew.bind(this));
+    this.file = JSON.parse(this.getElement('save').value);
+    this.updateFiles();
+    this.uploader.onFileRemoveAll = this.handleFileRemoveAll.bind(this);
+    this.uploader.onFileSelect = this.handleFileSelect.bind(this);
+};
 Downloadable.FileList.prototype = {
-    file: [],
-    containerId: '',
-    container: null,
-    uploader: null,
-    fileListTemplate: fileListTemplate,
-    templatePattern : /(^|.|\r|\n)({{(\w+)}})/,
-    listTemplate : null,
-    initialize: function (containerId, uploader) {
-        this.containerId  = containerId,
-        this.container = document.getElementById(this.containerId);
-        this.uploader = uploader;
-        document.addEventListener('uploader:fileSuccess', function(event) {
-            var memo = event.memo || event.detail || {};
-            if(this._checkCurrentContainer(memo.containerId)) {
-                this.handleUploadComplete([{response: memo.response}]);
-                this.handleButtonsSwap();
-            }
-        }.bind(this));
-        document.addEventListener('uploader:fileError', function(event) {
-            var memo = event.memo || event.detail || {};
-            if(this._checkCurrentContainer(memo.containerId)) {
-                this.handleButtonsSwap();
-            }
-        }.bind(this));
-        document.addEventListener('upload:simulateDelete', this.handleFileRemoveAll.bind(this));
-        document.addEventListener('uploader:simulateNewUpload', this.handleFileNew.bind(this));
-        this.file = JSON.parse(this.getElement('save').value);
-        this.listTemplate = new Template(this.fileListTemplate, this.templatePattern);
-        this.updateFiles();
-        this.uploader.onFileRemoveAll = this.handleFileRemoveAll.bind(this);
-        this.uploader.onFileSelect = this.handleFileSelect.bind(this);
-    },
+    constructor: Downloadable.FileList,
 
     _checkCurrentContainer: function (child) {
         return document.getElementById(this.containerId).querySelector('#' + child);
@@ -221,7 +201,7 @@ Downloadable.FileList.prototype = {
         this.getElement('save').value = JSON.stringify(this.file);
         this.file.forEach(function(row){
             row.size = this.uploader.formatSize(row.size);
-            document.getElementById(this.containerId + '-old').innerHTML = this.listTemplate.evaluate(row);
+            document.getElementById(this.containerId + '-old').innerHTML = fileListTemplate.replace(/{{(\w+)}}/g, function(_, k) { return row[k] !== undefined ? row[k] : ''; });
             document.getElementById(this.containerId + '-new').style.display = 'none';
             document.getElementById(this.containerId + '-old').style.display = '';
         }.bind(this));

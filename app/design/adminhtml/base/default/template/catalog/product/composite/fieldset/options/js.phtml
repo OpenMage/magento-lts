@@ -45,7 +45,7 @@ DateOption.prototype = {
 
     reloadMonth: function(event)
     {
-        var selectEl = event.findElement();
+        var selectEl = event.target;
         var idParts = selectEl.id.split("_");
         if (idParts.length != 3) {
             return false;

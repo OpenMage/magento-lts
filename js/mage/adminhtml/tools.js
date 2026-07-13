@@ -162,6 +162,7 @@ function submitAndReloadArea(area, url) {
             params.append('form_key', window.FORM_KEY);
         }
         url = url + (url.indexOf('?') !== -1 ? '&isAjax=true' : '?isAjax=true');
+        showLoader();
         fetch(url, {
             method: 'POST',
             body: params,
@@ -186,6 +187,9 @@ function submitAndReloadArea(area, url) {
                     document.head.removeChild(newScript);
                 });
             }
+        })
+        .finally(function() {
+            hideLoader();
         });
     }
 }

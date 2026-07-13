@@ -32,46 +32,51 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint extends Mage_Admin
             paypalToggleSolution = function(id, url) {
                 var doScroll = false;
                 Fieldset.toggleCollapse(id, url);
-                if ($(this).hasClassName("open")) {
-                    $$(".with-button button.button").each(function(anotherButton) {
-                        if (anotherButton != this && $(anotherButton).hasClassName("open")) {
-                            $(anotherButton).click();
+                if (this.classList.contains("open")) {
+                    document.querySelectorAll(".with-button button.button").forEach(function(anotherButton) {
+                        if (anotherButton != this && anotherButton.classList.contains("open")) {
+                            anotherButton.click();
                             doScroll = true;
                         }
                     }.bind(this));
                 }
                 if (doScroll) {
-                    var pos = Element.cumulativeOffset($(this));
-                    window.scrollTo(pos[0], pos[1] - 45);
+                    var rect = this.getBoundingClientRect();
+                    window.scrollTo(rect.left + window.pageXOffset, rect.top + window.pageYOffset - 45);
                 }
-            }
+            };
 
             togglePaypalSolutionConfigureButton = function(button, enable) {
-                var $button = $(button);
-                $button.disabled = !enable;
-                if ($button.hasClassName("disabled") && enable) {
-                    $button.removeClassName("disabled");
-                } else if (!$button.hasClassName("disabled") && !enable) {
-                    $button.addClassName("disabled");
+                button.disabled = !enable;
+                if (button.classList.contains("disabled") && enable) {
+                    button.classList.remove("disabled");
+                } else if (!button.classList.contains("disabled") && !enable) {
+                    button.classList.add("disabled");
                 }
-            }
+            };
 
             // check store-view disabling Express Checkout
-            document.observe("dom:loaded", function() {
-                var ecButton = $$(".pp-method-express button.button")[0];
-                var ecEnabler = $$(".paypal-ec-enabler")[0];
-                if (typeof ecButton == "undefined" || typeof ecEnabler != "undefined") {
-                    return;
-                }
-                var $ecButton = $(ecButton);
-                $$(".with-button button.button").each(function(configureButton) {
-                    if (configureButton != ecButton && !configureButton.disabled
-                        && !$(configureButton).hasClassName("paypal-ec-separate")
-                    ) {
-                        togglePaypalSolutionConfigureButton(ecButton, false);
+            (function() {
+                var run = function() {
+                    var ecButton = document.querySelectorAll(".pp-method-express button.button")[0];
+                    var ecEnabler = document.querySelectorAll(".paypal-ec-enabler")[0];
+                    if (typeof ecButton == "undefined" || typeof ecEnabler != "undefined") {
+                        return;
                     }
-                });
-            });
+                    document.querySelectorAll(".with-button button.button").forEach(function(configureButton) {
+                        if (configureButton != ecButton && !configureButton.disabled
+                            && !configureButton.classList.contains("paypal-ec-separate")
+                        ) {
+                            togglePaypalSolutionConfigureButton(ecButton, false);
+                        }
+                    });
+                };
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", run);
+                } else {
+                    run();
+                }
+            })();
         ';
 
         /** @var Mage_Adminhtml_Helper_Js $helper */
