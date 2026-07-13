@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
             $html .= '<td class="use-default">';
             $html .= '<input id="' . $id . '_inherit" name="'
                 . $namePrefix . '[inherit]" type="checkbox" value="1" class="checkbox config-inherit" '
-                . $inherit . ' onclick="toggleValueElements(this, Element.previous(this.parentNode))" /> ';
+                . $inherit . ' onclick="toggleValueElements(this, this.parentNode.previousElementSibling)" /> ';
             $html .= '<label for="' . $id . '_inherit" class="inherit" title="'
                 . htmlspecialchars($defText) . '">' . $checkboxLabel . '</label>';
             $html .= '</td>';

@@ -61,9 +61,21 @@ var catalogWysiwygEditor = {
             firedElementId: elementId
         });
 
-        content.evalScripts.bind(content).defer();
+        this.evalScripts(content);
 
         document.getElementById(elementId+'_editor').value = document.getElementById(elementId).value;
+    },
+    evalScripts : function(content) {
+        var container = document.createElement('div');
+        container.innerHTML = content;
+        container.querySelectorAll('script').forEach(function(script) {
+            var newScript = document.createElement('script');
+            Array.from(script.attributes).forEach(function(attribute) {
+                newScript.setAttribute(attribute.name, attribute.value);
+            });
+            newScript.text = script.text;
+            document.head.appendChild(newScript).parentNode.removeChild(newScript);
+        });
     },
     okDialogWindow : function(dialogWindow) {
         if (dialogWindow.options.firedElementId) {

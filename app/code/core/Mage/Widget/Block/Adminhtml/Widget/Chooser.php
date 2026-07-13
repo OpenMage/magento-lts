@@ -185,15 +185,16 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
                             "' . $this->getSourceUrl() . '",
                             ' . $configJson . '
                         );
-                        if ($("' . $chooserId . 'value")) {
-                            $("' . $chooserId . 'value").advaiceContainer = "' . $chooserId . 'advice-container";
+                        var valueEl = document.getElementById("' . $chooserId . 'value");
+                        if (valueEl) {
+                            valueEl.advaiceContainer = "' . $chooserId . 'advice-container";
                         }
                     }
 
-                    if (document.loaded) { //allow load over ajax
+                    if (document.readyState !== "loading") { //allow load over ajax
                         instantiateChooser();
                     } else {
-                        document.observe("dom:loaded", instantiateChooser);
+                        document.addEventListener("DOMContentLoaded", instantiateChooser);
                     }
                 })();
             //]]></script>

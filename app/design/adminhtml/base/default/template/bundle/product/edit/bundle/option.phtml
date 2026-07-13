@@ -70,7 +70,9 @@ function changeInputType(oldObject, oType) {
     return newObject;
 }
 
-Bundle.Option = Class.create();
+Bundle.Option = function() {
+    this.initialize.apply(this, arguments);
+};
 Bundle.Option.prototype = {
     idLabel : '<?php echo $this->getFieldId() ?>',
     top : '',
@@ -92,9 +94,11 @@ Bundle.Option.prototype = {
 
         data.index = this.itemsCount++;
 
-        this.template = new Template(this.templateText, this.templateSyntax);
+        var html = this.templateText.replace(/{{(\w+)}}/g, function(match, key) {
+            return (data[key] !== undefined && data[key] !== null) ? data[key] : '';
+        });
 
-        this.top.insertAdjacentHTML('afterend', this.template.evaluate(data));
+        this.top.insertAdjacentHTML('afterend', html);
 
         this.top = document.getElementById(this.idLabel + '_' + data.index);
 

@@ -82,9 +82,17 @@ var Variables = {
             id:this.dialogWindowId,
             onClose: this.closeDialogWindow.bind(this)
         });
-        // Run inline scripts after the dialog content has been inserted into the DOM.
+        // Run any inline scripts from the inserted dialog content (vanilla
+        // replacement for Prototype's String.evalScripts()).
+        var dialogId = this.dialogWindowId;
         setTimeout(function () {
-            variablesContent.evalScripts();
+            var el = document.getElementById(dialogId);
+            if (!el) return;
+            el.querySelectorAll('script').forEach(function (old) {
+                var s = document.createElement('script');
+                if (old.src) { s.src = old.src; } else { s.textContent = old.textContent; }
+                old.parentNode.replaceChild(s, old);
+            });
         }, 0);
     },
     closeDialogWindow: function(window) {
@@ -126,17 +134,21 @@ OpenmagevariablePlugin = {
     loadChooser: function(url, textareaId) {
         this.textareaId = textareaId;
         if (this.variables == null) {
-            new Ajax.Request(url, {
-                parameters: {},
-                onComplete: function (transport) {
-                    try {
-                        var data = JSON.parse(transport.responseText);
-                        Variables.init(null, 'OpenmagevariablePlugin.insertVariable');
-                        this.variables = data;
-                        this.openChooser(this.variables);
-                    } catch(e) {}
-                }.bind(this)
-             });
+            var self = this;
+            fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: 'isAjax=true' + (window.FORM_KEY ? '&form_key=' + encodeURIComponent(window.FORM_KEY) : '')
+            })
+            .then(function (resp) { return resp.text(); })
+            .then(function (text) {
+                try {
+                    var data = JSON.parse(text);
+                    Variables.init(null, 'OpenmagevariablePlugin.insertVariable');
+                    self.variables = data;
+                    self.openChooser(self.variables);
+                } catch(e) {}
+            });
         } else {
             this.openChooser(this.variables);
         }

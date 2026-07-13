@@ -168,12 +168,10 @@ var linkTemplate = '<tr id="downloadable_link_{{id}}">'+
 
 var linkItems = {
     tbody : document.getElementById('link_items_body'),
-    templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : linkTemplate,
     itemCount : 0,
     add : function(data) {
         alertAlreadyDisplayed = false;
-        this.template = new Template(this.templateText, this.templateSyntax);
 
         if(!data.link_id){
             data = {};
@@ -196,7 +194,7 @@ var linkItems = {
             data.sample_file_checked = ' checked="checked"';
         }
 
-        this.tbody.insertAdjacentHTML('beforeend', this.template.evaluate(data));
+        this.tbody.insertAdjacentHTML('beforeend', this.templateText.replace(/{{(\w+)}}/g, function(_, k) { return data[k] !== undefined ? data[k] : ''; }));
 
         scopeTitle = document.getElementById('downloadable_link_'+data.id+'_title');
         if (scopeTitle) {
@@ -267,7 +265,7 @@ var linkItems = {
         new Downloadable.FileUploader(
             'linkssample',
             'linkssample_'+data.id,
-            sampleUrl.up('td'),
+            sampleUrl.closest('td'),
             'downloadable[link]['+data.id+'][sample]',
             data.sample_file_save,
             'downloadable_link_'+data.id+'_sample_file',
@@ -281,7 +279,7 @@ var linkItems = {
         new Downloadable.FileUploader(
             'links',
             'links_'+data.id,
-            linkUrl.up('td'),
+            linkUrl.closest('td'),
             'downloadable[link]['+data.id+']',
             data.file_save,
             'downloadable_link_'+data.id+'_file',
@@ -358,8 +356,12 @@ if(document.getElementById('add_link_item')) {
 
 Validation.addAllThese([
     ['validate-downloadable-link-sample-file', 'Please specify File.', function(v,element) {
-            fileSaveElm = element.up('div').next('input[type="hidden"]');
-            if (element.checked && (fileSaveElm.value == '' || fileSaveElm.value == '[]')) {
+            var _div = element.closest('div');
+            var fileSaveElm = _div ? _div.nextElementSibling : null;
+            while (fileSaveElm && !fileSaveElm.matches('input[type="hidden"]')) {
+                fileSaveElm = fileSaveElm.nextElementSibling;
+            }
+            if (element.checked && fileSaveElm && (fileSaveElm.value == '' || fileSaveElm.value == '[]')) {
                 return false;
             }
             return true;
@@ -367,7 +369,7 @@ Validation.addAllThese([
     ]);
 Validation.addAllThese([
     ['validate-downloadable-link-sample-url', 'Please specify Sample URL.', function(v,element) {
-            if (element.checked && element.up('p').down('input[type="text"]').value == '') {
+            if (element.checked && element.closest('p').querySelector('input[type="text"]').value == '') {
                 return false;
             }
             return true;

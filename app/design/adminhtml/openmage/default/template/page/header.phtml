@@ -16,7 +16,7 @@
 	</a>
     <div class="header-right">
         <ul id="usermenu">
-        	<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="parent level0 usermenulabel">
+        	<li onmouseover="this.classList.add('over')" onmouseout="this.classList.remove('over')" class="parent level0 usermenulabel">
         		<a href="#" onclick="return false" title="<?php echo $this->__('User Menu') ?>">
                     <svg version="1.1" id="burger" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
                         <rect opacity="0.25" fill="#FFFFFF" width="40" height="40"></rect>
@@ -40,7 +40,7 @@
             <input id="global_search" name="query" type="text" class="input-text" value="<?php if(!empty($query)): ?><?php echo $query ?><?php else: ?><?php echo Mage::helper('core')->quoteEscape($defSearch) ?><?php endif ?>" onfocus="if(this.value=='<?php echo Mage::helper('core')->quoteEscape($defSearch, true) ?>')this.value=''; " onblur="if(this.value=='')this.value='<?php echo $defSearch ?>';" autocomplete="off" />
             <div id="global_search_autocomplete" class="autocomplete"></div>
             <script type="text/javascript">
-                new Ajax.Autocompleter(
+                new Varien.Autocomplete(
                     'global_search',
                     'global_search_autocomplete',
                     '<?php echo $this->getUrl('adminhtml/index/globalSearch') ?>',
@@ -48,8 +48,7 @@
                         paramName:"query",
                         minChars:2,
                         indicator:"global_search_indicator",
-                        updateElement:getSelectionId,
-                        evalJSON:'force'
+                        updateElement:getSelectionId
                     }
                 );
                 function getSelectionId(li) {

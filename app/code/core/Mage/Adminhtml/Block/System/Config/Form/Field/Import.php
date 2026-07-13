@@ -35,12 +35,12 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Import extends Varien_Data_F
 
         $html .= <<<EndHTML
         <script type="text/javascript">
-        Event.observe($('carriers_tablerate_condition_name'), 'change', checkConditionName.bind(this));
+        document.getElementById('carriers_tablerate_condition_name').addEventListener('change', checkConditionName);
         function checkConditionName(event)
         {
-            var conditionNameElement = Event.element(event);
+            var conditionNameElement = event.target;
             if (conditionNameElement && conditionNameElement.id) {
-                $('time_condition').value = '_' + conditionNameElement.value + '/' + Math.random();
+                document.getElementById('time_condition').value = '_' + conditionNameElement.value + '/' + Math.random();
             }
         }
         </script>

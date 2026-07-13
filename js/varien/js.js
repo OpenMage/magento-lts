@@ -315,33 +315,24 @@ Varien.searchForm.prototype = {
     },
 
     initAutocomplete: function(url, destinationElement){
-        // Ajax.Autocompleter requires Scriptaculous controls.js
-        // If available (shim or full), use it; otherwise no-op
-        if (typeof Ajax !== 'undefined' && typeof Ajax.Autocompleter !== 'undefined') {
-            new Ajax.Autocompleter(
-                this.field,
-                destinationElement,
-                url,
-                {
-                    paramName: this.field.name,
-                    method: 'get',
-                    minChars: 2,
-                    updateElement: this._selectAutocompleteItem.bind(this),
-                    onShow: function(element, update) {
-                        if(!update.style.position || update.style.position=='absolute') {
-                            update.style.position = 'absolute';
-                            if (typeof Position !== 'undefined') {
-                                Position.clone(element, update, {
-                                    setHeight: false,
-                                    offsetTop: element.offsetHeight
-                                });
-                            }
-                        }
-                        update.style.display = '';
-                    }
+        new Varien.Autocomplete(
+            this.field,
+            destinationElement,
+            url,
+            {
+                paramName: this.field.name,
+                method: 'get',
+                minChars: 2,
+                updateElement: this._selectAutocompleteItem.bind(this),
+                onShow: function(element, update) {
+                    update.style.position = 'absolute';
+                    var rect = element.getBoundingClientRect();
+                    update.style.left = (window.scrollX + rect.left) + 'px';
+                    update.style.top = (window.scrollY + rect.top + element.offsetHeight) + 'px';
+                    update.style.display = '';
                 }
-            );
-        }
+            }
+        );
     },
 
     _selectAutocompleteItem: function(element){

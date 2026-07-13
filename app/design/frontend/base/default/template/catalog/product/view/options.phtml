@@ -85,7 +85,9 @@
         }
     }
 
-    Product.Options = Class.create();
+    Product.Options = function() {
+        this.initialize.apply(this, arguments);
+    };
     Product.Options.prototype = {
         initialize : function(config) {
             this.config = config;
@@ -97,9 +99,10 @@
             var skipIds = [];
             document.querySelectorAll('body .product-custom-option').forEach(function(element){
                 var optionId = 0;
-                element.name.sub(/[0-9]+/, function(match){
-                    optionId = parseInt(match[0], 10);
-                });
+                var optionIdMatch = element.name.match(/[0-9]+/);
+                if (optionIdMatch) {
+                    optionId = parseInt(optionIdMatch[0], 10);
+                }
                 if (config[optionId]) {
                     var configOptions = config[optionId];
                     var curConfig = {price: 0};

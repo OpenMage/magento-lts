@@ -109,46 +109,46 @@
 //<![CDATA[
 var deleteButtonId = <?php echo $_iterator ?>;
 
-var addressesModel = Class.create();
+function addressesModel() {
+    this.activeItem   = null;
+    this.itemTemplate = document.getElementById('address_item_template');
+    this.formTemplate = document.getElementById('address_form_template');
+    this.itemContainer= document.getElementById('address_list');
+    this.formContainer= document.getElementById('address_form_container');
+    this.baseItemId   = 'new_item';
+
+    this.defaultCountries = <?php echo $this->getDefaultCountriesJson(); ?>;
+    this.itemContentTemplateStr = '<?php echo $this->helper('customer/address')->getFormat('js_template')?>';
+
+    this.onNewAddressClick  = this.addNewAddress.bind(this);
+    this.onItemMouseOver    = this.itemMouseOver.bind(this);
+    this.onItemMouseOut     = this.itemMouseOut.bind(this);
+    this.onItemMouseClick   = this.itemMouseClick.bind(this);
+    this.onItemFormFieldChange = this.syncFormData.bind(this);
+
+    this.loader = new varienLoader(true);
+    this.regionsUrl = '<?php echo $this->getRegionsUrl() ?>';
+    this.requiredStateForCountries = <?php echo $this->helper('directory')->getCountriesWithStatesRequired(true) ?>;
+    this.showAllRegions = <?php echo (string)$this->helper('directory')->getShowNonRequiredState() ? 1 : 0; ?>;
+
+    this.reloadItemList(1);
+
+    for(var i=0,n=this.itemList.length; i<n; i++){
+        if(this.itemList[i].id){
+            this.addItemObservers(this.itemList[i]);
+            this.initItem(this.itemList[i]);
+        }
+    }
+    if(document.getElementById('add_new_address_button')){
+        document.getElementById('add_new_address_button').addEventListener('click', this.onNewAddressClick);
+    }
+
+    this.setActiveItem(this.itemList[0]);
+    this.setAddressAsDefault();
+    this.bindCountryRegionRelation();
+}
 addressesModel.prototype = {
-    initialize : function() {
-        this.activeItem   = null;
-        this.itemTemplate = document.getElementById('address_item_template');
-        this.formTemplate = document.getElementById('address_form_template');
-        this.itemContainer= document.getElementById('address_list');
-        this.formContainer= document.getElementById('address_form_container');
-        this.baseItemId   = 'new_item';
-
-        this.defaultCountries = <?php echo $this->getDefaultCountriesJson(); ?>;
-        this.itemContentTemplate = new Template('<?php echo $this->helper('customer/address')->getFormat('js_template')?>');
-
-        this.onNewAddressClick  = this.addNewAddress.bind(this);
-        this.onItemMouseOver    = this.itemMouseOver.bind(this);
-        this.onItemMouseOut     = this.itemMouseOut.bind(this);
-        this.onItemMouseClick   = this.itemMouseClick.bind(this);
-        this.onItemFormFieldChange = this.syncFormData.bind(this);
-
-        this.loader = new varienLoader(true);
-        this.regionsUrl = '<?php echo $this->getRegionsUrl() ?>';
-        this.requiredStateForCountries = <?php echo $this->helper('directory')->getCountriesWithStatesRequired(true) ?>;
-        this.showAllRegions = <?php echo (string)$this->helper('directory')->getShowNonRequiredState() ? 1 : 0; ?>;
-
-        this.reloadItemList(1);
-
-        for(var i=0,n=this.itemList.length; i<n; i++){
-            if(this.itemList[i].id){
-                this.addItemObservers(this.itemList[i]);
-                this.initItem(this.itemList[i]);
-            }
-        }
-        if(document.getElementById('add_new_address_button')){
-            document.getElementById('add_new_address_button').addEventListener('click', this.onNewAddressClick);
-        }
-
-        this.setActiveItem(this.itemList[0]);
-        this.setAddressAsDefault();
-        this.bindCountryRegionRelation();
-    },
+    constructor: addressesModel,
 
     reloadItemList : function(initial){
         this.itemList = Array.from(document.querySelectorAll('#address_list li'));
@@ -404,7 +404,7 @@ addressesModel.prototype = {
             // Set data to html
             var itemContainer = container.addressItem.querySelectorAll('address');
             if(itemContainer[0]){
-                var html = this.itemContentTemplate.evaluate(data);
+                var html = this.itemContentTemplateStr.replace(/#{(\w+)}/g, function(_, k) { return data[k] !== undefined ? data[k] : ''; });
                 html = html.replace(new RegExp('(<br\\s*/?>\\s*){2,}','img'),'<br/>');
                 html = html.replace(new RegExp('<br\\s*/?>(\\s*,){1,}\\s*<br\\s*/?>','ig'),'<br/>');
                 html = html.replace(new RegExp('<br\\s*/?>(\\s*,){1,}(.*)<br\\s*/?>','ig'),'<br/>$2<br/>');

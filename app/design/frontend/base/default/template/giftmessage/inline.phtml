@@ -71,12 +71,33 @@ if(!window.toogleRequired) {
 }
 if(window.shipping) {
 
+// Inject HTML and re-run its <script> elements (replaces Prototype's Ajax.Updater evalScripts:true).
+// Required so the inline gift-message scripts (initial visibility toggle) actually execute.
+if(!window.giftmessageUpdateAdditional) {
+    var giftmessageUpdateAdditional = function(html) {
+        var container = document.getElementById('onepage-checkout-shipping-method-additional-load');
+        if (!container) {
+            return;
+        }
+        container.innerHTML = html;
+        container.querySelectorAll('script').forEach(function(old) {
+            var s = document.createElement('script');
+            if (old.src) {
+                s.src = old.src;
+            } else {
+                s.textContent = old.textContent;
+            }
+            old.parentNode.replaceChild(s, old);
+        });
+    };
+}
+
 shipping.onSave = function(evt){
     fetch('<?php echo $this->getAdditionalUrl(); ?>', {
         method: 'GET',
         headers: {'X-Requested-With': 'XMLHttpRequest'}
     }).then(function(resp) { return resp.text(); }).then(function(html) {
-        document.getElementById('onepage-checkout-shipping-method-additional-load').innerHTML = html;
+        giftmessageUpdateAdditional(html);
         shipping.nextStep(evt);
     });
 }.bind(shipping);
@@ -86,7 +107,7 @@ billing.onSave = function(evt){
         method: 'GET',
         headers: {'X-Requested-With': 'XMLHttpRequest'}
     }).then(function(resp) { return resp.text(); }).then(function(html) {
-        document.getElementById('onepage-checkout-shipping-method-additional-load').innerHTML = html;
+        giftmessageUpdateAdditional(html);
         billing.nextStep(evt);
     });
 }.bind(billing);
