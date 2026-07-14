@@ -60,18 +60,20 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
     protected function _initVirtualGridColumns()
     {
         parent::_initVirtualGridColumns();
-        $adapter       = $this->getReadConnection();
-        $ifnullFirst   = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
-        $ifnullMiddle  = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
-        $ifnullLast    = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
+        $adapter      = $this->getReadConnection();
+        $ifnullFirst  = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
+        $ifnullLast   = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
+        $middleExpr   = $adapter->getCheckSql(
+            "{{table}}.middlename IS NOT NULL AND {{table}}.middlename != ''",
+            $adapter->getConcatSql(['{{table}}.middlename', $adapter->quote(' ')]),
+            $adapter->quote(''),
+        );
         $concatAddress = $adapter->getConcatSql([
             $ifnullFirst,
             $adapter->quote(' '),
-            $ifnullMiddle,
-            $adapter->quote(' '),
+            $middleExpr,
             $ifnullLast,
         ]);
-        $concatAddress = new Zend_Db_Expr("TRIM(REPLACE({$concatAddress},'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'billing_name',
