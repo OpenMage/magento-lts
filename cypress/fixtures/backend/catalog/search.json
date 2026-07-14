@@ -1,0 +1,19 @@
+{
+    "default": {
+        "queryText" : {
+            "_": "input-query-text"
+        },
+        "storeId" : {
+            "_": "input-store-id"
+        },
+        "synonymFor" : {
+            "_": "input-synonym-for"
+        },
+        "pageIsActive" : {
+            "_": "input-redirect"
+        },
+        "displayInTerms" : {
+            "_": "input-display-in-terms"
+        }
+    }
+}

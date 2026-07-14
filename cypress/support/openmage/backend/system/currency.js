@@ -16,22 +16,11 @@ test.config = {
 
 /**
  * Configuration for "Manage Currency Rates" page
- * @type {{__buttons: {import: string, save: string, reset: string}, __validation: {_input: {from: string}}, title: string, url: string}}
+ * @type {{__validation: {_input: {from: string}}, title: string, url: string}}
  */
 test.config.index = {
     title: 'Manage Currency Rates',
     url: test.config.url,
-    __buttons: {
-        save: {
-            _: base._button + '[title="Save Currency Rates"]',
-            __class: base.__buttons.save.__class,
-        },
-        import: {
-            _: base._button + '[title="Import"]',
-            __class: ['scalable', 'add', 'import'],
-        },
-        reset: base.__buttons.reset,
-    },
     __validation: {
         _input: {
             from: 'input[name="rate[USD][EUR]"]',
