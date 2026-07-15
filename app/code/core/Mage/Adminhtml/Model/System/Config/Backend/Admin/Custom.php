@@ -138,13 +138,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
         }
 
         // If use_custom is enabled AND value is not empty, update base URLs
-        Mage::getConfig()->saveConfig(
+        Mage::getConfig()?->saveConfig(
             self::XML_PATH_SECURE_BASE_URL,
             $value,
             self::CONFIG_SCOPE,
             self::CONFIG_SCOPE_ID,
         );
-        Mage::getConfig()->saveConfig(
+        Mage::getConfig()?->saveConfig(
             self::XML_PATH_UNSECURE_BASE_URL,
             $value,
             self::CONFIG_SCOPE,
@@ -152,25 +152,25 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
         );
 
         // Static assets (skin/js) are separate config paths, not derived from base_url
-        Mage::getConfig()->saveConfig(
+        Mage::getConfig()?->saveConfig(
             self::XML_PATH_SECURE_BASE_SKIN_URL,
             $value . 'skin/',
             self::CONFIG_SCOPE,
             self::CONFIG_SCOPE_ID,
         );
-        Mage::getConfig()->saveConfig(
+        Mage::getConfig()?->saveConfig(
             self::XML_PATH_UNSECURE_BASE_SKIN_URL,
             $value . 'skin/',
             self::CONFIG_SCOPE,
             self::CONFIG_SCOPE_ID,
         );
-        Mage::getConfig()->saveConfig(
+        Mage::getConfig()?->saveConfig(
             self::XML_PATH_SECURE_BASE_JS_URL,
             $value . 'js/',
             self::CONFIG_SCOPE,
             self::CONFIG_SCOPE_ID,
         );
-        Mage::getConfig()->saveConfig(
+        Mage::getConfig()?->saveConfig(
             self::XML_PATH_UNSECURE_BASE_JS_URL,
             $value . 'js/',
             self::CONFIG_SCOPE,
@@ -183,7 +183,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
         // attribute from the current request's Host header instead, which
         // is client-supplied input and therefore a weaker choice than a
         // known, fixed value.
-        Mage::getConfig()->saveConfig(
+        Mage::getConfig()?->saveConfig(
             self::XML_PATH_COOKIE_DOMAIN,
             (string) parse_url($value, PHP_URL_HOST),
             self::CONFIG_SCOPE,
