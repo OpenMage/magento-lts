@@ -20,7 +20,7 @@
                     <password/>
                     <dbname>openmage_lts</dbname>
                     <model>mysql4</model>
-                    <initStatements>SET NAMES utf8</initStatements>
+                    <charset>utf8</charset>
                     <type>pdo_mysql</type>
                     <active>0</active>
                     <persistent>0</persistent>
