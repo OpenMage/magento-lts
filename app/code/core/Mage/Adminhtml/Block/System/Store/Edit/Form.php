@@ -329,6 +329,12 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
         $form->setUseContainer(true);
         $this->setForm($form);
 
+        trigger_error(
+            'Event "adminhtml_store_edit_form_prepare_form" is deprecated and will be removed in a future version.',
+            E_USER_DEPRECATED
+        );
+        Mage::dispatchEvent('adminhtml_store_edit_form_prepare_form', ['block' => $this]);
+
         return parent::_prepareForm();
     }
 }
