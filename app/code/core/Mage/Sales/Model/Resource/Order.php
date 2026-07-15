@@ -68,12 +68,12 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
             $adapter->getConcatSql(['{{table}}.middlename', $adapter->quote(' ')]),
             $adapter->quote(''),
         );
-        $concatAddress = $adapter->getConcatSql([
+        $concatAddress = new Zend_Db_Expr('TRIM(' . $adapter->getConcatSql([
             $ifnullFirst,
             $adapter->quote(' '),
             $middleExpr,
             $ifnullLast,
-        ]);
+        ]) . ')');
 
         $this->addVirtualGridColumn(
             'billing_name',
