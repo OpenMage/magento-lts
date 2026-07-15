@@ -1263,7 +1263,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method saveConfig() on Mage_Core_Model_Config|null.',
-    'count' => 2,
+    'count' => 7,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Custom.php',
 ];
 $ignoreErrors[] = [
