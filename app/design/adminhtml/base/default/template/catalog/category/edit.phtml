@@ -71,6 +71,7 @@
         var messagesContainer = document.getElementById('messages');
         var thisObj = this;
         var fetchUrl = url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true');
+        showLoader();
         fetch(fetchUrl, {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},

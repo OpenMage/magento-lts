@@ -450,13 +450,14 @@ function categoryMove(obj)
     };
 
     var moveUrl = '<?php echo $this->getMoveUrl() ?>'.split('?')[0];
+    try { showLoader(); } catch(e) {}
     fetch(moveUrl + '?isAjax=true', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
         body: new URLSearchParams(data).toString()
     }).then(function(resp) { return resp.text().then(function(text) { return {responseText: text, statusText: resp.statusText, ok: resp.ok}; }); })
-    .then(function(o) { if (o.ok) { success(o); } else { failure(o); } })
-    .catch(function() { failure({}); });
+    .then(function(o) { try { hideLoader(); } catch(e) {} if (o.ok) { success(o); } else { failure(o); } })
+    .catch(function() { try { hideLoader(); } catch(e) {} failure({}); });
 }
 //]]>
 </script>

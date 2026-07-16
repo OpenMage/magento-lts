@@ -86,7 +86,8 @@
 
         fetch('<?php echo $this->getRefreshPathUrl() ?>', {
             method: 'POST',
-            headers: {'X-Requested-With': 'XMLHttpRequest'}
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+            body: new URLSearchParams({form_key: FORM_KEY}).toString()
         }).then(function(resp) { return resp.text(); }).then(function(text) {
             refreshPathSuccess({responseText: text});
         });
