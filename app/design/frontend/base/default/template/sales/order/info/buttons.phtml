@@ -19,7 +19,7 @@
 <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
     <form action="<?php echo $this->getReorderUrl($_order) ?>" method="post" style="display:inline">
         <?php echo $this->getBlockHtml('formkey') ?>
-        <a href="#" class="link-reorder" onclick="this.parentNode.submit(); return false;"><?php echo $this->__('Reorder') ?></a>
+        <button type="submit" class="link-reorder" style="border:0;background:transparent;padding:0;cursor:pointer"><?php echo $this->__('Reorder') ?></button>
     </form>
     <span class="separator">|</span>
 <?php endif ?>

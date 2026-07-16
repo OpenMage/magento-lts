@@ -44,16 +44,16 @@
                     <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
                     <td><em><?php echo $_order->getStatusLabel() ?></em></td>
                     <td class="a-center">
-                        <span class="nobr">
+                        <div class="nobr">
                         <a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a>
                         <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
                             <span class="separator">|</span>
                             <form action="<?php echo $this->getReorderUrl($_order) ?>" method="post" style="display:inline">
                                 <?php echo $this->getBlockHtml('formkey') ?>
-                                <a href="#" class="link-reorder" onclick="this.parentNode.submit(); return false;"><?php echo $this->__('Reorder') ?></a>
+                                <button type="submit" class="link-reorder" style="border:0;background:transparent;padding:0;cursor:pointer"><?php echo $this->__('Reorder') ?></button>
                             </form>
                         <?php endif ?>
-                        </span>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach ?>
