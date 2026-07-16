@@ -67,7 +67,7 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
         if (!$this->getRatingCollection()) {
             $ratingCollection = Mage::getModel('rating/rating_option_vote')
                 ->getResourceCollection()
-                ->setReviewFilter((int)$this->getReviewData()->getId())
+                ->setReviewFilter((int) $this->getReviewData()->getId())
                 ->setStoreFilter(Mage::app()->getStore()->getId())
                 ->addRatingInfo(Mage::app()->getStore()->getId())
                 ->load();
