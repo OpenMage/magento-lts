@@ -424,7 +424,17 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $path = $this->getHelper()->getCurrentPath();
         }
 
-        return $this->resizeFile($path . DS . $filename);
+        $source = realpath($path . DS . $filename);
+        $storageRoot = realpath($this->getHelper()->getStorageRoot());
+        if ($source === false
+            || $storageRoot === false
+            || !str_starts_with($source, $storageRoot . DS)
+            || !is_file($source)
+        ) {
+            return false;
+        }
+
+        return $this->resizeFile($source);
     }
 
     /**
