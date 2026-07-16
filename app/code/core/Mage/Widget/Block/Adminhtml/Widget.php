@@ -23,8 +23,8 @@ class Mage_Widget_Block_Adminhtml_Widget extends Mage_Adminhtml_Block_Widget_For
         $this->_mode = 'widget';
         $this->_headerText = $this->helper('widget')->__('Widget Insertion');
 
-        $this->removeButton('reset');
-        $this->removeButton('back');
+        $this->removeButton(self::BUTTON_TYPE_RESET);
+        $this->removeButton(self::BUTTON_TYPE_BACK);
         $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', $this->helper('widget')->__('Insert Widget'));
         $this->_updateButton(self::BUTTON_TYPE_SAVE, 'class', 'add-widget');
         $this->_updateButton(self::BUTTON_TYPE_SAVE, 'id', 'insert_button');
