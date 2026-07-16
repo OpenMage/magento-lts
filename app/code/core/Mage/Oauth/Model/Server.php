@@ -644,7 +644,7 @@ class Mage_Oauth_Model_Server
      */
     public function authorizeToken($userId, $userType)
     {
-        $token = $this->checkAuthorizeRequest();
+        $token = $this->checkAuthorizeRequest(true);
 
         $token->authorize($userId, $userType);
 
@@ -666,17 +666,26 @@ class Mage_Oauth_Model_Server
     /**
      * Check authorize request for validity and return token
      *
+     * @param  bool $isPost
      * @return Mage_Oauth_Model_Token
      */
-    public function checkAuthorizeRequest()
+    public function checkAuthorizeRequest($isPost = false)
     {
-        if (!$this->_request->isGet()) {
-            Mage::throwException('Request is not GET');
+        if ($isPost ? !$this->_request->isPost() : !$this->_request->isGet()) {
+            Mage::throwException($isPost ? 'Request is not POST' : 'Request is not GET');
         }
 
         $this->_requestType = self::REQUEST_AUTHORIZE;
 
-        $this->_fetchProtocolParamsFromQuery();
+        if ($isPost) {
+            foreach ($this->_request->getPost() as $paramName => $paramValue) {
+                if ($this->_isProtocolParameter($paramName)) {
+                    $this->_protocolParams[$paramName] = $paramValue;
+                }
+            }
+        } else {
+            $this->_fetchProtocolParamsFromQuery();
+        }
         $this->_initToken();
 
         return $this->_token;
