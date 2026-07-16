@@ -429,7 +429,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         if (!$errors) {
             return is_readable($fileFullPath)
                 && isset($optionValue['secret_key'])
-                && substr(md5(file_get_contents($fileFullPath)), 0, 20) == $optionValue['secret_key'];
+                && is_string($optionValue['secret_key'])
+                && hash_equals(substr(md5(file_get_contents($fileFullPath)), 0, 20), $optionValue['secret_key']);
         }
 
         $this->setIsValid(false);
