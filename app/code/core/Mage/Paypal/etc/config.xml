@@ -79,6 +79,16 @@
                 <paypal_legacy>PayPal (Legacy)</paypal_legacy>
             </groups>
         </payment>
+        <events>
+            <sales_model_service_quote_submit_before>
+                <observers>
+                    <paypal_require_order_reference>
+                        <class>paypal/observer</class>
+                        <method>requirePaypalOrderReference</method>
+                    </paypal_require_order_reference>
+                </observers>
+            </sales_model_service_quote_submit_before>
+        </events>
     </global>
     <frontend>
         <routers>
