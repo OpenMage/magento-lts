@@ -158,6 +158,11 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
      */
     public function cancelAction()
     {
+        if (!$this->getRequest()->isPost() || !$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
         $agreement = $this->_initAgreement();
         if (!$agreement) {
             $this->_redirect('*/*/view', ['_current' => true]);
