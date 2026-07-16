@@ -362,6 +362,10 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                    ->order('value ' . Varien_Db_Select::SQL_DESC);
 
             $this->_ratesCache[$cacheKey] = $this->_getReadAdapter()->fetchAll($select);
+            foreach ($this->_ratesCache[$cacheKey] as &$rate) {
+                $rate['title'] = Mage::helper('core')->stripTags($rate['title']);
+            }
+            unset($rate);
         }
 
         return $this->_ratesCache[$cacheKey];
