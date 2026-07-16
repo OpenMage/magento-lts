@@ -54,6 +54,31 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom extends Mage_Co
                 Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE,
                 Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE_ID,
             );
+            Mage::getConfig()->deleteConfig(
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::XML_PATH_SECURE_BASE_SKIN_URL,
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE,
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE_ID,
+            );
+            Mage::getConfig()->deleteConfig(
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::XML_PATH_UNSECURE_BASE_SKIN_URL,
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE,
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE_ID,
+            );
+            Mage::getConfig()->deleteConfig(
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::XML_PATH_SECURE_BASE_JS_URL,
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE,
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE_ID,
+            );
+            Mage::getConfig()->deleteConfig(
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::XML_PATH_UNSECURE_BASE_JS_URL,
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE,
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE_ID,
+            );
+            Mage::getConfig()->deleteConfig(
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::XML_PATH_COOKIE_DOMAIN,
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE,
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE_ID,
+            );
         }
 
         // Set redirect flag if use custom admin URL changed
