@@ -74,6 +74,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
                 'form'  => $this->getForm(),
             ]);
         }
+
         return parent::_prepareLayout();
     }
 
