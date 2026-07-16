@@ -956,20 +956,20 @@ Ext.lib.Dom = {
 
 Ext.lib.Event = {
     getPageX : function(e){
-        return Event.pointerX(e.browserEvent || e);
+        return (e.browserEvent || e).pageX;
     },
 
     getPageY : function(e){
-        return Event.pointerY(e.browserEvent || e);
+        return (e.browserEvent || e).pageY;
     },
 
     getXY : function(e){
         e = e.browserEvent || e;
-        return [Event.pointerX(e), Event.pointerY(e)];
+        return [e.pageX, e.pageY];
     },
 
     getTarget : function(e){
-        return Event.element(e.browserEvent || e);
+        return (e.browserEvent || e).target;
     },
 
     resolveTextNode: function(node) {
@@ -995,11 +995,11 @@ Ext.lib.Event = {
     },
 
     on : function(el, eventName, fn){
-        Event.observe(el, eventName, fn, false);
+        Ext.getDom(el).addEventListener(eventName, fn, false);
     },
 
     un : function(el, eventName, fn){
-        Event.stopObserving(el, eventName, fn, false);
+        Ext.getDom(el).removeEventListener(eventName, fn, false);
     },
 
     purgeElement : function(el){
@@ -1025,7 +1025,8 @@ Ext.lib.Event = {
     },
 
     stopEvent : function(e){
-        Event.stop(e.browserEvent || e);
+        this.preventDefault(e);
+        this.stopPropagation(e);
     },
 
     onAvailable : function(id, fn, scope){  // no equiv
@@ -1063,37 +1064,97 @@ Ext.lib.Ajax = function(){
             });
          } : Ext.emptyFn;
     };
-    return {
-        request : function(method, uri, cb, data, options){
-            var o = {
-                method: method,
-                parameters: data || '',
-                timeout: cb.timeout,
-                onSuccess: createSuccess(cb),
-                onFailure: createFailure(cb)
-            };
-            if(options){
-                if(options.headers){
-                    o.requestHeaders =	options.headers;
-                }
-                if(options.xmlData){
-                    method = 'POST';
-                    o.contentType = 'text/xml';
-                    o.postBody = options.xmlData;
-                    delete o.parameters;
+    // Turn request data (string or key/value object) into a URL-encoded string.
+    var toQueryString = function(data){
+        if(!data){
+            return '';
+        }
+        if(typeof data === 'string'){
+            return data;
+        }
+        return new URLSearchParams(data).toString();
+    };
+
+    // In the admin, loader.js exposes helpers that append isAjax=true to the URL
+    // and form_key to the params for every request. Prototype's Ajax.Request was
+    // monkey-patched to call them; since this adapter now uses XHR directly rather
+    // than Prototype, apply them here too — otherwise admin controllers 302 on the
+    // missing isAjax flag / reject the missing form_key (e.g. category tree expand).
+    var adminAjaxUrl = function(url){
+        return (typeof _openMageAjaxUrl === 'function') ? _openMageAjaxUrl(url) : url;
+    };
+    var adminInjectFormKey = function(params){
+        params = (typeof _openMageInjectFormKey === 'function') ? _openMageInjectFormKey(params) : params;
+        return typeof params === 'string' ? params.replace(/^&/, '') : params;
+    };
+
+    // Native XMLHttpRequest replacement for Prototype's Ajax.Request. XHR is used
+    // (rather than fetch) because the success/failure callbacks consume
+    // xhr.responseText and xhr.responseXML directly.
+    var sendXhr = function(method, uri, cb, body, headers, contentType){
+        method = (method || 'GET').toUpperCase();
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, uri, true);
+        if(cb && cb.timeout){
+            xhr.timeout = cb.timeout;
+        }
+        var hasContentType = !!contentType;
+        if(headers){
+            for(var h in headers){
+                if(headers.hasOwnProperty(h)){
+                    xhr.setRequestHeader(h, headers[h]);
+                    if(h.toLowerCase() === 'content-type'){
+                        hasContentType = true;
+                    }
                 }
             }
-            new Ajax.Request(uri, o);
+        }
+        if(contentType){
+            xhr.setRequestHeader('Content-Type', contentType);
+        } else if(method !== 'GET' && !hasContentType){
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        }
+        var onSuccess = createSuccess(cb), onFailure = createFailure(cb);
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                if((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304){
+                    onSuccess(xhr);
+                } else {
+                    onFailure(xhr);
+                }
+            }
+        };
+        xhr.ontimeout = function(){ onFailure(xhr); };
+        xhr.send(body == null ? null : body);
+        return xhr;
+    };
+
+    return {
+        request : function(method, uri, cb, data, options){
+            method = (method || 'GET').toUpperCase();
+            var headers = options && options.headers;
+            uri = adminAjaxUrl(uri);
+            if(options && options.xmlData){
+                return sendXhr('POST', uri, cb, options.xmlData, headers, 'text/xml');
+            }
+            var params = adminInjectFormKey(toQueryString(data));
+            if(method === 'GET'){
+                if(params){
+                    uri += (uri.indexOf('?') === -1 ? '?' : '&') + params;
+                }
+                return sendXhr('GET', uri, cb, null, headers, null);
+            }
+            return sendXhr(method, uri, cb, params, headers, null);
         },
 
         formRequest : function(form, uri, cb, data, isUpload, sslUri){
-            new Ajax.Request(uri, {
-                method: Ext.getDom(form).method ||'POST',
-                parameters: Form.serialize(form)+(data?'&'+data:''),
-                timeout: cb.timeout,
-                onSuccess: createSuccess(cb),
-                onFailure: createFailure(cb)
-            });
+            var params = this.serializeForm(form);
+            if(data){
+                params += (params ? '&' : '') + data;
+            }
+            params = adminInjectFormKey(params);
+            var method = Ext.getDom(form).method || 'POST';
+            return sendXhr(method, adminAjaxUrl(uri), cb, params, null, null);
         },
 
         isCallInProgress : function(trans){
@@ -1105,7 +1166,8 @@ Ext.lib.Ajax = function(){
         },
 
         serializeForm : function(form){
-            return Form.serialize(form.dom||form);
+            var dom = form.dom || Ext.getDom(form);
+            return new URLSearchParams(new FormData(dom)).toString();
         }
     };
 }();
@@ -1936,6 +1998,52 @@ Ext.util.Observable.capture = function(o, fn, scope){
  */
 Ext.util.Observable.releaseCapture = function(o){
     o.fireEvent = Ext.util.Observable.prototype.fireEvent;
+};
+
+/**
+ * @class Ext.util.DelayedTask
+ * Provides a convenient method of performing setTimeout where a new timeout
+ * cancels the old timeout. This is the canonical Ext JS 1.1 implementation; it
+ * was referenced throughout this stripped tree build (buffered events, field
+ * validation, TreeEditor) but its definition was missing, so any code path that
+ * instantiated it — e.g. inline node editing via Ext.tree.TreeEditor — threw
+ * "Ext.util.DelayedTask is not a constructor".
+ * @constructor
+ * @param {Function} fn (optional) The default function to call.
+ * @param {Object} scope (optional) The default scope of the function.
+ * @param {Array} args (optional) The default Array of arguments.
+ */
+Ext.util.DelayedTask = function(fn, scope, args){
+    var id = null, d, t;
+
+    var call = function(){
+        var now = new Date().getTime();
+        if(now - t >= d){
+            clearInterval(id);
+            id = null;
+            fn.apply(scope, args || []);
+        }
+    };
+    this.delay = function(delay, newFn, newScope, newArgs){
+        if(id && delay != d){
+            this.cancel();
+        }
+        d = delay;
+        t = new Date().getTime();
+        fn = newFn || fn;
+        scope = newScope || scope;
+        args = newArgs || args;
+        if(!id){
+            id = setInterval(call, d);
+        }
+    };
+
+    this.cancel = function(){
+        if(id){
+            clearInterval(id);
+            id = null;
+        }
+    };
 };
 
 (function(){
@@ -5582,6 +5690,7 @@ var docEl;
 El.get = function(el){
     var ex, elm, id;
     if(!el){ return null; }
+    if(!El.cache){ El.cache = {}; } // may have been torn down by beforeunload; see El.fly
     if(typeof el == "string"){ // element id
         if(!(elm = document.getElementById(el))){
             return null;
@@ -5694,6 +5803,13 @@ El.fly = function(el, named){
     el = Ext.getDom(el);
     if(!el){
         return null;
+    }
+    // The beforeunload handler tears down El._flyweights. A late DOM update
+    // (e.g. a tree node selection firing while a click also navigates the page
+    // via window.location on the URL rewrite category tree) can reach fly()
+    // after that teardown, so re-create the store instead of throwing.
+    if(!El._flyweights){
+        El._flyweights = {};
     }
     if(!El._flyweights[named]){
         El._flyweights[named] = new El.Flyweight();
