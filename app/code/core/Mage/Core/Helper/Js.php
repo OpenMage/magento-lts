@@ -237,12 +237,13 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Get the configured Prototype.js loading mode (full|shim|none).
      *
-     * Falls back to the shim — the config.xml default — when unset.
+     * Falls back to full Prototype.js + Scriptaculous — the config.xml
+     * default — when unset.
      */
     public function getPrototypeMode(): string
     {
         $mode = (string) Mage::getStoreConfig(self::XML_PATH_PROTOTYPE_MODE);
-        return $mode !== '' ? $mode : self::PROTOTYPE_MODE_SHIM;
+        return $mode !== '' ? $mode : self::PROTOTYPE_MODE_FULL;
     }
 
     /**
