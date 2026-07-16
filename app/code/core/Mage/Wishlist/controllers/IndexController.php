@@ -819,7 +819,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $filePath  = Mage::getBaseDir() . $info['quote_path'];
             $secretKey = $this->getRequest()->getParam('key');
 
-            if ($secretKey == $info['secret_key']) {
+            if (is_string($secretKey)
+                && isset($info['secret_key'])
+                && is_string($info['secret_key'])
+                && hash_equals($info['secret_key'], $secretKey)
+            ) {
                 $this->_prepareDownloadResponse($info['title'], [
                     'value' => $filePath,
                     'type'  => 'filename',
