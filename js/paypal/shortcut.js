@@ -17,6 +17,8 @@ class PayPalShortcut {
         this.container = null;
         this.sdkLoaded = false;
         this.abortController = new AbortController();
+        this.replacementObserver = null;
+        this.replacementTimer = null;
 
         this.init();
     }
@@ -37,6 +39,34 @@ class PayPalShortcut {
         } catch (error) {
             this.showError(error.message || this.config.errorMessage);
         }
+
+        this.observeContainerReplacement();
+    }
+
+    /**
+     * Themes re-render cart/product sections over ajax and replace the
+     * container node (same id, new element), dropping the rendered
+     * buttons with the old node. Re-render whenever that happens.
+     */
+    observeContainerReplacement() {
+        this.replacementObserver = new MutationObserver(() => {
+            if (this.replacementTimer) {
+                clearTimeout(this.replacementTimer);
+            }
+            this.replacementTimer = setTimeout(async () => {
+                const current = document.getElementById(this.config.containerId);
+                if (!current || current.querySelector('iframe')) return;
+
+                this.container = current;
+                try {
+                    await this.loadPayPalSDK();
+                    await this.renderButton();
+                } catch (error) {
+                    this.showError(error.message || this.config.errorMessage);
+                }
+            }, 150);
+        });
+        this.replacementObserver.observe(document.body, { childList: true, subtree: true });
     }
 
     async loadPayPalSDK() {
