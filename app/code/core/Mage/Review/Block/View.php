@@ -14,7 +14,6 @@
  *
  * @method false|Mage_Rating_Model_Resource_Rating_Option_Vote_Collection getRatingCollection()
  * @method array                                                          getRatingSummaryCache()
- * @method int                                                            getReviewId()
  * @method int                                                            getTotalReviewsCache()
  * @method $this                                                          setRatingCollection(false|Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $value)
  * @method setRatingSummaryCache(array $value)
@@ -68,7 +67,7 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
         if (!$this->getRatingCollection()) {
             $ratingCollection = Mage::getModel('rating/rating_option_vote')
                 ->getResourceCollection()
-                ->setReviewFilter($this->getReviewId())
+                ->setReviewFilter((int)$this->getReviewData()->getId())
                 ->setStoreFilter(Mage::app()->getStore()->getId())
                 ->addRatingInfo(Mage::app()->getStore()->getId())
                 ->load();
