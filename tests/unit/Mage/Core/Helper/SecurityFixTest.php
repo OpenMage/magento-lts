@@ -25,6 +25,13 @@ final class SecurityFixTest extends OpenMageTest
         new Varien_Image('phar://test.jpg');
     }
 
+    public function testVarienImageBlocksMixedCasePhar(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("File 'PHAR://test.jpg' is not readable.");
+        new Varien_Image('PHAR://test.jpg');
+    }
+
     public function testImageValidatorBlocksPhar()
     {
         // Mock helper to avoid translation issues if not set up
@@ -36,6 +43,18 @@ final class SecurityFixTest extends OpenMageTest
         try {
             $validator->validate('phar://test.jpg');
             self::fail('Should have thrown exception for phar path');
+        } catch (Exception $exception) {
+            self::assertStringContainsString('Invalid image path', $exception->getMessage());
+        }
+    }
+
+    public function testImageValidatorBlocksMixedCasePhar(): void
+    {
+        $validator = new Mage_Core_Model_File_Validator_Image();
+
+        try {
+            $validator->validate('Phar://test.jpg');
+            self::fail('Should have thrown exception for mixed-case phar path');
         } catch (Exception $exception) {
             self::assertStringContainsString('Invalid image path', $exception->getMessage());
         }
