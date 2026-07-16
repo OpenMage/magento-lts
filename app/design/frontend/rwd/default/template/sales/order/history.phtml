@@ -49,7 +49,11 @@
                 <span class="nobr"><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a>
                     <?php /*<span class="separator">|</span><a href="<?php echo $this->getTrackUrl($_order) ?>"><?php echo $this->__('Track Order') ?></a>&nbsp;*/ ?>
                     <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
-                    <span class="separator">|</span> <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>
+                    <span class="separator">|</span>
+                    <form action="<?php echo $this->getReorderUrl($_order) ?>" method="post" style="display:inline">
+                        <?php echo $this->getBlockHtml('formkey') ?>
+                        <a href="#" class="link-reorder" onclick="this.parentNode.submit(); return false;"><?php echo $this->__('Reorder') ?></a>
+                    </form>
                 <?php endif ?>
                 </span>
             </td>

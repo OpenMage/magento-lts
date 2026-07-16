@@ -114,6 +114,14 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
      */
     public function reorderAction()
     {
+        if (!$this->getRequest()->isPost()
+            || !$this->_validateFormKey()
+            || !Mage::helper('sales/reorder')->isAllowed()
+        ) {
+            $this->norouteAction();
+            return;
+        }
+
         if (!$this->_loadValidOrder()) {
             return;
         }
