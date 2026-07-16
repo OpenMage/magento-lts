@@ -40,7 +40,7 @@
         <?php foreach ($this->getExceptions() as $exceptionInfo):?>
             <li style="<?php echo $exceptionInfo['style'];?>">
                 <img src="<?php echo $exceptionInfo['src'];?>" class="v-middle"/>
-                <?php echo $exceptionInfo['message'];?>
+                <?php echo $this->purifyExceptionMessage($exceptionInfo['message']);?>
                 <?php if ($exceptionInfo['position']):?>
                     <small>(<?php echo $exceptionInfo['position'];?>)</small>
                 <?php endif ?>
