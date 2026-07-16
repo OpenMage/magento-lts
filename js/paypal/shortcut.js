@@ -93,15 +93,21 @@ class PayPalShortcut {
             throw new Error('PayPal SDK not loaded');
         }
 
+        const layout = this.config.buttonLayout || 'vertical';
+        const style = {
+            layout: layout,
+            color: this.config.buttonColor || 'gold',
+            shape: this.config.buttonShape || 'rect',
+            label: this.config.buttonLabel || 'paypal',
+            height: parseInt(this.config.buttonHeight, 10) || 40
+        };
+        // The SDK rejects tagline outright on vertical layouts.
+        if (layout === 'horizontal') {
+            style.tagline = Boolean(this.config.buttonMessage);
+        }
+
         await paypal.Buttons({
-            style: {
-                layout: this.config.buttonLayout || 'vertical',
-                color: this.config.buttonColor || 'gold',
-                shape: this.config.buttonShape || 'rect',
-                label: this.config.buttonLabel || 'paypal',
-                tagline: Boolean(this.config.buttonMessage),
-                height: parseInt(this.config.buttonHeight, 10) || 40
-            },
+            style: style,
             createOrder: data => this.createOrder(data),
             onApprove: data => this.onApprove(data),
             onCancel: () => this.onCancel(),
