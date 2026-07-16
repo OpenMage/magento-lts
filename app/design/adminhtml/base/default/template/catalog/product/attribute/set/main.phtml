@@ -291,10 +291,13 @@
 
                     addGroup : function() {
                         var group_name = prompt("<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Please enter a new group name')) ?>","");
+                        if( group_name === null ) {
+                            return;
+                        }
                         group_name = group_name.trim();
                         if( group_name == '' ) {
                             this.addGroup();
-                        } else if( group_name != false && group_name != null && group_name != '' ) {
+                        } else {
 
                             if (!editSet.validateGroupName(group_name, 0)) {
                                 return;
