@@ -166,7 +166,9 @@ class PayPalPayment {
         const container = document.createElement('div');
         container.id = this.config.containerId;
         container.className = 'paypal-button-container';
-        container.style.cssText = 'margin: 0; min-height: 35px;';
+        // The SDK caps button width at 750px; right-align the block so it
+        // lines up with the totals column instead of floating mid-page.
+        container.style.cssText = 'margin: 0 0 0 auto; min-height: 35px; max-width: 750px;';
         return container;
     }
 
