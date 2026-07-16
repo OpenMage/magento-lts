@@ -31,16 +31,18 @@ class Mage_Adminhtml_Cms_WysiwygController extends Mage_Adminhtml_Controller_Act
         $directive = $this->getRequest()->getParam('___directive');
         $directive = Mage::helper('core')->urlDecode($directive);
 
-        $url = Mage::getModel('cms/adminhtml_template_filter')->filter($directive);
         try {
-            $allowedStreamWrappers = Mage::helper('cms')->getAllowedStreamWrappers();
-            if (!Mage::getModel('core/file_validator_streamWrapper', $allowedStreamWrappers)->validate($url)) {
-                Mage::throwException(Mage::helper('core')->__('Invalid stream.'));
+            if (!preg_match(Varien_Filter_Template::CONSTRUCTION_PATTERN, $directive, $construction)
+                || $construction[0] !== $directive
+                || $construction[1] !== 'media'
+            ) {
+                Mage::throwException(Mage::helper('core')->__('Invalid media directive.'));
             }
 
+            $url = Mage::getModel('cms/adminhtml_template_filter')->mediaDirective($construction);
             $image = Varien_Image_Adapter::factory('GD2');
             $image->open($url);
-        } catch (Exception) {
+        } catch (Throwable) {
             $image = Varien_Image_Adapter::factory('GD2');
             $image->open(Mage::getSingleton('cms/wysiwyg_config')->getSkinImagePlaceholderPath());
         }

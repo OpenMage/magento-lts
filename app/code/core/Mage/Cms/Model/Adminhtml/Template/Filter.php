@@ -32,6 +32,16 @@ class Mage_Cms_Model_Adminhtml_Template_Filter extends Mage_Cms_Model_Template_F
             Mage::throwException('Undefined url parameter for media directive.');
         }
 
-        return Mage::getBaseDir('media') . DS . $params['url'];
+        $mediaRoot = realpath(Mage::getBaseDir('media'));
+        $mediaPath = realpath(Mage::getBaseDir('media') . DS . $params['url']);
+        if ($mediaRoot === false
+            || $mediaPath === false
+            || !str_starts_with($mediaPath, $mediaRoot . DS)
+            || !is_file($mediaPath)
+        ) {
+            Mage::throwException('Invalid media path.');
+        }
+
+        return $mediaPath;
     }
 }
