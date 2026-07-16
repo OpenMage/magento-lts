@@ -53,4 +53,13 @@ final class CustomerTest extends OpenMageTest
         self::$subject->setDob($dob);
         self::assertSame($expectedResult, self::$subject->getDob());
     }
+
+    public function testGetRandomConfirmationKey(): void
+    {
+        $firstKey = self::$subject->getRandomConfirmationKey();
+        $secondKey = self::$subject->getRandomConfirmationKey();
+
+        self::assertMatchesRegularExpression('/^[a-f0-9]{32}$/', $firstKey);
+        self::assertNotSame($firstKey, $secondKey);
+    }
 }
