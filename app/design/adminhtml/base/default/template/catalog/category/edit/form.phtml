@@ -229,7 +229,7 @@
     <?php echo $_gridJsObject ?>.rowClickCallback = categoryProductRowClick;
     <?php echo $_gridJsObject ?>.initRowCallback = categoryProductRowInit;
     <?php echo $_gridJsObject ?>.checkboxCheckCallback = registerCategoryProduct;
-    <?php echo $_gridJsObject ?>.rows.each(function(row){categoryProductRowInit(<?php echo $_gridJsObject ?>, row)});
+    <?php echo $_gridJsObject ?>.rows.forEach(function(row){categoryProductRowInit(<?php echo $_gridJsObject ?>, row)});
 
 <?php endif ?>
 <?php if($this->isAjax() && ($block = $this->getLayout()->getBlock('tabs')) && ($_tabsJsObject=$block->getJsObjectName())): ?>

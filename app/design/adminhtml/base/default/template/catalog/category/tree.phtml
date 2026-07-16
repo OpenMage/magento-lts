@@ -261,7 +261,7 @@ Ext.onReady(function()
 
     categoryLoader.createNode = function(config) {
         var node;
-        var _node = Object.clone(config);
+        var _node = Object.assign({}, config);
         if (config.children && !config.children.length) {
             delete(config.children);
             node = new Ext.tree.AsyncTreeNode(config);
@@ -279,7 +279,7 @@ Ext.onReady(function()
         if (parent && config && config.length){
             for (var i = 0; i < config.length; i++) {
                 var node;
-                var _node = Object.clone(config[i]);
+                var _node = Object.assign({}, config[i]);
                 if (_node.children && !_node.children.length) {
                     delete(_node.children);
                     node = new Ext.tree.AsyncTreeNode(_node);

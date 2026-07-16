@@ -268,6 +268,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             // unconditionally (addJs prototype/prototype-shim.js), so it must
             // be removed explicitly here, otherwise "none" still loads it.
             $this->removeItem('js', 'prototype/prototype-shim.js');
+
+            // extjs/fix-defer.js only reconciles Function.prototype.defer
+            // between ExtJS and Prototype. With Prototype absent it is dead
+            // weight whose fallback branch references Prototype's delay/curry,
+            // so drop it in "none" mode. It stays loaded in shim/full.
+            $this->removeItem('js', 'extjs/fix-defer.js');
         }
 
         return $this;
