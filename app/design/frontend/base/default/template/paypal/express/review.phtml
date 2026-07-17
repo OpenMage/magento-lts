@@ -89,7 +89,7 @@
                                            value="<?php echo (string) $this->escapeHtml($_rateCode) ?>"
                                            id="s_method_<?php echo (string) $this->escapeHtml($_rateCode) ?>"
                                            <?php if ($_rateCode === $this->getAddressShippingMethod() || $_sole): ?>checked="checked"<?php endif ?>
-                                           class="radio required-entry" />
+                                           class="radio validate-one-required-by-name" />
                                     <label for="s_method_<?php echo (string) $this->escapeHtml($_rateCode) ?>">
                                         <?php echo $this->escapeHtml((string) $_rate->getMethodTitle()) ?>
                                         <?php $_excl = $this->getShippingPrice((float) $_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
