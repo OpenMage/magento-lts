@@ -165,13 +165,13 @@ class Mage_Paypal_Model_Api extends Varien_Object
      *
      * @param  string                                        $id              PayPal order ID
      * @param  Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote           Customer quote or order
-     * @param  string                                        $paypalRequestId PayPal request ID
+     * @param  ?string                                       $paypalRequestId Optional PayPal-Request-Id idempotency key
      * @throws Mage_Paypal_Model_Exception
      */
     public function captureOrder(
         string $id,
         Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote,
-        string $paypalRequestId
+        ?string $paypalRequestId = null
     ): ?ApiResponse {
         $this->_validateOrderId($id);
 
@@ -179,8 +179,12 @@ class Mage_Paypal_Model_Api extends Varien_Object
             $request = [
                 'id' => $id,
                 'prefer' => self::PREFER_RETURN_REPRESENTATION,
-                'paypalRequestId' => $paypalRequestId,
             ];
+            // PayPal-Request-Id is an optional idempotency key; the express
+            // shortcut flow does not carry one on the payment at capture time.
+            if ($paypalRequestId !== null && $paypalRequestId !== '') {
+                $request['paypalRequestId'] = $paypalRequestId;
+            }
 
             $response = $this->getClient()->getOrdersController()->captureOrder($request);
 
