@@ -122,7 +122,9 @@ var _opcSerializeForm = function(formId) {
  */
 var _opcStripTags = function(str) {
     if (typeof str !== 'string') return String(str || '');
-    return str.replace(/<[^>]*>/g, '');
+    var tpl = document.createElement('template');
+    tpl.innerHTML = str;
+    return tpl.content.textContent || '';
 };
 
 /**
@@ -1078,7 +1080,7 @@ Review.prototype = {
             else {
                 var msg = response.error_messages;
                 if (Array.isArray(msg)) {
-                    msg = msg.join("\n").replace(/<[^>]*>/g, '');
+                    msg = _opcStripTags(msg.join("\n"));
                 }
                 if (msg) {
                     alert(msg);

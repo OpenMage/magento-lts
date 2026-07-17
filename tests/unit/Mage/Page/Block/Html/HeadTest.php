@@ -61,7 +61,7 @@ final class HeadTest extends OpenMageTest
                 $names[] = $item['name'];
             }
         }
-        return array_values($names);
+        return $names;
     }
 
     /**

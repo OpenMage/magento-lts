@@ -91,7 +91,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
                 && $this->getProduct()->isObjectNew()
             ) {
                 $defaultProductPrice = ($this->getDefaultProductPrice()) ? $this->getDefaultProductPrice() : "''";
-                $html .= "attributeElement.value = " . $defaultProductPrice . ';';
+                $html .= 'attributeElement.value = ' . $defaultProductPrice . ';';
             } else {
                 $html .= "attributeElement.disabled = false;
                           attributeElement.classList.add('required-entry');";

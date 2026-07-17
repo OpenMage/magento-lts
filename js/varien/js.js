@@ -315,7 +315,7 @@ Varien.searchForm.prototype = {
     },
 
     initAutocomplete: function(url, destinationElement){
-        new Varien.Autocomplete(
+        this.autocomplete = new Varien.Autocomplete(
             this.field,
             destinationElement,
             url,
@@ -631,10 +631,11 @@ if (typeof HTMLElement !== 'undefined' && !HTMLElement.prototype.getInnerText) {
         if (this.innerText) {
             return this.innerText;
         }
-        // Strip scripts, decode entities, normalize whitespace
-        var html = this.innerHTML.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
-        var tmp = document.createElement('div');
-        tmp.innerHTML = html;
+        // Clone the node, drop non-text elements, normalize whitespace
+        var tmp = this.cloneNode(true);
+        Array.prototype.forEach.call(tmp.querySelectorAll('script, style, noscript'), function(el) {
+            el.parentNode.removeChild(el);
+        });
         return (tmp.textContent || '').replace(/[\n\r\s]+/g, ' ').trim();
     };
 }

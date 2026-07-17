@@ -17,7 +17,17 @@
  */
 
 function setLocation(url){
-    window.location.href = encodeURI(url);
+    var target;
+    try {
+        target = new URL(encodeURI(url), window.location.href);
+    } catch (e) {
+        return;
+    }
+    // Block javascript:, data: and other non-HTTP navigation targets
+    if (target.protocol !== 'http:' && target.protocol !== 'https:') {
+        return;
+    }
+    window.location.href = target.href;
 }
 
 function confirmSetLocation(message, url){
@@ -84,8 +94,12 @@ function imagePreview(element){
     if(el){
         var win = window.open('', 'preview', 'width=400,height=400,resizable=1,scrollbars=1');
         win.document.open();
-        win.document.write('<body style="padding:0;margin:0"><img src="'+el.src+'" id="image_preview"/></body>');
+        win.document.write('<!DOCTYPE html><html><body style="padding:0;margin:0"></body></html>');
         win.document.close();
+        var img = win.document.createElement('img');
+        img.src = el.src;
+        img.id = 'image_preview';
+        win.document.body.appendChild(img);
         win.addEventListener('load', function(){
             var img = win.document.getElementById('image_preview');
             win.resizeTo(img.width+40, img.height+80);

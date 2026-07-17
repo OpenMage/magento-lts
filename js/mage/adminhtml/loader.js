@@ -83,11 +83,7 @@ function _openMageCheckSession(text) {
                 $super(options);
                 this.transport = Ajax.getTransport();
                 url = _openMageAjaxUrl(url);
-                if (typeof this.options.parameters === 'string') {
-                    this.options.parameters = _openMageInjectFormKey(this.options.parameters);
-                } else {
-                    this.options.parameters = _openMageInjectFormKey(this.options.parameters);
-                }
+                this.options.parameters = _openMageInjectFormKey(this.options.parameters);
                 this.request(url);
             },
             respondToReadyState: function (readyState) {

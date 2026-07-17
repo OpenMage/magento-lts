@@ -282,7 +282,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 continue; // for example hide System/Tools when empty
             }
 
-            $html .= '<li ' . (empty($item['children']) ? '' : 'onmouseover="this.classList.add(\'over\')" '
+            $html .= '<li ' . (($item['children'] ?? []) === [] ? '' : 'onmouseover="this.classList.add(\'over\')" '
                     . 'onmouseout="this.classList.remove(\'over\')"') . ' class="'
                 . (!$level && !empty($item['active']) ? ' active' : '') . ' '
                 . (empty($item['children']) ? '' : ' parent')

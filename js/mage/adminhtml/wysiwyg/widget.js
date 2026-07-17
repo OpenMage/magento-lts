@@ -209,8 +209,11 @@ WysiwygWidget.Widget.prototype = {
                 widgetTools.onAjaxSuccess({responseText: text});
                 self.switchOptionsContainer();
                 if (document.getElementById(optionsContainerId) === null) {
-                    self.widgetOptionsEl.insertAdjacentHTML('beforeend', widgetTools.getDivHtml(optionsContainerId, text));
-                    widgetTools.evalScripts(document.getElementById(optionsContainerId));
+                    var optionsContainer = document.createElement('div');
+                    optionsContainer.id = optionsContainerId;
+                    optionsContainer.innerHTML = text;
+                    self.widgetOptionsEl.appendChild(optionsContainer);
+                    widgetTools.evalScripts(optionsContainer);
                 } else {
                     self.switchOptionsContainer(optionsContainerId);
                 }

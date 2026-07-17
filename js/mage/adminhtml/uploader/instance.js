@@ -286,7 +286,7 @@
             container.classList.remove('new');
             container.classList.remove('error');
             container.classList.add('progress');
-            this._getProgressTextById(id).innerHTML = this._translate('Uploading...');
+            this._getProgressTextById(id).textContent = this._translate('Uploading...');
 
             var deleteButton = this._getDeleteButtonById(id);
             if (deleteButton) {
@@ -365,8 +365,8 @@
         container.classList.remove('progress');
         container.classList.add(error ? 'error' : 'complete');
 
-        this._getProgressTextById(id).innerHTML = this._translate(
-            error ? this._XSSFilter(error) : 'Complete'
+        this._getProgressTextById(id).textContent = this._translate(
+            error ? String(error) : 'Complete'
         );
 
         setTimeout(function() {
@@ -473,9 +473,11 @@
      * @private
      */
     Uploader.prototype._renderFromTemplate = function (template, vars) {
-        var templateStr = this._XSSFilter(template.innerHTML);
-        return templateStr.replace(this.templatePattern, function(match, key) {
-            return vars[key] !== undefined ? vars[key] : '';
+        var self = this;
+        // Template markup is trusted core code; the substituted variables
+        // (e.g. user-controlled file names) are HTML-escaped instead.
+        return template.innerHTML.replace(this.templatePattern, function(match, key) {
+            return vars[key] !== undefined ? self._escapeHtml(vars[key]) : '';
         });
     };
 
@@ -498,19 +500,16 @@
     };
 
     /**
-     * Purify template string to prevent XSS attacks
+     * Escape a value for safe interpolation into HTML
      *
      * @param {String} str
      * @returns {String}
      * @private
      */
-    Uploader.prototype._XSSFilter = function (str) {
-        return str
-            .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-            // Remove inline event handlers like onclick, onload, etc
-            .replace(/(on[a-z]+=["][^"]+["])(?=[^>]*>)/img, '')
-            .replace(/(on[a-z]+=['][^']+['])(?=[^>]*>)/img, '')
-        ;
+    Uploader.prototype._escapeHtml = function (str) {
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(String(str)));
+        return div.innerHTML;
     };
 
     window.Uploader = Uploader;
