@@ -258,14 +258,20 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            $patch = $this->_buildPatch($quote);
-            if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
-                Mage::log(['order_id' => $orderId, 'patch' => $patch], null, 'paypal_patch.log', true);
-            }
+            // Patching an approved order costs us the buyer's approval — PayPal flips it back to
+            // PAYER_ACTION_REQUIRED and the capture is then rejected. reviewAction already patched the
+            // shipping in, so re-sending the same amount here buys nothing and breaks the charge. Only
+            // patch when PayPal is actually holding a stale total.
+            if (!$this->_paypalAmountMatchesQuote($details, $quote)) {
+                $patch = $this->_buildPatch($quote);
+                if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
+                    Mage::log(['order_id' => $orderId, 'patch' => $patch], null, 'paypal_patch.log', true);
+                }
 
-            $patchResponse = $api->patchOrder($orderId, $patch);
-            if ($patchResponse !== null && $patchResponse->isError()) {
-                Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
+                $patchResponse = $api->patchOrder($orderId, $patch);
+                if ($patchResponse !== null && $patchResponse->isError()) {
+                    Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
+                }
             }
 
             $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
@@ -607,6 +613,22 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         if (!in_array($status, ['CREATED', 'APPROVED'], true)) {
             Mage::throwException(Mage::helper('paypal')->__('This PayPal order can no longer be updated. Please restart PayPal checkout.'));
         }
+    }
+
+    /**
+     * Is PayPal already holding the amount we are about to charge?
+     *
+     * @param array<string, mixed> $details
+     */
+    private function _paypalAmountMatchesQuote(array $details, Mage_Sales_Model_Quote $quote): bool
+    {
+        $unit = is_array($details['purchase_units'][0] ?? null) ? $details['purchase_units'][0] : [];
+        $paypalAmount = (string) ($unit['amount']['value'] ?? '');
+        if ($paypalAmount === '') {
+            return false;
+        }
+
+        return hash_equals($this->_formatQuoteGrandTotal($quote), $paypalAmount);
     }
 
     /**
