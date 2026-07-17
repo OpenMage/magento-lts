@@ -131,12 +131,12 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
                     if (!priceTypeElement || !msrpEnabledElement || !msrpDisplayElement || !msrpElement) {
                         return;
                     }
-                    if (priceTypeElement.value == " . Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC . ") {
-                        msrpEnabledElement.value = " 
+                    if (priceTypeElement.value == " . Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC . ') {
+                        msrpEnabledElement.value = '
                         . Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled::MSRP_ENABLE_NO
-                        . ";
+                        . ';
                         msrpEnabledElement.disabled = true;
-                        msrpDisplayElement.value = " 
+                        msrpDisplayElement.value = '
                         . Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price::TYPE_USE_CONFIG
                         . ";
                         msrpDisplayElement.disabled = true;

@@ -224,12 +224,9 @@ ProductConfigure.prototype = {
 
                         // Add special div to hold mage data, e.g. scripts to execute on every popup show
                         var mageData = {};
-                        var scripts = [];
-                        response.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, function (match, src) {
-                            scripts.push(src);
-                            return match;
+                        mageData.scripts = Array.from(self.blockFormFields.querySelectorAll('script:not([src])')).map(function (script) {
+                            return script.textContent;
                         });
-                        mageData.scripts = scripts;
 
                         var scriptHolder = document.createElement('div');
                         scriptHolder.style.display = 'none';

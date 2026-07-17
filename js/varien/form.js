@@ -142,33 +142,62 @@ VarienForm.prototype = {
         if (!child) {
             return;
         }
+        var el;
         if (data.length) {
-            var html = '<select name="' + child.name + '" id="' + child.id + '" class="' + child.className + '" title="' + child.title + '" ' + this.extraChildParams + '>';
+            el = document.createElement('select');
             if (this.cache[this.currLoader]['first']) {
-                html += '<option value="">' + this.cache[this.currLoader]['first'] + '</option>';
+                var first = document.createElement('option');
+                first.value = '';
+                first.text = this.cache[this.currLoader]['first'];
+                el.appendChild(first);
             }
             for (var i in data) {
                 if (data[i].value) {
-                    html += '<option value="' + data[i].value + '"';
+                    var option = document.createElement('option');
+                    option.value = data[i].value;
+                    option.text = data[i].label;
                     if (child.value && (child.value == data[i].value || child.value == data[i].label)) {
-                        html += ' selected';
+                        option.selected = true;
                     }
-                    html += '>' + data[i].label + '</option>';
+                    el.appendChild(option);
                 }
             }
-            html += '</select>';
-            child.insertAdjacentHTML('beforebegin', html);
-            child.remove();
         } else {
-            var html = '<input type="text" name="' + child.name + '" id="' + child.id + '" class="' + child.className + '" title="' + child.title + '" ' + this.extraChildParams + '>';
-            child.insertAdjacentHTML('beforebegin', html);
-            child.remove();
+            el = document.createElement('input');
+            el.type = 'text';
         }
+        el.name = child.name;
+        el.id = child.id;
+        el.className = child.className;
+        el.title = child.title;
+        this._applyExtraChildParams(el);
+        child.parentNode.replaceChild(el, child);
 
         this.bindElements();
         if (this.callback) {
             this.callback();
         }
+    },
+
+    /**
+     * extraChildParams is a template-supplied raw attribute string
+     * (e.g. ' onchange="shipping.setSameAsBilling(false);"'). Parse it on an
+     * inert template element and copy the attributes over, so the replacement
+     * child keeps supporting it without string-built HTML.
+     */
+    _applyExtraChildParams: function (el) {
+        if (!this.extraChildParams) {
+            return;
+        }
+        var tpl = document.createElement('template');
+        tpl.innerHTML = '<div ' + this.extraChildParams + '></div>';
+        var probe = tpl.content.firstElementChild;
+        if (!probe) {
+            return;
+        }
+        Array.prototype.forEach.call(probe.attributes, function (attr) {
+            el.setAttribute(attr.name, attr.value);
+        });
     }
 };
 
@@ -262,7 +291,8 @@ RegionUpdater.prototype = {
 
                 option = document.createElement('OPTION');
                 option.value = regionId;
-                option.text = region.name.replace(/<[^>]*>/g, '');
+                // option.text is rendered as plain text, never parsed as HTML
+                option.text = region.name;
                 option.title = region.name;
 
                 if (this.regionSelectEl.options.add) {

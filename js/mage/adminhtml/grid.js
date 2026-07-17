@@ -241,7 +241,7 @@ varienGrid.prototype = {
                     url = this.addVarToUrl(keys[i], this.reloadParams[keys[i]]);
                 }
             }
-            location.href = url;
+            setLocation(url);
         }
     },
     /*_processComplete : function(transport){
@@ -286,7 +286,7 @@ varienGrid.prototype = {
             if(this.massaction && this.massaction.checkedString) {
                 exportUrl = this._addVarToUrl(exportUrl, this.massaction.formFieldNameInternal, this.massaction.checkedString);
             }
-            location.href = exportUrl;
+            setLocation(exportUrl);
         }
     },
     bindFilterFields : function(){

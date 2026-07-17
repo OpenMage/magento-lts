@@ -1,6 +1,7 @@
 ACL
 ActionScript
 analytics
+APIs
 bool
 boolean
 backorders
@@ -13,6 +14,7 @@ CMS
 Cron
 CVE
 CodeQL
+compat
 config
 DevOps
 DDEV
@@ -20,10 +22,12 @@ DNS
 DocBlock
 EAV
 Emmet
+ExtJS
 FireGento
 FPC
 frontend
 Gitpod
+globals
 HiPay
 Homebrew
 HMAC
@@ -32,6 +36,7 @@ HTTPS
 ImageMagick
 IntelliSense
 jQuery
+js
 JS
 JSON
 LTS
@@ -43,6 +48,7 @@ mkcert
 MkDocs
 Matomo
 MTF
+namespace
 nginx
 npm
 OAuth
@@ -55,17 +61,21 @@ PHPMD
 phpMyAdmin
 PHPStan
 PhpStorm
+phtml
 PHPUnit
 PLAINTEXT
 programmatically
 RCE
 reCaptcha
 Redis
+repo
 RPC
 RSS
 RWD
 runtime
 SCSS
+scriptaculous
+Scriptaculous
 SHA
 sku
 SKU
@@ -76,6 +86,9 @@ TinyMCE
 toc
 URI
 un
+unminified
+uploader
+varien
 Varien
 VMware
 WAMP

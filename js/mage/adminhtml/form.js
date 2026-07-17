@@ -297,7 +297,8 @@ RegionUpdater.prototype = {
 
                     option = document.createElement('OPTION');
                     option.value = regionId;
-                    option.text = region.name.replace(/<[^>]*>/g, '');
+                    // option.text is rendered as plain text, never parsed as HTML
+                    option.text = region.name;
                     option.title = region.name;
 
                     if (this.regionSelectEl.options.add) {

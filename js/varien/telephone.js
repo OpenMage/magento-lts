@@ -81,7 +81,7 @@ telephoneElem.prototype = {
     loadValues: function() {
         var val = this.valField.value;
         if (val && val.length) {
-            var re = /^[\(]?(\d{3})[\)]?[-|\s]?(\d{3})[-|\s](\d{4})[-|\s]?(\d{0,4})?$/;
+            var re = /^[\(]?(\d{3})[\)]?[-|\s]?(\d{3})[-|\s](\d{4})[-|\s]?(\d{1,4})?$/;
             if (re.test(val)) {
                 var arrVal = re.exec(val);
                 this.f1.value = arrVal[1];

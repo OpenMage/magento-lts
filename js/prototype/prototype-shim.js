@@ -38,7 +38,7 @@
       MobileSafari: /Apple.*Mobile/.test(navigator.userAgent)
     },
     BrowserFeatures: { XPath: !!document.evaluate },
-    ScriptFragment: '<script[^>]*>([\\S\\s]*?)<\/script>',
+    ScriptFragment: '<script[^>]*>([\\S\\s]*?)<\/script\\s*>',
     emptyFunction: function () {},
     K: function (x) { return x; }
   };
@@ -372,17 +372,31 @@
     isJSON: function () {
       try { JSON.parse(this); return true; } catch (e) { return false; }
     },
-    stripTags: function () { return this.replace(/<\/?[^>]+>/gi, ''); },
-    stripScripts: function () { return this.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ''); },
+    // Tag handling uses inert DOM parsing (<template> content never executes
+    // scripts) instead of Prototype's regexes, which miss malformed/nested
+    // markup like "</script >" and "<scr<script>ipt>".
+    stripTags: function () {
+      var tpl = document.createElement('template');
+      tpl.innerHTML = this.toString();
+      return tpl.content.textContent || '';
+    },
+    stripScripts: function () {
+      var tpl = document.createElement('template');
+      tpl.innerHTML = this.toString();
+      Array.prototype.forEach.call(tpl.content.querySelectorAll('script'), function (el) {
+        el.parentNode.removeChild(el);
+      });
+      return tpl.innerHTML;
+    },
     extractScripts: function () {
-      var scripts = [];
-      this.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, function (m, src) { scripts.push(src); });
-      return scripts;
+      var tpl = document.createElement('template');
+      tpl.innerHTML = this.toString();
+      return Array.prototype.map.call(tpl.content.querySelectorAll('script:not([src])'), function (el) {
+        return el.textContent;
+      });
     },
     evalScripts: function () {
-      var scripts = [];
-      this.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, function (m, src) { scripts.push(src); });
-      scripts.forEach(function (src) {
+      this.extractScripts().forEach(function (src) {
         var el = document.createElement('script');
         el.textContent = src;
         document.head.appendChild(el);

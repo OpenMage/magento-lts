@@ -15,7 +15,7 @@
 class Mage_Adminhtml_Model_System_Config_Source_Dev_Prototypemode
 {
     /**
-     * @return array
+     * @return list<array{value: string, label: string}>
      */
     public function toOptionArray()
     {

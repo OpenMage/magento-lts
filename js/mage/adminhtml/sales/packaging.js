@@ -845,10 +845,7 @@ Packaging.prototype = {
         if ('string' == typeof el.textContent) {
             return el.textContent;
         }
-        if ('string' == typeof el.innerText) {
-            return el.innerText;
-        }
-        return el.innerHTML.replace(/<[^>]*>/g,'');
+        return el.innerText || '';
     }
 //******************** End Private functions ******************************//
 };

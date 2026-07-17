@@ -173,7 +173,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Prototype/Scriptaculous file names that should be swapped based on prototype_mode config.
      *
-     * @var array
+     * @var list<string>
      */
     protected $_prototypeFiles = [
         'prototype/prototype.js',
@@ -202,7 +202,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * loaded before the libraries were extracted behind prototype_mode, so any
      * legacy script that still calls into Prototype/Scriptaculous keeps working.
      *
-     * @var array
+     * @var list<string>
      */
     protected $_fullModeFiles = [
         'prototype/prototype.js',
