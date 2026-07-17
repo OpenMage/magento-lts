@@ -193,6 +193,9 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             }
 
             $address->setShippingMethod($shippingMethod);
+            // collectShippingRates() above left the raw base-currency price in shipping_amount;
+            // Total_Shipping::collect() converts it back, so this collect must not be short-circuited.
+            $quote->setTotalsCollectedFlag(false);
             $quote->collectTotals()->save();
 
             $this->_jsonResponse([
@@ -743,7 +746,15 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         }
 
         $address = $quote->getShippingAddress();
-        $address->setCollectShippingRates(true)->collectShippingRates();
+        // Refresh the rates through collectTotals() rather than calling collectShippingRates()
+        // directly: requestShippingRates() writes the raw, base-currency rate price straight into
+        // shipping_amount (a known core quirk — Total_Shipping::collect() is what converts it back).
+        // Calling it on its own would leave the address holding the unconverted amount, which then
+        // rides into the order and its invoice while grand_total keeps the converted value.
+        $address->setCollectShippingRates(true);
+        $quote->setTotalsCollectedFlag(false);
+        $quote->collectTotals();
+
         $method = (string) $address->getShippingMethod();
         if ($method === '') {
             Mage::throwException(Mage::helper('paypal')->__('Please specify a shipping method.'));
