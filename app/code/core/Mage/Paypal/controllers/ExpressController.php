@@ -1047,9 +1047,10 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             return false;
         }
 
-        $this->_getCheckoutSession()->addNotice(
-            Mage::helper('paypal')->__('Your order total was updated with shipping. Please confirm the new total with PayPal to complete your purchase.'),
-        );
+        // No session message here: the browser leaves for paypal.com immediately, so anything
+        // added now would only surface after the buyer returns — out of context and misleading.
+        // PayPal's own page presents the new total for confirmation; returnAction adds the
+        // right-context message when the buyer lands back on review.
         $this->_redirectUrl($payerActionUrl);
         return true;
     }
@@ -1091,6 +1092,9 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             return;
         }
 
+        $this->_getCheckoutSession()->addSuccess(
+            Mage::helper('paypal')->__('Thank you — PayPal has confirmed your updated total. Review your order and click Place Order to finish.'),
+        );
         $this->_redirectReview($token);
     }
 
