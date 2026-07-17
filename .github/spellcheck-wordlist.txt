@@ -13,6 +13,7 @@ Cloudflare
 CMS
 Cron
 CVE
+Centinel
 CodeQL
 compat
 config
@@ -20,6 +21,7 @@ DevOps
 DDEV
 DNS
 DocBlock
+DOM
 EAV
 Emmet
 ExtJS
@@ -39,6 +41,7 @@ jQuery
 js
 JS
 JSON
+lifecycle
 LTS
 macOS
 Magento
@@ -52,9 +55,11 @@ namespace
 nginx
 npm
 OAuth
+OOP
 OpenMage
 OpenNode
 PageSpeed
+param
 PHPCompatibility
 PHPCS
 PHPMD
@@ -84,10 +89,13 @@ SMTP
 SSL
 TinyMCE
 toc
+UI
 URI
 un
 unminified
 uploader
+validator
+validators
 varien
 Varien
 VMware
