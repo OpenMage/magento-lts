@@ -293,7 +293,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 // PAYER_ACTION_REQUIRED and PayPal expects us to send the buyer back to re-approve
                 // the new amount. See developer.paypal.com "overcharge handling".
                 if (str_contains($paypalException->getMessage(), 'PAYER_ACTION_REQUIRED')
-                    && $this->_redirectToPayerAction($orderId)
+                    && $this->_redirectToPayerAction($orderId, $paypalException)
                 ) {
                     return;
                 }
@@ -1021,24 +1021,29 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
      * Returns false when no payer-action link can be resolved so the caller can
      * fall back to the normal error path.
      */
-    private function _redirectToPayerAction(string $orderId): bool
+    private function _redirectToPayerAction(string $orderId, ?Mage_Paypal_Model_Exception $captureException = null): bool
     {
-        $payerActionUrl = '';
-        try {
-            $api = Mage::getSingleton('paypal/helper')->getApi()->setStore($this->_getQuote()->getStore());
-            $response = $api->getOrderDetails($orderId);
-            $details = json_decode((string) $response->getBody(), true);
-            foreach ((array) ($details['links'] ?? []) as $link) {
-                if (($link['rel'] ?? '') === 'payer-action' && is_string($link['href'] ?? null)) {
-                    $payerActionUrl = $link['href'];
-                    break;
+        // The failed capture response itself carries the payer-action link — prefer it. Re-reading
+        // the order right after the failure is racy: PayPal may not have flipped the order status
+        // (and published the link) yet.
+        $payerActionUrl = $this->_extractPayerActionUrl(
+            $captureException instanceof Mage_Paypal_Model_Exception ? $captureException->getDebugData() : [],
+        );
+
+        if ($payerActionUrl === '') {
+            try {
+                $api = Mage::getSingleton('paypal/helper')->getApi()->setStore($this->_getQuote()->getStore());
+                $response = $api->getOrderDetails($orderId);
+                if (!$response->isError()) {
+                    $details = json_decode((string) $response->getBody(), true);
+                    $payerActionUrl = $this->_extractPayerActionUrl(is_array($details) ? $details : []);
                 }
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
-        } catch (Exception $exception) {
-            Mage::logException($exception);
         }
 
-        if ($payerActionUrl === '' || !str_starts_with($payerActionUrl, 'https://')) {
+        if ($payerActionUrl === '') {
             return false;
         }
 
@@ -1047,6 +1052,27 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         );
         $this->_redirectUrl($payerActionUrl);
         return true;
+    }
+
+    /**
+     * Pull the payer-action link out of a PayPal response payload (error body or order details).
+     *
+     * @param array<string, mixed> $payload
+     */
+    private function _extractPayerActionUrl(array $payload): string
+    {
+        foreach ((array) ($payload['links'] ?? []) as $link) {
+            if (!is_array($link) || ($link['rel'] ?? '') !== 'payer-action') {
+                continue;
+            }
+
+            $href = $link['href'] ?? null;
+            if (is_string($href) && str_starts_with($href, 'https://')) {
+                return $href;
+            }
+        }
+
+        return '';
     }
 
     /**

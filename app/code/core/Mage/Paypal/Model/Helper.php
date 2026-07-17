@@ -284,7 +284,10 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     public function handleApiError(ApiResponse $response, string $defaultMessage): never
     {
         $errorMsg = $this->extractErrorMessage($response, $defaultMessage);
-        throw new Mage_Paypal_Model_Exception($errorMsg);
+        // Carry the raw error payload: PAYER_ACTION_REQUIRED handling needs the
+        // payer-action link PayPal ships inside the failed response's links.
+        $result = $response->getResult();
+        throw new Mage_Paypal_Model_Exception($errorMsg, is_array($result) ? $result : []);
     }
 
     /**
