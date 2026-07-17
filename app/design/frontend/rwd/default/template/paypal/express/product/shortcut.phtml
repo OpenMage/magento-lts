@@ -34,17 +34,20 @@
     <?php endif ?>
     <script type="text/javascript">
         //<![CDATA[
-        $$('#<?php echo $shortcutHtmlId ?>','#<?php echo $bmlShortcutHtmlId ?>').invoke('observe', 'click', function(event) {
-            <?php if ($this->getConfirmationUrl()): ?>
-            if (confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->getConfirmationMessage())?>')) {
-                this.href = '<?php echo $this->getConfirmationUrl() ?>';
-            }
-            <?php endif ?>
-            <?php if ($this->getIsInCatalogProduct()): ?>
-            $('pp_checkout_url').value = this.href;
-            productAddToCartForm.submit(this);
-            event.stop();
-            <?php endif ?>
+        document.querySelectorAll('#<?php echo $shortcutHtmlId ?>, #<?php echo $bmlShortcutHtmlId ?>').forEach(function(el) {
+            el.addEventListener('click', function(event) {
+                <?php if ($this->getConfirmationUrl()): ?>
+                if (confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->getConfirmationMessage())?>')) {
+                    this.href = '<?php echo $this->getConfirmationUrl() ?>';
+                }
+                <?php endif ?>
+                <?php if ($this->getIsInCatalogProduct()): ?>
+                document.getElementById('pp_checkout_url').value = this.href;
+                productAddToCartForm.submit(this);
+                event.preventDefault();
+                event.stopPropagation();
+                <?php endif ?>
+            });
         });
         //]]>
     </script>
