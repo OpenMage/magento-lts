@@ -33,6 +33,8 @@ use PaypalServerSdkLib\Models\Builders\TrustlyPaymentRequestBuilder;
 use PaypalServerSdkLib\Models\Builders\ApplePayRequestBuilder;
 use PaypalServerSdkLib\Models\Builders\GooglePayRequestBuilder;
 use PaypalServerSdkLib\Models\Builders\VenmoWalletRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\PaypalWalletBuilder;
+use PaypalServerSdkLib\Models\Builders\PaypalWalletExperienceContextBuilder;
 
 /**
  * PayPal Order Creation Handler
@@ -134,8 +136,22 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
             case 'venmo':
                 return $paymentSourceBuilder->venmo(VenmoWalletRequestBuilder::init()->build())->build();
 
-                // Default payment methods (PayPal, card) don't need an explicit payment source
             case 'paypal':
+                // The wallet itself needs no payer details, but set return/cancel URLs so the
+                // order also works as a redirect flow: when a post-approval patch raises the total
+                // beyond PayPal's tolerance, the capture fails with PAYER_ACTION_REQUIRED and the
+                // buyer must re-approve on paypal.com — without a return_url that page has nowhere
+                // to send them back to. Harmless for the JS popup flow, which never redirects.
+                return $paymentSourceBuilder->paypal(
+                    PaypalWalletBuilder::init()->experienceContext(
+                        PaypalWalletExperienceContextBuilder::init()
+                            ->returnUrl(Mage::getUrl('paypal/express/return', ['_secure' => true]))
+                            ->cancelUrl(Mage::getUrl('paypal/express/cancelReturn', ['_secure' => true]))
+                            ->build(),
+                    )->build(),
+                )->build();
+
+                // Card fields render inline; no explicit payment source needed.
             case 'card':
                 return null;
         }

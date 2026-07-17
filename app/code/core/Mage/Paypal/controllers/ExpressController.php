@@ -123,14 +123,19 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             $this->_prepareShippingRates($quote);
             $quote->collectTotals()->save();
 
-            $patch = $this->_buildPatch($quote);
-            if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
-                Mage::log(['order_id' => $orderId, 'patch' => $patch], null, 'paypal_patch.log', true);
-            }
+            // Skip the patch when PayPal already holds the current total (e.g. the buyer just came
+            // back from re-approving it) — patching an approved order needlessly would cost us that
+            // approval again.
+            if (!$this->_paypalAmountMatchesQuote($details, $quote)) {
+                $patch = $this->_buildPatch($quote);
+                if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
+                    Mage::log(['order_id' => $orderId, 'patch' => $patch], null, 'paypal_patch.log', true);
+                }
 
-            $patchResponse = $api->patchOrder($orderId, $patch);
-            if ($patchResponse !== null && $patchResponse->isError()) {
-                Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
+                $patchResponse = $api->patchOrder($orderId, $patch);
+                if ($patchResponse !== null && $patchResponse->isError()) {
+                    Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
+                }
             }
 
             $this->loadLayout()
@@ -276,10 +281,24 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
 
             $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
             $isAuthorize = ($paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE));
-            if ($isAuthorize) {
-                $this->_getPaypal()->authorizePayment($orderId, $quote);
-            } else {
-                $this->_getPaypal()->captureOrder($orderId, $quote);
+            try {
+                if ($isAuthorize) {
+                    $this->_getPaypal()->authorizePayment($orderId, $quote);
+                } else {
+                    $this->_getPaypal()->captureOrder($orderId, $quote);
+                }
+            } catch (Mage_Paypal_Model_Exception $paypalException) {
+                // When the post-approval patch raised the total beyond PayPal's tolerance (their
+                // ML-driven overcharge threshold, roughly 115% / +$75), the charge is rejected with
+                // PAYER_ACTION_REQUIRED and PayPal expects us to send the buyer back to re-approve
+                // the new amount. See developer.paypal.com "overcharge handling".
+                if (str_contains($paypalException->getMessage(), 'PAYER_ACTION_REQUIRED')
+                    && $this->_redirectToPayerAction($orderId)
+                ) {
+                    return;
+                }
+
+                throw $paypalException;
             }
 
             Mage::getSingleton('paypal/helper')->validateProcessedPaymentForQuote($quote, $isAuthorize, $orderId);
@@ -994,6 +1013,77 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             'token' => $orderId,
             'form_key' => Mage::getSingleton('core/session')->getFormKey(),
         ]);
+    }
+
+    /**
+     * Send the buyer to PayPal's re-approval page for the updated total.
+     *
+     * Returns false when no payer-action link can be resolved so the caller can
+     * fall back to the normal error path.
+     */
+    private function _redirectToPayerAction(string $orderId): bool
+    {
+        $payerActionUrl = '';
+        try {
+            $api = Mage::getSingleton('paypal/helper')->getApi()->setStore($this->_getQuote()->getStore());
+            $response = $api->getOrderDetails($orderId);
+            $details = json_decode((string) $response->getBody(), true);
+            foreach ((array) ($details['links'] ?? []) as $link) {
+                if (($link['rel'] ?? '') === 'payer-action' && is_string($link['href'] ?? null)) {
+                    $payerActionUrl = $link['href'];
+                    break;
+                }
+            }
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+        }
+
+        if ($payerActionUrl === '' || !str_starts_with($payerActionUrl, 'https://')) {
+            return false;
+        }
+
+        $this->_getCheckoutSession()->addNotice(
+            Mage::helper('paypal')->__('Your order total was updated with shipping. Please confirm the new total with PayPal to complete your purchase.'),
+        );
+        $this->_redirectUrl($payerActionUrl);
+        return true;
+    }
+
+    /**
+     * Landing point for the buyer coming back from PayPal's re-approval page.
+     * PayPal appends the order token; hand the buyer back to the review page.
+     */
+    public function returnAction(): void
+    {
+        $token = trim((string) $this->getRequest()->getParam('token'));
+        $storedOrderId = $this->_getShortcutState()->getOrderId($this->_getQuote());
+        if ($token === '' || $storedOrderId === '' || !hash_equals($storedOrderId, $token)) {
+            $this->_getCheckoutSession()->addError(
+                Mage::helper('paypal')->__('The PayPal order does not match this checkout session.'),
+            );
+            $this->_redirect('checkout/cart');
+            return;
+        }
+
+        $this->_redirectReview($token);
+    }
+
+    /**
+     * Landing point when the buyer cancels on PayPal's re-approval page.
+     */
+    public function cancelReturnAction(): void
+    {
+        $token = trim((string) $this->getRequest()->getParam('token'));
+        $storedOrderId = $this->_getShortcutState()->getOrderId($this->_getQuote());
+        if ($token === '' || $storedOrderId === '' || !hash_equals($storedOrderId, $token)) {
+            $this->_redirect('checkout/cart');
+            return;
+        }
+
+        $this->_getCheckoutSession()->addNotice(
+            Mage::helper('paypal')->__('The PayPal confirmation was cancelled. You can review your order and try again.'),
+        );
+        $this->_redirectReview($token);
     }
 
     /**
