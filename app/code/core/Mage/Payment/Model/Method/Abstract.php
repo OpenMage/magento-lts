@@ -806,15 +806,12 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         $this->_debug($debugData);
     }
 
-    /**
-     * @return int
-     */
-    public function getSortOrder()
+    public function getSortOrder(): int
     {
         if (!$this->hasData('sort_order')) {
-            $this->setData('sort_order', $this->getConfigData('sort_order'));
+            $this->setData('sort_order', (int) $this->getConfigData('sort_order'));
         }
 
-        return $this->getDataByKey('sort_order');
+        return (int) $this->getDataByKey('sort_order');
     }
 }
