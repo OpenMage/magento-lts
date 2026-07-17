@@ -93,12 +93,14 @@ var ConfigurableMediaImages = {
         }
 
         //third, get image off of child product which is compatible
+        // NB: the original Prototype code used `each(... return false)`, which does NOT break the
+        // loop (only `throw $break` does), so it iterated all compatible products and the LAST
+        // match won. Preserve that behaviour here — do not break on the first match.
         var childSwatchImage = null;
         var childProductImages = fallback[ConfigurableMediaImages.imageType];
-        compatibleProducts.some(function(childId) {
+        compatibleProducts.forEach(function(childId) {
             if(childProductImages[childId] && ConfigurableMediaImages.isValidImage(childProductImages[childId])) {
                 childSwatchImage = childProductImages[childId];
-                return true; // break
             }
         });
         if (childSwatchImage) {

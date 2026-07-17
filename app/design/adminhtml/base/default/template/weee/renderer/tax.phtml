@@ -95,8 +95,11 @@
                 data.prefix     = arguments[0];
             }
 
-            var template = new Template('<tr>' + document.getElementById(data.prefix + '_add_template').innerHTML.replace(/__index__/g, '#{index}').replace(/ disabled="?no-template"?/g, '').replace(/ disabled/g, '').replace(/="'([^']*)'"/g, '="$1"') + '</tr>');
-            document.getElementById(data.prefix + '_container').insertAdjacentHTML('beforeend', template.evaluate(data));
+            var templateText = '<tr>' + document.getElementById(data.prefix + '_add_template').innerHTML.replace(/__index__/g, '#{index}').replace(/ disabled="?no-template"?/g, '').replace(/ disabled/g, '').replace(/="'([^']*)'"/g, '="$1"') + '</tr>';
+            var templateHtml = templateText.replace(/#\{(\w+)\}/g, function(match, key) {
+                return data[key] != null ? data[key] : '';
+            });
+            document.getElementById(data.prefix + '_container').insertAdjacentHTML('beforeend', templateHtml);
 
             document.getElementById(data.prefix + '_weee_tax_row_'+data.index+'_country').value = data.country;
             document.getElementById(data.prefix + '_weee_tax_row_'+data.index+'_website').value = data.website_id;

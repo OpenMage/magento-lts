@@ -15,10 +15,13 @@ function setSettings(urlTemplate, typeElement, packageThemeElement) {
         typeElement = document.getElementById(typeElement).value.replace(/\//g, '-');
         packageThemeElement = document.getElementById(packageThemeElement).value.split(/\//g);
 
-        setLocation(new Template(urlTemplate, /(^|.|\r|\n)({{(\w+)}})/).evaluate({
+        var params = {
             'type': typeElement,
             'package': packageThemeElement[0],
             'theme': packageThemeElement[1]
+        };
+        setLocation(urlTemplate.replace(/{{(\w+)}}/g, function(match, key) {
+            return Object.prototype.hasOwnProperty.call(params, key) ? params[key] : match;
         }));
     } else {
         return false;
