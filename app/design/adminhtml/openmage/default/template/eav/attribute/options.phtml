@@ -131,7 +131,6 @@ var attributeOption = {
     totalItems : 0,
     isReadOnly: <?php echo (int)$this->getReadOnly(); ?>,
     add : function(data) {
-        this.template = new Template(this.templateText, this.templateSyntax);
         let isNewOption = false;
         if (!data.id) {
             data.id = 'option_' + this.itemCount;
@@ -144,7 +143,9 @@ var attributeOption = {
             data.swatch = '#ffffff';
             data.swatch_class = 'swatch-disabled';
         }
-        let newHTML = this.template.evaluate(data);
+        let newHTML = this.templateText.replace(/{{(\w+)}}/g, function(match, key) {
+            return data[key] != null ? data[key] : '';
+        });
         this.table.insertAdjacentHTML('afterend', newHTML);
         if (isNewOption && !this.isReadOnly) {
             this.enableNewOptionDeleteButton(data.id);
