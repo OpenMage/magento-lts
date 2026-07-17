@@ -69,7 +69,7 @@ class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_Createdimensions ex
         $html .= <<<'JAVASCRIPT'
 <script type="text/javascript">
 //<![CDATA[
-document.observe('dom:loaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     var button = document.getElementById('usps-create-dimensions-button');
     if (button) {
         button.onclick = function() {
@@ -89,27 +89,29 @@ function createUspsAttributes(url) {
     button.disabled = true;
 
     // Make AJAX request
-    new Ajax.Request(url, {
-        parameters: {
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams({
             form_key: FORM_KEY
-        },
-        onSuccess: function(response) {
-            button.disabled = false;
-            try {
-                var result = JSON.parse(response.responseText);
-                if (result.success) {
-                    resultDiv.innerHTML = '<span style="color:green;">✓ ' + result.message + '</span>';
-                } else {
-                    resultDiv.innerHTML = '<span style="color:red;">✗ ' + result.message + '</span>';
-                }
-            } catch(e) {
-                resultDiv.innerHTML = '<span style="color:red;">✗ Error parsing response: ' + e.message + '</span>';
+        }).toString()
+    }).then(function(response) {
+        return response.text();
+    }).then(function(responseText) {
+        button.disabled = false;
+        try {
+            var result = JSON.parse(responseText);
+            if (result.success) {
+                resultDiv.innerHTML = '<span style="color:green;">✓ ' + result.message + '</span>';
+            } else {
+                resultDiv.innerHTML = '<span style="color:red;">✗ ' + result.message + '</span>';
             }
-        },
-        onFailure: function(response) {
-            button.disabled = false;
-            resultDiv.innerHTML = '<span style="color:red;">✗ Failed to create attributes. Check server logs for details.</span>';
+        } catch(e) {
+            resultDiv.innerHTML = '<span style="color:red;">✗ Error parsing response: ' + e.message + '</span>';
         }
+    }).catch(function() {
+        button.disabled = false;
+        resultDiv.innerHTML = '<span style="color:red;">✗ Failed to create attributes. Check server logs for details.</span>';
     });
 }
 //]]>
