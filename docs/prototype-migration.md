@@ -17,16 +17,16 @@ This document tracks the migration of OpenMage from Prototype.js (1.7.3) + Scrip
 | Phase | Description | Files | Status |
 |-------|-------------|-------|--------|
 | **Phase 0** | Config flag + admin UI (`dev/js/prototype_mode`) | 3 PHP/XML | Done |
-| **Phase 0** | Head.php conditional JS loading | 1 PHP | Done |
+| **Phase 0** | `Head.php` conditional JS loading | 1 PHP | Done |
 | **Phase 1** | Compatibility shim (`prototype-shim.js`, 1741 lines) | 1 JS | Done |
 | **Phase 0** | Deprecation wrapper (`prototype-deprecation.js`) | 1 JS | Done |
-| **Wave 1** | loader.js, events.js | 2 JS | Done |
-| **Wave 2** | translate.js, accordion.js, varien/js.js | 3 JS | Done |
-| **Wave 3** | form.js, configurable.js, product.js, opcheckout.js, msrp.js, bundle.js, RWD overlays | 8 JS | Done |
-| **Wave 4** | Admin tools.js, accordion.js, tabs.js, form.js, grid.js | 5 JS | Done |
-| **Wave 5** | Admin rules.js, product.js, sales.js, packaging.js, browser.js, uploader/instance.js | 6 JS | Done |
-| **Wave 6** | validation.js, directpost.js, translate_inline.js, captcha.js, centinel.js (x2) | 6 JS | Done |
-| **Wave 7** | Inline JS in .phtml templates | 175 .phtml | Done |
+| **Wave 1** | `loader.js`, `events.js` | 2 JS | Done |
+| **Wave 2** | `translate.js`, `accordion.js`, `varien/js.js` | 3 JS | Done |
+| **Wave 3** | `form.js`, `configurable.js`, `product.js`, `opcheckout.js`, `msrp.js`, `bundle.js`, RWD overlays | 8 JS | Done |
+| **Wave 4** | Admin `tools.js`, `accordion.js`, `tabs.js`, `form.js`, `grid.js` | 5 JS | Done |
+| **Wave 5** | Admin `rules.js`, `product.js`, `sales.js`, `packaging.js`, `browser.js`, `uploader/instance.js` | 6 JS | Done |
+| **Wave 6** | `validation.js`, `directpost.js`, `translate_inline.js`, `captcha.js`, `centinel.js` (x2) | 6 JS | Done |
+| **Wave 7** | Inline JS in `.phtml` templates | 175 `.phtml` | Done |
 
 **Totals:** 200+ files changed, ~7,300 lines modified, 30 standalone JS files rewritten.
 
@@ -61,15 +61,15 @@ Set in **Admin > System > Configuration > Developer > JavaScript Settings > Prot
 A 1741-line file implementing the Prototype.js API surface using native browser APIs. Covers:
 
 - **Globals:** `$()`, `$$()`, `$F()`, `$H()`, `$A()`, `$w()`, `$break`
-- **Element methods:** show/hide, classList, traversal, DOM manipulation, events, styles, attributes (patched on `HTMLElement.prototype`)
+- **Element methods:** show/hide, `classList`, traversal, DOM manipulation, events, styles, attributes (patched on `HTMLElement.prototype`)
 - **OOP:** `Class.create()` with inheritance and `$super`
 - **Ajax:** `Ajax.Request`, `Ajax.Updater`, `Ajax.Responders` (fetch-based)
 - **Events:** `Event.observe/stop/element/findElement`, KEY_* constants
 - **Form:** `Form.serialize`, `Form.getElements`, `Form.Element.*`
 - **Template:** `#{variable}` interpolation
 - **String/Array/Number prototype extensions**
-- **Scriptaculous effects:** Fade, Appear, Highlight, BlindDown/Up (CSS transition-based)
-- **Stubs:** Sortable, Draggable, Droppables (console warnings)
+- **Scriptaculous effects:** Fade, Appear, Highlight, `BlindDown`/`BlindUp` (CSS transition-based)
+- **Stubs:** `Sortable`, `Draggable`, `Droppables` (console warnings)
 
 Each shimmed function emits a one-time deprecation warning via `_protoWarn()`.
 
@@ -84,57 +84,57 @@ Loaded after full prototype.js in `full` mode. Activated by `?protodebug=1` quer
 ### Wave 1 — Prerequisites
 | File | Key Changes |
 |------|-------------|
-| `js/mage/adminhtml/loader.js` | form_key injection via fetch interceptor; SessionError; varienLoader; showLoader/hideLoader |
-| `js/mage/adminhtml/events.js` | varienEvents constructor; `.reject()` → `.filter()` |
+| `js/mage/adminhtml/loader.js` | `form_key` injection via fetch interceptor; `SessionError`; `varienLoader`; `showLoader`/`hideLoader` |
+| `js/mage/adminhtml/events.js` | `varienEvents` constructor; `.reject()` → `.filter()` |
 | `js/mage/adminhtml/hash.js` | No changes needed (already pure JS) |
 
 ### Wave 2 — Simple Files
 | File | Key Changes |
 |------|-------------|
 | `js/mage/translate.js` | `$H()` → plain object |
-| `js/varien/accordion.js` | querySelectorAll, addEventListener, classList |
-| `js/varien/js.js` | All Varien utilities: searchForm, Tabs, DateElement, DOB, formCreator |
+| `js/varien/accordion.js` | `querySelectorAll`, `addEventListener`, `classList` |
+| `js/varien/js.js` | All Varien utilities: `searchForm`, `Tabs`, `DateElement`, `DOB`, `formCreator` |
 
 ### Wave 3 — Frontend Critical Path
 | File | Key Changes |
 |------|-------------|
-| `js/varien/form.js` | VarienForm, RegionUpdater, ZipUpdater — fetch for child loading |
+| `js/varien/form.js` | `VarienForm`, `RegionUpdater`, `ZipUpdater` — fetch for child loading |
 | `js/varien/configurable.js` | Product.Config — Template via regex, Hash → plain object |
-| `js/varien/product.js` | Product.Zoom (Draggable/Slider guarded), Product.Config, Product.Super |
-| `skin/.../opcheckout.js` | Checkout, Billing, Shipping, ShippingMethod, Payment, Review — fetch-based AJAX |
-| `skin/.../msrp.js` | Catalog.Map — CustomEvent for bundle:reload-price |
-| `skin/.../bundle.js` | Product.Bundle — CustomEvent dispatch |
+| `js/varien/product.js` | `Product.Zoom` (`Draggable`/`Slider` guarded), `Product.Config`, `Product.Super` |
+| `skin/.../opcheckout.js` | `Checkout`, `Billing`, `Shipping`, `ShippingMethod`, `Payment`, `Review` — fetch-based AJAX |
+| `skin/.../msrp.js` | `Catalog.Map` — `CustomEvent` for `bundle:reload-price` |
+| `skin/.../bundle.js` | `Product.Bundle` — `CustomEvent` dispatch |
 | `skin/.../opcheckout_rwd.js` | jQuery fallback for animations |
 | `skin/.../msrp_rwd.js` | Closure-based function wrapping |
 
 ### Wave 4 — Admin Medium Complexity
 | File | Key Changes |
 |------|-------------|
-| `js/mage/adminhtml/tools.js` | toolbarToggle, Cookie, Fieldset, Base64 — cumulativeOffset helper |
-| `js/mage/adminhtml/accordion.js` | varienAccordion — Cookie integration preserved |
-| `js/mage/adminhtml/tabs.js` | varienTabs — fetch for AJAX tabs, shadow tab loading |
-| `js/mage/adminhtml/form.js` | varienForm, Validation.isVisible, FormElementDependenceController, admin RegionUpdater |
-| `js/mage/adminhtml/grid.js` | varienGrid, varienGridMassaction, serializerController |
+| `js/mage/adminhtml/tools.js` | `toolbarToggle`, `Cookie`, `Fieldset`, `Base64` — `cumulativeOffset` helper |
+| `js/mage/adminhtml/accordion.js` | `varienAccordion` — `Cookie` integration preserved |
+| `js/mage/adminhtml/tabs.js` | `varienTabs` — fetch for AJAX tabs, shadow tab loading |
+| `js/mage/adminhtml/form.js` | `varienForm`, `Validation.isVisible`, `FormElementDependenceController`, admin `RegionUpdater` |
+| `js/mage/adminhtml/grid.js` | `varienGrid`, `varienGridMassaction`, `serializerController` |
 
 ### Wave 5 — Admin High Complexity
 | File | Key Changes |
 |------|-------------|
-| `js/mage/adminhtml/rules.js` | VarienRulesForm — chooser grid integration |
-| `js/mage/adminhtml/product.js` | Product.Gallery, Product.Attributes, Product.Configurable |
-| `js/mage/adminhtml/sales.js` | AdminOrder (1279 lines), OrderFormArea, ControlButton |
+| `js/mage/adminhtml/rules.js` | `VarienRulesForm` — chooser grid integration |
+| `js/mage/adminhtml/product.js` | `Product.Gallery`, `Product.Attributes`, `Product.Configurable` |
+| `js/mage/adminhtml/sales.js` | `AdminOrder` (1279 lines), `OrderFormArea`, `ControlButton` |
 | `js/mage/adminhtml/sales/packaging.js` | Shipping packaging UI |
-| `js/mage/adminhtml/browser.js` | Media browser — Dialog/Windows availability checks with fallback |
-| `js/mage/adminhtml/uploader/instance.js` | Flow.js uploader — CustomEvent for upload lifecycle |
+| `js/mage/adminhtml/browser.js` | Media browser — `Dialog`/`Windows` availability checks with fallback |
+| `js/mage/adminhtml/uploader/instance.js` | Flow.js uploader — `CustomEvent` for upload lifecycle |
 
 ### Wave 6 — Validation + Remaining
 | File | Key Changes |
 |------|-------------|
 | `js/prototype/validation.js` | Validation framework (937 lines) — all 100+ validators preserved |
-| `js/mage/directpost.js` | Authorize.Net Direct Post — iframe form submission |
-| `js/mage/translate_inline.js` | Inline translation — Dialog.confirm with availability guard |
-| `js/mage/captcha.js` | CAPTCHA refresh — CustomEvent for billing/login events |
+| `js/mage/directpost.js` | Authorize.Net Direct Post — `iframe` form submission |
+| `js/mage/translate_inline.js` | Inline translation — `Dialog.confirm` with availability guard |
+| `js/mage/captcha.js` | CAPTCHA refresh — `CustomEvent` for billing/login events |
 | `js/mage/centinel.js` | 3D Secure authentication |
-| `js/mage/adminhtml/sales/centinel.js` | Admin centinel validator |
+| `js/mage/adminhtml/sales/centinel.js` | Admin Centinel validator |
 
 ### Wave 7 — Template Files
 175 .phtml files across admin, frontend base, frontend RWD, and install areas. Inline `<script>` blocks rewritten. ~54 files with complex patterns deferred (work with shim).
@@ -215,7 +215,7 @@ Loaded after full prototype.js in `full` mode. Activated by `?protodebug=1` quer
 | `str.strip()` | `str.trim()` |
 | `str.blank()` | `str.trim().length === 0` |
 | `str.stripTags()` | `str.replace(/<[^>]*>/g, '')` |
-| `str.escapeHTML()` | Helper using textContent |
+| `str.escapeHTML()` | Helper using `textContent` |
 | `str.evalJSON()` | `JSON.parse(str)` |
 | `str.isJSON()` | `try { JSON.parse(str); } catch(e) {}` |
 
