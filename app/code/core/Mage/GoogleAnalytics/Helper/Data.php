@@ -74,8 +74,8 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param  ConfigStoreId $store
      * @return bool
-     * @deprecated
      */
+    #[Deprecated]
     public function isIpAnonymizationEnabled($store = null)
     {
         return false;
@@ -108,8 +108,8 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param  string $store
      * @return bool
-     * @deprecated
      */
+    #[Deprecated]
     public function isUseUniversalAnalytics($store = null)
     {
         return false;

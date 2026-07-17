@@ -63,6 +63,7 @@ try {
         ->withSkipPath(__DIR__ . '/vendor')
         ->withRules([
             Php83\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector::class,
+            Php84\Class_\DeprecatedAnnotationToDeprecatedAttributeRector::class,
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withRules(Migration\TypeDeclarationDocblocks::getRules())

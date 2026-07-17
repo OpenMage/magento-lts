@@ -82,9 +82,9 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
      * Retrieve wishlist items count
      *
      * @return int
-     * @deprecated after 1.6.0.0-rc2
      * @see Mage_Wishlist_Model_Wishlist::getItemsCount()
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_0_0_RC_2)]
     public function fetchItemsCount(Mage_Wishlist_Model_Wishlist $wishlist)
     {
         if (is_null($this->_itemsCount)) {

@@ -41,8 +41,8 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      * Joines templates information
      *
      * @return $this
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function addTemplateInfo()
     {
         $this->getSelect()->joinLeft(
