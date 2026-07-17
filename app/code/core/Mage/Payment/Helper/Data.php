@@ -123,8 +123,10 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             $block = new $className();
         }
 
-        /** @var Mage_Payment_Block_Form $block */
-        $block->setMethod($method);
+        if ($block instanceof Mage_Payment_Block_Form) {
+            $block->setMethod($method);
+        }
+
         return $block;
     }
 
@@ -144,8 +146,10 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             $block = new $className();
         }
 
-        /** @var Mage_Payment_Block_Info $block */
-        $block->setInfo($info);
+        if ($block instanceof Mage_Payment_Block_Info) {
+            $block->setInfo($info);
+        }
+
         return $block;
     }
 
