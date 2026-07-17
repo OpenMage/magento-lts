@@ -655,7 +655,11 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         }
 
         // Flag the next collectTotals() to re-run the shipping collector so it actually prices the selected method.
+        // The collectTotals() above set the quote's totals-collected flag, which would short-circuit the caller's
+        // final collectTotals() and leave shipping unpriced (method selected but total excludes it until the
+        // shopper re-picks a rate) — clear it so the selected method is actually charged on first render.
         $address->setCollectShippingRates(true);
+        $quote->setTotalsCollectedFlag(false);
     }
 
     /**
