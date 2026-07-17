@@ -237,6 +237,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
 
             $details = $this->_assertPaypalOrderBelongsToQuote($quote, $response->getBody());
             $this->_assertPatchablePaypalStatus($details);
+            $this->_assertApprovedForCapture($details);
 
             /** @var Mage_Paypal_Model_Checkout_Finalizer $finalizer */
             $finalizer = Mage::getModel('paypal/checkout_finalizer');
@@ -605,6 +606,25 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         $status = strtoupper((string) ($details['status'] ?? ''));
         if (!in_array($status, ['CREATED', 'APPROVED'], true)) {
             Mage::throwException(Mage::helper('paypal')->__('This PayPal order can no longer be updated. Please restart PayPal checkout.'));
+        }
+    }
+
+    /**
+     * Ensure the buyer actually approved the PayPal order before it is charged.
+     *
+     * A CREATED order is patchable but not payable: capturing it makes PayPal reject the call with
+     * PAYER_ACTION_REQUIRED, which surfaces to the shopper as an opaque "semantically incorrect"
+     * error. Fail early with something they can act on instead.
+     *
+     * @param array<string, mixed> $details
+     */
+    private function _assertApprovedForCapture(array $details): void
+    {
+        $status = strtoupper((string) ($details['status'] ?? ''));
+        if ($status !== 'APPROVED') {
+            Mage::throwException(
+                Mage::helper('paypal')->__('Your PayPal payment was not approved. Please complete the PayPal checkout and try again.'),
+            );
         }
     }
 
