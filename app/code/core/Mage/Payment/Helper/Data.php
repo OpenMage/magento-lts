@@ -112,6 +112,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve payment method form html
      *
      * @return Mage_Payment_Block_Form
+     * @throws Mage_Core_Exception
      */
     public function getMethodFormBlock(Mage_Payment_Model_Method_Abstract $method)
     {
@@ -119,13 +120,13 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->getLayout() !== null) {
             $block = $this->getLayout()->createBlock($blockType);
         } else {
-            $className = Mage::app()->getConfig()->getBlockClassName($blockType);
-            $block = new $className();
+            $block = Mage::app()->getLayout()->createBlock($blockType);
         }
 
-        if ($block instanceof Mage_Payment_Block_Form) {
-            $block->setMethod($method);
-        }
+        /**
+         * @var Mage_Payment_Block_Form $block
+         */
+        $block->setMethod($method);
 
         return $block;
     }
@@ -142,13 +143,13 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->getLayout() !== null) {
             $block = $this->getLayout()->createBlock($blockType);
         } else {
-            $className = Mage::app()->getConfig()->getBlockClassName($blockType);
-            $block = new $className();
+            $block = Mage::app()->getLayout()->createBlock($blockType);
         }
 
-        if ($block instanceof Mage_Payment_Block_Info) {
-            $block->setInfo($info);
-        }
+        /**
+         * @var Mage_Payment_Block_Info $block
+         */
+        $block->setInfo($info);
 
         return $block;
     }
