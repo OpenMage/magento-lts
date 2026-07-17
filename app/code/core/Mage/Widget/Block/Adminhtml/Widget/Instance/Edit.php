@@ -46,7 +46,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
     protected function _prepareLayout()
     {
         if ($this->getWidgetInstance()->isCompleteToCreate()) {
-            $this->_updateButton('save', 'onclick', 'saveWidget()');
+            $this->_updateButton(self::BUTTON_TYPE_SAVE, 'onclick', 'saveWidget()');
             $this->_addButton(
                 'save_and_edit_button',
                 [

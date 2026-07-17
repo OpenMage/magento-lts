@@ -242,6 +242,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                     'cond' => null,
                 ];
             }
+
             // Prepend the libraries so they load before any dependent script.
             $this->_data['items'] = $items + ($this->_data['items'] ?? []);
 

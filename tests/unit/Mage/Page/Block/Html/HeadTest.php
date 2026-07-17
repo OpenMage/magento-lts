@@ -52,7 +52,6 @@ final class HeadTest extends OpenMageTest
         $head->addJs('varien/js.js');
 
         $method = new ReflectionMethod(Subject::class, '_applyPrototypeMode');
-        $method->setAccessible(true);
         $method->invoke($head);
 
         $names = [];
@@ -61,6 +60,7 @@ final class HeadTest extends OpenMageTest
                 $names[] = $item['name'];
             }
         }
+
         return $names;
     }
 

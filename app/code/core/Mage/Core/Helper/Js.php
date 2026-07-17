@@ -28,8 +28,11 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      * Config path and possible values for the Prototype.js loading mode
      */
     public const XML_PATH_PROTOTYPE_MODE = 'dev/js/prototype_mode';
+
     public const PROTOTYPE_MODE_FULL = 'full';
+
     public const PROTOTYPE_MODE_SHIM = 'shim';
+
     public const PROTOTYPE_MODE_NONE = 'none';
 
     protected $_moduleName = 'Mage_Core';

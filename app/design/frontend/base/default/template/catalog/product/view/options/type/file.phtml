@@ -73,7 +73,7 @@
         </a>&nbsp;
         <?php if (!$_option->getIsRequire()): ?>
            <input type="checkbox" id="opFileDelete<?php echo $_rand; ?>" onchange="opFile<?php echo $_rand; ?>.toggleFileDelete(this, this.closest('dd').querySelector('.input-box'))" />
-           <label for="opFileDelete<?php echo $_rand; ?>" class="label"><?php echo Mage::helper('catalog')->__('Delete') ?></label>
+           <label for="opFileDelete<?php echo $_rand; ?>" class="label"><?php echo $this->escapeHtml(Mage::helper('catalog')->__('Delete')) ?></label>
         <?php endif ?>
     <?php endif ?>
     <div class="input-box" <?php echo $_fileExists ? 'style="display:none"' : '' ?>>

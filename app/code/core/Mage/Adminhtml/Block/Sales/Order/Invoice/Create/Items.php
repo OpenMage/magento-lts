@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => $submitLabel,
                 'class'     => 'save submit-button' . $submitButtonClass,
-                'onclick'   => 'disableElements(\'submit-button\');document.getElementById(\'edit_form\').submit()',
+                'onclick'   => "disableElements('submit-button');document.getElementById('edit_form').submit()",
                 'disabled'  => $this->_disableSubmitButton,
             ]),
         );
