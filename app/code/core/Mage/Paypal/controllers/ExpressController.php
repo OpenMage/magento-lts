@@ -366,6 +366,12 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         }
 
         $quote->save();
+        // The Buy-Now quote id is the only handle the review/placeOrder requests have on this quote;
+        // a silent no-op save here would strand them on the cart quote and fail the PayPal match.
+        if ((int) $quote->getId() === 0) {
+            Mage::throwException(Mage::helper('paypal')->__('Unable to start PayPal checkout for this product. Please try again.'));
+        }
+
         $this->_getCheckoutSession()->setData(Mage_Paypal_Model_Payment::PAYPAL_EXPRESS_BUY_NOW_QUOTE_ID, (int) $quote->getId());
         $this->_quote = $quote;
     }
@@ -377,7 +383,12 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
     {
         /** @var Mage_Sales_Model_Quote $quote */
         $quote = Mage::getModel('sales/quote');
-        $quote->setStore(Mage::app()->getStore());
+        $store = Mage::app()->getStore();
+        // setStore() only assigns the store object to a property — it records no data change.
+        // addProduct() does not dirty the quote row either, so without setStoreId() the first
+        // save() hits Mage_Core_Model_Abstract::save()'s "!_hasModelChanged()" early return and
+        // silently no-ops, leaving the quote unsaved and getId() null.
+        $quote->setStore($store)->setStoreId($store->getId());
 
         $customerSession = Mage::getSingleton('customer/session');
         if ($customerSession->isLoggedIn()) {
