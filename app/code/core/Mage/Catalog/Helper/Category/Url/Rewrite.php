@@ -72,7 +72,7 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
             'url_rewrite.category_id = main_table.entity_id AND url_rewrite.is_system = 1 '
                 . ' AND ' . $collection->getConnection()->quoteInto('url_rewrite.store_id = ?', $storeId)
                 . ' AND url_rewrite.category_id IS NOT NULL'
-                . ' AND url_rewrite.id_path = CONCAT(\'category/\', main_table.entity_id)',
+                . " AND url_rewrite.id_path = CONCAT('category/', main_table.entity_id)",
             ['request_path'],
         );
         return $this;
@@ -94,7 +94,7 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
                     (int) $storeId,
                 )
                 . 'url_rewrite.category_id IS NOT NULL AND '
-                . 'url_rewrite.id_path = CONCAT(\'category/\', main_table.entity_id)',
+                . "url_rewrite.id_path = CONCAT('category/', main_table.entity_id)",
             ['request_path' => 'url_rewrite.request_path'],
         );
         return $this;
