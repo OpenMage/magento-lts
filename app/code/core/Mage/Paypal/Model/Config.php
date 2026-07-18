@@ -816,6 +816,25 @@ class Mage_Paypal_Model_Config
         return $value;
     }
 
+
+    /**
+     * Config field magic isset
+     */
+    public function __isset(string $key): bool
+    {
+        if (array_key_exists($key, $this->_config)) {
+            return true;
+        }
+
+        $underscored = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $key));
+        if (array_key_exists($underscored, $this->_config)) {
+            return true;
+        }
+
+        $path = $this->_getSpecificConfigPath($underscored);
+        return $path !== null;
+    }
+
     /**
      * Perform additional config value preparation and return new value if needed
      *
