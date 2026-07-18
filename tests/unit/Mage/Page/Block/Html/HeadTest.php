@@ -77,8 +77,24 @@ final class HeadTest extends OpenMageTest
         self::assertContains('scriptaculous/dragdrop.js', $names);
         // Real Prototype must load before any dependent script.
         self::assertSame('prototype/prototype.js', $names[0]);
+        // Phase 0 deprecation instrumentation loads right after Prototype itself.
+        self::assertSame('prototype/prototype-deprecation.js', $names[1]);
         self::assertContains('lib/ccard.js', $names);
         self::assertContains('varien/js.js', $names);
+    }
+
+    /**
+     * @group Block
+     */
+    public function testPrototypeModeInvalidValueFallsBackToFull(): void
+    {
+        $names = $this->applyPrototypeMode('bogus');
+
+        // Unknown config values must behave exactly like "full", not silently
+        // degrade into an implicit shim-like mode.
+        self::assertNotContains('prototype/prototype-shim.js', $names);
+        self::assertSame('prototype/prototype.js', $names[0]);
+        self::assertContains('scriptaculous/effects.js', $names);
     }
 
     /**

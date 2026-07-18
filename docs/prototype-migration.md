@@ -36,9 +36,10 @@ This document tracks the migration of OpenMage from Prototype.js (1.7.3) + Scrip
 |------|-------------|--------|
 | **Wave 7 remainder** | ~54 .phtml files with complex inline JS (these work with the shim) | Medium |
 | **Phase 3** | Remove prototype.js + scriptaculous source files, update layout XML | Low |
-| **ExtJS replacement** | `ext-tree.js` used for category tree + URL rewrites — needs separate solution | Medium |
 | **Testing** | End-to-end testing with `prototype_mode=shim` and `prototype_mode=none` | High |
 | **Extension guide** | Publish migration guide for extension developers | Low |
+
+`ext-tree.js` (admin category tree + URL rewrites) has been decoupled from Prototype.js and works in all three modes.
 
 ---
 
@@ -274,7 +275,7 @@ Before merging, test these critical paths with `prototype_mode=shim`:
 
 ### ExtJS Dependency
 
-`/js/extjs/ext-tree.js` depends on Prototype.js (used for category tree, URL rewrites). This needs its own replacement strategy — out of scope for this migration but tracked as a follow-up.
+`/js/extjs/ext-tree.js` (category tree, URL rewrites) previously depended on Prototype.js. It has since been decoupled: it defines its own `Function.prototype.defer` fallback and runs under `full`, `shim`, and `none` modes (`extjs/fix-defer.js` is only loaded when Prototype is present).
 
 ---
 

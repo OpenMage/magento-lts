@@ -229,11 +229,25 @@
     }
   };
 
+  // First declared parameter name of a function — used to detect Prototype's
+  // `$super` convention. Mirrors Prototype's argumentNames()[0] check.
+  function _firstArgName(fn) {
+    var match = fn.toString().match(/^[\s(]*(?:async\s+)?function[^(]*\(([^)]*)\)/) ||
+                fn.toString().match(/^[^(=]*\(([^)]*)\)/);
+    if (!match) return '';
+    var first = match[1].split(',')[0] || '';
+    return first.replace(/\/\*[\s\S]*?\*\//g, '').trim();
+  }
+
   function _addMethods(klass, parent, source) {
     for (var name in source) {
       if (!source.hasOwnProperty(name)) continue;
       var value = source[name];
-      if (parent && typeof value === 'function' && typeof parent.prototype[name] === 'function') {
+      // Only inject $super when the override explicitly declares it as its
+      // first parameter (Prototype semantics). Unconditional injection would
+      // corrupt the arguments of ordinary overrides.
+      if (parent && typeof value === 'function' && typeof parent.prototype[name] === 'function' &&
+          _firstArgName(value) === '$super') {
         klass.prototype[name] = (function (method, parentMethod) {
           return function () {
             var args = Array.prototype.slice.call(arguments);
@@ -712,9 +726,6 @@
     return null;
   };
 
-  EP.select = EP.select || function (selector) {
-    return Array.from(this.querySelectorAll(selector));
-  };
   // Force set since Array.prototype.select may interfere on NodeList
   EP.select = function (selector) {
     return Array.from(this.querySelectorAll(selector));
@@ -847,15 +858,37 @@
     return this;
   };
 
-  // Events on elements
+  // Events on elements. observe() keeps a registry so the Prototype
+  // overloads stopObserving(name) / stopObserving() can remove handlers
+  // in bulk (only handlers registered through observe, as in Prototype).
   EP.observe = function (eventName, handler) {
     this.addEventListener(eventName, handler, false);
+    if (!this._protoObservers) this._protoObservers = [];
+    this._protoObservers.push([eventName, handler]);
     return this;
   };
 
   EP.stopObserving = function (eventName, handler) {
-    if (eventName) {
+    var self = this;
+    var registry = this._protoObservers || [];
+    if (eventName && handler) {
       this.removeEventListener(eventName, handler, false);
+      this._protoObservers = registry.filter(function (pair) {
+        return !(pair[0] === eventName && pair[1] === handler);
+      });
+    } else if (eventName) {
+      this._protoObservers = registry.filter(function (pair) {
+        if (pair[0] === eventName) {
+          self.removeEventListener(pair[0], pair[1], false);
+          return false;
+        }
+        return true;
+      });
+    } else {
+      registry.forEach(function (pair) {
+        self.removeEventListener(pair[0], pair[1], false);
+      });
+      this._protoObservers = [];
     }
     return this;
   };
@@ -877,11 +910,19 @@
   EP.setValue = function (val) {
     var tag = this.tagName.toLowerCase();
     if (tag === 'input' && (this.type === 'checkbox' || this.type === 'radio')) {
-      this.checked = (this.value == val);
+      // Prototype semantics: checkbox/radio setValue toggles checked-ness
+      // by truthiness (element.checked = !!value).
+      this.checked = !!val;
     } else if (tag === 'select') {
-      Array.from(this.options).forEach(function (opt) { opt.selected = (opt.value == val); });
+      // Accepts a single value or (for multi-selects) an array of values;
+      // comparison is by string coercion, matching Prototype's behavior
+      // for numeric values.
+      var values = (Array.isArray(val) ? val : [val]).map(String);
+      Array.from(this.options).forEach(function (opt) {
+        opt.selected = values.indexOf(opt.value) !== -1;
+      });
     } else {
-      this.value = val !== undefined ? val : '';
+      this.value = val !== undefined && val !== null ? val : '';
     }
     return this;
   };
@@ -1002,9 +1043,13 @@
   };
   document.loaded = true;
 
-  // window.observe
+  // window.observe / window.stopObserving
   window.observe = function (eventName, handler) {
     window.addEventListener(eventName, handler, false);
+    return window;
+  };
+  window.stopObserving = function (eventName, handler) {
+    if (eventName) window.removeEventListener(eventName, handler, false);
     return window;
   };
 
@@ -1030,12 +1075,24 @@
 
   Event.observe = function (element, eventName, handler) {
     element = typeof element === 'string' ? document.getElementById(element) : element;
-    if (element) element.addEventListener(eventName, handler, false);
+    if (!element) return;
+    // Route through Element#observe so the handler lands in the registry
+    // used by the stopObserving(name) / stopObserving() overloads.
+    if (typeof element.observe === 'function') {
+      element.observe(eventName, handler);
+    } else {
+      element.addEventListener(eventName, handler, false);
+    }
   };
 
   Event.stopObserving = function (element, eventName, handler) {
     element = typeof element === 'string' ? document.getElementById(element) : element;
-    if (element) element.removeEventListener(eventName, handler, false);
+    if (!element) return;
+    if (typeof element.stopObserving === 'function') {
+      element.stopObserving(eventName, handler);
+    } else {
+      element.removeEventListener(eventName, handler, false);
+    }
   };
 
   Event.stop = function (event) {
@@ -1072,31 +1129,18 @@
   // Form / $F
   // ---------------------------------------------------------------------------
   var Form = {
-    serialize: function (form, asObject) {
+    serialize: function (form, options) {
       form = typeof form === 'string' ? document.getElementById(form) : form;
-      var elements = Form.getElements(form);
-      var data = {};
-      elements.forEach(function (el) {
-        var name = el.name;
-        if (!name || el.disabled) return;
-        var val = _getFieldValue(el);
-        if (val === null) return;
-        if (data.hasOwnProperty(name)) {
-          if (!Array.isArray(data[name])) data[name] = [data[name]];
-          data[name].push(val);
-        } else {
-          data[name] = val;
-        }
-      });
-      if (asObject) return data;
-      return Object.toQueryString(data);
+      return Form.serializeElements(Form.getElements(form), options);
     },
 
+    // Prototype semantics: returns ALL input/select/textarea controls,
+    // including disabled ones — serialization skips disabled itself, and
+    // enable() must be able to reach controls disable() turned off.
     getElements: function (form) {
       form = typeof form === 'string' ? document.getElementById(form) : form;
       return Array.from(form.elements).filter(function (el) {
-        return el.name && !el.disabled && el.type !== 'submit' && el.type !== 'reset' &&
-               el.type !== 'button' && el.type !== 'image';
+        return /^(input|select|textarea)$/i.test(el.tagName);
       });
     },
 
@@ -1120,21 +1164,35 @@
       return form;
     },
 
+    // Prototype options contract: no/boolean options -> { hash: !!options };
+    // object options default hash to true; options.submit limits which
+    // submit button is serialized (false = none, name = only that one,
+    // otherwise only the first).
     serializeElements: function (elements, options) {
-      var asObject = options === true || (options && options.hash);
+      if (typeof options !== 'object' || options === null) {
+        options = { hash: !!options };
+      } else if (typeof options.hash === 'undefined') {
+        options = Object.extend({ hash: true }, options);
+      }
+      var submit = options.submit;
+      var submitted = false;
       var data = {};
       elements.forEach(function (el) {
-        if (!el.name || el.disabled) return;
+        if (!el.name || el.disabled || el.type === 'file') return;
+        if (el.type === 'submit') {
+          if (submitted || submit === false || (submit && el.name !== submit)) return;
+          submitted = true;
+        }
         var val = _getFieldValue(el);
         if (val === null) return;
         if (data.hasOwnProperty(el.name)) {
-          if (!Array.isArray(data[el.name])) data[el.name] = [data[el.name]];
-          data[el.name].push(val);
+          var existing = Array.isArray(data[el.name]) ? data[el.name] : [data[el.name]];
+          data[el.name] = existing.concat(val);
         } else {
           data[el.name] = val;
         }
       });
-      if (asObject) return data;
+      if (options.hash) return data;
       return Object.toQueryString(data);
     },
 
@@ -1269,7 +1327,18 @@
       var self = this;
       var body = this.options.postBody || params;
 
-      fetch(url, {
+      // Callback exceptions must not fall through to the network-error path:
+      // route them to onException (Prototype semantics) instead.
+      function invokeCallback(fn, response) {
+        if (typeof fn !== 'function') return;
+        try {
+          fn(response);
+        } catch (e) {
+          self._dispatchException(e);
+        }
+      }
+
+      fetch(this.url, {
         method: method.toUpperCase(),
         headers: headers,
         body: (method === 'get' || method === 'head') ? undefined : body,
@@ -1296,18 +1365,20 @@
           var success = fetchResponse.status >= 200 && fetchResponse.status < 300;
 
           if (success) {
-            if (typeof self.options.onSuccess === 'function') self.options.onSuccess(response);
+            invokeCallback(self.options.onSuccess, response);
             Ajax.Responders._dispatch('onSuccess', self, response);
           } else {
-            if (typeof self.options.onFailure === 'function') self.options.onFailure(response);
+            invokeCallback(self.options.onFailure, response);
             Ajax.Responders._dispatch('onFailure', self, response);
           }
 
-          if (typeof self.options.onComplete === 'function') self.options.onComplete(response);
+          invokeCallback(self.options.onComplete, response);
           Ajax.activeRequestCount--;
           Ajax.Responders._dispatch('onComplete', self, response);
         });
       }).catch(function (err) {
+        // Genuine network-level failure (or body-read failure) only —
+        // callback exceptions are caught by invokeCallback above.
         var response = {
           status: 0,
           statusText: err.message,
@@ -1316,61 +1387,90 @@
           getHeader: function () { return null; },
           transport: {}
         };
-        if (typeof self.options.onFailure === 'function') self.options.onFailure(response);
-        if (typeof self.options.onComplete === 'function') self.options.onComplete(response);
+        invokeCallback(self.options.onFailure, response);
+        invokeCallback(self.options.onComplete, response);
         Ajax.activeRequestCount--;
         Ajax.Responders._dispatch('onFailure', self, response);
         Ajax.Responders._dispatch('onComplete', self, response);
       });
+    },
+
+    _dispatchException: function (e) {
+      if (typeof this.options.onException === 'function') {
+        try { this.options.onException(this, e); } catch (e2) { /* swallow */ }
+      } else if (window.console && console.error) {
+        console.error('Ajax callback error:', e);
+      }
+      Ajax.Responders._dispatch('onException', this, e);
     }
   });
 
   Ajax.Updater = Class.create({
     initialize: function (container, url, options) {
-      this.container = typeof container === 'string' ? document.getElementById(container) : container;
-      if (container.success) {
+      // Clone so wrapping never mutates the caller's object (PeriodicalUpdater
+      // passes the same options to every cycle) and a missing options works.
+      options = Object.extend({}, options || {});
+
+      if (container && container.success) {
         this.containers = {
           success: typeof container.success === 'string' ? document.getElementById(container.success) : container.success,
           failure: typeof container.failure === 'string' ? document.getElementById(container.failure) : container.failure
         };
+        this.container = this.containers.success;
       } else {
+        this.container = typeof container === 'string' ? document.getElementById(container) : container;
         this.containers = { success: this.container };
       }
 
       var self = this;
-      var origSuccess = options.onSuccess;
-      var origFailure = options.onFailure;
+      var origComplete = options.onComplete;
 
-      options.onSuccess = function (response) {
-        var target = self.containers.success;
-        if (target) {
-          if (options.insertion) {
-            if (typeof options.insertion === 'string') {
-              target.insert({ bottom: response.responseText });
-            } else {
-              options.insertion(target, response.responseText);
-            }
-          } else {
-            target.innerHTML = response.responseText;
-          }
-          if (options.evalScripts) {
-            target.querySelectorAll('script').forEach(function (s) {
-              var ns = document.createElement('script');
-              if (s.src) { ns.src = s.src; } else { ns.textContent = s.textContent; }
-              document.head.appendChild(ns).parentNode.removeChild(ns);
-            });
-          }
-        }
-        if (typeof origSuccess === 'function') origSuccess(response);
+      // Prototype order: onSuccess/onFailure fire first (pre-update DOM),
+      // content is updated at onComplete time, then the caller's onComplete.
+      options.onComplete = function (response) {
+        self.updateContent(response);
+        if (typeof origComplete === 'function') origComplete(response);
       };
 
-      options.onFailure = function (response) {
-        var target = self.containers.failure;
-        if (target) target.innerHTML = response.responseText;
-        if (typeof origFailure === 'function') origFailure(response);
-      };
-
+      this.options = options;
       this.request = new Ajax.Request(url, options);
+    },
+
+    updateContent: function (response) {
+      var success = response.status >= 200 && response.status < 300;
+      var target = success ? this.containers.success : this.containers.failure;
+      if (!target) return;
+
+      var html = response.responseText == null ? '' : String(response.responseText);
+
+      // Inert parse: separate markup from scripts so scripts run at most once
+      // (Element.insert would otherwise eval them regardless of evalScripts),
+      // and never re-run scripts already present in the target.
+      var tpl = document.createElement('template');
+      tpl.innerHTML = html;
+      var scripts = Array.prototype.slice.call(tpl.content.querySelectorAll('script'));
+      scripts.forEach(function (s) { s.parentNode.removeChild(s); });
+      var markup = tpl.innerHTML;
+
+      if (this.options.insertion) {
+        if (typeof this.options.insertion === 'string') {
+          var insertions = {};
+          insertions[this.options.insertion.toLowerCase()] = markup;
+          target.insert(insertions);
+        } else {
+          this.options.insertion(target, markup);
+        }
+      } else {
+        target.innerHTML = markup;
+      }
+
+      if (this.options.evalScripts) {
+        scripts.forEach(function (s) {
+          var ns = document.createElement('script');
+          if (s.src) { ns.src = s.src; } else { ns.textContent = s.textContent; }
+          document.head.appendChild(ns).parentNode.removeChild(ns);
+        });
+      }
     }
   });
 

@@ -241,12 +241,19 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      * Get the configured Prototype.js loading mode (full|shim|none).
      *
      * Falls back to full Prototype.js + Scriptaculous — the config.xml
-     * default — when unset.
+     * default — when unset or set to an unrecognized value. Without this
+     * normalization an invalid value would satisfy none of the isPrototypeMode*
+     * predicates and silently degrade asset loading.
      */
     public function getPrototypeMode(): string
     {
         $mode = (string) Mage::getStoreConfig(self::XML_PATH_PROTOTYPE_MODE);
-        return $mode !== '' ? $mode : self::PROTOTYPE_MODE_FULL;
+        $validModes = [
+            self::PROTOTYPE_MODE_FULL,
+            self::PROTOTYPE_MODE_SHIM,
+            self::PROTOTYPE_MODE_NONE,
+        ];
+        return in_array($mode, $validModes, true) ? $mode : self::PROTOTYPE_MODE_FULL;
     }
 
     /**

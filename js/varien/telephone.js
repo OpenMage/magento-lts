@@ -24,29 +24,20 @@ function telephoneElem(fval, f1, f2, f3, f4) {
     this.f4 = f4 ? document.getElementById(f4) : null;
     this.last = this.f4 || this.f3;
 
-    this.eventKeyPress = this.keyPress.bind(this);
-    this.eventKeyUp    = this.keyUp.bind(this);
+    this.eventKeyUp = this.keyUp.bind(this);
 
-    this.f1.addEventListener('keyup',    this.eventKeyUp);
-    this.f2.addEventListener('keyup',    this.eventKeyUp);
-    this.f3.addEventListener('keyup',    this.eventKeyUp);
-    this.f1.addEventListener('keypress', this.eventKeyPress);
-    this.f2.addEventListener('keypress', this.eventKeyPress);
-    this.f3.addEventListener('keypress', this.eventKeyPress);
+    this.f1.addEventListener('keyup', this.eventKeyUp);
+    this.f2.addEventListener('keyup', this.eventKeyUp);
+    this.f3.addEventListener('keyup', this.eventKeyUp);
 
     if (this.f4) {
-        this.f4.addEventListener('keyup',    this.eventKeyUp);
-        this.f4.addEventListener('keypress', this.eventKeyPress);
+        this.f4.addEventListener('keyup', this.eventKeyUp);
     }
 
     this.loadValues();
 }
 
 telephoneElem.prototype = {
-    keyPress: function(event) {
-        // reserved for future key filtering
-    },
-
     keyUp: function(event) {
         var element = event.target;
         var code = event.keyCode;
