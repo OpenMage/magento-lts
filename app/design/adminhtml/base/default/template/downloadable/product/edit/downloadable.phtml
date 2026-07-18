@@ -150,14 +150,16 @@ Downloadable.FileList.prototype = {
     },
 
     handleFileRemoveAll: function(e) {
-        if(e.memo && this._checkCurrentContainer(e.memo.containerId)) {
+        var memo = e.memo || e.detail || {};
+        if(memo.containerId && this._checkCurrentContainer(memo.containerId)) {
             document.getElementById(this.containerId+'-new').style.display = 'none';
             document.getElementById(this.containerId+'-old').style.display = '';
             this.handleButtonsSwap();
         }
     },
     handleFileNew: function (e) {
-        if(e.memo && this._checkCurrentContainer(e.memo.containerId)) {
+        var memo = e.memo || e.detail || {};
+        if(memo.containerId && this._checkCurrentContainer(memo.containerId)) {
             document.getElementById(this.containerId + '-new').style.display = '';
             document.getElementById(this.containerId + '-old').style.display = 'none';
             this.handleButtonsSwap();

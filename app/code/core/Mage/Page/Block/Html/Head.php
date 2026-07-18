@@ -177,6 +177,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      */
     protected $_prototypeFiles = [
         'prototype/prototype.js',
+        'prototype/prototype-deprecation.js',
         'prototype/window.js',
         'prototype/window_effects.js',
         'prototype/window_ext.js',
@@ -206,6 +207,9 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      */
     protected $_fullModeFiles = [
         'prototype/prototype.js',
+        // Phase 0 deprecation instrumentation — inert unless activated via
+        // ?protodebug=1 or window.PROTOTYPE_DEPRECATION_WARNINGS = true
+        'prototype/prototype-deprecation.js',
         'prototype/window.js',
         'scriptaculous/builder.js',
         'scriptaculous/effects.js',

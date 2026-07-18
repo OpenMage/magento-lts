@@ -434,8 +434,10 @@ ProductConfigure.prototype = {
     _showWindow: function() {
         this.blockMask.style.height = this.windowHeight + 'px';
         this.blockMask.style.display = '';
-        this.blockWindow.style.marginTop = (-this.blockWindow.offsetHeight / 2) + 'px';
+        // Make the window visible before measuring: offsetHeight is 0 while
+        // the element is display:none, which would zero out the centering margin
         this.blockWindow.style.display = 'block';
+        this.blockWindow.style.marginTop = (-this.blockWindow.offsetHeight / 2) + 'px';
         if (typeof this.showWindowCallback[this.current.listType] === 'function') {
             this.showWindowCallback[this.current.listType]();
         }
@@ -666,6 +668,12 @@ ProductConfigure.prototype = {
                                     if (elms[i].checked) {
                                         fieldsValue[elms[i].name] = elms[i].value;
                                     }
+                                } else if (elms[i].type == 'select-multiple') {
+                                    // .value on a multi-select only yields the first
+                                    // selected option — collect all of them
+                                    fieldsValue[elms[i].name] = Array.from(elms[i].options)
+                                        .filter(function(opt) { return opt.selected; })
+                                        .map(function(opt) { return opt.value; });
                                 } else {
                                     fieldsValue[elms[i].name] = elms[i].value;
                                 }
@@ -687,6 +695,14 @@ ProductConfigure.prototype = {
                                         if (elms[i].value == fieldsValue[elms[i].name]) {
                                             elms[i].checked = true;
                                         }
+                                    } else if (elms[i].type == 'select-multiple'
+                                            && Array.isArray(fieldsValue[elms[i].name])) {
+                                        // setting .value on a multi-select would select
+                                        // at most one option — restore every saved value
+                                        var savedValues = fieldsValue[elms[i].name];
+                                        Array.from(elms[i].options).forEach(function(opt) {
+                                            opt.selected = savedValues.indexOf(opt.value) != -1;
+                                        });
                                     } else {
                                         elms[i].value = fieldsValue[elms[i].name];
                                     }

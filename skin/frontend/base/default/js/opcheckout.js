@@ -142,7 +142,10 @@ var _opcEachEntry = function(obj, fn) {
  */
 var _opcFireEvent = function(el, eventName, data) {
     if (!el) return;
-    el.dispatchEvent(new CustomEvent(eventName, { detail: data, bubbles: true }));
+    var evt = new CustomEvent(eventName, { detail: data, bubbles: true });
+    // Prototype-era observers read event.memo — keep both properties populated
+    evt.memo = data || {};
+    el.dispatchEvent(evt);
 };
 
 // =====================================================================

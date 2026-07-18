@@ -47,20 +47,41 @@ function _reviewAjaxUpdater(container, url, options) {
         if (typeof options.parameters === 'string') {
             url += sep + options.parameters;
         } else {
-            url += sep + new URLSearchParams(options.parameters).toString();
+            // Repeat keys for array values (billing[street][], multi-selects) —
+            // URLSearchParams(object) would flatten them to "a,b"
+            var usp = new URLSearchParams();
+            Object.keys(options.parameters).forEach(function(key) {
+                var value = options.parameters[key];
+                if (Array.isArray(value)) {
+                    value.forEach(function(item) { usp.append(key, item); });
+                } else {
+                    usp.append(key, value);
+                }
+            });
+            url += sep + usp.toString();
         }
     }
     fetch(url).then(function(resp) {
-        return resp.text();
-    }).then(function(text) {
-        el.innerHTML = text;
-        if (options.evalScripts !== false) {
-            _reviewEvalScripts(el);
+        return resp.text().then(function(text) {
+            return { ok: resp.ok, status: resp.status, text: text };
+        });
+    }).then(function(result) {
+        var response = { responseText: result.text, status: result.status };
+        // Only treat 2xx as success: inserting an error page into the review
+        // area and reporting success would let the order proceed on a failed save
+        if (result.ok) {
+            el.innerHTML = result.text;
+            if (options.evalScripts !== false) {
+                _reviewEvalScripts(el);
+            }
+            if (options.onSuccess) options.onSuccess(response);
+        } else if (options.onFailure) {
+            options.onFailure(response);
         }
-        if (options.onSuccess) options.onSuccess({ responseText: text });
-        if (options.onComplete) options.onComplete({ responseText: text });
+        if (options.onComplete) options.onComplete(response);
     }).catch(function() {
-        if (options.onComplete) options.onComplete({ responseText: '' });
+        if (options.onFailure) options.onFailure({ responseText: '', status: 0 });
+        if (options.onComplete) options.onComplete({ responseText: '', status: 0 });
     });
 }
 
@@ -69,14 +90,29 @@ function _reviewAjaxUpdater(container, url, options) {
  */
 function _reviewSerializeForm(form) {
     var data = {};
+    // Accumulate repeated names (billing[street][]) into arrays instead of
+    // letting later fields overwrite earlier ones
+    function append(name, value) {
+        if (data.hasOwnProperty(name)) {
+            if (!Array.isArray(data[name])) data[name] = [data[name]];
+            data[name].push(value);
+        } else {
+            data[name] = value;
+        }
+    }
     Array.from(form.elements).forEach(function(el) {
         if (!el.name || el.disabled) return;
         if (el.type === 'checkbox') {
             data[el.name] = el.checked ? el.value : 0;
         } else if (el.type === 'radio') {
             if (el.checked) data[el.name] = el.value;
+        } else if (el.type === 'select-multiple') {
+            // .value on a multi-select only yields the first selected option
+            Array.from(el.options).forEach(function(opt) {
+                if (opt.selected) append(el.name, opt.value);
+            });
         } else if (el.type !== 'submit' && el.type !== 'button') {
-            data[el.name] = el.value;
+            append(el.name, el.value);
         }
     });
     return data;
@@ -277,6 +313,12 @@ OrderReviewController.prototype = {
                 },
                 onSuccess: function() {
                     self._updateShippingMethodsElement();
+                },
+                onFailure: function() {
+                    // don't leave the please-wait spinner up when the save failed
+                    if (self._pleaseWait) {
+                        self._pleaseWait.style.display = 'none';
+                    }
                 }
             });
         } else {
