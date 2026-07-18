@@ -44,3 +44,46 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+
+  # Same suite, but with dev/js/prototype_mode overridden so the vanilla-JS
+  # rewrites run against the compatibility shim ("shim") and with no Prototype
+  # layer at all ("none"). The default job above covers "full".
+  test-prototype-mode:
+    name: Cypress (prototype_mode ${{ matrix.prototype_mode }})
+    runs-on: [ubuntu-latest]
+    strategy:
+      fail-fast: false
+      matrix:
+        prototype_mode: ['shim', 'none']
+
+    steps:
+      - uses: actions/checkout@v7
+      - name: Setup DDEV
+        uses: ddev/github-action-setup-ddev@v1
+        with:
+          autostart: false
+
+      # install DDEV configuration
+      - run: ddev config --project-type=magento --php-version=8.3 --webserver-type=nginx-fpm --web-environment="MAGE_IS_DEVELOPER_MODE=1,OPENMAGE_CONFIG_OVERRIDE_ALLOWED=1,OPENMAGE_CONFIG__DEFAULT__DEV__JS__PROTOTYPE_MODE=${{ matrix.prototype_mode }},OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME=ENV name default,OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__PHONE=ENV phone website,OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__ADDRESS=ENV address store"
+
+      # install composer dependencies
+      - run: ddev composer install
+
+      # install openmage
+      - run: ddev openmage-install -q
+
+      # install cypress-addon
+      - run: ddev add-on get tyler36/ddev-cypress
+
+      # start ddev
+      - run: ddev start
+
+        # run cypress
+      - run: ddev cypress-run --config-file .cypress.config.js
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v7
+        if: ${{ !success() }}
+        with:
+          name: cypress-screenshots-${{ matrix.prototype_mode }}
+          path: cypress/screenshots
