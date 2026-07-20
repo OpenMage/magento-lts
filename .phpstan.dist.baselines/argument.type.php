@@ -4948,7 +4948,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $string of function strtolower expects string, string|null given.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
 ];
 $ignoreErrors[] = [

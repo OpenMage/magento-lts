@@ -977,11 +977,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Db/Tree/NodeSet.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Class Varien_Object implements generic interface ArrayAccess but does not specify its types: TKey, TValue',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Admin\\Model\\UserTest::provideIsResetPasswordLinkTokenExpiredData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Admin/Model/UserTest.php',
