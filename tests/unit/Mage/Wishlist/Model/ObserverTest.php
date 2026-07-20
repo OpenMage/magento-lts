@@ -49,8 +49,6 @@ final class ObserverTest extends OpenMageTest
     /**
      * @covers Mage_Wishlist_Model_Observer::processAddToCart()
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testProcessAddToCart(): void
     {

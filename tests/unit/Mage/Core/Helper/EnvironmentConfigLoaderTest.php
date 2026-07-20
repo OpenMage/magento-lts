@@ -146,7 +146,6 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @runInSeparateProcess
      * @dataProvider envOverridesCorrectConfigKeysDataProvider
      * @group Helper
      *
@@ -179,7 +178,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         self::assertNotSame($expected, $actual, 'Default value was not overridden.');
     }
 
-    public function envOverridesCorrectConfigKeysDataProvider(): Generator
+    public static function envOverridesCorrectConfigKeysDataProvider(): Generator
     {
         $defaultPath = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME';
         $defaultPathWithDash = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__FOO-BAR__NAME';
@@ -236,11 +235,10 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @runInSeparateProcess
      * @dataProvider envAsArrayDataProvider
      * @group Helper
      *
-     * @param array<string, array|string> $config
+     * @param array{'env_path': string, 'store': string, 'expected': array<string, int>} $config
      */
     public function testAsArray(array $config): void
     {
@@ -252,12 +250,20 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
             $config['env_path'] => 1,
         ]);
         $store = $config['store'];
+        $wantedStore = $store;
+        // unregister for test
+        if ($wantedStore === '') {
+            $wantedStore = 'default';
+        }
+
+        Mage::unregister("config_env_array_{$wantedStore}");
+
         $actual = $loader->getAsArray($store);
         $expected = $config['expected'];
         self::assertSame($expected, $actual);
     }
 
-    public function envAsArrayDataProvider(): Generator
+    public static function envAsArrayDataProvider(): Generator
     {
         yield 'default' => [
             [
@@ -287,7 +293,6 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @runInSeparateProcess
      * @dataProvider envHasPathDataProvider
      * @group Helper
      *
@@ -307,7 +312,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         self::assertSame($expected, $actual);
     }
 
-    public function envHasPathDataProvider(): Generator
+    public static function envHasPathDataProvider(): Generator
     {
         yield 'hasPath default' => [
             [
@@ -333,7 +338,6 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @runInSeparateProcess
      * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
      * @group Helper
      *
@@ -384,7 +388,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         self::assertStringNotContainsString((string) $valueAfterCheck, 'value_will_not_be_changed', 'Default value was wrongfully overridden.');
     }
 
-    public function envDoesNotOverrideOnWrongConfigKeysDataProvider(): Generator
+    public static function envDoesNotOverrideOnWrongConfigKeysDataProvider(): Generator
     {
         $defaultPath = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__ST';
         $websitePath = 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__ST';
@@ -507,6 +511,8 @@ XML;
 
     private static function cleanupTestWebsite(string $websiteCode): void
     {
+        Mage::unregister('isSecureArea');
+        Mage::register('isSecureArea', true);
         $website = Mage::getModel('core/website')->load($websiteCode, 'code');
         $stores = Mage::getModel('core/store')
             ->getCollection()
@@ -518,6 +524,7 @@ XML;
             $store->delete();
         }
 
+        Mage::unregister('isSecureArea');
         Mage::app()->cleanCache();
         Mage::app()->reinitStores();
     }

@@ -41,30 +41,30 @@ final class CustomerTest extends OpenMageTest
         self::assertSame($mock, $result);
     }
 
-    public function loadByCustomerDataProvider(): Generator
+    public static function loadByCustomerDataProvider(): Generator
     {
-        $customerMock = $this->getMockBuilder(Mage_Customer_Model_Customer::class)
-            ->onlyMethods(['getId'])
-            ->getMock();
-        $customerMock->method('getId')->willReturn(456);
+        $customerStub = self::createStub(Mage_Customer_Model_Customer::class);
+        $customerStub->method('getId')->willReturn(456);
 
         yield 'int' => [
             123,
             123,
         ];
         yield 'model' => [
-            $customerMock,
+            $customerStub,
             456,
         ];
     }
 
     /**
      * @dataProvider provideGetLoginAtTimestampData
+     * @param array<string, bool> $data
      * @group Model
      */
-    public function testGetLoginAtTimestamp(bool $expectedResult, array $methods): void
+    public function testGetLoginAtTimestamp(bool $expectedResult, array $data): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $mock = $this->getMockWithCalledMethods(Subject::class, []);
+        $mock->setData($data);
 
         self::assertInstanceOf(Subject::class, $mock);
         if ($expectedResult) {

@@ -8837,11 +8837,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/EnvironmentConfigLoaderTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $wantedStore of method Mage_Core_Helper_EnvironmentConfigLoader::getAsArray() expects string, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/EnvironmentConfigLoaderTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $content of method Mage_Core_Helper_Purifier::purify() expects string, array|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/PurifierTest.php',

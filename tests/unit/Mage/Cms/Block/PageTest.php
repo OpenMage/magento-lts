@@ -28,10 +28,8 @@ final class PageTest extends OpenMageTest
      */
     public function testGetPage(string $pageId): void
     {
-        $methods = [
-            'getPageId' => $pageId,
-        ];
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $mock = $this->createPartialMock(Subject::class, []);
+        $mock->setData('page_id', $pageId);
 
         self::assertInstanceOf(Subject::class, $mock);
         self::assertInstanceOf(Mage_Cms_Model_Page::class, $mock->getPage());
