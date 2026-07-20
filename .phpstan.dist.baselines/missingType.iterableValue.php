@@ -28192,11 +28192,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Error/ProcessorTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Admin\\Model\\UserTest::testValidate() has parameter $expectedResult with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Admin/Model/UserTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Admin\\Model\\VariableTest::testValidate() has parameter $expectedResult with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Admin/Model/VariableTest.php',

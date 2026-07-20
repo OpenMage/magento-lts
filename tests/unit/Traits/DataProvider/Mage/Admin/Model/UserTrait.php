@@ -25,8 +25,8 @@ use Generator;
  *      "hasAssigned2Role": bool
  * }
  * @phpstan-type ValidateData array{
- *      "new_password": ?string,
- *      "password": ?string
+ *      "new_password"?: ?string,
+ *      "password"?: ?string
  *  }
  */
 trait UserTrait
