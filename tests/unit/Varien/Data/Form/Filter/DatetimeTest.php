@@ -36,6 +36,7 @@ final class DatetimeTest extends TestCase
             // PHP8: bcsub(): Argument #1 ($num1) is not well-formed
             self::expectExceptionMessage($expectedResult);
         }
+
         self::assertSame($expectedResult, $this->subject->inputFilter($value));
     }
 
