@@ -23,6 +23,7 @@ use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\UserTrait;
 /**
  * @phpstan-import-type AuthenticateData from UserTrait
  * @phpstan-import-type AuthenticateMethods from UserTrait
+ * @phpstan-import-type ValidateData from UserTrait
  */
 final class UserTest extends OpenMageTest
 {
@@ -197,8 +198,8 @@ final class UserTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateAdminUserData
-     * @param array|true            $expectedResult
-     * @param array<string, string> $data
+     * @param array|true           $expectedResult
+     * @phpstan-param ValidateData $data
      * @group Model
      */
     public function testValidate(array|bool $expectedResult, array $data): void

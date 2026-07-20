@@ -28457,11 +28457,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Directory/Helper/DataTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Newsletter\\Model\\TemplateTest::testValidate() has parameter $methods with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Newsletter/Model/TemplateTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Rule\\Model\\AbstractTest::testLoadPost() has parameter $data with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Rule/Model/AbstractTest.php',

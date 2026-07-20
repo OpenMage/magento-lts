@@ -24,6 +24,10 @@ use Generator;
  *      "validatePasswordHash": bool,
  *      "hasAssigned2Role": bool
  * }
+ * @phpstan-type ValidateData array{
+ *      "new_password": ?string,
+ *      "password": ?string
+ *  }
  */
 trait UserTrait
 {
@@ -75,30 +79,27 @@ trait UserTrait
         ];
     }
 
+    /**
+     * @return Generator<string, list{bool|string, ValidateData}, void, void>
+     */
     public static function provideValidateAdminUserData(): Generator
     {
+        $errors = [
+            'User Name is required field.',
+            'First Name is required field.',
+            'Last Name is required field.',
+            'Please enter a valid email.',
+            'Password must be at least of 14 characters.',
+            'Password must include both numeric and alphabetic characters.',
+        ];
         yield 'fail different passwords' => [
-            [
-                0 => 'User Name is required field.',
-                1 => 'First Name is required field.',
-                2 => 'Last Name is required field.',
-                3 => 'Please enter a valid email.',
-                4 => 'Password must be at least of 14 characters.',
-                5 => 'Password must include both numeric and alphabetic characters.',
-            ],
+            $errors,
             [
                 'new_password' => '123',
             ],
         ];
         yield 'fails #2' => [
-            [
-                0 => 'User Name is required field.',
-                1 => 'First Name is required field.',
-                2 => 'Last Name is required field.',
-                3 => 'Please enter a valid email.',
-                4 => 'Password must be at least of 14 characters.',
-                5 => 'Password must include both numeric and alphabetic characters.',
-            ],
+            $errors,
             [
                 'password' => '456',
             ],

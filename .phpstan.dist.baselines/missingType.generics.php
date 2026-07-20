@@ -982,24 +982,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Object.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Admin\\Model\\BlockTest::provideValidateAdminBlockData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Admin/Model/BlockTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Admin\\Model\\UserTest::provideIsResetPasswordLinkTokenExpiredData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Admin/Model/UserTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Admin\\Model\\UserTest::provideValidateAdminUserData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Admin/Model/UserTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Admin\\Model\\VariableTest::provideValidateAdminVariableData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Admin/Model/VariableTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\AdminNotification\\Model\\InboxTest::provideGetSeverities() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
@@ -1460,11 +1445,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Log\\Model\\CustomerTest::provideGetLoginAtTimestampData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Log/Model/CustomerTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Newsletter\\Model\\TemplateTest::provideValidateData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Newsletter/Model/TemplateTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Reports\\Helper\\DataTest::provideReportsDateIntervalsData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',

@@ -13,8 +13,17 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model;
 
 use Generator;
 
+/**
+ * @phpstan-type ValidateData array{
+ *     "block_name": ?string,
+ *     "is_allowed": string
+ * }
+ */
 trait BlockTrait
 {
+    /**
+     * @return Generator<string, list{bool|string[], ValidateData}, void, void>
+     */
     public static function provideValidateAdminBlockData(): Generator
     {
         $errorIncorrectBlockName = 'Block Name is incorrect.';

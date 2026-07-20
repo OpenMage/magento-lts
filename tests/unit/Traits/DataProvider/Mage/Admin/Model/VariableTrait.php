@@ -13,8 +13,17 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model;
 
 use Generator;
 
+/**
+ * @phpstan-type ValidateData array{
+ *     "variable_name": ?string,
+ *     "is_allowed": string
+ * }
+ */
 trait VariableTrait
 {
+    /**
+     * @return Generator<string, list{bool|string[], ValidateData}, void, void>
+     */
     public static function provideValidateAdminVariableData(): Generator
     {
         yield 'test passes' => [

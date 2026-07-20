@@ -18,6 +18,9 @@ use Mage_Admin_Model_Variable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\VariableTrait;
 
+/**
+ * @phpstan-import-type ValidateData from VariableTrait
+ */
 final class VariableTest extends OpenMageTest
 {
     use VariableTrait;
@@ -33,7 +36,7 @@ final class VariableTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateAdminVariableData
-     * @param array<string, string> $data
+     * @phpstan-param ValidateData $data
      * @group Model
      * @throws Exception
      */
