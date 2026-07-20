@@ -198,7 +198,7 @@ final class UserTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateAdminUserData
-     * @param array|true           $expectedResult
+     * @param bool|string[] $expectedResult
      * @phpstan-param ValidateData $data
      * @group Model
      */

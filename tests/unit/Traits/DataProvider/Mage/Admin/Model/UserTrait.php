@@ -80,7 +80,7 @@ trait UserTrait
     }
 
     /**
-     * @return Generator<string, list{bool|string, ValidateData}, void, void>
+     * @return Generator<string, list{bool|string[], ValidateData}, void, void>
      */
     public static function provideValidateAdminUserData(): Generator
     {

@@ -25,7 +25,6 @@ use Generator;
  */
 trait TemplateTrait
 {
-
     /**
      * @return Generator<string, list{null|string, ValidateData}, void, void>
      */
