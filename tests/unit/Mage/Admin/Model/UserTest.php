@@ -285,8 +285,14 @@ final class UserTest extends OpenMageTest
      */
     public function testSendPasswordResetConfirmationEmail(): void
     {
-        Mage::app()->getStore()->setConfig('system/smtp/disable', '1');
-        self::assertInstanceOf(Subject::class, self::$subject->sendPasswordResetConfirmationEmail());
+        $store = Mage::app()->getStore();
+        $previousSmtpDisable = $store->getConfig('system/smtp/disable');
+        $store->setConfig('system/smtp/disable', '1');
+        try {
+            self::assertInstanceOf(Subject::class, self::$subject->sendPasswordResetConfirmationEmail());
+        } finally {
+            $store->setConfig('system/smtp/disable', $previousSmtpDisable);
+        }
     }
 
     /**
@@ -312,12 +318,18 @@ final class UserTest extends OpenMageTest
      */
     public function testSendAdminNotification(): void
     {
-        Mage::app()->getStore()->setConfig('system/smtp/disable', '1');
-        $methods = ['getUserCreateAdditionalEmail' => ['test@example.com']];
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $store = Mage::app()->getStore();
+        $previousSmtpDisable = $store->getConfig('system/smtp/disable');
+        $store->setConfig('system/smtp/disable', '1');
+        try {
+            $methods = ['getUserCreateAdditionalEmail' => ['test@example.com']];
+            $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        self::assertInstanceOf(Subject::class, $mock);
-        self::assertInstanceOf(Subject::class, $mock->sendAdminNotification(self::$subject));
+            self::assertInstanceOf(Subject::class, $mock);
+            self::assertInstanceOf(Subject::class, $mock->sendAdminNotification(self::$subject));
+        } finally {
+            $store->setConfig('system/smtp/disable', $previousSmtpDisable);
+        }
     }
 
     /**
