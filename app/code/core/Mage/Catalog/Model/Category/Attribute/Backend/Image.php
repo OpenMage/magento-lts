@@ -31,10 +31,14 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
         $name  = $this->getAttribute()->getName();
         $value = $object->getData($name);
 
-        if (is_array($value) && !empty($value['delete'])) {
-            $object->setData($name, '');
-            $this->getAttribute()->getEntity()->saveAttribute($object, $name);
-            return $this;
+        if (is_array($value)) {
+            if (!empty($value['delete'])) {
+                $object->setData($name, '');
+                $this->getAttribute()->getEntity()->saveAttribute($object, $name);
+                return $this;
+            }
+
+            $object->setData($name, $value['value'] ?? '');
         }
 
         if (!empty($_FILES[$name])) {
