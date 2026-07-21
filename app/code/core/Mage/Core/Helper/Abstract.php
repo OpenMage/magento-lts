@@ -182,9 +182,10 @@ abstract class Mage_Core_Helper_Abstract
      * Escape html entities
      *
      * @template T of mixed|string|string[]
-     * @param  T                                                                 $data
-     * @param  null|string[]                                                     $allowedTags
-     * @return (T is array ? string[] : (T is null|bool|int|string ? T : mixed))
+     * @param  T                     $data
+     * @param  null|string[]         $allowedTags
+     * @return mixed|string|string[]
+     * @phpstan-return (T is array ? string[] : (T is null|bool|int|string ? T : mixed))
      */
     public function escapeHtml($data, $allowedTags = null)
     {
@@ -299,9 +300,10 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape quotes in java script
      *
-     * @param  string|string[]                      $data
-     * @param  string                               $quote
-     * @return ($data is array ? string[] : string)
+     * @param  string|string[] $data
+     * @param  string          $quote
+     * @return string|string[]
+     * @phpstan-return ($data is array ? string[] : string)
      */
     public function jsQuoteEscape($data, $quote = "'")
     {
