@@ -74,7 +74,7 @@ button {
   }
 
   &.cancel {
-    background: $color_cinnabar_approx;
+    background: $openmage_red;
     color: $white;
     padding: 0 13px;
 
@@ -84,12 +84,12 @@ button {
     }
 
     &:hover {
-      background: $color_coral_red_approx;
+      background: $openmage_red_dark;
     }
   }
 
   &.delete {
-    background: $color_cinnabar_approx;
+    background: $openmage_red;
     color: $white;
     padding: 0 13px;
 
@@ -98,8 +98,9 @@ button {
       padding: 0;
     }
 
-    &:hover {
-      background: $color_coral_red_approx;
+    &:hover,
+    &:focus {
+      background: $openmage_red_dark;
     }
   }
 
@@ -121,7 +122,7 @@ button {
     }
 
     &:hover {
-      background-color: $color_action;
+      background-color: $openmage_blue_dark;
     }
 
     &.disabled {
@@ -147,7 +148,7 @@ button {
     }
 
     &:hover {
-      background-color: $color_action;
+      background-color: $openmage_blue_dark;
     }
 
     &.disabled {
@@ -173,7 +174,7 @@ button {
     }
 
     &:hover {
-      background-color: $color_action;
+      background-color: $openmage_blue_dark;
     }
 
     &.disabled {
@@ -199,29 +200,23 @@ button {
     }
   }
 
-  &:focus {
-    @extend %extend_21;
-  }
-
+  &:focus,
   &:active {
-    @extend %extend_21;
+    background: $color_dark_grey;
+    color: $white;
+    border: 0;
+    outline: thin dotted;
+    outline-offset: -2px;
   }
 
   &:hover {
-    background: $color_gray_approx;
+    background: $color_dark_grey;
+    color: $white;
   }
 
   &.disabled {
     @extend %extend_22;
-    background: $color_gray_approx;
-
-    &:hover {
-      background: $color_gray_approx;
-    }
-
-    &:active {
-      background: $color_gray_approx;
-    }
+    background: $color_dark_grey;
   }
 
   &.save[disabled] {
@@ -237,22 +232,22 @@ button {
   }
 
   &.fail {
-    background: $color_cinnabar_approx;
+    background: $openmage_red;
     color: $white;
     padding: 0 13px;
 
     &:hover {
-      background: $color_coral_red_approx;
+      background: $openmage_red_dark;
     }
   }
 
   &.cancel_button {
-    background: $color_cinnabar_approx;
+    background: $openmage_red;
     color: $white;
     padding: 0 13px;
 
     &:hover {
-      background: $color_coral_red_approx;
+      background: $openmage_red_dark;
     }
   }
 
@@ -295,16 +290,17 @@ button {
 .form-button {
   @extend %extend_20;
 
-  &:focus {
-    @extend %extend_21;
-  }
-
+  &:focus,
   &:active {
-    @extend %extend_21;
+    background: $color_dark_grey;
+    color: $white;
+    border: 0;
+    outline: thin dotted;
+    outline-offset: -2px;
   }
 
   &:hover {
-    background: $color_gray_approx;
+    background: $color_dark_grey;
   }
 
   &.disabled {
@@ -323,7 +319,7 @@ button {
     }
 
     &:hover {
-      background-color: $color_action;
+      background-color: $openmage_blue_dark;
     }
   }
 
@@ -374,12 +370,12 @@ button[disabled] {
     }
 
     p.note {
-      color: $color_dorado_approx;
+      color: $openmage_base_blue_text;
       font-size: 11px;
       font-weight: 400;
 
       span.input-counter-error {
-        color: $color_cinnabar_approx;
+        color: $openmage_red;
       }
     }
   }
@@ -418,7 +414,7 @@ td:has(input.swatch-option) {
     display: flex;
     justify-content: center;
     font-size: 10px;
-    background: $color_cinnabar_approx;
+    background: $openmage_red;
     color: $white;
     border-radius: 2px;
   }
