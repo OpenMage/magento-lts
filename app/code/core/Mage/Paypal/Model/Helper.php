@@ -135,6 +135,53 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Ensure physical quotes have a valid selected shipping method.
+     *
+     * Mage_Sales_Model_Service_Quote::_validate() enforces this at submit time, which for PayPal
+     * is *after* the buyer has been charged — a failure there leaves money captured and no order.
+     * Callers must run this before creating or capturing a PayPal order.
+     *
+     * Pass $refreshRates = false once PayPal already holds an approved amount: re-quoting a live
+     * carrier there can move the total away from what the buyer approved, and the capture paths
+     * that lack a re-patch step would then charge the stale figure.
+     *
+     * @throws Mage_Core_Exception
+     */
+    public function validateShippingMethodForQuote(Mage_Sales_Model_Quote $quote, bool $refreshRates = true): void
+    {
+        if ($quote->isVirtual()) {
+            return;
+        }
+
+        $address = $quote->getShippingAddress();
+        if ($refreshRates) {
+            // Refresh the rates through collectTotals() rather than calling collectShippingRates()
+            // directly: requestShippingRates() writes the raw, base-currency rate price straight into
+            // shipping_amount (a known core quirk — Total_Shipping::collect() is what converts it back).
+            // Calling it on its own would leave the address holding the unconverted amount, which then
+            // rides into the order and its invoice while grand_total keeps the converted value.
+            $address->setCollectShippingRates(true);
+            $quote->setTotalsCollectedFlag(false);
+            $quote->collectTotals();
+        }
+
+        $method = (string) $address->getShippingMethod();
+        if ($method === '') {
+            Mage::throwException($this->_helper->__('Please specify a shipping method.'));
+        }
+
+        $rate = $address->getShippingRateByCode($method);
+        if (!$rate instanceof Mage_Sales_Model_Quote_Address_Rate) {
+            Mage::throwException($this->_helper->__('Please specify a valid shipping method.'));
+        }
+
+        $rateErrorMessage = $rate->getErrorMessage();
+        if (!in_array($rateErrorMessage, [null, false, ''], true)) {
+            Mage::throwException($this->_helper->__('Please specify a valid shipping method.'));
+        }
+    }
+
+    /**
      * Validate that the PayPal payment stored on the quote is the payment
      * Magento is about to convert into an order.
      *

@@ -85,6 +85,14 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
+            // This is the in-checkout flow: the shopper already supplied an address here, so the
+            // quote must carry a usable shipping method before we quote an amount to PayPal.
+            // (The shortcut flow legitimately starts address-less and picks the method later on
+            // the review page, which is why ExpressController::startAction has no equivalent check.)
+            // Without this, an unselected shipping method survives all the way to submitAll(), which
+            // rejects it only after the buyer has been charged.
+            Mage::getSingleton('paypal/helper')->validateShippingMethodForQuote($this->_getQuote());
+
             $result = $this->_getPaypal()->create($this->_getQuote(), $fundingSource);
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
@@ -124,6 +132,13 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             if (!$orderId) {
                 Mage::throwException(Mage::helper('paypal')->__('PayPal order ID is required'));
             }
+
+            // Re-check at the last point before the money moves: the quote can lose its shipping
+            // method between create and approval (a second tab, an expired rate, a re-collected
+            // address). Failing here costs the buyer only an unused approval, not a capture.
+            // Read-only — PayPal already holds the approved amount and this action has no
+            // re-patch step, so re-quoting carriers here could charge a total nobody approved.
+            Mage::getSingleton('paypal/helper')->validateShippingMethodForQuote($this->_getQuote(), false);
 
             if ($paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE)) {
                 $this->_getPaypal()->authorizePayment($orderId, $this->_getQuote());

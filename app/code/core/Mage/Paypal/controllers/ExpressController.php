@@ -802,34 +802,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
      */
     private function _validateShippingMethod(Mage_Sales_Model_Quote $quote): void
     {
-        if ($quote->isVirtual()) {
-            return;
-        }
-
-        $address = $quote->getShippingAddress();
-        // Refresh the rates through collectTotals() rather than calling collectShippingRates()
-        // directly: requestShippingRates() writes the raw, base-currency rate price straight into
-        // shipping_amount (a known core quirk — Total_Shipping::collect() is what converts it back).
-        // Calling it on its own would leave the address holding the unconverted amount, which then
-        // rides into the order and its invoice while grand_total keeps the converted value.
-        $address->setCollectShippingRates(true);
-        $quote->setTotalsCollectedFlag(false);
-        $quote->collectTotals();
-
-        $method = (string) $address->getShippingMethod();
-        if ($method === '') {
-            Mage::throwException(Mage::helper('paypal')->__('Please specify a shipping method.'));
-        }
-
-        $rate = $address->getShippingRateByCode($method);
-        if (!$rate instanceof Mage_Sales_Model_Quote_Address_Rate) {
-            Mage::throwException(Mage::helper('paypal')->__('Please specify a valid shipping method.'));
-        }
-
-        $rateErrorMessage = $rate->getErrorMessage();
-        if (!in_array($rateErrorMessage, [null, false, ''], true)) {
-            Mage::throwException(Mage::helper('paypal')->__('Please specify a valid shipping method.'));
-        }
+        Mage::getSingleton('paypal/helper')->validateShippingMethodForQuote($quote);
     }
 
     /**

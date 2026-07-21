@@ -395,6 +395,17 @@ class PayPalPayment {
             form.reportValidity();
         }
 
+        // FireCheckout keeps its section-level checks — shipping method, payment method,
+        // agreements — in checkout.validator.afterValidate, and the only thing that runs them is
+        // the Place Order button we hide in renderButton(). A bare Validation() pass cannot stand
+        // in for it: the shipping method radios carry no field-validator class, so nothing below
+        // would notice the customer never picked one. Defer to FireCheckout's own validator so the
+        // shopper gets the inline error instead of a round-trip to PayPal.
+        const firecheckoutValidator = this.isFirecheckout ? window.checkout?.validator : null;
+        if (firecheckoutValidator) {
+            return firecheckoutValidator.validate() && isValid;
+        }
+
         if (typeof Validation !== 'undefined') {
             const validator = new Validation(form);
             return validator.validate() && isValid;

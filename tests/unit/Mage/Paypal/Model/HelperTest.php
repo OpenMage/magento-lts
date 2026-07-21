@@ -12,11 +12,14 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 
 use Mage;
+use Mage_Core_Exception;
 use Mage_Paypal_Model_Exception;
 use Mage_Paypal_Model_Helper as Subject;
 use Mage_Paypal_Model_Transaction;
 use Mage_Sales_Model_Order_Payment_Transaction;
 use Mage_Sales_Model_Quote;
+use Mage_Sales_Model_Quote_Address;
+use Mage_Sales_Model_Quote_Address_Rate;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\HelperTrait;
@@ -240,5 +243,102 @@ final class HelperTest extends OpenMageTest
     public function testPrepareRawDetails(string $json, array $expected): void
     {
         self::assertSame($expected, self::$subject->prepareRawDetails($json));
+    }
+
+    /**
+     * Build a non-virtual quote whose shipping address answers with the given method and rate.
+     */
+    private function buildShippingQuote(string $shippingMethod, ?Mage_Sales_Model_Quote_Address_Rate $rate): Mage_Sales_Model_Quote
+    {
+        // Stub only getShippingRateByCode(), which would otherwise query the rates table. Leaving
+        // the rest of the class intact keeps Varien_Object::__call working, so the magic
+        // set/getShippingMethod() pair behaves exactly as it does in production.
+        $address = $this->getMockBuilder(Mage_Sales_Model_Quote_Address::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getShippingRateByCode'])
+            ->getMock();
+        $address->method('getShippingRateByCode')->willReturn($rate ?? false);
+        $address->setShippingMethod($shippingMethod);
+
+        $quote = $this->createMock(Mage_Sales_Model_Quote::class);
+        $quote->method('isVirtual')->willReturn(false);
+        $quote->method('getShippingAddress')->willReturn($address);
+
+        return $quote;
+    }
+
+    /**
+     * @group Model
+     */
+    public function testValidateShippingMethodForQuoteSkipsVirtualQuotes(): void
+    {
+        $quote = $this->createMock(Mage_Sales_Model_Quote::class);
+        $quote->method('isVirtual')->willReturn(true);
+        $quote->expects(self::never())->method('getShippingAddress');
+
+        self::$subject->validateShippingMethodForQuote($quote, false);
+    }
+
+    /**
+     * The reported FireCheckout defect: the shopper reaches PayPal having never picked a method.
+     *
+     * @group Model
+     */
+    public function testValidateShippingMethodForQuoteRejectsUnselectedMethod(): void
+    {
+        $quote = $this->buildShippingQuote('', null);
+
+        $this->expectException(Mage_Core_Exception::class);
+        $this->expectExceptionMessage('Please specify a shipping method.');
+
+        self::$subject->validateShippingMethodForQuote($quote, false);
+    }
+
+    /**
+     * A stale method code that no longer resolves to a rate — e.g. a MatrixRate row dropped by a
+     * CSV re-import — must not survive to submit time either.
+     *
+     * @group Model
+     */
+    public function testValidateShippingMethodForQuoteRejectsMethodWithoutRate(): void
+    {
+        $quote = $this->buildShippingQuote('matrixrate_matrixrate_51919', null);
+
+        $this->expectException(Mage_Core_Exception::class);
+        $this->expectExceptionMessage('Please specify a valid shipping method.');
+
+        self::$subject->validateShippingMethodForQuote($quote, false);
+    }
+
+    /**
+     * @group Model
+     */
+    public function testValidateShippingMethodForQuoteRejectsErroredRate(): void
+    {
+        $rate = Mage::getModel('sales/quote_address_rate');
+        $rate->setCode('matrixrate_matrixrate_51919')
+            ->setErrorMessage('No rate available for this destination.');
+
+        $quote = $this->buildShippingQuote('matrixrate_matrixrate_51919', $rate);
+
+        $this->expectException(Mage_Core_Exception::class);
+        $this->expectExceptionMessage('Please specify a valid shipping method.');
+
+        self::$subject->validateShippingMethodForQuote($quote, false);
+    }
+
+    /**
+     * @group Model
+     */
+    public function testValidateShippingMethodForQuoteAcceptsSelectedRate(): void
+    {
+        $rate = Mage::getModel('sales/quote_address_rate');
+        $rate->setCode('matrixrate_matrixrate_51919');
+
+        $quote = $this->buildShippingQuote('matrixrate_matrixrate_51919', $rate);
+
+        self::$subject->validateShippingMethodForQuote($quote, false);
+
+        self::assertSame('matrixrate_matrixrate_51919', $quote->getShippingAddress()->getShippingMethod());
     }
 }
