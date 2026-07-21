@@ -47,30 +47,27 @@ label {
 
 a {
   display: inline;
-  color: $color_curious_blue_approx;
+  color: $openmage_blue;
   text-decoration: none;
 
   &:visited {
-    color: $color_curious_blue_approx;
+    color: $openmage_blue;
   }
 
-  &:focus {
-    color: $color_astral_approx;
-    text-decoration: none;
-  }
-
-  &:hover {
-    color: $color_astral_approx;
-    text-decoration: none;
-  }
-
+  &:hover,
+  &:focus,
   &:active {
-    color: $color_astral_approx;
+    color: $openmage_blue_dark;
     text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline-offset: 2px;
+    outline: 2px dashed $openmage_blue_dark;
   }
 
   &.error span {
-    color: $color_coral_red_approx !important;
+    color: $openmage_red !important;
   }
 }
 
@@ -164,6 +161,10 @@ small {
   .entry-edit-head {
     @extend %extend_4;
 
+    &:not(.collapseable) {
+      padding: 4px 16px;
+    }
+
     h4 {
       color: $color_dark_grey;
       line-height: 32px;
@@ -185,6 +186,11 @@ small {
 
     a {
       @extend %extend_10;
+      padding: 4px 16px;
+
+      &:focus-visible {
+        outline-offset: -4px;
+      }
     }
 
     button:not(:first-of-type) {
@@ -247,15 +253,15 @@ small {
 
     tbody tr {
       &.selected td {
-        background: $color_alice_blue_approx;
+        background: $openmage_blue_light;
       }
 
       &:hover td {
-        background: $color_alice_blue_approx;
+        background: $openmage_blue_light;
       }
 
       &:nth-child(odd):hover td {
-        background: $color_alice_blue_approx;
+        background: $openmage_blue_light;
       }
     }
   }
@@ -306,14 +312,14 @@ small {
       }
 
       .date img {
-        @include replaceImage(icon-calendar($color_action),17px,17px);
+        @include replaceImage(icon-calendar($openmage_blue),17px,17px);
         margin-top: 5px;
       }
     }
 
     &.headings {
-      background: $color_boulder_approx;
-      border: 1px solid $color_boulder_approx;
+      background: $openmage_blue_gray;
+      border: 1px solid $openmage_blue_gray;
 
       th {
         padding: 4px;
@@ -328,6 +334,11 @@ small {
 
           &:hover {
             color: $color_alto_approx;
+          }
+
+          &:focus-visible {
+            outline-offset: 0;
+            outline-color: white;
           }
 
           &.sort-arrow-desc {
@@ -395,7 +406,7 @@ small {
     }
 
     tr.selected td.sorted {
-      background: darken($color_alice_blue_approx, 3%) !important;
+      background: darken($openmage_blue_light, 3%) !important;
     }
   }
 
@@ -423,6 +434,17 @@ small {
     svg {
       height: 40px;
       width: auto;
+    }
+
+    &:focus,
+    &:hover,
+    &:active {
+      background: $openmage_base_blue_dark;
+    }
+
+    &:focus-visible {
+      outline-offset: -4px;
+      outline-color: white;
     }
   }
 }
@@ -490,7 +512,7 @@ ul {
 
         &.active {
           border: 0;
-          background: $color_boulder_approx;
+          background: $openmage_blue_gray;
           color: $white !important;
         }
       }
@@ -515,7 +537,7 @@ ul {
 
       &.active {
         @extend %extend_9;
-        border-left: 3px solid $color_boulder_approx;
+        border-left: 3px solid $openmage_blue_gray;
         padding: 8px 18px;
         border-bottom: 1px solid $color_gallery_approx;
 
@@ -538,6 +560,10 @@ ul {
           }
         }
       }
+
+      &:focus-visible {
+        outline-offset: -4px;
+      }
     }
 
     span {
@@ -553,7 +579,7 @@ ul {
     text-transform: none;
     padding: 7px 7px 7px 10px;
     font-size: 18px;
-    background: $color_boulder_approx;
+    background: $openmage_blue_gray;
     color: $white;
   }
 }
@@ -599,7 +625,7 @@ div {
   &.autocomplete {
     border: 0;
     //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-    box-shadow: 0 3px 3px $mine_shaft_15;
+    box-shadow: 0 3px 3px $color_silver_approx;
 
     ul li {
       color: $color_dark_grey;
@@ -634,7 +660,7 @@ div {
     .section-config {
       .section-config {
         .section-config > .config {
-          background: $color_alabaster_approx;
+          background: $color_wild_sand_approx;
         }
 
         > .config {
@@ -643,7 +669,7 @@ div {
       }
 
       > .config {
-        background: $color_alabaster_approx;
+        background: $color_wild_sand_approx;
       }
     }
   }
@@ -736,7 +762,7 @@ div {
     right: 0;
     bottom: 0;
     left: 0;
-    background: $black_40;
+    background: $black_50;
     color: $color_dark_grey;
   }
   .loader {
@@ -752,15 +778,15 @@ div {
 }
 
 .error {
-  color: $color_coral_red_approx !important;
+  color: $openmage_red !important;
 }
 
 .required {
-  color: $color_coral_red_approx !important;
+  color: $openmage_red !important;
 }
 
 .validation-advice {
-  color: $color_coral_red_approx !important;
+  color: $openmage_red !important;
   font-size: 12px;
   font-weight: 600 !important;
 }
@@ -796,9 +822,9 @@ div {
   background-image: $url_1 !important;
   background-repeat: no-repeat !important;
   background-size: 23px 23px !important;
-  background-color: $color_merino_approx !important;
+  background-color: $openmage_blue_light !important;
   background-position: 8px center !important;
-  border: 1px solid $color_chenin_approx !important;
+  border: 1px solid $openmage_blue_dark !important;
   color: $color_dark_grey !important;
   a {
     color: $color_dark_grey !important;
@@ -811,27 +837,27 @@ div {
   background-image: $url_2 !important;
   background-repeat: no-repeat !important;
   background-size: 23px 23px !important;
-  background-color: $color_pot_pourri_approx !important;
+  background-color: $openmage_red_light !important;
   background-position: 8px center !important;
-  border: 1px solid $color_sanguine_brown_approx !important;
-  color: $color_sanguine_brown_approx !important;
+  border: 1px solid $openmage_red_dark !important;
+  color: $openmage_red_dark !important;
   a {
-    color: $color_sanguine_brown_approx !important;
+    color: $openmage_red_dark !important;
     text-decoration: underline;
   }
 }
 
 .success-msg {
   @extend %extend_13;
-  background-image: icon-success($color_san_felix_approx) !important;
+  background-image: icon-success($openmage_green_dark) !important;
   background-repeat: no-repeat !important;
   background-size: 16px 16px !important;
-  background-color: $color_chrome_white_approx !important;
+  background-color: $openmage_green_light !important;
   background-position: 8px center !important;
-  border: 1px solid $color_foggy_gray_approx !important;
-  color: $color_san_felix_approx !important;
+  border: 1px solid $openmage_green !important;
+  color: $openmage_green_dark !important;
   a {
-    color: $color_san_felix_approx !important;
+    color: $openmage_green_dark !important;
     text-decoration: underline;
   }
 }
@@ -841,9 +867,9 @@ div {
   background-image: $url_1 !important;
   background-repeat: no-repeat !important;
   background-size: 23px 23px !important;
-  background-color: $color_island_spice_approx !important;
+  background-color: $openmage_yellow_light !important;
   background-position: 8px center !important;
-  border: 1px solid $color_brandy_punch_approx !important;
+  border: 1px solid $openmage_yellow_dark !important;
   color: $color_dark_grey !important;
   a {
     color: $color_dark_grey !important;
@@ -887,7 +913,7 @@ div {
   .login-form {
     background: white;
     .form-button,button {
-      background: $color_action;
+      background: $openmage_blue;
     }
   }
   .bottom {
@@ -930,7 +956,7 @@ div {
   span {
     @extend %extend_15;
     border: 0;
-    background: $color_apple_approx;
+    background: $openmage_blue;
     color: $white;
   }
 }
@@ -941,7 +967,7 @@ div {
   span {
     @extend %extend_15;
     border: 0;
-    background: $color_coral_red_approx;
+    background: $openmage_red;
     color: $white;
   }
 }
@@ -1023,9 +1049,14 @@ dl.accordion dt {
     @extend %extend_10;
     position: relative;
     background: none;
+    padding: 4px 16px;
 
     &:hover {
       @extend %extend_10;
+    }
+
+    &:focus-visible {
+      outline-offset: -4px;
     }
 
     &:after {
@@ -1111,23 +1142,28 @@ table.actions {
 
 a.rule-param-remove {
   img {
-    @include replaceImage(icon-close($color-warning),13px,13px);
+    @include replaceImage(icon-close($openmage_red),13px,13px);
   }
 }
 img.rule-param-add {
-  @include replaceImage(icon-add($color_apple_approx),13px,13px);
+  @include replaceImage(icon-add($openmage_green),13px,13px);
 }
 .address-list li.on {
   background: $white;
 }
 
 ul.tabs a.changed span.changed {
-  background: icon-save($color_apple_approx) !important;
+  background: icon-save($openmage_green) !important;
 }
 
 .notification-global {
-  background: $color_merino_approx icon-warning($color-warning) 27px 5px no-repeat;
+  background: $openmage_yellow_light icon-warning($openmage_red) 27px 5px no-repeat;
   background-size: 15px;
+  border-color: $openmage_yellow;
+
+  .label {
+    color: $openmage_red;
+  }
 }
 
 #page-help-link {
@@ -1141,7 +1177,7 @@ ul.tabs a.changed span.changed {
       color:$white;
     }
     a {
-      background: $color_action !important;
+      background: $openmage_blue !important;
       border: none;
       margin-top: 1px;
       span{
@@ -1154,7 +1190,7 @@ ul.tabs a.changed span.changed {
     background: $white;
     .read-more {
       a {
-        background: icon-arrow-right($color_action)  no-repeat 0 50%;
+        background: icon-arrow-right($openmage_blue)  no-repeat 0 50%;
         background-size: 13px;
       }
     }
@@ -1163,17 +1199,17 @@ ul.tabs a.changed span.changed {
 
 .pager {
   img[src$='pager_arrow_left.gif'].arrow {
-      @include replaceImage(icon-arrow-left($color_action),17px,17px);
+      @include replaceImage(icon-arrow-left($openmage_blue),17px,17px);
     }
   img[src$='pager_arrow_right.gif'].arrow {
-      @include replaceImage(icon-arrow-right($color_action),17px,17px);
+      @include replaceImage(icon-arrow-right($openmage_blue),17px,17px);
     }
   img[src$='pager_arrow_left_off.gif'].arrow {
-    @include replaceImage(icon-arrow-left($color_action),17px,17px);
+    @include replaceImage(icon-arrow-left($openmage_blue),17px,17px);
     opacity: 0.5;
   }
   img[src$='pager_arrow_right_off.gif'].arrow {
-    @include replaceImage(icon-arrow-right($color_action),17px,17px);
+    @include replaceImage(icon-arrow-right($openmage_blue),17px,17px);
     opacity: 0.5;
   }
 
@@ -1181,20 +1217,20 @@ ul.tabs a.changed span.changed {
 
 .export {
   img {
-    @include replaceImage(icon-export($color_apple_approx),19px,19px);
+    @include replaceImage(icon-export($openmage_green),19px,19px);
   }
 }
 
 img[src$='grid-cal.gif'] {
-  @include replaceImage(icon-calendar($color_action),17px,17px);
+  @include replaceImage(icon-calendar($openmage_blue),17px,17px);
 }
 
 .link-store-scope {
-  background: icon-help($color-help);
+  background: icon-help($openmage_blue);
 }
 
 .emph, .accent {
-  color: $color_action !important;
+  color: $openmage_blue !important;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {

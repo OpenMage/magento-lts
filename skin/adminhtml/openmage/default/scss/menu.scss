@@ -27,12 +27,9 @@
     text-align: left;
     float: left;
 
-    &:hover {
+    &:hover,
+    &:focus-within {
       z-index: 999;
-
-      a {
-        color: $color_geyser_approx;
-      }
 
       ul {
         left: 0;
@@ -41,19 +38,16 @@
           left: -10000px;
         }
 
-        a {
-          color: $color_dorado_approx;
-          font-size: 12px;
-        }
-
-        li:hover ul {
+        li:hover ul,
+        li:focus-within ul {
           left: 100px;
 
           ul {
             left: -10000px;
           }
 
-          li:hover ul {
+          li:hover ul,
+          li:focus-within ul {
             left: 100px;
           }
         }
@@ -87,9 +81,16 @@
         height: 38px;
         line-height: 38px;
 
-        &:hover {
-          background: darken($openmage_base_blue,10);
+        &:focus,
+        &:hover,
+        &:active {
+          background: $openmage_base_blue_dark;
           color: $white;
+        }
+
+        &:focus-visible {
+          outline-offset: -4px;
+          outline-color: white;
         }
       }
 
@@ -103,11 +104,6 @@
         border-style: solid;
         border-width: 5px 0 5px 6px;
         border-color: transparent transparent transparent $color_silver_approx;
-      }
-
-      &:hover > a {
-        background: darken($openmage_base_blue,12);
-        color: $white;
       }
     }
 
@@ -147,8 +143,8 @@
 
     &.level1, &.level2, &.level3 {
       > a {
-        &.active:not(:hover) {
-          background: $wild_sand;
+        &.active:not(:hover):not(:focus) {
+          background: $color_gallery_approx;
         }
       }
     }
@@ -186,7 +182,7 @@
     top: 38px;
     left: -10000px;
     //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-    box-shadow: $black_18_0392 1px 3px 4px;
+    box-shadow: $color_silver_approx 1px 3px 4px;
 
     li {
       @extend %extend_17;
@@ -196,7 +192,7 @@
         @extend %extend_17;
 
         a {
-          color: $color_dorado_approx;
+          color: $openmage_base_blue_text;
           font-size: 12px;
         }
       }
@@ -204,12 +200,19 @@
       a {
         background: $white;
         padding: $menu_padding_v $menu_padding_h;
-        color: $color_dorado_approx;
+        color: $openmage_base_blue_text;
         font-size: 12px;
 
-        &:hover {
-          background: $color_dorado_approx;
+        &:focus,
+        &:hover,
+        &:active {
+          background: $openmage_base_blue_dark;
           color: $white;
+        }
+
+        &:focus-visible {
+          outline-offset: -4px;
+          outline-color: white;
         }
       }
 
@@ -280,7 +283,7 @@
 
     &.active > a {
       font-weight: 600;
-      background: darken($openmage_base_blue,14);
+      background: $openmage_base_blue_dark;
     }
   }
 }
@@ -292,19 +295,33 @@
   ul {
     position: absolute;
     width: 220px;
-    top: 40px;
+    top: 38px;
     right: -10000px;
     display: none;
     //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-    box-shadow: 0 0 0 1px $black_20_7843, 0 0 5px $black_20_7843;
+    box-shadow: $color_silver_approx 1px 3px 4px;
     background: $white;
     li {
-      a:hover {
-        @extend %extend_30;
-        background: $color_dorado_approx;
-      }
       &.last span {
         border-bottom: none;
+      }
+    }
+    a {
+      color: $openmage_base_blue_text;
+      text-decoration: none;
+      display: block;
+
+      &:focus,
+      &:hover,
+      &:active {
+        background: $openmage_base_blue_dark;
+        color: $white;
+        text-decoration: none;
+        display: block;
+      }
+      &:focus-visible {
+        outline-offset: -4px;
+        outline-color: white;
       }
     }
   }
@@ -315,29 +332,30 @@
         display: block;
       }
       span {
-        border-bottom: 1px dotted $color-main-m;
         display: block;
-        line-height: 31px;
-        padding: 0 10px;
+        line-height: 1.3em;
+        padding: 9px 12px;
       }
     }
-    &:hover ul {
+    &:hover ul,
+    &:focus-within ul {
       right: 27px;
       display: block;
-      a {
-        color: $header_background;
-        text-decoration: none;
-        background: $color-main-xs;
-        display: block;
-      }
     }
   }
   > li > a {
     padding: 0 27px 0 20px;
     display: block;
+    max-height: 40px;
+
     svg {
       height: 40px;
       width: auto;
+    }
+
+    &:focus-visible {
+      outline-offset: -6px;
+      outline-color: white;
     }
   }
 }

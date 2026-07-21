@@ -8,15 +8,13 @@
 }
 
 body {
-  background: $color_mercury_approx;
-  color: $color_mine_shaft_approx;
+  color: $color_dark_grey;
   font: 400 12px/1.33 $font_0, sans-serif;
-  background: $color-gray-s;
   font-size: 13px;
   overflow-x: hidden;
 
   &#page-login {
-    background-color: $color-main-xxl;
+    background-color: $openmage_base_blue_dark;
     background-image: $url_login_background;
     background-repeat: no-repeat;
     background-position: center top;
@@ -29,7 +27,7 @@ body {
       content: '';
       top: 0;
       left: 0;
-      background-color: $black_25;
+      background-color: rgba(0, 0, 0, 0.25);
       width: 100%;
       height: 100%;
       z-index: -1;
@@ -39,30 +37,26 @@ body {
 
 a {
   display: inline;
-  color: $color_curious_blue_approx;
+  color: $openmage_blue;
   text-decoration: none;
 
   &:visited {
-    color: $color_curious_blue_approx;
+    color: $openmage_blue;
   }
 
-  &:focus {
-    color: $color_astral_approx;
-    text-decoration: none;
-  }
-
-  &:hover {
-    color: $color_astral_approx;
-    text-decoration: none;
-  }
-
+  &:hover,
+  &:focus,
   &:active {
-    color: $color_astral_approx;
-    text-decoration: none;
+    color: $openmage_blue_dark;
+  }
+
+  &:focus-visible {
+    outline-offset: 2px;
+    outline: 2px dashed $openmage_blue_dark;
   }
 
   &.error span {
-    color: $color_coral_red_approx !important;
+    color: $openmage_red !important;
   }
 }
 
@@ -85,7 +79,7 @@ form {
 }
 
 label {
-  color: $color_mine_shaft_approx;
+  color: $color_dark_grey;
 }
 
 input {
@@ -96,18 +90,18 @@ input {
     font: 12px $font_3, $font_4, $font_2;
     border-width: 1px;
     border-style: solid;
-    border-color: $color_silver_chalice_approx;
+    border-color: $color_martini_approx;
     padding: 2px 2px 3px;
     line-height: 18px;
     font-family: $font_0, $font_1;
 
     &:hover {
-      outline: 2px solid $color_gothic_10_approx;
+      outline: 2px solid $color_gallery_approx;
     }
 
     &:focus {
       //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-      box-shadow: 0 0 0 2px $color_gothic_25_approx;
+      outline: 2px solid $color_silver_approx;
     }
 
     &:disabled {
@@ -118,12 +112,32 @@ input {
 }
 
 .form-button {
-  @extend %extend_20;
-  background-color: $color_action;
+  text-transform: none;
+  background: $openmage_blue;
+  padding: 0 12px;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 28px;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: $openmage_blue_dark;
+  }
+
+  &:focus-visible {
+    outline-offset: -4px;
+    outline: 2px dashed white;
+  }
 }
 
 #page-login {
-  background: $color_alabaster_approx;
   text-align: center;
 }
 
@@ -143,7 +157,7 @@ input {
     bottom: 30px;
     left: 0;
     width: 100%;
-    color: $color-white-100;
+    color: $white;
     //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
     text-shadow: 0 0 5px $black_50;
   }
@@ -152,7 +166,7 @@ input {
 .login-form {
   background: $url_2 no-repeat;
   text-align: left;
-  background: $color-white-100;
+  background: $white;
   border: none;
   padding: 40px 50px;
   //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
