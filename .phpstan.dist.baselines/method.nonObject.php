@@ -392,6 +392,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Cms/Page/Grid.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getHelper() on Mage_Core_Model_Factory|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Renderer/Region.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getValue() on Varien_Data_Form_Element_Abstract|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Renderer/Region.php',
@@ -6097,9 +6102,24 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/controllers/CustomerController.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getHelper() on Mage_Core_Model_Factory|null.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getName() on Mage_Core_Model_Website|false.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getSingleton() on Mage_Core_Model_Factory|null.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getHelper() on Mage_Core_Model_Factory|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Block/Checkout/Tax.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getBackend() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',

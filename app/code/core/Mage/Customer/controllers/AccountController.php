@@ -21,9 +21,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     public const TOKEN_SESSION_NAME = 'token';
 
     /**
-     * Action list where need check enabled cookie
-     *
-     * @var array
+     * @inheritDoc
      */
     protected $_cookieCheckActions = ['loginPost', 'createpost'];
 
