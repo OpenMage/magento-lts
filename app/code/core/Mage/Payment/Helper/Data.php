@@ -260,11 +260,9 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
 
             if ($groups instanceof Varien_Simplexml_Element) {
                 $groups = $groups->asCanonicalArray();
+            }
 
-                if (!is_array($groups)) {
-                    $groups = [];
-                }
-            } else {
+            if (!is_array($groups)) {
                 $groups = [];
             }
 
