@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
     #[Override]
     protected function _prepareLayout()
     {
-        $onclick = "submitAndReloadArea($('shipment_tracking_info').parentNode, '" . $this->getSubmitUrl() . "')";
+        $onclick = "submitAndReloadArea(document.getElementById('shipment_tracking_info').parentNode, '" . $this->getSubmitUrl() . "')";
         $this->setChild(
             'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')

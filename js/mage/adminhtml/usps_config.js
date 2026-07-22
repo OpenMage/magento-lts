@@ -29,7 +29,7 @@ const UspsConfig = {
 
         // Add change event listener
         const self = this;
-        Event.observe(envField, 'change', function() {
+        envField.addEventListener('change', function() {
             self.updateUrl(envField, urlField);
         });
     },
@@ -54,6 +54,6 @@ const UspsConfig = {
 };
 
 // Initialize when DOM is ready
-document.observe('dom:loaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     UspsConfig.init();
 });

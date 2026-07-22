@@ -15,31 +15,37 @@
 <!--
 <?php $myBlock = $this->getLayout()->getBlock('user.roles.grid'); ?>
 <?php if(is_object($myBlock) && $myBlock->getJsObjectName()): ?>
-    var radioBoxes = $H({});
+    function _toQueryString(obj) {
+        return Object.keys(obj).map(function(k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(obj[k]);
+        }).join('&');
+    }
+
+    var radioBoxes = {};
     var warning = false;
-    var userRoles = $H(<?php echo $myBlock->_getSelectedRoles(true) ?>);
-    if (userRoles.size() > 0) warning = true;
-    $('user_user_roles').value = userRoles.toQueryString();
+    var userRoles = <?php echo $myBlock->_getSelectedRoles(true) ?>;
+    if (Object.keys(userRoles).length > 0) warning = true;
+    document.getElementById('user_user_roles').value = _toQueryString(userRoles);
 
     function registerUserRole(grid, element, checked){
         if(checked){
-            userRoles.each(function(o){userRoles.remove(o[0]);});
+            for (var k in userRoles) { if (userRoles.hasOwnProperty(k)) delete userRoles[k]; }
             userRoles[element.value] = 0;
         } else {
-            userRoles.remove(element.value);
+            delete userRoles[element.value];
         }
-        $('user_user_roles').value = userRoles.toQueryString();
-        grid.reloadParams = {'user_roles[]':userRoles.keys()};
+        document.getElementById('user_user_roles').value = _toQueryString(userRoles);
+        grid.reloadParams = {'user_roles[]':Object.keys(userRoles)};
     }
 
     function roleRowClick(grid, event){
-        var trElement = Event.findElement(event, 'tr');
-        var isInput   = Event.element(event).tagName == 'INPUT';
+        var trElement = event.target.closest('tr');
+        var isInput   = event.target.tagName == 'INPUT';
         if(trElement){
-            var checkbox = Element.getElementsBySelector(trElement, 'input');
+            var checkbox = trElement.querySelectorAll('input');
             if(checkbox[0] && !checkbox[0].checked){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
-                if (checked && warning && radioBoxes.size() > 0) {
+                if (checked && warning && Object.keys(radioBoxes).length > 0) {
                     if ( !confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?')) ?>") ) {
                         checkbox[0].checked = false;
                         for(i in radioBoxes) {
@@ -57,7 +63,7 @@
     }
 
     function rolesRowInit(grid, row){
-        var checkbox = $(row).getElementsByClassName('radio')[0];
+        var checkbox = row.getElementsByClassName('radio')[0];
         if (checkbox) {
             radioBoxes[checkbox.value] = {'status' : ((checkbox.checked) ? 1 : 0), 'object' : checkbox};
         }
@@ -66,7 +72,7 @@
 <?php echo $myBlock->getJsObjectName() ?>.rowClickCallback = roleRowClick;
 <?php echo $myBlock->getJsObjectName() ?>.initRowCallback = rolesRowInit;
 <?php echo $myBlock->getJsObjectName() ?>.checkboxCheckCallback = registerUserRole;
-<?php echo $myBlock->getJsObjectName() ?>.rows.each(function(row){rolesRowInit(<?php echo $myBlock->getJsObjectName() ?>, row)});
+Array.from(<?php echo $myBlock->getJsObjectName() ?>.rows).forEach(function(row){rolesRowInit(<?php echo $myBlock->getJsObjectName() ?>, row)});
 <?php endif ?>
 //-->
 </script>

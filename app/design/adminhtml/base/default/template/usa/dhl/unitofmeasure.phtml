@@ -17,18 +17,19 @@
     {
         var dimensionUnit = '(<?php echo $this->getInch(); ?>)';
         var dhlintUnitOfMeasureNote = '<?php echo $this->getDivideOrderWeightNoteLbp(); ?>';
-        if ($("carriers_dhlint_unit_of_measure").value == "K") {
+        if (document.getElementById("carriers_dhlint_unit_of_measure").value == "K") {
             dimensionUnit = '(<?php echo $this->getCm(); ?>)';
             dhlintUnitOfMeasureNote = '<?php echo $this->getDivideOrderWeightNoteKg(); ?>';
         }
-        $$('[for="carriers_dhlint_height"]')[0].innerHTML = '<?php echo $this->getHeight(); ?> ' + dimensionUnit;
-        $$('[for="carriers_dhlint_depth"]')[0].innerHTML = '<?php echo $this->getDepth(); ?> ' + dimensionUnit;
-        $$('[for="carriers_dhlint_width"]')[0].innerHTML = '<?php echo $this->getWidth(); ?> ' + dimensionUnit;
+        document.querySelector('[for="carriers_dhlint_height"]').innerHTML = '<?php echo $this->getHeight(); ?> ' + dimensionUnit;
+        document.querySelector('[for="carriers_dhlint_depth"]').innerHTML = '<?php echo $this->getDepth(); ?> ' + dimensionUnit;
+        document.querySelector('[for="carriers_dhlint_width"]').innerHTML = '<?php echo $this->getWidth(); ?> ' + dimensionUnit;
 
-        $('carriers_dhlint_divide_order_weight').next().down().innerHTML = dhlintUnitOfMeasureNote;
+        var divideEl = document.getElementById('carriers_dhlint_divide_order_weight');
+        divideEl.nextElementSibling.querySelector('*').innerHTML = dhlintUnitOfMeasureNote;
     }
-    document.observe("dom:loaded", function() {
-        $("carriers_dhlint_unit_of_measure").observe("change", changeDimensions);
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("carriers_dhlint_unit_of_measure").addEventListener("change", changeDimensions);
         changeDimensions();
     });
     //]]>

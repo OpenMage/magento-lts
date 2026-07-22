@@ -39,38 +39,54 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass extends Mage_Adminht
         return <<<SCRIPT
 <script type="text/javascript">
 //<![CDATA[
-    $$('#_accountnew_password,#account-send-pass').each(function(elem) {
-        $(elem).on('change', function() {
-            if ($('_accountnew_password').getValue() || $('account-send-pass').checked) {
-                $('{$element->getHtmlId()}_container').show();
-                $('{$element->getHtmlId()}').enable();
-            } else {
-                $('{$element->getHtmlId()}_container').hide();
-                $('{$element->getHtmlId()}').disable();
-            }
-            if ($('email-passowrd-warning')) {
-                if (!$('_accountnew_password').getValue() || $('account-send-pass').checked) {
-                    $('email-passowrd-warning').hide();
-                } else if ($('_accountnew_password').getValue()) {
-                    $('email-passowrd-warning').show();
-                }
-            }
-        });
-        $(elem).on('focus', function() {
-            $('{$element->getHtmlId()}_container').show();
-            $('{$element->getHtmlId()}').enable();
-        });
-        $(elem).on('blur', function() {
-            if (!$('_accountnew_password').getValue() && !$('account-send-pass').checked) {
-                $('{$element->getHtmlId()}_container').hide();
-                $('{$element->getHtmlId()}').disable();
-            }
-        });
-        document.observe("dom:loaded", function() {
-            $('{$element->getHtmlId()}_container').hide();
-            $('{$element->getHtmlId()}').disable();
-        });
+(function() {
+    var newPassEl  = document.getElementById('_accountnew_password');
+    var sendPassEl = document.getElementById('account-send-pass');
+
+    function getContainer() { return document.getElementById('{$element->getHtmlId()}_container'); }
+    function getInput()     { return document.getElementById('{$element->getHtmlId()}'); }
+
+    function showAdminPass() {
+        var c = getContainer(), i = getInput();
+        if (c) { c.style.display = ''; }
+        if (i) { i.disabled = false; }
+    }
+
+    function hideAdminPass() {
+        var c = getContainer(), i = getInput();
+        if (c) { c.style.display = 'none'; }
+        if (i) { i.disabled = true; }
+    }
+
+    function onChange() {
+        var hasNewPass = newPassEl && newPassEl.value;
+        var sendPass   = sendPassEl && sendPassEl.checked;
+        if (hasNewPass || sendPass) {
+            showAdminPass();
+        } else {
+            hideAdminPass();
+        }
+        var warning = document.getElementById('email-passowrd-warning');
+        if (warning) {
+            warning.style.display = (!hasNewPass || sendPass) ? 'none' : '';
+        }
+    }
+
+    function onBlur() {
+        if ((!newPassEl || !newPassEl.value) && (!sendPassEl || !sendPassEl.checked)) {
+            hideAdminPass();
+        }
+    }
+
+    [newPassEl, sendPassEl].forEach(function(elem) {
+        if (!elem) { return; }
+        elem.addEventListener('change', onChange);
+        elem.addEventListener('focus', showAdminPass);
+        elem.addEventListener('blur', onBlur);
     });
+
+    document.addEventListener('DOMContentLoaded', hideAdminPass);
+})();
 //]]></script>
 SCRIPT;
     }

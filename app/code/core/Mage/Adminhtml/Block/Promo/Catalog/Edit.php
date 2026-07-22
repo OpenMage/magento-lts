@@ -30,13 +30,13 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit extends Mage_Adminhtml_Block_Widge
         $this->_addButton('save_apply', [
             'class'   => 'save apply',
             'label'   => Mage::helper('catalogrule')->__('Save and Apply'),
-            'onclick' => "$('rule_auto_apply').value=1; editForm.submit()",
+            'onclick' => "document.getElementById('rule_auto_apply').value=1; editForm.submit()",
         ]);
 
         $this->_addButton('save_and_continue_edit', [
             'class'   => 'save continue',
             'label'   => Mage::helper('catalogrule')->__('Save and Continue Edit'),
-            'onclick' => 'editForm.submit($(\'edit_form\').action + \'back/edit/\')',
+            'onclick' => "editForm.submit(document.getElementById('edit_form').action + 'back/edit/')",
         ], 10);
     }
 

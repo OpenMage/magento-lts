@@ -80,7 +80,7 @@
                             </select>
                             <script type="text/javascript">
                             //<![CDATA[
-                                $('billing:region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
+                                document.getElementById('billing:region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
                             //]]>
                             </script>
                             <input type="text" id="billing:region" name="billing[region]" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->quoteEscape($this->__('State/Province')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
@@ -178,9 +178,9 @@
      </li>
     <?php if ($this->canShip()): ?>
         <li class="control">
-            <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_yes" value="1"<?php if ($this->isUseBillingAddressForShipping()) {?> checked="checked"<?php }?> title="<?php echo $this->quoteEscape($this->__('Ship to this address')) ?>" onclick="$('shipping:same_as_billing').checked = true;" class="radio" /><label for="billing:use_for_shipping_yes"><?php echo  $this->__('Ship to this address') ?></label></li>
+            <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_yes" value="1"<?php if ($this->isUseBillingAddressForShipping()) {?> checked="checked"<?php }?> title="<?php echo $this->quoteEscape($this->__('Ship to this address')) ?>" onclick="document.getElementById('shipping:same_as_billing').checked = true;" class="radio" /><label for="billing:use_for_shipping_yes"><?php echo  $this->__('Ship to this address') ?></label></li>
         <li class="control">
-            <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_no" value="0"<?php if (!$this->isUseBillingAddressForShipping()) {?> checked="checked"<?php }?> title="<?php echo $this->quoteEscape($this->__('Ship to different address')) ?>" onclick="$('shipping:same_as_billing').checked = false;" class="radio" /><label for="billing:use_for_shipping_no"><?php echo $this->__('Ship to different address') ?></label>
+            <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_no" value="0"<?php if (!$this->isUseBillingAddressForShipping()) {?> checked="checked"<?php }?> title="<?php echo $this->quoteEscape($this->__('Ship to different address')) ?>" onclick="document.getElementById('shipping:same_as_billing').checked = false;" class="radio" /><label for="billing:use_for_shipping_no"><?php echo $this->__('Ship to different address') ?></label>
         </li>
     <?php endif ?>
     </ul>
@@ -202,17 +202,17 @@
     var billingForm = new VarienForm('co-billing-form');
 
     //billingForm.setElementsRelation('billing:country_id', 'billing:region', '<?php echo $this->getUrl('directory/json/childRegion') ?>', '<?php echo $this->jsQuoteEscape($this->__('Select State/Province...')) ?>');
-    $('billing-address-select') && billing.newAddress(!$('billing-address-select').value);
+    document.getElementById('billing-address-select') && billing.newAddress(!document.getElementById('billing-address-select').value);
 
     var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, undefined, 'billing:postcode');
-    if ($('onepage-guest-register-button')) {
-        Event.observe($('onepage-guest-register-button'), 'click', function(event) {
-            var billingRememberMe = $('co-billing-form').select('#remember-me-box');
+    if (document.getElementById('onepage-guest-register-button')) {
+        document.getElementById('onepage-guest-register-button').addEventListener('click', function(event) {
+            var billingRememberMe = document.getElementById('co-billing-form').querySelectorAll('#remember-me-box');
             if (billingRememberMe.length > 0) {
-                if ($('login:guest') && $('login:guest').checked) {
-                    billingRememberMe[0].hide();
-                } else if ($('login:register') && ($('login:register').checked || $('login:register').type == 'hidden')) {
-                    billingRememberMe[0].show();
+                if (document.getElementById('login:guest') && document.getElementById('login:guest').checked) {
+                    billingRememberMe[0].style.display = 'none';
+                } else if (document.getElementById('login:register') && (document.getElementById('login:register').checked || document.getElementById('login:register').type == 'hidden')) {
+                    billingRememberMe[0].style.display = '';
                 }
             }
         });

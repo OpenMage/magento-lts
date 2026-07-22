@@ -14,26 +14,26 @@
 ?>
 <script type="text/javascript">
 
-Event.observe(window, 'load', function () {
+window.addEventListener('load', function () {
     var pConfigDisabler = new PaypalConfigDisabler;
     var disabledMethods = <?php echo Mage::helper('core')->jsonEncode($this->getPaypalDisabledMethods()); ?>;
     pConfigDisabler.disableMethods(disabledMethods);
 });
 
-PaypalConfigDisabler = Class.create();
+function PaypalConfigDisabler() {
+    this.methods = {
+        express: {fieldset: 'express'},
+        wps: {fieldset: 'wps'},
+        wpp: {fieldset: 'wpp'},
+        wpppe: {fieldset: 'wpp_pe'},
+        expresspe: {fieldset: 'express_pe'},
+        verisign: {fieldset: 'verisign'},
+        wpppl: {fieldset: 'payflow_link'},
+        hosted_pro: {fieldset: 'hosted_pro'}
+    };
+}
 PaypalConfigDisabler.prototype = {
-    initialize: function () {
-        this.methods = $H({
-            express: $H({fieldset: 'express'}),
-            wps: $H({fieldset: 'wps'}),
-            wpp: $H({fieldset: 'wpp'}),
-            wpppe: $H({fieldset: 'wpp_pe'}),
-            expresspe: $H({fieldset: 'express_pe'}),
-            verisign: $H({fieldset: 'verisign'}),
-            wpppl: $H({fieldset: 'payflow_link'}),
-            hosted_pro: $H({fieldset: 'hosted_pro'})
-        });
-    },
+    constructor: PaypalConfigDisabler,
 
     getMethods: function ()
     {
@@ -42,13 +42,13 @@ PaypalConfigDisabler.prototype = {
 
     getMethod: function (method)
     {
-        return this.methods.get(method);
+        return this.methods[method];
     },
 
     getMethodFieldset: function (method)
     {
-        var fieldsetId = 'paypal_' + this.getMethod(method).get('fieldset');
-        return $(fieldsetId);
+        var fieldsetId = 'paypal_' + this.getMethod(method)['fieldset'];
+        return document.getElementById(fieldsetId);
     },
 
     disableMethod: function (method)
@@ -66,18 +66,18 @@ PaypalConfigDisabler.prototype = {
     hideFieldset: function (fieldset)
     {
         this.disableValueElements(fieldset);
-        fieldset.hide();
-        var heading = fieldset.previous('div');
-        var headingLink = heading.down('a');
-        heading.addClassName('disabled');
+        fieldset.style.display = 'none';
+        var heading = fieldset.previousElementSibling;
+        var headingLink = heading.querySelector('a');
+        heading.classList.add('disabled');
         headingLink.onclick = "return false;";
         headingLink.href = "javascript:void(0)";
     },
 
     disableValueElements: function (container)
     {
-        $(container).select('select', 'input', 'textarea', 'button').each(function (elem) {
-            elem.addClassName('disabled');
+        container.querySelectorAll('select, input, textarea, button').forEach(function (elem) {
+            elem.classList.add('disabled');
         });
     }
 }

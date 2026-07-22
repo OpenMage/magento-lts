@@ -154,7 +154,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
             ->setName('block')
             ->setClass('required-entry select')
             ->setExtraParams('onchange="WidgetInstance.loadSelectBoxByType(\'block_template\','
-                . ' this.up(\'div.group_container\'), this.value)"')
+                . ' this.closest(\'div.group_container\'), this.value)"')
             ->setOptions($this->getBlocks())
             ->setValue($this->getSelected());
         return parent::_toHtml() . $selectBlock->toHtml();

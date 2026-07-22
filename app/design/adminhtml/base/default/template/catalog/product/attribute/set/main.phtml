@@ -58,6 +58,10 @@
             <div id="tree-div2" style="height:550px;margin-top:5px;overflow:auto"></div>
             <script type="text/javascript">
             //<![CDATA[
+            // vanilla replacement for Prototype's String.escapeHTML()
+            function _escapeHtml(str) {
+                return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
             var allowDragAndDrop = <?php echo ($this->getIsReadOnly() ? 'false' : 'true'); ?>;
             var canEditGroups = <?php echo ($this->getIsReadOnly() ? 'false' : 'true'); ?>;
 
@@ -104,7 +108,7 @@
                                 return;
                             }
                             this.editNode.attributes.input = this.getValue();
-                            this.setValue(this.getValue().escapeHTML());
+                            this.setValue(_escapeHtml(this.getValue()));
                             return Ext.tree.TreeEditor.prototype.completeEdit.call(this, remainVisible);
                         };
 
@@ -162,7 +166,7 @@
                         for( i in rootNode.childNodes ) {
                             if(rootNode.childNodes[i].id) {
                                 var group = rootNode.childNodes[i];
-                                editSet.req.groups[gIterator] = new Array(group.id, group.attributes.input.strip(), (gIterator+1));
+                                editSet.req.groups[gIterator] = new Array(group.id, group.attributes.input.trim(), (gIterator+1));
                                 var iterator = 0
                                 for( j in group.childNodes ) {
                                     iterator ++;
@@ -196,7 +200,7 @@
                 if (parent && config && config.length){
                     for (var i = 0; i < config.length; i++) {
                         config[i].input = config[i].text;
-                        config[i].text = config[i].text.escapeHTML();
+                        config[i].text = _escapeHtml(config[i].text);
                         var node = new Ext.tree.TreeNode(config[i]);
                         parent.appendChild(node);
                         node.addListener('click', editSet.register);
@@ -287,17 +291,20 @@
 
                     addGroup : function() {
                         var group_name = prompt("<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Please enter a new group name')) ?>","");
-                        group_name = group_name.strip();
+                        if( group_name === null ) {
+                            return;
+                        }
+                        group_name = group_name.trim();
                         if( group_name == '' ) {
                             this.addGroup();
-                        } else if( group_name != false && group_name != null && group_name != '' ) {
+                        } else {
 
                             if (!editSet.validateGroupName(group_name, 0)) {
                                 return;
                             }
 
                             var newNode = new Ext.tree.TreeNode({
-                                    text : group_name.escapeHTML(),
+                                    text : _escapeHtml(group_name),
                                     input: group_name,
                                     cls : 'folder',
                                     allowDrop : true,
@@ -327,7 +334,7 @@
                     },
 
                     validateGroupName : function(name, exceptNodeId) {
-                        name = name.strip();
+                        name = name.trim();
                         if (name === '') {
                             return false;
                         }
@@ -342,13 +349,13 @@
                     },
 
                     save : function() {
-                        $('messages').update();
+                        document.getElementById('messages').innerHTML = '';
                         TreePanels.rebuildTrees();
                         var _validator = new Validation('set_prop_form', {onSubmit:false});
                         if( !_validator.validate() ) {
                             return;
                         }
-                        editSet.req.attribute_set_name = $('attribute_set_name').value;
+                        editSet.req.attribute_set_name = document.getElementById('attribute_set_name').value;
                         if (!editSet.req.form_key) {
                             editSet.req.form_key = FORM_KEY;
                         }
@@ -359,13 +366,13 @@
                     success : function(o) {
                         var response = Ext.util.JSON.decode(o.responseText);
                         if( response.error ) {
-                            $('messages').update(response.message);
+                            document.getElementById('messages').innerHTML = response.message;
                         } else if( response.ajaxExpired && response.ajaxRedirect ){
                             setLocation(response.ajaxRedirect);
                         } else if( response.url ){
                             setLocation(response.url);
                         } else if( response.message ) {
-                            $('messages').update(response.message);
+                            document.getElementById('messages').innerHTML = response.message;
                         }
                     },
 

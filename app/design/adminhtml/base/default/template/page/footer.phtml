@@ -18,11 +18,11 @@
 <?php echo $this->__('OpenMage %s', Mage::getOpenMageVersion()) ?>
 <script type="text/javascript">
     function setInterfaceLanguage(evt) {
-        var elem = Event.element(evt);
+        var elem = evt.target;
         if (elem) {
             setLocation('<?php echo $this->getChangeLocaleUrl() ?>locale/'+elem.value+'/<?php echo $this->getRefererParamName() ?>/<?php echo $this->getUrlForReferer() ?>');
         }
     }
-    Event.observe('interface_locale', 'change', setInterfaceLanguage);
+    document.getElementById('interface_locale').addEventListener('change', setInterfaceLanguage);
     addCopyIcons();
 </script>

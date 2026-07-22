@@ -27,7 +27,7 @@
         <reference name="head">
             <action method="setCanLoadExtJs"><flag>1</flag></action>
             <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
-            <action method="addItem"><type>js</type><name>prototype/window.js</name></action>
+            <action method="addItem"><type>js</type><name>mage/adminhtml/window.js</name></action>
             <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
             <action method="addCss"><name>lib/prototype/windows/themes/magento.css</name></action>
         </reference>

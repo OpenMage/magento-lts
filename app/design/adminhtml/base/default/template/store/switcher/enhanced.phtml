@@ -39,61 +39,49 @@
 </div>
 <script type="text/javascript">
 //<![CDATA[
-var varienStore = new Class.create();
+function varienStore(containerId, storeSwitcher, url, useAjax, useConfirm) {
+    this.containerId    = containerId;
+    this.storeSwitcher  = storeSwitcher;
+    this.url            = url;
+    this.useAjax        = useAjax;
+    this.useConfirm     = useConfirm;
 
-varienStore.prototype = {
-    initialize : function(containerId, storeSwitcher, url, useAjax, useConfirm){
+    this.storeSelectorClickCallback = false;
+    this.selectorOnChange = this.optionOnChange.bind(this);
+    this.storesGroup = {};
 
-        this.containerId    = containerId;
-        this.storeSwitcher  = storeSwitcher
-        this.url            = url;
-        this.useAjax        = useAjax;
-        this.useConfirm     = useConfirm;
-
-        this.storeSelectorClickCallback = false;
-
-        this.selectorOnChange = this.optionOnChange.bindAsEventListener(this);
-
-        this.storesGroup = {};
-
-        this.initSwitcher();
-    },
-
-    optionOnChange : function (event)
-    {
-        if (this.storeSelectorClickCallback) {
-            try {
-                this.storeSelectorClickCallback(event, this);
-            }
-            catch (e) {}
-        }
-    },
-
-    initSwitcher : function()
-    {
-        if ($(this.storeSwitcher)) {
-            this.options = $$('#'+this.containerId+' option');
-            for (var option=0; option<this.options.length; option++) {
-                if (option%2==0) {
-                    Element.addClassName(this.options[option], 'even');
-                }
-                var id = this.options[option].value*1;
-                this.storesGroup[id] = this.options[option].getAttribute('group');
-            }
-            Event.observe(this.storeSwitcher, 'change', this.selectorOnChange);
-        }
-    },
-
-    getContainerId : function()
-    {
-        return this.containerId;
-    },
-
-    isSameSore: function(checkId, currentId)
-    {
-        return (this.storesGroup[currentId] == this.storesGroup[checkId]);
-    }
+    this.initSwitcher();
 }
+
+varienStore.prototype.optionOnChange = function(event) {
+    if (this.storeSelectorClickCallback) {
+        try {
+            this.storeSelectorClickCallback(event, this);
+        } catch (e) {}
+    }
+};
+
+varienStore.prototype.initSwitcher = function() {
+    if (document.getElementById(this.storeSwitcher)) {
+        this.options = Array.from(document.querySelectorAll('#' + this.containerId + ' option'));
+        for (var option = 0; option < this.options.length; option++) {
+            if (option % 2 == 0) {
+                this.options[option].classList.add('even');
+            }
+            var id = this.options[option].value * 1;
+            this.storesGroup[id] = this.options[option].getAttribute('group');
+        }
+        document.getElementById(this.storeSwitcher).addEventListener('change', this.selectorOnChange);
+    }
+};
+
+varienStore.prototype.getContainerId = function() {
+    return this.containerId;
+};
+
+varienStore.prototype.isSameSore = function(checkId, currentId) {
+    return (this.storesGroup[currentId] == this.storesGroup[checkId]);
+};
 
 var varienStoreSwitcher = new varienStore('store_switcher_container', 'store_switcher', '<?php echo $this->getSwitchUrl() ?>', <?php echo $this->getUseAjax() ?>, <?php echo $this->getUseConfirm() ?>);
 //]]>

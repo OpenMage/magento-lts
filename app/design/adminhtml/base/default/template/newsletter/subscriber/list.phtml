@@ -32,14 +32,14 @@
 <!--
     var subscriberController = {
         checkCheckboxes: function(controlCheckbox) {
-            var elements = $('subscriberGrid').getElementsByClassName('subscriberCheckbox');
-            elements.each(function(obj){
+            var elements = document.getElementById('subscriberGrid').getElementsByClassName('subscriberCheckbox');
+            Array.from(elements).forEach(function(obj){
                 obj.checked = controlCheckbox.checked;
             });
         },
         rowClick: function (e) {
-            if(!Event.element(e).hasClassName('subscriberCheckbox')) {
-                var elements = Event.findElement(e, 'tr').getElementsByClassName('subscriberCheckbox');
+            if(!e.target.classList.contains('subscriberCheckbox')) {
+                var elements = e.target.closest('tr').getElementsByClassName('subscriberCheckbox');
                 if(elements.length != 1) {
                     return;
                 }
@@ -47,17 +47,35 @@
             }
         },
         addToQueue: function () {
-            var elements = $('subscriberGrid').getElementsByClassName('subscriberCheckbox');
-            elements.push($('queueList'));
-            var serializedElements = Form.serializeElements(elements, true);
-            serializedElements.add = 'subscribers';
-            serializedElements.form_key = FORM_KEY;
-            var url = subscriberGridJsObject.url;
+            var params = new URLSearchParams();
+            Array.from(document.getElementById('subscriberGrid').getElementsByClassName('subscriberCheckbox')).forEach(function (cb) {
+                if (cb.checked && cb.name) {
+                    params.append(cb.name, cb.value);
+                }
+            });
+            var queueList = document.getElementById('queueList');
+            if (queueList && queueList.name) {
+                params.append(queueList.name, queueList.value);
+            }
+            params.append('add', 'subscribers');
+            params.append('form_key', FORM_KEY);
 
-            new Ajax.Updater('subscriberGrid', url + '?ajax=1',
-                             {parameters:  serializedElements,
-                              evalScripts: true,
-                              onComplete:subscriberGridJsObject.initGrid.bind(subscriberGridJsObject)});
+            var container = document.getElementById('subscriberGrid');
+            fetch(subscriberGridJsObject.url + '?ajax=1', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: params.toString()
+            })
+            .then(function (r) { return r.text(); })
+            .then(function (text) {
+                container.innerHTML = text;
+                container.querySelectorAll('script').forEach(function (old) {
+                    var s = document.createElement('script');
+                    if (old.src) { s.src = old.src; } else { s.textContent = old.textContent; }
+                    old.parentNode.replaceChild(s, old);
+                });
+                subscriberGridJsObject.initGrid();
+            });
         }
     }
 

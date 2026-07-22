@@ -36,8 +36,8 @@
             <?php $popupId = 'msrp-popup-' . $_id . $_coreHelper->getRandomString(20); ?>
             <a href="#" id="<?php echo($popupId);?>"><?php echo $this->__('Click for price'); ?></a>
             <script type="text/javascript">
-                Event.observe(window, 'load', function() {
-                    var priceElement = $("<?php echo $priceElementId ?>"),
+                window.addEventListener('load', function() {
+                    var priceElement = document.getElementById("<?php echo $priceElementId ?>"),
                         realPrice = <?php echo $this->getRealPriceJs($_product) ?>,
                         priceHtml = realPrice.stripScripts();
 
@@ -50,11 +50,8 @@
                             if (originalOptionPriceReload) {
                                 originalOptionPriceReload.call(this);
                             }
-                            if ($('<?php echo $popupId ?>') == Catalog.Map.active) {
-                                Element.update(
-                                    $('map-popup-price'),
-                                    $("<?php echo $priceElementId ?>").innerHTML
-                                );
+                            if (document.getElementById('<?php echo $popupId ?>') == Catalog.Map.active) {
+                                document.getElementById('map-popup-price').innerHTML = document.getElementById("<?php echo $priceElementId ?>").innerHTML;
                             }
                         }
                         optionsPrice.reload();
@@ -62,9 +59,9 @@
                 });
 
                 Catalog.Map.addHelpLink(
-                    $('<?php echo $popupId ?>'),
+                    document.getElementById('<?php echo $popupId ?>'),
                     "<?php echo $this->escapeHtml($_product->getName()) ?>",
-                    $("<?php echo $priceElementId ?>"),
+                    document.getElementById("<?php echo $priceElementId ?>"),
                     '<?php echo $_msrpPrice ?>',
                     "<?php echo $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, [], false) : '' ?>"
                 );
@@ -79,7 +76,7 @@
         <a href="#" id="<?php echo($helpLinkId);?>"><?php echo $this->__("What's this?"); ?></a>
         <script type="text/javascript">
             Catalog.Map.addHelpLink(
-                $('<?php echo $helpLinkId ?>'),
+                document.getElementById('<?php echo $helpLinkId ?>'),
                 '<?php echo Mage::helper('core')->jsQuoteEscape($this->__("What's this?")); ?>'
             );
         </script>

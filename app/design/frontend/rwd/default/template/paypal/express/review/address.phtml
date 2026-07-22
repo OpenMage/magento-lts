@@ -82,7 +82,7 @@
                             </select>
                             <script type="text/javascript">
                             //<![CDATA[
-                                $('<?php echo $prefix ?>:region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
+                                document.getElementById('<?php echo $prefix ?>:region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
                             //]]>
                             </script>
                             <input type="text" id="<?php echo $prefix ?>:region" name="<?php echo $prefix ?>[region]" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?php echo Mage::helper('core')->quoteEscape($this->__('State/Province')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
@@ -152,12 +152,12 @@
 
         if (this._copyElement.checked) {
             if (this.copyShippingToBilling_allowScrollTo && Modernizr.mq && Modernizr.mq("only screen and (max-width: 767px)")) {
-                $('shipping-address').scrollTo();
+                document.getElementById('shipping-address').scrollIntoView();
             }
         } else {
-            $$('[id^="billing:"]').each(function (el) {
-                if ($(el).up('.field')) {
-                    $(el).up('.field').removeClassName('inactive');
+            document.querySelectorAll('[id^="billing:"]').forEach(function (el) {
+                if (el.closest('.field')) {
+                    el.closest('.field').classList.remove('inactive');
                 }
             })
         }
@@ -169,9 +169,10 @@
         OrderReviewController.prototype._copyElementValue_parent(el);
 
         var newId = el.id.replace('shipping:','billing:');
-        if (newId && $(newId) && $(newId).type != 'hidden') {
-            if ($(newId).up('.field')) {
-                $(newId).up('.field').addClassName('inactive');
+        var newEl = document.getElementById(newId);
+        if (newId && newEl && newEl.type != 'hidden') {
+            if (newEl.closest('.field')) {
+                newEl.closest('.field').classList.add('inactive');
             }
         }
     }

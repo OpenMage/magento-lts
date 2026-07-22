@@ -24,7 +24,9 @@
 </div>
 
 <script>
-var BundleControl = Class.create();
+var BundleControl = function() {
+    this.initialize.apply(this, arguments);
+};
 BundleControl.prototype = {
     initialize: function (config) {
         this.config = config;
@@ -44,19 +46,19 @@ BundleControl.prototype = {
     },
 
     updateQtyInput: function(optionId, selectionOptions) {
-        var elem = $('bundle-option-' + optionId + '-qty-input'),
+        var elem = document.getElementById('bundle-option-' + optionId + '-qty-input'),
             default_qty = Number(selectionOptions.default_qty);
         if (!elem) {
             return;
         }
         if (selectionOptions.can_change_qty) {
-            elem.removeClassName('qty-disabled');
+            elem.classList.remove('qty-disabled');
             elem.disabled = false;
             if (elem.value == '0') {
                 elem.value = default_qty || 1;
             }
         } else {
-            elem.addClassName('qty-disabled');
+            elem.classList.add('qty-disabled');
             elem.disabled = true;
             elem.value = default_qty || 0;
         }
@@ -64,7 +66,7 @@ BundleControl.prototype = {
 
     updateForDefaults: function () {
         for (var optionId in this.config.options) {
-            var selection = $('bundle-option-' + optionId);
+            var selection = document.getElementById('bundle-option-' + optionId);
             if (selection) {
                 this.changeSelection(selection);
             }

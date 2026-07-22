@@ -28,10 +28,10 @@
     var configForm = new varienForm('config_edit_form');
     configForm.validator.options.onFormValidate = function(result, form) {
         if (result) {
-            $$('.requires').each(function(element) {
+            document.querySelectorAll('.requires').forEach(function(element) {
                 var scopeElement = adminSystemConfig.getScopeElement(element);
                 if (!scopeElement || !scopeElement.checked) {
-                    $(element).disabled = false;
+                    element.disabled = false;
                 }
             });
         }
@@ -39,14 +39,14 @@
 
     var adminSystemConfig = {
         getUp: function (element, tag) {
-            var $element = $(element);
-            if (typeof $element.upTag == 'undefined') {
-                $element.upTag = {};
+            var el = (typeof element === 'string') ? document.getElementById(element) : element;
+            if (typeof el._upTag == 'undefined') {
+                el._upTag = {};
             }
-            if (typeof $element.upTag[tag] == 'undefined') {
-                $element.upTag[tag] = $($element.up(tag));
+            if (typeof el._upTag[tag] == 'undefined') {
+                el._upTag[tag] = el.closest(tag);
             }
-            return $element.upTag[tag];
+            return el._upTag[tag];
         },
         getUpTd: function (element) {
             return this.getUp(element, 'td');
@@ -55,32 +55,33 @@
             return this.getUp(element, 'tr');
         },
         getScopeElement: function(element) {
-            var $element = $(element);
-            if (typeof $element.scopeElement == 'undefined') {
+            var el = (typeof element === 'string') ? document.getElementById(element) : element;
+            if (typeof el._scopeElement == 'undefined') {
                 var scopeElementName = element.getAttribute('name').replace(/\[value\]$/, '[inherit]');
-                $element.scopeElement = this.getUpTr(element).select('input[name="' + scopeElementName + '"]')[0];
-                if (typeof $element.scopeElement == 'undefined') {
-                    $element.scopeElement = false;
+                var row = this.getUpTr(element);
+                el._scopeElement = row ? row.querySelector('input[name="' + scopeElementName + '"]') : null;
+                if (!el._scopeElement) {
+                    el._scopeElement = false;
                 }
             }
-            return $element.scopeElement;
+            return el._scopeElement;
         },
         getDeleteElement: function(element) {
-            var $element = $(element);
-            if (typeof $element.deleteElement == 'undefined') {
-                $element.deleteElement = this.getUpTd(element)
-                    .select('input[name="'+ element.getAttribute('name') + '[delete]"]')[0];
-                if (typeof $element.deleteElement == 'undefined') {
-                    $element.deleteElement = false;
+            var el = (typeof element === 'string') ? document.getElementById(element) : element;
+            if (typeof el._deleteElement == 'undefined') {
+                var td = this.getUpTd(element);
+                el._deleteElement = td ? td.querySelector('input[name="'+ element.getAttribute('name') + '[delete]"]') : null;
+                if (!el._deleteElement) {
+                    el._deleteElement = false;
                 }
             }
-            return $element.deleteElement;
+            return el._deleteElement;
         },
         mapClasses: function(element, full, callback, classPrefix) {
             if (typeof classPrefix == 'undefined') {
                 classPrefix = 'shared'
             }
-            element.classNames().each(function(className) {
+            Array.from(element.classList).forEach(function(className) {
                 if (className.indexOf(classPrefix + '-') == 0
                     || (full && className.indexOf(classPrefix + '_') == 0)
                 ) {
@@ -89,72 +90,56 @@
             });
         },
         getRegisteredEvents: function(element) {
-            var events = [];
-            var registry = Element.retrieve($(element), 'prototype_event_registry');
-            if (!registry) {
-                return events;
+            var el = (typeof element === 'string') ? document.getElementById(element) : element;
+            return el._registeredEvents || [];
+        },
+        _trackEvent: function(element, eventName, handler) {
+            var el = (typeof element === 'string') ? document.getElementById(element) : element;
+            if (!el._registeredEvents) {
+                el._registeredEvents = [];
             }
-            registry.each(function(pair) {
-                var eventName = pair.key;
-                if (!eventName) {
-                    return;
-                }
-                var responders = registry.get(eventName);
-                if (!responders) {
-                    return;
-                }
-                responders.each(function(responder) {
-                    if (!responder.handler) {
-                        return;
-                    }
-                    events.push({
-                        'eventName': eventName,
-                        'handler': responder.handler
-                    });
-                });
-            });
-            return events;
+            el._registeredEvents.push({'eventName': eventName, 'handler': handler});
         },
         onchangeSharedElement: function(event) {
-            var element = $(Event.element(event));
+            var element = event.target;
             adminSystemConfig.mapClasses(element, true, function(className) {
-                $$('.' + className).each(function(el) {
+                document.querySelectorAll('.' + className).forEach(function(el) {
                     if (element == el) {
                         return;
                     }
 
                     var tagName = el.tagName.toLowerCase();
                     if (tagName == 'input' && el.getAttribute('type') == 'file') {
-                        var $el = $(el);
                         var events = adminSystemConfig.getRegisteredEvents(el);
-                        $el.stopObserving('change');
-                        var elId = $el.id;
-                        $el.replace($el.outerHTML);
-                        events.each(function(event) {
-                            Event.observe($(elId), event.eventName, event.handler);
+                        var elClone = el.cloneNode(true);
+                        el.parentNode.replaceChild(elClone, el);
+                        var elId = elClone.id;
+                        events.forEach(function(evt) {
+                            document.getElementById(elId).addEventListener(evt.eventName, evt.handler);
+                            adminSystemConfig._trackEvent(document.getElementById(elId), evt.eventName, evt.handler);
                         });
                     } else {
-                        el.stopObserving('change', adminSystemConfig.onchangeSharedElement);
+                        el.removeEventListener('change', adminSystemConfig.onchangeSharedElement);
                         if (tagName == 'input' && el.getAttribute('type') == 'checkbox') {
                             if (el.checked != element.checked) {
-                                $(el).click();
+                                el.click();
                             }
                         } else if (tagName == 'select') {
-                            var $el = $(el);
-                            $(element).select('option').each(function(option) {
-                                var relatedOption = $el.select('option[value="' + option.value + '"]')[0];
-                                if (typeof relatedOption != 'undefined') {
+                            element.querySelectorAll('option').forEach(function(option) {
+                                var relatedOption = el.querySelector('option[value="' + option.value + '"]');
+                                if (relatedOption) {
                                     relatedOption.selected = option.selected;
                                 }
                             });
                         } else {
-                            el.value = element.getValue();
+                            el.value = element.value;
                         }
-                        if ($(el).requiresObj) {
-                            $(el).requiresObj.indicateEnabled();
+                        if (el.requiresObj) {
+                            el.requiresObj.indicateEnabled();
                         }
                         fireEvent(el, 'change');
-                        Event.observe(el, 'change', adminSystemConfig.onchangeSharedElement);
+                        el.addEventListener('change', adminSystemConfig.onchangeSharedElement);
+                        adminSystemConfig._trackEvent(el, 'change', adminSystemConfig.onchangeSharedElement);
                     }
                 });
             });
@@ -162,9 +147,10 @@
         checkRequired: function(element, callback) {
             var tagName = this.tagName.toLowerCase();
             if (tagName != 'fieldset') {
-                if (adminSystemConfig.getUpTr(this).visible()) {
+                var tr = adminSystemConfig.getUpTr(this);
+                if (tr && tr.style.display !== 'none') {
 
-                    if (this.hasClassName('not-required')) {
+                    if (this.classList.contains('not-required')) {
                         return;
                     }
 
@@ -183,9 +169,9 @@
                         valueIsEmpty = valueIsEmpty
                             || (typeAttr == 'text' || typeAttr == 'password') && this.value == ''
                             || (tagName == 'select') && (this.getAttribute('multiple') != null)
-                            && this.getValue().length == 0
+                            && this.value.length == 0
                             || (tagName == 'select') && (this.getAttribute('multiple') == null)
-                            && this.getValue() == null;
+                            && this.value == null;
                     }
 
                     if (valueIsEmpty) {
@@ -193,28 +179,30 @@
                             element.value = 0;
                             fireEvent(element, 'change');
                         }
-                        element.disable();
+                        element.disabled = true;
                     }
                 }
             } else {
-                this.select('input,select').each(function(inputElement) {
-                    adminSystemConfig.checkRequired.call($(inputElement), element, callback);
+                this.querySelectorAll('input,select').forEach(function(inputElement) {
+                    adminSystemConfig.checkRequired.call(inputElement, element, callback);
                 });
             }
             callback(this);
         }
     };
 
-    $$('.shared').each(function(element){
-        Event.observe(element, 'change', adminSystemConfig.onchangeSharedElement);
+    document.querySelectorAll('.shared').forEach(function(element){
+        element.addEventListener('change', adminSystemConfig.onchangeSharedElement);
+        adminSystemConfig._trackEvent(element, 'change', adminSystemConfig.onchangeSharedElement);
 
         // scope should be shared together with the field
         var scopeElement = adminSystemConfig.getScopeElement(element);
         if (scopeElement) {
             adminSystemConfig.mapClasses(element, false, function(className) {
-                scopeElement.addClassName('shared_scope-' + className.substr(7));
+                scopeElement.classList.add('shared_scope-' + className.substr(7));
             });
-            Event.observe(scopeElement, 'change', adminSystemConfig.onchangeSharedElement);
+            scopeElement.addEventListener('change', adminSystemConfig.onchangeSharedElement);
+            adminSystemConfig._trackEvent(scopeElement, 'change', adminSystemConfig.onchangeSharedElement);
         }
 
         // file fields should share deletion
@@ -222,66 +210,72 @@
             var deleteUploadedElement = adminSystemConfig.getDeleteElement(element);
             if (deleteUploadedElement) {
                 adminSystemConfig.mapClasses(element, false, function(className) {
-                    deleteUploadedElement.addClassName('shared_delete-' + className.substr(7));
+                    deleteUploadedElement.classList.add('shared_delete-' + className.substr(7));
                 });
-                Event.observe(deleteUploadedElement, 'change', adminSystemConfig.onchangeSharedElement);
+                deleteUploadedElement.addEventListener('change', adminSystemConfig.onchangeSharedElement);
+                adminSystemConfig._trackEvent(deleteUploadedElement, 'change', adminSystemConfig.onchangeSharedElement);
             }
         }
 
         // process situation, when control is complex
         adminSystemConfig.mapClasses(element, true, function(className) {
-            var controls = adminSystemConfig.getUpTd(element).select('.' + className);
+            var td = adminSystemConfig.getUpTd(element);
+            var controls = td ? Array.from(td.querySelectorAll('.' + className)) : [];
             if (controls.length < 2) {
                 return;
             }
 
             var counter = 0;
-            controls.each(function(controlElement) {
-                controlElement.removeClassName(className);
-                controlElement.addClassName('shared_' + counter + className.substr(6));
+            controls.forEach(function(controlElement) {
+                controlElement.classList.remove(className);
+                controlElement.classList.add('shared_' + counter + className.substr(6));
                 counter++;
             });
         });
     });
 
-    $$('.requires').each(function(element) {
+    document.querySelectorAll('.requires').forEach(function(element) {
         var eventObj = {
-            'element': $(element),
+            'element': element,
             'requires': [],
             'callback': function(required) {},
             checkRequirements: function() {
                 var scopeElement = adminSystemConfig.getScopeElement(eventObj.element);
                 if (!scopeElement || !scopeElement.checked) {
-                    eventObj.element.enable();
-                    eventObj.requires.each(function(required) {
-                        adminSystemConfig.checkRequired.call($(required), eventObj.element, eventObj.callback);
-                    }.bind(this));
+                    eventObj.element.disabled = false;
+                    eventObj.requires.forEach(function(required) {
+                        var reqEl = (typeof required === 'string') ? document.getElementById(required) : required;
+                        if (reqEl) {
+                            adminSystemConfig.checkRequired.call(reqEl, eventObj.element, eventObj.callback);
+                        }
+                    });
                 }
             },
             keydownCheckRequirements: function() {
                 window.setTimeout(eventObj.checkRequirements, 1);
             },
-            bindCheckingObserver: function(element) {
-                if (element.tagName.toLowerCase() == 'fieldset') {
-                    $(element).select('input,select').each(function(subElement) {
+            bindCheckingObserver: function(el) {
+                if (el.tagName.toLowerCase() == 'fieldset') {
+                    el.querySelectorAll('input,select').forEach(function(subElement) {
                         eventObj.bindCheckingObserver(subElement);
                     })
                 } else {
-                    var scopeElement = adminSystemConfig.getScopeElement(element);
+                    var scopeElement = adminSystemConfig.getScopeElement(el);
                     if (scopeElement) {
-                        Event.observe(scopeElement, 'click', eventObj.checkRequirements);
+                        scopeElement.addEventListener('click', eventObj.checkRequirements);
                     }
-                    Event.observe(element, 'change', eventObj.checkRequirements);
-                    Event.observe(element, 'keydown', eventObj.keydownCheckRequirements);
+                    el.addEventListener('change', eventObj.checkRequirements);
+                    el.addEventListener('keydown', eventObj.keydownCheckRequirements);
                 }
             },
             indicateEnabled: function() {
-                var labelElement = adminSystemConfig.getUpTr(eventObj.element).select('td.label label')[0];
-                if (typeof labelElement != 'undefined') {
+                var tr = adminSystemConfig.getUpTr(eventObj.element);
+                var labelElement = tr ? tr.querySelector('td.label label') : null;
+                if (labelElement) {
                     if (eventObj.element.value == 1) {
-                        labelElement.addClassName('enabled');
+                        labelElement.classList.add('enabled');
                     } else {
-                        labelElement.removeClassName('enabled');
+                        labelElement.classList.remove('enabled');
                     }
                 }
             }
@@ -289,28 +283,30 @@
 
         // fill eventObj with required elements
         adminSystemConfig.mapClasses(element, false, function(className) {
-            var requiredElement = $(className.substr(9));
-            if (typeof requiredElement != 'undefined') {
+            var requiredElement = document.getElementById(className.substr(9));
+            if (requiredElement) {
                 eventObj.requires.push(requiredElement);
             }
         }, 'requires');
-        $(element).requiresObj = eventObj;
+        element.requiresObj = eventObj;
 
         // replacing "Use Default" action with checking requirements
         var scopeElement = adminSystemConfig.getScopeElement(element);
         if (scopeElement) {
-            Event.stopObserving(scopeElement, 'click');
-            Event.observe(scopeElement, 'click', function(event) {
-                toggleValueElements(scopeElement, Element.previous(scopeElement.parentNode));
+            var oldClone = scopeElement.cloneNode(true);
+            scopeElement.parentNode.replaceChild(oldClone, scopeElement);
+            scopeElement = oldClone;
+            scopeElement.addEventListener('click', function(event) {
+                toggleValueElements(scopeElement, scopeElement.parentNode.previousElementSibling);
                 eventObj.checkRequirements();
             });
         }
 
         // binding events
-        eventObj.requires.each(function(required) {
+        eventObj.requires.forEach(function(required) {
             eventObj.bindCheckingObserver(required);
         });
-        Event.observe(eventObj.element, 'change', eventObj.indicateEnabled);
+        eventObj.element.addEventListener('change', eventObj.indicateEnabled);
         eventObj.checkRequirements();
         eventObj.indicateEnabled();
     });

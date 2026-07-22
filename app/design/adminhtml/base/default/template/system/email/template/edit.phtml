@@ -108,9 +108,16 @@
         unconvertedText: '',
         typeChange: false,
         variables: null,
+        _stripScriptsAndTags: function(html) {
+            var tmp = html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+            tmp = tmp.replace(/<style[^>]*>[\S\s]*?<\/style>/gi, '');
+            tmp = tmp.replace(/<[^>]+>/g, '');
+            return tmp.trim();
+        },
         init: function () {
-            if ($('convert_button_back')) {
-                $('convert_button_back').hide();
+            var convertBack = document.getElementById('convert_button_back');
+            if (convertBack) {
+                convertBack.style.display = 'none';
             }
             this.renderPaths(<?php echo $this->getUsedDefaultForPaths(); ?>, 'used_default_for');
             this.renderPaths(<?php echo $this->getUsedCurrentlyForPaths(); ?>, 'used_currently_for');
@@ -119,45 +126,44 @@
             if(!window.confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure that you want to strip tags?')) ?>")) {
                 return false;
             }
-            this.unconvertedText = $('template_text').value;
-            $('convert_button').hide();
-            $('template_text').value =  $('template_text').value.stripScripts().replace(
-                new RegExp('<style[^>]*>[\\S\\s]*?</style>', 'img'), ''
-            ).stripTags().strip();
-            $('convert_button_back').show();
-            $('field_template_styles').hide();
+            this.unconvertedText = document.getElementById('template_text').value;
+            document.getElementById('convert_button').style.display = 'none';
+            document.getElementById('template_text').value = this._stripScriptsAndTags(document.getElementById('template_text').value);
+            document.getElementById('convert_button_back').style.display = '';
+            document.getElementById('field_template_styles').style.display = 'none';
             this.typeChange = true;
             return false;
         },
         unStripTags: function () {
-            $('convert_button').show();
-            $('convert_button_back').hide();
-            $('template_text').value =  this.unconvertedText;
-            $('field_template_styles').show();
+            document.getElementById('convert_button').style.display = '';
+            document.getElementById('convert_button_back').style.display = 'none';
+            document.getElementById('template_text').value =  this.unconvertedText;
+            document.getElementById('field_template_styles').style.display = '';
             this.typeChange = false;
             return false;
         },
         save: function() {
             if (this.typeChange) {
-                $('change_flag_element').value = '1';
+                document.getElementById('change_flag_element').value = '1';
             }
             templateForm.submit();
             return false;
         },
         preview: function() {
             if (this.typeChange) {
-                $('preview_type').value = 1;
+                document.getElementById('preview_type').value = 1;
             } else {
-                $('preview_type').value = 2;
+                document.getElementById('preview_type').value = 2;
             }
             if (typeof tinymce == 'undefined' || !tinymce.get('template_text')) {
-                $('preview_text').value = $('template_text').value;
+                document.getElementById('preview_text').value = document.getElementById('template_text').value;
             } else {
-                $('preview_text').value = tinymce.get('template_text').getContent();
+                document.getElementById('preview_text').value = tinymce.get('template_text').getContent();
             }
 
-            if ($('template_styles') != undefined) {
-                $('preview_styles').value = $('template_styles').value;
+            var templateStyles = document.getElementById('template_styles');
+            if (templateStyles != undefined) {
+                document.getElementById('preview_styles').value = templateStyles.value;
             }
 
             templatePreviewForm.submit();
@@ -179,52 +185,62 @@
 
             this.variables = null;
 
-            new Ajax.Request($('email_template_load_form').action, {
-               parameters: Form.serialize($('email_template_load_form'), true),
-               area: $('email_template_load_form'),
-               onComplete: function (transport) {
-                   if (transport.responseText.isJSON()) {
-                       var fields = $H(transport.responseText.evalJSON());
-                       fields.each(function(pair) {
-                          if ($(pair.key)) {
-                              $(pair.key).value = pair.value.strip();
+            var loadForm = document.getElementById('email_template_load_form');
+            var self = this;
+            fetch(loadForm.action, {
+               method: 'POST',
+               headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+               body: new URLSearchParams(new FormData(loadForm)).toString()
+            }).then(function(resp) { return resp.text(); }).then(function(responseText) {
+                   try {
+                       var data = JSON.parse(responseText);
+                       var keys = Object.keys(data);
+                       keys.forEach(function(key) {
+                          var el = document.getElementById(key);
+                          if (el) {
+                              el.value = data[key].trim();
                           }
-                          if (pair.key == 'template_type') {
-                              if (pair.value == 1) {
-                                  this.typeChange = true;
-                                  $('convert_button').hide();
-                                  $('convert_button_back').hide();
+                          if (key == 'template_type') {
+                              if (data[key] == 1) {
+                                  self.typeChange = true;
+                                  document.getElementById('convert_button').style.display = 'none';
+                                  document.getElementById('convert_button_back').style.display = 'none';
                               } else {
-                                  this.typeChange = false;
-                                  $('convert_button_back').hide();
-                                  $('convert_button').show();
+                                  self.typeChange = false;
+                                  document.getElementById('convert_button_back').style.display = 'none';
+                                  document.getElementById('convert_button').style.display = '';
                               }
                           }
-                          if (pair.key == 'orig_template_used_default_for') {
-                               if(pair.value.length){
-                                   $('used_default_for').show();
-                                   this.renderPaths(pair.value, 'used_default_for');
+                          if (key == 'orig_template_used_default_for') {
+                               if(data[key].length){
+                                   document.getElementById('used_default_for').style.display = '';
+                                   self.renderPaths(data[key], 'used_default_for');
                                }
                                else{
-                                   $('used_default_for').hide();
+                                   document.getElementById('used_default_for').style.display = 'none';
                                }
                           }
-                       }.bind(this));
-                   }
-               }.bind(this)
+                       });
+                   } catch(e) {}
             });
 
         },
 
         renderPaths: function(paths, fieldId){
-            var field = $(fieldId);
+            var field = document.getElementById(fieldId);
             if(field){
-                field.down('td').next('td').update(this.parsePath(paths, '<span class="path-delimiter">&nbsp;-&gt;&nbsp;</span>', '<br />'));
+                var td = field.querySelector('td');
+                if (td) {
+                    var nextTd = td.nextElementSibling;
+                    if (nextTd) {
+                        nextTd.innerHTML = this.parsePath(paths, '<span class="path-delimiter">&nbsp;-&gt;&nbsp;</span>', '<br />');
+                    }
+                }
             }
         },
 
         parsePath: function (value, pathDelimiter, lineDelimiter) {
-            if (Object.isArray(value)) {
+            if (Array.isArray(value)) {
                 var result = [];
                 for (var i = 0, len = value.length; i < len; i++) {
                     result.push(this.parsePath(value[i], pathDelimiter, pathDelimiter));
@@ -232,7 +248,7 @@
                 return result.join(lineDelimiter);
             }
 
-            if(!Object.isString(value) && value.title) {
+            if(typeof value !== 'string' && value.title) {
                 value = (value.url ? '<a href="' + value.url + '">' + value.title + '</a>' : value.title) + (value.scope ? '&nbsp;&nbsp;<span class="path-scope-label">(' + value.scope + ')</span>' : '');
             }
 
@@ -243,10 +259,11 @@
             Variables.init('template_text');
             if (this.variables == null) {
                 Variables.resetData();
-                this.variables = $('variables').value.evalJSON();
-                var templateVariablesValue = $('template_variables').value;
+                this.variables = JSON.parse(document.getElementById('variables').value);
+                var templateVariablesValue = document.getElementById('template_variables').value;
                 if (this.variables && templateVariablesValue) {
-                    if (templateVariables = templateVariablesValue.evalJSON()) {
+                    var templateVariables;
+                    if (templateVariables = JSON.parse(templateVariablesValue)) {
                         this.variables.push(templateVariables);
                     }
                 }

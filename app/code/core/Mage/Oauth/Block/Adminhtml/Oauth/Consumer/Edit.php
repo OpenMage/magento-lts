@@ -52,7 +52,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         ], 100);
 
         $this->_formScripts[] = 'function saveAndContinueEdit()'
-        . "{editForm.submit($('edit_form').action + 'back/edit/')}";
+        . "{editForm.submit(document.getElementById('edit_form').action + 'back/edit/')}";
 
         $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', $this->__('Save'));
         $this->_updateButton(self::BUTTON_TYPE_SAVE, 'id', 'save_button');

@@ -29,21 +29,26 @@
                     <script type="text/javascript">
                     //<![CDATA[
                     function cancelPaymentAuthorizations(){
-                        new Ajax.Request('<?php echo $this->getAdminCancelUrl() ?>', {
-                            onSuccess : function(transport) {
-                                try{
-                                    response = eval('(' + transport.responseText + ')');
-                                } catch (e) {
-                                    response = {};
-                                }
+                        fetch('<?php echo $this->getAdminCancelUrl() ?>', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                            body: 'isAjax=true' + (window.FORM_KEY ? '&form_key=' + encodeURIComponent(window.FORM_KEY) : '')
+                        })
+                        .then(function(resp){ return resp.text(); })
+                        .then(function(text){
+                            var response;
+                            try {
+                                response = JSON.parse(text);
+                            } catch (e) {
+                                response = {};
+                            }
 
-                                if (response.success) {
-                                    order.loadArea(['billing_method','totals'], true, []);
-                                } else {
-                                    var msg = response.error_message;
-                                    if (msg) {
-                                        alert(msg);
-                                    }
+                            if (response.success) {
+                                order.loadArea(['billing_method','totals'], true, []);
+                            } else {
+                                var msg = response.error_message;
+                                if (msg) {
+                                    alert(msg);
                                 }
                             }
                         });

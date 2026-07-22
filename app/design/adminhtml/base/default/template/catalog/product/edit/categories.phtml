@@ -61,7 +61,7 @@ Ext.EventManager.onDocumentReady(function() {
         } else {
             categoryRemove(node.id);
         }
-        varienElementMethods.setHasChanges(node.getUI().checkbox);
+        varienElementMethods.setHasChanges.call(node.getUI().checkbox);
     }, tree);
 
     // set the root node
@@ -92,7 +92,7 @@ function bildCategoryTree(parent, config) {
         for (var i = 0; i < config.length; i++) {
             config[i].uiProvider = Ext.tree.CheckboxNodeUI;
             var node;
-            var _node = Object.clone(config[i]);
+            var _node = Object.assign({}, config[i]);
             if (_node.children && !_node.children.length) {
                 delete(_node.children);
                 node = new Ext.tree.AsyncTreeNode(_node);
@@ -114,19 +114,19 @@ function categoryClick(node, e) {
         return;
     }
     node.getUI().check(!node.getUI().checked());
-    varienElementMethods.setHasChanges(Event.element(e), e);
+    varienElementMethods.setHasChanges.call(e.target, e);
 };
 function categoryAdd(id) {
-    var ids = $('product_categories').value.split(',');
+    var ids = document.getElementById('product_categories').value.split(',');
     ids.push(id);
-    $('product_categories').value = ids.join(',');
+    document.getElementById('product_categories').value = ids.join(',');
 }
 function categoryRemove(id) {
-    var ids = $('product_categories').value.split(',');
+    var ids = document.getElementById('product_categories').value.split(',');
     while (-1 != ids.indexOf(id.toString())) {
         ids.splice(ids.indexOf(id.toString()), 1);
     }
-    $('product_categories').value = ids.join(',');
+    document.getElementById('product_categories').value = ids.join(',');
 }
 </script>
 <?php endif ?>

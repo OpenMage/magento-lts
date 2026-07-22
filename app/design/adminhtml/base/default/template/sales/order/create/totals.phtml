@@ -31,15 +31,15 @@
 
 <script type="text/javascript">
 //<![CDATA[
-var sendEmailCheckbox = $('send_confirmation');
+var sendEmailCheckbox = document.getElementById('send_confirmation');
 if (sendEmailCheckbox) {
-    Event.observe(sendEmailCheckbox, 'change', notifyCustomerUpdate);
+    sendEmailCheckbox.addEventListener('change', notifyCustomerUpdate);
     notifyCustomerUpdate();
 }
 
 function notifyCustomerUpdate() {
-    var sendEmailCheckbox = $('send_confirmation');
-    var notifyCustomerCheckbox = $('notify_customer');
+    var sendEmailCheckbox = document.getElementById('send_confirmation');
+    var notifyCustomerCheckbox = document.getElementById('notify_customer');
     if (!sendEmailCheckbox || !notifyCustomerCheckbox)
         return;
     notifyCustomerCheckbox.disabled = !sendEmailCheckbox.checked;

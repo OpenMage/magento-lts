@@ -30,25 +30,29 @@
 <script type="text/javascript">
 //<![CDATA[
     function toggleRememberMepopup(event){
-        if($('remember-me-popup')){
-            var viewportHeight = document.viewport.getHeight(),
-                docHeight      = $$('body')[0].getHeight(),
+        var popup = document.getElementById('remember-me-popup');
+        if(popup){
+            var viewportHeight = window.innerHeight,
+                docHeight      = document.querySelector('body').offsetHeight,
                 height         = docHeight > viewportHeight ? docHeight : viewportHeight;
-            $('remember-me-popup').toggle();
-            $('window-overlay').setStyle({ height: height + 'px' }).toggle();
+            popup.style.display = popup.style.display === 'none' ? '' : 'none';
+            var overlay = document.getElementById('window-overlay');
+            overlay.style.height = height + 'px';
+            overlay.style.display = overlay.style.display === 'none' ? '' : 'none';
         }
-        Event.stop(event);
+        event.preventDefault();
+        event.stopPropagation();
     }
 
-    document.observe("dom:loaded", function() {
-        new Insertion.Bottom($$('body')[0], $('window-overlay'));
-        new Insertion.Bottom($$('body')[0], $('remember-me-popup'));
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('body').appendChild(document.getElementById('window-overlay'));
+        document.querySelector('body').appendChild(document.getElementById('remember-me-popup'));
 
-        $$('.remember-me-popup-close').each(function(element){
-            Event.observe(element, 'click', toggleRememberMepopup);
+        document.querySelectorAll('.remember-me-popup-close').forEach(function(element){
+            element.addEventListener('click', toggleRememberMepopup);
         })
-        $$('#remember-me-box a').each(function(element) {
-            Event.observe(element, 'click', toggleRememberMepopup);
+        document.querySelectorAll('#remember-me-box a').forEach(function(element) {
+            element.addEventListener('click', toggleRememberMepopup);
         });
     });
 //]]>

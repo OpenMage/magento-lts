@@ -89,7 +89,7 @@
 //<![CDATA[
     var dataForm = new VarienForm('form-validate', true);
     function setPasswordForm(arg){
-        $('password').up('.fieldset')[arg ? 'show': 'hide']();
+        document.getElementById('password').closest('.fieldset').style.display = arg ? '' : 'none';
     }
 
     <?php if($this->getCustomer()->getChangePassword()): ?>

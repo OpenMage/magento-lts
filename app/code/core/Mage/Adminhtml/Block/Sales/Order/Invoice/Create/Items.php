@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     #[Override]
     protected function _beforeToHtml()
     {
-        $onclick = "submitAndReloadArea($('invoice_item_container'),'" . $this->getUpdateUrl() . "')";
+        $onclick = "submitAndReloadArea(document.getElementById('invoice_item_container'),'" . $this->getUpdateUrl() . "')";
         $this->setChild(
             'update_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'     => $submitLabel,
                 'class'     => 'save submit-button' . $submitButtonClass,
-                'onclick'   => 'disableElements(\'submit-button\');$(\'edit_form\').submit()',
+                'onclick'   => "disableElements('submit-button');document.getElementById('edit_form').submit()",
                 'disabled'  => $this->_disableSubmitButton,
             ]),
         );

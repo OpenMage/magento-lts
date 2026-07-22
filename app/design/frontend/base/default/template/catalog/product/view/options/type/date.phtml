@@ -25,8 +25,8 @@
     <?php if (!$this->useCalendar()): ?>
     <script type="text/javascript">
     //<![CDATA[
-        Event.observe('options_<?php echo $_optionId ?>_month', 'change', dateOption.reloadMonth.bind(dateOption));
-        Event.observe('options_<?php echo $_optionId ?>_year', 'change', dateOption.reloadMonth.bind(dateOption));
+        document.getElementById('options_<?php echo $_optionId ?>_month').addEventListener('change', dateOption.reloadMonth.bind(dateOption));
+        document.getElementById('options_<?php echo $_optionId ?>_year').addEventListener('change', dateOption.reloadMonth.bind(dateOption));
     //]]>
     </script>
     <?php endif ?>
@@ -45,7 +45,7 @@
         Validation.addAllThese(
         [
                 ['validate-datetime-<?php echo $_optionId ?>', '<?php echo $this->jsQuoteEscape( Mage::helper('catalog')->__('This is a required option') )?>', function(v) {
-                   var dateTimeParts = $$('.datetime-picker[id^="options_<?php echo $_optionId ?>"]');
+                   var dateTimeParts = document.querySelectorAll('.datetime-picker[id^="options_<?php echo $_optionId ?>"]');
                    for (var i=0; i < dateTimeParts.length; i++) {
                        if (dateTimeParts[i].value == "") return false;
                    }
@@ -58,7 +58,7 @@
             'validate-datetime-<?php echo $_optionId ?>',
             '<?php echo $this->jsQuoteEscape( Mage::helper('catalog')->__('Field is not complete') )?>',
             function(v) {
-                var dateTimeParts = $$('.datetime-picker[id^="options_<?php echo $_optionId ?>"]');
+                var dateTimeParts = document.querySelectorAll('.datetime-picker[id^="options_<?php echo $_optionId ?>"]');
                 var hasWithValue = false, hasWithNoValue = false;
                 var pattern = /day_part$/i;
                 for (var i=0; i < dateTimeParts.length; i++) {

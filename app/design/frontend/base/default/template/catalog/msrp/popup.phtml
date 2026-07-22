@@ -31,7 +31,7 @@
         <div class="map-popup-price" id="map-popup-price-box"><strong><?php echo $this->__('Actual Price'); ?>:</strong> <span id="map-popup-price"></span></div>
         <script type="text/javascript">
         //<![CDATA[
-            document.observe("dom:loaded", Catalog.Map.bindProductForm);
+            document.addEventListener('DOMContentLoaded', Catalog.Map.bindProductForm);
         //]]>
         </script>
     </div>

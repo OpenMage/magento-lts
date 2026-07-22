@@ -36,7 +36,7 @@ var tree;
  */
 Ext.lib.Event.getTarget = function(e) {
     var ee = e.browserEvent || e;
-    return ee.target ? Event.element(ee) : null;
+    return ee.target || null;
 };
 
 /**
@@ -74,7 +74,7 @@ Ext.onReady(function()
      * Nodes text is generated from `name` and `products` attributes
      */
     categoryLoader.createNode = function(config) {
-        var _node = Object.clone(config);
+        var _node = Object.assign({}, config);
         _node.text = _node.name + ' (' + _node.product_count + ')';
         if (_node.children_count && !_node.children) {
             return new Ext.tree.AsyncTreeNode(_node);

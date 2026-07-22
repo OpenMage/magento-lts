@@ -11,61 +11,64 @@
  * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-var Captcha = Class.create();
-Captcha.prototype = {
-    initialize: function(url, formId){
-        this.url = url;
-        this.formId = formId;
-    },
-    refresh: function(elem) {
-        formId = this.formId;
-        if (elem) Element.addClassName(elem, 'refreshing');
-        new Ajax.Request(this.url, {
-            onSuccess: function (response) {
-                if (response.responseText.isJSON()) {
-                    var json = response.responseText.evalJSON();
-                    if (!json.error && json.imgSrc) {
-                        $(formId).writeAttribute('src', json.imgSrc);
-                        if (elem) Element.removeClassName(elem, 'refreshing');
-                    } else {
-                        if (elem) Element.removeClassName(elem, 'refreshing');
-                    }
-                }
-            },
-            method: 'post',
-            parameters: {
-                'formId'   : this.formId
-            }
-        });
-    }
+function Captcha(url, formId) {
+    this.url = url;
+    this.formId = formId;
+}
+
+Captcha.prototype.refresh = function(elem) {
+    var formId = this.formId;
+    if (elem) elem.classList.add('refreshing');
+    var params = new URLSearchParams();
+    params.append('formId', this.formId);
+    fetch(this.url, {
+        method: 'POST',
+        headers: {'X-Requested-With': 'XMLHttpRequest'},
+        body: params
+    }).then(function(response) {
+        return response.text();
+    }).then(function(text) {
+        var json;
+        try {
+            json = JSON.parse(text);
+        } catch (e) {
+            if (elem) elem.classList.remove('refreshing');
+            return;
+        }
+        if (!json.error && json.imgSrc) {
+            document.getElementById(formId).setAttribute('src', json.imgSrc);
+        }
+        if (elem) elem.classList.remove('refreshing');
+    }).catch(function() {
+        if (elem) elem.classList.remove('refreshing');
+    });
 };
 
-document.observe('billing-request:completed', function(event) {
+document.addEventListener('billing-request:completed', function(event) {
     if (typeof window.checkout != 'undefined') {
-        if (window.checkout.method == 'guest' && $('guest_checkout')){
-            $('guest_checkout').captcha.refresh();
+        if (window.checkout.method == 'guest' && document.getElementById('guest_checkout')){
+            document.getElementById('guest_checkout').captcha.refresh();
         }
-        if (window.checkout.method == 'register' && $('register_during_checkout')){
-            $('register_during_checkout').captcha.refresh();
+        if (window.checkout.method == 'register' && document.getElementById('register_during_checkout')){
+            document.getElementById('register_during_checkout').captcha.refresh();
         }
     }
 });
 
-
-document.observe('login:setMethod', function(event) {
+document.addEventListener('login:setMethod', function(event) {
     var switchCaptchaElement = function(shown, hidden) {
         var inputPrefix = 'captcha-input-box-', imagePrefix = 'captcha-image-box-';
-        if ($(inputPrefix + hidden)) {
-            $(inputPrefix + hidden).hide();
-            $(imagePrefix + hidden).hide();
+        if (document.getElementById(inputPrefix + hidden)) {
+            document.getElementById(inputPrefix + hidden).style.display = 'none';
+            document.getElementById(imagePrefix + hidden).style.display = 'none';
         }
-        if ($(inputPrefix + shown)) {
-            $(inputPrefix + shown).show();
-            $(imagePrefix + shown).show();
+        if (document.getElementById(inputPrefix + shown)) {
+            document.getElementById(inputPrefix + shown).style.display = '';
+            document.getElementById(imagePrefix + shown).style.display = '';
         }
     };
 
-    switch (event.memo.method) {
+    switch (event.detail.method) {
         case 'guest':
             switchCaptchaElement('guest_checkout', 'register_during_checkout');
             break;

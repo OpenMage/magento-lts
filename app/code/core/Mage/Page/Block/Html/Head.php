@@ -171,6 +171,120 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     }
 
     /**
+     * Prototype/Scriptaculous file names that should be swapped based on prototype_mode config.
+     *
+     * @var list<string>
+     */
+    protected $_prototypeFiles = [
+        'prototype/prototype.js',
+        'prototype/prototype-deprecation.js',
+        'prototype/window.js',
+        'prototype/window_effects.js',
+        'prototype/window_ext.js',
+        'prototype/effects.js',
+        'prototype/tooltip.js',
+        'prototype/tooltip_manager.js',
+        'prototype/debug.js',
+        'prototype/extended_debug.js',
+        'scriptaculous/scriptaculous.js',
+        'scriptaculous/builder.js',
+        'scriptaculous/effects.js',
+        'scriptaculous/dragdrop.js',
+        'scriptaculous/controls.js',
+        'scriptaculous/slider.js',
+        'scriptaculous/sound.js',
+        'scriptaculous/unittest.js',
+    ];
+
+    /**
+     * Real Prototype.js + Scriptaculous files to load, in order, when
+     * prototype_mode is "full". They replace the compatibility shim that the
+     * layout XML adds unconditionally. This mirrors the set the core layouts
+     * loaded before the libraries were extracted behind prototype_mode, so any
+     * legacy script that still calls into Prototype/Scriptaculous keeps working.
+     *
+     * @var list<string>
+     */
+    protected $_fullModeFiles = [
+        'prototype/prototype.js',
+        // Phase 0 deprecation instrumentation — inert unless activated via
+        // ?protodebug=1 or window.PROTOTYPE_DEPRECATION_WARNINGS = true
+        'prototype/prototype-deprecation.js',
+        'prototype/window.js',
+        'scriptaculous/builder.js',
+        'scriptaculous/effects.js',
+        'scriptaculous/dragdrop.js',
+        'scriptaculous/controls.js',
+        'scriptaculous/slider.js',
+    ];
+
+    /**
+     * Apply prototype_mode config to swap Prototype/Scriptaculous JS items.
+     *
+     * Must be called before rendering. Modifies $this->_data['items'] in place.
+     *
+     * @return $this
+     */
+    protected function _applyPrototypeMode()
+    {
+        /** @var Mage_Core_Helper_Js $helper */
+        $helper = Mage::helper('core/js');
+        if ($helper->isPrototypeModeFull()) {
+            // The layout XML adds the compatibility shim unconditionally. In
+            // "full" mode we swap it for the real Prototype + Scriptaculous
+            // libraries so legacy scripts have the complete API available.
+            // Loading both would redefine the same globals, so drop the shim.
+            $this->removeItem('js', 'prototype/prototype-shim.js');
+
+            $items = [];
+            foreach ($this->_fullModeFiles as $file) {
+                $items['js/' . $file] = [
+                    'type' => 'js',
+                    'name' => $file,
+                    'params' => null,
+                    'if' => null,
+                    'cond' => null,
+                ];
+            }
+
+            // Prepend the libraries so they load before any dependent script.
+            $this->_data['items'] = $items + ($this->_data['items'] ?? []);
+
+            return $this;
+        }
+
+        // Remove all prototype/scriptaculous files
+        foreach ($this->_prototypeFiles as $file) {
+            $this->removeItem('js', $file);
+        }
+
+        if ($helper->isPrototypeModeShim()) {
+            // Insert shim as the very first JS item
+            $shimItem = [
+                'type' => 'js',
+                'name' => 'prototype/prototype-shim.js',
+                'params' => null,
+                'if' => null,
+                'cond' => null,
+            ];
+            $this->_data['items'] = ['js/prototype/prototype-shim.js' => $shimItem] + ($this->_data['items'] ?? []);
+        } elseif ($helper->isPrototypeModeNone()) {
+            // Fully migrated: drop the shim too. The layout XML adds it
+            // unconditionally (addJs prototype/prototype-shim.js), so it must
+            // be removed explicitly here, otherwise "none" still loads it.
+            $this->removeItem('js', 'prototype/prototype-shim.js');
+
+            // extjs/fix-defer.js only reconciles Function.prototype.defer
+            // between ExtJS and Prototype. With Prototype absent it is dead
+            // weight whose fallback branch references Prototype's delay/curry,
+            // so drop it in "none" mode. It stays loaded in shim/full.
+            $this->removeItem('js', 'extjs/fix-defer.js');
+        }
+
+        return $this;
+    }
+
+    /**
      * Get HEAD HTML with CSS/JS/RSS definitions
      * (actually it also renders other elements, TODO: fix it up or rename this method)
      *
@@ -178,6 +292,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      */
     public function getCssJsHtml()
     {
+        $this->_applyPrototypeMode();
+
         // separate items by types
         $lines  = [];
         foreach ($this->_data['items'] as $item) {

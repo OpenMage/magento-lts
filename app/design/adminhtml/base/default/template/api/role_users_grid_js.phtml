@@ -15,11 +15,31 @@
 <!--
 <?php $myBlock = $this->getLayout()->getBlock('roleUsersGrid'); ?>
 <?php if( is_object($myBlock) && $myBlock->getJsObjectName() ): ?>
-    var checkBoxes = $H({});
+    // Minimal vanilla replacement for Prototype's $H (Hash)
+    function GridHash(obj) {
+        this._data = {};
+        if (obj) { for (var k in obj) { if (obj.hasOwnProperty(k)) this._data[k] = obj[k]; } }
+    }
+    GridHash.prototype.set = function(k, v) { this._data[k] = v; return v; };
+    GridHash.prototype.unset = function(k) { delete this._data[k]; };
+    GridHash.prototype.keys = function() { return Object.keys(this._data); };
+    GridHash.prototype.size = function() { return Object.keys(this._data).length; };
+    GridHash.prototype.each = function(fn) {
+        var d = this._data;
+        Object.keys(d).forEach(function(k) { fn({ key: k, value: d[k] }); });
+    };
+    GridHash.prototype.toQueryString = function() {
+        var d = this._data;
+        return Object.keys(d).map(function(k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(d[k]);
+        }).join('&');
+    };
+
+    var checkBoxes = new GridHash({});
     var warning = false;
-    var inRoleUsers = $H(<?php echo $myBlock->_getUsers(true) ?>);
+    var inRoleUsers = new GridHash(<?php echo $myBlock->_getUsers(true) ?>);
     if (inRoleUsers.size() > 0) warning = true;
-    $('in_role_user').value = inRoleUsers.toQueryString();
+    document.getElementById('in_role_user').value = inRoleUsers.toQueryString();
 
     function registerUserRole(grid, element, checked){
         if(checked){
@@ -27,15 +47,15 @@
         } else {
             inRoleUsers.unset(element.value);
         }
-        $('in_role_user').value = inRoleUsers.toQueryString();
+        document.getElementById('in_role_user').value = inRoleUsers.toQueryString();
         grid.reloadParams = {'in_role_user[]':inRoleUsers.keys()};
     }
 
     function roleUsersRowClick(grid, event){
-        var trElement = Event.findElement(event, 'tr');
-        var isInput   = Event.element(event).tagName == 'INPUT';
+        var trElement = event.target.closest('tr');
+        var isInput   = event.target.tagName == 'INPUT';
         if(trElement){
-            var checkbox = Element.getElementsBySelector(trElement, 'input');
+            var checkbox = trElement.querySelectorAll('input');
             if(checkbox[0]){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 if (warning && checkBoxes.size() > 0) {
@@ -56,7 +76,7 @@
     }
 
     function roleUsersRowInit(grid, row){
-        var checkbox = $(row).getElementsByClassName('checkbox')[0];
+        var checkbox = row.getElementsByClassName('checkbox')[0];
         if (checkbox) {
             checkBoxes.set(checkbox.value, {'status' : ((checkbox.checked) ? 1 : 0), 'object' : checkbox});
         }
@@ -85,8 +105,8 @@
 <?php echo $myBlock->getJsObjectName() ?>.initRowCallback = roleUsersRowInit;
 <?php echo $myBlock->getJsObjectName() ?>.checkboxCheckCallback = registerUserRole;
 <?php echo $myBlock->getJsObjectName() ?>.checkCheckboxes = myhandler;
-<?php echo $myBlock->getJsObjectName() ?>.rows.each(function(row){roleUsersRowInit(<?php echo $myBlock->getJsObjectName() ?>, row)});
-    $('in_role_user_old').value = $('in_role_user').value;
+Array.from(<?php echo $myBlock->getJsObjectName() ?>.rows).forEach(function(row){roleUsersRowInit(<?php echo $myBlock->getJsObjectName() ?>, row)});
+    document.getElementById('in_role_user_old').value = document.getElementById('in_role_user').value;
 <?php endif ?>
 //-->
 </script>

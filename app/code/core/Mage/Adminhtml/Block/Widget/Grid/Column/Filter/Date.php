@@ -79,27 +79,27 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
                 singleClick : true
             });
 
-            $("' . $htmlId . '_to_trig").observe("click", showCalendar);
-            $("' . $htmlId . '_from_trig").observe("click", showCalendar);
+            document.getElementById("' . $htmlId . '_to_trig").addEventListener("click", showCalendar);
+            document.getElementById("' . $htmlId . '_from_trig").addEventListener("click", showCalendar);
 
             function showCalendar(event){
-                var element = event.element(event);
-                var offset = $(element).viewportOffset();
-                var scrollOffset = $(element).cumulativeScrollOffset();
-                var dimensionsButton = $(element).getDimensions();
-                var index = $("widget-chooser").getStyle("zIndex");
+                var element = event.target;
+                var rect = element.getBoundingClientRect();
+                var absLeft = rect.left + window.pageXOffset;
+                var absTop = rect.top + window.pageYOffset;
+                var buttonWidth = element.offsetWidth;
+                var buttonHeight = element.offsetHeight;
 
-                $$("div.calendar").each(function(item){
-                    if ($(item).visible()) {
-                        var dimensionsCalendar = $(item).getDimensions();
+                var chooser = document.getElementById("widget-chooser");
+                var index = chooser ? parseInt(window.getComputedStyle(chooser).zIndex, 10) : 0;
+                if (isNaN(index)) { index = 0; }
 
-                        $(item).setStyle({
-                            "zIndex" : index + 1,
-                            "left" : offset[0] + scrollOffset[0] - dimensionsCalendar.width
-                                + dimensionsButton.width + "px",
-                            "top" : offset[1] + scrollOffset[1] + dimensionsButton.height + "px"
-                        });
-                    };
+                document.querySelectorAll("div.calendar").forEach(function(item){
+                    if (item.offsetParent !== null) {
+                        item.style.zIndex = index + 1;
+                        item.style.left = (absLeft - item.offsetWidth + buttonWidth) + "px";
+                        item.style.top = (absTop + buttonHeight) + "px";
+                    }
                 });
             };
         </script>');

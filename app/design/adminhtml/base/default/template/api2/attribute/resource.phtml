@@ -21,7 +21,7 @@
 
         <span class="field-row">
             <label for="all"><?php echo $this->__('Resource Access') ?></label>
-            <select id="all" name="all" onchange="$('resources_container').toggle()" class="select">
+            <select id="all" name="all" onchange="var rc = document.getElementById('resources_container'); rc.style.display = rc.style.display === 'none' ? '' : 'none';" class="select">
                 <option value="0" <?php echo($this->getEverythingAllowed() ? '' : 'selected'); ?>><?php echo $this->__('Custom') ?></option>
                 <option value="1" <?php echo($this->getEverythingAllowed() ? 'selected' : ''); ?>><?php echo $this->__('All') ?></option>
             </select>
@@ -44,7 +44,7 @@
 <script type="text/javascript">
 //<![CDATA[
 <?php if($this->getEverythingAllowed()): ?>
-    $('resources_container').hide();
+    document.getElementById('resources_container').style.display = 'none';
 <?php endif ?>
 Ext.EventManager.onDocumentReady(function() {
     var tree = new Ext.tree.TreePanel('resource-tree', {
@@ -77,12 +77,12 @@ Ext.EventManager.onDocumentReady(function() {
     // root.expand();
     tree.expandAll();
 
-    $('role_resources').value = tree.getChecked().join(',');
+    document.getElementById('role_resources').value = tree.getChecked().join(',');
 });
 
 function resourceClick(node, e){
     node.getUI().check(!node.getUI().checked());
-    varienElementMethods.setHasChanges(Event.element(e), e);
+    varienElementMethods.setHasChanges.call(e.target, e);
 };
 
 function bildResourcesTree(parent, config){
@@ -119,7 +119,7 @@ function checkHandler(node)
         processChildren(node, node.attributes.checked);
         this.on('check', checkHandler);
     }
-    $('role_resources').value = this.getChecked().join(',');
+    document.getElementById('role_resources').value = this.getChecked().join(',');
 }
 
 function processChildren(node, state)

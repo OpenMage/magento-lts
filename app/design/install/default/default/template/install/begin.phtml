@@ -25,12 +25,19 @@
 <script type="text/javascript">
 //<![CDATA[
 function changeSubmitStatus(obj) {
-    $('submitButton').disabled = !obj.checked;
+    var btn = document.getElementById('submitButton');
+    btn.disabled = !obj.checked;
     if(obj.checked){
-        $('submitButton').setStyle({'background':'#f18200','borderColor':'','cursor':'pointer','color':'#C73615'});
+        btn.style.background = '#f18200';
+        btn.style.borderColor = '';
+        btn.style.cursor = 'pointer';
+        btn.style.color = '#C73615';
     }
     else{
-        $('submitButton').setStyle({'background':'#bbb','borderColor':'#bbb','cursor':'default','color':'white'});
+        btn.style.background = '#bbb';
+        btn.style.borderColor = '#bbb';
+        btn.style.cursor = 'default';
+        btn.style.color = 'white';
     }
 }
 //]]>
@@ -45,7 +52,7 @@ function changeSubmitStatus(obj) {
 </form>
 <script type="text/javascript">
 //<![CDATA[
-    changeSubmitStatus($('agree'));
+    changeSubmitStatus(document.getElementById('agree'));
 //]]>
 </script>
 <?php endif ?>

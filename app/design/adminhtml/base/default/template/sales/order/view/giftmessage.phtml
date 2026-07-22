@@ -13,8 +13,9 @@
 <div id="<?php echo $this->getHtmlId() ?>" class="box-left giftmessage-whole-order-container">
     <div class="entry-edit">
         <div><?php echo Mage::helper('sales')->__('Gift Message for the Entire Order') ?></div><br />
-        <form id="<?php echo $this->getFieldId('form') ?>" action="<?php echo $this->getSaveUrl() ?>">
+        <form id="<?php echo $this->getFieldId('form') ?>" action="<?php echo $this->getSaveUrl() ?>" method="post">
           <fieldset>
+              <?php echo $this->getBlockHtml('formkey') ?>
               <input type="hidden" id="<?php echo $this->getFieldId('type') ?>" name="<?php echo $this->getFieldName('type') ?>" value="order" />
               <table width="100%" cellspacing="0">
                 <tbody>

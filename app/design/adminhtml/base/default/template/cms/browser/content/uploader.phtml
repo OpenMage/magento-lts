@@ -8,6 +8,8 @@
 ?>
 <script type="text/javascript">
 //<![CDATA[
-    document.on('uploader:success', MediabrowserInstance.handleUploadComplete.bind(MediabrowserInstance));
+    document.addEventListener('uploader:success', function(event) {
+        MediabrowserInstance.handleUploadComplete(event.detail.files);
+    });
 //]]>
 </script>

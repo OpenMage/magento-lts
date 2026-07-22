@@ -84,7 +84,7 @@ abstract class Mage_Usa_Block_Adminhtml_System_Config_Form_Field_Usps_AbstractTe
         return $html . <<<JAVASCRIPT
 <script type="text/javascript">
 //<![CDATA[
-document.observe('dom:loaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     var button = document.getElementById('{$buttonId}');
     if (button) {
         button.onclick = function() {
@@ -114,28 +114,30 @@ document.observe('dom:loaded', function() {
             resultDiv.innerHTML = '<span style="color:gray;">{$loadingText}</span>';
             button.disabled = true;
 
-            new Ajax.Request(url, {
-                parameters: {
+            fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: new URLSearchParams({
                     client_id: clientId,
                     client_secret: clientSecret,
                     environment: environment,
                     website: website,
                     store: store,
                     form_key: FORM_KEY
-                },
-                onSuccess: function(response) {
-                    button.disabled = false;
-                    try {
-                        var result = JSON.parse(response.responseText);
-                        {$onSuccessJs}
-                    } catch(e) {
-                        resultDiv.innerHTML = '<span style="color:red;">Error: ' + e.message + '</span>';
-                    }
-                },
-                onFailure: function() {
-                    button.disabled = false;
-                    resultDiv.innerHTML = '<span style="color:red;">{$failureText}</span>';
+                }).toString()
+            }).then(function(response) {
+                return response.text();
+            }).then(function(responseText) {
+                button.disabled = false;
+                try {
+                    var result = JSON.parse(responseText);
+                    {$onSuccessJs}
+                } catch(e) {
+                    resultDiv.innerHTML = '<span style="color:red;">Error: ' + e.message + '</span>';
                 }
+            }).catch(function() {
+                button.disabled = false;
+                resultDiv.innerHTML = '<span style="color:red;">{$failureText}</span>';
             });
         };
     }

@@ -17,20 +17,20 @@
 //<![CDATA[
     var messagePopupClosed = false;
     function openMessagePopup() {
-        var height = $('html-body').getHeight();
-        $('message-popup-window-mask').setStyle({'height':height+'px'});
-        Element.show('message-popup-window-mask');
-        $('message-popup-window').addClassName('show');
+        var height = document.getElementById('html-body').offsetHeight;
+        document.getElementById('message-popup-window-mask').style.height = height+'px';
+        document.getElementById('message-popup-window-mask').style.display = '';
+        document.getElementById('message-popup-window').classList.add('show');
     }
 
     function closeMessagePopup() {
-        Element.hide('message-popup-window-mask');
-        $('message-popup-window').removeClassName('show');
+        document.getElementById('message-popup-window-mask').style.display = 'none';
+        document.getElementById('message-popup-window').classList.remove('show');
         messagePopupClosed = true;
     }
 
-    Event.observe(window, 'load', openMessagePopup);
-    Event.observe(window, 'keyup', function(evt) {
+    window.addEventListener('load', openMessagePopup);
+    window.addEventListener('keyup', function(evt) {
         if(messagePopupClosed) return;
         var code;
         if (evt.keyCode) code = evt.keyCode;

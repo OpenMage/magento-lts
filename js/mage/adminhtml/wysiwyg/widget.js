@@ -18,19 +18,36 @@ var widgetTools = {
         return '<div id="' + id + '">' + html + '</div>';
     },
 
+    // insertAdjacentHTML/innerHTML do not execute <script> tags. Re-create them
+    // so inline init scripts (e.g. WysiwygWidget.chooser) run after AJAX insert.
+    evalScripts: function(container) {
+        if (!container) return;
+        Array.from(container.querySelectorAll('script')).forEach(function(script) {
+            var newScript = document.createElement('script');
+            if (script.src) {
+                newScript.src = script.src;
+            } else {
+                newScript.textContent = script.textContent;
+            }
+            document.head.appendChild(newScript).parentNode.removeChild(newScript);
+        });
+    },
+
     onAjaxSuccess: function(transport) {
-        if (transport.responseText.isJSON()) {
-            var response = transport.responseText.evalJSON();
+        try {
+            var response = JSON.parse(transport.responseText);
             if (response.error) {
                 throw response;
             } else if (response.ajaxExpired && response.ajaxRedirect) {
                 setLocation(response.ajaxRedirect);
             }
+        } catch(e) {
+            if (e.error) throw e;
         }
     },
 
     openDialog: function(widgetUrl) {
-        if ($('widget_window') && typeof(Windows) != 'undefined') {
+        if (document.getElementById('widget_window') && typeof(Windows) != 'undefined') {
             Windows.focus('widget_window');
             return;
         }
@@ -51,7 +68,15 @@ var widgetTools = {
             id:'widget_window',
             onClose: this.closeDialog.bind(this)
         });
-        new Ajax.Updater('modal_dialog_message', widgetUrl, {evalScripts: true});
+        fetch(widgetUrl, {headers: {'X-Requested-With': 'XMLHttpRequest'}})
+            .then(function(resp) { return resp.text(); })
+            .then(function(text) {
+                var container = document.getElementById('modal_dialog_message');
+                if (container) {
+                    container.innerHTML = text;
+                    widgetTools.evalScripts(container);
+                }
+            });
     },
     closeDialog: function(window) {
         if (!window) {
@@ -64,32 +89,34 @@ var widgetTools = {
 };
 
 var WysiwygWidget = {};
-WysiwygWidget.Widget = Class.create();
+WysiwygWidget.Widget = function() {
+    if (this.initialize) this.initialize.apply(this, arguments);
+};
 WysiwygWidget.Widget.prototype = {
 
     initialize: function(formEl, widgetEl, widgetOptionsEl, optionsSourceUrl, widgetTargetId) {
-        $(formEl).insert({bottom: widgetTools.getDivHtml(widgetOptionsEl)});
+        document.getElementById(formEl).insertAdjacentHTML('beforeend', widgetTools.getDivHtml(widgetOptionsEl));
         this.formEl = formEl;
-        this.widgetEl = $(widgetEl);
-        this.widgetOptionsEl = $(widgetOptionsEl);
+        this.widgetEl = document.getElementById(widgetEl);
+        this.widgetOptionsEl = document.getElementById(widgetOptionsEl);
         this.optionsUrl = optionsSourceUrl;
-        this.optionValues = new Hash({});
+        this.optionValues = {};
         this.widgetTargetId = widgetTargetId;
         if (typeof(tinyMCE) != "undefined" && tinyMCE.activeEditor) {
             this.bMark = tinyMCE.activeEditor.selection.getBookmark();
         }
 
-        Event.observe(this.widgetEl, "change", this.loadOptions.bind(this));
+        this.widgetEl.addEventListener("change", this.loadOptions.bind(this));
 
         this.initOptionValues();
     },
 
     getOptionsContainerId: function() {
-        return this.widgetOptionsEl.id + '_' + this.widgetEl.value.gsub(/\//, '_');
+        return this.widgetOptionsEl.id + '_' + this.widgetEl.value.replace(/\//g, '_');
     },
 
     switchOptionsContainer: function(containerId) {
-        $$('#' + this.widgetOptionsEl.id + ' div[id^=' + this.widgetOptionsEl.id + ']').each(function(e) {
+        Array.from(document.querySelectorAll('#' + this.widgetOptionsEl.id + ' div[id^="' + this.widgetOptionsEl.id + '"]')).forEach(function(e) {
             this.disableOptionsContainer(e.id);
         }.bind(this));
         if(containerId != undefined) {
@@ -99,32 +126,31 @@ WysiwygWidget.Widget.prototype = {
     },
 
     enableOptionsContainer: function(containerId) {
-        $$('#' + containerId + ' .widget-option').each(function(e) {
-            e.removeClassName('skip-submit');
-            if (e.hasClassName('obligatory')) {
-                e.removeClassName('obligatory');
-                e.addClassName('required-entry');
+        Array.from(document.querySelectorAll('#' + containerId + ' .widget-option')).forEach(function(e) {
+            e.classList.remove('skip-submit');
+            if (e.classList.contains('obligatory')) {
+                e.classList.remove('obligatory');
+                e.classList.add('required-entry');
             }
         });
-        $(containerId).removeClassName('no-display');
+        document.getElementById(containerId).classList.remove('no-display');
     },
 
     disableOptionsContainer: function(containerId) {
-        if ($(containerId).hasClassName('no-display')) {
+        var container = document.getElementById(containerId);
+        if (container.classList.contains('no-display')) {
             return;
         }
-        $$('#' + containerId + ' .widget-option').each(function(e) {
-            // Avoid submitting fields of unactive container
-            if (!e.hasClassName('skip-submit')) {
-                e.addClassName('skip-submit');
+        Array.from(document.querySelectorAll('#' + containerId + ' .widget-option')).forEach(function(e) {
+            if (!e.classList.contains('skip-submit')) {
+                e.classList.add('skip-submit');
             }
-            // Form validation workaround for unactive container
-            if (e.hasClassName('required-entry')) {
-                e.removeClassName('required-entry');
-                e.addClassName('obligatory');
+            if (e.classList.contains('required-entry')) {
+                e.classList.remove('required-entry');
+                e.classList.add('obligatory');
             }
         });
-        $(containerId).addClassName('no-display');
+        container.classList.add('no-display');
     },
 
     // Assign widget options values when existing widget selected in WYSIWYG
@@ -138,14 +164,15 @@ WysiwygWidget.Widget.prototype = {
         if (e != undefined && e.id) {
             var widgetCode = Base64.idDecode(e.id);
             if (widgetCode.indexOf('{{widget') != -1) {
-                this.optionValues = new Hash({});
-                widgetCode.gsub(/([a-z0-9\_]+)\s*\=\s*[\"]{1}([^\"]+)[\"]{1}/i, function(match){
-                    if (match[1] == 'type') {
-                        this.widgetEl.value = match[2];
+                this.optionValues = {};
+                var self = this;
+                widgetCode.replace(/([a-z0-9_]+)\s*=\s*"([^"]+)"/gi, function(match, key, val) {
+                    if (key == 'type') {
+                        self.widgetEl.value = val;
                     } else {
-                        this.optionValues.set(match[1], match[2]);
+                        self.optionValues[key] = val;
                     }
-                }.bind(this));
+                });
 
                 this.loadOptions();
             }
@@ -159,7 +186,7 @@ WysiwygWidget.Widget.prototype = {
         }
 
         var optionsContainerId = this.getOptionsContainerId();
-        if ($(optionsContainerId) != undefined) {
+        if (document.getElementById(optionsContainerId) !== null) {
             this.switchOptionsContainer(optionsContainerId);
             return;
         }
@@ -167,32 +194,40 @@ WysiwygWidget.Widget.prototype = {
         this._showWidgetDescription();
 
         var params = {widget_type: this.widgetEl.value, values: this.optionValues};
-        new Ajax.Request(this.optionsUrl,
-            {
-                parameters: {widget: Object.toJSON(params)},
-                onSuccess: function(transport) {
-                    try {
-                        widgetTools.onAjaxSuccess(transport);
-                        this.switchOptionsContainer();
-                        if ($(optionsContainerId) == undefined) {
-                            this.widgetOptionsEl.insert({bottom: widgetTools.getDivHtml(optionsContainerId, transport.responseText)});
-                        } else {
-                            this.switchOptionsContainer(optionsContainerId);
-                        }
-                    } catch(e) {
-                        alert(e.message);
-                    }
-                }.bind(this)
+        var self = this;
+        var body = new URLSearchParams({widget: JSON.stringify(params)});
+        body.append('isAjax', 'true');
+        if (window.FORM_KEY) { body.append('form_key', window.FORM_KEY); }
+        fetch(this.optionsUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+            body: body.toString()
+        })
+        .then(function(resp) { return resp.text(); })
+        .then(function(text) {
+            try {
+                widgetTools.onAjaxSuccess({responseText: text});
+                self.switchOptionsContainer();
+                if (document.getElementById(optionsContainerId) === null) {
+                    var optionsContainer = document.createElement('div');
+                    optionsContainer.id = optionsContainerId;
+                    optionsContainer.innerHTML = text;
+                    self.widgetOptionsEl.appendChild(optionsContainer);
+                    widgetTools.evalScripts(optionsContainer);
+                } else {
+                    self.switchOptionsContainer(optionsContainerId);
+                }
+            } catch(e) {
+                alert(e.message);
             }
-        );
+        });
     },
 
     _showWidgetDescription: function() {
-        var noteCnt = this.widgetEl.next().down('small');
-        var descrCnt = $('widget-description-' + this.widgetEl.selectedIndex);
-        if(noteCnt != undefined) {
-            var description = (descrCnt != undefined ? descrCnt.innerHTML : '');
-            noteCnt.update(descrCnt.innerHTML);
+        var noteCnt = this.widgetEl.nextElementSibling ? this.widgetEl.nextElementSibling.querySelector('small') : null;
+        var descrCnt = document.getElementById('widget-description-' + this.widgetEl.selectedIndex);
+        if (noteCnt !== null) {
+            noteCnt.innerHTML = descrCnt ? descrCnt.innerHTML : '';
         }
     },
 
@@ -201,39 +236,56 @@ WysiwygWidget.Widget.prototype = {
         if(widgetOptionsForm.validator && widgetOptionsForm.validator.validate() || !widgetOptionsForm.validator){
             var formElements = [];
             var i = 0;
-            Form.getElements($(this.formEl)).each(function(e) {
-                if(!e.hasClassName('skip-submit')) {
+            document.getElementById(this.formEl).querySelectorAll('input, select, textarea, button').forEach(function(e) {
+                if (!e.classList.contains('skip-submit')) {
                     formElements[i] = e;
                     i++;
                 }
             });
 
             // Add as_is flag to parameters if wysiwyg editor doesn't exist
-            var params = Form.serializeElements(formElements);
+            var params = new URLSearchParams();
+            formElements.forEach(function(el) {
+                if (!el.name || el.disabled) return;
+                var tag = el.tagName.toLowerCase();
+                if (el.type === 'checkbox' || el.type === 'radio') {
+                    if (el.checked) params.append(el.name, el.value);
+                } else if (tag === 'select' && el.multiple) {
+                    Array.from(el.options).forEach(function(o) { if (o.selected) params.append(el.name, o.value); });
+                } else if (el.type !== 'button' && el.type !== 'submit') {
+                    params.append(el.name, el.value);
+                }
+            });
+            params.append('isAjax', 'true');
+            if (window.FORM_KEY) { params.append('form_key', window.FORM_KEY); }
+            var paramsStr = params.toString();
             if (!this.wysiwygExists()) {
-                params = params + '&as_is=1';
+                paramsStr = paramsStr + '&as_is=1';
             }
 
-            new Ajax.Request($(this.formEl).action,
-            {
-                parameters: params,
-                onComplete: function(transport) {
-                    try {
-                        widgetTools.onAjaxSuccess(transport);
-                        Windows.close("widget_window");
+            var self = this;
+            fetch(document.getElementById(this.formEl).action, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: paramsStr
+            })
+            .then(function(resp) { return resp.text(); })
+            .then(function(text) {
+                try {
+                    widgetTools.onAjaxSuccess({responseText: text});
+                    Windows.close("widget_window");
 
-                        if (typeof(tinyMCE) != "undefined" && tinyMCE.activeEditor) {
-                            tinyMCE.activeEditor.focus();
-                            if (this.bMark) {
-                                tinyMCE.activeEditor.selection.moveToBookmark(this.bMark);
-                            }
+                    if (typeof(tinyMCE) != "undefined" && tinyMCE.activeEditor) {
+                        tinyMCE.activeEditor.focus();
+                        if (self.bMark) {
+                            tinyMCE.activeEditor.selection.moveToBookmark(self.bMark);
                         }
-
-                        this.updateContent(transport.responseText);
-                    } catch(e) {
-                        alert(e.message);
                     }
-                }.bind(this)
+
+                    self.updateContent(text);
+                } catch(e) {
+                    alert(e.message);
+                }
             });
         }
     },
@@ -261,7 +313,9 @@ WysiwygWidget.Widget.prototype = {
     }
 };
 
-WysiwygWidget.chooser = Class.create();
+WysiwygWidget.chooser = function() {
+    if (this.initialize) this.initialize.apply(this, arguments);
+};
 WysiwygWidget.chooser.prototype = {
 
     // HTML element A, on which click event fired when choose a selection
@@ -293,23 +347,23 @@ WysiwygWidget.chooser.prototype = {
     },
 
     getChooserControl: function() {
-        return $(this.chooserId + 'control');
+        return document.getElementById(this.chooserId + 'control');
     },
 
     getElement: function() {
-        return $(this.chooserId + 'value');
+        return document.getElementById(this.chooserId + 'value');
     },
 
     getElementLabel: function() {
-        return $(this.chooserId + 'label');
+        return document.getElementById(this.chooserId + 'label');
     },
 
     open: function() {
-        $(this.getResponseContainerId()).show();
+        document.getElementById(this.getResponseContainerId()).style.display = '';
     },
 
     close: function() {
-        $(this.getResponseContainerId()).hide();
+        document.getElementById(this.getResponseContainerId()).style.display = 'none';
         this.closeDialogWindow();
     },
 
@@ -323,20 +377,25 @@ WysiwygWidget.chooser.prototype = {
         var responseContainerId = this.getResponseContainerId();
 
         // Otherwise load content from server
-        new Ajax.Request(this.chooserUrl,
-            {
-                parameters: {element_value: this.getElementValue(), element_label: this.getElementLabelText()},
-                onSuccess: function(transport) {
-                    try {
-                        widgetTools.onAjaxSuccess(transport);
-                        this.dialogContent = widgetTools.getDivHtml(responseContainerId, transport.responseText);
-                        this.openDialogWindow(this.dialogContent);
-                    } catch(e) {
-                        alert(e.message);
-                    }
-                }.bind(this)
+        var self = this;
+        var body = new URLSearchParams({element_value: this.getElementValue(), element_label: this.getElementLabelText()});
+        body.append('isAjax', 'true');
+        if (window.FORM_KEY) { body.append('form_key', window.FORM_KEY); }
+        fetch(this.chooserUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+            body: body.toString()
+        })
+        .then(function(resp) { return resp.text(); })
+        .then(function(text) {
+            try {
+                widgetTools.onAjaxSuccess({responseText: text});
+                self.dialogContent = widgetTools.getDivHtml(responseContainerId, text);
+                self.openDialogWindow(self.dialogContent);
+            } catch(e) {
+                alert(e.message);
             }
-        );
+        });
     },
 
     openDialogWindow: function(content) {
@@ -361,7 +420,11 @@ WysiwygWidget.chooser.prototype = {
             id:"widget-chooser",
             onClose: this.closeDialogWindow.bind(this)
         });
-        content.evalScripts.bind(content).defer();
+        var self = this;
+        setTimeout(function() {
+            var el = document.getElementById(self.getResponseContainerId());
+            if (el) { widgetTools.evalScripts(el); }
+        }, 0);
     },
 
     closeDialogWindow: function(dialogWindow) {

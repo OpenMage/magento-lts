@@ -37,12 +37,13 @@ var firstStepTemplate = '<div class="option-box" id="option_{{id}}">'+
             '</tr></table></div>';
 
 var productOption = {
-    div : $('product_options_container_top'),
+    div : document.getElementById('product_options_container_top'),
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : firstStepTemplate,
     itemCount : 1,
     add : function(data) {
-        this.template = new Template(this.templateText, this.templateSyntax);
+        var _tplText = this.templateText, _syntax = this.templateSyntax;
+        this.template = { evaluate: function(obj) { return _tplText.replace(new RegExp(_syntax.source, 'g'), function(m, p1, p2, p3) { return p1 + (obj[p3] !== undefined ? obj[p3] : ''); }); } };
 
         if(!data.id){
             data = {};
@@ -53,26 +54,26 @@ var productOption = {
             this.itemCount = data.item_count;
         }
 
-        Element.insert(this.div, {'after':this.template.evaluate(data)});
+        this.div.insertAdjacentHTML('afterend', this.template.evaluate(data));
 
         //set selected type
         if (data.type) {
-            $A($('<?php echo $this->getFieldId() ?>_'+data.id+'_type').options).each(function(option){
+            Array.from(document.getElementById('<?php echo $this->getFieldId() ?>_'+data.id+'_type').options).forEach(function(option){
                 if (option.value==data.type) option.selected = true;
             });
         }
 
         //set selected is_require
         if (data.hasOwnProperty('is_require')) {
-            $A($('<?php echo $this->getFieldId() ?>_'+data.id+'_is_require').options).each(function(option){
+            Array.from(document.getElementById('<?php echo $this->getFieldId() ?>_'+data.id+'_is_require').options).forEach(function(option){
                 if (option.value==data.is_require) option.selected = true;
             });
         }
 
         if (data.checkboxScopeTitle) {
             //set disabled
-            if ($('<?php echo $this->getFieldId() ?>_'+data.option_id+'_title') && data.scopeTitleDisabled) {
-                $('<?php echo $this->getFieldId() ?>_'+data.option_id+'_title').disable();
+            if (document.getElementById('<?php echo $this->getFieldId() ?>_'+data.option_id+'_title') && data.scopeTitleDisabled) {
+                document.getElementById('<?php echo $this->getFieldId() ?>_'+data.option_id+'_title').disabled = true;
             }
         }
 
@@ -81,34 +82,34 @@ var productOption = {
         productOptionType.bindSelectInputType();
     },
     remove : function(event){
-        var element = $(Event.findElement(event, 'div'));
+        var element = event.target.closest('div');
         if(element){
-            $('product_'+element.readAttribute('id')+'_'+'is_delete').value = '1';
-            element.addClassName('no-display');
-            element.addClassName('ignore-validate');
-            element.hide();
+            document.getElementById('product_'+element.getAttribute('id')+'_'+'is_delete').value = '1';
+            element.classList.add('no-display');
+            element.classList.add('ignore-validate');
+            element.style.display = 'none';
         }
     },
     bindRemoveButtons : function(){
-        var buttons = $$('div.product-custom-options .delete-product-option');
+        var buttons = document.querySelectorAll('div.product-custom-options .delete-product-option');
         for(var i=0;i<buttons.length;i++){
-            if(!$(buttons[i]).binded){
-                $(buttons[i]).binded = true;
-                Event.observe(buttons[i], 'click', this.remove.bind(this));
+            if(!buttons[i].binded){
+                buttons[i].binded = true;
+                buttons[i].addEventListener('click', this.remove.bind(this));
             }
         }
-        var inputs = $$('div.product-custom-options button', 'div.product-custom-options input', 'div.product-custom-options select', 'div.product-custom-options textarea');
+        var inputs = document.querySelectorAll('div.product-custom-options button, div.product-custom-options input, div.product-custom-options select, div.product-custom-options textarea');
         <?php if ($this->isReadonly()):?>
         for (var i=0, l = inputs.length; i < l; i ++) {
             inputs[i].disabled = true;
             if (inputs[i].tagName.toLowerCase()=='button') {
-                inputs[i].addClassName('disabled');
+                inputs[i].classList.add('disabled');
             }
         }
         <?php else: ?>
-            inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
-            var inputs = $$('div.product-custom-options button');
-            inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  } )
+            inputs.forEach(function(el) { el.addEventListener('change', el.setHasChanges.bind(el));  } )
+            var inputs = document.querySelectorAll('div.product-custom-options button');
+            inputs.forEach(function(el) { el.addEventListener('click', el.setHasChanges.bind(el));  } )
         <?php endif ?>
     }
 }
@@ -117,12 +118,12 @@ var productOption = {
 var productOptionType = {
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     loadStepTwo : function(event){
-        var element = $(Event.findElement(event, 'select'));
+        var element = event.target.closest('select');
 
         var group = '';
-        var previousGroupElm = $(element.readAttribute('id').sub('_type', '_previous_group'));
+        var previousGroupElm = document.getElementById(element.getAttribute('id').replace('_type', '_previous_group'));
 
-        switch(element.getValue()){
+        switch(element.value){
             case 'field':
             case 'area':
                 template = OptionTemplateText;
@@ -151,44 +152,47 @@ var productOptionType = {
                 break;
         }
 
-        if (previousGroupElm.getValue() != group) {
-            if ($(element.readAttribute('id')+'_'+previousGroupElm.getValue())) {
-                formElm = $(element.readAttribute('id')+'_'+previousGroupElm.getValue()).descendants();
-                formElm.each(function(elm){
-                    if (elm.tagName == 'input' || elm.tagName == 'select') {
-                        elm.name = '__delete__'+elm.readAttribute('name');
+        if (previousGroupElm.value != group) {
+            var elId = element.getAttribute('id');
+            if (document.getElementById(elId+'_'+previousGroupElm.value)) {
+                var prevGroupEl = document.getElementById(elId+'_'+previousGroupElm.value);
+                Array.from(prevGroupEl.querySelectorAll('*')).forEach(function(elm){
+                    if (elm.tagName.toLowerCase() == 'input' || elm.tagName.toLowerCase() == 'select') {
+                        elm.name = '__delete__'+elm.getAttribute('name');
                     }
                 });
 
-                $(element.readAttribute('id')+'_'+previousGroupElm.getValue()).addClassName('no-display');
-                $(element.readAttribute('id')+'_'+previousGroupElm.getValue()).addClassName('ignore-validate');
-                $(element.readAttribute('id')+'_'+previousGroupElm.getValue()).hide();
+                prevGroupEl.classList.add('no-display');
+                prevGroupEl.classList.add('ignore-validate');
+                prevGroupEl.style.display = 'none';
             }
 
             previousGroupElm.value = group;
 
-            if ($(element.readAttribute('id')+'_'+group)) {
-                formElm = $(element.readAttribute('id')+'_'+group).descendants();
-                formElm.each(function(elm){
-                    if (elm.match('input') || elm.match('select')) {
-                        elm.name = elm.readAttribute('name').sub('__delete__', '');
+            if (document.getElementById(elId+'_'+group)) {
+                var groupEl = document.getElementById(elId+'_'+group);
+                Array.from(groupEl.querySelectorAll('*')).forEach(function(elm){
+                    if (elm.tagName.toLowerCase() == 'input' || elm.tagName.toLowerCase() == 'select') {
+                        elm.name = elm.getAttribute('name').replace('__delete__', '');
                     }
                 });
-                $(element.readAttribute('id')+'_'+group).removeClassName('no-display');
-                $(element.readAttribute('id')+'_'+group).removeClassName('ignore-validate');
-                $(element.readAttribute('id')+'_'+group).show();
+                groupEl.classList.remove('no-display');
+                groupEl.classList.remove('ignore-validate');
+                groupEl.style.display = '';
 
             } else {
-                template = '<div id="'+element.readAttribute('id')+'_'+group+'" class="grid tier form-list">'+template+'</div><div id="'+element.readAttribute('id')+'_'+group+'_advice"></div>';
-                this.secondTemplate = new Template(template, this.templateSyntax);
+                template = '<div id="'+elId+'_'+group+'" class="grid tier form-list">'+template+'</div><div id="'+elId+'_'+group+'_advice"></div>';
+                var _syntax2 = this.templateSyntax;
+                this.secondTemplate = { evaluate: function(obj) { return template.replace(new RegExp(_syntax2.source, 'g'), function(m, p1, p2, p3) { return p1 + (obj[p3] !== undefined ? obj[p3] : ''); }); } };
 
                 data = {};
                 if (!data.option_id) {
                     data = {};
-                    data.option_id = $(element.readAttribute('id').sub('_type', '_id')).getValue();
+                    data.option_id = document.getElementById(elId.replace('_type', '_id')).value;
                 }
 
-                Element.insert(element.readAttribute('id').sub('_type', ''), {'after':this.secondTemplate.evaluate(data)});
+                var insertTarget = document.getElementById(elId.replace('_type', ''));
+                insertTarget.insertAdjacentHTML('afterend', this.secondTemplate.evaluate(data));
 
                 switch(element.getValue()){
                     case 'drop_down':
@@ -228,19 +232,21 @@ var productOptionType = {
                 break;
         }
 
-        $('<?php echo $this->getFieldId() ?>_'+data.id+'_previous_group').value = group;
+        document.getElementById('<?php echo $this->getFieldId() ?>_'+data.id+'_previous_group').value = group;
 
         template = '<div id="<?php echo $this->getFieldId() ?>_{{id}}_type_'+group+'" class="grid tier form-list">'+template+'</div><div id="<?php echo $this->getFieldId() ?>_{{id}}_type_'+group+'_advice"></div>';
 
-        this.secondTemplate = new Template(template, this.templateSyntax);
+        var _syntax3 = this.templateSyntax;
+        this.secondTemplate = { evaluate: function(obj) { return template.replace(new RegExp(_syntax3.source, 'g'), function(m, p1, p2, p3) { return p1 + (obj[p3] !== undefined ? obj[p3] : ''); }); } };
 
-        Element.insert($('<?php echo $this->getFieldId() ?>_'+data.option_id), {'after':this.secondTemplate.evaluate(data)});
+        var insertTarget2 = document.getElementById('<?php echo $this->getFieldId() ?>_'+data.option_id);
+        insertTarget2.insertAdjacentHTML('afterend', this.secondTemplate.evaluate(data));
 
         if (data.checkboxScopePrice) {
             //set disabled
-            if ($('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price') && data.scopePriceDisabled) {
-                $('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price').disable();
-                $('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price_type').disable();
+            if (document.getElementById('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price') && data.scopePriceDisabled) {
+                document.getElementById('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price').disabled = true;
+                document.getElementById('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price_type').disabled = true;
             }
         }
 
@@ -249,7 +255,7 @@ var productOptionType = {
             case 'radio':
             case 'checkbox':
             case 'multiple':
-                data.optionValues.each(function(value) {
+                data.optionValues.forEach(function(value) {
                     selectOptionType.add(value);
                 });
                 selectOptionType.bindAddButton();
@@ -257,18 +263,18 @@ var productOptionType = {
         }
 
         if (data.price_type) {
-            $A($('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price_type').options).each(function(option){
+            Array.from(document.getElementById('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price_type').options).forEach(function(option){
                 if (option.value==data.price_type) option.selected = true;
             });
         }
 
     },
     bindSelectInputType : function(){
-        var types = $$('.select-product-option-type');
+        var types = document.querySelectorAll('.select-product-option-type');
         for(var i=0;i<types.length;i++){
-            if(!$(types[i]).binded){
-                $(types[i]).binded = true;
-                Event.observe(types[i], 'change', function(event){
+            if(!types[i].binded){
+                types[i].binded = true;
+                types[i].addEventListener('change', function(event){
                     productOptionType.loadStepTwo(event);
                 });
             }
@@ -278,44 +284,44 @@ var productOptionType = {
 
 var productOptionScope = {
     addScope : function(event){
-        var element = $(Event.element(event));
-        fieldToDisable = $(element.readAttribute('id').sub('_use_default', ''));
+        var element = event.target;
+        fieldToDisable = document.getElementById(element.getAttribute('id').replace('_use_default', ''));
 
         if (fieldToDisable.disabled) {
-            if (fieldToDisable.hasClassName('product-option-price')) {//need change to cheking value of element
-                $(fieldToDisable.readAttribute('id')+'_type').enable();
+            if (fieldToDisable.classList.contains('product-option-price')) {//need change to cheking value of element
+                document.getElementById(fieldToDisable.getAttribute('id')+'_type').disabled = false;
             }
-            fieldToDisable.enable();
+            fieldToDisable.disabled = false;
         } else {
-            if (fieldToDisable.hasClassName('product-option-price')) {//need change to cheking value of element
-                $(fieldToDisable.readAttribute('id')+'_type').disable();
+            if (fieldToDisable.classList.contains('product-option-price')) {//need change to cheking value of element
+                document.getElementById(fieldToDisable.getAttribute('id')+'_type').disabled = true;
             }
-            fieldToDisable.disable();
+            fieldToDisable.disabled = true;
         }
     },
     bindScopeCheckbox : function(){
-        var checkboxes = $$('.product-option-scope-checkbox');
+        var checkboxes = document.querySelectorAll('.product-option-scope-checkbox');
         for (var i=0;i<checkboxes.length;i++) {
-            if (!$(checkboxes[i]).binded) {
-                $(checkboxes[i]).binded = true;
-                Event.observe(checkboxes[i], 'click', this.addScope.bind(this));
+            if (!checkboxes[i].binded) {
+                checkboxes[i].binded = true;
+                checkboxes[i].addEventListener('click', this.addScope.bind(this));
             }
         }
     }
 }
 
-if($('option_panel')){
-    $('option_panel').remove();
+if(document.getElementById('option_panel')){
+    document.getElementById('option_panel').remove();
 }
 
-if($('<?php echo $this->getAddButtonId() ?>')){
-    Event.observe('<?php echo $this->getAddButtonId() ?>', 'click', productOption.add.bind(productOption));
+if(document.getElementById('<?php echo $this->getAddButtonId() ?>')){
+    document.getElementById('<?php echo $this->getAddButtonId() ?>').addEventListener('click', productOption.add.bind(productOption));
 }
 
 //validation for selected input type
 Validation.addAllThese([
     ['required-option-select', <?php echo $this->helper('core')->jsonEncode(Mage::helper('catalog')->__('Select type of option')) ?>, function(v, elm) {
-        if (elm.getValue() == '') {
+        if (elm.value == '') {
             return false;
         }
         return true;

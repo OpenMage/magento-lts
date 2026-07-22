@@ -80,7 +80,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                 if ($this->getForceLoad()) {
                     $forceLoad = $jsSetupObject . '.setup("exact");';
                 } else {
-                    $forceLoad = 'Event.observe(window, "load", '
+                    $forceLoad = 'window.addEventListener("load", '
                                 . $jsSetupObject . '.setup.bind(' . $jsSetupObject . ', "exact"));';
                 }
             }
@@ -101,7 +101,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                     . Zend_Json::encode($this->getConfig()) . ');'
                     . $forceLoad . '
                     editorFormValidationHandler = ' . $jsSetupObject . '.onFormValidation.bind(' . $jsSetupObject . ');
-                    Event.observe("toggle' . $this->getHtmlId() . '", "click", '
+                    document.getElementById("toggle' . $this->getHtmlId() . '").addEventListener("click", '
                         . $jsSetupObject . '.toggle.bind(' . $jsSetupObject . '));
                     varienGlobalEvents.attachEventHandler("formSubmit", editorFormValidationHandler);
                     varienGlobalEvents.attachEventHandler("tinymceBeforeSetContent", '
