@@ -529,8 +529,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @param  string $value
      * @return string
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(message: 'after 1.4.2.0')]
     public function processSubst($value)
     {
         if (!is_string($value)) {
@@ -599,7 +599,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if (!isset($this->_baseUrlCache[$cacheKey])) {
             switch ($type) {
                 case self::URL_TYPE_WEB:
-                    $secure = is_null($secure) ? $this->isCurrentlySecure() : (bool) $secure;
+                    $secure = is_null($secure) ? Mage::app()->isCurrentlySecure() : (bool) $secure;
                     $url = $this->getConfig('web/' . ($secure ? 'secure' : 'unsecure') . '/base_url');
                     break;
 
@@ -618,7 +618,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
                 case self::URL_TYPE_SKIN:
                 case self::URL_TYPE_JS:
-                    $secure = is_null($secure) ? $this->isCurrentlySecure() : (bool) $secure;
+                    $secure = is_null($secure) ? Mage::app()->isCurrentlySecure() : (bool) $secure;
                     $url = $this->getConfig('web/' . ($secure ? 'secure' : 'unsecure') . '/base_' . $type . '_url');
                     break;
 
@@ -681,7 +681,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     protected function _updateMediaPathUseRewrites($secure = null, $type = self::URL_TYPE_MEDIA)
     {
-        $secure = is_null($secure) ? $this->isCurrentlySecure() : (bool) $secure;
+        $secure = is_null($secure) ? Mage::app()->isCurrentlySecure() : (bool) $secure;
         $secureStringFlag = $secure ? 'secure' : 'unsecure';
         $url = $this->getConfig('web/' . $secureStringFlag . '/base_' . $type . '_url');
         if (!$this->getConfig(self::XML_PATH_USE_REWRITES)
@@ -777,8 +777,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Check if request was secure
      *
      * @return bool
-     * @deprecated
      */
+    #[Deprecated]
     public function isCurrentlySecure()
     {
         return Mage::app()->isCurrentlySecure();
@@ -1157,7 +1157,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             ltrim(Mage::app()->getRequest()->getRequestString(), '/'),
         );
 
-        $storeUrl = Mage::app()->getStore()->isCurrentlySecure()
+        $storeUrl = Mage::app()->isCurrentlySecure()
             ? $this->getUrl('', ['_secure' => true])
             : $this->getUrl('');
         // phpcs:ignore Ecg.Security.ForbiddenFunction.Found

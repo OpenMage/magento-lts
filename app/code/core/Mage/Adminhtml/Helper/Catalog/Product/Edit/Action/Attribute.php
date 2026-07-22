@@ -61,7 +61,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Return array of selected product ids from post or session
      *
-     * @return null|array|string
+     * @return null|list<int|string>|string
      */
     public function getProductIds()
     {
@@ -135,8 +135,8 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
      * Return product ids that not available for selected store
      *
      * @return array<void>
-     * @deprecated since 1.4.1
      */
+    #[Deprecated(message: 'since 1.4.1')]
     public function getProductsNotInStoreIds()
     {
         return [];

@@ -185,13 +185,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_array($mixed)) {
             $arrKeys = array_keys($mixed);
-            $isDigit = false;
-            foreach ($arrKeys as $key) {
-                if (is_int($key)) {
-                    $isDigit = true;
-                    break;
-                }
-            }
+            $isDigit = array_any($arrKeys, fn($key) => is_int($key));
 
             $mixed = $isDigit ? $this->packArrayToObject($mixed) : (object) $mixed;
         }

@@ -128,20 +128,8 @@ moved to catalog attribute model',
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Catalog_Model_Resource_Eav_Attribute:
-moved to catalog attribute model',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method clear() of class Mage_Eav_Model_Config.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Catalog_Model_Resource_Eav_Attribute:
-moved to catalog attribute model',
-    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php',
 ];
 $ignoreErrors[] = [
@@ -205,17 +193,6 @@ since 1.2',
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Update.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method revalidateCookie() of class Mage_Core_Model_Session_Abstract_Varien:
-after 1.4 cookie renew moved to session start method',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Session/Abstract/Varien.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isCurrentlySecure() of class Mage_Core_Model_Store.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Store.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface:
 after 1.5.1.0',
     'count' => 2,
@@ -230,11 +207,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method clear() of class Mage_Eav_Model_Config.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Attribute.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method _afterSetConfig() of class Mage_Eav_Model_Entity_Abstract.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface:
@@ -478,11 +450,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/store/switcher/enhanced.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getSaveUrl() of class Mage_Adminhtml_Block_Tag_Edit.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/tag/edit/container.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
 after 1.3.2.3 Use getAbsoluteGridUrl() method instead',
     'count' => 1,
@@ -560,12 +527,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method format() of class Mage_Catalog_Helper_Product_Url.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Catalog/Helper/Product/UrlTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isSwfDisabled() of class Mage_Cms_Helper_Data:
-since 19.5.0',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Cms/Helper/DataTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getRegionJson() of class Mage_Directory_Helper_Data:

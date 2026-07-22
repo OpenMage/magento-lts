@@ -431,9 +431,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      * Prepare configurable product data
      *
      * @return array
-     * @deprecated since 1.6.1.0
      * @see Mage_Catalog_Model_Resource_Product_Type_Configurable::getConfigurableOptions()
      */
+    #[Deprecated(message: 'since 1.6.1.0')]
     protected function _prepareConfigurableProductData(array $productIds)
     {
         if ($productIds === []) {
@@ -465,9 +465,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      * Prepare configurable product price
      *
      * @return array
-     * @deprecated since 1.6.1.0
      * @see Mage_Catalog_Model_Resource_Product_Type_Configurable::getConfigurableOptions()
      */
+    #[Deprecated(message: 'since 1.6.1.0')]
     protected function _prepareConfigurableProductPrice(array $productIds)
     {
         if ($productIds === []) {
@@ -541,8 +541,8 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      * Export process and return contents of temporary file.
      *
      * @return string
-     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
      */
+    #[Deprecated(message: 'after ver 1.9.2.4 use $this->exportFile() instead')]
     public function export()
     {
         $this->_prepareExport();
