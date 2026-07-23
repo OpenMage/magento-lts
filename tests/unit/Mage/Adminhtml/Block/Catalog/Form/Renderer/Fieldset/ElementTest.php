@@ -30,7 +30,8 @@ final class ElementTest extends OpenMageTest
         bool $expectedResult,
         Mage_Catalog_Model_Resource_Eav_Attribute $attribute,
         Mage_Catalog_Model_Product $dataObject,
-    ): void {
+    ): void
+    {
         $methods = [
             'getAttribute' => $attribute,
             'getDataObject' => $dataObject,
