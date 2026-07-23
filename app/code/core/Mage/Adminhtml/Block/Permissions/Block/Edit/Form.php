@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Permissions_Block_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_block_edit_form';
+
     /**
      * @return $this
      * @throws Exception

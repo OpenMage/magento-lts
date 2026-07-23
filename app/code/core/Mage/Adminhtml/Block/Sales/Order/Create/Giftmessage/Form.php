@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_create_giftmessage_form';
+
     /**
      * Entity for editing of gift message
      *
@@ -156,7 +158,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
         $form->setValues($this->getMessage()->getData());
 
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 
     /**
