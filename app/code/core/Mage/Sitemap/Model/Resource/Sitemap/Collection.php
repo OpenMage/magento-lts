@@ -11,6 +11,7 @@
  * Sitemap resource model collection
  *
  * @package    Mage_Sitemap
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Sitemap_Model_Sitemap>
  */
 class Mage_Sitemap_Model_Resource_Sitemap_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

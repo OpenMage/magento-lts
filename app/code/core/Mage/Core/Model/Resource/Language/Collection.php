@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Core Language Resource collection
  *
  * @package    Mage_Core
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Core_Model_Language>
  */
 class Mage_Core_Model_Resource_Language_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

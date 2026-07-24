@@ -11,6 +11,7 @@
  * API2 global ACL role resource collection model
  *
  * @package    Mage_Api2
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Api2_Model_Acl_Global_Role>
  */
 class Mage_Api2_Model_Resource_Acl_Global_Role_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

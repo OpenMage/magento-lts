@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Convert history collection
  *
  * @package    Mage_Dataflow
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Dataflow_Model_Profile_History>
  */
 class Mage_Dataflow_Model_Resource_Profile_History_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
