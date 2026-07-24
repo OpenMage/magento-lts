@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Templates collection
  *
  * @package    Mage_Core
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Core_Model_Email_Template>
  */
 class Mage_Core_Model_Resource_Email_Template_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

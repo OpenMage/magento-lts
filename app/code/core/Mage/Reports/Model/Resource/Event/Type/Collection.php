@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Report event types collection
  *
  * @package    Mage_Reports
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Reports_Model_Event_Type>
  */
 class Mage_Reports_Model_Resource_Event_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

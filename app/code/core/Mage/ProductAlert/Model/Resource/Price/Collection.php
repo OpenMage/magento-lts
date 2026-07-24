@@ -11,6 +11,7 @@
  * Product alert for changed price collection
  *
  * @package    Mage_ProductAlert
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_ProductAlert_Model_Price>
  */
 class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
