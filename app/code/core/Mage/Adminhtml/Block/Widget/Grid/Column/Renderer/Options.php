@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Admi
             if (is_array($value)) {
                 $res = [];
                 foreach ($value as $item) {
-                    $optionKey = $item === null ? '' : $item;
+                    $optionKey = $item ?? '';
                     if (isset($options[$optionKey])) {
                         $res[] = $this->escapeHtml($options[$optionKey]);
                     } elseif ($showMissingOptionValues) {
@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Admi
                 return implode(', ', $res);
             }
 
-            $optionKey = $value === null ? '' : $value;
+            $optionKey = $value ?? '';
             if (isset($options[$optionKey])) {
                 return $this->escapeHtml($options[$optionKey]);
             }
