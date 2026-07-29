@@ -40,9 +40,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Admi
                 return implode(', ', $res);
             }
 
-            $optionKey = $value ?? '';
-            if (isset($options[$optionKey])) {
-                return $this->escapeHtml($options[$optionKey]);
+            if (!is_null($value) && isset($options[$value])) {
+                return $this->escapeHtml($options[$value]);
             }
 
             if (in_array($value, $options)) {
