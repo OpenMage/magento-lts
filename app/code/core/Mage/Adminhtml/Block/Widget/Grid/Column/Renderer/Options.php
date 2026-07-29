@@ -29,9 +29,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Admi
             if (is_array($value)) {
                 $res = [];
                 foreach ($value as $item) {
-                    $optionKey = $item ?? '';
-                    if (isset($options[$optionKey])) {
-                        $res[] = $this->escapeHtml($options[$optionKey]);
+                    if (!is_null($item) && isset($options[$item])) {
+                        $res[] = $this->escapeHtml($options[$item]);
                     } elseif ($showMissingOptionValues) {
                         $res[] = $this->escapeHtml($item);
                     }
