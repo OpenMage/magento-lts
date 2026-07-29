@@ -93,7 +93,7 @@ try {
             # skip avoid renaming of methods in tests
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
-                __DIR__ . '/errors/report.php'
+                __DIR__ . '/errors/report.php',
             ],
             # skip avoid renaming of methods in tests
             Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
