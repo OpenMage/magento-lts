@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Carbon\Carbon;
-
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -20,7 +18,7 @@ require_once 'processor.php';
 $processor = new Error_Processor();
 
 if (isset($reportData) && is_array($reportData)) {
-    $reportData['time'] = Carbon::now()->format('Y-m-d H:i:s');
+    $reportData['time'] = date('Y-m-d H:i:s');
     $processor->saveReport($reportData);
 }
 
