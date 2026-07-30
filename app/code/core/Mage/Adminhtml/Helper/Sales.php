@@ -102,7 +102,8 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
      * @param  null|string|array<int, string|null> $data
      * @param  null|string[]                       $allowedTags
      * @return null|string|array<int, string|null>
-     * @phpstan-return ($data is array ? array<?string> : ?string)
+     * @phpstan-return ($data is array ? array<?string> : ?string)                 
+     */
     public function escapeHtmlWithLinks($data, $allowedTags = null)
     {
         if (!empty($data) && is_array($allowedTags) && in_array('a', $allowedTags)) {
