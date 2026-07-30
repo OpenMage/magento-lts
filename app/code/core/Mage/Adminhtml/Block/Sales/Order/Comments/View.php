@@ -69,9 +69,9 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
     /**
      * Replace links in string
      *
-     * @param  null|string|array<int, string|null> $data
+     * @param  null|string|string[]                $data
      * @param  null|string[]                       $allowedTags
-     * @return null|string|array<int, string|null>
+     * @return null|array<int, string|null>|string
      * @phpstan-return ($data is array ? array<?string> : ?string)
      */
     #[Override]
