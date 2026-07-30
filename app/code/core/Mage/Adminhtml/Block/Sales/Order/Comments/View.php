@@ -73,6 +73,7 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
      * @param  null|string[]                       $allowedTags
      * @return null|string|array<int, string|null>
      * @phpstan-return ($data is array ? array<?string> : ?string)
+     */
     #[Override]
     public function escapeHtml($data, $allowedTags = null)
     {
