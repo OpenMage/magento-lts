@@ -525,7 +525,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             return false;
         }
 
-        $categoryId = array_shift($rowCategories[$productId]);
+        $categoryId = array_shift($rowCategories[$productId]) ?? '';
         if (isset($this->_rootCategories[$categoryId])) {
             $dataRow[self::COL_ROOT_CATEGORY] = $this->_rootCategories[$categoryId];
         }
@@ -663,7 +663,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     $rowIsEmpty = true; // row is empty by default
 
                     foreach ($validAttrCodes as &$attrCode) { // go through all valid attribute codes
-                        $attrValue = $item->getData($attrCode);
+                        $attrValue = $item->getData($attrCode) ?? '';
 
                         if (!empty($this->_attributeValues[$attrCode])) {
                             if ($this->_attributeTypes[$attrCode] == 'multiselect') {
