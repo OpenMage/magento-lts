@@ -11,3 +11,11 @@ Cypress.Commands.add('adminSaveConfiguration', () => {
     cy.log('Clicking on Save Config button');
     cy.get('.form-buttons button[title="Save Config"]').click({force: true, multiple: true});
 })
+
+Cypress.Commands.add('getBySel', (selector, ...args) => {
+    return cy.get(`[data-test=${selector}]`, ...args)
+})
+
+Cypress.Commands.add('getBySelLike', (selector, ...args) => {
+    return cy.get(`[data-test*=${selector}]`, ...args)
+})

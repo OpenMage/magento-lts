@@ -1,39 +1,30 @@
-const path = '/admin';
+const test = cy.openmage.test.backend.login.config;
+const validation = cy.openmage.validation;
 
 describe('Check admin login', () => {
     beforeEach('Log in the user', () => {
-        cy.visit(path);
+        cy.visit(test.url);
+        cy.fixture(test.__fixture).as('fixture');
     });
 
     const login = cy.openmage.admin;
 
-    it('tests valid login', () => {
-        const username = login.username.value;
-        const password = login.password.value;
-
-        cy.log(`Logging in as ${username}`);
-        cy.get(login.username._).clear().type(username).should('have.value', username);
-        cy.get(login.password._).clear().type(password).should('have.value', password);
+    it('tests valid login', function () {
+        validation.fixture.fillFields(this.fixture.validUser);
         cy.get(login._submit._).click();
-        cy.url().should('include', path + '/dashboard');
+        cy.url().should('include', '/admin/dashboard');
     })
 
-    it('tests invalid login', () => {
-        const username = 'abc';
-        const password = '123';
-
-        cy.log(`Logging in as ${username}`);
-        cy.get(login.username._).clear().type(username).should('have.value', username);
-        cy.get(login.password._).clear().type(password).should('have.value', password);
+    it('tests invalid login', function () {
+        validation.fixture.fillFields(this.fixture.invalidUser);
         cy.get(login._submit._).click();
-        cy.url().should('include', path);
+        cy.url().should('include', '/admin');
     })
 
-    it('tests empty login', () => {
-        cy.get(login.username._).clear().should('have.value', '');
-        cy.get(login.password._).clear().should('have.value', '');
+    it('tests empty login', function () {
+        validation.fixture.fillFields(this.fixture.validUser, true);
         cy.get(login._submit._).click();
-        cy.url().should('include', path);
-        cy.url().should('not.include', path + '/dashboard');
+        cy.url().should('include', '/admin');
+        cy.url().should('not.include', '/admin/dashboard');
     })
 })
