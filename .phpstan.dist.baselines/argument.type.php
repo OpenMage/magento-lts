@@ -192,11 +192,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Queue/Preview/Form.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function addcslashes expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Edit.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_Template::emulateDesign() expects int|string, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Preview.php',
@@ -310,16 +305,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $orderId of method Mage_Sales_Model_Resource_Order::aggregateProductsByTypes() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/View.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Adminhtml_Block_Sales_Order_View_Info::_prepareAccountDataSortOrder() expects array<int, array<string, array<string>|string|null>>, array<int, array<string, mixed>> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function implode expects array<string>, array<int, array<string|null>|string|null> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $collection of method Mage_Adminhtml_Block_Widget_Grid::setCollection() expects Varien_Data_Collection, Mage_Core_Model_Resource_Db_Collection_Abstract|false given.',
@@ -447,29 +432,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function addslashes expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Action.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Longtext.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function implode expects array<string>, list<array<string|null>|string|null> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Options.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $currency of method Mage_Core_Model_Locale::currency() expects string, string|true given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Price.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $replace of function str_replace expects array<string>|string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Text.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $string of method Mage_Core_Helper_String::strlen() expects string, string|null given.',
@@ -2927,16 +2892,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Block/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Block/Html/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #5 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Block/Html/Select.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $haystack of function str_starts_with expects string, string|false given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Block/Template.php',
@@ -4857,11 +4812,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Form.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Review.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $quote of method Mage_Paypal_Block_Express_Shortcut::_getBmlShortcut() expects Mage_Sales_Model_Quote, Mage_Sales_Model_Quote|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Shortcut.php',
@@ -6537,11 +6487,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/Block/Product/List.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tag/Block/Product/List.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $tagId of method Mage_Tag_Model_Resource_Product_Collection::addTagFilter() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/Block/Product/Result.php',
@@ -7072,41 +7017,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/controllers/SharedController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/creditmemo/create/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/creditmemo/view/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/invoice/create/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/invoice/view/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/order/view/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/shipment/create/items/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/bundle/sales/shipment/view/items/renderer.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $websiteId of method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites::hasWebsite() expects int, int|string|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/catalog/product/edit/websites.phtml',
@@ -7117,54 +7027,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/catalog/product/tab/inventory.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Helper_Abstract::quoteEscape() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/currencysymbol/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/items/column/downloadable/creditmemo/name.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/items/column/downloadable/invoice/name.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/items/column/downloadable/name.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/form/checkmo.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/info/checkmo.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/info/pdf/checkmo.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $element of method Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global::getElementBackendConfig() expects Varien_Data_Form_Element_Abstract, Varien_Data_Form_Element_Abstract|false given.',
     'count' => 9,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/paypal/system/config/fieldset/global.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/items/column/name.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sku of method Mage_Catalog_Helper_Data::splitSku() expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/items/grid.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $shippingMethod of method Mage_Usa_Helper_Data::displayGirthValue() expects string, string|Varien_Object given.',
@@ -7172,19 +7037,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/shipment/packaging/popup.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/shipment/view/tracking.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $address of method Mage_Adminhtml_Block_Sales_Order_View_Info::getAddressEditLink() expects Mage_Sales_Model_Order_Address, Mage_Sales_Model_Order_Address|false given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/view/info.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/recurring/profile/view/info.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $array of function array_keys expects array, array|false given.',
@@ -7195,11 +7050,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $row of method Mage_Adminhtml_Block_Widget_Grid_Column::getRowField() expects Varien_Object, string|Varien_Object given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/widget/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/compare/list.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::stripTags() expects string, string|null given.',
@@ -7222,11 +7072,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/compare/sidebar.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/list.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::stripTags() expects string, string|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/list.phtml',
@@ -7237,74 +7082,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/list.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/list/related.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/new.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $attributeHtml of method Mage_Catalog_Helper_Output::productAttribute() expects string, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/view.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/view/addto.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/widget/new/content/new_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/widget/new/content/new_list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/cart/crosssell.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/cart/item/default.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $itemId of method Mage_Wishlist_Helper_Data::getMoveFromCartUrl() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/cart/item/default.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/multishipping/agreements.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/onepage/agreements.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/success.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/success.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/total/nominal.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $date of method Mage_Customer_Block_Widget_Dob::setDate() expects string, string|null given.',
@@ -7312,74 +7097,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/customer/form/edit.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, int|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/customer/form/register.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/downloadable/checkout/cart/item/default.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $itemId of method Mage_Wishlist_Helper_Data::getMoveFromCartUrl() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/downloadable/checkout/cart/item/default.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/page/print.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/payment/form/checkmo.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/payment/info/checkmo.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, int|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/persistent/customer/form/register.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/home_product_compared.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/home_product_viewed.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/widget/compared/content/compared_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/widget/compared/content/compared_list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/widget/viewed/content/viewed_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/reports/widget/viewed/content/viewed_list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/review/customer/view.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $id of method Mage_Review_Block_Product_View_List::getReviewUrl() expects int, int|string|null given.',
@@ -7387,34 +7107,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/review/product/view/list.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/review/product/view/list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/review/view.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/sales/order/items/renderer/default.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $creditmemo of method Mage_Sales_Block_Order_Print_Creditmemo::getTotalsHtml() expects Mage_Sales_Model_Order_Creditmemo, Mage_Sales_Model_Order_Creditmemo|Mage_Sales_Model_Order_Invoice given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/sales/order/print/creditmemo.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/sales/recurring/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/sales/recurring/grid.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $object of method Mage_Core_Block_Template::getObjectData() expects Varien_Object, array<Mage_Core_Block_Abstract>|Mage_Core_Block_Abstract given.',
@@ -7422,39 +7117,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/sales/recurring/profile/view.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/sales/recurring/profile/view/info.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/tag/customer/view.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $data of method Mage_Core_Helper_Abstract::quoteEscape() expects string, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/wishlist/email/rss.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/wishlist/item/column/remove.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/wishlist/item/configure/addto.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/wishlist/shared.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/wishlist/sidebar.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $wishlistId of method Mage_Wishlist_Helper_Data::getRssUrl() expects int|null, int|string|null given.',
@@ -7465,11 +7130,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $object_or_class of function method_exists expects object|string, array<Mage_Core_Block_Abstract>|Mage_Core_Block_Abstract|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/layer/state.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/compare/list.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::stripTags() expects string, string|null given.',
@@ -7492,11 +7152,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/compare/sidebar.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/list.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::stripTags() expects string, string|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/list.phtml',
@@ -7507,19 +7162,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/list.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/list/related.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $attributeHtml of method Mage_Catalog_Helper_Output::productAttribute() expects string, string|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/view.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/view/addto.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $attributeHtml of method Mage_Catalog_Helper_Output::productAttribute() expects string, string|null given.',
@@ -7532,21 +7177,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/view/type/options/configurable.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/widget/new/content/new_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/checkout/cart/crosssell.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/checkout/cart/item/default.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $itemId of method Mage_Wishlist_Helper_Data::getMoveFromCartUrl() expects int, int|string|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/checkout/cart/item/default.phtml',
@@ -7557,19 +7187,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/configurableswatches/catalog/product/list/swatches.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function strlen expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/configurableswatches/catalog/product/view/type/options/configurable/swatches.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $date of method Mage_Customer_Block_Widget_Dob::setDate() expects string, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/customer/form/edit.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/email/catalog/product/list.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::stripTags() expects string, string|null given.',
@@ -7582,74 +7202,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/email/catalog/product/list.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/page/print.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, int|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/persistent/customer/form/register.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/reports/widget/compared/content/compared_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/reports/widget/viewed/content/viewed_grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/review/customer/view.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $id of method Mage_Review_Block_Product_View_List::getReviewUrl() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/review/product/view/list.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/review/product/view/list.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/review/view.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function nl2br expects string, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/sales/order/items/renderer/default.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/sales/recurring/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 ...$values of function sprintf expects bool|float|int|string|null, array<string|null>|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/sales/recurring/grid.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $object of method Mage_Core_Block_Template::getObjectData() expects Varien_Object, array<Mage_Core_Block_Abstract>|Mage_Core_Block_Abstract given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/sales/recurring/profile/view.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/wishlist/shared.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $data of method Mage_Core_Block_Abstract::escapeHtml() expects array<string>|string|null, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/wishlist/sidebar.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $wishlistId of method Mage_Wishlist_Helper_Data::getRssUrl() expects int|null, int|string|null given.',

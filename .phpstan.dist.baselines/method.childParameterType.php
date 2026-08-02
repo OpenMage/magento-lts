@@ -312,6 +312,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Invoice/Grid.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $data (array<string>|string|null) of method Mage_Adminhtml_Block_Sales_Order_Comments_View::escapeHtml() should be contravariant with parameter $data (mixed) of method Mage_Core_Block_Abstract::escapeHtml()',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Comments/View.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $row (Mage_Customer_Model_Customer) of method Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid::getRowUrl() should be contravariant with parameter $row (Varien_Object) of method Mage_Adminhtml_Block_Widget_Grid::getRowUrl()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Customer/Grid.php',
@@ -360,6 +365,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $row (Mage_Sales_Model_Order_Status) of method Mage_Adminhtml_Block_Sales_Order_Status_Grid::getRowUrl() should be contravariant with parameter $row (Varien_Object) of method Mage_Adminhtml_Block_Widget_Grid::getRowUrl()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Status/Grid.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $data (array<string>|string|null) of method Mage_Adminhtml_Block_Sales_Order_View_History::escapeHtml() should be contravariant with parameter $data (mixed) of method Mage_Core_Block_Abstract::escapeHtml()',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/History.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $item (Mage_Sales_Model_Order_Item) of method Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default::displaySubtotalInclTax() should be contravariant with parameter $item (Varien_Object) of method Mage_Adminhtml_Block_Sales_Items_Abstract::displaySubtotalInclTax()',

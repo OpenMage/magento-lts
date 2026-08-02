@@ -14837,11 +14837,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Block/Widget/Dob.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Customer_Block_Widget_Name::getPrefixOptions() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Block/Widget/Name.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Customer_Block_Widget_Name::getSuffixOptions() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Block/Widget/Name.php',

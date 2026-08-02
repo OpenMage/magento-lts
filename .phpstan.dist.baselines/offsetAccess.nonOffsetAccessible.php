@@ -127,11 +127,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Store.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset string|null on non-empty-array|true.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Block/Widget/Name.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset 1 on list<string>|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http/Curl.php',

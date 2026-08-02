@@ -2,11 +2,6 @@
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
-    'rawMessage' => 'Binary operation ".=" between array<string|null>|string|null and non-falsy-string results in an error.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tree.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Binary operation "*=" between float|string and 1 results in an error.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Product/Price.php',
