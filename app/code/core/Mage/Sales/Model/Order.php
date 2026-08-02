@@ -153,7 +153,6 @@
  * @method string                                     getState()
  * @method string                                     getStatus()
  * @method string                                     getStoreCurrencyCode()
- * @method int                                        getStoreId()
  * @method string                                     getStoreName()
  * @method float                                      getStoreToBaseRate()
  * @method float                                      getStoreToOrderRate()
@@ -302,7 +301,6 @@
  * @method $this                                      setShippingTaxRefunded(float $value)
  * @method $this                                      setStatus(string $value)
  * @method $this                                      setStoreCurrencyCode(string $value)
- * @method $this                                      setStoreId(int $value)
  * @method $this                                      setStoreName(string $value)
  * @method $this                                      setStoreToBaseRate(float $value)
  * @method $this                                      setStoreToOrderRate(float $value)
@@ -1405,32 +1403,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $copyTo = $this->_getEmails(self::XML_PATH_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $storeId);
 
-        // Start store emulation process
-        if ($storeId != Mage::app()->getStore()->getId()) {
-            /** @var Mage_Core_Model_App_Emulation $appEmulation */
-            $appEmulation = Mage::getSingleton('core/app_emulation');
-            $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
-        }
-
-        try {
-            // Retrieve specified view block from appropriate design package (depends on emulated store)
-            $paymentBlock = Mage::helper('payment')->getInfoBlock($this->getPayment())
-                ->setIsSecureMode(true);
-            $paymentBlock->getMethod()->setStore($storeId);
-            $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $exception) {
-            // Stop store emulation process
-            if (isset($appEmulation, $initialEnvironmentInfo)) {
-                $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-            }
-
-            throw $exception;
-        }
-
-        // Stop store emulation process
-        if (isset($appEmulation, $initialEnvironmentInfo)) {
-            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-        }
+        $paymentBlockHtml = $this->getPaymentBlockHtml($this);
 
         // Retrieve corresponding email template id and customer name
         if ($this->getCustomerIsGuest()) {
@@ -1441,12 +1414,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $customerName = $this->getCustomerName();
         }
 
-        /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
-        $mailer = Mage::getModel('core/email_template_mailer');
+        $mailer = $this->getMailer();
         /** @var Mage_Core_Model_Email_Info $emailInfo */
         $emailInfo = Mage::getModel('core/email_info');
         $emailInfo->addTo($this->getCurrentCustomerEmail(), $customerName);
-        if ($copyTo && $copyMethod == 'bcc') {
+        if (is_array($copyTo) && $copyMethod == 'bcc') {
             // Add bcc to customer email
             foreach ($copyTo as $email) {
                 $emailInfo->addBcc($email);
@@ -1456,7 +1428,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $mailer->addEmailInfo($emailInfo);
 
         // Email copies are sent as separated emails if their copy method is 'copy'
-        if ($copyTo && $copyMethod == 'copy') {
+        if (is_array($copyTo) && $copyMethod == 'copy') {
             foreach ($copyTo as $email) {
                 $emailInfo = Mage::getModel('core/email_info');
                 $emailInfo->addTo($email);
@@ -1521,7 +1493,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $copyTo = $this->_getEmails(self::XML_PATH_UPDATE_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_COPY_METHOD, $storeId);
         // Check if at least one recipient is found
-        if (!$notifyCustomer && !$copyTo) {
+        if (!$notifyCustomer && !is_array($copyTo)) {
             return $this;
         }
 
@@ -1534,13 +1506,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $customerName = $this->getCustomerName();
         }
 
-        /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
-        $mailer = Mage::getModel('core/email_template_mailer');
+        $mailer = $this->getMailer();
         if ($notifyCustomer) {
             /** @var Mage_Core_Model_Email_Info $emailInfo */
             $emailInfo = Mage::getModel('core/email_info');
             $emailInfo->addTo($this->getCurrentCustomerEmail(), $customerName);
-            if ($copyTo && $copyMethod == 'bcc') {
+            if (is_array($copyTo) && $copyMethod == 'bcc') {
                 // Add bcc to customer email
                 foreach ($copyTo as $email) {
                     $emailInfo->addBcc($email);
@@ -1552,7 +1523,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
         // Email copies are sent as separated emails if their copy method is
         // 'copy' or a customer should not be notified
-        if ($copyTo && ($copyMethod == 'copy' || !$notifyCustomer)) {
+        if (is_array($copyTo) && ($copyMethod == 'copy' || !$notifyCustomer)) {
             foreach ($copyTo as $email) {
                 $emailInfo = Mage::getModel('core/email_info');
                 $emailInfo->addTo($email);
@@ -1593,20 +1564,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         $this->queueOrderUpdateEmail($notifyCustomer, $comment, true);
         return $this;
-    }
-
-    /**
-     * @param  string      $configPath
-     * @return array|false
-     */
-    protected function _getEmails($configPath)
-    {
-        $data = Mage::getStoreConfig($configPath, $this->getStoreId());
-        if (!empty($data)) {
-            return explode(',', $data);
-        }
-
-        return false;
     }
 
     /*********************** ADDRESSES ***************************/
