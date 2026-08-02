@@ -2,15 +2,6 @@
    Edit scss version and compile with sass from scss folder like this:
    $ sass override.scss ../override.css
  */
-/*
- 205 = default,
-   0 = red,
-  60 = yellow,
- 120 = green,
- 180 = turquoise,
- 240 = blue,
- 300 = purple
-*/
 .popup-window .content-header, body {
   color: #2f2f2f;
   font: 400 12px/1.33 "Open Sans", sans-serif;
@@ -35,13 +26,13 @@ dl.accordion dt, .entry-edit .entry-edit-head {
   background: #fefefe;
   color: #2f2f2f;
   padding: 4px 16px;
-  border: 1px solid lightgrey;
+  border: 1px solid #d3d3d3;
 }
 
 .box, .entry-edit .fieldset, .entry-edit fieldset {
-  border: 1px solid lightgrey;
+  border: 1px solid #d3d3d3;
   background: #eee;
-  border-top: 1px solid lightgrey;
+  border-top: 1px solid #d3d3d3;
 }
 
 .grid tr.headings th a.sort-arrow-asc, .grid tr.headings th a.sort-arrow-desc {
@@ -64,7 +55,7 @@ dl.accordion dt, .entry-edit .entry-edit-head {
 }
 
 ul.tabs a:hover, ul.tabs a.active {
-  background: #f4f4f4;
+  background: #eee;
   color: #2f2f2f;
   transition: background 0.3s ease-in-out;
 }
@@ -86,7 +77,7 @@ dl.accordion dt a:after, div.collapseable a:after {
   height: 0;
   border-style: solid;
   border-width: 8px 6px 0 6px;
-  border-color: #888 transparent transparent transparent;
+  border-color: #71798e transparent transparent transparent;
 }
 
 dl.accordion dt.open a:after, div.collapseable a.open:after {
@@ -99,7 +90,7 @@ dl.accordion dt.open a:after, div.collapseable a.open:after {
   height: 0;
   border-style: solid;
   border-width: 0 6px 8px 6px;
-  border-color: transparent transparent #888 transparent;
+  border-color: transparent transparent #71798e transparent;
 }
 
 .warning-msg, .success-msg, .error-msg, .notice-msg {
@@ -194,26 +185,26 @@ label {
 
 a {
   display: inline;
-  color: #269de7;
+  color: #0090FF;
   text-decoration: none;
 }
 a:visited {
-  color: #269de7;
+  color: #0090FF;
 }
 a:focus {
-  color: #3378a3;
+  color: #025988;
   text-decoration: none;
 }
 a:hover {
-  color: #3378a3;
+  color: #025988;
   text-decoration: none;
 }
 a:active {
-  color: #3378a3;
+  color: #025988;
   text-decoration: none;
 }
 a.error span {
-  color: #fa4545 !important;
+  color: #e63a3a !important;
 }
 
 strong {
@@ -307,28 +298,28 @@ small {
   float: right;
 }
 .grid table {
-  border: 1px solid lightgrey;
+  border: 1px solid #d3d3d3;
   border-collapse: collapse;
 }
 .grid table.border {
-  border: 1px solid lightgrey;
+  border: 1px solid #d3d3d3;
 }
 .grid table.border tfoot tr td {
   background: #fff !important;
 }
 .grid table td {
-  border: 1px solid lightgrey;
+  border: 1px solid #d3d3d3;
   background: #fff;
   padding: 5px;
 }
 .grid table td.first {
-  border-right: 1px solid lightgrey;
+  border-right: 1px solid #d3d3d3;
 }
 .grid table td.last {
-  border-right: 1px solid lightgrey;
+  border-right: 1px solid #d3d3d3;
 }
 .grid table tfoot tr td {
-  border: 1px solid lightgrey;
+  border: 1px solid #d3d3d3;
   background: #fff;
 }
 .grid table tbody tr.selected td {
@@ -344,11 +335,11 @@ small {
   background: #fff !important;
 }
 .grid tr.filter th {
-  border: 1px solid lightgrey;
+  border: 1px solid #d3d3d3;
   border-top: 0;
 }
 .grid tr.filter th.sorted {
-  background: #f7f7f7 !important;
+  background: rgb(247.35, 247.35, 247.35) !important;
 }
 .grid tr.filter .range .range-line {
   width: 125px;
@@ -397,21 +388,21 @@ small {
   font-weight: 400;
 }
 .grid tr.headings th a:hover {
-  color: lightgrey;
+  color: #d3d3d3;
 }
 .grid tr.headings th a.sort-arrow-desc span.sort-title {
   background: none;
 }
 .grid tr.headings th a.sort-arrow-desc span.sort-title:after {
   border-width: 6px 5px 0 5px;
-  border-color: lightgrey transparent transparent transparent;
+  border-color: #d3d3d3 transparent transparent transparent;
 }
 .grid tr.headings th a.sort-arrow-asc span.sort-title {
   background: none;
 }
 .grid tr.headings th a.sort-arrow-asc span.sort-title:after {
   border-width: 0 5px 6px 5px;
-  border-color: transparent transparent lightgrey transparent;
+  border-color: transparent transparent #d3d3d3 transparent;
 }
 .grid tr.headings th.no-link {
   color: #fff;
@@ -430,13 +421,13 @@ small {
   background: #f6f6f6 !important;
 }
 .grid tbody tr.even td.sorted {
-  background: #e6e6e6 !important;
+  background: rgb(230.35, 230.35, 230.35) !important;
 }
 .grid tbody tr.odd td.sorted {
-  background: #f7f7f7 !important;
+  background: rgb(247.35, 247.35, 247.35) !important;
 }
 .grid tbody tr.selected td.sorted {
-  background: #e1f3ff !important;
+  background: rgb(224.7, 242.88, 255) !important;
 }
 .grid td input.input-text {
   min-width: 80px;
@@ -529,7 +520,7 @@ ul.tabs {
 }
 ul.tabs dl {
   background: #fff;
-  border: 1px solid lightgrey;
+  border: 1px solid #d3d3d3;
 }
 ul.tabs a {
   background: #fff;
@@ -591,7 +582,7 @@ div.collapseable a.open {
 }
 div.autocomplete {
   border: 0;
-  box-shadow: 0 3px 3px rgba(50, 50, 50, 0.15);
+  box-shadow: 0 3px 3px #c8c8c8;
 }
 div.autocomplete ul li {
   color: #2f2f2f;
@@ -614,13 +605,13 @@ div.autocomplete ul li.selected {
   border: 0;
 }
 .section-config .section-config .section-config .section-config .section-config > .config {
-  background: #f8f8f8;
+  background: #f6f6f6;
 }
 .section-config .section-config .section-config .section-config > .config {
   background: #fefefe;
 }
 .section-config .section-config .section-config > .config {
-  background: #f8f8f8;
+  background: #f6f6f6;
 }
 .section-config .config-advanced > .entry-edit-head {
   border: 0;
@@ -671,7 +662,7 @@ div.autocomplete ul li.selected {
   color: #2f2f2f;
 }
 .x-tree-node .x-tree-selected a span {
-  background: lightgrey;
+  background: #d3d3d3;
   color: #2f2f2f;
 }
 
@@ -691,7 +682,7 @@ div.autocomplete ul li.selected {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   color: #2f2f2f;
 }
 #loading-mask .loader {
@@ -706,22 +697,22 @@ div.autocomplete ul li.selected {
 }
 
 .error {
-  color: #fa4545 !important;
+  color: #e63a3a !important;
 }
 
 .required {
-  color: #fa4545 !important;
+  color: #e63a3a !important;
 }
 
 .validation-advice {
-  color: #fa4545 !important;
+  color: #e63a3a !important;
   font-size: 12px;
   font-weight: 600 !important;
 }
 
 .order-totals {
   background: #eee;
-  border: 1px solid lightgrey !important;
+  border: 1px solid #d3d3d3 !important;
 }
 
 .order-choose-address {
@@ -746,9 +737,9 @@ div.autocomplete ul li.selected {
   background-image: url(images/information-variant.svg) !important;
   background-repeat: no-repeat !important;
   background-size: 23px 23px !important;
-  background-color: #f9f5ec !important;
+  background-color: #f0f9ff !important;
   background-position: 8px center !important;
-  border: 1px solid #dfc97a !important;
+  border: 1px solid #025988 !important;
   color: #2f2f2f !important;
 }
 .notice-msg a {
@@ -774,9 +765,9 @@ div.autocomplete ul li.selected {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%23185b00' d='M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z' /%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important;
   background-size: 16px 16px !important;
-  background-color: #e4eecb !important;
+  background-color: #e9f2d4 !important;
   background-position: 8px center !important;
-  border: 1px solid #ceceb6 !important;
+  border: 1px solid #56af45 !important;
   color: #185b00 !important;
 }
 .success-msg a {
@@ -868,13 +859,13 @@ div.autocomplete ul li.selected {
 
 .grid-severity-notice span {
   border: 0;
-  background: #56af45;
+  background: #0090FF;
   color: #fff;
 }
 
 .grid-severity-critical span {
   border: 0;
-  background: #fa4545;
+  background: #e63a3a;
   color: #fff;
 }
 
@@ -905,7 +896,7 @@ div.autocomplete ul li.selected {
   border: 0;
   padding: 6px 10px;
   background: #eee;
-  border-top: 1px solid lightgrey;
+  border-top: 1px solid #d3d3d3;
 }
 
 .no-display {
@@ -933,7 +924,7 @@ dl.accordion dt.open a {
 table.actions {
   padding: 15px;
   background: #fff;
-  border: 1px solid lightgrey;
+  border: 1px solid #d3d3d3;
 }
 table.actions td {
   vertical-align: middle;
@@ -993,7 +984,7 @@ a.rule-param-remove img {
   padding-left: 13px;
   box-sizing: border-box;
   width: 13px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%23d50000' d='M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z' /%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%23e63a3a' d='M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z' /%3E%3C/svg%3E") no-repeat;
   height: 13px;
 }
 
@@ -1014,8 +1005,12 @@ ul.tabs a.changed span.changed {
 }
 
 .notification-global {
-  background: #f9f5ec url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%23d50000' d='M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z' /%3E%3C/svg%3E") 27px 5px no-repeat;
+  background: #fffbf0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%23e63a3a' d='M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z' /%3E%3C/svg%3E") 27px 5px no-repeat;
   background-size: 15px;
+  border-color: #f0ad4e;
+}
+.notification-global .label {
+  color: #e63a3a;
 }
 
 #page-help-link {
@@ -1093,7 +1088,7 @@ img[src$="grid-cal.gif"] {
 }
 
 .link-store-scope {
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%2300a9ff' d='M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z' /%3E%3C/svg%3E");
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%230090FF' d='M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z' /%3E%3C/svg%3E");
 }
 
 .emph, .accent {

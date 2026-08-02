@@ -5,11 +5,25 @@
 
 @import "base";
 
+input,
+textarea,
+select {
+  &:focus-visible {
+    outline-offset: -2px;
+    outline: 2px dashed $openmage_blue_dark;
+  }
+}
+
 input {
   vertical-align: middle;
 
   &.input-text {
     @extend %extend_18;
+  }
+
+  &[type="checkbox"],
+  &[type="radio"] {
+    outline-offset: 2px;
   }
 }
 
@@ -65,195 +79,28 @@ select[size] {
   height: auto;
 }
 
-button {
+button,
+.form-button {
   text-transform: none;
-  @extend %extend_20;
+  background: $openmage_blue_gray;
+  padding: 0 12px;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 28px;
+  vertical-align: middle;
+  white-space: nowrap;
 
   span {
     padding: 0;
   }
 
-  &.cancel {
-    background: $color_cinnabar_approx;
-    color: $white;
-    padding: 0 13px;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:hover {
-      background: $color_coral_red_approx;
-    }
-  }
-
-  &.delete {
-    background: $color_cinnabar_approx;
-    color: $white;
-    padding: 0 13px;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:hover {
-      background: $color_coral_red_approx;
-    }
-  }
-
-  &.save {
-    @extend %extend_23;
-    padding: 0 13px;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:focus {
-      @extend %extend_24;
-    }
-
-    &:active {
-      @extend %extend_24;
-    }
-
-    &:hover {
-      background-color: $color_action;
-    }
-
-    &.disabled {
-      @extend %extend_25;
-    }
-  }
-
-  &.ok_button {
-    @extend %extend_23;
-    padding: 0 13px;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:focus {
-      @extend %extend_24;
-    }
-
-    &:active {
-      @extend %extend_24;
-    }
-
-    &:hover {
-      background-color: $color_action;
-    }
-
-    &.disabled {
-      @extend %extend_25;
-    }
-  }
-
-  &.add {
-    @extend %extend_23;
-    padding: 0 13px;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:focus {
-      @extend %extend_24;
-    }
-
-    &:active {
-      @extend %extend_24;
-    }
-
-    &:hover {
-      background-color: $color_action;
-    }
-
-    &.disabled {
-      @extend %extend_25;
-
-      span {
-        background: none;
-      }
-    }
-  }
-
-  &.back {
-    background: none;
-
-    span {
-      background: none;
-      padding: 0;
-    }
-
-    &:before {
-      content: "«";
-      padding-right: 4px;
-    }
-  }
-
-  &:focus {
-    @extend %extend_21;
-  }
-
-  &:active {
-    @extend %extend_21;
-  }
-
-  &:hover {
-    background: $color_gray_approx;
-  }
-
-  &.disabled {
-    @extend %extend_22;
-    background: $color_gray_approx;
-
-    &:hover {
-      background: $color_gray_approx;
-    }
-
-    &:active {
-      background: $color_gray_approx;
-    }
-  }
-
-  &.save[disabled] {
-    @extend %extend_25;
-  }
-
-  &.add[disabled] {
-    @extend %extend_25;
-  }
-
-  &.ok_button[disabled] {
-    @extend %extend_25;
-  }
-
-  &.fail {
-    background: $color_cinnabar_approx;
-    color: $white;
-    padding: 0 13px;
-
-    &:hover {
-      background: $color_coral_red_approx;
-    }
-  }
-
-  &.cancel_button {
-    background: $color_cinnabar_approx;
-    color: $white;
-    padding: 0 13px;
-
-    &:hover {
-      background: $color_coral_red_approx;
-    }
+  &.large {
+    font-size: 22px;
+    padding: 14px 22px 16px;
   }
 
   &.icon-btn {
@@ -266,75 +113,58 @@ button {
     }
   }
 
-  &.large {
-    font-size: 22px;
-    padding: 14px 22px 16px;
-  }
-
-  &.add-image span {
-    background: none;
-    padding: 0;
-  }
-
-  &.add-widget span {
-    background: none;
-    padding: 0;
-  }
-
-  &.go span {
-    background: none;
-    padding: 0;
-  }
-
-  &.add-variable span {
-    background: none;
-    padding: 0;
-  }
-}
-
-.form-button {
-  @extend %extend_20;
-
-  &:focus {
-    @extend %extend_21;
-  }
-
+  &:hover,
+  &:focus,
   &:active {
-    @extend %extend_21;
+    background: $color_dark_grey;
   }
 
-  &:hover {
-    background: $color_gray_approx;
+  &:focus-visible {
+    outline-offset: -4px;
+    outline: 2px dashed white;
   }
 
-  &.disabled {
-    @extend %extend_22;
+  &.disabled,
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.5;
   }
 
+  &.save,
+  &.add,
   &.ok_button {
-    @extend %extend_23;
+    background: $openmage_blue;
 
-    &:focus {
-      @extend %extend_24;
-    }
-
+    &:hover,
+    &:focus,
     &:active {
-      @extend %extend_24;
-    }
-
-    &:hover {
-      background-color: $color_action;
+      background: $openmage_blue_dark;
     }
   }
 
-  &.large {
-    font-size: 22px;
-    padding: 14px 22px 16px;
-  }
-}
+  &.cancel,
+  &.cancel_button,
+  &.delete,
+  &.fail {
+    background: $openmage_red;
 
-button[disabled] {
-  @extend %extend_22;
+    &:hover,
+    &:focus,
+    &:active {
+      background: $openmage_red_dark;
+    }
+  }
+
+  &.success {
+    background: $openmage_green;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: $openmage_green_dark;
+    }
+  }
 }
 
 .field-100 {
@@ -374,32 +204,24 @@ button[disabled] {
     }
 
     p.note {
-      color: $color_dorado_approx;
+      color: $openmage_base_blue_text;
       font-size: 11px;
       font-weight: 400;
 
       span.input-counter-error {
-        color: $color_cinnabar_approx;
+        color: $openmage_red;
       }
     }
   }
 }
 
-.form-button[disabled] fieldset[disabled] button {
-  @extend %extend_22;
-}
-
 fieldset[disabled] button {
-  &.save {
-    @extend %extend_25;
-  }
-
-  &.add {
-    @extend %extend_25;
-  }
-
+  &.save,
+  &.add,
   &.ok_button {
-    @extend %extend_25;
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.5;
   }
 }
 
@@ -418,7 +240,7 @@ td:has(input.swatch-option) {
     display: flex;
     justify-content: center;
     font-size: 10px;
-    background: $color_cinnabar_approx;
+    background: $openmage_red;
     color: $white;
     border-radius: 2px;
   }
