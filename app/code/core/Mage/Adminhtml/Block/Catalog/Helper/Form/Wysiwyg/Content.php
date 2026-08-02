@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg_Content extends Mage_Admi
     {
         $form = new Varien_Data_Form(['id' => 'wysiwyg_edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post']);
 
+        $config                          = [];
         $config['document_base_url']     = $this->getDataByKey('store_media_url');
         $config['store_id']              = $this->getDataByKey('store_id');
         $config['add_variables']         = false;

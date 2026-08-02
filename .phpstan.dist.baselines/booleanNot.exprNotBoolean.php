@@ -2397,8 +2397,13 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Aggregation.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, array<int, bool>|false given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, array|false given.',
-    'count' => 4,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Data/Abstract.php',
 ];
 $ignoreErrors[] = [

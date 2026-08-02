@@ -21,11 +21,6 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
      */
     protected $_columnGroupBy = 'period';
 
-    /**
-     * Grid resource collection name
-     *
-     * @var string
-     */
     protected $_resourceCollectionName  = 'reports/report_product_viewed_collection';
 
     /**

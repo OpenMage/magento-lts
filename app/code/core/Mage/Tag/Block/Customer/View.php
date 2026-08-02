@@ -59,7 +59,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     /**
      * Retrieve Tagged Product Collection items
      *
-     * @return array
+     * @return Mage_Catalog_Model_Product[]
      */
     public function getMyProducts()
     {

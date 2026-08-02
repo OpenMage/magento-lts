@@ -61,6 +61,7 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
             $params .= ' ' . $liParams;
         }
 
+        $toplinkInfo = [];
         $toplinkInfo['liParams'] = $params;
         $params = '';
         if (!empty($aParams) && is_array($aParams)) {
