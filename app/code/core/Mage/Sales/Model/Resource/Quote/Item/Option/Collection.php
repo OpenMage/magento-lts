@@ -11,6 +11,7 @@
  * Item option collection
  *
  * @package    Mage_Sales
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Sales_Model_Quote_Item_Option>
  */
 class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

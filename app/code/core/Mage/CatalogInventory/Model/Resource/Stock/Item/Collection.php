@@ -11,6 +11,7 @@
  * Stock item collection resource model
  *
  * @package    Mage_CatalogInventory
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_CatalogInventory_Model_Stock_Item>
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

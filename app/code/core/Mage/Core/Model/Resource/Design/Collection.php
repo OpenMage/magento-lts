@@ -11,6 +11,7 @@
  * Core Design resource collection
  *
  * @package    Mage_Core
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Core_Model_Design>
  */
 class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

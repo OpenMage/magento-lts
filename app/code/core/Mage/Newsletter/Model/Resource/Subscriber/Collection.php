@@ -11,6 +11,7 @@
  * Newsletter subscribers collection
  *
  * @package    Mage_Newsletter
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Newsletter_Model_Subscriber>
  */
 class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

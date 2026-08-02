@@ -14,7 +14,8 @@
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
  *
- * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Eav_Model_Entity_Attribute>
+ * @template T of Mage_Eav_Model_Entity_Attribute
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<T>
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

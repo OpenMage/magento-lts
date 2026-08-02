@@ -11,6 +11,7 @@
  * Shipping table rates collection
  *
  * @package    Mage_Shipping
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Shipping_Model_Carrier_Tablerate>
  */
 class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
