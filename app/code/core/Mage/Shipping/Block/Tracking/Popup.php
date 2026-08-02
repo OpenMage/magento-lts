@@ -38,16 +38,14 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * @param  int   $oid
      * @return $this
-     * @deprecated after 1.3.2.3
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function setOrderId($oid)
     {
         return $this->setData('order_id', $oid);
     }
 
-    /**
-     * @deprecated after 1.3.2.3
-     */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function getOrderId()
     {
         return $this->_getData('order_id');
@@ -56,16 +54,14 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * @param  int   $oid
      * @return $this
-     * @deprecated after 1.3.2.3
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function setShipId($oid)
     {
         return $this->setData('ship_id', $oid);
     }
 
-    /**
-     * @deprecated after 1.3.2.3
-     */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function getShipId()
     {
         return $this->_getData('ship_id');
@@ -74,16 +70,14 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * @param  string $tid
      * @return $this
-     * @deprecated after 1.3.2.3
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function setTrackId($tid = '')
     {
         return $this->setData('track_id', $tid);
     }
 
-    /**
-     * @deprecated after 1.3.2.3
-     */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function getTrackId()
     {
         return $this->_getData('track_id');
@@ -91,9 +85,8 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 
     /**
      * @return false|Mage_Sales_Model_Order
-     * @deprecated after 1.4.0.0-alpha3
-     * Initialize order model instance
      */
+    #[Deprecated(message: 'Initialize order model instance', since: OpenMageVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     protected function _initOrder()
     {
         $order = Mage::getModel('sales/order')->load($this->getOrderId());
@@ -107,9 +100,8 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 
     /**
      * @return false|Mage_Sales_Model_Order_Shipment
-     * @deprecated after 1.4.0.0-alpha3
-     * Initialize ship model instance
      */
+    #[Deprecated(message: 'Initialize ship model instance', since: OpenMageVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     protected function _initShipment()
     {
         $ship = Mage::getModel('sales/order_shipment')->load($this->getShipId());
@@ -136,9 +128,8 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 
     /**
      * @return array
-     * @deprecated after 1.4.0.0-alpha3
-     * Retrieve all tracking by orders id
      */
+    #[Deprecated(message: 'Retrieve all tracking by orders id', since: OpenMageVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public function getTrackingInfoByOrder()
     {
         $shipTrack = [];
@@ -163,9 +154,8 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 
     /**
      * @return array
-     * @deprecated after 1.4.0.0-alpha3
-     * Retrieve all tracking by ship id
      */
+    #[Deprecated(message: 'Retrieve all tracking by ship id', since: OpenMageVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public function getTrackingInfoByShip()
     {
         $shipTrack = [];
@@ -186,9 +176,8 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 
     /**
      * @return array
-     * @deprecated after 1.4.0.0-alpha3
-     * Retrieve tracking by tracking entity id
      */
+    #[Deprecated(message: 'Retrieve tracking by tracking entity id', since: OpenMageVersionInterface::VERSION_1_4_0_0_ALPHA_3)]
     public function getTrackingInfoByTrackId()
     {
         $track = Mage::getModel('sales/order_shipment_track')->load($this->getTrackId());

@@ -212,8 +212,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
      * Retrieve config object
      *
      * @return $this
-     * @deprecated
      */
+    #[Deprecated]
     public function getConfig()
     {
         return $this;

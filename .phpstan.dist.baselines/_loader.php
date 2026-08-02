@@ -96,7 +96,6 @@ return ['includes' => [
     __DIR__ . '/return.missing.php',
     __DIR__ . '/return.type.php',
     __DIR__ . '/smaller.invalid.php',
-    __DIR__ . '/staticMethod.deprecated.php',
     __DIR__ . '/staticMethod.notFound.php',
     __DIR__ . '/switch.type.php',
     __DIR__ . '/ternary.alwaysTrue.php',
