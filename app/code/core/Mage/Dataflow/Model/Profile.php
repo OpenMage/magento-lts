@@ -193,7 +193,11 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                         $fileData = array_shift($fileData);
                     } else {
                         try {
-                            $xmlParser->loadXML(file_get_contents($path . $uploadFile));
+                            $contents = file_get_contents($path . $uploadFile);
+                            if ($contents !== "") {
+                                $xmlParser->loadXML($contents);
+                            }
+
                             $cells = $this->getNode($xmlParser, 'Worksheet')->item(0);
                             $cells = $this->getNode($cells, 'Row')->item(0);
                             $cells = $this->getNode($cells, 'Cell');

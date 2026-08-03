@@ -4112,11 +4112,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Profile/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $source of method DOMDocument::loadXML() expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Profile.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $string of function substr expects string, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Profile.php',
@@ -8102,7 +8097,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Convert/Profile/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $callback of function call_user_func_array expects callable(): mixed, array{T of Varien_Object, string}|(callable(): mixed)|non-falsy-string given.',
+    'rawMessage' => 'Parameter #1 $callback of function call_user_func_array expects callable(): mixed, array{T of Varien_Object, string}|(callable(): mixed)|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Collection.php',
 ];
