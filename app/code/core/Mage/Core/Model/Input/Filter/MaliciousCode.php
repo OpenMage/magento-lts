@@ -94,7 +94,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
      */
     public function linkFilter($html, $removeWrapper = true)
     {
-        if (stristr($html, '<a ') === false) {
+        if ($html === "" || stristr($html, '<a ') === false) {
             return $html;
         }
 
