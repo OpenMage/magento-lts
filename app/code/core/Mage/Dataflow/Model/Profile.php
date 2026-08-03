@@ -194,7 +194,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     } else {
                         try {
                             $contents = file_get_contents($path . $uploadFile);
-                            if ($contents !== '') {
+                            if ($contents !== '' && $contents !== false) {
                                 $xmlParser->loadXML($contents);
                             }
 
