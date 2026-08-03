@@ -62,110 +62,84 @@ trait CustomerTrait
             $validMethods,
         ];
 
-        $data = $validCustomer;
-        $data['firstname'] = '';
         yield 'missing firstname' => [
             ['The first name cannot be empty.'],
-            $data,
+            array_merge($validCustomer, ['firstname' => '']),
             $validMethods,
         ];
 
-        $data = $validCustomer;
-        $data['lastname'] = '';
         yield 'missing lastname' => [
             ['The last name cannot be empty.'],
-            $data,
+            array_merge($validCustomer, ['lastname' => '']),
             $validMethods,
         ];
 
-        $data = $validCustomer;
-        $data['email'] = '';
         yield 'missing email' => [
             ['Invalid email address "".'],
-            $data,
+            array_merge($validCustomer, ['email' => '']),
             $validMethods,
         ];
 
-        $data = $validCustomer;
-        $data['email'] = 'invalid-email';
         yield 'invalid email' => [
             ['Invalid email address "invalid-email".'],
-            $data,
+            array_merge($validCustomer, ['email' => 'invalid-email']),
             $validMethods,
         ];
 
-        $data = $validCustomer;
-        $data['password_confirmation'] = 'differentpassword';
         yield 'passwords do not match' => [
             ['Please make sure your passwords match.'],
-            $data,
+            array_merge($validCustomer, ['password_confirmation' => 'differentpassword']),
             $validMethods,
         ];
 
-        $data = $validCustomer;
         $password = '123';
-        $data['password'] = $password;
-        $data['password_confirmation'] = $password;
         yield 'passwords to short' => [
             [
                 'The minimum password length is 7',
                 'Password must include both numeric and alphabetic characters.',
             ],
-            $data,
+            array_merge($validCustomer, [
+                'password' => $password,
+                'password_confirmation' => $password,
+            ]),
             $validMethods,
         ];
 
-        $data = $validCustomer;
         $password = str_repeat('x', 257);
-        $data['password'] = $password;
-        $data['password_confirmation'] = $password;
         yield 'passwords to long' => [
             [
                 'Please enter a password with at most 256 characters.',
                 'Password must include both numeric and alphabetic characters.',
             ],
-            $data,
+            array_merge($validCustomer, [
+                'password' => $password,
+                'password_confirmation' => $password,
+            ]),
             $validMethods,
         ];
 
-        $data = $validCustomer;
-        $data['dob'] = '';
-        $methods = $validMethods;
-        $methods['shouldValidateDob'] = true;
         yield 'missing dob' => [
             ['The Date of Birth is required.'],
-            $data,
-            $methods,
+            array_merge($validCustomer, ['dob' => '']),
+            array_merge($validMethods, ['shouldValidateDob' => true]),
         ];
 
-        $data = $validCustomer;
-        $data['dob'] = 'abc';
-        $methods = $validMethods;
-        $methods['shouldValidateDob'] = true;
         yield 'invalid dob' => [
             ['The Date of Birth is not a valid date.'],
-            $data,
-            $methods,
+            array_merge($validCustomer, ['dob' => 'abc']),
+            array_merge($validMethods, ['shouldValidateDob' => true]),
         ];
 
-        $data = $validCustomer;
-        $data['taxvat'] = '';
-        $methods = $validMethods;
-        $methods['shouldValidateTaxvat'] = true;
         yield 'missing taxvat' => [
             ['The TAX/VAT number is required.'],
-            $data,
-            $methods,
+            array_merge($validCustomer, ['taxvat' => '']),
+            array_merge($validMethods, ['shouldValidateTaxvat' => true]),
         ];
 
-        $data = $validCustomer;
-        $data['gender'] = '';
-        $methods = $validMethods;
-        $methods['shouldValidateGender'] = true;
         yield 'missing gender' => [
             ['Gender is required.'],
-            $data,
-            $methods,
+            array_merge($validCustomer, ['gender' => '']),
+            array_merge($validMethods, ['shouldValidateGender' => true]),
         ];
     }
 
