@@ -14,7 +14,6 @@ namespace OpenMage\Tests\Unit\Mage\Mage\Oauth\Model;
 use Override;
 use Generator;
 use Mage;
-use Mage_Core_Exception;
 use Mage_Oauth_Model_Token as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
@@ -32,31 +31,30 @@ final class TokenTest extends OpenMageTest
     /**
      * @dataProvider validateDataProvider
      * @group Model
-     * @param array<string, string> $methods
+     * @param array<string, string> $data
      */
-    public function testValidate(bool|string $expected, array $methods): void
+    public function testValidate(bool|string $expected, array $data): void
     {
-        self::$subject->setConsumerId((int) $methods['setConsumerId']);
-        self::$subject->setCallbackUrl($methods['setCallbackUrl']);
-        self::$subject->setSecret($methods['setSecret']);
-        self::$subject->setToken($methods['setToken']);
-        self::$subject->setVerifier($methods['setVerifier']);
+        self::$subject->setData($data);
 
-        try {
-            self::assertTrue(self::$subject->validate());
-        } catch (Mage_Core_Exception $mageCoreException) {
-            self::assertSame($expected, $mageCoreException->getMessage());
+        if (is_string($expected)) {
+            self::expectExceptionMessage($expected);
         }
+
+        self::assertTrue(self::$subject->validate());
     }
 
+    /**
+     * @return Generator<string, list{bool|string, array<string, string>}, void, void>
+     */
     public static function validateDataProvider(): Generator
     {
         $validData = [
-            'setConsumerId'     => '1',
-            'setCallbackUrl'    => 'https://example.com/callback',
-            'setSecret'         => str_repeat('x', 32),
-            'setToken'          => str_repeat('x', 32),
-            'setVerifier'       => str_repeat('x', 32),
+            'consumer_id'  => '1',
+            'callback_url' => 'https://example.com/callback',
+            'secret'       => str_repeat('x', 32),
+            'token'        => str_repeat('x', 32),
+            'verifier'     => str_repeat('x', 32),
         ];
 
         $error = 'This value should have exactly 32 characters.';
@@ -67,35 +65,35 @@ final class TokenTest extends OpenMageTest
         ];
 
         $data = $validData;
-        $data['setSecret'] = str_repeat('x', 3);
+        $data['secret'] = str_repeat('x', 3);
         yield 'invalid to short secret' => [
             $error,
             $data,
         ];
 
         $data = $validData;
-        $data['setSecret'] = str_repeat('x', 33);
+        $data['secret'] = str_repeat('x', 33);
         yield 'invalid to long secret' => [
             $error,
             $data,
         ];
 
         $data = $validData;
-        $data['setToken'] = str_repeat('x', 3);
+        $data['token'] = str_repeat('x', 3);
         yield 'invalid to short token' => [
             $error,
             $data,
         ];
 
         $data = $validData;
-        $data['setToken'] = str_repeat('x', 33);
+        $data['token'] = str_repeat('x', 33);
         yield 'invalid to long token' => [
             $error,
             $data,
         ];
 
         $data = $validData;
-        $data['setCallbackUrl'] = 'invalid-url';
+        $data['callback_url'] = 'invalid-url';
         yield 'invalid url' => [
             'Invalid URL "invalid-url".',
             $data,

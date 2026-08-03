@@ -14,7 +14,6 @@ namespace OpenMage\Tests\Unit\Mage\Mage\Oauth\Model;
 use Override;
 use Generator;
 use Mage;
-use Mage_Core_Exception;
 use Mage_Oauth_Model_Consumer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
@@ -38,13 +37,16 @@ final class ConsumerTest extends OpenMageTest
     {
         self::$subject->setData($data);
 
-        try {
-            self::assertTrue(self::$subject->validate());
-        } catch (Mage_Core_Exception $mageCoreException) {
-            self::assertSame($expected, $mageCoreException->getMessage());
+        if (is_string($expected)) {
+            self::expectExceptionMessage($expected);
         }
+
+        self::assertTrue(self::$subject->validate());
     }
 
+    /**
+     * @return Generator<string, list{bool|string, array<string, string>}, void, void>
+     */
     public static function validateDataProvider(): Generator
     {
         $validData = [
@@ -60,28 +62,28 @@ final class ConsumerTest extends OpenMageTest
         ];
 
         $data = $validData;
-        $data['setKey'] = str_repeat('x', 3);
+        $data['key'] = str_repeat('x', 3);
         yield 'invalid to short key' => [
             $error,
             $data,
         ];
 
         $data = $validData;
-        $data['setKey'] = str_repeat('x', 33);
+        $data['key'] = str_repeat('x', 33);
         yield 'invalid to long key' => [
             $error,
             $data,
         ];
 
         $data = $validData;
-        $data['setSecret'] = str_repeat('x', 3);
+        $data['secret'] = str_repeat('x', 3);
         yield 'invalid to short secret' => [
             $error,
             $data,
         ];
 
         $data = $validData;
-        $data['setSecret'] = str_repeat('x', 33);
+        $data['secret'] = str_repeat('x', 33);
         yield 'invalid to long secret' => [
             $error,
             $data,
