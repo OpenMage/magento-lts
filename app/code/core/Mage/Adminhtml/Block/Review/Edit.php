@@ -82,25 +82,40 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
         $this->_formInitScripts[] = '
             var review = {
                 updateRating: function() {
-                        elements = [
-                            $("select_stores"),
-                            $("rating_detail").getElementsBySelector("input[type=\'radio\']")
-                        ].flatten();
-                        $(\'save_button\').disabled = true;
-                        new Ajax.Updater(
-                            "rating_detail",
-                            "' . $this->getUrl('*/*/ratingItems', ['_current' => true]) . '",
-                            {
-                                parameters:Form.serializeElements(elements),
-                                evalScripts:true,
-                                onComplete:function(){ $(\'save_button\').disabled = false; }
-                            }
-                        );
+                    var selectEl = document.getElementById("select_stores");
+                    var params = new URLSearchParams();
+                    if (selectEl) {
+                        Array.from(selectEl.options).forEach(function(opt) {
+                            if (opt.selected) { params.append(selectEl.name, opt.value); }
+                        });
                     }
-           }
-           Event.observe(window, \'load\', function(){
-                 Event.observe($("select_stores"), \'change\', review.updateRating);
-           });
+                    document.querySelectorAll("#rating_detail input[type=radio]").forEach(function(el) {
+                        if (el.checked) { params.append(el.name, el.value); }
+                    });
+                    params.append("form_key", window.FORM_KEY);
+                    document.getElementById("save_button").disabled = true;
+                    fetch("' . $this->getUrl('*/*/ratingItems', ['_current' => true]) . '", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest"},
+                        body: params.toString()
+                    }).then(function(resp) { return resp.text(); }).then(function(html) {
+                        var container = document.getElementById("rating_detail");
+                        container.innerHTML = html;
+                        container.querySelectorAll("script").forEach(function(s) {
+                            var ns = document.createElement("script");
+                            ns.textContent = s.textContent;
+                            document.head.appendChild(ns);
+                        });
+                        document.getElementById("save_button").disabled = false;
+                    });
+                }
+            };
+            window.addEventListener("load", function() {
+                var selectStores = document.getElementById("select_stores");
+                if (selectStores) {
+                    selectStores.addEventListener("change", review.updateRating);
+                }
+            });
         ';
     }
 

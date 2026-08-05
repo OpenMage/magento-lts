@@ -109,15 +109,15 @@
         <script type="text/javascript">
         //<![CDATA[
         var SSChecked<?php echo $_code ?> = function() {
-            var elm = $('<?php echo $_code ?>_cc_type');
+            var elm = document.getElementById('<?php echo $_code ?>_cc_type');
             if (['SS','SM','SO'].indexOf(elm.value) != -1) {
-                $('<?php echo $_code ?>_cc_type_ss_div').show();
+                document.getElementById('<?php echo $_code ?>_cc_type_ss_div').style.display = '';
             } else {
-                $('<?php echo $_code ?>_cc_type_ss_div').hide();
+                document.getElementById('<?php echo $_code ?>_cc_type_ss_div').style.display = 'none';
             }
         };
 
-        Event.observe($('<?php echo $_code ?>_cc_type'), 'change', SSChecked<?php echo $_code ?>);
+        document.getElementById('<?php echo $_code ?>_cc_type').addEventListener('change', SSChecked<?php echo $_code ?>);
         SSChecked<?php echo $_code ?>();
         //]]>
         </script>

@@ -11,7 +11,80 @@
  * @copyright   Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-var AdminOrder = new Class.create();
+
+/**
+ * Helper: serialize form elements into a plain object (replaces Form.serializeElements)
+ */
+function _serializeFormElements(fields, asObject) {
+    var data = {};
+    for (var i = 0; i < fields.length; i++) {
+        var field = fields[i];
+        if (field.disabled || !field.name) continue;
+        var tag = field.tagName.toLowerCase();
+        var type = (field.type || '').toLowerCase();
+        if (type === 'file' || type === 'submit' || type === 'reset' || type === 'button') continue;
+        if ((type === 'checkbox' || type === 'radio') && !field.checked) continue;
+        if (tag === 'select' && field.multiple) {
+            var vals = [];
+            for (var j = 0; j < field.options.length; j++) {
+                if (field.options[j].selected) vals.push(field.options[j].value);
+            }
+            data[field.name] = vals;
+        } else {
+            data[field.name] = field.value;
+        }
+    }
+    return data;
+}
+
+/**
+ * Helper: get/set value on a form element (replaces el.getValue / el.setValue)
+ */
+function _getFieldValue(el) {
+    if (!el) return '';
+    var tag = el.tagName.toLowerCase();
+    if (tag === 'select' && el.multiple) {
+        var vals = [];
+        for (var i = 0; i < el.options.length; i++) {
+            if (el.options[i].selected) vals.push(el.options[i].value);
+        }
+        return vals;
+    }
+    if ((el.type === 'checkbox' || el.type === 'radio')) {
+        return el.checked ? el.value : '';
+    }
+    return el.value;
+}
+
+function _setFieldValue(el, val) {
+    if (!el) return;
+    var tag = el.tagName.toLowerCase();
+    if (tag === 'select' && el.multiple) {
+        var vals = Array.isArray(val) ? val : [val];
+        for (var i = 0; i < el.options.length; i++) {
+            el.options[i].selected = vals.indexOf(el.options[i].value) !== -1;
+        }
+    } else if (el.type === 'checkbox' || el.type === 'radio') {
+        el.checked = !!val;
+    } else {
+        el.value = val;
+    }
+}
+
+/**
+ * Helper: wrap a function so we can call the original as `proceed`
+ * Replaces Prototype's Function.prototype.wrap
+ */
+function _wrapFunction(original, wrapper) {
+    return function() {
+        var args = [original.bind(this)].concat(Array.prototype.slice.call(arguments));
+        return wrapper.apply(this, args);
+    };
+}
+
+var AdminOrder = function(data) {
+    this.initialize(data);
+};
 AdminOrder.prototype = {
     initialize : function(data){
         if(!data) data = {};
@@ -21,27 +94,27 @@ AdminOrder.prototype = {
         this.storeId        = data.store_id ? data.store_id : false;
         this.currencyId     = false;
         this.currencySymbol = data.currency_symbol ? data.currency_symbol : '';
-        this.addresses      = data.addresses ? data.addresses : $H({});
+        this.addresses      = data.addresses ? data.addresses : {};
         this.shippingAsBilling = data.shippingAsBilling ? data.shippingAsBilling : false;
-        this.gridProducts   = $H({});
-        this.gridProductsGift = $H({});
+        this.gridProducts   = {};
+        this.gridProductsGift = {};
         this.billingAddressContainer = '';
         this.shippingAddressContainer= '';
         this.isShippingMethodReseted = data.shipping_method_reseted ? data.shipping_method_reseted : false;
-        this.overlayData = $H({});
+        this.overlayData = {};
         this.giftMessageDataChanged = false;
         this.productConfigureAddFields = {};
         this.productPriceBase = {};
         this.collectElementsValue = true;
-        Event.observe(window, 'load',  (function(){
-            this.dataArea = new OrderFormArea('data', $(this.getAreaId('data')), this);
-            this.itemsArea = Object.extend(new OrderFormArea('items', $(this.getAreaId('items')), this), {
+        window.addEventListener('load', (function(){
+            this.dataArea = new OrderFormArea('data', document.getElementById(this.getAreaId('data')), this);
+            this.itemsArea = Object.assign(new OrderFormArea('items', document.getElementById(this.getAreaId('items')), this), {
                 addControlButton: function(button){
-                    var controlButtonArea = $(this.node).select('.form-buttons')[0];
+                    var controlButtonArea = this.node.querySelectorAll('.form-buttons')[0];
                     if (typeof controlButtonArea != 'undefined') {
-                        var buttons = controlButtonArea.childElements();
+                        var buttons = Array.from(controlButtonArea.children);
                         for (var i = 0; i < buttons.length; i++) {
-                            if (buttons[i].innerHTML.include(button.label)) {
+                            if (buttons[i].innerHTML.indexOf(button.label) !== -1) {
                                 return ;
                             }
                         }
@@ -53,25 +126,26 @@ AdminOrder.prototype = {
             var searchButton = new ControlButton(Translator.translate('Add Products')),
                 searchAreaId = this.getAreaId('search');
             searchButton.onClick = function() {
-                $(searchAreaId).show();
+                document.getElementById(searchAreaId).style.display = '';
                 var el = this;
                 window.setTimeout(function () {
                     el.remove();
                 }, 10);
             };
 
-            this.dataArea.onLoad = this.dataArea.onLoad.wrap(function(proceed) {
+            this.dataArea.onLoad = _wrapFunction(this.dataArea.onLoad, function(proceed) {
                 proceed();
-                this._parent.itemsArea.setNode($(this._parent.getAreaId('items')));
+                this._parent.itemsArea.setNode(document.getElementById(this._parent.getAreaId('items')));
                 this._parent.itemsArea.onLoad();
-            });
+            }.bind(this.dataArea));
 
-            this.itemsArea.onLoad = this.itemsArea.onLoad.wrap(function(proceed) {
+            this.itemsArea.onLoad = _wrapFunction(this.itemsArea.onLoad, function(proceed) {
                 proceed();
-                if (!$(searchAreaId).visible()) {
+                var el = document.getElementById(searchAreaId);
+                if (el && el.style.display === 'none') {
                     this.addControlButton(searchButton);
                 }
-            });
+            }.bind(this.itemsArea));
             this.areasLoaded();
             this.itemsArea.onLoad();
         }).bind(this));
@@ -103,15 +177,15 @@ AdminOrder.prototype = {
     setCustomerId : function(id){
         this.customerId = id;
         this.loadArea('header', true);
-        $(this.getAreaId('header')).callback = 'setCustomerAfter';
-        $('back_order_top_button').hide();
-        $('reset_order_top_button').show();
+        document.getElementById(this.getAreaId('header')).callback = 'setCustomerAfter';
+        document.getElementById('back_order_top_button').style.display = 'none';
+        document.getElementById('reset_order_top_button').style.display = '';
     },
 
     setCustomerAfter : function () {
         this.customerSelectorHide();
         if (this.storeId) {
-            $(this.getAreaId('data')).callback = 'dataLoaded';
+            document.getElementById(this.getAreaId('data')).callback = 'dataLoaded';
             this.loadArea(['data'], true);
         }
         else {
@@ -162,24 +236,24 @@ AdminOrder.prototype = {
 
     isShippingField : function(fieldId){
         if(this.shippingAsBilling){
-            return fieldId.include('billing');
+            return fieldId.indexOf('billing') !== -1;
         }
-        return fieldId.include('shipping');
+        return fieldId.indexOf('shipping') !== -1;
     },
 
     isBillingField : function(fieldId){
-        return fieldId.include('billing');
+        return fieldId.indexOf('billing') !== -1;
     },
 
     bindAddressFields : function(container) {
-        var fields = $(container).select('input', 'select', 'textarea');
+        var fields = document.getElementById(container).querySelectorAll('input, select, textarea');
         for(var i=0;i<fields.length;i++){
-            Event.observe(fields[i], 'change', this.changeAddressField.bind(this));
+            fields[i].addEventListener('change', this.changeAddressField.bind(this));
         }
     },
 
     changeAddressField : function(event){
-        var field = Event.element(event);
+        var field = event.target;
         var re = /[^\[]*\[([^\]]*)_address\]\[([^\]]*)\](\[(\d)\])?/;
         var matchRes = field.name.match(re);
 
@@ -197,14 +271,13 @@ AdminOrder.prototype = {
         else{
             data = this.serializeData(this.shippingAddressContainer);
         }
-        data = data.toObject();
 
         if( (type == 'billing' && this.shippingAsBilling && !this.isShippingMethodReseted)
             || (type == 'shipping' && !this.shippingAsBilling && !this.isShippingMethodReseted) ) {
             data['reset_shipping'] = true;
         }
 
-        data['order['+type+'_address][customer_address_id]'] = $('order-'+type+'_address_customer_address_id').value;
+        data['order['+type+'_address][customer_address_id]'] = document.getElementById('order-'+type+'_address_customer_address_id').value;
 
         if (type == 'billing' && this.shippingAsBilling) {
             this.copyDataFromBillingToShipping(field);
@@ -221,15 +294,16 @@ AdminOrder.prototype = {
     },
 
     copyDataFromBillingToShipping : function(field) {
-        var shippingId = $(field).identify().replace('-billing_', '-shipping_');
-        var inputField = $(shippingId);
+        var shippingId = field.id.replace('-billing_', '-shipping_');
+        var inputField = document.getElementById(shippingId);
         if (inputField) {
-            inputField.setValue($(field).getValue());
+            _setFieldValue(inputField, _getFieldValue(field));
             if (inputField.changeUpdater) {
                 inputField.changeUpdater();
             }
-            $(this.shippingAddressContainer).select('select').each(function(el){
-                el.disable();
+            var selects = document.getElementById(this.shippingAddressContainer).querySelectorAll('select');
+            selects.forEach(function(el){
+                el.disabled = true;
             });
         }
     },
@@ -238,7 +312,7 @@ AdminOrder.prototype = {
         var regionIdElem = false;
         var regionIdElemValue = false;
 
-        var fields = $(container).select('input', 'select', 'textarea');
+        var fields = document.getElementById(container).querySelectorAll('input, select, textarea');
         var re = /[^\[]*\[[^\]]*\]\[([^\]]*)\](\[(\d)\])?/;
         for(var i=0;i<fields.length;i++){
             // skip input type file @Security error code: 1000
@@ -264,15 +338,15 @@ AdminOrder.prototype = {
                 // multiselect
                 if (data[name]) {
                     values = [''];
-                    if (Object.isString(data[name])) {
+                    if (typeof data[name] === 'string') {
                         values = data[name].split(',');
-                    } else if (Object.isArray(data[name])) {
+                    } else if (Array.isArray(data[name])) {
                         values = data[name];
                     }
-                    fields[i].setValue(values);
+                    _setFieldValue(fields[i], values);
                 }
             } else {
-                fields[i].setValue(data[name] ? data[name] : '');
+                _setFieldValue(fields[i], data[name] ? data[name] : '');
             }
 
             if (fields[i].changeUpdater) fields[i].changeUpdater();
@@ -284,31 +358,33 @@ AdminOrder.prototype = {
 
     disableShippingAddress : function(flag) {
         this.shippingAsBilling = flag;
-        if ($('order-shipping_address_customer_address_id')) {
-            $('order-shipping_address_customer_address_id').disabled = flag;
+        if (document.getElementById('order-shipping_address_customer_address_id')) {
+            document.getElementById('order-shipping_address_customer_address_id').disabled = flag;
         }
 
-        if ($(this.shippingAddressContainer)) {
-            var dataFields = $(this.shippingAddressContainer).select('input', 'select', 'textarea');
+        var shippingContainer = document.getElementById(this.shippingAddressContainer);
+        if (shippingContainer) {
+            var dataFields = shippingContainer.querySelectorAll('input, select, textarea');
             for (var i = 0; i < dataFields.length; i++) {
                 dataFields[i].disabled = flag;
             }
-            var buttons = $(this.shippingAddressContainer).select('button');
+            var buttons = shippingContainer.querySelectorAll('button');
             // Add corresponding class to buttons while disabling them
             for (i = 0; i < buttons.length; i++) {
                 buttons[i].disabled = flag;
                 if (flag) {
-                    buttons[i].addClassName('disabled');
+                    buttons[i].classList.add('disabled');
                 } else {
-                    buttons[i].removeClassName('disabled');
+                    buttons[i].classList.remove('disabled');
                 }
             }
         }
     },
 
     turnOffShippingFields : function() {
-        if ($(this.shippingAddressContainer)) {
-            var dataFields = $(this.shippingAddressContainer).select('input', 'select', 'textarea', 'button');
+        var shippingContainer = document.getElementById(this.shippingAddressContainer);
+        if (shippingContainer) {
+            var dataFields = shippingContainer.querySelectorAll('input, select, textarea, button');
             for (var i = 0; i < dataFields.length; i++) {
                 dataFields[i].removeAttribute('name');
                 dataFields[i].removeAttribute('id');
@@ -325,7 +401,6 @@ AdminOrder.prototype = {
         else{
             var data = this.serializeData(this.shippingAddressContainer);
         }
-        data = data.toObject();
         data['shipping_as_billing'] = flag ? 1 : 0;
         data['reset_shipping'] = 1;
         this.loadArea(['shipping_method', 'billing_method', 'shipping_address', 'totals', 'giftmessage'], true, data);
@@ -357,13 +432,13 @@ AdminOrder.prototype = {
     },
 
     setPaymentMethod : function(method){
-        if (this.paymentMethod && $('payment_form_'+this.paymentMethod)) {
+        if (this.paymentMethod && document.getElementById('payment_form_'+this.paymentMethod)) {
             var form = 'payment_form_'+this.paymentMethod;
-            [form + '_before', form, form + '_after'].each(function(el) {
-                var block = $(el);
+            [form + '_before', form, form + '_after'].forEach(function(el) {
+                var block = document.getElementById(el);
                 if (block) {
-                    block.hide();
-                    block.select('input', 'select', 'textarea').each(function(field) {
+                    block.style.display = 'none';
+                    block.querySelectorAll('input, select, textarea').forEach(function(field) {
                         field.disabled = true;
                     });
                 }
@@ -371,34 +446,34 @@ AdminOrder.prototype = {
         }
 
         if(!this.paymentMethod || method){
-            $('order-billing_method_form').select('input', 'select', 'textarea').each(function(elem){
+            document.getElementById('order-billing_method_form').querySelectorAll('input, select, textarea').forEach(function(elem){
                 if(elem.type != 'radio') elem.disabled = true;
             });
         }
 
-        if ($('payment_form_'+method)){
+        if (document.getElementById('payment_form_'+method)){
             this.paymentMethod = method;
             var form = 'payment_form_'+method;
-            [form + '_before', form, form + '_after'].each(function(el) {
-                var block = $(el);
+            [form + '_before', form, form + '_after'].forEach(function(el) {
+                var block = document.getElementById(el);
                 if (block) {
-                   block.show();
-                   block.select('input', 'select', 'textarea').each(function(field) {
+                   block.style.display = '';
+                   block.querySelectorAll('input, select, textarea').forEach(function(field) {
                        field.disabled = false;
-                       if (!el.include('_before') && !el.include('_after') && !field.bindChange) {
+                       if (el.indexOf('_before') === -1 && el.indexOf('_after') === -1 && !field.bindChange) {
                            field.bindChange = true;
                            field.paymentContainer = form; /** @deprecated after 1.4.0.0-rc1 */
                            field.method = method;
-                           field.observe('change', this.changePaymentData.bind(this));
+                           field.addEventListener('change', this.changePaymentData.bind(this));
                         }
-                    },this);
+                    }.bind(this));
                 }
-            },this);
+            }.bind(this));
         }
     },
 
     changePaymentData : function(event){
-        var elem = Event.element(event);
+        var elem = event.target;
         if(elem && elem.method){
             var data = this.getPaymentData(elem.method);
             if (data) {
@@ -418,9 +493,9 @@ AdminOrder.prototype = {
             }
         }
         var data = {};
-        var fields = $('payment_form_' + currentMethod).select('input', 'select');
+        var fields = document.getElementById('payment_form_' + currentMethod).querySelectorAll('input, select');
         for(var i=0;i<fields.length;i++){
-            data[fields[i].name] = fields[i].getValue();
+            data[fields[i].name] = _getFieldValue(fields[i]);
         }
         if ((typeof data['payment[cc_type]']) != 'undefined' && (!data['payment[cc_type]'] || !data['payment[cc_number]'])) {
             return false;
@@ -448,20 +523,20 @@ AdminOrder.prototype = {
 
     productGridShow : function(buttonElement){
         this.productGridShowButton = buttonElement;
-        Element.hide(buttonElement);
+        buttonElement.style.display = 'none';
         this.showArea('search');
     },
 
     productGridRowInit : function(grid, row){
-        var checkbox = $(row).select('.checkbox')[0];
-        var inputs = $(row).select('.input-text');
+        var checkbox = row.querySelector('.checkbox');
+        var inputs = Array.from(row.querySelectorAll('.input-text'));
         if (checkbox && inputs.length > 0) {
             checkbox.inputElements = inputs;
             for (var i = 0; i < inputs.length; i++) {
                 var input = inputs[i];
                 input.checkboxElement = checkbox;
 
-                var product = this.gridProducts.get(checkbox.value);
+                var product = this.gridProducts[checkbox.value];
                 if (product) {
                     var defaultValue = product[input.name];
                     if (defaultValue) {
@@ -473,38 +548,38 @@ AdminOrder.prototype = {
                     }
                 }
 
-                input.disabled = !checkbox.checked || input.hasClassName('input-inactive');
+                input.disabled = !checkbox.checked || input.classList.contains('input-inactive');
 
-                Event.observe(input,'keyup', this.productGridRowInputChange.bind(this));
-                Event.observe(input,'change',this.productGridRowInputChange.bind(this));
+                input.addEventListener('keyup', this.productGridRowInputChange.bind(this));
+                input.addEventListener('change',this.productGridRowInputChange.bind(this));
             }
         }
     },
 
     productGridRowInputChange : function(event){
-        var element = Event.element(event);
+        var element = event.target;
         if (element && element.checkboxElement && element.checkboxElement.checked){
             if (element.name!='giftmessage' || element.checked) {
-                this.gridProducts.get(element.checkboxElement.value)[element.name] = element.value;
-            } else if (element.name=='giftmessage' && this.gridProducts.get(element.checkboxElement.value)[element.name]) {
-                delete(this.gridProducts.get(element.checkboxElement.value)[element.name]);
+                this.gridProducts[element.checkboxElement.value][element.name] = element.value;
+            } else if (element.name=='giftmessage' && this.gridProducts[element.checkboxElement.value][element.name]) {
+                delete(this.gridProducts[element.checkboxElement.value][element.name]);
             }
         }
     },
 
     productGridRowClick : function(grid, event){
-        var trElement = Event.findElement(event, 'tr');
-        var qtyElement = trElement.select('input[name="qty"]')[0];
-        var eventElement = Event.element(event);
+        var trElement = event.target.closest('tr');
+        var qtyElement = trElement.querySelector('input[name="qty"]');
+        var eventElement = event.target;
         var isInputCheckbox = eventElement.tagName == 'INPUT' && eventElement.type == 'checkbox';
         var isInputQty = eventElement.tagName == 'INPUT' && eventElement.name == 'qty';
         if (trElement && !isInputQty) {
-            var checkbox = Element.select(trElement, 'input[type="checkbox"]')[0];
-            var confLink = Element.select(trElement, 'a')[0];
-            var priceColl = Element.select(trElement, '.price')[0];
+            var checkbox = trElement.querySelector('input[type="checkbox"]');
+            var confLink = trElement.querySelector('a');
+            var priceColl = trElement.querySelector('.price');
             if (checkbox) {
                 // processing non composite product
-                if (confLink.readAttribute('disabled')) {
+                if (confLink.getAttribute('disabled')) {
                     var checked = isInputCheckbox ? checkbox.checked : !checkbox.checked;
                     grid.setCheckboxChecked(checkbox, checked);
                 // processing composite product
@@ -512,8 +587,8 @@ AdminOrder.prototype = {
                     grid.setCheckboxChecked(checkbox, false);
                 // processing composite product
                 } else if (!isInputCheckbox || (isInputCheckbox && checkbox.checked)) {
-                    var listType = confLink.readAttribute('list_type');
-                    var productId = confLink.readAttribute('product_id');
+                    var listType = confLink.getAttribute('list_type');
+                    var productId = confLink.getAttribute('product_id');
                     if (typeof this.productPriceBase[productId] == 'undefined') {
                         var priceBase = priceColl.innerHTML.match(/.*?([\d,]+\.?\d*)/);
                         if (!priceBase) {
@@ -535,7 +610,7 @@ AdminOrder.prototype = {
                         grid.setCheckboxChecked(checkbox, true);
                     }.bind(this));
                     productConfigure.setCancelCallback(listType, function() {
-                        if (!$(productConfigure.confirmedCurrentId) || !$(productConfigure.confirmedCurrentId).innerHTML) {
+                        if (!document.getElementById(productConfigure.confirmedCurrentId) || !document.getElementById(productConfigure.confirmedCurrentId).innerHTML) {
                             grid.setCheckboxChecked(checkbox, false);
                         }
                     });
@@ -562,14 +637,14 @@ AdminOrder.prototype = {
             var getPrice = function (elm) {
                 var optQty = 1;
                 if (elm.hasAttribute('qtyId')) {
-                    if (!$(elm.getAttribute('qtyId')).value) {
+                    if (!document.getElementById(elm.getAttribute('qtyId')).value) {
                         return 0;
                     } else {
-                        optQty = parseFloat($(elm.getAttribute('qtyId')).value);
+                        optQty = parseFloat(document.getElementById(elm.getAttribute('qtyId')).value);
                     }
                 }
                 if (elm.hasAttribute('price') && !elm.disabled) {
-                    return parseFloat(elm.readAttribute('price')) * optQty;
+                    return parseFloat(elm.getAttribute('price')) * optQty;
                 }
                 return 0;
             };
@@ -583,27 +658,27 @@ AdminOrder.prototype = {
                 }
                 else if (((elms[i].type == 'checkbox' || elms[i].type == 'radio') && elms[i].checked)
                         || ((elms[i].type == 'file' || elms[i].type == 'text' || elms[i].type == 'textarea' || elms[i].type == 'hidden')
-                            && Form.Element.getValue(elms[i]))
+                            && _getFieldValue(elms[i]))
                 ) {
                     productPrice += getPrice(elms[i]);
                 }
             }
             return productPrice;
         }.bind(this);
-        productPrice += getPriceFields($(productConfigure.confirmedCurrentId).getElementsByTagName('input'));
-        productPrice += getPriceFields($(productConfigure.confirmedCurrentId).getElementsByTagName('select'));
-        productPrice += getPriceFields($(productConfigure.confirmedCurrentId).getElementsByTagName('textarea'));
+        productPrice += getPriceFields(document.getElementById(productConfigure.confirmedCurrentId).getElementsByTagName('input'));
+        productPrice += getPriceFields(document.getElementById(productConfigure.confirmedCurrentId).getElementsByTagName('select'));
+        productPrice += getPriceFields(document.getElementById(productConfigure.confirmedCurrentId).getElementsByTagName('textarea'));
         return productPrice;
     },
 
     productGridCheckboxCheck : function(grid, element, checked){
         if (checked) {
             if(element.inputElements) {
-                this.gridProducts.set(element.value, {});
-                var product = this.gridProducts.get(element.value);
+                this.gridProducts[element.value] = {};
+                var product = this.gridProducts[element.value];
                 for (var i = 0; i < element.inputElements.length; i++) {
                     var input = element.inputElements[i];
-                    if (!input.hasClassName('input-inactive')) {
+                    if (!input.classList.contains('input-inactive')) {
                         input.disabled = false;
                         if (input.name == 'qty' && !input.value) {
                             input.value = 1;
@@ -623,21 +698,21 @@ AdminOrder.prototype = {
                     element.inputElements[i].disabled = true;
                 }
             }
-            this.gridProducts.unset(element.value);
+            delete this.gridProducts[element.value];
         }
-        grid.reloadParams = {'products[]':this.gridProducts.keys()};
+        grid.reloadParams = {'products[]':Object.keys(this.gridProducts)};
     },
 
     /**
      * Submit configured products to quote
      */
     productGridAddSelected : function(){
-        if(this.productGridShowButton) Element.show(this.productGridShowButton);
+        if(this.productGridShowButton) this.productGridShowButton.style.display = '';
         var area = ['search', 'items', 'shipping_method', 'totals', 'giftmessage','billing_method'];
         // prepare additional fields and filtered items of products
         var fieldsPrepare = {};
         var itemsFilter = [];
-        var products = this.gridProducts.toObject();
+        var products = this.gridProducts;
         for (var productId in products) {
             itemsFilter.push(productId);
             var paramKey = 'item['+productId+']';
@@ -649,11 +724,11 @@ AdminOrder.prototype = {
         this.productConfigureSubmit('product_to_add', area, fieldsPrepare, itemsFilter);
         productConfigure.clean('quote_items');
         this.hideArea('search');
-        this.gridProducts = $H({});
+        this.gridProducts = {};
     },
 
     selectCustomer : function(grid, event){
-        var element = Event.findElement(event, 'tr');
+        var element = event.target.closest('tr');
         if (element.title){
             this.setCustomerId(element.title);
         }
@@ -680,8 +755,8 @@ AdminOrder.prototype = {
     },
 
     dataShow : function(){
-        if ($('submit_order_top_button')) {
-            $('submit_order_top_button').show();
+        if (document.getElementById('submit_order_top_button')) {
+            document.getElementById('submit_order_top_button').style.display = '';
         }
         this.showArea('data');
     },
@@ -694,13 +769,13 @@ AdminOrder.prototype = {
     },
 
     sidebarApplyChanges : function(auxiliaryParams) {
-        if ($(this.getAreaId('sidebar'))) {
+        if (document.getElementById(this.getAreaId('sidebar'))) {
             var data = {};
             if (this.collectElementsValue) {
-                var elems = $(this.getAreaId('sidebar')).select('input');
+                var elems = document.getElementById(this.getAreaId('sidebar')).querySelectorAll('input');
                 for (var i=0; i < elems.length; i++) {
-                    if (elems[i].getValue()) {
-                        data[elems[i].name] = elems[i].getValue();
+                    if (_getFieldValue(elems[i])) {
+                        data[elems[i].name] = _getFieldValue(elems[i]);
                     }
                 }
             }
@@ -715,18 +790,18 @@ AdminOrder.prototype = {
     },
 
     sidebarHide : function(){
-        if(this.storeId === false && $('page:left') && $('page:container')){
-            $('page:left').hide();
-            $('page:container').removeClassName('container');
-            $('page:container').addClassName('container-collapsed');
+        if(this.storeId === false && document.getElementById('page:left') && document.getElementById('page:container')){
+            document.getElementById('page:left').style.display = 'none';
+            document.getElementById('page:container').classList.remove('container');
+            document.getElementById('page:container').classList.add('container-collapsed');
         }
     },
 
     sidebarShow : function(){
-        if($('page:left') && $('page:container')){
-            $('page:left').show();
-            $('page:container').removeClassName('container-collapsed');
-            $('page:container').addClassName('container');
+        if(document.getElementById('page:left') && document.getElementById('page:container')){
+            document.getElementById('page:left').style.display = '';
+            document.getElementById('page:container').classList.remove('container-collapsed');
+            document.getElementById('page:container').classList.add('container');
         }
     },
 
@@ -750,7 +825,11 @@ AdminOrder.prototype = {
         }
         var fields = [];
         for (var name in params) {
-            fields.push(new Element('input', {type: 'hidden', name: name, value: params[name]}));
+            var hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = name;
+            hiddenInput.value = params[name];
+            fields.push(hiddenInput);
         }
         // add additional fields before triggered submit
         productConfigure.setBeforeSubmitCallback(listType, function() {
@@ -777,23 +856,23 @@ AdminOrder.prototype = {
         var area = ['sidebar', 'items', 'shipping_method', 'billing_method','totals', 'giftmessage'];
         // prepare additional fields
         var fieldsPrepare = {update_items: 1};
-        var info = $('order-items_grid').select('input', 'select', 'textarea');
+        var info = document.getElementById('order-items_grid').querySelectorAll('input, select, textarea');
         for(var i=0; i<info.length; i++){
             if(!info[i].disabled && (info[i].type != 'checkbox' || info[i].checked)) {
-                fieldsPrepare[info[i].name] = info[i].getValue();
+                fieldsPrepare[info[i].name] = _getFieldValue(info[i]);
             }
         }
-        fieldsPrepare = Object.extend(fieldsPrepare, this.productConfigureAddFields);
+        fieldsPrepare = Object.assign(fieldsPrepare, this.productConfigureAddFields);
         this.productConfigureSubmit('quote_items', area, fieldsPrepare);
         this.orderItemChanged = false;
     },
 
     itemsOnchangeBind : function(){
-        var elems = $('order-items_grid').select('input', 'select', 'textarea');
+        var elems = document.getElementById('order-items_grid').querySelectorAll('input, select, textarea');
         for(var i=0; i<elems.length; i++){
             if(!elems[i].bindOnchange){
                 elems[i].bindOnchange = true;
-                elems[i].observe('change', this.itemChange.bind(this));
+                elems[i].addEventListener('change', this.itemChange.bind(this));
             }
         }
     },
@@ -825,7 +904,11 @@ AdminOrder.prototype = {
         // create fields
         var fields = [];
         for (var name in fieldsPrepare) {
-            fields.push(new Element('input', {type: 'hidden', name: name, value: fieldsPrepare[name]}));
+            var hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = name;
+            hiddenInput.value = fieldsPrepare[name];
+            fields.push(hiddenInput);
         }
         productConfigure.addFields(fields);
 
@@ -851,7 +934,7 @@ AdminOrder.prototype = {
      */
     showQuoteItemConfiguration: function(itemId){
         var listType = 'quote_items';
-        var qtyElement = $('order-items_grid').select('input[name="item\['+itemId+'\]\[qty\]"]')[0];
+        var qtyElement = document.getElementById('order-items_grid').querySelector('input[name="item\\['+itemId+'\\]\\[qty\\]"]');
         productConfigure.setConfirmCallback(listType, function() {
             // sync qty of popup and qty of grid
             var confirmedCurrentQty = productConfigure.getCurrentConfirmedQtyElement();
@@ -872,21 +955,21 @@ AdminOrder.prototype = {
     },
 
     accountFieldsBind : function(container){
-        if($(container)){
-            var fields = $(container).select('input', 'select', 'textarea');
+        if(document.getElementById(container)){
+            var fields = document.getElementById(container).querySelectorAll('input, select, textarea');
             for(var i=0; i<fields.length; i++){
                 if(fields[i].id == 'group_id'){
-                    fields[i].observe('change', this.accountGroupChange.bind(this));
+                    fields[i].addEventListener('change', this.accountGroupChange.bind(this));
                 }
                 else{
-                    fields[i].observe('change', this.accountFieldChange.bind(this));
+                    fields[i].addEventListener('change', this.accountFieldChange.bind(this));
                 }
             }
         }
     },
 
     accountGroupChange : function(){
-        this.loadArea(['data'], true, this.serializeData('order-form_account').toObject());
+        this.loadArea(['data'], true, this.serializeData('order-form_account'));
     },
 
     accountFieldChange : function(){
@@ -894,10 +977,10 @@ AdminOrder.prototype = {
     },
 
     commentFieldsBind : function(container){
-        if($(container)){
-            var fields = $(container).select('input', 'textarea');
+        if(document.getElementById(container)){
+            var fields = document.getElementById(container).querySelectorAll('input, textarea');
             for(var i=0; i<fields.length; i++)
-                fields[i].observe('change', this.commentFieldChange.bind(this));
+                fields[i].addEventListener('change', this.commentFieldChange.bind(this));
         }
     },
 
@@ -906,10 +989,10 @@ AdminOrder.prototype = {
     },
 
     giftmessageFieldsBind : function(container){
-        if($(container)){
-            var fields = $(container).select('input', 'textarea');
+        if(document.getElementById(container)){
+            var fields = document.getElementById(container).querySelectorAll('input, textarea');
             for(var i=0; i<fields.length; i++)
-                fields[i].observe('change', this.giftmessageFieldChange.bind(this));
+                fields[i].addEventListener('change', this.giftmessageFieldChange.bind(this));
         }
     },
 
@@ -918,9 +1001,9 @@ AdminOrder.prototype = {
     },
 
     giftmessageOnItemChange : function(event) {
-        var element = Event.element(event);
+        var element = event.target;
         if(element.name.indexOf("giftmessage") != -1 && element.type == "checkbox" && !element.checked) {
-            var messages = $("order-giftmessage").select('textarea');
+            var messages = document.getElementById("order-giftmessage").querySelectorAll('textarea');
             var name;
             for(var i=0; i<messages.length; i++) {
                 name = messages[i].id.split("_");
@@ -945,17 +1028,29 @@ AdminOrder.prototype = {
         if (!this.loadingAreas) this.loadingAreas = [];
         if (indicator) {
             this.loadingAreas = area;
-            new Ajax.Request(url, {
-                parameters:params,
-                loaderArea: indicator,
-                onSuccess: function(transport) {
-                    var response = transport.responseText.evalJSON();
-                    this.loadAreaResponseHandler(response);
-                }.bind(this)
-            });
+            showLoader(indicator);
+            var queryString = new URLSearchParams(params).toString();
+            fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: queryString
+            }).then(function(response) {
+                return response.text();
+            }).then(function(text) {
+                var response = JSON.parse(text);
+                this.loadAreaResponseHandler(response);
+                hideLoader();
+            }.bind(this)).catch(function() {
+                hideLoader();
+            }.bind(this));
         }
         else {
-            new Ajax.Request(url, {parameters:params,loaderArea: indicator});
+            var queryString = new URLSearchParams(params).toString();
+            fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: queryString
+            });
         }
         if (typeof productConfigure != 'undefined' && area instanceof Array && area.indexOf('items') != -1) {
             productConfigure.clean('quote_items');
@@ -981,14 +1076,26 @@ AdminOrder.prototype = {
 
         for(var i=0; i<this.loadingAreas.length; i++){
             var id = this.loadingAreas[i];
-            if($(this.getAreaId(id))){
+            var areaEl = document.getElementById(this.getAreaId(id));
+            if(areaEl){
                 if ('message' != id || response[id]) {
-                    var wrapper = new Element('div');
-                    wrapper.update(response[id] ? response[id] : '');
-                    $(this.getAreaId(id)).update(wrapper);
+                    var wrapper = document.createElement('div');
+                    wrapper.innerHTML = response[id] ? response[id] : '';
+                    areaEl.innerHTML = '';
+                    areaEl.appendChild(wrapper);
+                    var scripts = areaEl.querySelectorAll('script');
+                    for (var s = 0; s < scripts.length; s++) {
+                        var scriptEl = document.createElement('script');
+                        if (scripts[s].src) {
+                            scriptEl.src = scripts[s].src;
+                        } else {
+                            scriptEl.text = scripts[s].text;
+                        }
+                        document.head.appendChild(scriptEl).parentNode.removeChild(scriptEl);
+                    }
                 }
-                if ($(this.getAreaId(id)).callback) {
-                    this[$(this.getAreaId(id)).callback]();
+                if (areaEl.callback) {
+                    this[areaEl.callback]();
                 }
             }
         }
@@ -996,7 +1103,7 @@ AdminOrder.prototype = {
 
     prepareArea : function(area){
         if (this.giftMessageDataChanged) {
-            return area.without('giftmessage');
+            return area.filter(function(item) { return item !== 'giftmessage'; });
         }
         return area;
     },
@@ -1007,24 +1114,27 @@ AdminOrder.prototype = {
 
     showArea : function(area){
         var id = this.getAreaId(area);
-        if($(id)) {
-            $(id).show();
+        var el = document.getElementById(id);
+        if(el) {
+            el.style.display = '';
             this.areaOverlay();
         }
     },
 
     hideArea : function(area){
         var id = this.getAreaId(area);
-        if($(id)) {
-            $(id).hide();
+        var el = document.getElementById(id);
+        if(el) {
+            el.style.display = 'none';
             this.areaOverlay();
         }
     },
 
     areaOverlay : function()
     {
-        $H(order.overlayData).each(function(e){
-            e.value.fx();
+        var data = order.overlayData;
+        Object.keys(data).forEach(function(key){
+            data[key].fx();
         });
     },
 
@@ -1053,30 +1163,30 @@ AdminOrder.prototype = {
         }
         var data = this.serializeData('order-billing_method');
         if (data) {
-            data.each(function(value) {
-                params[value[0]] = value[1];
+            Object.keys(data).forEach(function(key) {
+                params[key] = data[key];
             });
         }
         return params;
     },
 
     serializeData : function(container){
-        var fields = $(container).select('input', 'select', 'textarea');
-        var data = Form.serializeElements(fields, true);
-
-        return $H(data);
+        var el = document.getElementById(container);
+        if (!el) return {};
+        var fields = el.querySelectorAll('input, select, textarea');
+        return _serializeFormElements(fields, true);
     },
 
     toggleCustomPrice: function(checkbox, elemId, tierBlock) {
         if (checkbox.checked) {
-            $(elemId).disabled = false;
-            $(elemId).show();
-            if($(tierBlock)) $(tierBlock).hide();
+            document.getElementById(elemId).disabled = false;
+            document.getElementById(elemId).style.display = '';
+            if(document.getElementById(tierBlock)) document.getElementById(tierBlock).style.display = 'none';
         }
         else {
-            $(elemId).disabled = true;
-            $(elemId).hide();
-            if($(tierBlock)) $(tierBlock).show();
+            document.getElementById(elemId).disabled = true;
+            document.getElementById(elemId).style.display = 'none';
+            if(document.getElementById(tierBlock)) document.getElementById(tierBlock).style.display = '';
         }
     },
 
@@ -1102,7 +1212,7 @@ AdminOrder.prototype = {
         if (typeof(show) == 'undefined') { show = true; }
 
         var orderObj = this;
-        var obj = this.overlayData.get(elId);
+        var obj = this.overlayData[elId];
         if (!obj) {
             obj = {
                 show: show,
@@ -1112,113 +1222,127 @@ AdminOrder.prototype = {
                     this.order.processOverlay(this.el, this.show);
                 }
             };
-            obj.bfx = obj.fx.bindAsEventListener(obj);
-            this.overlayData.set(elId, obj);
+            obj.bfx = obj.fx.bind(obj);
+            this.overlayData[elId] = obj;
         }
         else {
             obj.show = show;
-            Event.stopObserving(window, 'resize', obj.bfx);
+            window.removeEventListener('resize', obj.bfx);
         }
 
-        Event.observe(window, 'resize', obj.bfx);
+        window.addEventListener('resize', obj.bfx);
 
         this.processOverlay(elId, show);
     },
 
     processOverlay : function(elId, show)
     {
-        var el = $(elId);
+        var el = document.getElementById(elId);
 
         if (!el) {
             return false;
         }
 
-        var parentEl = el.up(1);
+        var parentEl = el.parentElement && el.parentElement.parentElement ? el.parentElement.parentElement : null;
+        if (!parentEl) return false;
+
         if (show) {
-            parentEl.removeClassName('ignore-validate');
+            parentEl.classList.remove('ignore-validate');
         }
         else {
-            parentEl.addClassName('ignore-validate');
+            parentEl.classList.add('ignore-validate');
         }
 
-        parentEl.setStyle({position: 'relative'});
-        el.setStyle({
-            display: show ? 'none' : '',
-            position: 'absolute',
-            backgroundColor: '#999999',
-            opacity: 0.8,
-            width: parentEl.getWidth() + 'px',
-            height: parentEl.getHeight() + 'px',
-            top: 0,
-            left: 0
-        });
+        parentEl.style.position = 'relative';
+        el.style.display = show ? 'none' : '';
+        el.style.position = 'absolute';
+        el.style.backgroundColor = '#999999';
+        el.style.opacity = '0.8';
+        el.style.width = parentEl.offsetWidth + 'px';
+        el.style.height = parentEl.offsetHeight + 'px';
+        el.style.top = '0';
+        el.style.left = '0';
     },
 
     validateVat: function(parameters)
     {
         var params = {
-            country: $(parameters.countryElementId).value,
-            vat: $(parameters.vatElementId).value
+            country: document.getElementById(parameters.countryElementId).value,
+            vat: document.getElementById(parameters.vatElementId).value,
+            form_key: window.FORM_KEY || ''
         };
 
         if (this.storeId !== false) {
             params.store_id = this.storeId;
         }
 
-        var currentCustomerGroupId = $(parameters.groupIdHtmlId).value;
+        // guest orders have no customer group selector, so group changes do not apply
+        var groupIdElement = document.getElementById(parameters.groupIdHtmlId);
+        var currentCustomerGroupId = groupIdElement ? groupIdElement.value : null;
 
-        new Ajax.Request(parameters.validateUrl, {
-            parameters: params,
-            onSuccess: function(response) {
-                var message = '';
-                var groupChangeRequired = false;
-                try {
-                    response = response.responseText.evalJSON();
+        var queryString = new URLSearchParams(params).toString();
+        fetch(parameters.validateUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+            credentials: 'same-origin',
+            body: queryString
+        }).then(function(response) {
+            return response.text();
+        }).then(function(text) {
+            var message = '';
+            var groupChangeRequired = false;
+            try {
+                var response = JSON.parse(text);
 
-                    if (true === response.valid) {
-                        message = parameters.vatValidMessage;
-                        if (currentCustomerGroupId != response.group) {
-                            message = parameters.vatValidAndGroupChangeMessage;
-                            groupChangeRequired = true;
-                        }
-                    } else if (response.success) {
-                        message = parameters.vatInvalidMessage.replace(/%s/, params.vat);
-                        groupChangeRequired = true;
-                    } else {
-                        message = parameters.vatValidationFailedMessage;
+                if (true === response.valid) {
+                    message = parameters.vatValidMessage;
+                    if (groupIdElement && currentCustomerGroupId != response.group) {
+                        message = parameters.vatValidAndGroupChangeMessage;
                         groupChangeRequired = true;
                     }
+                } else if (response.success) {
+                    message = parameters.vatInvalidMessage.replace(/%s/, params.vat);
+                    groupChangeRequired = !!groupIdElement;
+                } else {
+                    message = parameters.vatValidationFailedMessage;
+                    groupChangeRequired = !!groupIdElement;
+                }
 
-                } catch (e) {
-                    message = parameters.vatErrorMessage;
-                }
-                if (!groupChangeRequired) {
-                    alert(message);
-                }
-                else {
-                    this.processCustomerGroupChange(parameters.groupIdHtmlId, message, response.group);
-                }
-            }.bind(this)
-        });
+            } catch (e) {
+                message = parameters.vatErrorMessage;
+            }
+            if (!groupChangeRequired) {
+                alert(message);
+            }
+            else {
+                this.processCustomerGroupChange(parameters.groupIdHtmlId, message, response.group);
+            }
+        }.bind(this));
     },
 
     processCustomerGroupChange: function(groupIdHtmlId, message, groupId)
     {
-        var currentCustomerGroupId = $(groupIdHtmlId).value;
-        var currentCustomerGroupTitle = $$('#' + groupIdHtmlId + ' > option[value=' + currentCustomerGroupId + ']')[0].text;
-        var customerGroupOption = $$('#' + groupIdHtmlId + ' > option[value=' + groupId + ']')[0];
-        var confirmText = message.replace(/%s/, customerGroupOption.text);
-        confirmText = confirmText.replace(/%s/, currentCustomerGroupTitle);
+        var currentCustomerGroupId = document.getElementById(groupIdHtmlId).value;
+        var currentGroupOption = document.querySelector('#' + groupIdHtmlId + ' option[value="' + currentCustomerGroupId + '"]');
+        var customerGroupOption = document.querySelector('#' + groupIdHtmlId + ' option[value="' + groupId + '"]');
+        var newGroupName = customerGroupOption ? customerGroupOption.text : ('#' + groupId);
+        var currentGroupName = currentGroupOption ? currentGroupOption.text : ('#' + currentCustomerGroupId);
+        var confirmText = message.replace(/%s/, newGroupName);
+        confirmText = confirmText.replace(/%s/, currentGroupName);
         if (confirm(confirmText)) {
-            $$('#' + groupIdHtmlId + ' option').each(function(o) {
-                o.selected = o.readAttribute('value') == groupId;
-            });
-            this.accountGroupChange();
+            if (customerGroupOption) {
+                document.querySelectorAll('#' + groupIdHtmlId + ' option').forEach(function(o) {
+                    o.selected = o.getAttribute('value') == groupId;
+                });
+                this.accountGroupChange();
+            }
         }
     }
 };
 
-var OrderFormArea = Class.create();
+var OrderFormArea = function(name, node, parent) {
+    this.initialize(name, node, parent);
+};
 OrderFormArea.prototype = {
     _name: null,
     _node: null,
@@ -1233,7 +1357,7 @@ OrderFormArea.prototype = {
             this._callbackName = name + 'Loaded';
             node.callback = this._callbackName;
         }
-        parent[this._callbackName] = parent[this._callbackName].wrap((function (proceed){
+        parent[this._callbackName] = _wrapFunction(parent[this._callbackName], (function (proceed){
             proceed();
             this.onLoad();
         }).bind(this));
@@ -1252,28 +1376,31 @@ OrderFormArea.prototype = {
     }
 };
 
-var ControlButton = Class.create();
+var ControlButton = function(label) {
+    this.initialize(label);
+};
 ControlButton.prototype = {
     _label: '',
     _node: null,
 
     initialize: function(label){
         this._label = label;
-        this._node = new Element('button', {
-            'class': 'scalable add',
-            'type':  'button'
-        });
+        this._node = document.createElement('button');
+        this._node.className = 'scalable add';
+        this._node.type = 'button';
     },
 
     onClick: function(){
     },
 
     insertIn: function(element, position){
-        var node = Object.extend(this._node),
-            content = {};
-        node.observe('click', this.onClick);
-        node.update('<span>' + this._label + '</span>');
-        content[position] = node;
-        Element.insert(element, content);
+        var node = this._node.cloneNode(true);
+        node.addEventListener('click', this.onClick);
+        node.innerHTML = '<span>' + this._label + '</span>';
+        if (position === 'top') {
+            element.insertBefore(node, element.firstChild);
+        } else {
+            element.appendChild(node);
+        }
     }
 };

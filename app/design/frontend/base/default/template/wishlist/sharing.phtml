@@ -61,7 +61,7 @@ Validation.addAllThese([
     var emails = v.split(',');
 
     for (var i=0; i<emails.length; i++) {
-        if(!valid_regexp.test(emails[i].strip())) {
+        if(!valid_regexp.test(emails[i].trim())) {
             return false;
         }
     }

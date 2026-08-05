@@ -33,11 +33,11 @@ var fileListTemplate = '<span class="file-info">' +
                         '</span>';
 
 var Downloadable = {
-    uploaderObj : $H({}),
+    uploaderObj : new Map(),
     objCount : 0,
     setUploaderObj : function(type, key, obj){
         if (!this.uploaderObj.get(type)) {
-            this.uploaderObj.set(type, $H({}));
+            this.uploaderObj.set(type, new Map());
         }
         this.uploaderObj.get(type).set(key, obj);
     },
@@ -54,7 +54,7 @@ var Downloadable = {
     },
     unsetUploaderObj : function(type, key){
         try {
-            this.uploaderObj.get(type).unset(key);
+            this.uploaderObj.get(type).delete(key);
         } catch (e) {
             try {
                 console.log(e);
@@ -65,12 +65,12 @@ var Downloadable = {
     },
     massUploadByType : function(type){
         try {
-            this.uploaderObj.get(type).each(function(item){
-                var container = item.value.elements.container.up('tr');
-                if (container.visible() && !container.hasClassName('no-display')) {
-                    item.value.upload();
+            this.uploaderObj.get(type).forEach(function(value, key){
+                var container = value.elements.container.closest('tr');
+                if (container.style.display !== 'none' && !container.classList.contains('no-display')) {
+                    value.upload();
                 } else {
-                    Downloadable.unsetUploaderObj(type, item.key);
+                    Downloadable.unsetUploaderObj(type, key);
                 }
             });
         } catch (e) {
@@ -83,121 +83,102 @@ var Downloadable = {
     }
 };
 
-Downloadable.FileUploader = Class.create();
-Downloadable.FileUploader.prototype = {
-    type : null,
-    key : null, //key, identifier of uploader obj
-    elmContainer : null, //insert Flex object and templates to elmContainer
-    fileValueName : null, //name of field of JSON data of saved file
-    fileValue : null,
-    idName : null, //id name of elements for unique uploader
-    uploaderText: uploaderTemplate,
-    uploaderSyntax : /(^|.|\r|\n)(\[\[(\w+)\]\])/,
-    uploaderObj : $H({}),
-    config : null,
-    initialize: function (type, key, elmContainer, fileValueName, fileValue ,idName, config) {
-        this.type = type;
-        this.key = key;
-        this.elmContainer = elmContainer;
-        this.fileValueName = fileValueName;
-        this.fileValue = fileValue;
-        this.idName = idName;
-        this.config = config;
-        uploaderTemplate = new Template(this.uploaderText, this.uploaderSyntax);
-        <?php if (!$this->isReadonly()):?>
-        Element.insert(
-            elmContainer,
-            {'top' : uploaderTemplate.evaluate({
-                    'idName' : this.idName,
-                    'fileValueName' : this.fileValueName,
-                    'uploaderObj' : 'Downloadable.getUploaderObj(\''+this.type+'\', \''+this.key+'\')'
-                })
-            }
-        );
-        if ($(this.idName+'_save')) {
-            $(this.idName+'_save').value = this.fileValue.toJSON
-               ? this.fileValue.toJSON()
-               : Object.toJSON(this.fileValue);
-        }
-        var uploaderConfig = (Object.isString(this.config) && this.config.evalJSON()) || this.config;
-        Downloadable.setUploaderObj(
-            this.type,
-            this.key,
-            new Uploader(uploaderConfig)
-        );
-        if (varienGlobalEvents) {
-            varienGlobalEvents.attachEventHandler('tabChangeBefore', Downloadable.getUploaderObj(type, key).onContainerHideBefore);
-        }
-        new Downloadable.FileList(this.idName, Downloadable.getUploaderObj(type, key));
-        <?php endif ?>
+Downloadable.FileUploader = function(type, key, elmContainer, fileValueName, fileValue, idName, config) {
+    this.type = type;
+    this.key = key;
+    this.elmContainer = elmContainer;
+    this.fileValueName = fileValueName;
+    this.fileValue = fileValue;
+    this.idName = idName;
+    this.config = config;
+    <?php if (!$this->isReadonly()):?>
+    var _tplData = {
+        'idName' : this.idName,
+        'fileValueName' : this.fileValueName,
+        'uploaderObj' : 'Downloadable.getUploaderObj(\''+this.type+'\', \''+this.key+'\')'
+    };
+    elmContainer.insertAdjacentHTML(
+        'afterbegin',
+        uploaderTemplate.replace(/\[\[(\w+)\]\]/g, function(_, k) { return _tplData[k] !== undefined ? _tplData[k] : ''; })
+    );
+    if (document.getElementById(this.idName+'_save')) {
+        document.getElementById(this.idName+'_save').value = JSON.stringify(this.fileValue);
     }
-}
+    var uploaderConfig = (typeof this.config === 'string' ? JSON.parse(this.config) : this.config);
+    Downloadable.setUploaderObj(
+        this.type,
+        this.key,
+        new Uploader(uploaderConfig)
+    );
+    if (varienGlobalEvents) {
+        varienGlobalEvents.attachEventHandler('tabChangeBefore', Downloadable.getUploaderObj(type, key).onContainerHideBefore);
+    }
+    new Downloadable.FileList(this.idName, Downloadable.getUploaderObj(type, key));
+    <?php endif ?>
+};
 
-Downloadable.FileList = Class.create();
+Downloadable.FileList = function(containerId, uploader) {
+    this.file = [];
+    this.containerId = containerId;
+    this.container = document.getElementById(this.containerId);
+    this.uploader = uploader;
+    document.addEventListener('uploader:fileSuccess', function(event) {
+        var memo = event.memo || event.detail || {};
+        if(this._checkCurrentContainer(memo.containerId)) {
+            this.handleUploadComplete([{response: memo.response}]);
+            this.handleButtonsSwap();
+        }
+    }.bind(this));
+    document.addEventListener('uploader:fileError', function(event) {
+        var memo = event.memo || event.detail || {};
+        if(this._checkCurrentContainer(memo.containerId)) {
+            this.handleButtonsSwap();
+        }
+    }.bind(this));
+    document.addEventListener('upload:simulateDelete', this.handleFileRemoveAll.bind(this));
+    document.addEventListener('uploader:simulateNewUpload', this.handleFileNew.bind(this));
+    this.file = JSON.parse(this.getElement('save').value);
+    this.updateFiles();
+    this.uploader.onFileRemoveAll = this.handleFileRemoveAll.bind(this);
+    this.uploader.onFileSelect = this.handleFileSelect.bind(this);
+};
 Downloadable.FileList.prototype = {
-    file: [],
-    containerId: '',
-    container: null,
-    uploader: null,
-    fileListTemplate: fileListTemplate,
-    templatePattern : /(^|.|\r|\n)({{(\w+)}})/,
-    listTemplate : null,
-    initialize: function (containerId, uploader) {
-        this.containerId  = containerId,
-        this.container = $(this.containerId);
-        this.uploader = uploader;
-        document.on('uploader:fileSuccess', function(event) {
-            var memo = event.memo;
-            if(this._checkCurrentContainer(memo.containerId)) {
-                this.handleUploadComplete([{response: memo.response}]);
-                this.handleButtonsSwap();
-            }
-        }.bind(this));
-        document.on('uploader:fileError', function(event) {
-            var memo = event.memo;
-            if(this._checkCurrentContainer(memo.containerId)) {
-                this.handleButtonsSwap();
-            }
-        }.bind(this));
-        document.on('upload:simulateDelete', this.handleFileRemoveAll.bind(this));
-        document.on('uploader:simulateNewUpload', this.handleFileNew.bind(this));
-        this.file = this.getElement('save').value.evalJSON();
-        this.listTemplate = new Template(this.fileListTemplate, this.templatePattern);
-        this.updateFiles();
-        this.uploader.onFileRemoveAll = this.handleFileRemoveAll.bind(this);
-        this.uploader.onFileSelect = this.handleFileSelect.bind(this);
-    },
+    constructor: Downloadable.FileList,
 
     _checkCurrentContainer: function (child) {
-        return $(this.containerId).down('#' + child);
+        return document.getElementById(this.containerId).querySelector('#' + child);
     },
 
     handleFileRemoveAll: function(e) {
-        if(e.memo && this._checkCurrentContainer(e.memo.containerId)) {
-            $(this.containerId+'-new').hide();
-            $(this.containerId+'-old').show();
+        var memo = e.memo || e.detail || {};
+        if(memo.containerId && this._checkCurrentContainer(memo.containerId)) {
+            document.getElementById(this.containerId+'-new').style.display = 'none';
+            document.getElementById(this.containerId+'-old').style.display = '';
             this.handleButtonsSwap();
         }
     },
     handleFileNew: function (e) {
-        if(e.memo && this._checkCurrentContainer(e.memo.containerId)) {
-            $(this.containerId + '-new').show();
-            $(this.containerId + '-old').hide();
+        var memo = e.memo || e.detail || {};
+        if(memo.containerId && this._checkCurrentContainer(memo.containerId)) {
+            document.getElementById(this.containerId + '-new').style.display = '';
+            document.getElementById(this.containerId + '-old').style.display = 'none';
             this.handleButtonsSwap();
         }
     },
     handleButtonsSwap: function () {
-        $$(['#' + this.containerId+'-browse', '#'+this.containerId+'-delete']).invoke('toggle');
+        [document.getElementById(this.containerId+'-browse'), document.getElementById(this.containerId+'-delete')].forEach(function(el) {
+            if (el) el.style.display = el.style.display === 'none' ? '' : 'none';
+        });
     },
     handleFileSelect: function() {
-        $(this.containerId+'_type').checked = true;
+        document.getElementById(this.containerId+'_type').checked = true;
     },
     getElement: function (name) {
-        return $(this.containerId + '_' + name);
+        return document.getElementById(this.containerId + '_' + name);
     },
     handleUploadComplete: function (files) {
-        files.each(function(item) {
-           if (!item.response.isJSON()) {
+        files.forEach(function(item) {
+           try { JSON.parse(item.response); } catch(e) {
                 try {
                     console.log(item.response);
                 } catch (e2) {
@@ -205,7 +186,7 @@ Downloadable.FileList.prototype = {
                 }
                return;
            }
-           var response = item.response.evalJSON();
+           var response = JSON.parse(item.response);
            if (response.error) {
                return;
            }
@@ -219,14 +200,12 @@ Downloadable.FileList.prototype = {
         this.updateFiles();
     },
     updateFiles: function() {
-        this.getElement('save').value = this.file.toJSON
-            ? this.file.toJSON()
-            : Object.toJSON(this.file);
-        this.file.each(function(row){
+        this.getElement('save').value = JSON.stringify(this.file);
+        this.file.forEach(function(row){
             row.size = this.uploader.formatSize(row.size);
-            $(this.containerId + '-old').innerHTML = this.listTemplate.evaluate(row);
-            $(this.containerId + '-new').hide();
-            $(this.containerId + '-old').show();
+            document.getElementById(this.containerId + '-old').innerHTML = fileListTemplate.replace(/{{(\w+)}}/g, function(_, k) { return row[k] !== undefined ? row[k] : ''; });
+            document.getElementById(this.containerId + '-new').style.display = 'none';
+            document.getElementById(this.containerId + '-old').style.display = '';
         }.bind(this));
     }
 }
@@ -235,10 +214,10 @@ var alertAlreadyDisplayed = false;
 
 Validation.addAllThese([
     ['validate-downloadable-file', 'Please upload a file.', function(v,element) {
-            linkType = element.up(0).down('input[value="file"]');
+            linkType = element.parentNode.querySelector('input[value="file"]');
             if (linkType.checked && (v == '' || v == '[]')) {
-                newFileContainer = element.up(0).down('div.new-file');
-                if (!alertAlreadyDisplayed && (newFileContainer.empty() || newFileContainer.style.display != 'none')) {
+                newFileContainer = element.parentNode.querySelector('div.new-file');
+                if (!alertAlreadyDisplayed && (!newFileContainer.innerHTML.trim() || newFileContainer.style.display != 'none')) {
                     alertAlreadyDisplayed = true;
                     alert('<?php echo $this->jsQuoteEscape($this->__('There are files that were selected but not uploaded yet. Please upload or remove them first'));?>');
                 }
@@ -250,7 +229,7 @@ Validation.addAllThese([
 
 Validation.addAllThese([
     ['validate-downloadable-url', 'Please specify Url.', function(v,element) {
-            linkType = element.up(0).down('input[value="url"]');
+            linkType = element.parentNode.querySelector('input[value="url"]');
             if (linkType.checked && v == '') {
                 return false;
             }
@@ -270,10 +249,10 @@ Validation.addAllThese([
 </div>
 <?php if ($this->isReadonly()): ?>
 <script type="text/javascript">
-$('downloadableInfo').select('input', 'select', 'textarea', 'button').each(function (item){
+document.getElementById('downloadableInfo').querySelectorAll('input, select, textarea, button').forEach(function (item){
     item.disabled = true;
     if (item.tagName.toLowerCase() == 'button') {
-        item.addClassName('disabled');
+        item.classList.add('disabled');
     }
 });
 </script>

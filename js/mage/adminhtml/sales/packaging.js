@@ -11,7 +11,9 @@
  * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-var Packaging = Class.create();
+var Packaging = function (params) {
+    this.initialize(params);
+};
 Packaging.prototype = {
     /**
      * Initialize object
@@ -24,11 +26,11 @@ Packaging.prototype = {
         this.itemsGridUrl = params.itemsGridUrl ? params.itemsGridUrl : null;
         this.errorQtyOverLimit = params.errorQtyOverLimit;
         this.titleDisabledSaveBtn = params.titleDisabledSaveBtn;
-        this.window = $('packaging_window');
-        this.windowMask = $('popup-window-mask');
-        this.messages = this.window.select('.messages')[0];
-        this.packagesContent = $('packages_content');
-        this.template = $('package_template');
+        this.window = document.getElementById('packaging_window');
+        this.windowMask = document.getElementById('popup-window-mask');
+        this.messages = this.window.querySelectorAll('.messages')[0];
+        this.packagesContent = document.getElementById('packages_content');
+        this.template = document.getElementById('package_template');
         this.paramsCreateLabelRequest = {};
         this.validationErrorMsg = params.validationErrorMsg;
 
@@ -63,103 +65,114 @@ Packaging.prototype = {
         this.createLabelUrl = url;
     },
     setParamsCreateLabelRequest: function(params) {
-        Object.extend(this.paramsCreateLabelRequest, params);
+        Object.assign(this.paramsCreateLabelRequest, params);
     },
 //******************** End Setters *******************************//
 
     showWindow: function() {
-        if (this.packagesContent.childElements().length == 0) {
+        if (!this.packagesContent.children.length) {
             this.newPackage();
         }
-        this.window.show().setStyle({
-            'marginLeft': -this.window.getDimensions().width/2 + 'px'
-        });
-        this.windowMask.setStyle({
-            height: $('html-body').getHeight() + 'px'
-        }).show();
+        this.window.style.display = '';
+        this.window.style.marginLeft = -this.window.offsetWidth / 2 + 'px';
+        var htmlBody = document.getElementById('html-body');
+        this.windowMask.style.height = htmlBody.scrollHeight + 'px';
+        this.windowMask.style.display = '';
     },
 
     cancelPackaging: function() {
-        packaging.window.hide();
-        packaging.windowMask.hide();
-        if (Object.isFunction(this.cancelCallback)) {
+        packaging.window.style.display = 'none';
+        packaging.windowMask.style.display = 'none';
+        if (typeof this.cancelCallback === 'function') {
             this.cancelCallback();
         }
     },
 
     confirmPackaging: function(params) {
-        if (Object.isFunction(this.confirmPackagingCallback)) {
+        if (typeof this.confirmPackagingCallback === 'function') {
             this.confirmPackagingCallback();
         }
     },
 
     checkAllItems: function(headCheckbox) {
-        $(headCheckbox).up('table').select('tbody input[type="checkbox"]').each(function(checkbox){
+        var el = headCheckbox;
+        while (el && el.tagName !== 'TABLE') {
+            el = el.parentNode;
+        }
+        var checkboxes = el ? Array.from(el.querySelectorAll('tbody input[type="checkbox"]')) : [];
+        checkboxes.forEach(function(checkbox) {
             checkbox.checked = headCheckbox.checked;
             this._observeQty.call(checkbox);
         }.bind(this));
     },
 
     cleanPackages: function() {
-        this.packagesContent.update();
+        this.packagesContent.innerHTML = '';
         this.packages = [];
         this.itemsAll = [];
         this.packageIncrement = 0;
         this._setAllItemsPackedState();
-        this.messages.hide().update();
+        this.messages.style.display = 'none';
+        this.messages.innerHTML = '';
     },
 
     sendCreateLabelRequest: function() {
-        var package = this;
+        var self = this;
         if (!this.validate()) {
-            this.messages.show().update(this.validationErrorMsg);
+            this.messages.style.display = '';
+            this.messages.innerHTML = this.validationErrorMsg;
             return;
         } else {
-            this.messages.hide().update();
+            this.messages.style.display = 'none';
+            this.messages.innerHTML = '';
         }
         if (this.createLabelUrl) {
             var weight, length, width, height = null;
             var packagesParams = [];
-            this.packagesContent.childElements().each(function(pack) {
+            Array.from(this.packagesContent.children).forEach(function(pack) {
                 var packageId = pack.id.match(/\d+$/)[0];
-                weight = parseFloat(pack.select('input[name="container_weight"]')[0].value);
-                length = parseFloat(pack.select('input[name="container_length"]')[0].value);
-                width = parseFloat(pack.select('input[name="container_width"]')[0].value);
-                height = parseFloat(pack.select('input[name="container_height"]')[0].value);
+                weight = parseFloat(pack.querySelector('input[name="container_weight"]').value);
+                length = parseFloat(pack.querySelector('input[name="container_length"]').value);
+                width = parseFloat(pack.querySelector('input[name="container_width"]').value);
+                height = parseFloat(pack.querySelector('input[name="container_height"]').value);
                 packagesParams[packageId] = {
-                    container:                  pack.select('select[name="package_container"]')[0].value,
-                    customs_value:              parseFloat(pack.select('input[name="package_customs_value"]')[0].value, 10),
+                    container:                  pack.querySelector('select[name="package_container"]').value,
+                    customs_value:              parseFloat(pack.querySelector('input[name="package_customs_value"]').value, 10),
                     weight:                     isNaN(weight) ? '' : weight,
                     length:                     isNaN(length) ? '' : length,
                     width:                      isNaN(width) ? '' : width,
                     height:                     isNaN(height) ? '' : height,
-                    weight_units:               pack.select('select[name="container_weight_units"]')[0].value,
-                    dimension_units:            pack.select('select[name="container_dimension_units"]')[0].value
+                    weight_units:               pack.querySelector('select[name="container_weight_units"]').value,
+                    dimension_units:            pack.querySelector('select[name="container_dimension_units"]').value
                 };
                 if (isNaN(packagesParams[packageId]['customs_value'])) {
                     packagesParams[packageId]['customs_value'] = 0;
                 }
-                if ('undefined' != typeof pack.select('select[name="package_size"]')[0]) {
-                    if ('' != pack.select('select[name="package_size"]')[0].value) {
-                        packagesParams[packageId]['size'] = pack.select('select[name="package_size"]')[0].value;
+                var packageSizeEl = pack.querySelector('select[name="package_size"]');
+                if (typeof packageSizeEl !== 'undefined' && packageSizeEl !== null) {
+                    if ('' != packageSizeEl.value) {
+                        packagesParams[packageId]['size'] = packageSizeEl.value;
                     }
                 }
-                if ('undefined' != typeof pack.select('input[name="container_girth"]')[0]) {
-                    if ('' != pack.select('input[name="container_girth"]')[0].value) {
-                        packagesParams[packageId]['girth'] = pack.select('input[name="container_girth"]')[0].value;
-                        packagesParams[packageId]['girth_dimension_units'] = pack.select('select[name="container_girth_dimension_units"]')[0].value;
+                var containerGirthEl = pack.querySelector('input[name="container_girth"]');
+                if (typeof containerGirthEl !== 'undefined' && containerGirthEl !== null) {
+                    if ('' != containerGirthEl.value) {
+                        packagesParams[packageId]['girth'] = containerGirthEl.value;
+                        packagesParams[packageId]['girth_dimension_units'] = pack.querySelector('select[name="container_girth_dimension_units"]').value;
                     }
                 }
-                if ('undefined' != typeof pack.select('select[name="content_type"]')[0] && 'undefined' != typeof pack.select('input[name="content_type_other"]')[0]) {
-                    packagesParams[packageId]['content_type'] = pack.select('select[name="content_type"]')[0].value;
-                    packagesParams[packageId]['content_type_other'] = pack.select('input[name="content_type_other"]')[0].value;
+                var contentTypeEl = pack.querySelector('select[name="content_type"]');
+                var contentTypeOtherEl = pack.querySelector('input[name="content_type_other"]');
+                if (contentTypeEl !== null && contentTypeOtherEl !== null) {
+                    packagesParams[packageId]['content_type'] = contentTypeEl.value;
+                    packagesParams[packageId]['content_type_other'] = contentTypeOtherEl.value;
                 } else {
                     packagesParams[packageId]['content_type'] = '';
                     packagesParams[packageId]['content_type_other'] = '';
                 }
-                var deliveryConfirmation = pack.select('select[name="delivery_confirmation_types"]');
+                var deliveryConfirmation = pack.querySelectorAll('select[name="delivery_confirmation_types"]');
                 if (deliveryConfirmation.length) {
-                     packagesParams[packageId]['delivery_confirmation'] =  deliveryConfirmation[0].value;
+                     packagesParams[packageId]['delivery_confirmation'] = deliveryConfirmation[0].value;
                 }
             }.bind(this));
             for (var packageId in this.packages) {
@@ -191,30 +204,43 @@ Packaging.prototype = {
                          if (!isNaN(packedItemId)) {
                              this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][qty]']           = this.packages[packageId]['items'][packedItemId]['qty'];
                              this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][customs_value]'] = this.packages[packageId]['items'][packedItemId]['customs_value'];
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][price]']         = package.defaultItemsPrice[packedItemId];
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][name]']          = package.defaultItemsName[packedItemId];
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][weight]']        = package.defaultItemsWeight[packedItemId];
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][product_id]']    = package.defaultItemsProductId[packedItemId];
-                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][order_item_id]'] = package.defaultItemsOrderItemId[packedItemId];
+                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][price]']         = self.defaultItemsPrice[packedItemId];
+                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][name]']          = self.defaultItemsName[packedItemId];
+                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][weight]']        = self.defaultItemsWeight[packedItemId];
+                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][product_id]']    = self.defaultItemsProductId[packedItemId];
+                             this.paramsCreateLabelRequest['packages['+packageId+']'+'[items]'+'['+packedItemId+'][order_item_id]'] = self.defaultItemsOrderItemId[packedItemId];
                          }
                      }
                  }
             }
 
-            new Ajax.Request(this.createLabelUrl, {
-                parameters: this.paramsCreateLabelRequest,
-                onSuccess: function(transport) {
-                    var response = transport.responseText;
-                    if (response.isJSON()) {
-                        response = response.evalJSON();
-                        if (response.error) {
-                            this.messages.show().innerHTML = response.message;
-                        } else if (response.ok && Object.isFunction(this.labelCreatedCallback)) {
-                            this.labelCreatedCallback(response);
-                        }
+            var requestParams = new URLSearchParams();
+            for (var key in this.paramsCreateLabelRequest) {
+                if (this.paramsCreateLabelRequest.hasOwnProperty(key)) {
+                    requestParams.append(key, this.paramsCreateLabelRequest[key]);
+                }
+            }
+            requestParams.append('form_key', window.FORM_KEY);
+            fetch(this.createLabelUrl, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: requestParams.toString()
+            }).then(function(resp) {
+                return resp.text();
+            }).then(function(responseText) {
+                try {
+                    var response = JSON.parse(responseText);
+                    if (response.error) {
+                        this.messages.style.display = '';
+                        this.messages.innerHTML = response.message;
+                    } else if (response.ok && typeof this.labelCreatedCallback === 'function') {
+                        this.labelCreatedCallback(response);
                     }
-                }.bind(this)
-            });
+                } catch(e) {
+                    // response was not JSON, ignore
+                }
+            }.bind(this));
+
             if (this.paramsCreateLabelRequest['code']
                 && this.paramsCreateLabelRequest['carrier_title']
                 && this.paramsCreateLabelRequest['method_title']
@@ -237,31 +263,31 @@ Packaging.prototype = {
     },
 
     validate: function() {
-        var dimensionElements = $("packaging_window").select(
+        var dimensionElements = Array.from(document.getElementById('packaging_window').querySelectorAll(
             'input[name=container_length],input[name=container_width],input[name=container_height]'
-        );
+        ));
         var callback = null;
-        if ( dimensionElements.any(function(element) { return !!element.value; })) {
-            callback = function(element) { $(element).addClassName('required-entry'); };
+        if (dimensionElements.some(function(element) { return !!element.value; })) {
+            callback = function(element) { element.classList.add('required-entry'); };
         } else {
-            callback = function(element) { $(element).removeClassName('required-entry'); };
+            callback = function(element) { element.classList.remove('required-entry'); };
         }
-        dimensionElements.each(callback);
+        dimensionElements.forEach(callback);
 
-        return result = $$('[id^="package_block_"] input').collect(function (element) {
+        return result = Array.from(document.querySelectorAll('[id^="package_block_"] input')).map(function (element) {
             return this.validateElement(element);
-        }, this).all();
+        }, this).every(function(v) { return v; });
     },
 
     validateElement: function(elm) {
-        var cn = $w(elm.className);
-        return result = cn.all(function(value) {
+        var cn = elm.className.split(/\s+/).filter(function(s) { return s.length > 0; });
+        return result = cn.every(function(value) {
             var v = Validation.get(value);
-            if (Validation.isVisible(elm) && !v.test($F(elm), elm)) {
-                $(elm).addClassName('validation-failed');
+            if (Validation.isVisible(elm) && !v.test(elm.value, elm)) {
+                elm.classList.add('validation-failed');
                 return false;
             } else {
-                $(elm).removeClassName('validation-failed');
+                elm.classList.remove('validation-failed');
                 return true;
             }
         });
@@ -273,28 +299,30 @@ Packaging.prototype = {
         var itemsPrepare = [];
         var itemsPacked = [];
 
-        this.packagesContent.childElements().each(function(pack) {
-            itemsPrepare = pack.select('.package_prapare')[0];
+        Array.from(this.packagesContent.children).forEach(function(pack) {
+            itemsPrepare = pack.querySelectorAll('.package_prapare')[0];
             if (itemsPrepare) {
-                items = items.concat(itemsPrepare.select('.grid tbody tr'));
+                items = items.concat(Array.from(itemsPrepare.querySelectorAll('.grid tbody tr')));
             }
-            itemsPacked = pack.select('.package_items')[0];
+            itemsPacked = pack.querySelectorAll('.package_items')[0];
             if (itemsPacked) {
-                items = items.concat(itemsPacked.select('.grid tbody tr'));
+                items = items.concat(Array.from(itemsPacked.querySelectorAll('.grid tbody tr')));
             }
         }.bind(this));
 
-        items.each(function(item) {
-            var itemCustomsValue = item.select('[name="customs_value"]')[0];
+        items.forEach(function(item) {
+            var itemCustomsValue = item.querySelector('[name="customs_value"]');
             if (!this.validateElement(itemCustomsValue)) {
                 isValid = false;
             }
         }.bind(this));
 
         if (isValid) {
-            this.messages.hide().update();
+            this.messages.style.display = 'none';
+            this.messages.innerHTML = '';
         } else {
-            this.messages.show().update(this.validationErrorMsg);
+            this.messages.style.display = '';
+            this.messages.innerHTML = this.validationErrorMsg;
         }
         return isValid;
     },
@@ -302,44 +330,46 @@ Packaging.prototype = {
     newPackage: function() {
         var pack = this.template.cloneNode(true);
         pack.id = 'package_block_' + ++this.packageIncrement;
-        pack.addClassName('package-block');
-        pack.select('.package-number span')[0].update(this.packageIncrement);
-        this.packagesContent.insert({top: pack});
-        pack.select('.AddSelectedBtn')[0].hide();
-        pack.show();
+        pack.classList.add('package-block');
+        pack.querySelector('.package-number span').innerHTML = this.packageIncrement;
+        this.packagesContent.insertAdjacentElement('afterbegin', pack);
+        pack.querySelector('.AddSelectedBtn').style.display = 'none';
+        pack.style.display = '';
     },
 
     deletePackage: function(obj) {
-        var pack = $(obj).up('div[id^="package_block"]');
-        var packItems = pack.select('.package_items')[0];
+        var pack = obj.closest('div[id^="package_block"]');
+        var packItems = pack.querySelectorAll('.package_items')[0];
         var packageId = pack.id.match(/\d$/)[0];
 
         delete this.packages[packageId];
         pack.remove();
-        this.messages.hide().update();
+        this.messages.style.display = 'none';
+        this.messages.innerHTML = '';
         this._setAllItemsPackedState();
     },
 
     deleteItem: function(obj) {
-        var item = $(obj).up('tr');
-        var itemId = item.select('[type="checkbox"]')[0].value;
-        var pack = $(obj).up('div[id^="package_block"]');
-        var packItems = pack.select('.package_items')[0];
+        var item = obj.closest('tr');
+        var itemId = item.querySelector('[type="checkbox"]').value;
+        var pack = obj.closest('div[id^="package_block"]');
+        var packItems = pack.querySelectorAll('.package_items')[0];
         var packageId = pack.id.match(/\d$/)[0];
 
         delete this.packages[packageId]['items'][itemId];
         if (item.offsetParent.rows.length <= 2) { /* head + this last row */
-            $(packItems).hide();
+            packItems.style.display = 'none';
         }
         item.remove();
-        this.messages.hide().update();
+        this.messages.style.display = 'none';
+        this.messages.innerHTML = '';
         this._recalcContainerWeightAndCustomsValue(packItems);
         this._setAllItemsPackedState();
     },
 
     recalcContainerWeightAndCustomsValue: function(obj) {
-        var pack = $(obj).up('div[id^="package_block"]');
-        var packItems = pack.select('.package_items')[0];
+        var pack = obj.closest('div[id^="package_block"]');
+        var packItems = pack.querySelectorAll('.package_items')[0];
         if (packItems) {
             if (!this.validateCustomsValue()) {
                 return;
@@ -350,27 +380,33 @@ Packaging.prototype = {
 
     getItemsForPack: function(obj) {
         if (this.itemsGridUrl) {
-            var parameters = $H({'shipment_id': this.shipmentId});
-            var packageBlock = $(obj).up('[id^="package_block"]');
-            var packagePrapare = packageBlock.select('.package_prapare')[0];
-            var packagePrapareGrid = packagePrapare.select('.grid_prepare')[0];
-            new Ajax.Request(this.itemsGridUrl, {
-                parameters: parameters,
-                onSuccess: function(transport) {
-                    var response = transport.responseText;
-                    if (response) {
-                        packagePrapareGrid.update(response);
-                        this._processPackagePrapare(packagePrapareGrid);
-                        if (packagePrapareGrid.select('.grid tbody tr').length) {
-                            packageBlock.select('.AddItemsBtn')[0].hide();
-                            packageBlock.select('.AddSelectedBtn')[0].show();
-                            packagePrapare.show();
-                        } else {
-                            packagePrapareGrid.update();
-                        }
+            var packageBlock = obj.closest('[id^="package_block"]');
+            var packagePrapare = packageBlock.querySelectorAll('.package_prapare')[0];
+            var packagePrapareGrid = packagePrapare.querySelectorAll('.grid_prepare')[0];
+
+            var requestParams = new URLSearchParams();
+            requestParams.append('shipment_id', this.shipmentId);
+            requestParams.append('form_key', window.FORM_KEY);
+
+            fetch(this.itemsGridUrl, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: requestParams.toString()
+            }).then(function(resp) {
+                return resp.text();
+            }).then(function(response) {
+                if (response) {
+                    packagePrapareGrid.innerHTML = response;
+                    this._processPackagePrapare(packagePrapareGrid);
+                    if (packagePrapareGrid.querySelectorAll('.grid tbody tr').length) {
+                        packageBlock.querySelector('.AddItemsBtn').style.display = 'none';
+                        packageBlock.querySelector('.AddSelectedBtn').style.display = '';
+                        packagePrapare.style.display = '';
+                    } else {
+                        packagePrapareGrid.innerHTML = '';
                     }
-                }.bind(this)
-            });
+                }
+            }.bind(this));
         }
     },
 
@@ -393,7 +429,7 @@ Packaging.prototype = {
     },
 
     _parseQty: function(obj) {
-        var qty = $(obj).hasClassName('qty-decimal') ? parseFloat(obj.value) : parseInt(obj.value);
+        var qty = obj.classList.contains('qty-decimal') ? parseFloat(obj.value) : parseInt(obj.value);
         if (isNaN(qty) || qty <= 0) {
             qty = 1;
         }
@@ -402,21 +438,23 @@ Packaging.prototype = {
 
     packItems: function(obj) {
         var anySelected = false;
-        var packageBlock = $(obj).up('[id^="package_block"]');
+        var packageBlock = obj.closest('[id^="package_block"]');
         var packageId = packageBlock.id.match(/\d$/)[0];
-        var packagePrepare = packageBlock.select('.package_prapare')[0];
-        var packagePrepareGrid = packagePrepare.select('.grid_prepare')[0];
+        var packagePrepare = packageBlock.querySelectorAll('.package_prapare')[0];
+        var packagePrepareGrid = packagePrepare.querySelectorAll('.grid_prepare')[0];
 
         // check for exceeds the total shipped quantity
         var checkExceedsQty = false;
-        this.messages.hide().update();
-        packagePrepareGrid.select('.grid tbody tr').each(function(item) {
-            var checkbox = item.select('[type="checkbox"]')[0];
+        this.messages.style.display = 'none';
+        this.messages.innerHTML = '';
+        Array.from(packagePrepareGrid.querySelectorAll('.grid tbody tr')).forEach(function(item) {
+            var checkbox = item.querySelector('[type="checkbox"]');
             var itemId = checkbox.value;
-            var qtyValue  = this._parseQty(item.select('[name="qty"]')[0]);
-            item.select('[name="qty"]')[0].value = qtyValue;
+            var qtyValue  = this._parseQty(item.querySelector('[name="qty"]'));
+            item.querySelector('[name="qty"]').value = qtyValue;
             if (checkbox.checked && this._checkExceedsQty(itemId, qtyValue)) {
-                this.messages.show().update(this.errorQtyOverLimit);
+                this.messages.style.display = '';
+                this.messages.innerHTML = this.errorQtyOverLimit;
                 checkExceedsQty = true;
             }
         }.bind(this));
@@ -429,17 +467,17 @@ Packaging.prototype = {
         }
 
         // prepare items for packing
-        packagePrepareGrid.select('.grid tbody tr').each(function(item) {
-            var checkbox = item.select('[type="checkbox"]')[0];
+        Array.from(packagePrepareGrid.querySelectorAll('.grid tbody tr')).forEach(function(item) {
+            var checkbox = item.querySelector('[type="checkbox"]');
             if (checkbox.checked) {
-                var qty  = item.select('[name="qty"]')[0];
+                var qty  = item.querySelector('[name="qty"]');
                 var qtyValue  = this._parseQty(qty);
-                item.select('[name="qty"]')[0].value = qtyValue;
+                item.querySelector('[name="qty"]').value = qtyValue;
                 anySelected = true;
-                qty.disabled = 'disabled';
-                checkbox.up('td').hide();
-                packagePrepareGrid.select('.grid th [type="checkbox"]')[0].up('th').hide();
-                item.select('.delete')[0].show();
+                qty.disabled = true;
+                checkbox.closest('td').style.display = 'none';
+                packagePrepareGrid.querySelector('.grid th [type="checkbox"]').closest('th').style.display = 'none';
+                item.querySelector('.delete').style.display = '';
             } else {
                 item.remove();
             }
@@ -447,14 +485,18 @@ Packaging.prototype = {
 
         // packing items
         if (anySelected) {
-            var packItems = packageBlock.select('.package_items')[0];
+            var packItems = packageBlock.querySelectorAll('.package_items')[0];
             if (!packItems) {
-                packagePrepare.insert(new Element('div').addClassName('grid_prepare'));
-                packagePrepare.insert({after: packagePrepareGrid});
-                packItems = packagePrepareGrid.removeClassName('grid_prepare').addClassName('package_items');
-                packItems.select('.grid tbody tr').each(function(item) {
-                    var itemId = item.select('[type="checkbox"]')[0].value;
-                    var qtyValue  = parseFloat(item.select('[name="qty"]')[0].value);
+                var newGridPrepare = document.createElement('div');
+                newGridPrepare.className = 'grid_prepare';
+                packagePrepare.appendChild(newGridPrepare);
+                packagePrepare.parentNode.insertBefore(packagePrepareGrid, packagePrepare.nextSibling);
+                packagePrepareGrid.classList.remove('grid_prepare');
+                packagePrepareGrid.classList.add('package_items');
+                packItems = packagePrepareGrid;
+                Array.from(packItems.querySelectorAll('.grid tbody tr')).forEach(function(item) {
+                    var itemId = item.querySelector('[type="checkbox"]').value;
+                    var qtyValue  = parseFloat(item.querySelector('[name="qty"]').value);
                     qtyValue = (qtyValue <= 0) ? 1 : qtyValue;
 
                     if ('undefined' == typeof this.packages[packageId]) {
@@ -468,33 +510,33 @@ Packaging.prototype = {
                     }
                 }.bind(this));
             } else {
-                packagePrepareGrid.select('.grid tbody tr').each(function(item) {
-                    var itemId = item.select('[type="checkbox"]')[0].value;
-                    var qtyValue  = parseFloat(item.select('[name="qty"]')[0].value);
+                Array.from(packagePrepareGrid.querySelectorAll('.grid tbody tr')).forEach(function(item) {
+                    var itemId = item.querySelector('[type="checkbox"]').value;
+                    var qtyValue  = parseFloat(item.querySelector('[name="qty"]').value);
                     qtyValue = (qtyValue <= 0) ? 1 : qtyValue;
 
                     if ('undefined' == typeof this.packages[packageId]['items'][itemId]) {
                         this.packages[packageId]['items'][itemId] = {};
                         this.packages[packageId]['items'][itemId]['qty'] = qtyValue;
-                        packItems.select('.grid tbody')[0].insert(item);
+                        packItems.querySelector('.grid tbody').appendChild(item);
                     } else {
                         this.packages[packageId]['items'][itemId]['qty'] += qtyValue;
-                        var packItem = packItems.select('[type="checkbox"][value="'+itemId+'"]')[0].up('tr').select('[name="qty"]')[0];
+                        var packItem = packItems.querySelector('[type="checkbox"][value="'+itemId+'"]').closest('tr').querySelector('[name="qty"]');
                         packItem.value = this.packages[packageId]['items'][itemId]['qty'];
                     }
                 }.bind(this));
-                packagePrepareGrid.update();
+                packagePrepareGrid.innerHTML = '';
             }
-            $(packItems).show();
+            packItems.style.display = '';
             this._recalcContainerWeightAndCustomsValue(packItems);
         } else {
-            packagePrepareGrid.update();
+            packagePrepareGrid.innerHTML = '';
         }
 
         // show/hide disable/enable
-        packagePrepare.hide();
-        packageBlock.select('.AddSelectedBtn')[0].hide();
-        packageBlock.select('.AddItemsBtn')[0].show();
+        packagePrepare.style.display = 'none';
+        packageBlock.querySelector('.AddSelectedBtn').style.display = 'none';
+        packageBlock.querySelector('.AddItemsBtn').style.display = '';
         this._setAllItemsPackedState();
     },
 
@@ -505,26 +547,25 @@ Packaging.prototype = {
     changeMeasures: function(obj) {
         var incr = 0;
         var incrSelected = 0;
-        obj.childElements().each(function(option) {
+        Array.from(obj.children).forEach(function(option) {
             if (option.selected) {
                 incrSelected = incr;
             }
             incr++;
-        }.bind(this));
+        });
 
-        var packageBlock = $(obj).up('[id^="package_block"]');
-        packageBlock.select('.measures').each(function(item){
+        var packageBlock = obj.closest('[id^="package_block"]');
+        Array.from(packageBlock.querySelectorAll('.measures')).forEach(function(item){
             if (item.name != obj.name) {
                 var incr = 0;
-                item.select('option').each(function(option){
+                Array.from(item.querySelectorAll('option')).forEach(function(option){
                     if (incr == incrSelected) {
                         item.value = option.value;
-                        //option.selected = true
                     }
                     incr++;
-                }.bind(this));
+                });
             }
-        }.bind(this));
+        });
 
     },
 
@@ -541,10 +582,10 @@ Packaging.prototype = {
             return;
         }
 
-        var packageSize = currentNode.select('select[name=package_size]');
-        var packageContainer = currentNode.select('select[name=package_container]');
-        var packageGirth = currentNode.select('input[name=container_girth]');
-        var packageGirthDimensionUnits = currentNode.select('select[name=container_girth_dimension_units]');
+        var packageSize = currentNode.querySelectorAll('select[name=package_size]');
+        var packageContainer = currentNode.querySelectorAll('select[name=package_container]');
+        var packageGirth = currentNode.querySelectorAll('input[name=container_girth]');
+        var packageGirthDimensionUnits = currentNode.querySelectorAll('select[name=container_girth_dimension_units]');
 
         if (packageSize.length <= 0) {
             return;
@@ -555,15 +596,15 @@ Packaging.prototype = {
 
         if (!girthEnabled) {
             packageGirth[0].value='';
-            packageGirth[0].disable();
-            packageGirth[0].addClassName('disabled');
-            packageGirthDimensionUnits[0].disable();
-            packageGirthDimensionUnits[0].addClassName('disabled');
+            packageGirth[0].disabled = true;
+            packageGirth[0].classList.add('disabled');
+            packageGirthDimensionUnits[0].disabled = true;
+            packageGirthDimensionUnits[0].classList.add('disabled');
         } else {
-            packageGirth[0].enable();
-            packageGirth[0].removeClassName('disabled');
-            packageGirthDimensionUnits[0].enable();
-            packageGirthDimensionUnits[0].removeClassName('disabled');
+            packageGirth[0].disabled = false;
+            packageGirth[0].classList.remove('disabled');
+            packageGirthDimensionUnits[0].disabled = false;
+            packageGirthDimensionUnits[0].classList.remove('disabled');
         }
 
         var sizeEnabled = (packageContainer[0].value == 'NONRECTANGULAR' || packageContainer[0].value == 'RECTANGULAR'
@@ -575,16 +616,16 @@ Packaging.prototype = {
             option.text = '';
             packageSize[0].options.add(option);
             packageSize[0].value = '';
-            packageSize[0].disable();
-            packageSize[0].addClassName('disabled');
+            packageSize[0].disabled = true;
+            packageSize[0].classList.add('disabled');
         } else {
             for (i = 0; i < packageSize[0].length; i ++) {
                 if (packageSize[0].options[i].value == '') {
                     packageSize[0].removeChild(packageSize[0].options[i]);
                 }
             }
-            packageSize[0].enable();
-            packageSize[0].removeClassName('disabled');
+            packageSize[0].disabled = false;
+            packageSize[0].classList.remove('disabled');
         }
     },
 
@@ -609,32 +650,32 @@ Packaging.prototype = {
             return;
         }
 
-        $(currentNode).select(
+        Array.from(currentNode.querySelectorAll(
             'input[name=container_length],input[name=container_width],input[name=container_height],select[name=container_dimension_units]'
-        ).each(function(inputElement) {
+        )).forEach(function(inputElement) {
             if (disable) {
-                Form.Element.disable(inputElement);
-                inputElement.addClassName('disabled');
+                inputElement.disabled = true;
+                inputElement.classList.add('disabled');
                 if (inputElement.nodeName == 'INPUT') {
-                    $(inputElement).value = '';
+                    inputElement.value = '';
                 }
             } else {
-                Form.Element.enable(inputElement);
-                inputElement.removeClassName('disabled');
+                inputElement.disabled = false;
+                inputElement.classList.remove('disabled');
             }
         });
     },
 
     changeContentTypes: function(obj) {
-        var packageBlock = $(obj).up('[id^="package_block"]');
-        var contentType = packageBlock.select('[name=content_type]')[0];
-        var contentTypeOther = packageBlock.select('[name=content_type_other]')[0];
+        var packageBlock = obj.closest('[id^="package_block"]');
+        var contentType = packageBlock.querySelector('[name=content_type]');
+        var contentTypeOther = packageBlock.querySelector('[name=content_type_other]');
         if (contentType.value == 'OTHER') {
-            Form.Element.enable(contentTypeOther);
-            contentTypeOther.removeClassName('disabled');
+            contentTypeOther.disabled = false;
+            contentTypeOther.classList.remove('disabled');
         } else {
-            Form.Element.disable(contentTypeOther);
-            contentTypeOther.addClassName('disabled');
+            contentTypeOther.disabled = true;
+            contentTypeOther.classList.add('disabled');
         }
 
     },
@@ -642,11 +683,11 @@ Packaging.prototype = {
 //******************** Private functions **********************************//
     _getItemsCount: function(items) {
         var count = 0;
-        items.each(function(itemCount) {
+        items.forEach(function(itemCount) {
             if (!isNaN(itemCount)) {
                 count += parseFloat(itemCount);
             }
-        }.bind(this));
+        });
         return count;
     },
 
@@ -654,59 +695,59 @@ Packaging.prototype = {
      * Show/hide disable/enable buttons in case of all items packed state
      */
     _setAllItemsPackedState: function() {
-        var addPackageBtn = this.window.select('.AddPackageBtn')[0];
-        var savePackagesBtn = this.window.select('.SavePackagesBtn')[0];
+        var addPackageBtn = this.window.querySelectorAll('.AddPackageBtn')[0];
+        var savePackagesBtn = this.window.querySelectorAll('.SavePackagesBtn')[0];
         if (this._getItemsCount(this.itemsAll) > 0
                 && (this._checkExceedsQtyFinal(this._getItemsCount(this.getPackedItemsQty()),this._getItemsCount(this.itemsAll)))
         ) {
-            this.packagesContent.select('.AddItemsBtn').each(function(button){
-                button.disabled = 'disabled';
-                button.addClassName('disabled');
+            Array.from(this.packagesContent.querySelectorAll('.AddItemsBtn')).forEach(function(button){
+                button.disabled = true;
+                button.classList.add('disabled');
             });
-            addPackageBtn.addClassName('disabled');
-            Form.Element.disable(addPackageBtn);
-            savePackagesBtn.removeClassName('disabled');
-            Form.Element.enable(savePackagesBtn);
+            addPackageBtn.classList.add('disabled');
+            addPackageBtn.disabled = true;
+            savePackagesBtn.classList.remove('disabled');
+            savePackagesBtn.disabled = false;
             savePackagesBtn.title = '';
 
             // package number recalculation
             var packagesRecalc = [];
-            this.packagesContent.childElements().each(function(pack) {
-                if (!pack.select('.package_items .grid tbody tr').length) {
+            Array.from(this.packagesContent.children).forEach(function(pack) {
+                if (!pack.querySelectorAll('.package_items .grid tbody tr').length) {
                     pack.remove();
                 }
             }.bind(this));
-            var packagesCount = this.packagesContent.childElements().length;
+            var packagesCount = this.packagesContent.children.length;
             this.packageIncrement = packagesCount;
-            this.packagesContent.childElements().each(function(pack) {
+            Array.from(this.packagesContent.children).forEach(function(pack) {
                 var packageId = pack.id.match(/\d$/)[0];
                 pack.id = 'package_block_' + packagesCount;
-                pack.select('.package-number span')[0].update(packagesCount);
+                pack.querySelector('.package-number span').innerHTML = packagesCount;
                 packagesRecalc[packagesCount] = this.packages[packageId];
                 --packagesCount;
             }.bind(this));
             this.packages = packagesRecalc;
 
         } else {
-            this.packagesContent.select('.AddItemsBtn').each(function(button){
-                button.removeClassName('disabled');
-                Form.Element.enable(button);
+            Array.from(this.packagesContent.querySelectorAll('.AddItemsBtn')).forEach(function(button){
+                button.classList.remove('disabled');
+                button.disabled = false;
             });
-            addPackageBtn.removeClassName('disabled');
-            Form.Element.enable(addPackageBtn);
-            savePackagesBtn.addClassName('disabled');
-            Form.Element.disable(savePackagesBtn);
+            addPackageBtn.classList.remove('disabled');
+            addPackageBtn.disabled = false;
+            savePackagesBtn.classList.add('disabled');
+            savePackagesBtn.disabled = true;
             savePackagesBtn.title = this.titleDisabledSaveBtn;
         }
     },
 
     _processPackagePrapare: function(packagePrapare) {
         var itemsAll = [];
-        packagePrapare.select('.grid tbody tr').each(function(item) {
-            var qty  = item.select('[name="qty"]')[0];
-            var itemId = item.select('[type="checkbox"]')[0].value;
+        Array.from(packagePrapare.querySelectorAll('.grid tbody tr')).forEach(function(item) {
+            var qty  = item.querySelector('[name="qty"]');
+            var itemId = item.querySelector('[type="checkbox"]').value;
             var qtyValue = 0;
-            if (Object.isFunction(this.itemQtyCallback)) {
+            if (typeof this.itemQtyCallback === 'function') {
                 var value = this.itemQtyCallback(itemId);
                 qtyValue = ((typeof value == 'string') && (value.length == 0)) ? 0 : parseFloat(value);
                 if (isNaN(qtyValue) || qtyValue < 0) {
@@ -715,7 +756,7 @@ Packaging.prototype = {
                 qtyValue = this.validateItemQty(itemId, qtyValue);
                 qty.value = qtyValue;
             } else {
-                var value = item.select('[name="qty"]')[0].value;
+                var value = item.querySelector('[name="qty"]').value;
                 qtyValue = ((typeof value == 'string') && (value.length == 0)) ? 0 : parseFloat(value);
                 if (isNaN(qtyValue) || qtyValue < 0) {
                     qtyValue = 1;
@@ -745,8 +786,8 @@ Packaging.prototype = {
             this.itemsAll = itemsAll;
         }
 
-        packagePrapare.select('tbody input[type="checkbox"]').each(function(item){
-            $(item).observe('change', this._observeQty);
+        Array.from(packagePrapare.querySelectorAll('tbody input[type="checkbox"]')).forEach(function(item){
+            item.addEventListener('change', this._observeQty);
             this._observeQty.call(item);
         }.bind(this));
     },
@@ -754,12 +795,12 @@ Packaging.prototype = {
     _observeQty: function() {
         /** this = input[type="checkbox"] */
         var tr  = this.parentNode.parentNode,
-            qty = $(tr.cells[tr.cells.length - 1]).select('input[name="qty"]')[0];
+            qty = tr.cells[tr.cells.length - 1].querySelector('input[name="qty"]');
 
         if (qty.disabled = !this.checked) {
-            $(qty).addClassName('disabled');
+            qty.classList.add('disabled');
         } else {
-            $(qty).removeClassName('disabled');
+            qty.classList.remove('disabled');
         }
     },
 
@@ -774,22 +815,22 @@ Packaging.prototype = {
     },
 
     _recalcContainerWeightAndCustomsValue: function(container) {
-        var packageBlock = container.up('[id^="package_block"]');
+        var packageBlock = container.closest('[id^="package_block"]');
         var packageId = packageBlock.id.match(/\d$/)[0];
-        var containerWeight = packageBlock.select('[name="container_weight"]')[0];
-        var containerCustomsValue = packageBlock.select('[name="package_customs_value"]')[0];
+        var containerWeight = packageBlock.querySelector('[name="container_weight"]');
+        var containerCustomsValue = packageBlock.querySelector('[name="package_customs_value"]');
         containerWeight.value = 0;
         containerCustomsValue.value = 0;
-        container.select('.grid tbody tr').each(function(item) {
-            var itemId = item.select('[type="checkbox"]')[0].value;
-            var qtyValue  = parseFloat(item.select('[name="qty"]')[0].value);
+        Array.from(container.querySelectorAll('.grid tbody tr')).forEach(function(item) {
+            var itemId = item.querySelector('[type="checkbox"]').value;
+            var qtyValue  = parseFloat(item.querySelector('[name="qty"]').value);
             if (isNaN(qtyValue) || qtyValue <= 0) {
                 qtyValue = 1;
-                item.select('[name="qty"]')[0].value = qtyValue;
+                item.querySelector('[name="qty"]').value = qtyValue;
             }
-            var itemWeight = parseFloat(this._getElementText(item.select('.weight')[0]));
+            var itemWeight = parseFloat(this._getElementText(item.querySelectorAll('.weight')[0]));
             containerWeight.value = parseFloat(containerWeight.value) + (itemWeight * qtyValue);
-            var itemCustomsValue = parseFloat(item.select('[name="customs_value"]')[0].value) || 0;
+            var itemCustomsValue = parseFloat(item.querySelector('[name="customs_value"]').value) || 0;
             containerCustomsValue.value = parseFloat(containerCustomsValue.value) + itemCustomsValue * qtyValue;
             this.packages[packageId]['items'][itemId]['customs_value'] = itemCustomsValue;
         }.bind(this));
@@ -804,10 +845,7 @@ Packaging.prototype = {
         if ('string' == typeof el.textContent) {
             return el.textContent;
         }
-        if ('string' == typeof el.innerText) {
-            return el.innerText;
-        }
-        return el.innerHTML.replace(/<[^>]*>/g,'');
+        return el.innerText || '';
     }
 //******************** End Private functions ******************************//
 };

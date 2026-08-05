@@ -87,11 +87,11 @@ $_i++ ?>
 <div class="clear"></div>
 <script type="text/javascript">
 //<![CDATA[
-var sendEmailCheckbox = $('send_email');
+var sendEmailCheckbox = document.getElementById('send_email');
 if (sendEmailCheckbox) {
-    var notifyCustomerCheckbox = $('notify_customer');
-    var shipmentCommentText = $('shipment_comment_text');
-    Event.observe(sendEmailCheckbox, 'change', bindSendEmail);
+    var notifyCustomerCheckbox = document.getElementById('notify_customer');
+    var shipmentCommentText = document.getElementById('shipment_comment_text');
+    sendEmailCheckbox.addEventListener('change', bindSendEmail);
     bindSendEmail();
 }
 function bindSendEmail() {
@@ -105,8 +105,8 @@ function bindSendEmail() {
     }
 }
 function toggleCreateLabelCheckbox() {
-    var checkbox = $('create_shipping_label');
-    var submitButton = checkbox.up('.order-totals').select('.submit-button span')[0];
+    var checkbox = document.getElementById('create_shipping_label');
+    var submitButton = checkbox.closest('.order-totals').querySelectorAll('.submit-button span')[0];
     if (checkbox.checked) {
         submitButton.innerText += '...';
     } else {
@@ -114,7 +114,7 @@ function toggleCreateLabelCheckbox() {
     }
 }
 function submitShipment(btn) {
-    var checkbox = $(btn).up('.order-totals').select('#create_shipping_label')[0];
+    var checkbox = btn.closest('.order-totals').querySelectorAll('#create_shipping_label')[0];
 
     if (!validQtyItems()) {
         return;
@@ -130,13 +130,14 @@ function submitShipment(btn) {
 function validQtyItems() {
     var valid = true;
     var errorMessage = '<?php echo Mage::helper('core')->jsQuoteEscape($this->helper('sales')->__('Invalid value(s) for Qty to Ship')) ?>';
-    $$('.qty-item').each(function(item) {
-        if (isNaN(item.value) || parseFloat(item.value) < 0) {
+    var items = document.querySelectorAll('.qty-item');
+    for (var i = 0; i < items.length; i++) {
+        if (isNaN(items[i].value) || parseFloat(items[i].value) < 0) {
             valid = false;
             alert(errorMessage);
-            throw $break;
+            break;
         }
-    });
+    }
     return valid;
 }
 //]]>

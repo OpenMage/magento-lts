@@ -15,14 +15,14 @@ function toggleValueElement(element) {
         // use default value
         disabled = true;
     }
-    $('plain_value').disabled = disabled;
-    $('html_value').disabled = disabled;
+    document.getElementById('plain_value').disabled = disabled;
+    document.getElementById('html_value').disabled = disabled;
     if (disabled) {
-        $('plain_value').addClassName('disabled');
-        $('html_value').addClassName('disabled');
+        document.getElementById('plain_value').classList.add('disabled');
+        document.getElementById('html_value').classList.add('disabled');
     } else {
-        $('plain_value').removeClassName('disabled');
-        $('html_value').removeClassName('disabled');
+        document.getElementById('plain_value').classList.remove('disabled');
+        document.getElementById('html_value').classList.remove('disabled');
     }
 }
 

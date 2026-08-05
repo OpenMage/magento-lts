@@ -12,13 +12,16 @@
 //<![CDATA[
 function setSettings(urlTemplate, typeElement, packageThemeElement) {
     if (editForm.validator && editForm.validator.validate()) {
-        typeElement = $F(typeElement).replace(/\//g, '-');
-        packageThemeElement = $F(packageThemeElement).split(/\//g);
+        typeElement = document.getElementById(typeElement).value.replace(/\//g, '-');
+        packageThemeElement = document.getElementById(packageThemeElement).value.split(/\//g);
 
-        setLocation(new Template(urlTemplate, /(^|.|\r|\n)({{(\w+)}})/).evaluate({
+        var params = {
             'type': typeElement,
             'package': packageThemeElement[0],
             'theme': packageThemeElement[1]
+        };
+        setLocation(urlTemplate.replace(/{{(\w+)}}/g, function(match, key) {
+            return Object.prototype.hasOwnProperty.call(params, key) ? params[key] : match;
         }));
     } else {
         return false;
@@ -26,7 +29,27 @@ function setSettings(urlTemplate, typeElement, packageThemeElement) {
 }
 
 function saveAndContinueEdit() {
-    editForm.submit($('edit_form').action + 'back/edit/');
+    var form = document.getElementById('edit_form');
+    var backInput = form.querySelector('input[name="back"]');
+    if (!backInput) {
+        backInput = document.createElement('input');
+        backInput.type = 'hidden';
+        backInput.name = 'back';
+        form.appendChild(backInput);
+    }
+    backInput.value = 'edit';
+    if (editForm.submit() === false) {
+        backInput.value = '';
+    }
+}
+
+function saveWidget() {
+    var form = document.getElementById('edit_form');
+    var backInput = form.querySelector('input[name="back"]');
+    if (backInput) {
+        backInput.value = '';
+    }
+    editForm.submit();
 }
 //]]>
 </script>

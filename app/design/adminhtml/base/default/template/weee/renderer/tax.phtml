@@ -95,55 +95,60 @@
                 data.prefix     = arguments[0];
             }
 
-            var template = new Template('<tr>' + $(data.prefix + '_add_template').innerHTML.replace(/__index__/g, '#{index}').replace(/ disabled="?no-template"?/g, '').replace(/ disabled/g, '').replace(/="'([^']*)'"/g, '="$1"') + '</tr>');
-            Element.insert($(data.prefix + '_container'), {'bottom':template.evaluate(data)});
+            var templateText = '<tr>' + document.getElementById(data.prefix + '_add_template').innerHTML.replace(/__index__/g, '#{index}').replace(/ disabled="?no-template"?/g, '').replace(/ disabled/g, '').replace(/="'([^']*)'"/g, '="$1"') + '</tr>';
+            var templateHtml = templateText.replace(/#\{(\w+)\}/g, function(match, key) {
+                return data[key] != null ? data[key] : '';
+            });
+            document.getElementById(data.prefix + '_container').insertAdjacentHTML('beforeend', templateHtml);
 
-            $(data.prefix + '_weee_tax_row_'+data.index+'_country').value = data.country;
-            $(data.prefix + '_weee_tax_row_'+data.index+'_website').value = data.website_id;
+            document.getElementById(data.prefix + '_weee_tax_row_'+data.index+'_country').value = data.country;
+            document.getElementById(data.prefix + '_weee_tax_row_'+data.index+'_website').value = data.website_id;
 
             updater = new RegionUpdater(data.prefix + '_weee_tax_row_'+data.index+'_country', null, data.prefix + '_weee_tax_row_'+data.index+'_state', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, 'disable', true);
             updater.update();
 
-            $(data.prefix + '_weee_tax_row_'+data.index+'_state').value   = data.state;
+            document.getElementById(data.prefix + '_weee_tax_row_'+data.index+'_state').value   = data.state;
         },
 
         deleteItem : function(prefix, event) {
-            var tr = Event.findElement(event, 'tr');
+            var tr = event.target.closest('tr');
             if (tr) {
-                Element.select(tr, '.delete').each(function(elem){elem.value='1'});
-                Element.select(tr, ['input', 'select']).each(function(elem){elem.hide()});
-                Element.hide(tr);
-                Element.addClassName(tr, 'no-display template');
+                tr.querySelectorAll('.delete').forEach(function(elem){elem.value='1'});
+                tr.querySelectorAll('input, select').forEach(function(elem){elem.style.display='none'});
+                tr.style.display = 'none';
+                tr.classList.add('no-display', 'template');
             }
         },
 
         priceTypeChangeEventObserver : function() {
-            val = $('price_type').options[$('price_type').selectedIndex].value;
+            var priceTypeEl = document.getElementById('price_type');
+            val = priceTypeEl.options[priceTypeEl.selectedIndex].value;
             for (i=0;i<weeeEditorPrefixes.length;i++) {
-                elem = $(weeeEditorPrefixes[i] + '_table');
+                elem = document.getElementById(weeeEditorPrefixes[i] + '_table');
 
                 if (val != 1) {
-                    elem.up(1).hide();
+                    elem.parentNode.parentNode.style.display = 'none';
                     weeeTaxControl.disableEditElements(weeeEditorPrefixes[i]);
                 } else {
                     weeeTaxControl.enableEditElements(weeeEditorPrefixes[i]);
-                    elem.up(1).show();
+                    elem.parentNode.parentNode.style.display = '';
                 }
             }
         },
 
         bindPriceTypeChangeObserver : function() {
-            if ($('price_type')) {
-                Event.observe($('price_type'), 'change', weeeTaxControl.priceTypeChangeEventObserver);
+            if (document.getElementById('price_type')) {
+                document.getElementById('price_type').addEventListener('change', weeeTaxControl.priceTypeChangeEventObserver);
                 weeeTaxControl.priceTypeChangeEventObserver();
             }
         },
 
         enableEditElements : function (prefix) {
-            nodes = $(prefix + '_container').childNodes;
+            nodes = document.getElementById(prefix + '_container').childNodes;
             for (a=0;a<nodes.length;a++) {
                 tr = nodes[a];
-                Element.select(tr, ['input', 'select']).each(function(elem){
+                if (!tr.querySelectorAll) continue;
+                tr.querySelectorAll('input, select').forEach(function(elem){
                     elem.disabled=weeeEditorState[elem.id];
                     if (elem.id.indexOf('delete') != -1) {
                         elem.value = ((typeof weeeEditorDeleted[elem.id] == undefined || !weeeEditorDeleted[elem.id]) ? 0 : 1);
@@ -153,10 +158,11 @@
         },
 
         disableEditElements : function (prefix) {
-            nodes = $(prefix + '_container').childNodes;
+            nodes = document.getElementById(prefix + '_container').childNodes;
             for (b=0;b<nodes.length;b++) {
                 tr = nodes[b];
-                Element.select(tr, ['input', 'select']).each(function(elem){
+                if (!tr.querySelectorAll) continue;
+                tr.querySelectorAll('input, select').forEach(function(elem){
                     if (elem.id.indexOf('delete') != -1) {
                         weeeEditorDeleted[elem.id]=(elem.value?elem.value:0);
                         elem.value = 1;
@@ -174,7 +180,7 @@
         var weeeEditorPrefixes = new Array();
         var weeeEditorState = new Array();
         var weeeEditorDeleted = new Array();
-        Event.observe(window, 'load', weeeTaxControl.bindPriceTypeChangeObserver);
+        window.addEventListener('load', weeeTaxControl.bindPriceTypeChangeObserver);
     }
     weeeEditorPrefixes.push('<?php echo $_htmlId ?>');
 //]]>

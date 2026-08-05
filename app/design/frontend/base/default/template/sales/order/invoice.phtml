@@ -17,25 +17,25 @@
     //<![CDATA[
     function giftMessageToogle(giftMessageIdentifier)
     {
-        var link = $('order-item-gift-message-link-'+giftMessageIdentifier);
-        var container = $('order-item-gift-message-'+giftMessageIdentifier);
-        var row = $('order-item-row-'+giftMessageIdentifier);
+        var link = document.getElementById('order-item-gift-message-link-'+giftMessageIdentifier);
+        var container = document.getElementById('order-item-gift-message-'+giftMessageIdentifier);
+        var row = document.getElementById('order-item-row-'+giftMessageIdentifier);
 
 
         if(link.expanded) {
             link.expanded = false;
-            link.removeClassName('expanded');
-            if(container.hasClassName('last')) {
-                row.addClassName('last');
+            link.classList.remove('expanded');
+            if(container.classList.contains('last')) {
+                row.classList.add('last');
             }
-            container.hide();
+            container.style.display = 'none';
         } else {
             link.expanded = true;
-            link.addClassName('expanded');
-            if(container.hasClassName('last')) {
-                row.removeClassName('last');
+            link.classList.add('expanded');
+            if(container.classList.contains('last')) {
+                row.classList.remove('last');
             }
-            container.show();
+            container.style.display = '';
         }
 
         return false;

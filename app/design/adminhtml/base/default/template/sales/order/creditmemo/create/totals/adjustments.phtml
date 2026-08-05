@@ -42,22 +42,25 @@
         }]
     ]);
 
-    if ($('shipping_amount')) {
-        $('shipping_amount').advaiceContainer = $('shipping_amount_adv');
+    var shippingAmountEl = document.getElementById('shipping_amount');
+    if (shippingAmountEl) {
+        shippingAmountEl.advaiceContainer = document.getElementById('shipping_amount_adv');
         unblockSubmit('shipping_amount');
     }
-    if ($('adjustment_positive')) {
-        $('adjustment_positive').advaiceContainer = $('adjustment_positive_adv');
+    var adjPositiveEl = document.getElementById('adjustment_positive');
+    if (adjPositiveEl) {
+        adjPositiveEl.advaiceContainer = document.getElementById('adjustment_positive_adv');
         unblockSubmit('adjustment_positive');
     }
-    if ($('adjustment_negative')) {
-        $('adjustment_negative').advaiceContainer = $('adjustment_negative_adv');
+    var adjNegativeEl = document.getElementById('adjustment_negative');
+    if (adjNegativeEl) {
+        adjNegativeEl.advaiceContainer = document.getElementById('adjustment_negative_adv');
         unblockSubmit('adjustment_negative');
     }
 
     function unblockSubmit(id) {
-        $(id).observe('focus', function(event) {
-            if ($$('button[class="scalable update-button disabled"]').size() > 0) {
+        document.getElementById(id).addEventListener('focus', function(event) {
+            if (document.querySelectorAll('button[class="scalable update-button disabled"]').length > 0) {
                 enableElements('submit-button');
             }
         });

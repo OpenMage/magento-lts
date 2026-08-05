@@ -45,12 +45,12 @@
 
         <script type="text/javascript">
         //<![CDATA[
-            var wishlistForm = new Validation($('wishlist-view-form'));
-            var wishlistAllCartForm = new Validation($('wishlist-allcart-form'));
+            var wishlistForm = new Validation(document.getElementById('wishlist-view-form'));
+            var wishlistAllCartForm = new Validation(document.getElementById('wishlist-allcart-form'));
 
             function calculateQty() {
                 var itemQtys = new Array();
-                $$('#wishlist-view-form .qty').each(
+                document.querySelectorAll('#wishlist-view-form .qty').forEach(
                     function (input, index) {
                         var idxStr = input.name;
                         var idx = idxStr.replace( /[^\d.]/g, '' );
@@ -58,7 +58,7 @@
                     }
                 );
 
-                $$('#qty')[0].value = JSON.stringify(itemQtys);
+                document.querySelectorAll('#qty')[0].value = JSON.stringify(itemQtys);
             }
 
             function addAllWItemsToCart() {

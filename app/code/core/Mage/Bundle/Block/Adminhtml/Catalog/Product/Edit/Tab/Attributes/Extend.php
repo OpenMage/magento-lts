@@ -69,18 +69,21 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
         if ($this->getDisableChild() && !$this->getElement()->getReadonly()) {
             $html .= '<script type="text/javascript">
                 function ' . $switchAttributeCode . "_change() {
-                    if ($('" . $switchAttributeCode . "').value == '" . self::DYNAMIC . "') {
-                        if ($('" . $this->getAttribute()->getAttributeCode() . "')) {
-                            $('" . $this->getAttribute()->getAttributeCode() . "').disabled = true;
-                            $('" . $this->getAttribute()->getAttributeCode() . "').value = '';
-                            $('" . $this->getAttribute()->getAttributeCode() . "').removeClassName('required-entry');
+                    var switchElement = document.getElementById('" . $switchAttributeCode . "');
+                    var attributeElement = document.getElementById('" . $this->getAttribute()->getAttributeCode() . "');
+                    var warningElement = document.getElementById('dynamic-price-warrning');
+                    if (switchElement.value == '" . self::DYNAMIC . "') {
+                        if (attributeElement) {
+                            attributeElement.disabled = true;
+                            attributeElement.value = '';
+                            attributeElement.classList.remove('required-entry');
                         }
 
-                        if ($('dynamic-price-warrning')) {
-                            $('dynamic-price-warrning').show();
+                        if (warningElement) {
+                            warningElement.style.display = '';
                         }
                     } else {
-                        if ($('" . $this->getAttribute()->getAttributeCode() . "')) {";
+                        if (attributeElement) {";
 
             if ($this->getAttribute()->getAttributeCode() == 'price'
                 && $this->getCanEditPrice() === false
@@ -88,16 +91,16 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
                 && $this->getProduct()->isObjectNew()
             ) {
                 $defaultProductPrice = ($this->getDefaultProductPrice()) ? $this->getDefaultProductPrice() : "''";
-                $html .= "$('" . $this->getAttribute()->getAttributeCode() . "').value = " . $defaultProductPrice . ';';
+                $html .= 'attributeElement.value = ' . $defaultProductPrice . ';';
             } else {
-                $html .= "$('" . $this->getAttribute()->getAttributeCode() . "').disabled = false;
-                          $('" . $this->getAttribute()->getAttributeCode() . "').addClassName('required-entry');";
+                $html .= "attributeElement.disabled = false;
+                          attributeElement.classList.add('required-entry');";
             }
 
             $html .= "}
 
-                        if ($('dynamic-price-warrning')) {
-                            $('dynamic-price-warrning').hide();
+                        if (warningElement) {
+                            warningElement.style.display = 'none';
                         }
                     }
                 }";
@@ -106,7 +109,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
                 && !$this->getCanEditPrice()
                 && !$this->getProduct()->isObjectNew())
             ) {
-                $html .= "$('" . $switchAttributeCode . "').observe('change', " . $switchAttributeCode . '_change);';
+                $html .= "document.getElementById('" . $switchAttributeCode . "').addEventListener('change', " . $switchAttributeCode . '_change);';
             }
 
             $html .= $switchAttributeCode . '_change();

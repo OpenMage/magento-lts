@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     #[Override]
     protected function _prepareLayout()
     {
-        $onclick = "submitAndReloadArea($('creditmemo_item_container'),'" . $this->getUpdateUrl() . "')";
+        $onclick = "submitAndReloadArea(document.getElementById('creditmemo_item_container'),'" . $this->getUpdateUrl() . "')";
         $this->setChild(
             'update_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([

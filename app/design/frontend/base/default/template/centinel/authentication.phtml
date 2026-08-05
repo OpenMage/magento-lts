@@ -28,7 +28,7 @@
         <?php if ($this->getAuthenticationStartMode() == 'instant'): ?>
             CentinelAuthenticateController.start('<?php echo $this->getFrameUrl() ?>');
         <?php elseif ($this->getAuthenticationStartMode() == 'window'):?>
-            Event.observe(window, 'load', function(){CentinelAuthenticateController.start('<?php echo $this->getFrameUrl() ?>');});
+            window.addEventListener('load', function(){CentinelAuthenticateController.start('<?php echo $this->getFrameUrl() ?>');});
         <?php endif ?>
     //]]>
     </script>

@@ -11,8 +11,23 @@
  * @copyright   Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * Rewritten to vanilla JS — no Prototype.js dependency.
+ */
+
 function setLocation(url){
-    window.location.href = encodeURI(url);
+    var target;
+    try {
+        target = new URL(encodeURI(url), window.location.href);
+    } catch (e) {
+        return;
+    }
+    // Block javascript:, data: and other non-HTTP navigation targets
+    if (target.protocol !== 'http:' && target.protocol !== 'https:') {
+        return;
+    }
+    window.location.href = target.href;
 }
 
 function confirmSetLocation(message, url){
@@ -27,13 +42,14 @@ function deleteConfirm(message, url) {
 }
 
 function setElementDisable(element, disable){
-    if($(element)){
-        $(element).disabled = disable;
+    var el = typeof element === 'string' ? document.getElementById(element) : element;
+    if(el){
+        el.disabled = disable;
     }
 }
 
 function toggleParentVis(obj) {
-    obj = $(obj).parentNode;
+    obj = (typeof obj === 'string' ? document.getElementById(obj) : obj).parentNode;
     if( obj.style.display == 'none' ) {
         obj.style.display = '';
     } else {
@@ -41,33 +57,31 @@ function toggleParentVis(obj) {
     }
 }
 
-// to fix new app/design/adminhtml/default/default/template/widget/form/renderer/fieldset.phtml
-// with toggleParentVis
 function toggleFieldsetVis(obj) {
-    id = obj;
-    obj = $(obj);
+    var id = obj;
+    obj = document.getElementById(obj);
     if( obj.style.display == 'none' ) {
         obj.style.display = '';
     } else {
         obj.style.display = 'none';
     }
-    obj = obj.parentNode.childElements();
-    for (var i = 0; i < obj.length; i++) {
-        if (obj[i].id != undefined
-            && obj[i].id == id
-            && obj[(i-1)].classNames() == 'entry-edit-head')
+    var siblings = Array.prototype.slice.call(obj.parentNode.children);
+    for (var i = 0; i < siblings.length; i++) {
+        if (siblings[i].id != undefined
+            && siblings[i].id == id
+            && i > 0 && siblings[i-1].className == 'entry-edit-head')
         {
-            if (obj[i-1].style.display == 'none') {
-                obj[i-1].style.display = '';
+            if (siblings[i-1].style.display == 'none') {
+                siblings[i-1].style.display = '';
             } else {
-                obj[i-1].style.display = 'none';
+                siblings[i-1].style.display = 'none';
             }
         }
     }
 }
 
 function toggleVis(obj) {
-    obj = $(obj);
+    obj = document.getElementById(obj);
     if( obj.style.display == 'none' ) {
         obj.style.display = '';
     } else {
@@ -76,12 +90,17 @@ function toggleVis(obj) {
 }
 
 function imagePreview(element){
-    if($(element)){
+    var el = document.getElementById(element);
+    if(el){
         var win = window.open('', 'preview', 'width=400,height=400,resizable=1,scrollbars=1');
         win.document.open();
-        win.document.write('<body style="padding:0;margin:0"><img src="'+$(element).src+'" id="image_preview"/></body>');
+        win.document.write('<!DOCTYPE html><html><body style="padding:0;margin:0"></body></html>');
         win.document.close();
-        Event.observe(win, 'load', function(){
+        var img = win.document.createElement('img');
+        img.src = el.src;
+        img.id = 'image_preview';
+        win.document.body.appendChild(img);
+        win.addEventListener('load', function(){
             var img = win.document.getElementById('image_preview');
             win.resizeTo(img.width+40, img.height+80);
         });
@@ -100,9 +119,10 @@ function checkByProductPriceType(elem) {
     }
 }
 
-Event.observe(window, 'load', function() {
-    if ($('price_default') && $('price_default').checked) {
-        $('price').disabled = 'disabled';
+window.addEventListener('load', function() {
+    var priceDefault = document.getElementById('price_default');
+    if (priceDefault && priceDefault.checked) {
+        document.getElementById('price').disabled = 'disabled';
     }
 });
 
@@ -117,91 +137,89 @@ function toggleValueElements(checkbox, container, excludedElements, checked){
                 ignoredElements.push(excludedElements[i]);
             }
         }
-        //var elems = container.select('select', 'input');
-        var elems = Element.select(container, ['select', 'input', 'textarea', 'button', 'img']);
+        if (typeof container === 'string') {
+            container = document.getElementById(container);
+        }
+        var elems = container.querySelectorAll('select, input, textarea, button, img');
         var isDisabled = (checked != undefined ? checked : checkbox.checked);
-        elems.each(function (elem) {
+        elems.forEach(function (elem) {
             if (checkByProductPriceType(elem)) {
-                var i = ignoredElements.length;
-                while (i-- && elem != ignoredElements[i]);
-                if (i != -1) {
-                    return;
+                var ignored = false;
+                for (var j = 0; j < ignoredElements.length; j++) {
+                    if (elem === ignoredElements[j]) { ignored = true; break; }
                 }
+                if (ignored) return;
 
                 elem.disabled = isDisabled;
                 if (isDisabled) {
-                    elem.addClassName('disabled');
+                    elem.classList.add('disabled');
                 } else {
-                    elem.removeClassName('disabled');
+                    elem.classList.remove('disabled');
                 }
                 if (elem.nodeName.toLowerCase() == 'img') {
-                    isDisabled ? elem.hide() : elem.show();
+                    elem.style.display = isDisabled ? 'none' : '';
                 }
             }
         });
     }
 }
 
-/**
- * @todo add validation for fields
- */
 function submitAndReloadArea(area, url) {
-    if($(area)) {
-        var fields = $(area).select('input', 'select', 'textarea');
-        var data = Form.serializeElements(fields, true);
-        url = url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true');
-        new Ajax.Request(url, {
-            parameters: $H(data),
-            loaderArea: area,
-            onSuccess: function(transport) {
-                try {
-                    if (transport.responseText.isJSON()) {
-                        var response = transport.responseText.evalJSON();
-                        if (response.error) {
-                            alert(response.message);
-                        }
-                        if(response.ajaxExpired && response.ajaxRedirect) {
-                            setLocation(response.ajaxRedirect);
-                        }
-                    } else {
-                        $(area).update(transport.responseText);
-                    }
+    var areaEl = typeof area === 'string' ? document.getElementById(area) : area;
+    if(areaEl) {
+        var fields = areaEl.querySelectorAll('input, select, textarea');
+        var params = new URLSearchParams(new FormData());
+        fields.forEach(function(field) {
+            if (field.name) params.append(field.name, field.value);
+        });
+        if (!params.has('form_key') && window.FORM_KEY) {
+            params.append('form_key', window.FORM_KEY);
+        }
+        url = url + (url.indexOf('?') !== -1 ? '&isAjax=true' : '?isAjax=true');
+        showLoader();
+        fetch(url, {
+            method: 'POST',
+            body: params,
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(function(resp) { return resp.text(); })
+        .then(function(text) {
+            try {
+                var response = JSON.parse(text);
+                if (response.error) {
+                    alert(response.message);
                 }
-                catch (e) {
-                    $(area).update(transport.responseText);
+                if(response.ajaxExpired && response.ajaxRedirect) {
+                    setLocation(response.ajaxRedirect);
                 }
+            } catch (e) {
+                areaEl.innerHTML = text;
+                Array.from(areaEl.querySelectorAll('script')).forEach(function(oldScript) {
+                    var newScript = document.createElement('script');
+                    newScript.textContent = oldScript.textContent;
+                    document.head.appendChild(newScript);
+                    document.head.removeChild(newScript);
+                });
             }
+        })
+        .finally(function() {
+            hideLoader();
         });
     }
 }
 
-/********** MESSAGES ***********/
-/*
-Event.observe(window, 'load', function() {
-    $$('.messages .error-msg').each(function(el) {
-        new Effect.Highlight(el, {startcolor:'#E13422', endcolor:'#fdf9f8', duration:1});
-    });
-    $$('.messages .warning-msg').each(function(el) {
-        new Effect.Highlight(el, {startcolor:'#E13422', endcolor:'#fdf9f8', duration:1});
-    });
-    $$('.messages .notice-msg').each(function(el) {
-        new Effect.Highlight(el, {startcolor:'#E5B82C', endcolor:'#fbf7e9', duration:1});
-    });
-    $$('.messages .success-msg').each(function(el) {
-        new Effect.Highlight(el, {startcolor:'#507477', endcolor:'#f2fafb', duration:1});
-    });
-});
-*/
 function syncOnchangeValue(baseElem, distElem){
     var compare = {baseElem:baseElem, distElem:distElem};
-    Event.observe(baseElem, 'change', function(){
-        if($(this.baseElem) && $(this.distElem)){
-            $(this.distElem).value = $(this.baseElem).value;
-        }
-    }.bind(compare));
+    (typeof baseElem === 'string' ? document.getElementById(baseElem) : baseElem)
+        .addEventListener('change', function(){
+            var base = typeof compare.baseElem === 'string' ? document.getElementById(compare.baseElem) : compare.baseElem;
+            var dist = typeof compare.distElem === 'string' ? document.getElementById(compare.distElem) : compare.distElem;
+            if(base && dist){
+                dist.value = base.value;
+            }
+        });
 }
 
-// Insert some content to the cursor position of input element
 function updateElementAtCursor(el, value, win) {
     if (win == undefined) {
         win = window.self;
@@ -219,7 +237,6 @@ function updateElementAtCursor(el, value, win) {
     }
 }
 
-// Firebug detection
 function firebugEnabled() {
     if(window.console && window.console.firebug) {
         return true;
@@ -229,33 +246,30 @@ function firebugEnabled() {
 
 function disableElement(elem) {
     elem.disabled = true;
-    elem.addClassName('disabled');
+    elem.classList.add('disabled');
 }
 
 function enableElement(elem) {
     elem.disabled = false;
-    elem.removeClassName('disabled');
+    elem.classList.remove('disabled');
 }
 
 function disableElements(search){
-    $$('.' + search).each(disableElement);
+    document.querySelectorAll('.' + search).forEach(disableElement);
 }
 
 function enableElements(search){
-    $$('.' + search).each(enableElement);
+    document.querySelectorAll('.' + search).forEach(enableElement);
 }
 
-/********** Toolbar toggle object to manage normal/floating toolbar toggle during vertical scroll ***********/
+/********** Toolbar toggle **********/
 var toolbarToggle = {
-    // Properties
-    header: null, // Normal toolbar
-    headerOffset: null, // Normal toolbar offset - calculated once
-    headerCopy: null, // Floating toolbar
-    eventsAdded: false, // We're listening to scroll/resize
+    header: null,
+    headerOffset: null,
+    headerCopy: null,
+    eventsAdded: false,
 
-    // Inits object and pushes it into work. Can be used to init/reset(update) object by current DOM.
     reset: function () {
-        // Maybe we are already using floating toolbar - just remove it to update from html
         if (this.headerCopy) {
             this.headerCopy.remove();
         }
@@ -263,12 +277,11 @@ var toolbarToggle = {
         this.updateForScroll();
     },
 
-    // Creates toolbar and inits all needed properties
     createToolbar: function () {
-        // Extract header that we will use as toolbar
-        var headers = $$('.content-header');
+        var headers = document.querySelectorAll('.content-header');
+        this.header = null;
         for (var i = headers.length - 1; i >= 0; i--) {
-            if (!headers[i].hasClassName('skip-header')) {
+            if (!headers[i].classList.contains('skip-header')) {
                 this.header = headers[i];
                 break;
             }
@@ -277,73 +290,58 @@ var toolbarToggle = {
             return;
         }
 
-        // Calculate header offset once - for optimization
-        this.headerOffset = Element.cumulativeOffset(this.header)[1];
+        this.headerOffset = this._cumulativeOffsetTop(this.header);
 
-        // Toolbar buttons
-        var buttons = $$('.content-buttons')[0];
+        var buttons = document.querySelector('.content-buttons');
         if (buttons) {
-            // Wrap buttons with 'placeholder' div - to serve as container for buttons
-            Element.insert(buttons, {before: '<div class="content-buttons-placeholder"></div>'});
-            buttons.placeholder = buttons.previous('.content-buttons-placeholder');
+            var placeholder = document.createElement('div');
+            placeholder.className = 'content-buttons-placeholder';
+            buttons.parentNode.insertBefore(placeholder, buttons);
+            buttons.placeholder = placeholder;
             buttons.remove();
-            buttons.placeholder.appendChild(buttons);
-
-            this.headerOffset = Element.cumulativeOffset(buttons)[1];
+            placeholder.appendChild(buttons);
+            this.headerOffset = this._cumulativeOffsetTop(buttons);
         }
 
-        // Create copy of header, that will serve as floating toolbar docked to top of window
-        this.headerCopy = $(document.createElement('div'));
+        this.headerCopy = document.createElement('div');
         this.headerCopy.appendChild(this.header.cloneNode(true));
         document.body.insertBefore(this.headerCopy, document.body.lastChild);
-        this.headerCopy.addClassName('content-header-floating');
+        this.headerCopy.classList.add('content-header-floating');
 
-        // Remove duplicated buttons and their container
-        var placeholder = this.headerCopy.down('.content-buttons-placeholder');
-        if (placeholder) {
-            placeholder.remove();
+        var placeholderCopy = this.headerCopy.querySelector('.content-buttons-placeholder');
+        if (placeholderCopy) {
+            placeholderCopy.remove();
         }
     },
 
-    // Checks whether object properties are ready and valid
+    _cumulativeOffsetTop: function(el) {
+        var top = 0;
+        while (el) {
+            top += el.offsetTop || 0;
+            el = el.offsetParent;
+        }
+        return top;
+    },
+
     ready: function () {
-        // Return definitely boolean value
         return (this.header && this.headerCopy && this.headerCopy.parentNode) ? true : false;
     },
 
-    // Updates toolbars for current scroll - shows/hides normal and floating toolbar
     updateForScroll: function () {
         if (!this.ready()) {
             return;
         }
-
-        // scrolling offset calculation via www.quirksmode.org
-        var s;
-        if (self.pageYOffset){
-            s = self.pageYOffset;
-        } else if (document.documentElement && document.documentElement.scrollTop) {
-            s = document.documentElement.scrollTop;
-        } else if (document.body) {
-            s = document.body.scrollTop;
-        }
-
-        // Show floating or normal toolbar
+        var s = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
         if (s > this.headerOffset) {
-            // Page offset is more than header offset, switch to floating toolbar
             this.showFloatingToolbar();
         } else {
-            // Page offset is less than header offset, switch to normal toolbar
             this.showNormalToolbar();
         }
     },
 
-    // Shows normal toolbar (and hides floating one)
     showNormalToolbar: function () {
-        if (!this.ready()) {
-            return;
-        }
-
-        var buttons = $$('.content-buttons')[0];
+        if (!this.ready()) return;
+        var buttons = document.querySelector('.content-buttons');
         if (buttons && buttons.oldParent && buttons.oldParent != buttons.parentNode) {
             buttons.remove();
             if(buttons.oldBefore) {
@@ -352,141 +350,93 @@ var toolbarToggle = {
                 buttons.oldParent.appendChild(buttons);
             }
         }
-
         this.headerCopy.style.display = 'none';
     },
 
-    // Shows floating toolbar (and hides normal one)
-    // Notice that buttons could had changed in html by setting new inner html,
-    // so our added custom properties (placeholder, oldParent) can be not present in them any more
     showFloatingToolbar: function () {
-        if (!this.ready()) {
-            return;
-        }
-
-        var buttons = $$('.content-buttons')[0];
-
+        if (!this.ready()) return;
+        var buttons = document.querySelector('.content-buttons');
         if (buttons) {
-            // Remember original parent in normal toolbar to which these buttons belong
             if (!buttons.oldParent) {
                 buttons.oldParent = buttons.parentNode;
-                buttons.oldBefore = buttons.previous();
+                buttons.oldBefore = buttons.previousElementSibling;
             }
-
-            // Move buttons from normal to floating toolbar
             if (buttons.oldParent == buttons.parentNode) {
-                // Make static dimensions for placeholder, so it's not collapsed when buttons are removed
                 if (buttons.placeholder) {
-                    var dimensions = buttons.placeholder.getDimensions();
-                    buttons.placeholder.style.width = dimensions.width + 'px';
-                    buttons.placeholder.style.height = dimensions.height + 'px';
+                    buttons.placeholder.style.width = buttons.placeholder.offsetWidth + 'px';
+                    buttons.placeholder.style.height = buttons.placeholder.offsetHeight + 'px';
                 }
-
-                // Move to floating
-                var target = this.headerCopy.down('div');
+                var target = this.headerCopy.querySelector('div');
                 if (target) {
-                    buttons.hide();
+                    buttons.style.display = 'none';
                     buttons.remove();
-
                     target.appendChild(buttons);
-                    buttons.show();
+                    buttons.style.display = '';
                 }
             }
         }
-
         this.headerCopy.style.display = 'block';
     },
 
-    // Starts object on window load
     startOnLoad: function () {
         if (!this.funcOnWindowLoad) {
             this.funcOnWindowLoad = this.start.bind(this);
         }
-        Event.observe(window, 'load', this.funcOnWindowLoad);
+        window.addEventListener('load', this.funcOnWindowLoad);
     },
 
-    // Removes object start on window load
     removeOnLoad: function () {
-        if (!this.funcOnWindowLoad) {
-            return;
-        }
-        Event.stopObserving(window, 'load', this.funcOnWindowLoad);
+        if (!this.funcOnWindowLoad) return;
+        window.removeEventListener('load', this.funcOnWindowLoad);
     },
 
-    // Starts object by creating toolbar and enabling scroll/resize events
     start: function () {
         this.reset();
         this.startListening();
     },
 
-    // Stops object by removing toolbar and stopping listening to events
     stop: function () {
         this.stopListening();
         this.removeOnLoad();
         this.showNormalToolbar();
     },
 
-    // Addes events on scroll/resize
     startListening: function () {
-        if (this.eventsAdded) {
-            return;
-        }
-
+        if (this.eventsAdded) return;
         if (!this.funcUpdateForViewport) {
             this.funcUpdateForViewport = this.updateForScroll.bind(this);
         }
-
-        Event.observe(window, 'scroll', this.funcUpdateForViewport);
-        Event.observe(window, 'resize', this.funcUpdateForViewport);
-
+        window.addEventListener('scroll', this.funcUpdateForViewport);
+        window.addEventListener('resize', this.funcUpdateForViewport);
         this.eventsAdded = true;
     },
 
-    // Removes listening to events on resize/update
     stopListening: function () {
-        if (!this.eventsAdded) {
-            return;
-        }
-        Event.stopObserving(window, 'scroll', this.funcUpdateForViewport);
-        Event.stopObserving(window, 'resize', this.funcUpdateForViewport);
-
+        if (!this.eventsAdded) return;
+        window.removeEventListener('scroll', this.funcUpdateForViewport);
+        window.removeEventListener('resize', this.funcUpdateForViewport);
         this.eventsAdded = false;
     }
 };
 
-// Deprecated since 1.4.2.0-beta1 - use toolbarToggle.reset() instead
-function updateTopButtonToolbarToggle()
-{
-    toolbarToggle.reset();
-}
+/** @deprecated */
+function updateTopButtonToolbarToggle() { toolbarToggle.reset(); }
+/** @deprecated */
+function createTopButtonToolbarToggle() { toolbarToggle.createToolbar(); }
+/** @deprecated */
+function floatingTopButtonToolbarToggle() { toolbarToggle.updateForScroll(); }
 
-// Deprecated since 1.4.2.0-beta1 - use toolbarToggle.createToolbar() instead
-function createTopButtonToolbarToggle()
-{
-    toolbarToggle.createToolbar();
-}
-
-// Deprecated since 1.4.2.0-beta1 - use toolbarToggle.updateForScroll() instead
-function floatingTopButtonToolbarToggle()
-{
-    toolbarToggle.updateForScroll();
-}
-
-// Start toolbar on window load
 toolbarToggle.startOnLoad();
 
-
 /** Cookie Reading And Writing **/
-
 var Cookie = {
     all: function() {
         var pairs = document.cookie.split(';');
         var cookies = {};
-        pairs.each(function(item, index) {
-            var pair = item.strip().split('=');
+        pairs.forEach(function(item) {
+            var pair = item.trim().split('=');
             cookies[unescape(pair[0])] = unescape(pair[1]);
         });
-
         return cookies;
     },
     read: function(cookieName) {
@@ -503,7 +453,7 @@ var Cookie = {
             date.setTime(date.getTime()+(cookieLifeTime*1000));
             expires = '; expires='+date.toUTCString();
         }
-        var urlPath = '/' + BASE_URL.split('/').slice(3).join('/'); // Get relative path
+        var urlPath = '/' + BASE_URL.split('/').slice(3).join('/');
         document.cookie = escape(cookieName) + "=" + escape(cookieValue) + expires + "; path=" + urlPath;
     },
     clear: function(cookieName) {
@@ -514,90 +464,83 @@ var Cookie = {
 var Fieldset = {
     cookiePrefix: 'fh-',
     applyCollapse: function(containerId) {
-        //var collapsed = Cookie.read(this.cookiePrefix + containerId);
-        //if (collapsed !== null) {
-        //    Cookie.clear(this.cookiePrefix + containerId);
-        //}
-        if ($(containerId + '-state')) {
-            collapsed = $(containerId + '-state').value == 1 ? 0 : 1;
+        var stateEl = document.getElementById(containerId + '-state');
+        var headEl = document.getElementById(containerId + '-head');
+        var bodyEl = document.getElementById(containerId);
+        var collapsed;
+        if (stateEl) {
+            collapsed = stateEl.value == 1 ? 0 : 1;
         } else {
-            collapsed = $(containerId + '-head').collapsed;
+            collapsed = headEl.collapsed;
         }
         if (collapsed==1 || collapsed===undefined) {
-           $(containerId + '-head').removeClassName('open');
-           if($(containerId + '-head').up('.section-config')) {
-                $(containerId + '-head').up('.section-config').removeClassName('active');
-           }
-           $(containerId).hide();
+            headEl.classList.remove('open');
+            var sectionConfig = headEl.closest('.section-config');
+            if(sectionConfig) {
+                sectionConfig.classList.remove('active');
+            }
+            bodyEl.style.display = 'none';
         } else {
-           $(containerId + '-head').addClassName('open');
-           if($(containerId + '-head').up('.section-config')) {
-                $(containerId + '-head').up('.section-config').addClassName('active');
-           }
-           $(containerId).show();
+            headEl.classList.add('open');
+            var sectionConfig = headEl.closest('.section-config');
+            if(sectionConfig) {
+                sectionConfig.classList.add('active');
+            }
+            bodyEl.style.display = '';
         }
     },
     toggleCollapse: function(containerId, saveThroughAjax) {
-        if ($(containerId + '-state')) {
-            collapsed = $(containerId + '-state').value == 1 ? 0 : 1;
+        var stateEl = document.getElementById(containerId + '-state');
+        var headEl = document.getElementById(containerId + '-head');
+        var collapsed;
+        if (stateEl) {
+            collapsed = stateEl.value == 1 ? 0 : 1;
         } else {
-            collapsed = $(containerId + '-head').collapsed;
+            collapsed = headEl.collapsed;
         }
-        //Cookie.read(this.cookiePrefix + containerId);
         if(collapsed==1 || collapsed===undefined) {
-            //Cookie.write(this.cookiePrefix + containerId,  0, 30*24*60*60);
-            if ($(containerId + '-state')) {
-                $(containerId + '-state').value = 1;
+            if (stateEl) {
+                stateEl.value = 1;
             }
-            $(containerId + '-head').collapsed = 0;
+            headEl.collapsed = 0;
         } else {
-            //Cookie.clear(this.cookiePrefix + containerId);
-            if ($(containerId + '-state')) {
-                $(containerId + '-state').value = 0;
+            if (stateEl) {
+                stateEl.value = 0;
             }
-            $(containerId + '-head').collapsed = 1;
+            headEl.collapsed = 1;
         }
 
         this.applyCollapse(containerId);
         if (typeof saveThroughAjax != "undefined") {
-            this.saveState(saveThroughAjax, {container: containerId, value: $(containerId + '-state').value});
+            this.saveState(saveThroughAjax, {container: containerId, value: document.getElementById(containerId + '-state').value});
         }
     },
     addToPrefix: function (value) {
         this.cookiePrefix += value + '-';
     },
     saveState: function(url, parameters) {
-        new Ajax.Request(url, {
-            method: 'get',
-            parameters: Object.toQueryString(parameters),
-            loaderArea: false
+        fetch(url + '?' + new URLSearchParams(parameters).toString(), {
+            method: 'GET',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
         });
     }
 };
 
 var Base64 = {
-    // private property
     _keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-     //'+/=', '-_,'
-    // public method for encoding
     encode: function (input) {
         var output = "";
         var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
         var i = 0;
-
         input = Base64._utf8_encode(input);
-
         while (i < input.length) {
-
             chr1 = input.charCodeAt(i++);
             chr2 = input.charCodeAt(i++);
             chr3 = input.charCodeAt(i++);
-
             enc1 = chr1 >> 2;
             enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
             enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
             enc4 = chr3 & 63;
-
             if (isNaN(chr2)) {
                 enc3 = enc4 = 64;
             } else if (isNaN(chr3)) {
@@ -607,32 +550,23 @@ var Base64 = {
             this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
             this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
         }
-
         return output;
     },
-
-    // public method for decoding
     decode: function (input) {
         var output = "";
         var chr1, chr2, chr3;
         var enc1, enc2, enc3, enc4;
         var i = 0;
-
         input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-
         while (i < input.length) {
-
             enc1 = this._keyStr.indexOf(input.charAt(i++));
             enc2 = this._keyStr.indexOf(input.charAt(i++));
             enc3 = this._keyStr.indexOf(input.charAt(i++));
             enc4 = this._keyStr.indexOf(input.charAt(i++));
-
             chr1 = (enc1 << 2) | (enc2 >> 4);
             chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
             chr3 = ((enc3 & 3) << 6) | enc4;
-
             output = output + String.fromCharCode(chr1);
-
             if (enc3 != 64) {
                 output = output + String.fromCharCode(chr2);
             }
@@ -643,42 +577,31 @@ var Base64 = {
         output = Base64._utf8_decode(output);
         return output;
     },
-
     mageEncode: function(input){
         return this.encode(input).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, ',');
     },
-
     mageDecode: function(output){
         output = output.replace(/\-/g, '+').replace(/_/g, '/').replace(/,/g, '=');
         return this.decode(output);
     },
-
     idEncode: function(input){
         return this.encode(input).replace(/\+/g, ':').replace(/\//g, '_').replace(/=/g, '-');
     },
-
     idDecode: function(output){
         output = output.replace(/\-/g, '=').replace(/_/g, '/').replace(/\:/g, '\+');
         return this.decode(output);
     },
-
-    // private method for UTF-8 encoding
-    _utf8_encode : function (string) {
+    _utf8_encode: function (string) {
         string = string.replace(/\r\n/g,"\n");
         var utftext = "";
-
         for (var n = 0; n < string.length; n++) {
-
             var c = string.charCodeAt(n);
-
             if (c < 128) {
                 utftext += String.fromCharCode(c);
-            }
-            else if((c > 127) && (c < 2048)) {
+            } else if((c > 127) && (c < 2048)) {
                 utftext += String.fromCharCode((c >> 6) | 192);
                 utftext += String.fromCharCode((c & 63) | 128);
-            }
-            else {
+            } else {
                 utftext += String.fromCharCode((c >> 12) | 224);
                 utftext += String.fromCharCode(((c >> 6) & 63) | 128);
                 utftext += String.fromCharCode((c & 63) | 128);
@@ -686,27 +609,20 @@ var Base64 = {
         }
         return utftext;
     },
-
-    // private method for UTF-8 decoding
-    _utf8_decode : function (utftext) {
+    _utf8_decode: function (utftext) {
         var string = "";
         var i = 0;
-        var c = c1 = c2 = 0;
-
+        var c = 0, c1 = 0, c2 = 0, c3 = 0;
         while ( i < utftext.length ) {
-
             c = utftext.charCodeAt(i);
-
             if (c < 128) {
                 string += String.fromCharCode(c);
                 i++;
-            }
-            else if((c > 191) && (c < 224)) {
+            } else if((c > 191) && (c < 224)) {
                 c2 = utftext.charCodeAt(i+1);
                 string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
                 i += 2;
-            }
-            else {
+            } else {
                 c2 = utftext.charCodeAt(i+1);
                 c3 = utftext.charCodeAt(i+2);
                 string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
@@ -717,29 +633,14 @@ var Base64 = {
     }
 };
 
-/**
- * Array functions
- */
-
-/**
- * Callback function for sort numeric values
- *
- * @param val1
- * @param val2
- */
-function sortNumeric(val1, val2)
-{
+function sortNumeric(val1, val2) {
     return val1 - val2;
 }
 
-/**
- * Adds copy icons to elements that have the class 'copy-text'
- */
 function addCopyIcons() {
     if (navigator.clipboard === undefined) {
         return;
     }
-
     const copyTexts = document.querySelectorAll('[data-copy-text]');
     copyTexts.forEach(copyText => {
         const iconElement = createCopyIconElement();
@@ -747,23 +648,14 @@ function addCopyIcons() {
     });
 }
 
-/**
- * @return {HTMLElement} The created copy icon element
- */
 function createCopyIconElement() {
     const copyIcon = document.createElement('span');
     copyIcon.classList.add('icon-copy');
     copyIcon.setAttribute('onclick', 'copyText(event)');
     copyIcon.setAttribute('title', Translator.translate('Copy text to clipboard'));
-
     return copyIcon;
 }
 
-/**
- * Copies the text from the data-text attribute of the clicked element to the clipboard
- *
- * @param {Event} event - The event object triggered by the click event
- */
 function copyText(event) {
     event.stopPropagation();
     event.preventDefault();

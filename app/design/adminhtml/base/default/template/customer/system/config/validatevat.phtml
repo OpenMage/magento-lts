@@ -15,30 +15,30 @@
 <script type="text/javascript">
 //<![CDATA[
     function validateVat() {
-        var elem = $('<?php echo $this->getHtmlId() ?>');
+        var elem = document.getElementById('<?php echo $this->getHtmlId() ?>');
 
         params = {
-            country: $('general_store_information_merchant_country').value,
-            vat: $('general_store_information_merchant_vat_number').value
+            country: document.getElementById('general_store_information_merchant_country').value,
+            vat: document.getElementById('general_store_information_merchant_vat_number').value
         };
 
-        new Ajax.Request('<?php echo $this->getAjaxUrl() ?>', {
-            parameters: params,
-            onSuccess: function(response) {
-                result = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Invalid')) ?>';
-                try {
-                    response = response.responseText;
-                    if (response == 1) {
-                        result = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Valid')) ?>';
-                        elem.removeClassName('fail').addClassName('success')
-                    } else {
-                        elem.removeClassName('success').addClassName('fail')
-                    }
-                } catch (e) {
-                    elem.removeClassName('success').addClassName('fail')
+        fetch('<?php echo $this->getAjaxUrl() ?>', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: new URLSearchParams(params).toString()
+        }).then(function(r) { return r.text(); }).then(function(responseText) {
+            var result = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Invalid')) ?>';
+            try {
+                if (responseText == 1) {
+                    result = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Valid')) ?>';
+                    elem.classList.remove('fail'); elem.classList.add('success');
+                } else {
+                    elem.classList.remove('success'); elem.classList.add('fail');
                 }
-                $('validation_result').update(result);
+            } catch (e) {
+                elem.classList.remove('success'); elem.classList.add('fail');
             }
+            document.getElementById('validation_result').innerHTML = result;
         });
     }
 //]]>

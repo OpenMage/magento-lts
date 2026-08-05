@@ -30,26 +30,29 @@
         <script type="text/javascript">
         //<![CDATA[
         var cancelButtonId = 'payment-button-cancel';
-        var cancelButton = $(cancelButtonId);
+        var cancelButton = document.getElementById(cancelButtonId);
         cancelButton.click = null;
-        Event.observe(cancelButton, 'click', cancelPaymentAuthorizations);
+        cancelButton.addEventListener('click', cancelPaymentAuthorizations);
 
         function cancelPaymentAuthorizations(event, hideConfirm){
             if (!hideConfirm && !confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->getCancelConfirmationMessage()) ?>')) {
                 return;
             }
-            $('cancel-please-wait').show();
-            new Ajax.Request('<?php echo $this->getCancelUrl() ?>', {
-                onSuccess : function(transport) {
-                    $('cancel-please-wait').hide();
+            document.getElementById('cancel-please-wait').style.display = '';
+            fetch('<?php echo $this->getCancelUrl() ?>', {
+                method: 'POST',
+                headers: {'X-Requested-With': 'XMLHttpRequest'}
+            }).then(function(resp) { return resp.text(); }).then(function(responseText) {
+                    document.getElementById('cancel-please-wait').style.display = 'none';
+                    var response;
                     try{
-                        response = eval('(' + transport.responseText + ')');
+                        response = JSON.parse(responseText);
                     } catch (e) {
                         response = {};
                     }
                     if (response.success) {
-                        $(cancelButtonId).remove();
-                        $('checkout-payment-method-load').update(response.update_html);
+                        document.getElementById(cancelButtonId).remove();
+                        document.getElementById('checkout-payment-method-load').innerHTML = response.update_html;
                         if (checkout) {
                             checkout.reloadProgressBlock();
                         }
@@ -59,7 +62,6 @@
                             alert(msg);
                         }
                     }
-                }
             });
         }
 

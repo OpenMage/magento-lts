@@ -107,8 +107,9 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
                 if (tabsIdValue.startsWith(tabsBlockPrefix)) {
                     tabsIdValue = tabsIdValue.substr(tabsBlockPrefix.length)
                 }
-                var template = new Template(urlTemplate, /(^|.|\\r|\\n)({{(\w+)}})/);
-                var url = template.evaluate({tab_id:tabsIdValue});
+                var url = urlTemplate.replace(/{{(\\w+)}}/g, function(match, key) {
+                    return key === 'tab_id' ? tabsIdValue : match;
+                });
                 editForm.submit(url);
             }
         ";

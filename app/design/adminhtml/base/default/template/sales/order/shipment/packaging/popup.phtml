@@ -15,11 +15,11 @@ $girthEnabled = Mage::helper('usa')->displayGirthValue($shippingMethod) && $this
 ?>
 <script type="text/javascript">
 //<![CDATA[
-document.observe("dom:loaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
     packaging = new Packaging(<?php echo $this->getConfigDataJson() ?>);
-    packaging.changeContainerType($$('select[name=package_container]')[0]);
+    packaging.changeContainerType(document.querySelectorAll('select[name=package_container]')[0]);
     packaging.checkSizeAndGirthParameter(
-        $$('select[name=package_container]')[0],
+        document.querySelectorAll('select[name=package_container]')[0],
         <?php echo $girthEnabled; ?>
     );
 });

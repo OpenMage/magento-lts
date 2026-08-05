@@ -39,25 +39,25 @@
 
 <script type="text/javascript">
 //<![CDATA[
-var previewForm = $('preview_form');
-var previewIframe = $('preview_iframe');
+var previewForm = document.getElementById('preview_form');
+var previewIframe = document.getElementById('preview_iframe');
 
 function preview() {
-    previewForm.writeAttribute('target', previewIframe.readAttribute('id'));
+    previewForm.setAttribute('target', previewIframe.getAttribute('id'));
     blockPreview();
     previewForm.submit();
 }
 
 function blockPreview() {
-    showLoader($('preview'));
+    showLoader(document.getElementById('preview'));
 }
 
 function unBlockPreview() {
     hideLoader();
 }
 
-Event.observe(window, 'load', preview);
-Event.observe(previewIframe, 'load', unBlockPreview);
+window.addEventListener('load', preview);
+previewIframe.addEventListener('load', unBlockPreview);
 //]]>
 </script>
 </body>

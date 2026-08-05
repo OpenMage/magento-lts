@@ -196,8 +196,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
             '<script type="text/javascript">'
             . $javascriptVarName . ' = ' . Mage::helper('core')->jsonEncode($categories) . ';'
             . ($this->canAddSubCategory()
-                ? '$("add_subcategory_button").show();'
-                : '$("add_subcategory_button").hide();')
+                ? 'document.getElementById("add_subcategory_button").style.display = "";'
+                : 'document.getElementById("add_subcategory_button").style.display = "none";')
             . '</script>';
     }
 

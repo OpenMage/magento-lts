@@ -21,7 +21,7 @@ var Variables = {
     overlayHideEffectOptions: null,
     insertFunction: 'Variables.insertVariable',
     init: function(textareaElementId, insertFunction) {
-        if ($(textareaElementId)) {
+        if (document.getElementById(textareaElementId)) {
             this.textareaElementId = textareaElementId;
         }
         if (insertFunction) {
@@ -37,17 +37,18 @@ var Variables = {
     openVariableChooser: function(variables) {
         if (this.variablesContent == null && variables) {
             this.variablesContent = '<ul>';
-            variables.each(function(variableGroup) {
+            var self = this;
+            variables.forEach(function(variableGroup) {
                 if (variableGroup.label && variableGroup.value) {
-                    this.variablesContent += '<li><b>' + variableGroup.label + '</b></li>';
-                    (variableGroup.value).each(function(variable){
+                    self.variablesContent += '<li><b>' + variableGroup.label + '</b></li>';
+                    variableGroup.value.forEach(function(variable) {
                         if (variable.value && variable.label) {
-                            this.variablesContent += '<li style="padding-left: 20px;">' +
-                                this.prepareVariableRow(variable.value, variable.label) + '</li>';
+                            self.variablesContent += '<li style="padding-left: 20px;">' +
+                                self.prepareVariableRow(variable.value, variable.label) + '</li>';
                         }
-                    }.bind(this));
+                    });
                 }
-            }.bind(this));
+            });
             this.variablesContent += '</ul>';
         }
         if (this.variablesContent) {
@@ -55,7 +56,7 @@ var Variables = {
         }
     },
     openDialogWindow: function(variablesContent) {
-        if ($(this.dialogWindowId) && typeof(Windows) != 'undefined') {
+        if (document.getElementById(this.dialogWindowId) && typeof(Windows) != 'undefined') {
             Windows.focus(this.dialogWindowId);
             return;
         }
@@ -81,7 +82,18 @@ var Variables = {
             id:this.dialogWindowId,
             onClose: this.closeDialogWindow.bind(this)
         });
-        variablesContent.evalScripts.bind(variablesContent).defer();
+        // Run any inline scripts from the inserted dialog content (vanilla
+        // replacement for Prototype's String.evalScripts()).
+        var dialogId = this.dialogWindowId;
+        setTimeout(function () {
+            var el = document.getElementById(dialogId);
+            if (!el) return;
+            el.querySelectorAll('script').forEach(function (old) {
+                var s = document.createElement('script');
+                if (old.src) { s.src = old.src; } else { s.textContent = old.textContent; }
+                old.parentNode.replaceChild(s, old);
+            });
+        }, 0);
     },
     closeDialogWindow: function(window) {
         if (!window) {
@@ -100,7 +112,7 @@ var Variables = {
     },
     insertVariable: function(value) {
         this.closeDialogWindow(this.dialogWindow);
-        var textareaElm = $(this.textareaElementId);
+        var textareaElm = document.getElementById(this.textareaElementId);
         if (textareaElm) {
             var scrollPos = textareaElm.scrollTop;
             updateElementAtCursor(textareaElm, value);
@@ -122,16 +134,21 @@ OpenmagevariablePlugin = {
     loadChooser: function(url, textareaId) {
         this.textareaId = textareaId;
         if (this.variables == null) {
-            new Ajax.Request(url, {
-                parameters: {},
-                onComplete: function (transport) {
-                    if (transport.responseText.isJSON()) {
-                        Variables.init(null, 'OpenmagevariablePlugin.insertVariable');
-                        this.variables = transport.responseText.evalJSON();
-                        this.openChooser(this.variables);
-                    }
-                }.bind(this)
-             });
+            var self = this;
+            fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: 'isAjax=true' + (window.FORM_KEY ? '&form_key=' + encodeURIComponent(window.FORM_KEY) : '')
+            })
+            .then(function (resp) { return resp.text(); })
+            .then(function (text) {
+                try {
+                    var data = JSON.parse(text);
+                    Variables.init(null, 'OpenmagevariablePlugin.insertVariable');
+                    self.variables = data;
+                    self.openChooser(self.variables);
+                } catch(e) {}
+            });
         } else {
             this.openChooser(this.variables);
         }
