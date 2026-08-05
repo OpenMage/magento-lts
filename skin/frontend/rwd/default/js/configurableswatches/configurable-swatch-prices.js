@@ -15,12 +15,16 @@ var ConfigurableSwatchPrices = Class.create({
     },
 
     addObservers: function() {
-        $(document).on('click', '.swatch-link', this.onSwatchClick.bind(this));
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.swatch-link')) {
+                this.onSwatchClick(e);
+            }
+        }.bind(this));
     },
 
     onSwatchClick: function(e) {
-        var element = Event.findElement(e);
-        var swatchElement = element.up('[data-product-id]');
+        var element = e.target;
+        var swatchElement = element.closest('[data-product-id]');
         var productId = parseInt(swatchElement.getAttribute('data-product-id'), 10);
         var swatchLabel = swatchElement.getAttribute('data-option-label');
         var optionsPrice = this.optionsPrice(productId);
