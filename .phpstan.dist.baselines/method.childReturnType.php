@@ -1342,11 +1342,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Return type (string|null) of method Mage_Usa_Model_Shipping_Carrier_Abstract::getCarrierCode() should be covariant with return type (string) of method Mage_Shipping_Model_Carrier_Abstract::getCarrierCode()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Return type (array|bool) of method Mage_Usa_Model_Shipping_Carrier_Dhl::getContainerTypes() should be covariant with return type (array<string|void>) of method Mage_Shipping_Model_Carrier_Abstract::getContainerTypes()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',

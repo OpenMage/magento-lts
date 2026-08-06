@@ -280,7 +280,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         [$rgbR, $rgbG, $rgbB]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
-                        $transparentColor = imagecolorallocate($imageResourceTo, (int) $rgbR, (int) $rgbG, (int) $rgbB);
+                        $transparentColor = imagecolorallocate($imageResourceTo, $rgbR, $rgbG, $rgbB);
                     }
 
                     if (false === $transparentColor) {
