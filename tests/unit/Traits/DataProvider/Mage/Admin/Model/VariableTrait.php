@@ -13,36 +13,45 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model;
 
 use Generator;
 
+/**
+ * @phpstan-type ValidateData array{
+ *     "variable_name": ?string,
+ *     "is_allowed": string
+ * }
+ */
 trait VariableTrait
 {
+    /**
+     * @return Generator<string, list{bool|string[], ValidateData}, void, void>
+     */
     public static function provideValidateAdminVariableData(): Generator
     {
         yield 'test passes' => [
             true,
             [
-                'getVariableName' => 'test',
-                'getIsAllowed' => '1',
+                'variable_name' => 'test',
+                'is_allowed' => '1',
             ],
         ];
         yield 'test error empty' => [
             ['Variable Name is required field.'],
             [
-                'getVariableName' => '',
-                'getIsAllowed' => '1',
+                'variable_name' => '',
+                'is_allowed' => '1',
             ],
         ];
         yield 'test error regex' => [
             ['Variable Name is incorrect.'],
             [
-                'getVariableName' => '#invalid-name#',
-                'getIsAllowed' => '1',
+                'variable_name' => '#invalid-name#',
+                'is_allowed' => '1',
             ],
         ];
         yield 'test error allowed' => [
             ['Is Allowed is required field.'],
             [
-                'getVariableName' => 'test',
-                'getIsAllowed' => '',
+                'variable_name' => 'test',
+                'is_allowed' => '',
             ],
         ];
     }

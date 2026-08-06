@@ -22,6 +22,8 @@ use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\UserTrait;
 
 /**
  * @phpstan-import-type AuthenticateData from UserTrait
+ * @phpstan-import-type AuthenticateMethods from UserTrait
+ * @phpstan-import-type ValidateData from UserTrait
  */
 final class UserTest extends OpenMageTest
 {
@@ -137,22 +139,30 @@ final class UserTest extends OpenMageTest
     }
 
     /**
-     * @phpstan-param AuthenticateData $methods
+     * @phpstan-param AuthenticateData $data
+     * @phpstan-param AuthenticateMethods $methods
      * @dataProvider provideAuthenticateData
      * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-    public function testAuthenticate(bool|string $expectedResult, array $methods): void
+    public function testAuthenticate(bool|string $expectedResult, array $data, array $methods): void
     {
-        $defaultMethods = ['loadByUsername' => self::WILL_RETURN_SELF];
-        $methods = array_merge($defaultMethods, $methods);
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $defaultMethods = ['loadByUsername', 'save'];
+        $mock = $this->createPartialMock(Subject::class, array_merge($defaultMethods, array_keys($methods)));
+        $mock->setData($data);
+        foreach ($defaultMethods as $method) {
+            $mock->method($method)->willReturnSelf();
+        }
+
+        foreach ($methods as $method => $result) {
+            $mock->method($method)->willReturn($result);
+        }
 
         self::assertInstanceOf(Subject::class, $mock);
 
         try {
-            self::assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
+            self::assertSame($expectedResult, $mock->authenticate($data['username'], $data['password']));
         } catch (Mage_Core_Exception $mageCoreException) {
             self::assertSame($expectedResult, $mageCoreException->getMessage());
         }
@@ -188,15 +198,14 @@ final class UserTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateAdminUserData
-     * @param array|true $expectedResult
+     * @param bool|string[] $expectedResult
+     * @phpstan-param ValidateData $data
      * @group Model
      */
-    public function testValidate(array|bool $expectedResult, array $methods): void
+    public function testValidate(array|bool $expectedResult, array $data): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-
-        self::assertInstanceOf(Subject::class, $mock);
-        self::assertSame($expectedResult, $mock->validate());
+        self::$subject->setData($data);
+        self::assertSame($expectedResult, self::$subject->validate());
     }
 
     /**
@@ -263,14 +272,13 @@ final class UserTest extends OpenMageTest
 
     /**
      * @dataProvider provideIsResetPasswordLinkTokenExpiredData
+     * @param array<string, string> $data
      * @group Model
      */
-    public function testIsResetPasswordLinkTokenExpired(bool $expectedResult, array $methods): void
+    public function testIsResetPasswordLinkTokenExpired(bool $expectedResult, array $data): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-
-        self::assertInstanceOf(Subject::class, $mock);
-        self::assertSame($expectedResult, $mock->isResetPasswordLinkTokenExpired());
+        self::$subject->setData($data);
+        self::assertSame($expectedResult, self::$subject->isResetPasswordLinkTokenExpired());
     }
 
     /**
@@ -278,7 +286,14 @@ final class UserTest extends OpenMageTest
      */
     public function testSendPasswordResetConfirmationEmail(): void
     {
-        self::assertInstanceOf(Subject::class, self::$subject->sendPasswordResetConfirmationEmail());
+        $store = Mage::app()->getStore();
+        $previousSmtpDisable = $store->getConfig('system/smtp/disable');
+        $store->setConfig('system/smtp/disable', '1');
+        try {
+            self::assertInstanceOf(Subject::class, self::$subject->sendPasswordResetConfirmationEmail());
+        } finally {
+            $store->setConfig('system/smtp/disable', $previousSmtpDisable);
+        }
     }
 
     /**
@@ -304,11 +319,18 @@ final class UserTest extends OpenMageTest
      */
     public function testSendAdminNotification(): void
     {
-        $methods = ['getUserCreateAdditionalEmail' => ['test@example.com']];
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $store = Mage::app()->getStore();
+        $previousSmtpDisable = $store->getConfig('system/smtp/disable');
+        $store->setConfig('system/smtp/disable', '1');
+        try {
+            $methods = ['getUserCreateAdditionalEmail' => ['test@example.com']];
+            $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        self::assertInstanceOf(Subject::class, $mock);
-        self::assertInstanceOf(Subject::class, $mock->sendAdminNotification(self::$subject));
+            self::assertInstanceOf(Subject::class, $mock);
+            self::assertInstanceOf(Subject::class, $mock->sendAdminNotification(self::$subject));
+        } finally {
+            $store->setConfig('system/smtp/disable', $previousSmtpDisable);
+        }
     }
 
     /**
@@ -324,10 +346,6 @@ final class UserTest extends OpenMageTest
      */
     public function testGetMinAdminPasswordLength(): void
     {
-        $methods = ['getStoreConfigAsInt' => 10];
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-
-        self::assertInstanceOf(Subject::class, $mock);
-        self::assertSame(14, $mock->getMinAdminPasswordLength());
+        self::assertSame(14, self::$subject->getMinAdminPasswordLength());
     }
 }

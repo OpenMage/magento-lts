@@ -36,7 +36,7 @@ final class AbstractTest extends OpenMageTest
 
     protected function setUp(): void
     {
-        self::$subject = $this->getMockForAbstractClass(Subject::class);
+        self::$subject = $this->createPartialMock(Subject::class, ['getActionsInstance', 'getConditionsInstance']);
     }
 
     /**
