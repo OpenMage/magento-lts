@@ -34,6 +34,8 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
 
     public const BUTTON_TYPE_VOID       = 'void';
 
+    public const BUTTON_TYPE_DUPLICATE  = 'duplicate';
+
     /**
      * So-called "container controller" to specify group of blocks participating in some action
      *
