@@ -15,6 +15,7 @@ use Override;
 use Mage;
 use Mage_Adminhtml_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 final class DataTest extends OpenMageTest
 {
@@ -31,6 +32,7 @@ final class DataTest extends OpenMageTest
      * @covers Mage_Adminhtml_Helper_Data::getPageHelpUrl()
      * @group Helper
      */
+    #[IgnoreDeprecations]
     public function testGetPageHelpUrl(): void
     {
         self::assertNull(self::$subject->getPageHelpUrl());
@@ -40,6 +42,7 @@ final class DataTest extends OpenMageTest
      * @covers Mage_Adminhtml_Helper_Data::setPageHelpUrl()
      * @group Helper
      */
+    #[IgnoreDeprecations]
     public function testSetPageHelpUrl(): void
     {
         self::assertInstanceOf(self::$subject::class, self::$subject->setPageHelpUrl());
@@ -49,6 +52,7 @@ final class DataTest extends OpenMageTest
      * @covers Mage_Adminhtml_Helper_Data::addPageHelpUrl()
      * @group Helper
      */
+    #[IgnoreDeprecations]
     public function testAddPageHelpUrl(): void
     {
         self::assertInstanceOf(self::$subject::class, self::$subject->addPageHelpUrl(null));

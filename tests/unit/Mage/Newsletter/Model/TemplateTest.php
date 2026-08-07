@@ -17,6 +17,7 @@ use Mage_Core_Exception;
 use Mage_Newsletter_Model_Template as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\TemplateTrait;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 /**
  * @phpstan-import-type ValidateData from TemplateTrait
@@ -64,6 +65,7 @@ final class TemplateTest extends OpenMageTest
     /**
      * @group Model
      */
+    #[IgnoreDeprecations]
     public function testIsValidForSend(): void
     {
         self::assertIsBool(self::$subject->isValidForSend());
