@@ -22,26 +22,22 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method addTemplateInfo() of class Mage_Newsletter_Model_Resource_Queue_Collection:
-since 1.4.0.1',
+    'rawMessage' => 'Call to deprecated method addTemplateInfo() of class Mage_Newsletter_Model_Resource_Queue_Collection.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Newsletter/Grid.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection:
-after 1.4.2.0',
+    'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection:
-after 1.4.2.0',
+    'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isValidForSend() of class Mage_Newsletter_Model_Template:
-since 1.4.0.1',
+    'rawMessage' => 'Call to deprecated method isValidForSend() of class Mage_Newsletter_Model_Template.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid/Renderer/Action.php',
 ];
@@ -56,14 +52,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Form/Container.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method submit() of class Mage_Sales_Model_Service_Quote:
-after 1.4.0.1',
+    'rawMessage' => 'Call to deprecated method submit() of class Mage_Sales_Model_Service_Quote.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method _getCollectionNames() of class Mage_Adminhtml_Report_StatisticsController:
-after 1.4.0.1',
+    'rawMessage' => 'Call to deprecated method _getCollectionNames() of class Mage_Adminhtml_Report_StatisticsController.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php',
 ];
@@ -133,8 +127,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method loadParentProductIds() of class Mage_Catalog_Model_Product:
-after 1.4.2.0',
+    'rawMessage' => 'Call to deprecated method loadParentProductIds() of class Mage_Catalog_Model_Product.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Observer.php',
 ];
@@ -257,8 +250,7 @@ after 1.4 beta1 it is checkout module responsibility',
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method setJoinFlag() of class Mage_Tag_Model_Resource_Product_Collection:
-after 1.3.2.3',
+    'rawMessage' => 'Call to deprecated method setJoinFlag() of class Mage_Tag_Model_Resource_Product_Collection.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Tag/Product/Collection.php',
 ];
@@ -313,8 +305,7 @@ remove on new builds',
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/Block/Customer/View.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method aggregate() of class Mage_Tag_Model_Resource_Tag:
-after 1.4.0.0',
+    'rawMessage' => 'Call to deprecated method aggregate() of class Mage_Tag_Model_Resource_Tag.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/Model/Tag.php',
 ];
@@ -355,13 +346,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
-after 1.3.2.3 Use getAbsoluteGridUrl() method instead',
+Use getAbsoluteGridUrl() method instead',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/grid.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getRowId() of class Mage_Adminhtml_Block_Widget_Grid:
-since 1.1.7',
+    'rawMessage' => 'Call to deprecated method getRowId() of class Mage_Adminhtml_Block_Widget_Grid.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/grid.phtml',
 ];
@@ -372,14 +362,13 @@ since 1.14.2.0',
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/product/edit/downloadable/links.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default:
-after 1.4.2.0',
+    'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/order/view/items/renderer/downloadable.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
-after 1.3.2.3 Use getAbsoluteGridUrl() method instead',
+Use getAbsoluteGridUrl() method instead',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/grid.phtml',
 ];
@@ -429,8 +418,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/store/select.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default:
-after 1.4.2.0',
+    'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/view/items/renderer/default.phtml',
 ];
@@ -451,7 +439,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
-after 1.3.2.3 Use getAbsoluteGridUrl() method instead',
+Use getAbsoluteGridUrl() method instead',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/widget/grid.phtml',
 ];
@@ -547,8 +535,7 @@ after 1.6.1.0',
     'path' => __DIR__ . '/../tests/unit/Mage/Index/Model/IndexerTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isValidForSend() of class Mage_Newsletter_Model_Template:
-since 1.4.0.1',
+    'rawMessage' => 'Call to deprecated method isValidForSend() of class Mage_Newsletter_Model_Template.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Newsletter/Model/TemplateTest.php',
 ];
@@ -563,26 +550,22 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Page/Block/Html/HeadTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method asArray() of class Mage_Rule_Model_Abstract:
-since 1.7.0.0',
+    'rawMessage' => 'Call to deprecated method asArray() of class Mage_Rule_Model_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Rule/Model/AbstractTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method asHtml() of class Mage_Rule_Model_Abstract:
-since 1.7.0.0',
+    'rawMessage' => 'Call to deprecated method asHtml() of class Mage_Rule_Model_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Rule/Model/AbstractTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method asString() of class Mage_Rule_Model_Abstract:
-since 1.7.0.0',
+    'rawMessage' => 'Call to deprecated method asString() of class Mage_Rule_Model_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Rule/Model/AbstractTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method addWishlistLink() of class Mage_Wishlist_Block_Links:
-after 1.4.2.0',
+    'rawMessage' => 'Call to deprecated method addWishlistLink() of class Mage_Wishlist_Block_Links.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Wishlist/Block/LinksTest.php',
 ];
@@ -593,8 +576,7 @@ after 1.6.2.0',
     'path' => __DIR__ . '/../tests/unit/Mage/Wishlist/Block/LinksTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getDataForSave() of class Mage_Wishlist_Model_Item:
-since 1.4.0.0',
+    'rawMessage' => 'Call to deprecated method getDataForSave() of class Mage_Wishlist_Model_Item.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Wishlist/Model/ItemTest.php',
 ];
