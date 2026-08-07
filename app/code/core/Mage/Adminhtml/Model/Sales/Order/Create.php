@@ -1715,7 +1715,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Create customer model and assign it to quote
      */
-    #[Deprecated(message: 'after 1.4.0.0.')]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0)]
     protected function _putCustomerIntoQuote()
     {
         if (!$this->getSession()->getCustomer()->getId()) {
@@ -1751,7 +1751,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      *
      * @param Mage_Customer_Model_Customer $order
      */
-    #[Deprecated(message: 'after 1.4.0.0.')]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0)]
     protected function _saveCustomerAfterOrder($order)
     {
         if ($this->_customer) {

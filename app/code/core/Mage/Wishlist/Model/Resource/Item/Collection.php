@@ -349,7 +349,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      *
      * @return $this
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function addDaysInWishlist()
     {
         $this->_addDaysInWishlist = true;

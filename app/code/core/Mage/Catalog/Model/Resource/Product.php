@@ -656,7 +656,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * @param  Mage_Catalog_Model_Product $object
      * @return array<void>
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function getParentProductIds($object)
     {
         return [];

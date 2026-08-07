@@ -853,7 +853,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @param  Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
-    #[Deprecated(message: 'after 1.4.0.1')]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     protected function _processShippingAmount($address)
     {
         return $this;
@@ -969,7 +969,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      *
      * @return bool
      */
-    #[Deprecated(message: 'after 1.4.0.1')]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     protected function _needSubtractShippingTax($address)
     {
         $store = $address->getQuote()->getStore();

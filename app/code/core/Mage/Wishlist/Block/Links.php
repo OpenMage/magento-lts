@@ -87,7 +87,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
      *
      * @see Mage_Wishlist_Block_Links::__construct
      */
-    #[Deprecated(message: 'after 1.4.2.0')]
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function addWishlistLink()
     {
         return $this;
