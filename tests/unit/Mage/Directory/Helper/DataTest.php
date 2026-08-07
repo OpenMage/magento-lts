@@ -60,8 +60,6 @@ final class DataTest extends OpenMageTest
 
     /**
      * @group Helper
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testCurrencyConvert(): void
     {

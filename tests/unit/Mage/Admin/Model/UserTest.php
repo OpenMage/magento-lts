@@ -145,8 +145,6 @@ final class UserTest extends OpenMageTest
      * @phpstan-param AuthenticateMethods $methods
      * @dataProvider provideAuthenticateData
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testAuthenticate(bool|string $expectedResult, array $data, array $methods): void
     {
@@ -180,8 +178,6 @@ final class UserTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testFindFirstAvailableMenu()
     {
@@ -190,8 +186,6 @@ final class UserTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetStartupPageUrl()
     {
@@ -229,8 +223,6 @@ final class UserTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testLogin(): void
     {
@@ -240,8 +232,6 @@ final class UserTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testReload(): void
     {

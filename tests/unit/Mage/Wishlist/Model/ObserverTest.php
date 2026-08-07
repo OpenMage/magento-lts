@@ -61,8 +61,6 @@ final class ObserverTest extends OpenMageTest
     /**
      * @covers Mage_Wishlist_Model_Observer::customerLogin()
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testCustomerLogin(): void
     {
@@ -74,8 +72,6 @@ final class ObserverTest extends OpenMageTest
     /**
      * @covers Mage_Wishlist_Model_Observer::customerLogout()
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testCustomerLogout(): void
     {

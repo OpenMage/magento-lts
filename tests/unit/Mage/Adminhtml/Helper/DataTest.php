@@ -61,8 +61,6 @@ final class DataTest extends OpenMageTest
     /**
      * @covers Mage_Adminhtml_Helper_Data::getUrl()
      * @group Helper
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetUrl(): void
     {
@@ -81,8 +79,6 @@ final class DataTest extends OpenMageTest
     /**
      * @covers Mage_Adminhtml_Helper_Data::getCurrentUserId()
      * @group Helper
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetCurrentUserId(): void
     {

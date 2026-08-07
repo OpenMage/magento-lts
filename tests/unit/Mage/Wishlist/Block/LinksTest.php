@@ -28,8 +28,6 @@ final class LinksTest extends OpenMageTest
     /**
      * @covers Mage_Wishlist_Block_Links::initLinkProperties()
      * @group Block
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testInitLinkProperties(): void
     {
@@ -49,8 +47,6 @@ final class LinksTest extends OpenMageTest
 
     /**
      * @group Block
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetCacheTags(): void
     {

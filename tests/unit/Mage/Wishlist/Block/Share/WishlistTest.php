@@ -27,8 +27,6 @@ final class WishlistTest extends OpenMageTest
 
     /**
      * @group Block
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetWishlistCustomer(): void
     {
@@ -37,8 +35,6 @@ final class WishlistTest extends OpenMageTest
 
     /**
      * @group Block
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetHeader(): void
     {
