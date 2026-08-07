@@ -39,8 +39,8 @@ class Mage_Paypal_Model_Observer
      * Clean unfinished transaction
      *
      * @return $this
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function cleanTransactions()
     {
         return $this;

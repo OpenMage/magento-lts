@@ -1437,11 +1437,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Catalog_Model_Entity_Attribute given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php',

@@ -22,11 +22,9 @@
 class Mage_Core_Helper_Purifier extends Mage_Core_Helper_Abstract
 {
     /**
-     * @deprecated Don't create your own {@link \HTMLPurifier}. Use
-     *             {@link \Mage_Core_Model_Purifier} via
-     *             `Mage::getModel('core/purifier', $options);`
      * @var string
      */
+    #[Deprecated(message: "Don't create your own {@link \HTMLPurifier}. Use {@link \Mage_Core_Model_Purifier};")]
     public const CACHE_DEFINITION = 'Cache.DefinitionImpl';
 
     /**

@@ -657,18 +657,8 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/CategoryController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, bool|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, int|null given.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string|false given.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
 ];
 $ignoreErrors[] = [
@@ -699,11 +689,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, array given.',
     'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, bool|null given.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php',
 ];
 $ignoreErrors[] = [
@@ -1893,11 +1878,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Catalog_Model_Product_Link|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int<0, max> given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product.php',
 ];

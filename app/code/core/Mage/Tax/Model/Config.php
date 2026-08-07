@@ -124,29 +124,19 @@ class Mage_Tax_Model_Config
 
     public const FPT_LOADED_DISPLAY_WITH_TAX = 2;
 
-    /**
-     * @deprecated
-     */
+    #[Deprecated]
     public const CONFIG_XML_PATH_SHOW_IN_CATALOG = 'tax/display/show_in_catalog';
 
-    /**
-     * @deprecated
-     */
+    #[Deprecated]
     public const CONFIG_XML_PATH_DEFAULT_PRODUCT_TAX_GROUP = 'catalog/product/default_tax_group';
 
-    /**
-     * @deprecated
-     */
+    #[Deprecated]
     public const CONFIG_XML_PATH_DISPLAY_TAX_COLUMN = 'tax/display/column_in_summary';
 
-    /**
-     * @deprecated
-     */
+    #[Deprecated]
     public const CONFIG_XML_PATH_DISPLAY_FULL_SUMMARY = 'tax/display/full_summary';
 
-    /**
-     * @deprecated
-     */
+    #[Deprecated]
     public const CONFIG_XML_PATH_DISPLAY_ZERO_TAX = 'tax/display/zero_tax';
 
     /**
@@ -366,8 +356,8 @@ class Mage_Tax_Model_Config
      *
      * @param  ConfigStoreId $store
      * @return bool
-     * @deprecated please use displayCartPrice or displaySalesZeroTax
      */
+    #[Deprecated(message: 'please use displayCartPrice or displaySalesZeroTax')]
     public function displayTaxColumn($store = null)
     {
         return (bool) $this->_getStoreConfig(self::CONFIG_XML_PATH_DISPLAY_TAX_COLUMN, $store);

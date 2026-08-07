@@ -70,17 +70,6 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Check is swf file extension disabled
-     *
-     * @return true
-     * @deprecated since 19.5.0
-     */
-    public function isSwfDisabled()
-    {
-        return true;
-    }
-
-    /**
      * Check if <link rel="canonical"> can be used for CMS pages
      *
      * @param null|int|Mage_Core_Model_Store|string $store

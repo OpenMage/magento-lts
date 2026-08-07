@@ -93,7 +93,6 @@ final class CategoryTest extends OpenMageTest
     /**
      * @dataProvider provideFormatUrlKey
      * @group Model
-     * @runInSeparateProcess
      */
     //    public function testGetCategoryIdUrl($expectedResult, ?string $locale): void
     //    {

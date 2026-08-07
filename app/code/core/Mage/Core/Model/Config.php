@@ -1249,8 +1249,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  string              $type
      * @return string
      * @throws Mage_Core_Exception
-     * @deprecated in favor of Mage_Core_Model_Config_Options
      */
+    #[Deprecated(message: 'in favor of Mage_Core_Model_Config_Options')]
     public function getBaseDir($type = 'base')
     {
         return $this->getOptions()->getDir($type);

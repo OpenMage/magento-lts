@@ -25,8 +25,6 @@ final class CacheTest extends OpenMageTest
 
     /**
      * @group Block
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetFlushStorageUrl(): void
     {
@@ -35,8 +33,6 @@ final class CacheTest extends OpenMageTest
 
     /**
      * @group Block
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetFlushSystemUrl(): void
     {
