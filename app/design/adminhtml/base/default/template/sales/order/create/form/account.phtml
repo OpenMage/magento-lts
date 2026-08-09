@@ -15,5 +15,5 @@
     <div id="customer_account_fieds">
         <?php echo $this->getForm()->getHtml() ?>
     </div>
-    <script type="text/javascript">order.accountFieldsBind($('customer_account_fieds'))</script>
+    <script type="text/javascript">order.accountFieldsBind(document.getElementById('customer_account_fieds'))</script>
 </div>

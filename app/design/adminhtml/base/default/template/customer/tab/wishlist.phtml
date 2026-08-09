@@ -17,16 +17,27 @@ wishlistControl = {
         if (!urlParams) {
             urlParams = '';
         }
-        var url = <?php echo $this->getJsObjectName() ?>.url + '?ajax=true' + urlParams;
-        new Ajax.Updater(
-            <?php echo $this->getJsObjectName() ?>.containerId,
-            url,
-            {
-                parameters: {form_key: FORM_KEY},
-                onComplete: <?php echo $this->getJsObjectName() ?>.initGrid.bind(<?php echo $this->getJsObjectName() ?>),
-                evalScripts:true
+        var grid = <?php echo $this->getJsObjectName() ?>;
+        var container = document.getElementById(grid.containerId);
+        var url = grid.url + '?ajax=true' + urlParams;
+        fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+            body: 'form_key=' + encodeURIComponent(FORM_KEY)
+        })
+        .then(function (resp) { return resp.text(); })
+        .then(function (text) {
+            if (container) {
+                container.innerHTML = text;
+                // execute <script> tags from the AJAX response
+                container.querySelectorAll('script').forEach(function (old) {
+                    var s = document.createElement('script');
+                    if (old.src) { s.src = old.src; } else { s.textContent = old.textContent; }
+                    old.parentNode.replaceChild(s, old);
+                });
             }
-        );
+            grid.initGrid();
+        });
     },
 
     configureItem: function (itemId) {

@@ -302,6 +302,7 @@
             </log>
             <js>
                 <merge_files>0</merge_files>
+                <prototype_mode>full</prototype_mode>
             </js>
             <jquery>
                 <migrate>0</migrate>

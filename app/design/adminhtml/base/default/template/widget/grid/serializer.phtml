@@ -12,7 +12,7 @@
 <?php $formId = $this->getFormId()?>
 <?php if (!empty($formId)) :?>
 <script type="text/javascript">
-    Event.observe(window, "load", function(){
+    window.addEventListener("load", function(){
         var serializeInput  = document.createElement('input');
         serializeInput.type = 'hidden';
         serializeInput.name = '<?php echo $this->getInputElementName()?>';

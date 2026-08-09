@@ -59,6 +59,7 @@
     <?php endforeach ?>
     </ul>
     <script type="text/javascript">
-        if ($('order_status')) $('order_status').update('<?php echo $this->jsQuoteEscape($this->getOrder()->getStatusLabel()) ?>');
+        var orderStatusEl = document.getElementById('order_status');
+        if (orderStatusEl) orderStatusEl.innerHTML = '<?php echo $this->jsQuoteEscape($this->getOrder()->getStatusLabel()) ?>';
     </script>
 </div>

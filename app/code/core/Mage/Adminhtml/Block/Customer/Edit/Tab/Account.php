@@ -82,9 +82,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                         return {$prefix}_websites[elem.value] == true;
                     }
                 );
-                Element.observe('{$prefix}website_id', 'change', function(){
-                    Validation.validate($('{$prefix}website_id'))
-                }.bind($('{$prefix}website_id')));
+                document.getElementById('{$prefix}website_id').addEventListener('change', function(){
+                    Validation.validate(this)
+                });
                 "
                 . '</script>',
             );
@@ -259,18 +259,18 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
         if ($sendEmail) {
             $disableStoreField = '';
             if (!$isSingleMode) {
-                $disableStoreField = "$('{$prefix}sendemail_store_id').disabled=(''==this.value || '0'==this.value);";
+                $disableStoreField = "document.getElementById('{$prefix}sendemail_store_id').disabled=(''==this.value || '0'==this.value);";
             }
 
             $sendEmail->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "
-                $('{$prefix}website_id').disableSendemail = function() {
-                    $('{$prefix}sendemail').disabled = ('' == this.value || '0' == this.value);"
+                document.getElementById('{$prefix}website_id').disableSendemail = function() {
+                    document.getElementById('{$prefix}sendemail').disabled = ('' == this.value || '0' == this.value);"
                     . $disableStoreField
-                . "}.bind($('{$prefix}website_id'));
-                Event.observe('{$prefix}website_id', 'change', $('{$prefix}website_id').disableSendemail);
-                $('{$prefix}website_id').disableSendemail();
+                . "};
+                document.getElementById('{$prefix}website_id').addEventListener('change', document.getElementById('{$prefix}website_id').disableSendemail);
+                document.getElementById('{$prefix}website_id').disableSendemail();
                 "
                 . '</script>',
             );

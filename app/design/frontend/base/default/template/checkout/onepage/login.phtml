@@ -93,8 +93,8 @@
 <script type="text/javascript">
 //<![CDATA[
     var loginForm = new VarienForm('login-form', true);
-    $('login-email').observe('keypress', bindLoginPost);
-    $('login-password').observe('keypress', bindLoginPost);
+    document.getElementById('login-email').addEventListener('keypress', bindLoginPost);
+    document.getElementById('login-password').addEventListener('keypress', bindLoginPost);
     function bindLoginPost(evt){
         if (evt.keyCode == Event.KEY_RETURN) {
             loginForm.submit();

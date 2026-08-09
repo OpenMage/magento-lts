@@ -8,8 +8,7 @@
 ?>
 <script type="text/javascript">
 function saveAndContinueEdit(urlTemplate) {
-        var template = new Template(urlTemplate, /(^|.|\r|\n)({{(\w+)}})/);
-        var url = template.evaluate({tab_id:customer_info_tabsJsTabs.activeTab.id});
+        var url = urlTemplate.replace(/{{tab_id}}/g, customer_info_tabsJsTabs.activeTab.id);
         editForm.submit(url);
 }
 </script>

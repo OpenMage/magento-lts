@@ -59,60 +59,67 @@ var bundleTemplateRow ='<td>' +
                 '<td class="a-center"><input onclick="bSelection.checkGroup(event)" type="{{option_type}}" class="default" name="<?php echo $this->getFieldName() ?>[{{parentIndex}}][{{index}}][is_default]" value="1" {{checked}}></td>' +
                 '<td class="last"><span title="Delete Row"><?php echo $this->getSelectionDeleteButtonHtml() ?></span></td>';
 
-Bundle.Selection = Class.create();
+Bundle.Selection = function() {
+    this.gridSelection = new Map();
+    this.templateBox = '<div class="grid tier form-list" id="' + this.idLabel + '_box_{{parentIndex}}">' + bundleTemplateBox + '</div>';
+    this.templateRow = '<tr class="selection" id="' + this.idLabel + '_row_{{index}}">' + bundleTemplateRow + '</tr>';
+};
 Bundle.Selection.prototype = {
+    constructor: Bundle.Selection,
     idLabel : '<?php echo $this->getFieldId() ?>',
     scopePrice : <?php echo (int) $this->isUsedWebsitePrice() ?>,
-    templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
-    templateBox : '',
-    templateRow : '',
     itemsCount : 0,
     row : null,
-    gridSelection : new Hash(),
-
-    initialize : function() {
-        this.templateBox = '<div class="grid tier form-list" id="' + this.idLabel + '_box_{{parentIndex}}">' + bundleTemplateBox + '</div>';
-
-        this.templateRow = '<tr class="selection" id="' + this.idLabel + '_row_{{index}}">' + bundleTemplateRow + '</tr>';
-    },
 
     showSearch : function(event) {
-        var element = Event.findElement(event, 'div');
+        var element = event.target.closest('div');
         var parts = element.id.split('_');
 
         var products = new Array();
 
-        var inputs = $A($$('#' + element.id + ' tr.selection input.product'));
+        var inputs = Array.from(document.querySelectorAll('#' + element.id + ' tr.selection input.product'));
         for (i=0; i<inputs.length; i++) {
             products.push(inputs[i].value);
         }
 
-        this.gridSelection.set(parts[2], $H({}));
+        this.gridSelection.set(parts[2], {});
 
-        new Ajax.Updater(bOption.idLabel + '_search_' + parts[2], '<?php echo $this->getSelectionSearchUrl() ?>', {
-            method: 'post',
-            parameters : {'index' : parts[2], 'products[]' : products, 'form_key': FORM_KEY},
-            evalScripts : true
-        });
+        var _targetId = bOption.idLabel + '_search_' + parts[2];
+        var _body = new URLSearchParams();
+        _body.append('index', parts[2]);
+        _body.append('form_key', FORM_KEY);
+        products.forEach(function(p) { _body.append('products[]', p); });
+        fetch('<?php echo $this->getSelectionSearchUrl() ?>', {method: 'POST', body: _body})
+            .then(function(r) { return r.text(); })
+            .then(function(html) {
+                var _target = document.getElementById(_targetId);
+                _target.innerHTML = html;
+                Array.from(_target.querySelectorAll('script')).forEach(function(old) {
+                    var s = document.createElement('script');
+                    s.textContent = old.textContent;
+                    document.head.appendChild(s);
+                    document.head.removeChild(s);
+                });
+            });
 
-        if (Event.element(event).tagName.toLowerCase() != 'button') {
-            var button = Event.element(event).up('button');
+        if (event.target.tagName.toLowerCase() != 'button') {
+            var button = event.target.closest('button');
         } else {
-            var button = Event.element(event);
+            var button = event.target;
         }
-        button.hide();
+        button.style.display = 'none';
     },
 
     addRow : function (parentIndex, data) {
         var box = null;
-        if (!(box = $(this.idLabel + '_box_' + parentIndex))) {
+        if (!(box = document.getElementById(this.idLabel + '_box_' + parentIndex))) {
             this.addBox(parentIndex);
-            box = $(this.idLabel + '_box_' + parentIndex);
+            box = document.getElementById(this.idLabel + '_box_' + parentIndex);
         } else {
-            box.show();
+            box.style.display = '';
         }
 
-        var option_type = $(bOption.idLabel + '_' + parentIndex + '_type');
+        var option_type = document.getElementById(bOption.idLabel + '_' + parentIndex + '_type');
 
         if (!data) {
             var data = {};
@@ -141,27 +148,26 @@ Bundle.Selection.prototype = {
             data.checked = 'checked="checked"';
         }
 
-        this.template = new Template(this.templateRow, this.templateSyntax);
-        var tbody = $$('#' + this.idLabel + '_box_' + parentIndex + ' tbody');
+        var tbody = document.querySelectorAll('#' + this.idLabel + '_box_' + parentIndex + ' tbody');
 
-        Element.insert(tbody[0], {'bottom':this.template.evaluate(data)});
+        tbody[0].insertAdjacentHTML('beforeend', this.templateRow.replace(/{{(\w+)}}/g, function(_, k) { return data[k] !== undefined ? data[k] : ''; }));
 
         if (typeof data.selection_price_type !== 'undefined') {
-            $A($(this.idLabel + '_'+data.index+'_price_type').options).each(function(option){
+            Array.from(document.getElementById(this.idLabel + '_'+data.index+'_price_type').options).forEach(function(option){
                 if (option.value==data.selection_price_type) option.selected = true;
             });
         }
 
         if (typeof data.selection_price_type !== 'undefined') {
-            $A($(this.idLabel + '_'+data.index+'_can_change_qty').options).each(function(option){
+            Array.from(document.getElementById(this.idLabel + '_'+data.index+'_can_change_qty').options).forEach(function(option){
                 if (option.value==data.selection_can_change_qty) option.selected = true;
             });
         }
 
-        var checkbox = $(this.idLabel + '_'+data.index+'_price_scope');
+        var checkbox = document.getElementById(this.idLabel + '_'+data.index+'_price_scope');
         if (checkbox && this.scopePrice) {
             if (data.price_scope === undefined) {
-                checkbox.up().hide();
+                checkbox.parentNode.style.display = 'none';
             } else if(!data.price_scope) {
                 checkbox.checked = true;
                 this.addScope(null, checkbox);
@@ -174,79 +180,78 @@ Bundle.Selection.prototype = {
             /**
              * Hide not needed elements (user defined qty select box)
              */
-            inputs = $A($$('#' + this.idLabel + '_box_' + data.parentIndex + ' .qty-box'));
-            inputs.each(
+            inputs = Array.from(document.querySelectorAll('#' + this.idLabel + '_box_' + data.parentIndex + ' .qty-box'));
+            inputs.forEach(
                 function(elem){
-                    elem.hide();
+                    elem.style.display = 'none';
                 }
             );
         }
 
-        if (!$('price_type') || $('price_type').value != '1') {
+        if (!document.getElementById('price_type') || document.getElementById('price_type').value != '1') {
             /**
              * Hide not needed elements (price type select and price input)
              */
-            inputs = $A($$('#' + this.idLabel + '_box_' + data.parentIndex + ' .price-type-box'));
-            inputs.each(
+            inputs = Array.from(document.querySelectorAll('#' + this.idLabel + '_box_' + data.parentIndex + ' .price-type-box'));
+            inputs.forEach(
                 function(elem){
-                    elem.hide();
+                    elem.style.display = 'none';
                 }
             );
         }
 
-        var inputs = $$('#bundle_option_' + data.parentIndex + ' input');
-        inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
-        var inputs = $$('#bundle_option_' + data.parentIndex + ' button.delete');
-        inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  } )
+        var inputs = document.querySelectorAll('#bundle_option_' + data.parentIndex + ' input');
+        inputs.forEach(function(el) { el.addEventListener('change', el.setHasChanges.bind(el));  } )
+        var inputs = document.querySelectorAll('#bundle_option_' + data.parentIndex + ' button.delete');
+        inputs.forEach(function(el) { el.addEventListener('click', el.setHasChanges.bind(el));  } )
     },
 
     bindScopeCheckbox : function(){
-        var checkboxes = $$('.bundle-option-price-scope-checkbox');
+        var checkboxes = document.querySelectorAll('.bundle-option-price-scope-checkbox');
         for (var i=0;i<checkboxes.length;i++) {
-            if (!$(checkboxes[i]).binded) {
-                $(checkboxes[i]).binded = true;
-                Event.observe(checkboxes[i], 'click', this.addScope.bind(this));
+            if (!checkboxes[i].binded) {
+                checkboxes[i].binded = true;
+                checkboxes[i].addEventListener('click', this.addScope.bind(this));
             }
         }
     },
 
     addScope : function(event, element){
         if (element == undefined) {
-            element = $(Event.element(event));
+            element = event.target;
         }
-        var priceValue = $(element.id.sub('scope', 'value'));
-        var priceType = $(element.id.sub('scope', 'type'));
+        var priceValue = document.getElementById(element.id.replace('scope', 'value'));
+        var priceType = document.getElementById(element.id.replace('scope', 'type'));
 
         if (element.checked) {
-            priceValue.disable();
-            priceType.disable();
+            priceValue.disabled = true;
+            priceType.disabled = true;
         } else {
-            priceValue.enable();
-            priceType.enable();
+            priceValue.disabled = false;
+            priceType.disabled = false;
         }
     },
 
     addBox : function (parentIndex) {
-        var div = $(bOption.idLabel + '_' + parentIndex)
-        this.template = new Template(this.templateBox, this.templateSyntax);
+        var div = document.getElementById(bOption.idLabel + '_' + parentIndex)
         var data = {'parentIndex' : parentIndex};
-        Element.insert(div, {'bottom':this.template.evaluate(data)});
+        div.insertAdjacentHTML('beforeend', this.templateBox.replace(/{{(\w+)}}/g, function(_, k) { return data[k] !== undefined ? data[k] : ''; }));
     },
 
     remove : function(event) {
-        var element = Event.findElement(event, 'tr');
-        var container = Event.findElement(event, 'div');
+        var element = event.target.closest('tr');
+        var container = event.target.closest('div');
 
         if (element) {
-            Element.select(element, '.delete').each(function(elem){elem.value='1'});
-            Element.select(element, ['input', 'select']).each(function(elem){elem.hide()});
-            Element.removeClassName(element, 'selection');
-            Element.hide(element);
+            element.querySelectorAll('.delete').forEach(function(elem){elem.value='1'});
+            element.querySelectorAll('input, select').forEach(function(elem){elem.style.display = 'none'});
+            element.classList.remove('selection');
+            element.style.display = 'none';
 
             if (container) {
-                if ($$('#' + container.id + ' tr.selection')) {
-                    if (!$$('#' + container.id + ' tr.selection').length) {
-                        container.hide();
+                if (document.querySelectorAll('#' + container.id + ' tr.selection')) {
+                    if (!document.querySelectorAll('#' + container.id + ' tr.selection').length) {
+                        container.style.display = 'none';
                     }
                 }
             }
@@ -254,11 +259,11 @@ Bundle.Selection.prototype = {
     },
 
     checkGroup : function(event) {
-        var element = Event.element(event);
+        var element = event.target;
         if (element.type == 'radio') {
-            var box = element.up('div');
+            var box = element.closest('div');
 
-            var inputs = $$('div#' + box.id + ' input.default');
+            var inputs = document.querySelectorAll('div#' + box.id + ' input.default');
             if (inputs) {
                 for (i=0; i< inputs.length; i++) {
                     if (inputs[i].name != element.name) {
@@ -270,23 +275,23 @@ Bundle.Selection.prototype = {
     },
 
     productGridAddSelected : function(event) {
-        var element = Event.findElement(event, 'button');
+        var element = event.target.closest('button');
         var parts = element.id.split('_');
 
-        $(bOption.idLabel + '_search_' + parts[2]).innerHTML = '';
-        $(bOption.idLabel + '_' + parts[2] + '_add_button').show();
+        document.getElementById(bOption.idLabel + '_search_' + parts[2]).innerHTML = '';
+        document.getElementById(bOption.idLabel + '_' + parts[2] + '_add_button').style.display = '';
 
-        this.gridSelection.get(parts[2]).each(
+        Object.entries(this.gridSelection.get(parts[2])).forEach(
             function(pair) {
-                var qty = pair.value.get('qty');
+                var qty = pair[1].qty;
                 var data = {
-                    'name' : pair.value.get('name'),
+                    'name' : pair[1].name,
                     'selection_price_value' : 0,
                     'selection_qty' : (qty == '' ? 1 : qty),
-                    'sku' : pair.value.get('sku'),
+                    'sku' : pair[1].sku,
                     'position' : 0,
-                    'product_id' : pair.key,
-                    'option_id' : $(bOption.idLabel + '_id_' + parts[2]).value
+                    'product_id' : pair[0],
+                    'option_id' : document.getElementById(bOption.idLabel + '_id_' + parts[2]).value
                 };
                 bSelection.addRow(parts[2], data);
             }
@@ -294,38 +299,38 @@ Bundle.Selection.prototype = {
     },
 
     productGridRowInit : function(grid, row){
-        var checkbox = $(row).getElementsByClassName('checkbox')[0];
-        var inputs = $(row).getElementsByClassName('input-text');
+        var checkbox = row.getElementsByClassName('checkbox')[0];
+        var inputs = row.getElementsByClassName('input-text');
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].checkbox = checkbox;
-            Event.observe(inputs[i], 'keyup', this.productGridRowInputChange.bind(this));
-            Event.observe(inputs[i], 'change', this.productGridRowInputChange.bind(this));
+            inputs[i].addEventListener('keyup', this.productGridRowInputChange.bind(this));
+            inputs[i].addEventListener('change', this.productGridRowInputChange.bind(this));
         }
     },
 
     productGridCheckboxCheck : function(grid, element, checked) {
-        var id = element.up('table').id.split('_')[4];
+        var id = element.closest('table').id.split('_')[4];
         if (element.value > 0) {
             if (element.checked) {
                 var tr = element.parentNode.parentNode;
                 if (!this.gridSelection.get(id)) {
-                    this.gridSelection.set(id, new Hash());
+                    this.gridSelection.set(id, {});
                 }
-                this.gridSelection.get(id).set(element.value, $H({}));
-                this.gridSelection.get(id).get(element.value).set('name', tr.select('td.name')[0].innerHTML);
-                this.gridSelection.get(id).get(element.value).set('qty', tr.select('input.qty')[0].value);
-                this.gridSelection.get(id).get(element.value).set('sku', tr.select('td.sku')[0].innerHTML);
+                this.gridSelection.get(id)[element.value] = {};
+                this.gridSelection.get(id)[element.value].name = tr.querySelector('td.name').innerHTML;
+                this.gridSelection.get(id)[element.value].qty = tr.querySelector('input.qty').value;
+                this.gridSelection.get(id)[element.value].sku = tr.querySelector('td.sku').innerHTML;
             } else {
-                this.gridSelection.get(id).unset(element.value);
+                delete this.gridSelection.get(id)[element.value];
             }
         }
     },
 
     productGridRowClick : function(grid, event) {
-        var trElement = Event.findElement(event, 'tr');
-        var isInput = Event.element(event).tagName == 'INPUT';
+        var trElement = event.target.closest('tr');
+        var isInput = event.target.tagName == 'INPUT';
         if (trElement) {
-            var checkbox = Element.select(trElement, 'input');
+            var checkbox = trElement.querySelectorAll('input');
             if (checkbox[0]) {
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 grid.setCheckboxChecked(checkbox[0], checked);
@@ -334,12 +339,12 @@ Bundle.Selection.prototype = {
     },
 
     productGridRowInputChange : function(event) {
-        var element = Event.element(event);
+        var element = event.target;
         if (!element.checkbox.checked) {
             return;
         }
-        var id = element.up('table').id.split('_')[4];
-        this.gridSelection.get(id).get(element.checkbox.value).set('qty', element.value);
+        var id = element.closest('table').id.split('_')[4];
+        this.gridSelection.get(id)[element.checkbox.value].qty = element.value;
     }
 }
 

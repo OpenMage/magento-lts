@@ -15,7 +15,9 @@
 if(!window.Flex) {
     alert('Flex library not loaded');
 } else {
-    Flex.ImageEditor = Class.create();
+    Flex.ImageEditor = function() {
+        if (this.initialize) this.initialize.apply(this, arguments);
+    };
     Flex.ImageEditor.prototype = {
         flex: null,
         filters:null,
@@ -24,13 +26,13 @@ if(!window.Flex) {
         container:null,
         initialize: function(containerId, movieSrc, config) {
             this.containerId = containerId;
-            this.container   = $(containerId);
+            this.container   = document.getElementById(containerId);
 
             this.container.controller = this;
 
             this.config = config;
             this.flexContainerId = this.containerId + '-flash';
-            Element.insert(this.container, {bottom: '<div id="'+this.flexContainerId+'"></div>'});
+            this.container.insertAdjacentHTML('beforeend', '<div id="'+this.flexContainerId+'"></div>');
 
             this.flex = new Flex.Object({
                 width:  "1024",
@@ -44,7 +46,7 @@ if(!window.Flex) {
             this.flex.apply(this.flexContainerId);
         },
         getInnerElement: function(elementName) {
-            return $(this.containerId + '-' + elementName);
+            return document.getElementById(this.containerId + '-' + elementName);
         },
         handleBridgeInit: function() {
             this.flex.getBridge().addEventListener('image_loaded', this.handleImageLoad.bind(this));

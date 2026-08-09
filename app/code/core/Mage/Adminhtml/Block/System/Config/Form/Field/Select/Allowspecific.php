@@ -19,9 +19,9 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Select_Allowspecific extends
     {
         $javaScript = "
             <script type=\"text/javascript\">
-                Event.observe('{$this->getHtmlId()}', 'change', function(){
-                    specific=$('{$this->getHtmlId()}').value;
-                    $('{$this->_getSpecificCountryElementId()}').disabled = (!specific || specific!=1);
+                document.getElementById('{$this->getHtmlId()}').addEventListener('change', function(){
+                    var specific = document.getElementById('{$this->getHtmlId()}').value;
+                    document.getElementById('{$this->_getSpecificCountryElementId()}').disabled = (!specific || specific!=1);
                 });
             </script>";
         return $javaScript . parent::getAfterElementHtml();

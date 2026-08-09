@@ -92,7 +92,7 @@
             <?php echo Mage::helper('install')->__('Help Us to Keep OpenMage Healthy') ?> - <a href="https://github.com/OpenMage/magento-lts/issues" id="bug_tracking_link"><strong><?php echo Mage::helper('install')->__('Report All Bugs') ?></strong></a> <?php echo Mage::helper('install')->__('(ver. %s)', Mage::getOpenMageVersion()) ?><br/>
 <script type="text/javascript">
 //<![CDATA[
-    $('bug_tracking_link').target = "varien_external";
+    document.getElementById('bug_tracking_link').target = "varien_external";
 //]]>
 </script>
             <?php echo Mage::helper('install')->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', \Carbon\Carbon::now()->format('Y')) ?>

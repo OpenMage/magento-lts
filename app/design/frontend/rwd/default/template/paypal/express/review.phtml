@@ -102,22 +102,25 @@
 <script type="text/javascript">
     //<![CDATA[
     // submit buttons are not needed when submitting with ajax
-    $('review_submit').hide();
-    if ($('update_shipping_method_submit')) {
-        $('update_shipping_method_submit').hide();
+    document.getElementById('review_submit').style.display = 'none';
+    if (document.getElementById('update_shipping_method_submit')) {
+        document.getElementById('update_shipping_method_submit').style.display = 'none';
     }
 
     <?php if ($this->getUseAjax()):?>
     OrderReviewController.prototype._submitOrder = function() {
         if (this._canSubmitOrder) {
             if (this._pleaseWait) {
-                this._pleaseWait.show();
+                this._pleaseWait.style.display = '';
             }
-            new Ajax.Request(this.form.action, {
-                parameters: {isAjax: 1, method: 'POST'},
-                onSuccess: function(transport) {
+            fetch(this.form.action, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: 'isAjax=1&method=POST'
+            }).then(function(r) { return r.text(); }).then(function(responseText) {
+                    var response;
                     try{
-                        response = eval('(' + transport.responseText + ')');
+                        response = JSON.parse(responseText);
                     } catch (e) {
                         response = {};
                     }
@@ -134,27 +137,25 @@
                             msg = msg.join("\n");
                         }
                         if (msg) {
-                            $('review-please-wait').hide();
+                            document.getElementById('review-please-wait').style.display = 'none';
                             alert(msg);
                             return;
                         }
                     }
-                    $('review-please-wait').hide();
+                    document.getElementById('review-please-wait').style.display = 'none';
                     alert('<?php echo $this->jsQuoteEscape($this->__('Unknown Error. Please try again later.')); ?>');
                     return;
-                },
-                onFailure: function(){
+            }).catch(function(){
                     alert('<?php echo $this->jsQuoteEscape($this->__('Server Error. Please try again.')) ?>');
-                    $('review-please-wait').hide();
-                }
+                    document.getElementById('review-please-wait').style.display = 'none';
             });
         }
     }
     <?php endif ?>
 
-    PayPalExpressAjax = new OrderReviewController($('order_review_form'), $('review_button'),
-        $('shipping_method'), $('shipping_method_form'), 'details-reload'
+    PayPalExpressAjax = new OrderReviewController(document.getElementById('order_review_form'), document.getElementById('review_button'),
+        document.getElementById('shipping_method'), document.getElementById('shipping_method_form'), 'details-reload'
     );
-    PayPalExpressAjax.addPleaseWait($('review-please-wait'));
+    PayPalExpressAjax.addPleaseWait(document.getElementById('review-please-wait'));
     //]]>
 </script>

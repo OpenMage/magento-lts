@@ -58,10 +58,10 @@
         var shippingCodePrice = {<?php echo implode(',',$shippingCodePrice); ?>};
     <?php endif ?>
 
-    $$('input[type="radio"][name="shipping_method"]').each(function(el){
-        Event.observe(el, 'click', function(){
+    document.querySelectorAll('input[type="radio"][name="shipping_method"]').forEach(function(el){
+        el.addEventListener('click', function(){
             if (el.checked == true) {
-                var getShippingCode = el.getValue();
+                var getShippingCode = el.value;
                 <?php if ($shippingCodePrice !== []): ?>
                     var newPrice = shippingCodePrice[getShippingCode];
                     if (!lastPrice) {

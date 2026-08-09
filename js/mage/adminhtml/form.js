@@ -11,7 +11,9 @@
  * @copyright   Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-var varienForm = new Class.create();
+function varienForm(formId, validationUrl) {
+    this.initialize(formId, validationUrl);
+}
 
 varienForm.prototype = {
     initialize : function(formId, validationUrl){
@@ -19,10 +21,10 @@ varienForm.prototype = {
         this.validationUrl = validationUrl;
         this.submitUrl = false;
 
-        if($(this.formId)){
+        if(document.getElementById(this.formId)){
             this.validator  = new Validation(this.formId, {onElementValidate : this.checkErrors.bind(this)});
         }
-        this.errorSections = $H({});
+        this.errorSections = {};
     },
 
     checkErrors : function(result, elm){
@@ -46,7 +48,7 @@ varienForm.prototype = {
         if (typeof varienGlobalEvents != undefined) {
             varienGlobalEvents.fireEvent('formSubmit', this.formId);
         }
-        this.errorSections = $H({});
+        this.errorSections = {};
         this.canShowError = true;
         this.submitUrl = url;
         if(this.validator && this.validator.validate()){
@@ -62,11 +64,20 @@ varienForm.prototype = {
     },
 
     _validate : function(){
-        new Ajax.Request(this.validationUrl,{
-            method: 'post',
-            parameters: $(this.formId).serialize(),
-            onComplete: this._processValidationResult.bind(this),
-            onFailure: this._processFailure.bind(this)
+        var self = this;
+        var formEl = document.getElementById(this.formId);
+        showLoader();
+        fetch(this.validationUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+            body: new URLSearchParams(new FormData(formEl)).toString()
+        }).then(function(response) {
+            return response.text();
+        }).then(function(responseText) {
+            var transport = {responseText: responseText};
+            self._processValidationResult(transport);
+        }).catch(function() {
+            self._processFailure();
         });
     },
 
@@ -74,27 +85,31 @@ varienForm.prototype = {
         if (typeof varienGlobalEvents != undefined) {
             varienGlobalEvents.fireEvent('formValidateAjaxComplete', transport);
         }
-        var response = transport.responseText.evalJSON();
+        var response = JSON.parse(transport.responseText);
         if(response.error){
-            if($('messages')){
-                $('messages').innerHTML = response.message;
+            hideLoader();
+            var messagesEl = document.getElementById('messages');
+            if(messagesEl){
+                messagesEl.innerHTML = response.message;
             }
         }
         else{
+            hideLoader();
             this._submit();
         }
     },
 
     _processFailure : function(transport){
+        hideLoader();
         location.href = BASE_URL;
     },
 
     _submit : function(){
-        var $form = $(this.formId);
+        var formEl = document.getElementById(this.formId);
         if(this.submitUrl){
-            $form.action = this.submitUrl;
+            formEl.action = this.submitUrl;
         }
-        $form.submit();
+        formEl.submit();
     }
 };
 
@@ -106,8 +121,8 @@ varienForm.prototype = {
 Validation.isVisible = function(elm){
     while (elm && elm.tagName != 'BODY') {
         if (elm.disabled) return false;
-        if ((Element.hasClassName(elm, 'template') && Element.hasClassName(elm, 'no-display'))
-             || Element.hasClassName(elm, 'ignore-validate')){
+        if ((elm.classList.contains('template') && elm.classList.contains('no-display'))
+             || elm.classList.contains('ignore-validate')){
             return false;
         }
         elm = elm.parentNode;
@@ -119,31 +134,31 @@ Validation.isVisible = function(elm){
  *  Additional elements methods
  */
 var varienElementMethods = {
-    setHasChanges : function(element, event){
-        if($(element) && $(element).hasClassName('no-changes')) return;
-        var elm = element;
+    setHasChanges : function(event){
+        if(this.classList.contains('no-changes')) return;
+        var elm = this;
         while(elm && elm.tagName != 'BODY') {
             if(elm.statusBar)
-                Element.addClassName($(elm.statusBar), 'changed');
+                elm.statusBar.classList.add('changed');
             elm = elm.parentNode;
         }
     },
-    setHasError : function(element, flag, form){
-        var elm = element;
+    setHasError : function(flag, form){
+        var elm = this;
         while(elm && elm.tagName != 'BODY') {
             if(elm.statusBar){
-                if(form.errorSections.keys().indexOf(elm.statusBar.id)<0)
-                    form.errorSections.set(elm.statusBar.id, flag);
+                if(Object.keys(form.errorSections).indexOf(elm.statusBar.id)<0)
+                    form.errorSections[elm.statusBar.id] = flag;
                 if(flag){
-                    Element.addClassName($(elm.statusBar), 'error');
-                    if(form.canShowError && $(elm.statusBar).show){
+                    elm.statusBar.classList.add('error');
+                    if(form.canShowError && elm.statusBar.style.display !== 'none'){
                         form.canShowError = false;
-                        $(elm.statusBar).show();
+                        elm.statusBar.style.display = '';
                     }
-                    form.errorSections.set(elm.statusBar.id, flag);
+                    form.errorSections[elm.statusBar.id] = flag;
                 }
-                else if(!form.errorSections.get(elm.statusBar.id)){
-                    Element.removeClassName($(elm.statusBar), 'error');
+                else if(!form.errorSections[elm.statusBar.id]){
+                    elm.statusBar.classList.remove('error');
                 }
             }
             elm = elm.parentNode;
@@ -152,16 +167,17 @@ var varienElementMethods = {
     }
 };
 
-Element.addMethods(varienElementMethods);
+HTMLElement.prototype.setHasChanges = varienElementMethods.setHasChanges;
+HTMLElement.prototype.setHasError = varienElementMethods.setHasError;
 
 // Global bind changes
 varienWindowOnloadCache = {};
 function varienWindowOnload(useCache){
-    var dataElements = $$('input', 'select', 'textarea');
+    var dataElements = document.querySelectorAll('input, select, textarea');
     for(var i=0; i<dataElements.length;i++){
         if(dataElements[i] && dataElements[i].id){
             if ((!useCache) || (!varienWindowOnloadCache[dataElements[i].id])) {
-                Event.observe(dataElements[i], 'change', dataElements[i].setHasChanges.bind(dataElements[i]));
+                dataElements[i].addEventListener('change', dataElements[i].setHasChanges.bind(dataElements[i]));
                 if (useCache) {
                     varienWindowOnloadCache[dataElements[i].id] = true;
                 }
@@ -169,18 +185,17 @@ function varienWindowOnload(useCache){
         }
     }
 }
-Event.observe(window, 'load', varienWindowOnload);
+window.addEventListener('load', varienWindowOnload);
 
-RegionUpdater = Class.create();
+function RegionUpdater(countryEl, regionTextEl, regionSelectEl, regions, disableAction, clearRegionValueOnDisable) {
+    this.initialize(countryEl, regionTextEl, regionSelectEl, regions, disableAction, clearRegionValueOnDisable);
+}
 RegionUpdater.prototype = {
     initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction, clearRegionValueOnDisable)
     {
-        this.countryEl = $(countryEl);
-        this.regionTextEl = $(regionTextEl);
-        this.regionSelectEl = $(regionSelectEl);
-//        // clone for select element (#6924)
-//        this._regionSelectEl = {};
-//        this.tpl = new Template('<select class="#{className}" name="#{name}" id="#{id}">#{innerHTML}</select>');
+        this.countryEl = document.getElementById(countryEl);
+        this.regionTextEl = document.getElementById(regionTextEl);
+        this.regionSelectEl = document.getElementById(regionSelectEl);
         this.config = regions['config'];
         delete regions.config;
         this.regions = regions;
@@ -196,7 +211,7 @@ RegionUpdater.prototype = {
 
         this.countryEl.changeUpdater = this.update.bind(this);
 
-        Event.observe(this.countryEl, 'change', this.update.bind(this));
+        this.countryEl.addEventListener('change', this.update.bind(this));
     },
 
     _checkRegionRequired: function()
@@ -209,53 +224,54 @@ RegionUpdater.prototype = {
         }
         var regionRequired = this.config.regions_required.indexOf(this.countryEl.value) >= 0;
 
-        elements.each(function(currentElement) {
+        elements.forEach(function(currentElement) {
             if(!currentElement) {
                 return;
             }
             Validation.reset(currentElement);
-            label = $$('label[for="' + currentElement.id + '"]')[0];
+            var labels = document.querySelectorAll('label[for="' + currentElement.id + '"]');
+            label = labels[0];
             if (label) {
-                wildCard = label.down('em') || label.down('span.required');
+                wildCard = label.querySelector('em') || label.querySelector('span.required');
                 if (!wildCard) {
-                    label.insert(' <span class="required">*</span>');
-                    wildCard = label.down('span.required');
+                    label.insertAdjacentHTML('beforeend', ' <span class="required">*</span>');
+                    wildCard = label.querySelector('span.required');
                 }
-                var topElement = label.up('tr') || label.up('li');
+                var topElement = label.closest('tr') || label.closest('li');
                 if (!that.config.show_all_regions && topElement) {
                     if (regionRequired) {
-                        topElement.show();
+                        topElement.style.display = '';
                     } else {
-                        topElement.hide();
+                        topElement.style.display = 'none';
                     }
                 }
             }
 
             if (label && wildCard) {
                 if (!regionRequired) {
-                    wildCard.hide();
+                    wildCard.style.display = 'none';
                 } else {
-                    wildCard.show();
+                    wildCard.style.display = '';
                 }
             }
 
-            if (!regionRequired || !currentElement.visible()) {
-                if (currentElement.hasClassName('required-entry')) {
-                    currentElement.removeClassName('required-entry');
+            if (!regionRequired || currentElement.style.display === 'none') {
+                if (currentElement.classList.contains('required-entry')) {
+                    currentElement.classList.remove('required-entry');
                 }
                 if ('select' == currentElement.tagName.toLowerCase() &&
-                    currentElement.hasClassName('validate-select')
+                    currentElement.classList.contains('validate-select')
                 ) {
-                    currentElement.removeClassName('validate-select');
+                    currentElement.classList.remove('validate-select');
                 }
             } else {
-                if (!currentElement.hasClassName('required-entry')) {
-                    currentElement.addClassName('required-entry');
+                if (!currentElement.classList.contains('required-entry')) {
+                    currentElement.classList.add('required-entry');
                 }
                 if ('select' == currentElement.tagName.toLowerCase() &&
-                    !currentElement.hasClassName('validate-select')
+                    !currentElement.classList.contains('validate-select')
                 ) {
-                    currentElement.addClassName('validate-select');
+                    currentElement.classList.add('validate-select');
                 }
             }
         });
@@ -264,10 +280,6 @@ RegionUpdater.prototype = {
     update: function()
     {
         if (this.regions[this.countryEl.value]) {
-//            if (!this.regionSelectEl) {
-//                Element.insert(this.regionTextEl, {after : this.tpl.evaluate(this._regionSelectEl)});
-//                this.regionSelectEl = $(this._regionSelectEl.id);
-//            }
             if (this.lastCountryId != this.countryEl.value) {
                 var i, option, region, def;
 
@@ -285,7 +297,8 @@ RegionUpdater.prototype = {
 
                     option = document.createElement('OPTION');
                     option.value = regionId;
-                    option.text = region.name.stripTags();
+                    // option.text is rendered as plain text, never parsed as HTML
+                    option.text = region.name;
                     option.title = region.name;
 
                     if (this.regionSelectEl.options.add) {
@@ -340,14 +353,6 @@ RegionUpdater.prototype = {
                 this.lastCountryId = '';
             }
             this.setMarkDisplay(this.regionSelectEl, false);
-
-//            // clone required stuff from select element and then remove it
-//            this._regionSelectEl.className = this.regionSelectEl.className;
-//            this._regionSelectEl.name      = this.regionSelectEl.name;
-//            this._regionSelectEl.id        = this.regionSelectEl.id;
-//            this._regionSelectEl.innerHTML = this.regionSelectEl.innerHTML;
-//            Element.remove(this.regionSelectEl);
-//            this.regionSelectEl = null;
         }
         varienGlobalEvents.fireEvent("address_country_changed", this.countryEl);
         this._checkRegionRequired();
@@ -355,42 +360,44 @@ RegionUpdater.prototype = {
 
     setMarkDisplay: function(elem, display){
         if(elem.parentNode.parentNode){
-            var marks = Element.select(elem.parentNode.parentNode, '.required');
+            var marks = elem.parentNode.parentNode.querySelectorAll('.required');
             if(marks[0]){
-                display ? marks[0].show() : marks[0].hide();
+                marks[0].style.display = display ? '' : 'none';
             }
         }
     },
     sortSelect : function () {
         var elem = this.regionSelectEl;
         var tmpArray = new Array();
-        var currentVal = $(elem).value;
-        for (var i = 0; i < $(elem).options.length; i++) {
+        var currentVal = elem.value;
+        for (var i = 0; i < elem.options.length; i++) {
             if (i == 0) {
                 continue;
             }
             tmpArray[i-1] = new Array();
-            tmpArray[i-1][0] = $(elem).options[i].text;
-            tmpArray[i-1][1] = $(elem).options[i].value;
+            tmpArray[i-1][0] = elem.options[i].text;
+            tmpArray[i-1][1] = elem.options[i].value;
         }
         tmpArray.sort();
         for (var i = 1; i <= tmpArray.length; i++) {
             var op = new Option(tmpArray[i-1][0], tmpArray[i-1][1]);
-            $(elem).options[i] = op;
+            elem.options[i] = op;
         }
-        $(elem).value = currentVal;
+        elem.value = currentVal;
         return;
     }
 };
 
 regionUpdater = RegionUpdater;
 
-SelectUpdater = Class.create();
+function SelectUpdater(firstSelect, secondSelect, selectFirstMessage, noValuesMessage, values, selected) {
+    this.initialize(firstSelect, secondSelect, selectFirstMessage, noValuesMessage, values, selected);
+}
 SelectUpdater.prototype = {
     initialize: function (firstSelect, secondSelect, selectFirstMessage, noValuesMessage, values, selected)
     {
-        this.first = $(firstSelect);
-        this.second = $(secondSelect);
+        this.first = document.getElementById(firstSelect);
+        this.second = document.getElementById(secondSelect);
         this.message = selectFirstMessage;
         this.values = values;
         this.noMessage = noValuesMessage;
@@ -398,7 +405,7 @@ SelectUpdater.prototype = {
 
         this.update();
 
-        Event.observe(this.first, 'change', this.update.bind(this));
+        this.first.addEventListener('change', this.update.bind(this));
     },
 
     update: function()
@@ -445,7 +452,9 @@ SelectUpdater.prototype = {
  * Observer that watches for dependent form elements
  * If an element depends on 1 or more of other elements, it should show up only when all of them gain specified values
  */
-FormElementDependenceController = Class.create();
+function FormElementDependenceController(elementsMap, config) {
+    this.initialize(elementsMap, config);
+}
 FormElementDependenceController.prototype = {
     /**
      * Structure of elements: {
@@ -466,8 +475,9 @@ FormElementDependenceController.prototype = {
         }
         for (var idTo in elementsMap) {
             for (var idFrom in elementsMap[idTo]) {
-                if ($(idFrom)) {
-                    Event.observe($(idFrom), 'change', this.trackChange.bindAsEventListener(this, idTo, elementsMap[idTo]));
+                var fromEl = document.getElementById(idFrom);
+                if (fromEl) {
+                    fromEl.addEventListener('change', this.trackChange.bind(this, null, idTo, elementsMap[idTo]));
                     this.trackChange(null, idTo, elementsMap[idTo]);
                 } else {
                     this.trackChange(null, idTo, elementsMap[idTo]);
@@ -495,10 +505,10 @@ FormElementDependenceController.prototype = {
         return result;
     },
     hideElem : function(ele) {
-        ele.hide();
+        ele.style.display = 'none';
     },
     showElem : function(ele) {
-        ele.show();
+        ele.style.display = '';
     },
     /**
      * Define whether target element should be toggled and show/hide its row
@@ -513,14 +523,18 @@ FormElementDependenceController.prototype = {
         var ele = document.getElementById(idTo), cnf = this._config;
         if (!ele) {
             idTo = 'row_' + idTo;
-            ele = $(idTo);
+            ele = document.getElementById(idTo);
             if (!ele) {
                 return;
             }
         } else {
             var closest = cnf.levels_up; // @deprecated
             if ((typeof closest == 'number') && (closest > 1)) {
-                ele = ele.up(closest);
+                for (var _i = 0; _i < closest; _i++) {
+                    if (ele.parentNode) {
+                        ele = ele.parentNode;
+                    }
+                }
             } else {
                 ele = ele.closest('tr');
             }
@@ -529,8 +543,8 @@ FormElementDependenceController.prototype = {
         // define whether the target should show up
         var shouldShowUp = true;
         for (var idFrom in valuesFrom) {
-            var from = $(idFrom);
-            if (from.tagName === 'SELECT' && from.className.indexOf('multiselect') > -1) {
+            var from = document.getElementById(idFrom);
+            if (from && from.tagName === 'SELECT' && from.className.indexOf('multiselect') > -1) {
                 var elementValues = this.getSelectValues(from);
                 if (!from || elementValues.indexOf(valuesFrom[idFrom]) <= -1) {
                     shouldShowUp = false;
@@ -550,22 +564,24 @@ FormElementDependenceController.prototype = {
 
         // toggle target row
         if (shouldShowUp) {
-            ele.select('input', 'select', 'td').each(function (item) {
+            Array.from(ele.querySelectorAll('input, select, td')).forEach(function (item) {
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
                 // don't touch ENV-locked fields
-                if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)
+                var inheritEl = document.getElementById(item.id+'_inherit');
+                if ((!item.type || item.type != 'hidden') && !(inheritEl && inheritEl.checked)
                     && !(cnf.can_edit_price != undefined && !cnf.can_edit_price)
-                    && !item.hasClassName('env-locked')) {
+                    && !item.classList.contains('env-locked')) {
                     item.disabled = false;
                 }
             });
             this.showElem(ele);
         } else {
-            ele.select('input', 'select', 'td', 'div').each(function (item){
+            Array.from(ele.querySelectorAll('input, select, td, div')).forEach(function (item){
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
                 // don't touch ENV-locked fields
-                if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)
-                    && !item.hasClassName('env-locked')) {
+                var inheritEl = document.getElementById(item.id+'_inherit');
+                if ((!item.type || item.type != 'hidden') && !(inheritEl && inheritEl.checked)
+                    && !item.classList.contains('env-locked')) {
                     item.disabled = true;
                 }
             });
@@ -578,29 +594,32 @@ FormElementDependenceController.prototype = {
 function onAddressCountryChanged(countryElement) {
     var zipElementId = countryElement.id.replace(/country_id/, 'postcode');
     // Ajax-request and normal content load compatibility
-    if ($(zipElementId) != undefined) {
-        setPostcodeOptional($(zipElementId), countryElement.value);
+    var zipEl = document.getElementById(zipElementId);
+    if (zipEl != undefined) {
+        setPostcodeOptional(zipEl, countryElement.value);
     } else {
-        Event.observe(window, "load", function () {
-            setPostcodeOptional($(zipElementId), countryElement.value);
+        window.addEventListener('load', function () {
+            setPostcodeOptional(document.getElementById(zipElementId), countryElement.value);
         });
     }
 }
 
 function setPostcodeOptional(zipElement, country) {
-    var spanElement = zipElement.up(1).down('label > span.required');
+    var parentEl = zipElement.parentNode;
+    if (parentEl) parentEl = parentEl.parentNode;
+    var spanElement = parentEl ? parentEl.querySelector('label > span.required') : null;
     if (!spanElement || (typeof optionalZipCountries == 'undefined')) {
         return; // nothing to do (for example in system config)
     }
     if (optionalZipCountries.indexOf(country) != -1) {
         Validation.reset(zipElement);
-        while (zipElement.hasClassName('required-entry')) {
-            zipElement.removeClassName('required-entry');
+        while (zipElement.classList.contains('required-entry')) {
+            zipElement.classList.remove('required-entry');
         }
-        spanElement.hide();
+        spanElement.style.display = 'none';
     } else {
-        zipElement.addClassName('required-entry');
-        spanElement.show();
+        zipElement.classList.add('required-entry');
+        spanElement.style.display = '';
     }
 }
 

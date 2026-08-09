@@ -95,26 +95,26 @@ var UspsAddressVerification = {
         if (!this.config.enabled) return;
 
         // Bind close button
-        var closeBtn = $('usps-av-close-btn');
+        var closeBtn = document.getElementById('usps-av-close-btn');
         if (closeBtn) {
-            closeBtn.observe('click', this.hide.bind(this));
+            closeBtn.addEventListener('click', this.hide.bind(this));
         }
 
         // Bind action buttons
-        var useSuggested = $('usps-av-use-suggested');
+        var useSuggested = document.getElementById('usps-av-use-suggested');
         if (useSuggested) {
-            useSuggested.observe('click', this.useSuggestedAddress.bind(this));
+            useSuggested.addEventListener('click', this.useSuggestedAddress.bind(this));
         }
 
-        var keepOriginal = $('usps-av-keep-original');
+        var keepOriginal = document.getElementById('usps-av-keep-original');
         if (keepOriginal) {
-            keepOriginal.observe('click', this.keepOriginalAddress.bind(this));
+            keepOriginal.addEventListener('click', this.keepOriginalAddress.bind(this));
         }
 
         // Close on overlay click
-        var overlay = $('usps-address-verification-overlay');
+        var overlay = document.getElementById('usps-address-verification-overlay');
         if (overlay) {
-            overlay.observe('click', function(e) {
+            overlay.addEventListener('click', function(e) {
                 if (e.target === overlay) {
                     this.hide();
                 }
@@ -122,7 +122,7 @@ var UspsAddressVerification = {
         }
 
         // Close on ESC key
-        document.observe('keydown', function(e) {
+        document.addEventListener('keydown', function(e) {
             if (e.keyCode === 27 && this.isVisible()) {
                 this.hide();
             }
@@ -140,39 +140,41 @@ var UspsAddressVerification = {
             return;
         }
 
-        new Ajax.Request(this.config.verifyUrl, {
-            method: 'post',
-            parameters: {
+        var self = this;
+        fetch(this.config.verifyUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: new URLSearchParams({
                 street1: address.street1 || '',
                 street2: address.street2 || '',
                 city: address.city || '',
                 region: address.region || '',
                 postcode: address.postcode || '',
                 form_key: FORM_KEY
-            },
-            onSuccess: function(transport) {
-                try {
-                    var response = transport.responseText.evalJSON();
+            }).toString()
+        }).then(function(httpResponse) {
+            return httpResponse.text();
+        }).then(function(responseText) {
+            try {
+                var response = JSON.parse(responseText);
 
-                    if (response.status === 'exact') {
-                        // Address is valid, no confirmation needed
-                        callback(false, null);
-                    } else if (response.status === 'corrected') {
-                        // Show modal for user confirmation
-                        this.showConfirmation(response, callback);
-                    } else {
-                        // Invalid address, let user proceed anyway
-                        this.showWarning(response, callback);
-                    }
-                } catch (e) {
-                    console.error('USPS Address Verification error:', e);
+                if (response.status === 'exact') {
+                    // Address is valid, no confirmation needed
                     callback(false, null);
+                } else if (response.status === 'corrected') {
+                    // Show modal for user confirmation
+                    self.showConfirmation(response, callback);
+                } else {
+                    // Invalid address, let user proceed anyway
+                    self.showWarning(response, callback);
                 }
-            }.bind(this),
-            onFailure: function() {
-                // On failure, allow checkout to proceed
+            } catch (e) {
+                console.error('USPS Address Verification error:', e);
                 callback(false, null);
             }
+        }).catch(function() {
+            // On failure, allow checkout to proceed
+            callback(false, null);
         });
     },
 
@@ -184,36 +186,48 @@ var UspsAddressVerification = {
         this.onCompleteCallback = callback;
 
         // Set title and message
-        $('usps-av-title').update(this.escapeHtml('<?php echo $this->escapeJs($this->__('Address Verification')) ?>'));
-        $('usps-av-message').update(this.escapeHtml('<?php echo $this->escapeJs($this->__('USPS suggests the following corrections to your address:')) ?>'));
+        document.getElementById('usps-av-title').innerHTML = this.escapeHtml('<?php echo $this->escapeJs($this->__('Address Verification')) ?>');
+        document.getElementById('usps-av-message').innerHTML = this.escapeHtml('<?php echo $this->escapeJs($this->__('USPS suggests the following corrections to your address:')) ?>');
 
         // Display addresses
-        $('usps-av-original-address').update(this.formatAddress(data.original));
-        $('usps-av-corrected-address').update(this.formatAddress(data.corrected));
+        document.getElementById('usps-av-original-address').innerHTML = this.formatAddress(data.original);
+        document.getElementById('usps-av-corrected-address').innerHTML = this.formatAddress(data.corrected);
 
         // Display corrections table
         if (data.corrections && Object.keys(data.corrections).length > 0) {
-            var tbody = $('usps-av-corrections-body');
-            tbody.update('');
+            var tbody = document.getElementById('usps-av-corrections-body');
+            tbody.innerHTML = '';
 
             for (var field in data.corrections) {
-                var row = new Element('tr');
-                row.insert(new Element('td').update(this.escapeHtml(this.fieldLabels[field] || field)));
-                row.insert(new Element('td', {'class': 'original'}).update(this.escapeHtml(data.corrections[field].original || '(empty)')));
-                row.insert(new Element('td', {'class': 'corrected'}).update(this.escapeHtml(data.corrections[field].corrected || '(empty)')));
-                tbody.insert(row);
+                var row = document.createElement('tr');
+
+                var tdField = document.createElement('td');
+                tdField.innerHTML = this.escapeHtml(this.fieldLabels[field] || field);
+                row.appendChild(tdField);
+
+                var tdOriginal = document.createElement('td');
+                tdOriginal.className = 'original';
+                tdOriginal.innerHTML = this.escapeHtml(data.corrections[field].original || '(empty)');
+                row.appendChild(tdOriginal);
+
+                var tdCorrected = document.createElement('td');
+                tdCorrected.className = 'corrected';
+                tdCorrected.innerHTML = this.escapeHtml(data.corrections[field].corrected || '(empty)');
+                row.appendChild(tdCorrected);
+
+                tbody.appendChild(row);
             }
 
-            $('usps-av-corrections').show();
+            document.getElementById('usps-av-corrections').style.display = '';
         } else {
-            $('usps-av-corrections').hide();
+            document.getElementById('usps-av-corrections').style.display = 'none';
         }
 
         // Display warnings
         this.displayWarnings(data.warnings);
 
         // Show use suggested button
-        $('usps-av-use-suggested').show();
+        document.getElementById('usps-av-use-suggested').style.display = '';
 
         this.show();
     },
@@ -225,17 +239,17 @@ var UspsAddressVerification = {
         this.currentData = data;
         this.onCompleteCallback = callback;
 
-        $('usps-av-title').update(this.escapeHtml('<?php echo $this->escapeJs($this->__('Address Not Verified')) ?>'));
-        $('usps-av-message').update(this.escapeHtml('<?php echo $this->escapeJs($this->__('The address could not be verified. You may continue with your original address.')) ?>'));
+        document.getElementById('usps-av-title').innerHTML = this.escapeHtml('<?php echo $this->escapeJs($this->__('Address Not Verified')) ?>');
+        document.getElementById('usps-av-message').innerHTML = this.escapeHtml('<?php echo $this->escapeJs($this->__('The address could not be verified. You may continue with your original address.')) ?>');
 
-        $('usps-av-original-address').update(this.formatAddress(data.original));
-        $('usps-av-corrected-address').update('<em><?php echo $this->escapeJs($this->__('No suggestions available')) ?></em>');
+        document.getElementById('usps-av-original-address').innerHTML = this.formatAddress(data.original);
+        document.getElementById('usps-av-corrected-address').innerHTML = '<em><?php echo $this->escapeJs($this->__('No suggestions available')) ?></em>';
 
-        $('usps-av-corrections').hide();
+        document.getElementById('usps-av-corrections').style.display = 'none';
         this.displayWarnings(data.warnings);
 
         // Hide use suggested button for invalid
-        $('usps-av-use-suggested').hide();
+        document.getElementById('usps-av-use-suggested').style.display = 'none';
 
         this.show();
     },
@@ -244,17 +258,19 @@ var UspsAddressVerification = {
      * Display warning messages
      */
     displayWarnings: function(warnings) {
-        var warningsContainer = $('usps-av-warnings');
-        var warningsList = $('usps-av-warnings-list');
+        var warningsContainer = document.getElementById('usps-av-warnings');
+        var warningsList = document.getElementById('usps-av-warnings-list');
 
         if (warnings && warnings.length > 0) {
-            warningsList.update('');
-            warnings.each(function(warning) {
-                warningsList.insert(new Element('li').update(this.escapeHtml(warning)));
+            warningsList.innerHTML = '';
+            warnings.forEach(function(warning) {
+                var li = document.createElement('li');
+                li.innerHTML = this.escapeHtml(warning);
+                warningsList.appendChild(li);
             }.bind(this));
-            warningsContainer.show();
+            warningsContainer.style.display = '';
         } else {
-            warningsContainer.hide();
+            warningsContainer.style.display = 'none';
         }
     },
 
@@ -265,19 +281,21 @@ var UspsAddressVerification = {
         if (this.currentData && this.currentData.corrected) {
             var corrected = this.currentData.corrected;
             var cb = this.onCompleteCallback;
+            var self = this;
             this.onCompleteCallback = null;
 
             // Apply correction via AJAX
-            new Ajax.Request(this.config.applyUrl, {
-                method: 'post',
-                parameters: Object.extend({form_key: FORM_KEY}, corrected),
-                onComplete: function() {
-                    this.hide();
-                    if (cb) {
-                        cb(true, corrected);
-                    }
-                }.bind(this)
-            });
+            var done = function() {
+                self.hide();
+                if (cb) {
+                    cb(true, corrected);
+                }
+            };
+            fetch(this.config.applyUrl, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: new URLSearchParams(Object.assign({form_key: FORM_KEY}, corrected)).toString()
+            }).then(done, done);
         }
     },
 
@@ -329,16 +347,16 @@ var UspsAddressVerification = {
      * Show the modal
      */
     show: function() {
-        $('usps-address-verification-overlay').show();
-        document.body.addClassName('usps-av-modal-open');
+        document.getElementById('usps-address-verification-overlay').style.display = '';
+        document.body.classList.add('usps-av-modal-open');
     },
 
     /**
      * Hide the modal and invoke pending callback (treat as "Keep My Address")
      */
     hide: function() {
-        $('usps-address-verification-overlay').hide();
-        document.body.removeClassName('usps-av-modal-open');
+        document.getElementById('usps-address-verification-overlay').style.display = 'none';
+        document.body.classList.remove('usps-av-modal-open');
 
         // Treat dismiss as "Keep My Address" so checkout is not left stuck
         if (this.onCompleteCallback) {
@@ -352,13 +370,13 @@ var UspsAddressVerification = {
      * Check if modal is visible
      */
     isVisible: function() {
-        var overlay = $('usps-address-verification-overlay');
-        return overlay && overlay.visible();
+        var overlay = document.getElementById('usps-address-verification-overlay');
+        return overlay && overlay.style.display !== 'none';
     }
 };
 
 // Initialize on DOM ready
-document.observe('dom:loaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     UspsAddressVerification.init();
     UspsAddressVerification.hookCheckout();
 });
@@ -415,14 +433,14 @@ UspsAddressVerification._hookShippingSave = function() {
         var address = self._collectShippingAddress();
 
         // Skip verification for saved addresses
-        var addressSelect = $('shipping-address-select');
+        var addressSelect = document.getElementById('shipping-address-select');
         if (addressSelect && addressSelect.value) {
             originalSave();
             return;
         }
 
         // Skip if same as billing (already verified or will be)
-        var sameAsBilling = $('shipping:same_as_billing');
+        var sameAsBilling = document.getElementById('shipping:same_as_billing');
         if (sameAsBilling && sameAsBilling.checked) {
             originalSave();
             return;
@@ -448,12 +466,16 @@ UspsAddressVerification._hookShippingSave = function() {
  * Collect address from shipping form
  */
 UspsAddressVerification._collectShippingAddress = function() {
+    var street1 = document.getElementById('shipping:street1');
+    var street2 = document.getElementById('shipping:street2');
+    var city = document.getElementById('shipping:city');
+    var postcode = document.getElementById('shipping:postcode');
     return {
-        street1: ($('shipping:street1') ? $('shipping:street1').value : ''),
-        street2: ($('shipping:street2') ? $('shipping:street2').value : ''),
-        city: ($('shipping:city') ? $('shipping:city').value : ''),
+        street1: (street1 ? street1.value : ''),
+        street2: (street2 ? street2.value : ''),
+        city: (city ? city.value : ''),
         region: this._getRegionValue('shipping'),
-        postcode: ($('shipping:postcode') ? $('shipping:postcode').value : '')
+        postcode: (postcode ? postcode.value : '')
     };
 };
 
@@ -461,8 +483,8 @@ UspsAddressVerification._collectShippingAddress = function() {
  * Get region value (from dropdown or text field)
  */
 UspsAddressVerification._getRegionValue = function(prefix) {
-    var regionId = $(prefix + ':region_id');
-    var regionText = $(prefix + ':region');
+    var regionId = document.getElementById(prefix + ':region_id');
+    var regionText = document.getElementById(prefix + ':region');
 
     if (regionId && regionId.value) {
         // Get text from selected option
@@ -479,21 +501,26 @@ UspsAddressVerification._getRegionValue = function(prefix) {
 UspsAddressVerification._applyAddressToForm = function(address, prefix) {
     if (!address) return;
 
-    if (address.street1 && $(prefix + ':street1')) {
-        $(prefix + ':street1').value = address.street1;
+    var street1 = document.getElementById(prefix + ':street1');
+    var street2 = document.getElementById(prefix + ':street2');
+    var city = document.getElementById(prefix + ':city');
+    var postcode = document.getElementById(prefix + ':postcode');
+
+    if (address.street1 && street1) {
+        street1.value = address.street1;
     }
-    if (address.street2 !== undefined && $(prefix + ':street2')) {
-        $(prefix + ':street2').value = address.street2 || '';
+    if (address.street2 !== undefined && street2) {
+        street2.value = address.street2 || '';
     }
-    if (address.city && $(prefix + ':city')) {
-        $(prefix + ':city').value = address.city;
+    if (address.city && city) {
+        city.value = address.city;
     }
-    if (address.postcode && $(prefix + ':postcode')) {
-        $(prefix + ':postcode').value = address.postcode;
+    if (address.postcode && postcode) {
+        postcode.value = address.postcode;
     }
     if (address.region) {
         // Try to match region in dropdown
-        var regionId = $(prefix + ':region_id');
+        var regionId = document.getElementById(prefix + ':region_id');
         if (regionId) {
             var options = regionId.options;
             for (var i = 0; i < options.length; i++) {
@@ -504,7 +531,7 @@ UspsAddressVerification._applyAddressToForm = function(address, prefix) {
                 }
             }
         }
-        var regionText = $(prefix + ':region');
+        var regionText = document.getElementById(prefix + ':region');
         if (regionText) {
             regionText.value = address.region;
         }

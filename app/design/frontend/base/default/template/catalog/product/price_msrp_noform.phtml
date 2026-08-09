@@ -33,7 +33,7 @@
                     notUseForm: true
                 };
                 var newLink = Catalog.Map.addHelpLink(
-                        $('<?php echo $helpLinkId ?>'),
+                        document.getElementById('<?php echo $helpLinkId ?>'),
                         "<?php echo $this->escapeHtml($_product->getName()) ?>",
                         <?php echo $this->getRealPriceJs($_product) ?>,
                         '<?php echo $_msrpPrice ?>',
@@ -42,7 +42,7 @@
                 newLink.product_id = '<?php echo $_product->getId() ?>';
             <?php else: ?>
                 Catalog.Map.addHelpLink(
-                        $('<?php echo $helpLinkId ?>'),
+                        document.getElementById('<?php echo $helpLinkId ?>'),
                         null,
                         null,
                         null,

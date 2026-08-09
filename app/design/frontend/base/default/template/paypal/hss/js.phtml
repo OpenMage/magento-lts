@@ -17,28 +17,27 @@
 Review.prototype.save = function() {
     if (checkout.loadWaiting!=false) return;
     checkout.setLoadWaiting('review');
-    var params = Form.serialize(payment.form);
+    var params = new URLSearchParams(new FormData(payment.form)).toString();
     if (this.agreementsForm) {
-        params += '&'+Form.serialize(this.agreementsForm);
+        params += '&'+new URLSearchParams(new FormData(this.agreementsForm)).toString();
     }
-    params.save = true;
-    var request = new Ajax.Request(
-        this.saveUrl,
-        {
-            method:'post',
-            parameters:params,
-            onComplete: function(transport) {
-                if (transport) {
-                    var response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
-                    if (response.error_messages) {
-                        checkout.setLoadWaiting(false);
-                    }
-                }
-            },
-            onSuccess: this.onSave,
-            onFailure: checkout.ajaxFailure.bind(checkout)
+    var self = this;
+    fetch(this.saveUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+        body: params + '&save=true'
+    }).then(function(resp) { return resp.text(); }).then(function(responseText) {
+        var response;
+        try { response = JSON.parse(responseText); } catch(e) { response = {}; }
+        if (response.error_messages) {
+            checkout.setLoadWaiting(false);
         }
-    );
+        if (self.onSave) {
+            self.onSave({responseText: responseText, responseJSON: response});
+        }
+    }).catch(function() {
+        checkout.ajaxFailure();
+    });
 }
 //]]>
 </script>

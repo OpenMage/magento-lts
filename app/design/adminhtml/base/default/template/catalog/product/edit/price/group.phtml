@@ -65,7 +65,7 @@ var groupPriceRowTemplate = '<tr>'
     + '</tr>';
 
 var groupPriceControl = {
-    template: new Template(groupPriceRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', '')),
+    template: { _re: new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', 'g'), evaluate: function(obj) { return groupPriceRowTemplate.replace(this._re, function(m, p1, p2, p3) { return p1 + (obj[p3] !== undefined ? obj[p3] : ''); }); } },
     itemsCount: 0,
     addItem : function () {
         <?php if ($_readonly): ?>
@@ -90,55 +90,53 @@ var groupPriceControl = {
             data.readOnly = arguments[3];
         }
 
-        Element.insert($('<?php echo $_htmlId; ?>_container'), {
-            bottom : this.template.evaluate(data)
-        });
+        document.getElementById('<?php echo $_htmlId; ?>_container').insertAdjacentHTML('beforeend', this.template.evaluate(data));
 
-        $('group_price_row_' + data.index + '_cust_group').value = data.group;
-        $('group_price_row_' + data.index + '_website').value    = data.website_id;
+        document.getElementById('group_price_row_' + data.index + '_cust_group').value = data.group;
+        document.getElementById('group_price_row_' + data.index + '_website').value    = data.website_id;
 
         <?php if ($this->isShowWebsiteColumn() && !$this->isAllowChangeWebsite()): ?>
-        var websiteElement = $('group_price_row_' + data.index + '_website');
+        var websiteElement = document.getElementById('group_price_row_' + data.index + '_website');
         var websiteCaption = websiteElement.options[websiteElement.selectedIndex].text;
 
-        websiteElement.insert({after:'<span class="website-name">' + websiteCaption + '</span>'});
-        websiteElement.hide();
+        websiteElement.insertAdjacentHTML('afterend', '<span class="website-name">' + websiteCaption + '</span>');
+        websiteElement.style.display = 'none';
         <?php endif ?>
 
         if (data.readOnly == '1') {
-            ['website', 'cust_group', 'price', 'delete', 'is_percent'].each(function(element_suffix) {
-                $('group_price_row_' + data.index + '_' + element_suffix).disabled = true;
+            ['website', 'cust_group', 'price', 'delete', 'is_percent'].forEach(function(element_suffix) {
+                document.getElementById('group_price_row_' + data.index + '_' + element_suffix).disabled = true;
             });
-            $('group_price_row_' + data.index + '_delete_button').hide();
+            document.getElementById('group_price_row_' + data.index + '_delete_button').style.display = 'none';
         }
 
         <?php if ($_readonly): ?>
-        $('<?php echo $_htmlId; ?>_container').select('input', 'select').each(this.disableElement);
-        $('<?php echo $_htmlId; ?>_container').up('table').select('button').each(this.disableElement);
+        document.getElementById('<?php echo $_htmlId; ?>_container').querySelectorAll('input, select').forEach(this.disableElement);
+        document.getElementById('<?php echo $_htmlId; ?>_container').closest('table').querySelectorAll('button').forEach(this.disableElement);
         <?php else: ?>
-        $('<?php echo $_htmlId; ?>_container').select('input', 'select').each(function(element) {
-            Event.observe(element, 'change', element.setHasChanges.bind(element));
+        document.getElementById('<?php echo $_htmlId; ?>_container').querySelectorAll('input, select').forEach(function(element) {
+            element.addEventListener('change', element.setHasChanges.bind(element));
         });
-        $('<?php echo $_htmlId; ?>_container').select('button.delete').each(function(element) {
-            Event.observe(element, 'click', element.setHasChanges.bind(element));
+        document.getElementById('<?php echo $_htmlId; ?>_container').querySelectorAll('button.delete').forEach(function(element) {
+            element.addEventListener('click', element.setHasChanges.bind(element));
         });
         <?php endif ?>
     },
     disableElement: function(element) {
         element.disabled = true;
-        element.addClassName('disabled');
+        element.classList.add('disabled');
     },
     deleteItem: function(event) {
-        var tr = Event.findElement(event, 'tr');
+        var tr = event.target.closest('tr');
         if (tr) {
-            Element.select(tr, '.delete').each(function(element) {
+            tr.querySelectorAll('.delete').forEach(function(element) {
                 element.value='1';
             });
-            Element.select(tr, ['input', 'select']).each(function(element) {
-                element.hide();
+            tr.querySelectorAll('input, select').forEach(function(element) {
+                element.style.display = 'none';
             });
-            Element.hide(tr);
-            Element.addClassName(tr, 'no-display template');
+            tr.style.display = 'none';
+            tr.classList.add('no-display', 'template');
         }
         return false;
     }
@@ -147,8 +145,8 @@ var groupPriceControl = {
 groupPriceControl.addItem('<?php echo $_item['website_id']; ?>', '<?php echo $_item['cust_group']; ?>', '<?php echo sprintf('%.2f', $_item['price']); ?>', <?php echo (int)!empty($_item['readonly']); ?>);
 <?php endforeach ?>
 <?php if ($_readonly) : ?>
-$('<?php echo $_htmlId; ?>_container').up('table').select('button')
-    .each(groupPriceControl.disableElement);
+document.getElementById('<?php echo $_htmlId; ?>_container').closest('table').querySelectorAll('button')
+    .forEach(groupPriceControl.disableElement);
 <?php endif ?>
 //]]>
 </script>

@@ -18,8 +18,8 @@ var activeRestRole = getActiveRestRole();
 /* Retrieve current active rest role */
 function getActiveRestRole() {
     var role;
-    api2_roles_sectionJsObject.rows.each(function(row) {
-        var radiobox = $(row).getElementsByClassName('radio')[0];
+    api2_roles_sectionJsObject.rows.forEach(function(row) {
+        var radiobox = row.getElementsByClassName('radio')[0];
         if ('undefined' != typeof radiobox && radiobox.checked) {
             role = radiobox;
         }

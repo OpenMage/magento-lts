@@ -38,17 +38,16 @@
 <script type="text/javascript">
 //<![CDATA[
     function toggleToolTip(event){
-        if($('payment-tool-tip')){
-            $('payment-tool-tip').setStyle({
-                top: (Event.pointerY(event)-560)+'px'//,
-                //left: (Event.pointerX(event)+100)+'px'
-            })
-            $('payment-tool-tip').toggle();
+        var tip = document.getElementById('payment-tool-tip');
+        if(tip){
+            tip.style.top = (event.clientY-560)+'px';
+            tip.style.display = tip.style.display === 'none' ? '' : 'none';
         }
-        Event.stop(event);
+        event.preventDefault();
+        event.stopPropagation();
     }
-    if($('payment-tool-tip-close')){
-        Event.observe($('payment-tool-tip-close'), 'click', toggleToolTip);
+    if(document.getElementById('payment-tool-tip-close')){
+        document.getElementById('payment-tool-tip-close').addEventListener('click', toggleToolTip);
     }
 //]]>
 </script>

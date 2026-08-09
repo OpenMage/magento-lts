@@ -45,7 +45,7 @@
         if(obj.switchParams){
             storeParam+= obj.switchParams;
         }
-        setLocation('<?php echo $this->getSwitchUrl() ?>'+storeParam);
+        setLocation(parseSidUrl('<?php echo $this->getSwitchUrl() ?>', storeParam));
     }
 </script>
 <?php endif ?>

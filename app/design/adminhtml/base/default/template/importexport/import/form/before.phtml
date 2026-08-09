@@ -30,17 +30,15 @@
     {
         if(this.validate()){
             // create dynamic frame
-            if (!$(this.ifrElemName)) {
-                $('html-body').insert({
-                    bottom:'<iframe name="' + this.ifrElemName + '" id="' + this.ifrElemName + '" style="display:none;"/>'
-                });
+            if (!document.getElementById(this.ifrElemName)) {
+                document.getElementById('html-body').insertAdjacentHTML('beforeend', '<iframe name="' + this.ifrElemName + '" id="' + this.ifrElemName + '" style="display:none;"/>');
             }
 
             // show mask
             showLoader();
 
             // temporary set new target and submit form
-            var formElem    = $(this.formId);
+            var formElem    = document.getElementById(this.formId);
             var oldTarget   = formElem.target;
             var oldAction   = formElem.action;
 
@@ -65,7 +63,7 @@
      */
     varienForm.prototype.postToFrameComplete = function(response)
     {
-        $(this.ifrElemName).remove();
+        document.getElementById(this.ifrElemName).remove();
         hideLoader();
         this.postToFrameProcessResponse(response);
     };
@@ -81,30 +79,31 @@
         if ('object' != typeof(response)) {
             return alert('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Invalid response')) ?>');
         }
-        $H(response).each(function(pair) {
-            switch (pair.key) {
+        Object.entries(response).forEach(function(pair) {
+            var key = pair[0], value = pair[1];
+            switch (key) {
                 case 'show':
                 case 'clear':
                 case 'hide':
-                    $H(pair.value).each(function(val) {if ($(val.value)) $(val.value)[pair.key]();});
+                    Object.entries(value).forEach(function(val) {var _el = document.getElementById(val[1]); if (_el) { if (key === 'show') _el.style.display = ''; else if (key === 'hide') _el.style.display = 'none'; else if (key === 'clear') _el.innerHTML = ''; }});
                     break;
                 case 'innerHTML':
                 case 'value':
-                    $H(pair.value).each(function(val) {
-                        var el = $(val.key);
+                    Object.entries(value).forEach(function(val) {
+                        var el = document.getElementById(val[0]);
                         if (el) {
-                            el[pair.key] = val.value;
+                            el[key] = val[1];
                             // if element does not visible
-                            el.offsetWidth || el.up('div.entry-edit').show();
+                            if (!el.offsetWidth) { var parent = el.closest('div.entry-edit'); if (parent) parent.style.display = ''; }
                         }
                     });
                     break;
                 case 'removeClassName':
                 case 'addClassName':
-                    $H(pair.value).each(function(val) {if ($(val.key)) $(val.key)[pair.key](val.value);});
+                    Object.entries(value).forEach(function(val) {var _el = document.getElementById(val[0]); if (_el) { if (key === 'removeClassName') _el.classList.remove(val[1]); else _el.classList.add(val[1]); }});
                     break;
                 default:
-                    alert(pair.key + ': ' + pair.value);
+                    alert(key + ': ' + value);
                     break;
             }
         });
@@ -119,9 +118,9 @@
      */
     varienForm.prototype.startImport = function(newActionUrl, sourceFileField)
     {
-        $(sourceFileField).removeClassName('required-entry');
+        document.getElementById(sourceFileField).classList.remove('required-entry');
         this.postToFrame(newActionUrl);
-        $(sourceFileField).addClassName('required-entry');
+        document.getElementById(sourceFileField).classList.add('required-entry');
     };
 //]]>
 </script>

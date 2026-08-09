@@ -10,16 +10,15 @@ var ConfigurableMediaImages = {
     productImages: {},
     imageObjects: {},
 
-    // deprecated - use Array.prototype.intersect instead
     arrayIntersect: function(a, b) {
-        return a.intersect(b);
+        return a.filter(function(item) { return b.indexOf(item) !== -1; });
     },
 
     getCompatibleProductImages: function(productFallback, selectedLabels) {
         //find compatible products
         var compatibleProducts = [];
         var compatibleProductSets = [];
-        selectedLabels.each(function(selectedLabel) {
+        selectedLabels.forEach(function(selectedLabel) {
             if(typeof(productFallback['option_labels']) != 'undefined') {
                 if (!productFallback['option_labels'][selectedLabel]) {
                     return;
@@ -29,14 +28,14 @@ var ConfigurableMediaImages = {
                 compatibleProductSets.push(optionProducts);
 
                 //optimistically push all products
-                optionProducts.each(function (productId) {
+                optionProducts.forEach(function(productId) {
                     compatibleProducts.push(productId);
                 });
             }
         });
 
         //intersect compatible products
-        compatibleProductSets.each(function(productSet) {
+        compatibleProductSets.forEach(function(productSet) {
             compatibleProducts = ConfigurableMediaImages.arrayIntersect(compatibleProducts, productSet);
         });
 
@@ -94,12 +93,14 @@ var ConfigurableMediaImages = {
         }
 
         //third, get image off of child product which is compatible
+        // NB: the original Prototype code used `each(... return false)`, which does NOT break the
+        // loop (only `throw $break` does), so it iterated all compatible products and the LAST
+        // match won. Preserve that behaviour here — do not break on the first match.
         var childSwatchImage = null;
         var childProductImages = fallback[ConfigurableMediaImages.imageType];
-        compatibleProducts.each(function(productId) {
-            if(childProductImages[productId] && ConfigurableMediaImages.isValidImage(childProductImages[productId])) {
-                childSwatchImage = childProductImages[productId];
-                return false; //break "loop"
+        compatibleProducts.forEach(function(childId) {
+            if(childProductImages[childId] && ConfigurableMediaImages.isValidImage(childProductImages[childId])) {
+                childSwatchImage = childProductImages[childId];
             }
         });
         if (childSwatchImage) {
@@ -154,6 +155,8 @@ var ConfigurableMediaImages = {
     swapImage: function(targetImage) {
         targetImage.classList.add('gallery-image');
 
+        ProductMediaManager.destroyZoom();
+
         var imageGallery = document.querySelector('.product-image-gallery');
 
         if (targetImage.complete) { // image already loaded -- swap immediately
@@ -167,6 +170,8 @@ var ConfigurableMediaImages = {
 
             // reveal new image
             targetImage.classList.add('visible');
+
+            ProductMediaManager.createZoom($j(targetImage));
         } else { // need to wait for image to load
             // add spinner
             imageGallery.classList.add('loading');
@@ -187,6 +192,8 @@ var ConfigurableMediaImages = {
 
                 // reveal new image
                 targetImage.classList.add('visible');
+
+                ProductMediaManager.createZoom($j(targetImage));
             });
         }
     },

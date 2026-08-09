@@ -25,11 +25,13 @@
                 <?php $_option = $this->getFormattedOption($_option['value']); ?>
                 <?php echo $_option['value']; ?><?php if (isset($_option['remainder']) && $_option['remainder']): ?><span id="<?php echo $_dots = 'dots' . uniqid()?>"> ...</span><span id="<?php echo $_id = 'id' . uniqid()?>"><?php echo $_option['remainder'] ?></span>
                     <script type="text/javascript">
-                    $('<?php echo $_id ?>').hide();
-                    $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});
-                    $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_dots?>').hide();});
-                    $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_id ?>').hide();});
-                    $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_dots ?>').show();});
+                    (function(){
+                        var remainderEl = document.getElementById('<?php echo $_id ?>');
+                        var dotsEl = document.getElementById('<?php echo $_dots ?>');
+                        remainderEl.style.display = 'none';
+                        remainderEl.parentNode.addEventListener('mouseover', function(){ remainderEl.style.display = ''; dotsEl.style.display = 'none'; });
+                        remainderEl.parentNode.addEventListener('mouseout', function(){ remainderEl.style.display = 'none'; dotsEl.style.display = ''; });
+                    })();
                     </script>
                 <?php endif ?>
             <?php endif ?>

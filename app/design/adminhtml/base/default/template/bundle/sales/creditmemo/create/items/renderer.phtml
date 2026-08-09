@@ -368,9 +368,9 @@
                         <?php if ($_remainder):?>
                             ... <span id="<?php echo $_id = 'id' . uniqid()?>"><?php echo $_remainder ?></span>
                             <script type="text/javascript">
-                            $('<?php echo $_id ?>').hide();
-                            $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});
-                            $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_id ?>').hide();});
+                            document.getElementById('<?php echo $_id ?>').style.display = 'none';
+                            document.getElementById('<?php echo $_id ?>').parentNode.addEventListener('mouseover', function(){document.getElementById('<?php echo $_id ?>').style.display = '';});
+                            document.getElementById('<?php echo $_id ?>').parentNode.addEventListener('mouseout',  function(){document.getElementById('<?php echo $_id ?>').style.display = 'none';});
                             </script>
                         <?php endif ?>
                     <?php endif ?>

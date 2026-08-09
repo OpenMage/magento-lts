@@ -10,22 +10,23 @@
 <script type="text/javascript">
 //<![CDATA[
 validateOptionsCallback = function (elmId, result){
-    var container = $(elmId).up('ul.options-list');
+    var container = document.getElementById(elmId).closest('ul.options-list');
     if (!container) {
         return;
     }
     if (result == 'failed') {
-        container.removeClassName('validation-passed');
-        container.addClassName('validation-failed');
+        container.classList.remove('validation-passed');
+        container.classList.add('validation-failed');
     } else {
-        container.removeClassName('validation-failed');
-        container.addClassName('validation-passed');
+        container.classList.remove('validation-failed');
+        container.classList.add('validation-passed');
     }
 }
 
 productConfigure.opConfig = {};
 
-var DateOption = Class.create({
+var DateOption = function() {};
+DateOption.prototype = {
 
     getDaysInMonth: function(month, year)
     {
@@ -44,15 +45,15 @@ var DateOption = Class.create({
 
     reloadMonth: function(event)
     {
-        var selectEl = event.findElement();
+        var selectEl = event.target;
         var idParts = selectEl.id.split("_");
         if (idParts.length != 3) {
             return false;
         }
         var optionIdPrefix = idParts[0] + "_" + idParts[1];
-        var month = parseInt($(optionIdPrefix + "_month").value);
-        var year = parseInt($(optionIdPrefix + "_year").value);
-        var dayEl = $(optionIdPrefix + "_day");
+        var month = parseInt(document.getElementById(optionIdPrefix + "_month").value);
+        var year = parseInt(document.getElementById(optionIdPrefix + "_year").value);
+        var dayEl = document.getElementById(optionIdPrefix + "_day");
 
         var days = this.getDaysInMonth(month, year);
 
@@ -82,7 +83,7 @@ var DateOption = Class.create({
             select.appendChild(option);
         }
     }
-});
+};
 productConfigure.opConfig.dateOption = new DateOption();
 //]]>
 </script>
