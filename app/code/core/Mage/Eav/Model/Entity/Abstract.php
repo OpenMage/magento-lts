@@ -1749,8 +1749,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * After set config process
      *
      * @return $this
-     * @deprecated
      */
+    #[Deprecated]
     protected function _afterSetConfig()
     {
         return $this;

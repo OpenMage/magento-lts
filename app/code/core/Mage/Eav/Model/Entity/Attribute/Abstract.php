@@ -345,8 +345,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Return is attribute global
      *
      * @return int
-     * @deprecated moved to catalog attribute model
      */
+    #[Deprecated(message: 'moved to catalog attribute model')]
     public function getIsGlobal()
     {
         return $this->_getData('is_global');

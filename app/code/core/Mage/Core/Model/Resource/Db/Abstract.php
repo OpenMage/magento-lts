@@ -14,9 +14,7 @@
  */
 abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Resource_Abstract
 {
-    /**
-     * @deprecated since 1.5.0.0
-     */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     public const CHECKSUM_KEY_NAME = 'Checksum';
 
     /**
@@ -477,8 +475,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
-     * @deprecated
      */
+    #[Deprecated]
     public function forsedSave(Mage_Core_Model_Abstract $object)
     {
         $this->_beforeSave($object);
