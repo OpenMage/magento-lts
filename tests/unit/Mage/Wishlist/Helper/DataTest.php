@@ -30,8 +30,6 @@ final class DataTest extends OpenMageTest
 
     /**
      * @group Helper
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testgGetRemoveUrlCustom(): void
     {
@@ -44,8 +42,6 @@ final class DataTest extends OpenMageTest
 
     /**
      * @group Helper
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetAddToCartUrlCustom(): void
     {

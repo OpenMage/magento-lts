@@ -1055,8 +1055,8 @@ interface Varien_Db_Adapter_Interface
      * or specific date supported by all RDBMS.
      *
      * @return string
-     * @deprecated after 1.5.1.0
      */
+    #[Deprecated(message: 'after 1.5.1.0')]
     public function getSuggestedZeroDate();
 
     /**

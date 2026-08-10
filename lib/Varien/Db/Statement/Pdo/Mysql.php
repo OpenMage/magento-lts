@@ -24,15 +24,7 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
      */
     public function _executeWithBinding(array $params)
     {
-        // Check whether we deal with named bind
-        $isPositionalBind = true;
-        foreach (array_keys($params) as $k) {
-            if (!is_int($k)) {
-                $isPositionalBind = false;
-                break;
-            }
-        }
-
+        $isPositionalBind = array_all(array_keys($params), fn($k) => is_int($k));
         /* @var PDOStatement $statement */
         $statement = $this->_stmt;
         $bindValues = []; // Separate array with values, as they are bound by reference
