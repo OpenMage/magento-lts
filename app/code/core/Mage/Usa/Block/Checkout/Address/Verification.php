@@ -74,7 +74,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      * Set original address
      *
      * @param  array<string, string> $address
-     * @return $this
      */
     public function setOriginalAddress(array $address): self
     {
@@ -96,7 +95,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      * Set corrected address
      *
      * @param  array<string, string> $address
-     * @return $this
      */
     public function setCorrectedAddress(array $address): self
     {
@@ -118,7 +116,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      * Set corrections list
      *
      * @param  array<int, string> $corrections
-     * @return $this
      */
     public function setCorrections(array $corrections): self
     {
@@ -156,7 +153,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
      * Set warning messages
      *
      * @param  array<int, string> $warnings
-     * @return $this
      */
     public function setWarnings(array $warnings): self
     {
@@ -184,8 +180,6 @@ class Mage_Usa_Block_Checkout_Address_Verification extends Mage_Core_Block_Templ
 
     /**
      * Set verification status
-     *
-     * @return $this
      */
     public function setStatus(string $status): self
     {
