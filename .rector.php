@@ -151,7 +151,6 @@ try {
             # ... +400 occurrences, needs closer review
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class,
             # SOON
-            DeadCode\Property\RemoveDefaultValueFromAssignedPropertyRector::class,
             CodeQuality\BooleanNot\NegatedAndsToPositiveOrsRector::class,
             DeadCode\ClassMethod\RemoveDuplicatedReturnSelfDocblockRector::class,
             # ... needs closer review
