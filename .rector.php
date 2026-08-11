@@ -153,7 +153,6 @@ try {
             # SOON
             DeadCode\Property\RemoveDefaultValueFromAssignedPropertyRector::class,
             CodeQuality\BooleanNot\NegatedAndsToPositiveOrsRector::class,
-            DeadCode\ClassMethod\RemoveDuplicatedReturnSelfDocblockRector::class,
             # ... needs closer review
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class,
             # ... check again https://github.com/rectorphp/rector/issues/9732
