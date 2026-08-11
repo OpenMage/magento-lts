@@ -86,11 +86,13 @@ class Mage_Xml_Generator implements Stringable
             } elseif (is_string($item)) {
                 $text = $this->getDom()->createTextNode($item);
                 $node->appendChild($text);
-            } elseif (is_array($item) && !isset($item[0])) {
-                $this->_setCurrentDom($node)->arrayToXml($item);
-            } elseif (is_array($item) && isset($item[0])) {
-                foreach ($item as $val) {
-                    $this->_setCurrentDom($node)->arrayToXml($val);
+            } elseif (is_array($item)) {
+                if (!isset($item[0])) {
+                    $this->_setCurrentDom($node)->arrayToXml($item);
+                } else {
+                    foreach ($item as $val) {
+                        $this->_setCurrentDom($node)->arrayToXml($val);
+                    }
                 }
             }
         }

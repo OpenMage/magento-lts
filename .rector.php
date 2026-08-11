@@ -132,8 +132,6 @@ try {
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
                 __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
             ],
-            # ... +300 occurrences
-            CodeQuality\If_\ExplicitBoolCompareRector::class,
             # ... review autoloading at all
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class,
             # ... breaks loading website
@@ -152,6 +150,10 @@ try {
             ],
             # ... +400 occurrences, needs closer review
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class,
+            # SOON
+            DeadCode\Property\RemoveDefaultValueFromAssignedPropertyRector::class,
+            CodeQuality\BooleanNot\NegatedAndsToPositiveOrsRector::class,
+            DeadCode\ClassMethod\RemoveDuplicatedReturnSelfDocblockRector::class,
             # ... needs closer review
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class,
             # ... check again https://github.com/rectorphp/rector/issues/9732
