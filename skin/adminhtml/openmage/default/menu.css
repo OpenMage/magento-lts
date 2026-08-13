@@ -2,27 +2,11 @@
    Edit scss version and compile with sass from scss folder like this:
    $ sass menu.scss ../menu.css
  */
-/*
- 205 = default,
-   0 = red,
-  60 = yellow,
- 120 = green,
- 180 = turquoise,
- 240 = blue,
- 300 = purple
-*/
 #nav ul li.active, #nav ul li {
   float: none;
   height: auto;
   background: none;
   margin: 0;
-}
-
-#usermenu ul li a:hover {
-  color: #2f2f2f;
-  text-decoration: none;
-  background: var(--color-main-xs);
-  display: block;
 }
 
 .nav-bar {
@@ -50,18 +34,11 @@
 #nav li:hover {
   z-index: 999;
 }
-#nav li:hover a {
-  color: #d6e2e5;
-}
 #nav li:hover ul {
   left: 0;
 }
 #nav li:hover ul ul {
   left: -10000px;
-}
-#nav li:hover ul a {
-  color: #202856;
-  font-size: 12px;
 }
 #nav li:hover ul li:hover ul {
   left: 100px;
@@ -96,7 +73,7 @@
   line-height: 38px;
 }
 #nav li.level0 > a:hover {
-  background: #2c3878;
+  background: #273169;
   color: #fff;
 }
 #nav li.level0 li.parent > a:after {
@@ -109,10 +86,6 @@
   border-style: solid;
   border-width: 5px 0 5px 6px;
   border-color: transparent transparent transparent #c8c8c8;
-}
-#nav li.level0:hover > a {
-  background: #293470;
-  color: #fff;
 }
 #nav li.parent a {
   cursor: default;
@@ -133,7 +106,7 @@
   cursor: pointer;
 }
 #nav li.level1 > a.active:not(:hover), #nav li.level2 > a.active:not(:hover), #nav li.level3 > a.active:not(:hover) {
-  background: #f4f4f4;
+  background: #eee;
 }
 #nav li#bubblelauncher-status a {
   background-position: center 8px;
@@ -160,7 +133,7 @@
   width: 189px;
   top: 38px;
   left: -10000px;
-  box-shadow: rgba(0, 0, 0, 0.180392) 1px 3px 4px;
+  box-shadow: #c8c8c8 1px 3px 4px;
 }
 #nav ul li {
   padding: 0;
@@ -176,7 +149,7 @@
   font-size: 12px;
 }
 #nav ul li a:hover {
-  background: #202856;
+  background: #273169;
   color: #fff;
 }
 #nav ul li.parent a {
@@ -237,36 +210,37 @@
 #usermenu ul {
   position: absolute;
   width: 220px;
-  top: 40px;
+  top: 38px;
   right: -10000px;
   display: none;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.207843), 0 0 5px rgba(0, 0, 0, 0.207843);
+  box-shadow: #c8c8c8 1px 3px 4px;
   background: #fff;
-}
-#usermenu ul li a:hover {
-  background: #202856;
 }
 #usermenu ul li.last span {
   border-bottom: none;
+}
+#usermenu ul a {
+  color: #202856;
+  text-decoration: none;
+  display: block;
+}
+#usermenu ul a:hover {
+  background: #273169;
+  color: #fff;
+  text-decoration: none;
+  display: block;
 }
 #usermenu li ul li {
   right: 5px;
   display: block;
 }
 #usermenu li ul span {
-  border-bottom: 1px dotted hsl(205, 40%, 75%);
   display: block;
-  line-height: 31px;
-  padding: 0 10px;
+  line-height: 1.3em;
+  padding: 9px 12px;
 }
 #usermenu li:hover ul {
   right: 27px;
-  display: block;
-}
-#usermenu li:hover ul a {
-  color: #000537;
-  text-decoration: none;
-  background: hsl(205, 52%, 95%);
   display: block;
 }
 #usermenu > li > a {
