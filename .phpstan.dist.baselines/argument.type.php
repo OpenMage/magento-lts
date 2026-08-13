@@ -622,21 +622,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/CacheController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $productIds of method Mage_Catalog_Model_Product_Action::updateAttributes() expects array, array|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $productIds of method Mage_Catalog_Model_Product_Action::updateWebsites() expects array, array|string|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $value of function count expects array|Countable, array|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $value of method Zend_Filter_NormalizedToLocalized::filter() expects string, array|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
@@ -2698,7 +2683,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $quoteId of method Mage_Checkout_Model_Session::setQuoteId() expects int|null, int|string|null given.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Session.php',
 ];
 $ignoreErrors[] = [
@@ -3400,11 +3385,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $id of method Mage_Core_Model_Abstract::load() expects int|string|null, float|int|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App::getStore() expects bool|int|Mage_Core_Model_Store|string|null, Varien_Object|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Filter.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $allowedTags of method Mage_Core_Helper_Abstract::escapeHtml() expects array<string>|null, list<string>|false|null given.',
@@ -4130,11 +4110,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $container of method Mage_Dataflow_Model_Convert_Profile_Collection::addContainer() expects Mage_Dataflow_Model_Convert_Container_Interface, object given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Profile/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $source of method DOMDocument::loadXML() expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Profile.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $string of function substr expects string, string|false given.',
@@ -4948,7 +4923,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $string of function strtolower expects string, string|null given.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
 ];
 $ignoreErrors[] = [
@@ -8122,7 +8097,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Convert/Profile/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $callback of function call_user_func_array expects callable(): mixed, array{T of Varien_Object, string}|(callable(): mixed)|non-falsy-string given.',
+    'rawMessage' => 'Parameter #1 $callback of function call_user_func_array expects callable(): mixed, array{T of Varien_Object, string}|(callable(): mixed)|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Collection.php',
 ];
@@ -8833,11 +8808,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $wantedPath of method Mage_Core_Helper_EnvironmentConfigLoader::hasPath() expects string, bool|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/EnvironmentConfigLoaderTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $wantedStore of method Mage_Core_Helper_EnvironmentConfigLoader::getAsArray() expects string, array|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/EnvironmentConfigLoaderTest.php',
 ];

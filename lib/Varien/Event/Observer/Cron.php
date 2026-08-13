@@ -70,13 +70,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
 
         // handle multiple options
         if (str_contains($expr, ',')) {
-            foreach (explode(',', $expr) as $value) {
-                if ($this->matchCronExpression($value, $num)) {
-                    return true;
-                }
-            }
-
-            return false;
+            return array_any(explode(',', $expr), fn($value) => $this->matchCronExpression($value, $num));
         }
 
         // handle modulus

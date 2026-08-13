@@ -3012,13 +3012,13 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Pdo/Mysql.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between *NEVER* and *NEVER* is not allowed.',
-    'count' => 1,
+    'rawMessage' => 'Loose comparison via "!=" between mixed and int is not allowed.',
+    'count' => 3,
     'path' => __DIR__ . '/../lib/Varien/Db/Tree.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between mixed and int is not allowed.',
-    'count' => 3,
+    'rawMessage' => 'Loose comparison via "!=" between mixed and mixed is not allowed.',
+    'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Db/Tree.php',
 ];
 $ignoreErrors[] = [

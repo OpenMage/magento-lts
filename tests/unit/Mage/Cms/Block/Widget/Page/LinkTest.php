@@ -31,8 +31,6 @@ final class LinkTest extends OpenMageTest
     /**
      * @dataProvider provideGetHrefData
      * @group Block
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetHref(string $expectedResult, array $data): void
     {

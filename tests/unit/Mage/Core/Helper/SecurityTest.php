@@ -37,7 +37,7 @@ final class SecurityTest extends OpenMageTest
     /**
      * @group Helper
      */
-    public function validateAgainstBlockMethodBlacklistDataProvider(): Generator
+    public static function validateAgainstBlockMethodBlacklistDataProvider(): Generator
     {
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
         $template = new Mage_Core_Block_Template();
@@ -69,7 +69,7 @@ final class SecurityTest extends OpenMageTest
         self::$subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 
-    public function forbiddenBlockMethodsDataProvider(): Generator
+    public static function forbiddenBlockMethodsDataProvider(): Generator
     {
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
         $template = new Mage_Core_Block_Template();

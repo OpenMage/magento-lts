@@ -65,8 +65,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Checks whether memory limit is reached.
      *
      * @return bool
-     * @deprecated
      */
+    #[Deprecated]
     protected function _isMemoryLimitReached()
     {
         $limit = $this->_convertToByte(ini_get('memory_limit'));
@@ -90,9 +90,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      *
      * @param  string $memoryValue
      * @return int
-     * @deprecated
      * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
      */
+    #[Deprecated]
     protected function _convertToByte($memoryValue)
     {
         $memoryValue = trim($memoryValue);
@@ -280,7 +280,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         [$rgbR, $rgbG, $rgbB]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
-                        $transparentColor = imagecolorallocate($imageResourceTo, (int) $rgbR, (int) $rgbG, (int) $rgbB);
+                        $transparentColor = imagecolorallocate($imageResourceTo, $rgbR, $rgbG, $rgbB);
                     }
 
                     if (false === $transparentColor) {

@@ -18,6 +18,9 @@ use Mage_Admin_Model_Variable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\VariableTrait;
 
+/**
+ * @phpstan-import-type ValidateData from VariableTrait
+ */
 final class VariableTest extends OpenMageTest
 {
     use VariableTrait;
@@ -33,15 +36,14 @@ final class VariableTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateAdminVariableData
+     * @phpstan-param ValidateData $data
      * @group Model
      * @throws Exception
      */
-    public function testValidate(array|bool $expectedResult, array $methods): void
+    public function testValidate(array|bool $expectedResult, array $data): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-
-        self::assertInstanceOf(Subject::class, $mock);
-        self::assertSame($expectedResult, $mock->validate());
+        self::$subject->setData($data);
+        self::assertSame($expectedResult, self::$subject->validate());
     }
 
     /**

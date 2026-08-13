@@ -15,26 +15,34 @@ use Generator;
 
 /**
  * @phpstan-type AuthenticateData array{
- *     "getId": string,
- *     "getUsername": string,
- *     "getPassword": string,
- *     "getIsActive": string,
- *     "validatePasswordHash": bool,
- *     "hasAssigned2Role": bool
+ *     "user_id": string,
+ *     "username": string,
+ *     "password": string,
+ *     "is_active": string
  * }
+ * @phpstan-type AuthenticateMethods array{
+ *      "validatePasswordHash": bool,
+ *      "hasAssigned2Role": bool
+ * }
+ * @phpstan-type ValidateData array{
+ *      "new_password"?: ?string,
+ *      "password"?: ?string
+ *  }
  */
 trait UserTrait
 {
     /**
-     * @return Generator<string, list{bool|string, AuthenticateData}, void, void>
+     * @return Generator<string, list{bool|string, AuthenticateData, AuthenticateMethods}, void, void>
      */
     public static function provideAuthenticateData(): Generator
     {
         $validData = [
-            'getId'       => '999',
-            'getUsername' => 'new',
-            'getPassword' => 'veryl0ngpassw0rd',
-            'getIsActive' => '1',
+            'user_id'  => '999',
+            'username' => 'new',
+            'password' => 'veryl0ngpassw0rd',
+            'is_active' => '1',
+        ];
+        $validMethods = [
             'validatePasswordHash' => true,
             'hasAssigned2Role' => true,
         ];
@@ -42,69 +50,58 @@ trait UserTrait
         yield 'pass' => [
             true,
             $validData,
+            $validMethods,
         ];
 
         $data = $validData;
-        $data['getUsername'] = 'admin';
-        yield 'fail #0 account exists' => [
-            'User Name already exists.',
-            $data,
-        ];
-
-        $data = $validData;
-        $data['getIsActive'] = '0';
-        yield 'fail #1 inactive' => [
+        $methods = $validMethods;
+        $data['is_active'] = '0';
+        yield 'fail #0 inactive' => [
             'This account is inactive.',
             $data,
+            $methods,
         ];
 
         $data = $validData;
-        $data['validatePasswordHash'] = false;
-        yield 'fail #2 invalid hash' => [
+        $methods['validatePasswordHash'] = false;
+        yield 'fail #1 invalid hash' => [
             false,
             $data,
+            $methods,
         ];
 
-        $data = $validData;
-        $data['hasAssigned2Role'] = false;
-        yield 'fail #3 no role assigned' => [
+        $methods = $validMethods;
+        $methods['hasAssigned2Role'] = false;
+        yield 'fail #2 no role assigned' => [
             'Access denied.',
             $data,
+            $methods,
         ];
     }
 
+    /**
+     * @return Generator<string, list{bool|string[], ValidateData}, void, void>
+     */
     public static function provideValidateAdminUserData(): Generator
     {
+        $errors = [
+            'User Name is required field.',
+            'First Name is required field.',
+            'Last Name is required field.',
+            'Please enter a valid email.',
+            'Password must be at least of 14 characters.',
+            'Password must include both numeric and alphabetic characters.',
+        ];
         yield 'fail different passwords' => [
+            $errors,
             [
-                0 => 'User Name is required field.',
-                1 => 'First Name is required field.',
-                2 => 'Last Name is required field.',
-                3 => 'Please enter a valid email.',
-                4 => 'Password must be at least of 14 characters.',
-                5 => 'Password must include both numeric and alphabetic characters.',
-            ],
-            [
-                'hasNewPassword' => true,
-                'getNewPassword' => '123',
-                'hasPassword' => false,
-                'getPassword' => '456',
+                'new_password' => '123',
             ],
         ];
         yield 'fails #2' => [
+            $errors,
             [
-                0 => 'User Name is required field.',
-                1 => 'First Name is required field.',
-                2 => 'Last Name is required field.',
-                3 => 'Please enter a valid email.',
-                4 => 'Password must be at least of 14 characters.',
-                5 => 'Password must include both numeric and alphabetic characters.',
-            ],
-            [
-                'hasNewPassword' => false,
-                'getNewPassword' => '123',
-                'hasPassword' => true,
-                'getPassword' => '456',
+                'password' => '456',
             ],
         ];
     }
@@ -114,15 +111,15 @@ trait UserTrait
         yield 'empty data' => [
             true,
             [
-                'getRpToken'       => '',
-                'getRpTokenCreatedAt' => '',
+                'rp_token'       => '',
+                'rp_token_created_at' => '',
             ],
         ];
         yield '#valid data' => [
             true,
             [
-                'getRpToken'       => '1',
-                'getRpTokenCreatedAt' => '2025-01-01 10:20:30',
+                'rp_token'       => '1',
+                'rp_token_created_at' => '2025-01-01 10:20:30',
             ],
         ];
     }

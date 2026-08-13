@@ -1262,19 +1262,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method saveConfig() on Mage_Core_Model_Config|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Custom.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method deleteConfig() on Mage_Core_Model_Config|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Usecustom.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',

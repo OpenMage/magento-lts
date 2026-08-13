@@ -13,7 +13,6 @@ namespace OpenMage\Tests\Unit\Varien\Data\Form\Filter;
 
 use Generator;
 use PHPUnit\Framework\TestCase;
-use Throwable;
 use Varien_Data_Form_Filter_Date;
 
 final class DateTest extends TestCase
@@ -32,13 +31,13 @@ final class DateTest extends TestCase
      */
     public function testInputFilter(?string $expectedResult, ?string $value): void
     {
-        try {
-            self::assertSame($expectedResult, $this->subject->inputFilter($value));
-        } catch (Throwable $throwable) {
+        if (is_string($expectedResult) && str_starts_with($expectedResult, 'bcsub():')) {
             // PHP7: bcsub(): bcmath function argument is not well-formed
             // PHP8: bcsub(): Argument #1 ($num1) is not well-formed
-            self::assertStringStartsWith((string) $expectedResult, $throwable->getMessage());
+            self::expectExceptionMessage($expectedResult);
         }
+
+        self::assertSame($expectedResult, $this->subject->inputFilter($value));
     }
 
     public static function provideFilterDateData(): Generator

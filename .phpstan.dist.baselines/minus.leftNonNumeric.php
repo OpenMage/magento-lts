@@ -42,11 +42,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Customer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only numeric types are allowed in -, SimpleXMLElement given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only numeric types are allowed in -, int<0, max>|false given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',

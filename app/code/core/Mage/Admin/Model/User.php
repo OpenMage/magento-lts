@@ -80,8 +80,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
     /**
      * Minimum length of admin password
-     * @deprecated Use getMinAdminPasswordLength() method instead
      */
+    #[Deprecated(message: 'Use getMinAdminPasswordLength() method instead')]
     public const MIN_PASSWORD_LENGTH = 14;
 
     /**
@@ -301,8 +301,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Send email with new user password
      *
      * @return $this
-     * @deprecated deprecated since version 1.6.1.0
      */
+    #[Deprecated(message: 'deprecated since version 1.6.1.0')]
     public function sendNewPasswordEmail()
     {
         return $this;
