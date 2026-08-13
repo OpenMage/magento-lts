@@ -60,6 +60,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template imple
 
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
+        $this->setData('element', $element);
         return $this->toHtml();
     }
 }

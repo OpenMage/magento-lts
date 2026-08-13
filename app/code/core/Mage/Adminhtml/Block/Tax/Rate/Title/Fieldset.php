@@ -14,7 +14,7 @@
  *
  * @method string getLegend()
  * @method $this  setLegend(string $value)
- * @deprecated
+ * @deprecated Use a regular fieldset and set Mage_Adminhtml_Block_Tax_Rate_Title as the element renderer (adminhtml/tax_rate_title).
  */
 class Mage_Adminhtml_Block_Tax_Rate_Title_Fieldset extends Varien_Data_Form_Element_Fieldset
 {
