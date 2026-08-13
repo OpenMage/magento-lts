@@ -19,7 +19,7 @@ trait SitemapTrait
     {
         yield 'default' => [
             [
-                'getSitemapFilename' => 'text.xml',
+                'sitemap_filename' => 'text.xml',
             ],
         ];
     }
@@ -28,8 +28,7 @@ trait SitemapTrait
     {
         yield 'default' => [
             [
-                'isDeleted' => true,  # do not save to DB
-                'getSitemapFilename' => '???phpunit.sitemap.xml',
+                'sitemap_filename' => '???phpunit.sitemap.xml',
             ],
         ];
     }

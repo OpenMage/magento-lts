@@ -16,6 +16,7 @@ use Mage;
 use Mage_Adminhtml_Helper_Dashboard_Data as Subject;
 use Mage_Core_Model_Resource_Store_Collection;
 use OpenMage\Tests\Unit\OpenMageTest;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 final class DataTest extends OpenMageTest
 {
@@ -68,6 +69,7 @@ final class DataTest extends OpenMageTest
      * @covers Mage_Adminhtml_Helper_Dashboard_Data::getChartDataHash()
      * @group Helper
      */
+    #[IgnoreDeprecations]
     public function testGetChartDataHash(): void
     {
         self::assertIsString(self::$subject->getChartDataHash(''));

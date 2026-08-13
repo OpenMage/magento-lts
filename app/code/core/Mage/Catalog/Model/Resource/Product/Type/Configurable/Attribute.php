@@ -53,8 +53,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
      *
      * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
-     * @deprecated
      */
+    #[Deprecated]
     public function loadLabel($attribute)
     {
         return $this;
@@ -65,8 +65,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
      *
      * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
-     * @deprecated
      */
+    #[Deprecated]
     public function loadPrices($attribute)
     {
         return $this;

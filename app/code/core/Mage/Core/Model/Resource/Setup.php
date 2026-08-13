@@ -816,9 +816,8 @@ class Mage_Core_Model_Resource_Setup
      * @param  Zend_Db_Expr $conditionExpr
      * @param  Zend_Db_Expr $valueExpr
      * @return $this
-     *
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function updateTable($table, $conditionExpr, $valueExpr)
     {
         if (str_contains($table, '/')) {
@@ -860,8 +859,8 @@ class Mage_Core_Model_Resource_Setup
      * @param  string $label
      * @param  string $default
      * @return $this
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function addConfigField($path, $label, array $data = [], $default = null)
     {
         return $this;

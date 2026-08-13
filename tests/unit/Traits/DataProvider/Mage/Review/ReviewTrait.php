@@ -13,17 +13,30 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review;
 
 use Generator;
 
+/**
+ * @phpstan-type ValidateData array{
+ *     "title": string,
+ *     "detail": string,
+ *     "nickname": string,
+ *     "customer_id": int,
+ *     "entity_id": int,
+ *     "store_id": int
+ * }
+ */
 trait ReviewTrait
 {
+    /**
+     * @return Generator<string, list{bool|string[], ValidateData}, void, void>
+     */
     public static function provideValidateReviewData(): Generator
     {
         $validReview = [
-            'getTitle' => 'Great product',
-            'getDetail' => 'I really liked this product.',
-            'getNickname' => 'JohnDoe',
-            'getCustomerId' => 1,
-            'getEntityId' => 1,
-            'getStoreId' => 1,
+            'title' => 'Great product',
+            'detail' => 'I really liked this product.',
+            'nickname' => 'JohnDoe',
+            'customer_id' => 1,
+            'entity_id' => 1,
+            'store_id' => 1,
         ];
 
         yield 'valid data' => [
@@ -32,21 +45,21 @@ trait ReviewTrait
         ];
 
         $data = $validReview;
-        $data['getTitle'] = '';
+        $data['title'] = '';
         yield 'missing title' => [
             ["Review summary can't be empty"],
             $data,
         ];
 
         $data = $validReview;
-        $data['getDetail'] = '';
+        $data['detail'] = '';
         yield 'missing detail' => [
             ["Review can't be empty"],
             $data,
         ];
 
         $data = $validReview;
-        $data['getNickname'] = '';
+        $data['nickname'] = '';
         yield 'missing nickname' => [
             ["Nickname can't be empty"],
             $data,

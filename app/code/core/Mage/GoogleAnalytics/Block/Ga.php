@@ -79,8 +79,8 @@ gtag('set', 'user_id', '{$customer->getId()}');
      *
      * @param  string $accountId
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getPageTrackingCodeUniversal($accountId)
     {
         return '';
@@ -94,8 +94,8 @@ gtag('set', 'user_id', '{$customer->getId()}');
      * @link http://code.google.com/apis/analytics/docs/gaJS/gaJSApi_gaq.html
      * @param  string $accountId
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getPageTrackingCodeAnalytics($accountId)
     {
         return '';
@@ -105,8 +105,8 @@ gtag('set', 'user_id', '{$customer->getId()}');
      * Render information about specified orders and their items
      *
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getOrdersTrackingCode()
     {
         return '';

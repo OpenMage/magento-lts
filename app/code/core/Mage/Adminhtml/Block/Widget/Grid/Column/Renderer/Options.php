@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Admi
             if (is_array($value)) {
                 $res = [];
                 foreach ($value as $item) {
-                    if (isset($options[$item])) {
+                    if (!is_null($item) && isset($options[$item])) {
                         $res[] = $this->escapeHtml($options[$item]);
                     } elseif ($showMissingOptionValues) {
                         $res[] = $this->escapeHtml($item);
@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Admi
                 return implode(', ', $res);
             }
 
-            if (isset($options[$value])) {
+            if (!is_null($value) && isset($options[$value])) {
                 return $this->escapeHtml($options[$value]);
             }
 

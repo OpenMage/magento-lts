@@ -17,7 +17,11 @@ use Mage_Core_Exception;
 use Mage_Newsletter_Model_Template as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Newsletter\TemplateTrait;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
+/**
+ * @phpstan-import-type ValidateData from TemplateTrait
+ */
 final class TemplateTest extends OpenMageTest
 {
     use TemplateTrait;
@@ -33,16 +37,12 @@ final class TemplateTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateData
+     * @phpstan-param ValidateData $data
      * @group Model
      */
-    public function testValidate(?string $expected, array $methods): void
+    public function testValidate(?string $expected, array $data): void
     {
-        self::$subject->setTemplateCode($methods['setTemplateCode']);
-        self::$subject->setTemplateSenderEmail($methods['setTemplateSenderEmail']);
-        self::$subject->setTemplateSenderName($methods['setTemplateSenderName']);
-        self::$subject->setTemplateSubject($methods['setTemplateSubject']);
-        self::$subject->setTemplateText($methods['setTemplateText']);
-        self::$subject->setTemplateType($methods['setTemplateType']);
+        self::$subject->setData($data);
 
         if ($expected) {
             $this->expectException(Mage_Core_Exception::class);
@@ -65,6 +65,7 @@ final class TemplateTest extends OpenMageTest
     /**
      * @group Model
      */
+    #[IgnoreDeprecations]
     public function testIsValidForSend(): void
     {
         self::assertIsBool(self::$subject->isValidForSend());

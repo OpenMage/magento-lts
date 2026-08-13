@@ -42,9 +42,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * We can store product store product configuration
      * and add grouped attributes after 1.4.2.0
-     *
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public const EXCEPTION_CODE_IS_GROUPED_PRODUCT     = 903;
 
     public const EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT  = 904;
@@ -280,8 +279,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Retrieve wishlist item data as array
      *
      * @return array<string, mixed>
-     * @deprecated since 1.4.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0)]
     public function getDataForSave()
     {
         return [

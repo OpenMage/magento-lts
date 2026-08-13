@@ -1437,8 +1437,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param  string              $txnId
      * @throws Mage_Core_Exception
-     * @deprecated after 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     protected function _avoidDoubleTransactionProcessing($txnId = null)
     {
         if ($this->_isTransactionExists($txnId)) {

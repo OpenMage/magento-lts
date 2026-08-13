@@ -342,6 +342,9 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The category has been saved.'));
                 $refreshTree = 'true';
             } catch (Exception $exception) {
+                // the image data contains the wrong format and are not used by the editAction
+                unset($data['general']['image']);
+
                 $this->_getSession()->addError($exception->getMessage())
                     ->setCategoryData($data);
                 $refreshTree = 'false';

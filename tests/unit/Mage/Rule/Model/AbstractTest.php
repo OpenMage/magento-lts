@@ -20,6 +20,7 @@ use Mage_Rule_Model_Condition_Combine;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\BoolTrait;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\RuleTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use Varien_Data_Form;
 use Varien_Db_Select;
 use Varien_Object;
@@ -36,7 +37,7 @@ final class AbstractTest extends OpenMageTest
 
     protected function setUp(): void
     {
-        self::$subject = $this->getMockForAbstractClass(Subject::class);
+        self::$subject = $this->createPartialMock(Subject::class, ['getActionsInstance', 'getConditionsInstance']);
     }
 
     /**
@@ -185,6 +186,7 @@ final class AbstractTest extends OpenMageTest
      * @covers Mage_Rule_Model_Abstract::asString()
      * @group Model
      */
+    #[IgnoreDeprecations]
     public function testAsString(): void
     {
         self::assertSame('', self::$subject->asString());
@@ -194,6 +196,7 @@ final class AbstractTest extends OpenMageTest
      * @covers Mage_Rule_Model_Abstract::asHtml()
      * @group Model
      */
+    #[IgnoreDeprecations]
     public function testAsHtml(): void
     {
         self::assertSame('', self::$subject->asHtml());
@@ -203,6 +206,7 @@ final class AbstractTest extends OpenMageTest
      * @covers Mage_Rule_Model_Abstract::asArray()
      * @group Model
      */
+    #[IgnoreDeprecations]
     public function testAsArray(): void
     {
         self::assertSame([], self::$subject->asArray());

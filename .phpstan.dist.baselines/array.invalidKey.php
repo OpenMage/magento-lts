@@ -12,11 +12,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Possibly invalid array key type array|string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/EnvironmentConfigLoaderTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type bool|string.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/EnvironmentConfigLoaderTest.php',
