@@ -191,15 +191,78 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     'name'          => $helper->__((string) $widget->name),
                     'code'          => $widgetName,
                     'type'          => $widget->getAttribute('type'),
+                    'group'         => $helper->__((string) $widget->group),
                     'description'   => $helper->__((string) $widget->description),
                 ];
             }
 
-            usort($result, $this->_sortWidgets(...));
             $this->setData('widgets_array', $result);
         }
 
         return $this->_getData('widgets_array');
+    }
+
+    /**
+     * Return list of widgets as option array
+     *
+     * @param  bool  $withEmpty
+     * @param  array $skipped
+     * @param  array $filters Key -value array of filters for widget node properties
+     * @return array
+     */
+    public function getWidgetsOptionArray($withEmpty = true, $skipped = [], $filters = [])
+    {
+        if (!$this->_getData('widgets_option_array')) {
+            $groups  = [];
+            $widgets = [];
+
+            /** @var Varien_Simplexml_Element $widget */
+            foreach ($this->getWidgetsXml($filters) as $widget) {
+                if (in_array($widget->getAttribute('type'), $skipped)) {
+                    continue;
+                }
+
+                $helper = $widget->getAttribute('module') ? $widget->getAttribute('module') : 'widget';
+                $helper = Mage::helper($helper);
+
+                if (isset($widget->group) && $widget->group !== '') {
+                    $groupName = (string) $widget->group;
+                    if (!isset($widgets[$groupName])) {
+                        $groups[] = $groupName;
+                        $widgets[$groupName] = [
+                            'label' => $groupName,
+                            'value' => [],
+                        ];
+                    }
+
+                    $widgets[$groupName]['value'][] = [
+                        'value' => $widget->getAttribute('type'),
+                        'label' => $helper->__((string) $widget->name),
+                    ];
+                } else {
+                    $widgets[] = [
+                        'value' => $widget->getAttribute('type'),
+                        'label' => $helper->__((string) $widget->name)
+                    ];
+                }
+            }
+
+            foreach ($groups as $group) {
+                usort($widgets[$group]['value'], $this->_sortWidgets(...));
+            }
+            usort($widgets, $this->_sortWidgets(...));
+
+            if ($withEmpty) {
+                array_unshift($widgets, [
+                    'value' => '',
+                    'label' => Mage::helper('widget')->__('-- Please Select --'),
+                ]);
+            }
+
+            $this->setData('widgets_option_array', $widgets);
+        }
+
+        return $this->_getData('widgets_option_array');
     }
 
     /**
@@ -291,7 +354,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
      */
     protected function _sortWidgets($a, $b)
     {
-        return strcmp($a['name'], $b['name']);
+        return strcmp($a['label'], $b['label']);
     }
 
     /**

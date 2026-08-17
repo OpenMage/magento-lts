@@ -10,6 +10,7 @@
 <widgets>
     <recently_viewed type="reports/product_widget_viewed" translate="name description" module="reports">
         <name>Recently Viewed Products</name>
+        <group>Customer Activity</group>
         <description>List of Products Recently Viewed by Visitor</description>
         <parameters>
             <page_size translate="label">
@@ -40,6 +41,7 @@
     </recently_viewed>
     <recently_compared type="reports/product_widget_compared" translate="name description" module="reports">
         <name>Recently Compared Products</name>
+        <group>Customer Activity</group>
         <description>List of Products Recently Compared and Removed from the Compare List by Visitor</description>
         <parameters>
             <page_size translate="label">
