@@ -49,7 +49,6 @@ try {
             naming: false,
             instanceOf: true,
             earlyReturn: true,
-            strictBooleans: false,
             carbon: true,
             rectorPreset: true,
             phpunitCodeQuality: true,
