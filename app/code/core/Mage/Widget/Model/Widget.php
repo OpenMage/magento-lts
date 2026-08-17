@@ -205,10 +205,10 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return list of widgets as option array
      *
-     * @param  bool  $withEmpty
-     * @param  array $skipped
-     * @param  array $filters Key -value array of filters for widget node properties
-     * @return array
+     * @param  bool                         $withEmpty
+     * @param  array<int, string>           $skipped
+     * @param  array<string, string>        $filters Key -value array of filters for widget node properties
+     * @return array<array<string, string>>
      */
     public function getWidgetsOptionArray($withEmpty = true, $skipped = [], $filters = [])
     {
