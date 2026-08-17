@@ -230,7 +230,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     if (!isset($widgets[$groupName])) {
                         $groups[] = $groupName;
                         $widgets[$groupName] = [
-                            'label' => $groupName,
+                            'label' => $helper->__($groupName),
                             'value' => [],
                         ];
                     }
