@@ -758,7 +758,7 @@ XML;
      */
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
-        $encodedValue = match($encodedValue) {
+        $encodedValue = match ($encodedValue) {
             null => 'null',
             true => 'true',
             false => 'false',
