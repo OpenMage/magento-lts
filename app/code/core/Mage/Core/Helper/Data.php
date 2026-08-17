@@ -758,22 +758,13 @@ XML;
      */
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
-        switch (true) {
-            case ($encodedValue === null):
-                $encodedValue = 'null';
-                break;
-            case ($encodedValue === true):
-                $encodedValue = 'true';
-                break;
-            case ($encodedValue === false):
-                $encodedValue = 'false';
-                break;
-            case ($encodedValue === ''):
-                $encodedValue = '""';
-                break;
-            default:
-                // do nothing
-        }
+        $encodedValue = match($encodedValue) {
+            null => 'null',
+            true => 'true',
+            false => 'false',
+            '' => '""',
+            default => $encodedValue
+        };
 
         return Zend_Json::decode($encodedValue, $objectDecodeType);
     }
