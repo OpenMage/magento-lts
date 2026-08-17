@@ -218,7 +218,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
 
             /** @var Varien_Simplexml_Element $widget */
             foreach ($this->getWidgetsXml($filters) as $widget) {
-                if (in_array($widget->getAttribute('type'), $skipped)) {
+                if (in_array($widget->getAttribute('type'), $skipped, true)) {
                     continue;
                 }
 
@@ -242,7 +242,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 } else {
                     $widgets[] = [
                         'value' => $widget->getAttribute('type'),
-                        'label' => $helper->__((string) $widget->name)
+                        'label' => $helper->__((string) $widget->name),
                     ];
                 }
             }
