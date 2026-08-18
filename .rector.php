@@ -150,7 +150,6 @@ try {
             # SOON
             DeadCode\Property\RemoveDefaultValueFromAssignedPropertyRector::class,
             CodeQuality\BooleanNot\NegatedAndsToPositiveOrsRector::class,
-            DeadCode\ClassMethod\RemoveDuplicatedReturnSelfDocblockRector::class,
             # ... needs closer review
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class,
             # ... needs closer review and docblock fixes for magic methods
