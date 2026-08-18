@@ -21,9 +21,9 @@ use Monolog\Level;
  */
 abstract class Mage_Usa_Model_Shipping_Carrier_Usps_AbstractService
 {
-    protected null|array|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client = null;
+    protected null|array|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client;
 
-    protected bool $_debug = false;
+    protected bool $_debug;
 
     /**
      * Prefix for debug log messages — override in subclasses

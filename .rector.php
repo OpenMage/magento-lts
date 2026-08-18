@@ -148,7 +148,6 @@ try {
             # ... +400 occurrences, needs closer review
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class,
             # SOON
-            DeadCode\Property\RemoveDefaultValueFromAssignedPropertyRector::class,
             CodeQuality\BooleanNot\NegatedAndsToPositiveOrsRector::class,
             # ... needs closer review
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class,
