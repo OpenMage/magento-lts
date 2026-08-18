@@ -49,7 +49,6 @@ try {
             naming: false,
             instanceOf: true,
             earlyReturn: true,
-            strictBooleans: false,
             carbon: true,
             rectorPreset: true,
             phpunitCodeQuality: true,
@@ -136,8 +135,6 @@ try {
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class,
             # ... breaks loading website
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class,
-            # ... +250 occurrences
-            CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class,
             # --- wait for phpstan strict rules
             CodingStyle\FuncCall\StrictArraySearchRector::class,
             # ... +200 occurrences, need closer review
@@ -156,10 +153,6 @@ try {
             DeadCode\ClassMethod\RemoveDuplicatedReturnSelfDocblockRector::class,
             # ... needs closer review
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class,
-            # ... check again https://github.com/rectorphp/rector/issues/9732
-            EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class => [
-                __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php',
-            ],
             # ... needs closer review and docblock fixes for magic methods
             Php71\FuncCall\RemoveExtraParametersRector::class,
             # ... needs closer review
@@ -168,10 +161,6 @@ try {
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class => [
                 __DIR__ . '/lib/Varien/Directory/Collection.php',
             ],
-            # ... +300 occurrences
-            Php81\FuncCall\NullToStrictStringFuncCallArgRector::class,
-            # ... ~100 occurrences
-            Strict\Empty_\DisallowedEmptyRuleFixerRector::class,
             # ... needs closer review
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class,
         ])

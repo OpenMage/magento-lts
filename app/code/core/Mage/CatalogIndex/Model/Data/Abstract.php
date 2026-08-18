@@ -46,7 +46,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
 
     public const LINK_GET_CHILDREN = 1;
 
-    public const LINK_GET_PARENTS = 1;
+    public const LINK_GET_PARENTS = 2;
 
     /**
      * @inheritDoc
