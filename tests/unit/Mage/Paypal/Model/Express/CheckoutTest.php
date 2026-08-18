@@ -30,8 +30,7 @@ final class CheckoutTest extends OpenMageTest
 
     public function testHasExportedBillingAddressDataIgnoresIdentityOnlyFields(): void
     {
-        self::assertSame(
-            false,
+        self::assertFalse(
             $this->invokeHasExportedBillingAddressData(new Varien_Object([
                 'exported_keys'  => ['email', 'firstname', 'lastname'],
                 'customer_notes' => 'note',
@@ -44,8 +43,7 @@ final class CheckoutTest extends OpenMageTest
 
     public function testHasExportedBillingAddressDataDetectsAddressFieldsWithoutRegion(): void
     {
-        self::assertSame(
-            true,
+        self::assertTrue(
             $this->invokeHasExportedBillingAddressData(new Varien_Object([
                 'street'     => '1 Main St',
                 'city'       => 'Austin',
