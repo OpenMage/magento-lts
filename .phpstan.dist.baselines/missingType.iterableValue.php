@@ -21812,11 +21812,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Model_Order::_getEmails() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Model_Order::getItemsCollection() has parameter $filterByTypes with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
@@ -21897,11 +21892,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Config.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Model_Order_Creditmemo::_getEmails() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Model_Order_Creditmemo::getFilteredCollectionItems() has parameter $filter with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
@@ -21965,11 +21955,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Model_Order_Creditmemo_Api_V2::_prepareListFilter() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo/Api/V2.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Model_Order_Invoice::_getEmails() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Model_Order_Invoice::getStates() return type has no value type specified in iterable type array.',
@@ -22220,11 +22205,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Model_Order_Pdf_Total_Default::getFullTaxInfo() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Pdf/Total/Default.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Model_Order_Shipment::_getEmails() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Shipment.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Model_Order_Shipment_Api::_getCarriers() return type has no value type specified in iterable type array.',
