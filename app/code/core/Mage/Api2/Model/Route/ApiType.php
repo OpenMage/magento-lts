@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -30,6 +32,7 @@ class Mage_Api2_Model_Route_ApiType extends Mage_Api2_Model_Route_Abstract imple
      * @param array               $reqs       Regular expression requirements for variables (keys as variable names)
      * @param null|Zend_Translate $translator Translator to use for this instance
      * @param mixed               $locale
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function __construct(
         $route,                             // @phpstan-ignore constructor.unusedParameter
@@ -38,7 +41,8 @@ class Mage_Api2_Model_Route_ApiType extends Mage_Api2_Model_Route_Abstract imple
         ?Zend_Translate $translator = null, // @phpstan-ignore constructor.unusedParameter
         $locale = null                      // @phpstan-ignore constructor.unusedParameter
     ) {
+        $scriptFilename = (string) ($_SERVER['SCRIPT_FILENAME'] ?? $_SERVER['SCRIPT_NAME'] ?? '');
         // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-        parent::__construct([Mage_Api2_Model_Route_Abstract::PARAM_ROUTE => str_replace('.php', '', basename(getenv('SCRIPT_FILENAME'))) . '/:api_type']);
+        parent::__construct([Mage_Api2_Model_Route_Abstract::PARAM_ROUTE => str_replace('.php', '', basename($scriptFilename)) . '/:api_type']);
     }
 }

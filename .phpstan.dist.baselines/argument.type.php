@@ -777,11 +777,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $path of function basename expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $node of method Varien_Simplexml_Config::setXml() expects Varien_Simplexml_Element, Varien_Simplexml_Element|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Config.php',
@@ -1075,11 +1070,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 ...$arrays of function array_merge expects array, array|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $path of function basename expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Route/ApiType.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $adminId of method Mage_Api2_Adminhtml_Api2_RoleController::_addUserToRole() expects int, int|string given.',

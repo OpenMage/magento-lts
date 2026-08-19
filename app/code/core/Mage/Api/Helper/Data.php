@@ -356,6 +356,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  bool               $htmlSpecialChars
      * @return string
      * @throws Zend_Uri_Exception
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getServiceUrl($routePath = null, $routeParams = null, $htmlSpecialChars = false)
     {
@@ -373,7 +374,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $uri = Zend_Uri_Http::fromString($url);
         $uri->setHost($request->getHttpHost());
         if (!$urlModel->getRouteFrontName()) {
-            $uri->setPath('/' . trim($request->getBasePath() . '/' . basename(getenv('SCRIPT_FILENAME')), '/'));
+            $scriptFilename = (string) ($_SERVER['SCRIPT_FILENAME'] ?? $_SERVER['SCRIPT_NAME'] ?? '');
+            $uri->setPath('/' . trim($request->getBasePath() . '/' . basename($scriptFilename), '/'));
         } else {
             $uri->setPath($request->getBaseUrl() . $request->getPathInfo());
         }
