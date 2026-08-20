@@ -7,21 +7,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Main.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method addTemplateInfo() of class Mage_Newsletter_Model_Resource_Queue_Collection.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Newsletter/Grid.php',
@@ -330,21 +315,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/controllers/IndexController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/catalog/product/edit/websites.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/catalog/product/edit/websites.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/catalog/product/edit/websites.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
 Use getAbsoluteGridUrl() method instead',
     'count' => 1,
@@ -373,69 +343,9 @@ Use getAbsoluteGridUrl() method instead',
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/grid.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher/enhanced.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher/enhanced.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher/enhanced.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/store/select.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/store/select.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/store/select.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/view/items/renderer/default.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getGroupCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/store/switcher/enhanced.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getStoreCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/store/switcher/enhanced.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getWebsiteCollection() of class Mage_Adminhtml_Block_Store_Switcher.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/store/switcher/enhanced.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:

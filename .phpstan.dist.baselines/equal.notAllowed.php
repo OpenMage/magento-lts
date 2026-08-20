@@ -5222,17 +5222,17 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/grid.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and int|null is not allowed.',
+    'rawMessage' => 'Loose comparison via "==" between mixed and int|string|null is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and int|string|null is not allowed.',
+    'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and int|null is not allowed.',
+    'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher/enhanced.phtml',
 ];
@@ -5292,7 +5292,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/store/switcher.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and int|null is not allowed.',
+    'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/store/switcher/enhanced.phtml',
 ];

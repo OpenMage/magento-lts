@@ -602,7 +602,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Upsell.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites::getWebsites() return type has no value type specified in iterable type array.',
+    'rawMessage' => 'Method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites::getWebsiteIds() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
 ];
@@ -1183,11 +1183,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Store_Switcher::getStores() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Store/Switcher.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Store_Switcher::getWebsites() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Store/Switcher.php',
 ];

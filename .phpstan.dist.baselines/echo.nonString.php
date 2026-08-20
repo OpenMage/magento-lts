@@ -153,7 +153,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 2,
+    'count' => 3,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/catalog/product/edit/websites.phtml',
 ];
 $ignoreErrors[] = [
@@ -298,12 +298,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 3,
+    'count' => 4,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 2,
+    'count' => 3,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/store/switcher/enhanced.phtml',
 ];
 $ignoreErrors[] = [
@@ -343,7 +343,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 2,
+    'count' => 3,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/store/select.phtml',
 ];
 $ignoreErrors[] = [
@@ -473,7 +473,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 3,
+    'count' => 4,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/store/switcher/enhanced.phtml',
 ];
 $ignoreErrors[] = [
