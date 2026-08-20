@@ -8,17 +8,17 @@
 
 /** @var Mage_Adminhtml_Block_Store_Switcher $this */
 ?>
-<?php $_websiteCollection = $this->getWebsiteCollection() ?>
-<?php if ($_websiteCollection->getSize()): ?>
+<?php $_websiteCollection = $this->getWebsites() ?>
+<?php if ($_websiteCollection !== []): ?>
 <div id="store_switcher_container">
 <p class="switcher"><label for="store_switcher"><?php echo $this->__('Choose Store View:') ?></label>
 <select name="store_switcher" id="store_switcher" class="left-col-block">
     <option value=""><?php echo $this->escapeHtml($this->getDefaultStoreName()); ?></option>
     <?php foreach ($_websiteCollection as $_website): ?>
         <?php $showWebsite=false; ?>
-        <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
+        <?php foreach ($this->getStoreGroups($_website) as $_group): ?>
             <?php $showGroup=false; ?>
-            <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
+            <?php foreach ($this->getStores($_group) as $_store): ?>
                 <?php if ($showWebsite === false): ?>
                     <?php $showWebsite = true; ?>
                     <optgroup label="<?php echo $this->escapeHtml($_website->getName()); ?>"></optgroup>

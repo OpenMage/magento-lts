@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      * @return Mage_Core_Model_Resource_Website_Collection
      * @throws Mage_Core_Exception
      */
-    #[Deprecated]
+    #[Deprecated('use getWebsites')]
     public function getWebsiteCollection()
     {
         $collection = Mage::getModel('core/website')->getResourceCollection();
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     /**
      * Get websites
      *
-     * @return array
+     * @return Mage_Core_Model_Website[]
      */
     public function getWebsites()
     {
@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      * @param  int|Mage_Core_Model_Website|string              $website
      * @return Mage_Core_Model_Resource_Store_Group_Collection
      */
-    #[Deprecated]
+    #[Deprecated('use getStoreGroups')]
     public function getGroupCollection($website)
     {
         if (!$website instanceof Mage_Core_Model_Website) {
@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      * @param  int|Mage_Core_Model_Store_Group|string    $group
      * @return Mage_Core_Model_Resource_Store_Collection
      */
-    #[Deprecated]
+    #[Deprecated('use getStores')]
     public function getStoreCollection($group)
     {
         if (!$group instanceof Mage_Core_Model_Store_Group) {
