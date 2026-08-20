@@ -27,11 +27,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "." between array<string|null>|string|null and \'</option>\' results in an error.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Binary operation "." between \'<span title="\' and array<string|null>|string|null results in an error.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Dashboard/Searches/Renderer/Searchquery.php',
