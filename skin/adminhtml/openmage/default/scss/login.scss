@@ -44,19 +44,16 @@ a {
     color: $openmage_blue;
   }
 
-  &:focus {
-    color: $openmage_blue_dark;
-    text-decoration: none;
-  }
-
-  &:hover {
-    color: $openmage_blue_dark;
-    text-decoration: none;
-  }
-
+  &:hover,
+  &:focus,
   &:active {
     color: $openmage_blue_dark;
-    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline-offset: 0;
+    outline: 2px solid $openmage_blue_dark;
+    box-shadow: 0 0 4px 2px $openmage_blue;
   }
 
   &.error span {
@@ -104,8 +101,9 @@ input {
     }
 
     &:focus {
-      //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-      outline: 2px solid $color_silver_approx;
+      outline-offset: 0;
+      outline: 2px solid $openmage_blue_dark;
+      box-shadow: 0 0 4px 2px $openmage_blue;
     }
 
     &:disabled {
@@ -116,8 +114,29 @@ input {
 }
 
 .form-button {
-  @extend %extend_20;
-  background-color: $openmage_blue;
+  text-transform: none;
+  background: $openmage_blue;
+  padding: 0 12px;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 28px;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: $openmage_blue_dark;
+  }
+
+  &:focus-visible {
+    outline-offset: -4px;
+    outline: 2px solid white;
+  }
 }
 
 #page-login {

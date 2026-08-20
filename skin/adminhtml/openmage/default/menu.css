@@ -31,22 +31,32 @@
   text-align: left;
   float: left;
 }
-#nav li:hover {
+#nav li:hover, #nav li:focus-within {
   z-index: 999;
 }
-#nav li:hover ul {
+#nav li:hover ul, #nav li:focus-within ul {
   left: 0;
 }
-#nav li:hover ul ul {
+#nav li:hover ul ul, #nav li:focus-within ul ul {
   left: -10000px;
 }
-#nav li:hover ul li:hover ul {
+#nav li:hover ul li:hover ul,
+#nav li:hover ul li:focus-within ul, #nav li:focus-within ul li:hover ul,
+#nav li:focus-within ul li:focus-within ul {
   left: 100px;
 }
-#nav li:hover ul li:hover ul ul {
+#nav li:hover ul li:hover ul ul,
+#nav li:hover ul li:focus-within ul ul, #nav li:focus-within ul li:hover ul ul,
+#nav li:focus-within ul li:focus-within ul ul {
   left: -10000px;
 }
-#nav li:hover ul li:hover ul li:hover ul {
+#nav li:hover ul li:hover ul li:hover ul,
+#nav li:hover ul li:hover ul li:focus-within ul,
+#nav li:hover ul li:focus-within ul li:hover ul,
+#nav li:hover ul li:focus-within ul li:focus-within ul, #nav li:focus-within ul li:hover ul li:hover ul,
+#nav li:focus-within ul li:hover ul li:focus-within ul,
+#nav li:focus-within ul li:focus-within ul li:hover ul,
+#nav li:focus-within ul li:focus-within ul li:focus-within ul {
   left: 100px;
 }
 #nav li.active {
@@ -72,9 +82,14 @@
   height: 38px;
   line-height: 38px;
 }
-#nav li.level0 > a:hover {
+#nav li.level0 > a:focus, #nav li.level0 > a:hover, #nav li.level0 > a:active {
   background: #273169;
   color: #fff;
+}
+#nav li.level0 > a:focus-visible {
+  outline-offset: -4px;
+  outline-color: white;
+  box-shadow: none;
 }
 #nav li.level0 li.parent > a:after {
   content: "";
@@ -105,7 +120,7 @@
 #nav li.parent li a {
   cursor: pointer;
 }
-#nav li.level1 > a.active:not(:hover), #nav li.level2 > a.active:not(:hover), #nav li.level3 > a.active:not(:hover) {
+#nav li.level1 > a.active:not(:hover):not(:focus), #nav li.level2 > a.active:not(:hover):not(:focus), #nav li.level3 > a.active:not(:hover):not(:focus) {
   background: #eee;
 }
 #nav li#bubblelauncher-status a {
@@ -148,9 +163,14 @@
   color: #202856;
   font-size: 12px;
 }
-#nav ul li a:hover {
+#nav ul li a:focus, #nav ul li a:hover, #nav ul li a:active {
   background: #273169;
   color: #fff;
+}
+#nav ul li a:focus-visible {
+  outline-offset: -4px;
+  outline-color: white;
+  box-shadow: none;
 }
 #nav ul li.parent a {
   background-position: 100% 100%;
@@ -224,11 +244,16 @@
   text-decoration: none;
   display: block;
 }
-#usermenu ul a:hover {
+#usermenu ul a:focus, #usermenu ul a:hover, #usermenu ul a:active {
   background: #273169;
   color: #fff;
   text-decoration: none;
   display: block;
+}
+#usermenu ul a:focus-visible {
+  outline-offset: -4px;
+  outline-color: white;
+  box-shadow: none;
 }
 #usermenu li ul li {
   right: 5px;
@@ -239,17 +264,23 @@
   line-height: 1.3em;
   padding: 9px 12px;
 }
-#usermenu li:hover ul {
+#usermenu li:hover ul, #usermenu li:focus-within ul {
   right: 27px;
   display: block;
 }
 #usermenu > li > a {
   padding: 0 27px 0 20px;
   display: block;
+  max-height: 40px;
 }
 #usermenu > li > a svg {
   height: 40px;
   width: auto;
+}
+#usermenu > li > a:focus-visible {
+  outline-offset: -6px;
+  outline-color: white;
+  box-shadow: none;
 }
 
 /*# sourceMappingURL=menu.css.map */

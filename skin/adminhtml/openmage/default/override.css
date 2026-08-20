@@ -25,7 +25,7 @@
 dl.accordion dt, .entry-edit .entry-edit-head {
   background: #fefefe;
   color: #2f2f2f;
-  padding: 4px 16px;
+  padding: 0;
   border: 1px solid #d3d3d3;
 }
 
@@ -71,8 +71,8 @@ dl.accordion dt a:after, div.collapseable a:after {
   content: "";
   display: block;
   position: absolute;
-  right: 0;
-  bottom: 10px;
+  right: 16px;
+  bottom: 14px;
   width: 0;
   height: 0;
   border-style: solid;
@@ -84,8 +84,8 @@ dl.accordion dt.open a:after, div.collapseable a.open:after {
   content: "";
   display: block;
   position: absolute;
-  right: 0;
-  bottom: 10px;
+  right: 16px;
+  bottom: 14px;
   width: 0;
   height: 0;
   border-style: solid;
@@ -191,17 +191,14 @@ a {
 a:visited {
   color: #0090FF;
 }
-a:focus {
+a:hover, a:focus, a:active {
   color: #025988;
   text-decoration: none;
 }
-a:hover {
-  color: #025988;
-  text-decoration: none;
-}
-a:active {
-  color: #025988;
-  text-decoration: none;
+a:focus-visible {
+  outline-offset: 0;
+  outline: 2px solid #025988;
+  box-shadow: 0 0 4px 2px #0090FF;
 }
 a.error span {
   color: #e63a3a !important;
@@ -275,6 +272,9 @@ small {
 .entry-edit {
   margin-top: 10px;
 }
+.entry-edit .entry-edit-head:not(.collapseable) {
+  padding: 4px 16px;
+}
 .entry-edit .entry-edit-head h4 {
   color: #2f2f2f;
   line-height: 32px;
@@ -286,6 +286,9 @@ small {
 }
 .entry-edit .entry-edit-head .tools a:hover {
   text-decoration: none;
+}
+.entry-edit .entry-edit-head a {
+  padding: 4px 16px;
 }
 .entry-edit .entry-edit-head button:not(:first-of-type) {
   margin-left: 5px;
@@ -390,6 +393,11 @@ small {
 .grid tr.headings th a:hover {
   color: #d3d3d3;
 }
+.grid tr.headings th a:focus-visible {
+  outline-offset: 0;
+  outline-color: white;
+  box-shadow: none;
+}
 .grid tr.headings th a.sort-arrow-desc span.sort-title {
   background: none;
 }
@@ -454,6 +462,14 @@ small {
 .header-top .logo svg {
   height: 40px;
   width: auto;
+}
+.header-top .logo:focus, .header-top .logo:hover, .header-top .logo:active {
+  background: #273169;
+}
+.header-top .logo:focus-visible {
+  outline-offset: -4px;
+  outline-color: white;
+  box-shadow: none;
 }
 
 .header-right {
@@ -523,6 +539,7 @@ ul.tabs dl {
   border: 1px solid #d3d3d3;
 }
 ul.tabs a {
+  position: relative;
   background: #fff;
   color: #2f2f2f;
   padding: 8px 18px;
@@ -544,6 +561,9 @@ ul.tabs a:hover.active {
 ul.tabs a:hover.active span {
   background: none;
   font-weight: 400;
+}
+ul.tabs a:focus-visible {
+  z-index: 1;
 }
 ul.tabs span {
   background: none;
@@ -645,6 +665,11 @@ div.autocomplete ul li.selected {
 }
 .massaction .entry-edit .field-row label {
   vertical-align: middle;
+}
+.massaction .entry-edit fieldset {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 .head-products {
@@ -917,6 +942,10 @@ dl.accordion dt {
 dl.accordion dt a {
   position: relative;
   background: none;
+  padding: 4px 16px;
+}
+dl.accordion dt a:focus-visible {
+  outline-offset: -4px;
 }
 dl.accordion dt.open a {
   background: none;

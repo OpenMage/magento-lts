@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* ! Do not edit css files !
    Edit scss version and compile with sass from scss folder like this:
    $ sass form.scss ../form.css
@@ -21,67 +20,27 @@ select, textarea, input.input-text {
   color: #202856;
 }
 
-.form-button, button {
-  background-image: none;
-  background-color: #71798e;
-  padding: 0 13px;
-  color: #fff;
-  border: 0;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 26px;
-  box-sizing: border-box;
-  margin: 0;
-  vertical-align: middle;
-}
-
-.form-button[disabled] fieldset[disabled] button, button[disabled], .form-button.disabled, button.disabled {
-  cursor: default;
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.form-button.ok_button, button.add, button.ok_button, button.save {
-  background-image: none;
-  background-color: #0090FF;
-  padding: 0 13px;
-  color: #fff;
-  border: 0;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 26px;
-  box-sizing: border-box;
-  vertical-align: middle;
-}
-
-.form-button.ok_button:active, .form-button.ok_button:focus, button.add:active, button.add:focus, button.ok_button:active, button.ok_button:focus, button.save:active, button.save:focus {
-  background-color: #025988;
-  outline: thin dotted;
-  outline-offset: -2px;
-  color: #fff;
-}
-
-fieldset[disabled] button.ok_button, fieldset[disabled] button.add, fieldset[disabled] button.save, button.ok_button[disabled], button.add[disabled], button.save[disabled], button.add.disabled, button.ok_button.disabled, button.save.disabled {
-  cursor: default;
-  pointer-events: none;
-  opacity: 0.5;
-}
-
 .field-100 input.input-text, .field-100 textarea {
   float: none;
   border: 1px solid #c8c8c8 !important;
   padding: 1px 3px !important;
 }
 
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline-offset: 0;
+  outline: 2px solid #025988;
+  box-shadow: 0 0 4px 2px #0090FF;
+}
+
 input {
   vertical-align: middle;
 }
+input[type=checkbox], input[type=radio] {
+  outline-offset: 2px;
+}
+
 textarea {
   margin: 0;
 }
@@ -124,155 +83,107 @@ select[size] {
   height: auto;
 }
 
-button {
+button,
+.form-button {
   text-transform: none;
-}
-button span {
-  padding: 0;
-}
-button.cancel {
-  background: #e63a3a;
+  background: #71798e;
+  padding: 0 12px;
   color: #fff;
-  padding: 0 13px;
+  border: none;
+  cursor: pointer;
+  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 28px;
+  vertical-align: middle;
+  white-space: nowrap;
 }
-button.cancel span {
-  background: none;
+button span,
+.form-button span {
   padding: 0;
 }
-button.cancel:hover {
-  background: #963535;
+button.large,
+.form-button.large {
+  font-size: 22px;
+  padding: 14px 22px 16px;
 }
-button.delete {
-  background: #e63a3a;
-  color: #fff;
-  padding: 0 13px;
-}
-button.delete span {
-  background: none;
-  padding: 0;
-}
-button.delete:hover, button.delete:focus {
-  background: #963535;
-}
-button.save {
-  padding: 0 13px;
-}
-button.save span {
-  background: none;
-  padding: 0;
-}
-button.save:hover {
-  background-color: #025988;
-}
-button.ok_button {
-  padding: 0 13px;
-}
-button.ok_button span {
-  background: none;
-  padding: 0;
-}
-button.ok_button:hover {
-  background-color: #025988;
-}
-button.add {
-  padding: 0 13px;
-}
-button.add span {
-  background: none;
-  padding: 0;
-}
-button.add:hover {
-  background-color: #025988;
-}
-button.add.disabled span {
-  background: none;
-}
-button.back {
-  background: none;
-}
-button.back span {
-  background: none;
-  padding: 0;
-}
-button.back:before {
-  content: "«";
-  padding-right: 4px;
-}
-button:focus, button:active {
-  background: #2f2f2f;
-  color: #fff;
-  border: 0;
-  outline: thin dotted;
-  outline-offset: -2px;
-}
-button:hover {
-  background: #2f2f2f;
-  color: #fff;
-}
-button.disabled {
-  background: #2f2f2f;
-}
-button.fail {
-  background: #e63a3a;
-  color: #fff;
-  padding: 0 13px;
-}
-button.fail:hover {
-  background: #963535;
-}
-button.cancel_button {
-  background: #e63a3a;
-  color: #fff;
-  padding: 0 13px;
-}
-button.cancel_button:hover {
-  background: #963535;
-}
-button.icon-btn {
+button.icon-btn,
+.form-button.icon-btn {
   width: auto !important;
 }
-button.icon-btn span {
+button.icon-btn span,
+.form-button.icon-btn span {
   text-indent: 0;
   width: auto;
   display: inline;
 }
-button.large {
-  font-size: 22px;
-  padding: 14px 22px 16px;
-}
-button.add-image span {
-  background: none;
-  padding: 0;
-}
-button.add-widget span {
-  background: none;
-  padding: 0;
-}
-button.go span {
-  background: none;
-  padding: 0;
-}
-button.add-variable span {
-  background: none;
-  padding: 0;
-}
-
-.form-button:focus, .form-button:active {
-  background: #2f2f2f;
-  color: #fff;
-  border: 0;
-  outline: thin dotted;
-  outline-offset: -2px;
-}
-.form-button:hover {
+button:hover, button:focus, button:active,
+.form-button:hover,
+.form-button:focus,
+.form-button:active {
   background: #2f2f2f;
 }
-.form-button.ok_button:hover {
-  background-color: #025988;
+button:focus-visible,
+.form-button:focus-visible {
+  outline-offset: -4px;
+  outline: 2px solid white;
 }
-.form-button.large {
-  font-size: 22px;
-  padding: 14px 22px 16px;
+button.disabled, button:disabled,
+.form-button.disabled,
+.form-button:disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.5;
+}
+button.save, button.add, button.ok_button,
+.form-button.save,
+.form-button.add,
+.form-button.ok_button {
+  background: #0090FF;
+}
+button.save:hover, button.save:focus, button.save:active, button.add:hover, button.add:focus, button.add:active, button.ok_button:hover, button.ok_button:focus, button.ok_button:active,
+.form-button.save:hover,
+.form-button.save:focus,
+.form-button.save:active,
+.form-button.add:hover,
+.form-button.add:focus,
+.form-button.add:active,
+.form-button.ok_button:hover,
+.form-button.ok_button:focus,
+.form-button.ok_button:active {
+  background: #025988;
+}
+button.cancel, button.cancel_button, button.delete, button.fail,
+.form-button.cancel,
+.form-button.cancel_button,
+.form-button.delete,
+.form-button.fail {
+  background: #e63a3a;
+}
+button.cancel:hover, button.cancel:focus, button.cancel:active, button.cancel_button:hover, button.cancel_button:focus, button.cancel_button:active, button.delete:hover, button.delete:focus, button.delete:active, button.fail:hover, button.fail:focus, button.fail:active,
+.form-button.cancel:hover,
+.form-button.cancel:focus,
+.form-button.cancel:active,
+.form-button.cancel_button:hover,
+.form-button.cancel_button:focus,
+.form-button.cancel_button:active,
+.form-button.delete:hover,
+.form-button.delete:focus,
+.form-button.delete:active,
+.form-button.fail:hover,
+.form-button.fail:focus,
+.form-button.fail:active {
+  background: #963535;
+}
+button.success,
+.form-button.success {
+  background: #56af45;
+}
+button.success:hover, button.success:focus, button.success:active,
+.form-button.success:hover,
+.form-button.success:focus,
+.form-button.success:active {
+  background: #185b00;
 }
 
 .field-100 {
@@ -281,25 +192,29 @@ button.add-variable span {
   padding: 0;
 }
 .form-list td.label label {
-  padding: 0 15px 0 0;
+  padding: 0 10px 0 0;
 }
 .form-list td.scope-label {
   color: #999;
   font-size: 11px;
 }
-.form-list td.value {
-  padding-left: 0 !important;
-}
 .form-list td.value input.input-text, .form-list td.value textarea, .form-list td.value select {
   width: 330px;
 }
 .form-list td.value p.note {
+  padding-top: 2px;
   color: #202856;
   font-size: 11px;
   font-weight: 400;
 }
 .form-list td.value p.note span.input-counter-error {
   color: #e63a3a;
+}
+
+fieldset[disabled] button.save, fieldset[disabled] button.add, fieldset[disabled] button.ok_button {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .input-text.large {
