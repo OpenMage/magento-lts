@@ -102,7 +102,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      * Get store groups for specified website
      *
      * @param  null|int|Mage_Core_Model_Website|string $website
-     * @return array
+     * @return Mage_Core_Model_Store_Group[]
      */
     public function getStoreGroups($website)
     {
@@ -137,7 +137,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      * Get store views for specified store group
      *
      * @param  null|int|Mage_Core_Model_Store_Group|string $group
-     * @return array
+     * @return Mage_Core_Model_Store[]
      */
     public function getStores($group)
     {
@@ -189,7 +189,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @param  array $storeIds
+     * @param  int[] $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)
@@ -199,7 +199,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @return array
+     * @return int[]
      */
     public function getStoreIds()
     {
