@@ -47,11 +47,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getSaveUrl() of class Mage_Adminhtml_Block_Widget_Form_Container.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Form/Container.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method submit() of class Mage_Sales_Model_Service_Quote.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
