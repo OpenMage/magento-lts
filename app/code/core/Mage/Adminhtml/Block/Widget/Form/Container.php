@@ -132,7 +132,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
      */
     public function getFormHtml()
     {
-        $this->getChild('form')->setData('action', $this->getSaveUrl());
+        $this->getChild('form')->setData('action', $this->getFormActionUrl());
         return $this->getChildHtml('form');
     }
 
