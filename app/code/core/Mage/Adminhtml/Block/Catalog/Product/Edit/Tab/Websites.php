@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
     /**
      * Retrieve array of website IDs of current product
      *
-     * @return array
+     * @return int[]
      */
     public function getWebsiteIds()
     {
