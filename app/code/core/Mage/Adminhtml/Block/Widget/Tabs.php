@@ -120,7 +120,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             }
         } elseif (is_string($tab)) {
             if (strpos($tab, '/')) {
-                $name = "";
+                $name = '';
                 if (isset($attributes['name'])) {
                     $name = $attributes['name'];
                     unset($attributes['name']);
