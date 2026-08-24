@@ -38,7 +38,7 @@
                     <tr>
                         <td><?php echo $this->escapeHtml($_store->getName()) ?></td>
                         <td>
-                        <?php if($this->getWebsiteIds() && !$this->hasWebsite($_website->getId())): ?>
+                        <?php if($this->getWebsiteIds() !== [] && !$this->hasWebsite($_website->getId())): ?>
                             <span class="website-<?php echo $_website->getId() ?>-select" style="display:none">
                             <?php echo Mage::helper('catalog')->__('(Copy data from: %s)', $this->getChooseFromStoreHtml($_store)) ?>
                             </span>
