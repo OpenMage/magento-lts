@@ -17,15 +17,20 @@
     <adminhtml_api2_role_new>
         <reference name="left">
             <block type="api2/adminhtml_roles_tabs" name="adminhtml.role.edit.tabs">
-                <block type="api2/adminhtml_roles_tab_info" name="adminhtml.role.edit.tab.info"/>
-                <block type="api2/adminhtml_roles_tab_resources" name="adminhtml.role.edit.tab.resources" template="permissions/rolesedit.phtml"/>
                 <action method="addTab">
                     <id>api2_role_section_info</id>
-                    <block>adminhtml.role.edit.tab.info</block>
+                    <block>api2/adminhtml_roles_tab_info</block>
+                    <attributes>
+                        <name>adminhtml.role.edit.tab.info</name>
+                    </attributes>
                 </action>
                 <action method="addTab">
                     <id>api2_role_section_resources</id>
-                    <block>adminhtml.role.edit.tab.resources</block>
+                    <block>api2/adminhtml_roles_tab_resources</block>
+                    <attributes>
+                        <name>adminhtml.role.edit.tab.resources</name>
+                        <template>permissions/rolesedit.phtml</template>
+                    </attributes>
                 </action>
             </block>
         </reference>
@@ -42,20 +47,27 @@
     <adminhtml_api2_role_edit>
         <reference name="left">
             <block type="api2/adminhtml_roles_tabs" name="adminhtml.role.edit.tabs">
-                <block type="api2/adminhtml_roles_tab_info" name="adminhtml.role.edit.tab.info"/>
-                <block type="api2/adminhtml_roles_tab_resources" name="adminhtml.role.edit.tab.resources" template="permissions/rolesedit.phtml"/>
-                <block type="api2/adminhtml_roles_tab_users" name="adminhtml.role.edit.tab.users"/>
                 <action method="addTab">
                     <id>api2_role_section_info</id>
-                    <block>adminhtml.role.edit.tab.info</block>
+                    <block>api2/adminhtml_roles_tab_info</block>
+                    <attributes>
+                        <name>adminhtml.role.edit.tab.info</name>
+                    </attributes>
                 </action>
                 <action method="addTab">
                     <id>api2_role_section_resources</id>
-                    <block>adminhtml.role.edit.tab.resources</block>
+                    <block>api2/adminhtml_roles_tab_resources</block>
+                    <attributes>
+                        <name>adminhtml.role.edit.tab.resources</name>
+                        <template>permissions/rolesedit.phtml</template>
+                    </attributes>
                 </action>
                 <action method="addTab">
                     <id>roleUsersGrid</id>
-                    <block>adminhtml.role.edit.tab.users</block>
+                    <block>api2/adminhtml_roles_tab_users</block>
+                    <attributes>
+                        <name>adminhtml.role.edit.tab.users</name>
+                    </attributes>
                 </action>
             </block>
         </reference>
@@ -85,11 +97,13 @@
     <!-- admin acl users edit page -->
     <adminhtml_permissions_user_edit>
         <reference name="adminhtml.permissions.user.edit.tabs">
-            <block type="api2/adminhtml_permissions_user_edit_tab_roles" name="adminhtml.permissions.user.edit.tab.roles"/>
             <action method="addTabAfter">
                 <id>api2_roles_section</id>
-                <block>adminhtml.permissions.user.edit.tab.roles</block>
+                <block>api2/adminhtml_permissions_user_edit_tab_roles</block>
                 <after>roles_section</after>
+                <attributes>
+                    <name>adminhtml.permissions.user.edit.tab.roles</name>
+                </attributes>
             </action>
         </reference>
         <reference name="js">
@@ -107,10 +121,13 @@
     <adminhtml_api2_attribute_edit>
         <reference name="left">
             <block type="api2/adminhtml_attribute_tabs" name="api2.attribute.edit.tabs">
-                <block type="api2/adminhtml_attribute_tab_resource" name="api2.attribute.tab.resource" template="api2/attribute/resource.phtml"/>
                 <action method="addTab">
                     <name>api2_attribute_section_resources</name>
-                    <block>api2.attribute.tab.resource</block>
+                    <block>api2/adminhtml_attribute_tab_resource</block>
+                    <attributes>
+                        <name>api2.attribute.tab.resource</name>
+                        <template>api2/attribute/resource.phtml</template>
+                    </attributes>
                 </action>
             </block>
         </reference>
