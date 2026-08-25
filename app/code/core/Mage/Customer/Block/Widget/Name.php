@@ -60,14 +60,14 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     /**
      * Retrieve name prefix drop-down options
      *
-     * @return array|bool
+     * @return array<string, string>|false
      */
     public function getPrefixOptions()
     {
         /** @var Mage_Customer_Helper_Data $helper */
         $helper = $this->helper('customer');
         $prefixOptions = $helper->getNamePrefixOptions();
-        if ($this->getObject() && !empty($prefixOptions)) {
+        if ($this->getObject() && is_array($prefixOptions)) {
             $oldPrefix = $this->escapeHtml(trim($this->getObject()->getPrefix() ?? ''));
             $prefixOptions[$oldPrefix] = $oldPrefix;
         }
@@ -118,14 +118,14 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     /**
      * Retrieve name suffix drop-down options
      *
-     * @return array|bool
+     * @return array|false
      */
     public function getSuffixOptions()
     {
         /** @var Mage_Customer_Helper_Data $helper */
         $helper = $this->helper('customer');
         $suffixOptions = $helper->getNameSuffixOptions();
-        if ($this->getObject() && !empty($suffixOptions)) {
+        if ($this->getObject() && is_array($suffixOptions)) {
             $oldSuffix = $this->escapeHtml(trim($this->getObject()->getSuffix() ?? ''));
             $suffixOptions[$oldSuffix] = $oldSuffix;
         }

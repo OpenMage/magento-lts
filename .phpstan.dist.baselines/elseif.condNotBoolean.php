@@ -117,8 +117,13 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Tag/Popular/Grid.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an elseif condition, string given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Review/Main.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an elseif condition, string|null given.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Review/Main.php',
 ];
 $ignoreErrors[] = [
