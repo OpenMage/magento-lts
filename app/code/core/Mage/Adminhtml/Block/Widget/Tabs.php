@@ -115,9 +115,6 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             $this->_tabs[$tabId] = new Varien_Object($tab);
         } elseif ($tab instanceof Varien_Object) {
             $this->_tabs[$tabId] = $tab;
-            if (!$this->_tabs[$tabId]->hasTabId()) {
-                $this->_tabs[$tabId]->setTabId($tabId);
-            }
         } elseif (is_string($tab)) {
             if (strpos($tab, '/')) {
                 $name = '';
