@@ -1384,7 +1384,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         // First - check maybe the entity class was rewritten
         $className = '';
-        if (isset($config->rewrite->$class)) {
+        if ($class !== '' && isset($config->rewrite->$class)) {
             $className = (string) $config->rewrite->$class;
         }
 
