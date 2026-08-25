@@ -160,12 +160,6 @@ after 1.4 beta1 it is checkout module responsibility',
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Onepage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isInstalled() of class Mage_Core_Model_App:
-since 1.2',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Update.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface:
 after 1.5.1.0',
     'count' => 2,
