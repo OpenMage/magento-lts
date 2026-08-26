@@ -13,7 +13,6 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice _getResource()
- * @method Mage_Catalog_Model_Resource_Eav_Attribute                        getAttribute()
  */
 abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract extends Mage_Catalog_Model_Product_Attribute_Backend_Price
 {
