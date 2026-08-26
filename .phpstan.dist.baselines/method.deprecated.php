@@ -241,11 +241,6 @@ after 1.4.0.0-alpha3',
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getTotalModels() of class Mage_Sales_Model_Quote_Address.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Quote.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method calcTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract:
 logic moved to tax totals calculation model',
     'count' => 2,

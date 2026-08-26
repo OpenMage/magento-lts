@@ -1579,7 +1579,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         }
 
         $sortedTotals = [];
-        foreach ($this->getBillingAddress()->getTotalModels() as $total) {
+        foreach ($this->getBillingAddress()->getTotalCollector()->getRetrievers() as $total) {
             /** @var Mage_Sales_Model_Quote_Address_Total_Abstract $total */
             if (isset($totals[$total->getCode()])) {
                 $sortedTotals[$total->getCode()] = $totals[$total->getCode()];
