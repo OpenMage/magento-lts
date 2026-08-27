@@ -2197,11 +2197,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Customer/Address.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_ImportExport_Model_Import_Entity_Product::_getAttribute() should return Mage_Eav_Model_Entity_Attribute_Abstract but returns Mage_Catalog_Model_Resource_Eav_Attribute|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_ImportExport_Model_Import_Entity_Product::getModel() should return bool|Mage_Core_Model_Abstract but returns object|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
