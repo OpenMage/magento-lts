@@ -161,6 +161,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
             if (!$attr instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
                 return false;
             }
+
             $attributeCode = $attr->getAttributeCode();
         }
 
