@@ -1667,6 +1667,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
                 continue;
             }
+
             if ($attribute->getFrontendInput() !== 'multiselect'
                 && self::SCOPE_NULL == $rowScope
             ) {
