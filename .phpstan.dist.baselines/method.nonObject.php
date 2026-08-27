@@ -2337,11 +2337,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Api/V2.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBackend() on bool|Mage_Catalog_Model_Resource_Attribute.',
-    'count' => 11,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method changeStatus() on Mage_Index_Model_Process|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php',

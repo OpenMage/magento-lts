@@ -6697,11 +6697,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Product_Type_Abstract::getSetAttributes() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Product_Type_Abstract::prepareForCart() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',
