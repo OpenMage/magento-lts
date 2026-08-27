@@ -655,7 +655,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * Retrieve attribute by code
      *
      * @param  string                                          $attributeCode
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute|false
+     * @return false|Mage_Catalog_Model_Resource_Eav_Attribute
      * @throws Mage_Core_Exception
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError

@@ -1186,7 +1186,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Special for non static flat table
      *
      * @param  mixed                                           $attribute
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute|false
+     * @return false|Mage_Catalog_Model_Resource_Eav_Attribute
      */
     public function getAttribute($attribute)
     {

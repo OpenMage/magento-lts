@@ -187,7 +187,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Get array of product set attributes
      *
-     * @param  Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product                       $product
      * @return array<Mage_Catalog_Model_Resource_Eav_Attribute>
      */
     public function getSetAttributes($product = null)
@@ -255,7 +255,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     public function getAttributeById($attributeId, $product = null)
     {
         foreach ($this->getSetAttributes($product) as $attribute) {
-            if (strval($attribute->getId()) === strval($attributeId)) {
+            if ((string) ($attribute->getId()) === (string) $attributeId) {
                 return $attribute;
             }
         }
