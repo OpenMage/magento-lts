@@ -170,12 +170,6 @@ after 1.5.1.0',
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/sql/eav_setup/install-1.6.0.0.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Eav_Model_Entity_Attribute_Abstract:
-moved to catalog attribute model',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method _getHtml() of class Mage_Page_Block_Html_Topmenu:
 since 1.8.2.0 use child block catalog.topnav.renderer instead',
     'count' => 1,
