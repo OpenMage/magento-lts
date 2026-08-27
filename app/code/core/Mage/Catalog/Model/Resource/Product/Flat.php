@@ -190,7 +190,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      * Special for non static flat table
      *
      * @param  mixed                                           $attribute
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute|false
+     * @return false|Mage_Catalog_Model_Resource_Eav_Attribute
      */
     public function getAttribute($attribute)
     {

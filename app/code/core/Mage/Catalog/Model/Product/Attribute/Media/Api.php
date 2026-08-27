@@ -346,7 +346,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     /**
      * Retrieve gallery attribute from product
      *
-     * @param  Mage_Catalog_Model_Product                 $product
+     * @param  Mage_Catalog_Model_Product                $product
      * @return Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected function _getGalleryAttribute($product)

@@ -1629,7 +1629,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Retrieve attribute by specified code
      *
      * @param  string                                          $code
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute|false
+     * @return false|Mage_Catalog_Model_Resource_Eav_Attribute
      * @throws Mage_Core_Exception
      */
     protected function _getAttribute($code)
