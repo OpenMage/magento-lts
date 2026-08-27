@@ -78,9 +78,12 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     {
         $product = $this->_initProduct($productId, $store, $identifierType);
 
-        $gallery = $this->_getGalleryAttribute($product);
+        /**
+         * @var Mage_Catalog_Model_Product_Attribute_Backend_Media $backend
+         */
+        $backend = $this->_getGalleryAttribute($product)->getBackend();
 
-        if (!$image = $gallery->getBackend()->getImage($product, $file)) {
+        if (!$image = $backend->getImage($product, $file)) {
             $this->_fault('not_exists');
         }
 
@@ -106,6 +109,10 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         $product = $this->_initProduct($productId, $store, $identifierType);
 
         $gallery = $this->_getGalleryAttribute($product);
+        /**
+         * @var Mage_Catalog_Model_Product_Attribute_Backend_Media $backend
+         */
+        $backend = $gallery->getBackend();
 
         if (!isset($data['file']) || !isset($data['file']['mime']) || !isset($data['file']['content'])) {
             $this->_fault('data_invalid', Mage::helper('catalog')->__('The image is not specified.'));
@@ -150,7 +157,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             }
 
             // Adding image to gallery
-            $file = $gallery->getBackend()->addImage(
+            $file = $backend->addImage(
                 $product,
                 $tmpDirectory . DS . $fileName,
                 null,
@@ -160,10 +167,10 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             // Remove temporary directory
             $ioAdapter->rmdir($tmpDirectory, true);
 
-            $gallery->getBackend()->updateImage($product, $file, $data);
+            $backend->updateImage($product, $file, $data);
 
             if (isset($data['types'])) {
-                $gallery->getBackend()->setMediaAttribute($product, $data['types'], $file);
+                $backend->setMediaAttribute($product, $data['types'], $file);
             }
 
             $product->save();
@@ -173,7 +180,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             $this->_fault('not_created', Mage::helper('catalog')->__('Cannot create image.'));
         }
 
-        return $gallery->getBackend()->getRenamedImage($file);
+        return $backend->getRenamedImage($file);
     }
 
     /**
@@ -195,9 +202,12 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
         $product = $this->_initProduct($productId, $store, $identifierType);
 
-        $gallery = $this->_getGalleryAttribute($product);
+        /**
+         * @var Mage_Catalog_Model_Product_Attribute_Backend_Media $backend
+         */
+        $backend = $this->_getGalleryAttribute($product)->getBackend();
 
-        if (!$gallery->getBackend()->getImage($product, $file)) {
+        if (!$backend->getImage($product, $file)) {
             $this->_fault('not_exists');
         }
 
@@ -223,7 +233,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             }
         }
 
-        $gallery->getBackend()->updateImage($product, $file, $data);
+        $backend->updateImage($product, $file, $data);
 
         if (isset($data['types']) && is_array($data['types'])) {
             $oldTypes = [];
@@ -236,10 +246,10 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             $clear = array_diff($oldTypes, $data['types']);
 
             if ($clear !== []) {
-                $gallery->getBackend()->clearMediaAttribute($product, $clear);
+                $backend->clearMediaAttribute($product, $clear);
             }
 
-            $gallery->getBackend()->setMediaAttribute($product, $data['types'], $file);
+            $backend->setMediaAttribute($product, $data['types'], $file);
         }
 
         try {
@@ -264,13 +274,16 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
     {
         $product = $this->_initProduct($productId, null, $identifierType);
 
-        $gallery = $this->_getGalleryAttribute($product);
+        /**
+         * @var Mage_Catalog_Model_Product_Attribute_Backend_Media $backend
+         */
+        $backend = $this->_getGalleryAttribute($product)->getBackend();
 
-        if (!$gallery->getBackend()->getImage($product, $file)) {
+        if (!$backend->getImage($product, $file)) {
             $this->_fault('not_exists');
         }
 
-        $gallery->getBackend()->removeImage($product, $file);
+        $backend->removeImage($product, $file);
 
         try {
             $product->save();
@@ -333,7 +346,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * Retrieve gallery attribute from product
      *
      * @param  Mage_Catalog_Model_Product                 $product
-     * @return bool|Mage_Catalog_Model_Resource_Attribute
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected function _getGalleryAttribute($product)
     {
