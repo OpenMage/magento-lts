@@ -326,7 +326,11 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 if ($validate !== true) {
                     foreach ($validate as $code => $error) {
                         if ($error === true) {
-                            Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required.', $category->getResource()->getAttribute($code)->getFrontend()->getLabel()));
+                            $attribute = $category->getResource()->getAttribute($code);
+                            if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+                                continue;
+                            }
+                            Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required.', $attribute->getFrontend()->getLabel()));
                         } else {
                             Mage::throwException($error);
                         }

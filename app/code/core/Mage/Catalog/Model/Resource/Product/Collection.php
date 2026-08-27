@@ -763,6 +763,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     {
         $select        = clone $this->getSelect();
         $attribute     = $this->getEntity()->getAttribute($attribute);
+
+        if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+            return null;
+        }
+
         $attributeCode = $attribute->getAttributeCode();
         $tableAlias    = $attributeCode . '_max_value';
         $fieldAlias    = 'max_' . $attributeCode;
@@ -792,6 +797,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     {
         $select        = clone $this->getSelect();
         $attribute     = $this->getEntity()->getAttribute($attribute);
+
+        if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+            return [];
+        }
+
         $attributeCode = $attribute->getAttributeCode();
         $tableAlias    = $attributeCode . '_range_count_value';
 
@@ -832,6 +842,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     {
         $select        = clone $this->getSelect();
         $attribute     = $this->getEntity()->getAttribute($attribute);
+
+        if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+            return [];
+        }
+
         $attributeCode = $attribute->getAttributeCode();
         $tableAlias    = $attributeCode . '_value_count';
 
@@ -878,6 +893,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function getAllAttributeValues($attribute)
     {
         $attribute      = $this->getEntity()->getAttribute($attribute);
+
+        if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+            return [];
+        }
+
         $attributeId    = (int) $attribute->getId();
 
         if (isset($this->attributesValueCache[$attributeId])) {
@@ -1595,7 +1615,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
 
         $attrInstance = $this->getEntity()->getAttribute($attribute);
-        if ($attrInstance && $attrInstance->usesSource()) {
+        if ($attrInstance instanceof Mage_Catalog_Model_Resource_Eav_Attribute && $attrInstance->usesSource()) {
             $attrInstance->getSource()
                 ->addValueSortToCollection($this, $dir);
             return $this;

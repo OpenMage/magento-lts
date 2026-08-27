@@ -155,8 +155,11 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         } elseif (is_string($attribute)) {
             $attributeCode = $attribute;
         } elseif (is_numeric($attribute)) {
-            $attributeCode = $this->getAttribute($attribute)
-                ->getAttributeCode();
+            $attr = $this->getAttribute($attribute);
+            if (!$attr instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+                return false;
+            }
+            $attributeCode = $attr->getAttributeCode();
         }
 
         if ($attributeCode) {
@@ -184,8 +187,8 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      * Retrieve attribute instance
      * Special for non static flat table
      *
-     * @param  mixed                                    $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @param  mixed                                           $attribute
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute|false
      */
     public function getAttribute($attribute)
     {
