@@ -330,6 +330,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                             if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
                                 continue;
                             }
+
                             Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required.', $attribute->getFrontend()->getLabel()));
                         } else {
                             Mage::throwException($error);
