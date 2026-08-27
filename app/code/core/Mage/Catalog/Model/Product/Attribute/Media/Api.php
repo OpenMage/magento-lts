@@ -83,7 +83,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
          */
         $backend = $this->_getGalleryAttribute($product)->getBackend();
 
-        if (!$image = $backend->getImage($product, $file)) {
+        $image = $backend->getImage($product, $file);
+        if (!is_array($image)) {
             $this->_fault('not_exists');
         }
 
@@ -209,7 +210,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
          */
         $backend = $this->_getGalleryAttribute($product)->getBackend();
 
-        if (!$backend->getImage($product, $file)) {
+        if (!is_array($backend->getImage($product, $file))) {
             $this->_fault('not_exists');
         }
 
@@ -281,7 +282,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
          */
         $backend = $this->_getGalleryAttribute($product)->getBackend();
 
-        if (!$backend->getImage($product, $file)) {
+        if (!is_array($backend->getImage($product, $file))) {
             $this->_fault('not_exists');
         }
 
