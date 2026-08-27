@@ -255,7 +255,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     public function getAttributeById($attributeId, $product = null)
     {
         foreach ($this->getSetAttributes($product) as $attribute) {
-            if ($attribute->getId() == $attributeId) {
+            if (strval($attribute->getId()) === strval($attributeId)) {
                 return $attribute;
             }
         }
