@@ -12,8 +12,9 @@
  *
  * @package    Mage_Catalog
  *
- * @method int  getStoreId()
- * @method bool getUseDataSharing()
+ * @method int                                             getStoreId()
+ * @method bool                                            getUseDataSharing()
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute|false getAttribute($attribute)
  */
 abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entity_Abstract
 {

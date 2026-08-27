@@ -11,6 +11,8 @@
  * Class Mage_Catalog_Model_Config
  *
  * @package    Mage_Catalog
+ * 
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute|false getAttribute($entityType, $code, $storeId = null)
  */
 class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 {
