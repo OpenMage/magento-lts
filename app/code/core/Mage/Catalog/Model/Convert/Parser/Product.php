@@ -330,7 +330,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     foreach ($row as $field => $value) {
                         $attribute = $entity->getAttribute($field);
 
-                        if (!$attribute) {
+                        if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
                             //$inventoryFields[$row['sku']][$field] = $value;
 
                             if (in_array($field, $this->_inventoryFields)) {
