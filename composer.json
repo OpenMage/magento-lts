@@ -32,7 +32,6 @@
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
         "components/jquery": "^3.7.1 <4",
-        "cweagans/composer-patches": "^2.0",
         "empiricompany/openmage_ignition": "^1.5",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
@@ -58,10 +57,12 @@
         "symfony/translation-contracts": "^3.5",
         "symfony/validator": "^6.4",
         "tinymce/tinymce": "^8.0",
+        "vaimo/composer-patches": "^6.0",
         "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
         "ext-xmlreader": "*",
+        "bamarni/composer-bin-plugin": "^1.9",
         "composer/composer": ">= 2.2.27 <2.3 || >= 2.9.6",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
@@ -80,8 +81,7 @@
         "rector/rector": "^2.1.12",
         "shipmonk/phpstan-baseline-per-identifier": "^2.3",
         "squizlabs/php_codesniffer": "^3.7",
-        "symplify/easy-coding-standard": "^13.0",
-        "symplify/vendor-patches": "^12.0, !=12.0.5, !=12.0.6"
+        "symplify/easy-coding-standard": "^13.0"
     },
     "replace": {
         "symfony/polyfill-ctype": "*",
@@ -158,15 +158,22 @@
             "openmage/dev-translations": "copy",
             "openmage/legacy-frontend-themes": "copy"
         },
-        "magento-force": true
+        "magento-force": true,
+        "patches-file": "patches.json",
+        "bamarni-bin": {
+            "target-directory": "vendor-bin",
+            "bin-links": true,
+            "forward-command": true
+        }
     },
     "config": {
         "allow-plugins": {
-            "cweagans/composer-patches": true,
+            "bamarni/composer-bin-plugin": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "magento-hackathon/magento-composer-installer": true,
             "openmage/composer-plugin": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "vaimo/composer-patches": true
         },
         "audit": {
             "block-insecure": false

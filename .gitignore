@@ -60,6 +60,7 @@
 
 # composer
 /vendor
+/vendor-bin/*/vendor
 
 # scss-cache
 /skin/*/*/*/scss/.sass-cache
