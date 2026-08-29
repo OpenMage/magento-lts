@@ -14,7 +14,7 @@
 ?>
 <p><strong><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></strong></p>
 
-<?php if ($_specificInfo = $this->getSpecificInformation()):?>
+<?php if (is_array($_specificInfo = $this->getSpecificInformation()) && $_specificInfo !== []):?>
 <table>
     <tbody>
     <?php foreach ($_specificInfo as $_label => $_value):?>
