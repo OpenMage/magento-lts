@@ -18,6 +18,8 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'bundle_adminhtml_catalog_product_edit_tab_bundle_option_search_grid';
+
     public function __construct()
     {
         parent::__construct();
