@@ -12,6 +12,8 @@
  */
 class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_promo_quote_edit_tab_labels';
+
     /**
      * Prepare content for tab
      *
