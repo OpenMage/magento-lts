@@ -61,8 +61,56 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
         $rulesArr = $adapter->fetchAll($select);
 
         $this->loadRules($acl, $rulesArr);
+        $this->denyUnlistedResources($acl, $rulesArr);
 
         return $acl;
+    }
+
+    /**
+     * Deny every registered resource that has no explicit rule for a group role.
+     *
+     * The role editor writes an explicit allow/deny row for every resource that exists
+     * when the role is saved. A resource added to code afterwards has no row, and
+     * Zend_Acl inherits the nearest ancestor's rule for it. A role allowed on a parent
+     * therefore gains every new child until the role is saved again. Denying the
+     * unlisted resources makes the runtime match what the role editor shows and saves.
+     *
+     * Roles with an "all" allow row keep full access. The role editor also writes an
+     * "all" deny row for every other role, so only the permission decides. User roles
+     * inherit from their group role through Zend_Acl role inheritance, so only group
+     * roles need rules.
+     *
+     * @param array<int, array<string, mixed>> $rulesArr
+     */
+    public function denyUnlistedResources(Mage_Admin_Model_Acl $acl, array $rulesArr): void
+    {
+        $listed = [];
+        $allowAll = [];
+        foreach ($rulesArr as $rule) {
+            if (($rule['role_type'] ?? null) !== Mage_Admin_Model_Acl::ROLE_TYPE_GROUP) {
+                continue;
+            }
+            $roleId = $rule['role_type'] . $rule['role_id'];
+            $resourceId = (string) $rule['resource_id'];
+            $listed[$roleId][$resourceId] = true;
+            if ($resourceId === self::ACL_ALL_RULES && $rule['permission'] === 'allow') {
+                $allowAll[$roleId] = true;
+            }
+        }
+
+        $resources = $acl->getResources();
+        foreach ($acl->getRoles() as $roleId) {
+            $roleId = (string) $roleId;
+            if (!str_starts_with($roleId, Mage_Admin_Model_Acl::ROLE_TYPE_GROUP) || isset($allowAll[$roleId])) {
+                continue;
+            }
+            $rules = $listed[$roleId] ?? [];
+            foreach ($resources as $resourceId) {
+                if (!isset($rules[$resourceId])) {
+                    $acl->deny($roleId, $resourceId);
+                }
+            }
+        }
     }
 
     /**
