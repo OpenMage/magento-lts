@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
+    protected string $_eventPrefix = 'adminhtml_report_product_viewed_grid';
+
     /**
      * Column for grid to be grouped by
      *
