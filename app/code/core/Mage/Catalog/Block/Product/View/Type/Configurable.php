@@ -210,7 +210,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                         'label'     => $value['label'],
                         'price'     => $configurablePrice,
                         'oldPrice'  => $this->_getHelper()->prepareOldPrice(
-                            $this->getProduct(), $value['pricing_value'], $value['is_percent']
+                            $this->getProduct(),
+                            $value['pricing_value'],
+                            $value['is_percent'],
                         ),
                         'products'  => $productsIndex,
                     ];
@@ -259,10 +261,10 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             'attributes'        => $attributes,
             'template'          => str_replace('%s', '#{price}', $store->getCurrentCurrency()->getOutputFormat()),
             'basePrice'         => $this->_getHelper()->registerJsPrice(
-                $this->_getHelper()->convertPrice($currentProduct->getFinalPrice())
+                $this->_getHelper()->convertPrice($currentProduct->getFinalPrice()),
             ),
             'oldPrice'          => $this->_getHelper()->registerJsPrice(
-                $this->_getHelper()->convertPrice($currentProduct->getPrice())
+                $this->_getHelper()->convertPrice($currentProduct->getPrice()),
             ),
             'productId'         => $currentProduct->getId(),
             'chooseText'        => Mage::helper('catalog')->__('Choose an Option...'),
