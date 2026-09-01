@@ -12,7 +12,7 @@
 
 --- ../library/Zend/Db/Statement.php
 +++ ../library/Zend/Db/Statement.php
-@@ -186,11 +186,11 @@
+@@ -185,11 +185,11 @@
          // e.g. \' or ''
          $qe = $this->_adapter->quote($q);
          $qe = substr($qe, 1, 2);
@@ -24,26 +24,26 @@
 -            $escapeChar = preg_quote($escapeChar);
 +            $escapeChar = preg_quote($escapeChar, '/');
              // this segfaults only after 65,000 characters instead of 9,000
-             $sql = preg_replace("/$q([^$q{$escapeChar}]*|($qe)*)*$q/s", '', $sql) ?? $sql;
+             $sql = preg_replace("/$q([^$q{$escapeChar}]*|($qe)*)*$q/s", '', (string) $sql);
          }
-@@ -208,7 +208,7 @@
+@@ -207,7 +207,7 @@
          // e.g. \" or "" or \`
          $de = $this->_adapter->quoteIdentifier($d);
          $de = substr($de, 1, 2);
 -        $de = preg_quote($de);
 +        $de = preg_quote($de, '/');
          // Note: $de and $d where never used..., now they are:
-         $sql = preg_replace("/$d($de|\\\\{2}|[^$d])*$d/Us", '', $sql) ?? $sql;
+         $sql = preg_replace("/$d($de|\\\\{2}|[^$d])*$d/Us", '', (string) $sql);
          return $sql;
 
 --- ../library/Zend/Http/Cookie.php
 +++ ../library/Zend/Http/Cookie.php
 @@ -396,7 +396,7 @@
- 
+
          // Check for either exact match or suffix match
          return ($cookieDomain == $host ||
 -                preg_match('/\.' . preg_quote($cookieDomain) . '$/', $host));
-+                preg_match('/\.' . preg_quote($cookieDomain, '/') . '$/', $host));
++            preg_match('/\.' . preg_quote($cookieDomain, '/') . '$/', $host));
      }
- 
+
      /**
