@@ -22,6 +22,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'PHPDoc tag @var with type Mage_Adminhtml_Block_Tax_Rate_Title_Fieldset is not subtype of type Mage_Core_Block_Abstract|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Form.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var with type Mage_Admin_Model_Session is not subtype of type Mage_Adminhtml_Model_Session.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php',

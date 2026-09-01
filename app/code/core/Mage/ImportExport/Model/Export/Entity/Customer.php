@@ -402,7 +402,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
         // go through all valid attribute codes
         foreach ($validAttrCodes as $attrCode) {
             $attribute = $customer->getAttribute($attrCode);
-            $attrValue = $customer->getData($attrCode);
+            $attrValue = $customer->getData($attrCode) ?? '';
 
             if ($attribute && $attribute->getFrontendInput() == 'multiselect') {
                 $optionText = (array) $attribute->getSource()->getOptionText($attrValue);
