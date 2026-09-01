@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_search_edit_form';
+
     /**
      * Init Form properties
      */
