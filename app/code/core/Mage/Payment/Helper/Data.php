@@ -125,7 +125,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve payment information block
      *
-     * @return Mage_Core_Block_Abstract
+     * @return Mage_Payment_Block_Info
      * @throws Mage_Core_Exception
      */
     public function getInfoBlock(Mage_Payment_Model_Info $info)
@@ -138,7 +138,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             $block = new $className();
         }
 
-        /** @var Mage_Core_Block_Abstract $block */
+        /** @var Mage_Payment_Block_Info $block */
         $block->setInfo($info);
         return $block;
     }
