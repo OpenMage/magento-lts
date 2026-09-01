@@ -17,8 +17,10 @@
  * @method bool                                     getForceUpdateGridRecords()
  * @method Mage_Sales_Model_Resource_Order_Abstract getResource()
  * @method Mage_Customer_Model_Address_Abstract     getShippingAddress()
+ * @method int                                      getStoreId()
  * @method $this                                    setBillingAddress(Mage_Customer_Model_Address_Abstract $address)
  * @method $this                                    setShippingAddress(Mage_Customer_Model_Address_Abstract $address)
+ * @method $this                                    setStoreId(int $value)
  * @method $this                                    setTransactionId(int $value)
  */
 abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
@@ -73,5 +75,51 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
             Varien_Date::toTimestamp($this->getCreatedAt()),
             true,
         );
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function getPaymentBlockHtml(Mage_Sales_Model_Order $order): ?string
+    {
+        $storeId = $order->getStore()->getId();
+        $payment = $order->getPayment();
+        if (is_null($storeId) || !$payment instanceof Mage_Payment_Model_Info) {
+            return null;
+        }
+
+        // Start store emulation process
+        if ($storeId !== Mage::app()->getStore()->getId()) {
+            $appEmulation = Mage::getSingleton('core/app_emulation');
+            $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
+        }
+
+        try {
+            // Retrieve specified view block from appropriate design package (depends on emulated store)
+            $paymentBlock = Mage::helper('payment')->getInfoBlock($payment)
+                ->setIsSecureMode(true);
+            $paymentBlock->getMethod()->setStore($storeId);
+            return $paymentBlock->toHtml();
+        } finally {
+            // Stop store emulation process
+            if (isset($appEmulation, $initialEnvironmentInfo)) {
+                $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+            }
+        }
+    }
+
+    /**
+     * @param  string             $configPath
+     * @return false|list<string>
+     */
+    protected function _getEmails($configPath)
+    {
+        $data = Mage::getStoreConfig($configPath, $this->getStoreId());
+        if (is_string($data) && $data !== '') {
+            return explode(',', $data);
+        }
+
+        return false;
     }
 }
