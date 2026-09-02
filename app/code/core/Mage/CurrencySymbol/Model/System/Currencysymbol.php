@@ -192,6 +192,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
             }
         }
 
+        $value = [];
         if ($symbols) {
             $value['options']['fields']['customsymbol']['value'] = serialize($symbols);
         } else {

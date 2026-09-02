@@ -924,12 +924,17 @@ class Varien_Io_File extends Varien_Io_Abstract
         } /* UNKNOWN */
 
         /* Determine permissions */
+        $owner = [];
         $owner['read'] = ($mode & 00400) ? 'r' : '-';
         $owner['write'] = ($mode & 00200) ? 'w' : '-';
         $owner['execute'] = ($mode & 00100) ? 'x' : '-';
+
+        $group = [];
         $group['read'] = ($mode & 00040) ? 'r' : '-';
         $group['write'] = ($mode & 00020) ? 'w' : '-';
         $group['execute'] = ($mode & 00010) ? 'x' : '-';
+
+        $world = [];
         $world['read'] = ($mode & 00004) ? 'r' : '-';
         $world['write'] = ($mode & 00002) ? 'w' : '-';
         $world['execute'] = ($mode & 00001) ? 'x' : '-';

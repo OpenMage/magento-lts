@@ -73,14 +73,12 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     /**
      * Dhl rates result
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_rates = [];
 
     /**
-     * Carrier's code
-     *
-     * @var string
+     * @inheritDoc
      */
     protected $_code = self::CODE;
 
@@ -959,7 +957,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
         /** @var Mage_Shipping_Model_Rate_Result $result */
         $result = Mage::getModel('shipping/rate_result');
-        if ($this->_rates) {
+        if (!is_null($this->_rates)) {
             foreach ($this->_rates as $rate) {
                 $method = $rate['service'];
                 $data = $rate['data'];
@@ -1025,13 +1023,18 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             }
 
             if ($totalEstimate) {
-                $data = ['term' => $dhlProductDescription,
-                    'price_total' => $this->getMethodPrice($totalEstimate, $dhlProduct)];
-                foreach ($this->_rates as $product) {
-                    if ($product['data']['term'] == $data['term']
-                        && $product['data']['price_total'] == $data['price_total']
-                    ) {
-                        return $this;
+                $data = [
+                    'term' => $dhlProductDescription,
+                    'price_total' => $this->getMethodPrice($totalEstimate, $dhlProduct),
+                ];
+
+                if (!is_null($this->_rates)) {
+                    foreach ($this->_rates as $product) {
+                        if ($product['data']['term'] == $data['term']
+                            && $product['data']['price_total'] == $data['price_total']
+                        ) {
+                            return $this;
+                        }
                     }
                 }
 

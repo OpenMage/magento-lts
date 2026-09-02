@@ -93,22 +93,23 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
     public function getJsonConfig()
     {
         Mage::app()->getLocale()->getJsPriceFormat();
-        $optionsArray = $this->getOptions();
-        $options      = [];
-        $selected     = [];
-        $currentProduct = $this->getProduct();
+        $options       = [];
+        $selected      = [];
+        $defaultValues = [];
+
         /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper   = Mage::helper('core');
         /** @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
         $bundlePriceModel = Mage::getModel('bundle/product_price');
 
+        $currentProduct = $this->getProduct();
         $preConfiguredFlag = $currentProduct->hasPreconfiguredValues();
         if ($preConfiguredFlag) {
             $preConfiguredValues = $currentProduct->getPreconfiguredValues();
-            $defaultValues       = [];
         }
 
         $position = 0;
+        $optionsArray = $this->getOptions();
         foreach ($optionsArray as $bundleOption) {
             /** @var Mage_Bundle_Model_Option $bundleOption */
             if (!$bundleOption->getSelections()) {

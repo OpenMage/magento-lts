@@ -47,6 +47,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
             $range = $this->_maxPopularity - $this->_minPopularity;
             $range = ($range == 0) ? 1 : $range;
             $temp = [];
+            $termKeys = [];
             /** @var Mage_CatalogSearch_Model_Query $term */
             foreach ($terms as $term) {
                 if (!$term->getPopularity()) {
@@ -58,7 +59,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                 $termKeys[] = $term->getName();
             }
 
-            if (isset($termKeys)) {
+            if ($termKeys !== []) {
                 natcasesort($termKeys);
                 foreach ($termKeys as $termKey) {
                     $this->_terms[$termKey] = $temp[$termKey];

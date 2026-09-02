@@ -3383,7 +3383,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 11,
+    'count' => 10,
     'path' => __DIR__ . '/../lib/Varien/Object.php',
 ];
 $ignoreErrors[] = [
