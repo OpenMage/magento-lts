@@ -11,6 +11,7 @@
  * Wishlist item option collection
  *
  * @package    Mage_Wishlist
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Wishlist_Model_Item_Option>
  */
 class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

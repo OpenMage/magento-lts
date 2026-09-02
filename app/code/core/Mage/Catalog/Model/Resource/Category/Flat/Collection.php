@@ -11,6 +11,7 @@
  * Catalog category flat collection
  *
  * @package    Mage_Catalog
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Catalog_Model_Category>
  */
 class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

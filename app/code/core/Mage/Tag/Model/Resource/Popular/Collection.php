@@ -11,6 +11,7 @@
  * Popular tags collection model
  *
  * @package    Mage_Tag
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Tag_Model_Tag>
  */
 class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

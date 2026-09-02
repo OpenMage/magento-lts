@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Gift Message collection
  *
  * @package    Mage_GiftMessage
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_GiftMessage_Model_Message>
  */
 class Mage_GiftMessage_Model_Resource_Message_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

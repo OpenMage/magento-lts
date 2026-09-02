@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Customer flow password info collection
  *
  * @package    Mage_Customer
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Customer_Model_Flowpassword>
  */
 class Mage_Customer_Model_Resource_Flowpassword_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

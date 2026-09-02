@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Schedules Collection
  *
  * @package    Mage_Cron
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Cron_Model_Schedule>
  */
 class Mage_Cron_Model_Resource_Schedule_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
