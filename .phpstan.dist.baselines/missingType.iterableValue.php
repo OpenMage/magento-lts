@@ -1847,7 +1847,17 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Tabs::addTab() has parameter $attributes with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Tabs::addTab() has parameter $tab with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Tabs::addTabAfter() has parameter $attributes with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php',
 ];
