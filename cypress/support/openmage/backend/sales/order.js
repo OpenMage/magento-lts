@@ -17,18 +17,12 @@ test.config = {
 
 /**
  * Configuration for "Orders" page
- * @type {{__buttons: {new: string}, title: string, url: string, grid: {}}}
+ * @type {{title: string, url: string, grid: {}}}
  */
 test.config.index = {
     title: 'Orders',
     url: test.config.url,
     grid: {...base.__grid, ...{ sort: { order: 'created_at', dir: 'desc' } }},
-    __buttons: {
-        add: {
-            _: base._button + '[title="Create New Order"]',
-            __class: base.__buttons.add.__class,
-        },
-    },
 }
 
 /**
