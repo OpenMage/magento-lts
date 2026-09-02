@@ -19137,11 +19137,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Info/Ccsave.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Helper_Data::getAllBillingAgreementMethods() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Helper_Data::getPaymentMethodList() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
@@ -19168,26 +19163,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Model_Config::compareCcTypes() has parameter $sortB with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getActiveMethods() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getAllMethods() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getMonths() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getYears() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
 ];

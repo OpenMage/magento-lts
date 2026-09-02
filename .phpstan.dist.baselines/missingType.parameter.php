@@ -1197,11 +1197,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paygate/Model/Authorizenet/Cards.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Helper_Data::getMethodModelClassName() has parameter $code with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global::getElementOriginalData() has parameter $key with no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Global.php',
