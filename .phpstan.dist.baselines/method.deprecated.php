@@ -84,22 +84,10 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Entity/Attribute.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Eav_Model_Entity_Attribute_Abstract:
-moved to catalog attribute model',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Price.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method setDestination() of class Zend_File_Transfer_Adapter_Abstract:
 Will be changed to be a filter!!!',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Eav_Model_Entity_Attribute_Abstract:
-moved to catalog attribute model',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method clear() of class Mage_Eav_Model_Config.',
@@ -180,24 +168,6 @@ $ignoreErrors[] = [
 after 1.5.1.0',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/sql/eav_setup/install-1.6.0.0.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Eav_Model_Entity_Attribute_Abstract:
-moved to catalog attribute model',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Eav_Model_Entity_Attribute_Abstract:
-moved to catalog attribute model',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getIsGlobal() of class Mage_Eav_Model_Entity_Attribute_Abstract:
-moved to catalog attribute model',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method _getHtml() of class Mage_Page_Block_Html_Topmenu:

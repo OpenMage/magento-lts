@@ -1597,11 +1597,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and int|string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php',

@@ -11,6 +11,7 @@
  * Catalog product price attribute backend model
  *
  * @package    Mage_Catalog
+ * @method Mage_Catalog_Model_Resource_Eav_Attribute getAttribute()
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Price extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
