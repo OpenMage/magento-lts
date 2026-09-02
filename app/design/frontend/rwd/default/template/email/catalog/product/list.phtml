@@ -42,7 +42,10 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
                             <?php $_imgSize = 300; ?>
                             <img id="product-collection-image-<?php echo $_product->getId(); ?>"
                                  src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->keepFrame(false)->resize($_imgSize); ?>"
-                                 alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                                 alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                 height="<?php echo $_imgSize ?>"
+                                 width="<?php echo $_imgSize ?>"
+                            />
                         </a>
                         <?php // Product description ?>
                         <div class="product-shop">
@@ -134,7 +137,10 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
                             <?php $_imgSize = 210; ?>
                             <img id="product-collection-image-<?php echo $_product->getId(); ?>"
                                  src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize); ?>"
-                                 alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                                 alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                 height="<?php echo $_imgSize ?>"
+                                 width="<?php echo $_imgSize ?>"
+                            />
                         </a>
                         <div class="product-info">
                             <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
