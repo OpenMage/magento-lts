@@ -66,12 +66,9 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
         $ifnullLast    = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
         $concatAddress = $adapter->getConcatSql([
             $ifnullFirst,
-            $adapter->quote(' '),
             $ifnullMiddle,
-            $adapter->quote(' '),
             $ifnullLast,
-        ]);
-        $concatAddress = new Zend_Db_Expr("TRIM(REPLACE({$concatAddress},'  ', ' '))");
+        ], $adapter->quote(' '));
 
         $this->addVirtualGridColumn(
             'billing_name',
