@@ -78,6 +78,11 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
      */
     public function updateStateAction()
     {
+        if (!$this->getRequest()->isPost() || !$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
         $profile = null;
         try {
             $profile = $this->_initProfile();
@@ -115,6 +120,11 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
      */
     public function updateProfileAction()
     {
+        if (!$this->getRequest()->isPost() || !$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
         $profile = null;
         try {
             $profile = $this->_initProfile();
