@@ -303,10 +303,10 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $profile->run();
         } catch (Exception $exception) {
             Mage::logException($exception);
-            $profileException = new Varien_Convert_Exception(
+            $profileException = new Mage_Dataflow_Model_Convert_Exception(
                 Mage::helper('dataflow')->__('An error occurred while running the profile.'),
             );
-            $profileException->setLevel(Varien_Convert_Exception::FATAL);
+            $profileException->setLevel(Mage_Dataflow_Model_Convert_Exception::FATAL);
             $profile->addException($profileException);
         }
 
