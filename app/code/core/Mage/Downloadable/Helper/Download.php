@@ -20,6 +20,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 
     public const XML_PATH_CONTENT_DISPOSITION  = 'catalog/downloadable/content_disposition';
 
+    public const XML_PATH_LINK_URL_ALLOWED_PREFIXES = 'catalog/downloadable/link_url_allowed_prefixes';
+
     protected $_moduleName = 'Mage_Downloadable';
 
     /**
@@ -82,29 +84,24 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 /**
                  * Validate URL
                  */
-                $urlProp = parse_url($this->_resourceFile);
-                if (!isset($urlProp['scheme'])
-                    || strtolower($urlProp['scheme']) !== 'http' && strtolower($urlProp['scheme']) !== 'https'
-                ) {
-                    Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL scheme.'));
-                }
+                $urlProp = $this->_validateUrl($this->_resourceFile);
 
-                if (!isset($urlProp['host'])) {
-                    Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL host.'));
+                $allowedPrefixes = $this->_getAllowedUrlPrefixes();
+                $isAllowedByPrefix = $allowedPrefixes && $this->_isAllowedByPrefix($this->_resourceFile);
+                if ($allowedPrefixes && !$isAllowedByPrefix) {
+                    Mage::throwException(Mage::helper('downloadable')->__('The download URL is not allowed by the configured URL prefix whitelist.'));
                 }
 
                 switch ($urlProp['scheme']) {
                     case 'https':
-                        $scheme = 'ssl://';
+                        $transport = 'ssl://';
                         $port = 443;
                         break;
                     case 'http':
                     default:
-                        $scheme = '';
+                        $transport = 'tcp://';
                         $port = 80;
                 }
-
-                $hostname = $scheme . $urlProp['host'];
 
                 if (isset($urlProp['port'])) {
                     $port = $urlProp['port'];
@@ -116,11 +113,26 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                     $query = '?' . $urlProp['query'];
                 }
 
-                try {
-                    $this->_handle = fsockopen($hostname, $port, $errno, $errstr);
-                } catch (Exception $exception) {
-                    throw $exception;
+                /**
+                 * Connect to the validated address instead of the hostname so that the destination
+                 * cannot be swapped between validation and connection (DNS rebinding)
+                 */
+                $address = $this->_getAllowedAddress($urlProp['host'], !$isAllowedByPrefix);
+                $remote = $transport . (str_contains($address, ':') ? '[' . $address . ']' : $address) . ':' . $port;
+
+                $context = stream_context_create();
+                if ($transport === 'ssl://') {
+                    stream_context_set_option($context, 'ssl', 'peer_name', trim($urlProp['host'], '[]'));
                 }
+
+                $this->_handle = stream_socket_client(
+                    $remote,
+                    $errno,
+                    $errstr,
+                    (float) ini_get('default_socket_timeout'),
+                    STREAM_CLIENT_CONNECT,
+                    $context,
+                );
 
                 if ($this->_handle === false) {
                     Mage::throwException(Mage::helper('downloadable')->__('Cannot connect to remote host, error: %s.', $errstr));
@@ -174,6 +186,144 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
         }
 
         return $this->_handle;
+    }
+
+    /**
+     * Validate the download URL and return its parsed components
+     *
+     * Only the http and https schemes are accepted, every other stream wrapper
+     * (file, ftp, gopher, php, data, ...) is rejected before anything is fetched.
+     *
+     * @param  string              $url
+     * @return array
+     * @throws Mage_Core_Exception
+     */
+    protected function _validateUrl($url)
+    {
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
+        if ($validator->validateUrl(value: $url, protocols: ['http', 'https'])->count() > 0) {
+            Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL scheme.'));
+        }
+
+        $urlProp = parse_url($url);
+        if (!isset($urlProp['scheme'])
+            || strtolower($urlProp['scheme']) !== 'http' && strtolower($urlProp['scheme']) !== 'https'
+        ) {
+            Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL scheme.'));
+        }
+
+        if (!isset($urlProp['host'])) {
+            Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL host.'));
+        }
+
+        $urlProp['scheme'] = strtolower($urlProp['scheme']);
+
+        return $urlProp;
+    }
+
+    /**
+     * Resolve the host and return the address the download may be fetched from
+     *
+     * Unless the URL was explicitly whitelisted, every address the host resolves to must be
+     * publicly routable, so that loopback, private, link-local (cloud instance metadata) and
+     * other reserved destinations cannot be reached from the server.
+     *
+     * @param  string              $host
+     * @param  bool                $checkAddress
+     * @return string
+     * @throws Mage_Core_Exception
+     */
+    protected function _getAllowedAddress($host, $checkAddress = true)
+    {
+        $addresses = $this->_resolveHost($host);
+        if (!$addresses) {
+            Mage::throwException(Mage::helper('downloadable')->__('Cannot resolve the download URL host.'));
+        }
+
+        if ($checkAddress) {
+            foreach ($addresses as $address) {
+                if (!$this->_isPublicAddress($address)) {
+                    Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL host.'));
+                }
+            }
+        }
+
+        return reset($addresses);
+    }
+
+    /**
+     * Retrieve all IPv4 and IPv6 addresses the given host resolves to
+     *
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @param  string $host
+     * @return array
+     */
+    protected function _resolveHost($host)
+    {
+        $host = trim($host, '[]');
+        if (filter_var($host, FILTER_VALIDATE_IP)) {
+            return [$host];
+        }
+
+        $addresses = gethostbynamel($host) ?: [];
+        foreach (@dns_get_record($host, DNS_AAAA) ?: [] as $record) {
+            if (!empty($record['ipv6'])) {
+                $addresses[] = $record['ipv6'];
+            }
+        }
+
+        return $addresses;
+    }
+
+    /**
+     * Check whether the given address is publicly routable
+     *
+     * @param  string $address
+     * @return bool
+     */
+    protected function _isPublicAddress($address)
+    {
+        return (bool) filter_var(
+            $address,
+            FILTER_VALIDATE_IP,
+            FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE,
+        );
+    }
+
+    /**
+     * Check whether the URL matches one of the configured allowed prefixes
+     *
+     * @param  string $url
+     * @return bool
+     */
+    protected function _isAllowedByPrefix($url)
+    {
+        foreach ($this->_getAllowedUrlPrefixes() as $prefix) {
+            if (str_starts_with($url, $prefix)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieve the configured allowed download URL prefixes
+     *
+     * @return array
+     */
+    protected function _getAllowedUrlPrefixes()
+    {
+        $allowedPrefixes = (string) Mage::getStoreConfig(self::XML_PATH_LINK_URL_ALLOWED_PREFIXES);
+        if (trim($allowedPrefixes) === '') {
+            return [];
+        }
+
+        return array_values(array_filter(array_map(
+            'trim',
+            preg_split('/[\r\n,]+/', $allowedPrefixes),
+        )));
     }
 
     /**
