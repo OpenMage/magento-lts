@@ -739,44 +739,110 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     }
 
     /**
-     * Check if the given path contains traversal sequences
+     * Resolve a path lexically, collapsing "." and ".." segments
      *
-     * @param string $fileName
-     * @return bool
+     * Unlike realpath() this works on paths that do not exist yet, which matters
+     * because the order directory is only created while the order is placed.
+     *
+     * @param  string       $path Relative path, using either separator
+     * @return string|false       False when the path traverses above its own root
      */
-    public function _isValidPath(string $fileName): bool
+    protected function _normalizePath($path)
     {
-        $pattern =
-            '/(?:^|[\/\\\\])(' .
-            '(?:' .
-            '(?:\.\.|%2e%2e|%252e%252e|%c0%2e%2e|%c0%ae%c0%ae|%e0%40%ae%2e|%c0%2e%c0%2e)' .
-            '(?:[\/\\\\]|%2f|%5c|%255c)' .
-            ')' .
-            ')|\\x00|%00/i';
-        return !preg_match($pattern, $fileName);
+        $resolved = [];
+        foreach (preg_split('#[/\\\\]+#', $path) as $segment) {
+            if ($segment === '' || $segment === '.') {
+                continue;
+            }
+
+            if ($segment === '..') {
+                if (!$resolved) {
+                    return false;
+                }
+
+                array_pop($resolved);
+                continue;
+            }
+
+            $resolved[] = $segment;
+        }
+
+        return DS . implode(DS, $resolved);
     }
 
     /**
-     * Validate that a stored file path belongs to the expected custom_options directory
-     * and contains no path traversal sequences.
+     * Validate that a stored option file path stays inside the custom options directories
      *
-     * @param string $filePath Relative path as stored in quote/order item option
+     * The path is resolved lexically before it is compared, so ".." is collapsed rather
+     * than pattern matched and the directory check below is sufficient on its own. Where
+     * the directory already exists the resolved path is additionally checked against
+     * realpath(), so a symlink placed inside it cannot point somewhere else.
+     *
+     * @param  string $filePath Relative path as stored in the quote/order item option
      * @throws Mage_Core_Exception
      */
     protected function _validateOptionFilePath(string $filePath): void
     {
-        if (!$this->_isValidPath($filePath)) {
-            Mage::throwException(Mage::helper('catalog')->__('Invalid file path.'));
+        if (str_contains($filePath, "\0")) {
+            $this->_throwInvalidFilePath();
         }
-        $allowedPrefixes = [
-            $this->getQuoteTargetDir(true) . DS,
-            $this->getOrderTargetDir(true) . DS,
-        ];
-        foreach ($allowedPrefixes as $prefix) {
-            if (strncmp($filePath, $prefix, strlen($prefix)) === 0) {
+
+        $normalized = $this->_normalizePath($filePath);
+        if ($normalized === false) {
+            $this->_throwInvalidFilePath();
+        }
+
+        foreach ([$this->getQuoteTargetDir(true), $this->getOrderTargetDir(true)] as $targetDir) {
+            $root = $this->_normalizePath($targetDir);
+            if ($root !== false && str_starts_with($normalized, $root . DS)) {
+                $this->_assertResolvesInside(Mage::getBaseDir() . $normalized, Mage::getBaseDir() . $root);
                 return;
             }
         }
+
+        $this->_throwInvalidFilePath();
+    }
+
+    /**
+     * Check that the nearest existing ancestor of a path resolves inside the given root
+     *
+     * Skipped when the root does not exist yet, which is the normal state before the
+     * first upload, since there is then nothing a symlink could redirect.
+     *
+     * @param  string $fullPath
+     * @param  string $rootPath
+     * @throws Mage_Core_Exception
+     */
+    protected function _assertResolvesInside($fullPath, $rootPath)
+    {
+        $realRoot = realpath($rootPath);
+        if ($realRoot === false) {
+            return;
+        }
+
+        $existing = $fullPath;
+        while (!file_exists($existing)) {
+            $parent = dirname($existing);
+            if ($parent === $existing) {
+                return;
+            }
+
+            $existing = $parent;
+        }
+
+        $realExisting = realpath($existing);
+        if ($realExisting === false
+            || ($realExisting !== $realRoot && !str_starts_with($realExisting, $realRoot . DS))
+        ) {
+            $this->_throwInvalidFilePath();
+        }
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    protected function _throwInvalidFilePath()
+    {
         Mage::throwException(Mage::helper('catalog')->__('Invalid file path.'));
     }
 
