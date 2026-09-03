@@ -109,7 +109,12 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
             return;
         }
 
-        $request = Mage::helper('core/unserializeArray')->unserialize($request);
+        try {
+            $request = Mage::helper('core/unserializeArray')->unserialize($request);
+        } catch (Exception) {
+            return;
+        }
+
         if (empty($request['options'])) {
             return;
         }
