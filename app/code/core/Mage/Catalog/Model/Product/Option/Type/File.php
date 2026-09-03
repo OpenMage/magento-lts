@@ -715,7 +715,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $quoteOption = $this->getConfigurationItemOption();
         try {
             $value = Mage::helper('core/unserializeArray')->unserialize($quoteOption->getValue());
-            if (!isset($value['quote_path'])) {
+            if (!isset($value['quote_path'], $value['order_path'])) {
                 throw new Exception();
             }
 
