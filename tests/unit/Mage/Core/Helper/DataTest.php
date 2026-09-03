@@ -180,6 +180,12 @@ final class DataTest extends OpenMageTest
     {
         $prefix = 'string';
         self::assertStringStartsWith($prefix, self::$subject->uniqHash($prefix));
+
+        $firstHash = self::$subject->uniqHash();
+        $secondHash = self::$subject->uniqHash();
+
+        self::assertMatchesRegularExpression('/^[a-f0-9]{32}$/', $firstHash);
+        self::assertNotSame($firstHash, $secondHash);
     }
 
     /**

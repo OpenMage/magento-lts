@@ -770,13 +770,19 @@ XML;
     }
 
     /**
-     * Generate a hash from unique ID
+     * Generate a cryptographically secure random hash
+     *
+     * Callers use the result as a security token (password reset links, newsletter
+     * confirmation codes, wishlist sharing codes), so the value must come from a
+     * CSPRNG and never from a time or Mersenne Twister derived value.
+     * The output format is kept at 32 lowercase hexadecimal characters.
+     *
      * @param  string $prefix
      * @return string
      */
     public function uniqHash($prefix = '')
     {
-        return $prefix . md5(uniqid(microtime() . mt_rand(), true));
+        return $prefix . bin2hex(random_bytes(16));
     }
 
     /**
