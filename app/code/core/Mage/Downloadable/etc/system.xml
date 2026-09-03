@@ -87,6 +87,15 @@
                             <show_in_store>0</show_in_store>
                             <comment>Guest checkout will only work with shareable.</comment>
                         </disable_guest_checkout>
+                        <link_url_allowed_prefixes translate="label comment">
+                            <label>Allowed Link URL Prefixes</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>900</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Optional newline or comma separated list of allowed http(s) URL prefixes for URL type links and samples. Leave empty to allow any http(s) URL that resolves to a publicly routable address. Listed prefixes are also exempt from that address check, so only add destinations you trust.</comment>
+                        </link_url_allowed_prefixes>
                     </fields>
                 </downloadable>
             </groups>
