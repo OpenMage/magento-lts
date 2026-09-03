@@ -24,6 +24,7 @@ final class AclTest extends OpenMageTest
     use AclTrait;
 
     private const GROUP = 'G10';
+
     private const USER = 'U20';
 
     private static Subject $subject;
