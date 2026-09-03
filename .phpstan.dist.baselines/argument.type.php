@@ -47,16 +47,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $rolesArr of method Mage_Admin_Model_Resource_Acl::loadRoles() expects array, array|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $rulesArr of method Mage_Admin_Model_Resource_Acl::loadRules() expects array, array|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #4 $assert of method Zend_Acl::allow() expects Zend_Acl_Assert_Interface|null, object|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
