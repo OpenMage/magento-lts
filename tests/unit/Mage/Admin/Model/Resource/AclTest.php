@@ -101,11 +101,11 @@ final class AclTest extends OpenMageTest
     {
         $acl = new Mage_Admin_Model_Acl();
         // loadAclResources() registers "all" as a resource of its own.
-        $acl->add(new Mage_Admin_Model_Acl_Resource('all'));
-        $acl->add(new Mage_Admin_Model_Acl_Resource('admin'));
-        $acl->add(new Mage_Admin_Model_Acl_Resource('admin/system'), 'admin');
-        $acl->add(new Mage_Admin_Model_Acl_Resource('admin/system/config'), 'admin/system');
-        $acl->add(new Mage_Admin_Model_Acl_Resource('admin/system/newthing'), 'admin/system');
+        $acl->addResource(new Mage_Admin_Model_Acl_Resource('all'));
+        $acl->addResource(new Mage_Admin_Model_Acl_Resource('admin'));
+        $acl->addResource(new Mage_Admin_Model_Acl_Resource('admin/system'), 'admin');
+        $acl->addResource(new Mage_Admin_Model_Acl_Resource('admin/system/config'), 'admin/system');
+        $acl->addResource(new Mage_Admin_Model_Acl_Resource('admin/system/newthing'), 'admin/system');
 
         self::$subject->loadRoles($acl, [
             ['role_id' => 10, 'parent_id' => 0, 'role_type' => 'G', 'user_id' => 0],
