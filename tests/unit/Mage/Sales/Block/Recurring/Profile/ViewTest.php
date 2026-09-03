@@ -55,6 +55,16 @@ final class ViewTest extends OpenMageTest
     }
 
     /**
+     * @group Block
+     */
+    public function testPrepareItemInfoIgnoresAMalformedBuyRequest(): void
+    {
+        $this->prepareItemInfo('not-serialized-data');
+
+        self::assertSame([], self::$subject->getRenderedInfo());
+    }
+
+    /**
      * Run prepareItemInfo() on a profile whose order item info holds the given buy request
      */
     private function prepareItemInfo(string $buyRequest): void
