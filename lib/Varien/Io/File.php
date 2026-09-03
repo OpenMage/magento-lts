@@ -508,6 +508,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         if (str_contains($filename, chr(0))
             || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $filename)
+            || !$this->_isWriteAllowed($filename)
         ) {
             throw new Exception('Detected malicious path or filename input.');
         }
@@ -529,6 +530,107 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
 
         return $result;
+    }
+
+    /**
+     * Retrieve the directory a write() target must be confined to
+     *
+     * Every write is performed with the working directory set by open()/cd(), so that
+     * directory is the boundary the caller asked for. When no working directory has
+     * been configured the application root is used as a backstop, and when even that
+     * is not available (Varien used standalone) the process working directory is used.
+     *
+     * @return false|string
+     */
+    protected function _getWriteRoot()
+    {
+        $cwd = (string) $this->_cwd;
+        if ($cwd !== '') {
+            return realpath($cwd);
+        }
+
+        if (class_exists('Mage', false) && Mage::getConfig() !== null) {
+            return realpath(Mage::getBaseDir());
+        }
+
+        return getcwd();
+    }
+
+    /**
+     * Check that a write target resolves inside the allowed root directory
+     *
+     * A relative filename is resolved against the working directory because write()
+     * applies it before touching the file system. An absolute filename is taken as is,
+     * so it has to point inside the same directory to be accepted.
+     *
+     * @param  string $filename
+     * @return bool
+     */
+    protected function _isWriteAllowed($filename)
+    {
+        $root = $this->_getWriteRoot();
+        if (!is_string($root) || $root === '') {
+            return false;
+        }
+
+        $filename = (string) $filename;
+        if ($this->_isAbsolutePath($filename)) {
+            $folder = dirname($filename);
+        } else {
+            $cwd = (string) $this->_cwd;
+            $base = $cwd === '' ? (string) getcwd() : $cwd;
+            $folder = dirname(rtrim($base, '\\/') . DIRECTORY_SEPARATOR . ltrim($filename, '\\/'));
+        }
+
+        $folder = $this->_getExistingParent($folder);
+        if ($folder === false) {
+            return false;
+        }
+
+        $folder = rtrim($folder, '\\/') . DIRECTORY_SEPARATOR;
+        $root = rtrim($root, '\\/') . DIRECTORY_SEPARATOR;
+
+        return str_starts_with($folder, $root);
+    }
+
+    /**
+     * Resolve the nearest existing ancestor of a directory path
+     *
+     * The folder of a write target does not have to exist yet, but once parent
+     * traversal has been rejected everything below an existing ancestor is a plain
+     * suffix of it, so resolving that ancestor is enough to place the target.
+     *
+     * @param  string       $folder
+     * @return false|string
+     */
+    protected function _getExistingParent($folder)
+    {
+        while (true) {
+            $realFolder = realpath($folder);
+            if ($realFolder !== false) {
+                return $realFolder;
+            }
+
+            $parent = dirname($folder);
+            if ($parent === $folder) {
+                return false;
+            }
+
+            $folder = $parent;
+        }
+    }
+
+    /**
+     * Check path is absolute
+     *
+     * @param  string $path
+     * @return bool
+     */
+    protected function _isAbsolutePath($path)
+    {
+        return str_starts_with($path, '/')
+            || str_starts_with($path, '\\')
+            || preg_match('#^[a-z]:[\\\\/]#i', $path) === 1;
     }
 
     /**
