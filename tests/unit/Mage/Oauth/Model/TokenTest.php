@@ -15,6 +15,7 @@ use Override;
 use Generator;
 use Mage;
 use Mage_Core_Exception;
+use Mage_Oauth_Model_Consumer as Consumer;
 use Mage_Oauth_Model_Token as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
@@ -32,7 +33,7 @@ final class TokenTest extends OpenMageTest
     /**
      * @dataProvider validateDataProvider
      * @group Model
-     * @param array<string, string> $methods
+     * @param array<string, mixed> $methods
      */
     public function testValidate(bool|string $expected, array $methods): void
     {
@@ -41,11 +42,18 @@ final class TokenTest extends OpenMageTest
         self::$subject->setSecret($methods['setSecret']);
         self::$subject->setToken($methods['setToken']);
         self::$subject->setVerifier($methods['setVerifier']);
+        if (isset($methods['setConsumer'])) {
+            self::$subject->setConsumer($methods['setConsumer']);
+        }
 
         try {
             self::assertTrue(self::$subject->validate());
         } catch (Mage_Core_Exception $mageCoreException) {
             self::assertSame($expected, $mageCoreException->getMessage());
+        } finally {
+            if (isset($methods['setConsumer'])) {
+                self::$subject->unsetData('consumer');
+            }
         }
     }
 
@@ -98,6 +106,30 @@ final class TokenTest extends OpenMageTest
         $data['setCallbackUrl'] = 'invalid-url';
         yield 'invalid url' => [
             'Invalid URL "invalid-url".',
+            $data,
+        ];
+
+        $data = $validData;
+        $data['setConsumer'] = (new Consumer())->setCallbackUrl('https://legit-app.com');
+        $data['setCallbackUrl'] = 'https://legit-app.com/cb';
+        yield 'url covered by the consumer callback url' => [
+            true,
+            $data,
+        ];
+
+        $data = $validData;
+        $data['setConsumer'] = (new Consumer())->setCallbackUrl('myapp://callback');
+        $data['setCallbackUrl'] = 'myapp://callback';
+        yield 'custom scheme covered by the consumer callback url' => [
+            true,
+            $data,
+        ];
+
+        $data = $validData;
+        $data['setConsumer'] = (new Consumer())->setCallbackUrl('https://legit-app.com');
+        $data['setCallbackUrl'] = 'https://legit-app.com.evil.com/cb';
+        yield 'url not covered by the consumer callback url' => [
+            'Invalid URL "https://legit-app.com.evil.com/cb".',
             $data,
         ];
     }

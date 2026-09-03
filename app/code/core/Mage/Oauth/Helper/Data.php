@@ -144,6 +144,83 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Check whether a supplied callback URL is covered by the consumer registration
+     *
+     * Scheme, host and port must match exactly, only the path of the registered callback
+     * URL is treated as a prefix and must end on a path segment boundary. Callback URLs
+     * that can not be parsed, that carry credentials, or that have no authority to compare
+     * (custom schemes like "myapp:/callback") are accepted on a full match only.
+     *
+     * @param  string $callbackUrl           Callback URL supplied by the client
+     * @param  string $registeredCallbackUrl Callback URL registered for the consumer
+     * @return bool
+     */
+    public function isCallbackUrlWhitelisted($callbackUrl, $registeredCallbackUrl)
+    {
+        if (!is_string($callbackUrl) || !is_string($registeredCallbackUrl)
+            || $callbackUrl === '' || $registeredCallbackUrl === ''
+        ) {
+            return false;
+        }
+
+        $callback = parse_url($callbackUrl);
+        $registered = parse_url($registeredCallbackUrl);
+
+        if ($callback === false || $registered === false) {
+            return false;
+        }
+
+        // Credentials are never part of a registration and are used to spoof the host
+        if (isset($callback['user']) || isset($callback['pass'])) {
+            return false;
+        }
+
+        // Without an authority there is nothing to compare structurally
+        if (empty($callback['scheme']) || empty($callback['host'])
+            || empty($registered['scheme']) || empty($registered['host'])
+        ) {
+            return $callbackUrl === $registeredCallbackUrl;
+        }
+
+        if (strtolower($callback['scheme']) !== strtolower($registered['scheme'])
+            || strtolower($callback['host']) !== strtolower($registered['host'])
+            || $this->_getCallbackUrlPort($callback) !== $this->_getCallbackUrlPort($registered)
+        ) {
+            return false;
+        }
+
+        $registeredPath = $registered['path'] ?? '';
+
+        if ($registeredPath === '' || $registeredPath === '/') {
+            return true;
+        }
+
+        $callbackPath = $callback['path'] ?? '';
+
+        return $callbackPath === $registeredPath
+            || str_starts_with($callbackPath, rtrim($registeredPath, '/') . '/');
+    }
+
+    /**
+     * Return effective port of a parsed URL, the scheme default is used when absent
+     *
+     * @param  array    $parsedUrl Result of parse_url()
+     * @return null|int
+     */
+    protected function _getCallbackUrlPort(array $parsedUrl)
+    {
+        if (isset($parsedUrl['port'])) {
+            return (int) $parsedUrl['port'];
+        }
+
+        return match (strtolower((string) ($parsedUrl['scheme'] ?? ''))) {
+            'http'  => 80,
+            'https' => 443,
+            default => null,
+        };
+    }
+
+    /**
      * Return complete callback URL or boolean FALSE if no callback provided
      *
      * @param  Mage_Oauth_Model_Token $token    Token object
