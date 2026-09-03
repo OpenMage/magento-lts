@@ -769,8 +769,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             Mage::throwException(Mage::helper('catalog')->__('Invalid file path.'));
         }
         $allowedPrefixes = [
-            $this->getQuoteTargetDir(true),
-            $this->getOrderTargetDir(true),
+            $this->getQuoteTargetDir(true) . DS,
+            $this->getOrderTargetDir(true) . DS,
         ];
         foreach ($allowedPrefixes as $prefix) {
             if (strncmp($filePath, $prefix, strlen($prefix)) === 0) {
