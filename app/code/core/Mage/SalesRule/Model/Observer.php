@@ -114,11 +114,26 @@ class Mage_SalesRule_Model_Observer
             $coupon = Mage::getModel('salesrule/coupon');
             $coupon->load($order->getCouponCode(), 'code');
             if ($coupon->getId()) {
-                $coupon->setTimesUsed($coupon->getTimesUsed() + 1);
-                $coupon->save();
+                // The usage limits are enforced by the counter updates themselves, the check done
+                // while validating the quote is far too early to be relied upon. This runs as a
+                // commit callback of the order placement transaction, so throwing here rolls the
+                // order back instead of letting the coupon be redeemed beyond its limit.
+                /** @var Mage_SalesRule_Model_Resource_Coupon $couponResource */
+                $couponResource = Mage::getResourceModel('salesrule/coupon');
+                if (!$couponResource->incrementTimesUsed($coupon->getId(), $coupon->getUsageLimit())) {
+                    Mage::throwException(
+                        Mage::helper('salesrule')->__('Coupon code "%s" has already been used the maximum number of times.', $order->getCouponCode()),
+                    );
+                }
+
                 if ($customerId) {
+                    /** @var Mage_SalesRule_Model_Resource_Coupon_Usage $couponUsage */
                     $couponUsage = Mage::getResourceModel('salesrule/coupon_usage');
-                    $couponUsage->updateCustomerCouponTimesUsed($customerId, $coupon->getId());
+                    if (!$couponUsage->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), false, $coupon->getUsagePerCustomer())) {
+                        Mage::throwException(
+                            Mage::helper('salesrule')->__('Coupon code "%s" has already been used the maximum number of times by this customer.', $order->getCouponCode()),
+                        );
+                    }
                 }
             }
         }
@@ -145,8 +160,9 @@ class Mage_SalesRule_Model_Observer
             // Decrement coupon times_used
             $coupon = Mage::getModel('salesrule/coupon')->loadByCode($code);
             if ($coupon->getId()) {
-                $coupon->setTimesUsed($coupon->getTimesUsed() - 1);
-                $coupon->save();
+                /** @var Mage_SalesRule_Model_Resource_Coupon $couponResource */
+                $couponResource = Mage::getResourceModel('salesrule/coupon');
+                $couponResource->decrementTimesUsed($coupon->getId());
 
                 // Decrement times_used on rule
                 $rule = Mage::getModel('salesrule/rule');

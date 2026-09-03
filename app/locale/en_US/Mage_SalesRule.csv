@@ -30,6 +30,8 @@
 "Coupon","Coupon"
 "Coupon Code","Coupon Code"
 "Coupon Qty","Coupon Qty"
+"Coupon code ""%s"" has already been used the maximum number of times by this customer.","Coupon code ""%s"" has already been used the maximum number of times by this customer."
+"Coupon code ""%s"" has already been used the maximum number of times.","Coupon code ""%s"" has already been used the maximum number of times."
 "Coupon with the same code","Coupon with the same code"
 "Coupons Information","Coupons Information"
 "Created On","Created On"
