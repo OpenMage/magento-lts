@@ -48,7 +48,9 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 
         $rolesArr = $adapter->fetchAll($select);
 
-        $this->loadRoles($acl, $rolesArr);
+        if (is_array($rolesArr)) {
+            $this->loadRoles($acl, $rolesArr);
+        }
 
         $select = $adapter->select()
             ->from(['r' => $ruleTable])
@@ -58,10 +60,15 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 ['assert_type', 'assert_data'],
             );
 
+        /**
+         * @var array<int, array<string, mixed>> $rulesArr
+         */
         $rulesArr = $adapter->fetchAll($select);
 
-        $this->loadRules($acl, $rulesArr);
-        $this->denyUnlistedResources($acl, $rulesArr);
+        if (is_array($rulesArr)) {
+            $this->loadRules($acl, $rulesArr);
+            $this->denyUnlistedResources($acl, $rulesArr);
+        }
 
         return $acl;
     }
