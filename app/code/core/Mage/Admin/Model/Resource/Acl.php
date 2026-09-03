@@ -125,6 +125,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load roles
      *
+     * @param  array<int, array<string, mixed>> $rolesArr
      * @return $this
      * @throws Zend_Acl_Exception
      */
@@ -156,7 +157,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load rules
      *
-     * @param array<int, array<string, mixed>> $rulesArr
+     * @param  array<int, array<string, mixed>> $rulesArr
      * @return $this
      */
     public function loadRules(Mage_Admin_Model_Acl $acl, array $rulesArr)
@@ -168,10 +169,13 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             $privileges = empty($rule['privileges']) ? null : explode(',', $rule['privileges']);
 
             /**
-             * @var Zend_Acl_Assert_Interface|null $assert
+             * @var null|Zend_Acl_Assert_Interface $assert
              */
             $assert = null;
             if ($rule['assert_id'] != 0) {
+                /**
+                 * @var interface-string<Zend_Acl_Assert_Interface> $assertClass
+                 */
                 $assertClass = Mage::getSingleton('admin/config')->getAclAssert($rule['assert_type'])->getClassName();
                 $assert = new $assertClass(unserialize($rule['assert_data'], ['allowed_classes' => false]));
             }
