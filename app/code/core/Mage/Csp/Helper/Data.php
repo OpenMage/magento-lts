@@ -185,7 +185,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
         $systemNode = Mage::getStoreConfig(sprintf('csp/%s/%s', $area, $directiveName));
         if ($systemNode) {
             if (is_string($systemNode) && preg_match('/^a:\d+:{.*}$/', $systemNode)) {
-                $unserializedData = unserialize($systemNode);
+                $unserializedData = unserialize($systemNode, ['allowed_classes' => false]);
                 if (is_array($unserializedData)) {
                     /** @var array<string> $systemNode */
                     $systemNode = array_column($unserializedData, 'host');
