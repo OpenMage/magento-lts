@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Order Tax Item Collection
  *
  * @package    Mage_Tax
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Tax_Model_Sales_Order_Tax_Item>
  */
 class Mage_Tax_Model_Resource_Sales_Order_Tax_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

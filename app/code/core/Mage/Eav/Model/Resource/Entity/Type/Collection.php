@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Eav Resource Entity Type Collection Model
  *
  * @package    Mage_Eav
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Eav_Model_Entity_Type>
  */
 class Mage_Eav_Model_Resource_Entity_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

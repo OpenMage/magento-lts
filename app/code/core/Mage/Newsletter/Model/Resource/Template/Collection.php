@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Newsletter templates collection
  *
  * @package    Mage_Newsletter
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Newsletter_Model_Template>
  */
 class Mage_Newsletter_Model_Resource_Template_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

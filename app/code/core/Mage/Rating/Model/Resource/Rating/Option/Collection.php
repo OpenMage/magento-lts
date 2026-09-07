@@ -11,6 +11,7 @@
  * Rating option collection
  *
  * @package    Mage_Rating
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Rating_Model_Rating_Option>
  */
 class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

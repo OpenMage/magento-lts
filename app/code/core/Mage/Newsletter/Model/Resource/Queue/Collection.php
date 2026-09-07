@@ -11,6 +11,7 @@
  * Newsletter queue collection.
  *
  * @package    Mage_Newsletter
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Newsletter_Model_Queue>
  */
 class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

@@ -11,6 +11,7 @@
  * Invoices collection
  *
  * @package    Mage_Sales
+ * @extends Mage_Eav_Model_Entity_Collection_Abstract<Mage_Sales_Model_Order_Invoice>
  */
 class Mage_Sales_Model_Entity_Order_Invoice_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
