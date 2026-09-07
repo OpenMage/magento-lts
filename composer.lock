@@ -8128,11 +8128,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.10",
+            "version": "2.2.13",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/36d1509c998b0602811824143526b4a9ee2774e7",
-                "reference": "36d1509c998b0602811824143526b4a9ee2774e7",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9ba9ac76ee9c5cf5b56d58eb5deec6315b7a0260",
+                "reference": "9ba9ac76ee9c5cf5b56d58eb5deec6315b7a0260",
                 "shasum": ""
             },
             "require": {
@@ -8188,7 +8188,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-30T12:46:16+00:00"
+            "time": "2026-09-03T20:38:19+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -11138,16 +11138,6 @@
             ],
             "support": {
                 "source": "https://github.com/ecsphp/ecs/tree/13.2.19"
-            },
-            "time": "2026-08-24T17:02:37+00:00"
-        },
-        {
-            "name": "symplify/vendor-patches",
-            "version": "12.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symplify/vendor-patches.git",
-                "reference": "b7367c6ed0a229101f77417fbad130d356534401"
             },
             "time": "2026-08-24T17:02:37+00:00"
         },
