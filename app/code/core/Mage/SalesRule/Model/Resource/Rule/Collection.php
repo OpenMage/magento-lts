@@ -127,9 +127,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     public function addWebsiteGroupDateFilter($websiteId, $customerGroupId, $now = null)
     {
         if (!$this->getFlag('website_group_date_filter')) {
-            if (is_null($now)) {
-                $now = Mage::getModel('core/date')->date('Y-m-d');
-            }
+            $now ??= Mage::getModel('core/date')->date('Y-m-d');
 
             $this->addWebsiteFilter($websiteId);
 

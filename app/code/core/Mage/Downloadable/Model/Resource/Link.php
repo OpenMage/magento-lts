@@ -150,7 +150,7 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
             $where = ['sample_id = ?'  => $items];
         }
 
-        if ($where) {
+        if ($where !== []) {
             $writeAdapter->delete(
                 $this->getMainTable(),
                 $where,

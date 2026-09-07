@@ -181,7 +181,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
             }
         }
 
-        if ($delete) {
+        if ($delete !== []) {
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
                 $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $delete),
@@ -220,7 +220,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
             $where[] = $this->_getWriteAdapter()->quoteInto('visitor_id = ?', $visitorId);
         }
 
-        if (!$where) {
+        if ($where === []) {
             return $this;
         }
 

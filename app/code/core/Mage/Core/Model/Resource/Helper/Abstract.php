@@ -122,7 +122,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
             $replace[] = '\%';
         }
 
-        if ($search) {
+        if ($search !== []) {
             $value = str_replace($search, $replace, $value);
         }
 

@@ -259,9 +259,7 @@ class Mage_Core_Model_App
         $this->_config->init($options);
         Varien_Profiler::stop('mage::app::init::config');
 
-        if ($this->_isInstalled === null) {
-            $this->_isInstalled = Mage::isInstalled($options);
-        }
+        $this->_isInstalled ??= Mage::isInstalled($options);
 
         if ($this->_isInstalled) {
             $this->_initCurrentStore($code, $type);
@@ -690,9 +688,7 @@ class Mage_Core_Model_App
 
         foreach ($groupCollection as $group) {
             /** @var Mage_Core_Model_Store_Group $group */
-            if (!isset($groupStores[$group->getId()])) {
-                $groupStores[$group->getId()] = [];
-            }
+            $groupStores[$group->getId()] ??= [];
 
             $group->setStores($groupStores[$group->getId()]);
             $group->setWebsite($websiteCollection->getItemById($group->getWebsiteId()));
@@ -704,13 +700,9 @@ class Mage_Core_Model_App
 
         foreach ($websiteCollection as $website) {
             /** @var Mage_Core_Model_Website $website */
-            if (!isset($websiteGroups[$website->getId()])) {
-                $websiteGroups[$website->getId()] = [];
-            }
+            $websiteGroups[$website->getId()] ??= [];
 
-            if (!isset($websiteStores[$website->getId()])) {
-                $websiteStores[$website->getId()] = [];
-            }
+            $websiteStores[$website->getId()] ??= [];
 
             if ($website->getIsDefault()) {
                 $this->_website = $website;
@@ -731,9 +723,7 @@ class Mage_Core_Model_App
      */
     public function isSingleStoreMode()
     {
-        if ($this->_isInstalled === null) {
-            $this->_isInstalled = Mage::isInstalled();
-        }
+        $this->_isInstalled ??= Mage::isInstalled();
 
         if (!$this->_isInstalled) {
             return false;
@@ -853,9 +843,7 @@ class Mage_Core_Model_App
      */
     public function getArea($code)
     {
-        if (!isset($this->_areas[$code])) {
-            $this->_areas[$code] = new Mage_Core_Model_App_Area($code, $this);
-        }
+        $this->_areas[$code] ??= new Mage_Core_Model_App_Area($code, $this);
 
         return $this->_areas[$code];
     }
@@ -870,9 +858,7 @@ class Mage_Core_Model_App
      */
     public function getStore($storeId = null)
     {
-        if ($this->_isInstalled === null) {
-            $this->_isInstalled = Mage::isInstalled();
-        }
+        $this->_isInstalled ??= Mage::isInstalled();
 
         if (!$this->_isInstalled || $this->getUpdateMode()) {
             return $this->_getDefaultStore();
@@ -1412,9 +1398,7 @@ class Mage_Core_Model_App
      */
     public function addEventArea($area)
     {
-        if (!isset($this->_events[$area])) {
-            $this->_events[$area] = [];
-        }
+        $this->_events[$area] ??= [];
 
         return $this;
     }

@@ -63,9 +63,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
                 foreach ($rowSet as $row) {
                     self::$_versions[$row['code']] = $row['version'];
                     if (array_key_exists('data_version', $row)) {
-                        if (is_null(self::$_dataVersions)) {
-                            self::$_dataVersions = [];
-                        }
+                        self::$_dataVersions ??= [];
 
                         self::$_dataVersions[$row['code']] = $row['data_version'];
                     }

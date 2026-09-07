@@ -288,9 +288,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
             return false;
         }
 
-        if (is_null($this->_website)) {
-            $this->_website = Mage::app()->getWebsite($this->getWebsiteId());
-        }
+        $this->_website ??= Mage::app()->getWebsite($this->getWebsiteId());
 
         return $this->_website;
     }

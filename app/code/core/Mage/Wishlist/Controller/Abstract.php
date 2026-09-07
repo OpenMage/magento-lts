@@ -139,7 +139,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             $redirectUrl = $indexUrl;
         }
 
-        if ($notSalable) {
+        if ($notSalable !== []) {
             $products = [];
             foreach ($notSalable as $item) {
                 $products[] = '"' . $item->getProduct()->getName() . '"';
@@ -148,7 +148,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             $messages[] = Mage::helper('wishlist')->__('Unable to add the following product(s) to shopping cart: %s.', implode(', ', $products));
         }
 
-        if ($hasOptions) {
+        if ($hasOptions !== []) {
             $products = [];
             foreach ($hasOptions as $item) {
                 $products[] = '"' . $item->getProduct()->getName() . '"';
@@ -157,7 +157,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             $messages[] = Mage::helper('wishlist')->__('Product(s) %s have required options. Each of them can be added to cart separately only.', implode(', ', $products));
         }
 
-        if ($messages) {
+        if ($messages !== []) {
             $isMessageSole = (count($messages) === 1);
             if ($isMessageSole && count($hasOptions) === 1) {
                 $item = $hasOptions[0];
@@ -176,7 +176,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             }
         }
 
-        if ($addedItems) {
+        if ($addedItems !== []) {
             // save wishlist model for setting date of last update
             try {
                 $wishlist->save();

@@ -29,9 +29,7 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract implements Mage_Data
 
     public function addAction(?Mage_Dataflow_Model_Convert_Action_Interface $action = null)
     {
-        if (is_null($action)) {
-            $action = new $this->_actionDefaultClass();
-        }
+        $action ??= new $this->_actionDefaultClass();
 
         $this->_actions[] = $action;
         $action->setProfile($this);
@@ -55,9 +53,7 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract implements Mage_Data
 
     public function getContainer($name = null)
     {
-        if (is_null($name)) {
-            $name = '_default';
-        }
+        $name ??= '_default';
 
         return $this->getContainers()->getItem($name);
     }

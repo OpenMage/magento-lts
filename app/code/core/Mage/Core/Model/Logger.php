@@ -36,9 +36,7 @@ class Mage_Core_Model_Logger
      */
     public function log($message, $level = null, $file = '', $forceLog = false, array $context = [])
     {
-        if (is_null($file)) {
-            $file = '';
-        }
+        $file ??= '';
 
         $useStdout = in_array($file, ['php://stdout', 'php://stderr'], true);
 

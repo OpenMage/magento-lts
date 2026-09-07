@@ -48,10 +48,8 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
      */
     public function getTagInfo()
     {
-        if (is_null($this->_tagInfo)) {
-            $this->_tagInfo = Mage::getModel('tag/tag')
-                ->load($this->getTagId());
-        }
+        $this->_tagInfo ??= Mage::getModel('tag/tag')
+            ->load($this->getTagId());
 
         return $this->_tagInfo;
     }

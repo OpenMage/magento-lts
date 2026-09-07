@@ -230,9 +230,7 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function getUseSession()
     {
-        if (is_null($this->_useSession)) {
-            $this->_useSession = Mage::app()->getUseSessionInUrl();
-        }
+        $this->_useSession ??= Mage::app()->getUseSessionInUrl();
 
         return $this->_useSession;
     }
@@ -257,9 +255,7 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function getConfigData($key, $prefix = null)
     {
-        if (is_null($prefix)) {
-            $prefix = 'web/' . ($this->getSecure() ? 'secure' : 'unsecure') . '/';
-        }
+        $prefix ??= 'web/' . ($this->getSecure() ? 'secure' : 'unsecure') . '/';
 
         $path = $prefix . $key;
 

@@ -111,7 +111,7 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
         if (!$required) {
             $childrenIds = array_merge($childrenIds, $notRequired);
         } else {
-            if (!$childrenIds) {
+            if ($childrenIds === []) {
                 foreach ($notRequired as $groupedChildrenIds) {
                     foreach ($groupedChildrenIds as $childId) {
                         $childrenIds[0][$childId] = $childId;
@@ -119,7 +119,7 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
                 }
             }
 
-            if (!$childrenIds) {
+            if ($childrenIds === []) {
                 $childrenIds = [[]];
             }
         }

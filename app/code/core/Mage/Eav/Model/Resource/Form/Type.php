@@ -98,7 +98,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
                     ];
                 }
 
-                if ($data) {
+                if ($data !== []) {
                     $adapter->insertMultiple($this->getTable('eav/form_type_entity'), $data);
                 }
             }

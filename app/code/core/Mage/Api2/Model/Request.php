@@ -99,7 +99,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
 
             $quality = '1.0'; // default value for quality
 
-            if ($typeWithQ) {
+            if ($typeWithQ !== []) {
                 $qAndValue = explode('=', $typeWithQ[0]);
 
                 if (count($qAndValue) === 2) {

@@ -144,17 +144,11 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      */
     protected function _addEmailVariables($variables, $storeId)
     {
-        if (!isset($variables['store'])) {
-            $variables['store'] = Mage::app()->getStore($storeId);
-        }
+        $variables['store'] ??= Mage::app()->getStore($storeId);
 
-        if (!isset($variables['logo_url'])) {
-            $variables['logo_url'] = $this->_getLogoUrl($storeId);
-        }
+        $variables['logo_url'] ??= $this->_getLogoUrl($storeId);
 
-        if (!isset($variables['logo_alt'])) {
-            $variables['logo_alt'] = $this->_getLogoAlt($storeId);
-        }
+        $variables['logo_alt'] ??= $this->_getLogoAlt($storeId);
 
         $defaultValuesMap = [
             'logo_width' => self::XML_PATH_DESIGN_EMAIL_LOGO_WIDTH,
@@ -166,9 +160,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         ];
 
         foreach ($defaultValuesMap as $variableName => $configValue) {
-            if (!isset($variables[$variableName])) {
-                $variables[$variableName] = Mage::getStoreConfig($configValue, $storeId);
-            }
+            $variables[$variableName] ??= Mage::getStoreConfig($configValue, $storeId);
         }
 
         // If template is text mode, don't include styles

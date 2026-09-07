@@ -114,9 +114,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
         $offset = max((int) $offset, 0);
         $count  = max((int) $count, 1);
 
-        if (is_null($this->_data)) {
-            $this->_data = $this->getStorageData();
-        }
+        $this->_data ??= $this->getStorageData();
 
         $slice = array_slice($this->_data[$type], $offset, $count);
         if ($slice === []) {

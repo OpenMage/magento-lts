@@ -86,7 +86,7 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
             $where = ['sample_id in (?)' => $items];
         }
 
-        if ($where) {
+        if ($where !== []) {
             $writeAdapter->delete(
                 $this->getMainTable(),
                 $where,

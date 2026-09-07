@@ -307,9 +307,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      */
     public function xmlentities($value = null)
     {
-        if (is_null($value)) {
-            $value = $this;
-        }
+        $value ??= $this;
 
         $value = (string) $value;
 

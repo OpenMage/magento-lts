@@ -149,13 +149,9 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                 $productAttribute   = $attribute->getProductAttribute();
                 $productAttributeId = $productAttribute->getId();
                 $attributeValue     = $product->getData($productAttribute->getAttributeCode());
-                if (!isset($options[$productAttributeId])) {
-                    $options[$productAttributeId] = [];
-                }
+                $options[$productAttributeId] ??= [];
 
-                if (!isset($options[$productAttributeId][$attributeValue])) {
-                    $options[$productAttributeId][$attributeValue] = [];
-                }
+                $options[$productAttributeId][$attributeValue] ??= [];
 
                 $options[$productAttributeId][$attributeValue][] = $productId;
             }

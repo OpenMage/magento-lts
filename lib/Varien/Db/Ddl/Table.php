@@ -426,9 +426,7 @@ class Varien_Db_Ddl_Table
             $identity = true;
         }
 
-        if ($comment === null) {
-            $comment = ucfirst($name);
-        }
+        $comment ??= ucfirst($name);
 
         $upperName = strtoupper($name);
         $this->_columns[$upperName] = [

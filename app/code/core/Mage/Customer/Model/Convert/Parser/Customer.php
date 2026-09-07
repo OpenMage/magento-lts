@@ -137,9 +137,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
      */
     public function getStoreId()
     {
-        if (is_null($this->_storeId)) {
-            $this->_storeId = $this->getStore()->getId();
-        }
+        $this->_storeId ??= $this->getStore()->getId();
 
         return $this->_storeId;
     }
@@ -150,9 +148,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
      */
     public function getStoreById($storeId)
     {
-        if (is_null($this->_stores)) {
-            $this->_stores = Mage::app()->getStores(true);
-        }
+        $this->_stores ??= Mage::app()->getStores(true);
 
         return $this->_stores[$storeId] ?? false;
     }
@@ -165,9 +161,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
      */
     public function getWebsiteById($websiteId)
     {
-        if (is_null($this->_websites)) {
-            $this->_websites = Mage::app()->getWebsites(true);
-        }
+        $this->_websites ??= Mage::app()->getWebsites(true);
 
         return $this->_websites[$websiteId] ?? false;
     }
@@ -180,9 +174,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
      */
     public function getAttribute($code)
     {
-        if (!isset($this->_attributes[$code])) {
-            $this->_attributes[$code] = $this->getCustomerModel()->getResource()->getAttribute($code);
-        }
+        $this->_attributes[$code] ??= $this->getCustomerModel()->getResource()->getAttribute($code);
 
         return $this->_attributes[$code];
     }

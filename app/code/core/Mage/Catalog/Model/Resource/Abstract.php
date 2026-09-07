@@ -632,7 +632,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         /**
          * Collecting static attributes
          */
-        if ($staticAttributes) {
+        if ($staticAttributes !== []) {
             $select = $adapter->select()->from($staticTable, $staticAttributes)
                 ->where($this->getEntityIdField() . ' = :entity_id');
             $attributesData = $adapter->fetchRow($select, ['entity_id' => $entityId]) ?: [];
@@ -641,7 +641,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         /**
          * Collecting typed attributes, performing separate SQL query for each attribute type table
          */
-        if ($typedAttributes) {
+        if ($typedAttributes !== []) {
             if ($store instanceof Mage_Core_Model_Store) {
                 $store = $store->getId();
             }

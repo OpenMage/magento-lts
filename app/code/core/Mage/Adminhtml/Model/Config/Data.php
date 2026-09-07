@@ -158,9 +158,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     ->setFieldsetData($fieldsetData)
                 ;
 
-                if (!isset($fieldData['value'])) {
-                    $fieldData['value'] = null;
-                }
+                $fieldData['value'] ??= null;
 
                 $path = $section . '/' . $group . '/' . $field;
 
@@ -376,9 +374,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     public function getConfigDataValue($path, &$inherit = null, $configData = null)
     {
         $this->load();
-        if (is_null($configData)) {
-            $configData = $this->_configData;
-        }
+        $configData ??= $this->_configData;
 
         if (array_key_exists($path, $configData)) {
             $data = $configData[$path];

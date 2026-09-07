@@ -122,9 +122,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
      */
     public function getProduct()
     {
-        if (is_null($this->_product)) {
-            $this->_product = $this->getOption()->getProduct();
-        }
+        $this->_product ??= $this->getOption()->getProduct();
 
         return $this->_product;
     }

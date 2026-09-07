@@ -243,10 +243,7 @@ class Varien_Object implements ArrayAccess
             $this->_data = $key;
             $this->_addFullNames();
         } else {
-            if (is_null($key)) {
-                $key = '';
-            }
-
+            $key ??= '';
             $this->_data[$key] = $value;
             if (isset($this->_syncFieldsMap[$key])) {
                 $fullFieldName = $this->_syncFieldsMap[$key];
@@ -323,9 +320,7 @@ class Varien_Object implements ArrayAccess
             return $this->_data;
         }
 
-        if (is_null($key)) {
-            $key = '';
-        }
+        $key ??= '';
 
         $data = $this->_data[$key] ?? null;
         if ($data === null && str_contains($key, '/')) {
@@ -433,9 +428,7 @@ class Varien_Object implements ArrayAccess
      */
     public function getDataSetDefault($key, $default)
     {
-        if (!isset($this->_data[$key])) {
-            $this->_data[$key] = $default;
-        }
+        $this->_data[$key] ??= $default;
 
         return $this->_data[$key];
     }
@@ -495,9 +488,7 @@ class Varien_Object implements ArrayAccess
     protected function _prepareArray(&$arr, array $elements = [])
     {
         foreach ($elements as $element) {
-            if (!isset($arr[$element])) {
-                $arr[$element] = null;
-            }
+            $arr[$element] ??= null;
         }
 
         return $arr;

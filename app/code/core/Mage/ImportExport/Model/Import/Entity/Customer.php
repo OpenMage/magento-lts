@@ -240,7 +240,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 }
             }
 
-            if ($idToDelete) {
+            if ($idToDelete !== []) {
                 $this->_connection->query(
                     $this->_connection->quoteInto(
                         "DELETE FROM `{$this->_entityTable}` WHERE `entity_id` IN (?)",
@@ -324,9 +324,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         foreach (Mage::getResourceModel('customer/customer_collection') as $customer) {
             $email = $customer->getEmail();
 
-            if (!isset($this->_oldCustomers[$email])) {
-                $this->_oldCustomers[$email] = [];
-            }
+            $this->_oldCustomers[$email] ??= [];
 
             $this->_oldCustomers[$email][$this->_websiteIdToCode[$customer->getWebsiteId()]] = $customer->getId();
         }
@@ -524,11 +522,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     protected function _saveCustomerEntity(array $entityRowsIn, array $entityRowsUp)
     {
-        if ($entityRowsIn) {
+        if ($entityRowsIn !== []) {
             $this->_connection->insertMultiple($this->_entityTable, $entityRowsIn);
         }
 
-        if ($entityRowsUp) {
+        if ($entityRowsUp !== []) {
             $this->_connection->insertOnDuplicate(
                 $this->_entityTable,
                 $entityRowsUp,

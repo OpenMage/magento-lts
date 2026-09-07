@@ -37,9 +37,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
      */
     public function getBehavior()
     {
-        if (is_null($this->_behavior)) {
-            $this->_behavior = Mage_ImportExport_Model_Import::getDataSourceModel()->getBehavior();
-        }
+        $this->_behavior ??= Mage_ImportExport_Model_Import::getDataSourceModel()->getBehavior();
 
         return $this->_behavior;
     }
