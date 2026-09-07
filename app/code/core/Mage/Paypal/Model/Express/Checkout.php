@@ -493,7 +493,7 @@ class Mage_Paypal_Model_Express_Checkout
 
         $exportedBillingAddress = $this->_api->getExportedBillingAddress();
 
-        if (!$exportedBillingAddress->getRegion()) {
+        if ($this->hasExportedBillingAddressData($exportedBillingAddress) && !$exportedBillingAddress->getRegion()) {
             $billingAddress->setRegion(null);
             $billingAddress->setRegionId(null);
         }
@@ -787,6 +787,17 @@ class Mage_Paypal_Model_Express_Checkout
                 }
             }
         }
+    }
+
+    /**
+     * Determine whether PayPal returned billing address fields.
+     */
+    protected function hasExportedBillingAddressData(Varien_Object $exportedAddress): bool
+    {
+        return array_intersect_key(
+            $exportedAddress->getData(),
+            array_flip(['company', 'country_id', 'region', 'city', 'street', 'street2', 'postcode', 'telephone']),
+        ) !== [];
     }
 
     /**

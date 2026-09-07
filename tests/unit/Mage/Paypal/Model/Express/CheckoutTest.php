@@ -11,23 +11,51 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Express;
 
-// use Mage;
-// use Mage_Paypal_Model_Express_Checkout as Subject;
+use Mage_Paypal_Model_Express_Checkout as Subject;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
-use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Express\CheckoutTrait;
+use ReflectionMethod;
+use Varien_Object;
 
 final class CheckoutTest extends OpenMageTest
 {
-    use CheckoutTrait;
-
-    // private static Subject $subject;
+    private static Subject $subject;
 
     #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        // self::$subject = Mage::getModel('paypal/express_checkout');
-        self::markTestSkipped('');
+        self::$subject = new Subject();
+    }
+
+    public function testHasExportedBillingAddressDataIgnoresIdentityOnlyFields(): void
+    {
+        self::assertFalse(
+            $this->invokeHasExportedBillingAddressData(new Varien_Object([
+                'exported_keys'  => ['email', 'firstname', 'lastname'],
+                'customer_notes' => 'note',
+                'email'          => 'customer@example.com',
+                'firstname'      => 'Jane',
+                'lastname'       => 'Doe',
+            ])),
+        );
+    }
+
+    public function testHasExportedBillingAddressDataDetectsAddressFieldsWithoutRegion(): void
+    {
+        self::assertTrue(
+            $this->invokeHasExportedBillingAddressData(new Varien_Object([
+                'street'     => '1 Main St',
+                'city'       => 'Austin',
+                'postcode'   => '78701',
+                'country_id' => 'US',
+            ])),
+        );
+    }
+
+    private function invokeHasExportedBillingAddressData(Varien_Object $exportedAddress): bool
+    {
+        $method = new ReflectionMethod(Subject::class, 'hasExportedBillingAddressData');
+        return $method->invoke(self::$subject, $exportedAddress);
     }
 }
