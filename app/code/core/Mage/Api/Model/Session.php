@@ -75,15 +75,6 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @return void
-     */
-    #[Override]
-    public function revalidateCookie()
-    {
-        // In api we don't use cookies
-    }
-
-    /**
      * @return bool
      */
     #[Override]

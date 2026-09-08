@@ -14,6 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block\Html;
 use Override;
 use Mage_Page_Block_Html_Head as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 final class HeadTest extends OpenMageTest
 {
@@ -45,6 +46,7 @@ final class HeadTest extends OpenMageTest
     /**
      * @group Block
      */
+    #[IgnoreDeprecations]
     public function testAddCssIe(): void
     {
         self::assertInstanceOf(Subject::class, self::$subject->addCssIe('test'));
@@ -53,6 +55,7 @@ final class HeadTest extends OpenMageTest
     /**
      * @group Block
      */
+    #[IgnoreDeprecations]
     public function testAddJsIe(): void
     {
         self::assertInstanceOf(Subject::class, self::$subject->addJsIe('test'));

@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
+    protected string $_eventPrefix = 'adminhtml_report_sales_coupons_grid';
+
     protected $_columnGroupBy = 'period';
 
     public function __construct()

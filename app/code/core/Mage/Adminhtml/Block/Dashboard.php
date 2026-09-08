@@ -17,9 +17,9 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
     /**
      * Location of the "Enable Chart" config param
      *
-     * @deprecated
      * @see Mage_Adminhtml_Helper_Dashboard_Data::XML_PATH_ENABLE_CHARTS
      */
+    #[Deprecated]
     public const XML_PATH_ENABLE_CHARTS = 'admin/dashboard/enable_charts';
 
     public function __construct()

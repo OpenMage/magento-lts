@@ -284,6 +284,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/imaphpdev"><img src="https://avatars.githubusercontent.com/u/772136?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>I'm a PHP developer!</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.resultate.com.br"><img src="https://avatars.githubusercontent.com/u/1283883?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tomir Schmite</b></sub></a></td>
     </tr>
   </tbody>
 </table>

@@ -15,18 +15,23 @@ use Mage_Review_Model_Review as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\ReviewTrait;
 
+/**
+ * @phpstan-import-type ValidateData from ReviewTrait
+ */
 final class ReviewTest extends OpenMageTest
 {
     use ReviewTrait;
 
     /**
      * @dataProvider provideValidateReviewData
-     * @param array|true $expectedResult
+     * @param string[]|true $expectedResult
+     * @psalm-param ValidateData $data
      * @group Model
      */
-    public function testValidate($expectedResult, array $methods): void
+    public function testValidate(array|bool $expectedResult, array $data): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $mock = $this->createPartialMock(Subject::class, []);
+        $mock->setData($data);
 
         self::assertInstanceOf(Subject::class, $mock);
         self::assertSame($expectedResult, $mock->validate());

@@ -13,8 +13,17 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model;
 
 use Generator;
 
+/**
+ * @phpstan-type ValidateData array{
+ *     "block_name": ?string,
+ *     "is_allowed": string
+ * }
+ */
 trait BlockTrait
 {
+    /**
+     * @return Generator<string, list{bool|string[], ValidateData}, void, void>
+     */
     public static function provideValidateAdminBlockData(): Generator
     {
         $errorIncorrectBlockName = 'Block Name is incorrect.';
@@ -22,15 +31,15 @@ trait BlockTrait
         yield 'valid' => [
             true,
             [
-                'getBlockName' => 'test/block',
-                'getIsAllowed' => '1',
+                'block_name' => 'test/block',
+                'is_allowed' => '1',
             ],
         ];
         yield 'invalid' => [
             [$errorIncorrectBlockName],
             [
-                'getBlockName' => 'Test_Block',
-                'getIsAllowed' => '1',
+                'block_name' => 'Test_Block',
+                'is_allowed' => '1',
             ],
         ];
         yield 'errors: blank blockname' => [
@@ -39,22 +48,22 @@ trait BlockTrait
                 'Is Allowed is required field.',
             ],
             [
-                'getBlockName' => '',
-                'getIsAllowed' => '',
+                'block_name' => '',
+                'is_allowed' => '',
             ],
         ];
         yield 'errors: invalid char blockname' => [
             [$errorIncorrectBlockName],
             [
-                'getBlockName' => '~',
-                'getIsAllowed' => '1',
+                'block_name' => '~',
+                'is_allowed' => '1',
             ],
         ];
         yield 'errors: invalid blockname' => [
             [$errorIncorrectBlockName],
             [
-                'getBlockName' => 'test',
-                'getIsAllowed' => '0',
+                'block_name' => 'test',
+                'is_allowed' => '0',
             ],
         ];
         yield 'errors: null blockname' => [
@@ -62,29 +71,29 @@ trait BlockTrait
                 'Block Name is required field.',
             ],
             [
-                'getBlockName' => null,
-                'getIsAllowed' => '1',
+                'block_name' => null,
+                'is_allowed' => '1',
             ],
         ];
         yield 'errors: special chars in blockname' => [
             [$errorIncorrectBlockName],
             [
-                'getBlockName' => '!@#$%^&*()',
-                'getIsAllowed' => '1',
+                'block_name' => '!@#$%^&*()',
+                'is_allowed' => '1',
             ],
         ];
         yield 'errors: numeric blockname' => [
             [$errorIncorrectBlockName],
             [
-                'getBlockName' => '12345',
-                'getIsAllowed' => '1',
+                'block_name' => '12345',
+                'is_allowed' => '1',
             ],
         ];
         yield 'valid: mixed case blockname' => [
             true,
             [
-                'getBlockName' => 'Test/Block',
-                'getIsAllowed' => '1',
+                'block_name' => 'Test/Block',
+                'is_allowed' => '1',
             ],
         ];
     }

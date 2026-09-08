@@ -20,8 +20,8 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
     /**
      * @codeCoverageIgnore
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     public function getLoadrRegionUrl()
     {
         return $this->getUrl('directory/json/childRegion');

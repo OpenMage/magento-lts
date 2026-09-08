@@ -123,8 +123,6 @@ final class DataTest extends OpenMageTest
 
     /**
      * @group Helper
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      * @doesNotPerformAssertions
      */
     public function testGetPriceFormat(): void

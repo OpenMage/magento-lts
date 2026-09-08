@@ -232,8 +232,14 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         foreach ($this->_buttons as $cachedButtons) {
             $buttons = [];
             foreach ($cachedButtons as $buttonId => $data) {
-                $buttons[$data['sort_order']]['buttonId'] = $buttonId;
-                $buttons[$data['sort_order']]['data'] = $data;
+                $sortOrder = $data['sort_order'];
+
+                while (isset($buttons[$sortOrder])) {
+                    $sortOrder++;
+                }
+
+                $buttons[$sortOrder]['buttonId'] = $buttonId;
+                $buttons[$sortOrder]['data'] = $data;
             }
 
             ksort($buttons);

@@ -1087,11 +1087,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Class/Edit.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setLegend() on Mage_Core_Block_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Form.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method toHtml() on Mage_Core_Block_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Title/Fieldset.php',
@@ -1262,19 +1257,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method saveConfig() on Mage_Core_Model_Config|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Custom.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method deleteConfig() on Mage_Core_Model_Config|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Usecustom.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
