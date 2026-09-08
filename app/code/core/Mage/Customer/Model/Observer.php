@@ -40,7 +40,7 @@ class Mage_Customer_Model_Observer
             return true;
         }
 
-        return $address->getIsDefaultBilling() ? true : false;
+        return (bool)$address->getIsDefaultBilling();
     }
 
     /**
@@ -59,7 +59,7 @@ class Mage_Customer_Model_Observer
             return true;
         }
 
-        return $address->getIsDefaultBilling() ? true : false;
+        return (bool)$address->getIsDefaultBilling();
     }
 
     /**
