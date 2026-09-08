@@ -20,13 +20,13 @@ trait CustomerTrait
         yield 'valid' => [
             true,
             [
-                'getLoginAt' => true,
+                'login_at' => true,
             ],
         ];
         yield 'invalid' => [
             false,
             [
-                'getLoginAt' => false,
+                'login_at' => false,
             ],
         ];
     }

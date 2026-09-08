@@ -18,10 +18,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
 
     public const APPLY_FOR_CATEGORY    = 2;
 
-    /**
-     * @deprecated after 1.4.1.0
-     * Category / Custom Design / Apply To constants
-     */
+    // Category / Custom Design / Apply To constants
+    #[Deprecated(message: 'after 1.4.1.0')]
     public const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE = 1;
 
     public const CATEGORY_APPLY_CATEGORY_ONLY                  = 2;
@@ -36,8 +34,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  array|Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
      * @param  int                                                          $calledFrom
      * @return $this
-     * @deprecated after 1.4.2.0-beta1
      */
+    #[Deprecated(message: 'after 1.4.2.0-beta1')]
     public function applyDesign($object, $calledFrom = 0)
     {
         if ($calledFrom != self::APPLY_FOR_CATEGORY && $calledFrom != self::APPLY_FOR_PRODUCT) {
@@ -93,8 +91,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  int  $applyTo
      * @param  int  $pass
      * @return bool
-     * @deprecated after 1.4.1.0
      */
+    #[Deprecated(message: 'after 1.4.1.0')]
     protected function _isApplyFor($applyForObject, $applyTo, $pass = 0)
     {
         $hasError = false;
@@ -152,8 +150,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      *
      * @param  string $design
      * @return bool
-     * @deprecated after 1.4.2.0-beta1
      */
+    #[Deprecated(message: 'after 1.4.2.0-beta1')]
     protected function _isApplyDesign($design, array $date)
     {
         if (!array_key_exists('from', $date) || !array_key_exists('to', $date)) {
@@ -185,8 +183,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param int           $calledFrom
      *
      * @return $this
-     * @deprecated after 1.4.2.0-beta1
      */
+    #[Deprecated(message: 'after 1.4.2.0-beta1')]
     protected function _inheritDesign($object, $calledFrom = 0)
     {
         $useParentSettings = false;
@@ -236,8 +234,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param int                                                    $pass
      *
      * @return $this
-     * @deprecated after 1.4.1.0
      */
+    #[Deprecated(message: 'after 1.4.1.0')]
     protected function _applyDesignRecursively($object, $calledFrom = 0, $pass = 0)
     {
         $design  = $object->getCustomDesign();
@@ -273,8 +271,8 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * @param  bool  $loaded
      * @param  int   $pass
      * @return $this
-     * @deprecated after 1.4.2.0-beta1
      */
+    #[Deprecated(message: 'after 1.4.2.0-beta1')]
     protected function _applyDesign($designUpdateData, $calledFrom = 0, $loaded = false, $pass = 0)
     {
         $objects = [];

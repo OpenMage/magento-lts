@@ -98,10 +98,10 @@ class Mage_Sales_Model_Service_Quote
     }
 
     /**
-     * @deprecated after 1.4.0.1
      * @see submitOrder()
      * @see submitAll()
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function submit()
     {
         return $this->submitOrder();

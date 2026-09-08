@@ -27,10 +27,8 @@ final class BlockTest extends OpenMageTest
      */
     public function testGetCacheKeyInfo(string $blockId): void
     {
-        $methods = [
-            'getBlockId' => $blockId,
-        ];
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $mock = $this->createPartialMock(Subject::class, []);
+        $mock->setData('block_id', $blockId);
 
         self::assertInstanceOf(Subject::class, $mock);
         self::assertIsArray($mock->getCacheKeyInfo());
