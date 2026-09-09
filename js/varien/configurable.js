@@ -11,35 +11,56 @@
  * @copyright   Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * Rewritten to vanilla JS — no Prototype.js dependency.
+ */
+
 if (typeof Product == 'undefined') {
     var Product = {};
 }
 
 /**************************** CONFIGURABLE PRODUCT **************************/
-Product.Config = Class.create();
+Product.Config = function () {
+    this.initialize(...arguments);
+};
+
 Product.Config.prototype = {
-    initialize: function(config){
-        this.config     = config;
-        this.taxConfig  = this.config.taxConfig;
+    initialize: function (config) {
+        this.config = config;
+        this.taxConfig = this.config.taxConfig;
         if (config.containerId) {
-            this.settings   = $$('#' + config.containerId + ' ' + '.super-attribute-select');
+            this.settings = Array.from(document.querySelectorAll('#' + config.containerId + ' .super-attribute-select'));
         } else {
-            this.settings   = $$('.super-attribute-select');
+            this.settings = Array.from(document.querySelectorAll('.super-attribute-select'));
         }
-        this.state      = new Hash();
-        this.priceTemplate = new Template(this.config.template);
-        this.prices     = config.prices;
+        this.state = {};
+        this.prices = config.prices;
+
+        // Simple template: replace #{key} with obj[key]
+        const tpl = this.config.template;
+        this.priceTemplate = {
+            evaluate: function (obj) {
+                return tpl.replace(/#\{(\w+)\}/g, function (m, key) {
+                    return obj[key] !== undefined ? obj[key] : '';
+                });
+            }
+        };
 
         // Set default values from config
         if (config.defaultValues) {
             this.values = config.defaultValues;
         }
 
-        // Overwrite defaults by url
-        var separatorIndex = window.location.href.indexOf('#');
+        // Overwrite defaults by url hash
+        const separatorIndex = window.location.href.indexOf('#');
         if (separatorIndex != -1) {
-            var paramsStr = window.location.href.substr(separatorIndex+1);
-            var urlValues = paramsStr.toQueryParams();
+            const paramsStr = window.location.href.substr(separatorIndex + 1);
+            const urlValues = {};
+            paramsStr.split('&').forEach(function (pair) {
+                const parts = pair.split('=');
+                if (parts[0]) urlValues[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+            });
             if (!this.values) {
                 this.values = {};
             }
@@ -51,136 +72,141 @@ Product.Config.prototype = {
         // Overwrite defaults by inputs values if needed
         if (config.inputsInitialized) {
             this.values = {};
-            this.settings.each(function(element) {
+            var self = this;
+            this.settings.forEach(function (element) {
                 if (element.value) {
-                    var attributeId = element.id.replace(/[a-z]*/, '');
-                    this.values[attributeId] = element.value;
+                    const attributeId = element.id.replace(/[a-z]*/, '');
+                    self.values[attributeId] = element.value;
                 }
-            }.bind(this));
+            });
         }
 
         // Put events to check select reloads
-        this.settings.each(function(element){
-            Event.observe(element, 'change', this.configure.bind(this));
-        }.bind(this));
+        var self = this;
+        this.settings.forEach(function (element) {
+            element.addEventListener('change', self.configure.bind(self));
+        });
 
         // fill state
-        this.settings.each(function(element){
-            var attributeId = element.id.replace(/[a-z]*/, '');
-            if(attributeId && this.config.attributes[attributeId]) {
-                element.config = this.config.attributes[attributeId];
+        this.settings.forEach(function (element) {
+            const attributeId = element.id.replace(/[a-z]*/, '');
+            if (attributeId && self.config.attributes[attributeId]) {
+                element.config = self.config.attributes[attributeId];
                 element.attributeId = attributeId;
-                this.state[attributeId] = false;
+                self.state[attributeId] = false;
             }
-        }.bind(this));
+        });
 
         // Init settings dropdown
-        var childSettings = [];
-        for(var i=this.settings.length-1;i>=0;i--){
-            var prevSetting = this.settings[i-1] ? this.settings[i-1] : false;
-            var nextSetting = this.settings[i+1] ? this.settings[i+1] : false;
-            if (i == 0){
+        const childSettings = [];
+        for (var i = this.settings.length - 1; i >= 0; i--) {
+            const prevSetting = this.settings[i - 1] ? this.settings[i - 1] : false;
+            const nextSetting = this.settings[i + 1] ? this.settings[i + 1] : false;
+            if (i == 0) {
                 this.fillSelect(this.settings[i]);
             } else {
                 this.settings[i].disabled = true;
             }
-            $(this.settings[i]).childSettings = childSettings.clone();
-            $(this.settings[i]).prevSetting   = prevSetting;
-            $(this.settings[i]).nextSetting   = nextSetting;
+            this.settings[i].childSettings = childSettings.slice();
+            this.settings[i].prevSetting = prevSetting;
+            this.settings[i].nextSetting = nextSetting;
             childSettings.push(this.settings[i]);
         }
 
         // Set values to inputs
         this.configureForValues();
-        document.observe("dom:loaded", this.configureForValues.bind(this));
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', this.configureForValues.bind(this));
+        } else {
+            this.configureForValues();
+        }
     },
 
     configureForValues: function () {
         if (this.values) {
-            this.settings.each(function(element){
-                var attributeId = element.attributeId;
-                element.value = (typeof(this.values[attributeId]) == 'undefined')? '' : this.values[attributeId];
-                this.configureElement(element);
-            }.bind(this));
+            const self = this;
+            this.settings.forEach(function (element) {
+                const attributeId = element.attributeId;
+                element.value = (typeof(self.values[attributeId]) == 'undefined') ? '' : self.values[attributeId];
+                self.configureElement(element);
+            });
         }
     },
 
-    configure: function(event){
-        var element = Event.element(event);
+    configure: function (event) {
+        const element = event.target;
         this.configureElement(element);
     },
 
-    configureElement : function(element) {
+    configureElement: function (element) {
         this.reloadOptionLabels(element);
-        if(element.value){
+        if (element.value) {
             this.state[element.config.id] = element.value;
-            if(element.nextSetting){
+            if (element.nextSetting) {
                 element.nextSetting.disabled = false;
                 this.fillSelect(element.nextSetting);
                 this.resetChildren(element.nextSetting);
             }
-        }
-        else {
+        } else {
             this.resetChildren(element);
         }
         this.reloadPrice();
     },
 
-    reloadOptionLabels: function(element){
-        var selectedPrice;
-        if(element.options[element.selectedIndex].config && !this.config.stablePrices){
+    reloadOptionLabels: function (element) {
+        let selectedPrice;
+        if (element.options[element.selectedIndex].config && !this.config.stablePrices) {
             selectedPrice = parseFloat(element.options[element.selectedIndex].config.price);
-        }
-        else{
+        } else {
             selectedPrice = 0;
         }
-        for(var i=0;i<element.options.length;i++){
-            if(element.options[i].config){
-                element.options[i].text = this.getOptionLabel(element.options[i].config, element.options[i].config.price-selectedPrice);
+        for (let i = 0; i < element.options.length; i++) {
+            if (element.options[i].config) {
+                element.options[i].text = this.getOptionLabel(element.options[i].config, element.options[i].config.price - selectedPrice);
             }
         }
     },
 
-    resetChildren : function(element){
-        if(element.childSettings) {
-            for(var i=0;i<element.childSettings.length;i++){
+    resetChildren: function (element) {
+        if (element.childSettings) {
+            for (let i = 0; i < element.childSettings.length; i++) {
                 element.childSettings[i].selectedIndex = 0;
                 element.childSettings[i].disabled = true;
-                if(element.config){
+                if (element.config) {
                     this.state[element.config.id] = false;
                 }
             }
         }
     },
 
-    fillSelect: function(element){
-        var attributeId = element.id.replace(/[a-z]*/, '');
-        var options = this.getAttributeOptions(attributeId);
+    fillSelect: function (element) {
+        const attributeId = element.id.replace(/[a-z]*/, '');
+        const options = this.getAttributeOptions(attributeId);
         this.clearSelect(element);
         element.options[0] = new Option('', '');
         element.options[0].innerHTML = this.config.chooseText;
 
-        var prevConfig = false;
-        if(element.prevSetting){
+        let prevConfig = false;
+        if (element.prevSetting) {
             prevConfig = element.prevSetting.options[element.prevSetting.selectedIndex];
         }
 
-        if(options) {
-            var index = 1;
-            for(var i=0;i<options.length;i++){
-                var allowedProducts = [];
-                if(prevConfig) {
-                    for(var j=0;j<options[i].products.length;j++){
-                        if(prevConfig.config.allowedProducts
-                            && prevConfig.config.allowedProducts.indexOf(options[i].products[j])>-1){
+        if (options) {
+            let index = 1;
+            for (let i = 0; i < options.length; i++) {
+                let allowedProducts = [];
+                if (prevConfig) {
+                    for (let j = 0; j < options[i].products.length; j++) {
+                        if (prevConfig.config && prevConfig.config.allowedProducts
+                            && prevConfig.config.allowedProducts.indexOf(options[i].products[j]) > -1) {
                             allowedProducts.push(options[i].products[j]);
                         }
                     }
                 } else {
-                    allowedProducts = options[i].products.clone();
+                    allowedProducts = options[i].products.slice();
                 }
 
-                if(allowedProducts.size()>0){
+                if (allowedProducts.length > 0) {
                     options[i].allowedProducts = allowedProducts;
                     element.options[index] = new Option(this.getOptionLabel(options[i], options[i].price), options[i].id);
                     if (typeof options[i].price != 'undefined') {
@@ -193,12 +219,12 @@ Product.Config.prototype = {
         }
     },
 
-    getOptionLabel: function(option, price){
+    getOptionLabel: function (option, price) {
         var price = parseFloat(price);
         if (this.taxConfig.includeTax) {
             var tax = price / (100 + this.taxConfig.defaultTax) * this.taxConfig.defaultTax;
             var excl = price - tax;
-            var incl = excl*(1+(this.taxConfig.currentTax/100));
+            var incl = excl * (1 + (this.taxConfig.currentTax / 100));
         } else {
             var tax = price * (this.taxConfig.currentTax / 100);
             var excl = price;
@@ -211,63 +237,61 @@ Product.Config.prototype = {
             price = excl;
         }
 
-        var str = option.label;
-        if(price){
+        let str = option.label;
+        if (price) {
             if (this.taxConfig.showBothPrices) {
-                str+= ' ' + this.formatPrice(excl, true) + ' (' + this.formatPrice(price, true) + ' ' + this.taxConfig.inclTaxTitle + ')';
+                str += ' ' + this.formatPrice(excl, true) + ' (' + this.formatPrice(price, true) + ' ' + this.taxConfig.inclTaxTitle + ')';
             } else {
-                str+= ' ' + this.formatPrice(price, true);
+                str += ' ' + this.formatPrice(price, true);
             }
         }
         return str;
     },
 
-    formatPrice: function(price, showSign){
-        var str = '';
+    formatPrice: function (price, showSign) {
+        let str = '';
         price = parseFloat(price);
-        if(showSign){
-            if(price<0){
-                str+= '-';
+        if (showSign) {
+            if (price < 0) {
+                str += '-';
                 price = -price;
-            }
-            else{
-                str+= '+';
+            } else {
+                str += '+';
             }
         }
 
-        var roundedPrice = (Math.round(price*100)/100).toString();
+        const roundedPrice = (Math.round(price * 100) / 100).toString();
 
         if (this.prices && this.prices[roundedPrice]) {
-            str+= this.prices[roundedPrice];
-        }
-        else {
-            str+= this.priceTemplate.evaluate({price:price.toFixed(2)});
+            str += this.prices[roundedPrice];
+        } else {
+            str += this.priceTemplate.evaluate({price: price.toFixed(2)});
         }
         return str;
     },
 
-    clearSelect: function(element){
-        for(var i=element.options.length-1;i>=0;i--){
+    clearSelect: function (element) {
+        for (let i = element.options.length - 1; i >= 0; i--) {
             element.remove(i);
         }
     },
 
-    getAttributeOptions: function(attributeId){
-        if(this.config.attributes[attributeId]){
+    getAttributeOptions: function (attributeId) {
+        if (this.config.attributes[attributeId]) {
             return this.config.attributes[attributeId].options;
         }
     },
 
-    reloadPrice: function(){
+    reloadPrice: function () {
         if (this.config.disablePriceReload) {
             return;
         }
-        var price    = 0;
-        var oldPrice = 0;
-        for(var i=this.settings.length-1;i>=0;i--){
-            var selected = this.settings[i].options[this.settings[i].selectedIndex];
-            if(selected.config){
-                price    += parseFloat(selected.config.price);
+        let price = 0;
+        let oldPrice = 0;
+        for (let i = this.settings.length - 1; i >= 0; i--) {
+            const selected = this.settings[i].options[this.settings[i].selectedIndex];
+            if (selected.config) {
+                price += parseFloat(selected.config.price);
                 oldPrice += parseFloat(selected.config.oldPrice);
             }
         }
@@ -278,27 +302,25 @@ Product.Config.prototype = {
         return price;
     },
 
-    reloadOldPrice: function(){
+    reloadOldPrice: function () {
         if (this.config.disablePriceReload) {
             return;
         }
-        if ($('old-price-'+this.config.productId)) {
-
-            var price = parseFloat(this.config.oldPrice);
-            for(var i=this.settings.length-1;i>=0;i--){
-                var selected = this.settings[i].options[this.settings[i].selectedIndex];
-                if(selected.config){
-                    price+= parseFloat(selected.config.price);
+        const oldPriceEl = document.getElementById('old-price-' + this.config.productId);
+        if (oldPriceEl) {
+            let price = parseFloat(this.config.oldPrice);
+            for (let i = this.settings.length - 1; i >= 0; i--) {
+                const selected = this.settings[i].options[this.settings[i].selectedIndex];
+                if (selected.config) {
+                    price += parseFloat(selected.config.oldPrice);
                 }
             }
             if (price < 0)
                 price = 0;
             price = this.formatPrice(price);
 
-            if($('old-price-'+this.config.productId)){
-                $('old-price-'+this.config.productId).innerHTML = price;
-            }
-
+            oldPriceEl.innerHTML = price;
         }
     }
 };
+Varien.classCompat(Product.Config);
