@@ -59,7 +59,7 @@ class Mage_Customer_Model_Observer
             return true;
         }
 
-        return (bool) $address->getIsDefaultBilling();
+        return (bool) $address->getIsDefaultShipping();
     }
 
     /**
