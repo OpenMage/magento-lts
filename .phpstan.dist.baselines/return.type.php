@@ -682,11 +682,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Api/Resource.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Category::_getAttribute() should return Mage_Eav_Model_Entity_Attribute_Abstract but returns Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Category.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Category::checkId() should return bool but returns bool|string.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Category.php',
@@ -897,11 +892,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Resource_Category_Flat::getAttribute() should return Mage_Eav_Model_Entity_Attribute_Abstract but returns Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Resource_Category_Flat_Collection::getStoreId() should return int but returns int|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php',
@@ -985,11 +975,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection::getComparableAttributes() should return array<Mage_Eav_Model_Entity_Attribute_Abstract> but returns array<Mage_Eav_Model_Entity_Attribute_Abstract|false>.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product_Flat::getAttribute() should return Mage_Eav_Model_Entity_Attribute_Abstract but returns Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Flat.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product_Flat::getTypeId() should return int but returns int|null.',
@@ -2195,11 +2180,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_ImportExport_Model_Import_Entity_Customer_Address::validateRow() should return bool but returns bool|int.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Customer/Address.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_ImportExport_Model_Import_Entity_Product::_getAttribute() should return Mage_Eav_Model_Entity_Attribute_Abstract but returns Mage_Catalog_Model_Resource_Eav_Attribute|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_ImportExport_Model_Import_Entity_Product::getModel() should return bool|Mage_Core_Model_Abstract but returns object|false.',

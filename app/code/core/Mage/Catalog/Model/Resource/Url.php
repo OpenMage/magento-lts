@@ -335,6 +335,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         if (!isset($this->_categoryAttributes[$attributeCode])) {
             $attribute = $this->getCategoryModel()->getResource()->getAttribute($attributeCode);
 
+            if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+                return $this;
+            }
+
             $this->_categoryAttributes[$attributeCode] = [
                 'entity_type_id' => $attribute->getEntityTypeId(),
                 'attribute_id'   => $attribute->getId(),
@@ -409,6 +413,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         $adapter = $this->_getWriteAdapter();
         if (!isset($this->_categoryAttributes[$attributeCode])) {
             $attribute = $this->getCategoryModel()->getResource()->getAttribute($attributeCode);
+
+            if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+                return [];
+            }
 
             $this->_categoryAttributes[$attributeCode] = [
                 'entity_type_id' => $attribute->getEntityTypeId(),
@@ -490,6 +498,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         if (!isset($this->_productAttributes[$attributeCode])) {
             $attribute = $this->getProductModel()->getResource()->getAttribute($attributeCode);
 
+            if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+                return $this;
+            }
+
             $this->_productAttributes[$attributeCode] = [
                 'entity_type_id' => $attribute->getEntityTypeId(),
                 'attribute_id'   => $attribute->getId(),
@@ -564,6 +576,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         $adapter = $this->_getReadAdapter();
         if (!isset($this->_productAttributes[$attributeCode])) {
             $attribute = $this->getProductModel()->getResource()->getAttribute($attributeCode);
+
+            if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+                return [];
+            }
 
             $this->_productAttributes[$attributeCode] = [
                 'entity_type_id' => $attribute->getEntityTypeId(),
@@ -683,6 +699,11 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $isActiveAttribute = Mage::getSingleton('eav/config')
             ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active');
+
+        if (!$isActiveAttribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+            return [];
+        }
+
         $categories        = [];
         $adapter           = $this->_getReadAdapter();
 

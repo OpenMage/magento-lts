@@ -147,7 +147,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      *
      * @return bool
      */
-    public function canUseAttribute(Mage_Eav_Model_Entity_Attribute $attribute)
+    public function canUseAttribute(Mage_Catalog_Model_Resource_Eav_Attribute $attribute)
     {
         return $attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL
             && $attribute->getIsVisible()
