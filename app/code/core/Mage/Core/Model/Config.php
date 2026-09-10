@@ -1374,7 +1374,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         $classArr = explode('/', trim($classId));
         $group = $classArr[0];
-        $class = empty($classArr[1]) ? null : $classArr[1];
+        $class = empty($classArr[1]) ? '' : $classArr[1];
 
         if (isset($this->_classNameCache[$groupRootNode][$group][$class])) {
             return $this->_classNameCache[$groupRootNode][$group][$class];
@@ -1384,7 +1384,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         // First - check maybe the entity class was rewritten
         $className = '';
-        if (isset($config->rewrite->$class)) {
+        if ($class !== '' && isset($config->rewrite->$class)) {
             $className = (string) $config->rewrite->$class;
         }
 
