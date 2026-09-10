@@ -1,0 +1,15 @@
+{
+  "name": "openmage-skills",
+  "description": "Skills for working on the OpenMage / magento-lts codebase: framework mechanics, Mage_* domain modules, and repo tooling.",
+  "homepage": "https://github.com/OpenMage/magento-lts",
+  "repository": "https://github.com/OpenMage/magento-lts",
+  "license": "OSL-3.0",
+  "keywords": [
+    "openmage",
+    "magento",
+    "magento1",
+    "magento-lts",
+    "php",
+    "ecommerce"
+  ]
+}

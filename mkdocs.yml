@@ -213,6 +213,7 @@ nav:
       - 'Tools':
           - developers/tools/n98-magerun.md
           - developers/tools/phpstorm.md
+          - developers/tools/skills.md
       - 'Multistore':
           - developers/error-pages.md
       - 'Samples':
