@@ -857,16 +857,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Entity/Sale/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Model_Order_Creditmemo::getCommentsCollection() return type with generic class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract does not specify its types: T',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Model_Order_Invoice::getCommentsCollection() return type with generic class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract does not specify its types: T',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Model_Resource_Order_Collection::addAddressFields() return type with generic class Mage_Sales_Model_Resource_Collection_Abstract does not specify its types: T',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Resource/Order/Collection.php',
