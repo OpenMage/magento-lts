@@ -16,6 +16,8 @@ declare(strict_types=1);
  */
 class Mage_Adminhtml_Block_Dashboard_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_grid';
+
     /**
      * Setting default for every grid on dashboard
      */
