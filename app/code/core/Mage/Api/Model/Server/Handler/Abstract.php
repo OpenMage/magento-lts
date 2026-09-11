@@ -210,7 +210,18 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function login($username, $apiKey = null)
     {
-        if (empty($username) || empty($apiKey)) {
+        // Mage_Api_Model_Server_Wsi_Handler::login() passes Stringable credential wrappers here
+        if ($username instanceof Stringable) {
+            $username = (string) $username;
+        }
+
+        if ($apiKey instanceof Stringable) {
+            $apiKey = (string) $apiKey;
+        }
+
+        // Never trust the shape of the request data: only plain strings are valid credentials.
+        // empty() is kept for the emptiness test, to preserve the previous semantics for '0'.
+        if (!is_string($username) || !is_string($apiKey) || empty($username) || empty($apiKey)) {
             $this->_fault('invalid_request_param');
             return;
         }
