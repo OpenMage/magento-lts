@@ -1047,11 +1047,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Catalog/Helper/DataTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Catalog\\Helper\\Product\\UrlTest::provideFormat() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Catalog/Helper/Product/UrlTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Catalog\\Helper\\ProductTest::provideGetAttributeBackendModelByInputType() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Catalog/Helper/ProductTest.php',

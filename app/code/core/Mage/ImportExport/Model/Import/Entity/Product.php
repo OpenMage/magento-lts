@@ -1618,8 +1618,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Retrieve pattern for time formatting
      *
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getStrftimeFormat()
     {
         return Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);

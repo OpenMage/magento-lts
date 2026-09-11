@@ -1087,11 +1087,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Class/Edit.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setLegend() on Mage_Core_Block_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Form.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method toHtml() on Mage_Core_Block_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Title/Fieldset.php',

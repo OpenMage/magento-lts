@@ -15,6 +15,9 @@ use Generator;
 
 trait UrlTrait
 {
+    /**
+     * @return Generator<string, list{string, ?string}, void, void>
+     */
     public static function provideFormat(): Generator
     {
         yield 'null' => [

@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
+    protected string $_eventPrefix = 'adminhtml_report_sales_bestsellers_grid';
+
     protected $_columnGroupBy = 'period';
 
     public function __construct()

@@ -50,8 +50,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Date 'from-to' filter HTML.
      *
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getDateFromToHtml(Mage_Eav_Model_Entity_Attribute $attribute)
     {
         $dateBlock = new Mage_Core_Block_Html_Date([
@@ -71,8 +71,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Input text filter HTML.
      *
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getInputHtml(Mage_Eav_Model_Entity_Attribute $attribute)
     {
         return '<input type="text" name="' . $this->getFilterElementName($attribute->getAttributeCode())
@@ -84,8 +84,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      *
      * @return string
      * @throws Mage_Core_Exception
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getMultiSelectHtml(Mage_Eav_Model_Entity_Attribute $attribute)
     {
         if ($attribute->getFilterOptions()) {
@@ -120,8 +120,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Number 'from-to' field filter HTML.
      *
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getNumberFromToHtml(Mage_Eav_Model_Entity_Attribute $attribute)
     {
         $name = $this->getFilterElementName($attribute->getAttributeCode());
@@ -137,8 +137,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      *
      * @return string
      * @throws Mage_Core_Exception
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getSelectHtml(Mage_Eav_Model_Entity_Attribute $attribute)
     {
         if ($attribute->getFilterOptions()) {

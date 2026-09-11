@@ -19,6 +19,7 @@ use Mage_Admin_Model_User as Subject;
 use Mage_Core_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\UserTrait;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 /**
  * @phpstan-import-type AuthenticateData from UserTrait
@@ -114,6 +115,7 @@ final class UserTest extends OpenMageTest
     /**
      * @group Model
      */
+    #[IgnoreDeprecations]
     public function testSendNewPasswordEmail(): void
     {
         self::assertInstanceOf(Subject::class, self::$subject->sendNewPasswordEmail());
@@ -143,8 +145,6 @@ final class UserTest extends OpenMageTest
      * @phpstan-param AuthenticateMethods $methods
      * @dataProvider provideAuthenticateData
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testAuthenticate(bool|string $expectedResult, array $data, array $methods): void
     {
@@ -178,8 +178,6 @@ final class UserTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testFindFirstAvailableMenu()
     {
@@ -188,8 +186,6 @@ final class UserTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetStartupPageUrl()
     {
@@ -227,8 +223,6 @@ final class UserTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testLogin(): void
     {
@@ -238,8 +232,6 @@ final class UserTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testReload(): void
     {

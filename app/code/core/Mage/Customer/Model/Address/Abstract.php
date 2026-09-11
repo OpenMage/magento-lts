@@ -12,48 +12,48 @@
  *
  * @package    Mage_Customer
  *
- * @method string getCity()
- * @method string getCountryId()
- * @method string getCustomerId()
- * @method string getFirstname()
- * @method bool   getForceProcess()
- * @method bool   getIsCustomerSaveTransaction()
- * @method bool   getIsDefaultBilling()
- * @method bool   getIsDefaultShipping()
- * @method bool   getIsPrimaryBilling()
- * @method bool   getIsPrimaryShipping()
- * @method string getLastname()
- * @method string getMiddlename()
- * @method int    getParentId()
- * @method string getPostcode()
- * @method string getPrefix()
- * @method bool   getShouldIgnoreValidation()
- * @method string getSuffix()
- * @method string getTelephone()
- * @method string getVatId()
- * @method int    getVatIsValid()
- * @method string getVatRequestDate()
- * @method string getVatRequestId()
- * @method int    getVatRequestSuccess()
- * @method $this  setCity(string $value)
- * @method $this  setCountryId(string $value)
- * @method $this  setFirstname(string $value)
- * @method $this  setForceProcess(bool $value)
- * @method $this  setIsCustomerSaveTransaction(bool $value)
- * @method $this  setIsDefaultBilling(bool $value)
- * @method $this  setIsDefaultShipping(bool $value)
- * @method $this  setIsPrimaryBilling(bool $value)
- * @method $this  setIsPrimaryShipping(bool $value)
- * @method $this  setLastname(string $value)
- * @method $this  setMiddlename(string $value)
- * @method $this  setParentId(int $value)
- * @method $this  setPostcode(string $value)
- * @method $this  setPrefix(string $value)
- * @method $this  setRegion(string $value)
- * @method $this  setStoreId(int $value)
- * @method $this  setSuffix(string $value)
- * @method $this  setTelephone(string $value)
- * @method $this  unsRegion()
+ * @method string    getCity()
+ * @method string    getCountryId()
+ * @method string    getCustomerId()
+ * @method string    getFirstname()
+ * @method bool      getForceProcess()
+ * @method bool      getIsCustomerSaveTransaction()
+ * @method null|bool getIsDefaultBilling()
+ * @method null|bool getIsDefaultShipping()
+ * @method bool      getIsPrimaryBilling()
+ * @method bool      getIsPrimaryShipping()
+ * @method string    getLastname()
+ * @method string    getMiddlename()
+ * @method int       getParentId()
+ * @method string    getPostcode()
+ * @method string    getPrefix()
+ * @method bool      getShouldIgnoreValidation()
+ * @method string    getSuffix()
+ * @method string    getTelephone()
+ * @method string    getVatId()
+ * @method int       getVatIsValid()
+ * @method string    getVatRequestDate()
+ * @method string    getVatRequestId()
+ * @method int       getVatRequestSuccess()
+ * @method $this     setCity(string $value)
+ * @method $this     setCountryId(string $value)
+ * @method $this     setFirstname(string $value)
+ * @method $this     setForceProcess(bool $value)
+ * @method $this     setIsCustomerSaveTransaction(bool $value)
+ * @method $this     setIsDefaultBilling(bool $value)
+ * @method $this     setIsDefaultShipping(bool $value)
+ * @method $this     setIsPrimaryBilling(bool $value)
+ * @method $this     setIsPrimaryShipping(bool $value)
+ * @method $this     setLastname(string $value)
+ * @method $this     setMiddlename(string $value)
+ * @method $this     setParentId(int $value)
+ * @method $this     setPostcode(string $value)
+ * @method $this     setPrefix(string $value)
+ * @method $this     setRegion(string $value)
+ * @method $this     setStoreId(int $value)
+ * @method $this     setSuffix(string $value)
+ * @method $this     setTelephone(string $value)
+ * @method $this     unsRegion()
  */
 class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 {
@@ -360,9 +360,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         return self::$_regionModels[$region];
     }
 
-    /**
-     * @deprecated for public function format
-     */
+    #[Deprecated(message: 'for public function format')]
     public function getHtmlFormat()
     {
         return $this->getConfig()->getFormatByCode('html');
@@ -371,8 +369,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * @param  bool   $html
      * @return string
-     * @deprecated for public function format
      */
+    #[Deprecated(message: 'for public function format')]
     public function getFormated($html = false)
     {
         return $this->format($html ? 'html' : 'text');

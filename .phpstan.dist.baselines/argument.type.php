@@ -42,31 +42,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/Mage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $parent of method Mage_Admin_Model_Acl::addRoleParent() expects string|Zend_Acl_Role, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $rolesArr of method Mage_Admin_Model_Resource_Acl::loadRoles() expects array, array|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $rulesArr of method Mage_Admin_Model_Resource_Acl::loadRules() expects array, array|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #4 $assert of method Zend_Acl::allow() expects Zend_Acl_Assert_Interface|null, object|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #4 $assert of method Zend_Acl::deny() expects Zend_Acl_Assert_Interface|null, object|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $encodedValue of method Mage_Core_Helper_Data::jsonDecode() expects string, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Block.php',
@@ -622,21 +597,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/CacheController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $productIds of method Mage_Catalog_Model_Product_Action::updateAttributes() expects array, array|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $productIds of method Mage_Catalog_Model_Product_Action::updateWebsites() expects array, array|string|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $value of function count expects array|Countable, array|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $value of method Zend_Filter_NormalizedToLocalized::filter() expects string, array|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php',
@@ -788,11 +748,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $host of method Zend_Uri_Http::setHost() expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $path of function basename expects string, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
 ];
@@ -1090,11 +1045,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 ...$arrays of function array_merge expects array, array|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $path of function basename expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Route/ApiType.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $adminId of method Mage_Api2_Adminhtml_Api2_RoleController::_addUserToRole() expects int, int|string given.',
@@ -3402,11 +3352,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $storeId of method Mage_Core_Model_App::getStore() expects bool|int|Mage_Core_Model_Store|string|null, Varien_Object|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Filter.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $allowedTags of method Mage_Core_Helper_Abstract::escapeHtml() expects array<string>|null, list<string>|false|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Filter.php',
@@ -4130,11 +4075,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $container of method Mage_Dataflow_Model_Convert_Profile_Collection::addContainer() expects Mage_Dataflow_Model_Convert_Container_Interface, object given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Profile/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $source of method DOMDocument::loadXML() expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Profile.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $string of function substr expects string, string|false given.',
@@ -8122,7 +8062,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Convert/Profile/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $callback of function call_user_func_array expects callable(): mixed, array{T of Varien_Object, string}|(callable(): mixed)|non-falsy-string given.',
+    'rawMessage' => 'Parameter #1 $callback of function call_user_func_array expects callable(): mixed, array{T of Varien_Object, string}|(callable(): mixed)|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Collection.php',
 ];

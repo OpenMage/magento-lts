@@ -127,16 +127,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Redirectpolicy.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Resource_Acl::loadRoles() has parameter $rolesArr with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Resource_Acl::loadRules() has parameter $rulesArr with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Admin_Model_Resource_Block::getAllowedTypes() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Block.php',
@@ -600,11 +590,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell::getSelectedUpsellProducts() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Upsell.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites::getWebsites() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Boolean::__construct() has parameter $attributes with no value type specified in iterable type array.',
@@ -1170,31 +1155,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid::getTransactionAdditionalInfo() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Detail/Grid.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Store_Switcher::getStoreGroups() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Store/Switcher.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Store_Switcher::getStoreIds() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Store/Switcher.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Store_Switcher::getStores() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Store/Switcher.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Store_Switcher::getWebsites() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Store/Switcher.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Store_Switcher::setStoreIds() has parameter $storeIds with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Store/Switcher.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Adminhtml_Block_Store_Switcher::$_storeIds type has no value type specified in iterable type array.',
@@ -1962,11 +1922,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Helper/Catalog.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute::getProductIds() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Edit/Action/Attribute.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute::getProductsSetIds() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Edit/Action/Attribute.php',
@@ -2448,11 +2403,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Catalog_ProductController::_filterStockData() has parameter $stockData with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Catalog_ProductController::_validateMassStatus() has parameter $productIds with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php',
 ];
@@ -5932,11 +5882,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Product::isProductsHasSku() has parameter $productIds with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Product::setCategoryIds() has parameter $ids with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product.php',
@@ -7608,16 +7553,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product::getProductEntitiesInfo() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product::getProductsSku() has parameter $productIds with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Resource_Product::getProductsSku() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product.php',
 ];
