@@ -82,7 +82,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
             }
         }
 
-        if ($exceptions) {
+        if ($exceptions !== []) {
             Mage::throwException(implode("\n", $exceptions));
         }
 

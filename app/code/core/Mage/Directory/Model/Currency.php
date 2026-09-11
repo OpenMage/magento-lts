@@ -235,9 +235,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         $includeContainer = true,
         $addBrackets = false
     ) {
-        if (!isset($options['precision'])) {
-            $options['precision'] = $precision;
-        }
+        $options['precision'] ??= $precision;
 
         if ($includeContainer) {
             return '<span class="price">' . ($addBrackets ? '[' : '') . $this->formatTxt($price, $options)

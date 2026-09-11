@@ -38,9 +38,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      */
     public function getFeedUrl()
     {
-        if (is_null($this->_feedUrl)) {
-            $this->_feedUrl = 'https://' . Mage::getStoreConfig(self::XML_FEED_URL_PATH);
-        }
+        $this->_feedUrl ??= 'https://' . Mage::getStoreConfig(self::XML_FEED_URL_PATH);
 
         return $this->_feedUrl;
     }
@@ -71,7 +69,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
                 ];
             }
 
-            if ($feedData) {
+            if ($feedData !== []) {
                 Mage::getModel('adminnotification/inbox')->parse(array_reverse($feedData));
             }
         }

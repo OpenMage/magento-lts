@@ -145,9 +145,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      */
     public function loadByCookieKey($key = null)
     {
-        if (is_null($key)) {
-            $key = Mage::getSingleton('core/cookie')->get(self::COOKIE_NAME);
-        }
+        $key ??= Mage::getSingleton('core/cookie')->get(self::COOKIE_NAME);
 
         if ($key) {
             $this->load($key, 'key');
@@ -203,9 +201,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      */
     public function deleteExpired($websiteId = null)
     {
-        if (is_null($websiteId)) {
-            $websiteId = Mage::app()->getStore()->getWebsiteId();
-        }
+        $websiteId ??= Mage::app()->getStore()->getWebsiteId();
 
         $lifetime = Mage::getConfig()->getNode(
             Mage_Persistent_Helper_Data::XML_PATH_LIFE_TIME,

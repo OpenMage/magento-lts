@@ -156,9 +156,7 @@ class Mage_Core_Model_Encryption
      */
     public function validateHashByVersion($password, $hash, $version = self::HASH_VERSION_MD5)
     {
-        if ($hash === null) {
-            $hash = '';
-        }
+        $hash ??= '';
 
         if ($version == self::HASH_VERSION_LATEST && $version == $this->_helper->getVersionHash($this)) {
             return password_verify($password, $hash);
@@ -183,9 +181,7 @@ class Mage_Core_Model_Encryption
     protected function _getCrypt($key = null)
     {
         if (!$this->_crypt) {
-            if ($key === null) {
-                $key = (string) Mage::getConfig()->getNode('global/crypt/key');
-            }
+            $key ??= (string) Mage::getConfig()->getNode('global/crypt/key');
 
             $this->_crypt = Varien_Crypt::factory()->init($key);
         }

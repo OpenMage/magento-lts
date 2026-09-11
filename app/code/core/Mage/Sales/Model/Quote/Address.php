@@ -870,9 +870,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $rates = [];
         foreach ($this->getShippingRatesCollection() as $rate) {
             if (!$rate->isDeleted() && $rate->getCarrierInstance()) {
-                if (!isset($rates[$rate->getCarrier()])) {
-                    $rates[$rate->getCarrier()] = [];
-                }
+                $rates[$rate->getCarrier()] ??= [];
 
                 $rates[$rate->getCarrier()][] = $rate;
                 $rates[$rate->getCarrier()][0]->setCarrierSortOrder($rate->getCarrierInstance()->getSortOrder());
@@ -1004,7 +1002,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     {
         /** @var Mage_Shipping_Model_Rate_Request $request */
         $request = Mage::getModel('shipping/rate_request');
-        $request->setAllItems($item ? [$item] : $this->getAllItems());
+        $request->setAllItems($item instanceof Mage_Sales_Model_Quote_Item_Abstract ? [$item] : $this->getAllItems());
         $request->setDestCountryId($this->getCountryId());
         $request->setDestRegionId($this->getRegionId());
         $request->setDestRegionCode($this->getRegionCode());
@@ -1015,24 +1013,24 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $request->setDestStreet($this->getStreet(self::DEFAULT_DEST_STREET));
         $request->setDestCity($this->getCity());
         $request->setDestPostcode($this->getPostcode());
-        $request->setPackageValue($item ? $item->getBaseRowTotal() : $this->getBaseSubtotal());
+        $request->setPackageValue($item instanceof Mage_Sales_Model_Quote_Item_Abstract ? $item->getBaseRowTotal() : $this->getBaseSubtotal());
 
-        $packageValueWithDiscount = $item
+        $packageValueWithDiscount = $item instanceof Mage_Sales_Model_Quote_Item_Abstract
             ? $item->getBaseRowTotal() - $item->getBaseDiscountAmount()
             : $this->getBaseSubtotalWithDiscount();
         $request->setPackageValueWithDiscount($packageValueWithDiscount);
-        $request->setPackageWeight($item ? $item->getRowWeight() : $this->getWeight());
-        $request->setPackageQty($item ? $item->getQty() : $this->getItemQty());
+        $request->setPackageWeight($item instanceof Mage_Sales_Model_Quote_Item_Abstract ? $item->getRowWeight() : $this->getWeight());
+        $request->setPackageQty($item instanceof Mage_Sales_Model_Quote_Item_Abstract ? $item->getQty() : $this->getItemQty());
 
         /**
          * Need for shipping methods that use insurance based on price of physical products
          */
-        $packagePhysicalValue = $item
+        $packagePhysicalValue = $item instanceof Mage_Sales_Model_Quote_Item_Abstract
             ? $item->getBaseRowTotal()
             : $this->getBaseSubtotal() - $this->getBaseVirtualAmount();
         $request->setPackagePhysicalValue($packagePhysicalValue);
 
-        $request->setFreeMethodWeight($item ? 0 : $this->getFreeMethodWeight());
+        $request->setFreeMethodWeight($item instanceof Mage_Sales_Model_Quote_Item_Abstract ? 0 : $this->getFreeMethodWeight());
 
         /**
          * Store and website identifiers need specify from quote

@@ -396,9 +396,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 }
             }
 
-            if (!isset($selected[$serviceType])) {
-                $selected[$serviceType] = array_first($ratedTypes);
-            }
+            $selected[$serviceType] ??= array_first($ratedTypes);
         }
 
         return $selected;

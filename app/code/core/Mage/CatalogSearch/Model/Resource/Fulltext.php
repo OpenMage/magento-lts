@@ -343,7 +343,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 $like[] = $helper->getCILike('s.data_index', $word, ['position' => 'any']);
             }
 
-            if ($like) {
+            if ($like !== []) {
                 $separator = Mage::getStoreConfig(Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_SEPARATOR);
                 $likeCond = '(' . implode(' ' . $separator . ' ', $like) . ')';
             }
@@ -551,7 +551,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             }
         }
 
-        if ($selects) {
+        if ($selects !== []) {
             $select = $adapter->select()->union($selects, Zend_Db_Select::SQL_UNION_ALL);
             $query = $adapter->query($select);
             while ($row = $query->fetch()) {

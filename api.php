@@ -51,9 +51,7 @@ if (in_array($apiAlias, Mage_Api2_Model_Server::getApiTypes())) {
     $adapterCode = $apiAlias ? $server->getAdapterCodeByAlias($apiAlias) : 'default';
 
     // if no adapters found in aliases - find it by default, by code
-    if (null === $adapterCode) {
-        $adapterCode = $apiAlias;
-    }
+    $adapterCode ??= $apiAlias;
 
     try {
         $server->initialize($adapterCode);

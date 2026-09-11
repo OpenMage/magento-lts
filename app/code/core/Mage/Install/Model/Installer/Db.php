@@ -115,18 +115,14 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
         }
 
         //set db type according the db model
-        if (!isset($data['db_type'])) {
-            $data['db_type'] = (string) Mage::getConfig()
-                ->getNode(sprintf('install/databases/%s/type', $data['db_model']));
-        }
+        $data['db_type'] ??= (string) Mage::getConfig()
+            ->getNode(sprintf('install/databases/%s/type', $data['db_model']));
 
         $dbResource = $this->_getDbResource($data['db_model']);
         $data['db_pdo_type'] = $dbResource->getPdoType();
 
-        if (!isset($data['db_init_statemants'])) {
-            $data['db_init_statemants'] = (string) Mage::getConfig()
-                ->getNode(sprintf('install/databases/%s/initStatements', $data['db_model']));
-        }
+        $data['db_init_statemants'] ??= (string) Mage::getConfig()
+            ->getNode(sprintf('install/databases/%s/initStatements', $data['db_model']));
 
         return $data;
     }

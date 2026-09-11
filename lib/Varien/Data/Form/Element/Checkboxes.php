@@ -62,10 +62,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                     'value' => $key,
                 ];
             } elseif (isset($value['value'])) {
-                if (!isset($value['label'])) {
-                    $value['label'] = $value['value'];
-                }
-
+                $value['label'] ??= $value['value'];
                 $values[] = [
                     'label' => $value['label'],
                     'value' => $value['value'],

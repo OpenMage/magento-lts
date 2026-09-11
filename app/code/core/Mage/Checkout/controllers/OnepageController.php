@@ -597,7 +597,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             if ($requiredAgreements) {
                 $postedAgreements = array_keys($this->getRequest()->getPost('agreement', []));
                 $diff = array_diff($requiredAgreements, $postedAgreements);
-                if ($diff) {
+                if ($diff !== []) {
                     $result['success'] = false;
                     $result['error'] = true;
                     $result['error_messages'] = $this->__('Please agree to all the terms and conditions before placing the order.');

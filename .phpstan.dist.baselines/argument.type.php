@@ -8322,36 +8322,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Filter/Template.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_errno expects CurlHandle, CurlHandle|resource given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_error expects CurlHandle, CurlHandle|resource given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_exec expects CurlHandle, CurlHandle|resource given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_getinfo expects CurlHandle, CurlHandle|resource given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_setopt expects CurlHandle, CurlHandle|resource given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_setopt_array expects CurlHandle, CurlHandle|resource given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $haystack of function stripos expects string, bool|string given.',
     'count' => 2,
     'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',

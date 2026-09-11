@@ -20,12 +20,10 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
      */
     public function getAllOptions($withEmpty = false)
     {
-        if (is_null($this->_options)) {
-            $this->_options = Mage::getResourceModel('tax/class_collection')
-                ->addFieldToFilter('class_type', Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT)
-                ->load()
-                ->toOptionArray();
-        }
+        $this->_options ??= Mage::getResourceModel('tax/class_collection')
+            ->addFieldToFilter('class_type', Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT)
+            ->load()
+            ->toOptionArray();
 
         $options = $this->_options;
         array_unshift($options, ['value' => '0', 'label' => Mage::helper('tax')->__('None')]);
