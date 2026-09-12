@@ -207,7 +207,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
 
         $this->_setErrors($errors);
 
-        return !$errors;
+        return $errors === [];
     }
 
     /**

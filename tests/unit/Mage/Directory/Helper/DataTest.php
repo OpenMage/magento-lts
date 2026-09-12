@@ -18,6 +18,7 @@ use Mage_Directory_Model_Resource_Country_Collection;
 use Mage_Directory_Model_Resource_Region_Collection;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\DirectoryTrait;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 final class DataTest extends OpenMageTest
 {
@@ -51,6 +52,7 @@ final class DataTest extends OpenMageTest
     /**
      * @group Helper
      */
+    #[IgnoreDeprecations]
     public function testGetRegionJsonByStore(): void
     {
         self::assertIsString(self::$subject->getRegionJson());
@@ -58,8 +60,6 @@ final class DataTest extends OpenMageTest
 
     /**
      * @group Helper
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testCurrencyConvert(): void
     {

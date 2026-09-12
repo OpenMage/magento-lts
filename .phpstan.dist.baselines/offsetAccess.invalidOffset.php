@@ -202,11 +202,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Layer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Possibly invalid array key type int|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type float|int.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Layer/Filter/Price/Algorithm.php',

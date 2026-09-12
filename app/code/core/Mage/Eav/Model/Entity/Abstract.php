@@ -253,7 +253,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function setType($type)
     {
         $this->_type = Mage::getSingleton('eav/config')->getEntityType($type);
-        $this->_afterSetConfig();
         return $this;
     }
 
@@ -1603,7 +1602,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                 $this->_insertAttribute($object, $attribute, $newValue);
             } elseif ($origValueId !== false && ($newValue !== null)) {
                 $this->_updateAttribute($object, $attribute, $origValueId, $newValue);
-            } elseif ($origValueId !== false && ($newValue === null)) {
+            } elseif ($origValueId !== false) {
                 $adapter->delete($table, $where);
             }
 
@@ -1743,17 +1742,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function getDefaultAttributes()
     {
         return array_unique(array_merge($this->_getDefaultAttributes(), [$this->getEntityIdField()]));
-    }
-
-    /**
-     * After set config process
-     *
-     * @return $this
-     * @deprecated
-     */
-    protected function _afterSetConfig()
-    {
-        return $this;
     }
 
     /**

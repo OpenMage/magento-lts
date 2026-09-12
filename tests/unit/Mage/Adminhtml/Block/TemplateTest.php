@@ -32,8 +32,6 @@ final class TemplateTest extends OpenMageTest
     /**
      * @see Mage_Core_Model_Session::getFormKey()
      * @group Block
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetFormKey(): void
     {

@@ -2272,11 +2272,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Media/Model/Image.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Page_Block_Html_Topmenu_Renderer::render() should return string but returns string|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Html/Topmenu/Renderer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Page_Block_Switch::getCurrentStoreId() should return int but returns int|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Switch.php',

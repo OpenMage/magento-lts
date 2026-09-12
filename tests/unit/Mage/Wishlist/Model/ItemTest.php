@@ -18,6 +18,7 @@ use Mage_Core_Exception;
 use Mage_Wishlist_Model_Item as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Wishlist\Model\ItemTrait;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use Varien_Object;
 
 final class ItemTest extends OpenMageTest
@@ -73,6 +74,7 @@ final class ItemTest extends OpenMageTest
     /**
      * @group Model
      */
+    #[IgnoreDeprecations]
     public function testGetDataForSave(): void
     {
         self::assertIsArray(self::$subject->getDataForSave());

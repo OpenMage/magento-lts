@@ -18,6 +18,9 @@ use Mage_Admin_Model_Block as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\BlockTrait;
 
+/**
+ * @phpstan-import-type ValidateData from BlockTrait
+ */
 final class BlockTest extends OpenMageTest
 {
     use BlockTrait;
@@ -33,17 +36,16 @@ final class BlockTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateAdminBlockData
-     * @param array<int, string>|true $expectedResult
+     * @param bool|string[] $expectedResult
+     * @phpstan-param ValidateData    $data
      *
      * @group Model
      * @throws Exception
      */
-    public function testValidate(array|bool $expectedResult, array $methods): void
+    public function testValidate(array|bool $expectedResult, array $data): void
     {
-        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-
-        self::assertInstanceOf(Subject::class, $mock);
-        self::assertEquals($expectedResult, $mock->validate());
+        self::$subject->setData($data);
+        self::assertEquals($expectedResult, self::$subject->validate());
     }
 
     /**

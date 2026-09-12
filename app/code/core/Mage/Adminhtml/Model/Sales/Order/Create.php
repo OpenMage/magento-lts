@@ -1597,8 +1597,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
         }
 
-        /** @var Mage_Sales_Model_Order $order */
-        $order = $service->submit();
+        $order = $service->submitOrder();
         $customer = $quote->getCustomer();
         if ((!$customer->getId() || !$customer->isInStore($this->getSession()->getStore()))
             && !$quote->getCustomerIsGuest()
@@ -1702,7 +1701,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $host = $this->getSession()
                 ->getStore()
                 ->getConfig(Mage_Customer_Model_Customer::XML_PATH_DEFAULT_EMAIL_DOMAIN);
-            $account = $customer->getIncrementId() ? $customer->getIncrementId() : $this->getClockHelper()->getTimestamp();
+            $account = $customer->getIncrementId() ? $customer->getIncrementId() : Mage::helper('core/clock')->getTimestamp();
             $email = $account . '@' . $host;
             $account = $this->getDataByKey('account');
             $account['email'] = $email;
@@ -1714,8 +1713,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
     /**
      * Create customer model and assign it to quote
-     * @deprecated after 1.4.0.0.
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0)]
     protected function _putCustomerIntoQuote()
     {
         if (!$this->getSession()->getCustomer()->getId()) {
@@ -1750,8 +1749,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Save customer
      *
      * @param Mage_Customer_Model_Customer $order
-     * @deprecated after 1.4.0.0.
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_0)]
     protected function _saveCustomerAfterOrder($order)
     {
         if ($this->_customer) {
@@ -1812,8 +1811,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
     /**
      * @return $this
-     * @deprecated after 1.1.7
      */
+    #[Deprecated(message: 'after 1.1.7')]
     protected function _saveCustomer()
     {
         if (!$this->getSession()->getCustomer()->getId()) {

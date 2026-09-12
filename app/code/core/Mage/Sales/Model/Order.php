@@ -1142,8 +1142,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  string $comment
      * @param  bool   $isCustomerNotified
      * @return $this
-     * @deprecated after 1.4.0.0-alpha3
      */
+    #[Deprecated(message: 'after 1.4.0.0-alpha3')]
     public function addStatusToHistory($status, $comment = '', $isCustomerNotified = false)
     {
         $this->addStatusHistoryComment($comment, $status)
@@ -2087,8 +2087,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order website currency for working with base prices
      *
      * @return Mage_Directory_Model_Currency
-     * @deprecated  please use getBaseCurrency instead
      */
+    #[Deprecated(message: 'please use getBaseCurrency instead')]
     public function getStoreCurrency()
     {
         return $this->getDataByKey('store_currency');

@@ -352,8 +352,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      * Export process.
      *
      * @return string
-     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
      */
+    #[Deprecated(message: 'after ver 1.9.2.4 use $this->exportFile() instead')]
     abstract public function export();
 
     /**

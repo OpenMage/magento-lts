@@ -169,11 +169,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Userroles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/User/Edit/Tab/Roles.php',
 ];
 $ignoreErrors[] = [
