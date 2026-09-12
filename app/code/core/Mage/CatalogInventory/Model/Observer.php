@@ -98,11 +98,11 @@ class Mage_CatalogInventory_Model_Observer
     {
         /** @var Mage_Catalog_Model_Resource_Product_Collection $productCollection */
         $productCollection = $observer->getEvent()->getCollection();
-        if ($productCollection->hasFlag('no_stock_data')) {
+        if ($productCollection->getFlag('no_stock_data')) {
             return $this;
         }
 
-        if ($productCollection->hasFlag('require_stock_items')) {
+        if ($productCollection->getFlag('require_stock_items')) {
             Mage::getModel('cataloginventory/stock')->addItemsToProducts($productCollection);
         } else {
             Mage::getModel('cataloginventory/stock_status')->addStockStatusToProducts($productCollection);
