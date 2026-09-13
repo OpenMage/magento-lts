@@ -1597,8 +1597,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
         }
 
-        /** @var Mage_Sales_Model_Order $order */
-        $order = $service->submit();
+        $order = $service->submitOrder();
         $customer = $quote->getCustomer();
         if ((!$customer->getId() || !$customer->isInStore($this->getSession()->getStore()))
             && !$quote->getCustomerIsGuest()
