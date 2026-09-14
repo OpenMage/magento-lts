@@ -344,6 +344,22 @@ final class HelperTest extends OpenMageTest
     }
 
     /**
+     * @dataProvider provideUnplacedPaymentQuotes
+     * @param null|array<string, string> $rawDetails
+     * @group Model
+     */
+    public function testHasUnplacedPaypalPayment(?int $quoteId, bool $isActive, ?array $rawDetails, bool $expected): void
+    {
+        $quote = Mage::getModel('sales/quote');
+        $quote->setId($quoteId)->setIsActive($isActive ? 1 : 0);
+        if ($rawDetails !== null) {
+            $quote->getPayment()->setAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS, $rawDetails);
+        }
+
+        self::assertSame($expected, self::$subject->hasUnplacedPaypalPayment($quote));
+    }
+
+    /**
      * @group Model
      */
     public function testGetQuotePaypalOrderIdPrefersPaymentColumn(): void
@@ -369,5 +385,72 @@ final class HelperTest extends OpenMageTest
 
         self::assertSame('ORDER-RAW', self::$subject->getQuotePaypalOrderId($quote));
         self::assertSame('', self::$subject->getQuotePaypalOrderId(Mage::getModel('sales/quote')));
+    }
+
+    /**
+     * @group Model
+     */
+    public function testAssertPaypalOrderMatchesQuoteAcceptsMatchingOrder(): void
+    {
+        $quote = $this->buildProcessedPaymentQuote([]);
+
+        self::$subject->assertPaypalOrderMatchesQuote($this->buildPaypalOrderDetails(), $quote, 'ORDER-1');
+
+        self::assertSame('100000001', $quote->getReservedOrderId());
+    }
+
+    /**
+     * @dataProvider provideMismatchedPaypalOrders
+     * @param array<string, mixed> $overrides
+     * @group Model
+     */
+    public function testAssertPaypalOrderMatchesQuoteRejectsMismatch(array $overrides, string $paypalOrderId): void
+    {
+        $quote = $this->buildProcessedPaymentQuote([]);
+
+        $this->expectException(Mage_Paypal_Model_Exception::class);
+
+        self::$subject->assertPaypalOrderMatchesQuote($this->buildPaypalOrderDetails($overrides), $quote, $paypalOrderId);
+    }
+
+    /**
+     * @param  array<string, mixed> $overrides invoice_id, currency_code or value
+     * @return array<string, mixed>
+     */
+    private function buildPaypalOrderDetails(array $overrides = []): array
+    {
+        return [
+            'id' => 'ORDER-1',
+            'status' => 'APPROVED',
+            'purchase_units' => [[
+                'invoice_id' => $overrides['invoice_id'] ?? '100000001',
+                'amount' => [
+                    'currency_code' => $overrides['currency_code'] ?? 'USD',
+                    'value' => $overrides['value'] ?? '42.17',
+                ],
+            ]],
+        ];
+    }
+
+    /**
+     * @dataProvider providePendingChargeQuotes
+     * @param null|array<string, string> $rawDetails
+     * @group Model
+     */
+    public function testGetPendingChargePaypalOrderId(bool $isActive, ?array $rawDetails, ?string $attemptOrderId, string $expected): void
+    {
+        $quote = Mage::getModel('sales/quote');
+        $quote->setId(10)->setIsActive($isActive ? 1 : 0);
+        $payment = $quote->getPayment()->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID, 'ORDER-1');
+        if ($rawDetails !== null) {
+            $payment->setAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS, $rawDetails);
+        }
+
+        if ($attemptOrderId !== null) {
+            $payment->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID, $attemptOrderId);
+        }
+
+        self::assertSame($expected, self::$subject->getPendingChargePaypalOrderId($quote));
+        self::assertSame($expected !== '', self::$subject->hasPendingPaypalCharge($quote));
     }
 }

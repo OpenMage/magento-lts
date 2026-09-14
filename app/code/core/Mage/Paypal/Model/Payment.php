@@ -30,6 +30,12 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      */
     public const PAYPAL_ORDER_ID = 'paypal_order_id';
 
+    /**
+     * Payment additional_information key naming the PayPal order whose approval the storefront has taken over:
+     * it tried to charge it, or told the buyer it could not. The webhook fallback must not charge it.
+     */
+    public const PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID = 'paypal_checkout_attempt_order_id';
+
     public const PAYPAL_PAYMENT_SOURCE = 'paypal_payment_source';
 
     public const PAYPAL_PAYMENT_AUTHORIZATION_ID = 'paypal_payment_authorization_id';
@@ -77,8 +83,9 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
     public function captureOrder(string $orderId, Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote): void
     {
         $api = $this->getHelper()->getApi()->setStore($quote->getStore());
-        $requestId = $this->getHelper()->getPaypalRequestId($quote);
-        $response = $api->captureOrder($orderId, $quote, $requestId);
+        // No PayPal-Request-Id: the create call's id must not be reused here. Callers guard against a repeated
+        // capture by reading the order status first.
+        $response = $api->captureOrder($orderId, $quote);
         if ($response->isError()) {
             $this->getHelper()->handleApiError($response, 'Capture order failed');
         }

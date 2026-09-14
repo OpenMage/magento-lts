@@ -205,4 +205,46 @@ trait HelperTrait
             ]],
         ];
     }
+
+    /**
+     * @return array<string, array{?int, bool, null|array<string, string>, bool}>
+     */
+    public static function provideUnplacedPaymentQuotes(): array
+    {
+        return [
+            'captured, no order yet'       => [10, true, ['id' => 'ORDER-1', 'capture_id' => 'CAP-1'], true],
+            'authorized, no order yet'     => [10, true, ['id' => 'ORDER-1', 'authorization_id' => 'AUTH-1'], true],
+            'created but not paid'         => [10, true, ['id' => 'ORDER-1', 'status' => 'CREATED'], false],
+            'no PayPal details'            => [10, true, null, false],
+            'placed quote is inactive'     => [10, false, ['id' => 'ORDER-1', 'capture_id' => 'CAP-1'], false],
+            'unsaved quote'                => [null, true, ['id' => 'ORDER-1', 'capture_id' => 'CAP-1'], false],
+        ];
+    }
+
+    /**
+     * @return array<string, array{array<string, mixed>, string}>
+     */
+    public static function provideMismatchedPaypalOrders(): array
+    {
+        return [
+            'another PayPal order'  => [[], 'ORDER-2'],
+            'another invoice'       => [['invoice_id' => '100000002'], 'ORDER-1'],
+            'another currency'      => [['currency_code' => 'EUR'], 'ORDER-1'],
+            'cart total changed'    => [['value' => '40.00'], 'ORDER-1'],
+            'amount missing'        => [['value' => ''], 'ORDER-1'],
+        ];
+    }
+
+    /**
+     * @return array<string, array{bool, null|array<string, string>, ?string, string}>
+     */
+    public static function providePendingChargeQuotes(): array
+    {
+        return [
+            'capture recorded'                    => [true, ['id' => 'ORDER-1', 'capture_id' => 'CAP-1'], null, 'ORDER-1'],
+            'charge attempted, outcome unknown'   => [true, ['id' => 'ORDER-1'], 'ORDER-1', 'ORDER-1'],
+            'created, never charged'              => [true, ['id' => 'ORDER-1'], null, ''],
+            'placed quote holds nothing pending'  => [false, ['id' => 'ORDER-1', 'capture_id' => 'CAP-1'], 'ORDER-1', ''],
+        ];
+    }
 }

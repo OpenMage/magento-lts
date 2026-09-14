@@ -10,7 +10,6 @@
 declare(strict_types=1);
 
 use Carbon\Carbon;
-use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 
 /**
  * PayPal payment controller
@@ -48,6 +47,19 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             // Enforce checkout agreements before the PayPal order is created,
             // so the customer is never charged without accepting the terms.
             $this->_validateCheckoutAgreements();
+
+            // The cart may already be paid for: settle that payment before the buyer can start another one.
+            if (Mage::getSingleton('paypal/helper')->hasPendingPaypalCharge($this->_getQuote())
+                && $this->_getPlacement()->resolvePendingCharge($this->_getQuote()) instanceof Mage_Sales_Model_Order
+            ) {
+                $this->getResponse()
+                    ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
+                    ->setBody(Mage::helper('core')->jsonEncode([
+                        'success' => false,
+                        'redirect_url' => $this->_getSuccessUrl(),
+                    ]));
+                return;
+            }
 
             if (!$this->_getQuote()->hasItems() || $this->_getQuote()->getHasError()) {
                 $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
@@ -109,10 +121,10 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Processes the PayPal payment after customer approval on the PayPal side.
-     * This action will either authorize or capture the payment based on the store's configuration.
+     * Charges the approved PayPal order and places the Magento order in the same request.
      *
-     * @throws Exception
+     * The browser only has to follow the returned redirect: once the buyer has been charged,
+     * placing the order no longer depends on a second request that the browser might never send.
      */
     public function processAction(): void
     {
@@ -121,89 +133,41 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
             }
 
-            // Agreements must hold here too: this action captures/authorizes
-            // the PayPal payment, and a later placeOrderAction rejection would
-            // leave the customer charged without an order.
+            // Agreements must hold here too: this action charges the buyer.
             $this->_validateCheckoutAgreements();
 
-            $orderId = $this->getRequest()->getParam('order_id');
-            $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
-
-            if (!$orderId) {
+            $orderId = (string) $this->getRequest()->getParam('order_id');
+            if ($orderId === '') {
                 Mage::throwException(Mage::helper('paypal')->__('PayPal order ID is required'));
             }
 
-            // Re-check at the last point before the money moves: the quote can lose its shipping
-            // method between create and approval (a second tab, an expired rate, a re-collected
-            // address). Failing here costs the buyer only an unused approval, not a capture.
-            // Read-only — PayPal already holds the approved amount and this action has no
-            // re-patch step, so re-quoting carriers here could charge a total nobody approved.
-            Mage::getSingleton('paypal/helper')->validateShippingMethodForQuote($this->_getQuote(), false);
-
-            if ($paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE)) {
-                $this->_getPaypal()->authorizePayment($orderId, $this->_getQuote());
-            } else {
-                $this->_getPaypal()->captureOrder($orderId, $this->_getQuote());
-            }
+            $this->_getPlacement()->placeApprovedOrder($this->_getQuote(), $orderId);
 
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)->setBody(Mage::helper('core')->jsonEncode([
                     'success' => true,
+                    'redirect_url' => $this->_getSuccessUrl(),
                 ]));
         } catch (Exception $exception) {
             Mage::logException($exception);
+
+            // The buyer is now told this approval failed, so the webhook fallback must not charge it later.
+            if (!$exception instanceof Mage_Paypal_Model_Checkout_UnplacedPaymentException) {
+                try {
+                    $this->_getPlacement()->markCheckoutAttempt(
+                        $this->_getQuote(),
+                        (string) $this->getRequest()->getParam('order_id'),
+                    );
+                } catch (Exception $markException) {
+                    Mage::logException($markException);
+                }
+            }
 
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)->setBody(Mage::helper('core')->jsonEncode([
                     'success' => false,
                     'message' => $exception->getMessage(),
                 ]));
-        }
-    }
-
-    /**
-     * Places the Magento order after the PayPal payment has been successfully processed.
-     * It handles guest, new customer, and existing customer checkouts, creates the order,
-     * and redirects to the success or cart page.
-     */
-    public function placeOrderAction(): void
-    {
-        try {
-            if (!$this->_validateFormKey()) {
-                Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
-            }
-
-            // Re-check agreements: the place-order form is submitted by JS and
-            // bypasses the normal review.save() agreement enforcement.
-            $this->_validateCheckoutAgreements();
-
-            /** @var Mage_Paypal_Model_Checkout_Finalizer $finalizer */
-            $finalizer = Mage::getModel('paypal/checkout_finalizer');
-            $isNewCustomer = $finalizer->prepareQuoteForCheckout($this->_getQuote());
-            $finalizer->ignoreAddressValidation($this->_getQuote());
-            $this->_getQuote()->collectTotals();
-            $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
-            $isAuthorize = ($paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE));
-            Mage::getSingleton('paypal/helper')->validateProcessedPaymentForQuote(
-                $this->_getQuote(),
-                $isAuthorize,
-                (string) $this->getRequest()->getParam('id'),
-            );
-
-            $service = Mage::getModel('sales/service_quote', $this->_getQuote());
-            $service->submitAll();
-            $order = $finalizer->finalizeSubmittedOrder($this->_getQuote(), $service, $isAuthorize, $isNewCustomer);
-            if ($order === null) {
-                return;
-            }
-
-            $this->_redirect('checkout/onepage/success');
-            return;
-        } catch (Exception $exception) {
-            Mage::logException($exception);
-            Mage::helper('checkout')->sendPaymentFailedEmail($this->_getQuote(), $exception->getMessage());
-            $this->_getCheckoutSession()->addError($exception->getMessage());
-            $this->_redirect('checkout/cart');
         }
     }
 
@@ -215,6 +179,14 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         try {
             if (!$this->_validateFormKey()) {
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
+            }
+
+            if (Mage::getSingleton('paypal/helper')->hasPendingPaypalCharge($this->_getQuote())) {
+                // A payment that may have been charged has to stay on the quote until it is settled.
+                $this->getResponse()
+                    ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
+                    ->setBody(Mage::helper('core')->jsonEncode(['success' => true]));
+                return;
             }
 
             $payment = $this->_getQuote()->getPayment();
@@ -259,6 +231,16 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         }
 
         return $this->_quote;
+    }
+
+    private function _getPlacement(): Mage_Paypal_Model_Checkout_Placement
+    {
+        return Mage::getSingleton('paypal/checkout_placement');
+    }
+
+    private function _getSuccessUrl(): string
+    {
+        return Mage::getUrl('checkout/onepage/success', ['_secure' => true]);
     }
 
     /**

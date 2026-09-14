@@ -106,6 +106,7 @@ class Mage_Paypal_Model_Express_ShortcutState extends Mage_Core_Model_Abstract
             Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_REQUEST_ID,
             Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_RESERVED_ORDER_ID,
             Mage_Paypal_Model_Payment::PAYPAL_SHORTCUT_CURRENCY,
+            Mage_Paypal_Model_Payment::PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID,
         ];
     }
 

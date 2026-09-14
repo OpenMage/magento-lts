@@ -258,6 +258,12 @@ class PayPalPayment {
 
             const result = await response.json();
 
+            // The cart was already paid for and its order has now been placed: go there instead of paying again.
+            if (result?.redirect_url) {
+                window.location.href = result.redirect_url;
+                return new Promise(() => {});
+            }
+
             if (!result?.success || !result?.id) {
                 throw new Error(result?.message || 'Failed to create PayPal order');
             }
@@ -301,53 +307,24 @@ class PayPalPayment {
 
             const result = await response.json();
 
-            if (!result?.success) {
+            // The server has charged the buyer and placed the order in that one request; all that is left
+            // is to show the result.
+            if (!result?.success || !result?.redirect_url) {
                 throw new Error(result?.message || 'Payment capture failed');
             }
 
-            this.submitPlaceOrderForm(data.orderID);
-            return result;
+            window.location.href = result.redirect_url;
         } catch (error) {
+            // Not rethrown: the SDK would report it through onError, which cancels and replaces this message.
             console.error('Payment approval error:', error);
             this.showError(error.message);
             this.hideLoadingMask();
-            throw error;
         }
-    }
-
-    submitPlaceOrderForm(orderId) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = this.config.placeOrderUrl;
-        form.style.display = 'none';
-
-        const orderIdInput = document.createElement('input');
-        orderIdInput.type = 'hidden';
-        orderIdInput.name = 'id';
-        orderIdInput.value = orderId;
-
-        const formKeyInput = document.createElement('input');
-        formKeyInput.type = 'hidden';
-        formKeyInput.name = 'form_key';
-        formKeyInput.value = this.config.formKey;
-
-        form.append(orderIdInput, formKeyInput);
-
-        this.collectAgreementParams().forEach(([name, value]) => {
-            const agreementInput = document.createElement('input');
-            agreementInput.type = 'hidden';
-            agreementInput.name = name;
-            agreementInput.value = value;
-            form.appendChild(agreementInput);
-        });
-
-        document.body.appendChild(form);
-        form.submit();
     }
 
     /**
      * Collect accepted checkout agreement fields so they can be carried into
-     * the PayPal-only create-order and place-order requests, which bypass the
+     * the PayPal-only create-order and capture requests, which bypass the
      * normal review.save() submission.
      *
      * @returns {Array<[string, string]>}

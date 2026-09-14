@@ -9,7 +9,6 @@
 
 declare(strict_types=1);
 
-use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 use PaypalServerSdkLib\Models\PurchaseUnitRequest;
 
 /**
@@ -47,6 +46,20 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             $this->_clearExpressQuoteSession();
 
             $quote = $this->_getQuote();
+            if (Mage::getSingleton('paypal/helper')->hasPendingPaypalCharge($quote)) {
+                // Clearing the shortcut state below would discard a payment the buyer may already have made.
+                if (Mage::getSingleton('paypal/checkout_placement')->resolvePendingCharge($quote) instanceof Mage_Sales_Model_Order) {
+                    $this->_jsonResponse([
+                        'success' => false,
+                        'redirect' => Mage::getUrl('checkout/onepage/success', ['_secure' => true]),
+                    ]);
+                    return;
+                }
+
+                $this->_clearExpressQuoteSession();
+                $quote = $this->_getQuote();
+            }
+
             if (!$this->_enforceGuestCheckoutAllowed($quote)) {
                 return;
             }
@@ -241,52 +254,55 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             }
 
             $details = $this->_assertPaypalOrderBelongsToQuote($quote, $response->getBody());
-            $this->_assertPatchablePaypalStatus($details);
-            $this->_assertApprovedForCapture($details);
 
-            /** @var Mage_Paypal_Model_Checkout_Finalizer $finalizer */
-            $finalizer = Mage::getModel('paypal/checkout_finalizer');
-            $isNewCustomer = $finalizer->prepareQuoteForCheckout($quote, false);
-            $this->_ignoreAddressValidation($quote);
+            // An order PayPal already charged (a repeated submit, or one whose charge result was lost) needs no
+            // patch: Placement places it, or returns the order already placed for it.
+            $isNewCustomer = null;
+            if (strtoupper((string) ($details['status'] ?? '')) !== 'COMPLETED') {
+                $this->_assertPatchablePaypalStatus($details);
+                $this->_assertApprovedForCapture($details);
 
-            $quote->collectTotals();
-            $this->_validateQuoteUsable($quote);
-            $this->_validateMinimumAmount($quote);
-            $this->_validateShippingMethod($quote);
+                $isNewCustomer = Mage::getModel('paypal/checkout_finalizer')->prepareQuoteForCheckout($quote, false);
+                $this->_ignoreAddressValidation($quote);
 
-            if (!$this->_isPostedGrandTotalCurrent($quote)) {
-                $this->_getCheckoutSession()->addNotice(
-                    Mage::helper('paypal')->__('The order total changed. Please review your order before placing it.'),
-                );
-                $quote->save();
-                $this->_redirectReview($orderId);
-                return;
-            }
+                $quote->collectTotals();
+                $this->_validateQuoteUsable($quote);
+                $this->_validateMinimumAmount($quote);
+                $this->_validateShippingMethod($quote);
 
-            // Patching an approved order costs us the buyer's approval — PayPal flips it back to
-            // PAYER_ACTION_REQUIRED and the capture is then rejected. reviewAction already patched the
-            // shipping in, so re-sending the same amount here buys nothing and breaks the charge. Only
-            // patch when PayPal is actually holding a stale total.
-            if (!$this->_paypalAmountMatchesQuote($details, $quote)) {
-                $patch = $this->_buildPatch($quote);
-                if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
-                    Mage::log(['order_id' => $orderId, 'patch' => $patch], null, 'paypal_patch.log', true);
+                if (!$this->_isPostedGrandTotalCurrent($quote)) {
+                    $this->_getCheckoutSession()->addNotice(
+                        Mage::helper('paypal')->__('The order total changed. Please review your order before placing it.'),
+                    );
+                    $quote->save();
+                    $this->_redirectReview($orderId);
+                    return;
                 }
 
-                $patchResponse = $api->patchOrder($orderId, $patch);
-                if ($patchResponse !== null && $patchResponse->isError()) {
-                    Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
+                // Patching an approved order costs us the buyer's approval — PayPal flips it back to
+                // PAYER_ACTION_REQUIRED and the capture is then rejected. reviewAction already patched the
+                // shipping in, so re-sending the same amount here buys nothing and breaks the charge. Only
+                // patch when PayPal is actually holding a stale total.
+                if (!$this->_paypalAmountMatchesQuote($details, $quote)) {
+                    $patch = $this->_buildPatch($quote);
+                    if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
+                        Mage::log(['order_id' => $orderId, 'patch' => $patch], null, 'paypal_patch.log', true);
+                    }
+
+                    $patchResponse = $api->patchOrder($orderId, $patch);
+                    if ($patchResponse !== null && $patchResponse->isError()) {
+                        Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
+                    }
                 }
             }
 
-            $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
-            $isAuthorize = ($paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE));
             try {
-                if ($isAuthorize) {
-                    $this->_getPaypal()->authorizePayment($orderId, $quote);
-                } else {
-                    $this->_getPaypal()->captureOrder($orderId, $quote);
-                }
+                Mage::getSingleton('paypal/checkout_placement')->placeApprovedOrder($quote, $orderId, true, true, $isNewCustomer, false);
+            } catch (Mage_Paypal_Model_Checkout_UnplacedPaymentException $unplacedException) {
+                // The buyer is charged and the store notified. The generic handler below would invite a retry.
+                $this->_getCheckoutSession()->addError($unplacedException->getMessage());
+                $this->_redirect('checkout/cart');
+                return;
             } catch (Mage_Paypal_Model_Exception $paypalException) {
                 // When the post-approval patch raised the total beyond PayPal's tolerance (their
                 // ML-driven overcharge threshold, roughly 115% / +$75), the charge is rejected with
@@ -299,15 +315,6 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 }
 
                 throw $paypalException;
-            }
-
-            Mage::getSingleton('paypal/helper')->validateProcessedPaymentForQuote($quote, $isAuthorize, $orderId);
-
-            $service = Mage::getModel('sales/service_quote', $quote);
-            $service->submitAll();
-            $order = $finalizer->finalizeSubmittedOrder($quote, $service, $isAuthorize, $isNewCustomer);
-            if ($order === null) {
-                return;
             }
 
             // Post-success: the placed-order quote is now inactive (set by submitAll) and is referenced by the order;
@@ -334,6 +341,13 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             }
 
             $quote = $this->_getQuote();
+            if (Mage::getSingleton('paypal/helper')->hasPendingPaypalCharge($quote)
+                && Mage::getSingleton('paypal/checkout_placement')->resolvePendingCharge($quote) instanceof Mage_Sales_Model_Order
+            ) {
+                $this->_jsonResponse(['success' => true]);
+                return;
+            }
+
             $this->_getShortcutState()->clear($quote);
             $quote->setReservedOrderId(null)->save();
             $this->_getCurrencyLock()->restore($quote);
@@ -443,6 +457,13 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 // Only delete an abandoned (still-active) Buy-Now quote. A quote whose order succeeded is already
                 // inactive via submitAll() and may be referenced by the placed order — leave it alone.
                 if ((int) $stale->getId() === $expressQuoteId && (int) $stale->getIsActive() === 1) {
+                    // Deleting it would destroy the only record of a payment the buyer may already have made;
+                    // keep it in the session so the caller settles that payment first.
+                    if (Mage::getSingleton('paypal/helper')->hasPendingPaypalCharge($stale)) {
+                        $this->_quote = false;
+                        return;
+                    }
+
                     $stale->delete();
                 }
             } catch (Throwable $throwable) {

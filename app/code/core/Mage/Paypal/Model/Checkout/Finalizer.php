@@ -31,7 +31,7 @@ class Mage_Paypal_Model_Checkout_Finalizer extends Mage_Core_Model_Abstract
         bool $saveCustomerAddresses = true
     ): bool {
         $isNewCustomer = false;
-        switch (Mage::getSingleton('checkout/type_onepage')->getCheckoutMethod()) {
+        switch ($this->_resolveCheckoutMethod($quote)) {
             case Mage_Checkout_Model_Type_Onepage::METHOD_GUEST:
                 $this->_prepareGuestQuote($quote);
                 break;
@@ -45,6 +45,26 @@ class Mage_Paypal_Model_Checkout_Finalizer extends Mage_Core_Model_Abstract
         }
 
         return $isNewCustomer;
+    }
+
+    /**
+     * Read the checkout method from the quote itself rather than the onepage singleton, whose quote is the
+     * session's: webhook and cron placements have no session and would otherwise treat every buyer as a guest.
+     */
+    private function _resolveCheckoutMethod(Mage_Sales_Model_Quote $quote): string
+    {
+        if ($quote->getCustomerId()) {
+            return Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER;
+        }
+
+        $method = (string) $quote->getData('checkout_method');
+        if (in_array($method, [Mage_Checkout_Model_Type_Onepage::METHOD_GUEST, Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER], true)) {
+            return $method;
+        }
+
+        return Mage::helper('checkout')->isAllowedGuestCheckout($quote)
+            ? Mage_Checkout_Model_Type_Onepage::METHOD_GUEST
+            : Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
     }
 
     /**
@@ -263,7 +283,9 @@ class Mage_Paypal_Model_Checkout_Finalizer extends Mage_Core_Model_Abstract
         $billing    = $quote->getBillingAddress();
         $shipping   = $quote->isVirtual() ? null : $quote->getShippingAddress();
 
-        $customer = $this->_getCustomerSession()->getCustomer();
+        // The quote's customer, not the session's: webhook and cron placements have no customer session, and an
+        // empty session customer copied onto the quote would strip its customer id, email and group.
+        $customer = $quote->getCustomer();
         if (!$saveCustomerAddresses) {
             $billing->setSaveInAddressBook(0)
                 ->setCustomerAddressId(null)

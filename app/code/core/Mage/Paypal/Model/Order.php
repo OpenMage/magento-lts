@@ -60,7 +60,9 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
             $quote->reserveOrderId()->save();
             $api = $this->getHelper()->getApi();
             $orderRequest = $this->buildOrderRequest($quote, $quote->getReservedOrderId(), $fundingSource);
-            $paypalRequestId = $this->getHelper()->getPaypalRequestId($quote) ?? bin2hex(random_bytes(16));
+            // Every attempt is a new PayPal order. Reusing the id left on the quote by an earlier, captured
+            // attempt made PayPal reject the new order with ORDER_ALREADY_CAPTURED.
+            $paypalRequestId = bin2hex(random_bytes(16));
             $response = $api->createOrder($quote, $orderRequest, $paypalRequestId);
             $result = $response->getResult();
 

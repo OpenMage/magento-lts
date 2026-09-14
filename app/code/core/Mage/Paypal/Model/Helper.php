@@ -274,6 +274,37 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Validate a PayPal order read back from the API against the quote it is about to be charged for:
+     * same order, same invoice id, same currency and the same amount as the quote total right now.
+     *
+     * @param  array<string, mixed>        $details decoded PayPal order
+     * @throws Mage_Paypal_Model_Exception
+     */
+    public function assertPaypalOrderMatchesQuote(array $details, Mage_Sales_Model_Quote $quote, string $paypalOrderId): void
+    {
+        $unit = is_array($details['purchase_units'][0] ?? null) ? $details['purchase_units'][0] : [];
+        $rawDetails = [
+            'id'         => (string) ($details['id'] ?? ''),
+            'invoice_id' => (string) ($unit['invoice_id'] ?? ''),
+        ];
+        $this->_assertProcessedPaymentBelongsToQuote($rawDetails, $quote, $paypalOrderId);
+
+        $currency = $this->_getQuoteCurrencyCode($quote);
+        $paypalCurrency = (string) ($unit['amount']['currency_code'] ?? '');
+        if ($currency === '' || strcasecmp($currency, $paypalCurrency) !== 0) {
+            throw new Mage_Paypal_Model_Exception($this->_helper->__(self::ERROR_PAYMENT_QUOTE_MISMATCH));
+        }
+
+        $paypalAmount = $unit['amount']['value'] ?? null;
+        if (!is_numeric($paypalAmount)
+            || $this->_helper->formatPrice((float) $paypalAmount, $currency)
+                !== $this->_helper->formatPrice((float) $quote->getGrandTotal(), $currency)
+        ) {
+            throw new Mage_Paypal_Model_Exception($this->_helper->__(self::ERROR_PAYMENT_AMOUNT_MISMATCH));
+        }
+    }
+
+    /**
      * The PayPal order the quote's current payment attempt was created for.
      */
     public function getQuotePaypalOrderId(Mage_Sales_Model_Quote $quote): string
@@ -288,6 +319,88 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
         $rawDetails = $payment->getAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS);
 
         return is_array($rawDetails) ? (string) ($rawDetails['id'] ?? '') : '';
+    }
+
+    /**
+     * Whether an active quote holds a captured or authorized PayPal payment that never became an order.
+     *
+     * Such a quote must be turned into its order; resetting it or starting another PayPal order for it
+     * charges the buyer a second time.
+     */
+    public function hasUnplacedPaypalPayment(Mage_Sales_Model_Quote $quote): bool
+    {
+        if ((int) $quote->getId() === 0 || (int) $quote->getIsActive() !== 1) {
+            return false;
+        }
+
+        $rawDetails = $quote->getPayment()->getAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS);
+        if (!is_array($rawDetails)) {
+            return false;
+        }
+
+        return ($rawDetails['capture_id'] ?? '') !== '' || ($rawDetails['authorization_id'] ?? '') !== '';
+    }
+
+    /**
+     * The PayPal order an active quote may already be paid through: one recorded as charged, or one whose charge
+     * was attempted without a recorded outcome. Empty when neither applies.
+     */
+    public function getPendingChargePaypalOrderId(Mage_Sales_Model_Quote $quote): string
+    {
+        if ($this->hasUnplacedPaypalPayment($quote)) {
+            return $this->getQuotePaypalOrderId($quote);
+        }
+
+        if ((int) $quote->getId() === 0 || (int) $quote->getIsActive() !== 1) {
+            return '';
+        }
+
+        return (string) $quote->getPayment()->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID);
+    }
+
+    /**
+     * Whether the quote may already be paid through PayPal. Resetting such a quote or starting another PayPal
+     * order for it risks charging the buyer twice.
+     */
+    public function hasPendingPaypalCharge(Mage_Sales_Model_Quote $quote): bool
+    {
+        return $this->getPendingChargePaypalOrderId($quote) !== '';
+    }
+
+    /**
+     * Serialise work on one PayPal order across requests, webhooks and cron.
+     *
+     * A MySQL named lock is server-wide and released automatically if the PHP process dies.
+     */
+    public function acquirePaypalOrderLock(string $paypalOrderId, int $timeoutSeconds): bool
+    {
+        return (string) $this->_getWriteConnection()->fetchOne(
+            'SELECT GET_LOCK(?, ?)',
+            [$this->_getPaypalOrderLockName($paypalOrderId), $timeoutSeconds],
+        ) === '1';
+    }
+
+    public function releasePaypalOrderLock(string $paypalOrderId): void
+    {
+        $this->_getWriteConnection()->fetchOne('SELECT RELEASE_LOCK(?)', [$this->_getPaypalOrderLockName($paypalOrderId)]);
+    }
+
+    private function _getPaypalOrderLockName(string $paypalOrderId): string
+    {
+        return 'paypal_order_' . $paypalOrderId;
+    }
+
+    /**
+     * @throws Mage_Paypal_Model_Exception
+     */
+    private function _getWriteConnection(): Varien_Db_Adapter_Interface
+    {
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        if (!$connection instanceof Varien_Db_Adapter_Interface) {
+            throw new Mage_Paypal_Model_Exception('The database write connection is unavailable.');
+        }
+
+        return $connection;
     }
 
     /**
@@ -802,19 +915,5 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     public function getQuote(): Mage_Sales_Model_Quote
     {
         return Mage::getSingleton('checkout/session')->getQuote();
-    }
-
-
-    /**
-     * Retrieve PayPal Transaction PayPal-Request-Id if available
-     */
-    public function getPaypalRequestId(Mage_Sales_Model_Quote $quote): ?string
-    {
-        $payment = $quote->getPayment();
-        if ($payment && $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID)) {
-            return $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID);
-        }
-
-        return null;
     }
 }
