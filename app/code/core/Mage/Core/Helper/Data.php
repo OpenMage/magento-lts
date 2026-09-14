@@ -770,13 +770,19 @@ XML;
     }
 
     /**
-     * Generate a hash from unique ID
+     * Generate a random hash, optionally prefixed
+     *
+     * Uses a cryptographically secure RNG (random_bytes) so the result is safe
+     * for security-sensitive tokens (password-reset links, wishlist sharing
+     * codes, newsletter confirmation keys). Output shape is unchanged: the
+     * prefix followed by 32 hexadecimal characters.
+     *
      * @param  string $prefix
      * @return string
      */
     public function uniqHash($prefix = '')
     {
-        return $prefix . md5(uniqid(microtime() . mt_rand(), true));
+        return $prefix . bin2hex(random_bytes(16));
     }
 
     /**
