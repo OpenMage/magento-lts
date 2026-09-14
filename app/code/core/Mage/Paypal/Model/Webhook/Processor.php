@@ -9,8 +9,15 @@
 
 declare(strict_types=1);
 
+use Carbon\Carbon;
+use Monolog\Level;
+
 class Mage_Paypal_Model_Webhook_Processor
 {
+    public const ACTION_ORDER_APPROVED = 'order_approved';
+
+    public const ACTION_ORDER_COMPLETED = 'order_completed';
+
     public const ACTION_CAPTURE_COMPLETED = 'capture_completed';
 
     public const ACTION_CAPTURE_DENIED = 'capture_denied';
@@ -27,7 +34,14 @@ class Mage_Paypal_Model_Webhook_Processor
 
     public const ACTION_IGNORE = 'ignore';
 
+    /**
+     * How long an approved in-checkout order is left to the buyer's browser before the webhook charges it.
+     */
+    public const APPROVAL_GRACE_SECONDS = 300;
+
     private readonly Mage_Paypal_Model_Webhook_Event_Resolver $resolver;
+
+    private ?Mage_Paypal_Model_Checkout_Placement $placement = null;
 
     /**
      * Mage::getModel() always passes its (empty) arguments array as the first constructor argument.
@@ -47,6 +61,10 @@ class Mage_Paypal_Model_Webhook_Processor
             return;
         }
 
+        // Outside the event lock's transaction: placing an order charges the buyer and commits on its own. Inside
+        // it, a failure later in this method would roll the order back while the PayPal charge stays.
+        $this->recoverMissingOrder($event);
+
         $connection = null;
 
         try {
@@ -60,8 +78,11 @@ class Mage_Paypal_Model_Webhook_Processor
                 return;
             }
 
-            $event->incrementProcessingAttempts();
             $action = $this->getActionForEventType((string) $event->getData('event_type'));
+            $awaitsCheckout = $action === self::ACTION_ORDER_APPROVED && !$this->isPastApprovalGrace($event);
+            if (!$awaitsCheckout) {
+                $event->incrementProcessingAttempts();
+            }
 
             if ($action === self::ACTION_IGNORE) {
                 $event->markIgnored('Unsupported PayPal webhook event type.')->save();
@@ -81,12 +102,16 @@ class Mage_Paypal_Model_Webhook_Processor
             $order = $resolution->getData('order');
             $payment = $resolution->getData('payment');
             if (!$order instanceof Mage_Sales_Model_Order || !$payment instanceof Mage_Sales_Model_Order_Payment) {
-                $event->markDeferred('No matching Magento order/payment was found yet.')->save();
+                $this->deferUnresolvedEvent($event, $action, $awaitsCheckout);
                 $connection?->commit();
                 return;
             }
 
             switch ($action) {
+                case self::ACTION_ORDER_APPROVED:
+                case self::ACTION_ORDER_COMPLETED:
+                    // Nothing left to do once the order exists.
+                    break;
                 case self::ACTION_CAPTURE_COMPLETED:
                     $this->processCaptureCompleted($event, $order, $payment);
                     break;
@@ -122,6 +147,8 @@ class Mage_Paypal_Model_Webhook_Processor
     public function getActionForEventType(string $eventType): string
     {
         return match ($eventType) {
+            'CHECKOUT.ORDER.APPROVED' => self::ACTION_ORDER_APPROVED,
+            'CHECKOUT.ORDER.COMPLETED' => self::ACTION_ORDER_COMPLETED,
             'PAYMENT.CAPTURE.COMPLETED' => self::ACTION_CAPTURE_COMPLETED,
             'PAYMENT.CAPTURE.DENIED' => self::ACTION_CAPTURE_DENIED,
             'PAYMENT.CAPTURE.REFUNDED' => self::ACTION_CAPTURE_REFUNDED,
@@ -135,6 +162,126 @@ class Mage_Paypal_Model_Webhook_Processor
                 ? self::ACTION_SUBSCRIPTION
                 : self::ACTION_IGNORE,
         };
+    }
+
+    /**
+     * Place the order for a PayPal payment whose checkout never got that far.
+     *
+     * An approval is charged only after a grace period, so the buyer's own browser request wins whenever it
+     * arrives. The attempt that reaches the retry limit notifies the store if placement fails.
+     */
+    public function recoverMissingOrder(Mage_Paypal_Model_Webhook_Event $event): void
+    {
+        $action = $this->getActionForEventType((string) $event->getData('event_type'));
+        if (!in_array($action, [self::ACTION_ORDER_APPROVED, self::ACTION_ORDER_COMPLETED, self::ACTION_CAPTURE_COMPLETED], true)) {
+            return;
+        }
+
+        $paypalOrderId = (string) $event->getData('paypal_order_id');
+        if ($paypalOrderId === '') {
+            return;
+        }
+
+        $retryLimit = $this->getRetryLimit();
+        $attempt = (int) $event->getData('processing_attempts') + 1;
+        if ($attempt > $retryLimit) {
+            return;
+        }
+
+        $isApproval = $action === self::ACTION_ORDER_APPROVED;
+        if ($isApproval && !$this->isPastApprovalGrace($event)) {
+            return;
+        }
+
+        try {
+            $this->getPlacement()->recoverOrder($paypalOrderId, $isApproval, $attempt === $retryLimit);
+        } catch (Throwable $throwable) {
+            Mage::logException($throwable);
+        }
+    }
+
+    public function isPastApprovalGrace(Mage_Paypal_Model_Webhook_Event $event): bool
+    {
+        $eventTime = (string) $event->getData('event_time');
+        if ($eventTime === '') {
+            $eventTime = (string) $event->getData('created_at');
+        }
+
+        if ($eventTime === '') {
+            return false;
+        }
+
+        try {
+            return Carbon::parse($eventTime, 'UTC')->addSeconds(self::APPROVAL_GRACE_SECONDS)->lte(Carbon::now('UTC'));
+        } catch (Exception) {
+            return false;
+        }
+    }
+
+    /**
+     * Retry an event whose order does not exist yet, up to the retry limit, then give it up so it stops taking a
+     * slot in every cron batch. An approval still inside its grace period has not used up an attempt.
+     */
+    private function deferUnresolvedEvent(Mage_Paypal_Model_Webhook_Event $event, string $action, bool $awaitsCheckout): void
+    {
+        if ($awaitsCheckout) {
+            $event->markDeferred("Waiting for the buyer's checkout to place the order.")->save();
+            return;
+        }
+
+        $attempts = (int) $event->getData('processing_attempts');
+        if ($attempts < $this->getRetryLimit()) {
+            $event->markDeferred('No matching Magento order/payment was found yet.')->save();
+            return;
+        }
+
+        $event->markFailed(sprintf('No matching Magento order/payment was found after %d attempts.', $attempts))->save();
+        if ($action === self::ACTION_CAPTURE_COMPLETED) {
+            $this->alertOrphanedCapture($event);
+        }
+    }
+
+    /**
+     * PayPal kept the money but there is neither an order nor an open cart to place one from, e.g. the cart was
+     * merged away when the buyer logged in. Placement has already notified the store when the cart still exists.
+     */
+    private function alertOrphanedCapture(Mage_Paypal_Model_Webhook_Event $event): void
+    {
+        $placement = $this->getPlacement();
+        $paypalOrderId = (string) $event->getData('paypal_order_id');
+        if ($paypalOrderId !== '' && $placement->findQuoteByPaypalOrderId($paypalOrderId) instanceof Mage_Sales_Model_Quote) {
+            return;
+        }
+
+        $captureId = (string) $event->getData('paypal_capture_id');
+        if ($captureId === '') {
+            $captureId = (string) $event->getData('resource_id');
+        }
+
+        $message = sprintf(
+            'PayPal capture %s (PayPal order %s) has no Magento order and no open cart to place it from. '
+            . 'Place the order manually or refund the capture in PayPal.',
+            $captureId,
+            $paypalOrderId !== '' ? $paypalOrderId : 'unknown',
+        );
+        Mage::log($message, Level::Critical, 'paypal.log', true);
+        $placement->notifyStore(null, $message);
+    }
+
+    private function getRetryLimit(): int
+    {
+        return max(1, Mage::getSingleton('paypal/config')->getWebhookRetryLimit());
+    }
+
+    public function setPlacement(Mage_Paypal_Model_Checkout_Placement $placement): self
+    {
+        $this->placement = $placement;
+        return $this;
+    }
+
+    private function getPlacement(): Mage_Paypal_Model_Checkout_Placement
+    {
+        return $this->placement ??= Mage::getSingleton('paypal/checkout_placement');
     }
 
     private function beginEventLock(Mage_Paypal_Model_Webhook_Event $event): ?Varien_Db_Adapter_Interface

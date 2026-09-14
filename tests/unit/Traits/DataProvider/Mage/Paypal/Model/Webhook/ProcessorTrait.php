@@ -21,6 +21,8 @@ trait ProcessorTrait
     public function provideEventActionData(): array
     {
         return [
+            'order approved' => ['CHECKOUT.ORDER.APPROVED', Subject::ACTION_ORDER_APPROVED],
+            'order completed' => ['CHECKOUT.ORDER.COMPLETED', Subject::ACTION_ORDER_COMPLETED],
             'capture completed' => ['PAYMENT.CAPTURE.COMPLETED', Subject::ACTION_CAPTURE_COMPLETED],
             'capture denied' => ['PAYMENT.CAPTURE.DENIED', Subject::ACTION_CAPTURE_DENIED],
             'capture refunded' => ['PAYMENT.CAPTURE.REFUNDED', Subject::ACTION_CAPTURE_REFUNDED],
@@ -31,7 +33,26 @@ trait ProcessorTrait
             'customer dispute updated' => ['CUSTOMER.DISPUTE.UPDATED', Subject::ACTION_DISPUTE],
             'customer dispute resolved' => ['CUSTOMER.DISPUTE.RESOLVED', Subject::ACTION_DISPUTE],
             'subscription event' => ['BILLING.SUBSCRIPTION.ACTIVATED', Subject::ACTION_SUBSCRIPTION],
-            'unknown event' => ['CHECKOUT.ORDER.APPROVED', Subject::ACTION_IGNORE],
+            'unknown event' => ['CHECKOUT.PAYMENT-APPROVAL.REVERSED', Subject::ACTION_IGNORE],
+        ];
+    }
+
+    /**
+     * @return array<string, array{0: string, 1: int, 2: string, 3: null|array{0: bool, 1: bool}}>
+     */
+    public function provideRecoveryData(): array
+    {
+        $pastGrace = '2026-09-14 11:54:00';
+        $withinGrace = '2026-09-14 11:58:00';
+
+        return [
+            'approval still within the grace period' => ['CHECKOUT.ORDER.APPROVED', 0, $withinGrace, null],
+            'approval past the grace period is charged' => ['CHECKOUT.ORDER.APPROVED', 0, $pastGrace, [true, false]],
+            'capture is placed without waiting' => ['PAYMENT.CAPTURE.COMPLETED', 0, $withinGrace, [false, false]],
+            'completed order is placed without waiting' => ['CHECKOUT.ORDER.COMPLETED', 0, $withinGrace, [false, false]],
+            'last attempt notifies the store' => ['PAYMENT.CAPTURE.COMPLETED', 2, $withinGrace, [false, true]],
+            'attempts exhausted' => ['PAYMENT.CAPTURE.COMPLETED', 3, $withinGrace, null],
+            'refund never places an order' => ['PAYMENT.CAPTURE.REFUNDED', 0, $pastGrace, null],
         ];
     }
 }
