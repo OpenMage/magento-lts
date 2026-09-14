@@ -25,6 +25,11 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
     // Payment information transport keys
     public const PAYPAL_REQUEST_ID = 'paypal_request_id';
 
+    /**
+     * Quote/order payment column linking the payment to its PayPal order.
+     */
+    public const PAYPAL_ORDER_ID = 'paypal_order_id';
+
     public const PAYPAL_PAYMENT_SOURCE = 'paypal_payment_source';
 
     public const PAYPAL_PAYMENT_AUTHORIZATION_ID = 'paypal_payment_authorization_id';

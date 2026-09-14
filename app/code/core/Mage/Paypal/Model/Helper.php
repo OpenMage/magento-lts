@@ -274,6 +274,23 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     }
 
     /**
+     * The PayPal order the quote's current payment attempt was created for.
+     */
+    public function getQuotePaypalOrderId(Mage_Sales_Model_Quote $quote): string
+    {
+        $payment = $quote->getPayment();
+        $paypalOrderId = (string) $payment->getData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID);
+        if ($paypalOrderId !== '') {
+            return $paypalOrderId;
+        }
+
+        // Attempts started before the paypal_order_id column existed only carry the id in the raw details.
+        $rawDetails = $payment->getAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS);
+
+        return is_array($rawDetails) ? (string) ($rawDetails['id'] ?? '') : '';
+    }
+
+    /**
      * Resolve the quote currency used for the PayPal payment.
      */
     private function _getQuoteCurrencyCode(Mage_Sales_Model_Quote $quote): string

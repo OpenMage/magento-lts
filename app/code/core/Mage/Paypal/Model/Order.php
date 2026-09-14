@@ -379,7 +379,8 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
     public function updatePaymentWithOrderInfo(Mage_Sales_Model_Quote_Payment $payment, ApiResponse $response, string $paypalRequestId, string $fundingSource): void
     {
         $result = $response->getResult();
-        $payment->setPaypalCorrelationId($result->getId())
+        $payment->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID, $result->getId())
+            ->setPaypalCorrelationId($result->getId())
             ->setAdditionalInformation(
                 Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
                 $this->getHelper()->prepareRawDetails($response->getBody()),

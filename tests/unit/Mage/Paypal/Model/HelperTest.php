@@ -14,6 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Paypal_Model_Exception;
+use Mage_Paypal_Model_Payment;
 use Mage_Paypal_Model_Helper as Subject;
 use Mage_Paypal_Model_Transaction;
 use Mage_Sales_Model_Order_Payment_Transaction;
@@ -340,5 +341,33 @@ final class HelperTest extends OpenMageTest
         self::$subject->validateShippingMethodForQuote($quote, false);
 
         self::assertSame('matrixrate_matrixrate_51919', $quote->getShippingAddress()->getShippingMethod());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetQuotePaypalOrderIdPrefersPaymentColumn(): void
+    {
+        $quote = Mage::getModel('sales/quote');
+        $quote->getPayment()
+            ->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID, 'ORDER-COLUMN')
+            ->setAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS, ['id' => 'ORDER-RAW']);
+
+        self::assertSame('ORDER-COLUMN', self::$subject->getQuotePaypalOrderId($quote));
+    }
+
+    /**
+     * Attempts started before the column existed only have the id in the stored create response.
+     *
+     * @group Model
+     */
+    public function testGetQuotePaypalOrderIdFallsBackToRawDetails(): void
+    {
+        $quote = Mage::getModel('sales/quote');
+        $quote->getPayment()
+            ->setAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS, ['id' => 'ORDER-RAW']);
+
+        self::assertSame('ORDER-RAW', self::$subject->getQuotePaypalOrderId($quote));
+        self::assertSame('', self::$subject->getQuotePaypalOrderId(Mage::getModel('sales/quote')));
     }
 }

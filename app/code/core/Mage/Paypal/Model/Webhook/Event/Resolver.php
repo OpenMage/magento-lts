@@ -24,6 +24,11 @@ class Mage_Paypal_Model_Webhook_Event_Resolver
             return $result;
         }
 
+        $result = $this->resolveByPaypalOrderId($candidateIds);
+        if ((bool) $result->getData('is_authoritative')) {
+            return $result;
+        }
+
         $result = $this->resolveByPaymentCorrelationId($candidateIds);
         if ((bool) $result->getData('is_authoritative')) {
             return $result;
@@ -113,6 +118,32 @@ class Mage_Paypal_Model_Webhook_Event_Resolver
         $order = Mage::getModel('sales/order')->load($transaction->getData('order_id'));
 
         return $this->buildResult($order, $payment, true);
+    }
+
+    /**
+     * Resolve via the PayPal order id recorded on the order payment.
+     *
+     * @param string[] $ids
+     */
+    private function resolveByPaypalOrderId(array $ids): Varien_Object
+    {
+        if ($ids === []) {
+            return new Varien_Object(['is_authoritative' => false]);
+        }
+
+        $payment = Mage::getModel('sales/order_payment')->getCollection()
+            ->addFieldToFilter(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID, ['in' => $ids])
+            ->setPageSize(1)
+            ->getFirstItem();
+
+        if ((int) $payment->getId() === 0) {
+            return new Varien_Object(['is_authoritative' => false]);
+        }
+
+        $order = Mage::getModel('sales/order')->load($payment->getData('parent_id'));
+        $orderPayment = $order->getPayment();
+
+        return $this->buildResult($order, $orderPayment instanceof Mage_Sales_Model_Order_Payment ? $orderPayment : null, true);
     }
 
     /**

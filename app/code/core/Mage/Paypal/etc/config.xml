@@ -10,7 +10,7 @@
 <config>
     <modules>
         <Mage_Paypal>
-            <version>2.0.1.0</version>
+            <version>2.0.2.0</version>
         </Mage_Paypal>
     </modules>
     <global>
@@ -41,6 +41,13 @@
                 <class>Mage_Paypal_Helper</class>
             </paypal>
         </helpers>
+        <fieldsets>
+            <sales_convert_quote_payment>
+                <paypal_order_id>
+                    <to_order_payment>*</to_order_payment>
+                </paypal_order_id>
+            </sales_convert_quote_payment>
+        </fieldsets>
         <sales>
             <order>
                 <states>
