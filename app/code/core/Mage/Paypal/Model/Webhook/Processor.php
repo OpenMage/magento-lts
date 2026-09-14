@@ -298,7 +298,10 @@ class Mage_Paypal_Model_Webhook_Processor
             throw new Mage_Paypal_Model_Exception('Authorization void webhook does not include an authorization ID.');
         }
 
-        $transaction = Mage::getModel('sales/order_payment_transaction')->loadByTxnId($authorizationId);
+        // loadByTxnId() refuses to run without the payment it is scoped to.
+        $transaction = Mage::getModel('sales/order_payment_transaction')
+            ->setOrderPaymentObject($payment)
+            ->loadByTxnId($authorizationId);
         if ($transaction->getId()) {
             $transaction->setIsClosed(1)->save();
         }
@@ -337,7 +340,10 @@ class Mage_Paypal_Model_Webhook_Processor
         ?string $parentTransactionId,
         Mage_Paypal_Model_Webhook_Event $event
     ): void {
-        $transaction = Mage::getModel('sales/order_payment_transaction')->loadByTxnId($transactionId);
+        // loadByTxnId() refuses to run without the payment it is scoped to.
+        $transaction = Mage::getModel('sales/order_payment_transaction')
+            ->setOrderPaymentObject($payment)
+            ->loadByTxnId($transactionId);
         if (!$transaction->getId()) {
             $transaction->setOrderPaymentObject($payment)
                 ->setTxnId($transactionId)

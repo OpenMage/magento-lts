@@ -108,7 +108,7 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
             );
         $transaction->save();
 
-        $authTxn = $this->getTransaction()->loadByTxnId($authorizationId);
+        $authTxn = $this->getTransaction()->setOrderPaymentObject($payment)->loadByTxnId($authorizationId);
         if ($authTxn->getId()) {
             $authTxn->setIsClosed(1);
             $authTxn->save();
@@ -274,7 +274,7 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
             ->save();
 
         // Close the original authorization transaction, not the expired marker.
-        $authTxn = $this->getTransaction()->loadByTxnId($authorizationTxnId);
+        $authTxn = $this->getTransaction()->setOrderPaymentObject($payment)->loadByTxnId($authorizationTxnId);
         if ($authTxn->getId()) {
             $authTxn->setIsClosed(1);
             $authTxn->save();
