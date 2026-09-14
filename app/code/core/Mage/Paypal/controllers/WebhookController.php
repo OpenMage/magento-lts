@@ -37,7 +37,7 @@ class Mage_Paypal_WebhookController extends Mage_Core_Controller_Front_Action
         try {
             $headers = $this->getPaypalHeaders();
             $verifier = Mage::getModel('paypal/webhook_verifier');
-            if (!$verifier->verify($headers, $payload)) {
+            if (!$verifier->verify($headers, $rawBody)) {
                 $this->sendJsonResponse(401, ['error' => 'signature_verification_failed']);
                 return;
             }

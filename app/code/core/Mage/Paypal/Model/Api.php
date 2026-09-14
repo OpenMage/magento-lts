@@ -304,14 +304,14 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * POST to a PayPal REST endpoint that is not modeled by the SDK.
      *
-     * @param  array<string, mixed>        $body
+     * @param  array<string, mixed>|string $body    request body, or an already encoded JSON string
      * @param  array<string, string>       $headers
      * @return array<string, mixed>
      * @throws Mage_Paypal_Model_Exception
      */
-    public function postPaypalRest(string $path, array $body, array $headers = []): array
+    public function postPaypalRest(string $path, array|string $body, array $headers = []): array
     {
-        $payload = json_encode($body, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        $payload = is_string($body) ? $body : json_encode($body, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         if (!is_string($payload)) {
             throw new Mage_Paypal_Model_Exception('Failed to encode PayPal REST request body.');
         }

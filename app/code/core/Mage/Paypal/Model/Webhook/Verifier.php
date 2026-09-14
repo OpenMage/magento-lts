@@ -52,12 +52,12 @@ class Mage_Paypal_Model_Webhook_Verifier
     }
 
     /**
-     * Verify a PayPal webhook signature through PayPal's REST verification endpoint.
+     * Verify a PayPal webhook signature through PayPal's REST verification endpoint. $rawBody is the request body
+     * exactly as PayPal sent it.
      *
      * @param array<string, null|string> $headers
-     * @param array<string, mixed>       $payload
      */
-    public function verify(array $headers, array $payload): bool
+    public function verify(array $headers, string $rawBody): bool
     {
         $normalizedHeaders = $this->extractRequiredHeaders($headers);
         $webhookId = $this->config->getWebhookId();
@@ -65,17 +65,42 @@ class Mage_Paypal_Model_Webhook_Verifier
             throw new InvalidArgumentException('PayPal webhook ID is not configured.');
         }
 
-        $response = $this->api->postPaypalRest(self::VERIFY_ENDPOINT, [
+        $response = $this->api->postPaypalRest(
+            self::VERIFY_ENDPOINT,
+            $this->buildVerificationRequest($normalizedHeaders, $webhookId, $rawBody),
+        );
+
+        return ($response['verification_status'] ?? null) === self::VERIFICATION_SUCCESS;
+    }
+
+    /**
+     * Build the verification request with the webhook event embedded verbatim.
+     *
+     * PayPal verifies the signature against the event as it was sent. A json_decode()/json_encode() round trip
+     * turns empty objects into empty arrays, which makes an authentic event fail verification.
+     *
+     * @param array<string, string> $normalizedHeaders
+     */
+    public function buildVerificationRequest(array $normalizedHeaders, string $webhookId, string $rawBody): string
+    {
+        $rawBody = trim($rawBody);
+        if (!str_starts_with($rawBody, '{') || !is_array(json_decode($rawBody, true))) {
+            throw new InvalidArgumentException('PayPal webhook body is not a JSON object.');
+        }
+
+        $request = json_encode([
             'auth_algo'         => $normalizedHeaders[self::HEADER_AUTH_ALGO],
             'cert_url'          => $normalizedHeaders[self::HEADER_CERT_URL],
             'transmission_id'   => $normalizedHeaders[self::HEADER_TRANSMISSION_ID],
             'transmission_sig'  => $normalizedHeaders[self::HEADER_TRANSMISSION_SIG],
             'transmission_time' => $normalizedHeaders[self::HEADER_TRANSMISSION_TIME],
             'webhook_id'        => $webhookId,
-            'webhook_event'     => $payload,
-        ]);
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        if (!is_string($request)) {
+            throw new InvalidArgumentException('Failed to encode the PayPal webhook verification request.');
+        }
 
-        return ($response['verification_status'] ?? null) === self::VERIFICATION_SUCCESS;
+        return substr($request, 0, -1) . ',"webhook_event":' . $rawBody . '}';
     }
 
     /**

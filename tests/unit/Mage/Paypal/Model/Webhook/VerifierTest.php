@@ -69,23 +69,18 @@ final class VerifierTest extends OpenMageTest
             Subject::HEADER_TRANSMISSION_SIG  => 'signature',
             Subject::HEADER_TRANSMISSION_TIME => '2026-05-19T12:00:00Z',
         ];
-        $payload = [
-            'id'         => 'WH-EVENT-1',
-            'event_type' => 'PAYMENT.CAPTURE.COMPLETED',
-        ];
+        // The empty object is the case a decode/encode round trip used to turn into [] and fail verification.
+        $rawBody = '{"id":"WH-EVENT-1","event_type":"PAYMENT.CAPTURE.COMPLETED","resource":{"supplementary_data":{}}}';
 
         $api = $this->createMock(Mage_Paypal_Model_Api::class);
         $api->expects(self::once())
             ->method('postPaypalRest')
-            ->with(Subject::VERIFY_ENDPOINT, [
-                'auth_algo'         => 'SHA256withRSA',
-                'cert_url'          => 'https://api-m.paypal.com/certs/test',
-                'transmission_id'   => 'transmission-id',
-                'transmission_sig'  => 'signature',
-                'transmission_time' => '2026-05-19T12:00:00Z',
-                'webhook_id'        => 'WH-123',
-                'webhook_event'     => $payload,
-            ])
+            ->with(
+                Subject::VERIFY_ENDPOINT,
+                '{"auth_algo":"SHA256withRSA","cert_url":"https://api-m.paypal.com/certs/test",'
+                . '"transmission_id":"transmission-id","transmission_sig":"signature",'
+                . '"transmission_time":"2026-05-19T12:00:00Z","webhook_id":"WH-123","webhook_event":' . $rawBody . '}',
+            )
             ->willReturn($response);
 
         $config = $this->createMock(Mage_Paypal_Model_Config::class);
@@ -95,7 +90,25 @@ final class VerifierTest extends OpenMageTest
 
         $subject = new Subject($api, $config);
 
-        self::assertSame($expectedResult, $subject->verify($headers, $payload));
+        self::assertSame($expectedResult, $subject->verify($headers, $rawBody));
+    }
+
+    public function testVerificationRequestRejectsBodyThatIsNotAnObject(): void
+    {
+        $subject = new Subject(
+            self::createStub(Mage_Paypal_Model_Api::class),
+            self::createStub(Mage_Paypal_Model_Config::class),
+        );
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $subject->buildVerificationRequest([
+            Subject::HEADER_AUTH_ALGO         => 'SHA256withRSA',
+            Subject::HEADER_CERT_URL          => 'https://api-m.paypal.com/certs/test',
+            Subject::HEADER_TRANSMISSION_ID   => 'transmission-id',
+            Subject::HEADER_TRANSMISSION_SIG  => 'signature',
+            Subject::HEADER_TRANSMISSION_TIME => '2026-05-19T12:00:00Z',
+        ], 'WH-123', '[]');
     }
 
     /**
@@ -128,6 +141,6 @@ final class VerifierTest extends OpenMageTest
             Subject::HEADER_TRANSMISSION_ID   => 'transmission-id',
             Subject::HEADER_TRANSMISSION_SIG  => 'signature',
             Subject::HEADER_TRANSMISSION_TIME => '2026-05-19T12:00:00Z',
-        ], ['id' => 'WH-EVENT-1']);
+        ], '{"id":"WH-EVENT-1"}');
     }
 }
