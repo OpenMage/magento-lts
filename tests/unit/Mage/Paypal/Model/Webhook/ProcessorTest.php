@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Webhook;
 
+use Mage;
 use Mage_Paypal_Model_Webhook_Event_Resolver;
 use Mage_Paypal_Model_Webhook_Processor as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -28,5 +29,14 @@ final class ProcessorTest extends OpenMageTest
         $subject = new Subject(self::createStub(Mage_Paypal_Model_Webhook_Event_Resolver::class));
 
         self::assertSame($expectedResult, $subject->getActionForEventType($eventType));
+    }
+
+    /**
+     * Mage::getModel() hands every model an (empty) arguments array; a typed constructor turned each
+     * webhook delivery and cron run into a TypeError.
+     */
+    public function testModelFactoryCreatesProcessor(): void
+    {
+        self::assertInstanceOf(Subject::class, Mage::getModel('paypal/webhook_processor'));
     }
 }

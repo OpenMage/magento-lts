@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Webhook;
 
 use InvalidArgumentException;
+use Mage;
 use Mage_Paypal_Model_Api;
 use Mage_Paypal_Model_Config;
 use Mage_Paypal_Model_Webhook_Verifier as Subject;
@@ -95,6 +96,15 @@ final class VerifierTest extends OpenMageTest
         $subject = new Subject($api, $config);
 
         self::assertSame($expectedResult, $subject->verify($headers, $payload));
+    }
+
+    /**
+     * Mage::getModel() hands every model an (empty) arguments array; a typed constructor turned each
+     * webhook delivery into a TypeError.
+     */
+    public function testModelFactoryCreatesVerifier(): void
+    {
+        self::assertInstanceOf(Subject::class, Mage::getModel('paypal/webhook_verifier'));
     }
 
     public function testVerifyRejectsMissingWebhookId(): void

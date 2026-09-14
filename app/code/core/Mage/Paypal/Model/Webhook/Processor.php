@@ -29,9 +29,16 @@ class Mage_Paypal_Model_Webhook_Processor
 
     private readonly Mage_Paypal_Model_Webhook_Event_Resolver $resolver;
 
-    public function __construct(?Mage_Paypal_Model_Webhook_Event_Resolver $resolver = null)
+    /**
+     * Mage::getModel() always passes its (empty) arguments array as the first constructor argument.
+     *
+     * @param null|array<mixed>|Mage_Paypal_Model_Webhook_Event_Resolver $resolver
+     */
+    public function __construct(null|array|Mage_Paypal_Model_Webhook_Event_Resolver $resolver = null)
     {
-        $this->resolver = $resolver ?? Mage::getModel('paypal/webhook_event_resolver');
+        $this->resolver = $resolver instanceof Mage_Paypal_Model_Webhook_Event_Resolver
+            ? $resolver
+            : Mage::getModel('paypal/webhook_event_resolver');
     }
 
     public function process(Mage_Paypal_Model_Webhook_Event $event): void

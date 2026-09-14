@@ -40,9 +40,14 @@ class Mage_Paypal_Model_Webhook_Verifier
 
     private readonly Mage_Paypal_Model_Config $config;
 
-    public function __construct(?Mage_Paypal_Model_Api $api = null, ?Mage_Paypal_Model_Config $config = null)
+    /**
+     * Mage::getModel() always passes its (empty) arguments array as the first constructor argument.
+     *
+     * @param null|array<mixed>|Mage_Paypal_Model_Api $api
+     */
+    public function __construct(null|array|Mage_Paypal_Model_Api $api = null, ?Mage_Paypal_Model_Config $config = null)
     {
-        $this->api = $api ?? Mage::getSingleton('paypal/api');
+        $this->api = $api instanceof Mage_Paypal_Model_Api ? $api : Mage::getSingleton('paypal/api');
         $this->config = $config ?? Mage::getSingleton('paypal/config');
     }
 
