@@ -186,7 +186,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
 
         $timestamp = Mage::helper('core/clock')->getTimestamp();
-        if ($fromTime > $timestamp
+        if ($fromTime > $timestamp + self::SECONDS_IN_DAY
             || ($toTime && $toTime < $timestamp)
         ) {
             return;
