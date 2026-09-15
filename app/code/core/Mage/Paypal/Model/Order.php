@@ -370,10 +370,29 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
             ->build();
 
         return PayerBuilder::init()
-            ->emailAddress($quote->getEmail())
+            ->emailAddress($this->getPayerEmail($quote, $billingAddress))
             ->name($name)
             ->address($this->buildAddress($billingAddress))
             ->build();
+    }
+
+    /**
+     * Guest quotes get customer_email only when the order is placed, so the billing address carries it before that.
+     * PayPal rejects the whole order request for an address it cannot parse, including internationalized ones
+     * Magento accepts; such an address is left out instead.
+     */
+    private function getPayerEmail(Mage_Sales_Model_Quote $quote, Mage_Sales_Model_Quote_Address $billingAddress): ?string
+    {
+        $email = trim((string) $quote->getCustomerEmail());
+        if ($email === '') {
+            $email = trim((string) $billingAddress->getEmail());
+        }
+
+        if ($email === '' || strlen($email) > 254 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            return null;
+        }
+
+        return $email;
     }
 
     /**

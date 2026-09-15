@@ -68,4 +68,21 @@ trait OrderTrait
             'checkout without a usable address leaves PayPal to ask' => [true, false, ['firstname' => 'Sandbox'], null],
         ];
     }
+
+    /**
+     * Each case: the quote's customer email, the billing address email, the email PayPal should get.
+     * PayPal answers INVALID_PARAMETER_SYNTAX or INVALID_STRING_LENGTH for the addresses left out here.
+     *
+     * @return array<string, array{?string, string, ?string}>
+     */
+    public static function providePayerEmailData(): array
+    {
+        return [
+            'customer email wins' => ['customer@example.com', 'billing@example.com', 'customer@example.com'],
+            'guest quote before placement uses the billing email' => [null, 'Guest.Buyer+yes@mail.example.co.uk', 'Guest.Buyer+yes@mail.example.co.uk'],
+            'internationalized domain is left out' => [null, 'buyer@bücher.de', null],
+            'unicode local part is left out' => [null, 'büyer@example.com', null],
+            'over 254 characters is left out' => [null, 'buyer@' . str_repeat(str_repeat('d', 62) . '.', 4) . 'com', null],
+        ];
+    }
 }

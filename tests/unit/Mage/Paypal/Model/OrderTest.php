@@ -175,8 +175,41 @@ final class OrderTest extends OpenMageTest
      */
     public function testBuildPayerFromBillingAddressSendsStreet(): void
     {
+        $payer = self::$subject->buildPayerFromBillingAddress($this->createQuoteWithBillingAddress());
+        self::assertNotNull($payer);
+
+        $address = json_decode((string) json_encode($payer), true)['address'];
+        self::assertSame('1 Main St', $address['address_line_1'] ?? null);
+        self::assertSame('Apt 2', $address['address_line_2'] ?? null);
+        self::assertSame('CA', $address['admin_area_1'] ?? null);
+    }
+
+    /**
+     * The payer email was once read from a quote field that does not exist, so PayPal never got one.
+     *
+     * @dataProvider providePayerEmailData
+     * @group Model
+     */
+    public function testBuildPayerFromBillingAddressEmail(?string $customerEmail, string $billingEmail, ?string $expected): void
+    {
+        $quote = $this->createQuoteWithBillingAddress(['email' => $billingEmail]);
+        if ($customerEmail !== null) {
+            $quote->setCustomerEmail($customerEmail);
+        }
+
+        $payer = self::$subject->buildPayerFromBillingAddress($quote);
+        self::assertNotNull($payer);
+
+        self::assertSame($expected, json_decode((string) json_encode($payer), true)['email_address'] ?? null);
+    }
+
+    /**
+     * @param array<string, string> $billingData
+     */
+    private function createQuoteWithBillingAddress(array $billingData = []): Mage_Sales_Model_Quote
+    {
         $quote = Mage::getModel('sales/quote');
-        $quote->setBillingAddress(Mage::getModel('sales/quote_address')->setData([
+        $quote->setBillingAddress(Mage::getModel('sales/quote_address')->setData($billingData + [
             'firstname' => 'Sandbox',
             'lastname' => 'Tester',
             'street' => "1 Main St\nApt 2",
@@ -187,13 +220,7 @@ final class OrderTest extends OpenMageTest
             'telephone' => '4085551234',
         ]));
 
-        $payer = self::$subject->buildPayerFromBillingAddress($quote);
-        self::assertNotNull($payer);
-
-        $address = json_decode((string) json_encode($payer), true)['address'];
-        self::assertSame('1 Main St', $address['address_line_1'] ?? null);
-        self::assertSame('Apt 2', $address['address_line_2'] ?? null);
-        self::assertSame('CA', $address['admin_area_1'] ?? null);
+        return $quote;
     }
 
     /**
