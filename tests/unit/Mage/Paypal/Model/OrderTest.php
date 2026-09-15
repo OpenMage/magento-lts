@@ -169,6 +169,34 @@ final class OrderTest extends OpenMageTest
     }
 
     /**
+     * The payer address once read street lines through a getter the address does not have, so PayPal got none.
+     *
+     * @group Model
+     */
+    public function testBuildPayerFromBillingAddressSendsStreet(): void
+    {
+        $quote = Mage::getModel('sales/quote');
+        $quote->setBillingAddress(Mage::getModel('sales/quote_address')->setData([
+            'firstname' => 'Sandbox',
+            'lastname' => 'Tester',
+            'street' => "1 Main St\nApt 2",
+            'city' => 'San Jose',
+            'region_id' => Mage::getModel('directory/region')->loadByCode('CA', 'US')->getId(),
+            'postcode' => '95131',
+            'country_id' => 'US',
+            'telephone' => '4085551234',
+        ]));
+
+        $payer = self::$subject->buildPayerFromBillingAddress($quote);
+        self::assertNotNull($payer);
+
+        $address = json_decode((string) json_encode($payer), true)['address'];
+        self::assertSame('1 Main St', $address['address_line_1'] ?? null);
+        self::assertSame('Apt 2', $address['address_line_2'] ?? null);
+        self::assertSame('CA', $address['admin_area_1'] ?? null);
+    }
+
+    /**
      * @group Model
      */
     public function testBuildOrderRequestPassesShippingPreferenceToPaypalWallet(): void

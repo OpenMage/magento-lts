@@ -9,6 +9,7 @@
 
 declare(strict_types=1);
 
+use PaypalServerSdkLib\Models\Address;
 use PaypalServerSdkLib\Models\Payer;
 use PaypalServerSdkLib\Models\Item;
 use PaypalServerSdkLib\Models\Builders\PurchaseUnitRequestBuilder;
@@ -269,26 +270,29 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
         return ExperienceContextShippingPreference::SET_PROVIDED_ADDRESS;
     }
 
-    /**
-     * Field lengths are PayPal's maximums; a longer value fails the whole order request.
-     */
     public function buildShippingDetails(Mage_Sales_Model_Quote_Address $address): ShippingDetails
     {
         $name = ShippingNameBuilder::init()
             ->fullName(mb_substr(trim($address->getFirstname() . ' ' . $address->getLastname()), 0, 300))
             ->build();
 
-        $postalAddress = AddressBuilder::init((string) $address->getCountryId())
+        return ShippingDetailsBuilder::init()
+            ->name($name)
+            ->address($this->buildAddress($address))
+            ->build();
+    }
+
+    /**
+     * Field lengths are PayPal's maximums; a longer value fails the whole order request.
+     */
+    public function buildAddress(Mage_Customer_Model_Address_Abstract $address): Address
+    {
+        return AddressBuilder::init((string) $address->getCountryId())
             ->addressLine1(mb_substr((string) $address->getStreet1(), 0, 300))
             ->addressLine2($this->truncateOptional((string) $address->getStreet2(), 300))
             ->adminArea2(mb_substr((string) $address->getCity(), 0, 120))
             ->adminArea1($this->truncateOptional((string) $address->getRegionCode(), 300))
             ->postalCode($this->truncateOptional((string) $address->getPostcode(), 60))
-            ->build();
-
-        return ShippingDetailsBuilder::init()
-            ->name($name)
-            ->address($postalAddress)
             ->build();
     }
 
@@ -365,18 +369,10 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
             ->surname($billingAddress->getLastname())
             ->build();
 
-        $address = AddressBuilder::init($billingAddress->getCountryId())
-            ->addressLine1($billingAddress->getStreetLine(1))
-            ->addressLine2($billingAddress->getStreetLine(2))
-            ->adminArea2($billingAddress->getCity())
-            ->adminArea1($billingAddress->getRegionCode())
-            ->postalCode($billingAddress->getPostcode())
-            ->build();
-
         return PayerBuilder::init()
             ->emailAddress($quote->getEmail())
             ->name($name)
-            ->address($address)
+            ->address($this->buildAddress($billingAddress))
             ->build();
     }
 
