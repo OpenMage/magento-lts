@@ -693,7 +693,6 @@ use Mage_Adminhtml_Block_Tax_Rate_Grid_Renderer_Country;
 use Mage_Adminhtml_Block_Tax_Rate_Grid_Renderer_Data;
 use Mage_Adminhtml_Block_Tax_Rate_ImportExport;
 use Mage_Adminhtml_Block_Tax_Rate_Title;
-use Mage_Adminhtml_Block_Tax_Rate_Title_Fieldset;
 use Mage_Adminhtml_Block_Tax_Rate_Toolbar_Add;
 use Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save;
 use Mage_Adminhtml_Block_Tax_Rule;
@@ -2000,7 +1999,6 @@ trait BlocksTrait
             'adminhtml/tax_rate_grid_renderer_data' => Mage_Adminhtml_Block_Tax_Rate_Grid_Renderer_Data::class,
             'adminhtml/tax_rate_importExport' => Mage_Adminhtml_Block_Tax_Rate_ImportExport::class,
             'adminhtml/tax_rate_title' => Mage_Adminhtml_Block_Tax_Rate_Title::class,
-            'adminhtml/tax_rate_title_fieldset' => Mage_Adminhtml_Block_Tax_Rate_Title_Fieldset::class,
             'adminhtml/tax_rate_toolbar_add' => Mage_Adminhtml_Block_Tax_Rate_Toolbar_Add::class,
             'adminhtml/tax_rate_toolbar_save' => Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save::class,
             'adminhtml/tax_rule' => Mage_Adminhtml_Block_Tax_Rule::class,
@@ -2676,7 +2674,6 @@ trait BlocksTrait
             Mage_Adminhtml_Block_System_Config_Form_Field_Export::class,
             Mage_Adminhtml_Block_System_Config_Form_Field_File::class,
             Mage_Adminhtml_Block_System_Config_Form_Field_Select_Allowspecific::class,
-            Mage_Adminhtml_Block_Tax_Rate_Title_Fieldset::class,
             Mage_GiftMessage_Block_Adminhtml_Product_Helper_Form_Config::class,
             Mage_Rule_Block_Actions::class,
             Mage_Rule_Block_Conditions::class,
