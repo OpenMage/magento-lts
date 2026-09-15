@@ -112,8 +112,12 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
             }
 
-            $quote = $this->_getQuote();
             $orderId = trim((string) $this->getRequest()->getParam('token'));
+            if ($this->_redirectIfOrderPlaced($orderId)) {
+                return;
+            }
+
+            $quote = $this->_getQuote();
             $this->_getCurrencyLock()->assertHeld($quote);
             $this->_getCurrencyLock()->applyTo($quote);
             $this->_validateShortcutAttempt($quote, $orderId);
@@ -241,6 +245,10 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
             }
 
+            if ($this->_redirectIfOrderPlaced($orderId)) {
+                return;
+            }
+
             $quote = $this->_getQuote();
             $this->_getCurrencyLock()->assertHeld($quote);
             $this->_getCurrencyLock()->applyTo($quote);
@@ -255,8 +263,8 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
 
             $details = $this->_assertPaypalOrderBelongsToQuote($quote, $response->getBody());
 
-            // An order PayPal already charged (a repeated submit, or one whose charge result was lost) needs no
-            // patch: Placement places it, or returns the order already placed for it.
+            // An order PayPal already charged (its charge result was lost, or a concurrent submit got there first)
+            // needs no patch: Placement places it, or returns the order already placed for it.
             $isNewCustomer = null;
             if (strtoupper((string) ($details['status'] ?? '')) !== 'COMPLETED') {
                 $this->_assertPatchablePaypalStatus($details);
@@ -572,6 +580,33 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         $quote->setCustomerEmail($billingEmail)
             ->setCustomerIsGuest(1)
             ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+    }
+
+    /**
+     * A resubmitted Place Order or a back-button return to review arrives after placement cleared the shortcut
+     * session, so the shortcut checks would fail and tell a buyer who has already paid to restart checkout.
+     */
+    private function _redirectIfOrderPlaced(string $orderId): bool
+    {
+        if ($orderId === '') {
+            return false;
+        }
+
+        $order = Mage::getSingleton('paypal/checkout_placement')->findOrderByPaypalOrderId($orderId);
+        if (!$order instanceof Mage_Sales_Model_Order) {
+            return false;
+        }
+
+        $session = $this->_getCheckoutSession();
+        if ((int) $session->getLastOrderId() === (int) $order->getId() && (int) $session->getLastSuccessQuoteId() > 0) {
+            $this->_redirect('checkout/onepage/success');
+            return true;
+        }
+
+        // The success page shows an order only once: it clears the success marker, and would bounce to an empty cart.
+        $session->addSuccess(Mage::helper('paypal')->__('This PayPal payment is already complete and your order has been placed.'));
+        $this->_redirect('checkout/cart');
+        return true;
     }
 
     /**
