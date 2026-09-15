@@ -12,17 +12,26 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model;
 
 use Mage;
+use Mage_Core_Model_Session;
 use Mage_Paypal_Model_Cart;
+use Mage_Paypal_Model_Helper;
 use Mage_Paypal_Model_Order as Subject;
+use Mage_Sales_Model_Quote;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\OrderTrait;
+use PaypalServerSdkLib\Models\Builders\AmountWithBreakdownBuilder;
 use PaypalServerSdkLib\Models\Builders\ItemBuilder;
 use PaypalServerSdkLib\Models\Builders\MoneyBuilder;
+use PaypalServerSdkLib\Models\Builders\PurchaseUnitRequestBuilder;
 
 final class OrderTest extends OpenMageTest
 {
     use OrderTrait;
+
+    private const HELPER_SINGLETON = '_singleton/paypal/helper';
+
+    private const CORE_SESSION_SINGLETON = '_singleton/core/session';
 
     private static Subject $subject;
 
@@ -116,5 +125,80 @@ final class OrderTest extends OpenMageTest
             - $value(Mage_Paypal_Model_Cart::TOTAL_DISCOUNT);
 
         self::assertEqualsWithDelta($grandTotal, $balance, 0.001);
+    }
+
+    /**
+     * @param array<string, string> $addressData
+     * @dataProvider provideShippingPreferenceData
+     * @group Model
+     */
+    public function testGetShippingPreference(bool $useQuoteShippingAddress, bool $isVirtual, array $addressData, ?string $expected): void
+    {
+        $quote = $this->createMock(Mage_Sales_Model_Quote::class);
+        $quote->method('isVirtual')->willReturn($isVirtual);
+        $quote->method('getShippingAddress')->willReturn(Mage::getModel('sales/quote_address')->setData($addressData));
+
+        self::assertSame($expected, self::$subject->getShippingPreference($quote, $useQuoteShippingAddress));
+    }
+
+    /**
+     * @group Model
+     */
+    public function testBuildShippingDetails(): void
+    {
+        $address = Mage::getModel('sales/quote_address')->setData([
+            'firstname' => 'Sandbox',
+            'lastname' => 'Tester',
+            'street' => "1 Main St\nApt 2",
+            'city' => str_repeat('c', 130),
+            'region' => 'CA',
+            'postcode' => '',
+            'country_id' => 'US',
+        ]);
+
+        $shipping = json_decode((string) json_encode(self::$subject->buildShippingDetails($address)), true);
+
+        self::assertSame(['full_name' => 'Sandbox Tester'], $shipping['name']);
+        self::assertSame([
+            'address_line_1' => '1 Main St',
+            'address_line_2' => 'Apt 2',
+            'admin_area_2' => str_repeat('c', 120),
+            'admin_area_1' => 'CA',
+            'country_code' => 'US',
+        ], $shipping['address']);
+    }
+
+    /**
+     * @group Model
+     */
+    public function testBuildOrderRequestPassesShippingPreferenceToPaypalWallet(): void
+    {
+        $subject = $this->createPartialMock(Subject::class, ['buildPurchaseUnit', 'buildPayerFromBillingAddress', 'getShippingPreference']);
+        $subject->method('buildPurchaseUnit')->willReturn(
+            PurchaseUnitRequestBuilder::init(AmountWithBreakdownBuilder::init('USD', '1.00')->build())->build(),
+        );
+        $subject->method('buildPayerFromBillingAddress')->willReturn(null);
+        $subject->method('getShippingPreference')->willReturn('SET_PROVIDED_ADDRESS');
+
+        // The real helper and the return URLs would start a session after PHPUnit has sent output.
+        $helper = $this->createMock(Mage_Paypal_Model_Helper::class);
+        $helper->method('getPaymentIntent')->willReturn('CAPTURE');
+        $session = $this->createMock(Mage_Core_Model_Session::class);
+        $session->method('getSessionIdForHost')->willReturn('');
+        $singletons = [self::HELPER_SINGLETON => $helper, self::CORE_SESSION_SINGLETON => $session];
+        foreach ($singletons as $key => $singleton) {
+            Mage::unregister($key);
+            Mage::register($key, $singleton);
+        }
+
+        try {
+            $request = json_decode((string) json_encode($subject->buildOrderRequest(Mage::getModel('sales/quote'), '100000001', 'paypal', true)), true);
+        } finally {
+            foreach (array_keys($singletons) as $key) {
+                Mage::unregister($key);
+            }
+        }
+
+        self::assertSame('SET_PROVIDED_ADDRESS', $request['payment_source']['paypal']['experience_context']['shipping_preference']);
     }
 }

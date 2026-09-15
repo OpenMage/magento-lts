@@ -105,7 +105,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             // rejects it only after the buyer has been charged.
             Mage::getSingleton('paypal/helper')->validateShippingMethodForQuote($this->_getQuote());
 
-            $result = $this->_getPaypal()->create($this->_getQuote(), $fundingSource);
+            $result = $this->_getPaypal()->create($this->_getQuote(), $fundingSource, true);
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
                 ->setBody(Mage::helper('core')->jsonEncode($result));

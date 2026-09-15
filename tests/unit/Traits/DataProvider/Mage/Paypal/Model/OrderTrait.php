@@ -51,4 +51,21 @@ trait OrderTrait
             ],
         ];
     }
+
+    /**
+     * Each case: use the checkout address, the quote is virtual, the shipping address data, expected preference.
+     *
+     * @return array<string, array{bool, bool, array<string, string>, ?string}>
+     */
+    public static function provideShippingPreferenceData(): array
+    {
+        $address = ['firstname' => 'Sandbox', 'lastname' => 'Tester', 'country_id' => 'US'];
+
+        return [
+            'shortcut keeps the address picked on PayPal' => [false, false, $address, null],
+            'checkout ships to its own address' => [true, false, $address, 'SET_PROVIDED_ADDRESS'],
+            'checkout of a virtual quote ships nothing' => [true, true, [], 'NO_SHIPPING'],
+            'checkout without a usable address leaves PayPal to ask' => [true, false, ['firstname' => 'Sandbox'], null],
+        ];
+    }
 }

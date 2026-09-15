@@ -35,6 +35,10 @@ use PaypalServerSdkLib\Models\Builders\GooglePayRequestBuilder;
 use PaypalServerSdkLib\Models\Builders\VenmoWalletRequestBuilder;
 use PaypalServerSdkLib\Models\Builders\PaypalWalletBuilder;
 use PaypalServerSdkLib\Models\Builders\PaypalWalletExperienceContextBuilder;
+use PaypalServerSdkLib\Models\Builders\ShippingDetailsBuilder;
+use PaypalServerSdkLib\Models\Builders\ShippingNameBuilder;
+use PaypalServerSdkLib\Models\ExperienceContextShippingPreference;
+use PaypalServerSdkLib\Models\ShippingDetails;
 
 /**
  * PayPal Order Creation Handler
@@ -45,12 +49,13 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
     /**
      * Create PayPal order via API
      *
-     * @param  Mage_Sales_Model_Quote                            $quote         Customer quote
-     * @param  null|string                                       $fundingSource Funding source for the order, e.g., 'mybank'
+     * @param  Mage_Sales_Model_Quote                            $quote                   Customer quote
+     * @param  null|string                                       $fundingSource           Funding source for the order, e.g., 'mybank'
+     * @param  bool                                              $useQuoteShippingAddress Ship to the address entered at checkout instead of one picked on PayPal
      * @return array{success: bool, id?: string, error?: string}
      * @throws Mage_Paypal_Model_Exception
      */
-    public function createOrder(Mage_Sales_Model_Quote $quote, ?string $fundingSource): array
+    public function createOrder(Mage_Sales_Model_Quote $quote, ?string $fundingSource, bool $useQuoteShippingAddress = false): array
     {
         // Normalize to a defined funding source; 'paypal' is the wallet default.
         $fundingSource = $fundingSource ?: 'paypal';
@@ -59,7 +64,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
             $this->getHelper()->validateQuoteForPayment($quote);
             $quote->reserveOrderId()->save();
             $api = $this->getHelper()->getApi();
-            $orderRequest = $this->buildOrderRequest($quote, $quote->getReservedOrderId(), $fundingSource);
+            $orderRequest = $this->buildOrderRequest($quote, $quote->getReservedOrderId(), $fundingSource, $useQuoteShippingAddress);
             // Every attempt is a new PayPal order. Reusing the id left on the quote by an earlier, captured
             // attempt made PayPal reject the new order with ORDER_ALREADY_CAPTURED.
             $paypalRequestId = bin2hex(random_bytes(16));
@@ -92,9 +97,13 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
      * @param  null|string $fundingSource Optional funding source for the order
      * @return object      The built order request object
      */
-    public function buildOrderRequest(Mage_Sales_Model_Quote $quote, ?string $referenceId = null, ?string $fundingSource = null): object
-    {
-        $purchaseUnit = $this->buildPurchaseUnit($quote, $referenceId);
+    public function buildOrderRequest(
+        Mage_Sales_Model_Quote $quote,
+        ?string $referenceId = null,
+        ?string $fundingSource = null,
+        bool $useQuoteShippingAddress = false,
+    ): object {
+        $purchaseUnit = $this->buildPurchaseUnit($quote, $referenceId, $useQuoteShippingAddress);
         $orderRequestBuilder = OrderRequestBuilder::init(
             $this->getHelper()->getPaymentIntent(),
             [$purchaseUnit],
@@ -109,7 +118,11 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
         }
 
         if ($fundingSource) {
-            $paymentSource = $this->_buildPaymentSource($fundingSource, $payer);
+            $paymentSource = $this->_buildPaymentSource(
+                $fundingSource,
+                $payer,
+                $this->getShippingPreference($quote, $useQuoteShippingAddress),
+            );
             if ($paymentSource !== null) {
                 $orderRequestBuilder->paymentSource($paymentSource);
             }
@@ -121,11 +134,12 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
     /**
      * Build a PayPal payment source based on funding source type
      *
-     * @param  string      $fundingSource The funding source type
-     * @param  null|object $payer         The payer object containing customer information
+     * @param  string      $fundingSource      The funding source type
+     * @param  null|object $payer              The payer object containing customer information
+     * @param  null|string $shippingPreference PayPal wallet shipping preference; null keeps PayPal's default
      * @return null|object The built payment source object, or null for default payment methods
      */
-    private function _buildPaymentSource(string $fundingSource, ?object $payer): ?object
+    private function _buildPaymentSource(string $fundingSource, ?object $payer, ?string $shippingPreference = null): ?object
     {
         $paymentSourceBuilder = PaymentSourceBuilder::init();
 
@@ -149,6 +163,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
                         PaypalWalletExperienceContextBuilder::init()
                             ->returnUrl(Mage::getUrl('paypal/express/return', ['_secure' => true]))
                             ->cancelUrl(Mage::getUrl('paypal/express/cancelReturn', ['_secure' => true]))
+                            ->shippingPreference($shippingPreference)
                             ->build(),
                     )->build(),
                 )->build();
@@ -210,7 +225,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
     /**
      * Build a purchase unit using PayPal SDK builders
      */
-    public function buildPurchaseUnit(Mage_Sales_Model_Quote $quote, ?string $referenceId = null): object
+    public function buildPurchaseUnit(Mage_Sales_Model_Quote $quote, ?string $referenceId = null, bool $useQuoteShippingAddress = false): object
     {
         $cart = Mage::getModel('paypal/cart', [$quote]);
         $currency = $quote->getOrderCurrencyCode() ?: $quote->getQuoteCurrencyCode();
@@ -225,7 +240,63 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
             ->referenceId($referenceId ?: (string) $quote->getId())
             ->invoiceId($referenceId ?: (string) $quote->getId());
 
+        if ($this->getShippingPreference($quote, $useQuoteShippingAddress) === ExperienceContextShippingPreference::SET_PROVIDED_ADDRESS) {
+            $purchaseUnitBuilder->shipping($this->buildShippingDetails($quote->getShippingAddress()));
+        }
+
         return $purchaseUnitBuilder->build();
+    }
+
+    /**
+     * Without a preference PayPal ships to an address the buyer picks on PayPal, which the in-checkout flow
+     * ignores: the order ships to the checkout address, so PayPal's transaction would record a different one.
+     */
+    public function getShippingPreference(Mage_Sales_Model_Quote $quote, bool $useQuoteShippingAddress): ?string
+    {
+        if (!$useQuoteShippingAddress) {
+            return null;
+        }
+
+        if ($quote->isVirtual()) {
+            return ExperienceContextShippingPreference::NO_SHIPPING;
+        }
+
+        $address = $quote->getShippingAddress();
+        if ((string) $address->getCountryId() === '' || trim($address->getFirstname() . ' ' . $address->getLastname()) === '') {
+            return null;
+        }
+
+        return ExperienceContextShippingPreference::SET_PROVIDED_ADDRESS;
+    }
+
+    /**
+     * Field lengths are PayPal's maximums; a longer value fails the whole order request.
+     */
+    public function buildShippingDetails(Mage_Sales_Model_Quote_Address $address): ShippingDetails
+    {
+        $name = ShippingNameBuilder::init()
+            ->fullName(mb_substr(trim($address->getFirstname() . ' ' . $address->getLastname()), 0, 300))
+            ->build();
+
+        $postalAddress = AddressBuilder::init((string) $address->getCountryId())
+            ->addressLine1(mb_substr((string) $address->getStreet1(), 0, 300))
+            ->addressLine2($this->truncateOptional((string) $address->getStreet2(), 300))
+            ->adminArea2(mb_substr((string) $address->getCity(), 0, 120))
+            ->adminArea1($this->truncateOptional((string) $address->getRegionCode(), 300))
+            ->postalCode($this->truncateOptional((string) $address->getPostcode(), 60))
+            ->build();
+
+        return ShippingDetailsBuilder::init()
+            ->name($name)
+            ->address($postalAddress)
+            ->build();
+    }
+
+    private function truncateOptional(string $value, int $length): ?string
+    {
+        $value = trim($value);
+
+        return $value === '' ? null : mb_substr($value, 0, $length);
     }
 
     /**

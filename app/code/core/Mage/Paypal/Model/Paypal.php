@@ -44,14 +44,15 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Create PayPal order via API
      *
-     * @param  Mage_Sales_Model_Quote                            $quote         Customer quote
-     * @param  null|string                                       $fundingSource Funding source for the order, e.g., 'mybank'
+     * @param  Mage_Sales_Model_Quote                            $quote                   Customer quote
+     * @param  null|string                                       $fundingSource           Funding source for the order, e.g., 'mybank'
+     * @param  bool                                              $useQuoteShippingAddress Ship to the address entered at checkout instead of one picked on PayPal
      * @return array{success: bool, id?: string, error?: string}
      * @throws Mage_Paypal_Model_Exception
      */
-    public function create(Mage_Sales_Model_Quote $quote, ?string $fundingSource): array
+    public function create(Mage_Sales_Model_Quote $quote, ?string $fundingSource, bool $useQuoteShippingAddress = false): array
     {
-        return $this->getOrderHandler()->createOrder($quote, $fundingSource);
+        return $this->getOrderHandler()->createOrder($quote, $fundingSource, $useQuoteShippingAddress);
     }
 
     /**
