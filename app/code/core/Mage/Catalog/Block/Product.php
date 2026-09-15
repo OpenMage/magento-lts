@@ -48,9 +48,7 @@ class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
      */
     public function getFinalPrice()
     {
-        if (!isset($this->_finalPrice[$this->getProduct()->getId()])) {
-            $this->_finalPrice[$this->getProduct()->getId()] = $this->getProduct()->getFinalPrice();
-        }
+        $this->_finalPrice[$this->getProduct()->getId()] ??= $this->getProduct()->getFinalPrice();
 
         return $this->_finalPrice[$this->getProduct()->getId()];
     }

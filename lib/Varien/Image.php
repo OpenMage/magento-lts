@@ -289,9 +289,7 @@ class Varien_Image
      */
     protected function _getAdapter($adapter = null)
     {
-        if (!isset($this->_adapter)) {
-            $this->_adapter = Varien_Image_Adapter::factory($adapter);
-        }
+        $this->_adapter ??= Varien_Image_Adapter::factory($adapter);
 
         return $this->_adapter;
     }

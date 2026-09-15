@@ -249,7 +249,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
      */
     protected function _saveIndexData(array $data)
     {
-        if (!$data) {
+        if ($data === []) {
             return $this;
         }
 

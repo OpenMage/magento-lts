@@ -274,9 +274,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function getMail()
     {
-        if (is_null($this->_mail)) {
-            $this->_mail = new Zend_Mail('utf-8');
-        }
+        $this->_mail ??= new Zend_Mail('utf-8');
 
         return $this->_mail;
     }
@@ -301,9 +299,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         $email = '';
         if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
             $email = $subscriber->getSubscriberEmail();
-            if (is_null($name)) {
-                $name = $subscriber->getSubscriberFullName();
-            }
+            $name ??= $subscriber->getSubscriberFullName();
         } else {
             $email = (string) $subscriber;
         }

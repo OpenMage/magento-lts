@@ -42,9 +42,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
      */
     public function getBatchModel()
     {
-        if (is_null($this->_batch)) {
-            $this->_batch = Mage::getSingleton('dataflow/batch');
-        }
+        $this->_batch ??= Mage::getSingleton('dataflow/batch');
 
         return $this->_batch;
     }
@@ -112,7 +110,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
 
         $attributesToSelect = $this->getVar('map') && is_array($this->getVar('map')) ? $this->getVar('map') : [];
 
-        if (!$attributesToSelect) {
+        if ($attributesToSelect === []) {
             $this->getBatchExportModel()
                 ->setBatchId($this->getBatchModel()->getId())
                 ->deleteCollection();

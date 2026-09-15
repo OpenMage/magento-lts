@@ -173,9 +173,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      */
     public function getProductStoreId()
     {
-        if (is_null($this->_productStoreId)) {
-            $this->_productStoreId = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
-        }
+        $this->_productStoreId ??= Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
 
         return $this->_productStoreId;
     }
@@ -420,7 +418,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
             $cond[] = $this->getResource()->getReadConnection()->quoteInto('e.path LIKE ?', "{$path}%");
         }
 
-        if ($cond) {
+        if ($cond !== []) {
             $this->getSelect()->where(implode(' OR ', $cond));
         }
 

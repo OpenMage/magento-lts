@@ -186,9 +186,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getDeleteConfirmJs(string $url, ?string $message = null): string
     {
-        if (is_null($message)) {
-            $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
-        }
+        $message ??= Mage::helper('adminhtml')->__('Are you sure you want to do this?');
 
         $message = Mage::helper('core')->jsQuoteEscape($message);
         return "deleteConfirm('" . $message . "', '" . $url . "')";
@@ -202,9 +200,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getConfirmSetLocationJs(string $url, ?string $message = null): string
     {
-        if (is_null($message)) {
-            $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
-        }
+        $message ??= Mage::helper('adminhtml')->__('Are you sure you want to do this?');
 
         $message = Mage::helper('core')->jsQuoteEscape($message);
         return "confirmSetLocation('{$message}', '{$url}')";

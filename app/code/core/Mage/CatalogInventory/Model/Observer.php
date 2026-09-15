@@ -57,9 +57,7 @@ class Mage_CatalogInventory_Model_Observer
         $product = $observer->getEvent()->getProduct();
         if ($product instanceof Mage_Catalog_Model_Product) {
             $productId = (int) $product->getId();
-            if (!isset($this->_stockItemsArray[$productId])) {
-                $this->_stockItemsArray[$productId] = Mage::getModel('cataloginventory/stock_item');
-            }
+            $this->_stockItemsArray[$productId] ??= Mage::getModel('cataloginventory/stock_item');
 
             $productStockItem = $this->_stockItemsArray[$productId];
             $productStockItem->assignProduct($product);

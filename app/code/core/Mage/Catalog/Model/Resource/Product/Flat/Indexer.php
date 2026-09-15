@@ -784,9 +784,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             // Modify columns
             foreach ($modifyColumns as $columnName => $columnProp) {
                 $columnProp = array_change_key_case($columnProp, CASE_UPPER);
-                if (!isset($columnProp['COMMENT'])) {
-                    $columnProp['COMMENT'] = ucwords(str_replace('_', ' ', $columnName));
-                }
+                $columnProp['COMMENT'] ??= ucwords(str_replace('_', ' ', $columnName));
 
                 $adapter->changeColumn($tableName, $columnName, $columnName, $columnProp);
             }
@@ -794,9 +792,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             // Add columns
             foreach ($addColumns as $columnName => $columnProp) {
                 $columnProp = array_change_key_case($columnProp, CASE_UPPER);
-                if (!isset($columnProp['COMMENT'])) {
-                    $columnProp['COMMENT'] = ucwords(str_replace('_', ' ', $columnName));
-                }
+                $columnProp['COMMENT'] ??= ucwords(str_replace('_', ' ', $columnName));
 
                 $adapter->addColumn($tableName, $columnName, $columnProp);
             }

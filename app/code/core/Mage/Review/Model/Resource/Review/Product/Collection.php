@@ -76,9 +76,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     #[Override]
     public function addStoreFilter($storeId = null)
     {
-        if (is_null($storeId)) {
-            $storeId = $this->getStoreId();
-        }
+        $storeId ??= $this->getStoreId();
 
         parent::addStoreFilter($storeId);
 
@@ -121,9 +119,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     {
         $adapter = $this->getConnection();
         $storesIds = $this->_storesIds;
-        if (is_null($select)) {
-            $select = $this->getSelect();
-        }
+        $select ??= $this->getSelect();
 
         if (is_array($storesIds) && (count($storesIds) === 1)) {
             $storesIds = array_shift($storesIds);
@@ -438,9 +434,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                 ->where($storeIdCondition);
             $result = $adapter->fetchAll($select);
             foreach ($result as $row) {
-                if (!isset($storesToReviews[$row['review_id']])) {
-                    $storesToReviews[$row['review_id']] = [];
-                }
+                $storesToReviews[$row['review_id']] ??= [];
 
                 $storesToReviews[$row['review_id']][] = $row['store_id'];
             }

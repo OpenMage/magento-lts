@@ -228,7 +228,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset non-falsy-string on Mage_SalesRule_Model_Resource_Rule_Collection.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Validator.php',
 ];
 $ignoreErrors[] = [
@@ -433,7 +433,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset (int|string) on array|object.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 $ignoreErrors[] = [

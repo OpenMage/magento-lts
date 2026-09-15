@@ -52,9 +52,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     {
         $data = $this->getConfigData();
         foreach (Mage::getModel('core/config')->getDistroServerVars() as $index => $value) {
-            if (!isset($data[$index])) {
-                $data[$index] = $value;
-            }
+            $data[$index] ??= $value;
         }
 
         if (isset($data['unsecure_base_url'])) {

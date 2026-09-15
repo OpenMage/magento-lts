@@ -36,7 +36,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Allow extends Mage_Adm
             $exceptions[] = Mage::helper('adminhtml')->__('Default display currency "%s" is not available in allowed currencies.', Mage::app()->getLocale()->currency($this->_getCurrencyDefault())->getName());
         }
 
-        if ($exceptions) {
+        if ($exceptions !== []) {
             Mage::throwException(implode("\n", $exceptions));
         }
 

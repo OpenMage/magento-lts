@@ -54,9 +54,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
         $area = Mage_Core_Model_App_Area::AREA_FRONTEND,
         $emulateStoreInlineTranslation = false
     ) {
-        if (is_null($area)) {
-            $area = Mage_Core_Model_App_Area::AREA_FRONTEND;
-        }
+        $area ??= Mage_Core_Model_App_Area::AREA_FRONTEND;
 
         if ($emulateStoreInlineTranslation) {
             $initialTranslateInline = $this->_emulateInlineTranslation($storeId, $area);

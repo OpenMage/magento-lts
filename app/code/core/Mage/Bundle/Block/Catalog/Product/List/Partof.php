@@ -74,9 +74,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
      */
     public function getItems()
     {
-        if (is_null($this->_items)) {
-            $this->_items = $this->getItemCollection()->getItems();
-        }
+        $this->_items ??= $this->getItemCollection()->getItems();
 
         return $this->_items;
     }

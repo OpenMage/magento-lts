@@ -92,9 +92,7 @@ class Varien_Object_Mapper
 
         foreach ($defaults as $keyTo => $value) {
             if ($toIsArray) {
-                if (!isset($target[$keyTo])) {
-                    $target[$keyTo] = $value;
-                }
+                $target[$keyTo] ??= $value;
             } elseif ($toIsVO) {
                 if (!$target->hasData($keyTo)) {
                     $target->$set($keyTo, $value);

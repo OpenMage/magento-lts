@@ -24,10 +24,7 @@ class Varien_Filter_Object extends Zend_Filter
         if ('' === $column) {
             parent::addFilter($filter);
         } else {
-            if (!isset($this->_columnFilters[$column])) {
-                $this->_columnFilters[$column] = new Zend_Filter();
-            }
-
+            $this->_columnFilters[$column] ??= new Zend_Filter();
             $this->_columnFilters[$column]->addFilter($filter);
         }
 

@@ -529,9 +529,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         $multiplyQty = true,
         $takeTierPrice = true
     ) {
-        if (is_null($selectionQty)) {
-            $selectionQty = $selectionProduct->getSelectionQty();
-        }
+        $selectionQty ??= $selectionProduct->getSelectionQty();
 
         if ($bundleProduct->getPriceType() == self::PRICE_TYPE_DYNAMIC) {
             $price = $selectionProduct->getFinalPrice($takeTierPrice ? $selectionQty : 1);

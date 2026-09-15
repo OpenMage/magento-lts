@@ -114,9 +114,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
      */
     public function validateDataSerialized($data = null)
     {
-        if (is_null($data)) {
-            $data = $this->getData();
-        }
+        $data ??= $this->getData();
 
         $result = true;
         if ($this->isSerialized($data)) {
@@ -136,9 +134,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
 
     public function validateDataString($data = null)
     {
-        if (is_null($data)) {
-            $data = $this->getData();
-        }
+        $data ??= $this->getData();
 
         if (!is_string($data)) {
             $this->addException('Invalid data type, expecting string.', Mage_Dataflow_Model_Convert_Exception::FATAL);
@@ -149,9 +145,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
 
     public function validateDataArray($data = null)
     {
-        if (is_null($data)) {
-            $data = $this->getData();
-        }
+        $data ??= $this->getData();
 
         if (!is_array($data)) {
             $this->addException('Invalid data type, expecting array.', Mage_Dataflow_Model_Convert_Exception::FATAL);
@@ -162,9 +156,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
 
     public function validateDataGrid($data = null)
     {
-        if (is_null($data)) {
-            $data = $this->getData();
-        }
+        $data ??= $this->getData();
 
         if (!is_array($data) || !is_array(current($data))) {
             if (count($data) === 0) {

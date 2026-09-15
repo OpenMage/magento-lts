@@ -135,9 +135,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function getStoreId()
     {
-        if ($this->_storeId === null) {
-            $this->_storeId = Mage::app()->getStore()->getId();
-        }
+        $this->_storeId ??= Mage::app()->getStore()->getId();
 
         return $this->_storeId;
     }
@@ -297,9 +295,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     public function storeDirective($construction)
     {
         $params = $this->_getIncludeParameters($construction[2]);
-        if (!isset($params['_query'])) {
-            $params['_query'] = [];
-        }
+        $params['_query'] ??= [];
 
         foreach ($params as $key => $value) {
             if (str_starts_with($key, '_query_')) {

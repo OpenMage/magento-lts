@@ -2053,7 +2053,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getId() on Mage_Bundle_Model_Option|null.',
-    'count' => 6,
+    'count' => 5,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [
