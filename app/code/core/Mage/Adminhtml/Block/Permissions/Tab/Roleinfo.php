@@ -33,14 +33,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block
     }
 
     #[Override]
-    protected function _beforeToHtml()
-    {
-        $this->_initForm();
-
-        return parent::_beforeToHtml();
-    }
-
-    protected function _initForm()
+    protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
 
@@ -91,5 +84,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block
 
         $form->setValues($this->getRole()->getData());
         $this->setForm($form);
+
+        return parent::_prepareForm();
     }
 }

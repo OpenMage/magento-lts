@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_sitemap_edit_form';
+
     /**
      * Init form
      */
