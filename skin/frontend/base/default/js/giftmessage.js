@@ -1,38 +1,55 @@
 /**
- * @copyright  For copyright and license information, read the COPYING.txt file.
- * @link       /COPYING.txt
+ * @copyright  For copyright and license information, read the README.md file.
+ * @link       /README.md
  * @license    Academic Free License (AFL 3.0)
  * @package     base_default
  */
-var GiftMessage = Class.create();
+
+function GiftMessage() { this.initialize(...arguments); }
 
 GiftMessage.prototype = {
-    uniqueId: 0,
-    initialize: function (buttonId) {
+    initialize: function(buttonId) {
         GiftMessageStack.addObject(this);
         this.buttonId = buttonId;
         this.initListeners();
     },
+    uniqueId: 0,
     editGiftMessage: function (evt) {
-        var popUpUrl = this.url + '?uniqueId=' + this.uniqueId;
+        const popUpUrl = this.url + '?uniqueId=' + this.uniqueId;
         this.popUp = window.open(popUpUrl, 'giftMessage', 'width=350,height=400,resizable=yes,scrollbars=yes');
         this.popUp.focus();
-        Event.stop(evt);
+        evt.preventDefault();
+        evt.stopPropagation();
     },
     initListeners: function () {
-        var items = $(this.buttonId).getElementsByClassName('listen-for-click');
-        items.each(function(item) {
-           Event.observe(item, 'click', this.editGiftMessage.bindAsEventListener(this));
-           item.controller = this;
-        }.bind(this));
+        const items = document.getElementById(this.buttonId).querySelectorAll('.listen-for-click');
+        const self = this;
+        items.forEach(function(item) {
+           item.addEventListener('click', self.editGiftMessage.bind(self));
+           item.controller = self;
+        });
     },
     reloadContainer: function (url) {
-        new Ajax.Updater(this.buttonId, url, {onComplete:this.initListeners.bind(this)});
+        const self = this;
+        // Ajax.Updater defaulted to POST with the XHR header and ran onComplete on any outcome
+        fetch(url, {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        }).then(function(resp) { return resp.text(); }).then(function(html) {
+            const container = document.getElementById(self.buttonId);
+            if (container) {
+                container.innerHTML = html;
+            }
+            self.initListeners();
+        }).catch(function() {
+            self.initListeners();
+        });
     },
     initWindow: function (windowObject) {
         this.windowObj = windowObject;
     }
 };
+Varien.classCompat(GiftMessage);
 
 var GiftMessageStack = {
     _stack: [],
@@ -46,8 +63,8 @@ var GiftMessageStack = {
         return 'objectStack' + (this._nextUniqueId++);
     },
     getObjectById: function(id) {
-        var giftMessageObject = false;
-        this._stack.each(function(item){
+        let giftMessageObject = false;
+        this._stack.forEach(function(item){
            if(item.uniqueId == id) {
                giftMessageObject = item;
            }
@@ -56,7 +73,8 @@ var GiftMessageStack = {
     }
 };
 
-var GiftMessageWindow = Class.create();
+function GiftMessageWindow() { this.initialize(...arguments); }
+
 GiftMessageWindow.prototype = {
     initialize: function(uniqueId, formId, removeUrl) {
         this.uniqueId = uniqueId;
@@ -67,23 +85,25 @@ GiftMessageWindow.prototype = {
         }
         if(formId) {
             this.form = new VarienForm(formId, true);
-            this.formElement = $(formId);
+            this.formElement = document.getElementById(formId);
             this.initListeners();
         }
     },
     initListeners: function() {
-        removeButtons = this.formElement.getElementsByClassName('listen-remove');
-        removeButtons.each(function(item){
-            Event.observe(item, 'click', this.remove.bindAsEventListener(this));
-        }.bind(this));
+        const self = this;
+        const removeButtons = this.formElement.querySelectorAll('.listen-remove');
+        removeButtons.forEach(function(item){
+            item.addEventListener('click', self.remove.bind(self));
+        });
 
-        cancelButtons = this.formElement.getElementsByClassName('listen-cancel');
-        cancelButtons.each(function(item){
-            Event.observe(item, 'click', this.cancel.bindAsEventListener(this));
-        }.bind(this));
+        const cancelButtons = this.formElement.querySelectorAll('.listen-cancel');
+        cancelButtons.forEach(function(item){
+            item.addEventListener('click', self.cancel.bind(self));
+        });
     },
     cancel: function(evt)  {
-        Event.stop(evt);
+        evt.preventDefault();
+        evt.stopPropagation();
         window.opener.focus();
         window.close();
     },
@@ -92,7 +112,8 @@ GiftMessageWindow.prototype = {
         window.close();
     },
     remove: function(evt)  {
-        Event.stop(evt);
+        evt.preventDefault();
+        evt.stopPropagation();
         if(this.confirmMessage && !window.confirm(this.confirmMessage)) {
             return;
         }
@@ -109,3 +130,4 @@ GiftMessageWindow.prototype = {
         }, 3000);
     }
 };
+Varien.classCompat(GiftMessageWindow);

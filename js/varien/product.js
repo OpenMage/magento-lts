@@ -17,17 +17,19 @@ if(typeof Product=='undefined') {
 
 /********************* IMAGE ZOOMER ***********************/
 
-Product.Zoom = Class.create();
+Product.Zoom = function(imageEl, trackEl, handleEl, zoomInEl, zoomOutEl, hintEl) {
+    this.initialize(imageEl, trackEl, handleEl, zoomInEl, zoomOutEl, hintEl);
+};
 Product.Zoom.prototype = {
     initialize: function(imageEl, trackEl, handleEl, zoomInEl, zoomOutEl, hintEl){
-        this.containerEl = $(imageEl).parentNode;
-        this.imageEl = $(imageEl);
-        this.handleEl = $(handleEl);
-        this.trackEl = $(trackEl);
-        this.hintEl = $(hintEl);
+        this.containerEl = document.getElementById(imageEl).parentNode;
+        this.imageEl = document.getElementById(imageEl);
+        this.handleEl = document.getElementById(handleEl);
+        this.trackEl = document.getElementById(trackEl);
+        this.hintEl = document.getElementById(hintEl);
 
-        this.containerDim = Element.getDimensions(this.containerEl);
-        this.imageDim = Element.getDimensions(this.imageEl);
+        this.containerDim = {width: this.containerEl.offsetWidth, height: this.containerEl.offsetHeight};
+        this.imageDim = {width: this.imageEl.offsetWidth, height: this.imageEl.offsetHeight};
 
         this.imageDim.ratio = this.imageDim.width/this.imageDim.height;
 
@@ -41,9 +43,9 @@ Product.Zoom.prototype = {
 
         if (this.imageDim.width <= this.containerDim.width
             && this.imageDim.height <= this.containerDim.height) {
-            this.trackEl.up().hide();
-            this.hintEl.hide();
-            this.containerEl.removeClassName('product-image-zoom');
+            this.trackEl.parentNode.style.display = 'none';
+            this.hintEl.style.display = 'none';
+            this.containerEl.classList.remove('product-image-zoom');
             return;
         }
 
@@ -59,41 +61,51 @@ Product.Zoom.prototype = {
 
         this.selects = document.getElementsByTagName('select');
 
-        this.draggable = new Draggable(imageEl, {
-            starteffect:false,
-            reverteffect:false,
-            endeffect:false,
-            snap:this.contain.bind(this)
-        });
+        if (typeof Draggable !== 'undefined') {
+            this.draggable = new Draggable(imageEl, {
+                starteffect:false,
+                reverteffect:false,
+                endeffect:false,
+                snap:this.contain.bind(this)
+            });
+        } else {
+            this.draggable = { element: this.imageEl };
+        }
 
-        this.slider = new Control.Slider(handleEl, trackEl, {
-            axis:'horizontal',
-            minimum:0,
-            maximum:Element.getDimensions(this.trackEl).width,
-            alignX:0,
-            increment:1,
-            sliderValue:0,
-            onSlide:this.scale.bind(this),
-            onChange:this.scale.bind(this)
-        });
+        if (typeof Control !== 'undefined' && typeof Control.Slider !== 'undefined') {
+            this.slider = new Control.Slider(handleEl, trackEl, {
+                axis:'horizontal',
+                minimum:0,
+                maximum:this.trackEl.offsetWidth,
+                alignX:0,
+                increment:1,
+                sliderValue:0,
+                onSlide:this.scale.bind(this),
+                onChange:this.scale.bind(this)
+            });
+        } else {
+            this.slider = { value: 0, disabled: false, setValue: function(v) { this.value = v; }, setDisabled: function() { this.disabled = true; } };
+        }
 
         this.scale(0);
 
-        Event.observe(this.imageEl, 'dblclick', this.toggleFull.bind(this));
+        this.imageEl.addEventListener('dblclick', this.toggleFull.bind(this));
 
-        Event.observe($(zoomInEl), 'mousedown', this.startZoomIn.bind(this));
-        Event.observe($(zoomInEl), 'mouseup', this.stopZooming.bind(this));
-        Event.observe($(zoomInEl), 'mouseout', this.stopZooming.bind(this));
+        const zoomInElNode = document.getElementById(zoomInEl);
+        zoomInElNode.addEventListener('mousedown', this.startZoomIn.bind(this));
+        zoomInElNode.addEventListener('mouseup', this.stopZooming.bind(this));
+        zoomInElNode.addEventListener('mouseout', this.stopZooming.bind(this));
 
-        Event.observe($(zoomOutEl), 'mousedown', this.startZoomOut.bind(this));
-        Event.observe($(zoomOutEl), 'mouseup', this.stopZooming.bind(this));
-        Event.observe($(zoomOutEl), 'mouseout', this.stopZooming.bind(this));
+        const zoomOutElNode = document.getElementById(zoomOutEl);
+        zoomOutElNode.addEventListener('mousedown', this.startZoomOut.bind(this));
+        zoomOutElNode.addEventListener('mouseup', this.stopZooming.bind(this));
+        zoomOutElNode.addEventListener('mouseout', this.stopZooming.bind(this));
     },
 
     toggleFull: function () {
         this.showFull = !this.showFull;
 
-        val_scale = !this.showFull ? this.slider.value : 1;
+        const val_scale = !this.showFull ? this.slider.value : 1;
         this.scale(val_scale);
 
         this.trackEl.style.visibility = this.showFull ? 'hidden' : 'visible';
@@ -104,9 +116,9 @@ Product.Zoom.prototype = {
     },
 
     scale: function (v) {
-        var centerX  = (this.containerDim.width*(1-this.imageZoom)/2-this.imageX)/this.imageZoom;
-        var centerY  = (this.containerDim.height*(1-this.imageZoom)/2-this.imageY)/this.imageZoom;
-        var overSize = (this.imageDim.width > this.containerDim.width || this.imageDim.height > this.containerDim.height);
+        const centerX  = (this.containerDim.width*(1-this.imageZoom)/2-this.imageX)/this.imageZoom;
+        const centerY  = (this.containerDim.height*(1-this.imageZoom)/2-this.imageY)/this.imageZoom;
+        const overSize = (this.imageDim.width > this.containerDim.width || this.imageDim.height > this.containerDim.height);
 
         this.imageZoom = this.floorZoom+(v*(this.ceilingZoom-this.floorZoom));
 
@@ -141,7 +153,7 @@ Product.Zoom.prototype = {
             this.zoomBtnPressed = true;
             this.sliderAccel = .002;
             this.periodicalZoom();
-            this.zoomer = new PeriodicalExecuter(this.periodicalZoom.bind(this), .05);
+            this.zoomer = setInterval(this.periodicalZoom.bind(this), 50);
         }
         return this;
     },
@@ -152,7 +164,7 @@ Product.Zoom.prototype = {
             this.zoomBtnPressed = true;
             this.sliderAccel = -.002;
             this.periodicalZoom();
-            this.zoomer = new PeriodicalExecuter(this.periodicalZoom.bind(this), .05);
+            this.zoomer = setInterval(this.periodicalZoom.bind(this), 50);
         }
         return this;
     },
@@ -178,7 +190,7 @@ Product.Zoom.prototype = {
             this.sliderSpeed /= 1.5;
             if (Math.abs(this.sliderSpeed)<.001) {
                 this.sliderSpeed = 0;
-                this.zoomer.stop();
+                clearInterval(this.zoomer);
                 this.zoomer = null;
             }
         }
@@ -192,10 +204,10 @@ Product.Zoom.prototype = {
 
     contain: function (x,y,draggable) {
 
-        var dim = Element.getDimensions(draggable.element);
+        const dim = {width: draggable.element.offsetWidth, height: draggable.element.offsetHeight};
 
-        var xMin = 0, xMax = this.containerDim.width-dim.width;
-        var yMin = 0, yMax = this.containerDim.height-dim.height;
+        const xMin = 0, xMax = this.containerDim.width-dim.width;
+        const yMin = 0, yMax = this.containerDim.height-dim.height;
 
         x = x>xMin ? xMin : x;
         x = x<xMax ? xMax : x;
@@ -219,25 +231,36 @@ Product.Zoom.prototype = {
         return [x,y];
     }
 };
+Varien.classCompat(Product.Zoom);
 
 /**************************** CONFIGURABLE PRODUCT **************************/
-Product.Config = Class.create();
+Product.Config = function(config) {
+    this.initialize(config);
+};
 Product.Config.prototype = {
     initialize: function(config){
         this.config     = config;
         this.taxConfig  = this.config.taxConfig;
-        this.settings   = $$('.super-attribute-select');
-        this.state      = new Hash();
-        this.priceTemplate = new Template(this.config.template);
+        this.settings   = Array.from(document.querySelectorAll('.super-attribute-select'));
+        this.state      = {};
+        // Simple template: replace #{key} with obj[key]
+        const tpl = this.config.template;
+        this.priceTemplate = {
+            evaluate: function (obj) {
+                return tpl.replace(/#\{(\w+)\}/g, function (m, key) {
+                    return obj[key] !== undefined ? obj[key] : '';
+                });
+            }
+        };
         this.prices     = config.prices;
 
-        this.settings.each(function(element){
-            Event.observe(element, 'change', this.configure.bind(this));
+        this.settings.forEach(function(element){
+            element.addEventListener('change', this.configure.bind(this));
         }.bind(this));
 
         // fill state
-        this.settings.each(function(element){
-            var attributeId = element.id.replace(/[a-z]*/, '');
+        this.settings.forEach(function(element){
+            const attributeId = element.id.replace(/[a-z]*/, '');
             if(attributeId && this.config.attributes[attributeId]) {
                 element.config = this.config.attributes[attributeId];
                 element.attributeId = attributeId;
@@ -246,19 +269,19 @@ Product.Config.prototype = {
         }.bind(this));
 
         // Init settings dropdown
-        var childSettings = [];
+        const childSettings = [];
         for(var i=this.settings.length-1;i>=0;i--){
-            var prevSetting = this.settings[i-1] ? this.settings[i-1] : false;
-            var nextSetting = this.settings[i+1] ? this.settings[i+1] : false;
+            const prevSetting = this.settings[i-1] ? this.settings[i-1] : false;
+            const nextSetting = this.settings[i+1] ? this.settings[i+1] : false;
             if(i==0){
                 this.fillSelect(this.settings[i]);
             }
             else {
                 this.settings[i].disabled=true;
             }
-            $(this.settings[i]).childSettings = childSettings.clone();
-            $(this.settings[i]).prevSetting   = prevSetting;
-            $(this.settings[i]).nextSetting   = nextSetting;
+            this.settings[i].childSettings = childSettings.slice();
+            this.settings[i].prevSetting   = prevSetting;
+            this.settings[i].nextSetting   = nextSetting;
             childSettings.push(this.settings[i]);
         }
 
@@ -267,10 +290,14 @@ Product.Config.prototype = {
             this.values = config.defaultValues;
         }
 
-        var separatorIndex = window.location.href.indexOf('#');
+        const separatorIndex = window.location.href.indexOf('#');
         if (separatorIndex != -1) {
-            var paramsStr = window.location.href.substr(separatorIndex+1);
-            var urlValues = paramsStr.toQueryParams();
+            const paramsStr = window.location.href.substr(separatorIndex+1);
+            const urlValues = {};
+            const searchParams = new URLSearchParams(paramsStr);
+            searchParams.forEach(function(value, key) {
+                urlValues[key] = value;
+            });
             if (!this.values) {
                 this.values = {};
             }
@@ -280,13 +307,13 @@ Product.Config.prototype = {
         }
 
         this.configureForValues();
-        document.observe("dom:loaded", this.configureForValues.bind(this));
+        document.addEventListener('DOMContentLoaded', this.configureForValues.bind(this));
     },
 
     configureForValues: function () {
         if (this.values) {
-            this.settings.each(function(element){
-                var attributeId = element.attributeId;
+            this.settings.forEach(function(element){
+                const attributeId = element.attributeId;
                 element.value = (typeof(this.values[attributeId]) == 'undefined')? '' : this.values[attributeId];
                 this.configureElement(element);
             }.bind(this));
@@ -294,7 +321,7 @@ Product.Config.prototype = {
     },
 
     configure: function(event){
-        var element = Event.element(event);
+        const element = event.target;
         this.configureElement(element);
     },
 
@@ -316,14 +343,14 @@ Product.Config.prototype = {
     },
 
     reloadOptionLabels: function(element){
-        var selectedPrice;
+        let selectedPrice;
         if(element.options[element.selectedIndex].config){
             selectedPrice = parseFloat(element.options[element.selectedIndex].config.price);
         }
         else{
             selectedPrice = 0;
         }
-        for(var i=0;i<element.options.length;i++){
+        for(let i=0;i<element.options.length;i++){
             if(element.options[i].config){
                 element.options[i].text = this.getOptionLabel(element.options[i].config, element.options[i].config.price-selectedPrice);
             }
@@ -332,7 +359,7 @@ Product.Config.prototype = {
 
     resetChildren : function(element){
         if(element.childSettings) {
-            for(var i=0;i<element.childSettings.length;i++){
+            for(let i=0;i<element.childSettings.length;i++){
                 element.childSettings[i].selectedIndex = 0;
                 element.childSettings[i].disabled = true;
                 if(element.config){
@@ -343,33 +370,33 @@ Product.Config.prototype = {
     },
 
     fillSelect: function(element){
-        var attributeId = element.id.replace(/[a-z]*/, '');
-        var options = this.getAttributeOptions(attributeId);
+        const attributeId = element.id.replace(/[a-z]*/, '');
+        const options = this.getAttributeOptions(attributeId);
         this.clearSelect(element);
         element.options[0] = new Option('', '');
         element.options[0].innerHTML = this.config.chooseText;
 
-        var prevConfig = false;
+        let prevConfig = false;
         if(element.prevSetting){
             prevConfig = element.prevSetting.options[element.prevSetting.selectedIndex];
         }
 
         if(options) {
-            var index = 1;
-            for(var i=0;i<options.length;i++){
-                var allowedProducts = [];
+            let index = 1;
+            for(let i=0;i<options.length;i++){
+                let allowedProducts = [];
                 if(prevConfig) {
-                    for(var j=0;j<options[i].products.length;j++){
+                    for(let j=0;j<options[i].products.length;j++){
                         if(prevConfig.config.allowedProducts
                             && prevConfig.config.allowedProducts.indexOf(options[i].products[j])>-1){
                             allowedProducts.push(options[i].products[j]);
                         }
                     }
                 } else {
-                    allowedProducts = options[i].products.clone();
+                    allowedProducts = options[i].products.slice();
                 }
 
-                if(allowedProducts.size()>0){
+                if(allowedProducts.length>0){
                     options[i].allowedProducts = allowedProducts;
                     element.options[index] = new Option(this.getOptionLabel(options[i], options[i].price), options[i].id);
                     element.options[index].config = options[i];
@@ -397,7 +424,7 @@ Product.Config.prototype = {
             price = excl;
         }
 
-        var str = option.label;
+        let str = option.label;
         if(price){
             if (this.taxConfig.showBothPrices) {
                 str+= ' ' + this.formatPrice(excl, true) + ' (' + this.formatPrice(price, true) + ' ' + this.taxConfig.inclTaxTitle + ')';
@@ -409,7 +436,7 @@ Product.Config.prototype = {
     },
 
     formatPrice: function(price, showSign){
-        var str = '';
+        let str = '';
         price = parseFloat(price);
         if(showSign){
             if(price<0){
@@ -421,19 +448,19 @@ Product.Config.prototype = {
             }
         }
 
-        var roundedPrice = (Math.round(price*100)/100).toString();
+        const roundedPrice = (Math.round(price*100)/100).toString();
 
         if (this.prices && this.prices[roundedPrice]) {
             str+= this.prices[roundedPrice];
         }
         else {
-            str+= this.priceTemplate.evaluate({price:price.toFixed(2)});
+            str+= this.priceTemplate.evaluate({price: price.toFixed(2)});
         }
         return str;
     },
 
     clearSelect: function(element){
-        for(var i=element.options.length-1;i>=0;i--){
+        for(let i=element.options.length-1;i>=0;i--){
             element.remove(i);
         }
     },
@@ -445,10 +472,10 @@ Product.Config.prototype = {
     },
 
     reloadPrice: function(){
-        var price    = 0;
-        var oldPrice = 0;
-        for(var i=this.settings.length-1;i>=0;i--){
-            var selected = this.settings[i].options[this.settings[i].selectedIndex];
+        let price    = 0;
+        let oldPrice = 0;
+        for(let i=this.settings.length-1;i>=0;i--){
+            const selected = this.settings[i].options[this.settings[i].selectedIndex];
             if(selected.config){
                 price    += parseFloat(selected.config.price);
                 oldPrice += parseFloat(selected.config.oldPrice);
@@ -462,13 +489,13 @@ Product.Config.prototype = {
     },
 
     reloadOldPrice: function(){
-        if ($('old-price-'+this.config.productId)) {
+        if (document.getElementById('old-price-'+this.config.productId)) {
 
-            var price = parseFloat(this.config.oldPrice);
-            for(var i=this.settings.length-1;i>=0;i--){
-                var selected = this.settings[i].options[this.settings[i].selectedIndex];
+            let price = parseFloat(this.config.oldPrice);
+            for(let i=this.settings.length-1;i>=0;i--){
+                const selected = this.settings[i].options[this.settings[i].selectedIndex];
                 if(selected.config){
-                    var parsedOldPrice = parseFloat(selected.config.oldPrice);
+                    const parsedOldPrice = parseFloat(selected.config.oldPrice);
                     price += isNaN(parsedOldPrice) ? 0 : parsedOldPrice;
                 }
             }
@@ -476,23 +503,26 @@ Product.Config.prototype = {
                 price = 0;
             price = this.formatPrice(price);
 
-            if($('old-price-'+this.config.productId)){
-                $('old-price-'+this.config.productId).innerHTML = price;
+            if(document.getElementById('old-price-'+this.config.productId)){
+                document.getElementById('old-price-'+this.config.productId).innerHTML = price;
             }
 
         }
     }
 };
+Varien.classCompat(Product.Config);
 
 
 /**************************** SUPER PRODUCTS ********************************/
 
 Product.Super = {};
-Product.Super.Configurable = Class.create();
+Product.Super.Configurable = function(container, observeCss, updateUrl, updatePriceUrl, priceContainerId) {
+    this.initialize(container, observeCss, updateUrl, updatePriceUrl, priceContainerId);
+};
 
 Product.Super.Configurable.prototype = {
     initialize: function(container, observeCss, updateUrl, updatePriceUrl, priceContainerId) {
-        this.container = $(container);
+        this.container = document.getElementById(container);
         this.observeCss = observeCss;
         this.updateUrl = updateUrl;
         this.updatePriceUrl = updatePriceUrl;
@@ -500,25 +530,59 @@ Product.Super.Configurable.prototype = {
         this.registerObservers();
     },
     registerObservers: function() {
-        var elements = this.container.getElementsByClassName(this.observeCss);
-        elements.each(function(element){
-            Event.observe(element, 'change', this.update.bindAsEventListener(this));
+        const elements = this.container.getElementsByClassName(this.observeCss);
+        Array.from(elements).forEach(function(element){
+            element.addEventListener('change', this.update.bind(this));
         }.bind(this));
         return this;
     },
     update: function(event) {
-        var elements = this.container.getElementsByClassName(this.observeCss);
-        var parameters = Form.serializeElements(elements, true);
-
-        new Ajax.Updater(this.container, this.updateUrl + '?ajax=1', {
-                parameters:parameters,
-                onComplete:this.registerObservers.bind(this)
+        const elements = this.container.getElementsByClassName(this.observeCss);
+        // Form.serializeElements skipped disabled fields and unchecked boxes,
+        // and sent every selected option of a multi-select
+        const params = new URLSearchParams();
+        Array.from(elements).forEach(function(element) {
+            if (!element.name || element.disabled) return;
+            if ((element.type === 'checkbox' || element.type === 'radio') && !element.checked) return;
+            if (element.type === 'select-multiple') {
+                Array.from(element.options).forEach(function(opt) {
+                    if (opt.selected) params.append(element.name, opt.value);
+                });
+                return;
+            }
+            params.append(element.name, element.value);
         });
-        var priceContainer = $(this.priceContainerId);
+        const paramString = params.toString();
+
+        const self = this;
+        fetch(this.updateUrl + '?ajax=1', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+            body: paramString
+        }).then(function(response) {
+            // Ajax.Updater only replaced the container on a 2xx status
+            return response.ok ? response.text() : null;
+        }).then(function(html) {
+            if (html !== null) {
+                self.container.innerHTML = html;
+            }
+            self.registerObservers();
+        });
+
+        const priceContainer = document.getElementById(this.priceContainerId);
         if(priceContainer) {
-            new Ajax.Updater(priceContainer, this.updatePriceUrl + '?ajax=1', {
-                parameters:parameters
+            fetch(this.updatePriceUrl + '?ajax=1', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest'},
+                body: paramString
+            }).then(function(response) {
+                return response.ok ? response.text() : null;
+            }).then(function(html) {
+                if (html !== null) {
+                    priceContainer.innerHTML = html;
+                }
             });
         }
     }
 };
+Varien.classCompat(Product.Super.Configurable);
