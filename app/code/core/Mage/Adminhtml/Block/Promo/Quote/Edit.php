@@ -26,11 +26,12 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit extends Mage_Adminhtml_Block_Widget_
 
         parent::__construct();
 
-        $this->_addButton('save_and_continue_edit', [
-            'class'   => 'save continue',
-            'label'   => Mage::helper('salesrule')->__('Save and Continue Edit'),
-            'onclick' => 'editForm.submit($(\'edit_form\').action + \'back/edit/\')',
-        ], 10);
+        $this->_addPreparedButton(
+            id: self::BUTTON_TYPE_SAVE_EDIT,
+            level: 10,
+            module: 'salesrule',
+            onClick: 'editForm.submit($(\'edit_form\').action + \'back/edit/\')',
+        );
     }
 
     /**

@@ -18,9 +18,9 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit extends Mage_Adminhtml_Block
     {
         parent::__construct();
 
-        $this->removeButton('back')
-            ->removeButton('reset')
-            ->removeButton('save');
+        $this->removeButton(self::BUTTON_TYPE_BACK)
+            ->removeButton(self::BUTTON_TYPE_RESET)
+            ->removeButton(self::BUTTON_TYPE_SAVE);
     }
 
     /**
