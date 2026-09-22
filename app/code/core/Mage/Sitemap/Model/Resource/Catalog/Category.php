@@ -82,6 +82,10 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
     {
         $attribute = Mage::getSingleton('catalog/category')->getResource()->getAttribute($attributeCode);
 
+        if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+            return $this;
+        }
+
         $this->_attributesCache[$attributeCode] = [
             'entity_type_id' => $attribute->getEntityTypeId(),
             'attribute_id'   => $attribute->getId(),

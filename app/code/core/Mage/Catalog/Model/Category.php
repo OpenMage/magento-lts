@@ -642,7 +642,10 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     {
         $result = [];
         foreach ($this->_designAttributes as $attrName) {
-            $result[] = $this->_getAttribute($attrName);
+            $attr = $this->_getAttribute($attrName);
+            if ($attr instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+                $result[] = $attr;
+            }
         }
 
         return $result;
@@ -651,8 +654,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve attribute by code
      *
-     * @param  string                                   $attributeCode
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @param  string                                          $attributeCode
+     * @return false|Mage_Catalog_Model_Resource_Eav_Attribute
      * @throws Mage_Core_Exception
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
