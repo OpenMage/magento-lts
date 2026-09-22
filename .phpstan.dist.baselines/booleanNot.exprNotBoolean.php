@@ -5727,11 +5727,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, array|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
     'count' => 8,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
@@ -5752,11 +5747,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Api.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, array|bool given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
@@ -5770,11 +5760,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, float|int given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo/Item.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, array|bool given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
@@ -5870,11 +5855,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, array|false given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Shipment.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, int<0, max> given.',
