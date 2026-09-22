@@ -5984,16 +5984,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "8.8.2",
+            "version": "8.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "e985cd41c60ecda5b7f92cec73fe8f234a6f32ff"
+                "reference": "e898942a587576da171bad9ebd0712a2f6e7c886"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/e985cd41c60ecda5b7f92cec73fe8f234a6f32ff",
-                "reference": "e985cd41c60ecda5b7f92cec73fe8f234a6f32ff",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/e898942a587576da171bad9ebd0712a2f6e7c886",
+                "reference": "e898942a587576da171bad9ebd0712a2f6e7c886",
                 "shasum": ""
             },
             "type": "component",
@@ -6037,9 +6037,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/8.8.2"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/8.9.1"
             },
-            "time": "2026-07-27T04:10:15+00:00"
+            "time": "2026-09-09T04:12:14+00:00"
         },
         {
             "name": "vaimo/composer-patches",
