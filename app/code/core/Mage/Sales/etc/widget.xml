@@ -10,6 +10,7 @@
 <widgets>
     <sales_widget_guestfrom type="sales/widget_guest_form" translate="name description" module="sales">
         <name>Orders and Returns</name>
+        <group>Forms</group>
         <description>Orders and Returns Search Form</description>
         <is_email_compatible>1</is_email_compatible>
         <parameters>
