@@ -22,7 +22,7 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
     /**
      * Current comments collection
      *
-     * @var null|Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
+     * @var null|Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract<Mage_Sales_Model_Order_Comment_Abstract>
      */
     protected $_commentCollection;
 
@@ -52,7 +52,7 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
     /**
      * Initialize model comments and return comment collection
      *
-     * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
+     * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract<Mage_Sales_Model_Order_Comment_Abstract>
      */
     public function getComments()
     {
@@ -68,7 +68,7 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
                 Mage::throwException(Mage::helper('sales')->__('Invalid entity model'));
             }
 
-            /** @var Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract $commentCollection */
+            /** @var Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract<Mage_Sales_Model_Order_Comment_Abstract> $commentCollection */
             $commentCollection = Mage::getResourceModel($collectionClass);
             $this->_commentCollection = $commentCollection;
             $this->_commentCollection->setParentFilter($entity)
