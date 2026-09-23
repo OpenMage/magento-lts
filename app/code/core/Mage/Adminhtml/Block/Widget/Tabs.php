@@ -95,9 +95,9 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * @param  string                     $afterTabId
      * @throws Exception
      */
-    public function addTabAfter($tabId, $tab, $afterTabId)
+    public function addTabAfter($tabId, $tab, $afterTabId, array $attributes = [])
     {
-        $this->addTab($tabId, $tab);
+        $this->addTab($tabId, $tab, $attributes);
         $this->_afterTabIds[$tabId] = $afterTabId;
     }
 
@@ -109,18 +109,21 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * @return $this
      * @throws Exception
      */
-    public function addTab($tabId, $tab)
+    public function addTab($tabId, $tab, array $attributes = [])
     {
         if (is_array($tab)) {
             $this->_tabs[$tabId] = new Varien_Object($tab);
         } elseif ($tab instanceof Varien_Object) {
             $this->_tabs[$tabId] = $tab;
-            if (!$this->_tabs[$tabId]->hasTabId()) {
-                $this->_tabs[$tabId]->setTabId($tabId);
-            }
         } elseif (is_string($tab)) {
             if (strpos($tab, '/')) {
-                $this->_tabs[$tabId] = $this->getLayout()->createBlock($tab);
+                $name = '';
+                if (isset($attributes['name'])) {
+                    $name = $attributes['name'];
+                    unset($attributes['name']);
+                }
+
+                $this->_tabs[$tabId] = $this->getLayout()->createBlock($tab, $name, $attributes);
             } elseif ($this->getChild($tab)) {
                 $this->_tabs[$tabId] = $this->getChild($tab);
             } else {
