@@ -109,10 +109,10 @@
 <script type="text/javascript">
 //<![CDATA[
     var loginForm = new VarienForm('login-form', true);
-    $('login-email').observe('keypress', bindLoginPost);
-    $('login-password').observe('keypress', bindLoginPost);
+    document.getElementById('login-email').addEventListener('keypress', bindLoginPost);
+    document.getElementById('login-password').addEventListener('keypress', bindLoginPost);
     function bindLoginPost(evt){
-        if (evt.keyCode == Event.KEY_RETURN) {
+        if (evt.key === 'Enter') {
             loginForm.submit();
         }
     }
@@ -131,12 +131,12 @@
 ?>
     <script type="text/javascript">
     //<![CDATA[
-        document.observe("dom:loaded", function() {
-            if($('login:register')) {
-                $('login:register').checked = true;
+        document.addEventListener('DOMContentLoaded', function() {
+            if(document.getElementById('login:register')) {
+                document.getElementById('login:register').checked = true;
                 checkout.setMethod();
             }
-        })
+        });
     //]]>
     </script>
 <?php endif ?>

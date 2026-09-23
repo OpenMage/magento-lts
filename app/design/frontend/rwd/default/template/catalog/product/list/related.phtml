@@ -47,8 +47,8 @@
     </div>
     <script type="text/javascript">
     //<![CDATA[
-    $$('.related-checkbox').each(function(elem){
-        Event.observe(elem, 'click', addRelatedToProduct)
+    document.querySelectorAll('.related-checkbox').forEach(function(elem){
+        elem.addEventListener('click', addRelatedToProduct);
     });
 
     var relatedProductsCheckFlag = false;
