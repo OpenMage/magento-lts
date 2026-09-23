@@ -61,10 +61,13 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
     public function getRemoveUrl()
     {
         $query = [$this->getFilter()->getRequestVar() => $this->getFilter()->getResetValue()];
+
+        $params                 = [];
         $params['_current']     = true;
         $params['_use_rewrite'] = true;
         $params['_query']       = $query;
         $params['_escape']      = true;
+
         return Mage::getUrl('*/*/*', $params);
     }
 

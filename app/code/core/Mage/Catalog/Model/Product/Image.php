@@ -438,12 +438,15 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         $this->_baseFile = $baseFile;
 
         // build new filename (most important params)
+        $path = [];
+
         $path = [
             self::$_baseMediaPath,
             'cache',
             Mage::app()->getStore()->getId(),
             $path[] = $this->getDestinationSubdir(),
         ];
+
         if ((!empty($this->_width)) || (!empty($this->_height))) {
             $path[] = "{$this->_width}x{$this->_height}";
         }

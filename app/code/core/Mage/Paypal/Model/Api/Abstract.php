@@ -22,32 +22,42 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 
     /**
      * Global private to public interface map
-     * @var array
+     *
+     * @var array<string, string>
      */
     protected $_globalMap = [];
 
     /**
      * Filter callbacks for exporting $this data to API call
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $_exportToRequestFilters = [];
 
     /**
      * Filter callbacks for importing API result to $this data
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $_importFromRequestFilters = [];
 
     /**
      * Line items export to request mapping settings
-     * @var array
+     *
+     * @var array<string, string>
      */
     protected $_lineItemExportItemsFormat = [];
 
+    /**
+     * @var array<string, string>
+     */
     protected $_lineItemExportItemsFilters = [];
 
+    /**
+     * Line items export mapping settings
+     *
+     * @var array<string, string>
+     */
     protected $_lineItemTotalExportMap = [];
 
     /**
@@ -59,7 +69,8 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 
     /**
      * Shipping options export to request mapping settings
-     * @var array
+     *
+     * @var array<string, string>
      */
     protected $_shippingOptionsExportItemsFormat = [];
 
@@ -73,12 +84,12 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * Fields that should be replaced in debug with '***'
      *
-     * @var array
+     * @var string[]
      */
     protected $_debugReplacePrivateDataKeys = [];
 
     /**
-     * Return Paypal Api user name based on config data
+     * Return PayPal Api user name based on config data
      *
      * @return string
      */

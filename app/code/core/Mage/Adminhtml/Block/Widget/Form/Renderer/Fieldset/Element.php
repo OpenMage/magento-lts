@@ -16,6 +16,11 @@ declare(strict_types=1);
  */
 class Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element extends Mage_Adminhtml_Block_Template implements Varien_Data_Form_Element_Renderer_Interface
 {
+    /**
+     * Form element which re-rendering
+     *
+     * @var Varien_Data_Form_Element_Abstract
+     */
     protected $_element;
 
     /**

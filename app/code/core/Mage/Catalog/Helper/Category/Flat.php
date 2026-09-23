@@ -27,14 +27,14 @@ class Mage_Catalog_Helper_Category_Flat extends Mage_Catalog_Helper_Flat_Abstrac
     /**
      * Catalog Category Flat index process code
      *
-     * @var string
+     * @inheritDoc
      */
     protected $_indexerCode = self::CATALOG_CATEGORY_FLAT_PROCESS_CODE;
 
     /**
      * Store catalog Category Flat index process instance
      *
-     * @var null|Mage_Index_Model_Process
+     * @inheritDoc
      */
     protected $_process = null;
 

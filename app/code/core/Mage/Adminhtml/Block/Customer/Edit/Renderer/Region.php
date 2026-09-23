@@ -15,9 +15,7 @@
 class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
-     * Factory instance
-     *
-     * @var Mage_Core_Model_Factory
+     * @inheritDoc
      */
     protected $_factory;
 
@@ -27,7 +25,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_
     }
 
     /**
-     * Output the region element and javasctipt that makes it dependent from country element
+     * Output the region element and JavaScript that makes it dependent from country element
      *
      * @return string
      */

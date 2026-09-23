@@ -26,7 +26,9 @@ class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage
      */
     public function cancelAction()
     {
+        $result = [];
         $result['success'] = false;
+
         try {
             $paymentMethod = Mage::helper('payment')->getMethodInstance(Mage_Paygate_Model_Authorizenet::METHOD_CODE);
             if ($paymentMethod) {

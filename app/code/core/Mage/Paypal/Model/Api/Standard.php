@@ -15,8 +15,7 @@
 class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
 {
     /**
-     * Global interface map and export filters
-     * @var array
+     * @inheritDoc
      */
     protected $_globalMap = [
         // commands
@@ -44,6 +43,9 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'lc'                     => 'locale',
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected $_exportToRequestFilters = [
         'amount'   => '_filterAmount',
         'shipping' => '_filterAmount',
@@ -62,15 +64,12 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-     * Fields that should be replaced in debug with '***'
-     *
-     * @var array
+     * @inheritDoc
      */
     protected $_debugReplacePrivateDataKeys = ['business'];
 
     /**
-     * Line items export mapping settings
-     * @var array
+     * @inheritDoc
      */
     protected $_lineItemTotalExportMap = [
         Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL => 'amount',
@@ -79,6 +78,9 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         Mage_Paypal_Model_Cart::TOTAL_SHIPPING => 'shipping',
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected $_lineItemExportItemsFormat = [
         'id'     => 'item_number_%d',
         'name'   => 'item_name_%d',
@@ -86,6 +88,9 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'amount' => 'amount_%d',
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected $_lineItemExportItemsFilters = [
         'qty'      => '_filterQty',
     ];

@@ -32,6 +32,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
         $oldRates = $this->_loadOldRates($oldRateTypes);
 
         $oldToNewRateIds = [];
+        $ratesByType = [];
 
         foreach ($oldRates as $rate) {
             foreach ($oldRateTypes as $type) {

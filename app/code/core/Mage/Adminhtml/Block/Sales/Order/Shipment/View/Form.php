@@ -69,6 +69,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
      */
     public function getPrintLabelButton()
     {
+        $data = [];
         $data['shipment_id'] = $this->getShipment()->getId();
         $url = $this->getUrl('*/sales_order_shipment/printLabel', $data);
         return $this->getLayout()

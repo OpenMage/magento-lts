@@ -28,6 +28,8 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
         $this->y -= 10;
         $page->setFillColor(new Zend_Pdf_Color_Rgb(0, 0, 0));
 
+        $lines = [];
+
         //columns headers
         $lines[0][] = [
             'text' => Mage::helper('sales')->__('Products'),

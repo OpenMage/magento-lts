@@ -15,9 +15,7 @@
 class Mage_Sales_Model_Order_Invoice_Config extends Mage_Sales_Model_Order_Total_Config_Base
 {
     /**
-     * Cache key for collectors
-     *
-     * @var string
+     * @inheritDoc
      */
     protected $_collectorsCacheKey = 'sorted_order_invoice_collectors';
 

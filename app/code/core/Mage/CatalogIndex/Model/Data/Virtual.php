@@ -16,6 +16,9 @@ declare(strict_types=1);
  */
 class Mage_CatalogIndex_Model_Data_Virtual extends Mage_CatalogIndex_Model_Data_Simple
 {
+    /**
+     * @inheritDoc
+     */
     protected $_haveChildren = false;
 
     /**

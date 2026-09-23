@@ -61,16 +61,17 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Capture types (make authorization close or remain open)
      *
-     * @var string
+     * @inheritDoc
      */
     protected $_captureTypeComplete = 'Y';
 
+    /**
+     * @inheritDoc
+     */
     protected $_captureTypeNotcomplete = 'N';
 
     /**
-     * Global public interface map
-     *
-     * @var array
+     * @inheritDoc
      */
     protected $_globalMap = [
         // each call
@@ -139,9 +140,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
 
     /**
-     * Fields that should be replaced in debug with '***'
-     *
-     * @var array
+     * @inheritDoc
      */
     protected $_debugReplacePrivateDataKeys = [
         'ACCT', 'EXPDATE', 'CVV2',
@@ -151,7 +150,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * DoDirectPayment request/response map
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_doDirectPaymentRequest = [
         'ACCT', 'EXPDATE', 'CVV2', 'CURRENCY', 'EMAIL', 'TENDER', 'NOTIFYURL',
@@ -161,6 +160,9 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'TAXAMT', 'FREIGHTAMT',
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected $_doDirectPaymentResponse = [
         'PNREF', 'PPREF', 'CORRELATIONID', 'CVV2MATCH', 'AVSADDR', 'AVSZIP', 'PENDINGREASON',
     ];
@@ -168,39 +170,45 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * DoCapture request/response map
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_doCaptureRequest = ['ORIGID', 'CAPTURECOMPLETE', 'AMT', 'TENDER', 'NOTE', 'INVNUM'];
 
+    /**
+     * @inheritDoc
+     */
     protected $_doCaptureResponse = ['PNREF', 'PPREF'];
 
     /**
      * DoVoid request map
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_doVoidRequest = ['ORIGID', 'NOTE', 'TENDER'];
 
     /**
      * Request map for each API call
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_eachCallRequest = ['PARTNER', 'USER', 'VENDOR', 'PWD', 'BUTTONSOURCE'];
 
     /**
      * RefundTransaction request/response map
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_refundTransactionRequest = ['ORIGID', 'TENDER'];
 
+    /**
+     * @inheritDoc
+     */
     protected $_refundTransactionResponse = ['PNREF', 'PPREF'];
 
     /**
      * SetExpressCheckout request/response map
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_setExpressCheckoutRequest = [
         'TENDER', 'AMT', 'CURRENCY', 'RETURNURL', 'CANCELURL', 'INVNUM',
@@ -213,40 +221,42 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * GetExpressCheckoutDetails request/response map
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_getExpressCheckoutDetailsRequest = ['TENDER', 'TOKEN'];
 
     /**
      * DoExpressCheckoutPayment request/response map
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_doExpressCheckoutPaymentRequest = [
         'TENDER', 'TOKEN', 'PAYERID', 'AMT', 'CURRENCY', 'CUSTIP', 'BUTTONSOURCE', 'NOTIFYURL',
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected $_doExpressCheckoutPaymentResponse = [
         'PNREF', 'PPREF', 'REPMSG', 'AMT', 'PENDINGREASON',
         'CVV2MATCH', 'AVSADDR', 'AVSZIP', 'CORRELATIONID',
     ];
 
     /**
-     * GetTransactionDetailsRequest
-     *
-     * @var array
+     * @inheritDoc
      */
     protected $_getTransactionDetailsRequest = ['ORIGID', 'TENDER'];
 
+    /**
+     * @inheritDoc
+     */
     protected $_getTransactionDetailsResponse = [
         'PAYERID', 'FIRSTNAME', 'LASTNAME', 'TRANSACTIONID',
         'PARENTTRANSACTIONID', 'CURRENCYCODE', 'AMT', 'PAYMENTSTATUS',
     ];
 
     /**
-     * Map for shipping address import/export (extends billing address mapper)
-     *
-     * @var array
+     * @inheritDoc
      */
     protected $_shippingAddressMap = [
         'SHIPTOCOUNTRY' => 'country_id',
@@ -259,9 +269,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
 
     /**
-     * Map for billing address import/export
-     *
-     * @var array
+     * @inheritDoc
      */
     protected $_billingAddressMap = [
         'BUSINESS' => 'company',
@@ -285,22 +293,23 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Map for billing address to do request to PayPalUk
      *
-     * @var array
+     * @inheritDoc
      */
     protected $_billingAddressMapRequest = [
         'country_id' => 'COUNTRY',
     ];
 
     /**
-     * Line items export mapping settings
-     *
-     * @var array
+     * @inheritDoc
      */
     protected $_lineItemTotalExportMap = [
         Mage_Paypal_Model_Cart::TOTAL_TAX      => 'TAXAMT',
         Mage_Paypal_Model_Cart::TOTAL_SHIPPING => 'FREIGHTAMT',
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected $_lineItemExportItemsFormat = [
         'name'   => 'L_NAME%d',
         'qty'    => 'L_QTY%d',
@@ -308,9 +317,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
 
     /**
-     * Payment information response specifically to be collected after some requests
-     *
-     * @var array
+     * @inheritDoc
      */
     protected $_paymentInformationResponse = [
         'PAYERID', 'CORRELATIONID', 'ADDRESSID', 'ADDRESSSTATUS',
@@ -318,18 +325,14 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
 
     /**
-     * Required fields in the response
-     *
-     * @var array
+     * @inheritDoc
      */
     protected $_requiredResponseParams = [
         self::DO_DIRECT_PAYMENT => ['RESULT', 'PNREF'],
     ];
 
     /**
-     * API endpoint getter
-     *
-     * @return string
+     * @inheritDoc
      */
     #[Override]
     public function getApiEndpoint()

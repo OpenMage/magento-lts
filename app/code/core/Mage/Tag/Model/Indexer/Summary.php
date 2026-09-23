@@ -33,9 +33,6 @@
  */
 class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
 {
-    /**
-     * @var array
-     */
     protected $_matchedEntities = [
         Mage_Catalog_Model_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,

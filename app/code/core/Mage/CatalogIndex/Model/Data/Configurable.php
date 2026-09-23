@@ -17,9 +17,7 @@ declare(strict_types=1);
 class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_Data_Abstract
 {
     /**
-     * Defines when product type has children
-     *
-     * @var bool[]|int[]
+     * @inheritDoc
      */
     protected $_haveChildren = [
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => false,
