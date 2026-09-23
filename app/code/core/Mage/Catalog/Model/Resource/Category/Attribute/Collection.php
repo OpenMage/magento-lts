@@ -11,6 +11,7 @@
  * Catalog category EAV additional attribute resource collection
  *
  * @package    Mage_Catalog
+ * @extends Mage_Eav_Model_Resource_Entity_Attribute_Collection<Mage_Catalog_Model_Entity_Attribute>
  */
 class Mage_Catalog_Model_Resource_Category_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {

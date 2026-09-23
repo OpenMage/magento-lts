@@ -11,6 +11,7 @@
  * Resource collection for report rows
  *
  * @package    Mage_Paypal
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Paypal_Model_Report_Settlement_Row>
  */
 class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

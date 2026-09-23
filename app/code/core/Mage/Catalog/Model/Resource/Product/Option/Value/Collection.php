@@ -11,6 +11,7 @@
  * Catalog product option values collection
  *
  * @package    Mage_Catalog
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Catalog_Model_Product_Option_Value>
  */
 class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

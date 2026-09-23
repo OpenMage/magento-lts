@@ -11,6 +11,7 @@
  * Index Event Collection
  *
  * @package    Mage_Index
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Index_Model_Event>
  */
 class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
