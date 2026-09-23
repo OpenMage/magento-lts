@@ -1,0 +1,49 @@
+{
+    "default": {
+        "websiteId" : {
+            "_": "#_accountwebsite_id"
+        },
+        "groupId" : {
+            "_": "#_accountgroup_id"
+        },
+        "prefix" : {
+            "_": "#_accountprefix"
+        },
+        "firstname" : {
+            "_": "#_accountfirstname"
+        },
+        "middlename" : {
+            "_": "#_accountmiddlename"
+        },
+        "lastname" : {
+            "_": "#_accountlastname"
+        },
+        "suffix" : {
+            "_": "#_accountsuffix"
+        },
+        "email" : {
+            "_": "#_accountemail"
+        },
+        "dob" : {
+            "_": "#_accountdob"
+        },
+        "taxvat" : {
+            "_": "#_accounttaxvat"
+        },
+        "gender" : {
+            "_": "#_accountgender"
+        },
+        "sendemail" : {
+            "_": "#_accountsendemail"
+        },
+        "sendemailStoreId" : {
+            "_": "#_accountsendemail_store_id"
+        },
+        "password" : {
+            "_": "#_accountpassword"
+        },
+        "sendPass": {
+            "_": "#account-send-pass"
+        }
+    }
+}

@@ -1,0 +1,49 @@
+{
+    "default": {
+        "pageTitle" : {
+            "_": "input-page-title"
+        },
+        "pageIdentifier" : {
+            "_": "input-page-identifier"
+        },
+        "pageStoreId" : {
+            "_": "input-page-store-id"
+        },
+        "pageIsActive" : {
+            "_": "input-page-is-active"
+        },
+        "pageContentHeading" : {
+            "_": "input-page-content-heading"
+        },
+        "pageContent" : {
+            "_": "input-page-content"
+        },
+        "pageRootTemplate" : {
+            "_": "input-page-root-template"
+        },
+        "pageLayoutUpdateXml" : {
+            "_": "input-page-layout-update-xml"
+        },
+        "pageCustomThemeFrom" : {
+            "_": "input-page-custom-theme-from"
+        },
+        "pageCustomThemeTo" : {
+            "_": "input-page-custom-theme-to"
+        },
+        "pageCustomTheme" : {
+            "_": "input-page-custom-theme"
+        },
+        "pageCustomRootTemplate" : {
+            "_": "input-page-custom-root-template"
+        },
+        "pageCustomLayoutUpdateXml" : {
+            "_": "input-page-custom-layout-update-xml"
+        },
+        "pageMetaKeywords" : {
+            "_": "input-page-meta-keywords"
+        },
+        "pageMeta_description" : {
+            "_": "input-page-meta-description"
+        }
+    }
+}
