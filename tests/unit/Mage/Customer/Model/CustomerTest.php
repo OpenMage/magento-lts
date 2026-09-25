@@ -17,6 +17,10 @@ use Mage_Customer_Model_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\CustomerTrait;
 
+/**
+ * @phpstan-import-type ValidateData from CustomerTrait
+ * @phpstan-import-type ValidateMethods from CustomerTrait
+ */
 final class CustomerTest extends OpenMageTest
 {
     use CustomerTrait;
@@ -31,12 +35,15 @@ final class CustomerTest extends OpenMageTest
     /**
      * @dataProvider provideValidateCustomerData
      * @group Model
-     * @param  array|true          $expectedResult
+     * @param string[]|true $expectedResult
+     * @psalm-param ValidateData    $data
+     * @psalm-param ValidateMethods $methods
      * @throws Mage_Core_Exception
      */
-    public function testValidate($expectedResult, array $methods): void
+    public function testValidate(array|bool $expectedResult, array $data, array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        $mock->setData($data);
 
         self::assertInstanceOf(Subject::class, $mock);
         self::assertSame($expectedResult, $mock->validate());

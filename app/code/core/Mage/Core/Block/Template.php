@@ -396,8 +396,8 @@ HTML;
      * Get is allowed symlinks flag
      *
      * @return bool
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getAllowSymlinks()
     {
         return false;

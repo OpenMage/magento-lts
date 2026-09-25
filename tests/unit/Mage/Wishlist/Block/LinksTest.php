@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Wishlist\Block;
 
 use Mage_Wishlist_Block_Links as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 final class LinksTest extends OpenMageTest
 {
@@ -27,8 +28,6 @@ final class LinksTest extends OpenMageTest
     /**
      * @covers Mage_Wishlist_Block_Links::initLinkProperties()
      * @group Block
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testInitLinkProperties(): void
     {
@@ -40,6 +39,7 @@ final class LinksTest extends OpenMageTest
      * @covers Mage_Wishlist_Block_Links::addWishlistLink()
      * @group Block
      */
+    #[IgnoreDeprecations]
     public function testAddWishlistLink(): void
     {
         self::assertInstanceOf(self::$subject::class, self::$subject->addWishlistLink());
@@ -47,8 +47,6 @@ final class LinksTest extends OpenMageTest
 
     /**
      * @group Block
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetCacheTags(): void
     {

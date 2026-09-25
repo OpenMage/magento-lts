@@ -227,7 +227,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 }
             }
 
-            if ($value) {
+            if ($value || $value === '0') {
                 $directive .= sprintf(' %s="%s"', $name, $value);
             }
         }

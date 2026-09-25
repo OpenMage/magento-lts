@@ -292,11 +292,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Session.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Return type (void) of method Mage_Api_Model_Session::revalidateCookie() should be compatible with return type ($this(Mage_Core_Model_Session_Abstract_Varien)) of method Mage_Core_Model_Session_Abstract_Varien::revalidateCookie()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Session.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Return type (Mage_Core_Model_Abstract) of method Mage_Api_Model_User::delete() should be covariant with return type ($this(Mage_Core_Model_Abstract)) of method Mage_Core_Model_Abstract::delete()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/User.php',
@@ -1338,11 +1333,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Return type (bool|Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error) of method Mage_Usa_Model_Shipping_Carrier_Abstract::proccessAdditionalValidation() should be covariant with return type ($this(Mage_Shipping_Model_Carrier_Abstract)) of method Mage_Shipping_Model_Carrier_Abstract::proccessAdditionalValidation()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (string|null) of method Mage_Usa_Model_Shipping_Carrier_Abstract::getCarrierCode() should be covariant with return type (string) of method Mage_Shipping_Model_Carrier_Abstract::getCarrierCode()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php',
 ];

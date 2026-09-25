@@ -63,8 +63,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Retrieve default value for giftmessage sender
      *
      * @return string
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function getDefaultSender()
     {
         if (!$this->getItem()) {
@@ -82,8 +82,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Retrieve default value for giftmessage recipient
      *
      * @return string
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function getDefaultRecipient()
     {
         if (!$this->getItem()) {
@@ -116,8 +116,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      *
      * @param  string $name
      * @return string
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function getFieldName($name)
     {
         return 'giftmessage[' . $this->getItem()->getId() . '][' . $name . ']';
@@ -127,8 +127,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Initialize gift message for entity
      *
      * @return $this
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     protected function _initMessage()
     {
         /** @var Mage_GiftMessage_Helper_Message $helper */
@@ -153,8 +153,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Retrieve gift message for entity
      *
      * @return Mage_GiftMessage_Model_Message
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function getMessage()
     {
         if (!isset($this->_giftMessage[$this->getItem()->getGiftMessageId()])) {
@@ -168,8 +168,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Retrieve save url
      *
      * @return string
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function getSaveUrl()
     {
         return $this->getUrl('*/sales_order_view_giftmessage/save', [
@@ -183,8 +183,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Retrieve block html id
      *
      * @return string
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function getHtmlId()
     {
         return substr($this->getFieldIdPrefix(), 0, -1);

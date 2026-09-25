@@ -16,6 +16,7 @@ use Mage;
 use Mage_AdminNotification_Helper_Data as Subject;
 use Mage_AdminNotification_Model_Inbox;
 use OpenMage\Tests\Unit\OpenMageTest;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 final class DataTest extends OpenMageTest
 {
@@ -48,6 +49,7 @@ final class DataTest extends OpenMageTest
      * @covers Mage_AdminNotification_Helper_Data::getPopupObjectUrl()
      * @group Helper
      */
+    #[IgnoreDeprecations]
     public function testGetPopupObjectUrl(): void
     {
         self::assertSame('', self::$subject->getPopupObjectUrl());

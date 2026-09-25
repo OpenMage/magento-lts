@@ -276,9 +276,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * Retrieve Product collection
      *
      * @return Mage_Wishlist_Model_Resource_Product_Collection
-     * @deprecated after 1.4.2.0
      * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function getProductCollection()
     {
         $collection = $this->getDataByKey('product_collection');

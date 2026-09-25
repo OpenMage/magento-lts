@@ -48,8 +48,6 @@ final class ReorderTest extends OpenMageTest
 
     /**
      * @group Helper
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testCanReorder(): void
     {

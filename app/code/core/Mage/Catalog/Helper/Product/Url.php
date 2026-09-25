@@ -124,9 +124,9 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
      *
      * @param  string $string
      * @return string
-     * @deprecated
      * @see Mage_Catalog_Model_Url::formatUrlKey()
      */
+    #[Deprecated]
     public function format($string)
     {
         return $string === null ? '' : strtr($string, $this->getConvertTable());

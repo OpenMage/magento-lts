@@ -2322,11 +2322,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/catalog/product/edit/categories.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, array given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/catalog/product/edit/websites.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, float given on the left side.',
     'count' => 14,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/catalog/product/price.phtml',

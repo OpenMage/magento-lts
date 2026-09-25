@@ -124,13 +124,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         }
 
         $options = array_merge($options, $this->getCustomOptions($item));
-        $isUnConfigured = true;
-        foreach ($options as &$option) {
-            if ($option['value']) {
-                $isUnConfigured = false;
-                break;
-            }
-        }
+        $isUnConfigured = array_all($options, fn($option) => !$option['value']);
 
         return $isUnConfigured ? [] : $options;
     }

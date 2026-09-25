@@ -32,8 +32,6 @@ final class ConfigTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetConfig(): void
     {

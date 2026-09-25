@@ -1270,7 +1270,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     }
 
     /****************************** CREATE ENTITY TABLES ***********************************/
-
     /**
      * Create entity tables
      *
@@ -1282,8 +1281,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
-     * @deprecated Missing unique indexes. To create custom EAV tables, refer to the core:
      */
+    #[Deprecated(message: 'Missing unique indexes. To create custom EAV tables, refer to the core:')]
     public function createEntityTables($baseTableName, array $options = [])
     {
         $isNoCreateMainTable = $this->_getValue($options, 'no-main', false);

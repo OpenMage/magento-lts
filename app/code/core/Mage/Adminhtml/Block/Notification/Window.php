@@ -37,9 +37,8 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
 {
     /**
      * XML path of Severity icons url
-     *
-     * @deprecated
      */
+    #[Deprecated]
     public const XML_SEVERITY_ICONS_URL_PATH  = 'system/adminnotification/severity_icons_url';
 
     /**
@@ -132,8 +131,8 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      * Return swf object url
      *
      * @return string
-     * @deprecated v19.4.16
      */
+    #[Deprecated(message: 'v19.4.16')]
     public function getObjectUrl()
     {
         return $this->_getHelper()->getPopupObjectUrl();

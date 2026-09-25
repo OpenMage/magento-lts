@@ -49,9 +49,6 @@
         <input type="<?php echo $element->getType() ?>" name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" value="<?php echo $element->getValue() ?>" class="input-text <?php echo $element->getClass() ?>" title="<?php echo $element->getTitle() ?>"/>
     </span>
       <?php break;
-    case 'hidden': ?>
-        <input type="<?php echo $element->getType() ?>" name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" value="<?php echo $element->getValue() ?>">
-      <?php break;
     case 'radios': ?>
     <span class="form_row">
         <label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label>

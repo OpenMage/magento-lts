@@ -26,8 +26,6 @@ final class VisitorTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testInitServerData(): void
     {
@@ -36,8 +34,6 @@ final class VisitorTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetOnlineMinutesInterval(): void
     {
@@ -46,8 +42,6 @@ final class VisitorTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetUrl(): void
     {
@@ -56,8 +50,6 @@ final class VisitorTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetFirstVisitAt(): void
     {
@@ -66,8 +58,6 @@ final class VisitorTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetLastVisitAt(): void
     {

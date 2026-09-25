@@ -329,13 +329,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      */
     protected function _isRowWithAddress(array $rowData)
     {
-        foreach (array_keys($this->_attributes) as $colName) {
-            if (isset($rowData[$colName]) && strlen($rowData[$colName])) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any(array_keys($this->_attributes), fn($colName) => isset($rowData[$colName]) && strlen($rowData[$colName]));
     }
 
     /**

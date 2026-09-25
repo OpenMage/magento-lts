@@ -2331,8 +2331,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * @param  string $method
      * @param  bool   $valuesToLabels
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _methodsMapper($method, $valuesToLabels = true)
     {
         return $method;
@@ -2341,8 +2341,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * @param  string $value
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     public function getMethodLabel($value)
     {
         return $this->_methodsMapper($value, true);
@@ -2352,8 +2352,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * Get value of method by its label
      * @param  string $label
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     public function getMethodValue($label)
     {
         return $this->_methodsMapper($label, false);
@@ -2361,8 +2361,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
     /**
      * @return void
-     * @deprecated
      */
+    #[Deprecated]
     protected function setTrackingReqeust()
     {
         $this->setTrackingRequest();

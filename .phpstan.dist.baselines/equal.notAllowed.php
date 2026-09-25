@@ -5187,7 +5187,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/giftmessage/form.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and mixed is not allowed.',
+    'rawMessage' => 'Loose comparison via "==" between mixed and int|null is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/newsletter/preview/store.phtml',
 ];

@@ -47,7 +47,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client
     /**
      * Debug mode flag
      */
-    protected bool $_debug = false;
+    protected bool $_debug;
 
     /**
      * Debug log array

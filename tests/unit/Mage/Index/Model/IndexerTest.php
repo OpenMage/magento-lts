@@ -17,6 +17,7 @@ use Mage_Index_Model_Event;
 use Mage_Index_Model_Indexer as Subject;
 use Mage_Index_Model_Resource_Process_Collection;
 use OpenMage\Tests\Unit\OpenMageTest;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 final class IndexerTest extends OpenMageTest
 {
@@ -60,6 +61,7 @@ final class IndexerTest extends OpenMageTest
      * @covers Mage_Index_Model_Indexer::lockIndexer()
      * @group Model
      */
+    #[IgnoreDeprecations]
     public function testLockIndexer(): void
     {
         self::assertInstanceOf(Subject::class, self::$subject->lockIndexer());
@@ -69,6 +71,7 @@ final class IndexerTest extends OpenMageTest
      * @covers Mage_Index_Model_Indexer::unlockIndexer()
      * @group Model
      */
+    #[IgnoreDeprecations]
     public function testUnlockIndexer(): void
     {
         self::assertInstanceOf(Subject::class, self::$subject->unlockIndexer());

@@ -456,9 +456,9 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @param  null|bool                       $multiplyQty      Whether to multiply selection's price by its quantity
      * @return float
      * @throws Mage_Core_Model_Store_Exception
-     * @deprecated after 1.6.2.0
      * @see Mage_Bundle_Model_Product_Price::getSelectionFinalTotalPrice()
      */
+    #[Deprecated(message: 'after 1.6.2.0')]
     public function getSelectionPrice($bundleProduct, $selectionProduct, $selectionQty = null, $multiplyQty = true)
     {
         return $this->getSelectionFinalTotalPrice($bundleProduct, $selectionProduct, 0, $selectionQty, $multiplyQty);
@@ -489,9 +489,9 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * @return float
      * @throws Mage_Core_Model_Store_Exception
      *
-     * @deprecated after 1.5.1.0
      * @see Mage_Bundle_Model_Product_Price::getSelectionFinalTotalPrice()
      */
+    #[Deprecated(message: 'after 1.5.1.0')]
     public function getSelectionFinalPrice(
         $bundleProduct,
         $selectionProduct,

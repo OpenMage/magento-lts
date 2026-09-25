@@ -88,8 +88,8 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      *
      * @param  string $data
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     public function getChartDataHash($data)
     {
         $secret = (string) Mage::getConfig()->getNode(Mage_Core_Model_App::XML_PATH_INSTALL_DATE);

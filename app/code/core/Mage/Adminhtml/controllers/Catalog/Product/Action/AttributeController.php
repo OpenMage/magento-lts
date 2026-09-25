@@ -59,6 +59,9 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
         $websiteAddData     = $this->getRequest()->getParam('add_website_ids', []);
         $attributeName      = '';
 
+        /** @var list<int|string> $productIds */
+        $productIds = $this->_getHelper()->getProductIds();
+
         /* Prepare inventory data item options (use config settings) */
         foreach (Mage::helper('cataloginventory')->getConfigItemOptions() as $option) {
             if (isset($inventoryData[$option]) && !isset($inventoryData['use_config_' . $option])) {
@@ -114,7 +117,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 }
 
                 Mage::getSingleton('catalog/product_action')
-                    ->updateAttributes($this->_getHelper()->getProductIds(), $attributesData, $storeId);
+                    ->updateAttributes($productIds, $attributesData, $storeId);
             }
 
             if ($inventoryData) {
@@ -124,7 +127,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 $stockItemSaved = false;
                 $changedProductIds = [];
 
-                foreach ($this->_getHelper()->getProductIds() as $productId) {
+                foreach ($productIds as $productId) {
                     $stockItem->setData([]);
                     $stockItem->loadByProduct($productId)
                         ->setProductId($productId);
@@ -159,7 +162,6 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             if ($websiteAddData || $websiteRemoveData) {
                 /** @var Mage_Catalog_Model_Product_Action $actionModel */
                 $actionModel = Mage::getSingleton('catalog/product_action');
-                $productIds  = $this->_getHelper()->getProductIds();
 
                 if ($websiteRemoveData) {
                     $actionModel->updateWebsites($productIds, $websiteRemoveData, 'remove');
@@ -180,7 +182,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             }
 
             $this->_getSession()->addSuccess(
-                $this->__('Total of %d record(s) were updated', count($this->_getHelper()->getProductIds())),
+                $this->__('Total of %d record(s) were updated', count($productIds)),
             );
         } catch (Mage_Eav_Model_Entity_Attribute_Exception $mageEavModelEntityAttributeException) {
             $this->_getSession()->addError($attributeName . ': ' . $mageEavModelEntityAttributeException->getMessage());
@@ -201,7 +203,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
      */
     protected function _validateProducts()
     {
-        $error = false;
+        $error = null;
         $productIds = $this->_getHelper()->getProductIds();
         if (!is_array($productIds)) {
             $error = $this->__('Please select products for attributes update');
@@ -209,12 +211,12 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             $error = $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.');
         }
 
-        if ($error) {
+        if ($error !== null) {
             $this->_getSession()->addError($error);
             $this->_redirect('*/catalog_product/', ['_current' => true]);
         }
 
-        return !$error;
+        return $error !== null;
     }
 
     /**

@@ -127,8 +127,8 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      *
      * @param  string $type
      * @return string
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     protected function _getGroupByDateFormat($type)
     {
         switch ($type) {
@@ -149,8 +149,8 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      *
      * @param  string $typeCode
      * @return string
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     protected function _getRangeByType($typeCode)
     {
         return match ($typeCode) {

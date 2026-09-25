@@ -34,8 +34,6 @@ final class TextTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testValidateUserValue(): void
     {
@@ -69,8 +67,6 @@ final class TextTest extends OpenMageTest
      * passed client-side validation is rejected with "The text is too long".
      *
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testValidateUserValueNormalizesCrlfWithinMaxLength(): void
     {
@@ -87,8 +83,6 @@ final class TextTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testValidateUserValueRejectsOverMaxAfterCrlfNormalization(): void
     {

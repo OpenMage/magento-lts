@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_Catalog_Product_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_urlrewrite_product_grid';
+
     /**
      * Disable massaction
      *

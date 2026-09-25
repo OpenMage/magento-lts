@@ -9,11 +9,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Negated boolean expression is always true.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Controller/Varien/Router/Standard.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Negated boolean expression is always true.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Url/Rewrite.php',
 ];
 $ignoreErrors[] = [

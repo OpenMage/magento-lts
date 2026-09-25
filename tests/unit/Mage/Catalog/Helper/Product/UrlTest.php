@@ -16,6 +16,8 @@ use Mage;
 use Mage_Catalog_Helper_Product_Url as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\Product\UrlTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
 final class UrlTest extends OpenMageTest
 {
@@ -62,9 +64,10 @@ final class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Catalog_Helper_Product_Url::format()
-     * @dataProvider provideFormat
      * @group Helper
      */
+    #[IgnoreDeprecations]
+    #[DataProvider('provideFormat')]
     public function testFormat(string $expectedResult, ?string $string): void
     {
         self::assertSame($expectedResult, self::$subject->format($string));
