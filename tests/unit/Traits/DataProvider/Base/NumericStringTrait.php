@@ -15,6 +15,9 @@ use Generator;
 
 trait NumericStringTrait
 {
+    /**
+     * @return Generator<string, list{numeric-string}, void, void>
+     */
     public static function provideNumericString(): Generator
     {
         yield 'zero' => [

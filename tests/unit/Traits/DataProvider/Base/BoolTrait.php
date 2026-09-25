@@ -15,6 +15,9 @@ use Generator;
 
 trait BoolTrait
 {
+    /**
+     * @return Generator<string, list{bool}, void, void>
+     */
     public static function provideBool(): Generator
     {
         yield 'true' => [
