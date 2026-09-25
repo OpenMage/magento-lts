@@ -131,7 +131,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     {
         $attributes     = [];
         $options        = [];
-        $store          = $this->getCurrentStore();
+        $store          = $this->_getHelper()->getCurrentStore();
         $taxHelper      = Mage::helper('tax');
         $currentProduct = $this->getProduct();
         $defaultValues  = [];
@@ -162,7 +162,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         }
 
         $this->_resPrices = [
-            $this->_preparePrice($currentProduct->getFinalPrice()),
+            $this->_getHelper()->preparePrice($this->getProduct(), $currentProduct->getFinalPrice()),
         ];
 
         foreach ($this->getAllowAttributes() as $attribute) {
@@ -184,7 +184,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     }
 
                     $currentProduct->setConfigurablePrice(
-                        $this->_preparePrice($value['pricing_value'], $value['is_percent']),
+                        $this->_getHelper()->preparePrice($this->getProduct(), $value['pricing_value'], $value['is_percent']),
                     );
                     $currentProduct->setParentId(true);
                     Mage::dispatchEvent(
@@ -209,7 +209,11 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                         'id'        => $value['value_index'],
                         'label'     => $value['label'],
                         'price'     => $configurablePrice,
-                        'oldPrice'  => $this->_prepareOldPrice($value['pricing_value'], $value['is_percent']),
+                        'oldPrice'  => $this->_getHelper()->prepareOldPrice(
+                            $this->getProduct(),
+                            $value['pricing_value'],
+                            $value['is_percent'],
+                        ),
                         'products'  => $productsIndex,
                     ];
                     $optionPrices[] = $configurablePrice;
@@ -256,8 +260,12 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         $config = [
             'attributes'        => $attributes,
             'template'          => str_replace('%s', '#{price}', $store->getCurrentCurrency()->getOutputFormat()),
-            'basePrice'         => $this->_registerJsPrice($this->_convertPrice($currentProduct->getFinalPrice())),
-            'oldPrice'          => $this->_registerJsPrice($this->_convertPrice($currentProduct->getPrice())),
+            'basePrice'         => $this->_getHelper()->registerJsPrice(
+                $this->_getHelper()->convertPrice($currentProduct->getFinalPrice()),
+            ),
+            'oldPrice'          => $this->_getHelper()->registerJsPrice(
+                $this->_getHelper()->convertPrice($currentProduct->getPrice()),
+            ),
             'productId'         => $currentProduct->getId(),
             'chooseText'        => Mage::helper('catalog')->__('Choose an Option...'),
             'taxConfig'         => $taxConfig,
