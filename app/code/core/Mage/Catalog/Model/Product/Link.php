@@ -116,9 +116,7 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
      */
     public function getAttributes($type = null)
     {
-        if (is_null($type)) {
-            $type = $this->getLinkTypeId();
-        }
+        $type ??= $this->getLinkTypeId();
 
         return $this->_getResource()->getAttributesByType($type);
     }

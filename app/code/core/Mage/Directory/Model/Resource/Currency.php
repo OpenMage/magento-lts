@@ -147,7 +147,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
                 }
             }
 
-            if ($data) {
+            if ($data !== []) {
                 $adapter->insertOnDuplicate($this->_currencyRateTable, $data, ['rate']);
             }
         } else {

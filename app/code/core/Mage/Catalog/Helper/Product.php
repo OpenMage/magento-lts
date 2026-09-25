@@ -225,13 +225,9 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      */
     public function getProductUrlSuffix($storeId = null)
     {
-        if (is_null($storeId)) {
-            $storeId = Mage::app()->getStore()->getId();
-        }
+        $storeId ??= Mage::app()->getStore()->getId();
 
-        if (!isset($this->_productUrlSuffix[$storeId])) {
-            $this->_productUrlSuffix[$storeId] = Mage::getStoreConfig(self::XML_PATH_PRODUCT_URL_SUFFIX, $storeId);
-        }
+        $this->_productUrlSuffix[$storeId] ??= Mage::getStoreConfig(self::XML_PATH_PRODUCT_URL_SUFFIX, $storeId);
 
         return $this->_productUrlSuffix[$storeId];
     }

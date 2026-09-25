@@ -138,7 +138,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
                 $profiles[] = $profile;
             }
 
-            if ($profiles) {
+            if ($profiles !== []) {
                 $this->setRecurringProfiles($profiles);
                 if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                     $this->setCanViewProfiles(true);

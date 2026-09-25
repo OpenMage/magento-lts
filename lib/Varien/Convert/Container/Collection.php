@@ -26,9 +26,7 @@ class Varien_Convert_Container_Collection
 
     public function addItem($name, Varien_Convert_Container_Interface $item)
     {
-        if (is_null($name)) {
-            $name = $item->getName() ? $item->getName() : count($this->_items);
-        }
+        $name ??= $item->getName() ? $item->getName() : count($this->_items);
 
         $this->_items[$name] = $item;
 

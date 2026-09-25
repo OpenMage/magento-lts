@@ -124,9 +124,7 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function isModuleOutputEnabled($moduleName = null)
     {
-        if ($moduleName === null) {
-            $moduleName = $this->_getModuleName();
-        }
+        $moduleName ??= $this->_getModuleName();
 
         if (!$this->isModuleEnabled($moduleName)) {
             return false;
@@ -143,9 +141,7 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function isModuleEnabled($moduleName = null)
     {
-        if ($moduleName === null) {
-            $moduleName = $this->_getModuleName();
-        }
+        $moduleName ??= $this->_getModuleName();
 
         if (array_key_exists($moduleName, $this->modulesDisabled)) {
             return $this->modulesDisabled[$moduleName];

@@ -66,9 +66,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
 
         $products = $this->getProducts();
 
-        if ($keepFrame === null) {
-            $keepFrame = $this->isKeepFrame();
-        }
+        $keepFrame ??= $this->isKeepFrame();
 
         foreach ($products as $product) {
             $imageFallback = $helper->getConfigurableImagesFallbackArray($product, $this->_getImageSizes(), $keepFrame);

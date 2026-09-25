@@ -229,9 +229,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         $height = self::SWATCH_DEFAULT_HEIGHT,
         $fileExt = null
     ) {
-        if (is_null($fileExt)) {
-            $fileExt = self::SWATCH_FILE_EXT;
-        }
+        $fileExt ??= self::SWATCH_FILE_EXT;
 
         // normalize to all lower case so that value can be used as array key below
         $value = Mage_ConfigurableSwatches_Helper_Data::normalizeKey($value);

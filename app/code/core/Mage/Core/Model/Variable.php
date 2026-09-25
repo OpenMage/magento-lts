@@ -83,9 +83,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
      */
     public function getValue($type = null)
     {
-        if ($type === null) {
-            $type = self::TYPE_HTML;
-        }
+        $type ??= self::TYPE_HTML;
 
         if ($type == self::TYPE_TEXT || !(strlen((string) $this->getDataByKey('html_value')))) {
             $value = $this->getDataByKey('plain_value');

@@ -199,9 +199,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     #[Override]
     protected function _getSession()
     {
-        if (is_null($this->_adminSession)) {
-            $this->_adminSession = Mage::getSingleton('admin/session');
-        }
+        $this->_adminSession ??= Mage::getSingleton('admin/session');
 
         return $this->_adminSession;
     }

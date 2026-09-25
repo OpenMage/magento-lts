@@ -294,7 +294,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     public function addRecurringPaymentProfiles(array $items)
     {
-        if ($items) {
+        if ($items !== []) {
             $this->_recurringPaymentProfiles = $items;
         }
 

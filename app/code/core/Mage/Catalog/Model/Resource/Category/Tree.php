@@ -337,9 +337,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      */
     public function getCollection($sorted = false)
     {
-        if (is_null($this->_collection)) {
-            $this->_collection = $this->_getDefaultCollection($sorted);
-        }
+        $this->_collection ??= $this->_getDefaultCollection($sorted);
 
         return $this->_collection;
     }

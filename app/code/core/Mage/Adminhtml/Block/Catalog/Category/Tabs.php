@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
             }
 
             // do not add grops without attributes
-            if (!$attributes) {
+            if ($attributes === []) {
                 continue;
             }
 

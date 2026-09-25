@@ -679,9 +679,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $dir      = $this->getParam($this->getVarNameDir(), $this->_defaultDir);
             $filter   = $this->getParam($this->getVarNameFilter());
 
-            if (is_null($filter)) {
-                $filter = $this->_defaultFilter;
-            }
+            $filter ??= $this->_defaultFilter;
 
             if (is_string($filter)) {
                 /** @var Mage_Adminhtml_Helper_Data $helper */
@@ -1432,9 +1430,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _exportExcelItem(Varien_Object $item, Varien_Io_File $adapter, $parser = null)
     {
-        if (is_null($parser)) {
-            $parser = new Varien_Convert_Parser_Xml_Excel();
-        }
+        $parser ??= new Varien_Convert_Parser_Xml_Excel();
 
         $row = [];
         foreach ($this->_columns as $column) {

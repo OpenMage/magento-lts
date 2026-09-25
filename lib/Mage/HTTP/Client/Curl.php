@@ -421,9 +421,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
             if ($name !== '') {
                 if ($name === 'Set-Cookie') {
-                    if (!isset($this->_responseHeaders[$name])) {
-                        $this->_responseHeaders[$name] = [];
-                    }
+                    $this->_responseHeaders[$name] ??= [];
 
                     $this->_responseHeaders[$name][] = $value;
                 } else {

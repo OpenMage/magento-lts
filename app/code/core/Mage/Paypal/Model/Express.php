@@ -124,9 +124,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     public function setStore($store)
     {
         $this->setData('store', $store);
-        if ($store === null) {
-            $store = Mage::app()->getStore()->getId();
-        }
+        $store ??= Mage::app()->getStore()->getId();
 
         $this->_pro->getConfig()->setStoreId(is_object($store) ? $store->getId() : $store);
         return $this;

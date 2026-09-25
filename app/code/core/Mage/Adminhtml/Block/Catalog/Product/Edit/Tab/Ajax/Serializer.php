@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Ajax_Serializer extends Mage
             }
         }
 
-        return $result ? Zend_Json::encode($result) : '{}';
+        return $result !== [] ? Zend_Json::encode($result) : '{}';
     }
 
     /**

@@ -102,11 +102,9 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     $optionLabel = (string) $optionLabelObject;
 
                     // initialize arrays if not present
-                    if (!isset($mapping[$optionLabel])) {
-                        $mapping[$optionLabel] = [
-                            'product_ids' => [],
-                        ];
-                    }
+                    $mapping[$optionLabel] ??= [
+                        'product_ids' => [],
+                    ];
 
                     $mapping[$optionLabel]['product_ids'][] = $childProduct->getId();
                     $mapping[$optionLabel]['label'] = $optionLabelObject;
@@ -366,17 +364,11 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             $realProductId = $relationship[$image['product_id']];
             $product = $products[$realProductId];
 
-            if (is_null($image['label'])) {
-                $image['label'] = $image['label_default'];
-            }
+            $image['label'] ??= $image['label_default'];
 
-            if (is_null($image['position'])) {
-                $image['position'] = $image['position_default'];
-            }
+            $image['position'] ??= $image['position_default'];
 
-            if (is_null($image['disabled'])) {
-                $image['disabled'] = $image['disabled_default'];
-            }
+            $image['disabled'] ??= $image['disabled_default'];
 
             $value = $product->getData($attrCode);
             if (!$value) {
@@ -443,9 +435,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         /** @var Mage_Catalog_Model_Product $childProduct */
         foreach ($collection as $childProduct) {
             foreach ($childProduct->getParentIds() as $parentId) {
-                if (!isset($mapping[$parentId])) {
-                    $mapping[$parentId] = [];
-                }
+                $mapping[$parentId] ??= [];
 
                 $mapping[$parentId][] = $childProduct;
             }

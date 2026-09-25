@@ -184,9 +184,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     #[Override]
     public function getAllIds()
     {
-        if (is_null($this->_itemIds)) {
-            $this->_itemIds = parent::getAllIds();
-        }
+        $this->_itemIds ??= parent::getAllIds();
 
         return $this->_itemIds;
     }

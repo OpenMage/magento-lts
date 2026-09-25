@@ -88,9 +88,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
 
         $string = $this->cleanString($string);
-        if (is_null($length)) {
-            $length = $this->strlen($string) - $offset;
-        }
+        $length ??= $this->strlen($string) - $offset;
 
         return iconv_substr($string, $offset, $length, self::ICONV_CHARSET);
     }

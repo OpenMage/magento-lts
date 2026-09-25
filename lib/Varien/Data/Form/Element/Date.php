@@ -120,9 +120,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
             return '';
         }
 
-        if (null === $format) {
-            $format = $this->getFormat();
-        }
+        $format ??= $this->getFormat();
 
         return $this->_value->toString($format);
     }

@@ -68,9 +68,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      */
     public function getFlatTableName($store = null)
     {
-        if ($store === null) {
-            $store = $this->getStoreId();
-        }
+        $store ??= $this->getStoreId();
 
         return $this->getTable(['catalog/product_flat', $store]);
     }

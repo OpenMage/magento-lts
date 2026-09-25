@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                     ->asArray()),
                 false,
             ));
-            if ($nonEditableTypes) {
+            if ($nonEditableTypes !== []) {
                 $confirmationMessage = $coreHelper->jsQuoteEscape(
                     Mage::helper('sales')->__(
                         'This order contains (%s) items and therefore cannot be edited through the admin interface at this time, if you wish to continue editing the (%s) items will be removed, the order will be canceled and a new order will be placed.',

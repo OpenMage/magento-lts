@@ -190,9 +190,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             $this->_setMainTable($mainTableArr[1], $idFieldName);
         } else {
             $this->_mainTable = $mainTable;
-            if (is_null($idFieldName)) {
-                $idFieldName = $mainTable . '_id';
-            }
+            $idFieldName ??= $mainTable . '_id';
 
             $this->_idFieldName = $idFieldName;
         }
@@ -363,9 +361,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
-        if (is_null($field)) {
-            $field = $this->getIdFieldName();
-        }
+        $field ??= $this->getIdFieldName();
 
         $read = $this->_getReadAdapter();
         if ($read && !is_null($value)) {

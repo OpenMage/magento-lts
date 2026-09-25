@@ -88,9 +88,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
         $defaultCurrencies = $this->_getDefaultCurrencyCodes();
         @set_time_limit(0);
         foreach ($defaultCurrencies as $currencyFrom) {
-            if (!isset($data[$currencyFrom])) {
-                $data[$currencyFrom] = [];
-            }
+            $data[$currencyFrom] ??= [];
 
             foreach ($currencies as $currencyTo) {
                 if ($currencyFrom == $currencyTo) {

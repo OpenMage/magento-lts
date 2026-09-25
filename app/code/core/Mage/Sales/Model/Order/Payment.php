@@ -1457,9 +1457,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected function _isTransactionExists($txnId = null)
     {
-        if ($txnId === null) {
-            $txnId = $this->getTransactionId();
-        }
+        $txnId ??= $this->getTransactionId();
 
         return $txnId && $this->_lookupTransaction($txnId);
     }

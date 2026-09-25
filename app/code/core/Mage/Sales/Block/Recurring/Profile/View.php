@@ -298,7 +298,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
             ]);
         }
 
-        if ($orders) {
+        if ($orders !== []) {
             $this->setGridElements($orders);
         }
     }

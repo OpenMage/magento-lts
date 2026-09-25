@@ -79,9 +79,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
 
     public function validateDataString($data = null)
     {
-        if (is_null($data)) {
-            $data = $this->getData();
-        }
+        $data ??= $this->getData();
 
         if (!is_string($data)) {
             $this->addException('Invalid data type, expecting string.', Varien_Convert_Exception::FATAL);
@@ -92,9 +90,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
 
     public function validateDataArray($data = null)
     {
-        if (is_null($data)) {
-            $data = $this->getData();
-        }
+        $data ??= $this->getData();
 
         if (!is_array($data)) {
             $this->addException('Invalid data type, expecting array.', Varien_Convert_Exception::FATAL);
@@ -105,9 +101,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
 
     public function validateDataGrid($data = null)
     {
-        if (is_null($data)) {
-            $data = $this->getData();
-        }
+        $data ??= $this->getData();
 
         if (!is_array($data) || !is_array(current($data))) {
             if (count($data) === 0) {

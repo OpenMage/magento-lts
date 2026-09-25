@@ -123,7 +123,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type int|string|null.',
-    'count' => 7,
+    'count' => 6,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [
@@ -153,12 +153,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type int|null.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Category.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type int|null.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Product.php',
 ];
 $ignoreErrors[] = [
@@ -188,12 +188,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type string|null.',
-    'count' => 4,
+    'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type string|null.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php',
 ];
 $ignoreErrors[] = [
@@ -383,7 +383,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type int|string|null.',
-    'count' => 16,
+    'count' => 13,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/App.php',
 ];
 $ignoreErrors[] = [
@@ -583,12 +583,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type string|null.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type int|string|null.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Abstract.php',
 ];
 $ignoreErrors[] = [
