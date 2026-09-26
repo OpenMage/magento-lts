@@ -5,7 +5,9 @@
  * @package     rwd_default
  */
 
-var ConfigurableSwatchPrices = Class.create({
+function ConfigurableSwatchPrices() { this.initialize(...arguments); }
+
+ConfigurableSwatchPrices.prototype = {
     initialize: function(config) {
         this.swatchesPrices = [];
         this.generalConfig = config.generalConfig;
@@ -15,43 +17,43 @@ var ConfigurableSwatchPrices = Class.create({
     },
 
     addObservers: function() {
-        $(document).on('click', '.swatch-link', this.onSwatchClick.bind(this));
+        document.addEventListener('click', this.onSwatchClick.bind(this));
     },
 
     onSwatchClick: function(e) {
-        var element = Event.findElement(e);
-        var swatchElement = element.up('[data-product-id]');
-        var productId = parseInt(swatchElement.getAttribute('data-product-id'), 10);
-        var swatchLabel = swatchElement.getAttribute('data-option-label');
-        var optionsPrice = this.optionsPrice(productId);
-        var swatchTarget = this.getSwatchPriceInfo(productId, swatchLabel);
+        const element = e.target.closest('.swatch-link');
+        if (!element) return;
+        const swatchElement = element.closest('[data-product-id]');
+        if (!swatchElement) return;
+        const productId = parseInt(swatchElement.getAttribute('data-product-id'), 10);
+        const swatchLabel = swatchElement.getAttribute('data-option-label');
+        const optionsPrice = this.optionsPrice(productId);
+        const swatchTarget = this.getSwatchPriceInfo(productId, swatchLabel);
 
-        if(swatchTarget) {
+        if (swatchTarget) {
             optionsPrice.changePrice('config', {price: swatchTarget.price, oldPrice: swatchTarget.oldPrice});
             optionsPrice.reload();
         }
     },
 
     getSwatchPriceInfo: function(productId, swatchLabel) {
-        var productInfo = this.products[productId];
-        if(productInfo && productInfo.swatchPrices[swatchLabel]) {
+        const productInfo = this.products[productId];
+        if (productInfo && productInfo.swatchPrices[swatchLabel]) {
             return productInfo.swatchPrices[swatchLabel];
         }
         return 0;
     },
 
     optionsPrice: function(productId) {
-        if(this.swatchesPrices[productId]) {
+        if (this.swatchesPrices[productId]) {
             return this.swatchesPrices[productId];
         }
         this.swatchesPrices[productId] = new Product.OptionsPrice(this.getProductConfig(productId));
-
         return this.swatchesPrices[productId];
     },
 
     getProductConfig: function(productId) {
-        var generalConfigClone = Object.extend({}, this.generalConfig);
-
-        return Object.extend(generalConfigClone, this.products[productId]);
+        return Object.assign({}, this.generalConfig, this.products[productId]);
     }
-});
+};
+Varien.classCompat(ConfigurableSwatchPrices);
