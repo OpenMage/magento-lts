@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_tag_edit_form';
+
     public function __construct()
     {
         parent::__construct();

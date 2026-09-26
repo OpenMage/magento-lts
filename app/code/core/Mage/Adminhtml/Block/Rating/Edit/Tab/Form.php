@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_rating_edit_tab_form';
+
     /**
      * Prepare rating edit form
      *
