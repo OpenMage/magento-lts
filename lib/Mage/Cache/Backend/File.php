@@ -370,8 +370,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Get a metadatas record and optionally the data as well
      *
-     * @param  string     $file     Cache file
-     * @param  bool       $withData
+     * @param  string      $file     Cache file
+     * @param  bool        $withData
      * @return array|false
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
