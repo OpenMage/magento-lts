@@ -1,3 +1,5 @@
+<?php 
+
 class Zend_Cache_Backend_File
 {
     /**

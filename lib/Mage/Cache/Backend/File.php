@@ -120,14 +120,14 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param string $id                     Cache id
      * @param bool   $doNotTestCacheValidity If set to true, the cache validity won't be tested
      *
-     * @return bool|string Cached data or false
+     * @return false|string Cached data or false
      */
     #[Override]
     public function load($id, $doNotTestCacheValidity = false)
     {
         $file  = $this->_file($id);
         $cache = $this->_getCache($file, true);
-        if (!$cache) {
+        if ($cache === false) {
             return false;
         }
 
@@ -172,9 +172,12 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     {
         $file = $this->_file($id);
         $path = $this->_path($id);
-        if ($this->_options['hashed_directory_level'] > 0 && !is_writable($path)) {
+        /** @var int $level */
+        $level = $this->_options['hashed_directory_level'];
+        if ($level > 0 && !is_writable($path)) {
             // maybe, we just have to build the directory structure
             $this->_recursiveMkdirAndChmod($id);
+            /** @phpstan-ignore function.impossibleType */
             if (!is_writable($path)) {
                 return false;
             }
@@ -205,7 +208,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     {
         $file      = $this->_file($id);
         $metadatas = $this->_getCache($file, false);
-        if ($metadatas) {
+        if ($metadatas !== false) {
             $boolRemove = $this->_remove($file);
             $boolTags   = $this->_updateIdsTags([$id], explode(',', $metadatas['tags']), 'diff');
 
@@ -325,7 +328,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     public function getMetadatas($id)
     {
         $metadatas = $this->_getCache($this->_file($id), false);
-        if ($metadatas) {
+        if ($metadatas !== false) {
             $metadatas['tags'] = explode(',', $metadatas['tags']);
         }
 
@@ -345,7 +348,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     {
         $file  = $this->_file($id);
         $cache = $this->_getCache($file, true);
-        if (!$cache) {
+        if ($cache === false) {
             return false;
         }
 
@@ -369,7 +372,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @param  string     $file     Cache file
      * @param  bool       $withData
-     * @return array|bool
+     * @return array|false
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -416,7 +419,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @param string $id Cache id
      *
-     * @return array|bool Associative array of meta data
+     * @return array|false Associative array of meta data
      */
     #[Override]
     protected function _getMetadatas($id)
@@ -522,7 +525,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 }
 
                 $metadatas = $this->_getCache($file, false);
-                if (!$metadatas) {
+                if ($metadatas === false) {
                     @unlink($file);
                     continue;
                 }
@@ -833,6 +836,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     public function ___expire($id)
     {
         $metadata = $this->_getMetadatas($id);
-        $this->touch($id, 1 - $metadata['expire']);
+        if ($metadata !== false) {
+            $this->touch($id, 1 - $metadata['expire']);
+        }
     }
 }
