@@ -47,7 +47,17 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Default options for the File cache adapter
      *
-     * @var array
+     * @var array{
+     *   'cache_dir': ?string,
+     *   'file_locking': bool,
+     *   'read_control': bool,
+     *   'read_control_type': string,
+     *   'hashed_directory_level': int,
+     *   'use_chmod': bool,
+     *   'file_mode': int,
+     *   'directory_mode': int,
+     *   'file_name_prefix': string
+     * }
      */
     protected $_options = [
         'cache_dir'              => null,    // Path to cache files
@@ -448,12 +458,13 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param string $id    Cache id
      * @param bool   $parts If true, returns array of directory parts instead of single string
      *
-     * @return array|string Complete directory path
+     * @return ($parts is true ? string[] : string)
      */
     #[Override]
     protected function _path($id, $parts = false)
     {
         $partsArray = [];
+        /** @var string $root */
         $root   = $this->_options['cache_dir'];
         $prefix = $this->_options['file_name_prefix'];
         if ($this->_options['hashed_directory_level'] > 0) {
