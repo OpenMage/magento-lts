@@ -7817,22 +7817,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $filename of function is_writable expects string, array|string given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $id of method Mage_Cache_Backend_File::_tagFile() expects string, resource|string given.',
     'count' => 2,
     'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $specificLifetime of method Zend_Cache_Backend::getLifetime() expects int|false, bool|int given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $offset of function substr expects int, float|int given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
 ];

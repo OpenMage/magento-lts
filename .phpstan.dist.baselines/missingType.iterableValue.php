@@ -25557,11 +25557,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Cache_Backend_File::_path() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Cache_Backend_File::_setMetadatas() has parameter $metadatas with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
