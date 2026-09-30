@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_promo_quote_edit_tab_main';
+
     /**
      * Prepare content for tab
      *
@@ -262,8 +264,6 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main extends Mage_Adminhtml_Bloc
                 $couponTypeFiled->getName(),
                 (string) Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC,
             ));
-
-        Mage::dispatchEvent('adminhtml_promo_quote_edit_tab_main_prepare_form', ['form' => $form]);
 
         return parent::_prepareForm();
     }
