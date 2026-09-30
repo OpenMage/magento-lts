@@ -66,9 +66,7 @@ class Mage_Index_Model_Indexer
      */
     public function getProcessesCollection()
     {
-        if (is_null($this->_processesCollection)) {
-            $this->_processesCollection = Mage::getResourceModel('index/process_collection');
-        }
+        $this->_processesCollection ??= Mage::getResourceModel('index/process_collection');
 
         return $this->_processesCollection;
     }

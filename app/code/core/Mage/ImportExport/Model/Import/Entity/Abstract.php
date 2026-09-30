@@ -695,7 +695,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 }
             }
 
-            if ($invalidColumns) {
+            if ($invalidColumns !== []) {
                 Mage::throwException(
                     Mage::helper('importexport')->__('Column names: "%s" are invalid', implode('", "', $invalidColumns)),
                 );

@@ -208,7 +208,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             ->_processTotalAmount($address, $totalExclTaxRowValue, $baseTotalExclTaxRowValue);
 
         $this->_helper->setApplied($item, array_merge($this->_helper->getApplied($item), $productTaxes));
-        if ($applied) {
+        if ($applied !== []) {
             $this->_saveAppliedTaxes(
                 $address,
                 $applied,
@@ -578,7 +578,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             );
         }
 
-        if ($applied) {
+        if ($applied !== []) {
             $this->_saveAppliedTaxes(
                 $address,
                 $applied,

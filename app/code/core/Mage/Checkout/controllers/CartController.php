@@ -363,9 +363,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $id = (int) $this->getRequest()->getParam('id');
         $params = $this->getRequest()->getParams();
 
-        if (!isset($params['options'])) {
-            $params['options'] = [];
-        }
+        $params['options'] ??= [];
 
         try {
             if (isset($params['qty'])) {

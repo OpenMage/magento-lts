@@ -153,9 +153,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      */
     protected function _getCategoryInstance()
     {
-        if (is_null($this->_categoryInstance)) {
-            $this->_categoryInstance = Mage::getModel('catalog/category');
-        }
+        $this->_categoryInstance ??= Mage::getModel('catalog/category');
 
         return $this->_categoryInstance;
     }

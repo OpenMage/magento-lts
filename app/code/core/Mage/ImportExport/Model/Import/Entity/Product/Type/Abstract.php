@@ -154,24 +154,22 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                 $attributeId   = $attribute->getId();
 
                 if ($attribute->getIsVisible() || in_array($attributeCode, $this->_forcedAttributesCodes)) {
-                    if (!isset($attributesCache[$attributeId])) {
-                        $attributesCache[$attributeId] = [
-                            'id'               => $attributeId,
-                            'code'             => $attributeCode,
-                            'for_configurable' => $attribute->getIsConfigurable(),
-                            'is_global'        => $attribute->getIsGlobal(),
-                            'is_required'      => $attribute->getIsRequired(),
-                            'is_unique'        => $attribute->getIsUnique(),
-                            'frontend_label'   => $attribute->getFrontendLabel(),
-                            'is_static'        => $attribute->isStatic(),
-                            'apply_to'         => $attribute->getApplyTo(),
-                            'type'             => Mage_ImportExport_Model_Import::getAttributeType($attribute),
-                            'default_value'    => strlen($attribute->getDefaultValue() ?? '')
-                                                  ? $attribute->getDefaultValue() : null,
-                            'options'          => $this->_entityModel
-                                                      ->getAttributeOptions($attribute, $this->_indexValueAttributes),
-                        ];
-                    }
+                    $attributesCache[$attributeId] ??= [
+                        'id'               => $attributeId,
+                        'code'             => $attributeCode,
+                        'for_configurable' => $attribute->getIsConfigurable(),
+                        'is_global'        => $attribute->getIsGlobal(),
+                        'is_required'      => $attribute->getIsRequired(),
+                        'is_unique'        => $attribute->getIsUnique(),
+                        'frontend_label'   => $attribute->getFrontendLabel(),
+                        'is_static'        => $attribute->isStatic(),
+                        'apply_to'         => $attribute->getApplyTo(),
+                        'type'             => Mage_ImportExport_Model_Import::getAttributeType($attribute),
+                        'default_value'    => strlen($attribute->getDefaultValue() ?? '')
+                                              ? $attribute->getDefaultValue() : null,
+                        'options'          => $this->_entityModel
+                                                  ->getAttributeOptions($attribute, $this->_indexValueAttributes),
+                    ];
 
                     $this->_addAttributeParams($attributeSet->getAttributeSetName(), $attributesCache[$attributeId]);
                 }

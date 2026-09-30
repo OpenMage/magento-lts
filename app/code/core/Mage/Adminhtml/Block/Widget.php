@@ -46,9 +46,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
      */
     public function getCurrentUrl($params = [])
     {
-        if (!isset($params['_current'])) {
-            $params['_current'] = true;
-        }
+        $params['_current'] ??= true;
 
         return $this->getUrl('*/*/*', $params);
     }

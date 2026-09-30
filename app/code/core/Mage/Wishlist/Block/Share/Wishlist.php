@@ -46,10 +46,8 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
      */
     public function getWishlistCustomer()
     {
-        if (is_null($this->_customer)) {
-            $this->_customer = Mage::getModel('customer/customer')
-                ->load($this->_getWishlist()->getCustomerId());
-        }
+        $this->_customer ??= Mage::getModel('customer/customer')
+            ->load($this->_getWishlist()->getCustomerId());
 
         return $this->_customer;
     }

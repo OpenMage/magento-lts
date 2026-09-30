@@ -670,9 +670,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function addStoreFilter($store = null)
     {
-        if ($store === null) {
-            $store = $this->getStoreId();
-        }
+        $store ??= $this->getStoreId();
 
         $store = Mage::app()->getStore($store);
 
@@ -981,9 +979,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     protected function _buildClearSelect($select = null)
     {
-        if (is_null($select)) {
-            $select = clone $this->getSelect();
-        }
+        $select ??= clone $this->getSelect();
 
         $select->reset(Zend_Db_Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
@@ -1076,7 +1072,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 ['collection' => $this],
             );
 
-            if ($isAnchor) {
+            if ($isAnchor !== []) {
                 $anchorStmt = clone $select;
                 $anchorStmt->limit(); //reset limits
                 $anchorStmt->where('count_table.category_id IN (?)', $isAnchor);
@@ -1084,7 +1080,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $anchorStmt = null;
             }
 
-            if ($isNotAnchor) {
+            if ($isNotAnchor !== []) {
                 $notAnchorStmt = clone $select;
                 $notAnchorStmt->limit(); //reset limits
                 $notAnchorStmt->where('count_table.category_id IN (?)', $isNotAnchor);
@@ -1205,9 +1201,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
             $urlRewrites = [];
             foreach ($this->getConnection()->fetchAll($select) as $row) {
-                if (!isset($urlRewrites[$row['product_id']])) {
-                    $urlRewrites[$row['product_id']] = $row['request_path'];
-                }
+                $urlRewrites[$row['product_id']] ??= $row['request_path'];
             }
 
             if ($this->_cacheConf) {
@@ -2032,7 +2026,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $tierPrices[$item->getId()] = [];
         }
 
-        if (!$productIds) {
+        if ($productIds === []) {
             return $this;
         }
 

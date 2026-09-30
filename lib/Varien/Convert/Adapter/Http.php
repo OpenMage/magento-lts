@@ -15,7 +15,7 @@ class Varien_Convert_Adapter_Http extends Varien_Convert_Adapter_Abstract
 {
     public function load()
     {
-        if (!$_FILES) {
+        if ($_FILES === []) {
             ?>
 <form method="POST" enctype="multipart/form-data">
 File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>
@@ -43,7 +43,7 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
     // experimental code
     public function loadFile()
     {
-        if (!$_FILES) {
+        if ($_FILES === []) {
             ?>
 <form method="POST" enctype="multipart/form-data">
 File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>

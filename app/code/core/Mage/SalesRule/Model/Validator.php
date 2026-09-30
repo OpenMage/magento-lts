@@ -106,11 +106,9 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             ->setCouponCode($couponCode);
 
         $key = $websiteId . '_' . $customerGroupId . '_' . $couponCode;
-        if (!isset($this->_rules[$key])) {
-            $this->_rules[$key] = Mage::getResourceModel('salesrule/rule_collection')
-                ->setValidationFilter($websiteId, $customerGroupId, $couponCode)
-                ->load();
-        }
+        $this->_rules[$key] ??= Mage::getResourceModel('salesrule/rule_collection')
+            ->setValidationFilter($websiteId, $customerGroupId, $couponCode)
+            ->load();
 
         return $this;
     }
@@ -399,9 +397,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     }
 
                     $cartRules = $address->getCartFixedRules();
-                    if (!isset($cartRules[$rule->getId()])) {
-                        $cartRules[$rule->getId()] = $rule->getDiscountAmount();
-                    }
+                    $cartRules[$rule->getId()] ??= $rule->getDiscountAmount();
 
                     if ($cartRules[$rule->getId()] > 0) {
                         if ($this->_rulesItemTotals[$rule->getId()]['items_count'] <= 1) {
@@ -800,9 +796,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     break;
                 case Mage_SalesRule_Model_Rule::CART_FIXED_ACTION:
                     $cartRules = $address->getCartFixedRules();
-                    if (!isset($cartRules[$rule->getId()])) {
-                        $cartRules[$rule->getId()] = $rule->getDiscountAmount();
-                    }
+                    $cartRules[$rule->getId()] ??= $rule->getDiscountAmount();
 
                     if ($cartRules[$rule->getId()] > 0) {
                         $quoteAmount        = $quote->getStore()->convertPrice($cartRules[$rule->getId()]);

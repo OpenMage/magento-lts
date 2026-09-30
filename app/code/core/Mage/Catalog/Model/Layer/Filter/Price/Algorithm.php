@@ -146,13 +146,9 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             $limits = [];
         }
 
-        if (!isset($limits[0])) {
-            $limits[0] = 0;
-        }
+        $limits[0] ??= 0;
 
-        if (!isset($limits[1])) {
-            $limits[1] = count($this->_prices) - 1;
-        }
+        $limits[1] ??= count($this->_prices) - 1;
 
         if ($limits[0] > $limits[1] || $this->_prices[$limits[1]] < $value) {
             return -1;

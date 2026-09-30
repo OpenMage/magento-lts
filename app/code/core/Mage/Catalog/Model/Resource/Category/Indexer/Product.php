@@ -286,7 +286,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             $this->_refreshAnchorRelations($anchorIds);
         }
 
-        if ($directIds) {
+        if ($directIds !== []) {
             $this->_refreshDirectRelations($directIds);
         }
 
@@ -295,7 +295,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
          */
         if ($processRootCategories) {
             $reindexRootCategoryIds = array_diff($affectedRootCategoryIds, $anchorIds);
-            if ($reindexRootCategoryIds) {
+            if ($reindexRootCategoryIds !== []) {
                 $this->_refreshNotAnchorRootCategories($reindexRootCategoryIds);
             }
         }

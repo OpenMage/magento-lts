@@ -109,7 +109,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
             );
         }
 
-        if (!$conditions) {
+        if ($conditions === []) {
             return false;
         }
 

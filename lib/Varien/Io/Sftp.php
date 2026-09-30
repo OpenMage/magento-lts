@@ -35,9 +35,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     #[Override]
     public function open(array $args = [])
     {
-        if (!isset($args['timeout'])) {
-            $args['timeout'] = self::REMOTE_TIMEOUT;
-        }
+        $args['timeout'] ??= self::REMOTE_TIMEOUT;
 
         if (str_contains($args['host'], ':')) {
             [$host, $port] = explode(':', $args['host'], 2);
@@ -143,9 +141,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      */
     public function read($filename, $dest = null)
     {
-        if (is_null($dest)) {
-            $dest = false;
-        }
+        $dest ??= false;
 
         return $this->_connection->get($filename, $dest);
     }

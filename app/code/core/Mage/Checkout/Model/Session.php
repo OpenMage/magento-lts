@@ -324,10 +324,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                 $steps[$step] = $data;
             }
         } else {
-            if (!isset($steps[$step])) {
-                $steps[$step] = [];
-            }
-
+            $steps[$step] ??= [];
             if (is_string($data)) {
                 $steps[$step][$data] = $value;
             }
@@ -428,9 +425,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     public function addItemAdditionalMessage($itemKey, $message)
     {
         $allMessages = $this->getAdditionalMessages();
-        if (!isset($allMessages[$itemKey])) {
-            $allMessages[$itemKey] = Mage::getModel('core/message_collection');
-        }
+        $allMessages[$itemKey] ??= Mage::getModel('core/message_collection');
 
         $allMessages[$itemKey]->add($message);
         $this->setAdditionalMessages($allMessages);

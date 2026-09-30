@@ -157,9 +157,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _getProductCollection()
     {
-        if (is_null($this->_productCollection)) {
-            $this->_productCollection = $this->getListBlock()->getLoadedProductCollection();
-        }
+        $this->_productCollection ??= $this->getListBlock()->getLoadedProductCollection();
 
         return $this->_productCollection;
     }

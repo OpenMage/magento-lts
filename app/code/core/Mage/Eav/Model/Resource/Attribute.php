@@ -109,7 +109,7 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
                 ];
             }
 
-            if ($data) {
+            if ($data !== []) {
                 $adapter->insertMultiple($this->_getFormAttributeTable(), $data);
             }
         }

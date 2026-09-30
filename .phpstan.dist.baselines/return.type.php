@@ -3242,7 +3242,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Filter/Template/Simple.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Varien_Http_Adapter_Curl::_getResource() should return CurlHandle|resource but returns CurlHandle|resource|false.',
+    'rawMessage' => 'Method Varien_Http_Adapter_Curl::_getResource() should return CurlHandle but returns CurlHandle|null.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
 ];

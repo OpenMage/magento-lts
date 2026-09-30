@@ -145,7 +145,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                     $adapter->delete($ratingTitleTable, $where);
                 }
 
-                if ($insert) {
+                if ($insert !== []) {
                     $data = [];
                     foreach ($insert as $storeId => $title) {
                         $data[] = [
@@ -178,7 +178,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                 $insert = array_diff($new, $old);
                 $delete = array_diff($old, $new);
 
-                if ($delete) {
+                if ($delete !== []) {
                     $where = [
                         'rating_id = ?' => $ratingId,
                         'store_id IN(?)' => $delete,
@@ -186,7 +186,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                     $adapter->delete($ratingStoreTable, $where);
                 }
 
-                if ($insert) {
+                if ($insert !== []) {
                     $data = [];
                     foreach ($insert as $storeId) {
                         $data[] = [

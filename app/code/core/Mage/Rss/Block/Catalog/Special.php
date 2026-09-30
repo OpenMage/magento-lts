@@ -159,9 +159,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      */
     public function addSpecialXmlCallback($args)
     {
-        if (!isset(self::$_currentDate)) {
-            self::$_currentDate = new Zend_Date();
-        }
+        self::$_currentDate ??= new Zend_Date();
 
         // dispatch event to determine whether the product will eventually get to the result
         $product = new Varien_Object(['allowed_in_rss' => true, 'allowed_price_in_rss' => true]);

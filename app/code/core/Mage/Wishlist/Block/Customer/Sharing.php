@@ -55,10 +55,8 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
      */
     public function getEnteredData($key)
     {
-        if (is_null($this->_enteredData)) {
-            $this->_enteredData = Mage::getSingleton('wishlist/session')
-                ->getData('sharing_form', true);
-        }
+        $this->_enteredData ??= Mage::getSingleton('wishlist/session')
+            ->getData('sharing_form', true);
 
         if (!$this->_enteredData || !isset($this->_enteredData[$key])) {
             return null;

@@ -24,7 +24,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Curl handle
      *
-     * @var null|CurlHandle|resource
+     * @var null|CurlHandle
      */
     protected $_resource;
 
@@ -223,12 +223,16 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Returns a cURL handle on success
      *
-     * @return CurlHandle|resource
+     * @return CurlHandle
      */
     protected function _getResource()
     {
-        if (is_null($this->_resource)) {
-            $this->_resource = curl_init();
+        if ($this->_resource === null) {
+            // curl_init might return false
+            $curl = curl_init();
+            if ($curl !== false) {
+                $this->_resource = $curl;
+            }
         }
 
         return $this->_resource;

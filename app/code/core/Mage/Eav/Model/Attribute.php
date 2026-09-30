@@ -53,9 +53,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
      */
     public function getWebsite()
     {
-        if (is_null($this->_website)) {
-            $this->_website = Mage::app()->getWebsite();
-        }
+        $this->_website ??= Mage::app()->getWebsite();
 
         return $this->_website;
     }

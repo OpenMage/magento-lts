@@ -131,9 +131,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
      */
     public function addValuesToResult($storeId = null)
     {
-        if ($storeId === null) {
-            $storeId = Mage::app()->getStore()->getId();
-        }
+        $storeId ??= Mage::app()->getStore()->getId();
 
         $optionIds = [];
         foreach ($this as $option) {

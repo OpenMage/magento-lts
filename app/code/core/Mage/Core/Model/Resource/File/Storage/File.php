@@ -44,9 +44,7 @@ class Mage_Core_Model_Resource_File_Storage_File
      */
     public function getMediaBaseDirectory()
     {
-        if (is_null($this->_mediaBaseDirectory)) {
-            $this->_mediaBaseDirectory = Mage::helper('core/file_storage_database')->getMediaBaseDir();
-        }
+        $this->_mediaBaseDirectory ??= Mage::helper('core/file_storage_database')->getMediaBaseDir();
 
         return $this->_mediaBaseDirectory;
     }
@@ -247,7 +245,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                 $parent = dirname($parent);
             }
 
-            if ($created) {
+            if ($created !== []) {
                 $this->_createdDirectories = $created;
             }
 
