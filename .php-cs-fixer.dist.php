@@ -26,7 +26,7 @@ return ECSConfig::configure()
     ->withFileExtensions(['php'])
     ->withRootFiles()
     ->withCache(directory: __DIR__ . '/.cache/.ecs.cache')
-    ->withPhpCsFixerSets(perCS30: true)
+    ->withPreparedSets(perCs: true)
     ->withRules([
         // RISKY: Replaces intval, floatval, doubleval, strval and boolval function calls with according type casting operators
         PhpCsFixer\CastNotation\ModernizeTypesCastingFixer::class,

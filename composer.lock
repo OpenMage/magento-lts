@@ -11095,16 +11095,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "13.2.19",
+            "version": "13.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ecsphp/ecs.git",
-                "reference": "a2af21c295837302b095180659971029a8294200"
+                "reference": "91848a91bfe688ee2c597c5d9f03d47c8855c743"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/a2af21c295837302b095180659971029a8294200",
-                "reference": "a2af21c295837302b095180659971029a8294200",
+                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/91848a91bfe688ee2c597c5d9f03d47c8855c743",
+                "reference": "91848a91bfe688ee2c597c5d9f03d47c8855c743",
                 "shasum": ""
             },
             "require": {
@@ -11114,9 +11114,6 @@
                 "friendsofphp/php-cs-fixer": "<3.95.20",
                 "phpcsstandards/php_codesniffer": "<4.0.4",
                 "symplify/coding-standard": "<13.0"
-            },
-            "suggest": {
-                "ext-dom": "Needed to support checkstyle output format in class CheckstyleOutputFormatter"
             },
             "bin": [
                 "bin/ecs"
@@ -11139,9 +11136,9 @@
                 "static analysis"
             ],
             "support": {
-                "source": "https://github.com/ecsphp/ecs/tree/13.2.19"
+                "source": "https://github.com/ecsphp/ecs/tree/13.3.2"
             },
-            "time": "2026-08-24T17:02:37+00:00"
+            "time": "2026-09-07T09:07:35+00:00"
         },
         {
             "name": "theseer/tokenizer",
