@@ -1,0 +1,26 @@
+{
+  "name": "openmage",
+  "description": "Claude Code skills for working on the OpenMage / magento-lts codebase.",
+  "owner": {
+    "name": "OpenMage"
+  },
+  "plugins": [
+    {
+      "name": "openmage-skills",
+      "source": "./.claude",
+      "description": "27 skills covering OpenMage framework mechanics (config/EAV/layout/events/ACL/API/cron/cache/i18n), Mage_* domain modules (catalog/sales/checkout/customer/payment/shipping/tax/promotions/cms/adminhtml/product-types), and repo tooling (PHPStan level 8, Rector, PHPUnit, vendor-patches).",
+      "homepage": "https://github.com/OpenMage/magento-lts",
+      "repository": "https://github.com/OpenMage/magento-lts",
+      "license": "OSL-3.0",
+      "category": "languages",
+      "keywords": [
+        "openmage",
+        "magento",
+        "magento1",
+        "magento-lts",
+        "php",
+        "ecommerce"
+      ]
+    }
+  ]
+}
