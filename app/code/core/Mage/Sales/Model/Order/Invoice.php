@@ -50,7 +50,6 @@
  * @method float                                              getShippingTaxAmount()
  * @method int                                                getState()
  * @method string                                             getStoreCurrencyCode()
- * @method int                                                getStoreId()
  * @method float                                              getStoreToBaseRate()
  * @method float                                              getStoreToOrderRate()
  * @method float                                              getSubtotal()
@@ -94,7 +93,6 @@
  * @method $this                                              setShippingTaxAmount(float $value)
  * @method $this                                              setState(int $value)
  * @method $this                                              setStoreCurrencyCode(string $value)
- * @method $this                                              setStoreId(int $value)
  * @method $this                                              setStoreToBaseRate(float $value)
  * @method $this                                              setStoreToOrderRate(float $value)
  * @method $this                                              setSubtotal(float $value)
@@ -766,8 +764,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  bool                                                        $reload
-     * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
+     * @param  bool                                                       $reload
+     * @return Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection
      */
     public function getCommentsCollection($reload = false)
     {
@@ -811,35 +809,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $copyTo = $this->_getEmails(self::XML_PATH_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $storeId);
         // Check if at least one recipient is found
-        if (!$notifyCustomer && !$copyTo) {
+        if (!$notifyCustomer && !is_array($copyTo)) {
             return $this;
         }
 
-        // Start store emulation process
-        if ($storeId != Mage::app()->getStore()->getId()) {
-            $appEmulation = Mage::getSingleton('core/app_emulation');
-            $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
-        }
-
-        try {
-            // Retrieve specified view block from appropriate design package (depends on emulated store)
-            $paymentBlock = Mage::helper('payment')->getInfoBlock($order->getPayment())
-                ->setIsSecureMode(true);
-            $paymentBlock->getMethod()->setStore($storeId);
-            $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $exception) {
-            // Stop store emulation process
-            if (isset($appEmulation, $initialEnvironmentInfo)) {
-                $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-            }
-
-            throw $exception;
-        }
-
-        // Stop store emulation process
-        if (isset($appEmulation, $initialEnvironmentInfo)) {
-            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-        }
+        $paymentBlockHtml = $this->getPaymentBlockHtml($order);
 
         // Retrieve corresponding email template id and customer name
         if ($order->getCustomerIsGuest()) {
@@ -854,7 +828,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         if ($notifyCustomer) {
             $emailInfo = Mage::getModel('core/email_info');
             $emailInfo->addTo($order->getCurrentCustomerEmail(), $customerName);
-            if ($copyTo && $copyMethod == 'bcc') {
+            if (is_array($copyTo) && $copyMethod == 'bcc') {
                 // Add bcc to customer email
                 foreach ($copyTo as $email) {
                     $emailInfo->addBcc($email);
@@ -865,7 +839,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         }
 
         // Email copies are sent as separated emails if their copy method is 'copy' or a customer should not be notified
-        if ($copyTo && ($copyMethod == 'copy' || !$notifyCustomer)) {
+        if (is_array($copyTo) && ($copyMethod == 'copy' || !$notifyCustomer)) {
             foreach ($copyTo as $email) {
                 $emailInfo = Mage::getModel('core/email_info');
                 $emailInfo->addTo($email);
@@ -914,7 +888,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $copyTo = $this->_getEmails(self::XML_PATH_UPDATE_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_COPY_METHOD, $storeId);
         // Check if at least one recipient is found
-        if (!$notifyCustomer && !$copyTo) {
+        if (!$notifyCustomer && !is_array($copyTo)) {
             return $this;
         }
 
@@ -931,7 +905,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         if ($notifyCustomer) {
             $emailInfo = Mage::getModel('core/email_info');
             $emailInfo->addTo($order->getCurrentCustomerEmail(), $customerName);
-            if ($copyTo && $copyMethod == 'bcc') {
+            if (is_array($copyTo) && $copyMethod == 'bcc') {
                 // Add bcc to customer email
                 foreach ($copyTo as $email) {
                     $emailInfo->addBcc($email);
@@ -942,7 +916,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         }
 
         // Email copies are sent as separated emails if their copy method is 'copy' or a customer should not be notified
-        if ($copyTo && ($copyMethod == 'copy' || !$notifyCustomer)) {
+        if (is_array($copyTo) && ($copyMethod == 'copy' || !$notifyCustomer)) {
             foreach ($copyTo as $email) {
                 $emailInfo = Mage::getModel('core/email_info');
                 $emailInfo->addTo($email);
@@ -963,20 +937,6 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $mailer->send();
 
         return $this;
-    }
-
-    /**
-     * @param  string     $configPath
-     * @return array|bool
-     */
-    protected function _getEmails($configPath)
-    {
-        $data = Mage::getStoreConfig($configPath, $this->getStoreId());
-        if (!empty($data)) {
-            return explode(',', $data);
-        }
-
-        return false;
     }
 
     /**
