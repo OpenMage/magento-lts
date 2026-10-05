@@ -51,8 +51,11 @@ class Mage_Admin_Model_Observer
 
                     if ($coreSession->validateFormKey($request->getPost('form_key'))) {
                         $postLogin = $request->getPost('login');
-                        $username = $postLogin['username'] ?? '';
-                        $password = $postLogin['password'] ?? '';
+                        // Never trust the shape of the posted data: only plain strings are valid credentials
+                        $username = is_array($postLogin) && isset($postLogin['username']) && is_string($postLogin['username'])
+                            ? $postLogin['username'] : '';
+                        $password = is_array($postLogin) && isset($postLogin['password']) && is_string($postLogin['password'])
+                            ? $postLogin['password'] : '';
                         $session->login($username, $password, $request);
                         $request->setPost('login');
                     } elseif (!$request->getParam('messageSent')) {

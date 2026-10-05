@@ -52,12 +52,18 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
             $customer = Mage::getModel('customer/customer');
             $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
             try {
-                if ($customer->authenticate($username, $password) && $customer->getId()) {
-                    $this->_rssSession->setCustomer($customer);
-                } else {
-                    $this->authFailed();
+                $authenticated = $customer->authenticate($username, $password);
+            } catch (Mage_Core_Exception $mageCoreException) {
+                if ($mageCoreException->getCode() !== Mage_Customer_Model_Customer::EXCEPTION_EMAIL_NOT_CONFIRMED) {
+                    throw $mageCoreException;
                 }
-            } catch (Exception) {
+
+                $authenticated = false;
+            }
+
+            if ($authenticated && $customer->getId()) {
+                $this->_rssSession->setCustomer($customer);
+            } else {
                 $this->authFailed();
             }
         }

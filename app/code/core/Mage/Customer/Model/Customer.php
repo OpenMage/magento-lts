@@ -256,6 +256,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param  string              $login
      * @param  string              $password
      * @return bool
+     * @throws Exception
      * @throws Mage_Core_Exception
      */
     public function authenticate($login, $password)
