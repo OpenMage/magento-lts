@@ -61,7 +61,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
                 $authenticated = false;
             }
 
-            if ($authenticated && $customer->getId()) {
+            if ($authenticated && (bool) $customer->getId()) {
                 $this->_rssSession->setCustomer($customer);
             } else {
                 $this->authFailed();
