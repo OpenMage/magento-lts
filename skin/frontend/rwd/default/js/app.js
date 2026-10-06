@@ -30,21 +30,22 @@ var bp = {
  * class gets added to the input, but the "This is a required field." text does not display
  */
 Varien.searchForm.prototype.initialize = function (form, field, emptyText) {
-    this.form = $(form);
-    this.field = $(field);
+    this.form = typeof form === 'string' ? document.getElementById(form) : form;
+    this.field = typeof field === 'string' ? document.getElementById(field) : field;
     this.emptyText = emptyText;
 
-    Event.observe(this.form, 'submit', this.submit.bind(this));
-    Event.observe(this.field, 'change', this.change.bind(this));
-    Event.observe(this.field, 'focus', this.focus.bind(this));
-    Event.observe(this.field, 'blur', this.blur.bind(this));
+    this.form.addEventListener('submit', this.submit.bind(this));
+    this.field.addEventListener('change', this.change.bind(this));
+    this.field.addEventListener('focus', this.focus.bind(this));
+    this.field.addEventListener('blur', this.blur.bind(this));
     this.blur();
 };
 
 Varien.searchForm.prototype.submit = function (event) {
     if (this.field.value == this.emptyText || this.field.value == ''){
-        Event.stop(event);
-        this.field.addClassName('validation-failed');
+        event.preventDefault();
+        event.stopPropagation();
+        this.field.classList.add('validation-failed');
         this.field.focus();
         return false;
     }
@@ -55,15 +56,15 @@ Varien.searchForm.prototype.change = function (event) {
     if (
         this.field.value != this.emptyText
         && this.field.value != ''
-        && this.field.hasClassName('validation-failed')
+        && this.field.classList.contains('validation-failed')
     ) {
-        this.field.removeClassName('validation-failed');
+        this.field.classList.remove('validation-failed');
     }
 };
 
 Varien.searchForm.prototype.blur = function (event) {
-    if (this.field.hasClassName('validation-failed')) {
-        this.field.removeClassName('validation-failed');
+    if (this.field.classList.contains('validation-failed')) {
+        this.field.classList.remove('validation-failed');
     }
 };
 
@@ -153,7 +154,7 @@ var PointerManager = {
         this.pointerEventLock = false;
     },
     setPointerEventLockTimeout: function() {
-        var that = this;
+        const that = this;
 
         if(this.pointerTimeout) {
             clearTimeout(this.pointerTimeout);
@@ -193,7 +194,7 @@ var PointerManager = {
     },
 
     wirePointerDetection: function() {
-        var that = this;
+        const that = this;
 
         if(this.standardTouch) { //standard-based touch events. Wire only one event.
             //detect pointer event
@@ -289,7 +290,7 @@ var MenuManager = {
                 return false;
             }
 
-            var scroll = $j(window).scrollTop() - this.touchStartPosition;
+            const scroll = $j(window).scrollTop() - this.touchStartPosition;
             return Math.abs(scroll) > this.TOUCH_SCROLL_THRESHOLD;
         }
     },
@@ -310,8 +311,8 @@ var MenuManager = {
      * @param target
      */
     toggleMenuVisibility: function(target) {
-        var link = $j(target);
-        var li = link.closest('li');
+        const link = $j(target);
+        const li = link.closest('li');
 
         if(!this.useSmallScreenBehavior()) {
             // remove menu-active from siblings and children of siblings
@@ -358,16 +359,16 @@ var MenuManager = {
      * along with mouseenter / mouseleave to emulate pointer events.
      */
     wirePointerEvents: function() {
-        var that = this;
-        var pointerTarget = $j('#nav a.has-children');
-        var hoverTarget = $j('#nav li');
+        const that = this;
+        const pointerTarget = $j('#nav a.has-children');
+        const hoverTarget = $j('#nav li');
 
         if(PointerManager.getPointerEventsSupported()) {
             // pointer events supported, so observe those type of events
 
-            var enterEvent = window.navigator.pointerEnabled ? 'pointerenter' : 'mouseenter';
-            var leaveEvent = window.navigator.pointerEnabled ? 'pointerleave' : 'mouseleave';
-            var fullPointerSupport = window.navigator.pointerEnabled;
+            const enterEvent = window.navigator.pointerEnabled ? 'pointerenter' : 'mouseenter';
+            const leaveEvent = window.navigator.pointerEnabled ? 'pointerleave' : 'mouseleave';
+            const fullPointerSupport = window.navigator.pointerEnabled;
 
             hoverTarget.on(enterEvent, function(e) {
                 if(e.originalEvent.pointerType === undefined // Browsers with partial PointerEvent support don't provide pointer type
@@ -401,7 +402,7 @@ var MenuManager = {
             }
 
             pointerTarget.on('click', function(e) {
-                var pointerType = fullPointerSupport ? e.originalEvent.pointerType : $j(this).data('pointer-type');
+                const pointerType = fullPointerSupport ? e.originalEvent.pointerType : $j(this).data('pointer-type');
 
                 if(pointerType === undefined || pointerType == PointerManager.getPointerEventsInputTypes().MOUSE) {
                     that.mouseClickAction(e, this);
@@ -506,7 +507,7 @@ var MenuManager = {
 
             event.stopPropagation();
 
-            var jtarget = $j(target);
+            const jtarget = $j(target);
             if(!jtarget.hasClass('level0')) {
                 this.mouseleaveLock = jtarget.parents('li').length + 1;
             }
@@ -651,9 +652,9 @@ $j(document).ready(function () {
     // ==============================================
 
     // Document
-    var w = $j(window);
-    var d = $j(document);
-    var body = $j('body');
+    const w = $j(window);
+    const d = $j(document);
+    const body = $j('body');
 
     Modernizr.addTest('ios', function () {
         return navigator.userAgent.match(/(iPad|iPhone|iPod)/g);
@@ -678,21 +679,21 @@ $j(document).ready(function () {
     // Skip Links
     // =============================================
 
-    var skipContents = $j('.skip-content');
-    var skipLinks = $j('.skip-link');
+    const skipContents = $j('.skip-content');
+    const skipLinks = $j('.skip-link');
 
     $j('.skip-links').on('click', '.skip-link', function (e) {
         e.preventDefault();
 
-        var self = $j(this);
+        const self = $j(this);
         // Use the data-target-element attribute, if it exists. Fall back to href.
-        var target = self.attr('data-target-element') ? self.attr('data-target-element') : self.attr('href');
+        const target = self.attr('data-target-element') ? self.attr('data-target-element') : self.attr('href');
 
         // Get target element
-        var elem = $j(target);
+        const elem = $j(target);
 
         // Check if stub is open
-        var isSkipContentOpen = elem.hasClass('skip-active') ? 1 : 0;
+        const isSkipContentOpen = elem.hasClass('skip-active') ? 1 : 0;
 
         // Hide all stubs
         skipLinks.removeClass('skip-active');
@@ -716,8 +717,8 @@ $j(document).ready(function () {
     });
 
     $j('.skip-links').on('click', '#header-cart .skip-link-close', function(e) {
-        var parent = $j(this).parents('.skip-content');
-        var link = parent.siblings('.skip-link');
+        const parent = $j(this).parents('.skip-content');
+        const link = parent.siblings('.skip-link');
 
         parent.removeClass('skip-active');
         link.removeClass('skip-active');
@@ -735,14 +736,14 @@ $j(document).ready(function () {
 
     // Prevent sub menus from spilling out of the window.
     function preventMenuSpill() {
-        var windowWidth = $j(window).width();
+        const windowWidth = $j(window).width();
         $j('ul.level0').each(function(){
-            var ul = $j(this);
+            const ul = $j(this);
             //Show it long enough to get info, then hide it.
             ul.addClass('position-test');
             ul.removeClass('spill');
-            var width = ul.outerWidth();
-            var offset = ul.offset().left;
+            const width = ul.outerWidth();
+            const offset = ul.offset().left;
             ul.removeClass('position-test');
             //Add the spill class if it will spill off the page.
             if ((offset + width) > windowWidth) {
@@ -792,14 +793,14 @@ $j(document).ready(function () {
 
     // Used to swap primary product photo from thumbnails.
 
-    var mediaListLinks = $j('.media-list').find('a');
-    var mediaPrimaryImage = $j('.primary-image').find('img');
+    const mediaListLinks = $j('.media-list').find('a');
+    const mediaPrimaryImage = $j('.primary-image').find('img');
 
     if (mediaListLinks.length) {
         mediaListLinks.on('click', function (e) {
             e.preventDefault();
 
-            var self = $j(this);
+            const self = $j(this);
 
             mediaPrimaryImage.attr('src', self.attr('href'));
         });
@@ -832,7 +833,7 @@ $j(document).ready(function () {
     $j.fn.toggleSingle = function (options) {
 
         // passing destruct: true allows
-        var settings = $j.extend({
+        const settings = $j.extend({
             destruct: false
         }, options);
 
@@ -864,23 +865,23 @@ $j(document).ready(function () {
     // ==============================================
 
     $j('.toggle-content').each(function () {
-        var wrapper = jQuery(this);
+        const wrapper = jQuery(this);
 
-        var hasTabs = wrapper.hasClass('tabs');
-        var hasAccordion = wrapper.hasClass('accordion');
-        var startOpen = wrapper.hasClass('open');
+        const hasTabs = wrapper.hasClass('tabs');
+        const hasAccordion = wrapper.hasClass('accordion');
+        const startOpen = wrapper.hasClass('open');
 
-        var dl = wrapper.children('dl:first');
-        var dts = dl.children('dt');
-        var panes = dl.children('dd');
-        var groups = new Array(dts, panes);
+        const dl = wrapper.children('dl:first');
+        const dts = dl.children('dt');
+        const panes = dl.children('dd');
+        const groups = new Array(dts, panes);
 
         //Create a ul for tabs if necessary.
         if (hasTabs) {
-            var ul = jQuery('<ul class="toggle-tabs"></ul>');
+            const ul = jQuery('<ul class="toggle-tabs"></ul>');
             dts.each(function () {
-                var dt = jQuery(this);
-                var li = jQuery('<li></li>');
+                const dt = jQuery(this);
+                const li = jQuery('<li></li>');
                 li.html(dt.html());
                 ul.append(li);
             });
@@ -890,14 +891,14 @@ $j(document).ready(function () {
         }
 
         //Add "last" classes.
-        var i;
+        let i;
         for (i = 0; i < groups.length; i++) {
             groups[i].filter(':last').addClass('last');
         }
 
         function toggleClasses(clickedItem, group) {
-            var index = group.index(clickedItem);
-            var i;
+            const index = group.index(clickedItem);
+            let i;
             for (i = 0; i < groups.length; i++) {
                 groups[i].removeClass('current');
                 groups[i].eq(index).addClass('current');
@@ -961,14 +962,14 @@ $j(document).ready(function () {
     if ($j('.main-container.col3-layout').length > 0) {
         enquire.register('screen and (max-width: 1000px)', {
             match: function () {
-                var rightColumn = $j('.col-right');
-                var colWrapper = $j('.col-wrapper');
+                const rightColumn = $j('.col-right');
+                const colWrapper = $j('.col-wrapper');
 
                 rightColumn.appendTo(colWrapper);
             },
             unmatch: function () {
-                var rightColumn = $j('.col-right');
-                var main = $j('.main');
+                const rightColumn = $j('.col-right');
+                const main = $j('.main');
 
                 rightColumn.appendTo(main);
             }
@@ -1054,12 +1055,12 @@ $j(document).ready(function () {
 
     if ($j('.products-grid').length) {
 
-        var alignProductGridActions = function () {
+        const alignProductGridActions = function () {
             // Loop through each product grid on the page
             $j('.products-grid').each(function(){
-                var gridRows = []; // This will store an array per row
-                var tempRow = [];
-                productGridElements = $j(this).children('li');
+                const gridRows = []; // This will store an array per row
+                let tempRow = [];
+                const productGridElements = $j(this).children('li');
                 productGridElements.each(function (index) {
                     // The JS ought to be agnostic of the specific CSS breakpoints, so we are dynamically checking to find
                     // each row by grouping all cells (eg, li elements) up until we find an element that is cleared.
@@ -1078,7 +1079,7 @@ $j(document).ready(function () {
                 });
 
                 $j.each(gridRows, function () {
-                    var tallestProductInfo = 0;
+                    let tallestProductInfo = 0;
                     $j.each(this, function () {
                         // Since this function is called every time the page is resized, we need to remove the min-height
                         // and bottom-padding so each cell can return to its natural size before being measured.
@@ -1089,15 +1090,15 @@ $j(document).ready(function () {
 
                         // We are checking the height of .product-info (rather than the entire li), because the images
                         // will not be loaded when this JS is run.
-                        var productInfoHeight = $j(this).find('.product-info').height();
+                        const productInfoHeight = $j(this).find('.product-info').height();
                         // Space above .actions element
-                        var actionSpacing = 10;
+                        const actionSpacing = 10;
                         // The height of the absolutely positioned .actions element
-                        var actionHeight = $j(this).find('.product-info .actions').height();
+                        const actionHeight = $j(this).find('.product-info .actions').height();
 
                         // Add height of two elements. This is necessary since .actions is absolutely positioned and won't
                         // be included in the height of .product-info
-                        var totalHeight = productInfoHeight + actionSpacing + actionHeight;
+                        const totalHeight = productInfoHeight + actionSpacing + actionHeight;
                         if (totalHeight > tallestProductInfo) {
                             tallestProductInfo = totalHeight;
                         }
@@ -1127,7 +1128,7 @@ $j(document).ready(function () {
     // ==============================================
 
     // Using setTimeout since Web-Kit and some other browsers call the resize function constantly upon window resizing.
-    var resizeTimer;
+    let resizeTimer;
     $j(window).resize(function (e) {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function () {
@@ -1167,8 +1168,8 @@ var ProductMediaManager = {
         }
 
         if(image[0].naturalWidth && image[0].naturalHeight) {
-            var widthDiff = image[0].naturalWidth - image.width() - ProductMediaManager.IMAGE_ZOOM_THRESHOLD;
-            var heightDiff = image[0].naturalHeight - image.height() - ProductMediaManager.IMAGE_ZOOM_THRESHOLD;
+            const widthDiff = image[0].naturalWidth - image.width() - ProductMediaManager.IMAGE_ZOOM_THRESHOLD;
+            const heightDiff = image[0].naturalHeight - image.height() - ProductMediaManager.IMAGE_ZOOM_THRESHOLD;
 
             if(widthDiff < 0 && heightDiff < 0) {
                 //image not big enough
@@ -1190,7 +1191,7 @@ var ProductMediaManager = {
 
         ProductMediaManager.destroyZoom();
 
-        var imageGallery = $j('.product-image-gallery');
+        const imageGallery = $j('.product-image-gallery');
 
         if(targetImage[0].complete) { //image already loaded -- swap immediately
 
@@ -1235,8 +1236,8 @@ var ProductMediaManager = {
         //trigger image change event on thumbnail click
         $j('.product-image-thumbs .thumb-link').click(function(e) {
             e.preventDefault();
-            var jlink = $j(this);
-            var target = $j('#image-' + jlink.data('image-index'));
+            const jlink = $j(this);
+            const target = $j('#image-' + jlink.data('image-index'));
 
             ProductMediaManager.swapImage(target);
         });

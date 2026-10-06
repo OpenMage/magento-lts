@@ -11,6 +11,11 @@
  * @copyright   Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * Rewritten to vanilla JS — no Prototype.js dependency.
+ */
+
 function popWin(url,win,para) {
     var win = window.open(url,win,para);
     win.focus();
@@ -37,12 +42,11 @@ function setPLocation(url, setFocus){
  */
 function decorateGeneric(elements, decorateParams)
 {
-    var allSupportedParams = ['odd', 'even', 'first', 'last'];
-    var _decorateParams = {};
-    var total = elements.length;
+    const allSupportedParams = ['odd', 'even', 'first', 'last'];
+    const _decorateParams = {};
+    const total = elements.length;
 
     if (total) {
-        // determine params called
         if (typeof(decorateParams) == 'undefined') {
             decorateParams = allSupportedParams;
         }
@@ -56,23 +60,21 @@ function decorateGeneric(elements, decorateParams)
             _decorateParams[decorateParams[k]] = true;
         }
 
-        // decorate elements
-        // elements[0].addClassName('first'); // will cause bug in IE (#5587)
         if (_decorateParams.first) {
-            Element.addClassName(elements[0], 'first');
+            elements[0].classList.add('first');
         }
         if (_decorateParams.last) {
-            Element.addClassName(elements[total-1], 'last');
+            elements[total-1].classList.add('last');
         }
-        for (var i = 0; i < total; i++) {
+        for (let i = 0; i < total; i++) {
             if ((i + 1) % 2 == 0) {
                 if (_decorateParams.even) {
-                    Element.addClassName(elements[i], 'even');
+                    elements[i].classList.add('even');
                 }
             }
             else {
                 if (_decorateParams.odd) {
-                    Element.addClassName(elements[i], 'odd');
+                    elements[i].classList.add('odd');
                 }
             }
         }
@@ -85,39 +87,38 @@ function decorateGeneric(elements, decorateParams)
  * @deprecated
  */
 function decorateTable(table, options) {
-    var table = $(table);
+    if (typeof table === 'string') {
+        table = document.getElementById(table);
+    }
     if (table) {
-        // set default options
-        var _options = {
+        const _options = {
             'tbody'    : false,
             'tbody tr' : ['odd', 'even', 'first', 'last'],
             'thead tr' : ['first', 'last'],
             'tfoot tr' : ['first', 'last'],
             'tr td'    : ['last']
         };
-        // overload options
         if (typeof(options) != 'undefined') {
-            for (var k in options) {
+            for (const k in options) {
                 _options[k] = options[k];
             }
         }
-        // decorate
         if (_options['tbody']) {
-            decorateGeneric(table.select('tbody'), _options['tbody']);
+            decorateGeneric(table.querySelectorAll('tbody'), _options['tbody']);
         }
         if (_options['tbody tr']) {
-            decorateGeneric(table.select('tbody tr'), _options['tbody tr']);
+            decorateGeneric(table.querySelectorAll('tbody tr'), _options['tbody tr']);
         }
         if (_options['thead tr']) {
-            decorateGeneric(table.select('thead tr'), _options['thead tr']);
+            decorateGeneric(table.querySelectorAll('thead tr'), _options['thead tr']);
         }
         if (_options['tfoot tr']) {
-            decorateGeneric(table.select('tfoot tr'), _options['tfoot tr']);
+            decorateGeneric(table.querySelectorAll('tfoot tr'), _options['tfoot tr']);
         }
         if (_options['tr td']) {
-            var allRows = table.select('tr');
+            const allRows = table.querySelectorAll('tr');
             if (allRows.length) {
-                for (var i = 0; i < allRows.length; i++) {
+                for (let i = 0; i < allRows.length; i++) {
                     decorateGeneric(allRows[i].getElementsByTagName('TD'), _options['tr td']);
                 }
             }
@@ -131,12 +132,15 @@ function decorateTable(table, options) {
  * @deprecated
  */
 function decorateList(list, nonRecursive) {
-    if ($(list)) {
+    if (typeof list === 'string') {
+        list = document.getElementById(list);
+    }
+    if (list) {
+        let items;
         if (typeof(nonRecursive) == 'undefined') {
-            var items = $(list).select('li');
-        }
-        else {
-            var items = $(list).childElements();
+            items = list.querySelectorAll('li');
+        } else {
+            items = Array.prototype.slice.call(list.children);
         }
         decorateGeneric(items, ['odd', 'even', 'last']);
     }
@@ -148,10 +152,12 @@ function decorateList(list, nonRecursive) {
  * @deprecated
  */
 function decorateDataList(list) {
-    list = $(list);
+    if (typeof list === 'string') {
+        list = document.getElementById(list);
+    }
     if (list) {
-        decorateGeneric(list.select('dt'), ['odd', 'even', 'last']);
-        decorateGeneric(list.select('dd'), ['odd', 'even', 'last']);
+        decorateGeneric(list.querySelectorAll('dt'), ['odd', 'even', 'last']);
+        decorateGeneric(list.querySelectorAll('dd'), ['odd', 'even', 'last']);
     }
 }
 
@@ -159,13 +165,13 @@ function decorateDataList(list) {
  * Parse SID and produces the correct URL
  */
 function parseSidUrl(baseUrl, urlExt) {
-    var sidPos = baseUrl.indexOf('/?SID=');
-    var sid = '';
+    const sidPos = baseUrl.indexOf('?');
+    let sid = '';
     urlExt = (urlExt != undefined) ? urlExt : '';
 
-    if(sidPos > -1) {
-        sid = '?' + baseUrl.substring(sidPos + 2);
-        baseUrl = baseUrl.substring(0, sidPos + 1);
+    if (sidPos > -1) {
+        sid = baseUrl.substring(sidPos);
+        baseUrl = baseUrl.substring(0, sidPos);
     }
 
     return baseUrl+urlExt+sid;
@@ -180,20 +186,20 @@ function parseSidUrl(baseUrl, urlExt) {
  */
 
 function formatCurrency(price, format, showPlus){
-    var precision = isNaN(format.precision = Math.abs(format.precision)) ? 2 : format.precision;
-    var requiredPrecision = isNaN(format.requiredPrecision = Math.abs(format.requiredPrecision)) ? 2 : format.requiredPrecision;
+    let precision = isNaN(format.precision = Math.abs(format.precision)) ? 2 : format.precision;
+    const requiredPrecision = isNaN(format.requiredPrecision = Math.abs(format.requiredPrecision)) ? 2 : format.requiredPrecision;
 
     //precision = (precision > requiredPrecision) ? precision : requiredPrecision;
     //for now we don't need this difference so precision is requiredPrecision
     precision = requiredPrecision;
 
-    var integerRequired = isNaN(format.integerRequired = Math.abs(format.integerRequired)) ? 1 : format.integerRequired;
+    const integerRequired = isNaN(format.integerRequired = Math.abs(format.integerRequired)) ? 1 : format.integerRequired;
 
-    var decimalSymbol = format.decimalSymbol == undefined ? "," : format.decimalSymbol;
-    var groupSymbol = format.groupSymbol == undefined ? "." : format.groupSymbol;
-    var groupLength = format.groupLength == undefined ? 3 : format.groupLength;
+    const decimalSymbol = format.decimalSymbol == undefined ? "," : format.decimalSymbol;
+    const groupSymbol = format.groupSymbol == undefined ? "." : format.groupSymbol;
+    const groupLength = format.groupLength == undefined ? 3 : format.groupLength;
 
-    var s = '';
+    let s = '';
 
     if (showPlus == undefined || showPlus == true) {
         s = price < 0 ? "-" : ( showPlus ? "+" : "");
@@ -201,19 +207,19 @@ function formatCurrency(price, format, showPlus){
         s = '';
     }
 
-    var i = parseInt(price = Math.abs(+price || 0).toFixed(precision)) + "";
-    var pad = (i.length < integerRequired) ? (integerRequired - i.length) : 0;
+    let i = parseInt(price = Math.abs(+price || 0).toFixed(precision)) + "";
+    let pad = (i.length < integerRequired) ? (integerRequired - i.length) : 0;
     while (pad) { i = '0' + i; pad--; }
-    j = (j = i.length) > groupLength ? j % groupLength : 0;
-    re = new RegExp("(\\d{" + groupLength + "})(?=\\d)", "g");
+    const j = i.length > groupLength ? i.length % groupLength : 0;
+    const re = new RegExp("(\\d{" + groupLength + "})(?=\\d)", "g");
 
     /**
      * replace(/-/, 0) is only for fixing Safari bug which appears
      * when Math.abs(0).toFixed() executed on "0" number.
      * Result is "0.-0" :(
      */
-    var r = (j ? i.substr(0, j) + groupSymbol : "") + i.substr(j).replace(re, "$1" + groupSymbol) + (precision ? decimalSymbol + Math.abs(price - i).toFixed(precision).replace(/-/, 0).slice(2) : "");
-    var pattern = '';
+    const r = (j ? i.substr(0, j) + groupSymbol : "") + i.substr(j).replace(re, "$1" + groupSymbol) + (precision ? decimalSymbol + Math.abs(price - i).toFixed(precision).replace(/-/, 0).slice(2) : "");
+    let pattern = '';
     if (format.pattern.indexOf('{sign}') == -1) {
         pattern = s + format.pattern;
     } else {
@@ -221,20 +227,23 @@ function formatCurrency(price, format, showPlus){
     }
 
     return pattern.replace('%s', r).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-};
+}
 
 function expandDetails(el, childClass) {
-    if (Element.hasClassName(el,'show-details')) {
-        $$(childClass).each(function(item){
-            item.hide();
+    if (typeof el === 'string') {
+        el = document.getElementById(el);
+    }
+    if (el.classList.contains('show-details')) {
+        document.querySelectorAll(childClass).forEach(function(item){
+            item.style.display = 'none';
         });
-        Element.removeClassName(el,'show-details');
+        el.classList.remove('show-details');
     }
     else {
-        $$(childClass).each(function(item){
-            item.show();
+        document.querySelectorAll(childClass).forEach(function(item){
+            item.style.display = '';
         });
-        Element.addClassName(el,'show-details');
+        el.classList.add('show-details');
     }
 }
 
@@ -242,15 +251,15 @@ function expandDetails(el, childClass) {
 var isIE = false;
 
 if (!window.Varien)
-    var Varien = new Object();
+    var Varien = {};
 
 Varien.showLoading = function(){
-    var loader = $('loading-process');
-    loader && loader.show();
+    const loader = document.getElementById('loading-process');
+    if (loader) loader.style.display = '';
 };
 Varien.hideLoading = function(){
-    var loader = $('loading-process');
-    loader && loader.hide();
+    const loader = document.getElementById('loading-process');
+    if (loader) loader.style.display = 'none';
 };
 Varien.GlobalHandlers = {
     onCreate: function() {
@@ -258,53 +267,97 @@ Varien.GlobalHandlers = {
     },
 
     onComplete: function() {
-        if(Ajax.activeRequestCount == 0) {
+        if(typeof Ajax !== 'undefined' && Ajax.activeRequestCount == 0) {
             Varien.hideLoading();
         }
     }
 };
 
-Ajax.Responders.register(Varien.GlobalHandlers);
+if (typeof Ajax !== 'undefined' && typeof Ajax.Responders !== 'undefined') {
+    Ajax.Responders.register(Varien.GlobalHandlers);
+}
+
+/**
+ * Run the <script> elements inside a container, as Element.update() did with
+ * evalScripts. innerHTML inserts scripts inert; re-creating them executes them.
+ */
+Varien.evalScripts = function(container) {
+    if (!container) return;
+    Array.from(container.querySelectorAll('script')).forEach(function(old) {
+        const s = document.createElement('script');
+        Array.from(old.attributes).forEach(function(attr) {
+            s.setAttribute(attr.name, attr.value);
+        });
+        s.textContent = old.textContent;
+        old.parentNode.replaceChild(s, old);
+    });
+};
+
+/**
+ * Give a plain constructor the metadata Prototype's Class.create attached, so
+ * extensions can still call Class.create(Ctor, {...}) or Ctor.addMethods({...})
+ * while Prototype loads. Each class keeps its constructor body in
+ * prototype.initialize, so prototype.initialize wrappers keep working too.
+ */
+Varien.classCompat = function(ctor, parent) {
+    ctor.superclass = parent || null;
+    ctor.subclasses = [];
+    if (parent && parent.subclasses) {
+        parent.subclasses.push(ctor);
+    }
+    if (typeof Class !== 'undefined' && Class.Methods) {
+        Object.assign(ctor, Class.Methods);
+    }
+};
 
 /**
  * Quick Search form client model
+ * @constructor
  */
-Varien.searchForm = Class.create();
+Varien.searchForm = function() {
+    this.initialize(...arguments);
+};
+
 Varien.searchForm.prototype = {
-    initialize : function(form, field, emptyText){
-        this.form   = $(form);
-        this.field  = $(field);
+    initialize: function(form, field, emptyText) {
+        this.form = typeof form === 'string' ? document.getElementById(form) : form;
+        this.field = typeof field === 'string' ? document.getElementById(field) : field;
         this.emptyText = emptyText;
 
-        Event.observe(this.form,  'submit', this.submit.bind(this));
-        Event.observe(this.field, 'focus', this.focus.bind(this));
-        Event.observe(this.field, 'blur', this.blur.bind(this));
+        this.form.addEventListener('submit', this.submit.bind(this));
+        this.field.addEventListener('focus', this.focus.bind(this));
+        this.field.addEventListener('blur', this.blur.bind(this));
         this.blur();
     },
 
-    submit : function(event){
+    submit: function(event){
         if (this.field.value == this.emptyText || this.field.value == ''){
-            Event.stop(event);
+            event.preventDefault();
+            event.stopPropagation();
             return false;
         }
         return true;
     },
 
-    focus : function(event){
+    focus: function(event){
         if(this.field.value==this.emptyText){
             this.field.value='';
         }
-
     },
 
-    blur : function(event){
+    blur: function(event){
         if(this.field.value==''){
             this.field.value=this.emptyText;
         }
     },
 
-    initAutocomplete : function(url, destinationElement){
-        new Ajax.Autocompleter(
+    initAutocomplete: function(url, destinationElement){
+        // Themes that ship their own page.xml may not load varien/autocomplete.js
+        if (Varien.Autocomplete === undefined) {
+            if (window.console) console.warn('Varien.Autocomplete is not loaded; add varien/autocomplete.js to the layout');
+            return;
+        }
+        this.autocomplete = new Varien.Autocomplete(
             this.field,
             destinationElement,
             url,
@@ -313,71 +366,85 @@ Varien.searchForm.prototype = {
                 method: 'get',
                 minChars: 2,
                 updateElement: this._selectAutocompleteItem.bind(this),
-                onShow : function(element, update) {
-                    if(!update.style.position || update.style.position=='absolute') {
-                        update.style.position = 'absolute';
-                        Position.clone(element, update, {
-                            setHeight: false,
-                            offsetTop: element.offsetHeight
-                        });
-                    }
-                    Effect.Appear(update,{duration:0});
+                onShow: function(element, update) {
+                    update.style.position = 'absolute';
+                    const rect = element.getBoundingClientRect();
+                    update.style.left = (window.scrollX + rect.left) + 'px';
+                    update.style.top = (window.scrollY + rect.top + element.offsetHeight) + 'px';
+                    update.style.display = '';
                 }
-
             }
         );
     },
 
-    _selectAutocompleteItem : function(element){
+    _selectAutocompleteItem: function(element){
         if(element.title){
             this.field.value = element.title;
         }
         this.form.submit();
     }
 };
+Varien.classCompat(Varien.searchForm);
 
-Varien.Tabs = Class.create();
-Varien.Tabs.prototype = {
-  initialize: function(selector) {
-    var self=this;
-    $$(selector+' a').each(this.initTab.bind(this));
-  },
-
-  initTab: function(el) {
-      el.href = 'javascript:void(0)';
-      if ($(el.parentNode).hasClassName('active')) {
-        this.showContent(el);
-      }
-      el.observe('click', this.showContent.bind(this, el));
-  },
-
-  showContent: function(a) {
-    var li = $(a.parentNode), ul = $(li.parentNode);
-    ul.getElementsBySelector('li', 'ol').each(function(el){
-      var contents = $(el.id+'_contents');
-      if (el==li) {
-        el.addClassName('active');
-        contents.show();
-      } else {
-        el.removeClassName('active');
-        contents.hide();
-      }
-    });
-  }
+/**
+ * Tabs widget
+ * @constructor
+ */
+Varien.Tabs = function() {
+    this.initialize(...arguments);
 };
 
-Varien.DateElement = Class.create();
+Varien.Tabs.prototype = {
+    initialize: function(selector) {
+        const links = document.querySelectorAll(selector + ' a');
+        const self = this;
+        links.forEach(function(el) { self.initTab(el); });
+    },
+
+    initTab: function(el) {
+        el.href = 'javascript:void(0)';
+        if (el.parentNode.classList.contains('active')) {
+            this.showContent(el);
+        }
+        const self = this;
+        el.addEventListener('click', function() { self.showContent(el); });
+    },
+
+    showContent: function(a) {
+        const li = a.parentNode;
+        const ul = li.parentNode;
+        const items = ul.querySelectorAll('li, ol');
+        items.forEach(function(el){
+            const contents = document.getElementById(el.id + '_contents');
+            if (el === li) {
+                el.classList.add('active');
+                if (contents) contents.style.display = '';
+            } else {
+                el.classList.remove('active');
+                if (contents) contents.style.display = 'none';
+            }
+        });
+    }
+};
+Varien.classCompat(Varien.Tabs);
+
+/**
+ * Date element with validation
+ * @constructor
+ */
+Varien.DateElement = function() {
+    this.initialize(...arguments);
+};
+
 Varien.DateElement.prototype = {
     initialize: function(type, content, required, format) {
         if (type == 'id') {
-            // id prefix
-            this.day    = $(content + 'day');
-            this.month  = $(content + 'month');
-            this.year   = $(content + 'year');
-            this.full   = $(content + 'full');
-            this.advice = $(content + 'date-advice');
+            this.day    = document.getElementById(content + 'day');
+            this.month  = document.getElementById(content + 'month');
+            this.year   = document.getElementById(content + 'year');
+            this.full   = document.getElementById(content + 'full');
+            this.advice = document.getElementById(content + 'date-advice');
         } else if (type == 'container') {
-            // content must be container with data
             this.day    = content.day;
             this.month  = content.month;
             this.year   = content.year;
@@ -390,29 +457,30 @@ Varien.DateElement.prototype = {
         this.required = required;
         this.format   = format;
 
-        this.day.addClassName('validate-custom');
+        this.day.classList.add('validate-custom');
         this.day.validate = this.validate.bind(this);
-        this.month.addClassName('validate-custom');
+        this.month.classList.add('validate-custom');
         this.month.validate = this.validate.bind(this);
-        this.year.addClassName('validate-custom');
+        this.year.classList.add('validate-custom');
         this.year.validate = this.validate.bind(this);
 
         this.setDateRange(false, false);
         this.year.setAttribute('autocomplete','off');
 
-        this.advice.hide();
+        this.advice.style.display = 'none';
 
-        var date = new Date;
+        const date = new Date;
         this.curyear = date.getFullYear();
     },
+
     validate: function() {
-        var error = false,
-            day   = parseInt(this.day.value, 10)   || 0,
-            month = parseInt(this.month.value, 10) || 0,
-            year  = parseInt(this.year.value, 10)  || 0;
-        if (this.day.value.strip().empty()
-            && this.month.value.strip().empty()
-            && this.year.value.strip().empty()
+        let error = false;
+        const day   = parseInt(this.day.value, 10)   || 0;
+        const month = parseInt(this.month.value, 10) || 0;
+        const year  = parseInt(this.year.value, 10)  || 0;
+        if (this.day.value.trim().length === 0
+            && this.month.value.trim().length === 0
+            && this.year.value.trim().length === 0
         ) {
             if (this.required) {
                 error = 'This date is a required value.';
@@ -422,7 +490,9 @@ Varien.DateElement.prototype = {
         } else if (!day || !month || !year) {
             error = 'Please enter a valid full date';
         } else {
-            var date = new Date, countDaysInMonth = 0, errorType = null;
+            const date = new Date;
+            var countDaysInMonth = 0;
+            let errorType = null;
             date.setYear(year);date.setMonth(month-1);date.setDate(32);
             countDaysInMonth = 32 - date.getDate();
             if(!countDaysInMonth || countDaysInMonth>31) countDaysInMonth = 31;
@@ -438,8 +508,8 @@ Varien.DateElement.prototype = {
                 if(day % 10 == day) this.day.value = '0'+day;
                 if(month % 10 == month) this.month.value = '0'+month;
                 this.full.value = this.format.replace(/%[mb]/i, this.month.value).replace(/%[de]/i, this.day.value).replace(/%y/i, this.year.value);
-                var testFull = this.month.value + '/' + this.day.value + '/'+ this.year.value;
-                var test = new Date(testFull);
+                const testFull = this.month.value + '/' + this.day.value + '/'+ this.year.value;
+                const test = new Date(testFull);
                 if (isNaN(test)) {
                     error = 'Please enter a valid date.';
                 } else {
@@ -447,9 +517,9 @@ Varien.DateElement.prototype = {
                 }
             }
             var valueError = false;
-            if (!error && !this.validateData()){//(year<1900 || year>curyear) {
-                errorType = this.validateDataErrorType;//'year';
-                valueError = this.validateDataErrorText;//'Please enter a valid year (1900-%d).';
+            if (!error && !this.validateData()){
+                errorType = this.validateDataErrorType;
+                valueError = this.validateDataErrorText;
                 error = valueError;
             }
         }
@@ -464,20 +534,19 @@ Varien.DateElement.prototype = {
             } else {
                 this.advice.innerHTML = this.errorTextModifier(error);
             }
-            this.advice.show();
+            this.advice.style.display = '';
             return false;
         }
 
-        // fixing elements class
-        this.day.removeClassName('validation-failed');
-        this.month.removeClassName('validation-failed');
-        this.year.removeClassName('validation-failed');
+        this.day.classList.remove('validation-failed');
+        this.month.classList.remove('validation-failed');
+        this.year.classList.remove('validation-failed');
 
-        this.advice.hide();
+        this.advice.style.display = 'none';
         return true;
     },
     validateData: function() {
-        var year = this.fullDate.getFullYear();
+        const year = this.fullDate.getFullYear();
         return (year>=1900 && year<=this.curyear);
     },
     validateDataErrorType: 'year',
@@ -494,26 +563,41 @@ Varien.DateElement.prototype = {
         this.fullDate = date;
     }
 };
+Varien.classCompat(Varien.DateElement);
 
-Varien.DOB = Class.create();
+/**
+ * DOB (Date of Birth) widget
+ * @constructor
+ */
+Varien.DOB = function() {
+    this.initialize(...arguments);
+};
+
 Varien.DOB.prototype = {
     initialize: function(selector, required, format) {
-        var el = $$(selector)[0];
-        var container       = {};
-        container.day       = Element.select(el, '.dob-day input')[0];
-        container.month     = Element.select(el, '.dob-month input')[0];
-        container.year      = Element.select(el, '.dob-year input')[0];
-        container.full      = Element.select(el, '.dob-full input')[0];
-        container.advice    = Element.select(el, '.validation-advice')[0];
+        const el = document.querySelector(selector);
+        const container       = {};
+        container.day       = el.querySelector('.dob-day input');
+        container.month     = el.querySelector('.dob-month input');
+        container.year      = el.querySelector('.dob-year input');
+        container.full      = el.querySelector('.dob-full input');
+        container.advice    = el.querySelector('.validation-advice');
 
         new Varien.DateElement('container', container, required, format);
     }
 };
+Varien.classCompat(Varien.DOB);
 
-Varien.dateRangeDate = Class.create();
-Varien.dateRangeDate.prototype = Object.extend(new Varien.DateElement(), {
+/**
+ * Date range validator
+ * @constructor
+ */
+Varien.dateRangeDate = function() {
+    this.initialize(...arguments);
+};
+Varien.dateRangeDate.prototype = Object.assign(Object.create(Varien.DateElement.prototype), {
     validateData: function() {
-        var validate = true;
+        let validate = true;
         if (this.minDate || this.maxValue) {
             if (this.minDate) {
                 this.minDate = new Date(this.minDate);
@@ -546,10 +630,10 @@ Varien.dateRangeDate.prototype = Object.extend(new Varien.DateElement(), {
     validateDataErrorText: 'Date should be between %s and %s',
     errorTextModifier: function(text) {
         if (this.minDate) {
-            text = text.sub('%s', this.dateFormat(this.minDate));
+            text = text.replace('%s', this.dateFormat(this.minDate));
         }
         if (this.maxDate) {
-            text = text.sub('%s', this.dateFormat(this.maxDate));
+            text = text.replace('%s', this.dateFormat(this.maxDate));
         }
         return text;
     },
@@ -557,19 +641,29 @@ Varien.dateRangeDate.prototype = Object.extend(new Varien.DateElement(), {
         return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
     }
 });
+Varien.classCompat(Varien.dateRangeDate, Varien.DateElement);
 
-Varien.FileElement = Class.create();
+/**
+ * File upload element
+ * @constructor
+ */
+Varien.FileElement = function() {
+    this.initialize(...arguments);
+};
+
 Varien.FileElement.prototype = {
-    initialize: function (id) {
-        this.fileElement = $(id);
-        this.hiddenElement = $(id + '_value');
+    initialize: function(id) {
+        this.fileElement = document.getElementById(id);
+        this.hiddenElement = document.getElementById(id + '_value');
 
-        this.fileElement.observe('change', this.selectFile.bind(this));
+        this.fileElement.addEventListener('change', this.selectFile.bind(this));
     },
+
     selectFile: function(event) {
-        this.hiddenElement.value = this.fileElement.getValue();
+        this.hiddenElement.value = this.fileElement.value;
     }
 };
+Varien.classCompat(Varien.FileElement);
 
 if (typeof Validation !== 'undefined') {
     Validation.addAllThese([
@@ -580,34 +674,41 @@ if (typeof Validation !== 'undefined') {
 }
 
 function truncateOptions() {
-    $$('.truncated').each(function(element){
-        Event.observe(element, 'mouseover', function(){
-            if (element.down('div.truncated_full_value')) {
-                element.down('div.truncated_full_value').addClassName('show');
+    document.querySelectorAll('.truncated').forEach(function(element){
+        element.addEventListener('mouseover', function(){
+            const fullValue = element.querySelector('div.truncated_full_value');
+            if (fullValue) {
+                fullValue.classList.add('show');
             }
         });
-        Event.observe(element, 'mouseout', function(){
-            if (element.down('div.truncated_full_value')) {
-                element.down('div.truncated_full_value').removeClassName('show');
+        element.addEventListener('mouseout', function(){
+            const fullValue = element.querySelector('div.truncated_full_value');
+            if (fullValue) {
+                fullValue.classList.remove('show');
             }
         });
-
     });
 }
-Event.observe(window, 'load', function(){
+window.addEventListener('load', function(){
    truncateOptions();
 });
 
-Element.addMethods({
-    getInnerText: function(element)
-    {
-        element = $(element);
-        if(element.innerText && !Prototype.Browser.Opera) {
-            return element.innerText;
+/**
+ * getInnerText — added to HTMLElement.prototype for backward compat
+ */
+if (typeof HTMLElement !== 'undefined' && !HTMLElement.prototype.getInnerText) {
+    HTMLElement.prototype.getInnerText = function() {
+        if (this.innerText) {
+            return this.innerText;
         }
-        return element.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g, ' ').strip();
-    }
-});
+        // Clone the node, drop non-text elements, normalize whitespace
+        const tmp = this.cloneNode(true);
+        Array.prototype.forEach.call(tmp.querySelectorAll('script, style, noscript'), function(el) {
+            el.parentNode.removeChild(el);
+        });
+        return (tmp.textContent || '').replace(/[\n\r\s]+/g, ' ').trim();
+    };
+}
 
 /**
  * Executes event handler on the element. Works with event handlers attached by Prototype,
@@ -618,8 +719,8 @@ Element.addMethods({
  * @example fireEvent($('my-input', 'click'));
  */
 function fireEvent(element, event) {
-    var evt = document.createEvent("HTMLEvents");
-    evt.initEvent(event, true, true ); // event type, bubbling, cancelable
+    const evt = document.createEvent("HTMLEvents");
+    evt.initEvent(event, true, true );
     return element.dispatchEvent(evt);
 }
 
@@ -634,8 +735,8 @@ function fireEvent(element, event) {
  */
 function modulo(dividend, divisor)
 {
-    var epsilon = divisor / 10000;
-    var remainder = dividend % divisor;
+    const epsilon = divisor / 10000;
+    let remainder = dividend % divisor;
 
     if (Math.abs(remainder - divisor) < epsilon || Math.abs(remainder) < epsilon) {
         remainder = 0;
@@ -646,14 +747,14 @@ function modulo(dividend, divisor)
 
 /**
  * Create form element. Set parameters into it and send
- *
- * @param url
- * @param parametersArray
- * @param method
+ * @constructor
  */
-Varien.formCreator = Class.create();
+Varien.formCreator = function() {
+    this.initialize(...arguments);
+};
+
 Varien.formCreator.prototype = {
-    initialize : function(url, parametersArray, method) {
+    initialize: function(url, parametersArray, method) {
         this.url = url;
         this.parametersArray = JSON.parse(parametersArray);
         this.method = method;
@@ -662,43 +763,72 @@ Varien.formCreator.prototype = {
         this.createForm();
         this.setFormData();
     },
-    createForm : function() {
-        this.form = new Element('form', { 'method': this.method, action: this.url });
+
+    createForm: function() {
+        this.form = document.createElement('form');
+        this.form.method = this.method;
+        this.form.action = this.url;
     },
-    setFormData : function () {
-        for (var key in this.parametersArray) {
-            Element.insert(
-                this.form,
-                new Element('input', { name: key, value: this.parametersArray[key], type: 'hidden' })
-            );
+    setFormData: function() {
+        for (const key in this.parametersArray) {
+            if (this.parametersArray.hasOwnProperty(key)) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = this.parametersArray[key];
+                this.form.appendChild(input);
+            }
         }
     }
 };
+Varien.classCompat(Varien.formCreator);
 
 function customFormSubmit(url, parametersArray, method) {
-    var createdForm = new Varien.formCreator(url, parametersArray, method);
-    Element.insert($$('body')[0], createdForm.form);
+    const createdForm = new Varien.formCreator(url, parametersArray, method);
+    document.body.appendChild(createdForm.form);
     createdForm.form.submit();
 }
 
 function customFormSubmitToParent(url, parametersArray, method) {
-    new Ajax.Request(url, {
+    const params = JSON.parse(parametersArray);
+    const formData = new FormData();
+    Object.keys(params).forEach(function(key) {
+        formData.append(key, params[key]);
+    });
+
+    fetch(url, {
         method: method,
-        parameters: JSON.parse(parametersArray),
-        onSuccess: function (response) {
-            var node = document.createElement('div');
-            node.innerHTML = response.responseText;
-            var responseMessage = node.getElementsByClassName('messages')[0];
-            var pageTitle = window.document.body.getElementsByClassName('page-title')[0];
-            pageTitle.insertAdjacentHTML('afterend', responseMessage.outerHTML);
-            window.opener.focus();
-            window.opener.location.href = response.transport.responseURL;
+        body: formData,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(function(response) {
+        // Ajax.Request only ran onSuccess on a 2xx status
+        if (!response.ok) {
+            throw new Error('Request failed with status ' + response.status);
         }
+        return response.text().then(function(text) {
+            return { text: text, url: response.url };
+        });
+    })
+    .then(function(result) {
+        const node = document.createElement('div');
+        node.innerHTML = result.text;
+        const responseMessage = node.getElementsByClassName('messages')[0];
+        const pageTitle = window.document.body.getElementsByClassName('page-title')[0];
+        if (pageTitle && responseMessage) {
+            pageTitle.insertAdjacentHTML('afterend', responseMessage.outerHTML);
+        }
+        window.opener.focus();
+        // Follow redirects the same way Ajax.Request's transport.responseURL did
+        window.opener.location.href = result.url || url;
+    })
+    .catch(function(e) {
+        if (window.console) console.error(e);
     });
 }
 
 function buttonDisabler() {
-    var buttons = document.querySelectorAll('button.save');
+    const buttons = document.querySelectorAll('button.save');
     buttons.forEach(function(button) {
         button.disabled = true;
     });
