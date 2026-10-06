@@ -51,9 +51,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      */
     public function setStoreFilter($storeId = null, $useDefaultValue = true)
     {
-        if (is_null($storeId)) {
-            $storeId = Mage::app()->getStore()->getId();
-        }
+        $storeId ??= Mage::app()->getStore()->getId();
 
         $adapter = $this->getConnection();
 

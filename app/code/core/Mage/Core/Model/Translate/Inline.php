@@ -118,9 +118,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function isAllowed($store = null)
     {
-        if (is_null($store)) {
-            $store = Mage::app()->getStore();
-        }
+        $store ??= Mage::app()->getStore();
         if (!$store instanceof Mage_Core_Model_Store) {
             $store = Mage::app()->getStore($store);
         }

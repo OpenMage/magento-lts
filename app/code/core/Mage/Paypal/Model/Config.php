@@ -652,7 +652,7 @@ class Mage_Paypal_Model_Config
         if ($params) {
             $method = array_shift($params);
             $this->setMethod($method);
-            if ($params) {
+            if ($params !== []) {
                 $storeId = array_shift($params);
                 $this->setStoreId($storeId);
             }
@@ -719,9 +719,7 @@ class Mage_Paypal_Model_Config
      */
     public function isMethodAvailable($methodCode = null)
     {
-        if ($methodCode === null) {
-            $methodCode = $this->getMethodCode();
-        }
+        $methodCode ??= $this->getMethodCode();
 
         $result = true;
 
@@ -899,13 +897,9 @@ class Mage_Paypal_Model_Config
      */
     public function isMethodSupportedForCountry($method = null, $countryCode = null)
     {
-        if ($method === null) {
-            $method = $this->getMethodCode();
-        }
+        $method ??= $this->getMethodCode();
 
-        if ($countryCode === null) {
-            $countryCode = $this->getMerchantCountry();
-        }
+        $countryCode ??= $this->getMerchantCountry();
 
         $countryMethods = $this->getCountryMethods($countryCode);
         return in_array($method, $countryMethods);
@@ -1118,7 +1112,7 @@ class Mage_Paypal_Model_Config
         return sprintf(
             'https://www.%spaypal.com/cgi-bin/webscr%s',
             $this->sandboxFlag ? 'sandbox.' : '',
-            $params ? '?' . http_build_query($params) : '',
+            $params !== [] ? '?' . http_build_query($params) : '',
         );
     }
 
@@ -1197,9 +1191,7 @@ class Mage_Paypal_Model_Config
             return $this->_getDynamicImageUrl(self::EC_BUTTON_TYPE_MARK, $localeCode, $orderTotal, $pal);
         }
 
-        if ($staticSize === null) {
-            $staticSize = $this->paymentMarkSize;
-        }
+        $staticSize ??= $this->paymentMarkSize;
 
         switch ($staticSize) {
             case self::PAYMENT_MARK_37X23:
@@ -1690,9 +1682,7 @@ class Mage_Paypal_Model_Config
             }
         }
 
-        if ($path === null) {
-            $path = $this->_mapGeneralFieldset($fieldName);
-        }
+        $path ??= $this->_mapGeneralFieldset($fieldName);
 
         if ($path === null) {
             return $this->_mapGenericStyleFieldset($fieldName);

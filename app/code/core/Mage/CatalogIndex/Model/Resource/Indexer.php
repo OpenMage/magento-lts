@@ -43,9 +43,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      */
     protected function _loadAttribute($id)
     {
-        if (!isset($this->_attributeCache[$id])) {
-            $this->_attributeCache[$id] = Mage::getModel('eav/entity_attribute')->load($id);
-        }
+        $this->_attributeCache[$id] ??= Mage::getModel('eav/entity_attribute')->load($id);
 
         return $this->_attributeCache[$id];
     }
@@ -348,9 +346,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
 
                 if (is_array($minimal)) {
                     foreach ($minimal as $price) {
-                        if (!isset($price['tax_class_id'])) {
-                            $price['tax_class_id'] = 0;
-                        }
+                        $price['tax_class_id'] ??= 0;
 
                         $this->_insert('catalogindex/minimal_price', [
                             $store->getWebsiteId(),
@@ -626,9 +622,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      */
     public function updateCatalogProductFlat($storeId, $productIds = null, $tableName = null)
     {
-        if (is_null($tableName)) {
-            $tableName = $this->getTable('catalog/product_flat') . '_' . $storeId;
-        }
+        $tableName ??= $this->getTable('catalog/product_flat') . '_' . $storeId;
 
         $addChildData = Mage::helper('catalog/product_flat')->isAddChildData();
 

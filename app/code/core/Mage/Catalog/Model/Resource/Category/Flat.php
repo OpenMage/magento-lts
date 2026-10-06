@@ -422,9 +422,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      */
     public function getNodeById($nodeId, $nodes = null)
     {
-        if (is_null($nodes)) {
-            $nodes = $this->getNodes($nodeId);
-        }
+        $nodes ??= $this->getNodes($nodeId);
 
         if (isset($nodes[$nodeId])) {
             return $nodes[$nodeId];
@@ -472,9 +470,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      */
     public function rebuild($stores = null)
     {
-        if ($stores === null) {
-            $stores = Mage::app()->getStores();
-        }
+        $stores ??= Mage::app()->getStores();
 
         if (!is_array($stores)) {
             $stores = [$stores];

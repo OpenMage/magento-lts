@@ -231,7 +231,7 @@ class Mage_Downloadable_Model_Observer
             }
         }
 
-        if ($downloadableItemsStatuses) {
+        if ($downloadableItemsStatuses !== []) {
             $linkPurchased = Mage::getResourceModel('downloadable/link_purchased_item_collection')
             ->addFieldToFilter('order_item_id', ['in' => array_keys($downloadableItemsStatuses)]);
             /** @var Mage_Downloadable_Model_Link_Purchased_Item $link */

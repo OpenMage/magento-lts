@@ -396,9 +396,7 @@ class Mage_Paypal_Model_Info
     {
         $result = [];
         foreach ($keys as $key) {
-            if (!isset($this->_paymentMapFull[$key])) {
-                $this->_paymentMapFull[$key] = [];
-            }
+            $this->_paymentMapFull[$key] ??= [];
 
             if (!isset($this->_paymentMapFull[$key]['label'])) {
                 if (!$payment->hasAdditionalInformation($key)) {

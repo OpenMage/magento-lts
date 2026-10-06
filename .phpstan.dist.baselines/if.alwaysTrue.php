@@ -19,22 +19,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'If condition is always true.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'If condition is always true.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'If condition is always true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Model/Resource/Link.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'If condition is always true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Model/Resource/Sample.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'If condition is always true.',

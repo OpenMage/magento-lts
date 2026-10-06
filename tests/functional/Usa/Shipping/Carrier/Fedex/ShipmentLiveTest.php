@@ -299,11 +299,9 @@ final class ShipmentLiveTest extends FedexTestCase
 
     private function overrideAllowedMethods(string $value): void
     {
-        if ($this->originalAllowedMethods === null) {
-            $this->originalAllowedMethods = (string) Mage::app()
-                ->getStore()
-                ->getConfig('carriers/fedex/allowed_methods');
-        }
+        $this->originalAllowedMethods ??= (string) Mage::app()
+            ->getStore()
+            ->getConfig('carriers/fedex/allowed_methods');
 
         Mage::app()->getStore()->setConfig('carriers/fedex/allowed_methods', $value);
     }

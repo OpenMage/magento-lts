@@ -37,12 +37,10 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             $attributes = $this->getSelectionAttributes($orderItem);
             $optionId = is_array($attributes) ? $attributes['option_id'] : 0;
 
-            if (!isset($drawItems[$optionId])) {
-                $drawItems[$optionId] = [
-                    'lines'  => [],
-                    'height' => 15,
-                ];
-            }
+            $drawItems[$optionId] ??= [
+                'lines'  => [],
+                'height' => 15,
+            ];
 
             if ($orderItem->getParentItem() && $_prevOptionId != $attributes['option_id']) {
                 $line[0] = [

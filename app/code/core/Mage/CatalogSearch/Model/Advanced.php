@@ -194,7 +194,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             }
         }
 
-        if ($allConditions) {
+        if ($allConditions !== []) {
             $this->getProductCollection()->addFieldsToFilter($allConditions);
         } elseif (!$hasConditions) {
             Mage::throwException(Mage::helper('catalogsearch')->__('Please specify at least one search term.'));

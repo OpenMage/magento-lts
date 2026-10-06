@@ -317,9 +317,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      */
     protected function _getIndexer($productTypeId)
     {
-        if ($productTypeId === null) {
-            $productTypeId = '';
-        }
+        $productTypeId ??= '';
 
         $types = $this->getTypeIndexers();
         if (!isset($types[$productTypeId])) {
@@ -604,7 +602,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             $table = $this->_getWebsiteDateTable();
             $write->delete($table);
 
-            if ($data) {
+            if ($data !== []) {
                 $write->insertMultiple($table, $data);
             }
 

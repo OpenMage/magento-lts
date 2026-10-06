@@ -1349,9 +1349,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
 
         $segments = explode('_', $shippingMethod, 2);
-        if (!isset($segments[1])) {
-            $segments[1] = $segments[0];
-        }
+        $segments[1] ??= $segments[0];
 
         [$carrierCode, $method] = $segments;
         return new Varien_Object([
@@ -2027,9 +2025,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getOrderCurrency()
     {
-        if (is_null($this->_orderCurrency)) {
-            $this->_orderCurrency = Mage::getModel('directory/currency')->load($this->getOrderCurrencyCode());
-        }
+        $this->_orderCurrency ??= Mage::getModel('directory/currency')->load($this->getOrderCurrencyCode());
 
         return $this->_orderCurrency;
     }
@@ -2076,9 +2072,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getBaseCurrency()
     {
-        if (is_null($this->_baseCurrency)) {
-            $this->_baseCurrency = Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
-        }
+        $this->_baseCurrency ??= Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
 
         return $this->_baseCurrency;
     }

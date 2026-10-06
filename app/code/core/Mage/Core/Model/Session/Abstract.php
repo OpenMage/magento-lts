@@ -332,7 +332,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
             $messages = [$messages];
         }
 
-        if (!$messages) {
+        if ($messages === []) {
             return $this;
         }
 

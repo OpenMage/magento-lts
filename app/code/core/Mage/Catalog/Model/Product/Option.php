@@ -275,9 +275,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      */
     public function getGroupByType($type = null)
     {
-        if (is_null($type)) {
-            $type = $this->getType();
-        }
+        $type ??= $this->getType();
 
         $optionGroupsToTypes = [
             self::OPTION_TYPE_FIELD => self::OPTION_GROUP_TEXT,

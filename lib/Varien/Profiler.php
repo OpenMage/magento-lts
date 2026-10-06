@@ -116,16 +116,12 @@ class Varien_Profiler
                 return self::$_timers[$timerName]['count'];
 
             case 'realmem':
-                if (!isset(self::$_timers[$timerName]['realmem'])) {
-                    self::$_timers[$timerName]['realmem'] = -1;
-                }
+                self::$_timers[$timerName]['realmem'] ??= -1;
 
                 return self::$_timers[$timerName]['realmem'];
 
             case 'emalloc':
-                if (!isset(self::$_timers[$timerName]['emalloc'])) {
-                    self::$_timers[$timerName]['emalloc'] = -1;
-                }
+                self::$_timers[$timerName]['emalloc'] ??= -1;
 
                 return self::$_timers[$timerName]['emalloc'];
 

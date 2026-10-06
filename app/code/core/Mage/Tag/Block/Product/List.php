@@ -128,9 +128,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
      */
     public function getUniqueHtmlId($prefix = '')
     {
-        if (is_null($this->_uniqueHtmlId)) {
-            $this->_uniqueHtmlId = Mage::helper('core/data')->uniqHash($prefix);
-        }
+        $this->_uniqueHtmlId ??= Mage::helper('core/data')->uniqHash($prefix);
 
         return $this->_uniqueHtmlId;
     }

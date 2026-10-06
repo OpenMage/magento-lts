@@ -286,9 +286,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
                 ->where($inCond);
             $result = $adapter->fetchAll($select);
             foreach ($result as $row) {
-                if (!isset($storesToReviews[$row['review_id']])) {
-                    $storesToReviews[$row['review_id']] = [];
-                }
+                $storesToReviews[$row['review_id']] ??= [];
 
                 $storesToReviews[$row['review_id']][] = $row['store_id'];
             }

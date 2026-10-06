@@ -246,9 +246,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
      */
     protected function _getStoreModel()
     {
-        if (is_null($this->_storeModel)) {
-            $this->_storeModel = Mage::getSingleton('adminhtml/system_store');
-        }
+        $this->_storeModel ??= Mage::getSingleton('adminhtml/system_store');
 
         return $this->_storeModel;
     }

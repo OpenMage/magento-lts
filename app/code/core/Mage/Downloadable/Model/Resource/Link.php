@@ -141,7 +141,7 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
     public function deleteItems($items)
     {
         $writeAdapter   = $this->_getWriteAdapter();
-        $where = [];
+
         if ($items instanceof Mage_Downloadable_Model_Link) {
             $where = ['link_id = ?'    => $items->getId()];
         } elseif (is_array($items)) {
@@ -150,20 +150,18 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
             $where = ['sample_id = ?'  => $items];
         }
 
-        if ($where) {
-            $writeAdapter->delete(
-                $this->getMainTable(),
-                $where,
-            );
-            $writeAdapter->delete(
-                $this->getTable('downloadable/link_title'),
-                $where,
-            );
-            $writeAdapter->delete(
-                $this->getTable('downloadable/link_price'),
-                $where,
-            );
-        }
+        $writeAdapter->delete(
+            $this->getMainTable(),
+            $where,
+        );
+        $writeAdapter->delete(
+            $this->getTable('downloadable/link_title'),
+            $where,
+        );
+        $writeAdapter->delete(
+            $this->getTable('downloadable/link_price'),
+            $where,
+        );
 
         return $this;
     }

@@ -174,9 +174,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     protected function _init($model, $entityModel = null)
     {
         $this->setItemObjectClass(Mage::getConfig()->getModelClassName($model));
-        if ($entityModel === null) {
-            $entityModel = $model;
-        }
+        $entityModel ??= $model;
 
         /** @var Mage_Eav_Model_Entity_Abstract $entity */
         $entity = Mage::getResourceSingleton($entityModel);
@@ -318,10 +316,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
 
             $conditionSql = '(' . implode(') OR (', $sqlArr) . ')';
         } elseif (is_string($attribute)) {
-            if ($condition === null) {
-                $condition = '';
-            }
-
+            $condition ??= '';
             $conditionSql = $this->_getAttributeConditionSql($attribute, $condition, $joinType);
         }
 
@@ -498,9 +493,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      */
     public function addStaticField($field)
     {
-        if (!isset($this->_staticFields[$field])) {
-            $this->_staticFields[$field] = $field;
-        }
+        $this->_staticFields[$field] ??= $field;
 
         return $this;
     }
@@ -1156,9 +1149,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $attribute = Mage::getSingleton('eav/config')->getAttribute($entity->getType(), $attributeCode);
             if ($attribute && !$attribute->isStatic()) {
                 $tableAttributes[$attribute->getBackendTable()][] = $attributeId;
-                if (!isset($attributeTypes[$attribute->getBackendTable()])) {
-                    $attributeTypes[$attribute->getBackendTable()] = $attribute->getBackendType();
-                }
+                $attributeTypes[$attribute->getBackendTable()] ??= $attribute->getBackendType();
             }
         }
 

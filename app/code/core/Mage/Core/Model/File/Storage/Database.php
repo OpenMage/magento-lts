@@ -59,12 +59,10 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      */
     public function getDirectoryModel()
     {
-        if (is_null($this->_directoryModel)) {
-            $this->_directoryModel = Mage::getModel(
-                'core/file_storage_directory_database',
-                ['connection' => $this->getConnectionName()],
-            );
-        }
+        $this->_directoryModel ??= Mage::getModel(
+            'core/file_storage_directory_database',
+            ['connection' => $this->getConnectionName()],
+        );
 
         return $this->_directoryModel;
     }

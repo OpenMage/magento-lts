@@ -304,9 +304,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isAllowedGuestCheckout(Mage_Sales_Model_Quote $quote, $store = null)
     {
-        if ($store === null) {
-            $store = $quote->getStoreId();
-        }
+        $store ??= $quote->getStoreId();
 
         $guestCheckout = Mage::getStoreConfigFlag(self::XML_PATH_GUEST_CHECKOUT, $store);
 
