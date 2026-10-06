@@ -10962,11 +10962,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, array|bool given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, int given.',
     'count' => 2,
     'path' => __DIR__ . '/../lib/Mage/HTTP/Client/Curl.php',

@@ -65,6 +65,7 @@ class Varien_Object_Mapper
                     if ($toIsArray) {
                         $target[$keyTo] = $source[$keyFrom];
                     } elseif ($toIsVO) {
+                        /** @phpstan-ignore method.dynamicName */
                         $target->$set($keyTo, $source[$keyFrom]);
                     }
                 }
@@ -72,8 +73,10 @@ class Varien_Object_Mapper
                 // get value if (any) value is found as in magic data or a non-empty value with declared getter
                 $value = null;
                 if ($shouldGet = $source->hasData($keyFrom)) {
+                    /** @phpstan-ignore method.dynamicName */
                     $value = $source->$get($keyFrom);
                 } elseif (method_exists($source, $get)) {
+                    /** @phpstan-ignore method.dynamicName */
                     $value = $source->$get($keyFrom);
                     if ($value) {
                         $shouldGet = true;
@@ -84,6 +87,7 @@ class Varien_Object_Mapper
                     if ($toIsArray) {
                         $target[$keyTo] = $value;
                     } elseif ($toIsVO) {
+                        /** @phpstan-ignore method.dynamicName */
                         $target->$set($keyTo, $value);
                     }
                 }
@@ -97,6 +101,7 @@ class Varien_Object_Mapper
                 }
             } elseif ($toIsVO) {
                 if (!$target->hasData($keyTo)) {
+                    /** @phpstan-ignore method.dynamicName */
                     $target->$set($keyTo, $value);
                 }
             }
