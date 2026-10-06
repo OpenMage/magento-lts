@@ -11,23 +11,36 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product;
 
-// use Mage;
-// use Mage_Catalog_Model_Resource_Product_Collection as Subject;
-use Override;
+use Mage_Catalog_Model_Product;
+use Mage_Catalog_Model_Resource_Product_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
-use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\CollectionTrait;
+use ReflectionMethod;
 
 final class CollectionTest extends OpenMageTest
 {
-    use CollectionTrait;
-
-    // private static Subject $subject;
-
-    #[Override]
-    public static function setUpBeforeClass(): void
+    public function testPrepareUrlDataObjectHonorsExplicitlyFalseFlag(): void
     {
-        parent::setUpBeforeClass();
-        // self::$subject = Mage::getModel('catalog/resource_product_collection');
-        self::markTestSkipped('');
+        $collection = $this->getMockBuilder(Subject::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getFlag'])
+            ->getMock();
+        $collection->setFlag('url_data_object', false);
+        $collection->expects(self::exactly(2))
+            ->method('getFlag')
+            ->willReturnMap([
+                ['do_not_use_category_id', null],
+                ['url_data_object', false],
+            ]);
+
+        $product = $this->createPartialMock(Mage_Catalog_Model_Product::class, ['getId', 'isVisibleInSiteVisibility']);
+        $product->method('getId')->willReturn(42);
+        $product->method('isVisibleInSiteVisibility')->willReturn(false);
+        $product->setEntityId(42)->setItemStoreId(1);
+        $collection->setItemObjectClass($product::class);
+        $collection->addItem($product);
+
+        $method = new ReflectionMethod(Subject::class, '_prepareUrlDataObject');
+
+        self::assertSame($collection, $method->invoke($collection));
     }
 }
