@@ -50,6 +50,50 @@ final class CustomerTest extends OpenMageTest
     }
 
     /**
+     * @group Model
+     */
+    public function testAuthenticateReturnsFalseForInvalidPassword(): void
+    {
+        $customer = $this->getMockWithCalledMethods(Subject::class, [
+            'loadByEmail' => self::WILL_RETURN_SELF,
+            'validatePassword' => false,
+        ], true);
+
+        self::assertFalse($customer->authenticate('customer@example.com', 'invalid-password'));
+    }
+
+    /**
+     * @group Model
+     */
+    public function testAuthenticateReturnsTrueForValidPassword(): void
+    {
+        $customer = $this->getMockWithCalledMethods(Subject::class, [
+            'loadByEmail' => self::WILL_RETURN_SELF,
+            'validatePassword' => true,
+        ], true);
+        $customer->setPasswordHash(Mage::helper('core')->getHash('valid-password', true));
+
+        self::assertTrue($customer->authenticate('customer@example.com', 'valid-password'));
+    }
+
+    /**
+     * @group Model
+     */
+    public function testAuthenticateThrowsForUnconfirmedCustomer(): void
+    {
+        $customer = $this->getMockWithCalledMethods(Subject::class, [
+            'loadByEmail' => self::WILL_RETURN_SELF,
+            'isConfirmationRequired' => true,
+        ], true);
+        $customer->setConfirmation('confirmation-token');
+
+        $this->expectException(Mage_Core_Exception::class);
+        $this->expectExceptionCode(Subject::EXCEPTION_EMAIL_NOT_CONFIRMED);
+
+        $customer->authenticate('customer@example.com', 'valid-password');
+    }
+
+    /**
      * @dataProvider provideGetDobData
      * @group Model
      */
