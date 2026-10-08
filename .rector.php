@@ -114,6 +114,10 @@ try {
                 __DIR__ . '/app/code/core/Mage/Sales/Model/Order/Payment.php',
                 __DIR__ . '/app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract/Backend/Abstract.php',
             ],
+            # skip: empty constructor is kept for subclasses that call parent::__construct()
+            DeadCode\ClassMethod\RemoveEmptyClassMethodRector::class => [
+                __DIR__ . '/lib/Varien/Image/Adapter/Gd2.php',
+            ],
             # changes method signature
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class,
             # skip: conflicts with phpstan strict rules

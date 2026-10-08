@@ -29,6 +29,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     protected $_resized = false;
 
     /**
+     * Kept for subclasses that call parent::__construct()
+     */
+    public function __construct() {}
+
+    /**
      * Destroy object image
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")

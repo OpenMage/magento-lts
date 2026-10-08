@@ -37,6 +37,24 @@ final class Gd2Test extends TestCase
     /**
      * @group Varien_Image
      */
+    public function testSubclassCanCallParentConstructor(): void
+    {
+        $subject = new class extends Subject {
+            public bool $initialized = false;
+
+            public function __construct()
+            {
+                parent::__construct();
+                $this->initialized = true;
+            }
+        };
+
+        self::assertTrue($subject->initialized);
+    }
+
+    /**
+     * @group Varien_Image
+     */
     public function testAdapterIsReleasedAfterUnset(): void
     {
         $subject = new Subject();
