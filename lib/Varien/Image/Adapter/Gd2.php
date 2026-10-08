@@ -28,14 +28,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     protected $_resized = false;
 
-    public function __construct()
-    {
-        // Initialize shutdown function
-        register_shutdown_function([$this, 'destruct']);
-    }
+    /**
+     * Kept for subclasses that call parent::__construct()
+     */
+    public function __construct() {}
 
     /**
-     * Destroy object image on shutdown
+     * Destroy object image
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
