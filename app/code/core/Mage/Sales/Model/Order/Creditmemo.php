@@ -164,6 +164,13 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public const HISTORY_ENTITY_NAME = 'creditmemo';
 
+    /**
+     * Event type names for creditmemo emails
+     */
+    public const EMAIL_EVENT_NAME_NEW_CREDITMEMO    = 'new_creditmemo';
+
+    public const EMAIL_EVENT_NAME_UPDATE_CREDITMEMO = 'update_creditmemo';
+
     protected static $_states;
 
     /**
@@ -855,7 +862,15 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             'billing'      => $order->getBillingAddress(),
             'payment_html' => $paymentBlockHtml,
         ]);
-        $mailer->send();
+
+        /** @var Mage_Core_Model_Email_Queue $emailQueue */
+        $emailQueue = Mage::getModel('core/email_queue');
+        $emailQueue->setEntityId($this->getId())
+            ->setEntityType(self::HISTORY_ENTITY_NAME)
+            ->setEventType(self::EMAIL_EVENT_NAME_NEW_CREDITMEMO)
+            ->setIsForceCheck(false);
+
+        $mailer->setQueue($emailQueue)->send();
 
         if ($notifyCustomer) {
             $this->setEmailSent(true);
@@ -932,7 +947,15 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             'comment'    => $comment,
             'billing'    => $order->getBillingAddress(),
         ]);
-        $mailer->send();
+
+        /** @var Mage_Core_Model_Email_Queue $emailQueue */
+        $emailQueue = Mage::getModel('core/email_queue');
+        $emailQueue->setEntityId($this->getId())
+            ->setEntityType(self::HISTORY_ENTITY_NAME)
+            ->setEventType(self::EMAIL_EVENT_NAME_UPDATE_CREDITMEMO)
+            ->setIsForceCheck(false);
+
+        $mailer->setQueue($emailQueue)->send();
 
         return $this;
     }

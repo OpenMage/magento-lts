@@ -153,6 +153,13 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      */
     public const HISTORY_ENTITY_NAME = 'invoice';
 
+    /**
+     * Event type names for invoice emails
+     */
+    public const EMAIL_EVENT_NAME_NEW_INVOICE    = 'new_invoice';
+
+    public const EMAIL_EVENT_NAME_UPDATE_INVOICE = 'update_invoice';
+
     protected static $_states;
 
     /**
@@ -884,7 +891,15 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             'billing'      => $order->getBillingAddress(),
             'payment_html' => $paymentBlockHtml,
         ]);
-        $mailer->send();
+
+        /** @var Mage_Core_Model_Email_Queue $emailQueue */
+        $emailQueue = Mage::getModel('core/email_queue');
+        $emailQueue->setEntityId($this->getId())
+            ->setEntityType(self::HISTORY_ENTITY_NAME)
+            ->setEventType(self::EMAIL_EVENT_NAME_NEW_INVOICE)
+            ->setIsForceCheck(false);
+
+        $mailer->setQueue($emailQueue)->send();
 
         if ($notifyCustomer) {
             $this->setEmailSent(true);
@@ -960,7 +975,15 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             'comment'      => $comment,
             'billing'      => $order->getBillingAddress(),
         ]);
-        $mailer->send();
+
+        /** @var Mage_Core_Model_Email_Queue $emailQueue */
+        $emailQueue = Mage::getModel('core/email_queue');
+        $emailQueue->setEntityId($this->getId())
+            ->setEntityType(self::HISTORY_ENTITY_NAME)
+            ->setEventType(self::EMAIL_EVENT_NAME_UPDATE_INVOICE)
+            ->setIsForceCheck(false);
+
+        $mailer->setQueue($emailQueue)->send();
 
         return $this;
     }
