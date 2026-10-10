@@ -18,13 +18,16 @@
  */
 class Mage_Payment_Model_Config
 {
+    /**
+     * @var array<string, Mage_Payment_Model_Method_Abstract>
+     */
     protected static $_methods;
 
     /**
      * Retrieve active system payments
      *
-     * @param  ConfigStoreId $store
-     * @return array
+     * @param  ConfigStoreId                                     $store
+     * @return array<string, Mage_Payment_Model_Method_Abstract>
      */
     public function getActiveMethods($store = null)
     {
@@ -32,9 +35,9 @@ class Mage_Payment_Model_Config
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
             if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store) && array_key_exists('model', $methodConfig)) {
-                $methodModel = Mage::getModel($methodConfig['model']);
-                if ($methodModel && $methodModel->getConfigData('active', $store)) {
-                    $methods[$code] = $this->_getMethod($code, $methodConfig);
+                $methodModel = $this->_getMethod($code, $methodConfig, $store);
+                if ($methodModel !== false && (bool) (int) $methodModel->getConfigData('active', $store)) {
+                    $methods[$code] = $methodModel;
                 }
             }
         }
@@ -45,15 +48,15 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve all system payments
      *
-     * @param  ConfigStoreId $store
-     * @return array
+     * @param  ConfigStoreId                                     $store
+     * @return array<string, Mage_Payment_Model_Method_Abstract>
      */
     public function getAllMethods($store = null)
     {
         $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
-            $data = $this->_getMethod($code, $methodConfig);
+            $data = $this->_getMethod($code, $methodConfig, $store);
             if ($data !== false) {
                 $methods[$code] = $data;
             }
@@ -63,14 +66,15 @@ class Mage_Payment_Model_Config
     }
 
     /**
-     * @param  string                                     $code
-     * @param  array                                      $config
-     * @param  null|bool|int|Mage_Core_Model_Store|string $store  $store
+     * @param  string                                   $code
+     * @param  array                                    $config
+     * @param  ConfigStoreId                            $store
      * @return false|Mage_Payment_Model_Method_Abstract
      */
     protected function _getMethod($code, $config, $store = null)
     {
         if (isset(self::$_methods[$code])) {
+            self::$_methods[$code]->setStore($store);
             return self::$_methods[$code];
         }
 
@@ -98,9 +102,19 @@ class Mage_Payment_Model_Config
      */
     public function getCcTypes()
     {
-        $_types = Mage::getConfig()->getNode('global/payment/cc/types')->asArray();
+        $_types = Mage::getConfig()?->getNode('global/payment/cc/types');
 
-        uasort($_types, ['Mage_Payment_Model_Config', 'compareCcTypes']);
+        if (!$_types instanceof Varien_Simplexml_Element) {
+            return [];
+        }
+
+        $_types = $_types->asArray();
+
+        if (!is_array($_types)) {
+            return [];
+        }
+
+        uasort($_types, self::compareCcTypes(...));
 
         $types = [];
         foreach ($_types as $data) {
@@ -115,7 +129,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve list of months translation
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getMonths()
     {
@@ -131,7 +145,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve array of available years
      *
-     * @return array
+     * @return array<int, int>
      */
     public function getYears()
     {
@@ -155,22 +169,6 @@ class Mage_Payment_Model_Config
      */
     public static function compareCcTypes($sortA, $sortB)
     {
-        if (!isset($sortA['order'])) {
-            $sortA['order'] = 0;
-        }
-
-        if (!isset($sortB['order'])) {
-            $sortB['order'] = 0;
-        }
-
-        if ($sortA['order'] == $sortB['order']) {
-            return 0;
-        }
-
-        if ($sortA['order'] > $sortB['order']) {
-            return 1;
-        }
-
-        return -1;
+        return ($sortA['order'] ?? 0) <=> ($sortB['order'] ?? 0);
     }
 }

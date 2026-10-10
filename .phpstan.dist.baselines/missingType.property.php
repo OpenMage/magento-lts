@@ -2537,11 +2537,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Exception.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Payment_Model_Config::$_methods has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Payment_Model_Method_Abstract::$_canAuthorize has no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Abstract.php',
