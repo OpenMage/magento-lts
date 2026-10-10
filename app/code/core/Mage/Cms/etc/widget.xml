@@ -9,7 +9,8 @@
 -->
 <widgets>
     <cms_page_link type="cms/widget_page_link" translate="name description" module="cms">
-        <name>CMS Page Link</name>
+        <name>Page Link</name>
+        <group>CMS</group>
         <description>Link to a CMS Page</description>
         <is_email_compatible>1</is_email_compatible>
         <parameters>
@@ -58,7 +59,8 @@
         </parameters>
     </cms_page_link>
     <cms_static_block type="cms/widget_block" translate="name description" module="cms">
-        <name>CMS Static Block</name>
+        <name>Static Block</name>
+        <group>CMS</group>
         <description>Contents of a Static Block</description>
         <parameters>
             <block_id type="complex" translate="label">
