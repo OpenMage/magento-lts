@@ -1628,8 +1628,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Retrieve attribute by specified code
      *
-     * @param  string                                   $code
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @param  string                                          $code
+     * @return false|Mage_Catalog_Model_Resource_Eav_Attribute
      * @throws Mage_Core_Exception
      */
     protected function _getAttribute($code)
@@ -1664,6 +1664,10 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
         foreach ($rowData as $attrCode => $attrValue) {
             $attribute = $this->_getAttribute($attrCode);
+            if (!$attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
+                continue;
+            }
+
             if ($attribute->getFrontendInput() !== 'multiselect'
                 && self::SCOPE_NULL == $rowScope
             ) {
