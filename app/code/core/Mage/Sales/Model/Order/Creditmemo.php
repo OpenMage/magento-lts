@@ -863,14 +863,18 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             'payment_html' => $paymentBlockHtml,
         ]);
 
-        /** @var Mage_Core_Model_Email_Queue $emailQueue */
-        $emailQueue = Mage::getModel('core/email_queue');
-        $emailQueue->setEntityId($this->getId())
-            ->setEntityType(self::HISTORY_ENTITY_NAME)
-            ->setEventType(self::EMAIL_EVENT_NAME_NEW_CREDITMEMO)
-            ->setIsForceCheck(false);
+        if (Mage::getStoreConfigFlag(self::XML_PATH_EMAIL_ENABLE_QUEUE_USAGE, $storeId)) {
+            /** @var Mage_Core_Model_Email_Queue $emailQueue */
+            $emailQueue = Mage::getModel('core/email_queue');
+            $emailQueue->setEntityId($this->getId())
+                ->setEntityType(self::HISTORY_ENTITY_NAME)
+                ->setEventType(self::EMAIL_EVENT_NAME_NEW_CREDITMEMO)
+                ->setIsForceCheck(false);
 
-        $mailer->setQueue($emailQueue)->send();
+            $mailer->setQueue($emailQueue)->send();
+        } else {
+            $mailer->send();
+        }
 
         if ($notifyCustomer) {
             $this->setEmailSent(true);
@@ -948,14 +952,18 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             'billing'    => $order->getBillingAddress(),
         ]);
 
-        /** @var Mage_Core_Model_Email_Queue $emailQueue */
-        $emailQueue = Mage::getModel('core/email_queue');
-        $emailQueue->setEntityId($this->getId())
-            ->setEntityType(self::HISTORY_ENTITY_NAME)
-            ->setEventType(self::EMAIL_EVENT_NAME_UPDATE_CREDITMEMO)
-            ->setIsForceCheck(false);
+        if (Mage::getStoreConfigFlag(self::XML_PATH_EMAIL_ENABLE_QUEUE_USAGE, $storeId)) {
+            /** @var Mage_Core_Model_Email_Queue $emailQueue */
+            $emailQueue = Mage::getModel('core/email_queue');
+            $emailQueue->setEntityId($this->getId())
+                ->setEntityType(self::HISTORY_ENTITY_NAME)
+                ->setEventType(self::EMAIL_EVENT_NAME_UPDATE_CREDITMEMO)
+                ->setIsForceCheck(false);
 
-        $mailer->setQueue($emailQueue)->send();
+            $mailer->setQueue($emailQueue)->send();
+        } else {
+            $mailer->send();
+        }
 
         return $this;
     }
