@@ -73,46 +73,43 @@ class Mage_SalesRule_Model_Observer
 
         $customerId = $order->getCustomerId();
 
-        // use each rule (and apply to customer, if applicable)
-        if ($order->getDiscountAmount() != 0) {
-            // lookup rule ids
-            $ruleIds = array_map(intval(...), explode(',', (string) $order->getAppliedRuleIds()));
-            $ruleIds = array_unique($ruleIds);
+        // lookup rule ids — applied rules can produce zero discount (e.g. free-shipping-only rules)
+        $ruleIds = array_unique(array_filter(
+            array_map(intval(...), explode(',', (string) $order->getAppliedRuleIds())),
+        ));
 
-            foreach ($ruleIds as $ruleId) {
-                if (!$ruleId) {
-                    continue;
-                }
-
-                $rule = Mage::getModel('salesrule/rule');
+        foreach ($ruleIds as $ruleId) {
+            $rule = Mage::getModel('salesrule/rule');
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+            $rule->load($ruleId);
+            if ($rule->getId()) {
+                $rule->setTimesUsed($rule->getTimesUsed() + 1);
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $rule->load($ruleId);
-                if ($rule->getId()) {
-                    $rule->setTimesUsed($rule->getTimesUsed() + 1);
-                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                    $rule->save();
+                $rule->save();
 
-                    if ($customerId) {
-                        $ruleCustomer = Mage::getModel('salesrule/rule_customer');
-                        $ruleCustomer->loadByCustomerRule($customerId, $ruleId);
+                if ($customerId) {
+                    $ruleCustomer = Mage::getModel('salesrule/rule_customer');
+                    $ruleCustomer->loadByCustomerRule($customerId, $ruleId);
 
-                        if ($ruleCustomer->getId()) {
-                            $ruleCustomer->setTimesUsed($ruleCustomer->getTimesUsed() + 1);
-                        } else {
-                            $ruleCustomer
+                    if ($ruleCustomer->getId()) {
+                        $ruleCustomer->setTimesUsed($ruleCustomer->getTimesUsed() + 1);
+                    } else {
+                        $ruleCustomer
                             ->setCustomerId($customerId)
                             ->setRuleId($ruleId)
                             ->setTimesUsed(1);
-                        }
-
-                        // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                        $ruleCustomer->save();
                     }
+
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                    $ruleCustomer->save();
                 }
             }
+        }
 
+        $couponCode = (string) $order->getCouponCode();
+        if ($ruleIds && $couponCode !== '') {
             $coupon = Mage::getModel('salesrule/coupon');
-            $coupon->load($order->getCouponCode(), 'code');
+            $coupon->load($couponCode, 'code');
             if ($coupon->getId()) {
                 $coupon->setTimesUsed($coupon->getTimesUsed() + 1);
                 $coupon->save();
