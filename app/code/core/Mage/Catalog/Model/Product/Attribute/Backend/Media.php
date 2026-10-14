@@ -255,13 +255,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 $image['label_use_default'] = false;
                 $image['position_use_default'] = false;
             } else {
-                if (!isset($image['label_use_default'])) {
-                    $image['label_use_default'] = null;
-                }
-
-                if (!isset($image['position_use_default'])) {
-                    $image['position_use_default'] = null;
-                }
+                $image['label_use_default'] ??= null;
+                $image['position_use_default'] ??= null;
             }
 
             $this->_getResource()->deleteGalleryValueInStore($image['value_id'], $object->getStoreId());

@@ -107,7 +107,7 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             }
         }
 
-        if ($data) {
+        if ($data !== []) {
             $this->getConnection()->insertMultiple($this->getTable('customer/form_attribute'), $data);
         }
     }
