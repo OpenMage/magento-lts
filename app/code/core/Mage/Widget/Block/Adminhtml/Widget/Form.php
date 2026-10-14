@@ -31,7 +31,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
             'title'                 => $this->helper('widget')->__('Widget Type'),
             'name'                  => 'widget_type',
             'required'              => true,
-            'options'               => $this->_getWidgetSelectOptions(),
+            'values'                => $this->_getWidgetSelectOptions(),
             'after_element_html'    => $this->_getWidgetSelectAfterHtml(),
         ]);
 
@@ -50,12 +50,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _getWidgetSelectOptions()
     {
-        $options = [];
-        foreach ($this->_getAvailableWidgets(true) as $data) {
-            $options[$data['type']] = $data['name'];
-        }
-
-        return $options;
+        return Mage::getModel('widget/widget')
+            ->getWidgetsOptionArray(true, $this->_getSkippedWidgets() ?? []);
     }
 
     /**
