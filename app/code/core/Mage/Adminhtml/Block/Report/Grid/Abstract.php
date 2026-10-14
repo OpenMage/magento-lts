@@ -12,6 +12,11 @@
  */
 class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * Grid resource collection name
+     *
+     * @var string
+     */
     protected $_resourceCollectionName  = '';
 
     protected $_currentCurrencyCode     = null;

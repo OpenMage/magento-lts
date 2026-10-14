@@ -179,6 +179,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
 
             $txtIndent = 5;
             $itemCollsNumber = $packaging->displayCustomsValue() ? 5 : 4;
+            $itemCollsX    = [];
             $itemCollsX[0] = 30; //  coordinate for Product name
             $itemCollsX[1] = 250; // coordinate for Product name
             $itemCollsXEnd = 565;

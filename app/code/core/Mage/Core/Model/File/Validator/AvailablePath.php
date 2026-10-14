@@ -252,6 +252,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Model_Valid
             $path = ltrim($path, '\\/');
             if (!isset($this->_pathsData[$path]['regFilename'])) {
                 $pathInfo = pathinfo($path);
+                $options = [];
                 $options['file_mask'] = $pathInfo['basename'];
                 if ($pathInfo['dirname'] == '.' || $pathInfo['dirname'] == DS) {
                     $pathInfo['dirname'] = '';

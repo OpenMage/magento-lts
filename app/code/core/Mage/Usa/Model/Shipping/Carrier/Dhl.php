@@ -24,9 +24,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     public const CODE = 'dhl';
 
     /**
-     * Code of the carrier
-     *
-     * @var string
+     * @inheritDoc
      */
     protected $_code = self::CODE;
 
@@ -913,6 +911,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                 }
             }
 
+            $data = [];
             $data['term'] = $services[$service] ?? $desc;
             $data['price_total'] = $this->getMethodPrice($totalEstimate, $service);
             $this->_dhlRates[] = ['service' => $service, 'data' => $data];

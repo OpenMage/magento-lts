@@ -75,7 +75,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Action list where need check enabled cookie
      *
-     * @var array
+     * @var string[]
      */
     protected $_cookieCheckActions = [];
 

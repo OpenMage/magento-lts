@@ -86,6 +86,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      */
     public function cleanup($productId, $storeId = null, $attributeId = null)
     {
+        $conditions = [];
         $conditions[] = $this->_getWriteAdapter()->quoteInto("{$this->_entityIdFieldName} = ?", $productId);
 
         if (!is_null($storeId)) {

@@ -54,6 +54,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
         foreach ($this as $item) {
             $identifier = $item->getDataByKey('identifier');
 
+            $data          = [];
             $data['value'] = $identifier;
             $data['label'] = $item->getDataByKey('title');
 

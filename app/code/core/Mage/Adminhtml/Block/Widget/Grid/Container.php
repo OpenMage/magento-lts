@@ -22,6 +22,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
 
     protected $_backButtonLabel;
 
+    /**
+     * @var string
+     */
     protected $_blockGroup = 'adminhtml';
 
     /**
