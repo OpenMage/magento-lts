@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Review statuses collection
  *
  * @package    Mage_Review
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Review_Model_Review_Status>
  */
 class Mage_Review_Model_Resource_Review_Status_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

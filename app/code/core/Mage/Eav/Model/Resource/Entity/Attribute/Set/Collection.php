@@ -11,6 +11,7 @@
  * Eav Resource Attribute Set Collection
  *
  * @package    Mage_Eav
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Eav_Model_Entity_Attribute_Set>
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

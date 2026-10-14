@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Widget Instance Collection
  *
  * @package    Mage_Widget
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Widget_Model_Widget_Instance>
  */
 class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
