@@ -232,6 +232,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected $_canUseLocalModules = null;
 
     /**
+     * Model classes that were not found and already logged, to log each one only once
+     *
+     * @var array<string, true>
+     */
+    protected array $loggedMissingModelClasses = [];
+
+    /**
      * Active modules array per namespace
      * @var array
      */
@@ -1502,7 +1509,31 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             return $obj;
         }
 
+        $this->logMissingModelClass((string) $modelClass, $className);
+
         return false;
+    }
+
+    /**
+     * Log a model class that could not be found, e.g. because of a wrong alias or a missing file
+     *
+     * Callers only get false, so without this a broken alias (e.g. of a cron job) can go unnoticed.
+     * Respects dev/log/active, like any other Mage::log() call.
+     */
+    protected function logMissingModelClass(string $modelClass, string $className): void
+    {
+        if (isset($this->loggedMissingModelClasses[$className])) {
+            return;
+        }
+
+        // Set before logging, so a missing class while logging can't recurse
+        $this->loggedMissingModelClasses[$className] = true;
+
+        $message = $modelClass === $className
+            ? sprintf('Model class "%s" not found', $className)
+            : sprintf('Model class "%s" for "%s" not found', $className, $modelClass);
+
+        Mage::log($message, Level::Warning);
     }
 
     /**
