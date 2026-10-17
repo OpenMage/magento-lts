@@ -91,9 +91,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
                 Mage::throwException($error);
             }
 
-            $fileName = mageFindClassFile($block);
-            if ($fileName !== false) {
-                include_once($fileName);
+            if (class_exists($block)) {
                 $block = new $block([]);
             }
         }
