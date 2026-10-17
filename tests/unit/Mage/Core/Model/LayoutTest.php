@@ -119,7 +119,7 @@ final class LayoutTest extends OpenMageTest
 
         $autoloader = static function (string $class) use ($file): void {
             if ($class === 'OpenMageLayoutTest_Autoloaded_Block') {
-                require $file;
+                require_once $file;
             }
         };
         spl_autoload_register($autoloader);
