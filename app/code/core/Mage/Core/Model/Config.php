@@ -1522,6 +1522,12 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     protected function logMissingModelClass(string $modelClass, string $className): void
     {
+        // The logger can't log its own missing class: that would re-enter Mage::getSingleton('core/logger')
+        // while it is being created, and the outer call would then throw "registry key already exists"
+        if ($modelClass === 'core/logger') {
+            return;
+        }
+
         if (isset($this->loggedMissingModelClasses[$className])) {
             return;
         }

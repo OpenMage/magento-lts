@@ -23,6 +23,8 @@ trait CaptureLogTrait
 {
     private ?object $originalLogger = null;
 
+    private bool $logCaptured = false;
+
     private function captureLog(): LoggerTestHelper
     {
         $logger = new LoggerTestHelper();
@@ -30,17 +32,23 @@ trait CaptureLogTrait
         $this->originalLogger = Mage::registry('_singleton/core/logger');
         Mage::unregister('_singleton/core/logger');
         Mage::register('_singleton/core/logger', $logger);
+        $this->logCaptured = true;
 
         return $logger;
     }
 
     private function restoreLogger(): void
     {
+        if (!$this->logCaptured) {
+            return;
+        }
+
         Mage::unregister('_singleton/core/logger');
         if ($this->originalLogger !== null) {
             Mage::register('_singleton/core/logger', $this->originalLogger);
         }
 
         $this->originalLogger = null;
+        $this->logCaptured = false;
     }
 }
