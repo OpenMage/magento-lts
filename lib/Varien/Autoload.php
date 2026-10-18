@@ -53,12 +53,13 @@ class Varien_Autoload
         // A missing file only raises warnings from this file; those are ignored, so other autoloaders
         // and class_exists() keep working. Errors from the included file reach the previous handler.
         $previousHandler = set_error_handler(
-            static function (int $errno, string $errstr, string $errfile = '', int $errline = 0) use (&$previousHandler): bool {
+            static function (int $errno, string $errstr, string $errfile = '', int $errline = 0) use (&$previousHandler): mixed {
                 if ($errno === E_WARNING && $errfile === __FILE__) {
                     return true;
                 }
 
-                return $previousHandler !== null && (bool) $previousHandler($errno, $errstr, $errfile, $errline);
+                // Pass the return value on unchanged: PHP's own handler only runs when it is exactly false
+                return $previousHandler === null ? false : $previousHandler($errno, $errstr, $errfile, $errline);
             },
         );
 

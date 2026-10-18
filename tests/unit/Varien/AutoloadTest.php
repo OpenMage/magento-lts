@@ -21,6 +21,7 @@ final class AutoloadTest extends OpenMageTest
         'Fixture.php' => "<?php\n\nclass OpenMageAutoloadTest_Fixture\n{\n}\n",
         // Optional parameter before a required one raises E_DEPRECATED while the file is compiled
         'Deprecated.php' => "<?php\n\nclass OpenMageAutoloadTest_Deprecated\n{\n    public function run(\$a = null, \$b) {}\n}\n",
+        'HandledDeprecated.php' => "<?php\n\nclass OpenMageAutoloadTest_HandledDeprecated\n{\n    public function run(\$a = null, \$b) {}\n}\n",
     ];
 
     private static string $fixtureDir;
@@ -122,5 +123,36 @@ final class AutoloadTest extends OpenMageTest
         self::assertCount(1, $errors);
         self::assertSame(E_DEPRECATED, $errors[0][0]);
         self::assertStringContainsString('Optional parameter $a declared before required parameter $b', $errors[0][1]);
+    }
+
+    /**
+     * A handler that returns null, like mageCoreErrorHandler(), has handled the error: PHP's own handler must not run
+     *
+     * @group Varien_Autoload
+     */
+    public function testAutoloadKeepsNullReturnOfErrorHandler(): void
+    {
+        $errors = [];
+        // PHP accepts any return value, only false lets its own handler run; the stub only allows bool
+        /** @phpstan-ignore argument.type */
+        set_error_handler(static function (int $errno, string $errstr) use (&$errors): ?bool {
+            if ((error_reporting() & $errno) !== 0) {
+                $errors[] = $errstr;
+            }
+
+            return null;
+        });
+
+        error_clear_last();
+        try {
+            Subject::instance()->autoload('OpenMageAutoloadTest_HandledDeprecated');
+        } finally {
+            restore_error_handler();
+        }
+
+        self::assertTrue(class_exists('OpenMageAutoloadTest_HandledDeprecated', false));
+        self::assertCount(1, $errors);
+        // error_get_last() is only set by PHP's own handler
+        self::assertNull(error_get_last());
     }
 }
