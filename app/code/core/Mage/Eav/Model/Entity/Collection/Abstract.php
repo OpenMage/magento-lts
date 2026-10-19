@@ -52,6 +52,20 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     protected $_selectAttributes          = [];
 
     /**
+     * Attribute ID lookup, refreshed for each attribute load
+     *
+     * @var array<int|string, string>
+     */
+    protected $_selectedAttributeCodes = [];
+
+    /**
+     * Entity ID field used by the current attribute load
+     *
+     * @var null|string
+     */
+    protected $_attributeValueIdField;
+
+    /**
      * Attributes to be filtered order sorted by
      *
      * @var array
@@ -1145,6 +1159,15 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         $entity = $this->getEntity();
+        $this->_attributeValueIdField = $entity->getEntityIdField();
+        $this->_selectedAttributeCodes = [];
+        foreach ($this->_selectAttributes as $attributeCode => $attributeId) {
+            // Static attributes may have no ID; retain the first selected code.
+            if ((is_int($attributeId) || is_string($attributeId))
+                && !isset($this->_selectedAttributeCodes[$attributeId])) {
+                $this->_selectedAttributeCodes[$attributeId] = $attributeCode;
+            }
+        }
 
         $tableAttributes = [];
         $attributeTypes  = [];
@@ -1248,7 +1271,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      */
     protected function _setItemAttributeValue($valueInfo)
     {
-        $entityIdField  = $this->getEntity()->getEntityIdField();
+        $entityIdField  = $this->_attributeValueIdField ?? $this->getEntity()->getEntityIdField();
         $entityId       = $valueInfo[$entityIdField];
         if (!isset($this->_itemsById[$entityId])) {
             throw Mage::exception(
@@ -1257,8 +1280,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             );
         }
 
-        $attributeCode = array_search($valueInfo['attribute_id'], $this->_selectAttributes);
-        if (!$attributeCode) {
+        $attributeCode = $this->_selectedAttributeCodes[$valueInfo['attribute_id']]
+            ?? array_search($valueInfo['attribute_id'], $this->_selectAttributes);
+        if ($attributeCode === false || $attributeCode === '' || $attributeCode === '0' || $attributeCode === 0) {
             $attribute = Mage::getSingleton('eav/config')->getAttribute(
                 $this->getEntity()->getType(),
                 $valueInfo['attribute_id'],
