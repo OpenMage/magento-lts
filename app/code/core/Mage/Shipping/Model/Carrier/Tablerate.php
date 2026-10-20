@@ -16,9 +16,7 @@
 class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
     /**
-     * code name
-     *
-     * @var string
+     * @inheritDoc
      */
     protected $_code = 'tablerate';
 

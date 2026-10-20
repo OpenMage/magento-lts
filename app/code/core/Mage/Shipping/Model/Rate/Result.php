@@ -173,6 +173,7 @@ class Mage_Shipping_Model_Rate_Result
             return $this;
         }
 
+        $tmp = [];
         /** @var Mage_Shipping_Model_Rate_Result_Method $rate */
         foreach ($this->_rates as $index => $rate) {
             $tmp[$index] = $rate->getPrice();
@@ -180,6 +181,7 @@ class Mage_Shipping_Model_Rate_Result
 
         natsort($tmp);
 
+        $result = [];
         foreach (array_keys($tmp) as $index) {
             $result[] = $this->_rates[$index];
         }

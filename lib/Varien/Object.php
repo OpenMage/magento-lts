@@ -92,7 +92,7 @@ class Varien_Object implements ArrayAccess
 
     protected function _addFullNames()
     {
-        if (empty($this->_syncFieldsMap)) {
+        if (!is_array($this->_syncFieldsMap) || !is_array($this->_data)) {
             return;
         }
 
