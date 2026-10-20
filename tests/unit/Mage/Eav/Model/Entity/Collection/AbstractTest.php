@@ -22,13 +22,16 @@ use Mage_Eav_Model_Entity_Collection_Abstract as Subject;
 use Mage_Eav_Model_Resource_Helper_Mysql4;
 use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Collection\AbstractTrait;
 use ReflectionMethod;
 use ReflectionProperty;
 use Varien_Db_Adapter_Interface;
 
-final class AbstractTest extends TestCase
+final class AbstractTest extends OpenMageTest
 {
+    use AbstractTrait;
+
     /** @var array<string, mixed> */
     private array $registry = [];
 
@@ -83,12 +86,6 @@ final class AbstractTest extends TestCase
             self::assertTrue($item->hasData('name'));
             self::assertSame($value, $item->getData('name'));
         }
-    }
-
-    /** @return list<array{mixed}> */
-    public static function provideAttributeValues(): array
-    {
-        return [[null], [0], ['0'], [''], [false], ['12.50'], ['Example']];
     }
 
     public function testRetainsFirstSelectedCodeForDuplicateAttributeIds(): void

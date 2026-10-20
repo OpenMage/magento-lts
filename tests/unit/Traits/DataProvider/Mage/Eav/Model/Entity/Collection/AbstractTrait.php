@@ -11,4 +11,11 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Eav\Model\Entity\Collection;
 
-trait AbstractTrait {}
+trait AbstractTrait
+{
+    /** @return list<array{mixed}> */
+    public static function provideAttributeValues(): array
+    {
+        return [[null], [0], ['0'], [''], [false], ['12.50'], ['Example']];
+    }
+}
