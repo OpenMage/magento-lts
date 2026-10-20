@@ -1163,9 +1163,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $this->_selectedAttributeCodes = [];
         foreach ($this->_selectAttributes as $attributeCode => $attributeId) {
             // Static attributes may have no ID; retain the first selected code.
-            if ((is_int($attributeId) || is_string($attributeId))
-                && !isset($this->_selectedAttributeCodes[$attributeId])) {
-                $this->_selectedAttributeCodes[$attributeId] = $attributeCode;
+            if (is_int($attributeId) || is_string($attributeId)) {
+                $this->_selectedAttributeCodes[$attributeId] ??= $attributeCode;
             }
         }
 
