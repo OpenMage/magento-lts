@@ -44,6 +44,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof GdImage)) {
             @imagedestroy($this->_imageHandler);
         }
+        // @phpstan-ignore assign.propertyType (Restore the handler's initial unopened state.)
+        $this->_imageHandler = null;
     }
 
     /**
