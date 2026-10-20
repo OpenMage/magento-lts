@@ -38,6 +38,7 @@ final class Gd2DestructTest extends TestCase
     {
         $subject = new Subject();
         $subject->open(self::$fileName);
+
         $handler = new ReflectionProperty(Subject::class, '_imageHandler');
         $reference = WeakReference::create($handler->getValue($subject));
         self::assertNotNull($reference->get());
@@ -65,6 +66,7 @@ final class Gd2DestructTest extends TestCase
         $subject = new Subject();
         $subject->open(self::$fileName);
         $subject->destruct();
+
         $target = (string) tempnam(sys_get_temp_dir(), 'gd2-resize-');
 
         try {
