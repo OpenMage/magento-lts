@@ -14,6 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model\Email;
 use Mage;
 use Mage_Core_Model_Email_Queue;
 use Mage_Core_Model_Email_Template as Subject;
+use Mage_Core_Model_Store;
 use OpenMage\Tests\Unit\OpenMageTest;
 use PHPUnit\Framework\Attributes\DataProvider;
 
@@ -60,6 +61,7 @@ final class TemplateReturnPathTest extends OpenMageTest
     public function testSendUsesConfiguredReturnPath(string $setReturnPath, ?string $expected): void
     {
         $store = Mage::app()->getStore();
+        self::assertInstanceOf(Mage_Core_Model_Store::class, $store);
         $store->setConfig(Subject::XML_PATH_SENDING_SET_RETURN_PATH, $setReturnPath);
         $store->setConfig(Subject::XML_PATH_SENDING_RETURN_PATH_EMAIL, self::RETURN_PATH_EMAIL);
 
