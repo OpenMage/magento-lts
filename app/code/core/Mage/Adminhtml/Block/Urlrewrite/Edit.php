@@ -36,12 +36,8 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     protected function _prepareLayout()
     {
         $this->setTemplate('urlrewrite/edit.phtml');
-        $this->_addButton(self::BUTTON_TYPE_BACK, [
-            'label'   => Mage::helper('adminhtml')->__('Back'),
-            'onclick' => Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')::getUrl('*/*/')),
-            'class'   => 'back',
-            'level'   => -1,
-        ]);
+
+        $this->_addPreparedButton(id: self::BUTTON_TYPE_BACK);
 
         // links to products/categories (if any) selectors
         if ($this->getProductId()) {
@@ -130,32 +126,28 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     {
         $this->setChild('form', Mage::getBlockSingleton('adminhtml/urlrewrite_edit_form'));
         if ($this->getUrlrewriteId()) {
-            $this->_addButton(self::BUTTON_TYPE_RESET, [
-                'label'   => Mage::helper('adminhtml')->__('Reset'),
-                'onclick' => '$(\'edit_form\').reset()',
-                'class'   => 'scalable reset',
-                'level'   => -1,
-            ]);
-            $this->_addButton(self::BUTTON_TYPE_DELETE, [
-                'label'   => Mage::helper('adminhtml')->__('Delete'),
-                'onclick' => "deleteConfirm('"
-                    . Mage::helper('core')->jsQuoteEscape(
-                        Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
-                    )
-                    . "', '"
-                    . Mage::helper('adminhtml')::getUrl('*/*/delete', ['id' => $this->getUrlrewriteId()])
-                    . "')",
-                'class'   => 'scalable delete',
-                'level'   => -1,
-            ]);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_RESET,
+                class: 'scalable reset',
+                onClick: '$(\'edit_form\').reset()', #todo
+            );
+
+            $onClick = "deleteConfirm('"
+                . Mage::helper('core')->jsQuoteEscape(
+                    Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
+                )
+                . "', '"
+                . Mage::helper('adminhtml')::getUrl('*/*/delete', ['id' => $this->getUrlrewriteId()])
+                . "')";
+
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_DELETE,
+                class: 'scalable delete',
+                onClick: $onClick,
+            );
         }
 
-        $this->_addButton(self::BUTTON_TYPE_SAVE, [
-            'label'   => Mage::helper('adminhtml')->__('Save'),
-            'onclick' => 'editForm.submit()',
-            'class'   => 'save',
-            'level'   => -1,
-        ]);
+        $this->_addPreparedButton(id: self::BUTTON_TYPE_SAVE);
 
         // update back button link
         $params = [];
