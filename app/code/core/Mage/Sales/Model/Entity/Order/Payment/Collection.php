@@ -11,6 +11,7 @@
  * Order status collection
  *
  * @package    Mage_Sales
+ * @extends Mage_Eav_Model_Entity_Collection_Abstract<Mage_Sales_Model_Order_Payment>
  */
 class Mage_Sales_Model_Entity_Order_Payment_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {

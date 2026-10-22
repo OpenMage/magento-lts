@@ -13,6 +13,8 @@ declare(strict_types=1);
  * Customer EAV additional attribute resource collection
  *
  * @package    Mage_Customer
+ * @template T of Mage_Customer_Model_Entity_Attribute
+ * @extends Mage_Eav_Model_Resource_Attribute_Collection<T>
  */
 class Mage_Customer_Model_Resource_Attribute_Collection extends Mage_Eav_Model_Resource_Attribute_Collection
 {
