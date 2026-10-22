@@ -36,9 +36,7 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
      */
     public function __construct($format = null, $locale = null)
     {
-        if (is_null($format)) {
-            $format = Varien_Date::DATE_INTERNAL_FORMAT;
-        }
+        $format ??= Varien_Date::DATE_INTERNAL_FORMAT;
 
         $this->_dateFormat  = $format;
         $this->_locale      = $locale;

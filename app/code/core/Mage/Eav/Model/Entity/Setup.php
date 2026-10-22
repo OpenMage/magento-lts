@@ -864,7 +864,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 }
             }
 
-            if (!$bind) {
+            if ($bind === []) {
                 return $this;
             }
 
@@ -914,7 +914,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     }
                 }
 
-                if (!$bind) {
+                if ($bind === []) {
                     return $this;
                 }
 
@@ -1224,9 +1224,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     {
         $this->cleanCache();
 
-        if ($entities === null) {
-            $entities = $this->getDefaultEntities();
-        }
+        $entities ??= $this->getDefaultEntities();
 
         foreach ($entities as $entityName => $entity) {
             $this->addEntityType($entityName, $entity);
@@ -1521,7 +1519,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             }
         }
 
-        if (!$bind) {
+        if ($bind === []) {
             return $this;
         }
 
@@ -1560,7 +1558,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 }
             }
 
-            if (!$bind) {
+            if ($bind === []) {
                 return $this;
             }
 

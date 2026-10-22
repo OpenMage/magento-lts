@@ -161,9 +161,7 @@ class Mage_DB_Mysqli
         $out = [];
         while ($row = $res->fetch_array(MYSQLI_ASSOC)) {
             if ($arrayMode) {
-                if (!isset($out[$row[$key]])) {
-                    $out[$row[$key]] = [];
-                }
+                $out[$row[$key]] ??= [];
 
                 $out[$row[$key]][] = $row;
             } else {

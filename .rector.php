@@ -62,7 +62,6 @@ try {
         ->withSkipPath(__DIR__ . '/vendor')
         ->withRules([
             Php83\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector::class,
-            Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withRules(Migration\TypeDeclarationDocblocks::getRules())
         ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Log::renameClassConst())
@@ -159,8 +158,6 @@ try {
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class => [
                 __DIR__ . '/lib/Varien/Directory/Collection.php',
             ],
-            # ... needs closer review
-            TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class,
         ])
         # wait for rector support
         ->withSkip([
