@@ -387,7 +387,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $subject = $this->getProcessedTemplateSubject($variables);
 
         $setReturnPath = Mage::getStoreConfig(self::XML_PATH_SENDING_SET_RETURN_PATH);
-        $returnPathEmail = match ($setReturnPath) {
+        $returnPathEmail = match ((int) $setReturnPath) {
             1 => $this->getSenderEmail(),
             2 => Mage::getStoreConfig(self::XML_PATH_SENDING_RETURN_PATH_EMAIL),
             default => null,
