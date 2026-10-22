@@ -36,14 +36,12 @@ test.config.index = {
 test.config.index.__buttons = {
     add: {
         _: base._button + '[title="Add New Rule"]',
-        __class: base.__buttons.add.__class,
         click: () => {
             tools.click(test.config.index.__buttons.add._, 'Add New Catalog Price Rule button clicked');
         },
     },
     apply: {
         _: base._button + '[title="Apply Rules"]',
-        __class: ['scalable', 'apply'],
         click: () => {
             tools.click(test.config.index.__buttons.apply._, 'Apply Rules button clicked');
         },
