@@ -17,6 +17,8 @@ class Varien_Autoload
      */
     protected static $_instance;
 
+    private static ?bool $canAskOpcache = null;
+
     /**
      * Singleton pattern implementation
      *
@@ -48,29 +50,29 @@ class Varien_Autoload
     {
         $path = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class))) . '.php';
 
-        // Include the relative path directly instead of resolving it first: OPcache can then serve
-        // the script from its include_path cache without stat-ing every include path entry.
-        // A missing file only raises warnings from this file; those are ignored, so other autoloaders
-        // and class_exists() keep working. Errors from the included file reach the previous handler.
-        $previousHandler = set_error_handler(
-            static function (int $errno, string $errstr, string $errfile = '', int $errline = 0) use (&$previousHandler): mixed {
-                if ($errno === E_WARNING && $errfile === __FILE__) {
-                    return true;
-                }
-
-                // Pass the return value on unchanged: PHP's own handler only runs when it is exactly false
-                return $previousHandler === null ? false : $previousHandler($errno, $errstr, $errfile, $errline);
-            },
-        );
-
-        try {
-            $result = include $path;
-        } finally {
-            restore_error_handler();
+        // A class file OPcache already holds under its relative path is included by that path: OPcache then
+        // serves it from memory without looking it up in every include_path directory first.
+        if (self::canAskOpcache() && opcache_is_script_cached($path)) {
+            return include $path;
         }
 
-        if ($result !== false) {
-            return $result;
+        /** @see https://stackoverflow.com/a/5504486/716029 */
+        $found = stream_resolve_include_path($path);
+        if ($found !== false) {
+            // With OPcache, include the relative path, so the next request finds the file under that key
+            return include self::canAskOpcache() ? $path : $found;
         }
+    }
+
+    /**
+     * Whether opcache_is_script_cached() can answer for this process: OPcache is enabled with shared memory,
+     * and the API isn't restricted (opcache.restrict_api would raise a warning on every call)
+     */
+    private static function canAskOpcache(): bool
+    {
+        return self::$canAskOpcache ??= function_exists('opcache_is_script_cached')
+            && filter_var(ini_get(PHP_SAPI === 'cli' ? 'opcache.enable_cli' : 'opcache.enable'), FILTER_VALIDATE_BOOLEAN)
+            && !filter_var(ini_get('opcache.file_cache_only'), FILTER_VALIDATE_BOOLEAN)
+            && (string) ini_get('opcache.restrict_api') === '';
     }
 }

@@ -22,6 +22,7 @@ final class AutoloadTest extends OpenMageTest
         // Optional parameter before a required one raises E_DEPRECATED while the file is compiled
         'Deprecated.php' => "<?php\n\nclass OpenMageAutoloadTest_Deprecated\n{\n    public function run(\$a = null, \$b) {}\n}\n",
         'HandledDeprecated.php' => "<?php\n\nclass OpenMageAutoloadTest_HandledDeprecated\n{\n    public function run(\$a = null, \$b) {}\n}\n",
+        'UserNotice.php' => "<?php\n\ntrigger_error('OpenMageAutoloadTest notice', E_USER_NOTICE);\n\nclass OpenMageAutoloadTest_UserNotice\n{\n}\n",
     ];
 
     private static string $fixtureDir;
@@ -154,5 +155,32 @@ final class AutoloadTest extends OpenMageTest
         self::assertCount(1, $errors);
         // error_get_last() is only set by PHP's own handler
         self::assertNull(error_get_last());
+    }
+
+    /**
+     * An error handler registered for some levels only must not receive other levels raised by an included file
+     *
+     * @group Varien_Autoload
+     */
+    public function testAutoloadKeepsErrorLevelsOfErrorHandler(): void
+    {
+        $errors = [];
+        set_error_handler(static function (int $errno, string $errstr) use (&$errors): bool {
+            $errors[] = [$errno, $errstr];
+
+            return true;
+        }, E_USER_WARNING);
+        // The E_USER_NOTICE goes to PHP's own handler; keep that one quiet
+        $errorReporting = error_reporting(E_ALL & ~E_USER_NOTICE);
+
+        try {
+            Subject::instance()->autoload('OpenMageAutoloadTest_UserNotice');
+        } finally {
+            error_reporting($errorReporting);
+            restore_error_handler();
+        }
+
+        self::assertTrue(class_exists('OpenMageAutoloadTest_UserNotice', false));
+        self::assertSame([], $errors);
     }
 }
