@@ -82,7 +82,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widg
         }
 
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 
     /**

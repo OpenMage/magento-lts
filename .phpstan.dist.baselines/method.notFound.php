@@ -1862,11 +1862,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Data/Form/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::hasData().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method SimpleXMLElement::setNode().',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Simplexml/Config.php',

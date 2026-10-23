@@ -12,7 +12,7 @@
  *
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
+class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template implements Varien_Data_Form_Element_Renderer_Interface
 {
     protected $_titles;
 
@@ -35,9 +35,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
             }
 
             foreach ($this->getStores() as $store) {
-                if (!isset($this->_titles[$store->getId()])) {
-                    $this->_titles[$store->getId()] = '';
-                }
+                $this->_titles[$store->getId()] ??= '';
             }
         }
 
@@ -56,5 +54,11 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
         }
 
         return $stores;
+    }
+
+    public function render(Varien_Data_Form_Element_Abstract $element)
+    {
+        $this->setData('element', $element);
+        return $this->toHtml();
     }
 }

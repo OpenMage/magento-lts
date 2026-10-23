@@ -181,11 +181,12 @@ final class DataTest extends OpenMageTest
         $prefix = 'string';
         self::assertStringStartsWith($prefix, self::$subject->uniqHash($prefix));
 
-        $firstHash = self::$subject->uniqHash();
-        $secondHash = self::$subject->uniqHash();
+        // Random part is 32 hexadecimal characters, unchanged output shape.
+        self::assertMatchesRegularExpression('/^[0-9a-f]{32}$/', self::$subject->uniqHash());
+        self::assertMatchesRegularExpression('/^' . $prefix . '[0-9a-f]{32}$/', self::$subject->uniqHash($prefix));
 
-        self::assertMatchesRegularExpression('/^[a-f0-9]{32}$/', $firstHash);
-        self::assertNotSame($firstHash, $secondHash);
+        // Cryptographically random: successive calls must not collide.
+        self::assertNotSame(self::$subject->uniqHash(), self::$subject->uniqHash());
     }
 
     /**

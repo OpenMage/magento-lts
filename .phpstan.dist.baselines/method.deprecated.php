@@ -32,11 +32,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method submit() of class Mage_Sales_Model_Service_Quote.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method _getCollectionNames() of class Mage_Adminhtml_Report_StatisticsController.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php',
@@ -52,31 +47,6 @@ $ignoreErrors[] = [
 after 1.4 beta1 it is checkout module responsibility',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Captcha/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method _convertPrice() of class Mage_Catalog_Block_Product_View_Type_Configurable.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method _prepareOldPrice() of class Mage_Catalog_Block_Product_View_Type_Configurable.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method _preparePrice() of class Mage_Catalog_Block_Product_View_Type_Configurable.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method _registerJsPrice() of class Mage_Catalog_Block_Product_View_Type_Configurable.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getCurrentStore() of class Mage_Catalog_Block_Product_View_Type_Configurable.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method clear() of class Mage_Eav_Model_Config.',

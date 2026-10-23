@@ -1412,26 +1412,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/controllers/IndexController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Return type (array|bool) of method Mage_Cache_Backend_File::_getMetadatas() should be covariant with return type (array|false) of method Zend_Cache_Backend_File::_getMetadatas()',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (array|string) of method Mage_Cache_Backend_File::_path() should be covariant with return type (string) of method Zend_Cache_Backend_File::_path()',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (bool|string) of method Mage_Cache_Backend_File::load() should be covariant with return type (string|false) of method Zend_Cache_Backend_File::load()',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (bool|string) of method Mage_Cache_Backend_File::load() should be covariant with return type (string|false) of method Zend_Cache_Backend_Interface::load()',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Return type (float|string) of method Magento_Db_Adapter_Pdo_Mysql::_quote() should be covariant with return type (string) of method Zend_Db_Adapter_Pdo_Abstract::_quote()',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Magento/Db/Adapter/Pdo/Mysql.php',

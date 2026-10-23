@@ -113,11 +113,6 @@
             </invalid_request_param>
         </faults>
         <acl>
-            <asserts>
-                <ip><class>Mage_Api_Model_Acl_Assert_Ip</class></ip>
-                <time><class>Mage_Api_Model_Acl_Assert_Time</class></time>
-            </asserts>
-
             <resources>
                 <all>
                 </all>

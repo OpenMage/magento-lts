@@ -291,9 +291,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRandomString($len, $chars = null)
     {
-        if (is_null($chars)) {
-            $chars = self::CHARS_LOWERS . self::CHARS_UPPERS . self::CHARS_DIGITS;
-        }
+        $chars ??= self::CHARS_LOWERS . self::CHARS_UPPERS . self::CHARS_DIGITS;
 
         for ($i = 0, $str = '', $lc = strlen($chars) - 1; $i < $len; $i++) {
             $str .= $chars[random_int(0, $lc)];
@@ -770,12 +768,12 @@ XML;
     }
 
     /**
-     * Generate a cryptographically secure random hash
+     * Generate a random hash, optionally prefixed
      *
-     * Callers use the result as a security token (password reset links, newsletter
-     * confirmation codes, wishlist sharing codes), so the value must come from a
-     * CSPRNG and never from a time or Mersenne Twister derived value.
-     * The output format is kept at 32 lowercase hexadecimal characters.
+     * Uses a cryptographically secure RNG (random_bytes) so the result is safe
+     * for security-sensitive tokens (password-reset links, wishlist sharing
+     * codes, newsletter confirmation keys). Output shape is unchanged: the
+     * prefix followed by 32 hexadecimal characters.
      *
      * @param  string $prefix
      * @return string

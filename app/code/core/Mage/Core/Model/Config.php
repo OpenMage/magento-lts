@@ -267,9 +267,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getResourceModel()
     {
-        if (is_null($this->_resourceModel)) {
-            $this->_resourceModel = Mage::getResourceModel('core/config');
-        }
+        $this->_resourceModel ??= Mage::getResourceModel('core/config');
 
         return $this->_resourceModel;
     }
@@ -1098,9 +1096,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $mergeToObject->loadString('<config/>');
         }
 
-        if ($mergeModel === null) {
-            $mergeModel = clone $this->_prototype;
-        }
+        $mergeModel ??= clone $this->_prototype;
 
         $modules = $this->getNode('modules')->children();
         foreach ($modules as $modName => $module) {
@@ -1374,7 +1370,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         $classArr = explode('/', trim($classId));
         $group = $classArr[0];
-        $class = empty($classArr[1]) ? null : $classArr[1];
+        $class = empty($classArr[1]) ? '' : $classArr[1];
 
         if (isset($this->_classNameCache[$groupRootNode][$group][$class])) {
             return $this->_classNameCache[$groupRootNode][$group][$class];
@@ -1384,7 +1380,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         // First - check maybe the entity class was rewritten
         $className = '';
-        if (isset($config->rewrite->$class)) {
+        if ($class !== '' && isset($config->rewrite->$class)) {
             $className = (string) $config->rewrite->$class;
         }
 
@@ -1693,9 +1689,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getEventConfig($area, $eventName)
     {
         //return $this->getNode($area)->events->{$eventName};
-        if (!isset($this->_eventAreas[$area])) {
-            $this->_eventAreas[$area] = $this->getNode($area)->events;
-        }
+        $this->_eventAreas[$area] ??= $this->getNode($area)->events;
 
         return $this->_eventAreas[$area]->{$eventName};
     }
