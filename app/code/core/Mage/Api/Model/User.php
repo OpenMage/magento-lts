@@ -72,6 +72,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     public function save()
     {
         $this->_beforeSave();
+        $invalidateSessions = $this->_isApiAccessRevokedBySave();
         $data = [
             'firstname' => $this->getFirstname(),
             'lastname'  => $this->getLastname(),
@@ -101,8 +102,46 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 
         $this->setData($data);
         $this->_getResource()->save($this);
+
+        if ($invalidateSessions) {
+            $this->_getResource()->clearByUserId((int) $this->getId());
+        }
+
         $this->_afterSave();
         return $this;
+    }
+
+    /**
+     * Whether this save takes API access away from an existing user
+     *
+     * True when the account is being deactivated or its API key replaced by a
+     * different one. Sessions opened before such a change must not survive it,
+     * otherwise deactivating a user or rotating a leaked key leaves every
+     * session issued under the old credentials working until it idles out.
+     *
+     * Re-saving the same key (the hash upgrade performed on login by
+     * Mage_Api2_Model_Observer::upgradeApiKey()) is not a change and keeps
+     * the session that the login has just opened.
+     */
+    protected function _isApiAccessRevokedBySave(): bool
+    {
+        if (!$this->getId()) {
+            return false;
+        }
+
+        if (!is_null($this->getIsActive()) && (int) $this->getIsActive() !== 1) {
+            return true;
+        }
+
+        $apiKey = $this->getNewApiKey() ?: $this->getApiKey();
+        if (!$apiKey) {
+            return false;
+        }
+
+        $currentHash = (string) $this->getOrigData('api_key');
+
+        return $currentHash === ''
+            || !Mage::helper('core')->validateHash((string) $apiKey, $currentHash);
     }
 
     /**
