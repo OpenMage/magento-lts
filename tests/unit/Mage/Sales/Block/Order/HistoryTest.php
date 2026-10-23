@@ -11,22 +11,59 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order;
 
-// use Mage_Sales_Block_Order_History as Subject;
-use Override;
+use Mage;
+use Mage_Core_Model_Session;
+use Mage_Customer_Model_Session;
+use Mage_Sales_Block_Order_History as Subject;
+use Mage_Sales_Model_Order;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Block\Order\HistoryTrait;
+use Override;
+use ReflectionClass;
 
 final class HistoryTest extends OpenMageTest
 {
     use HistoryTrait;
 
-    // private static Subject $subject;
+    private const FORM_KEY = 'TestFormKey123';
 
     #[Override]
-    public static function setUpBeforeClass(): void
+    protected function setUp(): void
     {
-        parent::setUpBeforeClass();
-        // self::$subject = new Subject();
-        self::markTestSkipped('');
+        $coreSession = $this->createPartialMock(Mage_Core_Model_Session::class, ['getFormKey']);
+        $coreSession->method('getFormKey')->willReturn(self::FORM_KEY);
+        Mage::unregister('_singleton/core/session');
+        Mage::register('_singleton/core/session', $coreSession);
+    }
+
+    #[Override]
+    protected function tearDown(): void
+    {
+        Mage::unregister('_singleton/core/session');
+    }
+
+    /**
+     * The reorder URL must carry the session form key, the controller rejects requests without
+     * it (GHSA-hp24-hrjg-v7mm). Themes still rendering the control as a plain link rely on it.
+     *
+     * @group Block
+     */
+    public function testGetReorderUrlCarriesFormKey(): void
+    {
+        $result = $this->getReorderUrl();
+
+        // '*/*/reorder' resolves against the current request, which a unit test does not have
+        self::assertStringContainsString('/order_id/42/', $result);
+        self::assertStringContainsString('/form_key/' . self::FORM_KEY . '/', $result);
+    }
+
+    private function getReorderUrl(): string
+    {
+        // The constructor loads the customer order collection, which needs a database
+        $subject = (new ReflectionClass(Subject::class))->newInstanceWithoutConstructor();
+        $order = new Mage_Sales_Model_Order();
+        $order->setId(42);
+
+        return $subject->getReorderUrl($order);
     }
 }
