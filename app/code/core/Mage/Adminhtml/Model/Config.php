@@ -285,6 +285,83 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
             }
         }
 
+        if (!$explodePathToEntities) {
+            $paths = array_merge(
+                $paths,
+                $this->_getEncryptedConfigPathOverrides(),
+                $this->_getEncryptedDefaultConfigPaths(),
+            );
+            $paths = array_values(array_unique($paths));
+        }
+
         return $paths;
+    }
+
+    /**
+     * Look for encrypted fields at any depth of system.xml that store their value under an explicit
+     * <config_path>, which the section/group/field scan above cannot see (nested groups, as in the
+     * PayPal section, or a field redirected to another path).
+     *
+     * @return string[]
+     */
+    protected function _getEncryptedConfigPathOverrides(): array
+    {
+        $paths = [];
+        $configSections = $this->getSections();
+        if (!$configSections) {
+            return $paths;
+        }
+
+        $xpath = '//sections//fields/*[backend_model="adminhtml/system_config_backend_encrypted"]/config_path';
+        foreach ($configSections->xpath($xpath) as $node) {
+            $path = trim((string) $node, '/');
+            if ($path !== '') {
+                $paths[] = $path;
+            }
+        }
+
+        return $paths;
+    }
+
+    /**
+     * Look for encrypted node entries in merged default configuration and return their config paths.
+     *
+     * @return string[]
+     */
+    protected function _getEncryptedDefaultConfigPaths(): array
+    {
+        $paths = [];
+        $defaultConfig = Mage::getConfig()->getNode('default');
+        if (!$defaultConfig) {
+            return $paths;
+        }
+
+        foreach ($defaultConfig->xpath('.//*[@backend_model="adminhtml/system_config_backend_encrypted"]') as $node) {
+            $path = $this->_getDefaultConfigNodePath($node);
+            if ($path !== '') {
+                $paths[] = $path;
+            }
+        }
+
+        return $paths;
+    }
+
+    /**
+     * Return a slash-delimited path for a node below the merged default config root.
+     *
+     * Usually section/group/field, but walk up to <default> rather than assume three levels.
+     */
+    protected function _getDefaultConfigNodePath(Varien_Simplexml_Element $node): string
+    {
+        $path = [];
+        while ($node->getName() !== 'default') {
+            array_unshift($path, $node->getName());
+            $node = $node->getParent();
+            if (!$node) {
+                return '';
+            }
+        }
+
+        return implode('/', $path);
     }
 }
