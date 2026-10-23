@@ -288,8 +288,38 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         }
 
         if (!$explodePathToEntities) {
-            $paths = array_merge($paths, $this->_getEncryptedDefaultConfigPaths());
+            $paths = array_merge(
+                $paths,
+                $this->_getEncryptedConfigPathOverrides(),
+                $this->_getEncryptedDefaultConfigPaths(),
+            );
             $paths = array_values(array_unique($paths));
+        }
+
+        return $paths;
+    }
+
+    /**
+     * Look for encrypted fields at any depth of system.xml that store their value under an explicit
+     * <config_path>, which the section/group/field scan above cannot see (nested groups, as in the
+     * PayPal section, or a field redirected to another path).
+     *
+     * @return string[]
+     */
+    protected function _getEncryptedConfigPathOverrides(): array
+    {
+        $paths = [];
+        $configSections = $this->getSections();
+        if (!$configSections) {
+            return $paths;
+        }
+
+        $xpath = '//sections//fields/*[backend_model="adminhtml/system_config_backend_encrypted"]/config_path';
+        foreach ($configSections->xpath($xpath) as $node) {
+            $path = trim((string) $node, '/');
+            if ($path !== '') {
+                $paths[] = $path;
+            }
         }
 
         return $paths;
@@ -298,9 +328,9 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     /**
      * Look for encrypted node entries in merged default configuration and return their config paths.
      *
-     * @return array
+     * @return string[]
      */
-    protected function _getEncryptedDefaultConfigPaths()
+    protected function _getEncryptedDefaultConfigPaths(): array
     {
         $paths = [];
         $defaultConfig = Mage::getConfig()->getNode('default');
@@ -321,19 +351,17 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     /**
      * Return a slash-delimited path for a node below the merged default config root.
      *
-     * @param Varien_Simplexml_Element $node
-     * @return string
+     * Usually section/group/field, but walk up to <default> rather than assume three levels.
      */
-    protected function _getDefaultConfigNodePath(Varien_Simplexml_Element $node)
+    protected function _getDefaultConfigNodePath(Varien_Simplexml_Element $node): string
     {
         $path = [];
         while ($node->getName() !== 'default') {
             array_unshift($path, $node->getName());
-            $parents = $node->xpath('..');
-            if (!$parents) {
+            $node = $node->getParent();
+            if (!$node) {
                 return '';
             }
-            $node = $parents[0];
         }
 
         return implode('/', $path);
