@@ -127,16 +127,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Redirectpolicy.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Resource_Acl::loadRoles() has parameter $rolesArr with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Resource_Acl::loadRules() has parameter $rulesArr with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Acl.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Admin_Model_Resource_Block::getAllowedTypes() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Block.php',
@@ -25563,11 +25553,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Cache_Backend_File::_getTagIds() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Cache_Backend_File::_path() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
 ];

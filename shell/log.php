@@ -30,9 +30,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
      */
     protected function _getLog()
     {
-        if (is_null($this->_log)) {
-            $this->_log = Mage::getModel('log/log');
-        }
+        $this->_log ??= Mage::getModel('log/log');
 
         return $this->_log;
     }

@@ -133,7 +133,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         $insert = array_diff($newStores, $oldStores);
         $delete = array_diff($oldStores, $newStores);
 
-        if ($delete) {
+        if ($delete !== []) {
             $where = [
                 'page_id = ?' => (int) $object->getId(),
                 'store_id IN (?)' => $delete,
@@ -142,7 +142,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             $this->_getWriteAdapter()->delete($table, $where);
         }
 
-        if ($insert) {
+        if ($insert !== []) {
             $data = [];
 
             foreach ($insert as $storeId) {
@@ -175,9 +175,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             return parent::load($object, $value, $field);
         }
 
-        if (is_null($field)) {
-            $field = $this->getIdFieldName();
-        }
+        $field ??= $this->getIdFieldName();
 
         $read = $this->_getReadAdapter();
 

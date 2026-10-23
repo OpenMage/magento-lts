@@ -57,18 +57,14 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
     protected function _getUrlModel()
     {
-        if (is_null($this->_url)) {
-            $this->_url = Mage::getModel('adminhtml/url');
-        }
+        $this->_url ??= Mage::getModel('adminhtml/url');
 
         return $this->_url;
     }
 
     protected function _buildMenuArray(?Varien_Simplexml_Element $parent = null, $path = '', $level = 0)
     {
-        if (is_null($parent)) {
-            $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
-        }
+        $parent ??= Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
 
         $parentArr = [];
         $sortOrder = 0;

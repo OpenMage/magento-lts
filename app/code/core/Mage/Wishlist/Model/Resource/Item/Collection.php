@@ -401,7 +401,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
             $filter['from'] = $firstDay;
         }
 
-        if ($filter) {
+        if ($filter !== []) {
             $filter['datetime'] = true;
             $this->addFieldToFilter('added_at', $filter);
         }

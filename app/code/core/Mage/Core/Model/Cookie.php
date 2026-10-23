@@ -54,9 +54,7 @@ class Mage_Core_Model_Cookie
      */
     public function getStore()
     {
-        if (is_null($this->_store)) {
-            $this->_store = Mage::app()->getStore();
-        }
+        $this->_store ??= Mage::app()->getStore();
 
         return $this->_store;
     }
@@ -230,25 +228,15 @@ class Mage_Core_Model_Cookie
 
         $expire = $period == 0 ? 0 : Mage::helper('core/clock')->getTimestamp() + $period;
 
-        if (is_null($path)) {
-            $path = $this->getPath();
-        }
+        $path ??= $this->getPath();
 
-        if (is_null($domain)) {
-            $domain = $this->getDomain();
-        }
+        $domain ??= $this->getDomain();
 
-        if (is_null($secure)) {
-            $secure = $this->isSecure();
-        }
+        $secure ??= $this->isSecure();
 
-        if (is_null($httponly)) {
-            $httponly = $this->getHttponly();
-        }
+        $httponly ??= $this->getHttponly();
 
-        if (is_null($sameSite)) {
-            $sameSite = $this->getSameSite();
-        }
+        $sameSite ??= $this->getSameSite();
 
         if ($sameSite === CookieSameSite::NONE) {
             // Enforce specification SameSite None requires secure
