@@ -633,7 +633,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
             // check if it is inactive
             if ($customer->getConfirmation()) {
-                if ($customer->getConfirmation() !== $key) {
+                if (!is_string($key) || !hash_equals((string) $customer->getConfirmation(), $key)) {
                     throw new Exception($this->__('Wrong confirmation key.'));
                 }
 
@@ -962,7 +962,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         $customerToken = $customer->getRpToken();
-        if (is_null($customerToken) || strcmp($customerToken, $resetPasswordLinkToken) !== 0 || $customer->isResetPasswordLinkTokenExpired()) {
+        if (!is_string($customerToken) || !hash_equals($customerToken, $resetPasswordLinkToken) || $customer->isResetPasswordLinkTokenExpired()) {
             throw Mage::exception('Mage_Core', $this->_getHelper('customer')->__('Your password reset link has expired.'));
         }
     }
