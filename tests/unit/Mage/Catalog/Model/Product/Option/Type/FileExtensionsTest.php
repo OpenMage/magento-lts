@@ -57,6 +57,25 @@ final class FileExtensionsTest extends OpenMageTest
     }
 
     /**
+     * A saved catalog/custom_options/forbidden_extensions value from before the active-content
+     * types were added to the default must not let them through (GHSA-4fxg-469f-r6fc).
+     */
+    public function testForbiddenExtensionsKeepTheMinimumWhenConfigIsShorter(): void
+    {
+        $subject = $this->createPartialMock(Subject::class, ['getConfigData']);
+        $subject->method('getConfigData')->with('forbidden_extensions')->willReturn('exe, Foo');
+
+        $forbidden = (new ReflectionMethod(Subject::class, '_getForbiddenExtensions'))->invoke($subject);
+
+        self::assertSame(['exe', 'foo'], array_slice($forbidden, 0, 2));
+        foreach (Subject::FORBIDDEN_EXTENSIONS_MINIMUM as $extension) {
+            self::assertContains($extension, $forbidden);
+        }
+
+        self::assertSame(array_unique($forbidden), $forbidden);
+    }
+
+    /**
      * @return string[]
      */
     private function denylist(): array

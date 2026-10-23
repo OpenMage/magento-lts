@@ -212,11 +212,19 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Core_Model_Valid
 
         //validation
         $protectedExtensions = Mage::helper('core/data')->getProtectedFileExtensions();
+        if (is_string($protectedExtensions)) {
+            $protectedExtensions = explode(',', $protectedExtensions);
+        }
+
+        $protectedExtensions = array_map(
+            static fn($extension): string => strtolower(trim((string) $extension)),
+            (array) $protectedExtensions,
+        );
         $value = str_replace(['/', '\\'], DS, $this->_value);
         $valuePathInfo = pathinfo(ltrim($value, '\\/'));
         $fileNameExtension = pathinfo($valuePathInfo['filename'], PATHINFO_EXTENSION);
 
-        if (in_array($fileNameExtension, $protectedExtensions)) {
+        if (in_array(strtolower($fileNameExtension), $protectedExtensions, true)) {
             $this->_error(self::NOT_AVAILABLE_PATH, $this->_value);
             return false;
         }
