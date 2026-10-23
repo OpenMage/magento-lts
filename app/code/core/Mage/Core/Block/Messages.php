@@ -57,6 +57,14 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     protected $_usedStorageTypes = ['core/session'];
 
     /**
+     * Purifier for message text when the escape flag is off; created on first use
+     *
+     * Private so that a subclass declaring its own (untyped) property of the same name
+     * cannot collide with it. Override _getMessagePurifier() to customise.
+     */
+    private ?Mage_Core_Model_Purifier_Interface $messagePurifier = null;
+
+    /**
      * @inheritDoc
      */
     #[Override]
@@ -196,8 +204,10 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     {
         $html = '<' . $this->_messagesFirstLevelTagName . ' id="admin_messages">';
         foreach ($this->getMessages($type) as $message) {
+            $messageContent = $this->_renderMessageText($message);
+
             $html .= '<' . $this->_messagesSecondLevelTagName . ' class="' . $message->getType() . '-msg">'
-                . ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText()
+                . $messageContent
                 . '</' . $this->_messagesSecondLevelTagName . '>';
         }
 
@@ -228,9 +238,11 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                 $html .= '<' . $this->_messagesFirstLevelTagName . '>';
 
                 foreach ($messages as $message) {
+                    $messageContent = $this->_renderMessageText($message);
+
                     $html .= '<' . $this->_messagesSecondLevelTagName . '>';
                     $html .= '<' . $this->_messagesContentWrapperTagName . '>';
-                    $html .= ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText();
+                    $html .= $messageContent;
                     $html .= '</' . $this->_messagesContentWrapperTagName . '>';
                     $html .= '</' . $this->_messagesSecondLevelTagName . '>';
                 }
@@ -246,6 +258,40 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
 
         $this->_messages = $this->getMessageCollection()->clear();
         return $html;
+    }
+
+    /**
+     * Render the text of one message as HTML
+     *
+     * Message text routinely carries exception messages and request values, so it is
+     * never output raw. With the escape flag set it is fully escaped; otherwise it is
+     * purified, which keeps the simple markup core messages use (links, emphasis, line
+     * breaks, lists) and removes scripts, event handlers and unsafe URLs.
+     *
+     * @return string
+     */
+    protected function _renderMessageText(Mage_Core_Model_Message_Abstract $message)
+    {
+        $text = (string) $message->getText();
+        if ($this->_escapeMessageFlag) {
+            return (string) $this->escapeHtml($text);
+        }
+
+        return $this->_getMessagePurifier()->purify($text);
+    }
+
+    /**
+     * @return Mage_Core_Model_Purifier_Interface
+     */
+    protected function _getMessagePurifier()
+    {
+        if ($this->messagePurifier === null) {
+            /** @var Mage_Core_Model_Purifier_Message $purifier */
+            $purifier = Mage::getSingleton('core/purifier_message');
+            $this->messagePurifier = $purifier;
+        }
+
+        return $this->messagePurifier;
     }
 
     /**
