@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package    Mage_Dataflow
+ */
+-->
+<config>
+    <sections>
+        <system>
+            <groups>
+                <dataflow_url_fetch translate="label comment" module="dataflow">
+                    <label>Dataflow URL Fetch</label>
+                    <sort_order>90</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <comment>Restrict URLs fetched by Dataflow HTTP adapters.</comment>
+                    <fields>
+                        <allowed_url_prefixes translate="label comment">
+                            <label>Allowed URL Prefixes</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Optional newline or comma separated list of allowed http(s) URL prefixes, e.g. https://feeds.example.com/exports/. The scheme, host and port of a fetched URL must match a prefix exactly and its path must start with the prefix path. Leave empty to allow any valid http(s) URL.</comment>
+                        </allowed_url_prefixes>
+                    </fields>
+                </dataflow_url_fetch>
+            </groups>
+        </system>
+    </sections>
+</config>

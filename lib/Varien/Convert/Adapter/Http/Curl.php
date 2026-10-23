@@ -22,20 +22,11 @@ class Varien_Convert_Adapter_Http_Curl extends Varien_Convert_Adapter_Abstract
     {
         // we expect <var name="uri">http://...</var>
         $uri = $this->getVar('uri');
-
-        // validate input parameter
-        $validator = Validation::createValidator();
-        $violations = $validator->validate($uri, [
-            new Assert\NotBlank(),
-            new Assert\Url(),
-        ]);
-
-        if ($violations->count() > 0) {
-            $this->addException("Expecting a valid 'uri' parameter");
-        }
+        $this->_validateUri($uri);
 
         // use Varien curl adapter
         $http = new Varien_Http_Adapter_Curl();
+        $this->_restrictProtocols($http);
 
         // send GET request
         $http->write('GET', $uri);
@@ -58,5 +49,38 @@ class Varien_Convert_Adapter_Http_Curl extends Varien_Convert_Adapter_Abstract
     {
         // no save implemented
         return $this;
+    }
+
+    /**
+     * @throws Varien_Convert_Exception
+     */
+    protected function _validateUri($uri): void
+    {
+        // validate input parameter
+        $validator = Validation::createValidator();
+        $violations = $validator->validate($uri, [
+            new Assert\NotBlank(),
+            new Assert\Url(protocols: ['http', 'https']),
+        ]);
+
+        if ($violations->count() > 0) {
+            throw $this->addException(
+                "Expecting a valid 'uri' parameter with http or https protocol",
+                Varien_Convert_Exception::FATAL,
+            );
+        }
+    }
+
+    protected function _restrictProtocols(Varien_Http_Adapter_Curl $http): void
+    {
+        $protocols = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+
+        if (defined('CURLOPT_PROTOCOLS')) {
+            $http->addOption(CURLOPT_PROTOCOLS, $protocols);
+        }
+
+        if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+            $http->addOption(CURLOPT_REDIR_PROTOCOLS, $protocols);
+        }
     }
 }
