@@ -533,64 +533,78 @@ class Varien_Io_File extends Varien_Io_Abstract
     }
 
     /**
-     * Retrieve the directory a write() target must be confined to
+     * Check that a write target stays inside the working directory set by open()/cd()
      *
-     * Every write is performed with the working directory set by open()/cd(), so that
-     * directory is the boundary the caller asked for. When no working directory has
-     * been configured the application root is used as a backstop, and when even that
-     * is not available (Varien used standalone) the process working directory is used.
-     *
-     * @return false|string
-     */
-    protected function _getWriteRoot()
-    {
-        $cwd = (string) $this->_cwd;
-        if ($cwd !== '') {
-            return realpath($cwd);
-        }
-
-        if (class_exists('Mage', false) && Mage::getConfig() !== null) {
-            return realpath(Mage::getBaseDir());
-        }
-
-        return getcwd();
-    }
-
-    /**
-     * Check that a write target resolves inside the allowed root directory
-     *
-     * A relative filename is resolved against the working directory because write()
-     * applies it before touching the file system. An absolute filename is taken as is,
-     * so it has to point inside the same directory to be accepted.
+     * Without a working directory no boundary was requested, so nothing is enforced and
+     * write() behaves as it always has. With one, the target folder is accepted when it is
+     * inside the working directory either as written or once symlinks are resolved, so a
+     * merchant-created symlink below the working directory (media or var on shared storage)
+     * keeps working while an absolute path elsewhere is refused. Parent traversal has
+     * already been rejected by write().
      *
      * @param  string $filename
      * @return bool
      */
     protected function _isWriteAllowed($filename)
     {
-        $root = $this->_getWriteRoot();
-        if (!is_string($root) || $root === '') {
-            return false;
+        $cwd = (string) $this->_cwd;
+        if ($cwd === '') {
+            return true;
         }
 
         $filename = (string) $filename;
         if ($this->_isAbsolutePath($filename)) {
             $folder = dirname($filename);
         } else {
-            $cwd = (string) $this->_cwd;
-            $base = $cwd === '' ? (string) getcwd() : $cwd;
-            $folder = dirname(rtrim($base, '\\/') . DIRECTORY_SEPARATOR . ltrim($filename, '\\/'));
+            $folder = dirname(rtrim($cwd, '\\/') . DIRECTORY_SEPARATOR . ltrim($filename, '\\/'));
         }
 
-        $folder = $this->_getExistingParent($folder);
-        if ($folder === false) {
-            return false;
+        if ($this->_isPathInside($this->_normalizeSeparators($folder), $this->_normalizeSeparators($cwd))) {
+            return true;
         }
 
+        $realRoot = realpath($cwd);
+        $realFolder = $this->_getExistingParent($folder);
+
+        return is_string($realRoot) && is_string($realFolder) && $this->_isPathInside($realFolder, $realRoot);
+    }
+
+    /**
+     * Check whether a folder equals or lies below a root, on a separator boundary
+     *
+     * @param  string $folder
+     * @param  string $root
+     * @return bool
+     */
+    protected function _isPathInside($folder, $root)
+    {
         $folder = rtrim($folder, '\\/') . DIRECTORY_SEPARATOR;
         $root = rtrim($root, '\\/') . DIRECTORY_SEPARATOR;
 
         return str_starts_with($folder, $root);
+    }
+
+    /**
+     * Collapse repeated separators and "." segments without touching the file system
+     *
+     * @param  string $path
+     * @return string
+     */
+    protected function _normalizeSeparators($path)
+    {
+        $path = (string) $path;
+        $segments = [];
+        foreach (preg_split('#[\\\\/]+#', $path) as $segment) {
+            if ($segment !== '' && $segment !== '.') {
+                $segments[] = $segment;
+            }
+        }
+
+        $prefix = $this->_isAbsolutePath($path) && preg_match('#^[a-z]:#i', $path) !== 1
+            ? DIRECTORY_SEPARATOR
+            : '';
+
+        return $prefix . implode(DIRECTORY_SEPARATOR, $segments);
     }
 
     /**

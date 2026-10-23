@@ -182,4 +182,50 @@ final class FileTest extends OpenMageTest
 
         $subject->write(BP . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'shell.jpg', 'content');
     }
+
+    /**
+     * Callers that never open() a working directory asked for no boundary, so write()
+     * keeps its previous behaviour for them.
+     *
+     * @group Varien_Io
+     */
+    public function testWriteWithoutWorkingDirectoryIsNotConfined(): void
+    {
+        $subject = new Subject();
+        $fileName = self::$siblingDirectory . DIRECTORY_SEPARATOR . 'no-boundary.txt';
+
+        self::assertNotFalse($subject->write($fileName, 'content'));
+        self::assertSame('content', file_get_contents($fileName));
+    }
+
+    /**
+     * A symlink below the working directory (e.g. media or var on shared storage) is
+     * the merchant's own layout and stays writable.
+     *
+     * @group Varien_Io
+     */
+    public function testWriteThroughSymlinkBelowWorkingDirectory(): void
+    {
+        $link = self::$workingDirectory . DIRECTORY_SEPARATOR . 'linked';
+        if (!@symlink(self::$siblingDirectory, $link)) {
+            self::markTestSkipped('symlink() not available');
+        }
+
+        $subject = $this->getSubject();
+
+        self::assertNotFalse($subject->write('linked/through-link.txt', 'content'));
+        self::assertNotFalse($subject->write($link . DIRECTORY_SEPARATOR . 'absolute-through-link.txt', 'content'));
+        self::assertSame('content', file_get_contents(self::$siblingDirectory . DIRECTORY_SEPARATOR . 'through-link.txt'));
+    }
+
+    /**
+     * @group Varien_Io
+     */
+    public function testWriteAcceptsDotSegmentsInsideWorkingDirectory(): void
+    {
+        $subject = $this->getSubject();
+
+        $fileName = self::$workingDirectory . DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR . 'sub' . DIRECTORY_SEPARATOR . 'dot.txt';
+        self::assertNotFalse($subject->write($fileName, 'content'));
+    }
 }
