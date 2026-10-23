@@ -69,7 +69,7 @@ class Mage_Core_Model_File_Validator_Image
      */
     public function validate($filePath)
     {
-        if (stripos($filePath, 'phar://') === 0) {
+        if (stripos($filePath, 'phar://') !== false) {
             throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid image path.'));
         }
 

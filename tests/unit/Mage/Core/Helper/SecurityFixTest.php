@@ -60,6 +60,27 @@ final class SecurityFixTest extends OpenMageTest
         }
     }
 
+    public function testVarienImageBlocksNestedPharWrapper(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("File 'compress.zlib://phar://test.jpg' is not readable.");
+        new Varien_Image('compress.zlib://phar://test.jpg');
+    }
+
+    public function testImageValidatorBlocksNestedPharWrapper(): void
+    {
+        $validator = new Mage_Core_Model_File_Validator_Image();
+
+        foreach (['compress.zlib://phar://test.jpg', 'php://filter/resource=PHAR://test.jpg'] as $path) {
+            try {
+                $validator->validate($path);
+                self::fail('Should have thrown exception for nested phar path ' . $path);
+            } catch (Exception $exception) {
+                self::assertStringContainsString('Invalid image path', $exception->getMessage());
+            }
+        }
+    }
+
     public function testWysiwygStorageBlocksPhar()
     {
         self::markTestIncomplete(
