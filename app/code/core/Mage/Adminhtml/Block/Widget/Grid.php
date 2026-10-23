@@ -1259,8 +1259,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _exportCsvItem(Varien_Object $item, Varien_Io_File $adapter)
     {
-        $row = $this->getExportModel()->getRow($this->_columns, $item, true);
-        $adapter->streamWriteCsv(Mage::helper('core')->getEscapedCSVData($row));
+        $export = $this->getExportModel();
+        $row = $export->getRow($this->_columns, $item, true);
+        $adapter->streamWriteCsv(Mage::helper('core')->getEscapedCSVData($row), $export->getCsvSeparator());
     }
 
     /**
@@ -1277,10 +1278,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_prepareGrid();
 
         return $this->getExportModel()->writeFile('csv', function (Varien_Io_File $ioFile): void {
-            $ioFile->streamWriteCsv($this->_getExportHeaders());
+            $ioFile->streamWriteCsv($this->_getExportHeaders(), $this->getExportModel()->getCsvSeparator());
             $this->_exportIterateCollection('_exportCsvItem', [$ioFile]);
             if ($this->getCountTotals()) {
-                $ioFile->streamWriteCsv(Mage::helper('core')->getEscapedCSVData($this->_getExportTotals()));
+                $ioFile->streamWriteCsv(Mage::helper('core')->getEscapedCSVData($this->_getExportTotals()), $this->getExportModel()->getCsvSeparator());
             }
         });
     }

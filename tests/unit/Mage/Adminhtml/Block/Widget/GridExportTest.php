@@ -20,6 +20,12 @@ use Throwable;
 use ReflectionProperty;
 use Mage;
 use Mage_Adminhtml_Block_Widget_Grid;
+use Mage_Adminhtml_Block_Widget_Grid_Column;
+use Mage_Adminhtml_Model_Grid_Export;
+use Mage_Adminhtml_Model_System_Config_Source_Grid_Export_Separator;
+use Mage_Core_Model_App;
+use Mage_Core_Model_Store;
+use Mage_Reports_Model_Resource_Report_Collection;
 use Mage_ImportExport_Model_Export_Adapter_Csv;
 use OpenMage\Tests\Unit\Fixture\Adminhtml\GridExport\ExportCollection;
 use OpenMage\Tests\Unit\Fixture\Adminhtml\GridExport\ExportGrid;
@@ -33,6 +39,147 @@ use Zend_Db_Select;
 
 final class GridExportTest extends OpenMageTest
 {
+    public function testCsvSeparatorSystemConfiguration(): void
+    {
+        $config = Mage::getConfig();
+        self::assertNotNull($config);
+        self::assertSame(',', (string) $config->getNode('default/admin/grid_export/csv_separator'));
+        $section = Mage::getSingleton('adminhtml/config')->getSection('admin');
+        self::assertNotNull($section);
+        $group = $section->groups->grid_export;
+        $field = $group->fields->csv_separator;
+        self::assertSame('1', (string) $group->show_in_default);
+        self::assertSame('0', (string) $group->show_in_website);
+        self::assertSame('0', (string) $group->show_in_store);
+        self::assertSame('select', (string) $field->frontend_type);
+        self::assertSame('1', (string) $field->show_in_default);
+        self::assertSame('0', (string) $field->show_in_website);
+        self::assertSame('0', (string) $field->show_in_store);
+        $source = Mage::getModel((string) $field->source_model);
+        self::assertInstanceOf(Mage_Adminhtml_Model_System_Config_Source_Grid_Export_Separator::class, $source);
+        self::assertSame([',', ';'], array_column($source->toOptionArray(), 'value'));
+    }
+
+    public static function provideInvalidCsvSeparators(): Iterator
+    {
+        yield [''];
+        yield [';;'];
+        yield ['"'];
+        yield ["\n"];
+        yield ["\t"];
+        yield ['é'];
+    }
+
+    /** @dataProvider provideInvalidCsvSeparators */
+    public function testInvalidCsvSeparatorsRetainComma(string $separator): void
+    {
+        $store = Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+        $path = Mage_Adminhtml_Model_Grid_Export::XML_PATH_CSV_SEPARATOR;
+        $original = $store->getConfig($path);
+        $store->setConfig($path, $separator);
+        try {
+            $export = Mage::getSingleton('adminhtml/grid_export');
+            self::assertSame(',', $export->getCsvSeparator());
+            self::assertSame("\"name\",\"12,34\"\n", $export->getCsvRow(['name', '12,34']));
+        } finally {
+            $store->setConfig($path, $original);
+        }
+    }
+
+    public function testCsvSeparatorUsesGlobalAdminConfiguration(): void
+    {
+        $adminStore = Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+        $store = Mage::app()->getDefaultStoreView();
+        self::assertInstanceOf(Mage_Core_Model_Store::class, $store);
+        $originalCurrentStore = Mage::app()->getStore();
+        $path = Mage_Adminhtml_Model_Grid_Export::XML_PATH_CSV_SEPARATOR;
+        $originalAdmin = $adminStore->getConfig($path);
+        $originalStore = $store->getConfig($path);
+        try {
+            Mage::app()->setCurrentStore($store);
+            $adminStore->setConfig($path, ';');
+            $store->setConfig($path, ',');
+            self::assertSame(';', Mage::getSingleton('adminhtml/grid_export')->getCsvSeparator());
+            $adminStore->setConfig($path, ',');
+            $store->setConfig($path, ';');
+            self::assertSame(',', Mage::getSingleton('adminhtml/grid_export')->getCsvSeparator());
+        } finally {
+            $adminStore->setConfig($path, $originalAdmin);
+            $store->setConfig($path, $originalStore);
+            Mage::app()->setCurrentStore($originalCurrentStore);
+        }
+    }
+
+    public static function provideConfiguredCsvExports(): Iterator
+    {
+        yield 'comma-string' => [false, 'getCsv', ',', <<<'CSV'
+"name export","amount export"
+"export:A;B,""C""","12,34"
+"export:Total","24,68"
+CSV . "\n"];
+        yield 'semicolon-string' => [false, 'getCsv', ';', <<<'CSV'
+"name export";"amount export"
+"export:A;B,""C""";"12,34"
+"export:Total";"24,68"
+CSV . "\n"];
+        yield 'comma-file' => [false, 'getCsvFile', ',', <<<'CSV'
+"name export","amount export"
+"export:A;B,""C""","12,34"
+"All rows","24,68"
+CSV . "\n"];
+        yield 'semicolon-file' => [false, 'getCsvFile', ';', <<<'CSV'
+"name export";"amount export"
+"export:A;B,""C""";12,34
+"All rows";24,68
+CSV . "\n"];
+        yield 'comma-report' => [true, 'getCsv', ',', <<<'CSV'
+"Period","name "header"","amount "header""
+"first;period,day","A;B,""C""","12,34"
+"first;period,day","Subtotal","12,34"
+"Total","A;B,""C""","12,34"
+CSV . "\n"];
+        yield 'semicolon-report' => [true, 'getCsv', ';', <<<'CSV'
+"Period";"name "header"";"amount "header""
+"first;period,day";"A;B,""C""";"12,34"
+"first;period,day";"Subtotal";"12,34"
+"Total";"A;B,""C""";"12,34"
+CSV . "\n"];
+    }
+
+    /** @dataProvider provideConfiguredCsvExports */
+    public function testConfiguredCsvExports(bool $report, string $method, string $separator, string $expected): void
+    {
+        $store = Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+        $path = Mage_Adminhtml_Model_Grid_Export::XML_PATH_CSV_SEPARATOR;
+        $original = $store->getConfig($path);
+        $store->setConfig($path, $separator);
+        try {
+            $grid = $report ? new ExportReportGrid() : new ExportGrid(false);
+            $nameColumn = $grid->getColumn('name');
+            self::assertInstanceOf(Mage_Adminhtml_Block_Widget_Grid_Column::class, $nameColumn);
+            if ($grid instanceof ExportReportGrid) {
+                $grid->setSubtotalVisibility(true);
+                (new ReflectionProperty(Mage_Reports_Model_Resource_Report_Collection::class, '_intervals'))->setValue(
+                    $grid->getCollection(),
+                    ['first;period,day' => ['start' => 'first', 'end' => 'first-end']],
+                );
+                $nameColumn->setFrameCallback(static fn() => 'A;B,"C"');
+                $amountColumn = $grid->getColumn('amount');
+                self::assertInstanceOf(Mage_Adminhtml_Block_Widget_Grid_Column::class, $amountColumn);
+                $amountColumn->setFrameCallback(static fn() => '12,34');
+            } else {
+                $grid->setCollection(new ExportCollection([['name' => 'A;B,"C"', 'amount' => '12,34']]));
+                $grid->setTotals(new Varien_Object(['name' => 'Total', 'amount' => '24,68']));
+                $nameColumn->setFrameCallback(static fn($value, Varien_Object $row) => 'export:' . $row->getData('name'));
+            }
+
+            $grid->setCountTotals();
+            self::assertSame($expected, $this->export($grid, $method));
+        } finally {
+            $store->setConfig($path, $original);
+        }
+    }
+
     public static function provideExports(): array
     {
         $cases = [];
@@ -52,6 +199,50 @@ final class GridExportTest extends OpenMageTest
         $cases['grid-csv-string-formula-escaping'] = [false, 'getCsv', true, true, false, true];
         $cases['grid-csv-formula-escaping'] = [false, 'getCsvFile', true, true, false, true];
         return $cases;
+    }
+
+    public static function provideNonCsvExports(): Iterator
+    {
+        yield [false, 'getXml'];
+        yield [false, 'getExcel'];
+        yield [false, 'getExcelFile'];
+        yield [true, 'getExcel'];
+    }
+
+    /** @dataProvider provideNonCsvExports */
+    public function testCsvSeparatorDoesNotChangeOtherFormats(bool $report, string $method): void
+    {
+        $store = Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+        $path = Mage_Adminhtml_Model_Grid_Export::XML_PATH_CSV_SEPARATOR;
+        $original = $store->getConfig($path);
+        try {
+            $store->setConfig($path, ',');
+            $expected = $this->export($report ? new ExportReportGrid() : new ExportGrid(), $method);
+            $store->setConfig($path, ';');
+            self::assertSame($expected, $this->export($report ? new ExportReportGrid() : new ExportGrid(), $method));
+        } finally {
+            $store->setConfig($path, $original);
+        }
+    }
+
+    public function testSemicolonFileExportKeepsFormulaEscaping(): void
+    {
+        $adminStore = Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+        $store = Mage::app()->getStore();
+        $separatorPath = Mage_Adminhtml_Model_Grid_Export::XML_PATH_CSV_SEPARATOR;
+        $escapingPath = Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG;
+        $originalSeparator = $adminStore->getConfig($separatorPath);
+        $originalEscaping = $store->getConfig($escapingPath);
+        $adminStore->setConfig($separatorPath, ';');
+        $store->setConfig($escapingPath, '1');
+        try {
+            $grid = new ExportGrid(false);
+            $grid->setCollection(new ExportCollection([['name' => 'Formula', 'amount' => '=SUM(A1;B1)']]));
+            self::assertSame("\"name export\";\"amount export\"\nexport:Formula;\" =SUM(A1;B1)\"\n", $this->export($grid, 'getCsvFile'));
+        } finally {
+            $adminStore->setConfig($separatorPath, $originalSeparator);
+            $store->setConfig($escapingPath, $originalEscaping);
+        }
     }
 
     /** @dataProvider provideExports */

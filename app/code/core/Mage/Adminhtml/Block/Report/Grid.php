@@ -463,8 +463,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $export = $this->getExportModel();
         $headers = array_merge([$this->__('Period')], $export->getHeaders($this->_columns));
         $csv = $export->getCsvRow($headers, escape: false);
+        $separator = $export->getCsvSeparator();
         foreach ($this->getReportExportRows($export->getCsvField(...)) as $row) {
-            $csv .= implode(',', $row) . "\n";
+            $csv .= implode($separator, $row) . "\n";
         }
 
         return $csv;

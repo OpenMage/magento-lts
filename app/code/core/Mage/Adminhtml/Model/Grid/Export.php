@@ -18,6 +18,23 @@ declare(strict_types=1);
  */
 class Mage_Adminhtml_Model_Grid_Export
 {
+    public const XML_PATH_CSV_SEPARATOR = 'admin/grid_export/csv_separator';
+
+    public const CSV_SEPARATOR_COMMA = ',';
+
+    public const CSV_SEPARATOR_SEMICOLON = ';';
+
+    /**
+     * Admin exports use one global setting, independent of the selected store.
+     * Unsupported configuration values retain the legacy comma separator.
+     */
+    public function getCsvSeparator(): string
+    {
+        return Mage::getStoreConfig(self::XML_PATH_CSV_SEPARATOR, Mage_Core_Model_App::ADMIN_STORE_ID) === self::CSV_SEPARATOR_SEMICOLON
+            ? self::CSV_SEPARATOR_SEMICOLON
+            : self::CSV_SEPARATOR_COMMA;
+    }
+
     /**
      * @param  Mage_Adminhtml_Block_Widget_Grid_Column[] $columns
      * @return list<string>
@@ -76,7 +93,7 @@ class Mage_Adminhtml_Model_Grid_Export
             $fields[] = $this->getCsvField($value, $escape, $escape);
         }
 
-        return implode(',', $fields) . "\n";
+        return implode($this->getCsvSeparator(), $fields) . "\n";
     }
 
     /**
