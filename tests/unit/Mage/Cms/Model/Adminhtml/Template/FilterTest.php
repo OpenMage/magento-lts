@@ -11,23 +11,106 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Model\Adminhtml\Template;
 
-// use Mage;
-// use Mage_Cms_Model_Adminhtml_Template_Filter as Subject;
-use Override;
+use Mage;
+use Mage_Cms_Model_Adminhtml_Template_Filter as Subject;
+use Mage_Core_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Model\Adminhtml\Template\FilterTrait;
+use Override;
 
+/**
+ * GHSA-7vww-whgh-98cf / GHSA-67pp-qrvw-9j62
+ */
 final class FilterTest extends OpenMageTest
 {
     use FilterTrait;
 
-    // private static Subject $subject;
+    private const TEST_DIR = 'ghsa-7vww-test';
+
+    private static Subject $subject;
+
+    private string $mediaDir;
 
     #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        // self::$subject = Mage::getModel('cms/adminhtml_template_filter');
-        self::markTestSkipped('');
+        self::$subject = Mage::getModel('cms/adminhtml_template_filter');
+    }
+
+    #[Override]
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->mediaDir = Mage::getBaseDir('media') . DS . self::TEST_DIR;
+        if (!is_dir($this->mediaDir)) {
+            mkdir($this->mediaDir, 0o755, true);
+        }
+
+        file_put_contents($this->mediaDir . DS . 'image.png', 'not really a png');
+    }
+
+    #[Override]
+    protected function tearDown(): void
+    {
+        foreach (['image.png', 'outside-link.png'] as $file) {
+            if (is_link($this->mediaDir . DS . $file) || is_file($this->mediaDir . DS . $file)) {
+                unlink($this->mediaDir . DS . $file);
+            }
+        }
+
+        if (is_dir($this->mediaDir)) {
+            rmdir($this->mediaDir);
+        }
+
+        parent::tearDown();
+    }
+
+    public function testGetMediaFilePathResolvesFileInsideMedia(): void
+    {
+        $path = self::$subject->getMediaFilePath('{{media url="' . self::TEST_DIR . '/image.png"}}');
+
+        self::assertSame(realpath($this->mediaDir . DS . 'image.png'), $path);
+    }
+
+    /**
+     * @dataProvider provideRejectedDirectives
+     */
+    public function testGetMediaFilePathRejects(string $directive): void
+    {
+        $this->expectException(Mage_Core_Exception::class);
+
+        self::$subject->getMediaFilePath($directive);
+    }
+
+    public function testGetMediaFilePathRejectsSymlinkLeavingMedia(): void
+    {
+        $link = $this->mediaDir . DS . 'outside-link.png';
+        if (!@symlink(Mage::getBaseDir() . DS . 'index.php', $link)) {
+            self::markTestSkipped('Symlinks are not supported here.');
+        }
+
+        $this->expectException(Mage_Core_Exception::class);
+
+        self::$subject->getMediaFilePath('{{media url="' . self::TEST_DIR . '/outside-link.png"}}');
+    }
+
+    public static function provideRejectedDirectives(): array
+    {
+        return [
+            'protocol directive (SSRF)' => ['{{protocol url="169.254.169.254/latest/meta-data/"}}'],
+            'config directive' => ['{{config path="web/unsecure/base_url"}}'],
+            'raw url' => ['http://127.0.0.1/image.png'],
+            'raw absolute path' => ['/etc/passwd'],
+            'text around media directive' => ['http://127.0.0.1/{{media url="' . self::TEST_DIR . '/image.png"}}'],
+            'two directives' => ['{{media url="' . self::TEST_DIR . '/image.png"}}{{media url="x"}}'],
+            'traversal out of media' => ['{{media url="../index.php"}}'],
+            'deep traversal' => ['{{media url="' . self::TEST_DIR . '/../../app/etc/config.xml"}}'],
+            'absolute path in url' => ['{{media url="/etc/passwd"}}'],
+            'stream wrapper in url' => ['{{media url="php://filter/resource=index.php"}}'],
+            'missing file' => ['{{media url="' . self::TEST_DIR . '/missing.png"}}'],
+            'directory' => ['{{media url="' . self::TEST_DIR . '"}}'],
+            'no url parameter' => ['{{media}}'],
+        ];
     }
 }

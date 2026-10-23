@@ -44,4 +44,25 @@ class Mage_Cms_Model_Adminhtml_Template_Filter extends Mage_Cms_Model_Template_F
 
         return $mediaPath;
     }
+
+    /**
+     * Resolve a WYSIWYG image directive to a file inside the media directory
+     *
+     * The directive must be exactly one {{media url="..."}} construction. Every other
+     * directive, and any text around the construction, is rejected so that the result
+     * can never be a URL (SSRF) or a path produced by another directive.
+     *
+     * @throws Mage_Core_Exception
+     */
+    public function getMediaFilePath(string $directive): string
+    {
+        if (!preg_match(Varien_Filter_Template::CONSTRUCTION_PATTERN, $directive, $construction)
+            || $construction[0] !== $directive
+            || $construction[1] !== 'media'
+        ) {
+            Mage::throwException(Mage::helper('core')->__('Invalid media directive.'));
+        }
+
+        return $this->mediaDirective($construction);
+    }
 }
