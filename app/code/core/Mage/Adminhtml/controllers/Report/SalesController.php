@@ -410,13 +410,13 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {
-            'sales' => 'report/salesroot/sales',
-            'tax' => 'report/salesroot/tax',
-            'shipping' => 'report/salesroot/shipping',
-            'invoiced' => 'report/salesroot/invoiced',
-            'refunded' => 'report/salesroot/refunded',
-            'coupons' => 'report/salesroot/coupons',
-            'bestsellers' => 'report/products/bestsellers',
+            'sales', 'exportsalescsv', 'exportsalesexcel' => 'report/salesroot/sales',
+            'tax', 'exporttaxcsv', 'exporttaxexcel' => 'report/salesroot/tax',
+            'shipping', 'exportshippingcsv', 'exportshippingexcel' => 'report/salesroot/shipping',
+            'invoiced', 'exportinvoicedcsv', 'exportinvoicedexcel' => 'report/salesroot/invoiced',
+            'refunded', 'exportrefundedcsv', 'exportrefundedexcel' => 'report/salesroot/refunded',
+            'coupons', 'exportcouponscsv', 'exportcouponsexcel' => 'report/salesroot/coupons',
+            'bestsellers', 'exportbestsellerscsv', 'exportbestsellersexcel' => 'report/products/bestsellers',
             default => 'report/salesroot',
         };
 

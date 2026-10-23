@@ -249,9 +249,11 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {
-            'viewed' => 'report/products/viewed',
-            'sold' => 'report/products/sold',
-            'lowstock' => 'report/products/lowstock',
+            'viewed', 'exportviewedcsv', 'exportviewedexcel' => 'report/products/viewed',
+            'sold', 'exportsoldcsv', 'exportsoldexcel' => 'report/products/sold',
+            'lowstock', 'exportlowstockcsv', 'exportlowstockexcel' => 'report/products/lowstock',
+            'downloads', 'exportdownloadscsv', 'exportdownloadsexcel' => 'report/products/downloads',
+            'ordered', 'exportorderedcsv', 'exportorderedexcel' => 'report/products/bestsellers',
             default => 'report/products',
         };
 
