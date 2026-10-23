@@ -2837,7 +2837,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Customer/Model/CustomerTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Adapter_Http_Curl@anonymous/tests/unit/Mage/Dataflow/Model/Convert/Adapter/Http/CurlTest.php:29::validateUriWrapper() has parameter $uri with no type specified.',
+    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Adapter_Http_Curl@anonymous/tests/unit/Mage/Dataflow/Model/Convert/Adapter/Http/CurlTest.php:30::validateUriWrapper() has parameter $uri with no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Dataflow/Model/Convert/Adapter/Http/CurlTest.php',
 ];
