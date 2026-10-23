@@ -72,7 +72,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
     protected function _assertAdminUserIsActive(): void
     {
         $user = $this->_loadAdminUser((int) $this->getUserId());
-        if (!$user->getId() || (int) $user->getIsActive() !== 1) {
+        if ((int) $user->getId() === 0 || (int) $user->getIsActive() !== 1) {
             throw new Mage_Api2_Exception(
                 'Admin user is not active',
                 Mage_Api2_Model_Server::HTTP_UNAUTHORIZED,

@@ -146,7 +146,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Http_Curl extends Mage_Dataflow_Model_
         }
 
         return array_values(array_filter(array_map(
-            'trim',
+            trim(...),
             preg_split('/[\r\n,]+/', $allowedPrefixes),
         )));
     }

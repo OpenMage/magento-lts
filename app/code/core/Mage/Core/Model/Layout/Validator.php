@@ -167,7 +167,8 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
             return false;
         }
 
-        if ($value->xpath($this->getXpathBlockValidationExpression()) || $this->_hasDisallowedBlock($value)) {
+        $disallowedBlocks = $value->xpath($this->getXpathBlockValidationExpression());
+        if ((is_array($disallowedBlocks) && $disallowedBlocks !== []) || $this->_hasDisallowedBlock($value)) {
             $this->_error(self::INVALID_BLOCK_NAME);
             return false;
         }
@@ -293,7 +294,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
     {
         $blockType = trim($blockType);
         if (str_contains($blockType, '/')) {
-            $blockType = (string) Mage::getConfig()->getBlockClassName($blockType);
+            $blockType = (string) Mage::getConfig()?->getBlockClassName($blockType);
         }
 
         return ltrim($blockType, '\\');
@@ -309,7 +310,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
     {
         foreach ([$className, $parentClassName] as $name) {
             if (!class_exists($name, false)
-                && (!preg_match('/^[A-Za-z_][A-Za-z0-9_]*$/', $name) || !mageFindClassFile($name))
+                && (preg_match('/^[A-Za-z_]\w*$/', $name) !== 1 || !is_string(mageFindClassFile($name)))
             ) {
                 return false;
             }

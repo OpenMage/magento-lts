@@ -760,7 +760,11 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     {
         $resolved = [];
         foreach (preg_split('#[/\\\\]+#', $path) as $segment) {
-            if ($segment === '' || $segment === '.') {
+            if ($segment === '') {
+                continue;
+            }
+
+            if ($segment === '.') {
                 continue;
             }
 

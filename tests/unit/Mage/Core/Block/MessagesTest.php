@@ -59,14 +59,19 @@ final class MessagesTest extends OpenMageTest
         $subject->setEscapeMessageFlag(true);
         $subject->addMessage(new Mage_Core_Model_Message_Error('<a href="https://example.com/">x</a>'));
 
-        self::assertStringContainsString('&lt;a href=&quot;https://example.com/&quot;&gt;x&lt;/a&gt;', $subject->getGroupedHtml());
+        self::assertStringContainsString('&lt;a href=&quot;https://example.com/&quot;&gt;x&lt;/a&gt;', (string) $subject->getGroupedHtml());
     }
 
     /**
      * The core/messages.phtml template, which the block itself does not use, must not print the
      * raw message text either (GHSA-75mq-cvpr-g7wq)
      *
+     * Runs in its own process: PHPUnit 9 re-includes every file the parent process included
+     * in each later separate-process test, and re-including a template outside a block fails.
+     *
      * @group Block
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testMessagesTemplateRendersSanitizedHtml(): void
     {
@@ -77,10 +82,10 @@ final class MessagesTest extends OpenMageTest
 
         $html = $subject->renderView();
 
-        self::assertStringContainsString('error-msg', $html);
-        self::assertStringContainsString('<a href="https://example.com/">x</a>', $html);
-        self::assertStringNotContainsString('onclick', $html);
-        self::assertStringNotContainsString('<script>', $html);
+        self::assertStringContainsString('error-msg', (string) $html);
+        self::assertStringContainsString('<a href="https://example.com/">x</a>', (string) $html);
+        self::assertStringNotContainsString('onclick', (string) $html);
+        self::assertStringNotContainsString('<script>', (string) $html);
     }
 
     /**

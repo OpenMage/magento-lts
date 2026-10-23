@@ -953,8 +953,8 @@ XML;
     /**
      * Add the PROTECTED_FILE_EXTENSIONS_MINIMUM entries missing from a configured extension list
      *
-     * @param  mixed        $extensions array of extension nodes or comma separated string
-     * @return array|string
+     * @param  mixed                           $extensions array of extension nodes or comma separated string
+     * @return array<int|string, mixed>|string
      */
     protected function _addMinimumProtectedFileExtensions($extensions)
     {

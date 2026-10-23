@@ -1,12 +1,13 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
  */
-
 /**
  * Downloadable Products Download Helper
  *
@@ -365,8 +366,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
             }
 
             $result['allowed'] = true;
-        } catch (Mage_Core_Exception $exception) {
-            $result['reason'] = $exception->getMessage();
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $result['reason'] = $mageCoreException->getMessage();
         }
 
         return $result;
@@ -482,7 +483,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
             $origin = $this->_getUrlOrigin($urlProp);
             Mage::log(
                 sprintf('Downloadable link URL refused for %s: resolves to %s address %s', $origin, $addressClass, $address),
-                Zend_Log::WARN,
+                Level::Warning,
             );
 
             $cacheKey = 'downloadable_link_url_refused_' . md5($origin);
@@ -521,7 +522,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
         }
 
         return array_values(array_filter(array_map(
-            'trim',
+            trim(...),
             preg_split('/[\r\n,]+/', $allowedPrefixes),
         )));
     }

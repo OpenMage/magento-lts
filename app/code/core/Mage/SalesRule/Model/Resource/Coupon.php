@@ -116,7 +116,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
             $updateArray['expiration_date'] = $rule->getToDate();
         }
 
-        if (!empty($updateArray)) {
+        if ($updateArray !== []) {
             $this->_getWriteAdapter()->update(
                 $this->getTable('salesrule/coupon'),
                 $updateArray,
