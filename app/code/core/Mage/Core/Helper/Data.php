@@ -25,6 +25,18 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
     public const XML_PATH_PUBLIC_FILES_VALID_PATHS     = 'general/file/public_files_valid_paths';
 
+    /**
+     * Extensions that stay protected whatever general/file/protected_extensions is set to
+     *
+     * The configured list can only add to these. The configuration default is only a default: a
+     * store with its own saved value would otherwise keep an older, shorter list and lose every
+     * extension added to the default later.
+     */
+    public const PROTECTED_FILE_EXTENSIONS_MINIMUM = [
+        'php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'pht', 'phar', 'phps',
+        'pl', 'py', 'cgi', 'sh', 'asp', 'aspx', 'jsp', 'htaccess', 'shtml',
+    ];
+
     public const XML_PATH_ENCRYPTION_MODEL             = 'global/helpers/core/encryption_model';
 
     public const XML_PATH_DEV_ALLOW_IPS                = 'dev/restrict/allow_ips';
@@ -925,12 +937,55 @@ XML;
     /**
      * Return list with protected file extensions
      *
+     * The configured list (an array of nodes, or a comma separated string when a store has saved
+     * its own value) is returned in the same form, extended by PROTECTED_FILE_EXTENSIONS_MINIMUM.
+     *
      * @param  int|Mage_Core_Model_Store|string $store
-     * @return array
+     * @return array|string
      */
     public function getProtectedFileExtensions($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_PROTECTED_FILE_EXTENSIONS, $store);
+        return $this->_addMinimumProtectedFileExtensions(
+            Mage::getStoreConfig(self::XML_PATH_PROTECTED_FILE_EXTENSIONS, $store),
+        );
+    }
+
+    /**
+     * Add the PROTECTED_FILE_EXTENSIONS_MINIMUM entries missing from a configured extension list
+     *
+     * @param  mixed        $extensions array of extension nodes or comma separated string
+     * @return array|string
+     */
+    protected function _addMinimumProtectedFileExtensions($extensions)
+    {
+        $configured = [];
+        foreach (is_string($extensions) ? explode(',', $extensions) : (array) $extensions as $extension) {
+            if (is_scalar($extension)) {
+                $configured[] = strtolower(trim((string) $extension));
+            }
+        }
+
+        $missing = array_values(array_diff(self::PROTECTED_FILE_EXTENSIONS_MINIMUM, $configured));
+        if ($missing === []) {
+            return $extensions;
+        }
+
+        if (is_string($extensions)) {
+            return trim($extensions) === ''
+                ? implode(',', $missing)
+                : $extensions . ',' . implode(',', $missing);
+        }
+
+        $extensions = is_array($extensions) ? $extensions : [];
+        foreach ($missing as $extension) {
+            if (isset($extensions[$extension])) {
+                $extensions[] = $extension;
+            } else {
+                $extensions[$extension] = $extension;
+            }
+        }
+
+        return $extensions;
     }
 
     /**
