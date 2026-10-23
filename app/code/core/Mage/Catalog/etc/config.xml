@@ -821,7 +821,10 @@
             <custom_options>
                 <date_fields_order>m,d,y</date_fields_order>
                 <time_format>12h</time_format>
-                <forbidden_extensions>exe</forbidden_extensions>
+                <!-- Files are stored under media/custom_options, which is web-served wherever the web
+                     server does not apply media/custom_options/.htaccess. Besides executables, refuse
+                     types a browser renders as an active document in the store origin. -->
+                <forbidden_extensions>exe,svg,svgz,xhtml,xht,xml,xsl,xslt</forbidden_extensions>
             </custom_options>
             <layered_navigation>
                 <price_range_calculation>auto</price_range_calculation>
