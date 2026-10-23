@@ -132,11 +132,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/File/Uploader.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in ||, bool|string given on the right side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, string|false given on the right side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Resource.php',

@@ -88,6 +88,54 @@ final class LayoutTest extends OpenMageTest
     }
 
     /**
+     * @covers Mage_Core_Model_Layout::_getBlockInstance()
+     * @group Model
+     */
+    public function testCreateBlockByClassName(): void
+    {
+        self::assertInstanceOf(Mage_Core_Block_Text::class, self::$subject->createBlock(Mage_Core_Block_Text::class));
+    }
+
+    /**
+     * @covers Mage_Core_Model_Layout::_getBlockInstance()
+     * @group Model
+     */
+    public function testCreateBlockWithMissingClassReturnsFalse(): void
+    {
+        self::assertFalse(self::$subject->createBlock('OpenMageLayoutTest_Missing_Block'));
+        self::assertFalse(self::$subject->createBlock('invalid/type'));
+    }
+
+    /**
+     * A block class outside the include path (e.g. loaded by Composer) can be created as well
+     *
+     * @covers Mage_Core_Model_Layout::_getBlockInstance()
+     * @group Model
+     */
+    public function testCreateBlockLoadedByAnotherAutoloader(): void
+    {
+        $file = sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid('openmage_layout_', true) . '.php';
+        file_put_contents($file, "<?php\n\nclass OpenMageLayoutTest_Autoloaded_Block extends Mage_Core_Block_Text\n{\n}\n");
+
+        $autoloader = static function (string $class) use ($file): void {
+            if ($class === 'OpenMageLayoutTest_Autoloaded_Block') {
+                require_once $file;
+            }
+        };
+        spl_autoload_register($autoloader);
+
+        try {
+            $block = self::$subject->createBlock('OpenMageLayoutTest_Autoloaded_Block');
+        } finally {
+            spl_autoload_unregister($autoloader);
+            unlink($file);
+        }
+
+        self::assertInstanceOf(Mage_Core_Block_Text::class, $block);
+        self::assertTrue(class_exists('OpenMageLayoutTest_Autoloaded_Block', false));
+    }
+
+    /**
      * Regression test for https://github.com/OpenMage/magento-lts/pull/5670
      *
      * On PHP 8+, call_user_func_array() treats a string-keyed array as named arguments.
