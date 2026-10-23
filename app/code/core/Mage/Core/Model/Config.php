@@ -274,9 +274,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getResourceModel()
     {
-        if (is_null($this->_resourceModel)) {
-            $this->_resourceModel = Mage::getResourceModel('core/config');
-        }
+        $this->_resourceModel ??= Mage::getResourceModel('core/config');
 
         return $this->_resourceModel;
     }
@@ -1105,9 +1103,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $mergeToObject->loadString('<config/>');
         }
 
-        if ($mergeModel === null) {
-            $mergeModel = clone $this->_prototype;
-        }
+        $mergeModel ??= clone $this->_prototype;
 
         $modules = $this->getNode('modules')->children();
         foreach ($modules as $modName => $module) {
@@ -1730,9 +1726,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getEventConfig($area, $eventName)
     {
         //return $this->getNode($area)->events->{$eventName};
-        if (!isset($this->_eventAreas[$area])) {
-            $this->_eventAreas[$area] = $this->getNode($area)->events;
-        }
+        $this->_eventAreas[$area] ??= $this->getNode($area)->events;
 
         return $this->_eventAreas[$area]->{$eventName};
     }

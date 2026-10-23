@@ -231,9 +231,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
      */
     public function getAttribute($code)
     {
-        if (!isset($this->_attributes[$code])) {
-            $this->_attributes[$code] = $this->getProductModel()->getResource()->getAttribute($code);
-        }
+        $this->_attributes[$code] ??= $this->getProductModel()->getResource()->getAttribute($code);
 
         if ($this->_attributes[$code] instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
             $applyTo = $this->_attributes[$code]->getApplyTo();
@@ -271,9 +269,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     public function setProductTypeInstance(Mage_Catalog_Model_Product $product)
     {
         $type = $product->getTypeId();
-        if (!isset($this->_productTypeInstances[$type])) {
-            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')::factory($product, true);
-        }
+        $this->_productTypeInstances[$type] ??= Mage::getSingleton('catalog/product_type')::factory($product, true);
 
         $product->setTypeInstance($this->_productTypeInstances[$type], true);
         return $this;

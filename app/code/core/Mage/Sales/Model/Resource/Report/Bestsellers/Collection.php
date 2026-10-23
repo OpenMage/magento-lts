@@ -297,7 +297,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
             $this->_applyProductTypeFilter($this->getSelect());
 
             // add unions to select
-            if ($selectUnions) {
+            if ($selectUnions !== []) {
                 $unionParts = [];
                 $cloneSelect = clone $this->getSelect();
                 /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */

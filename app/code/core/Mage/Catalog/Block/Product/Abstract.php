@@ -353,9 +353,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getTierPriceHtml($product = null, $parent = null)
     {
-        if (is_null($product)) {
-            $product = $this->getProduct();
-        }
+        $product ??= $this->getProduct();
 
         return $this->_getPriceBlock($product->getTypeId())
             ->setTemplate($this->getTierPriceTemplate())
@@ -387,9 +385,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getTierPrices($product = null)
     {
-        if (is_null($product)) {
-            $product = $this->getProduct();
-        }
+        $product ??= $this->getProduct();
 
         $prices = $product->getFormatedTierPrice();
 
@@ -469,9 +465,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getImageLabel($product = null, $mediaAttributeCode = 'image')
     {
-        if (is_null($product)) {
-            $product = $this->getProduct();
-        }
+        $product ??= $this->getProduct();
 
         $label = $product->getData($mediaAttributeCode . '_label');
         if (empty($label)) {
@@ -491,9 +485,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     public function getProductUrl($product, $additional = [])
     {
         if ($this->hasProductUrl($product)) {
-            if (!isset($additional['_escape'])) {
-                $additional['_escape'] = true;
-            }
+            $additional['_escape'] ??= true;
 
             return $product->getUrlModel()->getUrl($product, $additional);
         }
@@ -696,13 +688,9 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             );
         }
 
-        if (!isset($additional['_escape'])) {
-            $additional['_escape'] = true;
-        }
+        $additional['_escape'] ??= true;
 
-        if (!isset($additional['_query'])) {
-            $additional['_query'] = [];
-        }
+        $additional['_query'] ??= [];
 
         $additional['_query']['options'] = 'cart';
         return $this->getProductUrl($product, $additional);
