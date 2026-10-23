@@ -23,25 +23,32 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
     }
 
     /**
-     * Increment times_used counter with a single conditional statement
+     * Increment or decrement the times_used counter of a customer with atomic statements
      *
      * The counter is read, checked and written by the database itself, so that concurrent
-     * order placements cannot all pass the per customer usage limit check with the same
-     * stale value. The composite primary key of the table lets only one of two concurrent
-     * first uses insert a row, the loser falls back to the conditional update.
+     * order placements cannot all pass the per customer usage limit check with the same stale
+     * value. The primary key (coupon_id, customer_id) arbitrates concurrent first uses through
+     * INSERT ... ON DUPLICATE KEY UPDATE, which only takes a record lock on an existing row.
+     * A locking read or an UPDATE of a row that does not exist yet is avoided on purpose: it
+     * would lock the gap between existing rows, which unrelated first uses insert into, and
+     * make concurrent orders of different customers and coupons deadlock.
      *
      * @param  int      $customerId
      * @param  int      $couponId
-     * @param  bool     $decrement  Decrement instead of increment times_used
+     * @param  bool     $decrement  Decrement instead of increment times_used, never below 0
      * @param  null|int $usageLimit Do not increment once the counter reached this limit
      * @return bool     Whether the counter was updated
      */
     public function updateCustomerCouponTimesUsed($customerId, $couponId, $decrement = false, $usageLimit = null)
     {
         $write = $this->_getWriteAdapter();
+        $key = [
+            'coupon_id' => (int) $couponId,
+            'customer_id' => (int) $customerId,
+        ];
         $where = [
-            'coupon_id = ?' => (int) $couponId,
-            'customer_id = ?' => (int) $customerId,
+            'coupon_id = ?' => $key['coupon_id'],
+            'customer_id = ?' => $key['customer_id'],
         ];
 
         if ($decrement) {
@@ -54,32 +61,23 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
             ) > 0;
         }
 
-        if ($usageLimit) {
-            $where['times_used < ?'] = (int) $usageLimit;
-        }
-
-        if ($write->update($this->getMainTable(), ['times_used' => new Zend_Db_Expr('times_used + 1')], $where) > 0) {
-            return true;
-        }
-
-        /**
-         * Nothing was updated, so either there is no row for this customer yet or the limit
-         * was reached, let the primary key decide which of the two it is
-         */
-        try {
-            $write->insert(
+        if ((int) $usageLimit <= 0) {
+            $write->insertOnDuplicate(
                 $this->getMainTable(),
-                [
-                    'coupon_id' => (int) $couponId,
-                    'customer_id' => (int) $customerId,
-                    'times_used' => 1,
-                ],
+                $key + ['times_used' => 1],
+                ['times_used' => new Zend_Db_Expr('times_used + 1')],
             );
 
             return true;
-        } catch (Exception) {
-            // a concurrent request inserted the row first, retry the conditional update
         }
+
+        // make sure the row exists, then increment it only while it is below the limit
+        $write->insertOnDuplicate(
+            $this->getMainTable(),
+            $key + ['times_used' => 0],
+            ['times_used' => new Zend_Db_Expr('times_used')],
+        );
+        $where['times_used < ?'] = (int) $usageLimit;
 
         return $write->update(
             $this->getMainTable(),

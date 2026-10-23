@@ -1,5 +1,6 @@
 "%d Shopping Cart Price Rules based on ""%s"" attribute have been disabled.","%d Shopping Cart Price Rules based on ""%s"" attribute have been disabled."
 "%s Coupon(s) have been generated","%s Coupon(s) have been generated"
+"A discount applied to this order has already been used the maximum number of times by this customer.","A discount applied to this order has already been used the maximum number of times by this customer."
 "Actions","Actions"
 "Active","Active"
 "Add New Rule","Add New Rule"

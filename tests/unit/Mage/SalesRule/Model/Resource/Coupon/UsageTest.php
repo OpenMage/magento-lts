@@ -11,130 +11,116 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Resource\Coupon;
 
-use Exception;
+use Mage;
 use Mage_SalesRule_Model_Resource_Coupon_Usage as Subject;
+use Magento_Db_Adapter_Pdo_Mysql;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Override;
-use Zend_Db_Expr;
+use PHPUnit\Framework\MockObject\MockObject;
+use ReflectionProperty;
 
 final class UsageTest extends OpenMageTest
 {
-    /**
-     * @var object records every write instead of talking to a database
-     */
-    private object $adapter;
+    private Magento_Db_Adapter_Pdo_Mysql&MockObject $adapter;
 
     private Subject $subject;
+
+    /**
+     * @var list<array{string, mixed}> every write, in order
+     */
+    private array $calls = [];
 
     #[Override]
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->adapter = new class {
-            public array $calls = [];
+        $this->calls = [];
+        $this->adapter = $this->createMock(Magento_Db_Adapter_Pdo_Mysql::class);
+        $this->adapter->method('insertOnDuplicate')->willReturnCallback(function (string $table, array $data, array $fields): int {
+            $this->calls[] = ['insertOnDuplicate', ['table' => $table, 'data' => $data, 'fields' => array_map(strval(...), $fields)]];
+            return 1;
+        });
 
-            public int $affectedRows = 1;
-
-            public bool $insertFails = false;
-
-            public function update($table, $bind, $where = '')
-            {
-                $this->calls[] = ['op' => 'update', 'bind' => $bind, 'where' => $where];
-                return $this->affectedRows;
-            }
-
-            public function insert($table, $bind)
-            {
-                $this->calls[] = ['op' => 'insert', 'bind' => $bind];
-                if ($this->insertFails) {
-                    throw new Exception('Duplicate entry');
-                }
-
-                return 1;
-            }
-        };
-
-        $this->subject = new class ($this->adapter) extends Subject {
-            private object $adapter;
-
-            public function __construct(object $adapter)
-            {
-                $this->adapter = $adapter;
-                parent::__construct();
-            }
-
-            #[Override]
-            protected function _getWriteAdapter()
-            {
-                return $this->adapter;
-            }
-
-            /**
-             * Resolving the real table name needs a database connection
-             */
-            #[Override]
-            public function getMainTable()
-            {
-                return 'salesrule_coupon_usage';
-            }
-        };
+        $subject = Mage::getResourceModel('salesrule/coupon_usage');
+        self::assertInstanceOf(Subject::class, $subject);
+        $this->subject = $subject;
+        (new ReflectionProperty($this->subject, '_connections'))->setValue($this->subject, ['read' => $this->adapter, 'write' => $this->adapter]);
+        // resolving the real table name needs a database connection
+        (new ReflectionProperty($this->subject, '_tables'))->setValue($this->subject, ['coupon_usage' => 'salesrule_coupon_usage']);
     }
 
-    public function testIncrementGuardsTheUsageLimitInTheStatement(): void
+    public function testIncrementWithoutLimitIsASingleUpsert(): void
     {
-        self::assertTrue($this->subject->updateCustomerCouponTimesUsed(7, 12, false, 2));
+        $this->adapter->expects(self::never())->method('update');
 
-        self::assertCount(1, $this->adapter->calls);
-        $update = $this->adapter->calls[0];
+        self::assertTrue($this->subject->updateCustomerCouponTimesUsed(7, 12));
 
-        self::assertSame('update', $update['op']);
-        self::assertInstanceOf(Zend_Db_Expr::class, $update['bind']['times_used']);
-        self::assertSame('times_used + 1', (string) $update['bind']['times_used']);
-        self::assertSame(12, $update['where']['coupon_id = ?']);
-        self::assertSame(7, $update['where']['customer_id = ?']);
-        self::assertSame(2, $update['where']['times_used < ?']);
-    }
-
-    public function testIncrementInsertsTheFirstUse(): void
-    {
-        $this->adapter->affectedRows = 0;
-
-        self::assertTrue($this->subject->updateCustomerCouponTimesUsed(7, 12, false, 2));
-
-        self::assertSame(['update', 'insert'], array_column($this->adapter->calls, 'op'));
         self::assertSame(
-            ['coupon_id' => 12, 'customer_id' => 7, 'times_used' => 1],
-            $this->adapter->calls[1]['bind'],
+            [['insertOnDuplicate', [
+                'table' => 'salesrule_coupon_usage',
+                'data' => ['coupon_id' => 12, 'customer_id' => 7, 'times_used' => 1],
+                'fields' => ['times_used' => 'times_used + 1'],
+            ]]],
+            $this->calls,
+        );
+    }
+
+    public function testIncrementWithLimitCreatesTheRowBeforeTheConditionalUpdate(): void
+    {
+        $this->expectUpdate(1);
+
+        self::assertTrue($this->subject->updateCustomerCouponTimesUsed(7, 12, false, 2));
+
+        // never an UPDATE of a row that may not exist yet: under REPEATABLE READ it locks the gap
+        self::assertSame(['insertOnDuplicate', 'update'], array_column($this->calls, 0));
+        self::assertSame(
+            [
+                'table' => 'salesrule_coupon_usage',
+                'data' => ['coupon_id' => 12, 'customer_id' => 7, 'times_used' => 0],
+                'fields' => ['times_used' => 'times_used'],
+            ],
+            $this->calls[0][1],
+        );
+        self::assertSame(
+            [
+                'bind' => ['times_used' => 'times_used + 1'],
+                'where' => ['coupon_id = ?' => 12, 'customer_id = ?' => 7, 'times_used < ?' => 2],
+            ],
+            $this->calls[1][1],
         );
     }
 
     public function testIncrementReportsFailureWhenTheLimitIsReached(): void
     {
-        $this->adapter->affectedRows = 0;
-        $this->adapter->insertFails = true;
+        $this->expectUpdate(0);
 
         self::assertFalse($this->subject->updateCustomerCouponTimesUsed(7, 12, false, 2));
-
-        // the losing request of a concurrent first use retries the conditional update
-        self::assertSame(['update', 'insert', 'update'], array_column($this->adapter->calls, 'op'));
-    }
-
-    public function testIncrementIsUnconditionalWithoutUsageLimit(): void
-    {
-        self::assertTrue($this->subject->updateCustomerCouponTimesUsed(7, 12));
-
-        self::assertArrayNotHasKey('times_used < ?', $this->adapter->calls[0]['where']);
     }
 
     public function testDecrementNeverGoesBelowZero(): void
     {
+        $this->expectUpdate(1);
+
         self::assertTrue($this->subject->updateCustomerCouponTimesUsed(7, 12, true));
 
-        self::assertCount(1, $this->adapter->calls);
-        $update = $this->adapter->calls[0];
+        self::assertSame(
+            [['update', [
+                'bind' => ['times_used' => 'times_used - 1'],
+                'where' => ['coupon_id = ?' => 12, 'customer_id = ?' => 7, 'times_used > ?' => 0],
+            ]]],
+            $this->calls,
+        );
+    }
 
-        self::assertSame('times_used - 1', (string) $update['bind']['times_used']);
-        self::assertSame(0, $update['where']['times_used > ?']);
+    private function expectUpdate(int $affectedRows): void
+    {
+        $this->adapter->expects(self::once())->method('update')->willReturnCallback(
+            function (string $table, array $bind, array $where) use ($affectedRows): int {
+                self::assertSame('salesrule_coupon_usage', $table);
+                $this->calls[] = ['update', ['bind' => array_map(strval(...), $bind), 'where' => $where]];
+                return $affectedRows;
+            },
+        );
     }
 }
