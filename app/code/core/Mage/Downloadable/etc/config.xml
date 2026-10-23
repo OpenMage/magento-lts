@@ -372,7 +372,7 @@
                 <links_target_new_window>1</links_target_new_window>
                 <content_disposition>attachment</content_disposition>
                 <disable_guest_checkout>1</disable_guest_checkout>
-                <link_url_allow_private_network>0</link_url_allow_private_network>
+                <link_url_allow_private_network>1</link_url_allow_private_network>
                 <link_url_allowed_prefixes></link_url_allowed_prefixes>
             </downloadable>
         </catalog>
