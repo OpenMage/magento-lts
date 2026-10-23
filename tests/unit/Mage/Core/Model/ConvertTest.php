@@ -53,12 +53,14 @@ final class ConvertTest extends OpenMageTest
     {
         $xml = '<convert version="1.0"><container name="x" type="' . ConvertTestConstructorProbe::class . '"/></convert>';
 
+        $refusal = null;
         try {
             $this->getSubject()->importXml($xml);
-            self::fail('Expected the container to be refused');
-        } catch (Mage_Core_Exception) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $refusal = $mageCoreException;
         }
 
+        self::assertInstanceOf(Mage_Core_Exception::class, $refusal, 'Expected the container to be refused');
         self::assertFalse(ConvertTestConstructorProbe::$constructed);
     }
 
@@ -112,15 +114,5 @@ final class ConvertTest extends OpenMageTest
     private function getSubject(): Subject
     {
         return Mage::getModel('core/convert');
-    }
-}
-
-final class ConvertTestConstructorProbe
-{
-    public static bool $constructed = false;
-
-    public function __construct()
-    {
-        self::$constructed = true;
     }
 }

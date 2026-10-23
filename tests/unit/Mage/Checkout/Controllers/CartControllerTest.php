@@ -23,8 +23,6 @@ final class CartControllerTest extends OpenMageTest
 {
     /**
      * @group Controller
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      * @throws Mage_Core_Exception
      */
     public function testEstimatePostSanitizesInvalidCountryIdErrorMessage(): void
@@ -55,7 +53,7 @@ final class CartControllerTest extends OpenMageTest
 
         self::assertStringNotContainsString(
             '<script',
-            $html,
+            (string) $html,
             'XSS payload in country_id was rendered unescaped in message output',
         );
     }
