@@ -58,6 +58,7 @@
         <system>
             <dataflow_url_fetch>
                 <allowed_url_prefixes></allowed_url_prefixes>
+                <allow_private_network>1</allow_private_network>
             </dataflow_url_fetch>
         </system>
     </default>
