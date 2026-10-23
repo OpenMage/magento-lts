@@ -696,6 +696,7 @@ class Mage_Oauth_Model_Server
         } else {
             $this->_fetchProtocolParamsFromQuery();
         }
+
         $this->_initToken();
 
         return $this->_token;

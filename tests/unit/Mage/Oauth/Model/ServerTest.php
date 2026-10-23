@@ -141,7 +141,6 @@ final class ServerTest extends OpenMageTest
     private function getProtocolParams(Subject $server): array
     {
         $property = new ReflectionProperty(Subject::class, '_protocolParams');
-        $property->setAccessible(true);
 
         return $property->getValue($server);
     }

@@ -26,14 +26,18 @@ final class CouponTest extends OpenMageTest
 
     private Subject $subject;
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->adapter = new class extends Varien_Db_Adapter_Pdo_Mysql {
+            /**
+             * @var array<mixed, array<string, mixed>>
+             */
             public array $updates = [];
 
+            /**
+             * @var string[]
+             */
             public array $queries = [];
 
             public int $affectedRows = 1;
@@ -65,9 +69,8 @@ final class CouponTest extends OpenMageTest
                 return $this->fetched;
             }
         };
-
         $this->subject = new class ($this->adapter) extends Subject {
-            private Varien_Db_Adapter_Pdo_Mysql $adapter;
+            private readonly Varien_Db_Adapter_Pdo_Mysql $adapter;
 
             public function __construct(Varien_Db_Adapter_Pdo_Mysql $adapter)
             {

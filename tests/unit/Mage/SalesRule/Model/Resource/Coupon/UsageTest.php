@@ -28,12 +28,13 @@ final class UsageTest extends OpenMageTest
 
     private Subject $subject;
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->adapter = new class {
+            /**
+             * @var array<mixed, array<string, mixed>>
+             */
             public array $calls = [];
 
             public int $affectedRows = 1;
@@ -49,16 +50,15 @@ final class UsageTest extends OpenMageTest
             public function insert($table, $bind)
             {
                 $this->calls[] = ['op' => 'insert', 'bind' => $bind];
-                if ($this->insertFails) {
+                if ($this->insertFails instanceof Throwable) {
                     throw $this->insertFails;
                 }
 
                 return 1;
             }
         };
-
         $this->subject = new class ($this->adapter) extends Subject {
-            private object $adapter;
+            private readonly object $adapter;
 
             public function __construct(object $adapter)
             {
@@ -144,6 +144,7 @@ final class UsageTest extends OpenMageTest
     {
         $previous = new PDOException('SQLSTATE[HY000]: General error: 1205 Lock wait timeout exceeded');
         $previous->errorInfo = ['HY000', 1205, 'Lock wait timeout exceeded'];
+
         $exception = new Zend_Db_Statement_Exception($previous->getMessage(), 0, $previous);
 
         $this->adapter->affectedRows = 0;
@@ -152,8 +153,8 @@ final class UsageTest extends OpenMageTest
         try {
             $this->subject->updateCustomerCouponTimesUsed(7, 12, false, 2);
             self::fail('The insert error was swallowed');
-        } catch (Zend_Db_Statement_Exception $caught) {
-            self::assertSame($exception, $caught);
+        } catch (Zend_Db_Statement_Exception $zendDbStatementException) {
+            self::assertSame($exception, $zendDbStatementException);
         }
 
         // no retry of the conditional update after an unrelated error

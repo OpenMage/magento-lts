@@ -29,12 +29,13 @@ final class CustomerTest extends OpenMageTest
 
     private Subject $subject;
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->adapter = new class extends Varien_Db_Adapter_Pdo_Mysql {
+            /**
+             * @var string[]
+             */
             public array $queries = [];
 
             public array|false $row = false;
@@ -57,9 +58,8 @@ final class CustomerTest extends OpenMageTest
                 return $this->row;
             }
         };
-
         $this->subject = new class ($this->adapter) extends Subject {
-            private Varien_Db_Adapter_Pdo_Mysql $adapter;
+            private readonly Varien_Db_Adapter_Pdo_Mysql $adapter;
 
             public function __construct(Varien_Db_Adapter_Pdo_Mysql $adapter)
             {

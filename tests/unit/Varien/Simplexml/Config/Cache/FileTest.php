@@ -12,14 +12,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Varien\Simplexml\Config\Cache;
 
 use OpenMage\Tests\Unit\OpenMageTest;
-use Override;
 use Varien_Simplexml_Config_Cache_File as Subject;
 
 final class FileTest extends OpenMageTest
 {
     private string $dir;
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -27,7 +25,6 @@ final class FileTest extends OpenMageTest
         mkdir($this->dir);
     }
 
-    #[Override]
     protected function tearDown(): void
     {
         array_map(unlink(...), glob($this->dir . DS . '*') ?: []);

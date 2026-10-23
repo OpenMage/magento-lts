@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
 
+use Iterator;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Downloadable_Helper_Download as Subject;
@@ -25,7 +26,6 @@ final class DownloadTest extends OpenMageTest
 
     private string $originalAllowPrivateNetwork;
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -48,7 +48,7 @@ final class DownloadTest extends OpenMageTest
                 return $this->_getHandle();
             }
 
-            #[\Override]
+            #[Override]
             protected function _resolveHost($host)
             {
                 $host = trim($host, '[]');
@@ -59,7 +59,7 @@ final class DownloadTest extends OpenMageTest
                 return $this->dns[$host] ?? [];
             }
 
-            #[\Override]
+            #[Override]
             protected function _reportBlockedUrl(array $urlProp, string $address, string $addressClass): void
             {
                 $this->reports[] = [$this->_getUrlOrigin($urlProp), $address, $addressClass];
@@ -96,7 +96,6 @@ final class DownloadTest extends OpenMageTest
         $this->setAllowPrivateNetwork(false);
     }
 
-    #[Override]
     protected function tearDown(): void
     {
         $this->setAllowedPrefixes($this->originalAllowedPrefixes);
@@ -285,8 +284,8 @@ final class DownloadTest extends OpenMageTest
         try {
             $this->subject->getHandleWrapper();
             self::fail('Expected the download to be refused');
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame('Invalid download URL host.', $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame('Invalid download URL host.', $mageCoreException->getMessage());
         }
 
         self::assertSame([['http://metadata.example', '169.254.169.254', Subject::ADDRESS_RESTRICTED]], $this->subject->reports);
@@ -299,101 +298,91 @@ final class DownloadTest extends OpenMageTest
         try {
             $this->subject->getHandleWrapper();
             self::fail('Expected the download to fail');
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame('Cannot resolve the download URL host.', $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame('Cannot resolve the download URL host.', $mageCoreException->getMessage());
         }
 
         self::assertSame([], $this->subject->reports);
     }
 
-    public static function provideAddressClasses(): array
+    public static function provideAddressClasses(): Iterator
     {
-        return [
-            'public ipv4' => ['93.184.216.34', Subject::ADDRESS_PUBLIC],
-            'public ipv6' => ['2606:2800:220:1:248:1893:25c8:1946', Subject::ADDRESS_PUBLIC],
-            'rfc1918 10/8' => ['10.0.0.5', Subject::ADDRESS_PRIVATE],
-            'rfc1918 172.16/12' => ['172.31.255.255', Subject::ADDRESS_PRIVATE],
-            'outside 172.16/12' => ['172.32.0.1', Subject::ADDRESS_PUBLIC],
-            'rfc1918 192.168/16' => ['192.168.1.10', Subject::ADDRESS_PRIVATE],
-            'carrier-grade nat' => ['100.64.0.1', Subject::ADDRESS_PRIVATE],
-            'unique local ipv6' => ['fd12:3456::1', Subject::ADDRESS_PRIVATE],
-            'loopback' => ['127.0.0.1', Subject::ADDRESS_RESTRICTED],
-            'loopback high' => ['127.255.255.254', Subject::ADDRESS_RESTRICTED],
-            'unspecified' => ['0.0.0.0', Subject::ADDRESS_RESTRICTED],
-            'this network' => ['0.1.2.3', Subject::ADDRESS_RESTRICTED],
-            'link local, cloud metadata' => ['169.254.169.254', Subject::ADDRESS_RESTRICTED],
-            'alibaba cloud metadata' => ['100.100.100.200', Subject::ADDRESS_RESTRICTED],
-            'ietf protocol assignments' => ['192.0.0.192', Subject::ADDRESS_RESTRICTED],
-            'benchmarking' => ['198.18.0.1', Subject::ADDRESS_RESTRICTED],
-            'multicast' => ['224.0.0.1', Subject::ADDRESS_RESTRICTED],
-            'broadcast' => ['255.255.255.255', Subject::ADDRESS_RESTRICTED],
-            'ipv6 loopback' => ['::1', Subject::ADDRESS_RESTRICTED],
-            'ipv6 unspecified' => ['::', Subject::ADDRESS_RESTRICTED],
-            'ipv6 link local' => ['fe80::1', Subject::ADDRESS_RESTRICTED],
-            'ipv6 multicast' => ['ff02::1', Subject::ADDRESS_RESTRICTED],
-            'aws ipv6 metadata' => ['fd00:ec2::254', Subject::ADDRESS_RESTRICTED],
-            'teredo' => ['2001:0:4136:e378:8000:63bf:3fff:fdd2', Subject::ADDRESS_RESTRICTED],
-            'ipv4-mapped loopback' => ['::ffff:127.0.0.1', Subject::ADDRESS_RESTRICTED],
-            'ipv4-mapped metadata' => ['::ffff:a9fe:a9fe', Subject::ADDRESS_RESTRICTED],
-            'ipv4-mapped private' => ['::ffff:10.0.0.1', Subject::ADDRESS_PRIVATE],
-            'ipv4-mapped public' => ['::ffff:93.184.216.34', Subject::ADDRESS_PUBLIC],
-            'ipv4-compatible loopback' => ['::127.0.0.1', Subject::ADDRESS_RESTRICTED],
-            'ipv4-compatible low' => ['::5', Subject::ADDRESS_RESTRICTED],
-            'nat64 metadata' => ['64:ff9b::a9fe:a9fe', Subject::ADDRESS_RESTRICTED],
-            'nat64 public' => ['64:ff9b::5db8:d822', Subject::ADDRESS_PUBLIC],
-            '6to4 metadata' => ['2002:a9fe:a9fe::1', Subject::ADDRESS_RESTRICTED],
-            '6to4 private' => ['2002:0a00:0001::1', Subject::ADDRESS_PRIVATE],
-            'bracketed ipv6' => ['[::1]', Subject::ADDRESS_RESTRICTED],
-            'not an address' => ['localhost', Subject::ADDRESS_RESTRICTED],
-            'empty' => ['', Subject::ADDRESS_RESTRICTED],
-        ];
+        yield 'public ipv4' => ['93.184.216.34', Subject::ADDRESS_PUBLIC];
+        yield 'public ipv6' => ['2606:2800:220:1:248:1893:25c8:1946', Subject::ADDRESS_PUBLIC];
+        yield 'rfc1918 10/8' => ['10.0.0.5', Subject::ADDRESS_PRIVATE];
+        yield 'rfc1918 172.16/12' => ['172.31.255.255', Subject::ADDRESS_PRIVATE];
+        yield 'outside 172.16/12' => ['172.32.0.1', Subject::ADDRESS_PUBLIC];
+        yield 'rfc1918 192.168/16' => ['192.168.1.10', Subject::ADDRESS_PRIVATE];
+        yield 'carrier-grade nat' => ['100.64.0.1', Subject::ADDRESS_PRIVATE];
+        yield 'unique local ipv6' => ['fd12:3456::1', Subject::ADDRESS_PRIVATE];
+        yield 'loopback' => ['127.0.0.1', Subject::ADDRESS_RESTRICTED];
+        yield 'loopback high' => ['127.255.255.254', Subject::ADDRESS_RESTRICTED];
+        yield 'unspecified' => ['0.0.0.0', Subject::ADDRESS_RESTRICTED];
+        yield 'this network' => ['0.1.2.3', Subject::ADDRESS_RESTRICTED];
+        yield 'link local, cloud metadata' => ['169.254.169.254', Subject::ADDRESS_RESTRICTED];
+        yield 'alibaba cloud metadata' => ['100.100.100.200', Subject::ADDRESS_RESTRICTED];
+        yield 'ietf protocol assignments' => ['192.0.0.192', Subject::ADDRESS_RESTRICTED];
+        yield 'benchmarking' => ['198.18.0.1', Subject::ADDRESS_RESTRICTED];
+        yield 'multicast' => ['224.0.0.1', Subject::ADDRESS_RESTRICTED];
+        yield 'broadcast' => ['255.255.255.255', Subject::ADDRESS_RESTRICTED];
+        yield 'ipv6 loopback' => ['::1', Subject::ADDRESS_RESTRICTED];
+        yield 'ipv6 unspecified' => ['::', Subject::ADDRESS_RESTRICTED];
+        yield 'ipv6 link local' => ['fe80::1', Subject::ADDRESS_RESTRICTED];
+        yield 'ipv6 multicast' => ['ff02::1', Subject::ADDRESS_RESTRICTED];
+        yield 'aws ipv6 metadata' => ['fd00:ec2::254', Subject::ADDRESS_RESTRICTED];
+        yield 'teredo' => ['2001:0:4136:e378:8000:63bf:3fff:fdd2', Subject::ADDRESS_RESTRICTED];
+        yield 'ipv4-mapped loopback' => ['::ffff:127.0.0.1', Subject::ADDRESS_RESTRICTED];
+        yield 'ipv4-mapped metadata' => ['::ffff:a9fe:a9fe', Subject::ADDRESS_RESTRICTED];
+        yield 'ipv4-mapped private' => ['::ffff:10.0.0.1', Subject::ADDRESS_PRIVATE];
+        yield 'ipv4-mapped public' => ['::ffff:93.184.216.34', Subject::ADDRESS_PUBLIC];
+        yield 'ipv4-compatible loopback' => ['::127.0.0.1', Subject::ADDRESS_RESTRICTED];
+        yield 'ipv4-compatible low' => ['::5', Subject::ADDRESS_RESTRICTED];
+        yield 'nat64 metadata' => ['64:ff9b::a9fe:a9fe', Subject::ADDRESS_RESTRICTED];
+        yield 'nat64 public' => ['64:ff9b::5db8:d822', Subject::ADDRESS_PUBLIC];
+        yield '6to4 metadata' => ['2002:a9fe:a9fe::1', Subject::ADDRESS_RESTRICTED];
+        yield '6to4 private' => ['2002:0a00:0001::1', Subject::ADDRESS_PRIVATE];
+        yield 'bracketed ipv6' => ['[::1]', Subject::ADDRESS_RESTRICTED];
+        yield 'not an address' => ['localhost', Subject::ADDRESS_RESTRICTED];
+        yield 'empty' => ['', Subject::ADDRESS_RESTRICTED];
     }
 
-    public static function provideRestrictedHosts(): array
+    public static function provideRestrictedHosts(): Iterator
     {
-        return [
-            'loopback' => ['127.0.0.1'],
-            'link local, cloud metadata' => ['169.254.169.254'],
-            'alibaba cloud metadata' => ['100.100.100.200'],
-            'aws ipv6 metadata' => ['[fd00:ec2::254]'],
-            'ipv4-mapped metadata' => ['[::ffff:169.254.169.254]'],
-        ];
+        yield 'loopback' => ['127.0.0.1'];
+        yield 'link local, cloud metadata' => ['169.254.169.254'];
+        yield 'alibaba cloud metadata' => ['100.100.100.200'];
+        yield 'aws ipv6 metadata' => ['[fd00:ec2::254]'];
+        yield 'ipv4-mapped metadata' => ['[::ffff:169.254.169.254]'];
     }
 
-    public static function provideUrlsNotCoveredByPrefix(): array
+    public static function provideUrlsNotCoveredByPrefix(): Iterator
     {
-        return [
-            'longer host' => ['http://files.example.lan.attacker.test/a.zip'],
-            'userinfo' => ['http://files.example.lan@169.254.169.254/latest/meta-data/'],
-            'userinfo with password' => ['http://files.example.lan:x@127.0.0.1/'],
-            'other port' => ['http://files.example.lan:8080/a.zip'],
-            'other scheme' => ['https://files.example.lan/a.zip'],
-        ];
+        yield 'longer host' => ['http://files.example.lan.attacker.test/a.zip'];
+        yield 'userinfo' => ['http://files.example.lan@169.254.169.254/latest/meta-data/'];
+        yield 'userinfo with password' => ['http://files.example.lan:x@127.0.0.1/'];
+        yield 'other port' => ['http://files.example.lan:8080/a.zip'];
+        yield 'other scheme' => ['https://files.example.lan/a.zip'];
     }
 
-    public static function provideInvalidSchemes(): array
+    public static function provideInvalidSchemes(): Iterator
     {
-        return [
-            'file' => ['file:///etc/passwd'],
-            'ftp' => ['ftp://example.com/file.zip'],
-            'gopher' => ['gopher://127.0.0.1:11211/_stats'],
-            'php' => ['php://filter/read=convert.base64-encode/resource=app/etc/local.xml'],
-            'data' => ['data://text/plain;base64,SGVsbG8='],
-        ];
+        yield 'file' => ['file:///etc/passwd'];
+        yield 'ftp' => ['ftp://example.com/file.zip'];
+        yield 'gopher' => ['gopher://127.0.0.1:11211/_stats'];
+        yield 'php' => ['php://filter/read=convert.base64-encode/resource=app/etc/local.xml'];
+        yield 'data' => ['data://text/plain;base64,SGVsbG8='];
     }
 
-    public static function provideNonPublicHosts(): array
+    public static function provideNonPublicHosts(): Iterator
     {
-        return [
-            'loopback' => ['127.0.0.1'],
-            'loopback ipv6' => ['[::1]'],
-            'unspecified' => ['0.0.0.0'],
-            'link local, cloud metadata' => ['169.254.169.254'],
-            'rfc1918 class a' => ['10.0.0.5'],
-            'rfc1918 class b' => ['172.16.0.5'],
-            'rfc1918 class c' => ['192.168.1.10'],
-            'unique local ipv6' => ['[fd00::1]'],
-        ];
+        yield 'loopback' => ['127.0.0.1'];
+        yield 'loopback ipv6' => ['[::1]'];
+        yield 'unspecified' => ['0.0.0.0'];
+        yield 'link local, cloud metadata' => ['169.254.169.254'];
+        yield 'rfc1918 class a' => ['10.0.0.5'];
+        yield 'rfc1918 class b' => ['172.16.0.5'];
+        yield 'rfc1918 class c' => ['192.168.1.10'];
+        yield 'unique local ipv6' => ['[fd00::1]'];
     }
 
     private function setAllowedPrefixes(string $value): void

@@ -757,7 +757,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             }
 
             if ($segment === '..') {
-                if (!$resolved) {
+                if ($resolved === []) {
                     return false;
                 }
 

@@ -74,7 +74,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Http_Curl extends Mage_Dataflow_Model_
     protected function _isAllowedByPrefix(string $uri): bool
     {
         $allowedPrefixes = $this->_getAllowedUrlPrefixes();
-        if (!$allowedPrefixes) {
+        if ($allowedPrefixes === []) {
             return true;
         }
 
@@ -143,7 +143,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Http_Curl extends Mage_Dataflow_Model_
         }
 
         return array_values(array_filter(array_map(
-            'trim',
+            trim(...),
             preg_split('/[\r\n,]+/', $allowedPrefixes),
         )));
     }

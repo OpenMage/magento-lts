@@ -71,7 +71,7 @@ class Mage_Downloadable_Model_Link_UrlAudit
         $helper = $this->_getDownloadHelper();
 
         $byOrigin = [];
-        foreach (array_unique(array_filter(array_map('strval', $urls))) as $url) {
+        foreach (array_unique(array_filter(array_map(strval(...), $urls))) as $url) {
             $parts = parse_url($url);
             $origin = is_array($parts) && isset($parts['scheme'], $parts['host'])
                 ? strtolower($parts['scheme']) . '://' . strtolower($parts['host']) . (isset($parts['port']) ? ':' . $parts['port'] : '')

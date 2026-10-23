@@ -285,7 +285,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      */
     protected function _getMessagePurifier()
     {
-        if ($this->messagePurifier === null) {
+        if (!$this->messagePurifier instanceof Mage_Core_Model_Purifier_Interface) {
             /** @var Mage_Core_Model_Purifier_Message $purifier */
             $purifier = Mage::getSingleton('core/purifier_message');
             $this->messagePurifier = $purifier;

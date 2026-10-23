@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model;
 
+use Iterator;
 use Mage;
 use Mage_Api_Model_User as Subject;
 use ReflectionMethod;
@@ -72,43 +73,40 @@ final class UserTest extends OpenMageTest
     }
 
     /**
-     * @return array<string, array{bool, array<string, mixed>, array<string, mixed>}>
+     * @return Iterator<string, array{bool, array<string, mixed>, array<string, mixed>}>
      */
-    public static function provideApiAccessRevokedBySaveData(): array
+    public static function provideApiAccessRevokedBySaveData(): Iterator
     {
         $existing = ['user_id' => 7, 'api_key' => self::CURRENT_API_KEY_HASH, 'is_active' => '1'];
-
-        return [
-            'new user' => [
-                false,
-                [],
-                ['api_key' => self::CURRENT_API_KEY, 'is_active' => '1'],
-            ],
-            'unchanged existing user' => [
-                false,
-                $existing,
-                ['user_id' => 7, 'firstname' => 'Api', 'is_active' => '1'],
-            ],
-            'is_active not part of the save' => [
-                false,
-                $existing,
-                ['user_id' => 7, 'reload_acl_flag' => '0'],
-            ],
-            'deactivated' => [
-                true,
-                $existing,
-                ['user_id' => 7, 'is_active' => '0'],
-            ],
-            'new API key' => [
-                true,
-                $existing,
-                ['user_id' => 7, 'is_active' => '1', 'new_api_key' => 'rotated-api-key'],
-            ],
-            'same API key re-saved, e.g. hash upgrade on login' => [
-                false,
-                $existing,
-                ['user_id' => 7, 'api_key' => self::CURRENT_API_KEY_HASH, 'is_active' => '1', 'new_api_key' => self::CURRENT_API_KEY],
-            ],
+        yield 'new user' => [
+            false,
+            [],
+            ['api_key' => self::CURRENT_API_KEY, 'is_active' => '1'],
+        ];
+        yield 'unchanged existing user' => [
+            false,
+            $existing,
+            ['user_id' => 7, 'firstname' => 'Api', 'is_active' => '1'],
+        ];
+        yield 'is_active not part of the save' => [
+            false,
+            $existing,
+            ['user_id' => 7, 'reload_acl_flag' => '0'],
+        ];
+        yield 'deactivated' => [
+            true,
+            $existing,
+            ['user_id' => 7, 'is_active' => '0'],
+        ];
+        yield 'new API key' => [
+            true,
+            $existing,
+            ['user_id' => 7, 'is_active' => '1', 'new_api_key' => 'rotated-api-key'],
+        ];
+        yield 'same API key re-saved, e.g. hash upgrade on login' => [
+            false,
+            $existing,
+            ['user_id' => 7, 'api_key' => self::CURRENT_API_KEY_HASH, 'is_active' => '1', 'new_api_key' => self::CURRENT_API_KEY],
         ];
     }
 }

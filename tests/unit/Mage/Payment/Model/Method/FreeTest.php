@@ -41,6 +41,7 @@ final class FreeTest extends OpenMageTest
             'getBillingAddress' => new Varien_Object(['country_id' => 'US']),
         ]);
         $order->setGrandTotal($grandTotal);
+
         $payment = $this->getMockWithCalledMethods(Mage_Sales_Model_Order_Payment::class, [
             'getOrder' => $order,
         ]);
@@ -74,6 +75,7 @@ final class FreeTest extends OpenMageTest
             'getBillingAddress' => new Varien_Object(['country_id' => 'US']),
         ]);
         $quote->setGrandTotal($grandTotal);
+
         $payment = $this->getMockWithCalledMethods(Mage_Sales_Model_Quote_Payment::class, [
             'getQuote' => $quote,
         ]);

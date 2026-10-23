@@ -31,7 +31,7 @@ final class OrderTest extends OpenMageTest
         self::$subject = Mage::helper('rss/order');
     }
 
-    private static function order(string $protectCode): Mage_Sales_Model_Order
+    private function order(string $protectCode): Mage_Sales_Model_Order
     {
         /** @var Mage_Sales_Model_Order $order */
         $order = Mage::getModel('sales/order');
@@ -45,7 +45,10 @@ final class OrderTest extends OpenMageTest
         return $order;
     }
 
-    private static function decode(string $key): array
+    /**
+     * @return array<string, mixed>
+     */
+    private function decode(string $key): array
     {
         return json_decode((string) base64_decode($key, true), true);
     }
@@ -55,7 +58,7 @@ final class OrderTest extends OpenMageTest
      */
     public function testStatusUrlKeyCarriesADigest(): void
     {
-        $data = self::decode(self::$subject->getStatusUrlKey(self::order('abcdefghijklmnop')));
+        $data = $this->decode(self::$subject->getStatusUrlKey($this->order('abcdefghijklmnop')));
 
         self::assertArrayHasKey('hash', $data);
         self::assertMatchesRegularExpression('/^[0-9a-f]{64}$/', $data['hash']);
@@ -71,9 +74,9 @@ final class OrderTest extends OpenMageTest
     public function testStatusUrlKeyDoesNotLeakTheProtectCode(): void
     {
         $protectCode = 'abcdefghijklmnop';
-        $key = self::$subject->getStatusUrlKey(self::order($protectCode));
+        $key = self::$subject->getStatusUrlKey($this->order($protectCode));
 
-        self::assertStringNotContainsString($protectCode, $key);
+        self::assertStringNotContainsString($protectCode, (string) $key);
         self::assertStringNotContainsString($protectCode, (string) base64_decode($key, true));
     }
 
@@ -85,8 +88,8 @@ final class OrderTest extends OpenMageTest
      */
     public function testStatusUrlKeyDependsOnTheProtectCode(): void
     {
-        $first  = self::decode(self::$subject->getStatusUrlKey(self::order('abcdefghijklmnop')));
-        $second = self::decode(self::$subject->getStatusUrlKey(self::order('ponmlkjihgfedcba')));
+        $first  = $this->decode(self::$subject->getStatusUrlKey($this->order('abcdefghijklmnop')));
+        $second = $this->decode(self::$subject->getStatusUrlKey($this->order('ponmlkjihgfedcba')));
 
         self::assertSame($first['order_id'], $second['order_id']);
         self::assertSame($first['increment_id'], $second['increment_id']);

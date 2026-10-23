@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert\Profile;
 
+use Iterator;
 use Mage;
 use Mage_Adminhtml_Block_System_Convert_Profile_Run as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -60,33 +61,31 @@ final class RunTest extends OpenMageTest
         self::assertSame($expected, self::$subject->purifyExceptionMessage($message));
     }
 
-    public static function providePurifyExceptionMessage(): array
+    public static function providePurifyExceptionMessage(): Iterator
     {
-        return [
-            'plain text is escaped' => [
-                'Loaded &lt;b&gt;x&lt;/b&gt; &amp; y',
-                'Loaded <b>x</b> & y',
-            ],
-            'status link is kept' => [
-                'Saved.<a href="https://example.com/export.csv" target="_blank" rel="noopener noreferrer">Link</a>',
-                'Saved.<a href="https://example.com/export.csv" target="_blank" rel="noopener noreferrer">Link</a>',
-            ],
-            'javascript href is dropped' => [
-                'Saved.<a target="_blank" rel="noopener noreferrer">Link</a>',
-                'Saved.<a href="javascript:alert(document.cookie)" target="_blank" rel="noopener noreferrer">Link</a>',
-            ],
-            'attribute breakout from link var' => [
-                'Saved.<a href="x" target="_blank" rel="noreferrer noopener">Link</a>',
-                'Saved.<a href="x" onmouseover="alert(1)" target="_blank">Link</a>',
-            ],
-            'script after link is escaped' => [
-                'Saved.<a href="x">Link</a>"&gt;&lt;script&gt;alert(1)&lt;/script&gt;',
-                'Saved.<a href="x">Link</a>"><script>alert(1)</script>',
-            ],
-            'img inside link is escaped' => [
-                '<a href="x">&lt;img src="y" onerror="alert(1)" /&gt;</a>',
-                '<a href="x"><img src=y onerror=alert(1)></a>',
-            ],
+        yield 'plain text is escaped' => [
+            'Loaded &lt;b&gt;x&lt;/b&gt; &amp; y',
+            'Loaded <b>x</b> & y',
+        ];
+        yield 'status link is kept' => [
+            'Saved.<a href="https://example.com/export.csv" target="_blank" rel="noopener noreferrer">Link</a>',
+            'Saved.<a href="https://example.com/export.csv" target="_blank" rel="noopener noreferrer">Link</a>',
+        ];
+        yield 'javascript href is dropped' => [
+            'Saved.<a target="_blank" rel="noopener noreferrer">Link</a>',
+            'Saved.<a href="javascript:alert(document.cookie)" target="_blank" rel="noopener noreferrer">Link</a>',
+        ];
+        yield 'attribute breakout from link var' => [
+            'Saved.<a href="x" target="_blank" rel="noreferrer noopener">Link</a>',
+            'Saved.<a href="x" onmouseover="alert(1)" target="_blank">Link</a>',
+        ];
+        yield 'script after link is escaped' => [
+            'Saved.<a href="x">Link</a>"&gt;&lt;script&gt;alert(1)&lt;/script&gt;',
+            'Saved.<a href="x">Link</a>"><script>alert(1)</script>',
+        ];
+        yield 'img inside link is escaped' => [
+            '<a href="x">&lt;img src="y" onerror="alert(1)" /&gt;</a>',
+            '<a href="x"><img src=y onerror=alert(1)></a>',
         ];
     }
 }

@@ -30,7 +30,6 @@ final class UrlAuditTest extends OpenMageTest
 
     private string $originalAllowPrivateNetwork;
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -71,14 +70,12 @@ final class UrlAuditTest extends OpenMageTest
                 $this->messages[] = [$title, $description];
             }
         };
-
         $this->originalAllowedPrefixes = (string) Mage::getStoreConfig(Mage_Downloadable_Helper_Download::XML_PATH_LINK_URL_ALLOWED_PREFIXES);
         $this->originalAllowPrivateNetwork = (string) Mage::getStoreConfig(Mage_Downloadable_Helper_Download::XML_PATH_LINK_URL_ALLOW_PRIVATE_NETWORK);
         $this->setConfig(Mage_Downloadable_Helper_Download::XML_PATH_LINK_URL_ALLOWED_PREFIXES, '');
         $this->setConfig(Mage_Downloadable_Helper_Download::XML_PATH_LINK_URL_ALLOW_PRIVATE_NETWORK, '0');
     }
 
-    #[Override]
     protected function tearDown(): void
     {
         $this->setConfig(Mage_Downloadable_Helper_Download::XML_PATH_LINK_URL_ALLOWED_PREFIXES, $this->originalAllowedPrefixes);
@@ -157,8 +154,8 @@ final class UrlAuditTest extends OpenMageTest
         ]);
 
         self::assertCount(2, $this->subject->messages);
-        self::assertStringContainsString('http://metadata.example (169.254.169.254)', $this->subject->messages[0][1]);
-        self::assertStringContainsString('http://nas.lan (192.168.1.20)', $this->subject->messages[1][1]);
+        self::assertStringContainsString('http://metadata.example (169.254.169.254)', (string) $this->subject->messages[0][1]);
+        self::assertStringContainsString('http://nas.lan (192.168.1.20)', (string) $this->subject->messages[1][1]);
     }
 
     private function setConfig(string $path, string $value): void
