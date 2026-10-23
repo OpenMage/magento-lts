@@ -424,7 +424,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $path = $this->getHelper()->getCurrentPath();
         }
 
-        $source = realpath($path . DS . $filename);
+        $file = $path . DS . $filename;
+        $source = realpath($file);
         $storageRoot = realpath($this->getHelper()->getStorageRoot());
         if ($source === false
             || $storageRoot === false
@@ -434,7 +435,9 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             return false;
         }
 
-        return $this->resizeFile($source);
+        // Resize the unresolved path: getThumbsPath() maps it against the configured (unresolved) media dir,
+        // so passing the realpath would misplace thumbnails when media/ is a symlink.
+        return $this->resizeFile($file);
     }
 
     /**

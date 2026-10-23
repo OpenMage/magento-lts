@@ -17,6 +17,7 @@ use Mage_Adminhtml_Model_Session;
 use Mage_Cms_Helper_Wysiwyg_Images;
 use Mage_Cms_Model_Wysiwyg_Images_Storage as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use Varien_Object;
 
 final class StorageTest extends OpenMageTest
 {
@@ -43,6 +44,40 @@ final class StorageTest extends OpenMageTest
     public function testResizeOnTheFly(): void
     {
         self::assertFalse(self::$subject->resizeOnTheFly('not-existing.jpeg'));
+    }
+
+    /**
+     * GHSA-w949-chmj-mx9m: a filename that climbs out of the storage root never reaches resizeFile()
+     *
+     * @group Model
+     */
+    public function testResizeOnTheFlyRefusesPathOutsideStorageRoot(): void
+    {
+        $helper = Mage::helper('cms/wysiwyg_images');
+        $current = $helper->getCurrentPath();
+        $currentReal = realpath($current);
+        self::assertIsString($currentReal);
+
+        $outside = tempnam(sys_get_temp_dir(), 'w949');
+        $inside = $current . DS . 'w949-' . uniqid() . '.png';
+        touch($inside);
+
+        try {
+            $climb = str_repeat('..' . DS, substr_count(trim($currentReal, DS), DS) + 1);
+
+            $subject = $this->createPartialMock(Subject::class, ['resizeFile', 'getSession']);
+            $subject->method('getSession')->willReturn(new Varien_Object());
+            $subject->expects(self::once())
+                ->method('resizeFile')
+                ->with($inside)
+                ->willReturn('resized');
+
+            self::assertFalse($subject->resizeOnTheFly($climb . ltrim($outside, DS)));
+            self::assertSame('resized', $subject->resizeOnTheFly(basename($inside)));
+        } finally {
+            @unlink($outside);
+            @unlink($inside);
+        }
     }
 
     /**
