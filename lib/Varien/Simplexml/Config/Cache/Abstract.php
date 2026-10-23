@@ -61,7 +61,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
 
         // check that no source files were changed or check file exists
         foreach ($data as $sourceFile => $stat) {
-            if (empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile) !== $stat['mtime']) {
+            if (!is_array($stat) || empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile) !== $stat['mtime']) {
                 return false;
             }
         }
