@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Option\Type;
 
+use Iterator;
 use Mage;
 use Mage_Catalog_Model_Product_Option_Type_File as Subject;
 use Mage_Core_Exception;
@@ -32,22 +33,20 @@ final class FileTest extends OpenMageTest
         self::$subject = Mage::getModel('catalog/product_option_type_file');
     }
 
-    private static function validate(string $path): void
+    private function validate(string $path): void
     {
         (new ReflectionMethod(Subject::class, '_validateOptionFilePath'))
             ->invoke(self::$subject, $path);
     }
 
-    public static function acceptedPathProvider(): array
+    public static function acceptedPathProvider(): Iterator
     {
-        return [
-            'quote file'                => ['/media/custom_options/quote/a/b/file.txt'],
-            'order file'                => ['/media/custom_options/order/a/b/file.txt'],
-            // Collapses to a path that is still inside the quote directory. The previous
-            // regex denylist rejected this purely because it contained "..".
-            'dot segments inside root'  => ['/media/custom_options/quote/../quote/file.txt'],
-            'single dot segments'       => ['/media/custom_options/./quote/./file.txt'],
-        ];
+        yield 'quote file' => ['/media/custom_options/quote/a/b/file.txt'];
+        yield 'order file' => ['/media/custom_options/order/a/b/file.txt'];
+        // Collapses to a path that is still inside the quote directory. The previous
+        // regex denylist rejected this purely because it contained "..".
+        yield 'dot segments inside root' => ['/media/custom_options/quote/../quote/file.txt'];
+        yield 'single dot segments' => ['/media/custom_options/./quote/./file.txt'];
     }
 
     /**
@@ -55,23 +54,21 @@ final class FileTest extends OpenMageTest
      */
     public function testAcceptsPathsInsideTargetDirs(string $path): void
     {
-        self::validate($path);
+        $this->validate($path);
         self::assertTrue(true, 'no exception expected');
     }
 
-    public static function rejectedPathProvider(): array
+    public static function rejectedPathProvider(): Iterator
     {
-        return [
-            // Prefix that shares a name with the target dir but is a sibling of it.
-            'sibling sharing prefix'    => ['/media/custom_options/quote_evil/shell.php'],
-            'no separator boundary'     => ['/media/custom_options/quoteX'],
-            'traversal out of root'     => ['/media/custom_options/quote/../../../etc/passwd'],
-            'traversal above webroot'   => ['/../../etc/passwd'],
-            'backslash traversal'       => ['\\media\\custom_options\\quote\\..\\..\\..\\etc\\passwd'],
-            'unrelated directory'       => ['/media/other/file.txt'],
-            'target dir itself'         => ['/media/custom_options/quote'],
-            'null byte'                 => ["/media/custom_options/quote/a\0.php"],
-        ];
+        // Prefix that shares a name with the target dir but is a sibling of it.
+        yield 'sibling sharing prefix' => ['/media/custom_options/quote_evil/shell.php'];
+        yield 'no separator boundary' => ['/media/custom_options/quoteX'];
+        yield 'traversal out of root' => ['/media/custom_options/quote/../../../etc/passwd'];
+        yield 'traversal above webroot' => ['/../../etc/passwd'];
+        yield 'backslash traversal' => ['\\media\\custom_options\\quote\\..\\..\\..\\etc\\passwd'];
+        yield 'unrelated directory' => ['/media/other/file.txt'];
+        yield 'target dir itself' => ['/media/custom_options/quote'];
+        yield 'null byte' => ["/media/custom_options/quote/a\0.php"];
     }
 
     /**
@@ -81,7 +78,7 @@ final class FileTest extends OpenMageTest
     {
         $this->expectException(Mage_Core_Exception::class);
         $this->expectExceptionMessage('Invalid file path.');
-        self::validate($path);
+        $this->validate($path);
     }
 
     /**
@@ -100,15 +97,13 @@ final class FileTest extends OpenMageTest
         self::assertFalse(self::$subject->isValidOptionFilePath($path));
     }
 
-    public static function nonStringPathProvider(): array
+    public static function nonStringPathProvider(): Iterator
     {
-        return [
-            'missing key'  => [null],
-            'empty string' => [''],
-            'array'        => [['/media/custom_options/quote/a/b/file.txt']],
-            'integer'      => [0],
-            'boolean'      => [true],
-        ];
+        yield 'missing key' => [null];
+        yield 'empty string' => [''];
+        yield 'array' => [['/media/custom_options/quote/a/b/file.txt']];
+        yield 'integer' => [0];
+        yield 'boolean' => [true];
     }
 
     /**

@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use Iterator;
+use Mage_Dataflow_Model_Convert_Profile;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Core_Model_Convert as Subject;
@@ -18,7 +20,6 @@ use Mage_Dataflow_Model_Convert_Adapter_Io;
 use Mage_Dataflow_Model_Convert_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\ConvertTrait;
-use Override;
 
 /**
  * GHSA-j64x-5vpp-m5pm
@@ -27,7 +28,6 @@ final class ConvertTest extends OpenMageTest
 {
     use ConvertTrait;
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -42,8 +42,8 @@ final class ConvertTest extends OpenMageTest
         try {
             $this->importProfile('<action type="' . $type . '" method="probe"/>');
             self::fail('Expected the profile to be refused');
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame('Invalid action type in profile actions XML.', $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame('Invalid action type in profile actions XML.', $mageCoreException->getMessage());
         }
 
         self::assertFalse(ConvertTestConstructorProbe::$constructed);
@@ -53,12 +53,14 @@ final class ConvertTest extends OpenMageTest
     {
         $xml = '<convert version="1.0"><container name="x" type="' . ConvertTestConstructorProbe::class . '"/></convert>';
 
+        $refusal = null;
         try {
             $this->getSubject()->importXml($xml);
-            self::fail('Expected the container to be refused');
-        } catch (Mage_Core_Exception) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $refusal = $mageCoreException;
         }
 
+        self::assertInstanceOf(Mage_Core_Exception::class, $refusal, 'Expected the container to be refused');
         self::assertFalse(ConvertTestConstructorProbe::$constructed);
     }
 
@@ -87,27 +89,23 @@ final class ConvertTest extends OpenMageTest
         self::assertSame('Unable to run action method: doesNotExist', $fatal[1]->getMessage());
     }
 
-    public static function provideNonContainerTypes(): array
+    public static function provideNonContainerTypes(): Iterator
     {
-        return [
-            'arbitrary class' => [ConvertTestConstructorProbe::class],
-            'varien object' => ['Varien_Object'],
-            'non-container model alias' => ['core/store'],
-            'unknown class' => ['No_Such_Class'],
-            'invalid class name' => ['../../etc/passwd'],
-            'empty' => [''],
-        ];
+        yield 'arbitrary class' => [ConvertTestConstructorProbe::class];
+        yield 'varien object' => ['Varien_Object'];
+        yield 'non-container model alias' => ['core/store'];
+        yield 'unknown class' => ['No_Such_Class'];
+        yield 'invalid class name' => ['../../etc/passwd'];
+        yield 'empty' => [''];
     }
 
-    public static function provideContainerTypes(): array
+    public static function provideContainerTypes(): Iterator
     {
-        return [
-            'model alias' => ['dataflow/convert_adapter_io'],
-            'class name' => ['Mage_Dataflow_Model_Convert_Adapter_Io'],
-        ];
+        yield 'model alias' => ['dataflow/convert_adapter_io'];
+        yield 'class name' => ['Mage_Dataflow_Model_Convert_Adapter_Io'];
     }
 
-    private function importProfile(string $actionsXml): \Mage_Dataflow_Model_Convert_Profile
+    private function importProfile(string $actionsXml): Mage_Dataflow_Model_Convert_Profile
     {
         $xml = '<convert version="1.0"><profile name="default">' . $actionsXml . '</profile></convert>';
         return $this->getSubject()->importXml($xml)->getProfile('default');
@@ -117,16 +115,4 @@ final class ConvertTest extends OpenMageTest
     {
         return Mage::getModel('core/convert');
     }
-}
-
-final class ConvertTestConstructorProbe
-{
-    public static bool $constructed = false;
-
-    public function __construct()
-    {
-        self::$constructed = true;
-    }
-
-    public function probe(): void {}
 }

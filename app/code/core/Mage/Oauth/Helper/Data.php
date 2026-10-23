@@ -204,7 +204,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return effective port of a parsed URL, the scheme default is used when absent
      *
-     * @param  array    $parsedUrl Result of parse_url()
+     * @param  array<string, int>|array<string, string> $parsedUrl Result of parse_url()
      * @return null|int
      */
     protected function _getCallbackUrlPort(array $parsedUrl)

@@ -13,7 +13,6 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order;
 
 use Mage;
 use Mage_Core_Model_Session;
-use Mage_Customer_Model_Session;
 use Mage_Sales_Block_Order_Recent as Subject;
 use Mage_Sales_Model_Order;
 use OpenMage\Tests\Unit\OpenMageTest;

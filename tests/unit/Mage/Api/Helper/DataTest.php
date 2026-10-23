@@ -37,7 +37,6 @@ final class DataTest extends OpenMageTest
         self::$subject = Mage::helper('api/data');
     }
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -46,7 +45,6 @@ final class DataTest extends OpenMageTest
         Mage::setIsDeveloperMode(false);
     }
 
-    #[Override]
     protected function tearDown(): void
     {
         if ($this->originalHttpHost === null) {

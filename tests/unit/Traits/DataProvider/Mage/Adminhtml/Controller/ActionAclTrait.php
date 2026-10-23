@@ -41,8 +41,8 @@ trait ActionAclTrait
         $view = ['sales/order/actions/view'];
 
         foreach (['massCancel' => 'cancel', 'massHold' => 'hold', 'massUnhold' => 'unhold'] as $action => $leaf) {
-            yield "order $action denied without $leaf" => [$order, $action, [], $view, false];
-            yield "order $action allowed with $leaf" => [$order, $action, [], ["sales/order/actions/$leaf"], true];
+            yield "order {$action} denied without {$leaf}" => [$order, $action, [], $view, false];
+            yield "order {$action} allowed with {$leaf}" => [$order, $action, [], ["sales/order/actions/{$leaf}"], true];
         }
 
         yield 'order voidPayment denied without invoice' => [$order, 'voidPayment', [], $view, false];
@@ -128,10 +128,10 @@ trait ActionAclTrait
     public static function provideOrderCreateAclData(): Generator
     {
         foreach (['loadBlock', 'processData', 'addConfigured', 'configureProductToAdd', 'configureQuoteItems', 'showUpdateResult'] as $action) {
-            yield "$action denied to order viewer" => [$action, false, ['sales/order/actions/view'], false];
-            yield "$action allowed with create" => [$action, false, ['sales/order/actions/create'], true];
-            yield "$action allowed with reorder during a reorder" => [$action, true, ['sales/order/actions/reorder'], true];
-            yield "$action denied with reorder outside a reorder" => [$action, false, ['sales/order/actions/reorder'], false];
+            yield "{$action} denied to order viewer" => [$action, false, ['sales/order/actions/view'], false];
+            yield "{$action} allowed with create" => [$action, false, ['sales/order/actions/create'], true];
+            yield "{$action} allowed with reorder during a reorder" => [$action, true, ['sales/order/actions/reorder'], true];
+            yield "{$action} denied with reorder outside a reorder" => [$action, false, ['sales/order/actions/reorder'], false];
         }
 
         yield 'start denied to order viewer' => ['start', false, ['sales/order/actions/view'], false];
@@ -148,8 +148,8 @@ trait ActionAclTrait
     public static function provideOrderEditAclData(): Generator
     {
         foreach (['start', 'index', 'loadBlock', 'save', 'cancel'] as $action) {
-            yield "$action denied to create" => [$action, ['sales/order/actions/create'], false];
-            yield "$action allowed with edit" => [$action, ['sales/order/actions/edit'], true];
+            yield "{$action} denied to create" => [$action, ['sales/order/actions/create'], false];
+            yield "{$action} allowed with edit" => [$action, ['sales/order/actions/edit'], true];
         }
     }
 

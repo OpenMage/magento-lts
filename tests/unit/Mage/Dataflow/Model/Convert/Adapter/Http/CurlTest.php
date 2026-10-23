@@ -11,18 +11,19 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Dataflow\Model\Convert\Adapter\Http;
 
+use Varien_Http_Adapter_Curl;
+use Iterator;
 use Mage;
 use Mage_Dataflow_Model_Convert_Adapter_Http_Curl as Subject;
 use Mage_Dataflow_Model_Convert_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
-use Override;
 
 final class CurlTest extends OpenMageTest
 {
     private Subject $subject;
+
     private string $originalAllowedPrefixes;
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -32,7 +33,7 @@ final class CurlTest extends OpenMageTest
                 $this->_validateUri($uri);
             }
 
-            public function restrictProtocolsWrapper(\Varien_Http_Adapter_Curl $http): void
+            public function restrictProtocolsWrapper(Varien_Http_Adapter_Curl $http): void
             {
                 $this->_restrictProtocols($http);
             }
@@ -41,7 +42,6 @@ final class CurlTest extends OpenMageTest
         $this->setAllowedPrefixes('');
     }
 
-    #[Override]
     protected function tearDown(): void
     {
         $this->setAllowedPrefixes($this->originalAllowedPrefixes);
@@ -127,31 +127,27 @@ final class CurlTest extends OpenMageTest
         $this->invokeValidateUri();
     }
 
-    public static function provideUrlsOutsideConfiguredPrefix(): array
+    public static function provideUrlsOutsideConfiguredPrefix(): Iterator
     {
-        return [
-            'longer host' => ['https://allowed.example.attacker.test/products.csv'],
-            'userinfo' => ['https://allowed.example@169.254.169.254/latest/meta-data/'],
-            'userinfo with password' => ['https://allowed.example:x@127.0.0.1/'],
-            'other port' => ['https://allowed.example:8443/products.csv'],
-            'other scheme' => ['http://allowed.example/products.csv'],
-        ];
+        yield 'longer host' => ['https://allowed.example.attacker.test/products.csv'];
+        yield 'userinfo' => ['https://allowed.example@169.254.169.254/latest/meta-data/'];
+        yield 'userinfo with password' => ['https://allowed.example:x@127.0.0.1/'];
+        yield 'other port' => ['https://allowed.example:8443/products.csv'];
+        yield 'other scheme' => ['http://allowed.example/products.csv'];
     }
 
-    public static function provideUrlsInsideConfiguredPrefix(): array
+    public static function provideUrlsInsideConfiguredPrefix(): Iterator
     {
-        return [
-            'root' => ['https://allowed.example'],
-            'path' => ['https://allowed.example/imports/products.csv'],
-            'query' => ['https://allowed.example/export?format=csv'],
-            'explicit default port' => ['https://allowed.example:443/products.csv'],
-            'host case' => ['https://Allowed.Example/products.csv'],
-        ];
+        yield 'root' => ['https://allowed.example'];
+        yield 'path' => ['https://allowed.example/imports/products.csv'];
+        yield 'query' => ['https://allowed.example/export?format=csv'];
+        yield 'explicit default port' => ['https://allowed.example:443/products.csv'];
+        yield 'host case' => ['https://Allowed.Example/products.csv'];
     }
 
     public function testRestrictProtocolsAddsCurlProtocolOptions(): void
     {
-        $http = new \Varien_Http_Adapter_Curl();
+        $http = new Varien_Http_Adapter_Curl();
 
         $this->subject->restrictProtocolsWrapper($http);
 
@@ -163,18 +159,17 @@ final class CurlTest extends OpenMageTest
         if (defined('CURLOPT_PROTOCOLS')) {
             self::assertSame($expectedProtocols, $options[CURLOPT_PROTOCOLS]);
         }
+
         if (defined('CURLOPT_REDIR_PROTOCOLS')) {
             self::assertSame($expectedProtocols, $options[CURLOPT_REDIR_PROTOCOLS]);
         }
     }
 
-    public static function provideInvalidProtocols(): array
+    public static function provideInvalidProtocols(): Iterator
     {
-        return [
-            'file' => ['file:///etc/passwd'],
-            'gopher' => ['gopher://127.0.0.1:11211/_stats'],
-            'ftp' => ['ftp://example.com/import.csv'],
-        ];
+        yield 'file' => ['file:///etc/passwd'];
+        yield 'gopher' => ['gopher://127.0.0.1:11211/_stats'];
+        yield 'ftp' => ['ftp://example.com/import.csv'];
     }
 
     private function invokeValidateUri(): void

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order\Info;
 
+use Generator;
 use Mage;
 use Mage_Core_Model_Session;
 use Mage_Customer_Model_Session;
@@ -64,7 +65,7 @@ final class ButtonsTest extends OpenMageTest
         self::assertStringContainsString('/form_key/' . self::FORM_KEY . '/', $result);
     }
 
-    public static function provideGetReorderUrlCarriesFormKey(): \Generator
+    public static function provideGetReorderUrlCarriesFormKey(): Generator
     {
         yield 'customer' => [true, '/sales/order/reorder/'];
         yield 'guest' => [false, '/sales/guest/reorder/'];

@@ -56,7 +56,7 @@ final class GuestTest extends OpenMageTest
     {
         $this->useRemoteAddr('203.0.113.10');
         Mage::helper('core')->recordRateLimitHit();
-        self::assertTrue(Mage::app()->testCache($this->getRateLimitCacheId('203.0.113.10')) !== false);
+        self::assertNotFalse(Mage::app()->testCache($this->getRateLimitCacheId('203.0.113.10')));
 
         $this->setLookupPost([
             'oar_order_id'         => '100000001',
@@ -110,7 +110,6 @@ final class GuestTest extends OpenMageTest
         self::assertNotFalse(Mage::app()->testCache($this->getRateLimitCacheId('203.0.113.11')));
     }
 
-    #[Override]
     protected function tearDown(): void
     {
         foreach (['203.0.113.10', '203.0.113.11'] as $ip) {
@@ -123,7 +122,6 @@ final class GuestTest extends OpenMageTest
         parent::tearDown();
     }
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -145,6 +143,9 @@ final class GuestTest extends OpenMageTest
         $property->setValue(Mage::helper('core/http'), $remoteAddr);
     }
 
+    /**
+     * @param array<string, string> $post
+     */
     private function setLookupPost(array $post): void
     {
         /** @var Mage_Core_Controller_Request_Http $request */

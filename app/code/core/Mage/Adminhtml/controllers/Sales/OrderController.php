@@ -726,7 +726,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     protected function _canViewCreditmemos(): bool
     {
         $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('sales/order/actions/creditmemo') || $session->isAllowed('sales/creditmemo');
+        if ($session->isAllowed('sales/order/actions/creditmemo')) {
+            return true;
+        }
+
+        return (bool) $session->isAllowed('sales/creditmemo');
     }
 
     /**

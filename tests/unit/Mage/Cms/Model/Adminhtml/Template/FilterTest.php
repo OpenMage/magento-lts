@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Model\Adminhtml\Template;
 
+use Iterator;
 use Mage;
 use Mage_Cms_Model_Adminhtml_Template_Filter as Subject;
 use Mage_Core_Exception;
@@ -38,7 +39,6 @@ final class FilterTest extends OpenMageTest
         self::$subject = Mage::getModel('cms/adminhtml_template_filter');
     }
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -50,7 +50,6 @@ final class FilterTest extends OpenMageTest
         file_put_contents($this->mediaDir . DS . 'image.png', 'not really a png');
     }
 
-    #[Override]
     protected function tearDown(): void
     {
         foreach (['image.png', 'outside-link.png'] as $file) {
@@ -95,22 +94,20 @@ final class FilterTest extends OpenMageTest
         self::$subject->getMediaFilePath('{{media url="' . self::TEST_DIR . '/outside-link.png"}}');
     }
 
-    public static function provideRejectedDirectives(): array
+    public static function provideRejectedDirectives(): Iterator
     {
-        return [
-            'protocol directive (SSRF)' => ['{{protocol url="169.254.169.254/latest/meta-data/"}}'],
-            'config directive' => ['{{config path="web/unsecure/base_url"}}'],
-            'raw url' => ['http://127.0.0.1/image.png'],
-            'raw absolute path' => ['/etc/passwd'],
-            'text around media directive' => ['http://127.0.0.1/{{media url="' . self::TEST_DIR . '/image.png"}}'],
-            'two directives' => ['{{media url="' . self::TEST_DIR . '/image.png"}}{{media url="x"}}'],
-            'traversal out of media' => ['{{media url="../index.php"}}'],
-            'deep traversal' => ['{{media url="' . self::TEST_DIR . '/../../app/etc/config.xml"}}'],
-            'absolute path in url' => ['{{media url="/etc/passwd"}}'],
-            'stream wrapper in url' => ['{{media url="php://filter/resource=index.php"}}'],
-            'missing file' => ['{{media url="' . self::TEST_DIR . '/missing.png"}}'],
-            'directory' => ['{{media url="' . self::TEST_DIR . '"}}'],
-            'no url parameter' => ['{{media}}'],
-        ];
+        yield 'protocol directive (SSRF)' => ['{{protocol url="169.254.169.254/latest/meta-data/"}}'];
+        yield 'config directive' => ['{{config path="web/unsecure/base_url"}}'];
+        yield 'raw url' => ['http://127.0.0.1/image.png'];
+        yield 'raw absolute path' => ['/etc/passwd'];
+        yield 'text around media directive' => ['http://127.0.0.1/{{media url="' . self::TEST_DIR . '/image.png"}}'];
+        yield 'two directives' => ['{{media url="' . self::TEST_DIR . '/image.png"}}{{media url="x"}}'];
+        yield 'traversal out of media' => ['{{media url="../index.php"}}'];
+        yield 'deep traversal' => ['{{media url="' . self::TEST_DIR . '/../../app/etc/config.xml"}}'];
+        yield 'absolute path in url' => ['{{media url="/etc/passwd"}}'];
+        yield 'stream wrapper in url' => ['{{media url="php://filter/resource=index.php"}}'];
+        yield 'missing file' => ['{{media url="' . self::TEST_DIR . '/missing.png"}}'];
+        yield 'directory' => ['{{media url="' . self::TEST_DIR . '"}}'];
+        yield 'no url parameter' => ['{{media}}'];
     }
 }

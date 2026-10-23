@@ -16,7 +16,6 @@ use Generator;
 use Mage_Archive_Tar as Subject;
 use Mage_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
-use Override;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -26,7 +25,6 @@ final class TarTest extends OpenMageTest
 
     private string $destination;
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -35,7 +33,6 @@ final class TarTest extends OpenMageTest
         mkdir($this->destination, 0777, true);
     }
 
-    #[Override]
     protected function tearDown(): void
     {
         $items = new RecursiveIteratorIterator(
@@ -56,9 +53,9 @@ final class TarTest extends OpenMageTest
     public function testUnpackExtractsContainedEntries(): void
     {
         $this->unpack(
-            self::entry('sub/', '5', mode: 0755),
-            self::entry('sub/file.txt', '0', 'contents'),
-            self::entry('link', '2', link: 'sub/file.txt'),
+            $this->entry('sub/', '5', mode: 0755),
+            $this->entry('sub/file.txt', '0', 'contents'),
+            $this->entry('link', '2', link: 'sub/file.txt'),
         );
 
         self::assertSame('contents', file_get_contents($this->destination . 'sub/file.txt'));
@@ -76,7 +73,7 @@ final class TarTest extends OpenMageTest
         $this->expectExceptionMessage('escapes the destination directory');
 
         try {
-            $this->unpack(self::entry($name, '0', 'payload'));
+            $this->unpack($this->entry($name, '0', 'payload'));
         } finally {
             self::assertFileDoesNotExist($this->root . DS . 'escaped.txt');
         }
@@ -102,8 +99,8 @@ final class TarTest extends OpenMageTest
         $target = str_replace('{root}', $this->root, $target);
 
         $this->unpack(
-            self::entry('evil.txt', '2', link: $target),
-            self::entry('evil.txt', '0', 'payload'),
+            $this->entry('evil.txt', '2', link: $target),
+            $this->entry('evil.txt', '0', 'payload'),
         );
 
         self::assertFileDoesNotExist($this->root . DS . 'escaped.txt');
@@ -122,7 +119,7 @@ final class TarTest extends OpenMageTest
      */
     public function testUnpackDropsSpecialModeBits(): void
     {
-        $this->unpack(self::entry('setuid.sh', '0', 'payload', 04755));
+        $this->unpack($this->entry('setuid.sh', '0', 'payload', 04755));
 
         self::assertSame(0, fileperms($this->destination . 'setuid.sh') & 07000);
     }
@@ -137,7 +134,7 @@ final class TarTest extends OpenMageTest
     /**
      * Build one ustar entry: a 512-byte header followed by the data padded to the block size
      */
-    private static function entry(string $name, string $type, string $data = '', int $mode = 0644, string $link = ''): string
+    private function entry(string $name, string $type, string $data = '', int $mode = 0644, string $link = ''): string
     {
         $header = str_pad($name, 100, "\0")
             . sprintf('%07o', $mode) . "\0"

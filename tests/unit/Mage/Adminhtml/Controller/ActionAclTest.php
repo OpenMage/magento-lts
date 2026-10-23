@@ -186,7 +186,7 @@ final class ActionAclTest extends OpenMageTest
             $path = 'admin';
             foreach (explode('/', $resource) as $part) {
                 $path .= '/' . $part;
-                self::assertTrue($acl->has($path), "Unknown ACL resource $path");
+                self::assertTrue($acl->has($path), "Unknown ACL resource {$path}");
                 $ticked[$path] = true;
             }
         }
