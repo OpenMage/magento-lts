@@ -74,7 +74,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {
-            'search' => 'report/search',
+            'search', 'exportsearchcsv', 'exportsearchexcel' => 'report/search',
             default => 'report',
         };
 
