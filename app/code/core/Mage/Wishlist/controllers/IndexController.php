@@ -823,6 +823,12 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         try {
             $info      = unserialize($option->getValue(), ['allowed_classes' => false]);
+            /** @var Mage_Catalog_Model_Product_Option_Type_File $optionFile */
+            $optionFile = Mage::getModel('catalog/product_option_type_file');
+            if (!is_array($info) || !$optionFile->isValidOptionFilePath($info['quote_path'] ?? null)) {
+                throw new Exception();
+            }
+
             $filePath  = Mage::getBaseDir() . $info['quote_path'];
             $secretKey = $this->getRequest()->getParam('key');
 
@@ -830,6 +836,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 && isset($info['secret_key'])
                 && is_string($info['secret_key'])
                 && hash_equals($info['secret_key'], $secretKey)
+                && is_file($filePath)
+                && hash_equals(substr((string) md5_file($filePath), 0, 20), $secretKey)
             ) {
                 $this->_prepareDownloadResponse($info['title'], [
                     'value' => $filePath,

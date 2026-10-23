@@ -80,4 +80,33 @@ final class FileTest extends OpenMageTest
         $this->expectExceptionMessage('Invalid file path.');
         self::validate($path);
     }
+
+    #[DataProvider('acceptedPathProvider')]
+    public function testIsValidOptionFilePathAcceptsPathsInsideTargetDirs(string $path): void
+    {
+        self::assertTrue(self::$subject->isValidOptionFilePath($path));
+    }
+
+    #[DataProvider('rejectedPathProvider')]
+    public function testIsValidOptionFilePathRejectsPathsOutsideTargetDirs(string $path): void
+    {
+        self::assertFalse(self::$subject->isValidOptionFilePath($path));
+    }
+
+    public static function nonStringPathProvider(): array
+    {
+        return [
+            'missing key'  => [null],
+            'empty string' => [''],
+            'array'        => [['/media/custom_options/quote/a/b/file.txt']],
+            'integer'      => [0],
+            'boolean'      => [true],
+        ];
+    }
+
+    #[DataProvider('nonStringPathProvider')]
+    public function testIsValidOptionFilePathRejectsNonStrings(mixed $path): void
+    {
+        self::assertFalse(self::$subject->isValidOptionFilePath($path));
+    }
 }

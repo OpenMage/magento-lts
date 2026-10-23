@@ -772,6 +772,29 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     }
 
     /**
+     * Check that a stored option file path stays inside the custom options directories
+     *
+     * Public counterpart of _validateOptionFilePath() for the download controllers,
+     * which receive the same stored quote_path/order_path values.
+     *
+     * @param  mixed $filePath Relative path as stored in the quote/order item option
+     */
+    public function isValidOptionFilePath($filePath): bool
+    {
+        if (!is_string($filePath) || $filePath === '') {
+            return false;
+        }
+
+        try {
+            $this->_validateOptionFilePath($filePath);
+        } catch (Mage_Core_Exception) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Validate that a stored option file path stays inside the custom options directories
      *
      * The path is resolved lexically before it is compared, so ".." is collapsed rather
