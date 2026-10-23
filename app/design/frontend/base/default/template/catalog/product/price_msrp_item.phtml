@@ -64,7 +64,7 @@
 
                 Catalog.Map.addHelpLink(
                     $('<?php echo $popupId ?>'),
-                    <?php echo $_coreHelper->jsonEncode($_product->getName()) ?>,
+                    <?php echo $_coreHelper->jsonEncode($this->escapeHtml($_product->getName())) ?>,
                     $("<?php echo $priceElementId ?>"),
                     <?php echo $_coreHelper->jsonEncode($_msrpPrice) ?>,
                     <?php echo $_coreHelper->jsonEncode($_addToCartUrl) ?>

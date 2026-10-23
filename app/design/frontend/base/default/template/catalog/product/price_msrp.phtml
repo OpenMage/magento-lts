@@ -32,7 +32,7 @@
             <?php if ($this->helper('catalog')->isShowPriceOnGesture($_product)): ?>
                 var newLink = Catalog.Map.addHelpLink(
                         $('<?php echo $helpLinkId ?>'),
-                        <?php echo $_coreHelper->jsonEncode($_product->getName()) ?>,
+                        <?php echo $_coreHelper->jsonEncode($this->escapeHtml($_product->getName())) ?>,
                         <?php echo $this->getRealPriceJs($_product) ?>,
                         <?php echo $_coreHelper->jsonEncode($_msrpPrice) ?>,
                         <?php echo $_coreHelper->jsonEncode($_addToCartUrl) ?>
@@ -41,7 +41,7 @@
             <?php else: ?>
                 Catalog.Map.addHelpLink(
                         $('<?php echo $helpLinkId ?>'),
-                        <?php echo $_coreHelper->jsonEncode($_product->getName()) ?>,
+                        <?php echo $_coreHelper->jsonEncode($this->escapeHtml($_product->getName())) ?>,
                         null,
                         null,
                         <?php echo $_coreHelper->jsonEncode($_product->getProductUrl()) ?>
