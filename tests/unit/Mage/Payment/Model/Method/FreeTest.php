@@ -20,7 +20,6 @@ use Mage_Sales_Model_Quote;
 use Mage_Sales_Model_Quote_Payment;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Method\FreeTrait;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Varien_Object;
 
 final class FreeTest extends OpenMageTest
@@ -32,9 +31,9 @@ final class FreeTest extends OpenMageTest
      * then raised to a real total and the order placed without re-importing payment data. The
      * order payment must be refused at placement.
      *
+     * @dataProvider provideValidateOrderPayment
      * @group Model
      */
-    #[DataProvider('provideValidateOrderPayment')]
     public function testValidateOrderPayment(float $grandTotal, bool $expectException): void
     {
         $order = $this->getMockWithCalledMethods(Mage_Sales_Model_Order::class, [
@@ -65,9 +64,9 @@ final class FreeTest extends OpenMageTest
     }
 
     /**
+     * @dataProvider provideValidateOrderPayment
      * @group Model
      */
-    #[DataProvider('provideValidateOrderPayment')]
     public function testValidateQuotePayment(float $grandTotal, bool $expectException): void
     {
         $quote = $this->getMockWithCalledMethods(Mage_Sales_Model_Quote::class, [

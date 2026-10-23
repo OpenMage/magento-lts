@@ -35,7 +35,15 @@ final class RssTest extends OpenMageTest
      * not encode anything, so escaping done by the feed blocks is applied exactly once
      * and must not be repeated here.
      *
+     * Runs in a separate process: starting a real session fails under the
+     * 20.18.x PHPUnit 9 harness once output has been sent.
+     * Requires PHP < 8.4: zf1-future 1.25.0 (the v20.18.0 lock) reads the deprecated
+     * DOMDocument::$actualEncoding, which developer mode turns into an error.
+     *
      * @group Model
+     * @runInSeparateProcess
+     * @requires PHP < 8.4
+     * @preserveGlobalState disabled
      */
     public function testEntriesAreWrappedInCdataWithoutFurtherEncoding(): void
     {

@@ -48,9 +48,9 @@ final class ButtonsTest extends OpenMageTest
      * The reorder URL must carry the session form key for customers and guests alike, the
      * controller rejects requests without it (GHSA-hp24-hrjg-v7mm).
      *
+     * @dataProvider provideGetReorderUrlCarriesFormKey
      * @group Block
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('provideGetReorderUrlCarriesFormKey')]
     public function testGetReorderUrlCarriesFormKey(bool $isLoggedIn, string $route): void
     {
         $customerSession = $this->createPartialMock(Mage_Customer_Model_Session::class, ['isLoggedIn']);

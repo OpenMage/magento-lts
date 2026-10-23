@@ -14,7 +14,6 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Option\Type;
 use Mage;
 use Mage_Catalog_Model_Product_Option_Type_File as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
-use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionMethod;
 
 final class FileExtensionsTest extends OpenMageTest
@@ -43,7 +42,9 @@ final class FileExtensionsTest extends OpenMageTest
         ];
     }
 
-    #[DataProvider('blockedExtensionProvider')]
+    /**
+     * @dataProvider blockedExtensionProvider
+     */
     public function testUploadDenylistContains(string $extension): void
     {
         self::assertContains($extension, self::denylist());

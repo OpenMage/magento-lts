@@ -44,8 +44,13 @@ final class GuestTest extends OpenMageTest
      * any order is loaded (GHSA-rqc2-p2h7-6hw9). Before the fix the guess was
      * still evaluated and only the error message depended on the limiter.
      *
+     * Runs in a separate process: starting a real session fails under the
+     * 20.18.x PHPUnit 9 harness once output has been sent.
+     *
      * @covers Mage_Sales_Helper_Guest::loadValidOrder()
      * @group Helper
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testLoadValidOrderRefusesLookupWhenRateLimited(): void
     {
@@ -57,6 +62,7 @@ final class GuestTest extends OpenMageTest
             'oar_order_id'         => '100000001',
             'oar_type'             => 'zip',
             'oar_billing_lastname' => 'Doe',
+            'oar_email'            => '',
             'oar_zip'              => '12345',
         ]);
 
@@ -78,8 +84,13 @@ final class GuestTest extends OpenMageTest
      * A failed form lookup records a rate-limit hit; before the fix only a failed
      * cookie lookup did, so the form could be retried without limit.
      *
+     * Runs in a separate process: starting a real session fails under the
+     * 20.18.x PHPUnit 9 harness once output has been sent.
+     *
      * @covers Mage_Sales_Helper_Guest::loadValidOrder()
      * @group Helper
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testLoadValidOrderRecordsHitOnFailedFormLookup(): void
     {
@@ -91,6 +102,7 @@ final class GuestTest extends OpenMageTest
             'oar_order_id'         => '100000001',
             'oar_type'             => 'zip',
             'oar_billing_lastname' => '',
+            'oar_email'            => '',
             'oar_zip'              => '12345',
         ]);
 

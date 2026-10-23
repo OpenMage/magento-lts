@@ -29,7 +29,8 @@ final class AbstractTest extends OpenMageTest
         $response->headersSentThrowsException = false;
         $response->setHeader('Content-Type', 'text/html; charset=UTF-8');
 
-        $subject = $this->getMockWithCalledMethods(Subject::class, ['getResponse' => $response]);
+        $subject = $this->createPartialMock(Subject::class, ['getResponse']);
+        $subject->method('getResponse')->willReturn($response);
 
         $method = new ReflectionMethod(Subject::class, '_setFeedContentType');
         $method->invoke($subject);

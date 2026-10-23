@@ -15,7 +15,6 @@ use Mage;
 use Mage_Catalog_Model_Product_Option_Type_File as Subject;
 use Mage_Core_Exception;
 use Override;
-use PHPUnit\Framework\Attributes\DataProvider;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Option\Type\FileTrait;
 use ReflectionMethod;
@@ -51,7 +50,9 @@ final class FileTest extends OpenMageTest
         ];
     }
 
-    #[DataProvider('acceptedPathProvider')]
+    /**
+     * @dataProvider acceptedPathProvider
+     */
     public function testAcceptsPathsInsideTargetDirs(string $path): void
     {
         self::validate($path);
@@ -73,7 +74,9 @@ final class FileTest extends OpenMageTest
         ];
     }
 
-    #[DataProvider('rejectedPathProvider')]
+    /**
+     * @dataProvider rejectedPathProvider
+     */
     public function testRejectsPathsOutsideTargetDirs(string $path): void
     {
         $this->expectException(Mage_Core_Exception::class);
@@ -81,13 +84,17 @@ final class FileTest extends OpenMageTest
         self::validate($path);
     }
 
-    #[DataProvider('acceptedPathProvider')]
+    /**
+     * @dataProvider acceptedPathProvider
+     */
     public function testIsValidOptionFilePathAcceptsPathsInsideTargetDirs(string $path): void
     {
         self::assertTrue(self::$subject->isValidOptionFilePath($path));
     }
 
-    #[DataProvider('rejectedPathProvider')]
+    /**
+     * @dataProvider rejectedPathProvider
+     */
     public function testIsValidOptionFilePathRejectsPathsOutsideTargetDirs(string $path): void
     {
         self::assertFalse(self::$subject->isValidOptionFilePath($path));
@@ -104,7 +111,9 @@ final class FileTest extends OpenMageTest
         ];
     }
 
-    #[DataProvider('nonStringPathProvider')]
+    /**
+     * @dataProvider nonStringPathProvider
+     */
     public function testIsValidOptionFilePathRejectsNonStrings(mixed $path): void
     {
         self::assertFalse(self::$subject->isValidOptionFilePath($path));
