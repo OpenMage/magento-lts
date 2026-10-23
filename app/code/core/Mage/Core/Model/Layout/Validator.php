@@ -41,7 +41,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
      * @var array
      */
     protected $_disallowedXPathExpressions = [
-        '*//template',
+        "*//*[local-name()='template']",
         '*//@template',
         "//*[@method='setTemplate']",
         '//*[@method=\'setDataUsingMethod\']//*[contains(translate(text(),
@@ -66,7 +66,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
      * @var array
      */
     protected $_protectedExpressions = [
-        self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR => '//action/*[@helper]',
+        self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR => "//*[local-name()='action']/*[@helper]",
     ];
 
     public function __construct()
@@ -138,6 +138,11 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
      */
     public function isValid($value)
     {
+        // Reset messages and give _error() a value: errors raised before the parsed value is set would
+        // otherwise pass null to _createMessage() and throw a TypeError, which callers catching
+        // Exception (e.g. Mage_Catalog_Model_Design) do not handle.
+        $this->_setValue(is_string($value) ? $value : '');
+
         if (is_string($value)) {
             $value = trim($value);
             try {
@@ -148,6 +153,14 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
             }
         } elseif (!($value instanceof Varien_Simplexml_Element)) {
             throw new Exception($this->_messageTemplates[self::INVALID_XML_OBJECT_EXCEPTION]);
+        }
+
+        // Layout XML never uses namespaces. SimpleXML (and so the layout generator) treats an element in a
+        // default namespace as if it had none, while XPath name tests do not match it, so a namespaced
+        // element could slip past the checks below. Reject any namespaced element or attribute outright.
+        if ($value->xpath("//*[namespace-uri() != ''] | //@*[namespace-uri() != '']")) {
+            $this->_error(self::XML_INVALID);
+            return false;
         }
 
         if ($value->xpath($this->getXpathBlockValidationExpression())) {
@@ -214,7 +227,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
             foreach ($this->_disallowedBlock as $key => $value) {
                 $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
                 $this->_xpathBlockValidationExpression
-                    .= "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
+                    .= "//*[local-name()='block'][translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
                 $this->_xpathBlockValidationExpression
                     .= "translate('{$value}', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
             }
