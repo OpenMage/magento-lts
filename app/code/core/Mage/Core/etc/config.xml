@@ -465,8 +465,9 @@
                     <pl>pl</pl>
                     <!-- Python script file extension -->
                     <py>py</py>
-                    <!-- Active Server Page script file extension -->
+                    <!-- Active Server Page script file extensions -->
                     <asp>asp</asp>
+                    <aspx>aspx</aspx>
                     <!-- UNIX command prompt file extension -->
                     <sh>sh</sh>
                     <!-- Common Gateway Interface script extension type -->

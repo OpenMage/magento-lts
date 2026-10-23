@@ -27,6 +27,14 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     public const ERROR_FILESIZE_TOO_BIG                     = 'fileFilesSizeTooBig';
 
     /**
+     * Extensions refused for custom option uploads whatever catalog/custom_options/forbidden_extensions
+     * is set to: types a browser renders as an active document in the store origin. The configured
+     * list can only add to these, so a store that saved its own value before they were added to the
+     * default still refuses them.
+     */
+    public const FORBIDDEN_EXTENSIONS_MINIMUM = ['htm', 'html', 'svg', 'svgz', 'xhtml', 'xht', 'xml', 'xsl', 'xslt'];
+
+    /**
      * Url for custom option download controller
      * @var string
      */
@@ -877,6 +885,12 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         foreach ((array) $extensions as $ext) {
             $ext = strtolower(trim($ext));
             if ($ext !== '') {
+                $result[] = $ext;
+            }
+        }
+
+        foreach (self::FORBIDDEN_EXTENSIONS_MINIMUM as $ext) {
+            if (!in_array($ext, $result, true)) {
                 $result[] = $ext;
             }
         }
