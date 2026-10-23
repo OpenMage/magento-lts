@@ -746,7 +746,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * because the order directory is only created while the order is placed.
      *
      * @param  string       $path Relative path, using either separator
-     * @return string|false       False when the path traverses above its own root
+     * @return false|string False when the path traverses above its own root
      */
     protected function _normalizePath($path)
     {
@@ -777,7 +777,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Public counterpart of _validateOptionFilePath() for the download controllers,
      * which receive the same stored quote_path/order_path values.
      *
-     * @param  mixed $filePath Relative path as stored in the quote/order item option
+     * @param mixed $filePath Relative path as stored in the quote/order item option
      */
     public function isValidOptionFilePath($filePath): bool
     {
@@ -802,7 +802,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * the directory already exists the resolved path is additionally checked against
      * realpath(), so a symlink placed inside it cannot point somewhere else.
      *
-     * @param  string $filePath Relative path as stored in the quote/order item option
+     * @param  string              $filePath Relative path as stored in the quote/order item option
      * @throws Mage_Core_Exception
      */
     protected function _validateOptionFilePath(string $filePath): void
@@ -833,8 +833,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Skipped when the root does not exist yet, which is the normal state before the
      * first upload, since there is then nothing a symlink could redirect.
      *
-     * @param  string $fullPath
-     * @param  string $rootPath
+     * @param  string              $fullPath
+     * @param  string              $rootPath
      * @throws Mage_Core_Exception
      */
     protected function _assertResolvesInside($fullPath, $rootPath)

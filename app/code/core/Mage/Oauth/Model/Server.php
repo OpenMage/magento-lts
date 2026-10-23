@@ -676,7 +676,7 @@ class Mage_Oauth_Model_Server
     /**
      * Check authorize request for validity and return token
      *
-     * @param  bool $isPost
+     * @param  bool                   $isPost
      * @return Mage_Oauth_Model_Token
      */
     public function checkAuthorizeRequest($isPost = false)
