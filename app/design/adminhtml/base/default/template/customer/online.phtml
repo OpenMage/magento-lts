@@ -1,0 +1,21 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Customer_Online
+ * @var Mage_Adminhtml_Block_Customer_Online $this
+ */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3 class="icon-head head-online-visitors"><?php echo Mage::helper('customer')->__('Online Customers') ?></h3></td>
+        </tr>
+    </table>
+</div>
+<?php echo $this->getChildHtml('grid') ?>

@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_Totals
@@ -23,7 +15,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
     protected $_creditmemo = null;
 
     /**
-     * @return mixed|null
+     * @return null|mixed
      */
     public function getCreditmemo()
     {
@@ -36,11 +28,12 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
                 $this->_creditmemo = $this->getParentBlock()->getCreditmemo();
             }
         }
+
         return $this->_creditmemo;
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return $this
      */
     public function setCreditmemo($creditmemo)
@@ -54,6 +47,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
      *
      * @return Mage_Sales_Model_Order
      */
+    #[Override]
     public function getSource()
     {
         return $this->getCreditmemo();
@@ -62,8 +56,9 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
     /**
      * Initialize order totals array
      *
-     * @return Mage_Sales_Block_Order_Totals
+     * @return $this
      */
+    #[Override]
     protected function _initTotals()
     {
         parent::_initTotals();
@@ -76,6 +71,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
             ]);
             $this->addTotal($total);
         }
+
         if ((float) $this->getSource()->getAdjustmentNegative()) {
             $total = new Varien_Object([
                 'code'  => 'adjustment_negative',
@@ -84,6 +80,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
             ]);
             $this->addTotal($total);
         }
+
         /**
         <?php if ($this->getCanDisplayTotalPaid()): ?>
         <tr>

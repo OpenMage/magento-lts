@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product options api
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resource
@@ -25,20 +17,22 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Add custom option to product
      *
-     * @param string $productId
-     * @param array $data
-     * @param int|string|null $store
-     * @return bool $isAdded
+     * @param  string          $productId
+     * @param  array           $data
+     * @param  null|int|string $store
+     * @return bool            $isAdded
      */
     public function add($productId, $data, $store = null)
     {
-        $product = $this->_getProduct($productId, $store, null);
+        $product = $this->_getProduct($productId, $store);
         if (!(is_array($data['additional_fields']) && count($data['additional_fields']))) {
             $this->_fault('invalid_data');
         }
+
         if (!$this->_isTypeAllowed($data['type'])) {
             $this->_fault('invalid_type');
         }
+
         $this->_prepareAdditionalFields(
             $data,
             $product->getOptionInstance()->getGroupByType($data['type']),
@@ -50,9 +44,9 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Update product custom option data
      *
-     * @param string $optionId
-     * @param array $data
-     * @param int|string|null $store
+     * @param  string          $optionId
+     * @param  array           $data
+     * @param  null|int|string $store
      * @return bool
      */
     public function update($optionId, $data, $store = null)
@@ -62,22 +56,26 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
-        $product = $this->_getProduct($option->getProductId(), $store, null);
+
+        $product = $this->_getProduct($option->getProductId(), $store);
         $option = $product->getOptionById($optionId);
         if (isset($data['type']) && !$this->_isTypeAllowed($data['type'])) {
             $this->_fault('invalid_type');
         }
+
         if (isset($data['additional_fields'])) {
             $this->_prepareAdditionalFields(
                 $data,
                 $option->getGroupByType(),
             );
         }
+
         foreach ($option->getValues() as $valueId => $value) {
             if (isset($data['values'][$valueId])) {
                 $data['values'][$valueId] = array_merge($value->getData(), $data['values'][$valueId]);
             }
         }
+
         $data = array_merge($option->getData(), $data);
         $this->_saveProductCustomOption($product, $data);
         return true;
@@ -86,7 +84,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Prepare custom option data for saving by model. Used for custom option add and update
      *
-     * @param array $data
+     * @param array  $data
      * @param string $groupType
      */
     protected function _prepareAdditionalFields(&$data, $groupType)
@@ -112,6 +110,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                         foreach ($row as $key => $value) {
                             $row[$key] = Mage::helper('catalog')->stripTags($value);
                         }
+
                         if (!empty($row['value_id'])) {
                             // map 'value_id' to 'option_type_id'
                             $row['option_type_id'] = $row['value_id'];
@@ -124,6 +123,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 }
             }
         }
+
         unset($data['additional_fields']);
     }
 
@@ -131,7 +131,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      * Save product custom option data. Used for custom option add and update.
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array $data
+     * @param array                      $data
      */
     protected function _saveProductCustomOption($product, $data)
     {
@@ -158,8 +158,8 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
 
                 $product->save();
             }
-        } catch (Exception $e) {
-            $this->_fault('save_option_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('save_option_error', $exception->getMessage());
         }
     }
 
@@ -183,15 +183,16 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 ];
             }
         }
+
         return $types;
     }
 
     /**
      * Get full information about custom option in product
      *
-     * @param int|string $optionId
-     * @param  int|string|null $store
-     * @return array
+     * @param  int|string           $optionId
+     * @param  null|int|string      $store
+     * @return array<string, mixed>
      */
     public function info($optionId, $store = null)
     {
@@ -200,7 +201,8 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
-        $product = $this->_getProduct($option->getProductId(), $store, null);
+
+        $product = $this->_getProduct($option->getProductId(), $store);
         $option = $product->getOptionById($optionId);
         $result = [
             'title' => $option->getTitle(),
@@ -238,6 +240,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                         'sort_order' => $value->getSortOrder(),
                     ];
                 }
+
                 break;
             default:
                 break;
@@ -249,14 +252,14 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Retrieve list of product custom options
      *
-     * @param  string $productId
-     * @param  int|string|null $store
+     * @param  string          $productId
+     * @param  null|int|string $store
      * @return array
      */
     public function items($productId, $store = null)
     {
         $result = [];
-        $product = $this->_getProduct($productId, $store, null);
+        $product = $this->_getProduct($productId, $store);
         /** @var Mage_Catalog_Model_Product_Option $option */
         foreach ($product->getProductOptionsCollection() as $option) {
             $result[] = [
@@ -267,13 +270,14 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 'sort_order' => $option->getSortOrder(),
             ];
         }
+
         return $result;
     }
 
     /**
      * Remove product custom option
      *
-     * @param string $optionId
+     * @param  string $optionId
      * @return bool
      */
     public function remove($optionId)
@@ -283,21 +287,23 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
+
         try {
             $option->getValueInstance()->deleteValue($optionId);
             $option->deletePrices($optionId);
             $option->deleteTitles($optionId);
             $option->delete();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('delete_option_error');
         }
+
         return true;
     }
 
     /**
      * Check is type in allowed set
      *
-     * @param string $type
+     * @param  string $type
      * @return bool
      */
     protected function _isTypeAllowed($type)
@@ -307,9 +313,6 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             $allowedTypes[] = $optionType['value'];
         }
 
-        if (!in_array($type, $allowedTypes)) {
-            return false;
-        }
-        return true;
+        return in_array($type, $allowedTypes);
     }
 }

@@ -1,30 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Configurable product type resource model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Init resource
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -34,8 +25,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
     /**
      * Save configurable product relations
      *
-     * @param Mage_Catalog_Model_Product $mainProduct the parent id
-     * @param array $productIds the children id array
+     * @param  Mage_Catalog_Model_Product $mainProduct the parent id
+     * @param  array                      $productIds  the children id array
      * @return $this
      */
     public function saveProducts($mainProduct, $productIds)
@@ -47,6 +38,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
         } else {
             $mainProductId = $mainProduct;
         }
+
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $mainProduct->getTypeInstance();
         $old = $productType->getUsedProductIds();
@@ -54,18 +46,19 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
         $insert = array_diff($productIds, $old);
         $delete = array_diff($old, $productIds);
 
-        if ((!empty($insert) || !empty($delete)) && $isProductInstance) {
+        if (($insert !== [] || $delete !== []) && $isProductInstance) {
             $mainProduct->setIsRelationsChanged(true);
         }
 
-        if (!empty($delete)) {
+        if ($delete !== []) {
             $where = [
                 'parent_id = ?'     => $mainProductId,
                 'product_id IN(?)'  => $delete,
             ];
             $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         }
-        if (!empty($insert)) {
+
+        if ($insert !== []) {
             $data = [];
             foreach ($insert as $childId) {
                 $data[] = [
@@ -73,6 +66,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
                     'parent_id'  => (int) $mainProductId,
                 ];
             }
+
             $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $data);
         }
 
@@ -89,9 +83,9 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
      *   group => array(ids)
      * )
      *
-     * @param int $parentId
-     * @param bool $required
-     * @return array
+     * @param  int                         $parentId
+     * @param  bool                        $required
+     * @return array<int, non-empty-array>
      */
     public function getChildrenIds($parentId, $required = true)
     {
@@ -114,9 +108,9 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
     }
 
     /**
-     * Retrieve parent ids array by requered child
+     * Retrieve parent ids array by child
      *
-     * @param int|array $childId
+     * @param  array|int $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -136,8 +130,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
     /**
      * Collect product options with values according to the product instance and attributes, that were received
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $attributes
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $attributes
      * @return array
      */
     public function getConfigurableOptions($product, $attributes)
@@ -212,6 +206,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
 
             $attributesOptionsData[$superAttribute->getAttributeId()] = $this->_getReadAdapter()->fetchAll($select);
         }
+
         return $attributesOptionsData;
     }
 }

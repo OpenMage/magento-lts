@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
@@ -19,33 +12,30 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 /**
  * Adminhtml newsletter subscribers grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Set main configuration of grid
-     */
+    protected string $_eventPrefix = 'adminhtml_newsletter_subscriber_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('subscriberGrid');
         $this->setUseAjax(true);
         $this->setDefaultSort('subscriber_id');
-        $this->setDefaultDir('desc');
+        $this->setSaveParametersInSession(true);
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceSingleton('newsletter/subscriber_collection');
         /** @var Mage_Newsletter_Model_Resource_Subscriber_Collection $collection */
+        $collection = Mage::getResourceSingleton('newsletter/subscriber_collection');
         $collection
             ->showCustomerInfo()
             ->addSubscriberTypeField()
@@ -65,6 +55,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('subscriber_id', [
@@ -90,19 +81,19 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         $this->addColumn('firstname', [
             'header'    => Mage::helper('newsletter')->__('Customer First Name'),
             'index'     => 'customer_firstname',
-            'default'   =>    '----',
+            'default'   => '----',
         ]);
 
         $this->addColumn('middlename', [
             'header'    => Mage::helper('newsletter')->__('Customer Middle Name'),
             'index'     => 'customer_middlename',
-            'default'   =>    '----',
+            'default'   => '----',
         ]);
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('newsletter')->__('Customer Last Name'),
             'index'     => 'customer_lastname',
-            'default'   =>    '----',
+            'default'   => '----',
         ]);
 
         $this->addColumn('status', [
@@ -146,7 +137,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
     /**
      * Convert OptionsValue array to Options array
      *
-     * @param array $optionsArray
+     * @param  array $optionsArray
      * @return array
      */
     protected function _getOptions($optionsArray)
@@ -155,6 +146,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         foreach ($optionsArray as $option) {
             $options[$option['value']] = $option['label'];
         }
+
         return $options;
     }
 
@@ -189,8 +181,9 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('subscriber_id');
@@ -207,6 +200,6 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
             'url'          => $this->getUrl('*/*/massDelete'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 }

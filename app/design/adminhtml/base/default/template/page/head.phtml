@@ -1,0 +1,47 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Page_Head $this */
+?>
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title><?php echo htmlspecialchars(html_entity_decode($this->getTitle())) ?></title>
+<link rel="icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon"/>
+
+<script type="text/javascript">
+//<![CDATA[
+    var BLANK_URL = '<?php echo $this->getJsUrl() ?>blank.html';
+    var BLANK_IMG = '<?php echo $this->getJsUrl() ?>spacer.gif';
+    var BASE_URL = '<?php echo $this->getUrl('*') ?>';
+    var SKIN_URL = '<?php echo $this->getSkinUrl() ?>';
+    var FORM_KEY = '<?php echo $this->getFormKey() ?>';
+    <?php # BC: cast to INT in case of non-existing method getLoadingTimeout() in 3rd-party code?>
+    var LOADING_TIMEOUT = <?php echo (int)$this->getLoadingTimeout() ?>;
+//]]>
+</script>
+
+<?php echo $this->getCssJsHtml() ?>
+
+<?php if ($this->getCanLoadExtJs()): ?>
+<script type="text/javascript">
+    Ext.BLANK_IMAGE_URL = BLANK_IMG;
+    Ext.UpdateManager.defaults.loadScripts = false;
+    Ext.UpdateManager.defaults.disableCaching = true;
+</script>
+<?php endif ?>
+
+<?php if ($this->getCanLoadTinyMce()): // TinyMCE is broken when loaded through index.php?>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('lib/tinymce/tinymce.min.js') ?>"></script>
+<?php endif ?>
+
+<script type="text/javascript">
+    Fieldset.addToPrefix(<?php echo Mage::helper('adminhtml')->getCurrentUserId() ?>);
+</script>
+
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+<?php echo $this->getChildHtml(); ?>

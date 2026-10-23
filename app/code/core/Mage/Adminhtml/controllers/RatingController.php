@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin ratings controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
@@ -28,6 +20,9 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
      */
     public const ADMIN_RESOURCE = 'catalog/reviews_ratings/ratings';
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_initEnityId();
@@ -40,6 +35,9 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_initEnityId();
@@ -60,6 +58,9 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('edit');
@@ -67,6 +68,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save rating
+     * @return void
      */
     public function saveAction()
     {
@@ -93,7 +95,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
                     $i = 1;
                     foreach ($options as $key => $optionCode) {
                         $optionModel = Mage::getModel('rating/rating_option');
-                        if (!preg_match('/^add_([0-9]*?)$/', $key)) {
+                        if (!preg_match('/^add_(\d*?)$/', $key)) {
                             $optionModel->setId($key);
                         }
 
@@ -111,16 +113,20 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
 
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 Mage::getSingleton('adminhtml/session')->setRatingData($this->getRequest()->getPost());
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         if ($this->getRequest()->getParam('id') > 0) {
@@ -131,11 +137,12 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
                     ->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The rating has been deleted.'));
                 $this->_redirect('*/*/');
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
             }
         }
+
         $this->_redirect('*/*/');
     }
 

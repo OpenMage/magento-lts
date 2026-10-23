@@ -1,27 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml newsletter queue edit form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_newsletter_queue_edit_form';
+
     /**
      * Prepare form for newsletter queue editing.
      * Form can be run from newsletter template grid by option "Queue newsletter"
@@ -29,6 +23,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         /** @var Mage_Newsletter_Model_Queue $queue */
@@ -190,6 +185,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
         }
 
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 }

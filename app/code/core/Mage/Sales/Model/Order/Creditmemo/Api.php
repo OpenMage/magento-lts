@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Credit memo API
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resource
@@ -37,7 +29,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     /**
      * Retrieve credit memos list. Filtration could be applied
      *
-     * @param null|object|array $filters
+     * @param  null|array|object $filters
      * @return array
      */
     public function items($filters = null)
@@ -53,19 +45,20 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
             foreach ($creditMemoCollection as $creditmemo) {
                 $creditmemos[] = $this->_getAttributes($creditmemo, 'creditmemo');
             }
-        } catch (Exception $e) {
-            $this->_fault('invalid_filter', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('invalid_filter', $exception->getMessage());
         }
+
         return $creditmemos;
     }
 
     /**
      * Make filter of appropriate format for list method
      *
-     * @deprecated since 1.7.0.1
-     * @param array|null $filter
-     * @return array|null
+     * @param  null|array $filter
+     * @return null|array
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_1)]
     protected function _prepareListFilter($filter = null)
     {
         // prepare filter, map field creditmemo_id to entity_id
@@ -77,13 +70,14 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 }
             }
         }
+
         return $filter;
     }
 
     /**
      * Retrieve credit memo information
      *
-     * @param string $creditmemoIncrementId
+     * @param  string $creditmemoIncrementId
      * @return array
      */
     public function info($creditmemoIncrementId)
@@ -97,6 +91,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         foreach ($creditmemo->getAllItems() as $item) {
             $result['items'][] = $this->_getAttributes($item, 'creditmemo_item');
         }
+
         // credit memo comments
         $result['comments'] = [];
         foreach ($creditmemo->getCommentsCollection() as $comment) {
@@ -109,14 +104,14 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     /**
      * Create new credit memo for order
      *
-     * @param string $orderIncrementId
-     * @param array $creditmemoData array('qtys' => array('sku1' => qty1, ... , 'skuN' => qtyN),
-     *      'shipping_amount' => value, 'adjustment_positive' => value, 'adjustment_negative' => value)
-     * @param string|null $comment
-     * @param bool $notifyCustomer
-     * @param bool $includeComment
-     * @param string $refundToStoreCreditAmount
-     * @return string $creditmemoIncrementId
+     * @param  string      $orderIncrementId
+     * @param  array       $creditmemoData            array('qtys' => array('sku1' => qty1, ... , 'skuN' => qtyN),
+     *                                                'shipping_amount' => value, 'adjustment_positive' => value, 'adjustment_negative' => value)
+     * @param  null|string $comment
+     * @param  bool        $notifyCustomer
+     * @param  bool        $includeComment
+     * @param  string      $refundToStoreCreditAmount
+     * @return string      $creditmemoIncrementId
      */
     public function create(
         $orderIncrementId,
@@ -131,9 +126,11 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
+
         if (!$order->canCreditmemo()) {
             $this->_fault('cannot_create_creditmemo');
         }
+
         $creditmemoData = $this->_prepareCreateData($creditmemoData);
 
         /** @var Mage_Sales_Model_Service_Order $service */
@@ -146,6 +143,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
             if ($order->getCustomerIsGuest()) {
                 $this->_fault('cannot_refund_to_storecredit');
             }
+
             $refundToStoreCreditAmount = max(
                 0,
                 min($creditmemo->getBaseCustomerBalanceReturnMax(), $refundToStoreCreditAmount),
@@ -162,11 +160,13 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 $creditmemo->setCustomerBalanceRefundFlag(true);
             }
         }
+
         $creditmemo->setPaymentRefundDisallowed(true)->register();
         // add comment to creditmemo
         if (!empty($comment)) {
             $creditmemo->addComment($comment, $notifyCustomer);
         }
+
         try {
             Mage::getModel('core/resource_transaction')
                 ->addObject($creditmemo)
@@ -174,19 +174,20 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 ->save();
             // send email notification
             $creditmemo->sendEmail($notifyCustomer, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
+
         return $creditmemo->getIncrementId();
     }
 
     /**
      * Add comment to credit memo
      *
-     * @param string $creditmemoIncrementId
-     * @param string $comment
-     * @param bool $notifyCustomer
-     * @param bool $includeComment
+     * @param  string $creditmemoIncrementId
+     * @param  string $comment
+     * @param  bool   $notifyCustomer
+     * @param  bool   $includeComment
      * @return bool
      */
     public function addComment($creditmemoIncrementId, $comment, $notifyCustomer = false, $includeComment = false)
@@ -196,8 +197,8 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
             $creditmemo->addComment($comment, $notifyCustomer);
             $creditmemo->getCommentsCollection()->save();
             $creditmemo->sendUpdateEmail($notifyCustomer, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -206,7 +207,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     /**
      * Cancel credit memo
      *
-     * @param string $creditmemoIncrementId
+     * @param  string $creditmemoIncrementId
      * @return bool
      */
     public function cancel($creditmemoIncrementId)
@@ -216,9 +217,10 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         if (!$creditmemo->canCancel()) {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Credit memo cannot be canceled.'));
         }
+
         try {
             $creditmemo->cancel()->save();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Credit memo canceling problem.'));
         }
 
@@ -228,12 +230,12 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     /**
      * Hook method, could be replaced in derived classes
      *
-     * @param  array|null $data
+     * @param  null|array $data
      * @return array
      */
     protected function _prepareCreateData($data)
     {
-        $data = $data ?? [];
+        $data ??= [];
 
         if (isset($data['qtys']) && count($data['qtys'])) {
             $qtysArray = [];
@@ -247,15 +249,17 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                     $qtysArray[$qKey] = $qVal;
                 }
             }
+
             $data['qtys'] = $qtysArray;
         }
+
         return $data;
     }
 
     /**
      * Load CreditMemo by IncrementId
      *
-     * @param mixed $incrementId
+     * @param  mixed                             $incrementId
      * @return Mage_Sales_Model_Order_Creditmemo
      */
     protected function _getCreditmemo($incrementId)
@@ -265,6 +269,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         if (!$creditmemo->getId()) {
             $this->_fault('not_exists');
         }
+
         return $creditmemo;
     }
 }

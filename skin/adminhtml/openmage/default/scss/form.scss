@@ -1,0 +1,272 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass form.scss ../form.css
+ */
+
+@import "base";
+
+input,
+textarea,
+select {
+  &:focus-visible {
+    outline-offset: 0;
+    outline: 2px solid $openmage_blue_dark;
+    box-shadow: 0 0 4px 2px $openmage_blue;
+  }
+}
+
+input {
+  vertical-align: middle;
+
+  &.input-text {
+    @extend %extend_18;
+  }
+
+  &[type="checkbox"],
+  &[type="radio"] {
+    outline-offset: 2px;
+  }
+}
+
+textarea {
+  @extend %extend_18;
+  margin: 0;
+
+  &:disabled {
+    background: $color_wild_sand_approx;
+  }
+
+  &.disabled {
+    background: $color_wild_sand_approx;
+  }
+}
+
+select {
+  @extend %extend_18;
+  height: 26px;
+  border: 1px solid $color_silver_approx;
+  box-sizing: border-box;
+  text-transform: none;
+  margin: 0;
+
+  &.disabled {
+    background: $color_wild_sand_approx;
+  }
+
+  &:disabled {
+    background: $color_wild_sand_approx;
+  }
+
+  optgroup {
+    font-weight: 600;
+  }
+}
+
+input[type=text] {
+  &.disabled {
+    background: $color_wild_sand_approx;
+  }
+
+  &:disabled {
+    background: $color_wild_sand_approx;
+  }
+}
+
+select[multiple] {
+  height: auto;
+}
+
+select[size] {
+  height: auto;
+}
+
+button,
+.form-button {
+  text-transform: none;
+  background: $openmage_blue_gray;
+  padding: 0 12px;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 28px;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  span {
+    padding: 0;
+  }
+
+  &.large {
+    font-size: 22px;
+    padding: 14px 22px 16px;
+  }
+
+  &.icon-btn {
+    width: auto !important;
+
+    span {
+      text-indent: 0;
+      width: auto;
+      display: inline;
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: $color_dark_grey;
+  }
+
+  &:focus-visible {
+    outline-offset: -4px;
+    outline: 2px solid white;
+  }
+
+  &.disabled,
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  &.save,
+  &.add,
+  &.ok_button {
+    background: $openmage_blue;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: $openmage_blue_dark;
+    }
+  }
+
+  &.cancel,
+  &.cancel_button,
+  &.delete,
+  &.fail {
+    background: $openmage_red;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: $openmage_red_dark;
+    }
+  }
+
+  &.success {
+    background: $openmage_green;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: $openmage_green_dark;
+    }
+  }
+}
+
+.field-100 {
+  background: none;
+  border: 0;
+  padding: 0;
+
+  textarea {
+    @extend %extend_26;
+  }
+
+  input.input-text {
+    @extend %extend_26;
+  }
+}
+
+.form-list td {
+  &.label {
+    @extend %extend_19;
+
+    label {
+      padding: 0 10px 0 0;
+      @extend %extend_19;
+    }
+  }
+
+  &.scope-label {
+    color: $color_martini_approx;
+    font-size: 11px;
+  }
+
+  &.value {
+    input.input-text, textarea, select {
+      width: 330px;
+    }
+
+    p.note {
+      padding-top: 2px;
+      color: $openmage_base_blue_text;
+      font-size: 11px;
+      font-weight: 400;
+
+      span.input-counter-error {
+        color: $openmage_red;
+      }
+    }
+  }
+}
+
+fieldset[disabled] button {
+  &.save,
+  &.add,
+  &.ok_button {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+.input-text.large {
+  padding: 12px 12px 14px;
+  font-size: 18px;
+}
+
+td:has(input.swatch-option) {
+  display: flex;
+  gap: 2px;
+  .swatch-delete {
+    cursor: pointer;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    justify-content: center;
+    font-size: 10px;
+    background: $openmage_red;
+    color: $white;
+    border-radius: 2px;
+  }
+  .swatch-option {
+    width: 26px !important;
+    height: 26px;
+  }
+}
+
+td:has(input.swatch-disabled) {
+  background-image: url('data:image/svg+xml,<svg id="e5490f2e-3f54-4acd-9496-57eed667c240" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 28.41093 28.29249"><title>placeholder</title><rect x="1.20546" y="1.08375" width="26" height="26" fill="%23fff" stroke="%23ccc" stroke-miterlimit="10"/><line x1="0.70546" y1="27.58375" x2="27.70546" y2="0.70875" fill="none" stroke="%23ff003a" stroke-miterlimit="10" stroke-width="2"/></svg>');
+  background-repeat: no-repeat;
+  outline: 1px solid #c8c8c8;
+  border: 1px solid #fff;
+  padding: 0;
+  margin: 2px;
+  width: 24px;
+  height: 24px;
+  display: block;
+  background-position: center center;
+  border-radius: 2px;
+  
+  .swatch-option {
+    opacity: 0;
+  }
+  .swatch-delete {
+    display: none;
+  }
+}

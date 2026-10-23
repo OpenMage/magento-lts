@@ -1,41 +1,34 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 /**
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price _getResource()
+ * @method int                                               getCustomerGroupId()
+ * @method float                                             getFinalPrice()
+ * @method float                                             getMaxPrice()
+ * @method float                                             getMinPrice()
+ * @method float                                             getPrice()
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price getResource()
- * @method $this setEntityId(int $value)
- * @method int getCustomerGroupId()
- * @method $this setCustomerGroupId(int $value)
- * @method int getWebsiteId()
- * @method $this setWebsiteId(int $value)
- * @method int getTaxClassId()
- * @method $this setTaxClassId(int $value)
- * @method float getPrice()
- * @method $this setPrice(float $value)
- * @method float getFinalPrice()
- * @method $this setFinalPrice(float $value)
- * @method float getMinPrice()
- * @method $this setMinPrice(float $value)
- * @method float getMaxPrice()
- * @method $this setMaxPrice(float $value)
- * @method float getTierPrice()
- * @method $this setTierPrice(float $value)
+ * @method int                                               getTaxClassId()
+ * @method float                                             getTierPrice()
+ * @method int                                               getWebsiteId()
+ * @method $this                                             setCustomerGroupId(int $value)
+ * @method $this                                             setEntityId(int $value)
+ * @method $this                                             setFinalPrice(float $value)
+ * @method $this                                             setMaxPrice(float $value)
+ * @method $this                                             setMinPrice(float $value)
+ * @method $this                                             setPrice(float $value)
+ * @method $this                                             setTaxClassId(int $value)
+ * @method $this                                             setTierPrice(float $value)
+ * @method $this                                             setWebsiteId(int $value)
  */
 class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_Abstract
 {
@@ -77,6 +70,9 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
         Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK,
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_indexer_price');
@@ -97,6 +93,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('catalog')->__('Index product prices');
@@ -105,7 +102,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
     /**
      * Retrieve attribute list has an effect on product price
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getDependentAttributes()
     {
@@ -127,6 +124,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
      *
      * @return bool
      */
+    #[Override]
     public function matchEvent(Mage_Index_Model_Event $event)
     {
         $data       = $event->getNewData();
@@ -136,11 +134,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
         if ($event->getEntity() == Mage_Core_Model_Config_Data::ENTITY) {
             $data = $event->getDataObject();
-            if ($data && in_array($data->getPath(), $this->_relatedConfigSettings)) {
-                $result = $data->isValueChanged();
-            } else {
-                $result = false;
-            }
+            $result = $data && in_array($data->getPath(), $this->_relatedConfigSettings) ? $data->isValueChanged() : false;
         } elseif ($event->getEntity() == Mage_Customer_Model_Group::ENTITY) {
             $result = $event->getDataObject() && $event->getDataObject()->isObjectNew();
         } else {
@@ -154,6 +148,8 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
     /**
      * Register data required by catalog product delete process
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _registerCatalogProductDeleteEvent(Mage_Index_Model_Event $event)
     {
@@ -219,6 +215,8 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
     /**
      * Register data required by process in event object
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
     {
@@ -258,6 +256,8 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
     /**
      * Process event
+     *
+     * @throws Mage_Core_Exception
      */
     protected function _processEvent(Mage_Index_Model_Event $event)
     {
@@ -266,9 +266,11 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
             $this->_getResource()->reindexProductIds($data['id']);
             return;
         }
+
         if (!empty($data['catalog_product_price_reindex_all'])) {
             $this->reindexAll();
         }
+
         if (empty($data['catalog_product_price_skip_call_event_handler'])) {
             $this->callEventHandler($event);
         }

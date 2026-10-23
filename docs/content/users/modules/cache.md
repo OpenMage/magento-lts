@@ -7,17 +7,19 @@ tags:
 # Cache modules
 
 ## `colinmollenhour/Cm_Diehard`
-Cm_Diehard: Full-Page Cache
+`Cm_Diehard` FPC
 
-#### Install [^1]
+- GitHub [repository](https://github.com/colinmollenhour/Cm_Diehard)
+
 ```bash
 composer require colinmollenhour/cm_diehard
 ```
 
 ## `fballiano/openmage-lesti-fpc`
-Simple Magento Fullpagecache.
+Simple Magento FPC.
 
-#### Install [^2]
+- GitHub [repository](https://github.com/fballiano/openmage-lesti-fpc)
+
 ```bash
 composer require fballiano/openmage-lesti-fpc
 ```
@@ -25,11 +27,8 @@ composer require fballiano/openmage-lesti-fpc
 ## `luigifab/openmage-turpentine-varnish`
 Updated version of Varnish connector for OpenMage.
 
-#### Install [^3]
+- GitHub [repository](https://github.com/luigifab/openmage-turpentine-varnish)
+
 ```bash
 composer require luigifab/openmage-turpentine-varnish
 ```
-
-[^1]: https://github.com/colinmollenhour/Cm_Diehard
-[^2]: https://github.com/fballiano/openmage-lesti-fpc
-[^3]: https://github.com/luigifab/openmage-turpentine-varnish

@@ -1,29 +1,23 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog indexer abstract class
  *
- * @category   Mage
  * @package    Mage_CatalogIndex
  */
 abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_Abstract implements Mage_CatalogIndex_Model_Indexer_Interface
 {
     protected $_processChildren = true;
+
     protected $_processChildrenForConfigurable = true;
+
     protected $_runOnce = false;
 
     /**
@@ -69,6 +63,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
                 }
             }
         }
+
         $function = 'saveIndex';
         if ($data && is_array($data)) {
             if (isset($data[0]) && is_array($data[0])) {
@@ -94,8 +89,8 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
 
     /**
      * @param array $data
-     * @param int $storeId
-     * @param int $productId
+     * @param int   $storeId
+     * @param int   $productId
      */
     public function saveIndex($data, $storeId, $productId)
     {
@@ -120,8 +115,8 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
             return false;
         }
 
-        if ($object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG &&
-            $object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH
+        if ($object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG
+            && $object->getVisibility() != Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH
         ) {
             return false;
         }
@@ -154,7 +149,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @return array
+     * @return array<string, string>|array<void>|string
      */
     protected function _getIndexableAttributeConditions()
     {

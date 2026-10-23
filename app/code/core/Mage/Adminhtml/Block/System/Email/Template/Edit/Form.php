@@ -1,33 +1,28 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml system template edit form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_system_email_template_edit_form';
+
     /**
      * Prepare layout.
      * Add files to use dialog windows
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Page_Block_Html_Head $head */
@@ -38,6 +33,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
                 ->addCss('lib/prototype/windows/themes/magento.css')
                 ->addItem('js', 'mage/adminhtml/variables.js');
         }
+
         return parent::_prepareLayout();
     }
 
@@ -46,6 +42,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -60,11 +57,11 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
             $fieldset->addField('used_currently_for', 'label', [
                 'label' => Mage::helper('adminhtml')->__('Used Currently For'),
                 'container_id' => 'used_currently_for',
-                'after_element_html' =>
-                    '<script type="text/javascript">' .
-                    (!$this->getEmailTemplate()->getSystemConfigPathsWhereUsedCurrently()
-                        ? '$(\'' . 'used_currently_for' . '\').hide(); ' : '') .
-                    '</script>',
+                'after_element_html'
+                    => '<script type="text/javascript">'
+                    . ($this->getEmailTemplate()->getSystemConfigPathsWhereUsedCurrently()
+                        ? '' : '$(\'used_currently_for\').hide(); ')
+                    . '</script>',
             ]);
         }
 
@@ -72,11 +69,11 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
             $fieldset->addField('used_default_for', 'label', [
                 'label' => Mage::helper('adminhtml')->__('Used as Default For'),
                 'container_id' => 'used_default_for',
-                'after_element_html' =>
-                    '<script type="text/javascript">' .
-                    (!(bool) $this->getEmailTemplate()->getOrigTemplateCode()
-                        ? '$(\'' . 'used_default_for' . '\').hide(); ' : '') .
-                    '</script>',
+                'after_element_html'
+                    => '<script type="text/javascript">'
+                    . ((bool) $this->getEmailTemplate()->getOrigTemplateCode()
+                        ? '' : '$(\'used_default_for\').hide(); ')
+                    . '</script>',
             ]);
         }
 
@@ -159,7 +156,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
     /**
      * Retrieve variables to insert into email
      *
-     * @return array
+     * @return array<int, mixed>
      */
     public function getVariables()
     {
@@ -171,11 +168,13 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
         if ($customVariables) {
             $variables[] = $customVariables;
         }
+
         /** @var Mage_Core_Model_Email_Template $template */
         $template = Mage::registry('current_email_template');
         if ($template->getId() && $templateVariables = $template->getVariablesOptionArray(true)) {
             $variables[] = $templateVariables;
         }
+
         return $variables;
     }
 }

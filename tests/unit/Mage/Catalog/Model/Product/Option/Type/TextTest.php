@@ -1,81 +1,98 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Product\Option\Type;
 
-use Generator;
+use Override;
 use Mage;
 use Mage_Catalog_Model_Product_Option;
 use Mage_Catalog_Model_Product_Option_Type_Text as Subject;
-use PHPUnit\Framework\TestCase;
+use Mage_Core_Exception;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Product\Option\Type\TextTrait;
 
-class TextTest extends TestCase
+final class TextTest extends OpenMageTest
 {
-    public Subject $subject;
+    use TextTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    #[Override]
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('catalog/product_option_type_text');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('catalog/product_option_type_text');
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
+     * @group Model
      */
     public function testValidateUserValue(): void
     {
-        $this->subject->setOption(new Mage_Catalog_Model_Product_Option());
-        $this->assertInstanceOf(Subject::class, $this->subject->validateUserValue([]));
+        self::$subject->setOption(new Mage_Catalog_Model_Product_Option());
+        self::assertInstanceOf(Subject::class, self::$subject->validateUserValue([]));
     }
 
 
     /**
      * @dataProvider providePrepareForCart
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
-    public function testPrepareForCart($expectedResult, bool $setIsValid = true, $setUserValue = null): void
+    public function testPrepareForCart(?string $expectedResult, bool $setIsValid = true, ?string $setUserValue = null): void
     {
-        $this->subject->setIsValid($setIsValid)->setUserValue($setUserValue);
-        $this->assertSame($expectedResult, $this->subject->prepareForCart());
-    }
-
-    public function providePrepareForCart(): Generator
-    {
-        yield 'valid' => [
-            'test',
-            true,
-            'test',
-        ];
-        yield 'invalid' => [
-            null,
-        ];
+        self::$subject->setIsValid($setIsValid)->setUserValue($setUserValue);
+        self::assertSame($expectedResult, self::$subject->prepareForCart());
     }
 
     /**
      * @covers Mage_Catalog_Model_Product_Option_Type_Text::getFormattedOptionValue()
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        $this->assertIsString($this->subject->getFormattedOptionValue(''));
+        self::assertIsString(self::$subject->getFormattedOptionValue(''));
+    }
+
+    /**
+     * Browsers post textarea content with CRLF; the JS validator counts each
+     * line break as one character. The server must agree, otherwise input that
+     * passed client-side validation is rejected with "The text is too long".
+     *
+     * @group Model
+     */
+    public function testValidateUserValueNormalizesCrlfWithinMaxLength(): void
+    {
+        $option = new Mage_Catalog_Model_Product_Option();
+        $option->setId('opt');
+        $option->setMaxCharacters(7);
+
+        self::$subject->setOption($option);
+        self::$subject->validateUserValue(['opt' => "abcd\r\nef"]);
+
+        self::assertTrue(self::$subject->getIsValid());
+        self::assertSame("abcd\nef", self::$subject->getUserValue());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testValidateUserValueRejectsOverMaxAfterCrlfNormalization(): void
+    {
+        $option = new Mage_Catalog_Model_Product_Option();
+        $option->setId('opt');
+        $option->setMaxCharacters(5);
+
+        self::$subject->setOption($option);
+
+        $this->expectException(Mage_Core_Exception::class);
+        self::$subject->validateUserValue(['opt' => "abcd\r\nef"]);
     }
 }

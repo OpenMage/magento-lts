@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 Server
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Server
@@ -31,14 +23,23 @@ class Mage_Api2_Model_Server
      * HTTP Response Codes
      */
     public const HTTP_OK                 = 200;
+
     public const HTTP_CREATED            = 201;
+
     public const HTTP_MULTI_STATUS       = 207;
+
     public const HTTP_BAD_REQUEST        = 400;
+
     public const HTTP_UNAUTHORIZED       = 401;
+
     public const HTTP_FORBIDDEN          = 403;
+
     public const HTTP_NOT_FOUND          = 404;
+
     public const HTTP_METHOD_NOT_ALLOWED = 405;
+
     public const HTTP_NOT_ACCEPTABLE     = 406;
+
     public const HTTP_INTERNAL_ERROR     = 500;
 
     /**
@@ -62,29 +63,32 @@ class Mage_Api2_Model_Server
         try {
             /** @var Mage_Api2_Model_Response $response */
             $response = Mage::getSingleton('api2/response');
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
 
             if (!headers_sent()) {
                 header('HTTP/1.1 ' . self::HTTP_INTERNAL_ERROR);
             }
+
             echo 'Service temporary unavailable';
             return;
         }
+
         // can not render errors case
         try {
             /** @var Mage_Api2_Model_Request $request */
             $request = Mage::getSingleton('api2/request');
             /** @var Mage_Api2_Model_Renderer_Interface $renderer */
             $renderer = Mage_Api2_Model_Renderer::factory($request->getAcceptTypes());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
 
             $response->setHttpResponseCode(self::HTTP_INTERNAL_ERROR)
                 ->setBody('Service temporary unavailable')
                 ->sendResponse();
             return;
         }
+
         // default case
         try {
             $apiUser = $this->_authenticate($request);
@@ -97,13 +101,20 @@ class Mage_Api2_Model_Server
                 // TODO: Re-factor this after _renderException refactoring
                 throw new Mage_Api2_Exception('Resource was partially created', self::HTTP_CREATED);
             }
+
             //NOTE: At this moment Renderer already could have some content rendered, so we should replace it
             if ($response->isException()) {
                 throw new Mage_Api2_Exception('Unhandled simple errors.', self::HTTP_INTERNAL_ERROR);
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $this->_renderException($e, $renderer, $response);
+        } catch (Mage_Api2_Exception $mageApi2Exception) {
+            if ($mageApi2Exception->shouldLog()) {
+                Mage::logException($mageApi2Exception);
+            }
+
+            $this->_renderException($mageApi2Exception, $renderer, $response);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $this->_renderException($exception, $renderer, $response);
         }
 
         $response->sendResponse();
@@ -125,8 +136,8 @@ class Mage_Api2_Model_Server
     /**
      * Authenticate user
      *
-     * @throws Exception
      * @return Mage_Api2_Model_Auth_User_Abstract
+     * @throws Exception
      */
     protected function _authenticate(Mage_Api2_Model_Request $request)
     {
@@ -140,7 +151,6 @@ class Mage_Api2_Model_Server
     /**
      * Set auth user
      *
-     * @throws Exception
      * @return $this
      */
     protected function _setAuthUser(Mage_Api2_Model_Auth_User_Abstract $authUser)
@@ -152,8 +162,8 @@ class Mage_Api2_Model_Server
     /**
      * Retrieve existing auth user
      *
-     * @throws Exception
      * @return Mage_Api2_Model_Auth_User_Abstract
+     * @throws Exception
      */
     protected function _getAuthUser()
     {
@@ -161,6 +171,7 @@ class Mage_Api2_Model_Server
             throw new Exception('Mage_Api2_Model_Server::internalCall() seems to be executed '
                 . 'before Mage_Api2_Model_Server::run()');
         }
+
         return $this->_authUser;
     }
 
@@ -196,6 +207,7 @@ class Mage_Api2_Model_Server
         if (!$globalAcl->isAllowed($apiUser, $request->getResourceType(), $request->getOperation())) {
             throw new Mage_Api2_Exception('Access denied', self::HTTP_FORBIDDEN);
         }
+
         return $this;
     }
 
@@ -243,6 +255,7 @@ class Mage_Api2_Model_Server
         } else {
             $httpCode = self::HTTP_INTERNAL_ERROR;
         }
+
         try {
             //add last error to stack
             $response->setException($exception);
@@ -256,8 +269,10 @@ class Mage_Api2_Model_Server
                 if (Mage::getIsDeveloperMode()) {
                     $message['trace'] = $exception->getTraceAsString();
                 }
+
                 $messages['messages']['error'][] = $message;
             }
+
             //set HTTP Code of last error, Content-Type and Body
             $response->setBody($renderer->render($messages));
             $response->setHeader('Content-Type', sprintf(
@@ -265,16 +280,17 @@ class Mage_Api2_Model_Server
                 $renderer->getMimeType(),
                 Mage_Api2_Model_Response::RESPONSE_CHARSET,
             ));
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             //tunnelling of 406(Not acceptable) error
-            $httpCode = $e->getCode() == self::HTTP_NOT_ACCEPTABLE    //$e->getCode() can result in one more loop
-                    ? self::HTTP_NOT_ACCEPTABLE                      // of try..catch
+            $httpCode = $exception->getCode() == self::HTTP_NOT_ACCEPTABLE    //$exception->getCode() can result in one more loop
+                    ? self::HTTP_NOT_ACCEPTABLE                               // of try..catch
                     : self::HTTP_INTERNAL_ERROR;
 
             //if error appeared in "error rendering" process then show it in plain text
-            $response->setBody($e->getMessage());
+            $response->setBody($exception->getMessage());
             $response->setHeader('Content-Type', 'text/plain; charset=' . Mage_Api2_Model_Response::RESPONSE_CHARSET);
         }
+
         $response->setHttpResponseCode($httpCode);
 
         return $this;

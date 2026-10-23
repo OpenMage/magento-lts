@@ -1,265 +1,343 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
-use Generator;
+use Override;
 use Mage;
-use Mage_Admin_Model_User;
+use Mage_Admin_Model_Resource_User_Collection;
+use Mage_Admin_Model_Roles;
+use Mage_Admin_Model_User as Subject;
 use Mage_Core_Exception;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\UserTrait;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 
-class UserTest extends TestCase
+/**
+ * @phpstan-import-type AuthenticateData from UserTrait
+ * @phpstan-import-type AuthenticateMethods from UserTrait
+ * @phpstan-import-type ValidateData from UserTrait
+ */
+final class UserTest extends OpenMageTest
 {
-    public Mage_Admin_Model_User $subject;
+    use UserTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    #[Override]
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('admin/user');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('admin/user');
     }
 
     /**
-     * @dataProvider provideAuthenticateData
-     * @param array|true $expectedResult
      * @group Model
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
-    public function testAuthenticate($expectedResult, array $methods): void
+    public function testSaveExtra(): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_User::class)
-            ->setMethods([
-                'loadByUsername',
-                'getId',
-                'getUsername',
-                'getPassword',
-                'getIsActive',
-                'validatePasswordHash',
-                'hasAssigned2Role',
-            ])
-            ->getMock();
+        $data = [];
+        self::assertInstanceOf(Subject::class, self::$subject->saveExtra($data));
+    }
 
-        $mock->method('loadByUsername')->willReturnSelf();
-        $mock->method('getId')->willReturn($methods['getId']);
-        //        $mock->expects($this->any())->method('getUsername')->willReturn($methods['getUsername']);
-        $mock->method('getPassword')->willReturn($methods['getPassword']);
-        $mock->method('validatePasswordHash')->willReturn($methods['validatePasswordHash']);
-        $mock->method('getIsActive')->willReturn($methods['getIsActive']);
-        $mock->method('hasAssigned2Role')->willReturn($methods['hasAssigned2Role']);
+    /**
+     * @group Model
+     */
+    public function testSaveRelations(): void
+    {
+        self::assertInstanceOf(Subject::class, self::$subject->saveRelations());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetRoles(): void
+    {
+        self::assertIsArray(self::$subject->getRoles());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetRole(): void
+    {
+        self::assertInstanceOf(Mage_Admin_Model_Roles::class, self::$subject->getRole());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testDeleteFromRole(): void
+    {
+        self::assertInstanceOf(Subject::class, self::$subject->deleteFromRole());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testRoleUserExists(): void
+    {
+        self::assertIsBool(self::$subject->roleUserExists());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testAdd(): void
+    {
+        self::assertInstanceOf(Subject::class, self::$subject->add());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testUserExists(): void
+    {
+        self::assertIsBool(self::$subject->userExists());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetCollection(): void
+    {
+        self::assertInstanceOf(Mage_Admin_Model_Resource_User_Collection::class, self::$subject->getCollection());
+    }
+
+    /**
+     * @group Model
+     */
+    #[IgnoreDeprecations]
+    public function testSendNewPasswordEmail(): void
+    {
+        self::assertInstanceOf(Subject::class, self::$subject->sendNewPasswordEmail());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetUserId(): void
+    {
+        self::assertNull(self::$subject->getUserId());
+
+        self::$subject->setUserId(1);
+        self::assertIsInt(self::$subject->getUserId());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetAclRole(): void
+    {
+        self::assertStringStartsWith('U', self::$subject->getAclRole());
+    }
+
+    /**
+     * @phpstan-param AuthenticateData $data
+     * @phpstan-param AuthenticateMethods $methods
+     * @dataProvider provideAuthenticateData
+     * @group Model
+     */
+    public function testAuthenticate(bool|string $expectedResult, array $data, array $methods): void
+    {
+        $defaultMethods = ['loadByUsername', 'save'];
+        $mock = $this->createPartialMock(Subject::class, array_merge($defaultMethods, array_keys($methods)));
+        $mock->setData($data);
+        foreach ($defaultMethods as $method) {
+            $mock->method($method)->willReturnSelf();
+        }
+
+        foreach ($methods as $method => $result) {
+            $mock->method($method)->willReturn($result);
+        }
+
+        self::assertInstanceOf(Subject::class, $mock);
 
         try {
-            $this->assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
-        } catch (Mage_Core_Exception $e) {
-            $this->assertSame($expectedResult, $e->getMessage());
+            self::assertSame($expectedResult, $mock->authenticate($data['username'], $data['password']));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame($expectedResult, $mageCoreException->getMessage());
         }
     }
 
-    public function provideAuthenticateData(): Generator
-    {
-        yield 'pass' => [
-            true,
-            [
-                'getId'       => '1',
-                'getUsername' => 'admin',
-                'getPassword' => 'veryl0ngpassw0rd',
-                'getIsActive' => '1',
-                'validatePasswordHash' => true,
-                'hasAssigned2Role' => true,
-            ],
-        ];
-        yield 'fail #1 inactive' => [
-            'This account is inactive.',
-            [
-                'getId'       => '1',
-                'getUsername' => 'admin',
-                'getPassword' => 'veryl0ngpassw0rd',
-                'getIsActive' => '0',
-                'validatePasswordHash' => true,
-                'hasAssigned2Role' => true,
-            ],
-        ];
-        yield 'fail #2 invalid hash' => [
-            false,
-            [
-                'getId'       => '1',
-                'getUsername' => 'admin',
-                'getPassword' => 'veryl0ngpassw0rd',
-                'getIsActive' => '1',
-                'validatePasswordHash' => false,
-                'hasAssigned2Role' => true,
-            ],
-        ];
-        yield 'fail #3 no role assigned' => [
-            'Access denied.',
-            [
-                'getId'       => '1',
-                'getUsername' => 'admin',
-                'getPassword' => 'veryl0ngpassw0rd',
-                'getIsActive' => '1',
-                'validatePasswordHash' => true,
-                'hasAssigned2Role' => false,
-            ],
-        ];
-    }
-
     /**
-     * @dataProvider provideValidateData
-     * @param array|true $expectedResult
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
-    public function testValidate($expectedResult, array $methods): void
+    public function testHasAvailableResources()
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_User::class)
-            ->setMethods([
-                'hasNewPassword',
-                'getNewPassword',
-                'hasPassword',
-                'getPassword',
-            ])
-            ->getMock();
-
-        $mock->method('hasNewPassword')->willReturn($methods['hasNewPassword']);
-        $mock->method('getNewPassword')->willReturn($methods['getNewPassword']);
-        $mock->method('hasPassword')->willReturn($methods['hasPassword']);
-        $mock->method('getPassword')->willReturn($methods['getPassword']);
-        $this->assertSame($expectedResult, $mock->validate());
-    }
-
-    public function provideValidateData(): Generator
-    {
-        yield 'fail #1' => [
-            [
-                0 => 'User Name is required field.',
-                1 => 'First Name is required field.',
-                2 => 'Last Name is required field.',
-                3 => 'Please enter a valid email.',
-                4 => 'Password must be at least of 14 characters.',
-                5 => 'Password must include both numeric and alphabetic characters.',
-            ],
-            [
-                'hasNewPassword' => true,
-                'getNewPassword' => '123',
-                'hasPassword' => false,
-                'getPassword' => '456',
-            ],
-        ];
-        yield 'fails #2' => [
-            [
-                0 => 'User Name is required field.',
-                1 => 'First Name is required field.',
-                2 => 'Last Name is required field.',
-                3 => 'Please enter a valid email.',
-                4 => 'Password must be at least of 14 characters.',
-                5 => 'Password must include both numeric and alphabetic characters.',
-            ],
-            [
-                'hasNewPassword' => false,
-                'getNewPassword' => '123',
-                'hasPassword' => true,
-                'getPassword' => '456',
-            ],
-        ];
-    }
-
-    /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
-     */
-    public function testValidateCurrentPassword(): void
-    {
-        $this->assertIsArray($this->subject->validateCurrentPassword(''));
-        $this->assertIsArray($this->subject->validateCurrentPassword('123'));
-    }
-
-    /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
-     */
-    public function testLoadByUsername(): void
-    {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->loadByUsername('invalid-user'));
-    }
-
-    /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
-     */
-    public function testHasAssigned2Role(): void
-    {
-        $this->assertIsArray($this->subject->hasAssigned2Role(1));
+        self::assertIsBool(self::$subject->hasAvailableResources());
     }
 
     /**
      * @group Model
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     */
+    public function testFindFirstAvailableMenu()
+    {
+        self::assertIsString(self::$subject->findFirstAvailableMenu());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetStartupPageUrl()
+    {
+        self::assertIsString(self::$subject->getStartupPageUrl());
+    }
+
+    /**
+     * @dataProvider provideValidateAdminUserData
+     * @param bool|string[] $expectedResult
+     * @phpstan-param ValidateData $data
+     * @group Model
+     */
+    public function testValidate(array|bool $expectedResult, array $data): void
+    {
+        self::$subject->setData($data);
+        self::assertSame($expectedResult, self::$subject->validate());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testValidateCurrentPassword(): void
+    {
+        self::assertIsArray(self::$subject->validateCurrentPassword(''));
+        self::assertIsArray(self::$subject->validateCurrentPassword('123'));
+    }
+
+    /**
+     * @group Model
+     */
+    public function testValidatePasswordHash(): void
+    {
+        self::assertIsBool(self::$subject->validatePasswordHash('a', 'b'));
+    }
+
+    /**
+     * @group Model
+     */
+    public function testLogin(): void
+    {
+        self::assertInstanceOf(Subject::class, self::$subject->login('a', 'b'));
+    }
+
+
+    /**
+     * @group Model
+     */
+    public function testReload(): void
+    {
+        self::assertInstanceOf(Subject::class, self::$subject->reload());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testLoadByUsername(): void
+    {
+        self::assertInstanceOf(Subject::class, self::$subject->loadByUsername('invalid-user'));
+    }
+
+    /**
+     * @group Model
+     */
+    public function testHasAssigned2Role(): void
+    {
+        self::assertIsArray(self::$subject->hasAssigned2Role(1));
+    }
+
+    /**
+     * @group Model
      */
     public function testChangeResetPasswordLinkToken(): void
     {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->changeResetPasswordLinkToken('123'));
+        self::assertInstanceOf(Subject::class, self::$subject->changeResetPasswordLinkToken('123'));
     }
 
     /**
      * @dataProvider provideIsResetPasswordLinkTokenExpiredData
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @param array<string, string> $data
+     * @group Model
      */
-    public function testIsResetPasswordLinkTokenExpired(bool $expectedResult, array $methods): void
+    public function testIsResetPasswordLinkTokenExpired(bool $expectedResult, array $data): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_User::class)
-            ->setMethods([
-                'getRpToken',
-                'getRpTokenCreatedAt',
-            ])
-            ->getMock();
-
-        $mock->method('getRpToken')->willReturn($methods['getRpToken']);
-        $mock->method('getRpTokenCreatedAt')->willReturn($methods['getRpTokenCreatedAt']);
-        $this->assertSame($expectedResult, $mock->isResetPasswordLinkTokenExpired());
-    }
-
-    public function provideIsResetPasswordLinkTokenExpiredData(): Generator
-    {
-        yield '#1' => [
-            true,
-            [
-                'getRpToken'       => '',
-                'getRpTokenCreatedAt' => '',
-            ],
-        ];
-        yield '#2' => [
-            true,
-            [
-                'getRpToken'       => '1',
-                'getRpTokenCreatedAt' => '0',
-            ],
-        ];
+        self::$subject->setData($data);
+        self::assertSame($expectedResult, self::$subject->isResetPasswordLinkTokenExpired());
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testSendPasswordResetConfirmationEmail(): void
     {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->sendPasswordResetConfirmationEmail());
+        $store = Mage::app()->getStore();
+        $previousSmtpDisable = $store->getConfig('system/smtp/disable');
+        $store->setConfig('system/smtp/disable', '1');
+        try {
+            self::assertInstanceOf(Subject::class, self::$subject->sendPasswordResetConfirmationEmail());
+        } finally {
+            $store->setConfig('system/smtp/disable', $previousSmtpDisable);
+        }
+    }
+
+    /**
+     * @group Model
+     */
+    public function testCleanPasswordsValidationData(): void
+    {
+        self::$subject->setData('password', 'test123');
+        self::$subject->setData('current_password', 'current123');
+        self::$subject->setData('new_password', 'new123');
+        self::$subject->setData('password_confirmation', 'confirm123');
+
+        self::$subject->cleanPasswordsValidationData();
+
+        self::assertNull(self::$subject->getDataByKey('password'));
+        self::assertNull(self::$subject->getDataByKey('current_password'));
+        self::assertNull(self::$subject->getDataByKey('new_password'));
+        self::assertNull(self::$subject->getDataByKey('password_confirmation'));
+    }
+
+    /**
+     * @group Model
+     */
+    public function testSendAdminNotification(): void
+    {
+        $store = Mage::app()->getStore();
+        $previousSmtpDisable = $store->getConfig('system/smtp/disable');
+        $store->setConfig('system/smtp/disable', '1');
+        try {
+            $methods = ['getUserCreateAdditionalEmail' => ['test@example.com']];
+            $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+
+            self::assertInstanceOf(Subject::class, $mock);
+            self::assertInstanceOf(Subject::class, $mock->sendAdminNotification(self::$subject));
+        } finally {
+            $store->setConfig('system/smtp/disable', $previousSmtpDisable);
+        }
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetUserCreateAdditionalEmail(): void
+    {
+        self::assertSame([0 => ''], self::$subject->getUserCreateAdditionalEmail());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetMinAdminPasswordLength(): void
+    {
+        self::assertSame(14, self::$subject->getMinAdminPasswordLength());
     }
 }

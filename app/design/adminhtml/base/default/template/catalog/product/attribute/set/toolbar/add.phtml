@@ -1,0 +1,28 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add
+ * @var Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add $this
+ */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="width:50%;"><h3 class="icon-head head-product-attribute-sets"><?php echo $this->_getHeader() ?></h3></td>
+            <td class="form-buttons">
+                <?php echo $this->getBackButtonHtml() ?>
+                <?php echo $this->getSaveButtonHtml() ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<?php echo $this->getFormHtml() ?>
+<script type="text/javascript">
+    var addSet = new varienForm('<?php echo $this->getFormId() ?>');
+</script>

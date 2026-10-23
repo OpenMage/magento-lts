@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Weee_Model_Observer
  *
- * @category   Mage
  * @package    Mage_Weee
  */
 class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
@@ -25,7 +17,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Assign custom renderer for product create/edit form weee attribute element
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return $this
      */
     public function setWeeeRendererInForm(Varien_Event_Observer $observer)
     {
@@ -37,9 +29,10 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         foreach ($attributes as $code) {
             $weeeTax = $form->getElement($code);
             if ($weeeTax) {
-                $weeeTax->setRenderer(
-                    Mage::app()->getLayout()->createBlock('weee/renderer_weee_tax'),
-                );
+                $renderer = Mage::app()->getLayout()->createBlock('weee/renderer_weee_tax');
+                if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                    $weeeTax->setRenderer($renderer);
+                }
             }
         }
 
@@ -49,7 +42,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Exclude WEEE attributes from standard form generation
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return $this
      */
     public function updateExcludedFieldList(Varien_Event_Observer $observer)
     {
@@ -69,7 +62,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Add additional price calculation to select object which is using for select indexed data
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return $this
      */
     public function prepareCatalogIndexSelect(Varien_Event_Observer $observer)
     {
@@ -110,6 +103,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 [],
             );
         }
+
         $checkDiscountField = $select->getAdapter()->getCheckSql(
             'discount_percent.value IS NULL',
             '0',
@@ -121,9 +115,10 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             if (Mage::helper('weee')->isDiscounted()) {
                 $additionalCalculations[] = sprintf('+(%s*(1-(%s/100)))', $checkAdditionalCalculation, $checkDiscountField);
             } else {
-                $additionalCalculations[] = "+($checkAdditionalCalculation)";
+                $additionalCalculations[] = "+({$checkAdditionalCalculation})";
             }
         }
+
         $response->setAdditionalCalculations($additionalCalculations);
 
         /** @var Varien_Object $rateRequest */
@@ -156,6 +151,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 [],
             );
         }
+
         return $this;
     }
 
@@ -172,7 +168,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Add new attribute type to manage attributes interface
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return $this
      */
     public function addWeeeTaxAttributeType(Varien_Event_Observer $observer)
     {
@@ -206,7 +202,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Automatically assign backend model to weee attributes
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return $this
      */
     public function assignBackendModelToAttribute(Varien_Event_Observer $observer)
     {
@@ -221,8 +217,10 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                     if ($option['value'] == Mage_Catalog_Model_Product_Type::TYPE_GROUPED) {
                         continue;
                     }
+
                     $applyTo[] = $option['value'];
                 }
+
                 $object->setApplyTo($applyTo);
             }
         }
@@ -233,7 +231,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Add custom element type for attributes form
      *
-     * @return Mage_Weee_Model_Observer
+     * @return $this
      */
     public function updateElementTypes(Varien_Event_Observer $observer)
     {
@@ -247,7 +245,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Update WEEE amounts discount percents
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return $this
      */
     public function updateDiscountPercents(Varien_Event_Observer $observer)
     {
@@ -256,11 +254,8 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         $productCondition = $observer->getEvent()->getProductCondition();
-        if ($productCondition) {
-            $eventProduct = $productCondition;
-        } else {
-            $eventProduct = $observer->getEvent()->getProduct();
-        }
+        $eventProduct = $productCondition ? $productCondition : $observer->getEvent()->getProduct();
+
         Mage::getModel('weee/tax')->updateProductsDiscountPercent($eventProduct);
 
         return $this;
@@ -269,7 +264,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Update configurable options of the product view page
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return $this
      */
     public function updateCofigurableProductOptions(Varien_Event_Observer $observer)
     {
@@ -320,7 +315,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Process bundle options selection for prepare view json
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return $this
      */
     public function updateBundleProductOptions(Varien_Event_Observer $observer)
     {

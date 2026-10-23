@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml system template edit block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Block_Widget
@@ -31,6 +23,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -52,6 +45,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                     [
                         'label'   => Mage::helper('adminhtml')->__('Reset'),
                         'onclick' => 'window.location.href = window.location.href',
+                        'class'   => 'reset',
                     ],
                 ),
         );
@@ -61,7 +55,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
-                        'label'   => Mage::helper('adminhtml')->__('Delete Template'),
+                        'label'   => Mage::helper('adminhtml')->__('Delete'),
                         'onclick' => 'templateControl.deleteTemplate();',
                         'class'   => 'delete',
                     ],
@@ -76,6 +70,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                         'label'   => Mage::helper('adminhtml')->__('Convert to Plain Text'),
                         'onclick' => 'templateControl.stripTags();',
                         'id'      => 'convert_button',
+                        'class'   => 'task to-plain',
                     ],
                 ),
         );
@@ -89,6 +84,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                         'onclick' => 'templateControl.unStripTags();',
                         'id'      => 'convert_button_back',
                         'style'   => 'display:none',
+                        'class'   => 'task to-html',
                     ],
                 ),
         );
@@ -112,6 +108,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                     [
                         'label'   => Mage::helper('adminhtml')->__('Preview Template'),
                         'onclick' => 'templateControl.preview();',
+                        'class'   => 'task preview',
                     ],
                 ),
         );
@@ -121,7 +118,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
-                        'label'   => Mage::helper('adminhtml')->__('Save Template'),
+                        'label'   => Mage::helper('adminhtml')->__('Save'),
                         'onclick' => 'templateControl.save();',
                         'class'   => 'save',
                     ],
@@ -223,11 +220,11 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
     /**
      * Return edit flag for block
      *
-     * @return int|string
+     * @return bool
      */
     public function getEditMode()
     {
-        return $this->getEmailTemplate()->getId();
+        return (bool) $this->getEmailTemplate()->getId();
     }
 
     /**
@@ -240,6 +237,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         if ($this->getEditMode()) {
             return Mage::helper('adminhtml')->__('Edit Email Template');
         }
+
         return  Mage::helper('adminhtml')->__('New Email Template');
     }
 
@@ -329,8 +327,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
     /**
      * Get paths of where current template is used as default
      *
-     * @param bool $asJSON
-     * @return string|array
+     * @param  bool         $asJSON
+     * @return array|string
      */
     public function getUsedDefaultForPaths($asJSON = true)
     {
@@ -339,14 +337,15 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         if ($asJSON) {
             return Mage::helper('core')->jsonEncode($pathsParts);
         }
+
         return $pathsParts;
     }
 
     /**
      * Get paths of where current template is currently used
      *
-     * @param bool $asJSON
-     * @return string|array
+     * @param  bool         $asJSON
+     * @return array|string
      */
     public function getUsedCurrentlyForPaths($asJSON = true)
     {
@@ -355,18 +354,21 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         if ($asJSON) {
             return Mage::helper('core')->jsonEncode($pathsParts);
         }
+
         return $pathsParts;
     }
 
     /**
      * Convert xml config paths to decorated names
      *
-     * @param array $paths
+     * @param  array $paths
      * @return array
      */
     protected function _getSystemConfigPathsParts($paths)
     {
-        $result = $urlParams = $prefixParts = [];
+        $result = [];
+        $urlParams = [];
+        $prefixParts = [];
         $scopeLabel = Mage::helper('adminhtml')->__('GLOBAL');
         if ($paths) {
             // create prefix path parts
@@ -379,8 +381,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
             ];
 
             $pathParts = $prefixParts;
-            foreach ($paths as $id => $pathData) {
-                list($sectionName, $groupName, $fieldName) = explode('/', $pathData['path']);
+            foreach ($paths as $pathData) {
+                [$sectionName, $groupName, $fieldName] = explode('/', $pathData['path']);
                 $urlParams = ['section' => $sectionName];
                 if (isset($pathData['scope']) && isset($pathData['scope_id'])) {
                     switch ($pathData['scope']) {
@@ -391,6 +393,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                                 $urlParams['store'] = $store->getCode();
                                 $scopeLabel = $store->getWebsite()->getName() . '/' . $store->getName();
                             }
+
                             break;
                         case 'websites':
                             $website = Mage::app()->getWebsite($pathData['scope_id']);
@@ -398,11 +401,13 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                                 $urlParams['website'] = $website->getCode();
                                 $scopeLabel = $website->getName();
                             }
+
                             break;
                         default:
                             break;
                     }
                 }
+
                 $pathParts[] = [
                     'title' => Mage::getSingleton('adminhtml/config')->getSystemConfigNodeLabel($sectionName),
                     'url' => $this->getUrl('adminhtml/system_config/edit', $urlParams),
@@ -418,6 +423,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 $pathParts = $prefixParts;
             }
         }
+
         return $result;
     }
 

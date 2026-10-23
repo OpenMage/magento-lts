@@ -1,27 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer addresses forms
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_customer_edit_tab_addresses';
+
     /**
      * Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses constructor.
      */
@@ -42,6 +36,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -109,7 +104,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
      * @return $this
      * @throws Mage_Core_Exception
      */
-    public function initForm()
+    #[Override]
+    protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('address_fieldset', [
@@ -129,12 +125,14 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             Mage::helper('adminhtml/addresses')
                 ->processStreetAttribute($attributes['street']);
         }
+
         foreach ($attributes as $attribute) {
             /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             $attribute->setFrontendLabel(Mage::helper('customer')->__($attribute->getFrontend()->getLabel()));
             $attribute->setNote(Mage::helper('customer')->__($attribute->getNote()));
             $attribute->unsIsVisible();
         }
+
         $this->_setFieldset($attributes, $fieldset);
 
         $regionElement = $form->getElement('region');
@@ -208,7 +206,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         $form->setValues($addressModel->getData());
         $this->setForm($form);
 
-        return $this;
+        return parent::_prepareForm();
     }
 
     /**
@@ -238,8 +236,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Return predefined additional element types
      *
-     * @return array
+     * @return array<string, string>
      */
+    #[Override]
     protected function _getAdditionalElementTypes()
     {
         return [
@@ -271,7 +270,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Add specified values to name prefix element values
      *
-     * @param string|int|array $values
+     * @param  array|int|string $values
      * @return $this
      */
     public function addValuesToNamePrefixElement($values)
@@ -279,13 +278,14 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         if ($this->getForm() && $this->getForm()->getElement('prefix')) {
             $this->getForm()->getElement('prefix')->addElementValues($values);
         }
+
         return $this;
     }
 
     /**
      * Add specified values to name suffix element values
      *
-     * @param string|int|array $values
+     * @param  array|int|string $values
      * @return $this
      */
     public function addValuesToNameSuffixElement($values)
@@ -293,6 +293,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         if ($this->getForm() && $this->getForm()->getElement('suffix')) {
             $this->getForm()->getElement('suffix')->addElementValues($values);
         }
+
         return $this;
     }
 

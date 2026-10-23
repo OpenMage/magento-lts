@@ -1,27 +1,22 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product custom option resource model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_option_type_value', 'option_type_id');
@@ -33,6 +28,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
      *
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $this->_saveValuePrices($object);
@@ -85,7 +81,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
 
         $scope = (int) Mage::app()->getStore()->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
 
-        if ($object->getStoreId() != '0' && $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
+        if ($object->getStoreId() != '0' && $scope === Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
             && !$object->getData('scope', 'price')
         ) {
             $baseCurrency = Mage::app()->getBaseCurrencyCode();
@@ -101,6 +97,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
                         if (!$rate) {
                             $rate = 1;
                         }
+
                         $newPrice = $price * $rate;
                     } else {
                         $newPrice = $price;
@@ -135,7 +132,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
                     }
                 }// end of foreach()
             }
-        } elseif ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE && $object->getData('scope', 'price')) {
+        } elseif ($scope === Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE && $object->getData('scope', 'price')) {
             $where = [
                 'option_type_id = ?'    => (int) $object->getId(),
                 'store_id = ?'          => (int) $object->getStoreId(),
@@ -215,7 +212,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
     /**
      * Delete values by option id
      *
-     * @param int|string $optionId
+     * @param  int|string $optionId
      * @return $this
      */
     public function deleteValue($optionId)
@@ -265,8 +262,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
     /**
      * Duplicate product options value
      *
-     * @param int $oldOptionId
-     * @param int $newOptionId
+     * @param  int                                     $oldOptionId
+     * @param  int                                     $newOptionId
      * @return Mage_Catalog_Model_Product_Option_Value
      */
     public function duplicate(Mage_Catalog_Model_Product_Option_Value $object, $oldOptionId, $newOptionId)

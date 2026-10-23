@@ -1,0 +1,78 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Review_Rating_Detailed $this */
+?>
+<?php if( $this->getRating() && $this->getRating()->getSize()): ?>
+    <div class="product-review-box">
+        <table cellspacing="0" id="product-review-table">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th><span class="nobr"><?php echo Mage::helper('rating')->__('1 star') ?></span></th>
+                    <th><span class="nobr"><?php echo Mage::helper('rating')->__('2 stars') ?></span></th>
+                    <th><span class="nobr"><?php echo Mage::helper('rating')->__('3 stars') ?></span></th>
+                    <th><span class="nobr"><?php echo Mage::helper('rating')->__('4 stars') ?></span></th>
+                    <th><span class="nobr"><?php echo Mage::helper('rating')->__('5 stars') ?></span></th>
+                </tr>
+            </thead>
+        <?php $_oddIterator = 1; ?>
+            <tbody>
+            <?php foreach ($this->getRating() as $_rating): ?>
+                <tr class="odd<?php if($_oddIterator == $this->getRating()->getSize()): $_oddIterator = 0; ?> last<?php endif ?>">
+                    <td class="label"><?php echo $this->escapeHtml($_rating->getRatingCode()) ?></td>
+                <?php $_iterator = 1; ?>
+                <?php $_options = ( $_rating->getRatingOptions() ) ? $_rating->getRatingOptions() : $_rating->getOptions() ?>
+                <?php foreach ($_options as $_option): ?>
+                    <td<?php if($_iterator === 5): ?> class="last"<?php endif ?>><input type="radio" name="ratings[<?php echo ( $_rating->getVoteId() ) ? $_rating->getVoteId() : $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" <?php if( $this->isSelected($_option, $_rating)): ?>checked="checked"<?php endif ?> /></td>
+                <?php $_iterator++ ?>
+                <?php endforeach ?>
+                </tr>
+            <?php $_oddIterator ++; ?>
+            <?php endforeach ?>
+            </tbody>
+        </table>
+        <input type="hidden" name="validate_rating" class="validate-rating" value="" />
+    </div>
+<script type="text/javascript">
+//<![CDATA[
+    Validation.addAllThese(
+    [
+           ['validate-rating', '<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('rating')->__('Please select one of each ratings above')) ?>', function(v) {
+                var trs = $('product-review-table').getElementsBySelector('tr');
+                var inputs;
+                var error = 1;
+
+                for( var j=0; j < trs.length; j++ ) {
+                    var tr = trs[j];
+                    if( j > 0 ) {
+                        inputs = tr.getElementsBySelector('input');
+
+                        for( i in inputs ) {
+                            if( inputs[i].checked == true ) {
+                                error = 0;
+                            }
+                        }
+
+                        if( error == 1 ) {
+                            //console.log(tr)
+                            return false;
+                        } else {
+                            error = 1;
+                        }
+                    }
+                }
+                return true;
+            }]
+    ]
+    );
+//]]>
+</script>
+<?php else: ?>
+    <?php echo Mage::helper('rating')->__("Rating isn't Available") ?>
+<?php endif ?>

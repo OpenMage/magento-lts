@@ -1,42 +1,34 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle option renderer
  *
- * @category   Mage
  * @package    Mage_Bundle
  *
  * @method Mage_Catalog_Model_Product getFormatProduct()
- * @method $this setFormatProduct(Mage_Catalog_Model_Product $value)
- * @method Mage_Bundle_Model_Option getOption()
+ * @method Mage_Bundle_Model_Option   getOption()
+ * @method $this                      setFormatProduct(Mage_Catalog_Model_Product $value)
  */
 class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bundle_Block_Catalog_Product_Price
 {
     /**
      * Store preconfigured options
      *
-     * @var int|array|string|null
+     * @var null|array|int|string
      */
     protected $_selectedOptions = null;
 
     /**
      * Show if option has a single selection
      *
-     * @var bool|null
+     * @var null|bool
      */
     protected $_showSingle = null;
 
@@ -60,7 +52,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Retrieve default values for template
      *
-     * @return array
+     * @return array<int, bool|float|int>
      */
     protected function _getDefaultValues()
     {
@@ -98,7 +90,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Collect selected options
      *
-     * @return int|array|string
+     * @return array|int|string
      */
     protected function _getSelectedOptions()
     {
@@ -131,13 +123,17 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         $selectedOptions = $this->_getSelectedOptions();
         if (is_numeric($selectedOptions)) {
             return ($selection->getSelectionId() == $this->_getSelectedOptions());
-        } elseif (is_array($selectedOptions) && !empty($selectedOptions)) {
-            return in_array($selection->getSelectionId(), $this->_getSelectedOptions());
-        } elseif ($selectedOptions === 'None') {
-            return false;
-        } else {
-            return ($selection->getIsDefault() && $selection->isSaleable());
         }
+
+        if (is_array($selectedOptions) && $selectedOptions !== []) {
+            return in_array($selection->getSelectionId(), $this->_getSelectedOptions());
+        }
+
+        if ($selectedOptions === 'None') {
+            return false;
+        }
+
+        return ($selection->getIsDefault() && $selection->isSaleable());
     }
 
     /**
@@ -165,19 +161,21 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      *
      * @return Mage_Catalog_Model_Product
      */
+    #[Override]
     public function getProduct()
     {
         if (!$this->hasData('product')) {
             $this->setData('product', Mage::registry('current_product'));
         }
-        return $this->getData('product');
+
+        return $this->getDataByKey('product');
     }
 
     /**
      * Returns the formatted string for the quantity chosen for the given selection
      *
-     * @param Mage_Catalog_Model_Product $selection
-     * @param bool $includeContainer
+     * @param  Mage_Catalog_Model_Product      $selection
+     * @param  bool                            $includeContainer
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -195,8 +193,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Get price for selection product
      *
-     * @param Mage_Catalog_Model_Product $selection
-     * @return int|float
+     * @param  Mage_Catalog_Model_Product $selection
+     * @return float|int
      */
     public function getSelectionPrice($selection)
     {
@@ -210,14 +208,15 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
                 $price = $helper::currencyByStore($price, $store, false);
             }
         }
+
         return is_numeric($price) ? $price : 0;
     }
 
     /**
      * Get title price for selection product
      *
-     * @param Mage_Catalog_Model_Product $selection
-     * @param bool $includeContainer
+     * @param  Mage_Catalog_Model_Product      $selection
+     * @param  bool                            $includeContainer
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -234,14 +233,14 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Set JS validation container for element
      *
-     * @param string $elementId
-     * @param string $containerId
+     * @param  string $elementId
+     * @param  string $containerId
      * @return string
      */
     public function setValidationContainer($elementId, $containerId)
     {
         return '<script type="text/javascript">
-            $(\'' . $elementId . '\').advaiceContainer = \'' . $containerId . '\';
+            $(\'' . $elementId . "').advaiceContainer = '" . $containerId . '\';
             $(\'' . $elementId . '\').callbackFunction  = \'bundle.validationCallback\';
             </script>';
     }
@@ -249,8 +248,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Format price string
      *
-     * @param float $price
-     * @param bool $includeContainer
+     * @param  float                           $price
+     * @param  bool                            $includeContainer
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -273,10 +272,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
 
         $formated = $coreHelper::currencyByStore($priceTax, $product->getStore(), true, $includeContainer);
         if ($taxHelper->displayBothPrices() && $priceTax != $priceIncTax) {
-            $formated .=
-                    ' (+' .
-                    $coreHelper::currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer) .
-                    ' ' . $this->__('Incl. Tax') . ')';
+            $formated
+                    .= ' (+'
+                    . $coreHelper::currencyByStore($priceIncTax, $product->getStore(), true, $includeContainer)
+                    . ' ' . $this->__('Incl. Tax') . ')';
         }
 
         return $formated;

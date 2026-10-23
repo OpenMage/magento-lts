@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter subscriber resource model
  *
- * @category   Mage
  * @package    Mage_Newsletter
  */
 class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource_Db_Abstract
@@ -51,8 +43,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
     protected $_messagesScope          = 'newsletter/session';
 
     /**
-     * Get tablename from config
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -75,7 +66,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
     /**
      * Load subscriber from DB by email
      *
-     * @param string $subscriberEmail
+     * @param  string $subscriberEmail
      * @return array
      */
     public function loadByEmail($subscriberEmail)
@@ -152,10 +143,11 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
                 'queue_id = ?' => $queue->getId(),
             ]);
             $this->_write->commit();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_write->rollBack();
             Mage::throwException(Mage::helper('newsletter')->__('Cannot mark as received subscriber.'));
         }
+
         return $this;
     }
 }

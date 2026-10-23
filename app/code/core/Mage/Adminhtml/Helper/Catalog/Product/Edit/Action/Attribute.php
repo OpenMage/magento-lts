@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml catalog product action attribute update helper
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_Core_Helper_Data
@@ -25,14 +17,14 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Selected products for mass-update
      *
-     * @var Mage_Catalog_Model_Resource_Product_Collection|null
+     * @var null|Mage_Catalog_Model_Resource_Product_Collection
      */
     protected $_products;
 
     /**
      * Array of same attributes for selected products
      *
-     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection|null
+     * @var null|Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     protected $_attributes;
 
@@ -69,7 +61,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Return array of selected product ids from post or session
      *
-     * @return array|string|null
+     * @return null|list<int|string>|string
      */
     public function getProductIds()
     {
@@ -77,7 +69,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
         $session = Mage::getSingleton('adminhtml/session');
 
         if ($this->_getRequest()->isPost() && strtolower($this->_getRequest()->getActionName()) === 'edit') {
-            $session->setProductIds($this->_getRequest()->getParam('product', null));
+            $session->setProductIds($this->_getRequest()->getParam('product'));
         }
 
         return $session->getProductIds();
@@ -142,9 +134,9 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
     /**
      * Return product ids that not available for selected store
      *
-     * @deprecated since 1.4.1
-     * @return array
+     * @return array<void>
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_1_0)]
     public function getProductsNotInStoreIds()
     {
         return [];

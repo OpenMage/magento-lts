@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Persistent
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Persistent Observer
  *
- * @category   Mage
  * @package    Mage_Persistent
  */
 class Mage_Persistent_Model_Observer
@@ -32,7 +24,7 @@ class Mage_Persistent_Model_Observer
     /**
      * Apply persistent data
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function applyPersistentData($observer)
@@ -42,6 +34,7 @@ class Mage_Persistent_Model_Observer
         ) {
             return $this;
         }
+
         Mage::getModel('persistent/persistent_config')
             ->setConfigFilePath(Mage::helper('persistent')->getPersistentConfigFilePath())
             ->fire();
@@ -51,7 +44,7 @@ class Mage_Persistent_Model_Observer
     /**
      * Apply persistent data to specific block
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function applyBlockPersistentData($observer)
@@ -67,7 +60,7 @@ class Mage_Persistent_Model_Observer
             return $this;
         }
 
-        $xPath = '//instances/blocks/*[block_type="' . get_class($block) . '"]';
+        $xPath = '//instances/blocks/*[block_type="' . $block::class . '"]';
         $configFilePath = $observer->getEvent()->getConfigFilePath();
 
         /** @var Mage_Persistent_Model_Persistent_Config $persistentConfig */
@@ -83,23 +76,25 @@ class Mage_Persistent_Model_Observer
 
         return $this;
     }
+
     /**
      * Emulate welcome message with persistent data
      *
-     * @param Mage_Page_Block_Html_Welcome $block
+     * @param  Mage_Page_Block_Html_Welcome $block
      * @return $this
      */
     public function emulateWelcomeMessageBlock($block)
     {
         $block->setWelcome(
-            Mage::helper('persistent')->__('Welcome, %s!', Mage::helper('core')->escapeHtml($this->_getPersistentCustomer()->getName(), null)),
+            Mage::helper('persistent')->__('Welcome, %s!', Mage::helper('core')->escapeHtml($this->_getPersistentCustomer()->getName())),
         );
         return $this;
     }
+
     /**
      * Emulate 'welcome' block with persistent data
      *
-     * @param Mage_Core_Block_Abstract $block
+     * @param  Mage_Core_Block_Abstract $block
      * @return $this
      */
     public function emulateWelcomeBlock($block)
@@ -258,7 +253,7 @@ class Mage_Persistent_Model_Observer
     /**
      * Check if checkout session should NOT be cleared
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer                $observer
      * @return bool|Mage_Persistent_IndexController
      */
     protected function _checkClearCheckoutSessionNecessity($observer)
@@ -487,6 +482,7 @@ class Mage_Persistent_Model_Observer
             $customerSession->setCustomerId(null)->setCustomerGroupId(null);
         }
     }
+
     /**
      * Active Persistent Sessions
      */
@@ -563,7 +559,7 @@ class Mage_Persistent_Model_Observer
     /**
      * Set persistent data to customer session
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function emulateCustomer($observer)
@@ -583,6 +579,7 @@ class Mage_Persistent_Model_Observer
                 ->setCustomerId($customer->getId())
                 ->setCustomerGroupId($customer->getGroupId());
         }
+
         return $this;
     }
 }

@@ -1,27 +1,19 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml catalog product downloadable items tab links section
  *
- * @category   Mage
  * @package    Mage_Downloadable
  *
+ * @method bool  getCanReadPrice()
  * @method $this setCanEditPrice(bool $value)
- * @method bool getCanReadPrice()
  * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links extends Mage_Uploader_Block_Single
@@ -29,7 +21,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Purchased Separately Attribute cache
      *
-     * @var Mage_Catalog_Model_Resource_Eav_Attribute|null
+     * @var null|Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected $_purchasedSeparatelyAttribute = null;
 
@@ -69,6 +61,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             if (!($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute)) {
                 Mage::throwException('Attribute links_purchased_separately must be of type Mage_Catalog_Model_Resource_Eav_Attribute');
             }
+
             $this->_purchasedSeparatelyAttribute = $attribute;
         }
 
@@ -130,9 +123,9 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Return true if price in website scope
      *
-     * @deprecated since 1.14.2.0
      * @return bool
      */
+    #[Deprecated(message: 'since 1.14.2.0')]
     public function getIsPriceWebsiteScope()
     {
         return Mage::helper('downloadable')->getIsPriceWebsiteScope();
@@ -141,14 +134,13 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Return array of links
      *
-     * @return array
+     * @return Varien_Object[]
      */
     public function getLinkData()
     {
         $linkArr = [];
         /** @var Mage_Downloadable_Model_Product_Type $productType */
         $productType = $this->getProduct()->getTypeInstance(true);
-        /** @var Mage_Downloadable_Model_Link[] $links */
         $links = $productType->getLinks($this->getProduct());
         $priceWebsiteScope = Mage::helper('downloadable')->getIsPriceWebsiteScope();
         foreach ($links as $item) {
@@ -174,6 +166,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 if (!is_file($file)) {
                     Mage::helper('core/file_storage_database')->saveFileToFilesystem($file);
                 }
+
                 if (is_file($file)) {
                     $name = '<a href="'
                         . $this->getUrl('*/downloadable_product_edit/link', [
@@ -190,6 +183,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                     ];
                 }
             }
+
             if ($item->getSampleFile()) {
                 $sampleFile = Mage::helper('downloadable/file')->getFilePath(
                     Mage_Downloadable_Model_Link::getBaseSamplePath(),
@@ -206,24 +200,29 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                     ];
                 }
             }
+
             if ($item->getNumberOfDownloads() == '0') {
                 $tmpLinkItem['is_unlimited'] = ' checked="checked"';
             }
+
             if ($this->getProduct()->getStoreId() && $item->getStoreTitle()) {
                 $tmpLinkItem['store_title'] = $item->getStoreTitle();
             }
+
             if ($this->getProduct()->getStoreId() && $priceWebsiteScope) {
                 $tmpLinkItem['website_price'] = $item->getWebsitePrice();
             }
+
             $linkArr[] = new Varien_Object($tmpLinkItem);
         }
+
         return $linkArr;
     }
 
     /**
      * Return formatted price with two digits after decimal point
      *
-     * @param float $value
+     * @param  float  $value
      * @return string
      */
     public function getPriceValue($value)
@@ -243,8 +242,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
 
     /**
      * Prepare block Layout
-     *
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -254,7 +253,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 'id'      => '',
                 'label'   => Mage::helper('adminhtml')->__('Upload Files'),
                 'type'    => 'button',
-                'onclick' => 'Downloadable.massUploadByType(\'links\');Downloadable.massUploadByType(\'linkssample\')',
+                'onclick' => "Downloadable.massUploadByType('links');Downloadable.massUploadByType('linkssample')",
             ]),
         );
         $this->_addElementIdsMapping([
@@ -277,7 +276,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Retrieve config json
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getConfigJson($type = 'links')
@@ -295,9 +294,10 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
+    #[Override]
     public function getBrowseButtonHtml($type = '')
     {
         return $this->getChild('browse_button')
@@ -311,9 +311,10 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
+    #[Override]
     public function getDeleteButtonHtml($type = '')
     {
         return $this->getChild('delete_button')
@@ -326,9 +327,9 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Retrieve config object
      *
-     * @deprecated
      * @return $this
      */
+    #[Deprecated]
     public function getConfig()
     {
         return $this;

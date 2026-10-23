@@ -1,28 +1,20 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle option renderer
  *
- * @category   Mage
  * @package    Mage_Bundle
  *
- * @method bool getCanEditPrice()
+ * @method bool  getCanEditPrice()
+ * @method bool  getCanReadPrice()
  * @method $this setCanEditPrice(bool $value)
- * @method bool getCanReadPrice()
  * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends Mage_Adminhtml_Block_Widget
@@ -30,7 +22,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     /**
      * Form element
      *
-     * @var Varien_Data_Form_Element_Abstract|null
+     * @var null|Varien_Data_Form_Element_Abstract
      */
     protected $_element = null;
 
@@ -38,7 +30,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      * List of customer groups
      *
      * @deprecated since 1.7.0.0
-     * @var array|null
+     * @var null|array
      */
     protected $_customerGroups = null;
 
@@ -46,14 +38,14 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      * List of websites
      *
      * @deprecated since 1.7.0.0
-     * @var array|null
+     * @var null|array
      */
     protected $_websites = null;
 
     /**
      * List of bundle product options
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_options = null;
 
@@ -92,10 +84,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function getProduct()
     {
-        if (!$this->getData('product')) {
+        if (!$this->getDataByKey('product')) {
             $this->setData('product', Mage::registry('product'));
         }
-        return $this->getData('product');
+
+        return $this->getDataByKey('product');
     }
 
     /**
@@ -117,7 +110,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     }
 
     /**
-     * @return Varien_Data_Form_Element_Abstract|null
+     * @return null|Varien_Data_Form_Element_Abstract
      */
     public function getElement()
     {
@@ -133,8 +126,9 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -218,10 +212,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
                 $product,
             );
 
-            /** @var Mage_Bundle_Model_Resource_Option_Collection $optionCollection */
             $optionCollection = $productType->getOptionsCollection($product);
 
-            /** @var Mage_Bundle_Model_Resource_Selection_Collection $selectionCollection */
             $selectionCollection = $productType->getSelectionsCollection(
                 $productType->getOptionsIds($product),
                 $product,
@@ -239,6 +231,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
                 }
             }
         }
+
         return $this->_options;
     }
 

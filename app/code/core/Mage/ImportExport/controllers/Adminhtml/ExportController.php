@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Export controller
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Controller_Action
@@ -54,7 +46,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     /**
      * Load data with filter applying and create file for download.
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this|void
      */
     public function exportAction()
     {
@@ -72,20 +64,22 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                     $result,
                     $model->getContentType(),
                 );
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
+                Mage::logException($exception);
                 $this->_getSession()->addError($this->__('No valid data sent'));
             }
         } else {
             $this->_getSession()->addError($this->__('No valid data sent'));
         }
+
         return $this->_redirect('*/*/index');
     }
 
     /**
      * Index action.
+     * @return void
      */
     public function indexAction()
     {
@@ -98,6 +92,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
 
     /**
      * Get grid-filter of entity attributes action.
+     * @return $this|void
      */
     public function getFilterAction()
     {
@@ -117,12 +112,13 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                     ),
                 );
                 return $this->renderLayout();
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
             }
         } else {
             $this->_getSession()->addError($this->__('No valid data sent'));
         }
+
         $this->_redirect('*/*/index');
     }
 }

@@ -1,24 +1,25 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Manage currency block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method array getAllowedCurrencies()
+ * @method array getDefaultCurrencies()
+ * @method array getNewRates()
+ * @method array getOldRates()
+ * @method $this setAllowedCurrencies(array $value)
+ * @method $this setDefaultCurrencies(array $value)
+ * @method $this setNewRates(array $value)
+ * @method $this setOldRates(array $value)
  */
 class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Block_Template
 {
@@ -27,6 +28,10 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Bl
         $this->setTemplate('system/currency/rate/matrix.phtml');
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareLayout()
     {
         $newRates = Mage::getSingleton('adminhtml/session')->getRates();
@@ -39,7 +44,7 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Bl
 
         foreach ($currencies as $currency) {
             foreach ($oldCurrencies as $key => $value) {
-                if (!array_key_exists($currency, $oldCurrencies[$key])) {
+                if (!array_key_exists($currency, $value)) {
                     $oldCurrencies[$key][$currency] = '';
                 }
             }
@@ -74,7 +79,7 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Bl
             foreach ($rate as $code => $value) {
                 $parts = explode('.', (string) $value);
                 if (count($parts) === 2) {
-                    $parts[1] = str_pad(rtrim($parts[1], 0), 4, '0', STR_PAD_RIGHT);
+                    $parts[1] = str_pad(rtrim($parts[1], '0'), 4, '0', STR_PAD_RIGHT);
                     $array[$key][$code] = implode('.', $parts);
                 } elseif ($value > 0) {
                     $array[$key][$code] = number_format($value, 4);
@@ -83,6 +88,7 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Bl
                 }
             }
         }
+
         return $array;
     }
 }

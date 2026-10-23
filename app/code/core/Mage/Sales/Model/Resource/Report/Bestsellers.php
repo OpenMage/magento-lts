@@ -1,33 +1,27 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bestsellers report resource model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Resource_Report_Abstract
 {
     public const AGGREGATION_DAILY   = 'daily';
+
     public const AGGREGATION_MONTHLY = 'monthly';
+
     public const AGGREGATION_YEARLY  = 'yearly';
 
     /**
-     * Model initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -37,41 +31,41 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     /**
      * Aggregate Orders data by order created at
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
         // convert input dates to UTC to be comparable with DATETIME fields in DB
-        $from    = $this->_dateToUtc($from);
-        $to      = $this->_dateToUtc($to);
+        $dateFrom = $this->_dateToUtc($dateFrom);
+        $dateTo   = $this->_dateToUtc($dateTo);
 
-        $this->_checkDates($from, $to);
+        $this->_checkDates($dateFrom, $dateTo);
         $adapter = $this->_getWriteAdapter();
         //$this->_getWriteAdapter()->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
+            if ($dateFrom !== null || $dateTo !== null) {
                 $subSelect = $this->_getTableDateRangeSelect(
                     $this->getTable('sales/order'),
                     'created_at',
                     'updated_at',
-                    $from,
-                    $to,
+                    $dateFrom,
+                    $dateTo,
                 );
             } else {
                 $subSelect = null;
             }
 
-            $this->_clearTableByDateRange($this->getMainTable(), $from, $to, $subSelect);
+            $this->_clearTableByDateRange($this->getMainTable(), $dateFrom, $dateTo, $subSelect);
             // convert dates from UTC to current admin timezone
             $periodExpr = $adapter->getDatePartSql(
                 $this->getStoreTZOffsetQuery(
                     ['source_table' => $this->getTable('sales/order')],
                     'source_table.created_at',
-                    $from,
-                    $to,
+                    $dateFrom,
+                    $dateTo,
                 ),
             );
 
@@ -219,9 +213,9 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             $this->_updateRatingPos(self::AGGREGATION_YEARLY);
 
             $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_BESTSELLERS_FLAG_CODE);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             //$this->_getWriteAdapter()->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         //$this->_getWriteAdapter()->commit();
@@ -231,7 +225,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     /**
      * Aggregate Orders data for default store
      *
-     * @param Varien_Db_Select|null $subSelect
+     * @param  null|Varien_Db_Select $subSelect
      * @return $this
      */
     protected function _aggregateDefault($subSelect = null)
@@ -246,7 +240,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
 
         $columns = [
             'period'            => 'period',
-            'store_id'          => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
+            'store_id'          => new Zend_Db_Expr((string) Mage_Core_Model_App::ADMIN_STORE_ID),
             'product_id'        => 'product_id',
             'product_type_id'   => 'product_type_id',
             'product_name'      => new Zend_Db_Expr('MIN(product_name)'),
@@ -274,6 +268,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             $adapter->quoteInto('product_default_price.attribute_id = ?', $attr->getAttributeId()),
         ];
         $joinExprProductDefPrice = implode(' AND ', $joinExprProductDefPrice);
+
         $select->joinLeft(
             ['product_default_price' => $attr->getBackend()->getTable()],
             $joinExprProductDefPrice,
@@ -302,7 +297,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     /**
      * Update rating position
      *
-     * @param string $aggregation One of Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_XXX constants
+     * @param  string $aggregation One of Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_XXX constants
      * @return $this
      */
     protected function _updateRatingPos($aggregation)

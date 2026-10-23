@@ -1,29 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Centinel
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Centinel validation frame
  *
- * @category   Mage
  * @package    Mage_Centinel
  */
 class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
 {
     /**
-     * Strage for identifiers of related blocks
+     * Storage for identifiers of related blocks
      *
      * @var array
      */
@@ -40,7 +32,7 @@ class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
     /**
      * Add identifier of related block
      *
-     * @param string $blockId
+     * @param  string $blockId
      * @return $this
      */
     public function addRelatedBlock($blockId)
@@ -64,6 +56,7 @@ class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $method = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance();
@@ -75,6 +68,7 @@ class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
                 return parent::_toHtml();
             }
         }
+
         return parent::_toHtml();
     }
 }

@@ -1,32 +1,25 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Related products admin grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Link_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_related';
+
     /**
-     * Set grid params
-     *
+     * @throws Mage_Core_Exception
      */
     public function __construct()
     {
@@ -37,6 +30,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
         if ($this->_getProduct()->getId()) {
             $this->setDefaultFilter(['in_products' => 1]);
         }
+
         if ($this->isReadonly()) {
             $this->setFilterVisibility(false);
         }
@@ -53,11 +47,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
     }
 
     /**
-     * Add filter
-     *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
@@ -66,6 +59,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
             if (empty($productIds)) {
                 $productIds = 0;
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
             } elseif ($productIds) {
@@ -74,14 +68,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
     /**
-     * Prepare collection
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('catalog/product_link')->useRelatedLinks()
@@ -94,6 +88,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
             if (empty($productIds)) {
                 $productIds = [0];
             }
+
             $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
         }
 
@@ -112,10 +107,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
     }
 
     /**
-     * Add columns to grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         if (!$this->isReadonly()) {
@@ -144,7 +139,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
             'width'     => 100,
             'index'     => 'type_id',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_type')::getOptionArray(),
         ]);
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -165,7 +160,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
             'width'     => 90,
             'index'     => 'status',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_status')::getOptionArray(),
         ]);
 
         $this->addColumn('visibility', [
@@ -173,7 +168,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
             'width'     => 90,
             'index'     => 'visibility',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_visibility')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_visibility')::getOptionArray(),
         ]);
 
         $this->addColumn('sku', [
@@ -196,7 +191,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
             'width'                     => 60,
             'editable'                  => !$this->_getProduct()->getRelatedReadonly(),
             'edit_only'                 => !$this->_getProduct()->getId(),
-            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback'],
+            'filter_condition_callback' => $this->_addLinkModelFilterCallback(...),
         ]);
 
         return parent::_prepareColumns();
@@ -207,9 +202,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
-        return $this->getData('grid_url') ?: $this->getUrl('*/*/relatedGrid', ['_current' => true]);
+        return $this->getDataByKey('grid_url') ?: $this->getUrl('*/*/relatedGrid', ['_current' => true]);
     }
 
     /**
@@ -221,8 +217,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
     {
         $products = $this->getProductsRelated();
         if (!is_array($products)) {
-            $products = array_keys($this->getSelectedRelatedProducts());
+            return array_keys($this->getSelectedRelatedProducts());
         }
+
         return $products;
     }
 
@@ -237,6 +234,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
         foreach (Mage::registry('current_product')->getRelatedProducts() as $product) {
             $products[$product->getId()] = ['position' => $product->getPosition()];
         }
+
         return $products;
     }
 }

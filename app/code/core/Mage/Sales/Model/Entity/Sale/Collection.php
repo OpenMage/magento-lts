@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements IteratorAggregate
@@ -23,7 +15,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * Read connection
      *
-     * @var Varien_Db_Adapter_Interface|false
+     * @var false|Varien_Db_Adapter_Interface
      */
     protected $_read;
 
@@ -66,8 +58,8 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool                $printQuery
+     * @param  bool                $logQuery
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -75,8 +67,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     {
         $this->_select = $this->_read->select();
         $entityTable = $this->getEntity()->getEntityTable();
-        $paidTable  = $this->getAttribute('grand_total')->getBackend()->getTable();
-        $idField    = $this->getEntity()->getIdFieldName();
         $this->getSelect()
             ->from(
                 ['sales' => $entityTable],
@@ -98,23 +88,25 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
         $this->printLogQuery($printQuery, $logQuery);
         try {
             $values = $this->_read->fetchAll($this->getSelect()->__toString());
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->printLogQuery(true, true, $this->getSelect()->__toString());
-            throw $e;
+            throw $exception;
         }
+
         $stores = Mage::getResourceModel('core/store_collection')->setWithoutDefaultFilter()->load()->toOptionHash();
-        if (!empty($values)) {
-            foreach ($values as $v) {
-                $obj = new Varien_Object($v);
+        if ($values !== []) {
+            foreach ($values as $item) {
+                $obj = new Varien_Object($item);
                 $storeName = $stores[$obj->getStoreId()] ?? null;
 
-                $this->_items[ $v['store_id'] ] = $obj;
-                $this->_items[ $v['store_id'] ]->setStoreName($storeName);
-                $this->_items[ $v['store_id'] ]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
-                foreach ($this->_totals as $key => $value) {
+                $this->_items[$item['store_id']] = $obj;
+                $this->_items[$item['store_id']]->setStoreName($storeName);
+                $this->_items[$item['store_id']]->setAvgNormalized($obj->getAvgsale() * $obj->getNumOrders());
+                foreach (array_keys($this->_totals) as $key) {
                     $this->_totals[$key] += $obj->getData($key);
                 }
             }
+
             if ($this->_totals['num_orders']) {
                 $this->_totals['avgsale'] = $this->_totals['lifetime'] / $this->_totals['num_orders'];
             }
@@ -126,20 +118,21 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * Print and/or log query
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
-     * @param null|string $sql
-     * @return Mage_Sales_Model_Entity_Sale_Collection
+     * @param  bool        $printQuery
+     * @param  bool        $logQuery
+     * @param  null|string $sql
+     * @return $this
      */
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
     {
         if ($printQuery) {
-            echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
+            echo $sql ?? $this->getSelect()->__toString();
         }
 
         if ($logQuery) {
-            Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
+            Mage::log($sql ?? $this->getSelect()->__toString());
         }
+
         return $this;
     }
 
@@ -154,7 +147,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * @param string $attr
+     * @param  string                                   $attr
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getAttribute($attr)
@@ -173,7 +166,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * @return ArrayIterator
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->_items);

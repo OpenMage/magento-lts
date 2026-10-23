@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 //
 // This file is the entrypoint for the default OpenMage store.
 // Create a separate subdirectory of pub/ to add more virtual hosts for different stores

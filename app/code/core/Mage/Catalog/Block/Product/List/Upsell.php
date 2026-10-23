@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product related items block
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_Abstract
@@ -46,6 +38,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         /** @var Mage_Catalog_Model_Product $product */
         $this->_itemCollection = $product->getUpSellProductCollection()
             ->setPositionOrder()
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds())
             ->addStoreFilter()
         ;
         if ($this->isModuleEnabled('Mage_Checkout', 'catalog')) {
@@ -56,7 +49,6 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
 
             $this->_addProductAttributesAndPrices($this->_itemCollection);
         }
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
 
         if ($this->getItemLimit('upsell') > 0) {
             $this->_itemCollection->setPageSize($this->getItemLimit('upsell'));
@@ -81,8 +73,9 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
     }
 
     /**
-     * @return Mage_Catalog_Block_Product_Abstract
+     * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->_prepareData();
@@ -105,6 +98,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         if (is_null($this->_items) && $this->getItemCollection()) {
             $this->_items = $this->getItemCollection()->getItems();
         }
+
         return $this->_items;
     }
 
@@ -117,7 +111,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
     }
 
     /**
-     * @param array $columns
+     * @param  array $columns
      * @return $this
      */
     public function setColumnCount($columns)
@@ -125,12 +119,14 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         if ((int) $columns > 0) {
             $this->_columnCount = (int) $columns;
         }
+
         return $this;
     }
 
     /**
      * @return int
      */
+    #[Override]
     public function getColumnCount()
     {
         return $this->_columnCount;
@@ -156,8 +152,8 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
      * Set how many items we need to show in upsell block
      * Notice: this parameter will be also applied
      *
-     * @param string $type
-     * @param int $limit
+     * @param  string $type
+     * @param  int    $limit
      * @return $this
      */
     public function setItemLimit($type, $limit)
@@ -165,11 +161,12 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         if ((int) $limit > 0) {
             $this->_itemLimits[$type] = (int) $limit;
         }
+
         return $this;
     }
 
     /**
-     * @param string $type
+     * @param  string          $type
      * @return array|int|mixed
      */
     public function getItemLimit($type = '')
@@ -177,6 +174,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         if ($type == '') {
             return $this->_itemLimits;
         }
+
         return $this->_itemLimits[$type] ?? 0;
     }
 
@@ -185,6 +183,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->getItemsTags($this->getItems()));

@@ -1,35 +1,28 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GoogleAnalytics
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * GoogleAnalitics Page Block
  *
- * @category   Mage
  * @package    Mage_GoogleAnalytics
  */
 class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
 {
     protected const CHECKOUT_MODULE_NAME = 'checkout';
+
     protected const CHECKOUT_CONTROLLER_NAME = 'onepage';
 
     /**
      * Render regular page tracking javascript code
      * The custom "page name" may be set from layout or somewhere else. It must start from slash.
      *
-     * @param string $accountId
+     * @param  string $accountId
      * @return string
      */
     protected function _getPageTrackingCode($accountId)
@@ -47,7 +40,7 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
      * Render regular page tracking javascript code
      *
      * @link https://developers.google.com/tag-platform/gtagjs/reference
-     * @param string $accountId
+     * @param  string $accountId
      * @return string
      */
     protected function _getPageTrackingCodeAnalytics4($accountId)
@@ -84,10 +77,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
      * Render regular page tracking javascript code
      * The custom "page name" may be set from layout or somewhere else. It must start from slash.
      *
-     * @param string $accountId
+     * @param  string $accountId
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getPageTrackingCodeUniversal($accountId)
     {
         return '';
@@ -99,10 +92,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
      *
      * @link http://code.google.com/apis/analytics/docs/gaJS/gaJSApiBasicConfiguration.html#_gat.GA_Tracker_._trackPageview
      * @link http://code.google.com/apis/analytics/docs/gaJS/gaJSApi_gaq.html
-     * @param string $accountId
+     * @param  string $accountId
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getPageTrackingCodeAnalytics($accountId)
     {
         return '';
@@ -112,9 +105,8 @@ gtag('set', 'user_id', '{$customer->getId()}');
      * Render information about specified orders and their items
      *
      * @return string
-     * @throws Mage_Core_Model_Store_Exception
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getOrdersTrackingCode()
     {
         return '';
@@ -157,6 +149,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $eventData['items'][] = $_item;
                 $result[] = ['remove_from_cart', $eventData];
             }
+
             Mage::getSingleton('core/session')->unsRemovedProductsForAnalytics();
         }
 
@@ -205,6 +198,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
             if ($productViewed->getAttributeText('manufacturer')) {
                 $_item['item_brand'] = $productViewed->getAttributeText('manufacturer');
             }
+
             $eventData['items'][] = $_item;
             $result[] = ['view_item', $eventData];
         } elseif ($moduleName == 'catalog' && $controllerName == 'category') {
@@ -221,6 +215,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
             if ($pageSize !== 'all') {
                 $productCollection->setPageSize($pageSize)->setCurPage($currentPage);
             }
+
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
             $eventData['value'] = 0.00;
@@ -229,7 +224,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
             $eventData['items'] = [];
 
             $index = 1;
-            foreach ($productCollection as $key => $productViewed) {
+            foreach ($productCollection as $productViewed) {
                 $_item = [
                     'item_id' => $productViewed->getSku(),
                     'index' => $index,
@@ -239,13 +234,16 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 if ($productViewed->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $productViewed->getAttributeText('manufacturer');
                 }
+
                 if ($productViewed->getCategory()->getName()) {
                     $_item['item_category'] = $productViewed->getCategory()->getName();
                 }
+
                 $eventData['items'][] = $_item;
                 $index++;
                 $eventData['value'] += $productViewed->getFinalPrice();
             }
+
             $eventData['value'] = $helper->formatPrice($eventData['value']);
             $result[] = ['view_item_list', $eventData];
         } elseif ($moduleName == 'checkout' && $controllerName == 'cart') {
@@ -261,6 +259,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 if ($productInCart->getParentItem()) {
                     continue;
                 }
+
                 $_product = $productInCart->getProduct();
                 $_item = [
                     'item_id' => $_product->getSku(),
@@ -271,13 +270,16 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 if ($_product->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                 }
+
                 $itemCategory = $helper->getLastCategoryName($_product);
                 if ($itemCategory) {
                     $_item['item_category'] = $itemCategory;
                 }
+
                 $eventData['items'][] = $_item;
                 $eventData['value'] += $_product->getFinalPrice() * $productInCart->getQty();
             }
+
             $eventData['value'] = $helper->formatPrice($eventData['value']);
             $result[] = ['view_cart', $eventData];
         } elseif ($moduleName == static::CHECKOUT_MODULE_NAME && $controllerName == static::CHECKOUT_CONTROLLER_NAME) {
@@ -293,6 +295,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     if ($productInCart->getParentItem()) {
                         continue;
                     }
+
                     $_product = $productInCart->getProduct();
                     $_item = [
                         'item_id' => $_product->getSku(),
@@ -303,13 +306,16 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
+
                     $itemCategory = $helper->getLastCategoryName($_product);
                     if ($itemCategory) {
                         $_item['item_category'] = $itemCategory;
                     }
+
                     $eventData['items'][] = $_item;
                     $eventData['value'] += $_product->getFinalPrice();
                 }
+
                 $eventData['value'] = $helper->formatPrice($eventData['value']);
                 $result[] = ['begin_checkout', $eventData];
             }
@@ -338,6 +344,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     if ($item->getParentItem()) {
                         continue;
                     }
+
                     $_product = $item->getProduct();
                     $_item = [
                         'item_id' => $item->getSku(),
@@ -349,12 +356,15 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
+
                     $itemCategory = $helper->getLastCategoryName($_product);
                     if ($itemCategory) {
                         $_item['item_category'] = $itemCategory;
                     }
+
                     $orderData['items'][] = $_item;
                 }
+
                 $result[] = ['purchase', $orderData];
             }
         }
@@ -371,6 +381,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
         foreach ($result as $k => $ga4Event) {
             $result[$k] = "gtag('event', '{$ga4Event[0]}', " . json_encode($ga4Event[1], JSON_THROW_ON_ERROR) . ');';
         }
+
         return implode("\n", $result);
     }
 
@@ -387,11 +398,13 @@ gtag('set', 'user_id', '{$customer->getId()}');
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_isAvailable()) {
             return '';
         }
+
         return parent::_toHtml();
     }
 }

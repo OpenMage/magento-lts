@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Configuration controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_Action
@@ -41,6 +33,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      *
      * @return $this
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
@@ -54,7 +47,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Index action
-     *
+     * @return void
      */
     public function indexAction()
     {
@@ -63,13 +56,17 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Edit configuration section
+     * @return void
      */
     public function editAction()
     {
         $this->_title($this->__('System'))->_title($this->__('Configuration'));
 
+        /** @var string $current */
         $current = $this->getRequest()->getParam('section');
+        /** @var string $website */
         $website = $this->getRequest()->getParam('website');
+        /** @var string $store */
         $store   = $this->getRequest()->getParam('store');
 
         Mage::getSingleton('adminhtml/config_data')
@@ -89,7 +86,10 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $this->loadLayout();
 
         $this->_setActiveMenu('system/config');
-        $this->getLayout()->getBlock('menu')->setAdditionalCacheKeyInfo([$current]);
+
+        /** @var Mage_Adminhtml_Block_Page_Menu $block */
+        $block = $this->getLayout()->getBlock('menu');
+        $block->setAdditionalCacheKeyInfo([$current]);
 
         $this->_addBreadcrumb(
             Mage::helper('adminhtml')->__('System'),
@@ -127,7 +127,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      * Save configuration
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function saveAction()
     {
@@ -187,15 +188,15 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             if (!empty($groups)) {
                 $session->addSuccess(Mage::helper('adminhtml')->__('The configuration has been saved.'));
             }
-        } catch (Mage_Core_Exception $e) {
-            foreach (explode("\n", $e->getMessage()) as $message) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            foreach (explode("\n", $mageCoreException->getMessage()) as $message) {
                 $session->addError($message);
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $session->addException(
-                $e,
+                $exception,
                 Mage::helper('adminhtml')->__('An error occurred while saving this configuration:') . ' '
-                . $e->getMessage(),
+                . $exception->getMessage(),
             );
         }
 
@@ -230,7 +231,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Save fieldset state through AJAX
-     *
+     * @return void
      */
     public function stateAction()
     {
@@ -249,6 +250,9 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      * Export shipping table rates in csv format
      *
+     * @return void
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function exportTableratesAction()
     {
@@ -261,6 +265,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         } else {
             $conditionName = $website->getConfig('carriers/tablerate/condition_name');
         }
+
         $gridBlock->setWebsiteId($website->getId())->setConditionName($conditionName);
         $content    = $gridBlock->getCsvFile();
         $this->_prepareDownloadResponse($fileName, $content);
@@ -271,7 +276,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      *
      * Will forward to deniedAction(), if not allowed.
      *
-     * @param string $section
+     * @param  string $section
      * @return bool
      */
     protected function _isSectionAllowed($section)
@@ -279,29 +284,31 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         try {
             $session = Mage::getSingleton('admin/session');
             $resourceLookup = "admin/system/config/{$section}";
-            if ($session->getData('acl') instanceof Mage_Admin_Model_Acl) {
-                $resourceId = $session->getData('acl')->get($resourceLookup)->getResourceId();
+            if ($session->getDataByKey('acl') instanceof Mage_Admin_Model_Acl) {
+                $resourceId = $session->getDataByKey('acl')->get($resourceLookup)->getResourceId();
                 if (!$session->isAllowed($resourceId)) {
                     throw new Exception('');
                 }
+
                 return true;
             }
-        } catch (Zend_Acl_Exception $e) {
+        } catch (Zend_Acl_Exception) {
             $this->norouteAction();
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->deniedAction();
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
         }
+
         return false;
     }
 
     /**
      * Save state of configuration field sets
      *
-     * @param array $configState
+     * @param  array $configState
      * @return bool
      */
     protected function _saveState($configState = [])
@@ -312,12 +319,13 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             if (!is_array($extra)) {
                 $extra = [];
             }
-            if (!isset($extra['configState'])) {
-                $extra['configState'] = [];
-            }
+
+            $extra['configState'] ??= [];
+
             foreach ($configState as $fieldset => $state) {
                 $extra['configState'][$fieldset] = $state;
             }
+
             $adminUser->saveExtra($extra);
         }
 

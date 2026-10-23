@@ -1,26 +1,19 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Index
  */
 class Mage_Index_Model_Observer
 {
     public const OLD_INDEX_EVENT_THRESHOLD_SECONDS = 24 * 60 * 60;
+
     public const OLD_INDEX_EVENT_DELETE_COUNT = 1000;
 
     /**
@@ -152,7 +145,7 @@ class Mage_Index_Model_Observer
             ->getProcessesCollection()
             ->addFieldToFilter('mode', Mage_Index_Model_Process::MODE_MANUAL);
 
-        $now = new DateTime();
+        $now = Mage::helper('core/clock')->now();
         /** @noinspection PhpUnhandledExceptionInspection */
         $dateInterval = new DateInterval('PT' . self::OLD_INDEX_EVENT_THRESHOLD_SECONDS . 'S');
         $oldEventsThreshold = $now
@@ -181,7 +174,7 @@ class Mage_Index_Model_Observer
                 }
             }
 
-            if (!empty($eventList)) {
+            if ($eventList !== []) {
                 $where = new Zend_Db_Expr(
                     sprintf(
                         'event_id in (%s)',

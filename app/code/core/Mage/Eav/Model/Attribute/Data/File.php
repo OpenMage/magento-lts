@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV Entity Attribute File Data Model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_Abstract
@@ -32,8 +24,8 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Extract data from request and return value
      *
-     * @return false|array|string
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @return array|false|string
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function extractValue(Zend_Controller_Request_Http $request)
     {
@@ -71,12 +63,10 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             } else {
                 $value = [];
             }
+        } elseif (isset($_FILES[$attrCode])) {
+            $value = $_FILES[$attrCode];
         } else {
-            if (isset($_FILES[$attrCode])) {
-                $value = $_FILES[$attrCode];
-            } else {
-                $value = [];
-            }
+            $value = [];
         }
 
         if (!empty($extend['delete'])) {
@@ -90,7 +80,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      * Validate file by attribute validate rules
      * Return array of errors
      *
-     * @param array $value
+     * @param  array $value
      * @return array
      */
     protected function _validateByRules($value)
@@ -101,7 +91,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
 
         if (!empty($rules['file_extensions'])) {
             $extensions = explode(',', $rules['file_extensions']);
-            $extensions = array_map('trim', $extensions);
+            $extensions = array_map(trim(...), $extensions);
             if (!in_array($extension, $extensions)) {
                 return [
                     Mage::helper('eav')->__('"%s" is not a valid file extension.', $label),
@@ -139,9 +129,9 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Validate data
      *
-     * @param array|string $value
+     * @param  array|string        $value
+     * @return array|true
      * @throws Mage_Core_Exception
-     * @return true|array
      */
     public function validateValue($value)
     {
@@ -153,8 +143,8 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         $attribute  = $this->getAttribute();
         $label      = $attribute->getStoreLabel();
 
-        $toDelete   = !empty($value['delete']) ? true : false;
-        $toUpload   = !empty($value['tmp_name']) ? true : false;
+        $toDelete   = !empty($value['delete']);
+        $toUpload   = !empty($value['tmp_name']);
 
         if (!$toUpload && !$toDelete && $this->getEntity()->getData($attribute->getAttributeCode())) {
             return true;
@@ -164,6 +154,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             if ($toDelete) {
                 $attribute->setAttributeValidationAsPassed();
             }
+
             return true;
         }
 
@@ -175,7 +166,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             $errors = array_merge($errors, $this->_validateByRules($value));
         }
 
-        if (count($errors) == 0) {
+        if ($errors === []) {
             $attribute->setAttributeValidationAsPassed();
             return true;
         }
@@ -186,7 +177,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Export attribute value to entity model
      *
-     * @param array|string $value
+     * @param  array|string        $value
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -207,6 +198,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             if (!$attribute->getIsRequired() && !empty($value['delete'])) {
                 $toDelete  = true;
             }
+
             if (!empty($value['tmp_name'])) {
                 $toDelete  = true;
             }
@@ -233,8 +225,8 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
                 $uploader->save($path, $value['name']);
                 $fileName = $uploader->getUploadedFileName();
                 $this->getEntity()->setData($attribute->getAttributeCode(), $fileName);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
 
@@ -244,7 +236,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Restore attribute value from SESSION to entity model
      *
-     * @param array|string $value
+     * @param  array|string $value
      * @return $this
      */
     public function restoreValue($value)
@@ -255,23 +247,19 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Return formatted attribute value from entity model
      *
-     * @param string $format
-     * @return string|array
+     * @param  string              $format
+     * @return array|string
      * @throws Mage_Core_Exception
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {
         $output = '';
         $value  = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
-        if ($value) {
-            switch ($format) {
-                case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON:
-                    $output = [
-                        'value'     => $value,
-                        'url_key'   => Mage::helper('core')->urlEncode($value),
-                    ];
-                    break;
-            }
+        if ($value && $format === Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON) {
+            return [
+                'value'     => $value,
+                'url_key'   => Mage::helper('core')->urlEncode($value),
+            ];
         }
 
         return $output;

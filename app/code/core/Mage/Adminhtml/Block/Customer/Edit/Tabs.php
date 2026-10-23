@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * admin customer left menu
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
@@ -31,24 +23,25 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @return $this
      * @throws Exception
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Account $block */
         $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_account');
         $this->addTab('account', [
             'label'     => Mage::helper('customer')->__('Account Information'),
-            'content'   => $block->initForm()->toHtml(),
-            'active'    => Mage::registry('current_customer')->getId() ? false : true,
+            'content'   => $block->toHtml(),
+            'active'    => !(bool) Mage::registry('current_customer')->getId(),
         ]);
 
         /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses $block */
         $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_addresses');
         $this->addTab('addresses', [
             'label'     => Mage::helper('customer')->__('Addresses'),
-            'content'   => $block->initForm()->toHtml(),
+            'content'   => $block->toHtml(),
         ]);
 
         // load: Orders, Shopping Cart, Wishlist, Product Reviews, Product Tags - with ajax

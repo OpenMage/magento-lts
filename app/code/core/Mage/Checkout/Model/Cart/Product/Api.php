@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart api for product
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resource_Product
@@ -25,7 +17,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     /**
      * Base preparation of product data
      *
-     * @param mixed $data
+     * @param  mixed      $data
      * @return null|array
      */
     protected function _prepareProductsData($data)
@@ -34,9 +26,9 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  int $quoteId
-     * @param  array $productsData
-     * @param  string|int $store
+     * @param  int        $quoteId
+     * @param  array      $productsData
+     * @param  int|string $store
      * @return bool
      */
     public function add($quoteId, $productsData, $store = null)
@@ -68,28 +60,28 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 if (is_string($result)) {
                     Mage::throwException($result);
                 }
-            } catch (Mage_Core_Exception $e) {
-                $errors[] = $e->getMessage();
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $errors[] = $mageCoreException->getMessage();
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             $this->_fault('add_product_fault', implode(PHP_EOL, $errors));
         }
 
         try {
             $quote->collectTotals()->save();
-        } catch (Exception $e) {
-            $this->_fault('add_product_quote_save_fault', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('add_product_quote_save_fault', $exception->getMessage());
         }
 
         return true;
     }
 
     /**
-     * @param  int $quoteId
-     * @param  array $productsData
-     * @param  string|int $store
+     * @param  int        $quoteId
+     * @param  array      $productsData
+     * @param  int|string $store
      * @return bool
      */
     public function update($quoteId, $productsData, $store = null)
@@ -130,23 +122,23 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             $this->_fault('update_product_fault', implode(PHP_EOL, $errors));
         }
 
         try {
             $quote->collectTotals()->save();
-        } catch (Exception $e) {
-            $this->_fault('update_product_quote_save_fault', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('update_product_quote_save_fault', $exception->getMessage());
         }
 
         return true;
     }
 
     /**
-     * @param  int $quoteId
-     * @param  array $productsData
-     * @param  string|int $store
+     * @param  int        $quoteId
+     * @param  array      $productsData
+     * @param  int|string $store
      * @return bool
      */
     public function remove($quoteId, $productsData, $store = null)
@@ -182,28 +174,29 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                     $errors[] = Mage::helper('checkout')->__('One item of products is not belong any of quote item');
                     continue;
                 }
+
                 $quote->removeItem($quoteItem->getId());
-            } catch (Mage_Core_Exception $e) {
-                $errors[] = $e->getMessage();
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $errors[] = $mageCoreException->getMessage();
             }
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             $this->_fault('remove_product_fault', implode(PHP_EOL, $errors));
         }
 
         try {
             $quote->collectTotals()->save();
-        } catch (Exception $e) {
-            $this->_fault('remove_product_quote_save_fault', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('remove_product_quote_save_fault', $exception->getMessage());
         }
 
         return true;
     }
 
     /**
-     * @param  int $quoteId
-     * @param  string|int $store
+     * @param  int        $quoteId
+     * @param  int|string $store
      * @return array
      */
     public function items($quoteId, $store = null)
@@ -235,9 +228,9 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  int $quoteId
-     * @param  array $productsData
-     * @param  string|int $store
+     * @param  int        $quoteId
+     * @param  array      $productsData
+     * @param  int|string $store
      * @return bool
      */
     public function moveToCustomerQuote($quoteId, $productsData, $store = null)
@@ -297,12 +290,12 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 } else {
                     $errors[] = Mage::helper('checkout')->__('One item of products is not belong any of quote item');
                 }
-            } catch (Mage_Core_Exception $e) {
-                $errors[] = $e->getMessage();
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $errors[] = $mageCoreException->getMessage();
             }
         }
 
-        if (count($productsData) || !empty($errors)) {
+        if (count($productsData) || $errors !== []) {
             $this->_fault('unable_to_move_all_products', implode(PHP_EOL, $errors));
         }
 
@@ -314,8 +307,8 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             $quote
                 ->collectTotals()
                 ->save();
-        } catch (Exception $e) {
-            $this->_fault('product_move_quote_save_fault', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('product_move_quote_save_fault', $exception->getMessage());
         }
 
         return true;

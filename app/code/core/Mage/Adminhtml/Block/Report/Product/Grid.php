@@ -1,41 +1,38 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml products report grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method Mage_Reports_Model_Resource_Report_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_product_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('productsReportGrid');
         $this->setDefaultSort('entity_id');
-        $this->setDefaultDir('desc');
     }
 
     /**
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
+        /** @var Mage_Reports_Model_Resource_Product_Collection $collection */
         $collection = Mage::getResourceModel('reports/product_collection');
         $collection->getEntity()->setStore(0);
 
@@ -47,6 +44,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoadCollection()
     {
         $totalObj = new Mage_Reports_Model_Totals();
@@ -59,6 +57,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
@@ -112,7 +111,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
             'total'     => 'sum',
         ]);
 
-        $this->setCountTotals(true);
+        $this->setCountTotals();
 
         $this->addExportType('*/*/exportProductsCsv', Mage::helper('reports')->__('CSV'));
         $this->addExportType('*/*/exportProductsExcel', Mage::helper('reports')->__('Excel XML'));

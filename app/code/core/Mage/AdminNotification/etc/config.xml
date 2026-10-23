@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_AdminNotification
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -28,7 +21,6 @@
             </adminnotification>
             <adminnotification_resource>
                 <class>Mage_AdminNotification_Model_Resource</class>
-                <deprecatedNode>adminnotification_mysql4</deprecatedNode>
                 <entities>
                     <inbox>
                         <table>adminnotification_inbox</table>
@@ -81,7 +73,6 @@
         <system>
             <adminnotification>
                 <feed_url>www.openmage.org/Web_Notifications/notifications_v1.rss</feed_url>
-                <severity_icons_url>widgets.magentocommerce.com/%s/%s.gif</severity_icons_url>
                 <use_https>1</use_https>
                 <frequency>1</frequency>
                 <last_update>0</last_update>

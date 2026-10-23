@@ -1,0 +1,21 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Tag_Pending $this */
+?>
+<div class="content-header">
+<table cellspacing="0">
+    <tr>
+        <td style="width:80%;"><h3 class="<?php echo $this->getHeaderCssClass() ?>"><?php echo $this->getHeaderHtml(); ?></h3></td>
+        <td class="form-buttons"><?php echo $this->getCreateButtonHtml(); ?></td>
+    </tr>
+</table>
+</div>
+<div id="tag_frame">
+    <?php echo $this->getGridHtml() ?>
+</div>

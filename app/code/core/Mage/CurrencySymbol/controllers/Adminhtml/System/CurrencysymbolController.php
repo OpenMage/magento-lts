@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CurrencySymbol
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml Currency Symbols Controller
  *
- * @category   Mage
  * @package    Mage_CurrencySymbol
  */
 class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage_Adminhtml_Controller_Action
@@ -30,6 +22,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
 
     /**
      * Show Currency Symbols Management dialog
+     * @return void
      */
     public function indexAction()
     {
@@ -52,10 +45,11 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
 
     /**
      * Save custom Currency symbol
+     * @return void
      */
     public function saveAction()
     {
-        $symbolsDataArray = $this->getRequest()->getParam('custom_currency_symbol', null);
+        $symbolsDataArray = $this->getRequest()->getParam('custom_currency_symbol');
         if (is_array($symbolsDataArray)) {
             foreach ($symbolsDataArray as &$symbolsData) {
                 $symbolsData = Mage::helper('adminhtml')->stripTags($symbolsData);
@@ -67,8 +61,8 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
             Mage::getSingleton('adminhtml/session')->addSuccess(
                 Mage::helper('currencysymbol')->__('Custom currency symbols were applied successfully.'),
             );
-        } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+        } catch (Exception $exception) {
+            Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
         }
 
         $this->_redirectReferer();
@@ -76,6 +70,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
 
     /**
      * Resets custom Currency symbol for all store views, websites and default value
+     * @return void
      */
     public function resetAction()
     {

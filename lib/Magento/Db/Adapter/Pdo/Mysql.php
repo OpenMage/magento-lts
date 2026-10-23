@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Magento
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Magento_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Magento PDO MySQL DB adapter
  *
- * @category   Magento
  * @package    Magento_Db
  */
 class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
@@ -35,9 +27,9 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     /**
      * Batched insert of specified select
      *
-     * @param string $table
-     * @param bool $mode
-     * @param int $step
+     * @param  string $table
+     * @param  bool   $mode
+     * @param  int    $step
      * @return int
      */
     public function insertBatchFromSelect(
@@ -67,9 +59,9 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     /**
      * Retrieve bunch of queries for specified select split by specified step
      *
-     * @param string $entityIdField
-     * @param int $step
-     * @return array
+     * @param  string             $entityIdField
+     * @param  int                $step
+     * @return Varien_Db_Select[]
      */
     public function splitSelect(Varien_Db_Select $select, $entityIdField = '*', $step = 10000)
     {
@@ -95,18 +87,21 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     /**
      * Quote a raw string.
      *
-     * @param string|float $value   Raw string
-     * @return string|float         Quoted string
+     * @param  float|string $value Raw string
+     * @return float|string Quoted string
      */
+    #[Override]
     protected function _quote($value)
     {
         if (is_float($value)) {
             return $this->_convertFloat($value);
         }
+
         // Fix for null-byte injection
         if (is_string($value)) {
             $value = addcslashes($value, "\000\032");
         }
+
         return parent::_quote($value);
     }
 
@@ -116,21 +111,22 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      * If an array is passed as the value, the array values are quote
      * and then returned as a comma-separated string.
      *
-     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
-     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
-     * @return string An SQL-safe quoted value (or string of separated values).
+     * @param  null|array|float|int|string|Zend_Db_Expr|Zend_Db_Select $value OPTIONAL A single value to quote into the condition
+     * @param  null|int|string                                         $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
+     * @return string                                                  an SQL-safe quoted value (or string of separated values)
      */
+    #[Override]
     public function quote($value, $type = null)
     {
         $this->_connect();
-
         if ($type !== null
             && array_key_exists($type = strtoupper($type), $this->_numericDataTypes)
-            && $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE
-        ) {
+            && $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE) {
             $value = $this->_convertFloat($value);
             return sprintf('%F', $value);
-        } elseif (is_float($value)) {
+        }
+
+        if (is_float($value)) {
             return $this->_quote($value);
         }
 
@@ -141,7 +137,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      * Convert float values that are not supported by MySQL to alternative representation value.
      * Value 99999999.9999 is a maximum value that may be stored in Magento decimal columns in DB.
      *
-     * @param float $value
+     * @param  float $value
      * @return float
      */
     protected function _convertFloat($value)

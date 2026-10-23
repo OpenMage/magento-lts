@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * System Template admin controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Controller_Action
@@ -30,6 +22,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -53,6 +46,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Grid action
+     * @return void
      */
     public function gridAction()
     {
@@ -63,6 +57,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * New transactional email action
+     * @return void
      */
     public function newAction()
     {
@@ -71,6 +66,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Edit transactional email action
+     * @return void
      */
     public function editAction()
     {
@@ -107,6 +103,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
     /**
      * Save action
      *
+     * @return void
      * @throws Mage_Core_Exception
      */
     public function saveAction()
@@ -153,18 +150,19 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 Mage::helper('adminhtml')->__('The email template has been saved.'),
             );
             $this->_redirect('*/*');
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Mage::getSingleton('adminhtml/session')->setData(
                 'email_template_form_data',
                 $this->getRequest()->getParams(),
             );
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
             $this->_forward('new');
         }
     }
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -177,17 +175,18 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 );
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addError(
                     Mage::helper('adminhtml')->__('An error occurred while deleting email template data. Please review log and try again.'),
                 );
-                Mage::logException($e);
+                Mage::logException($exception);
                 $this->_redirect('*/*/edit', ['id' => $template]);
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError(
             Mage::helper('adminhtml')->__('Unable to find a Email Template to delete.'),
         );
@@ -196,6 +195,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Preview action
+     * @return void
      */
     public function previewAction()
     {
@@ -205,6 +205,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     /**
      * Set template data to retrieve it in template info form
+     * @return void
      */
     public function defaultTemplateAction()
     {
@@ -226,6 +227,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
@@ -235,7 +237,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
     /**
      * Load email template from request
      *
-     * @param string $idFieldName
+     * @param  string                              $idFieldName
      * @return Mage_Adminhtml_Model_Email_Template
      */
     protected function _initTemplate($idFieldName = 'template_id')
@@ -247,12 +249,15 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
         if ($id) {
             $model->load($id);
         }
+
         if (!Mage::registry('email_template')) {
             Mage::register('email_template', $model);
         }
+
         if (!Mage::registry('current_email_template')) {
             Mage::register('current_email_template', $model);
         }
+
         return $model;
     }
 }

@@ -7,11 +7,10 @@ tags:
 # Analytics modules
 
 ## `vianetz/matomo-magento1`
-A Magento 1 extension that allows you to get ecommerce transaction data into Matomo analytics.
+A Magento 1 extension that allows you to get e-commerce transaction data into Matomo analytics.
 
-#### Install [^1]
+- GitHub [repository](https://github.com/vianetz/matomo-magento1)
+
 ```bash
 composer require vianetz/matomo-magento1
 ```
-
-[^1]: https://github.com/vianetz/matomo-magento1

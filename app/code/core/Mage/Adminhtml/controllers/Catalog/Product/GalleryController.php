@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product gallery controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Controller_Action
@@ -28,6 +20,9 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
      */
     public const ADMIN_RESOURCE = 'catalog/products';
 
+    /**
+     * @return void
+     */
     public function uploadAction()
     {
         try {
@@ -61,7 +56,7 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
             $result['path'] = str_replace(DS, '/', $result['path']);
 
             $result['url'] = Mage::getSingleton('catalog/product_media_config')->getTmpMediaUrl($result['file']);
-            $result['file'] = $result['file'] . '.tmp';
+            $result['file'] .= '.tmp';
             $result['cookie'] = [
                 'name'     => session_name(),
                 'value'    => $this->_getSession()->getSessionId(),
@@ -69,10 +64,10 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
                 'path'     => $this->_getSession()->getCookiePath(),
                 'domain'   => $this->_getSession()->getCookieDomain(),
             ];
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $result = [
-                'error' => $e->getMessage(),
-                'errorcode' => $e->getCode()];
+                'error' => $exception->getMessage(),
+                'errorcode' => $exception->getCode()];
         }
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));

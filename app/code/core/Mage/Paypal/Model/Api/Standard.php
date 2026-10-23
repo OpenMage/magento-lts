@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal Standard checkout request API
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
@@ -51,6 +43,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'cpp_payflow_color'      => 'payflowcolor',
         'lc'                     => 'locale',
     ];
+
     protected $_exportToRequestFilters = [
         'amount'   => '_filterAmount',
         'shipping' => '_filterAmount',
@@ -69,10 +62,10 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-      * Fields that should be replaced in debug with '***'
-      *
-      * @var array
-      */
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
     protected $_debugReplacePrivateDataKeys = ['business'];
 
     /**
@@ -85,6 +78,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         Mage_Paypal_Model_Cart::TOTAL_TAX      => 'tax',
         Mage_Paypal_Model_Cart::TOTAL_SHIPPING => 'shipping',
     ];
+
     protected $_lineItemExportItemsFormat = [
         'id'     => 'item_number_%d',
         'name'   => 'item_name_%d',
@@ -131,6 +125,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
             if (isset($request['tax'])) {
                 $request['tax_cart'] = $request['tax'];
             }
+
             if (isset($request['discount_amount'])) {
                 $request['discount_amount_cart'] = $request['discount_amount'];
             }
@@ -151,6 +146,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      * Merchant account email getter
      * @return string
      */
+    #[Override]
     public function getBusinessAccount()
     {
         return $this->_getDataOrConfig('business_account');
@@ -160,16 +156,16 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      * Payment action getter
      * @return string
      */
+    #[Override]
     public function getPaymentAction()
     {
         return strtolower(parent::getPaymentAction());
     }
 
     /**
-     * @deprecated after 1.4.1.0
-     *
      * @param array $request
      */
+    #[Deprecated(message: 'after 1.4.1.0')]
     public function debugRequest($request) {}
 
     /**
@@ -177,17 +173,20 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      * For some reason PayPal ignores shipping total variables exactly when line items is enabled
      * Note that $i = 1
      *
-     * @param int $i
+     * @param  int  $i
      * @return bool
      */
+    #[Override]
     protected function _exportLineItems(array &$request, $i = 1)
     {
         if (!$this->_cart) {
             return false;
         }
+
         if ($this->getIsLineItemsEnabled()) {
             $this->_cart->isShippingAsItem(true);
         }
+
         return parent::_exportLineItems($request, $i);
     }
 
@@ -203,6 +202,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
             if ($this->getNoShipping()) {
                 $request['no_shipping'] = 1;
             }
+
             return;
         }
 
@@ -220,6 +220,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         if ($regionCode) {
             $request['state'] = $regionCode;
         }
+
         $this->_importStreetFromAddress($address, $request, 'address1', 'address2');
         $this->_applyCountryWorkarounds($request);
 

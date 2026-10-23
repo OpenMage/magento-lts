@@ -1,0 +1,50 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Tax_Rate_ImportExport $this */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3 class="icon-head head-tax-rate-importExport"><?php echo Mage::helper('tax')->__('Import / Export Tax Rates') ?></h3></td>
+        </tr>
+    </table>
+</div>
+<div class="entry-edit">
+    <?php if (!$this->getIsReadonly()): ?>
+    <div class="box-left">
+        <form id="import_form" action="<?php echo $this->getUrl('*/*/importPost') ?>" method="post" enctype="multipart/form-data">
+            <?php echo $this->getBlockHtml('formkey')?>
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('tax')->__('Import Tax Rates') ?></h4>
+            </div>
+            <fieldset>
+                <legend><?php echo Mage::helper('tax')->__('Import Tax Rates') ?></legend>
+                <input type="file" name="import_rates_file" class="input-file required-entry"/>
+                <?php echo $this->getButtonHtml('Import Tax Rates', "this.form.submit()") ?>
+            </fieldset>
+        </form>
+        <script type="text/javascript">
+            var importForm = new varienForm('import_form');
+        </script>
+    </div>
+    <?php endif ?>
+    <div class="<?php if ($this->getIsReadonly()): ?>box-left<?php else: ?>box-right<?php endif ?>">
+        <form id="export_form" action="<?php echo $this->getUrl('*/*/exportPost') ?>" method="post" enctype="multipart/form-data">
+            <?php echo $this->getBlockHtml('formkey')?>
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('tax')->__('Export Tax Rates') ?></h4>
+            </div>
+            <fieldset>
+                <legend><?php echo Mage::helper('tax')->__('Export Tax Rates') ?></legend>
+                <?php echo $this->getButtonHtml('Export Tax Rates', "this.form.submit()") ?>
+            </fieldset>
+        </form>
+    </div>
+    <div class="clear"></div>
+</div>

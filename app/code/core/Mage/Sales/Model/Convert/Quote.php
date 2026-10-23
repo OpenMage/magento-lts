@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Quote data convert model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Convert_Quote extends Varien_Object
@@ -25,8 +17,8 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
     /**
      * Convert quote model to order model
      *
-     * @param null|Mage_Sales_Model_Order  $order
-     * @return  Mage_Sales_Model_Order
+     * @param  null|Mage_Sales_Model_Order $order
+     * @return Mage_Sales_Model_Order
      */
     public function toOrder(Mage_Sales_Model_Quote $quote, $order = null)
     {
@@ -48,8 +40,8 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
     /**
      * Convert quote address model to order
      *
-     * @param   null|Mage_Sales_Model_Order $order
-     * @return  Mage_Sales_Model_Order
+     * @param  null|Mage_Sales_Model_Order $order
+     * @return Mage_Sales_Model_Order
      */
     public function addressToOrder(Mage_Sales_Model_Quote_Address $address, $order = null)
     {
@@ -66,7 +58,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
     /**
      * Convert quote address to order address
      *
-     * @return  Mage_Sales_Model_Order_Address
+     * @return Mage_Sales_Model_Order_Address
      */
     public function addressToOrderAddress(Mage_Sales_Model_Quote_Address $address)
     {
@@ -89,7 +81,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
     /**
      * Convert quote payment to order payment
      *
-     * @return  Mage_Sales_Model_Order_Payment
+     * @return Mage_Sales_Model_Order_Payment
      */
     public function paymentToOrderPayment(Mage_Sales_Model_Quote_Payment $payment)
     {
@@ -109,7 +101,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
     /**
      * Convert quote item to order item
      *
-     * @return  Mage_Sales_Model_Order_Item
+     * @return Mage_Sales_Model_Order_Item
      */
     public function itemToOrderItem(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -128,6 +120,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
         if (!$options) {
             $options = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());
         }
+
         $orderItem->setProductOptions($options);
         Mage::helper('core')->copyFieldset('sales_convert_quote_item', 'to_order_item', $item, $orderItem);
 

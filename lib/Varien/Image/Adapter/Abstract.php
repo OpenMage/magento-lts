@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Image
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,16 +16,22 @@ abstract class Varien_Image_Adapter_Abstract
     public $fileName = null;
 
     /**
-     * @var int Color used to fill space when rotating image, do not confuse it with $_backgroundColor
+     * @var int Color used to fill space when rotating image, do not confuse it with
      */
     public $imageBackgroundColor = 0;
 
     public const POSITION_TOP_LEFT = 'top-left';
+
     public const POSITION_TOP_RIGHT = 'top-right';
+
     public const POSITION_BOTTOM_LEFT = 'bottom-left';
+
     public const POSITION_BOTTOM_RIGHT = 'bottom-right';
+
     public const POSITION_STRETCH = 'stretch';
+
     public const POSITION_TILE = 'tile';
+
     public const POSITION_CENTER = 'center';
 
     /**
@@ -77,7 +76,7 @@ abstract class Varien_Image_Adapter_Abstract
      * original image, but after resize() it's already a scaled version.
      *
      * @see Varien_Image_Adapter_Gd2::open()
-     * @var resource|GdImage
+     * @var GdImage|resource
      */
     protected $_imageHandler = null;
 
@@ -85,7 +84,7 @@ abstract class Varien_Image_Adapter_Abstract
      * Width of the image stored in $_imageHandler
      *
      * @see getMimeType
-     * @var string|int
+     * @var int|string
      */
     protected $_imageSrcWidth = null;
 
@@ -93,22 +92,29 @@ abstract class Varien_Image_Adapter_Abstract
      * Height of the image stored in $_imageHandler
      *
      * @see getMimeType
-     * @var string|int
+     * @var int|string
      */
     protected $_imageSrcHeight = null;
+
     protected $_requiredExtensions = null;
+
     protected $_watermarkPosition = null;
+
     protected $_watermarkWidth = null;
+
     protected $_watermarkHeigth = null;
+
     protected $_watermarkImageOpacity = null;
+
     protected $_quality = null;
 
     protected $_keepAspectRatio;
+
     protected $_keepFrame;
 
     /**
      * @var bool If set to true and image format supports transparency (e.g. PNG),
-     * transparency will be kept in scaled images. Otherwise transparent areas will be changed to $_backgroundColor
+     *           transparency will be kept in scaled images. Otherwise transparent areas will be changed to $_backgroundColor
      */
     protected $_keepTransparency;
 
@@ -142,17 +148,19 @@ abstract class Varien_Image_Adapter_Abstract
     abstract public function checkDependencies();
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getMimeType()
     {
         if ($this->_fileMimeType) {
             return $this->_fileMimeType;
         }
+
         $imageInfo = @getimagesize($this->_fileName);
         if ($imageInfo === false) {
             throw new RuntimeException('Failed to read image at ' . $this->_fileName);
         }
+
         $this->_imageSrcWidth = $imageInfo[0];
         $this->_imageSrcHeight = $imageInfo[1];
         $this->_fileType = $imageInfo[2];
@@ -163,7 +171,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Retrieve Original Image Width
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalWidth()
     {
@@ -174,7 +182,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Retrieve Original Image Height
      *
-     * @return int|null
+     * @return null|int
      */
     public function getOriginalHeight()
     {
@@ -229,7 +237,7 @@ abstract class Varien_Image_Adapter_Abstract
     /**
      * Get/set keepAspectRatio
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function keepAspectRatio($value = null)
@@ -237,13 +245,14 @@ abstract class Varien_Image_Adapter_Abstract
         if (null !== $value) {
             $this->_keepAspectRatio = (bool) $value;
         }
+
         return $this->_keepAspectRatio;
     }
 
     /**
      * Get/set keepFrame
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function keepFrame($value = null)
@@ -251,13 +260,14 @@ abstract class Varien_Image_Adapter_Abstract
         if (null !== $value) {
             $this->_keepFrame = (bool) $value;
         }
+
         return $this->_keepFrame;
     }
 
     /**
      * Get/set keepTransparency
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function keepTransparency($value = null)
@@ -265,13 +275,14 @@ abstract class Varien_Image_Adapter_Abstract
         if (null !== $value) {
             $this->_keepTransparency = (bool) $value;
         }
+
         return $this->_keepTransparency;
     }
 
     /**
      * Get/set constrainOnly
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function constrainOnly($value = null)
@@ -279,27 +290,29 @@ abstract class Varien_Image_Adapter_Abstract
         if (null !== $value) {
             $this->_constrainOnly = (bool) $value;
         }
+
         return $this->_constrainOnly;
     }
 
     /**
      * Get/set quality, values in percentage from 0 to 100
      *
-     * @param int $value
-     * @return int|null
+     * @param  int      $value
+     * @return null|int
      */
     public function quality($value = null)
     {
         if (null !== $value) {
             $this->_quality = (int) $value;
         }
+
         return $this->_quality;
     }
 
     /**
      * Get/set keepBackgroundColor
      *
-     * @param array $value
+     * @param  array      $value
      * @return array|void
      */
     public function backgroundColor($value = null)
@@ -308,11 +321,13 @@ abstract class Varien_Image_Adapter_Abstract
             if ((!is_array($value)) || (3 !== count($value))) {
                 return;
             }
+
             foreach ($value as $color) {
-                if ((!is_integer($color)) || ($color < 0) || ($color > 255)) {
+                if ((!is_int($color)) || ($color < 0) || ($color > 255)) {
                     return;
                 }
             }
+
             $this->_backgroundColor = $value;
         }
 

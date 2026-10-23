@@ -1,27 +1,35 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml menu block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
- * @method $this setAdditionalCacheKeyInfo(array $cacheKeyInfo)
- * @method array getAdditionalCacheKeyInfo()
+ * @phpstan-type Menu array{
+ *     id?: string,
+ *     children?: array,
+ *     title?: string,
+ *     label: string,
+ *     sort_order: int,
+ *     url: string,
+ *     click?: 'return false',
+ *     active: bool,
+ *     level: int,
+ *     target?: Varien_Simplexml_Element,
+ *     last?: true,
+ *  }
+ *
+ * @method string getActive()
+ * @method array  getAdditionalCacheKeyInfo()
+ * @method $this  setActive(string $value)
+ * @method $this  setAdditionalCacheKeyInfo(array $cacheKeyInfo)
  */
 class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 {
@@ -35,9 +43,9 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     protected $_url;
 
     /**
-     * Initialize template and cache settings
-     *
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -47,10 +55,9 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * Retrieve cache lifetime
-     *
-     * @return int
+     * @inheritDoc
      */
+    #[Override]
     public function getCacheLifetime()
     {
         return 86400;
@@ -61,6 +68,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         $cacheKeyInfo = [
@@ -71,16 +79,17 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         ];
         // Add additional key parameters if needed
         $additionalCacheKeyInfo = $this->getAdditionalCacheKeyInfo();
-        if (is_array($additionalCacheKeyInfo) && !empty($additionalCacheKeyInfo)) {
-            $cacheKeyInfo = array_merge($cacheKeyInfo, $additionalCacheKeyInfo);
+        if (is_array($additionalCacheKeyInfo) && $additionalCacheKeyInfo !== []) {
+            return array_merge($cacheKeyInfo, $additionalCacheKeyInfo);
         }
+
         return $cacheKeyInfo;
     }
 
     /**
      * Retrieve Adminhtml Menu array
      *
-     * @return array
+     * @return Menu[]
      */
     public function getMenuArray()
     {
@@ -109,21 +118,25 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Recursive Build Menu array
      *
-     * @param string $path
-     * @param int $level
-     * @return array
+     * @param  string              $path
+     * @param  int                 $level
+     * @return array<string, Menu>
      */
     protected function _buildMenuArray(Varien_Simplexml_Element $parent, $path = '', $level = 0)
     {
         $parentArr = [];
         $sortOrder = 0;
         foreach ($parent->children() as $childName => $child) {
-            if ($child->disabled == 1) {
+            if ((string) $child->disabled === '1') {
                 continue;
             }
 
             $aclResource = 'admin/' . ($child->resource ? (string) $child->resource : $path . $childName);
-            if (!$this->_checkAcl($aclResource) || !$this->_isEnabledModuleOutput($child)) {
+            if (!$this->_checkAcl($aclResource)) {
+                continue;
+            }
+
+            if (!$this->_isEnabledModuleOutput($child)) {
                 continue;
             }
 
@@ -132,6 +145,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
 
             $menuArr = [];
+
+            $menuArr['id'] = str_replace(['/'], ['-'], $aclResource);
 
             $menuArr['label'] = $this->_getHelperValue($child);
 
@@ -145,7 +160,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
 
             $menuArr['active'] = ($this->getActive() == $path . $childName)
-                || (strpos((string) $this->getActive(), $path . $childName . '/') === 0);
+                || (str_starts_with((string) $this->getActive(), $path . $childName . '/'));
 
             $menuArr['level'] = $level;
 
@@ -156,12 +171,13 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             if ($child->children) {
                 $menuArr['children'] = $this->_buildMenuArray($child->children, $path . $childName . '/', $level + 1);
             }
+
             $parentArr[$childName] = $menuArr;
 
             $sortOrder++;
         }
 
-        uasort($parentArr, [$this, '_sortMenu']);
+        uasort($parentArr, $this->_sortMenu(...));
 
         $last = array_key_last($parentArr);
         if (!is_null($last)) {
@@ -174,13 +190,13 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Sort menu comparison function
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortMenu($a, $b)
     {
-        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] <=> $b['sort_order'];
     }
 
     /**
@@ -213,34 +229,36 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Check is Allow menu item for admin user
      *
-     * @param string $resource
+     * @param  string $resource
      * @return bool
      */
     protected function _checkAcl($resource)
     {
         try {
-            $res =  Mage::getSingleton('admin/session')->isAllowed($resource);
-        } catch (Exception $e) {
+            $res = Mage::getSingleton('admin/session')->isAllowed($resource);
+        } catch (Exception) {
             return false;
         }
+
         return $res;
     }
 
     /**
      * Processing block html after rendering
      *
-     * @param   string $html
-     * @return  string
+     * @param  string $html
+     * @return string
      */
+    #[Override]
     protected function _afterToHtml($html)
     {
-        return preg_replace_callback('#' . Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
+        return preg_replace_callback('#' . Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/\$([^\/].*)/([^\$].*)\$#', $this->_callbackSecretKey(...), $html);
     }
 
     /**
      * Replace Callback Secret Key
      *
-     * @param array $match
+     * @param  string[] $match
      * @return string
      */
     protected function _callbackSecretKey($match)
@@ -252,31 +270,33 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Get menu level HTML code
      *
-     * @param array $menu
-     * @param int $level
+     * @param  array<string, Menu> $menu
+     * @param  int                 $level
      * @return string
      */
     public function getMenuLevel($menu, $level = 0)
     {
-        $html = '<ul ' . (!$level ? 'id="nav"' : '') . '>' . PHP_EOL;
+        $html = '<ul ' . ($level ? '' : 'id="nav"') . '>' . PHP_EOL;
         foreach ($menu as $item) {
             if ((empty($item['url']) || ($item['url'] == '#')) && empty($item['children'])) {
                 continue; // for example hide System/Tools when empty
             }
-            $html .= '<li ' . (!empty($item['children']) ? 'onmouseover="Element.addClassName(this,\'over\')" '
-                . 'onmouseout="Element.removeClassName(this,\'over\')"' : '') . ' class="'
+
+            $html .= '<li class="'
                 . (!$level && !empty($item['active']) ? ' active' : '') . ' '
-                . (!empty($item['children']) ? ' parent' : '')
+                . (empty($item['children']) ? '' : ' parent')
                 . (!empty($level) && !empty($item['last']) ? ' last' : '')
                 . ' level' . $level . '"> <a href="' . $item['url'] . '" '
-                . (!empty($item['title']) ? 'title="' . $item['title'] . '"' : '') . ' '
-                . (!empty($item['target']) ? 'target="' . $item['target'] . '"' : '') . ' '
-                . (!empty($item['click']) ? 'onclick="' . $item['click'] . '"' : '') . ' class="'
-                . (!empty($item['active']) ? 'active' : '') . '"><span>'
+                . (empty($item['id']) ? '' : 'id="nav-' . $item['id'] . '"') . ' '
+                . (empty($item['title']) ? '' : 'title="' . $item['title'] . '"') . ' '
+                . (empty($item['target']) ? '' : 'target="' . $item['target'] . '"') . ' '
+                . (empty($item['click']) ? '' : 'onclick="' . $item['click'] . '"') . ' class="'
+                . (empty($item['active']) ? '' : 'active') . '"><span>'
                 . $this->escapeHtml($item['label']) . '</span></a>' . PHP_EOL;
             if (!empty($item['children'])) {
                 $html .= $this->getMenuLevel($item['children'], $level + 1);
             }
+
             $html .= '</li>' . PHP_EOL;
         }
 

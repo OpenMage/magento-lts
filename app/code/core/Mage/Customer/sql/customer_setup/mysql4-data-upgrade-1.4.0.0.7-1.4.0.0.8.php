@@ -1,20 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 
 /** @var Mage_Customer_Helper_Address $addressHelper */
@@ -174,6 +167,7 @@ foreach ($attributes as $attributeCode => $data) {
     if ($website !== false) {
         $attribute->setWebsite($website);
     }
+
     $attribute->addData($data);
     if (($data['is_system'] == 1 && $data['is_visible'] == 0) === false) {
         $usedInForms = [
@@ -186,16 +180,19 @@ foreach ($attributes as $attributeCode => $data) {
         } else {
             $usedInForms[] = 'adminhtml_customer';
         }
+
         if (!empty($data['admin_checkout'])) {
             $usedInForms[] = 'adminhtml_checkout';
         }
 
         $attribute->setData('used_in_forms', $usedInForms);
     }
+
     $attribute->save();
 }
 
 // update customer address system attributes data
+/** @var array<string, array{is_user_defined: int, is_system: int, is_visible: int, sort_order: int, is_required: int}> $attributes */
 $attributes = [
     'prefix'            => [
         'is_user_defined'   => 0,
@@ -334,6 +331,7 @@ foreach ($attributes as $attributeCode => $data) {
     if ($website !== false) {
         $attribute->setWebsite($website);
     }
+
     $attribute->addData($data);
     if (($data['is_system'] == 1 && $data['is_visible'] == 0) === false) {
         $usedInForms = [
@@ -343,5 +341,6 @@ foreach ($attributes as $attributeCode => $data) {
         ];
         $attribute->setData('used_in_forms', $usedInForms);
     }
+
     $attribute->save();
 }

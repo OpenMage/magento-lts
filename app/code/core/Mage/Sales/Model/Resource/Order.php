@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Flat sales order resource
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Abstract
@@ -35,7 +27,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
     /**
      * Is grid
      *
-     * @var boolean
+     * @var bool
      */
     protected $_grid                         = true;
 
@@ -51,6 +43,9 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
      */
     protected $_entityCodeForIncrementId     = 'order';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order', 'entity_id');
@@ -61,6 +56,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
      *
      * @return $this
      */
+    #[Override]
     protected function _initVirtualGridColumns()
     {
         parent::_initVirtualGridColumns();
@@ -75,7 +71,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
             $adapter->quote(' '),
             $ifnullLast,
         ]);
-        $concatAddress = new Zend_Db_Expr("TRIM(REPLACE($concatAddress,'  ', ' '))");
+        $concatAddress = new Zend_Db_Expr("TRIM(REPLACE({$concatAddress},'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'billing_name',
@@ -96,9 +92,9 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
     /**
      * Count existent products of order items by specified product types
      *
-     * @param int $orderId
-     * @param array $productTypeIds
-     * @param bool $isProductTypeIn
+     * @param  int   $orderId
+     * @param  array $productTypeIds
+     * @param  bool  $isProductTypeIn
      * @return array
      */
     public function aggregateProductsByTypes($orderId, $productTypeIds = [], $isProductTypeIn = false)
@@ -123,13 +119,14 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
                 $productTypeIds,
             );
         }
+
         return $adapter->fetchPairs($select);
     }
 
     /**
      * Retrieve order_increment_id by order_id
      *
-     * @param int $orderId
+     * @param  int    $orderId
      * @return string
      */
     public function getIncrementId($orderId)

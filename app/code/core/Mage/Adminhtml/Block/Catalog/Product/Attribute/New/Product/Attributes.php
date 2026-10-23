@@ -1,27 +1,20 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product attributes tab
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes extends Mage_Adminhtml_Block_Catalog_Form
 {
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -43,9 +36,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
          */
         if (!Mage::registry('product')->getId()) {
             foreach ($attributes as $attribute) {
-                if (!isset($values[$attribute->getAttributeCode()])) {
-                    $values[$attribute->getAttributeCode()] = $attribute->getDefaultValue();
-                }
+                $values[$attribute->getAttributeCode()] ??= $attribute->getDefaultValue();
             }
         }
 
@@ -53,9 +44,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
         $form->addValues($values);
         $form->setFieldNameSuffix('product');
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 
+    #[Override]
     protected function _getAdditionalElementTypes()
     {
         $result = [
@@ -75,6 +67,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
         return $result;
     }
 
+    #[Override]
     protected function _toHtml()
     {
         parent::_toHtml();

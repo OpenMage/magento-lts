@@ -1,0 +1,15 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php if ($this->getCanDisplayTotalPaid()): ?>
+<tr>
+    <td class="label"><strong><?php echo Mage::helper('sales')->__('Total Paid') ?></strong></td>
+    <td class="emph"><?php echo $this->displayPriceAttribute('total_paid', true) ?>
+    </td>
+</tr>
+<?php endif ?>

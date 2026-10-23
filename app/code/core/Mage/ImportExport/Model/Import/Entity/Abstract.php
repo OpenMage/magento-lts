@@ -1,34 +1,31 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Import entity abstract model
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 {
     /**
      * Database constants
-     *
      */
     public const DB_MAX_PACKET_COEFFICIENT = 900000;
+
     public const DB_MAX_PACKET_DATA        = 1048576;
+
     public const DB_MAX_VARCHAR_LENGTH     = 256;
+
     public const DB_MAX_TEXT_LENGTH        = 65536;
 
     /**
@@ -55,7 +52,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Entity type id.
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_entityTypeId;
 
@@ -182,6 +179,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      */
     protected $_uniqueAttributes = [];
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function __construct()
     {
         $entityType             = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());
@@ -197,12 +197,14 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      * Inner source object getter.
      *
      * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getSource()
     {
         if (!$this->_source) {
             Mage::throwException(Mage::helper('importexport')->__('No source specified'));
         }
+
         return $this->_source;
     }
 
@@ -241,13 +243,15 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 $rowData[$key] = null;
             }
         }
+
         return $rowData;
     }
 
     /**
      * Validate data rows and save bunches to DB.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract|void
+     * @return null|Mage_ImportExport_Model_Import_Entity_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _saveValidatedBunches()
     {
@@ -276,10 +280,12 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 $startNewBunch   = false;
                 $nextRowBackup   = [];
             }
+
             if ($source->valid()) {
                 if ($this->_errorsCount >= $this->_errorsLimit) { // errors limit check
-                    return;
+                    return null;
                 }
+
                 $rowData = $coreHelper->unEscapeCSVData($source->current());
 
                 $this->_processedRowsCount++;
@@ -299,19 +305,21 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                         $productDataSize += $rowSize;
                     }
                 }
+
                 $source->next();
             }
         }
+
         return $this;
     }
 
     /**
      * Add error with corresponding current data source row number.
      *
-     * @param string $errorCode Error code or simply column name
-     * @param int $errorRowNum Row number.
-     * @param string $colName OPTIONAL Column name.
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @param  string $errorCode   Error code or simply column name
+     * @param  int    $errorRowNum row number
+     * @param  string $colName     OPTIONAL Column name
+     * @return $this
      */
     public function addRowError($errorCode, $errorRowNum, $colName = null)
     {
@@ -325,9 +333,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Add message template for specific error code from outside.
      *
-     * @param string $errorCode Error code
-     * @param string $message Message template
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @param  string $errorCode Error code
+     * @param  string $message   Message template
+     * @return $this
      */
     public function addMessageTemplate($errorCode, $message)
     {
@@ -339,7 +347,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns attributes all values in label-value or value-value pairs form. Labels are lower-cased.
      *
-     * @param array $indexValAttrs OPTIONAL Additional attributes' codes with index values.
+     * @param  array $indexValAttrs OPTIONAL Additional attributes' codes with index values
      * @return array
      */
     public function getAttributeOptions(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $indexValAttrs = [])
@@ -365,10 +373,11 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                         }
                     }
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // ignore exceptions connected with source models
             }
         }
+
         return $options;
     }
 
@@ -380,12 +389,15 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     public function getBehavior()
     {
         if (!isset($this->_parameters['behavior'])
-            || ($this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND
-            && $this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_REPLACE
-            && $this->_parameters['behavior'] != Mage_ImportExport_Model_Import::BEHAVIOR_DELETE)
+            || (!in_array($this->_parameters['behavior'], [
+                Mage_ImportExport_Model_Import::BEHAVIOR_APPEND,
+                Mage_ImportExport_Model_Import::BEHAVIOR_REPLACE,
+                Mage_ImportExport_Model_Import::BEHAVIOR_DELETE,
+            ]))
         ) {
             return Mage_ImportExport_Model_Import::getDefaultBehavior();
         }
+
         return $this->_parameters['behavior'];
     }
 
@@ -400,7 +412,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Entity type ID getter.
      *
-     * @return int|null
+     * @return null|int
      */
     public function getEntityTypeId()
     {
@@ -421,11 +433,13 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             if (isset($this->_messageTemplates[$errorCode])) {
                 $errorCode = $translator->__($this->_messageTemplates[$errorCode]);
             }
+
             foreach ($errorRows as $errorRowData) {
                 $key = $errorRowData[1] ? sprintf($errorCode, $errorRowData[1]) : $errorCode;
                 $messages[$key][] = $errorRowData[0];
             }
         }
+
         return $messages;
     }
 
@@ -492,21 +506,22 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Source object getter.
      *
-     * @throws Exception
      * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @throws Exception
      */
     public function getSource()
     {
         if (!$this->_source) {
             Mage::throwException(Mage::helper('importexport')->__('Source is not set'));
         }
+
         return $this->_source;
     }
 
     /**
      * Import process start.
      *
-     * @return bool Result of operation.
+     * @return bool result of operation
      */
     public function importData()
     {
@@ -516,7 +531,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Is attribute contains particular data (not plain entity attribute).
      *
-     * @param string $attrCode
+     * @param  string $attrCode
      * @return bool
      */
     public function isAttributeParticular($attrCode)
@@ -527,10 +542,10 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Check one attribute. Can be overridden in child.
      *
-     * @param string $attrCode Attribute code
-     * @param array $attrParams Attribute params
-     * @param array $rowData Row data
-     * @param int $rowNum
+     * @param  string $attrCode   Attribute code
+     * @param  array  $attrParams Attribute params
+     * @param  array  $rowData    Row data
+     * @param  int    $rowNum
      * @return bool
      */
     public function isAttributeValid($attrCode, array $attrParams, array $rowData, $rowNum)
@@ -554,8 +569,13 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 break;
             case 'datetime':
                 $val   = trim($rowData[$attrCode]);
-                $valid = strtotime($val) !== false
-                    || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
+                try {
+                    $valid = Carbon::parse($val)->getTimestamp();
+                } catch (InvalidFormatException) {
+                    $valid = false;
+                }
+
+                $valid = $valid !== false || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
                 break;
             case 'text':
                 $val   = Mage::helper('core/string')->cleanString($rowData[$attrCode]);
@@ -573,15 +593,18 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 $this->addRowError(Mage::helper('importexport')->__("Duplicate Unique Attribute for '%s'"), $rowNum, $attrCode);
                 return false;
             }
+
             $this->_uniqueAttributes[$attrCode][$rowData[$attrCode]] = true;
         }
-        return (bool) $valid;
+
+        return $valid;
     }
 
     /**
      * Is all of data valid?
      *
      * @return bool
+     * @throws Exception
      */
     public function isDataValid()
     {
@@ -602,7 +625,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns TRUE if row is valid and not in skipped rows array.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     public function isRowAllowedToImport(array $rowData, $rowNum)
@@ -613,7 +636,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Validate data row.
      *
-     * @param int $rowNum
+     * @param  int  $rowNum
      * @return bool
      */
     abstract public function validateRow(array $rowData, $rowNum);
@@ -621,7 +644,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Set data from outside to change behavior. I.e. for setting some default parameters etc.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return $this
      */
     public function setParameters(array $params)
     {
@@ -632,7 +655,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Source model setter.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return $this
      */
     public function setSource(Mage_ImportExport_Model_Import_Adapter_Abstract $source)
     {
@@ -645,8 +668,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Validate data.
      *
+     * @return $this
      * @throws Exception
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
      */
     public function validateData()
     {
@@ -671,15 +694,18 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                     $invalidColumns[] = $colName;
                 }
             }
-            if ($invalidColumns) {
+
+            if ($invalidColumns !== []) {
                 Mage::throwException(
                     Mage::helper('importexport')->__('Column names: "%s" are invalid', implode('", "', $invalidColumns)),
                 );
             }
+
             $this->_saveValidatedBunches();
 
             $this->_dataValidated = true;
         }
+
         return $this;
     }
 }

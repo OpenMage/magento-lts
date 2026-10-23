@@ -1,81 +1,56 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
-use Generator;
+use Override;
+use Exception;
 use Mage;
-use Mage_Admin_Model_Variable;
-use PHPUnit\Framework\TestCase;
+use Mage_Admin_Model_Variable as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\VariableTrait;
 
-class VariableTest extends TestCase
+/**
+ * @phpstan-import-type ValidateData from VariableTrait
+ */
+final class VariableTest extends OpenMageTest
 {
-    public Mage_Admin_Model_Variable $subject;
+    use VariableTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    #[Override]
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('admin/variable');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('admin/variable');
     }
 
     /**
-     * @dataProvider provideValidateData
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
-     *
-     * @param array|true $expectedResult
+     * @dataProvider provideValidateAdminVariableData
+     * @phpstan-param ValidateData $data
+     * @group Model
+     * @throws Exception
      */
-    public function testValidate($expectedResult, string $variableName, string $isAllowed): void
+    public function testValidate(array|bool $expectedResult, array $data): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_Variable::class)
-            ->setMethods(['getVariableName', 'getIsAllowed'])
-            ->getMock();
-
-        $mock->method('getVariableName')->willReturn($variableName);
-        $mock->method('getIsAllowed')->willReturn($isAllowed);
-        $this->assertSame($expectedResult, $mock->validate());
+        self::$subject->setData($data);
+        self::assertSame($expectedResult, self::$subject->validate());
     }
 
-    public function provideValidateData(): Generator
-    {
-        yield 'test passes' => [
-            true,
-            'test',
-            '1',
-        ];
-        yield 'test error empty' => [
-            [0 => 'Variable Name is required field.'],
-            '',
-            '1',
-        ];
-        yield 'test error regex' => [
-            [0 => 'Variable Name is incorrect.'],
-            '#invalid-name#',
-            '1',
-        ];
-        yield 'test error allowed' => [
-            [0 => 'Is Allowed is required field.'],
-            'test',
-            'invalid',
-        ];
-    }
-
+    /**
+     * @group Model
+     */
     public function testIsPathAllowed(): void
     {
-        $this->assertIsBool($this->subject->isPathAllowed('invalid-path'));
+        self::assertIsBool(self::$subject->isPathAllowed('invalid-path'));
     }
 }

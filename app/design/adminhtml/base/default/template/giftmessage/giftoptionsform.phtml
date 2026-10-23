@@ -1,0 +1,55 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Form
+ * @see Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Form
+ * @var Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Form|Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Form $this
+ */
+?>
+<?php if ($this->canDisplayGiftmessageForm()): ?>
+<div id="gift_options_giftmessage">
+    <div class="giftcard-form">
+        <div class="giftcard-send-form">
+            <h4><?php echo Mage::helper('giftmessage')->__('Gift Message'); ?></h4>
+            <ul class="form-list">
+                <li class="fields">
+                    <div class="field">
+                        <label for="current_item_giftmessage_sender"><?php echo Mage::helper('giftmessage')->__('From'); ?></label>
+                        <div class="input-box">
+                            <input type="text" class="input-text" name="current_item_giftmessage_sender" id="current_item_giftmessage_sender" />
+                        </div>
+                    </div>
+                </li>
+                <li class="fields">
+                    <div class="field">
+                        <label for="current_item_giftmessage_recipient"><?php echo Mage::helper('giftmessage')->__('To'); ?></label>
+                        <div class="input-box">
+                            <input type="text" class="input-text" name="current_item_giftmessage_recipient" id="current_item_giftmessage_recipient" />
+                        </div>
+                    </div>
+                </li>
+                <li class="fields">
+                    <div class="field">
+                        <label for="current_item_giftmessage_message"><?php echo Mage::helper('giftmessage')->__('Message'); ?></label>
+                        <div class="input-box">
+                            <textarea class="textarea" cols="15" rows="2" name="current_item_giftmessage_message" id="current_item_giftmessage_message"></textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var giftMessageSet = new GiftMessageSet();
+//]]>
+</script>
+<?php endif ?>

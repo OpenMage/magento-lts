@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Mage_Catalog_Model_Category as Category;
@@ -22,7 +15,6 @@ use Mage_Index_Model_Event as Event;
 /**
  * Catalog Category Flat Indexer Model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_Abstract
@@ -55,11 +47,16 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      *
      * @return bool
      */
+    #[Override]
     public function isVisible()
     {
         /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
         $categoryFlatHelper = Mage::helper('catalog/category_flat');
-        return $categoryFlatHelper->isEnabled() || !$categoryFlatHelper->isBuilt();
+        if ($categoryFlatHelper->isEnabled()) {
+            return true;
+        }
+
+        return !$categoryFlatHelper->isBuilt();
     }
 
     /**
@@ -77,6 +74,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('catalog')->__('Reorganize EAV category structure to flat structure');
@@ -99,6 +97,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      *
      * @return bool
      */
+    #[Override]
     public function matchEvent(Event $event)
     {
         /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
@@ -184,23 +183,20 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      */
     protected function _registerCatalogCategoryEvent(Event $event)
     {
-        switch ($event->getType()) {
-            case Event::TYPE_SAVE:
-                /** @var Category $category */
-                $category = $event->getDataObject();
-
-                /**
-                 * Check if category has another affected category ids (category move result)
-                 */
-                $affectedCategoryIds = $category->getAffectedCategoryIds();
-                if ($affectedCategoryIds) {
-                    $event->addNewData('catalog_category_flat_affected_category_ids', $affectedCategoryIds);
-                } else {
-                    $event->addNewData('catalog_category_flat_category_id', $category->getId());
-                }
-
-                break;
+        if ($event->getType() === Event::TYPE_SAVE) {
+            /** @var Category $category */
+            $category = $event->getDataObject();
+            /**
+             * Check if category has another affected category ids (category move result)
+             */
+            $affectedCategoryIds = $category->getAffectedCategoryIds();
+            if ($affectedCategoryIds) {
+                $event->addNewData('catalog_category_flat_affected_category_ids', $affectedCategoryIds);
+            } else {
+                $event->addNewData('catalog_category_flat_category_id', $category->getId());
+            }
         }
+
         return $this;
     }
 
@@ -216,6 +212,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
             $store = $event->getDataObject();
             $event->addNewData('catalog_category_flat_delete_store_id', $store->getId());
         }
+
         return $this;
     }
 
@@ -243,8 +240,8 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
 
     /**
      * Rebuild all index data
-     *
      */
+    #[Override]
     public function reindexAll()
     {
         $this->_getIndexer()->reindexAll();

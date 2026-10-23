@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Event
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Collection of events
  *
- * @category   Varien
  * @package    Varien_Event
  */
 class Varien_Event_Collection
@@ -27,7 +19,7 @@ class Varien_Event_Collection
      *
      * @var array
      */
-    protected $_events;
+    protected $_events = [];
 
     /**
      * Global observers
@@ -45,11 +37,9 @@ class Varien_Event_Collection
 
     /**
      * Initializes global observers collection
-     *
      */
     public function __construct()
     {
-        $this->_events = [];
         $this->_globalObservers = new Varien_Event_Observer_Collection();
     }
 
@@ -78,7 +68,7 @@ class Varien_Event_Collection
      *
      * If event doesn't exist creates new one and returns it
      *
-     * @param string $eventName
+     * @param  string       $eventName
      * @return Varien_Event
      */
     public function getEventByName($eventName)
@@ -86,13 +76,14 @@ class Varien_Event_Collection
         if (!isset($this->_events[$eventName])) {
             $this->addEvent(new Varien_Event(['name' => $eventName]));
         }
+
         return $this->_events[$eventName];
     }
 
     /**
      * Register an event for this collection
      *
-     * @return Varien_Event_Collection
+     * @return $this
      */
     public function addEvent(Varien_Event $event)
     {
@@ -106,7 +97,7 @@ class Varien_Event_Collection
      * If observer has event_name property it will be registered for this specific event.
      * If not it will be registered as global observer
      *
-     * @return Varien_Event_Collection
+     * @return $this
      */
     public function addObserver(Varien_Event_Observer $observer)
     {
@@ -116,6 +107,7 @@ class Varien_Event_Collection
         } else {
             $this->getGlobalObservers()->addObserver($observer);
         }
+
         return $this;
     }
 
@@ -124,8 +116,8 @@ class Varien_Event_Collection
      *
      * Will dispatch specific event and will try all global observers
      *
-     * @param string $eventName
-     * @return Varien_Event_Collection
+     * @param  string $eventName
+     * @return $this
      */
     public function dispatch($eventName, array $data = [])
     {

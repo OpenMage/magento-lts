@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Admin tag edit block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  * @deprecated after 1.3.2.3
  */
@@ -36,7 +28,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
 
         if ($this->getRequest()->getParam('product_id')) {
             $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs(
                     $this->getUrl('*/catalog_product/edit', ['id' => $this->getRequest()->getParam('product_id')]),
@@ -46,7 +38,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
 
         if ($this->getRequest()->getParam('customer_id')) {
             $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs(
                     $this->getUrl('*/customer/edit', ['id' => $this->getRequest()->getParam('customer_id')]),
@@ -56,13 +48,13 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
 
         if ($this->getRequest()->getParam('ret', false) == 'pending') {
             $this->_updateButton(
-                'back',
+                self::BUTTON_TYPE_BACK,
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/pending')),
             );
 
             $this->_updateButton(
-                'delete',
+                self::BUTTON_TYPE_DELETE,
                 'onclick',
                 Mage::helper('core/js')->getDeleteConfirmJs(
                     $this->getUrl(
@@ -74,8 +66,8 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
             Mage::register('ret', 'pending');
         }
 
-        $this->_updateButton('save', 'label', Mage::helper('tag')->__('Save Tag'));
-        $this->_updateButton('delete', 'label', Mage::helper('tag')->__('Delete Tag'));
+        $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('tag')->__('Save Tag'));
+        $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', Mage::helper('tag')->__('Delete Tag'));
     }
 
     /**
@@ -83,6 +75,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -95,6 +88,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
      *
      * @return string
      */
+    #[Override]
     public function getFormHtml()
     {
         $html = parent::getFormHtml();
@@ -104,11 +98,13 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('tag_tag')->getId()) {
             return Mage::helper('tag')->__("Edit Tag '%s'", $this->escapeHtml(Mage::registry('tag_tag')->getName()));
         }
+
         return Mage::helper('tag')->__('New Tag');
     }
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template model class
  *
- * @category   Mage
  * @package    Mage_Core
  */
 abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
@@ -26,6 +18,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Types of template
      */
     public const TYPE_TEXT = 1;
+
     public const TYPE_HTML = 2;
 
     /**
@@ -36,14 +29,14 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Configuration of design package for template
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_designConfig;
 
     /**
      * Configuration of emulated design package.
      *
-     * @var Varien_Object|false
+     * @var false|Varien_Object
      */
     protected $_emulatedDesignConfig = false;
 
@@ -51,7 +44,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Initial environment information
      * @see self::_applyDesignConfig()
      *
-     * @var Varien_Object|null
+     * @var null|Varien_Object
      */
     protected $_initialEnvironmentInfo = null;
 
@@ -70,6 +63,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
             $appEmulation = Mage::getSingleton('core/app_emulation');
             $this->_initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId, $area);
         }
+
         return $this;
     }
 
@@ -85,6 +79,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
             $appEmulation->stopEnvironmentEmulation($this->_initialEnvironmentInfo);
             $this->_initialEnvironmentInfo = null;
         }
+
         return $this;
     }
 
@@ -103,13 +98,14 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
                 'store' => $storeId,
             ]);
         }
+
         return $this->_designConfig;
     }
 
     /**
      * Initialize design information for template processing
      *
-     * @return  $this
+     * @return $this
      */
     public function setDesignConfig(array $config)
     {
@@ -122,7 +118,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Event is not dispatched.
      *
      * @param int|string $storeId
-     * @param string $area
+     * @param string     $area
      */
     public function emulateDesign($storeId, $area = self::DEFAULT_DESIGN_AREA)
     {
@@ -163,7 +159,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Getter for template type
      *
-     * @return int|string
+     * @return null|int
      */
     abstract public function getType();
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin observer model
  *
- * @category   Mage
  * @package    Mage_Admin
  */
 class Mage_Admin_Model_Observer
@@ -45,12 +37,13 @@ class Mage_Admin_Model_Observer
             'logout',
             'refresh', // captcha refresh
         ];
-        if (in_array($requestedActionName, $openActions)) {
+        if (in_array($requestedActionName, $openActions, true)) {
             $request->setDispatched(true);
         } else {
             if ($user) {
                 $user->reload();
             }
+
             if (!$user || !$user->getId()) {
                 if ($request->getPost('login')) {
                     /** @var Mage_Core_Model_Session $coreSession */
@@ -58,21 +51,23 @@ class Mage_Admin_Model_Observer
 
                     if ($coreSession->validateFormKey($request->getPost('form_key'))) {
                         $postLogin = $request->getPost('login');
-                        $username = $postLogin['username'] ?? '';
-                        $password = $postLogin['password'] ?? '';
+                        // Never trust the shape of the posted data: only plain strings are valid credentials
+                        $username = is_array($postLogin) && isset($postLogin['username']) && is_string($postLogin['username'])
+                            ? $postLogin['username'] : '';
+                        $password = is_array($postLogin) && isset($postLogin['password']) && is_string($postLogin['password'])
+                            ? $postLogin['password'] : '';
                         $session->login($username, $password, $request);
-                        $request->setPost('login', null);
-                    } else {
-                        if (!$request->getParam('messageSent')) {
-                            Mage::getSingleton('adminhtml/session')->addError(
-                                Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.'),
-                            );
-                            $request->setParam('messageSent', true);
-                        }
+                        $request->setPost('login');
+                    } elseif (!$request->getParam('messageSent')) {
+                        Mage::getSingleton('adminhtml/session')->addError(
+                            Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.'),
+                        );
+                        $request->setParam('messageSent', true);
                     }
 
                     $coreSession->renewFormKey();
                 }
+
                 if (!$request->getInternallyForwarded()) {
                     $request->setInternallyForwarded();
                     if ($request->getParam('isIframe')) {
@@ -92,6 +87,7 @@ class Mage_Admin_Model_Observer
                             ->setActionName('login')
                             ->setDispatched(false);
                     }
+
                     return;
                 }
             }
@@ -103,9 +99,9 @@ class Mage_Admin_Model_Observer
     /**
      * Unset session first visit flag after displaying page
      *
-     * @deprecated after 1.4.0.1, logic moved to admin session
      * @param Varien_Event_Observer $event
      */
+    #[Deprecated(message: 'after 1.4.0.1, logic moved to admin session')]
     public function actionPostDispatchAdmin($event) {}
 
     /**

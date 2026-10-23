@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Persistent
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Persistent Session Resource Model
  *
- * @category   Mage
  * @package    Mage_Persistent
  */
 class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db_Abstract
@@ -29,6 +21,9 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
      */
     protected $_useIsObjectNew = true;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('persistent/session', 'persistent_id');
@@ -37,11 +32,12 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     /**
      * Add expiration date filter to select
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Persistent_Model_Session $object
+     * @param  string                        $field
+     * @param  mixed                         $value
+     * @param  Mage_Persistent_Model_Session $object
      * @return Zend_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);
@@ -59,7 +55,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     /**
      * Delete customer persistent session by customer id
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function deleteByCustomerId($customerId)
@@ -71,7 +67,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     /**
      * Check if such session key allowed (not exists)
      *
-     * @param string $key
+     * @param  string $key
      * @return bool
      */
     public function isKeyAllowed($key)
@@ -84,7 +80,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
     /**
      * Delete expired persistent sessions
      *
-     * @param  int $websiteId
+     * @param  int    $websiteId
      * @param  string $expiredBefore
      * @return $this
      */

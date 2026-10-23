@@ -1,30 +1,22 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widget Instance layouts chooser
  *
- * @category   Mage
  * @package    Mage_Widget
  *
- * @method $this setArea(string $value)
- * @method $this setPackage(string $value)
  * @method string getSelectName()
- * @method $this setSelectName(string $value)
- * @method $this setTheme(string $value)
+ * @method $this  setArea(string $value)
+ * @method $this  setPackage(string $value)
+ * @method $this  setSelectName(string $value)
+ * @method $this  setTheme(string $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Mage_Adminhtml_Block_Widget
 {
@@ -45,7 +37,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
     /**
      * Add not allowed layout handle pattern
      *
-     * @param string $pattern
+     * @param  string $pattern
      * @return $this
      */
     public function addLayoutHandlePattern($pattern)
@@ -69,11 +61,13 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
      *
      * @return string
      */
+    #[Override]
     public function getArea()
     {
         if (!$this->_getData('area')) {
             return Mage_Core_Model_Design_Package::DEFAULT_AREA;
         }
+
         return $this->_getData('area');
     }
 
@@ -87,6 +81,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
         if (!$this->_getData('package')) {
             return Mage_Core_Model_Design_Package::DEFAULT_PACKAGE;
         }
+
         return $this->_getData('package');
     }
 
@@ -100,6 +95,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
         if (!$this->_getData('theme')) {
             return Mage_Core_Model_Design_Package::DEFAULT_THEME;
         }
+
         return $this->_getData('theme');
     }
 
@@ -108,14 +104,15 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $selectBlock = $this->getLayout()->createBlock('core/html_select')
             ->setName($this->getSelectName())
             ->setId('layout_handle')
             ->setClass('required-entry select')
-            ->setExtraParams("onchange=\"WidgetInstance.loadSelectBoxByType(\'block_reference\', " .
-                            "this.up(\'div.pages\'), this.value)\"")
+            ->setExtraParams("onchange=\"WidgetInstance.loadSelectBoxByType(\'block_reference\', "
+                            . "this.up(\'div.pages\'), this.value)\"")
             ->setOptions($this->getLayoutHandles(
                 $this->getArea(),
                 $this->getPackage(),
@@ -127,9 +124,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
     /**
      * Retrieve layout handles
      *
-     * @param string $area
-     * @param string $package
-     * @param string $theme
+     * @param  string $area
+     * @param  string $package
+     * @param  string $theme
      * @return array
      */
     public function getLayoutHandles($area, $package, $theme)
@@ -140,17 +137,19 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
             $this->_layoutHandles[''] = Mage::helper('widget')->__('-- Please Select --');
             $this->_collectLayoutHandles($update->getFileLayoutUpdatesXml($area, $package, $theme));
         }
+
         return $this->_layoutHandles;
     }
 
     /**
      * Filter and collect layout handles into array
      *
-     * @param Mage_Core_Model_Layout_Element $layoutHandles
+     * @param SimpleXMLElement $layoutHandles
      */
     protected function _collectLayoutHandles($layoutHandles)
     {
         if ($layoutHandlesArr = $layoutHandles->xpath('/*/*/label/..')) {
+            /** @var Varien_Simplexml_Element $node */
             foreach ($layoutHandlesArr as $node) {
                 if ($this->_filterLayoutHandle($node->getName())) {
                     $helper = Mage::helper(Mage_Core_Model_Layout::findTranslationModuleName($node));
@@ -159,6 +158,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
                     );
                 }
             }
+
             asort($this->_layoutHandles, SORT_STRING);
         }
     }
@@ -166,15 +166,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
     /**
      * Check if given layout handle allowed (do not match not allowed patterns)
      *
-     * @param string $layoutHandle
+     * @param  string $layoutHandle
      * @return bool
      */
     protected function _filterLayoutHandle($layoutHandle)
     {
         $wildCard = '/(' . implode(')|(', $this->getLayoutHandlePatterns()) . ')/';
-        if (preg_match($wildCard, $layoutHandle)) {
-            return false;
-        }
-        return true;
+        return !preg_match($wildCard, $layoutHandle);
     }
 }

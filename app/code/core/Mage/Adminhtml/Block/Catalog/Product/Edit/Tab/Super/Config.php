@@ -1,30 +1,26 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml catalog super product configurable tab
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method bool  getCanEditPrice()
+ * @method bool  getCanReadPrice()
+ * @method $this setCanEditPrice(bool $value)
+ * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Initialize block
-     *
      */
     public function __construct()
     {
@@ -73,8 +69,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function isAttributesPricesReadonly()
     {
-        return $this->_getProduct()->getAttributesConfigurationReadonly() ||
-            (Mage::helper('catalog')->isPriceGlobal() && $this->isReadonly());
+        if ($this->_getProduct()->getAttributesConfigurationReadonly()) {
+            return true;
+        }
+
+        return Mage::helper('catalog')->isPriceGlobal() && $this->isReadonly();
     }
 
     /**
@@ -82,6 +81,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -147,24 +147,26 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         $attributes = $productType->getConfigurableAttributesAsArray($this->_getProduct());
         if (!$attributes) {
             return '[]';
-        } else {
-            // Hide price if needed
-            foreach ($attributes as &$attribute) {
-                $attribute['label'] = $this->escapeHtml($attribute['label']);
-                $attribute['frontend_label'] = $this->escapeHtml($attribute['frontend_label']);
-                $attribute['store_label'] = $this->escapeHtml($attribute['store_label']);
-                if (isset($attribute['values']) && is_array($attribute['values'])) {
-                    foreach ($attribute['values'] as &$attributeValue) {
-                        if (!$this->getCanReadPrice()) {
-                            $attributeValue['pricing_value'] = '';
-                            $attributeValue['is_percent'] = 0;
-                        }
-                        $attributeValue['can_edit_price'] = $this->getCanEditPrice();
-                        $attributeValue['can_read_price'] = $this->getCanReadPrice();
+        }
+
+        // Hide price if needed
+        foreach ($attributes as &$attribute) {
+            $attribute['label'] = $this->escapeHtml($attribute['label']);
+            $attribute['frontend_label'] = $this->escapeHtml($attribute['frontend_label']);
+            $attribute['store_label'] = $this->escapeHtml($attribute['store_label']);
+            if (isset($attribute['values']) && is_array($attribute['values'])) {
+                foreach ($attribute['values'] as &$attributeValue) {
+                    if (!$this->getCanReadPrice()) {
+                        $attributeValue['pricing_value'] = '';
+                        $attributeValue['is_percent'] = 0;
                     }
+
+                    $attributeValue['can_edit_price'] = $this->getCanEditPrice();
+                    $attributeValue['can_read_price'] = $this->getCanReadPrice();
                 }
             }
         }
+
         return Mage::helper('core')->jsonEncode($attributes);
     }
 
@@ -181,17 +183,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         if (!$products) {
             return '{}';
         }
+
         $data = [];
         foreach ($products as $product) {
             $data[$product->getId()] = $this->getConfigurableSettings($product);
         }
+
         return Mage::helper('core')->jsonEncode($data);
     }
 
     /**
      * Retrieve configurable settings
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
     public function getConfigurableSettings($product)
@@ -304,7 +308,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     /**
      * Escape JavaScript string
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     public function escapeJs($string)

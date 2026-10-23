@@ -1,27 +1,23 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist Report collection
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishlist_Model_Resource_Product_Collection
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         $this->_init('wishlist/wishlist');
@@ -76,6 +72,7 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function getSelectCountSql()
     {
         $countSelect = clone $this->getSelect();
@@ -90,15 +87,12 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
     }
 
     /**
-     * Set order to result
-     *
-     * @param string $attribute
-     * @param string $dir
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'wishlists') {
+        if ($attribute === 'wishlists') {
             $this->getSelect()->order($attribute . ' ' . $dir);
         } else {
             parent::setOrder($attribute, $dir);

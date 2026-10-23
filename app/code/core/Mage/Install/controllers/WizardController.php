@@ -1,27 +1,20 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Install
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Installation wizard controller
  *
- * @category   Mage
  * @package    Mage_Install
  */
 class Mage_Install_WizardController extends Mage_Install_Controller_Action
 {
+    #[Override]
     public function preDispatch()
     {
         if (Mage::isInstalled()) {
@@ -29,6 +22,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             $this->_redirect('/');
             return;
         }
+
         $this->setFlag('', self::FLAG_NO_CHECK_INSTALLATION, true);
         parent::preDispatch();
     }
@@ -75,7 +69,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
      * Checking installation status
      *
      * @return bool
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _checkIfInstalled()
     {
@@ -83,11 +77,13 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             $this->getResponse()->setRedirect(Mage::getBaseUrl())->sendResponse();
             exit;
         }
+
         return true;
     }
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -96,6 +92,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Begin installation action
+     * @return void
      */
     public function beginAction()
     {
@@ -116,6 +113,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Process begin step POST data
+     * @return void
      */
     public function beginPostAction()
     {
@@ -131,6 +129,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Localization settings
+     * @return void
      */
     public function localeAction()
     {
@@ -149,6 +148,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Change current locale
+     * @return void
      */
     public function localeChangeAction()
     {
@@ -168,6 +168,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Saving localization settings
+     * @return void
      */
     public function localePostAction()
     {
@@ -183,6 +184,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Configuration data installation
+     * @return void
      */
     public function configAction()
     {
@@ -208,7 +210,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process configuration POST data
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return null|$this
      */
     public function configPostAction()
     {
@@ -231,16 +233,19 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
                 $this->_getInstaller()->installConfig($data);
                 $this->_redirect('*/*/installDb');
                 return $this;
-            } catch (Exception $e) {
-                Mage::getSingleton('install/session')->addError($e->getMessage());
+            } catch (Exception $exception) {
+                Mage::getSingleton('install/session')->addError($exception->getMessage());
                 $this->getResponse()->setRedirect($step->getUrl());
             }
         }
+
         $this->getResponse()->setRedirect($step->getUrl());
+        return null;
     }
 
     /**
      * Install DB
+     * @return void
      */
     public function installDbAction()
     {
@@ -256,14 +261,15 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             Mage::app()->getStore()->resetConfig();
 
             $this->getResponse()->setRedirect(Mage::getUrl($step->getNextUrlPath()));
-        } catch (Exception $e) {
-            Mage::getSingleton('install/session')->addError($e->getMessage());
+        } catch (Exception $exception) {
+            Mage::getSingleton('install/session')->addError($exception->getMessage());
             $this->getResponse()->setRedirect($step->getUrl());
         }
     }
 
     /**
      * Install administrator account
+     * @return void
      */
     public function administratorAction()
     {
@@ -281,7 +287,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Process administrator installation POST data
      *
-     * @return false|void
+     * @return null|false
      */
     public function administratorPostAction()
     {
@@ -305,7 +311,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             $errors = array_merge($errors, $result);
         }
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             Mage::getSingleton('install/session')->setAdminData($adminData);
             $this->getResponse()->setRedirect($step->getUrl());
             return false;
@@ -314,18 +320,21 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         try {
             $this->_getInstaller()->createAdministrator($user);
             $this->_getInstaller()->installEnryptionKey($encryptionKey);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Mage::getSingleton('install/session')
                 ->setAdminData($adminData)
-                ->addError($e->getMessage());
+                ->addError($exception->getMessage());
             $this->getResponse()->setRedirect($step->getUrl());
             return false;
         }
+
         $this->getResponse()->setRedirect($step->getNextUrl());
+        return null;
     }
 
     /**
      * End installation
+     * @return void
      */
     public function endAction()
     {
@@ -351,6 +360,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Host validation response
+     * @return void
      */
     public function checkHostAction()
     {
@@ -360,6 +370,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Host validation response
+     * @return void
      */
     public function checkSecureHostAction()
     {

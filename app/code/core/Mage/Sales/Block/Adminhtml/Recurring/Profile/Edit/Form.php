@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring profile editing form
  * Can work in scope of product edit form
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminhtml_Block_Abstract
@@ -45,7 +37,6 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     protected $_profile = null;
 
     /**
-     *
      * @var Mage_Catalog_Model_Product
      */
     protected $_product = null;
@@ -53,7 +44,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     /**
      * Setter for parent element
      *
-     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form
+     * @return $this
      */
     public function setParentElement(Varien_Data_Form_Element_Abstract $element)
     {
@@ -64,7 +55,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     /**
      * Setter for current product
      *
-     * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form
+     * @return $this
      */
     public function setProductEntity(Mage_Catalog_Model_Product $product)
     {
@@ -73,8 +64,9 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     }
 
     /**
-     * Instantiate a recurring payment profile to use it as a helper
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_profile = Mage::getSingleton('sales/recurring_profile');
@@ -86,6 +78,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         // TODO: implement $this->_isReadonly setting
@@ -93,6 +86,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         if ($this->_product && $this->_product->getRecurringProfile()) {
             $form->setValues($this->_product->getRecurringProfile());
         }
+
         return $form->toHtml();
     }
 
@@ -104,9 +98,16 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
-        $form::setFieldsetRenderer($this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset'));
-        $form::setFieldsetElementRenderer($this->getLayout()
-            ->createBlock('adminhtml/widget_form_renderer_fieldset_element'));
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $form::setFieldsetRenderer($renderer);
+        }
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $form::setFieldsetElementRenderer($renderer);
+        }
 
         /**
          * if there is a parent element defined, it will be replaced by a hidden element with the same name
@@ -175,10 +176,10 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
      * Add a field to the form or fieldset
      * Form and fieldset have same abstract
      *
-     * @param Varien_Data_Form|Varien_Data_Form_Element_Fieldset $formOrFieldset
-     * @param string $elementName
-     * @param array $options
-     * @param string $type
+     * @param  Varien_Data_Form|Varien_Data_Form_Element_Fieldset $formOrFieldset
+     * @param  string                                             $elementName
+     * @param  array                                              $options
+     * @param  string                                             $type
      * @return Varien_Data_Form_Element_Abstract
      */
     protected function _addField($formOrFieldset, $elementName, $options = [], $type = 'text')
@@ -192,13 +193,14 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         if (in_array($elementName, ['period_unit', 'period_frequency'])) {
             $options['required'] = true;
         }
+
         return $formOrFieldset->addField($elementName, $type, $options);
     }
 
     /**
      * Getter for period unit options with "Please Select" label
      *
-     * @param string $emptyLabel
+     * @param  string $emptyLabel
      * @return array
      */
     protected function _getPeriodUnitOptions($emptyLabel)
@@ -212,7 +214,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     /**
      * Set readonly flag
      *
-     * @param bool $isReadonly
+     * @param  bool  $isReadonly
      * @return $this
      */
     public function setIsReadonly($isReadonly)

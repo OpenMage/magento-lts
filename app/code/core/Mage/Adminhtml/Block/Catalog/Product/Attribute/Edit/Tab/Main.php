@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product attribute add/edit form main tab
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
@@ -27,6 +19,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         parent::_prepareForm();
@@ -39,10 +32,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             ->searchById('attribute_code')
             ->setData(
                 'class',
-                'validate-code-event ' . $fieldset->getElements()->searchById('attribute_code')->getData('class'),
+                'validate-code-event ' . $fieldset->getElements()->searchById('attribute_code')->getDataByKey('class'),
             )->setData(
                 'note',
-                $fieldset->getElements()->searchById('attribute_code')->getData('note')
+                $fieldset->getElements()->searchById('attribute_code')->getDataByKey('note')
                 . Mage::helper('eav')->__('. Do not use "event" for an attribute code, it is a reserved keyword.'),
             );
 
@@ -74,10 +67,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             if (isset($type['hide_fields'])) {
                 $_hiddenFields[$type['value']] = $type['hide_fields'];
             }
+
             if (isset($type['disabled_types'])) {
                 $_disabledTypes[$type['value']] = $type['disabled_types'];
             }
         }
+
         Mage::register('attribute_type_hidden_fields', $_hiddenFields);
         Mage::register('attribute_type_disabled_types', $_disabledTypes);
 
@@ -189,7 +184,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'values' => $yesnoSource,
         ]);
 
-        $htmlAllowed = $fieldset->addField('is_html_allowed_on_front', 'select', [
+        $fieldset->addField('is_html_allowed_on_front', 'select', [
             'name' => 'is_html_allowed_on_front',
             'label' => Mage::helper('catalog')->__('Allow HTML Tags on Frontend'),
             'title' => Mage::helper('catalog')->__('Allow HTML Tags on Frontend'),
@@ -251,8 +246,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
     /**
      * Retrieve additional element types for product attributes
      *
-     * @return array
+     * @return array<string, string>
      */
+    #[Override]
     protected function _getAdditionalElementTypes()
     {
         return [

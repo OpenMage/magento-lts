@@ -1,29 +1,24 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
 {
     protected $_dummyElement;
+
     protected $_fieldRenderer;
+
     protected $_values;
 
+    #[Override]
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $html = $this->_getHeaderHtml($element);
@@ -43,6 +38,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
             if ($moduleName === 'Mage_Adminhtml') {
                 continue;
             }
+
             $html .= $this->_getFieldHtml($element, $moduleName);
         }
 
@@ -54,6 +50,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
         if (empty($this->_dummyElement)) {
             $this->_dummyElement = new Varien_Object(['show_in_default' => 1, 'show_in_website' => 1]);
         }
+
         return $this->_dummyElement;
     }
 
@@ -62,6 +59,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
         if (empty($this->_fieldRenderer)) {
             $this->_fieldRenderer = Mage::getBlockSingleton('adminhtml/system_config_form_field');
         }
+
         return $this->_fieldRenderer;
     }
 
@@ -73,6 +71,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
                 ['label' => Mage::helper('adminhtml')->__('Disable'), 'value' => 1],
             ];
         }
+
         return $this->_values;
     }
 
@@ -88,7 +87,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
             $inherit = true;
         }
 
-        $e = $this->_getDummyElement();
+        $element = $this->_getDummyElement();
 
         $field = $fieldset->addField(
             $moduleName,
@@ -99,8 +98,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
                 'value'         => $data,
                 'values'        => $this->_getValues(),
                 'inherit'       => $inherit,
-                'can_use_default_value' => $this->getForm()->canUseDefaultValue($e),
-                'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
+                'can_use_default_value' => $this->getForm()->canUseDefaultValue($element),
+                'can_use_website_value' => $this->getForm()->canUseWebsiteValue($element),
                 'scope'         => true,
                 'scope_label'   => Mage::helper('adminhtml')->__('[STORE VIEW]'),
             ],

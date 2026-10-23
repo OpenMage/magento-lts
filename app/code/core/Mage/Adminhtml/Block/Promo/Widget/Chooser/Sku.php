@@ -1,32 +1,28 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales order create search products block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
+ * @method bool                                           getIsCollapsed()
+ * @method string                                         getJsFormObject()
+ * @method $this                                          setIsCollapsed(bool $value)
+ * @method $this                                          setJsFormObject(string $value)
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_promo_widget_chooser_sku';
+
     /**
-     * Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku constructor.
-     * @param array $arguments
      * @throws Exception
      */
     public function __construct($arguments = [])
@@ -40,9 +36,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
         }
 
         $form = $this->getJsFormObject();
-        $this->setRowClickCallback("$form.chooserGridRowClick.bind($form)");
-        $this->setCheckboxCheckCallback("$form.chooserGridCheckboxCheck.bind($form)");
-        $this->setRowInitCallback("$form.chooserGridRowInit.bind($form)");
+        $this->setRowClickCallback("{$form}.chooserGridRowClick.bind({$form})");
+        $this->setCheckboxCheckCallback("{$form}.chooserGridCheckboxCheck.bind({$form})");
+        $this->setRowInitCallback("{$form}.chooserGridRowInit.bind({$form})");
         $this->setDefaultSort('sku');
         $this->setUseAjax(true);
         if ($this->getRequest()->getParam('collapse')) {
@@ -52,6 +48,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
 
     /**
      * Retrieve quote store object
+     *
      * @return Mage_Core_Model_Store
      */
     public function getStore()
@@ -60,9 +57,11 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
@@ -71,6 +70,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
             if (empty($selected)) {
                 $selected = '';
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('sku', ['in' => $selected]);
             } else {
@@ -79,6 +79,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -87,6 +88,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('catalog/product_collection')
@@ -99,10 +101,12 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     }
 
     /**
-     * Define Cooser Grid Columns and filters
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('in_products', [
@@ -127,7 +131,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
                 'width' => '60px',
                 'index' => 'type_id',
                 'type'  => 'options',
-                'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+                'options' => Mage::getSingleton('catalog/product_type')::getOptionArray(),
             ],
         );
 
@@ -163,8 +167,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/chooser', [

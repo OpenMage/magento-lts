@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API Request model
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
@@ -31,10 +23,15 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      * Name of query ($_GET) parameters to use in navigation and so on
      */
     public const QUERY_PARAM_REQ_ATTRS   = 'attrs';
+
     public const QUERY_PARAM_PAGE_NUM    = 'page';
+
     public const QUERY_PARAM_PAGE_SIZE   = 'limit';
+
     public const QUERY_PARAM_ORDER_FIELD = 'order';
+
     public const QUERY_PARAM_ORDER_DIR   = 'dir';
+
     public const QUERY_PARAM_FILTER      = 'filter';
 
     /**
@@ -73,8 +70,11 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     protected function _getInterpreter()
     {
         if ($this->_interpreter === null) {
-            $this->_interpreter = Mage_Api2_Model_Request_Interpreter::factory($this->getContentType());
+            /** @var Mage_Api2_Model_Request_Interpreter_Interface $factory */
+            $factory = Mage_Api2_Model_Request_Interpreter::factory($this->getContentType());
+            $this->_interpreter = $factory;
         }
+
         return $this->_interpreter;
     }
 
@@ -96,22 +96,26 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             if (!preg_match('~^([0-9a-z*+\-]+)(?:/([0-9a-z*+\-\.]+))?$~i', $mimeType)) {
                 continue;
             }
+
             $quality = '1.0'; // default value for quality
 
-            if ($typeWithQ) {
+            if ($typeWithQ !== []) {
                 $qAndValue = explode('=', $typeWithQ[0]);
 
-                if (count($qAndValue) == 2) {
+                if (count($qAndValue) === 2) {
                     $quality = $qAndValue[1];
                 }
             }
+
             $qualityToTypes[$quality][$mimeType] = true;
         }
+
         krsort($qualityToTypes);
 
         foreach ($qualityToTypes as $typeList) {
             $orderedTypes += $typeList;
         }
+
         return array_keys($orderedTypes);
     }
 
@@ -136,6 +140,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         if ($this->_bodyParams == null) {
             $this->_bodyParams = $this->_getInterpreter()->interpret((string) $this->getRawBody());
         }
+
         return $this->_bodyParams;
     }
 
@@ -152,16 +157,19 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         if (!$headerValue) {
             throw new Mage_Api2_Exception('Content-Type header is empty', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         if (!preg_match('~^([a-z\d/\-+.]+)(?:; *charset=(.+))?$~Ui', $headerValue, $matches)) {
             throw new Mage_Api2_Exception('Invalid Content-Type header', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         // request encoding check if it is specified in header
-        if (isset($matches[2]) && self::REQUEST_CHARSET != strtolower($matches[2])) {
+        if (isset($matches[2]) && self::REQUEST_CHARSET !== strtolower($matches[2])) {
             throw new Mage_Api2_Exception(
                 'UTF-8 is the only supported charset',
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
+
         return $matches[1];
     }
 
@@ -178,7 +186,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     /**
      * Get resource model class name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getModel()
     {
@@ -197,6 +205,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         if (!$this->isGet() && !$this->isPost() && !$this->isPut() && !$this->isDelete()) {
             throw new Mage_Api2_Exception('Invalid request method', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         // Map HTTP methods to classic CRUD verbs
         $operationByMethod = [
             'GET'    => Mage_Api2_Model_Resource::OPERATION_RETRIEVE,
@@ -261,7 +270,8 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         if (!is_array($include)) {
             $include = explode(',', $include);
         }
-        return array_map('trim', $include);
+
+        return array_map(trim(...), $include);
     }
 
     /**
@@ -288,7 +298,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     /**
      * Retrieve action type
      *
-     * @return string|null
+     * @return null|string
      */
     public function getActionType()
     {
@@ -309,6 +319,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             $keys = array_keys($params);
             return !is_numeric($keys[0]);
         }
+
         return false;
     }
 }

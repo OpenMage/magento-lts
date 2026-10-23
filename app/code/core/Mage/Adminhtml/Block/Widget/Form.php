@@ -1,24 +1,19 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin form widget
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method array getFormData()
+ * @method $this setFormData(array $value)
  */
 class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
 {
@@ -29,10 +24,12 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      */
     protected $_form;
 
+    protected string $_eventPrefix = '';
+
     /**
-     * Class constructor
-     *
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -44,21 +41,39 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Preparing global layout
      *
-     * You can redefine this method in child classes for changin layout
+     * You can redefine this method in child classes for changing layout
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
-        Varien_Data_Form::setElementRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element'),
-        );
-        Varien_Data_Form::setFieldsetRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset'),
-        );
-        Varien_Data_Form::setFieldsetElementRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element'),
-        );
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            Varien_Data_Form::setElementRenderer($renderer);
+        }
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            Varien_Data_Form::setFieldsetRenderer($renderer);
+        }
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            Varien_Data_Form::setFieldsetElementRenderer($renderer);
+        }
+
+        Mage::dispatchEvent('adminhtml_widget_form_prepare_layout', [
+            'block' => $this,
+            'form'  => $this->getForm(),
+        ]);
+
+        if ($this->_eventPrefix !== '') {
+            Mage::dispatchEvent($this->_eventPrefix . '_prepare_layout', [
+                'block' => $this,
+                'form'  => $this->getForm(),
+            ]);
+        }
 
         return parent::_prepareLayout();
     }
@@ -74,18 +89,6 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Get form object
-     *
-     * @deprecated deprecated since version 1.2
-     * @see getForm()
-     * @return Varien_Data_Form
-     */
-    public function getFormObject()
-    {
-        return $this->getForm();
-    }
-
-    /**
      * Get form HTML
      *
      * @return string
@@ -95,6 +98,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         if (is_object($this->getForm())) {
             return $this->getForm()->getHtml();
         }
+
         return '';
     }
 
@@ -118,6 +122,18 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareForm()
     {
+        Mage::dispatchEvent('adminhtml_widget_form_prepare_form', [
+            'block' => $this,
+            'form' => $this->getForm(),
+        ]);
+
+        if ($this->_eventPrefix !== '') {
+            Mage::dispatchEvent($this->_eventPrefix . '_prepare_form', [
+                'block' => $this,
+                'form' => $this->getForm(),
+            ]);
+        }
+
         return $this;
     }
 
@@ -126,6 +142,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->_prepareForm();
@@ -154,25 +171,30 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Set Fieldset to Form
      *
-     * @param array $attributes attributes that are to be added
+     * @param array                             $attributes attributes that are to be added
      * @param Varien_Data_Form_Element_Fieldset $fieldset
-     * @param array $exclude attributes that should be skipped
+     * @param array                             $exclude    attributes that should be skipped
      */
     protected function _setFieldset($attributes, $fieldset, $exclude = [])
     {
         $this->_addElementTypes($fieldset);
         foreach ($attributes as $attribute) {
             /** @var Mage_Eav_Model_Entity_Attribute $attribute */
-            if (!$attribute || ($attribute->hasIsVisible() && !$attribute->getIsVisible())) {
+            if (!$attribute) {
                 continue;
             }
+
+            if ($attribute->hasIsVisible() && !$attribute->getIsVisible()) {
+                continue;
+            }
+
             if (($inputType = $attribute->getFrontend()->getInputType())
                  && !in_array($attribute->getAttributeCode(), $exclude)
                  && ($inputType != 'media_image')
             ) {
                 $fieldType      = $inputType;
                 $rendererClass  = $attribute->getFrontend()->getInputRendererClass();
-                if (!empty($rendererClass)) {
+                if (is_string($rendererClass) && $rendererClass !== '') {
                     $fieldType  = $inputType . '_' . $attribute->getAttributeCode();
                     $fieldset->addType($fieldType, $rendererClass);
                 }
@@ -228,7 +250,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve predefined additional element types
      *
-     * @return array
+     * @return array<string, string>|array<void>
      */
     protected function _getAdditionalElementTypes()
     {
@@ -236,7 +258,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getAdditionalElementHtml($element)

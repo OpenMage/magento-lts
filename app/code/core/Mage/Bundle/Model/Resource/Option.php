@@ -1,27 +1,22 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Option Resource Model
  *
- * @category   Mage
  * @package    Mage_Bundle
  */
 class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('bundle/option', 'option_id');
@@ -30,6 +25,7 @@ class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abst
     /**
      * @return $this
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         parent::_afterSave($object);
@@ -67,6 +63,7 @@ class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abst
      *
      * @return $this
      */
+    #[Override]
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
         parent::_afterDelete($object);
@@ -82,8 +79,8 @@ class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieve options searchable data
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return array
      */
     public function getSearchableData($productId, $storeId)
@@ -113,8 +110,9 @@ class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abst
             )
             ->where('opt.parent_id=:product_id');
         if (!$searchData = $adapter->fetchCol($select, $bind)) {
-            $searchData = [];
+            return [];
         }
+
         return $searchData;
     }
 }

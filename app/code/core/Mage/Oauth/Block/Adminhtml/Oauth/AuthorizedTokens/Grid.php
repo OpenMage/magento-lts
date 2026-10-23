@@ -1,30 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * OAuth authorized tokens grid block
  *
- * @category   Mage
  * @package    Mage_Oauth
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Construct grid block
-     */
+    protected string $_eventPrefix = 'oauth_adminhtml_oauth_authorizedtokens_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -36,10 +27,9 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
@@ -48,15 +38,14 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
             ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS);
         $this->setCollection($collection);
 
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
@@ -74,13 +63,13 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
             'header'    => $this->__('User Type'),
             //'index'     => array('customer_id', 'admin_id'),
             'options'   => [0 => $this->__('Admin'), 1 => $this->__('Customer')],
-            'frame_callback' => [$this, 'decorateUserType'],
+            'frame_callback' => $this->decorateUserType(...),
         ]);
 
         $this->addColumn('user_id', [
             'header'    => $this->__('User ID'),
             //'index'     => array('customer_id', 'admin_id'),
-            'frame_callback' => [$this, 'decorateUserId'],
+            'frame_callback' => $this->decorateUserId(...),
         ]);
 
         /** @var Mage_Adminhtml_Model_System_Config_Source_Yesno $sourceYesNo */
@@ -102,6 +91,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);
@@ -110,8 +100,9 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     /**
      * Get revoke URL
      *
-     * @param Mage_Oauth_Model_Token $row
-     * @return string|null
+     * @param  Mage_Oauth_Model_Token $row
+     * @return null|string
+     * @throws Mage_Core_Exception
      */
     public function getRevokeUrl($row)
     {
@@ -121,8 +112,9 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     /**
      * Get delete URL
      *
-     * @param Mage_Oauth_Model_Token $row
-     * @return string|null
+     * @param  Mage_Oauth_Model_Token $row
+     * @return null|string
+     * @throws Mage_Core_Exception
      */
     public function getDeleteUrl($row)
     {
@@ -134,6 +126,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         if (!$this->_isAllowed()) {
@@ -163,10 +156,10 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     /**
      * Decorate user type column
      *
-     * @param string $value
-     * @param Mage_Oauth_Model_Token $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool $isExport
+     * @param  string                                  $value
+     * @param  Mage_Oauth_Model_Token                  $row
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  bool                                    $isExport
      * @return mixed
      */
     public function decorateUserType($value, $row, $column, $isExport)
@@ -178,11 +171,11 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     /**
      * Decorate user type column
      *
-     * @param string $value
-     * @param Mage_Oauth_Model_Token $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool $isExport
-     * @return mixed
+     * @param  string                                  $value
+     * @param  Mage_Oauth_Model_Token                  $row
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  bool                                    $isExport
+     * @return int
      */
     public function decorateUserId($value, $row, $column, $isExport)
     {

@@ -1,37 +1,35 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml dashboard most active buyers
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_tab_customers_most';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('customersMostGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceModel('reports/order_collection');
         /** @var Mage_Reports_Model_Resource_Order_Collection $collection */
+        $collection = Mage::getResourceModel('reports/order_collection');
         $collection
             ->groupByCustomer()
             ->addOrdersCount()
@@ -57,6 +55,12 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_B
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -96,6 +100,11 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_B
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Order $row
+     */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId()]);

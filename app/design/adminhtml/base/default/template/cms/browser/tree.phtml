@@ -1,0 +1,65 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php
+/**
+ * Directories tree template
+ *
+ * @see Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree
+ * @var Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree $this 
+ */
+?>
+<div class="categories-side-col">
+    <div class="tree-actions">
+        <a href="#" id="tree_action_collapse"><?php echo $this->helper('cms')->__('Collapse All'); ?></a>
+        <span class="separator">|</span>
+        <a href="#" id="tree_action_expand"><?php echo $this->helper('cms')->__('Expand All'); ?></a>
+    </div>
+</div>
+
+<div id="tree" style="width:100%; overflow:auto;"></div>
+
+<script type="text/javascript">
+Ext.onReady(function(){
+    var Tree = Ext.tree;
+    var tree = new Tree.TreePanel('tree', {
+        animate:true,
+        loader: new Tree.TreeLoader({
+            dataUrl:'<?php echo $this->getTreeLoaderUrl() ?>'
+        }),
+        enableDD:false,
+        containerScroll: true
+    });
+
+    // set the root node
+    var root = new Tree.AsyncTreeNode({
+        text: '<?php echo Mage::helper('core')->jsQuoteEscape($this->getRootNodeName()) ?>',
+        draggable:false,
+        id:'root'
+    });
+    tree.setRootNode(root);
+
+    // render the tree
+    tree.render();
+    root.expand();
+
+    Event.observe($('tree_action_collapse'), 'click', function(){
+        tree.collapseAll();
+    });
+
+    Event.observe($('tree_action_expand'), 'click', function(){
+        tree.expandAll();
+    });
+
+    MediabrowserInstance.setTree(tree);
+    tree.addListener('click', MediabrowserInstance.selectFolder.bind(MediabrowserInstance));
+    tree.expandPath('<?php echo $this->getTreeCurrentPath() ?>','', function(success, node) {
+        MediabrowserInstance.selectFolder(node);
+    });
+});
+</script>

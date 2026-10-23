@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart helper
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
@@ -47,8 +39,8 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Retrieve url for add product to cart
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
     public function getAddUrl($product, $additional = [])
@@ -59,7 +51,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Return helper instance
      *
-     * @param  string $helperName
+     * @param  string                    $helperName
      * @return Mage_Core_Helper_Abstract
      */
     protected function _getHelperInstance($helperName)
@@ -70,8 +62,8 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Retrieve url for remove product from cart
      *
-     * @param   Mage_Sales_Model_Quote_Item $item
-     * @return  string
+     * @param  Mage_Sales_Model_Quote_Item $item
+     * @return string
      */
     public function getRemoveUrl($item)
     {
@@ -123,7 +115,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     }
 
     /**
-     * Get shopping cart items summary (inchlude config settings)
+     * Get shopping cart items summary (include config settings)
      *
      * @return float
      */
@@ -145,7 +137,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Checks if customer should be redirected to shopping cart after adding a product
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function getShouldRedirectToCart($store = null)
@@ -156,9 +148,9 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     /**
      * Retrieve url for add product to cart with or without Form Key
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
-     * @param bool $addFormKey
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
+     * @param  bool                       $addFormKey
      * @return string
      */
     public function getAddUrlCustom($product, $additional = [], $addFormKey = true)
@@ -171,13 +163,16 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
         if ($addFormKey) {
             $routeParams[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
         }
+
         if (!empty($additional)) {
             $routeParams = array_merge($routeParams, $additional);
         }
+
         if ($product->hasUrlDataObject()) {
             $routeParams['_store'] = $product->getUrlDataObject()->getStoreId();
             $routeParams['_store_to_url'] = true;
         }
+
         if ($this->_getRequest()->getRouteName() == 'checkout'
             && $this->_getRequest()->getControllerName() == 'cart'
         ) {

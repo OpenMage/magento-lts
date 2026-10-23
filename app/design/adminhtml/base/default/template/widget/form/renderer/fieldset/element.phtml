@@ -1,0 +1,31 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element $this */
+?>
+<?php
+$_element = $this->getElement();
+$_note    = $_element->getNote();
+$_trId    = $_element->getHtmlContainerId();
+$_class   = $_element->getFieldsetHtmlClass();
+?>
+<?php if (!$_element->getNoDisplay()): ?>
+<tr<?php if($_trId): ?> id="<?php echo $_trId ?>"<?php endif ?>>
+    <?php if ($_element->getType()=='hidden'): ?>
+    <td colspan="2" class="hidden"><?php echo trim($_element->getElementHtml()) ?></td>
+    <?php else: ?>
+    <td class="label<?php echo $_class ? " {$_class}-label" : ''?>"><?php echo trim($_element->getLabelHtml()) ?></td>
+    <td class="<?php echo $_element->hasValueClass() ? $_element->getValueClass() : 'value' ?><?php echo $_class ? " {$_class}-value" : ''?>">
+        <?php echo trim($_element->getElementHtml()) ?>
+        <?php if ($_note): ?>
+            <p class="note<?php echo $_class ? " {$_class}-note" : ''?>" id="note_<?php echo $_element->getId()?>"><span><?php echo $_note ?></span></p>
+        <?php endif ?>
+    </td>
+    <?php endif ?>
+</tr>
+<?php endif ?>

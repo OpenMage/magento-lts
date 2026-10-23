@@ -1,24 +1,18 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payment transactions collection
  *
- * @category   Mage
  * @package    Mage_Sales
+ *
+ * @extends Mage_Sales_Model_Resource_Order_Collection_Abstract<Mage_Sales_Model_Order_Payment_Transaction>
  */
 class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
@@ -79,7 +73,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
     protected $_orderField             = 'order_id';
 
     /**
-     * Initialize collection items factory class
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -90,6 +84,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
     /**
      * Join order information
      *
+     * @param  string[] $keys
      * @return $this
      */
     public function addOrderInformation(array $keys)
@@ -113,7 +108,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
     /**
      * Order ID filter setter
      *
-     * @param int $orderId
+     * @param  int   $orderId
      * @return $this
      */
     public function addOrderIdFilter($orderId)
@@ -126,7 +121,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
      * Payment ID filter setter
      * Can take either the integer id or the payment instance
      *
-     * @param Mage_Sales_Model_Order_Payment|int $payment
+     * @param  int|Mage_Sales_Model_Order_Payment $payment
      * @return $this
      */
     public function addPaymentIdFilter($payment)
@@ -135,6 +130,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
         if (is_object($payment)) {
             $id = $payment->getId();
         }
+
         $this->_paymentId = (int) $id;
         return $this;
     }
@@ -142,7 +138,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
     /**
      * Parent ID filter setter
      *
-     * @param int $parentId
+     * @param  int   $parentId
      * @return $this
      */
     public function addParentIdFilter($parentId)
@@ -154,7 +150,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
     /**
      * Transaction type filter setter
      *
-     * @param array|string $txnType
+     * @param  array|string $txnType
      * @return $this
      */
     public function addTxnTypeFilter($txnType)
@@ -162,6 +158,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
         if (!is_array($txnType)) {
             $txnType = [$txnType];
         }
+
         $this->_txnTypes = $txnType;
         return $this;
     }
@@ -169,7 +166,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
     /**
      * Add filter by store ids
      *
-     * @param int|array $storeIds
+     * @param  array|int $storeIds
      * @return $this
      */
     public function addStoreFilter($storeIds)
@@ -184,6 +181,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeLoad()
     {
         parent::_beforeLoad();
@@ -196,15 +194,19 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
         if ($this->_paymentId) {
             $this->getSelect()->where('main_table.payment_id = ?', $this->_paymentId);
         }
+
         if ($this->_parentId) {
             $this->getSelect()->where('main_table.parent_id = ?', $this->_parentId);
         }
+
         if ($this->_txnTypes) {
             $this->getSelect()->where('main_table.txn_type IN(?)', $this->_txnTypes);
         }
+
         if ($this->_orderId) {
             $this->getSelect()->where('main_table.order_id = ?', $this->_orderId);
         }
+
         if ($this->_addPaymentInformation) {
             $this->getSelect()->joinInner(
                 ['sop' => $this->getTable('sales/order_payment')],
@@ -212,10 +214,12 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
                 $this->_addPaymentInformation,
             );
         }
+
         if ($this->_storeIds) {
             $this->getSelect()->where('so.store_id IN(?)', $this->_storeIds);
             $this->addOrderInformation(['store_id']);
         }
+
         if ($this->_addOrderInformation) {
             $this->getSelect()->joinInner(
                 ['so' => $this->getTable('sales/order')],
@@ -223,6 +227,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
                 $this->_addOrderInformation,
             );
         }
+
         return $this;
     }
 
@@ -231,11 +236,13 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoad()
     {
         foreach ($this->_items as $item) {
             $this->getResource()->unserializeFields($item);
         }
+
         return parent::_afterLoad();
     }
 }

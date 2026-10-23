@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Uploader
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Uploader_Block_Abstract
  *
- * @category   Mage
  * @package    Mage_Uploader
  */
 abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
@@ -35,17 +27,17 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     protected $_misc;
 
     /**
-     * @var Mage_Uploader_Model_Config_Uploader|null
+     * @var null|Mage_Uploader_Model_Config_Uploader
      */
     protected $_uploaderConfig;
 
     /**
-     * @var Mage_Uploader_Model_Config_Browsebutton|null
+     * @var null|Mage_Uploader_Model_Config_Browsebutton
      */
     protected $_browseButtonConfig;
 
     /**
-     * @var Mage_Uploader_Model_Config_Misc|null
+     * @var null|Mage_Uploader_Model_Config_Misc
      */
     protected $_miscConfig;
 
@@ -109,7 +101,7 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     /**
      * Add mapping ids for front-end use
      *
-     * @param array $additionalButtons
+     * @param  array $additionalButtons
      * @return $this
      */
     protected function _addElementIdsMapping($additionalButtons = [])
@@ -122,8 +114,9 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     /**
      * Prepare layout, create buttons, set front-end elements ids
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -189,9 +182,8 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
      */
     public function getMiscConfig()
     {
-        if (is_null($this->_miscConfig)) {
-            $this->_miscConfig = Mage::getModel('uploader/config_misc');
-        }
+        $this->_miscConfig ??= Mage::getModel('uploader/config_misc');
+
         return $this->_miscConfig;
     }
 
@@ -202,9 +194,8 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
      */
     public function getUploaderConfig()
     {
-        if (is_null($this->_uploaderConfig)) {
-            $this->_uploaderConfig = Mage::getModel('uploader/config_uploader');
-        }
+        $this->_uploaderConfig ??= Mage::getModel('uploader/config_uploader');
+
         return $this->_uploaderConfig;
     }
 
@@ -215,16 +206,15 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
      */
     public function getButtonConfig()
     {
-        if (is_null($this->_browseButtonConfig)) {
-            $this->_browseButtonConfig = Mage::getModel('uploader/config_browsebutton');
-        }
+        $this->_browseButtonConfig ??= Mage::getModel('uploader/config_browsebutton');
+
         return $this->_browseButtonConfig;
     }
 
     /**
      * Get button unique id
      *
-     * @param string $suffix
+     * @param  string $suffix
      * @return string
      */
     public function getElementId($suffix)
@@ -235,11 +225,11 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     /**
      * Prepare actual elements ids from suffixes
      *
-     * @param array $targets $type => array($idsSuffixes)
+     * @param  array $targets $type => array($idsSuffixes)
      * @return array $type => array($htmlIds)
      */
     protected function _prepareElementsIds($targets)
     {
-        return array_map([$this, 'getElementId'], array_unique(array_values($targets)));
+        return array_map($this->getElementId(...), array_unique(array_values($targets)));
     }
 }

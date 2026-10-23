@@ -1,33 +1,26 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml grid item abstract renderer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 
 abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends Mage_Adminhtml_Block_Abstract implements Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Interface
 {
     protected $_defaultWidth;
+
     protected $_column;
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
     public function setColumn($column)
@@ -47,7 +40,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {
@@ -57,6 +50,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
                    . ($this->getColumn()->getEditOnly() ? '' : ($value != '' ? '' : '&nbsp;'))
                    . $this->_getInputValueElement($row);
         }
+
         return $this->_getValue($row);
     }
 
@@ -71,21 +65,26 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     protected function _getValue(Varien_Object $row)
     {
         if ($getter = $this->getColumn()->getGetter()) {
             if (is_string($getter)) {
                 return $row->$getter();
-            } elseif (is_callable($getter)) {
+            }
+
+            if (is_callable($getter)) {
                 return call_user_func($getter, $row);
             }
+
             return '';
         }
+
         if ($index = $this->getColumn()->getIndex()) {
             return $row->getData($index);
         }
+
         return null;
     }
 
@@ -101,7 +100,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     protected function _getInputValue(Varien_Object $row)
     {
@@ -116,16 +115,16 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
         if ($this->getColumn()->getGrid()->getSortable() !== false && $this->getColumn()->getSortable() !== false) {
             $className = 'not-sort';
             $dir = strtolower((string) $this->getColumn()->getDir());
-            $nDir = ($dir == 'asc') ? 'desc' : 'asc';
+            $nDir = ($dir === 'asc') ? 'desc' : 'asc';
             if ($this->getColumn()->getDir()) {
                 $className = 'sort-arrow-' . $dir;
             }
-            $out = '<a href="#" name="' . $this->getColumn()->getId() . '" title="' . $nDir . '" class="' . $className . '"><span class="sort-title">'
+
+            return '<a href="#" name="' . $this->getColumn()->getId() . '" title="' . $nDir . '" class="' . $className . '"><span class="sort-title">'
                    . $this->escapeHtml($this->getColumn()->getHeader()) . '</span></a>';
-        } else {
-            $out = $this->escapeHtml($this->getColumn()->getHeader());
         }
-        return $out;
+
+        return $this->escapeHtml($this->getColumn()->getHeader());
     }
 
     /**
@@ -137,10 +136,10 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
         $width = $this->_defaultWidth;
 
         if ($this->getColumn()->hasData('width')) {
-            $customWidth = $this->getColumn()->getData('width');
-            if (($customWidth === null) || (preg_match('/^[0-9]+%?$/', (string) $customWidth))) {
+            $customWidth = $this->getColumn()->getDataByKey('width');
+            if (($customWidth === null) || (preg_match('/^\d+%?$/', (string) $customWidth))) {
                 $width = $customWidth;
-            } elseif (preg_match('/^([0-9]+)px$/', $customWidth, $matches)) {
+            } elseif (preg_match('/^(\d+)px$/', $customWidth, $matches)) {
                 $width = (int) $matches[1];
             }
         }
@@ -153,7 +152,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function renderCss()
     {
@@ -161,7 +160,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getCopyableText(Varien_Object $row)
     {

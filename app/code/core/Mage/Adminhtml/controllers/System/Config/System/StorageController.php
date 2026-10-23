@@ -1,23 +1,17 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
 
 /**
  * Adminhtml account controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminhtml_Controller_Action
@@ -51,7 +45,8 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
     /**
      * Synchronize action between storages
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function synchronizeAction()
     {
@@ -64,7 +59,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
         $flag = $this->_getSyncFlag();
         if ($flag && $flag->getState() == Mage_Core_Model_File_Storage_Flag::STATE_RUNNING
             && $flag->getLastUpdate()
-            && time() <= (strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
+            && Mage::helper('core/clock')->getTimestamp() <= (Carbon::parse($flag->getLastUpdate())->getTimestamp() + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
         ) {
             return;
         }
@@ -79,9 +74,9 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
 
         try {
             $this->_getSyncSingleton()->synchronize($storage);
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $flag->passError($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
+            $flag->passError($exception);
         }
 
         $flag->setState(Mage_Core_Model_File_Storage_Flag::STATE_FINISHED)->save();
@@ -89,6 +84,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
 
     /**
      * Retrieve synchronize process state and it's parameters in json format
+     * @return void
      */
     public function statusAction()
     {
@@ -101,17 +97,17 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
             switch ($state) {
                 case Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE:
                     $flagData = $flag->getFlagData();
-                    if (is_array($flagData)) {
-                        if (isset($flagData['destination']) && !empty($flagData['destination'])) {
-                            $result['destination'] = $flagData['destination'];
-                        }
+                    if (is_array($flagData)
+                        && (isset($flagData['destination']) && !empty($flagData['destination']))
+                    ) {
+                        $result['destination'] = $flagData['destination'];
                     }
 
                     $state = Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE;
                     break;
                 case Mage_Core_Model_File_Storage_Flag::STATE_RUNNING:
                     if (!$flag->getLastUpdate()
-                        || time() <= (strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
+                        || Mage::helper('core/clock')->getTimestamp() <= (Carbon::parse($flag->getLastUpdate())->getTimestamp() + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
                     ) {
                         $flagData = $flag->getFlagData();
                         if (is_array($flagData)
@@ -156,10 +152,10 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                     $result['html'] = $block->toHtml();
 
                     $flagData = $flag->getFlagData();
-                    if (is_array($flagData)) {
-                        if (isset($flagData['has_errors']) && $flagData['has_errors']) {
-                            $result['has_errors'] = true;
-                        }
+                    if (is_array($flagData)
+                        && (isset($flagData['has_errors']) && $flagData['has_errors'])
+                    ) {
+                        $result['has_errors'] = true;
                     }
 
                     break;
@@ -170,6 +166,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
         } else {
             $state = Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE;
         }
+
         $result['state'] = $state;
 
         $result = Mage::helper('core')->jsonEncode($result);

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Eav data helper
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
@@ -34,9 +26,9 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_entityTypeFrontendClasses = [];
 
     /**
-     * Return default frontend classes value labal array
+     * Return default frontend classes value label array
      *
-     * @return array
+     * @return array<int, array<string, string>>
      */
     protected function _getDefaultFrontendClasses()
     {
@@ -75,7 +67,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return merged default and entity type frontend classes value label array
      *
-     * @param string $entityTypeCode
+     * @param  string $entityTypeCode
      * @return array
      */
     public function getFrontendClasses($entityTypeCode)
@@ -87,6 +79,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->_entityTypeFrontendClasses[$entityTypeCode],
             );
         }
+
         $_entityTypeClasses = Mage::app()->getConfig()
             ->getNode('global/eav_frontendclasses/' . $entityTypeCode);
         if ($_entityTypeClasses) {
@@ -96,18 +89,20 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
                     'label' => (string) $item->label,
                 ];
             }
+
             return array_merge(
                 $_defaultClasses,
                 $this->_entityTypeFrontendClasses[$entityTypeCode],
             );
         }
+
         return $_defaultClasses;
     }
 
     /**
      * Retrieve attributes locked fields to edit
      *
-     * @param string $entityTypeCode
+     * @param  string $entityTypeCode
      * @return array
      */
     public function getAttributeLockedFields($entityTypeCode)
@@ -115,17 +110,21 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$entityTypeCode) {
             return [];
         }
+
         if (isset($this->_attributesLockedFields[$entityTypeCode])) {
             return $this->_attributesLockedFields[$entityTypeCode];
         }
+
         $_data = Mage::app()->getConfig()->getNode('global/eav_attributes/' . $entityTypeCode);
         if ($_data) {
             foreach ($_data->children() as $attribute) {
-                $this->_attributesLockedFields[$entityTypeCode][(string) $attribute->code] =
-                    array_keys($attribute->locked_fields->asArray());
+                $this->_attributesLockedFields[$entityTypeCode][(string) $attribute->code]
+                    = array_keys($attribute->locked_fields->asArray());
             }
+
             return $this->_attributesLockedFields[$entityTypeCode];
         }
+
         return [];
     }
 

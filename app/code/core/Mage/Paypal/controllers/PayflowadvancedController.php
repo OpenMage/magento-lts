@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payflow Advanced Checkout Controller
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Express_Abstract
@@ -45,6 +37,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
 
     /**
      * When a customer cancel payment from payflow gateway.
+     * @return void
      */
     public function cancelPaymentAction()
     {
@@ -57,6 +50,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
 
     /**
      * When a customer return to website from payflow gateway.
+     * @return void
      */
     public function returnUrlAction()
     {
@@ -93,6 +87,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
 
     /**
      * Submit transaction to Payflow getaway into iframe
+     * @return void
      */
     public function formAction()
     {
@@ -102,6 +97,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
 
     /**
      * Get response from PayPal by silent post method
+     * @return void
      */
     public function silentPostAction()
     {
@@ -111,8 +107,8 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
             $paymentModel = Mage::getModel('paypal/payflowadvanced');
             try {
                 $paymentModel->process($data);
-            } catch (Exception $e) {
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
             }
         }
     }
@@ -120,7 +116,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
     /**
      * Cancel order, return quote to customer
      *
-     * @param string $errorMsg
+     * @param  string      $errorMsg
      * @return bool|string
      */
     protected function _cancelPayment($errorMsg = '')
@@ -130,8 +126,9 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
         $helper = Mage::helper('paypal/checkout');
         $helper->cancelCurrentOrder($errorMsg);
         if ($helper->restoreQuote()) {
-            $gotoSection = 'payment';
+            return 'payment';
         }
+
         return $gotoSection;
     }
 

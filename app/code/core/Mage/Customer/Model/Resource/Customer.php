@@ -1,27 +1,22 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer entity resource model
  *
- * @category   Mage
  * @package    Mage_Customer
  */
 class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstract
 {
+    /**
+     * @throws Mage_Core_Exception
+     */
     public function __construct()
     {
         $this->setType('customer');
@@ -31,8 +26,9 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Retrieve customer entity default attributes
      *
-     * @return array
+     * @return array<int, string>
      */
+    #[Override]
     protected function _getDefaultAttributes()
     {
         return [
@@ -49,30 +45,33 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Check customer scope, email and confirmation key before saving
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer              $object
      * @return $this
      * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
-    protected function _beforeSave(Varien_Object $customer)
+    #[Override]
+    protected function _beforeSave(Varien_Object $object)
     {
-        parent::_beforeSave($customer);
+        parent::_beforeSave($object);
 
-        if (!$customer->getEmail()) {
+        if (!$object->getEmail()) {
             throw Mage::exception('Mage_Customer', Mage::helper('customer')->__('Customer email is required'));
         }
 
         $adapter = $this->_getWriteAdapter();
-        $bind    = ['email' => $customer->getEmail()];
+        $bind    = ['email' => $object->getEmail()];
 
         $select = $adapter->select()
             ->from($this->getEntityTable(), [$this->getEntityIdField()])
             ->where('email = :email');
-        if ($customer->getSharingConfig()->isWebsiteScope()) {
-            $bind['website_id'] = (int) $customer->getWebsiteId();
+        if ($object->getSharingConfig()->isWebsiteScope()) {
+            $bind['website_id'] = (int) $object->getWebsiteId();
             $select->where('website_id = :website_id');
         }
-        if ($customer->getId()) {
-            $bind['entity_id'] = (int) $customer->getId();
+
+        if ($object->getId()) {
+            $bind['entity_id'] = (int) $object->getId();
             $select->where('entity_id != :entity_id');
         }
 
@@ -86,14 +85,15 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         }
 
         // set confirmation key logic
-        if ($customer->getForceConfirmed()) {
-            $customer->setConfirmation(null);
-        } elseif (!$customer->getId() && $customer->isConfirmationRequired()) {
-            $customer->setConfirmation($customer->getRandomConfirmationKey());
+        if ($object->getForceConfirmed()) {
+            $object->setConfirmation(null);
+        } elseif (!$object->getId() && $object->isConfirmationRequired()) {
+            $object->setConfirmation($object->getRandomConfirmationKey());
         }
+
         // remove customer confirmation key from database, if empty
-        if (!$customer->getConfirmation()) {
-            $customer->setConfirmation(null);
+        if (!$object->getConfirmation()) {
+            $object->setConfirmation(null);
         }
 
         return $this;
@@ -102,31 +102,39 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Save customer addresses and set default addresses in attributes backend
      *
+     * @param  Mage_Customer_Model_Customer              $object
      * @return Mage_Eav_Model_Entity_Abstract
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
-    protected function _afterSave(Varien_Object $customer)
+    #[Override]
+    protected function _afterSave(Varien_Object $object)
     {
-        $this->_saveAddresses($customer);
-        return parent::_afterSave($customer);
+        $this->_saveAddresses($object);
+        return parent::_afterSave($object);
     }
 
     /**
      * Save/delete customer address
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
-        $defaultBillingId  = $customer->getData('default_billing');
-        $defaultShippingId = $customer->getData('default_shipping');
+        $defaultBillingId  = $customer->getDataByKey('default_billing');
+        $defaultShippingId = $customer->getDataByKey('default_shipping');
         foreach ($customer->getAddresses() as $address) {
-            if ($address->getData('_deleted')) {
+            if ($address->getDataByKey('_deleted')) {
                 if ($address->getId() == $defaultBillingId) {
-                    $customer->setData('default_billing', null);
+                    $customer->setData('default_billing');
                 }
+
                 if ($address->getId() == $defaultShippingId) {
-                    $customer->setData('default_shipping', null);
+                    $customer->setData('default_shipping');
                 }
+
                 $address->delete();
             } else {
                 if ($address->getParentId() != $customer->getId()) {
@@ -147,6 +155,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 ) {
                     $customer->setData('default_billing', $address->getId());
                 }
+
                 if (($address->getIsPrimaryShipping() || $address->getIsDefaultShipping())
                     && $address->getId() != $defaultShippingId
                 ) {
@@ -154,9 +163,11 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 }
             }
         }
+
         if ($customer->dataHasChangedFor('default_billing')) {
             $this->saveAttribute($customer, 'default_billing');
         }
+
         if ($customer->dataHasChangedFor('default_shipping')) {
             $this->saveAttribute($customer, 'default_shipping');
         }
@@ -167,10 +178,12 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Retrieve select object for loading base entity row
      *
-     * @param Mage_Customer_Model_Customer $object
-     * @param mixed $rowId
+     * @param  Mage_Customer_Model_Customer $object
+     * @param  mixed                        $rowId
      * @return Zend_Db_Select
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getLoadRowSelect($object, $rowId)
     {
         $select = parent::_getLoadRowSelect($object, $rowId);
@@ -184,13 +197,11 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Load customer by email
      *
-     * @throws Mage_Core_Exception
-     *
-     * @param string $email
-     * @param bool $testOnly
+     * @param  string              $email
      * @return $this
+     * @throws Mage_Core_Exception
      */
-    public function loadByEmail(Mage_Customer_Model_Customer $customer, $email, $testOnly = false)
+    public function loadByEmail(Mage_Customer_Model_Customer $customer, $email)
     {
         $adapter = $this->_getReadAdapter();
         $bind    = ['customer_email' => $email];
@@ -204,6 +215,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                     Mage::helper('customer')->__('Customer website ID must be specified when using the website scope'),
                 );
             }
+
             $bind['website_id'] = (int) $customer->getWebsiteId();
             $select->where('website_id = :website_id');
         }
@@ -221,12 +233,13 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Change customer password
      *
-     * @param string $newPassword
+     * @param  string    $newPassword
      * @return $this
+     * @throws Exception
      */
     public function changePassword(Mage_Customer_Model_Customer $customer, $newPassword)
     {
-        $customer->setPassword($newPassword)->setPasswordCreatedAt(time());
+        $customer->setPassword($newPassword)->setPasswordCreatedAt(Mage::helper('core/clock')->getTimestamp());
         $this->saveAttribute($customer, 'password_hash');
         $this->saveAttribute($customer, 'password_created_at');
         return $this;
@@ -249,13 +262,14 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         if (empty($lookup)) {
             return false;
         }
+
         return $lookup['cnt'] > 1;
     }
 
     /**
      * Check customer by id
      *
-     * @param int $customerId
+     * @param  int  $customerId
      * @return bool
      */
     public function checkCustomerId($customerId)
@@ -268,16 +282,13 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             ->limit(1);
 
         $result = $adapter->fetchOne($select, $bind);
-        if ($result) {
-            return true;
-        }
-        return false;
+        return (bool) $result;
     }
 
     /**
      * Get customer website id
      *
-     * @param int $customerId
+     * @param  int    $customerId
      * @return string
      */
     public function getWebsiteId($customerId)
@@ -295,12 +306,15 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Custom setter of increment ID if its needed
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function setNewIncrementId(Varien_Object $object)
     {
         if (Mage::getStoreConfig(Mage_Customer_Model_Customer::XML_PATH_GENERATE_HUMAN_FRIENDLY_ID)) {
             parent::setNewIncrementId($object);
         }
+
         return $this;
     }
 
@@ -309,18 +323,20 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * Stores new reset password link token and its creation time
      *
-     * @param string $newResetPasswordLinkToken
+     * @param  string    $newResetPasswordLinkToken
      * @return $this
+     * @throws Exception
      */
     public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken)
     {
-        if (is_string($newResetPasswordLinkToken) && !empty($newResetPasswordLinkToken)) {
+        if (is_string($newResetPasswordLinkToken) && $newResetPasswordLinkToken !== '') {
             $customer->setRpToken($newResetPasswordLinkToken);
             $currentDate = Varien_Date::now();
             $customer->setRpTokenCreatedAt($currentDate);
             $this->saveAttribute($customer, 'rp_token');
             $this->saveAttribute($customer, 'rp_token_created_at');
         }
+
         return $this;
     }
 
@@ -329,7 +345,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * Stores new reset password link customer Id
      *
-     * @param string $newResetPasswordLinkCustomerId
+     * @param  string    $newResetPasswordLinkCustomerId
      * @return $this
      * @throws Exception
      */
@@ -337,10 +353,11 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         Mage_Customer_Model_Customer $customer,
         $newResetPasswordLinkCustomerId
     ) {
-        if (is_string($newResetPasswordLinkCustomerId) && !empty($newResetPasswordLinkCustomerId)) {
+        if (is_string($newResetPasswordLinkCustomerId) && $newResetPasswordLinkCustomerId !== '') {
             $customer->setRpCustomerId($newResetPasswordLinkCustomerId);
             $this->saveAttribute($customer, 'rp_customer_id');
         }
+
         return $this;
     }
 
@@ -348,8 +365,9 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Get password created at timestamp for a customer by id
      * If attribute password_created_at is empty, return created_at timestamp
      *
-     * @param int $customerId
-     * @return int|false
+     * @param  int                 $customerId
+     * @return false|int|string
+     * @throws Mage_Core_Exception
      */
     public function getPasswordTimestamp($customerId)
     {
@@ -371,16 +389,18 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
 
         $value = $this->_getReadAdapter()->fetchOne($select);
         if ($value && !is_numeric($value)) { // Convert created_at string to unix timestamp
-            $value = Varien_Date::toTimestamp($value);
+            return Varien_Date::toTimestamp($value);
         }
+
         return $value;
     }
 
     /**
      * Get email by customer ID.
      *
-     * @param int $customerId
-     * @return string|false
+     * @param  int                 $customerId
+     * @return false|string
+     * @throws Mage_Core_Exception
      */
     public function getEmail($customerId)
     {

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Observer model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Observer
@@ -33,20 +25,15 @@ class Mage_Core_Model_Observer
         if (!$adminSession->hasSyncProcessStopWatch()) {
             $flag = Mage::getSingleton('core/file_storage')->getSyncFlag();
             $state = $flag->getState();
-            if ($state == Mage_Core_Model_File_Storage_Flag::STATE_RUNNING) {
-                $syncProcessStopWatch = true;
-            } else {
-                $syncProcessStopWatch = false;
-            }
+            $syncProcessStopWatch = $state == Mage_Core_Model_File_Storage_Flag::STATE_RUNNING;
 
             $adminSession->setSyncProcessStopWatch($syncProcessStopWatch);
         }
+
         $adminSession->setSyncProcessStopWatch(false);
 
         if (!$adminSession->getSyncProcessStopWatch()) {
-            if (!isset($flag)) {
-                $flag = Mage::getSingleton('core/file_storage')->getSyncFlag();
-            }
+            $flag ??= Mage::getSingleton('core/file_storage')->getSyncFlag();
 
             $state = $flag->getState();
             if ($state == Mage_Core_Model_File_Storage_Flag::STATE_FINISHED) {
@@ -112,14 +99,15 @@ class Mage_Core_Model_Observer
     /**
      * Checks method availability for processing in variable
      *
+     * @return $this
      * @throws Exception
-     * @return Mage_Core_Model_Observer
      */
     public function secureVarProcessing(Varien_Event_Observer $observer)
     {
         if (Mage::registry('varProcessing')) {
             Mage::throwException(Mage::helper('core')->__('Disallowed template variable method.'));
         }
+
         return $this;
     }
 }

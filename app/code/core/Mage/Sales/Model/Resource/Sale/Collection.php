@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Collection
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_Db
@@ -40,7 +32,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Order state value
      *
-     * @var null|string|array
+     * @var null|array|string
      */
     protected $_state = null;
 
@@ -52,13 +44,12 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     protected $_orderStateCondition = null;
 
     /**
-     * @var array|null
+     * @var null|array
      */
     protected $_orderStateValue;
 
     /**
      * Set sales order entity and establish read connection
-     *
      */
     public function __construct()
     {
@@ -80,7 +71,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Add filter by stores
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function addStoreFilter($storeIds)
@@ -91,22 +82,23 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Set filter by order state
      *
-     * @param string|array $state
-     * @param bool $exclude
+     * @param  array|string $state
+     * @param  bool         $exclude
      * @return $this
      */
     public function setOrderStateFilter($state, $exclude = false)
     {
         $this->_orderStateCondition = $exclude ? 'NOT IN' : 'IN';
-        $this->_orderStateValue     = !is_array($state) ? [$state] : $state;
+        $this->_orderStateValue     = is_array($state) ? $state : [$state];
         return $this;
     }
 
     /**
      * Before load action
      *
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
+    #[Override]
     protected function _beforeLoad()
     {
         $this->getSelect()
@@ -137,6 +129,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
                     $condition = 'nin';
                     break;
             }
+
             $this->addFieldToFilter('state', [$condition => $this->_orderStateValue]);
         }
 
@@ -147,11 +140,12 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Load data
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
-     * @return  Varien_Data_Collection_Db
+     * @param  bool                            $printQuery
+     * @param  bool                            $logQuery
+     * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -174,13 +168,13 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
             ->load()
             ->toOptionHash();
         $this->_items = [];
-        foreach ($data as $v) {
-            $storeObject = new Varien_Object($v);
-            $storeId     = $v['store_id'];
+        foreach ($data as $value) {
+            $storeObject = new Varien_Object($value);
+            $storeId     = $value['store_id'];
             $storeName   = $stores[$storeId] ?? null;
             $storeObject->setStoreName($storeName)
                 ->setWebsiteId(Mage::app()->getStore($storeId)->getWebsiteId())
-                ->setAvgNormalized($v['avgsale'] * $v['num_orders']);
+                ->setAvgNormalized($value['avgsale'] * $value['num_orders']);
             $this->_items[$storeId] = $storeObject;
             foreach (array_keys($this->_totals) as $key) {
                 $this->_totals[$key] += $storeObject->getData($key);

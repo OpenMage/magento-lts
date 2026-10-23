@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sitemap
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sitemap module observer
  *
- * @category   Mage
  * @package    Mage_Sitemap
  */
 class Mage_Sitemap_Model_Observer
@@ -50,7 +42,9 @@ class Mage_Sitemap_Model_Observer
     /**
      * Generate sitemaps
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function scheduledGenerateSitemaps($schedule)
     {
@@ -68,8 +62,8 @@ class Mage_Sitemap_Model_Observer
 
             try {
                 $sitemap->generateXml();
-            } catch (Exception $e) {
-                $errors[] = $e->getMessage();
+            } catch (Throwable $throwable) {
+                $errors[] = $throwable->getMessage();
             }
         }
 

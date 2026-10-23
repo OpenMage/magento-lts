@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml roles controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controller_Action
@@ -33,6 +25,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
@@ -77,6 +70,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Show grid with roles existing in systems
+     * @return void
      */
     public function indexAction()
     {
@@ -90,6 +84,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Action for ajax request from grid
+     * @return void
      */
     public function roleGridAction()
     {
@@ -99,6 +94,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Edit role action
+     * @return void
      */
     public function editRoleAction()
     {
@@ -133,6 +129,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Remove role action
+     * @return void
      */
     public function deleteAction()
     {
@@ -144,7 +141,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         }
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -152,6 +149,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/editrole', ['rid' => $role->getId()]);
             return;
         }
@@ -167,8 +165,8 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         try {
             $role->delete();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been deleted.'));
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while deleting this role.'));
         }
 
@@ -177,12 +175,13 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Role form submit action to save or create new role
+     * @return void
      */
     public function saveRoleAction()
     {
         $rid        = $this->getRequest()->getParam('role_id', false);
         $resource   = explode(',', $this->getRequest()->getParam('resource', false));
-        $roleUsers  = $this->getRequest()->getParam('in_role_user', null);
+        $roleUsers  = $this->getRequest()->getParam('in_role_user');
         parse_str($roleUsers, $roleUsers);
         $roleUsers = array_keys($roleUsers);
 
@@ -203,7 +202,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         }
 
         //Validate current admin password
-        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $currentPassword = $this->getRequest()->getParam('current_password');
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
@@ -211,6 +210,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/editrole', ['rid' => $rid]);
             return;
         }
@@ -241,10 +241,10 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             }
 
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been successfully saved.'));
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this role.'));
         }
 
@@ -253,6 +253,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     /**
      * Action for ajax request from assigned users grid
+     * @return void
      */
     public function editrolegridAction()
     {
@@ -264,8 +265,8 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     /**
      * Remove user from role
      *
-     * @param int $userId
-     * @param int $roleId
+     * @param  int  $userId
+     * @param  int  $roleId
      * @return true
      */
     protected function _deleteUserFromRole($userId, $roleId)
@@ -275,17 +276,18 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
                 ->setRoleId($roleId)
                 ->setUserId($userId)
                 ->deleteFromRole();
-        } catch (Exception $e) {
-            throw $e;
+        } catch (Exception $exception) {
+            throw $exception;
         }
+
         return true;
     }
 
     /**
      * Assign user to role
      *
-     * @param int $userId
-     * @param int $roleId
+     * @param  int  $userId
+     * @param  int  $roleId
      * @return bool
      */
     protected function _addUserToRole($userId, $roleId)
@@ -295,16 +297,17 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         if ($user->roleUserExists() === true) {
             return false;
-        } else {
-            $user->add();
-            return true;
         }
+
+        $user->add();
+        return true;
     }
 
     /**
      * Action to refresh role-rule relations.
      * This method will make sure the rendered ACL resource tree checkboxes match the actual ACL permissions.
      * To be used after adding a new ACL resource via config
+     * @return void
      */
     public function refreshRolesAction()
     {
@@ -336,10 +339,10 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             }
 
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The roles have been refreshed.'));
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::getSingleton('adminhtml/session')->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while refreshing roles.'));
         }
 

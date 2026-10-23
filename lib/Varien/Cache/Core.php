@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Cache
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Varien_Cache_Core extends Zend_Cache_Core
@@ -19,7 +12,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
     /**
      * Specific slab size = 1Mb minus overhead
      *
-     * @var array $_specificOptions
+     * @var array
      */
     protected $_specificOptions = ['slab_size' => 0];
 
@@ -31,8 +24,8 @@ class Varien_Cache_Core extends Zend_Cache_Core
     /**
      * Constructor
      *
+     * @param  array|Zend_Config $options Associative array of options or Zend_Config instance
      * @throws Varien_Exception
-     * @param array|Zend_Config $options Associative array of options or Zend_Config instance
      */
     public function __construct($options = [])
     {
@@ -45,8 +38,8 @@ class Varien_Cache_Core extends Zend_Cache_Core
     /**
      * Returns ID of a specific chunk on the basis of data's ID
      *
-     * @param string $id    Main data's ID
-     * @param int    $index Particular chunk number to return ID for
+     * @param  string $id    Main data's ID
+     * @param  int    $index Particular chunk number to return ID for
      * @return string
      */
     protected function _getChunkId($id, $index)
@@ -77,6 +70,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  string $id Cache id
      * @return string Cache id (with or without prefix)
      */
+    #[Override]
     protected function _id($id)
     {
         if ($id !== null) {
@@ -85,13 +79,14 @@ class Varien_Cache_Core extends Zend_Cache_Core
                 $id = $this->_options['cache_id_prefix'] . $id;
             }
         }
+
         return $id;
     }
 
     /**
      * Prepare tags
      *
-     * @param array $tags
+     * @param  array $tags
      * @return array
      */
     protected function _tags($tags)
@@ -99,19 +94,21 @@ class Varien_Cache_Core extends Zend_Cache_Core
         foreach ($tags as $key => $tag) {
             $tags[$key] = $this->_id($tag);
         }
+
         return $tags;
     }
 
     /**
      * Save some data in a cache
      *
-     * @param  mixed $data           Data to put in cache (can be another type than string if automatic_serialization is on)
-     * @param  string $id             Cache id (if not set, the last cache id will be used)
-     * @param  array $tags           Cache tags
-     * @param bool|int $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @param  int $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
-     * @return boolean True if no problem
+     * @param  mixed    $data             Data to put in cache (can be another type than string if automatic_serialization is on)
+     * @param  string   $id               Cache id (if not set, the last cache id will be used)
+     * @param  array    $tags             Cache tags
+     * @param  bool|int $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @param  int      $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
+     * @return bool     True if no problem
      */
+    #[Override]
     public function save($data, $id = null, $tags = [], $specificLifetime = false, $priority = 8)
     {
         $tags = $this->_tags($tags);
@@ -137,16 +134,17 @@ class Varien_Cache_Core extends Zend_Cache_Core
     /**
      * Load data from cached, glue from several chunks if it was split upon save.
      *
-     * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
-     * @param  boolean $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
-     * @return mixed|false Cached data
+     * @param  string      $id                     Cache id
+     * @param  bool        $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  bool        $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
+     * @return false|mixed Cached data
      */
+    #[Override]
     public function load($id, $doNotTestCacheValidity = false, $doNotUnserialize = false)
     {
         $data = parent::load($id, $doNotTestCacheValidity, $doNotUnserialize);
 
-        if (is_string($data) && (substr($data, 0, strlen(self::CODE_WORD)) == self::CODE_WORD)) {
+        if (is_string($data) && (str_starts_with($data, self::CODE_WORD))) {
             // Seems we've got chunked data
 
             $arr = explode('|', $data);
@@ -189,11 +187,12 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * 'matchingAnyTag' => remove cache entries matching any given tags
      *                     ($tags can be an array of strings or a single string)
      *
-     * @param  string       $mode
-     * @param  array|string $tags
+     * @param  string               $mode
+     * @param  array|string         $tags
+     * @return bool                 True if ok
      * @throws Zend_Cache_Exception
-     * @return boolean True if ok
      */
+    #[Override]
     public function clean($mode = 'all', $tags = [])
     {
         $tags = $this->_tags($tags);
@@ -205,9 +204,10 @@ class Varien_Cache_Core extends Zend_Cache_Core
      *
      * In case of multiple tags, a logical AND is made between tags
      *
-     * @param array $tags array of tags
+     * @param  array $tags array of tags
      * @return array array of matching cache ids (string)
      */
+    #[Override]
     public function getIdsMatchingTags($tags = [])
     {
         $tags = $this->_tags($tags);
@@ -219,9 +219,10 @@ class Varien_Cache_Core extends Zend_Cache_Core
      *
      * In case of multiple tags, a logical OR is made between tags
      *
-     * @param array $tags array of tags
+     * @param  array $tags array of tags
      * @return array array of not matching cache ids (string)
      */
+    #[Override]
     public function getIdsNotMatchingTags($tags = [])
     {
         $tags = $this->_tags($tags);

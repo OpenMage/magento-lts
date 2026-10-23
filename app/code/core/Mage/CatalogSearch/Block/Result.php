@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product search result block
  *
- * @category   Mage
  * @package    Mage_CatalogSearch
  * @module     Catalog
  *
@@ -28,7 +20,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     /**
      * Catalog Product collection
      *
-     * @var Mage_CatalogSearch_Model_Resource_Fulltext_Collection|Mage_Eav_Model_Entity_Collection_Abstract|null
+     * @var null|Mage_CatalogSearch_Model_Resource_Fulltext_Collection|Mage_Eav_Model_Entity_Collection_Abstract
      */
     protected $_productCollection;
 
@@ -49,6 +41,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_CatalogSearch_Helper_Data $helper */
@@ -94,7 +87,9 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     public function getListBlock()
     {
-        return $this->getChild('search_result_list');
+        /** @var Mage_Catalog_Block_Product_List $child */
+        $child = $this->getChild('search_result_list');
+        return $child;
     }
 
     /**
@@ -162,9 +157,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _getProductCollection()
     {
-        if (is_null($this->_productCollection)) {
-            $this->_productCollection = $this->getListBlock()->getLoadedProductCollection();
-        }
+        $this->_productCollection ??= $this->getListBlock()->getLoadedProductCollection();
 
         return $this->_productCollection;
     }
@@ -173,15 +166,17 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      * Retrieve search result count
      *
      * @return string
+     * @throws Zend_Db_Select_Exception
      */
     public function getResultCount()
     {
-        if (!$this->getData('result_count')) {
+        if (!$this->getDataByKey('result_count')) {
             $size = $this->_getProductCollection()->getSize();
             $this->_getQuery()->setNumResults($size);
             $this->setResultCount($size);
         }
-        return $this->getData('result_count');
+
+        return $this->getDataByKey('result_count');
     }
 
     /**
@@ -197,6 +192,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
                 $this->_getQuery()->getMinQueryLength(),
             );
         }
+
         return $this->_getData('no_result_text');
     }
 

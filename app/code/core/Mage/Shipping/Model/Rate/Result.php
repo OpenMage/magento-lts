@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Shipping
  */
 class Mage_Shipping_Model_Rate_Result
@@ -30,7 +22,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Shipping errors
      *
-     * @var null|bool
+     * @var null|bool|string
      */
     protected $_error = null;
 
@@ -48,7 +40,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Set Error
      *
-     * @param bool $error
+     * @param bool|string $error
      */
     public function setError($error)
     {
@@ -68,7 +60,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Add a rate to the result
      *
-     * @param Mage_Shipping_Model_Rate_Result_Error|Mage_Shipping_Model_Rate_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
+     * @param  Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Rate_Result_Abstract|Mage_Shipping_Model_Rate_Result_Error $result
      * @return $this
      */
     public function append($result)
@@ -76,6 +68,7 @@ class Mage_Shipping_Model_Rate_Result
         if ($result instanceof Mage_Shipping_Model_Rate_Result_Error) {
             $this->setError(true);
         }
+
         if ($result instanceof Mage_Shipping_Model_Rate_Result_Abstract) {
             $this->_rates[] = $result;
         } elseif ($result instanceof Mage_Shipping_Model_Rate_Result) {
@@ -84,6 +77,7 @@ class Mage_Shipping_Model_Rate_Result
                 $this->append($rate);
             }
         }
+
         return $this;
     }
 
@@ -100,8 +94,8 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Return rate by id in array
      *
-     * @param int $id
-     * @return Mage_Shipping_Model_Rate_Result_Method|null
+     * @param  int                                         $id
+     * @return null|Mage_Shipping_Model_Rate_Result_Method
      */
     public function getRateById($id)
     {
@@ -111,7 +105,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Return quotes for specified type
      *
-     * @param string $carrier
+     * @param  string $carrier
      * @return array
      */
     public function getRatesByCarrier($carrier)
@@ -122,6 +116,7 @@ class Mage_Shipping_Model_Rate_Result
                 $result[] = $rate;
             }
         }
+
         return $result;
     }
 
@@ -129,6 +124,7 @@ class Mage_Shipping_Model_Rate_Result
      * Converts object to array
      *
      * @return array
+     * @throws Zend_Filter_Exception
      */
     public function asArray()
     {
@@ -143,6 +139,7 @@ class Mage_Shipping_Model_Rate_Result
                 'price_formatted' => $currencyFilter->filter($rate->getPrice()),
             ];
         }
+
         return $rates;
     }
 
@@ -161,6 +158,7 @@ class Mage_Shipping_Model_Rate_Result
                 $minPrice = $rate->getPrice();
             }
         }
+
         return $cheapest;
     }
 
@@ -171,18 +169,19 @@ class Mage_Shipping_Model_Rate_Result
      */
     public function sortRatesByPrice()
     {
-        if (!is_array($this->_rates) || !count($this->_rates)) {
+        if (!is_array($this->_rates) || $this->_rates === []) {
             return $this;
         }
+
         /** @var Mage_Shipping_Model_Rate_Result_Method $rate */
-        foreach ($this->_rates as $i => $rate) {
-            $tmp[$i] = $rate->getPrice();
+        foreach ($this->_rates as $index => $rate) {
+            $tmp[$index] = $rate->getPrice();
         }
 
         natsort($tmp);
 
-        foreach (array_keys($tmp) as $i) {
-            $result[] = $this->_rates[$i];
+        foreach (array_keys($tmp) as $index) {
+            $result[] = $this->_rates[$index];
         }
 
         $this->reset();
@@ -193,7 +192,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Set price for each rate according to count of packages
      *
-     * @param int $packageCount
+     * @param  int   $packageCount
      * @return $this
      */
     public function updateRatePrice($packageCount)

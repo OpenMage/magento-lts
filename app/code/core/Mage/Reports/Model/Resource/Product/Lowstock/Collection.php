@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product Low Stock Report Collection
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Reports_Model_Resource_Product_Collection
@@ -53,6 +45,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
         if ($this->_inventoryItemResource === null) {
             $this->_inventoryItemResource = Mage::getResourceSingleton('cataloginventory/stock_item');
         }
+
         return $this->_inventoryItemResource;
     }
 
@@ -89,8 +82,8 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Add catalog inventory stock item field to select
      *
-     * @param string $field
-     * @param string $alias
+     * @param  string $field
+     * @param  string $alias
      * @return $this
      */
     protected function _addInventoryItemFieldToSelect($field, $alias = null)
@@ -115,7 +108,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Retrieve catalog inventory stock item field correlation name
      *
-     * @param string $field
+     * @param  string $field
      * @return string
      */
     protected function _getInventoryItemField($field)
@@ -126,7 +119,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Join catalog inventory stock item table for further stock_item values filters
      *
-     * @param array|string $fields
+     * @param  array|string        $fields
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -146,17 +139,14 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
         }
 
         if (!is_array($fields)) {
-            if (empty($fields)) {
-                $fields = [];
-            } else {
-                $fields = [$fields];
-            }
+            $fields = empty($fields) ? [] : [$fields];
         }
 
         foreach ($fields as $alias => $field) {
             if (!is_string($alias)) {
                 $alias = null;
             }
+
             $this->_addInventoryItemFieldToSelect($field, $alias);
         }
 
@@ -166,7 +156,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Add filter by product type(s)
      *
-     * @param array|string $typeFilter
+     * @param  array|string $typeFilter
      * @return $this
      */
     public function filterByProductType($typeFilter)
@@ -176,6 +166,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
                 Mage::helper('catalog')->__('Wrong product type filter specified'),
             );
         }
+
         $this->addAttributeToFilter('type_id', $typeFilter);
         return $this;
     }
@@ -197,7 +188,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Add Use Manage Stock Condition to collection
      *
-     * @param int|null $storeId
+     * @param  null|int $storeId
      * @return $this
      */
     public function useManageStockFilter($storeId = null)
@@ -215,7 +206,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Add Notify Stock Qty Condition to collection
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function useNotifyStockQtyFilter($storeId = null)

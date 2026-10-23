@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rating
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Rating option resource model
  *
- * @category   Mage
  * @package    Mage_Rating
  */
 class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_Db_Abstract
@@ -65,19 +57,22 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
     protected $_ratingStoreTable;
 
     /**
-    * Option data
-    *
-    * @var array
-    */
+     * Option data
+     *
+     * @var array
+     */
     protected $_optionData;
 
     /**
-    * Option id
-    *
-    * @var int
-    */
+     * Option id
+     *
+     * @var int
+     */
     protected $_optionId;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('rating/rating_option', 'option_id');
@@ -93,7 +88,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
     /**
      * Add vote
      *
-     * @param Mage_Rating_Model_Rating_Option $option
+     * @param  Mage_Rating_Model_Rating_Option $option
      * @return $this
      */
     public function addVote($option)
@@ -129,11 +124,13 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
                 $option->setVoteId($adapter->lastInsertId($this->_ratingVoteTable));
                 $this->aggregate($option);
             }
+
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw new Exception($e->getMessage());
+            throw new Exception($exception->getMessage(), $exception->getCode(), $exception);
         }
+
         return $this;
     }
 
@@ -237,7 +234,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
      * Load object data by optionId
      * Method renamed from 'load'.
      *
-     * @param int $optionId
+     * @param  int   $optionId
      * @return array
      */
     public function loadDataById($optionId)

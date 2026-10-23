@@ -26,6 +26,10 @@
         <exclude-pattern>*/core/Mage/*/Model/Mysql4/**.php*</exclude-pattern>
         <!-- resource helpers - keep -->
         <exclude-pattern>*/core/Mage/*/Model/Resource/Helper/Mysql4.php*</exclude-pattern>
+        <!-- test files -->
+        <exclude-pattern>*/tests/unit/Mage/*/Model/Resource/Helper/Mysql4Test.php*</exclude-pattern>
+        <exclude-pattern>*/tests/unit/Mage/Install/Block/Db/Type/Mysql4Test.php*</exclude-pattern>
+        <exclude-pattern>*/tests/unit/Mage/Install/Model/Installer/Db/Mysql4Test.php*</exclude-pattern>
     </rule>
     <rule ref="Ecg.Classes.ObjectInstantiation">
         <!-- should be reviewed -->
@@ -145,7 +149,9 @@
         <exclude name="Squiz.PHP.Eval.Discouraged"/>
     </rule>
 
-    <rule ref="PHPCompatibility" />
+    <rule ref="PHPCompatibility">
+        <exclude name="PHPCompatibility.Keywords.ForbiddenNamesAsDeclared.resourceFound"/>
+    </rule>
     <rule ref="PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore">
         <exclude-pattern>*/Varien/Object.php*</exclude-pattern>
         <exclude-pattern>*/Varien/Data/Form/Abstract.php*</exclude-pattern>

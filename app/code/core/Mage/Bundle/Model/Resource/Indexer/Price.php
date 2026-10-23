@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle products Price indexer resource model
  *
- * @category   Mage
  * @package    Mage_Bundle
  */
 class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
@@ -27,6 +19,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      *
      * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -35,9 +28,9 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         try {
             $this->_prepareBundlePrice();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -46,9 +39,10 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
+    #[Override]
     public function reindexEntity($entityIds)
     {
         $this->_prepareBundlePrice($entityIds);
@@ -66,6 +60,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         if ($this->useIdxTable()) {
             return $this->getTable('bundle/price_indexer_idx');
         }
+
         return $this->getTable('bundle/price_indexer_tmp');
     }
 
@@ -79,6 +74,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         if ($this->useIdxTable()) {
             return $this->getTable('bundle/selection_indexer_idx');
         }
+
         return $this->getTable('bundle/selection_indexer_tmp');
     }
 
@@ -92,6 +88,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         if ($this->useIdxTable()) {
             return $this->getTable('bundle/option_indexer_idx');
         }
+
         return $this->getTable('bundle/option_indexer_tmp');
     }
 
@@ -131,8 +128,8 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare temporary price index data for bundle products by price type
      *
-     * @param int $priceType
-     * @param int|array $entityIds the entity ids limitatation
+     * @param  int       $priceType
+     * @param  array|int $entityIds the entity ids limitatation
      * @return $this
      */
     protected function _prepareBundlePriceByType($priceType, $entityIds = null)
@@ -204,8 +201,8 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                     '1',
                     '0',
                 ),
-            ) . ' > 0 AND ' .
-            $write->getCheckSql(
+            ) . ' > 0 AND '
+            . $write->getCheckSql(
                 $specialTo . ' IS NULL',
                 '1',
                 $write->getCheckSql(
@@ -255,7 +252,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         }
 
         $select->columns([
-            'price_type'          => new Zend_Db_Expr($priceType),
+            'price_type'          => new Zend_Db_Expr((string) $priceType),
             'special_price'       => $specialExpr,
             'tier_percent'        => $tierExpr,
             'orig_price'          => $write->getCheckSql($price . ' IS NULL', '0', $price),
@@ -383,7 +380,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Calculate bundle product selections price by product type
      *
-     * @param int $priceType
+     * @param  int   $priceType
      * @return $this
      */
     protected function _calculateBundleSelectionPrice($priceType)
@@ -528,7 +525,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare temporary index price for bundle products
      *
-     * @param int|array $entityIds  the entity ids limitation
+     * @param  array|int $entityIds the entity ids limitation
      * @return $this
      */
     protected function _prepareBundlePrice($entityIds = null)
@@ -569,10 +566,9 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare percentage tier price for bundle products
      *
-     * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareTierPriceIndex
-     *
-     * @param int|array $entityIds
+     * @param  array|int $entityIds
      * @return $this
+     * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareTierPriceIndex
      */
     protected function _prepareTierPriceIndex($entityIds = null)
     {
@@ -628,10 +624,9 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare percentage group price for bundle products
      *
-     * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareGroupPriceIndex
-     *
-     * @param int|array $entityIds
+     * @param  array|int $entityIds
      * @return $this
+     * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareGroupPriceIndex
      */
     protected function _prepareGroupPriceIndex($entityIds = null)
     {

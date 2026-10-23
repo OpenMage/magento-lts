@@ -1,0 +1,24 @@
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ */
+
+*     { background:none !important; text-align:left !important; }
+html  { margin:0 !important; padding:0 !important; }
+body  { background:#fff !important; font-size:9pt !important; padding:0 !important; margin:0 !important; }
+a     { color:#2976c9 !important; }
+th,td { color:#333 !important;  border-color:#ccc !important; }
+
+.middle { padding:0; }
+
+.header,
+.notification-global,
+.actions,
+.massaction,
+#sales_order_grid_massaction,
+.content-header-floating,
+.content-header .form-buttons,
+.footer { display:none !important; }

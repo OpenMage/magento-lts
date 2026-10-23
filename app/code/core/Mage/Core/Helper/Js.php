@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * JavaScript helper
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
@@ -44,7 +36,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Translate config
      *
-     * @var Varien_Simplexml_Config|null
+     * @var null|Varien_Simplexml_Config
      */
     protected $_config = null;
 
@@ -72,8 +64,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve framed javascript
      *
-     * @param   string $script
-     * @return  string script
+     * @param  string $script
+     * @return string script
      */
     public function getScript($script)
     {
@@ -85,8 +77,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve javascript include code
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function includeScript($file)
     {
@@ -96,8 +88,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function includeSkinScript($file)
     {
@@ -107,8 +99,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve JS file url
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function getJsUrl($file)
     {
@@ -118,8 +110,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Retrieve skin JS file url
      *
-     * @param   string $file
-     * @return  string
+     * @param  string $file
+     * @return string
      */
     public function getJsSkinUrl($file)
     {
@@ -150,6 +142,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $this->_translateData;
     }
 
@@ -178,38 +171,36 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                     );
                 }
             }
+
             $this->_config = $xmlConfig;
         }
+
         return $this->_config;
     }
 
     /**
      * Helper for "onclick.deleteConfirm"
      *
-     * @param string|null $message null for default message, do not use jsQuoteEscape() before
+     * @param null|string $message null for default message, do not use jsQuoteEscape() before
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getDeleteConfirmJs(string $url, ?string $message = null): string
     {
-        if (is_null($message)) {
-            $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
-        }
+        $message ??= Mage::helper('adminhtml')->__('Are you sure you want to do this?');
 
         $message = Mage::helper('core')->jsQuoteEscape($message);
-        return 'deleteConfirm(\'' . $message . '\', \'' . $url . '\')';
+        return "deleteConfirm('" . $message . "', '" . $url . "')";
     }
 
     /**
      * Helper for "onclick.confirmSetLocation"
      *
-     * @param string|null $message null for default message, do not use jsQuoteEscape() before
+     * @param null|string $message null for default message, do not use jsQuoteEscape() before
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getConfirmSetLocationJs(string $url, ?string $message = null): string
     {
-        if (is_null($message)) {
-            $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
-        }
+        $message ??= Mage::helper('adminhtml')->__('Are you sure you want to do this?');
 
         $message = Mage::helper('core')->jsQuoteEscape($message);
         return "confirmSetLocation('{$message}', '{$url}')";
@@ -220,7 +211,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getSetLocationJs(string $url): string
     {
-        return 'setLocation(\'' . $url . '\')';
+        return "setLocation('" . $url . "')";
     }
 
     /**
@@ -228,6 +219,6 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getSaveAndContinueEditJs(string $url): string
     {
-        return 'saveAndContinueEdit(\'' . $url . '\')';
+        return "saveAndContinueEdit('" . $url . "')";
     }
 }

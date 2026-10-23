@@ -1,29 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Directory storage database resource model class
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core_Model_Resource_File_Storage_Abstract
 {
     /**
-     * Define table name and id field for resource
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -100,7 +92,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
 
         $name = basename($path);
         $path = dirname($path);
-        if ($path == '.') {
+        if ($path === '.') {
             $path = '';
         }
 
@@ -121,8 +113,8 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Return parent id
      *
-     * @param string $path
-     * @return int
+     * @param  string $path
+     * @return string
      */
     public function getParentId($path)
     {
@@ -130,7 +122,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
 
         $name = basename($path);
         $path = dirname($path);
-        if ($path == '.') {
+        if ($path === '.') {
             $path = '';
         }
 
@@ -161,9 +153,9 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Export directories from database
      *
-     * @param int $offset
-     * @param int $count
-     * @return mixed
+     * @param  int   $offset
+     * @param  int   $count
+     * @return array
      */
     public function exportDirectories($offset, $count = 100)
     {
@@ -183,8 +175,8 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Return directory file listing
      *
-     * @param string $directory
-     * @return mixed
+     * @param  string $directory
+     * @return array
      */
     public function getSubdirectories($directory)
     {

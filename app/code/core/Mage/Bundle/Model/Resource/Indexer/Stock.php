@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Stock Status Indexer Resource Model
  *
- * @category   Mage
  * @package    Mage_Bundle
  */
 class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
@@ -25,9 +17,10 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
+    #[Override]
     public function reindexEntity($entityIds)
     {
         $this->_updateIndex($entityIds);
@@ -48,8 +41,8 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
     /**
      * Prepare stock status per Bundle options, website and stock
      *
-     * @param int|array $entityIds
-     * @param bool $usePrimaryTable use primary or temporary index table
+     * @param  array|int $entityIds
+     * @param  bool      $usePrimaryTable use primary or temporary index table
      * @return $this
      */
     protected function _prepareBundleOptionStockData($entityIds = null, $usePrimaryTable = false)
@@ -60,8 +53,8 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
         $select   = $adapter->select()
             ->from(['bo' => $this->getTable('bundle/option')], ['parent_id']);
         $this->_addWebsiteJoinToSelect($select, false);
-        $status = new Zend_Db_Expr('MAX(' .
-                $adapter->getCheckSql('e.required_options = 0', 'i.stock_status', '0') . ')');
+        $status = new Zend_Db_Expr('MAX('
+                . $adapter->getCheckSql('e.required_options = 0', 'i.stock_status', '0') . ')');
         $select->columns('website_id', 'cw')
             ->join(
                 ['cis' => $this->getTable('cataloginventory/stock')],
@@ -112,10 +105,11 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
     /**
      * Get the select object for get stock status by product ids
      *
-     * @param int|array $entityIds
-     * @param bool $usePrimaryTable use primary or temporary index table
+     * @param  array|int        $entityIds
+     * @param  bool             $usePrimaryTable use primary or temporary index table
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getStockStatusSelect($entityIds = null, $usePrimaryTable = false)
     {
         $this->_prepareBundleOptionStockData($entityIds, $usePrimaryTable);
@@ -179,9 +173,10 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
     /**
      * Prepare stock status data in temporary index table
      *
-     * @param int|array $entityIds  the product limitation
+     * @param  array|int $entityIds the product limitation
      * @return $this
      */
+    #[Override]
     protected function _prepareIndexTable($entityIds = null)
     {
         parent::_prepareIndexTable($entityIds);
@@ -193,9 +188,10 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
     /**
      * Update Stock status index by product ids
      *
-     * @param array|int $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
+    #[Override]
     protected function _updateIndex($entityIds)
     {
         parent::_updateIndex($entityIds);

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Config form fieldset renderer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
@@ -42,7 +34,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Return header html for fieldset
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getHeaderHtml($element)
@@ -74,7 +66,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Get frontend class
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getFrontendClass($element)
@@ -86,14 +78,13 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Get group xml data of the element
      *
-     * @param null|Varien_Data_Form_Element_Abstract $element
+     * @param  null|Varien_Data_Form_Element_Abstract $element
      * @return Mage_Core_Model_Config_Element
      */
     public function getGroup($element = null)
     {
-        if (is_null($element)) {
-            $element = $this->getElement();
-        }
+        $element ??= $this->getElement();
+
         if ($element && $element->getGroup() instanceof Mage_Core_Model_Config_Element) {
             return $element->getGroup();
         }
@@ -104,20 +95,20 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Return header title part of html for fieldset
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getHeaderTitleHtml($element)
     {
         return '<div class="entry-edit-head collapseable" ><a id="' . $element->getHtmlId()
-            . '-head" href="#" onclick="Fieldset.toggleCollapse(\'' . $element->getHtmlId() . '\', \''
+            . '-head" href="#" onclick="Fieldset.toggleCollapse(\'' . $element->getHtmlId() . "', '"
             . $this->getUrl('*/*/state') . '\'); return false;">' . $element->getLegend() . '</a></div>';
     }
 
     /**
      * Return header comment part of html for fieldset
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getHeaderCommentHtml($element)
@@ -130,7 +121,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Return full css class name for form fieldset
      *
-     * @param null|Varien_Data_Form_Element_Abstract $element
+     * @param  null|Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getFieldsetCss($element = null)
@@ -143,7 +134,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      * Return footer html for fieldset
      * Add extra tooltip comments to elements
      *
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getFooterHtml($element)
@@ -157,6 +148,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
         } else {
             $html .= '</div>';
         }
+
         return $html;
     }
 
@@ -165,28 +157,29 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      * - observe fieldset rows;
      * - apply collapse;
      *
-     * @param Varien_Data_Form_Element_Abstract $element
-     * @param bool $tooltipsExist Init tooltips observer or not
+     * @param  Varien_Data_Form_Element_Abstract $element
+     * @param  bool                              $tooltipsExist Init tooltips observer or not
      * @return string
      */
     protected function _getExtraJs($element, $tooltipsExist = false)
     {
         $id = $element->getHtmlId();
-        $js = "Fieldset.applyCollapse('{$id}');";
-        return Mage::helper('adminhtml/js')->getScript($js);
+        $str = "Fieldset.applyCollapse('{$id}');";
+        return Mage::helper('adminhtml/js')->getScript($str);
     }
 
     /**
      * Collapsed or expanded fieldset when page loaded?
      *
-     * @param Varien_Data_Form_Element_Abstract $element
-     * @return int|false
+     * @param  Varien_Data_Form_Element_Abstract $element
+     * @return false|int
      */
     protected function _getCollapseState($element)
     {
         if ($element->getExpanded() !== null) {
             return 1;
         }
+
         $extra = Mage::getSingleton('admin/session')->getUser()->getExtra();
         return $extra['configState'][$element->getId()] ?? false;
     }

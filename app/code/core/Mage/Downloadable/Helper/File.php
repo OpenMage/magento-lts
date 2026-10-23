@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable Products File Helper
  *
- * @category   Mage
  * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
@@ -58,9 +50,9 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Checking file for moving and move it
      *
-     * @param string $baseTmpPath
-     * @param string $basePath
-     * @param array $file
+     * @param  string $baseTmpPath
+     * @param  string $basePath
+     * @param  array  $file
      * @return string
      */
     public function moveFileFromTmp($baseTmpPath, $basePath, $file)
@@ -74,21 +66,23 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
                         $basePath,
                         $file[0]['file'],
                     );
-                } catch (Exception $e) {
+                } catch (Exception) {
                     Mage::throwException(Mage::helper('downloadable')->__('An error occurred while saving the file(s).'));
                 }
             }
+
             return $fileName;
         }
+
         return '';
     }
 
     /**
      * Move file from tmp path to base path
      *
-     * @param string $baseTmpPath
-     * @param string $basePath
-     * @param string $file
+     * @param  string $baseTmpPath
+     * @param  string $basePath
+     * @param  string $file
      * @return string
      */
     protected function _moveFileFromTmp($baseTmpPath, $basePath, $file)
@@ -97,7 +91,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
         $destDirectory = dirname($this->getFilePath($basePath, $file));
         try {
             $ioObject->open(['path' => $destDirectory]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $ioObject->mkdir($destDirectory, 0777, true);
             $ioObject->open(['path' => $destDirectory]);
         }
@@ -114,7 +108,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
             $this->getFilePath($basePath, $destFile),
         );
 
-        $result = $ioObject->mv(
+        $ioObject->mv(
             $this->getFilePath($baseTmpPath, $file),
             $this->getFilePath($basePath, $destFile),
         );
@@ -124,8 +118,8 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Return full path to file
      *
-     * @param string $path
-     * @param string|null $file
+     * @param  string      $path
+     * @param  null|string $file
      * @return string
      */
     public function getFilePath($path, $file)
@@ -136,7 +130,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
 
         $file = $this->_prepareFileForPath($file);
 
-        if (substr($file, 0, 1) == DS) {
+        if (substr($file, 0, 1) === DS) {
             return $path . DS . substr($file, 1);
         }
 
@@ -146,7 +140,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Replace slashes with directory separator
      *
-     * @param string $file
+     * @param  string $file
      * @return string
      */
     protected function _prepareFileForPath($file)
@@ -157,20 +151,18 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Return file name form file path
      *
-     * @param string $pathFile
+     * @param  string $pathFile
      * @return string
      */
     public function getFileFromPathFile($pathFile)
     {
-        $file = '';
-
         return substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS) + 1);
     }
 
     /**
      * Get MIME type for $filePath
      *
-     * @param string $filePath
+     * @param  string $filePath
      * @return string
      */
     public function getFileType($filePath)
@@ -182,10 +174,10 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Get MIME type by file extension
      *
-     * @param string $ext
+     * @param  string $ext
      * @return string
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getFileTypeByExt($ext)
     {
         return $this->_getFileHelper()->getMimeTypeByExtension($ext);

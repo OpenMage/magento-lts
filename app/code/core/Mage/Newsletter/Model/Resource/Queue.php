@@ -1,27 +1,22 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter queue resource model
  *
- * @category   Mage
  * @package    Mage_Newsletter
  */
 class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('newsletter/queue', 'queue_id');
@@ -32,7 +27,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
      */
     public function addSubscribersToQueue(Mage_Newsletter_Model_Queue $queue, array $subscriberIds)
     {
-        if (count($subscriberIds) == 0) {
+        if ($subscriberIds === []) {
             Mage::throwException(Mage::helper('newsletter')->__('No subscribers selected.'));
         }
 
@@ -54,13 +49,15 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
                 if (in_array($subscriberId, $usedIds)) {
                     continue;
                 }
+
                 $data = [];
                 $data['queue_id'] = $queue->getId();
                 $data['subscriber_id'] = $subscriberId;
                 $adapter->insert($this->getTable('newsletter/queue_link'), $data);
             }
+
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $adapter->rollBack();
         }
     }
@@ -81,7 +78,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
             );
 
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $adapter->rollBack();
         }
     }
@@ -110,9 +107,10 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
             $data['queue_id'] = $queue->getId();
             $adapter->insert($this->getTable('newsletter/queue_store_link'), $data);
         }
+
         $this->removeSubscribersFromQueue($queue);
 
-        if (count($stores) == 0) {
+        if ($stores === []) {
             return $this;
         }
 
@@ -128,7 +126,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
             $subscriberIds[] = $subscriber->getId();
         }
 
-        if (count($subscriberIds) > 0) {
+        if ($subscriberIds !== []) {
             $this->addSubscribersToQueue($queue, $subscriberIds);
         }
 
@@ -147,7 +145,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
             ->where('queue_id = :queue_id');
 
         if (!($result = $adapter->fetchCol($select, ['queue_id' => $queue->getId()]))) {
-            $result = [];
+            return [];
         }
 
         return $result;
@@ -156,14 +154,16 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Saving template after saving queue action
      *
-     * @param Mage_Newsletter_Model_Queue $queue
+     * @param  Mage_Newsletter_Model_Queue $queue
      * @return $this
      */
+    #[Override]
     protected function _afterSave(Mage_Core_Model_Abstract $queue)
     {
         if ($queue->getSaveStoresFlag()) {
             $this->setStores($queue);
         }
+
         return $this;
     }
 }

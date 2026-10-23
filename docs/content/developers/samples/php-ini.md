@@ -3,7 +3,7 @@ hide:
   - toc
 ---
 
-# php.ini
+# `php.ini`
 
 ```ini
 ; This file is for CGI/FastCGI installations

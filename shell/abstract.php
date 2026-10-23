@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shell
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shell scripts abstract class
  *
- * @category   Mage
  * @package    Mage_Shell
  */
 abstract class Mage_Shell_Abstract
@@ -32,7 +24,7 @@ abstract class Mage_Shell_Abstract
     /**
      * Magento Root path
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_rootPath;
 
@@ -66,7 +58,6 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Initialize application and parse input parameters
-     *
      */
     public function __construct()
     {
@@ -74,6 +65,7 @@ abstract class Mage_Shell_Abstract
             require_once $this->_getRootPath() . 'app' . DIRECTORY_SEPARATOR . 'Mage.php';
             Mage::app($this->_appCode, $this->_appType);
         }
+
         $this->_factory = new Mage_Core_Model_Factory();
 
         $this->_applyPhpVariables();
@@ -90,15 +82,13 @@ abstract class Mage_Shell_Abstract
      */
     protected function _getRootPath()
     {
-        if (is_null($this->_rootPath)) {
-            $this->_rootPath = dirname(__DIR__) . DIRECTORY_SEPARATOR;
-        }
+        $this->_rootPath ??= dirname(__DIR__) . DIRECTORY_SEPARATOR;
+
         return $this->_rootPath;
     }
 
     /**
      * Parse .htaccess file and apply php settings to shell script
-     *
      */
     protected function _applyPhpVariables()
     {
@@ -108,16 +98,13 @@ abstract class Mage_Shell_Abstract
             $data = file_get_contents($htaccess);
             $matches = [];
             preg_match_all('#^\s+?php_value\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
-            if ($matches) {
-                foreach ($matches as $match) {
-                    @ini_set($match[1], str_replace("\r", '', $match[2]));
-                }
+            foreach ($matches as $match) {
+                @ini_set($match[1], str_replace("\r", '', $match[2]));
             }
+
             preg_match_all('#^\s+?php_flag\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
-            if ($matches) {
-                foreach ($matches as $match) {
-                    @ini_set($match[1], str_replace("\r", '', $match[2]));
-                }
+            foreach ($matches as $match) {
+                @ini_set($match[1], str_replace("\r", '', $match[2]));
             }
         }
     }
@@ -139,14 +126,13 @@ abstract class Mage_Shell_Abstract
             if (preg_match('#^--([\w\d_-]{1,})$#', $arg, $match) || preg_match('#^-([\w\d_]{1,})$#', $arg, $match)) {
                 $current = $match[1];
                 $this->_args[$current] = true;
-            } else {
-                if ($current) {
-                    $this->_args[$current] = $arg;
-                } elseif (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
-                    $this->_args[$match[1]] = true;
-                }
+            } elseif ($current) {
+                $this->_args[$current] = $arg;
+            } elseif (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
+                $this->_args[$match[1]] = true;
             }
         }
+
         return $this;
     }
 
@@ -162,7 +148,6 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Validate arguments
-     *
      */
     protected function _validate()
     {
@@ -173,13 +158,11 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Run script
-     *
      */
     abstract public function run();
 
     /**
      * Check is show usage help
-     *
      */
     protected function _showHelp()
     {
@@ -190,7 +173,6 @@ abstract class Mage_Shell_Abstract
 
     /**
      * Retrieve Usage Help Message
-     *
      */
     public function usageHelp()
     {
@@ -205,14 +187,11 @@ USAGE;
     /**
      * Retrieve argument value by name or false
      *
-     * @param string $name the argument name
+     * @param  string $name the argument name
      * @return mixed
      */
     public function getArg($name)
     {
-        if (isset($this->_args[$name])) {
-            return $this->_args[$name];
-        }
-        return false;
+        return $this->_args[$name] ?? false;
     }
 }

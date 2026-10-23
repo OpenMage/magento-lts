@@ -1,28 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product after creation popup window
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_Widget
 {
     protected $_configurableProduct;
+
     protected $_product;
 
     public function __construct()
@@ -31,6 +24,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
         $this->setTemplate('catalog/product/created.phtml');
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -103,6 +97,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
                 if (!$attribute) {
                     continue;
                 }
+
                 $attributes[] = $attribute;
             }
         }
@@ -117,11 +112,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
      */
     public function getConfigurableProduct()
     {
-        if (is_null($this->_configurableProduct)) {
-            $this->_configurableProduct = Mage::getModel('catalog/product')
-                ->setStore(0)
-                ->load($this->getRequest()->getParam('product'));
-        }
+        $this->_configurableProduct ??= Mage::getModel('catalog/product')
+            ->setStore(0)
+            ->load($this->getRequest()->getParam('product'));
+
         return $this->_configurableProduct;
     }
 
@@ -132,11 +126,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
      */
     public function getProduct()
     {
-        if (is_null($this->_product)) {
-            $this->_product = Mage::getModel('catalog/product')
-                ->setStore(0)
-                ->load($this->getRequest()->getParam('id'));
-        }
+        $this->_product ??= Mage::getModel('catalog/product')
+            ->setStore(0)
+            ->load($this->getRequest()->getParam('id'));
+
         return $this->_product;
     }
 }

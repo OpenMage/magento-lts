@@ -1,10 +1,10 @@
 # Product Categories
 
-## URI: /products/productid/categories
+## URI: `/products/productid/categories`
 
-Allows you to retrieve information about assigned categories, assign, and unassign a category from/to a product.
+Allows you to retrieve information about assigned categories, assign and remove assigned a category from/to a product.
 
-**URL Structure**: https://om.ddev.site/api/rest/products/productid/categories<br>
+**URL Structure**: `https://om.ddev.site/api/rest/products/productid/categories<br>`
 **Version**: 1
 
 ### HTTP Method: GET
@@ -56,11 +56,11 @@ Allows you to retrieve information about assigned categories, assign, and unassi
 
 As a result, the category with ID equal to 2 will be assigned to the specified product.
 
-## URI: /products/productid/categories/categoryid
+## URI: `/products/productid/categories/categoryid`
 
 ### HTTP Method: DELETE
 
-**Description**: Allows you to unassign a category from a specified product.
+**Description**: Allows you to remove an assigned category from a specified product.
 
 **Authentication**: Admin<br>
 **Default Format**: JSON<br>

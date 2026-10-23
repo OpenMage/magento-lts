@@ -1,30 +1,27 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Adminhtml grid container block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method string getBackUrl()
+ * @method $this  setBackUrl(string $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Widget_Container
 {
     protected $_addButtonLabel;
+
     protected $_backButtonLabel;
+
     protected $_blockGroup = 'adminhtml';
 
     /**
@@ -37,18 +34,15 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
      */
     public function __construct()
     {
-        if (is_null($this->_addButtonLabel)) {
-            $this->_addButtonLabel = $this->__('Add New');
-        }
-        if (is_null($this->_backButtonLabel)) {
-            $this->_backButtonLabel = $this->__('Back');
-        }
+        $this->_addButtonLabel ??= $this->__('Add New');
+
+        $this->_backButtonLabel ??= $this->__('Back');
 
         parent::__construct();
 
         $this->setTemplate('widget/grid/container.phtml');
 
-        $this->_addButton('add', [
+        $this->_addButton(self::BUTTON_TYPE_ADD, [
             'label'     => $this->getAddButtonLabel(),
             'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreateUrl()),
             'class'     => 'add',
@@ -56,8 +50,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -104,7 +99,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
 
     protected function _addBackButton()
     {
-        $this->_addButton('back', [
+        $this->_addButton(self::BUTTON_TYPE_BACK, [
             'label'     => $this->getBackButtonLabel(),
             'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
             'class'     => 'back',
@@ -114,6 +109,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderCssClass()
     {
         return 'icon-head ' . parent::getHeaderCssClass();

@@ -1,29 +1,23 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer address config
  *
- * @category   Mage
  * @package    Mage_Customer
  */
 class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
 {
     public const DEFAULT_ADDRESS_RENDERER  = 'customer/address_renderer_default';
+
     public const XML_PATH_ADDRESS_TEMPLATE = 'customer/address_templates/';
+
     public const DEFAULT_ADDRESS_FORMAT    = 'oneline';
 
     /**
@@ -36,7 +30,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     /**
      * Current store instance
      *
-     * @var Mage_Core_Model_Store|null
+     * @var null|Mage_Core_Model_Store
      */
     protected $_store           = null;
 
@@ -54,7 +48,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     private $_defaultType       = [];
 
     /**
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|bool|int|Mage_Core_Model_Store|string $store
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -71,15 +65,13 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
      */
     public function getStore()
     {
-        if (is_null($this->_store)) {
-            $this->_store = Mage::app()->getStore();
-        }
+        $this->_store ??= Mage::app()->getStore();
+
         return $this->_store;
     }
 
     /**
      * Define node
-     *
      */
     public function __construct()
     {
@@ -101,8 +93,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                 $path = sprintf('%s%s', self::XML_PATH_ADDRESS_TEMPLATE, $typeCode);
                 $type = new Varien_Object();
                 $htmlEscape = strtolower((string) $typeConfig->htmlEscape);
-                $htmlEscape = !($htmlEscape == 'false' || $htmlEscape == '0' || $htmlEscape == 'no'
-                    || !strlen($htmlEscape));
+                $htmlEscape = !in_array($htmlEscape, ['false', '0', 'no'], true) && strlen($htmlEscape);
                 $type->setCode($typeCode)
                     ->setTitle((string) $typeConfig->title)
                     ->setDefaultFormat(Mage::getStoreConfig($path, $store))
@@ -145,13 +136,14 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                     ->getRenderer(self::DEFAULT_ADDRESS_RENDERER)->setType($this->_defaultType[$storeId]),
             );
         }
+
         return $this->_defaultType[$storeId];
     }
 
     /**
      * Retrieve address format by code
      *
-     * @param string $typeCode
+     * @param  string        $typeCode
      * @return Varien_Object
      */
     public function getFormatByCode($typeCode)
@@ -161,6 +153,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                 return $type;
             }
         }
+
         return $this->_getDefaultFormat();
     }
 }

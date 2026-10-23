@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Fieldset renderer for PayPal global settings
  *
- * @category   Mage
  * @package    Mage_Paypal
  * @deprecated  since 1.7.0.1
  */
@@ -48,6 +40,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
             $htmlId = $element->getHtmlId();
             $this->_elements[$htmlId] = $element;
         }
+
         $originalData = $fieldset->getOriginalData();
         $this->addData([
             'fieldset_label' => $fieldset->getLegend(),
@@ -69,8 +62,8 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
     /**
      * Get element by id
      *
-     * @param string $elementId
-     * @return Varien_Data_Form_Element_Abstract|false
+     * @param  string                                  $elementId
+     * @return false|Varien_Data_Form_Element_Abstract
      */
     public function getElement($elementId)
     {
@@ -90,6 +83,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
         } else {
             $element->setValue('1');
         }
+
         if ($element->getCanUseDefaultValue() && $element->getInherit()) {
             $element->setDisabled(true);
         }
@@ -168,7 +162,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
             'name' => preg_replace('/\[value\](\[\])?$/', '[inherit]', $element->getName()),
             'value' => '1',
             'class' => 'checkbox config-inherit',
-            'onclick' => 'toggleValueElements(this, $(\'' . $elementId . '\').up())',
+            'onclick' => 'toggleValueElements(this, $(\'' . $elementId . "').up())",
         ]);
         if ($element->getInherit()) {
             $inheritCheckbox->setChecked(true);

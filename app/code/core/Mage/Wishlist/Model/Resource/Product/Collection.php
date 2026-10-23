@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -19,7 +12,6 @@
  * Deprecated because after Magento 1.4.2.0 it's impossible
  * to use product collection in wishlist
  *
- * @category   Mage
  * @package    Mage_Wishlist
  * @deprecated after 1.4.2.0
  */
@@ -51,7 +43,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Set add days in wishlist filter of product collection flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setDaysInWishlist($flag)
@@ -95,8 +87,8 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Add wishlist sort order
      *
-     * @param string $attribute
-     * @param string $dir
+     * @param  string $attribute
+     * @param  string $dir
      * @return $this
      */
     public function addWishListSortOrder($attribute = 'added_at', $dir = 'desc')
@@ -150,11 +142,13 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _getAttributeFieldName($attributeCode)
     {
         if ($attributeCode === 'days_in_wishlist') {
             return $this->_joinFields[$attributeCode]['field'];
         }
+
         return parent::_getAttributeFieldName($attributeCode);
     }
 
@@ -162,10 +156,11 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      * Prevent loading collection because after Magento 1.4.2.0 it's impossible
      * to use product collection in wishlist
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
-     * @return Mage_Wishlist_Model_Resource_Product_Collection
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
+     * @return $this
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         return $this;

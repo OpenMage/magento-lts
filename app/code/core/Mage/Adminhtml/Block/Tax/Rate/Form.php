@@ -1,27 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin product tax class add form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_tax_rate_form';
+
     /**
      * Tax titles
      *
@@ -42,6 +36,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareForm()
     {
         $rateObject = new Varien_Object(Mage::getSingleton('tax/calculation_rate')->getData());
@@ -149,13 +144,20 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
         $form->setMethod('post');
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $form->addElement(Mage::getBlockSingleton('adminhtml/tax_rate_title_fieldset')->setLegend(Mage::helper('tax')->__('Tax Titles')));
+            /**
+             * @var Mage_Adminhtml_Block_Tax_Rate_Title $renderer
+             */
+            $renderer = Mage::getBlockSingleton('adminhtml/tax_rate_title');
+            $form->addFieldset('tax_rate_title_fieldset', ['legend' => Mage::helper('tax')->__('Tax Titles')])
+                ->addField('tax_rate_titles', 'note', ['text' => ''])
+                ->setRenderer($renderer);
         }
 
         $rateData = $rateObject->getData();
         if ($rateObject->getZipIsRange()) {
-            list($rateData['zip_from'], $rateData['zip_to']) = explode('-', $rateData['tax_postcode']);
+            [$rateData['zip_from'], $rateData['zip_to']] = explode('-', $rateData['tax_postcode']);
         }
+
         $form->setValues($rateData);
         $this->setForm($form);
 

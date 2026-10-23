@@ -10,13 +10,18 @@
 
     <!-- UNUSEDCODE
     [ ] UnusedFormalParameter - TMP disabled
-    [ ] UnusedLocalVariable - TMP disabled
+    [x] UnusedLocalVariable
     [x] UnusedPrivateField
     [x] UnusedPrivateMethod
     -->
     <rule ref="rulesets/unusedcode.xml">
         <exclude name="UnusedFormalParameter" />
         <exclude name="UnusedLocalVariable" />
+    </rule>
+    <rule ref="rulesets/unusedcode.xml/UnusedLocalVariable">
+        <properties>
+            <property name="exceptions" value="ignored" />
+        </properties>
     </rule>
 
     <!-- CLEANCODE
@@ -76,8 +81,8 @@
     [-] LongClassName
     [x] ShortClassName
     [-] LongVariable
-    [x] ShortVariable
-    [x] ShortMethodName - TMP disabled
+    [x] ShortVariable - @todo fix later, avoid as possible
+    [x] ShortMethodName
     -->
     <rule ref="rulesets/naming.xml">
         <exclude name="BooleanGetMethodName" />
@@ -85,16 +90,15 @@
         <exclude name="LongVariable" />
         <exclude name="ShortVariable" />
     </rule>
-<!--    <rule ref="rulesets/naming.xml/ShortVariable">-->
-<!--        <properties>-->
-<!--            <property name="exceptions" value="a,b,x,y,x1,x2,y1,y2" />-->
-<!--        </properties>-->
-<!--    </rule>-->
-    <rule ref="rulesets/naming.xml/ShortMethodName" />
+    <rule ref="rulesets/naming.xml/ShortVariable">
+        <properties>
+            <property name="exceptions" value="a,b,id,i,j" />
+        </properties>
+    </rule>
 
     <!-- DESIGN
-    [-] CountInLoopExpression
-    [x] CouplingBetweenObjects
+    [x] CountInLoopExpression
+    [-] CouplingBetweenObjects
     [-] DepthOfInheritance
     [x] DevelopmentCodeFragment
     [x] EmptyCatchBlock

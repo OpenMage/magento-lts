@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+-->
+
+<layout>
+    <adminhtml_newsletter_template_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="adminhtml/newsletter_template_edit" name="template_edit" template="newsletter/template/edit.phtml" />
+        </reference>
+    </adminhtml_newsletter_template_edit>
+
+    <adminhtml_newsletter_queue_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="adminhtml/newsletter_queue_edit" name="queue_edit" template="newsletter/queue/edit.phtml" />
+        </reference>
+    </adminhtml_newsletter_queue_edit>
+
+    <adminhtml_newsletter_queue_preview>
+        <reference name="root">
+            <action method="setTemplate"><template>newsletter/preview/iframeswitcher.phtml</template></action>
+            <block type="adminhtml/newsletter_queue_preview_form" name="preview_form" />
+            <block type="adminhtml/store_switcher" name="store_switcher" template="newsletter/preview/store.phtml" />
+        </reference>
+    </adminhtml_newsletter_queue_preview>
+
+    <adminhtml_newsletter_template_preview>
+        <reference name="root">
+            <action method="setTemplate"><template>newsletter/preview/iframeswitcher.phtml</template></action>
+            <block type="adminhtml/newsletter_template_preview_form" name="preview_form" />
+            <block type="adminhtml/store_switcher" name="store_switcher" template="newsletter/preview/store.phtml" />
+        </reference>
+    </adminhtml_newsletter_template_preview>
+
+    <newsletter_queue_preview>
+        <block type="adminhtml/newsletter_queue_preview" name="preview_template" />
+    </newsletter_queue_preview>
+
+    <newsletter_template_preview>
+        <block type="adminhtml/newsletter_template_preview" name="preview_template" />
+    </newsletter_template_preview>
+</layout>

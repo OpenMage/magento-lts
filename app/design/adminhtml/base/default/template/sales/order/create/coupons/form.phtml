@@ -1,0 +1,32 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php
+/**
+ * Mage_Adminhtml_Block_Sales_Order_Create_Coupons
+ *
+ * @var Mage_Adminhtml_Block_Sales_Order_Create_Coupons $this
+ */
+?>
+<div class="entry-edit box-left">
+    <div class="entry-edit-head">
+        <h4 class="icon-head"><?php echo Mage::helper('sales')->__('Apply Coupon Code') ?></h4>
+     </div>
+     <fieldset class="np">
+         <div class="content">
+            <p><input type="text" class="input-text" id="coupons:code" value="" name="coupon_code" style="width:200px" />&nbsp;<?php echo $this->getButtonHtml(Mage::helper('sales')->__('Apply'), 'order.applyCoupon($F(\'coupons:code\'))') ?></p>
+            <?php if($this->getCouponCode()): ?>
+                <p><strong><?php echo $this->escapeHtml($this->getCouponCode()) ?></strong> [<a href="#" onclick="order.applyCoupon(''); return false;" title="<?php echo Mage::helper('sales')->__('Remove Coupon Code') ?>"><?php echo Mage::helper('sales')->__('Remove') ?></a>]</p>
+            <?php endif ?>
+            <script type="text/javascript">
+                order.overlay('shipping-method-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif ?>);
+                order.overlay('address-shipping-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif ?>);
+            </script>
+        </div>
+    </fieldset>
+</div>

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import controller
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Controller_Action
@@ -53,6 +45,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Index action.
+     * @return void
      */
     public function indexAction()
     {
@@ -69,6 +62,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Start import process action.
+     * @return void
      */
     public function startAction()
     {
@@ -86,11 +80,12 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                 $importModel->invalidateIndex();
                 $resultBlock->addAction('show', 'import_validation_container')
                     ->addAction('innerHTML', 'import_validation_container_header', $this->__('Status'));
-            } catch (Exception $e) {
-                $resultBlock->addError($e->getMessage());
+            } catch (Exception $exception) {
+                $resultBlock->addError($exception->getMessage());
                 $this->renderLayout();
                 return;
             }
+
             $resultBlock->addAction('hide', ['edit_form', 'upload_button', 'messages'])
                 ->addSuccess($this->__('Import successfully done.'));
             $this->renderLayout();
@@ -102,7 +97,8 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
     /**
      * Validate uploaded files action.
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
+     * @return void
      */
     public function validateAction()
     {
@@ -134,43 +130,42 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                             $resultBlock->addNotice(
                                 $this->__('Errors limit (%d) reached. Please fix errors and re-upload file', $import->getErrorsLimit()),
                             );
+                        } elseif ($import->isImportAllowed()) {
+                            $resultBlock->addNotice(
+                                $this->__('Please fix errors and re-upload file or simply press "Import" button to skip rows with errors'),
+                                true,
+                            );
                         } else {
-                            if ($import->isImportAllowed()) {
-                                $resultBlock->addNotice(
-                                    $this->__('Please fix errors and re-upload file or simply press "Import" button to skip rows with errors'),
-                                    true,
-                                );
-                            } else {
-                                $resultBlock->addNotice(
-                                    $this->__('File is partially valid, but import is not possible'),
-                                    false,
-                                );
-                            }
+                            $resultBlock->addNotice(
+                                $this->__('File is partially valid, but import is not possible'),
+                                false,
+                            );
                         }
+
                         // errors info
                         foreach ($import->getErrors() as $errorCode => $rows) {
                             $error = $errorCode . ' ' . $this->__('in rows:') . ' ' . implode(', ', $rows);
                             $resultBlock->addError($error);
                         }
+                    } elseif ($import->isImportAllowed()) {
+                        $resultBlock->addSuccess(
+                            $this->__('File is valid! To start import process press "Import" button'),
+                            true,
+                        );
                     } else {
-                        if ($import->isImportAllowed()) {
-                            $resultBlock->addSuccess(
-                                $this->__('File is valid! To start import process press "Import" button'),
-                                true,
-                            );
-                        } else {
-                            $resultBlock->addError(
-                                $this->__('File is valid, but import is not possible'),
-                            );
-                        }
+                        $resultBlock->addError(
+                            $this->__('File is valid, but import is not possible'),
+                        );
                     }
+
                     $resultBlock->addNotice($import->getNotices());
                     $resultBlock->addNotice($this->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $import->getProcessedRowsCount(), $import->getProcessedEntitiesCount(), $import->getInvalidRowsCount(), $import->getErrorsCount()));
                 }
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $resultBlock->addNotice($this->__('Please fix errors and re-upload file'))
-                    ->addError($e->getMessage());
+                    ->addError($exception->getMessage());
             }
+
             $this->renderLayout();
         } elseif ($this->getRequest()->isPost() && empty($_FILES)) {
             $this->loadLayout(false);

@@ -1,38 +1,32 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml order creating gift message item form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_create_giftmessage_form';
+
     /**
      * Entity for editing of gift message
      *
-     * @var Mage_Eav_Model_Entity_Abstract
+     * @var Varien_Object
      */
     protected $_entity;
 
     /**
      * Giftmessage object
      *
-     * @var Mage_GiftMessage_Model_Message|null
+     * @var null|Mage_GiftMessage_Model_Message
      */
     protected $_giftMessage;
 
@@ -125,7 +119,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * @return $this
      * @throws Exception
      */
-    public function _prepareForm()
+    #[Override]
+    protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('main', ['no_container' => true]);
@@ -163,13 +158,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
         $form->setValues($this->getMessage()->getData());
 
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 
     /**
      * Prepare form fieldset
      * All fields are hidden
-     *
      *
      * @return $this
      */
@@ -204,7 +198,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * Prepare form fieldset
      * All fields are visible
      *
-     *
      * @return $this
      */
     protected function _prepareVisibleFields(Varien_Data_Form_Element_Fieldset $fieldset)
@@ -215,7 +208,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             [
                 'name'     => $this->_getFieldName('sender'),
                 'label'    => Mage::helper('sales')->__('From'),
-                'required' => $this->getMessage()->getMessage() ? true : false,
+                'required' => (bool) $this->getMessage()->getMessage(),
             ],
         );
         $fieldset->addField(
@@ -224,7 +217,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             [
                 'name'     => $this->_getFieldName('recipient'),
                 'label'    => Mage::helper('sales')->__('To'),
-                'required' => $this->getMessage()->getMessage() ? true : false,
+                'required' => (bool) $this->getMessage()->getMessage(),
             ],
         );
 
@@ -271,7 +264,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Retrieve real name for field
      *
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     protected function _getFieldName($name)
@@ -282,7 +275,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Retrieve real html id for field
      *
-     * @param string $id
+     * @param  string $id
      * @return string
      */
     protected function _getFieldId($id)

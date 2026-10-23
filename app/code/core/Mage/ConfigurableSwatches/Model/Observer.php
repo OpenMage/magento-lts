@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_ConfigurableSwatches
  */
 class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
@@ -25,6 +17,9 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      * Observes: catalog_block_product_list_collection
      *
      * @return void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Cache_Exception
      */
     public function productListCollectionLoadAfter(Varien_Event_Observer $observer)
     {
@@ -70,6 +65,9 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Attach children products after product load
      * Observes: catalog_product_load_after
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function productLoadAfter(Varien_Event_Observer $observer)
     {
@@ -96,6 +94,9 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      * Instruct media attribute to load images for product's children
      * if config swatches enabled.
      * Observes: catalog_product_attribute_backend_media_load_gallery_before
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function loadChildProductImagesOnMediaLoad(Varien_Event_Observer $observer)
     {
@@ -123,7 +124,7 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
             $mediaProductIds[] = $childProduct->getId();
         }
 
-        if (empty($mediaProductIds)) { // no children product IDs found
+        if ($mediaProductIds === []) { // no children product IDs found
             return; // stop execution of method
         }
 
@@ -135,6 +136,9 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Convert a catalog layer block with the right templates
      * Observes: controller_action_layout_generate_blocks_after
+     *
+     * @return void
+     * @throws Mage_Core_Exception
      */
     public function convertLayerBlock(Varien_Event_Observer $observer)
     {
@@ -146,13 +150,11 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
         if (($front == 'catalog' && $controller == 'category' && $action == 'view')
             || ($front == 'catalogsearch' && $controller == 'result' && $action == 'index')
         ) {
-            // Block name for layered navigation differs depending on which Magento edition we're in
             $blockName = 'catalog.leftnav';
-            if (Mage::getEdition() == Mage::EDITION_ENTERPRISE) {
-                $blockName = ($front == 'catalogsearch') ? 'enterprisesearch.leftnav' : 'enterprisecatalog.leftnav';
-            } elseif ($front == 'catalogsearch') {
+            if ($front === 'catalogsearch') {
                 $blockName = 'catalogsearch.leftnav';
             }
+
             Mage::helper('configurableswatches/productlist')->convertLayerBlock($blockName);
         }
     }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API Resource class for product
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_Resource
@@ -32,9 +24,9 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
     /**
      * Return loaded product instance
      *
-     * @param  int|string $productId (SKU or ID)
-     * @param  int|string $store
-     * @param  string $identifierType
+     * @param  int|string                 $productId      (SKU or ID)
+     * @param  int|string                 $store
+     * @param  string                     $identifierType
      * @return Mage_Catalog_Model_Product
      */
     protected function _getProduct($productId, $store = null, $identifierType = null)
@@ -49,8 +41,8 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
     /**
      * Get request for product add to cart procedure
      *
-     * @param   mixed $requestInfo
-     * @return  Varien_Object
+     * @param  mixed         $requestInfo
+     * @return Varien_Object
      */
     protected function _getProductRequest($requestInfo)
     {
@@ -66,6 +58,7 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
         if (!$request->hasQty()) {
             $request->setQty(1);
         }
+
         return $request;
     }
 
@@ -101,18 +94,18 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
             $cartCandidates = [$cartCandidates];
         }
 
-        /** @var Mage_Sales_Model_Quote_Item $item */
         $item = null;
         foreach ($cartCandidates as $candidate) {
             if ($candidate->getParentProductId()) {
                 continue;
             }
 
+            /** @var Mage_Sales_Model_Quote_Item $item */
             $item = $quote->getItemByProduct($candidate);
         }
 
         if (is_null($item)) {
-            $item = Mage::getModel('sales/quote_item');
+            return Mage::getModel('sales/quote_item');
         }
 
         return $item;

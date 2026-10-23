@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Reports Mysql resource helper model
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4 implements Mage_Reports_Model_Resource_Helper_Interface
@@ -25,9 +17,9 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
     /**
      * Merge Index data
      *
-     * @param string $mainTable
-     * @param array $data
-     * @param mixed $matchFields
+     * @param  string $mainTable
+     * @param  array  $data
+     * @param  mixed  $matchFields
      * @return int
      */
     public function mergeVisitorProductIndex($mainTable, $data, $matchFields)
@@ -38,10 +30,10 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
     /**
      * Update rating position
      *
-     * @param string $type day|month|year
-     * @param string $column
-     * @param string $mainTable
-     * @param string $aggregationTable
+     * @param  string                                 $type             day|month|year
+     * @param  string                                 $column
+     * @param  string                                 $mainTable
+     * @param  string                                 $aggregationTable
      * @return Mage_Core_Model_Resource_Helper_Mysql4
      */
     public function updateReportRatingPos($type, $column, $mainTable, $aggregationTable)
@@ -51,17 +43,11 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
         $ratingSubSelect = $adapter->select();
         $ratingSelect    = $adapter->select();
 
-        switch ($type) {
-            case 'year':
-                $periodCol = $adapter->getDateFormatSql('t.period', '%Y-01-01');
-                break;
-            case 'month':
-                $periodCol = $adapter->getDateFormatSql('t.period', '%Y-%m-01');
-                break;
-            default:
-                $periodCol = 't.period';
-                break;
-        }
+        $periodCol = match ($type) {
+            'year' => $adapter->getDateFormatSql('t.period', '%Y-01-01'),
+            'month' => $adapter->getDateFormatSql('t.period', '%Y-%m-01'),
+            default => 't.period',
+        };
 
         $columns = [
             'period'          => 't.period',

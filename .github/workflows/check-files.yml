@@ -34,11 +34,17 @@ on:
         description: "Count changed PHPStan files"
         value: ${{ jobs.check.outputs.phpstan }}
       phpunit-test:
-        description: "Count changed PhpUnit test files"
+        description: "Count changed PHPUnit test files"
         value: ${{ jobs.check.outputs.phpunit-test }}
       phpunit:
-        description: "Count changed PhpUnit files"
+        description: "Count changed PHPUnit files"
         value: ${{ jobs.check.outputs.phpunit }}
+      markdown:
+        description: "Count changed markdown files"
+        value: ${{ jobs.check.outputs.markdown }}
+      cypress:
+        description: "Count changed Cypress files"
+        value: ${{ jobs.check.outputs.cypress }}
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
@@ -49,20 +55,22 @@ jobs:
     outputs:
       composer: ${{ steps.changes-composer.outputs.composer }}
       js: ${{ steps.changes-js.outputs.js }}
+      markdown: ${{ steps.changes-markdown.outputs.markdown }}
       php: ${{ steps.changes-php.outputs.php }}
-      phtml: ${{ steps.all.outputs.phtml }}
+      phtml: ${{ steps.changes-phtml.outputs.phtml }}
       xml: ${{ steps.changes-xml.outputs.xml }}
       workflow: ${{ steps.changes-workflow.outputs.workflow }}
       phpcs: ${{ steps.changes-phpcs.outputs.phpcs }}
       php-cs-fixer: ${{ steps.changes-php-cs-fixer.outputs.php-cs-fixer }}
-      phpmd: ${{ steps.changes-phpstan.outputs.phpmd }}
+      phpmd: ${{ steps.changes-phpmd.outputs.phpmd }}
       phpstan: ${{ steps.changes-phpstan.outputs.phpstan }}
       phpunit-test: ${{ steps.changes-phpunit-test.outputs.phpunit-test }}
       phpunit: ${{ steps.changes-phpunit.outputs.phpunit }}
+      cypress: ${{ steps.changes-cypress.outputs.cypress }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 2
 
@@ -71,7 +79,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -79,16 +87,17 @@ jobs:
 
       - name: Get changed files
         id: changed-files-specific
-        uses: tj-actions/changed-files@v45
+        uses: tj-actions/changed-files@v47
         with:
           files: |
             composer.*
             *.php
+            **/*.md
             **/*.php
             **/*.phtml
             **/*.xml
             **/*.js
-            .github/workflows/**
+            .github/**
             **phpcs**
             **php-cs-fixer**
             **phpmd**
@@ -96,13 +105,12 @@ jobs:
             .rector.php
             tests/
             phpunit*
+          separator: "\n"
 
       - name: Check if composer files changed
         id: changes-composer
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          echo "One or more files have changed."
-
           count="$(grep -oE "composer.*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count Composer file(s) changed"
           echo "composer=$count" >> $GITHUB_OUTPUT
@@ -111,7 +119,7 @@ jobs:
         id: changes-js
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "*.js" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "\.js" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count JS file(s) changed"
           echo "js=$count" >> $GITHUB_OUTPUT
 
@@ -119,7 +127,7 @@ jobs:
         id: changes-php
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "*.php" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "\.php" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHP file(s) changed"
           echo "php=$count" >> $GITHUB_OUTPUT
 
@@ -127,7 +135,7 @@ jobs:
         id: changes-phtml
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "*.phtml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "\.phtml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count Template file(s) changed"
           echo "phtml=$count" >> $GITHUB_OUTPUT
 
@@ -135,7 +143,7 @@ jobs:
         id: changes-xml
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "*.xml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "\.xml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count XML file(s) changed"
           echo "xml=$count" >> $GITHUB_OUTPUT
 
@@ -143,7 +151,7 @@ jobs:
         id: changes-workflow
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE ".github/workflows/**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE ".github/**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count Workflow file(s) changed"
           echo "workflow=$count" >> $GITHUB_OUTPUT
 
@@ -194,3 +202,19 @@ jobs:
           count="$(grep -oE "**phpunit**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHPUnit file(s) changed"
           echo "phpunit=$count" >> $GITHUB_OUTPUT
+
+      - name: Check if Markdown files changed
+        id: changes-markdown
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          count="$(grep -oE "\.md" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count Markdown file(s) changed"
+          echo "markdown=$count" >> $GITHUB_OUTPUT
+
+      - name: Check if Cypress files changed
+        id: changes-cypress
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          count="$(grep -oE "cypress/" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count Cypress file(s) changed"
+          echo "cypress=$count" >> $GITHUB_OUTPUT

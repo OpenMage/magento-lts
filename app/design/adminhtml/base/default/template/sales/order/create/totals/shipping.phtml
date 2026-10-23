@@ -1,0 +1,48 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @var Mage_Adminhtml_Block_Sales_Order_Create_Totals_Shipping $this
+ */
+?>
+<?php if ($this->displayBoth()):?>
+<tr>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
+        <?php echo $this->getExcludeTaxLabel() ?>
+    </td>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right">
+        <?php echo $this->formatPrice($this->getShippingExcludeTax()) ?>
+    </td>
+</tr>
+<tr>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
+        <?php echo $this->getIncludeTaxLabel() ?>
+    </td>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right">
+        <?php echo $this->formatPrice($this->getShippingIncludeTax()) ?>
+    </td>
+</tr>
+<?php elseif($this->displayIncludeTax()) : ?>
+<tr>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
+        <?php echo $this->getTotal()->getTitle() ?>
+    </td>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right">
+        <?php echo $this->formatPrice($this->getShippingIncludeTax()) ?>
+    </td>
+</tr>
+<?php else: ?>
+<tr>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
+        <?php echo $this->escapeHtml($this->getTotal()->getTitle()) ?>
+    </td>
+    <td style="<?php echo $this->getStyle() ?>" class="a-right">
+        <?php echo $this->formatPrice($this->getShippingExcludeTax()) ?>
+    </td>
+</tr>
+<?php endif ?>

@@ -1,32 +1,23 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml items in carts report grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Reports_Model_Resource_Customer_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_Block_Report_Grid_Shopcart
 {
-    /**
-     * Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid constructor.
-     */
+    protected string $_eventPrefix = 'adminhtml_report_shopcart_customer_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -37,6 +28,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         //TODO: add full name logic
@@ -51,6 +43,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoadCollection()
     {
         $this->getCollection()->addCartInfo();
@@ -61,6 +54,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [

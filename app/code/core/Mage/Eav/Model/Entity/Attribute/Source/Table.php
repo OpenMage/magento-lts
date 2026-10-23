@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
@@ -30,19 +22,21 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     /**
      * Retrieve Full Option values array
      *
-     * @param bool $withEmpty       Add empty option to array
-     * @param bool $defaultValues
+     * @param  bool  $withEmpty     Add empty option to array
+     * @param  bool  $defaultValues
      * @return array
      */
     public function getAllOptions($withEmpty = true, $defaultValues = false)
     {
-        $storeId = $this->getAttribute()->getStoreId();
+        $storeId = (string) $this->getAttribute()->getStoreId();
         if (!is_array($this->_options)) {
             $this->_options = [];
         }
+
         if (!is_array($this->_optionsDefault)) {
             $this->_optionsDefault = [];
         }
+
         if (!isset($this->_options[$storeId])) {
             $idPrefix = 'ATTRIBUTE_OPTIONS_ID_' . $this->getAttribute()->getId();
             $tags = array_merge(
@@ -58,6 +52,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
             $this->_options[$storeId]        = $collection->toOptionArray();
             $this->_optionsDefault[$storeId] = $collection->toOptionArray('default_value');
         }
+
         $options = ($defaultValues ? $this->_optionsDefault[$storeId] : $this->_options[$storeId]);
         if ($withEmpty) {
             array_unshift($options, ['label' => '', 'value' => '']);
@@ -69,9 +64,10 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     /**
      * Get a text for option value
      *
-     * @param string|int $value
-     * @return string|array|false
+     * @param  int|string         $value
+     * @return array|false|string
      */
+    #[Override]
     public function getOptionText($value)
     {
         $isMultiple = false;
@@ -89,6 +85,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                     $values[] = $item['label'];
                 }
             }
+
             return $values;
         }
 
@@ -97,6 +94,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                 return $item['label'];
             }
         }
+
         return false;
     }
 
@@ -104,10 +102,11 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      * Add Value Sort To Collection Select
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @param string $dir
+     * @param string                                    $dir
      *
      * @return $this
      */
+    #[Override]
     public function addValueSortToCollection($collection, $dir = Varien_Db_Select::SQL_ASC)
     {
         $valueTable1    = $this->getAttribute()->getAttributeCode() . '_t1';
@@ -140,10 +139,9 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     }
 
     /**
-     * Retrieve Column(s) for Flat
-     *
-     * @return array
+     * @inheritDoc
      */
+    #[Override]
     public function getFlatColums()
     {
         $columns = [];
@@ -195,10 +193,9 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     }
 
     /**
-     * Retrieve Indexes for Flat
-     *
-     * @return array
+     * @inheritDoc
      */
+    #[Override]
     public function getFlatIndexes()
     {
         $indexes = [];
@@ -225,8 +222,8 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $store
-     * @return Varien_Db_Select|null
+     * @param  int                   $store
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {

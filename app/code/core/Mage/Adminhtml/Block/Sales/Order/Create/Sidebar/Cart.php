@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales order create sidebar cart block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
@@ -29,6 +21,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
      */
     protected $_sidebarStorageAction = 'add_cart_item';
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -49,19 +45,22 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
      *
      * @return mixed
      */
+    #[Override]
     public function getItemCollection()
     {
-        $collection = $this->getData('item_collection');
+        $collection = $this->getDataByKey('item_collection');
         if (is_null($collection)) {
             $collection = $this->getCreateOrderModel()->getCustomerCart()->getAllVisibleItems();
             $this->setData('item_collection', $collection);
         }
+
         return $collection;
     }
 
     /**
      * @return bool
      */
+    #[Override]
     public function canDisplayItemQty()
     {
         return true;
@@ -70,9 +69,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
     /**
      * Retrieve identifier of block item
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return int
      */
+    #[Override]
     public function getIdentifierId($item)
     {
         return $item->getId();
@@ -81,9 +81,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
     /**
      * Retrieve product identifier linked with item
      *
-     * @param   Mage_Sales_Model_Quote_Item $item
-     * @return  int
+     * @param  Mage_Sales_Model_Quote_Item $item
+     * @return int
      */
+    #[Override]
     public function getProductId($item)
     {
         return $item->getProduct()->getId();
@@ -92,6 +93,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $deleteAllConfirmString = Mage::helper('core')->jsQuoteEscape(
@@ -99,7 +101,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
         );
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
             'label' => Mage::helper('sales')->__('Clear Shopping Cart'),
-            'onclick' => 'order.clearShoppingCart(\'' . $deleteAllConfirmString . '\')',
+            'onclick' => "order.clearShoppingCart('" . $deleteAllConfirmString . "')",
             'style' => 'float: right;',
         ]);
         $this->setChild('empty_customer_cart_button', $button);

@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_Action
@@ -31,12 +23,16 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
         return parent::preDispatch();
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         $this->_title($this->__('System'))->_title($this->__('Design'));
@@ -47,16 +43,25 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function gridAction()
     {
         $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/system_design_grid')->toHtml());
     }
 
+    /**
+     * @return void
+     */
     public function newAction()
     {
         $this->_forward('edit');
     }
 
+    /**
+     * @return void
+     */
     public function editAction()
     {
         $this->_title($this->__('System'))->_title($this->__('Design'));
@@ -82,6 +87,9 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
@@ -100,13 +108,14 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
             if ($id) {
                 $design->setId($id);
             }
+
             try {
                 $design->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The design change has been saved.'));
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 Mage::getSingleton('adminhtml/session')
-                    ->addError($e->getMessage())
+                    ->addError($exception->getMessage())
                     ->setDesignData($data);
                 $this->_redirect('*/*/edit', ['id' => $design->getId()]);
                 return;
@@ -116,6 +125,9 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
         $this->_redirect('*/*/');
     }
 
+    /**
+     * @return void
+     */
     public function deleteAction()
     {
         if ($id = $this->getRequest()->getParam('id')) {
@@ -126,14 +138,15 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
 
                 Mage::getSingleton('adminhtml/session')
                     ->addSuccess($this->__('The design change has been deleted.'));
-            } catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
                 Mage::getSingleton('adminhtml/session')
-                    ->addError($e->getMessage());
-            } catch (Exception $e) {
+                    ->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 Mage::getSingleton('adminhtml/session')
-                    ->addException($e, $this->__('Cannot delete the design change.'));
+                    ->addException($exception, $this->__('Cannot delete the design change.'));
             }
         }
+
         $this->getResponse()->setRedirect($this->getUrl('*/*/'));
     }
 }

@@ -1,27 +1,22 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Eav Decimal Attributes Indexer resource model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_index_eav_decimal', 'entity_id');
@@ -30,8 +25,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
     /**
      * Prepare data index for indexable attributes
      *
-     * @param array $entityIds      the entity ids limitation
-     * @param int $attributeId      the attribute id limitation
+     * @param  array $entityIds   the entity ids limitation
+     * @param  int   $attributeId the attribute id limitation
      * @return $this
      */
     protected function _prepareIndex($entityIds = null, $attributeId = null)
@@ -39,11 +34,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
         $write      = $this->_getWriteAdapter();
         $idxTable   = $this->getIdxTable();
         // prepare select attributes
-        if (is_null($attributeId)) {
-            $attrIds    = $this->_getIndexableAttributes();
-        } else {
-            $attrIds    = [$attributeId];
-        }
+        $attrIds = is_null($attributeId) ? $this->_getIndexableAttributes() : [$attributeId];
 
         if (!$attrIds) {
             return $this;
@@ -119,14 +110,16 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
     /**
      * Retrieve temporary decimal index table name
      *
-     * @param string $table
+     * @param  string $table
      * @return string
      */
+    #[Override]
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_eav_decimal_indexer_idx');
         }
+
         return $this->getTable('catalog/product_eav_decimal_indexer_tmp');
     }
 }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Custom Zend_Controller_Response_Http class (formally)
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
@@ -33,6 +25,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
      * @link  http://bugs.php.net/bug.php?id=36705
      * @inheritDoc
      */
+    #[Override]
     public function sendHeaders()
     {
         if (!$this->canSendHeaders()) {
@@ -40,7 +33,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
             return $this;
         }
 
-        if (substr(php_sapi_name(), 0, 3) == 'cgi') {
+        if (str_starts_with(PHP_SAPI, 'cgi')) {
             $statusSent = false;
             foreach ($this->_headersRaw as $i => $header) {
                 if (stripos($header, 'status:') === 0) {
@@ -51,6 +44,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
                     }
                 }
             }
+
             foreach ($this->_headers as $i => $header) {
                 if (strcasecmp($header['name'], 'status') === 0) {
                     if ($statusSent) {
@@ -68,6 +62,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
     /**
      * @inheritDoc
      */
+    #[Override]
     public function sendResponse()
     {
         Mage::dispatchEvent('http_response_send_before', ['response' => $this]);
@@ -79,6 +74,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
      *
      * @inheritDoc
      */
+    #[Override]
     public function setRedirect($url, $code = 302)
     {
         /**
@@ -87,6 +83,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
         if (self::$_transportObject === null) {
             self::$_transportObject = new Varien_Object();
         }
+
         self::$_transportObject->setUrl($url);
         self::$_transportObject->setCode($code);
         Mage::dispatchEvent(
@@ -100,7 +97,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
     /**
      * Method send already collected headers and exit from script
      * @return void
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function sendHeadersAndExit()
     {

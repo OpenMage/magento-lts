@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml giftmessage save model
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method array getGiftmessages()
@@ -77,8 +69,8 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Save a single gift message
      *
-     * @param int $entityId
-     * @param array $giftmessage
+     * @param  int       $entityId
+     * @param  array     $giftmessage
      * @return $this
      * @throws Throwable
      */
@@ -88,20 +80,12 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         $giftmessageModel = Mage::getModel('giftmessage/message');
         $entityType = $this->_getMappedType($giftmessage['type']);
 
-        switch ($entityType) {
-            case 'quote':
-                $entityModel = $this->_getQuote();
-                break;
-
-            case 'quote_item':
-                $entityModel = $this->_getQuote()->getItemById($entityId);
-                break;
-
-            default:
-                $entityModel = $giftmessageModel->getEntityModelByType($entityType)
-                    ->load($entityId);
-                break;
-        }
+        $entityModel = match ($entityType) {
+            'quote' => $this->_getQuote(),
+            'quote_item' => $this->_getQuote()->getItemById($entityId),
+            default => $giftmessageModel->getEntityModelByType($entityType)
+                ->load($entityId),
+        };
 
         if (!$entityModel) {
             return $this;
@@ -123,6 +107,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             if ($entityType != 'quote') {
                 $entityModel->save();
             }
+
             $this->_saved = true;
         }
 
@@ -132,17 +117,16 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Delete a single gift message from entity
      *
-     * @param Mage_GiftMessage_Model_Message|null $giftmessageModel
-     * @param Varien_Object $entityModel
+     * @param  Varien_Object                       $entityModel
+     * @param  null|Mage_GiftMessage_Model_Message $giftmessageModel
      * @return $this
      * @throws Throwable
      */
     protected function _deleteOne($entityModel, $giftmessageModel = null)
     {
-        if (is_null($giftmessageModel)) {
-            $giftmessageModel = Mage::getModel('giftmessage/message')
-                ->load($entityModel->getGiftMessageId());
-        }
+        $giftmessageModel ??= Mage::getModel('giftmessage/message')
+            ->load($entityModel->getGiftMessageId());
+
         $giftmessageModel->delete();
         $entityModel->setGiftMessageId(0)
             ->save();
@@ -152,7 +136,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Set allowed quote items for gift messages
      *
-     * @param array $items
+     * @param  array $items
      * @return $this
      */
     public function setAllowQuoteItems($items)
@@ -164,7 +148,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Add allowed quote item for gift messages
      *
-     * @param int $item
+     * @param  int   $item
      * @return $this
      */
     public function addAllowQuoteItem($item)
@@ -173,6 +157,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         if (!in_array($item, $items)) {
             $items[] = $item;
         }
+
         $this->setAllowQuoteItems($items);
 
         return $this;
@@ -205,8 +190,10 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             if (!$item) {
                 continue;
             }
+
             $result[] = $item->getProduct()->getId();
         }
+
         return $result;
     }
 
@@ -223,6 +210,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
                 $this->addAllowQuoteItem($item->getId());
                 return true;
             }
+
             return false;
         }
 
@@ -232,7 +220,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Retrieve is gift message available for item (product)
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return bool
      */
     public function isGiftMessagesAvailable($item)
@@ -247,7 +235,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Imports quote items for gift messages from products data
      *
-     * @param array $products
+     * @param  array $products
      * @return $this
      */
     public function importAllowQuoteItemsFromProducts($products)
@@ -314,7 +302,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     /**
      * Retrieve mapped type for entity
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     protected function _getMappedType($type)

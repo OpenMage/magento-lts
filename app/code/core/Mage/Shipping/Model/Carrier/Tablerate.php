@@ -1,25 +1,17 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Shipping_Model_Carrier_Tablerate
  *
- * @category   Mage
  * @package    Mage_Shipping
- * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings("PHPMD.CamelCasePropertyName")
  */
 class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
@@ -52,8 +44,8 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     public function __construct()
     {
         parent::__construct();
-        foreach ($this->getCode('condition_name') as $k => $v) {
-            $this->_conditionNames[] = $k;
+        foreach (array_keys($this->getCode('condition_name')) as $key) {
+            $this->_conditionNames[] = $key;
         }
     }
 
@@ -74,6 +66,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
                 if ($item->getParentItem()) {
                     continue;
                 }
+
                 if ($item->getHasChildren() && $item->isShipSeparately()) {
                     foreach ($item->getChildren() as $child) {
                         if ($child->getProduct()->isVirtual()) {
@@ -91,7 +84,11 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
         $freePackageValue = 0;
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
-                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                if ($item->getProduct()->isVirtual()) {
+                    continue;
+                }
+
+                if ($item->getParentItem()) {
                     continue;
                 }
 
@@ -108,6 +105,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
                     $freePackageValue += $item->getBaseRowTotal();
                 }
             }
+
             $oldValue = $request->getPackageValue();
             $request->setPackageValue($oldValue - $freePackageValue);
         }
@@ -115,6 +113,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
         if ($freePackageValue) {
             $request->setPackageValue($request->getPackageValue() - $freePackageValue);
         }
+
         if (!$request->getConditionName()) {
             $conditionName = $this->getConfigData('condition_name');
             $request->setConditionName($conditionName ? $conditionName : $this->_default_condition_name);
@@ -194,7 +193,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     /**
      * Get Model
      *
-     * @param string $modelName
+     * @param  string                   $modelName
      * @return Mage_Core_Model_Abstract
      */
     protected function _getModel($modelName)
@@ -205,7 +204,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     /**
      * Get Rate
      *
-     * @return Mage_Core_Model_Abstract
+     * @return array|bool
      */
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -215,26 +214,23 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     /**
      * Get code
      *
-     * @param string $type
-     * @param string $code
+     * @param  string       $type
+     * @param  string       $code
      * @return array|string
      */
     public function getCode($type, $code = '')
     {
         $codes = [
-
             'condition_name' => [
                 'package_weight' => Mage::helper('shipping')->__('Weight vs. Destination'),
                 'package_value' => Mage::helper('shipping')->__('Price vs. Destination'),
                 'package_qty' => Mage::helper('shipping')->__('# of Items vs. Destination'),
             ],
-
             'condition_name_short' => [
                 'package_weight' => Mage::helper('shipping')->__('Weight (and above)'),
                 'package_value' => Mage::helper('shipping')->__('Order Subtotal (and above)'),
                 'package_qty' => Mage::helper('shipping')->__('# of Items (and above)'),
             ],
-
         ];
 
         if (!isset($codes[$type])) {
@@ -255,7 +251,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     /**
      * Get allowed shipping methods
      *
-     * @return array
+     * @return array<string, bool|string>
      */
     public function getAllowedMethods()
     {

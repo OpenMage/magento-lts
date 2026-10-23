@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * New products widget
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_New implements Mage_Widget_Block_Interface
@@ -26,6 +18,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      * Display products type
      */
     public const DISPLAY_TYPE_ALL_PRODUCTS         = 'all_products';
+
     public const DISPLAY_TYPE_NEW_PRODUCTS         = 'new_products';
 
     /**
@@ -60,6 +53,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
     /**
      * Initialize block's cache and template settings
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -71,17 +65,13 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection|Object|Varien_Data_Collection
      */
+    #[Override]
     protected function _getProductCollection()
     {
-        switch ($this->getDisplayType()) {
-            case self::DISPLAY_TYPE_NEW_PRODUCTS:
-                $collection = parent::_getProductCollection();
-                break;
-            default:
-                $collection = $this->_getRecentlyAddedProductsCollection();
-                break;
-        }
-        return $collection;
+        return match ($this->getDisplayType()) {
+            self::DISPLAY_TYPE_NEW_PRODUCTS => parent::_getProductCollection(),
+            default => $this->_getRecentlyAddedProductsCollection(),
+        };
     }
 
     /**
@@ -93,7 +83,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
     {
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_collection');
-        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
+        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds());
         return $this->_addProductAttributesAndPrices($collection)
             ->addStoreFilter()
             ->addAttributeToSort('created_at', 'desc')
@@ -106,6 +96,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         return array_merge(parent::getCacheKeyInfo(), [
@@ -125,7 +116,8 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
         if (!$this->hasData('display_type')) {
             $this->setData('display_type', self::DISPLAY_TYPE_ALL_PRODUCTS);
         }
-        return $this->getData('display_type');
+
+        return $this->getDataByKey('display_type');
     }
 
     /**
@@ -133,12 +125,14 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      *
      * @return int
      */
+    #[Override]
     public function getProductsCount()
     {
         if (!$this->hasData('products_count')) {
             return parent::getProductsCount();
         }
-        return $this->getData('products_count');
+
+        return $this->getDataByKey('products_count');
     }
 
     /**
@@ -151,7 +145,8 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
         if (!$this->hasData('products_per_page')) {
             $this->setData('products_per_page', self::DEFAULT_PRODUCTS_PER_PAGE);
         }
-        return $this->getData('products_per_page');
+
+        return $this->getDataByKey('products_per_page');
     }
 
     /**
@@ -164,7 +159,8 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
         if (!$this->hasData('show_pager')) {
             $this->setData('show_pager', self::DEFAULT_SHOW_PAGER);
         }
-        return (bool) $this->getData('show_pager');
+
+        return (bool) $this->getDataByKey('show_pager');
     }
 
     /**
@@ -176,9 +172,11 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
     {
         if ($this->showPager()) {
             if (!$this->_pager) {
-                $this->_pager = $this->getLayout()
+                /** @var Mage_Catalog_Block_Product_Widget_Html_Pager $block */
+                $block = $this->getLayout()
                     ->createBlock('catalog/product_widget_html_pager', 'widget.new.product.list.pager');
 
+                $this->_pager = $block;
                 $this->_pager->setUseContainer(true)
                     ->setShowAmounts(true)
                     ->setShowPerPage(false)
@@ -187,10 +185,12 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
                     ->setTotalLimit($this->getProductsCount())
                     ->setCollection($this->getProductCollection());
             }
+
             if ($this->_pager instanceof Mage_Core_Block_Abstract) {
                 return $this->_pager->toHtml();
             }
         }
+
         return '';
     }
 }

@@ -1,38 +1,29 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart block
  *
- * @category   Mage
  * @package    Mage_Checkout
  *
- * @method string getCartTemplate()
- * @method string getEmptyTemplate()
- * @method $this setIsWishlistActive(bool $value)
- * @method int getItemsCount()
+ * @method string                        getCartTemplate()
  * @method Mage_Sales_Model_Quote_Item[] getCustomItems()
+ * @method string                        getEmptyTemplate()
+ * @method int                           getItemsCount()
+ * @method $this                         setIsWishlistActive(bool $value)
  */
 class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 {
     /**
      * Prepare cart items URLs
-     *
-     * @deprecated after 1.7.0.2
      */
+    #[Deprecated(message: 'after 1.7.0.2')]
     public function prepareItemUrls()
     {
         $products = [];
@@ -51,7 +42,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
             }
         }
 
-        if ($products) {
+        if ($products !== []) {
             $products = Mage::getResourceSingleton('catalog/url')
                 ->getRewriteByProductStore($products);
             foreach ($this->getItems() as $item) {
@@ -106,6 +97,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
                 && Mage::getSingleton('customer/session')->isLoggedIn();
             $this->setIsWishlistActive($isActive);
         }
+
         return $isActive;
     }
 
@@ -132,14 +124,16 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getContinueShoppingUrl()
     {
-        $url = $this->getData('continue_shopping_url');
+        $url = $this->getDataByKey('continue_shopping_url');
         if (is_null($url)) {
             $url = Mage::getSingleton('checkout/session')->getContinueShoppingUrl(true);
             if (!$url) {
                 $url = Mage::getUrl();
             }
+
             $this->setData('continue_shopping_url', $url);
         }
+
         return $url;
     }
 
@@ -156,7 +150,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
     /**
      * Return list of available checkout methods
      *
-     * @param string $nameInLayout Container block alias in layout
+     * @param  string $nameInLayout Container block alias in layout
      * @return array
      */
     public function getMethods($nameInLayout)
@@ -164,13 +158,14 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         if ($this->getChild($nameInLayout) instanceof Mage_Core_Block_Abstract) {
             return $this->getChild($nameInLayout)->getSortedChildren();
         }
+
         return [];
     }
 
     /**
      * Return HTML of checkout method (link, button etc.)
      *
-     * @param string $name Block name in layout
+     * @param  string              $name Block name in layout
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -180,6 +175,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         if (!$block) {
             Mage::throwException(Mage::helper('checkout')->__('Invalid method: %s', $name));
         }
+
         return $block->toHtml();
     }
 
@@ -188,6 +184,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      *
      * @return Mage_Sales_Model_Quote_Item[]
      */
+    #[Override]
     public function getItems()
     {
         if ($this->getCustomItems()) {

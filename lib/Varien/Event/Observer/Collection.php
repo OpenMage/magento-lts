@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Event
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Event observer collection
  *
- * @category   Varien
  * @package    Varien_Event
  */
 class Varien_Event_Observer_Collection
@@ -27,16 +19,7 @@ class Varien_Event_Observer_Collection
      *
      * @var array
      */
-    protected $_observers;
-
-    /**
-     * Initializes observers
-     *
-     */
-    public function __construct()
-    {
-        $this->_observers = [];
-    }
+    protected $_observers = [];
 
     /**
      * Returns all observers in the collection
@@ -51,7 +34,7 @@ class Varien_Event_Observer_Collection
     /**
      * Returns observer by its name
      *
-     * @param string $observerName
+     * @param  string                $observerName
      * @return Varien_Event_Observer
      */
     public function getObserverByName($observerName)
@@ -73,7 +56,7 @@ class Varien_Event_Observer_Collection
     /**
      * Removes an observer from the collection by its name
      *
-     * @param string $observerName
+     * @param  string $observerName
      * @return $this
      */
     public function removeObserverByName($observerName)
@@ -92,6 +75,7 @@ class Varien_Event_Observer_Collection
         foreach ($this->_observers as $observer) {
             $observer->dispatch($event);
         }
+
         return $this;
     }
 }

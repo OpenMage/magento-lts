@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
@@ -31,6 +23,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
      *
      * @return Mage_Adminhtml_Model_Session
      */
+    #[Override]
     protected function _getSession()
     {
         return Mage::getSingleton('adminhtml/session');
@@ -38,6 +31,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Display cache management grid
+     * @return void
      */
     public function indexAction()
     {
@@ -50,6 +44,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Flush cache storage
+     * @return void
      */
     public function flushAllAction()
     {
@@ -61,6 +56,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Flush all magento cache
+     * @return void
      */
     public function flushSystemAction()
     {
@@ -76,6 +72,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
         } finally {
             Mage::getConfig()->releaseCacheSaveLock();
         }
+
         Mage::dispatchEvent('adminhtml_cache_flush_system');
         $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The OpenMage cache has been flushed and updates applied.'));
         $this->_redirect('*/*');
@@ -83,6 +80,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Mass action for cache enabling
+     * @return void
      */
     public function massEnableAction()
     {
@@ -96,15 +94,18 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
                 $updatedTypes++;
             }
         }
+
         if ($updatedTypes > 0) {
             Mage::app()->saveUseCache($allTypes);
             $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('%s cache type(s) enabled.', $updatedTypes));
         }
+
         $this->_redirect('*/*');
     }
 
     /**
      * Mass action for cache disabling
+     * @return void
      */
     public function massDisableAction()
     {
@@ -117,37 +118,44 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
                 $allTypes[$code] = 0;
                 $updatedTypes++;
             }
-            $tags = Mage::app()->getCacheInstance()->cleanType($code);
+
+            Mage::app()->getCacheInstance()->cleanType($code);
         }
+
         if ($updatedTypes > 0) {
             Mage::app()->saveUseCache($allTypes);
             $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('%s cache type(s) disabled.', $updatedTypes));
         }
+
         $this->_redirect('*/*');
     }
 
     /**
      * Mass action for cache refresh
+     * @return void
      */
     public function massRefreshAction()
     {
         $types = $this->getRequest()->getParam('types');
         $updatedTypes = 0;
-        if (!empty($types)) {
+        if (is_array($types) && $types !== []) {
             foreach ($types as $type) {
-                $tags = Mage::app()->getCacheInstance()->cleanType($type);
+                Mage::app()->getCacheInstance()->cleanType($type);
                 Mage::dispatchEvent('adminhtml_cache_refresh_type', ['type' => $type]);
                 $updatedTypes++;
             }
         }
+
         if ($updatedTypes > 0) {
             $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('%s cache type(s) refreshed.', $updatedTypes));
         }
+
         $this->_redirect('*/*');
     }
 
     /**
      * Clean JS/css files cache
+     * @return void
      */
     public function cleanMediaAction()
     {
@@ -157,19 +165,21 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addSuccess(
                 Mage::helper('adminhtml')->__('The JavaScript/CSS cache has been cleaned.'),
             );
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addException(
-                $e,
+                $exception,
                 Mage::helper('adminhtml')->__('An error occurred while clearing the JavaScript/CSS cache.'),
             );
         }
+
         $this->_redirect('*/*');
     }
 
     /**
      * Clean catalog files cache
+     * @return void
      */
     public function cleanImagesAction()
     {
@@ -179,19 +189,21 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addSuccess(
                 Mage::helper('adminhtml')->__('The image cache was cleaned.'),
             );
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addException(
-                $e,
+                $exception,
                 Mage::helper('adminhtml')->__('An error occurred while clearing the image cache.'),
             );
         }
+
         $this->_redirect('*/*');
     }
 
     /**
      * Clean configurable swatches files cache
+     * @return void
      */
     public function cleanSwatchesAction()
     {
@@ -201,14 +213,15 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addSuccess(
                 Mage::helper('adminhtml')->__('The configurable swatches image cache was cleaned.'),
             );
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
             $this->_getSession()->addException(
-                $e,
+                $exception,
                 Mage::helper('adminhtml')->__('An error occurred while clearing the configurable swatches image cache.'),
             );
         }
+
         $this->_redirect('*/*');
     }
 }

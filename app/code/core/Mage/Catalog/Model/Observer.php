@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Observer
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Observer
@@ -25,7 +17,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog ata related with store data changes
      *
-     * @return  Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function storeEdit(Varien_Event_Observer $observer)
     {
@@ -38,15 +30,17 @@ class Mage_Catalog_Model_Observer
             if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
                 Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
             }
+
             Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store);
         }
+
         return $this;
     }
 
     /**
      * Process catalog data related with new store
      *
-     * @return  Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function storeAdd(Varien_Event_Observer $observer)
     {
@@ -59,6 +53,7 @@ class Mage_Catalog_Model_Observer
         if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
             Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
         }
+
         Mage::getResourceModel('catalog/product')->refreshEnabledIndex($store);
         return $this;
     }
@@ -66,7 +61,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog data related with store group root category
      *
-     * @return  Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function storeGroupSave(Varien_Event_Observer $observer)
     {
@@ -82,6 +77,7 @@ class Mage_Catalog_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -98,13 +94,14 @@ class Mage_Catalog_Model_Observer
             $store = $observer->getEvent()->getStore();
             Mage::getResourceModel('catalog/category_flat')->deleteStores($store->getId());
         }
+
         return $this;
     }
 
     /**
      * Process catalog data after category move
      *
-     * @return  Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function categoryMove(Varien_Event_Observer $observer)
     {
@@ -116,13 +113,14 @@ class Mage_Catalog_Model_Observer
         if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
             Mage::getResourceModel('catalog/category_flat')->move($categoryId, $prevParentId, $parentId);
         }
+
         return $this;
     }
 
     /**
      * Process catalog data after products import
      *
-     * @return  Mage_Catalog_Model_Observer
+     * @return $this
      */
     public function catalogProductImportAfter(Varien_Event_Observer $observer)
     {
@@ -155,6 +153,7 @@ class Mage_Catalog_Model_Observer
             $category = $observer->getEvent()->getCategory();
             Mage::getResourceModel('catalog/category_flat')->synchronize($category);
         }
+
         return $this;
     }
 
@@ -163,8 +162,8 @@ class Mage_Catalog_Model_Observer
      */
     public function catalogCheckIsUsingStaticUrlsAllowed(Varien_Event_Observer $observer)
     {
-        $storeId = $observer->getEvent()->getData('store_id');
-        $result  = $observer->getEvent()->getData('result');
+        $storeId = $observer->getEvent()->getDataByKey('store_id');
+        $result  = $observer->getEvent()->getDataByKey('result');
         $result->isAllowed = Mage::helper('catalog')->setStoreId($storeId)->isUsingStaticUrlsAllowed();
     }
 
@@ -196,10 +195,10 @@ class Mage_Catalog_Model_Observer
     /**
      * Recursively adds categories to top menu
      *
-     * @param Varien_Data_Tree_Node_Collection|array $categories
-     * @param Varien_Data_Tree_Node $parentCategoryNode
-     * @param Mage_Page_Block_Html_Topmenu $menuBlock
-     * @param bool $addTags
+     * @param array|Varien_Data_Tree_Node_Collection $categories
+     * @param Varien_Data_Tree_Node                  $parentCategoryNode
+     * @param Mage_Page_Block_Html_Topmenu           $menuBlock
+     * @param bool                                   $addTags
      */
     protected function _addCategoriesToMenu($categories, $parentCategoryNode, $menuBlock, $addTags = false)
     {
@@ -240,7 +239,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Checks whether category belongs to active category's path
      *
-     * @param Varien_Data_Tree_Node $category
+     * @param  Varien_Data_Tree_Node $category
      * @return bool
      */
     protected function _isActiveMenuCategory($category)
@@ -271,11 +270,12 @@ class Mage_Catalog_Model_Observer
         if (!is_object($attribute)) {
             return;
         }
+
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product');
         if ($product->isReservedAttribute($attribute)) {
             throw new Mage_Core_Exception(
-                Mage::helper('catalog')->__('The attribute code \'%s\' is reserved by system. Please try another attribute code', $attribute->getAttributeCode()),
+                Mage::helper('catalog')->__("The attribute code '%s' is reserved by system. Please try another attribute code", $attribute->getAttributeCode()),
             );
         }
     }

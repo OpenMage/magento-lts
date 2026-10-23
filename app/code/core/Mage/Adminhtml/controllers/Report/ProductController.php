@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product reports admin controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_Report_Abstract
@@ -27,6 +19,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
      *
      * @return $this
      */
+    #[Override]
     public function _initAction()
     {
         parent::_initAction();
@@ -36,9 +29,8 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Bestsellers
-     *
-     * @deprecated after 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function orderedAction()
     {
         return $this->_forward('bestsellers', 'report_sales');
@@ -46,9 +38,8 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products bestsellers report to CSV format
-     *
-     * @deprecated after 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function exportOrderedCsvAction()
     {
         return $this->_forward('exportBestsellersCsv', 'report_sales');
@@ -56,9 +47,8 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products bestsellers report to XML format
-     *
-     * @deprecated after 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function exportOrderedExcelAction()
     {
         return $this->_forward('exportBestsellersExcel', 'report_sales');
@@ -66,6 +56,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Sold Products Report Action
+     * @return void
      */
     public function soldAction()
     {
@@ -82,6 +73,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export Sold Products report to CSV format action
+     * @return void
      */
     public function exportSoldCsvAction()
     {
@@ -95,6 +87,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export Sold Products report to XML format action
+     * @return void
      */
     public function exportSoldExcelAction()
     {
@@ -108,6 +101,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Most viewed products
+     * @return void
      */
     public function viewedAction()
     {
@@ -132,6 +126,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products most viewed report to CSV format
+     * @return void
      */
     public function exportViewedCsvAction()
     {
@@ -143,6 +138,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products most viewed report to XML format
+     * @return void
      */
     public function exportViewedExcelAction()
     {
@@ -154,6 +150,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Low stock action
+     * @return void
      */
     public function lowstockAction()
     {
@@ -170,6 +167,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export low stock products report to CSV format
+     * @return void
      */
     public function exportLowstockCsvAction()
     {
@@ -183,6 +181,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export low stock products report to XML format
+     * @return void
      */
     public function exportLowstockExcelAction()
     {
@@ -196,6 +195,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Downloads action
+     * @return void
      */
     public function downloadsAction()
     {
@@ -212,6 +212,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products downloads report to CSV format
+     * @return void
      */
     public function exportDownloadsCsvAction()
     {
@@ -225,6 +226,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products downloads report to XLS format
+     * @return void
      */
     public function exportDownloadsExcelAction()
     {
@@ -239,18 +241,17 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    #[Override]
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'viewed':
-                return Mage::getSingleton('admin/session')->isAllowed('report/products/viewed');
-            case 'sold':
-                return Mage::getSingleton('admin/session')->isAllowed('report/products/sold');
-            case 'lowstock':
-                return Mage::getSingleton('admin/session')->isAllowed('report/products/lowstock');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('report/products');
-        }
+        $aclPath = match ($action) {
+            'viewed' => 'report/products/viewed',
+            'sold' => 'report/products/sold',
+            'lowstock' => 'report/products/lowstock',
+            default => 'report/products',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

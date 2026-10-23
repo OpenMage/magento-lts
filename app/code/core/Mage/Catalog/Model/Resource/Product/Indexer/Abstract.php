@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Indexer Abstract Resource Model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage_Index_Model_Resource_Abstract
@@ -25,7 +17,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
     /**
      * Retrieve catalog_product attribute instance by attribute code
      *
-     * @param string $attributeCode
+     * @param  string                                    $attributeCode
      * @return Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected function _getAttribute($attributeCode)
@@ -38,13 +30,13 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
      * attribute value definition
      * If $condition is not empty apply limitation for select
      *
-     * @param Varien_Db_Select $select
-     * @param string $attrCode              the attribute code
-     * @param string|Zend_Db_Expr $entity   the entity field or expression for condition
-     * @param string|Zend_Db_Expr $store    the store field or expression for condition
-     * @param Zend_Db_Expr $condition       the limitation condition
-     * @param bool $required                if required or has condition used INNER join, else - LEFT
-     * @return Zend_Db_Expr                 the attribute value expression
+     * @param  Varien_Db_Select    $select
+     * @param  string              $attrCode  the attribute code
+     * @param  string|Zend_Db_Expr $entity    the entity field or expression for condition
+     * @param  string|Zend_Db_Expr $store     the store field or expression for condition
+     * @param  string|Zend_Db_Expr $condition the limitation condition
+     * @param  bool                $required  if required or has condition used INNER join, else - LEFT
+     * @return Zend_Db_Expr        the attribute value expression
      */
     protected function _addAttributeToSelect($select, $attrCode, $entity, $store, $condition = null, $required = false)
     {
@@ -101,10 +93,10 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
      *  csg for store group table (joined by website default group)
      *  cs for store table (joined by website default store)
      *
-     * @param Varien_Db_Select $select              the select object
-     * @param bool $store                           add default store join
-     * @param string|Zend_Db_Expr $joinCondition    the limitation for website_id
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Abstract
+     * @param  Varien_Db_Select    $select        the select object
+     * @param  bool                $store         add default store join
+     * @param  string|Zend_Db_Expr $joinCondition the limitation for website_id
+     * @return $this
      */
     protected function _addWebsiteJoinToSelect($select, $store = true, $joinCondition = null)
     {
@@ -138,9 +130,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
      * Add join for catalog/product_website table
      * Joined table has alias pw
      *
-     * @param Varien_Db_Select $select          the select object
-     * @param string|Zend_Db_Expr $website      the limitation of website_id
-     * @param string|Zend_Db_Expr $product      the limitation of product_id
+     * @param  Varien_Db_Select                                     $select  the select object
+     * @param  string|Zend_Db_Expr                                  $website the limitation of website_id
+     * @param  string|Zend_Db_Expr                                  $product the limitation of product_id
      * @return Mage_Catalog_Model_Resource_Product_Indexer_Abstract
      */
     protected function _addProductWebsiteJoinToSelect($select, $website, $product)
@@ -157,7 +149,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
     /**
      * Retrieve product relations by children
      *
-     * @param int|array $childIds
+     * @param  array|int $childIds
      * @return array
      */
     public function getRelationsByChild($childIds)
@@ -173,7 +165,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
     /**
      * Retrieve product relations by parents
      *
-     * @param int|array $parentIds
+     * @param  array|int $parentIds
      * @return array
      */
     public function getRelationsByParent($parentIds)
@@ -183,7 +175,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
         }
 
         $result = [];
-        if (!empty($parentIds)) {
+        if ($parentIds !== []) {
             $write = $this->_getWriteAdapter();
             $select = $write->select()
                 ->from($this->getTable('catalog/product_relation'), 'child_id')

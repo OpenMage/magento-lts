@@ -1,43 +1,35 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tag Indexer Model
  *
- * @category   Mage
  * @package    Mage_Tag
  *
  * @method Mage_Tag_Model_Resource_Indexer_Summary _getResource()
+ * @method int                                     getBasePopularity()
+ * @method int                                     getCustomers()
+ * @method int                                     getHistoricalUses()
+ * @method int                                     getPopularity()
+ * @method int                                     getProducts()
  * @method Mage_Tag_Model_Resource_Indexer_Summary getResource()
- * @method int getTagId()
- * @method $this setTagId(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method int getCustomers()
- * @method $this setCustomers(int $value)
- * @method int getProducts()
- * @method $this setProducts(int $value)
- * @method int getUses()
- * @method $this setUses(int $value)
- * @method int getHistoricalUses()
- * @method $this setHistoricalUses(int $value)
- * @method int getPopularity()
- * @method $this setPopularity(int $value)
- * @method int getBasePopularity()
- * @method $this setBasePopularity(int $value)
+ * @method int                                     getStoreId()
+ * @method int                                     getTagId()
+ * @method int                                     getUses()
+ * @method $this                                   setBasePopularity(int $value)
+ * @method $this                                   setCustomers(int $value)
+ * @method $this                                   setHistoricalUses(int $value)
+ * @method $this                                   setPopularity(int $value)
+ * @method $this                                   setProducts(int $value)
+ * @method $this                                   setStoreId(int $value)
+ * @method $this                                   setTagId(int $value)
+ * @method $this                                   setUses(int $value)
  */
 class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
 {
@@ -58,6 +50,9 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
         ],
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('tag/indexer_summary');
@@ -78,6 +73,7 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('tag')->__('Rebuild Tag aggregation data');
@@ -86,7 +82,7 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
     /**
      * Retrieve attribute list that has an effect on tags
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getProductAttributesDependOn()
     {

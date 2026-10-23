@@ -1,30 +1,20 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV attribute resource collection
  *
- * @category   Mage
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
  *
- * @method Mage_Eav_Model_Entity_Attribute getItemById(int $value)
- * @method Mage_Eav_Model_Entity_Attribute[] getItems()
- * @method Mage_Eav_Model_Entity_Attribute getFirstItem()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Eav_Model_Entity_Attribute>
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -43,8 +33,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     protected $_addedStoreLabelsFlag = false;
 
     /**
-     * Resource model initialization
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -54,7 +43,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Return array of fields to load attribute values
      *
-     * @return array
+     * @return array<int, string>
      */
     protected function _getLoadDataFields()
     {
@@ -87,7 +76,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify attribute entity type filter
      *
-     * @param  Mage_Eav_Model_Entity_Type | int $type
+     * @param  int|Mage_Eav_Model_Entity_Type $type
      * @return $this
      */
     public function setEntityTypeFilter($type)
@@ -99,6 +88,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             $additionalTable = $this->getResource()->getAdditionalAttributeTable($type);
             $id = $type;
         }
+
         $this->addFieldToFilter('main_table.entity_type_id', $id);
         if ($additionalTable) {
             $this->join(
@@ -113,7 +103,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify attribute set filter
      *
-     * @param int $setId
+     * @param  int   $setId
      * @return $this
      */
     public function setAttributeSetFilter($setId)
@@ -173,6 +163,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             if (!$setId) {
                 continue;
             }
+
             $alias         = sprintf('entity_attribute_%d', $setId);
             $joinCondition = $this->getConnection()
                 ->quoteInto("{$alias}.attribute_id = main_table.attribute_id AND {$alias}.attribute_set_id =?", $setId);
@@ -192,7 +183,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Add filter which exclude attributes assigned to attribute set
      *
-     * @param int $setId
+     * @param  int   $setId
      * @return $this
      */
     public function setAttributeSetExcludeFilter($setId)
@@ -210,7 +201,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Exclude attributes filter
      *
-     * @param array $attributes
+     * @param  array $attributes
      * @return $this
      */
     public function setAttributesExcludeFilter($attributes)
@@ -221,7 +212,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Filter by attribute group id
      *
-     * @param int $groupId
+     * @param  int   $groupId
      * @return $this
      */
     public function setAttributeGroupFilter($groupId)
@@ -298,7 +289,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Apply filter by attribute frontend input type
      *
-     * @param string $frontendInputType
+     * @param  string $frontendInputType
      * @return $this
      */
     public function setFrontendInputTypeFilter($frontendInputType)
@@ -309,7 +300,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Flag for adding information about attributes sets to result
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function addSetInfo($flag = true)
@@ -330,10 +321,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             foreach ($this->_data as &$dataItem) {
                 $attributeIds[] = $dataItem['attribute_id'];
             }
+
             $attributeToSetInfo = [];
 
             $adapter = $this->getConnection();
-            if (count($attributeIds) > 0) {
+            if ($attributeIds !== []) {
                 $select = $adapter->select()
                     ->from(
                         ['entity' => $this->getTable('eav/entity_attribute')],
@@ -365,14 +357,16 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             unset($attributeToSetInfo);
             unset($attributeIds);
         }
+
         return $this;
     }
 
     /**
      * Ad information about attribute sets to collection result data
      *
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _afterLoadData()
     {
         $this->_addSetInfo();
@@ -382,10 +376,10 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
 
     /**
      * Load is used in configurable products flag
-     * @deprecated
      *
      * @return $this
      */
+    #[Deprecated]
     public function checkConfigurableProducts()
     {
         return $this;
@@ -394,7 +388,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify collection attribute codes filter
      *
-     * @param string | array $code
+     * @param  array|string $code
      * @return $this
      */
     public function setCodeFilter($code)
@@ -402,6 +396,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
         if (empty($code)) {
             return $this;
         }
+
         if (!is_array($code)) {
             $code = [$code];
         }
@@ -412,7 +407,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Add store label to attribute by specified store id
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addStoreLabel($storeId)

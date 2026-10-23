@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Date grid column filter
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  * @todo       date format
  */
@@ -26,18 +18,22 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
     //full day is 86400, we need 23 hours:59 minutes:59 seconds = 86399
     public const END_OF_DAY_IN_SECONDS = 86399;
 
+    #[Override]
     public function getValue($index = null)
     {
         if ($index) {
             if ($data = $this->getData('value', 'orig_' . $index)) {
                 return $data;//date('Y-m-d', strtotime($data));
             }
+
             return null;
         }
-        $value = $this->getData('value');
+
+        $value = $this->getDataByKey('value');
         if (is_array($value)) {
             $value['datetime'] = true;
         }
+
         if (!empty($value['to']) && !$this->getColumn()->getFilterTime()) {
             $datetimeTo = $value['to'];
 
@@ -48,16 +44,18 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
             $datetimeTo->addDay(1)->subSecond(1);
             $datetimeTo->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
         }
+
         return $value;
     }
 
     /**
      * Convert given date to default (UTC) timezone
      *
-     * @param string $date
-     * @param string $locale
-     * @return Zend_Date|null
+     * @param  string         $date
+     * @param  string         $locale
+     * @return null|Zend_Date
      */
+    #[Override]
     protected function _convertDate($date, $locale)
     {
         if ($this->getColumn()->getFilterTime()) {
@@ -80,7 +78,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
                 $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
 
                 return $dateObj;
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return null;
             }
         }
@@ -93,6 +91,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
      *
      * @return string
      */
+    #[Override]
     public function getHtml()
     {
         $fromLabel = Mage::helper('adminhtml')->__('From');
@@ -148,9 +147,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
     /**
      * Return escaped value for calendar
      *
-     * @param string $index
+     * @param  string $index
      * @return string
      */
+    #[Override]
     public function getEscapedValue($index = null)
     {
         if ($this->getColumn()->getFilterTime()) {
@@ -160,6 +160,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
                     $this->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
                 );
             }
+
             return $this->escapeHtml($value);
         }
 

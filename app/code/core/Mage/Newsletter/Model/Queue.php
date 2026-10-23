@@ -1,62 +1,54 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter queue model.
  *
- * @category   Mage
  * @package    Mage_Newsletter
  *
- * @method Mage_Newsletter_Model_Resource_Queue _getResource()
- * @method Mage_Newsletter_Model_Resource_Queue getResource()
+ * @method Mage_Newsletter_Model_Resource_Queue            _getResource()
  * @method Mage_Newsletter_Model_Resource_Queue_Collection getCollection()
- *
- * @method int getTemplateId()
- * @method $this setTemplateId(int $value)
- * @method int getNewsletterType()
- * @method $this setNewsletterType(int $value)
- * @method string getNewsletterText()
- * @method $this setNewsletterText(string $value)
- * @method string getNewsletterStyles()
- * @method $this setNewsletterStyles(string $value)
- * @method string getNewsletterSubject()
- * @method $this setNewsletterSubject(string $value)
- * @method string getNewsletterSenderName()
- * @method $this setNewsletterSenderName(string $value)
- * @method string getNewsletterSenderEmail()
- * @method $this setNewsletterSenderEmail(string $value)
- * @method int getQueueStatus()
- * @method $this setQueueStatus(int $value)
- * @method string getQueueStartAt()
- * @method $this setQueueStartAt(string $value)
- * @method string getQueueFinishAt()
- * @method $this setQueueFinishAt(string $value)
+ * @method string                                          getNewsletterSenderEmail()
+ * @method string                                          getNewsletterSenderName()
+ * @method string                                          getNewsletterStyles()
+ * @method string                                          getNewsletterSubject()
+ * @method string                                          getNewsletterText()
+ * @method int                                             getNewsletterType()
+ * @method string                                          getQueueFinishAt()
+ * @method string                                          getQueueStartAt()
+ * @method int                                             getQueueStatus()
+ * @method Mage_Newsletter_Model_Resource_Queue            getResource()
+ * @method Mage_Newsletter_Model_Resource_Queue_Collection getResourceCollection()
+ * @method int                                             getTemplateId()
+ * @method $this                                           setNewsletterSenderEmail(string $value)
+ * @method $this                                           setNewsletterSenderName(string $value)
+ * @method $this                                           setNewsletterStyles(string $value)
+ * @method $this                                           setNewsletterSubject(string $value)
+ * @method $this                                           setNewsletterText(string $value)
+ * @method $this                                           setNewsletterType(int $value)
+ * @method $this                                           setQueueFinishAt(string $value)
+ * @method $this                                           setQueueStartAt(string $value)
+ * @method $this                                           setQueueStatus(int $value)
+ * @method $this                                           setTemplateId(int $value)
  */
 class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
 {
     /**
      * Newsletter Template object
      *
-     * @var Mage_Newsletter_Model_Template|null
+     * @var null|Mage_Newsletter_Model_Template
      */
     protected $_template;
 
     /**
      * Subscribers collection
-     * @var Mage_Newsletter_Model_Resource_Subscriber_Collection|null
+     * @var null|Mage_Newsletter_Model_Resource_Subscriber_Collection
      */
     protected $_subscribersCollection = null;
 
@@ -83,11 +75,18 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     protected $_stores = [];
 
     public const STATUS_NEVER = 0;
+
     public const STATUS_SENDING = 1;
+
     public const STATUS_CANCEL = 2;
+
     public const STATUS_SENT = 3;
+
     public const STATUS_PAUSE = 4;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('newsletter/queue');
@@ -110,10 +109,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function getSubscribersCollection()
     {
-        if (is_null($this->_subscribersCollection)) {
-            $this->_subscribersCollection = Mage::getResourceModel('newsletter/subscriber_collection')
-                ->useQueue($this);
-        }
+        $this->_subscribersCollection ??= Mage::getResourceModel('newsletter/subscriber_collection')
+            ->useQueue($this);
 
         return $this->_subscribersCollection;
     }
@@ -121,10 +118,10 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Add template data to queue.
      *
-     * @param Varien_Object $data
+     * @param  Varien_Object $data
      * @return $this
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function addTemplateData($data)
     {
         $template = $this->getTemplate();
@@ -138,7 +135,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Set $_data['queue_start'] based on string from backend, which based on locale.
      *
-     * @param string|null $startAt start date of the mailing queue
+     * @param  null|string $startAt start date of the mailing queue
      * @return $this
      */
     public function setQueueStartAtByString($startAt)
@@ -151,13 +148,14 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             $time = $locale->date($startAt, $format)->getTimestamp();
             $this->setQueueStartAt(Mage::getModel('core/date')->gmtDate(null, $time));
         }
+
         return $this;
     }
 
     /**
      * Send messages to subscribers for this queue
      *
-     * @param   int     $count
+     * @param  int   $count
      * @return $this
      */
     public function sendPerSubscriber($count = 20, array $additionalVariables = [])
@@ -211,9 +209,10 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             }
         }
 
-        if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) == 0) {
+        if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) === 0) {
             $this->_finishQueue();
         }
+
         return $this;
     }
 
@@ -234,16 +233,16 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Getter data for saving
      *
-     * @return array
+     * @return array<string, int|string>
      */
     public function getDataForSave()
     {
-        $data = [];
-        $data['template_id'] = $this->getTemplateId();
-        $data['queue_status'] = $this->getQueueStatus();
-        $data['queue_start_at'] = $this->getQueueStartAt();
-        $data['queue_finish_at'] = $this->getQueueFinishAt();
-        return $data;
+        return [
+            'template_id' => $this->getTemplateId(),
+            'queue_status' => $this->getQueueStatus(),
+            'queue_start_at' => $this->getQueueStartAt(),
+            'queue_finish_at' => $this->getQueueFinishAt(),
+        ];
     }
 
     /**
@@ -260,10 +259,10 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Setter for save template flag.
      *
-     * @param bool|int|string $value
+     * @param  bool|int|string $value
      * @return $this
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function setSaveTemplateFlag($value)
     {
         $this->_saveTemplateFlag = (bool) $value;
@@ -274,8 +273,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * Getter for save template flag.
      *
      * @return bool
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function getSaveTemplateFlag()
     {
         return $this->_saveTemplateFlag;
@@ -284,7 +283,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Setter for save stores flag.
      *
-     * @param bool|int|string $value
+     * @param  bool|int|string $value
      * @return $this
      */
     public function setSaveStoresFlag($value)
@@ -336,17 +335,14 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function getTemplate()
     {
-        if (is_null($this->_template)) {
-            $this->_template = Mage::getModel('newsletter/template')
-                ->load($this->getTemplateId());
-        }
+        $this->_template ??= Mage::getModel('newsletter/template')
+            ->load($this->getTemplateId());
+
         return $this->_template;
     }
 
     /**
-     * Getter for template type
-     *
-     * @return int|string
+     * @inheritDoc
      */
     public function getType()
     {

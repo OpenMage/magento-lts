@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Http Helper
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
@@ -28,15 +20,15 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
     /**
      * Remote address cache
-     * @var string|null
+     * @var null|string
      */
     protected $_remoteAddr;
 
     /**
      * Validate and retrieve user and password from HTTP
-     * @param array|null $headers
-     * @return array
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @param  null|array        $headers
+     * @return array<int, mixed>
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function authValidate($headers = null)
     {
@@ -49,9 +41,9 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
         // moshe's fix for CGI
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
-            foreach ($_SERVER as $k => $v) {
-                if (substr($k, -18) === 'HTTP_AUTHORIZATION' && !empty($v)) {
-                    $_SERVER['HTTP_AUTHORIZATION'] = $v;
+            foreach ($_SERVER as $key => $value) {
+                if (str_ends_with($key, 'HTTP_AUTHORIZATION') && !empty($value)) {
+                    $_SERVER['HTTP_AUTHORIZATION'] = $value;
                     break;
                 }
             }
@@ -64,10 +56,10 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
             // IIS Note:: For HTTP Authentication to work with IIS,
             // the PHP directive cgi.rfc2616_headers must be set to 0 (the default value).
             $auth = $_SERVER['HTTP_AUTHORIZATION'];
-            list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
+            [$user, $pass] = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
         } elseif (!empty($_SERVER['Authorization'])) {
             $auth = $_SERVER['Authorization'];
-            list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
+            [$user, $pass] = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
         }
 
         if (!$user || !$pass) {
@@ -81,7 +73,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Send auth failed Headers and exit
      *
      * @return void
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function authFailed()
     {
@@ -114,9 +106,9 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Client Remote Address
      *
-     * @param bool $ipToLong converting IP to long format
+     * @param  bool         $ipToLong converting IP to long format
      * @return false|string IPv4|long
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getRemoteAddr($ipToLong = false)
     {
@@ -149,7 +141,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Server IP address
      *
-     * @param bool $ipToLong converting IP to long format
+     * @param  bool         $ipToLong converting IP to long format
      * @return false|string IPv4|long
      */
     public function getServerAddr($ipToLong = false)
@@ -158,21 +150,22 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         if (!$address) {
             return false;
         }
+
         return $ipToLong ? inet_pton($address) : $address;
     }
 
     /**
      * Retrieve HTTP "clean" value
      *
-     * @param string $var
-     * @param bool $clean clean non UTF-8 characters
+     * @param  string $var
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     protected function _getHttpCleanValue($var, $clean = true)
     {
         $value = $this->_getRequest()->getServer($var, '');
         if ($clean) {
-            $value = Mage::helper('core/string')->cleanString($value);
+            return Mage::helper('core/string')->cleanString($value);
         }
 
         return $value;
@@ -181,7 +174,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP HOST
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpHost($clean = true)
@@ -192,7 +185,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP USER AGENT
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpUserAgent($clean = true)
@@ -203,7 +196,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP ACCEPT LANGUAGE
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpAcceptLanguage($clean = true)
@@ -214,7 +207,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP ACCEPT CHARSET
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpAcceptCharset($clean = true)
@@ -225,7 +218,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Retrieve HTTP REFERER
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getHttpReferer($clean = true)
@@ -237,22 +230,23 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Returns the REQUEST_URI taking into account
      * platform differences between Apache and IIS
      *
-     * @param bool $clean clean non UTF-8 characters
+     * @param  bool   $clean clean non UTF-8 characters
      * @return string
      */
     public function getRequestUri($clean = false)
     {
         $uri = $this->_getRequest()->getRequestUri();
         if ($clean) {
-            $uri = Mage::helper('core/string')->cleanString($uri);
+            return Mage::helper('core/string')->cleanString($uri);
         }
+
         return $uri;
     }
 
     /**
      * Validate IP address
      *
-     * @param string $address
+     * @param  string $address
      * @return bool
      */
     public function validateIpAddr($address)

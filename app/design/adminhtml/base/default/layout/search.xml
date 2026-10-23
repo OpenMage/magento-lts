@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+-->
+
+<layout>
+    <adminhtml_catalog_search_edit>
+        <reference name="content">
+            <block type="adminhtml/catalog_search_edit" name="catalog_search_edit" />
+        </reference>
+    </adminhtml_catalog_search_edit>
+</layout>

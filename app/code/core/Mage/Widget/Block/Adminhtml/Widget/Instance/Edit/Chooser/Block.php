@@ -1,30 +1,22 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widget Instance block reference chooser
  *
- * @category   Mage
  * @package    Mage_Widget
  *
- * @method $this setArea(string $value)
- * @method $this setPackage(string $value)
  * @method string getSelected()
- * @method $this setSelected(string $value)
- * @method $this setTheme(string $value)
+ * @method $this  setArea(string $value)
+ * @method $this  setPackage(string $value)
+ * @method $this  setSelected(string $value)
+ * @method $this  setTheme(string $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mage_Adminhtml_Block_Widget
 {
@@ -49,7 +41,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
     /**
      * Setter
      *
-     * @param array $allowedBlocks
+     * @param  array $allowedBlocks
      * @return $this
      */
     public function setAllowedBlocks($allowedBlocks)
@@ -61,7 +53,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
     /**
      * Add allowed block
      *
-     * @param string $block
+     * @param  string $block
      * @return $this
      */
     public function addAllowedBlock($block)
@@ -82,9 +74,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
 
     /**
      * Setter
-     * If string given exlopde to array by ',' delimiter
+     * If string given explode to array by ',' delimiter
      *
-     * @param string|array $layoutHandle
+     * @param  array|string $layoutHandle
      * @return $this
      */
     public function setLayoutHandle($layoutHandle)
@@ -92,6 +84,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (is_string($layoutHandle)) {
             $layoutHandle = explode(',', $layoutHandle);
         }
+
         $this->_layoutHandle = array_merge(['default'], (array) $layoutHandle);
         return $this;
     }
@@ -111,11 +104,13 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
      *
      * @return string
      */
+    #[Override]
     public function getArea()
     {
         if (!$this->_getData('area')) {
             return Mage_Core_Model_Design_Package::DEFAULT_AREA;
         }
+
         return $this->_getData('area');
     }
 
@@ -129,6 +124,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (!$this->_getData('package')) {
             return Mage_Core_Model_Design_Package::DEFAULT_PACKAGE;
         }
+
         return $this->_getData('package');
     }
 
@@ -142,6 +138,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (!$this->_getData('theme')) {
             return Mage_Core_Model_Design_Package::DEFAULT_THEME;
         }
+
         return $this->_getData('theme');
     }
 
@@ -150,6 +147,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $selectBlock = $this->getLayout()->createBlock('core/html_select')
@@ -183,6 +181,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
                 'label' => Mage::helper('widget')->__('-- Please Select --'),
             ]);
         }
+
         return $this->_blocks;
     }
 
@@ -194,7 +193,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         foreach ($this->getLayoutHandle() as $handle) {
             $this->_mergeLayoutHandles($handle);
         }
-        $updatesStr = '<' . '?xml version="1.0"?' . '><layout>' . implode('', $this->_layoutHandleUpdates) . '</layout>';
+
+        $updatesStr = '<?xml version="1.0"?><layout>' . implode('', $this->_layoutHandleUpdates) . '</layout>';
         $this->_layoutHandleUpdatesXml = simplexml_load_string($updatesStr, 'Varien_Simplexml_Element');
     }
 
@@ -207,10 +207,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
     {
         foreach ($this->_layoutHandlesXml->{$handle} as $updateXml) {
             foreach ($updateXml->children() as $child) {
-                if (strtolower($child->getName()) == 'update' && isset($child['handle'])) {
+                if (strtolower($child->getName()) === 'update' && isset($child['handle'])) {
                     $this->_mergeLayoutHandles((string) $child['handle']);
                 }
             }
+
             $this->_layoutHandleUpdates[] = $updateXml->asNiceXml();
         }
     }
@@ -229,13 +230,14 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
                 }
             }
         }
+
         asort($this->_blocks, SORT_STRING);
     }
 
     /**
      * Check whether given block match allowed block types
      *
-     * @param Mage_Core_Model_Layout_Element $block
+     * @param  Mage_Core_Model_Layout_Element $block
      * @return bool
      */
     protected function _filterBlock($block)
@@ -243,9 +245,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (!$this->getAllowedBlocks()) {
             return true;
         }
-        if (in_array((string) $block->getAttribute('name'), $this->getAllowedBlocks())) {
-            return true;
-        }
-        return false;
+
+        return in_array((string) $block->getAttribute('name'), $this->getAllowedBlocks());
     }
 }

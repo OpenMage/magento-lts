@@ -1,0 +1,19 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Sales_Order_Create_Abstract $this */
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <div style="float: right;"><?php echo $this->getButtonsHtml() ?></div>
+        <h4 class="fieldset-legend <?php echo ($this->getHeaderCssClass()) ? $this->getHeaderCssClass().' icon-head' : '' ?>"><?php echo $this->getHeaderText() ?></h4>
+    </div>
+    <div class="fieldset">
+        <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+</div>

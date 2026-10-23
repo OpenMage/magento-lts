@@ -1,0 +1,24 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<!DOCTYPE html>
+<html lang="<?php echo $this->getLang() ?>">
+<head>
+<?php $this->getChild('head')->unsetChildren(); ?>
+<?php echo $this->getChildHtml('head'); ?>
+</head>
+<body class="page-popup<?php echo $this->getBodyClass()?$this->getBodyClass() : ''?>">
+<div>
+    <?php echo $this->getChildHtml('after_body_start') ?>
+    <?php echo $this->getChildHtml('global_notices') ?>
+    <?php echo $this->getChildHtml('content') ?>
+    <?php echo $this->getChildHtml('before_body_end') ?>
+</div>
+<?php echo $this->getAbsoluteFooter() ?>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package    Mage_Csp
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <csp translate="title" module="csp">
+                                        <title>CSP Protection</title>
+                                        <sort_order>70</sort_order>
+                                    </csp>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

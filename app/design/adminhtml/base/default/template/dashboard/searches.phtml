@@ -1,0 +1,17 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<div style="padding:5px;">
+<?php if(count($this->getCollection()->getItems()) > 0): ?>
+    <?php foreach ($this->getCollection()->getItems() as $item): ?>
+    <span><?php echo $item->getQueryText() ?></span><br />
+    <?php endforeach ?>
+<?php else: ?>
+<div class="a-center"><?php echo $this->__('No search keywords.') ?></div>
+<?php endif ?>
+</div>

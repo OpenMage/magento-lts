@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 attribute controller
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Controller_Action
@@ -33,6 +25,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions(['save']);
@@ -41,6 +34,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
     /**
      * Show user types grid
+     * @return void
      */
     public function indexAction()
     {
@@ -50,7 +44,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
         $this->loadLayout()->_setActiveMenu('system/api/rest_attributes');
 
-        $this->_addBreadcrumb($this->__('Web services'), $this->__('Web services'))
+        $this->_addBreadcrumb($this->__('Web Services'), $this->__('Web Services'))
             ->_addBreadcrumb($this->__('REST Attributes'), $this->__('REST Attributes'))
             ->_addBreadcrumb($this->__('Attributes'), $this->__('Attributes'));
 
@@ -59,6 +53,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
     /**
      * Edit role
+     * @return void
      */
     public function editAction()
     {
@@ -87,6 +82,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
     /**
      * Save role
+     * @return void
      */
     public function saveAction()
     {
@@ -142,10 +138,10 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
             }
 
             $session->addSuccess($this->__('The attribute rules were saved.'));
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($e->getMessage());
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('An error occurred while saving attribute rules.'));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $session->addError($mageCoreException->getMessage());
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('An error occurred while saving attribute rules.'));
         }
 
         $this->_redirect('*/*/edit', ['type' => $type]);

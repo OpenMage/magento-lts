@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal module observer
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Observer
@@ -34,21 +26,21 @@ class Mage_Paypal_Model_Observer
             foreach ($credentials as $config) {
                 try {
                     $reports->fetchAndSave($config);
-                } catch (Exception $e) {
-                    Mage::logException($e);
+                } catch (Exception $exception) {
+                    Mage::logException($exception);
                 }
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
     }
 
     /**
      * Clean unfinished transaction
      *
-     * @deprecated since 1.6.2.0
      * @return $this
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function cleanTransactions()
     {
         return $this;
@@ -62,7 +54,7 @@ class Mage_Paypal_Model_Observer
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
     {
         /** @var Mage_Sales_Model_Order $order */
-        $order = $observer->getEvent()->getData('order');
+        $order = $observer->getEvent()->getDataByKey('order');
         Mage::register('hss_order', $order, true);
 
         return $this;
@@ -82,7 +74,7 @@ class Mage_Paypal_Model_Observer
             $payment = $order->getPayment();
             if ($payment && in_array($payment->getMethod(), Mage::helper('paypal/hss')->getHssMethods())) {
                 /** @var Mage_Core_Controller_Varien_Action $controller */
-                $controller = $observer->getEvent()->getData('controller_action');
+                $controller = $observer->getEvent()->getDataByKey('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
                     $controller->getResponse()->getBody('default'),
                     Zend_Json::TYPE_ARRAY,
@@ -124,7 +116,7 @@ class Mage_Paypal_Model_Observer
         $payments = $paymentGroups->xpath('paypal_payments/*');
         foreach ($payments as $payment) {
             if ((int) $payment->include) {
-                $fields = $paymentGroups->xpath((string) $payment->group . '/fields');
+                $fields = $paymentGroups->xpath($payment->group . '/fields');
                 if (isset($fields[0])) {
                     $fields[0]->appendChild($payment, true);
                 }

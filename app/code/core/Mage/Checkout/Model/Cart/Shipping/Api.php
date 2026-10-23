@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart api
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Resource
@@ -30,9 +22,9 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
     /**
      * Set an Shipping Method for Shopping Cart
      *
-     * @param  int $quoteId
-     * @param  string $shippingMethod
-     * @param  string|int $store
+     * @param  int        $quoteId
+     * @param  string     $shippingMethod
+     * @param  int|string $store
      * @return bool
      */
     public function setShippingMethod($quoteId, $shippingMethod, $store = null)
@@ -52,8 +44,8 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
         try {
             $quote->getShippingAddress()->setShippingMethod($shippingMethod);
             $quote->collectTotals()->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('shipping_method_is_not_set', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('shipping_method_is_not_set', $mageCoreException->getMessage());
         }
 
         return true;
@@ -62,7 +54,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
     /**
      * Get list of available shipping methods
      *
-     * @param  int $quoteId
+     * @param  int        $quoteId
      * @param  int|string $store
      * @return array
      */
@@ -93,8 +85,8 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
                     unset($rateItem);
                 }
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('shipping_methods_list_could_not_be_retrieved', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('shipping_methods_list_could_not_be_retrieved', $mageCoreException->getMessage());
         }
 
         return $ratesResult;

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Review form block
  *
- * @category   Mage
  * @package    Mage_Rss
  */
 class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
@@ -29,6 +21,10 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
      */
     public const CACHE_TAG = 'block_html_rss_catalog_notifystock';
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         $this->setCacheTags([self::CACHE_TAG]);
@@ -44,6 +40,7 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         $newUrl = Mage::getUrl('rss/catalog/notifystock');
@@ -86,7 +83,7 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         */
         Mage::getSingleton('core/resource_iterator')->walk(
             $collection->getSelect(),
-            [[$this, 'addNotifyItemXmlCallback']],
+            [$this->addNotifyItemXmlCallback(...)],
             ['rssObj' => $rssObj, 'product' => $product, 'globalQty' => $globalNotifyStockQty],
         );
 
@@ -102,7 +99,8 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
     {
         $product = $args['product'];
         $product->setData($args['row']);
-        $url = Mage::helper('adminhtml')->getUrl(
+
+        $url = Mage::helper('adminhtml')::getUrl(
             'adminhtml/catalog_product/edit/',
             ['id' => $product->getId(), '_secure' => true, '_nosecret' => true],
         );

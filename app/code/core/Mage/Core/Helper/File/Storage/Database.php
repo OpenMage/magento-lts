@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Database saving file helper
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
@@ -26,13 +18,13 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
 
     /**
      * Database storage model
-     * @var Mage_Core_Model_File_Storage_Database|null
+     * @var null|Mage_Core_Model_File_Storage_Database
      */
     protected $_databaseModel = null;
 
     /**
      * Storage resource model
-     * @var Mage_Core_Model_Resource_File_Storage_Database|null
+     * @var null|Mage_Core_Model_Resource_File_Storage_Database
      */
     protected $_resourceModel = null;
 
@@ -61,7 +53,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
         if ($this->_useDb === null) {
             $currentStorage = (int) Mage::app()->getConfig()
                 ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA);
-            $this->_useDb = ($currentStorage == Mage_Core_Model_File_Storage::STORAGE_MEDIA_DATABASE);
+            $this->_useDb = ($currentStorage === Mage_Core_Model_File_Storage::STORAGE_MEDIA_DATABASE);
         }
 
         return $this->_useDb;
@@ -74,9 +66,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function getStorageDatabaseModel()
     {
-        if (is_null($this->_databaseModel)) {
-            $this->_databaseModel = Mage::getModel('core/file_storage_database');
-        }
+        $this->_databaseModel ??= Mage::getModel('core/file_storage_database');
 
         return $this->_databaseModel;
     }
@@ -98,9 +88,8 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function getResourceStorageModel()
     {
-        if (is_null($this->_resourceModel)) {
-            $this->_resourceModel = $this->getStorageDatabaseModel()->getResource();
-        }
+        $this->_resourceModel ??= $this->getStorageDatabaseModel()->getResource();
+
         return $this->_resourceModel;
     }
 
@@ -147,23 +136,23 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     /**
      * Check whether file exists in DB
      *
-     * @param string $filename can be both full path or partial (like in DB)
-     * @return bool|null
+     * @param  string    $filename can be both full path or partial (like in DB)
+     * @return null|bool
      */
     public function fileExists($filename)
     {
         if ($this->checkDbUsage()) {
             return $this->getStorageDatabaseModel()->fileExists($this->_removeAbsPathFromFileName($filename));
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
      * Get unique name for passed file in case this file already exists
      *
-     * @param string $directory - can be both full path or partial (like in DB)
-     * @param string $filename - not just a filename. Can have directory chunks. return will have this form
+     * @param  string $directory - can be both full path or partial (like in DB)
+     * @param  string $filename  - not just a filename. Can have directory chunks. return will have this form
      * @return string
      */
     public function getUniqueFilename($directory, $filename)
@@ -177,16 +166,18 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
                 while ($this->fileExists($directory . $filenameWoExtension . '_' . $index . $extension)) {
                     $index++;
                 }
+
                 $filename = $filenameWoExtension . '_' . $index . $extension;
             }
         }
+
         return $filename;
     }
 
     /**
      * Save database file to file system
      *
-     * @param string $filename
+     * @param  string $filename
      * @return bool
      */
     public function saveFileToFilesystem($filename)
@@ -208,7 +199,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     /**
      * Return relative uri for media content by full path
      *
-     * @param string $fullPath
+     * @param  string $fullPath
      * @return string
      */
     public function getMediaRelativePath($fullPath)
@@ -251,7 +242,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      * If passed file exists returns new name, file was renamed to (in the same context)
      * Otherwise returns $result['file']
      *
-     * @param array $result
+     * @param  array  $result
      * @return string
      */
     public function saveUploadedFile($result = [])
@@ -267,19 +258,20 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
                 $ioFile->open(['path' => $path]);
                 $ioFile->mv($path . $file, $path . $uniqueResultFile);
             }
+
             $this->saveFile($path . $uniqueResultFile);
 
             return $uniqueResultFile;
-        } else {
-            return $result['file'];
         }
+
+        return $result['file'];
     }
 
     /**
      * Convert full file path to local (as used by model)
      * If not - returns just a filename
      *
-     * @param string $filename
+     * @param  string $filename
      * @return string
      */
     protected function _removeAbsPathFromFileName($filename)
@@ -297,6 +289,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
         if ($this->_mediaBaseDirectory === null) {
             $this->_mediaBaseDirectory = rtrim(Mage::getBaseDir('media'), '\\/');
         }
+
         return $this->_mediaBaseDirectory;
     }
 }

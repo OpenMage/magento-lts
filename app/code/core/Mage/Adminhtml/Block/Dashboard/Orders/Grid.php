@@ -1,38 +1,37 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml dashboard recent orders grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Dashboard_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_dashboard_orders_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('lastOrdersGrid');
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
         if (!$this->isModuleEnabled('Mage_Reports')) {
             return $this;
         }
+
         $collection = Mage::getResourceModel('reports/order_collection')
             ->addItemCountExpr()
             ->joinCustomerName('customer')
@@ -61,16 +60,23 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
 
     /**
      * Prepares page sizes for dashboard grid with las 5 orders
+     *
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _preparePage()
     {
         $this->getCollection()->setPageSize($this->getParam($this->getVarNameLimit(), $this->_defaultLimit));
         // Remove count of total orders $this->getCollection()->setCurPage($this->getParam($this->getVarNamePage(), $this->_defaultPage));
+        return $this;
     }
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('customer', [
@@ -104,9 +110,11 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
     }
 
     /**
-     * @param Varien_Object $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Sales_Model_Order $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);

@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
@@ -19,11 +12,12 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 /**
  * Adminhtml sales report grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_refresh_statistics_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -33,9 +27,10 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
     }
 
     /**
-     * @param string $reportCode
+     * @param  string                $reportCode
      * @return string
      * @throws Zend_Date_Exception
+     * @throws Zend_Locale_Exception
      */
     protected function _getUpdatedAt($reportCode)
     {
@@ -52,6 +47,7 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = new Varien_Data_Collection();
@@ -120,7 +116,9 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('report', [
@@ -150,8 +148,9 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('id');
@@ -170,6 +169,6 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
             'selected' => true,
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 }

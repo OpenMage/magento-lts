@@ -1,29 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Refund report resource model
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resource_Report_Abstract
 {
     /**
-     * Model initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -33,19 +25,19 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
     /**
      * Aggregate Refunded data
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function aggregate($from = null, $to = null)
+    public function aggregate($dateFrom = null, $dateTo = null)
     {
         // convert input dates to UTC to be comparable with DATETIME fields in DB
-        $from = $this->_dateToUtc($from);
-        $to   = $this->_dateToUtc($to);
+        $dateFrom = $this->_dateToUtc($dateFrom);
+        $dateTo   = $this->_dateToUtc($dateTo);
 
-        $this->_checkDates($from, $to);
-        $this->_aggregateByOrderCreatedAt($from, $to);
-        $this->_aggregateByRefundCreatedAt($from, $to);
+        $this->_checkDates($dateFrom, $dateTo);
+        $this->_aggregateByOrderCreatedAt($dateFrom, $dateTo);
+        $this->_aggregateByRefundCreatedAt($dateFrom, $dateTo);
 
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_REFUNDED_FLAG_CODE);
         return $this;
@@ -54,11 +46,11 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
     /**
      * Aggregate refunded data by order created at as period
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    protected function _aggregateByOrderCreatedAt($from, $to)
+    protected function _aggregateByOrderCreatedAt($dateFrom, $dateTo)
     {
         $table       = $this->getTable('sales/refunded_aggregated_order');
         $sourceTable = $this->getTable('sales/order');
@@ -66,16 +58,16 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
         $adapter->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
-                $subSelect = $this->_getTableDateRangeSelect($sourceTable, 'created_at', 'updated_at', $from, $to);
+            if ($dateFrom !== null || $dateTo !== null) {
+                $subSelect = $this->_getTableDateRangeSelect($sourceTable, 'created_at', 'updated_at', $dateFrom, $dateTo);
             } else {
                 $subSelect = null;
             }
 
-            $this->_clearTableByDateRange($table, $from, $to, $subSelect);
+            $this->_clearTableByDateRange($table, $dateFrom, $dateTo, $subSelect);
             // convert dates from UTC to current admin timezone
             $periodExpr = $adapter->getDatePartSql(
-                $this->getStoreTZOffsetQuery($sourceTable, 'created_at', $from, $to),
+                $this->getStoreTZOffsetQuery($sourceTable, 'created_at', $dateFrom, $dateTo),
             );
             $columns = [
                 'period'            => $periodExpr,
@@ -137,9 +129,9 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
             $adapter->query($insertQuery);
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -148,11 +140,11 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
     /**
      * Aggregate refunded data by creditmemo created at as period
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    protected function _aggregateByRefundCreatedAt($from, $to)
+    protected function _aggregateByRefundCreatedAt($dateFrom, $dateTo)
     {
         $table       = $this->getTable('sales/refunded_aggregated');
         $sourceTable = $this->getTable('sales/creditmemo');
@@ -161,28 +153,28 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
         $adapter->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
+            if ($dateFrom !== null || $dateTo !== null) {
                 $subSelect = $this->_getTableDateRangeRelatedSelect(
                     $sourceTable,
                     $orderTable,
                     ['order_id' => 'entity_id'],
                     'created_at',
                     'updated_at',
-                    $from,
-                    $to,
+                    $dateFrom,
+                    $dateTo,
                 );
             } else {
                 $subSelect = null;
             }
 
-            $this->_clearTableByDateRange($table, $from, $to, $subSelect);
+            $this->_clearTableByDateRange($table, $dateFrom, $dateTo, $subSelect);
             // convert dates from UTC to current admin timezone
             $periodExpr = $adapter->getDatePartSql(
                 $this->getStoreTZOffsetQuery(
                     ['source_table' => $sourceTable],
                     'source_table.created_at',
-                    $from,
-                    $to,
+                    $dateFrom,
+                    $dateTo,
                 ),
             );
 
@@ -268,10 +260,11 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
             $adapter->query($insertQuery);
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
+
         return $this;
     }
 }

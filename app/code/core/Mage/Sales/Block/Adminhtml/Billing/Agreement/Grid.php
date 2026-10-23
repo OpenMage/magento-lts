@@ -1,38 +1,27 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml billing agreements grid
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Set grid params
-     *
-     */
+    protected string $_eventPrefix = 'sales_adminhtml_billing_agreement_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('billing_agreements');
         $this->setUseAjax(true);
         $this->setDefaultSort('agreement_id');
-        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
     }
 
@@ -41,27 +30,26 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/sales_billing_agreement/grid', ['_current' => true]);
     }
 
     /**
-     * Retrieve row url
-     *
-     * @param Mage_Sales_Model_Billing_Agreement $item
-     * @return string
+     * @inheritDoc
+     * @param Mage_Sales_Model_Billing_Agreement $row
      */
-    public function getRowUrl($item)
+    #[Override]
+    public function getRowUrl($row)
     {
-        return $this->getUrl('*/sales_billing_agreement/view', ['agreement' => $item->getAgreementId()]);
+        return $this->getUrl('*/sales_billing_agreement/view', ['agreement' => $row->getAgreementId()]);
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/billing_agreement_collection')
@@ -71,10 +59,10 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
     }
 
     /**
-     * Add columns to grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('agreement_id', [

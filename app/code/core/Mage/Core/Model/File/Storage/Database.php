@@ -1,29 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * File storage database model class
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_File_Storage_Database _getResource()
+ * @method string                                         getConnectionName()
  * @method Mage_Core_Model_Resource_File_Storage_Database getResource()
- * @method string getConnectionName()
- * @method $this setDirectoryId(int $value)
+ * @method $this                                          setDirectoryId(int $value)
  */
 class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage_Database_Abstract
 {
@@ -37,7 +29,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Directory singleton
      *
-     * @var Mage_Core_Model_File_Storage_Directory_Database|null
+     * @var null|Mage_Core_Model_File_Storage_Directory_Database
      */
     protected $_directoryModel = null;
 
@@ -67,12 +59,10 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      */
     public function getDirectoryModel()
     {
-        if (is_null($this->_directoryModel)) {
-            $this->_directoryModel = Mage::getModel(
-                'core/file_storage_directory_database',
-                ['connection' => $this->getConnectionName()],
-            );
-        }
+        $this->_directoryModel ??= Mage::getModel(
+            'core/file_storage_directory_database',
+            ['connection' => $this->getConnectionName()],
+        );
 
         return $this->_directoryModel;
     }
@@ -121,7 +111,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      */
     public function hasErrors()
     {
-        return (!empty($this->_errors) || $this->getDirectoryModel()->hasErrors());
+        return ($this->_errors !== [] || $this->getDirectoryModel()->hasErrors());
     }
 
     /**
@@ -139,9 +129,9 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Export directories from storage
      *
-     * @param  int $offset
-     * @param  int $count
-     * @return bool|array
+     * @param  int         $offset
+     * @param  int         $count
+     * @return array|false
      */
     public function exportDirectories($offset = 0, $count = 100)
     {
@@ -151,7 +141,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Import directories to storage
      *
-     * @param  array $dirs
+     * @param  array                                           $dirs
      * @return Mage_Core_Model_File_Storage_Directory_Database
      */
     public function importDirectories($dirs)
@@ -162,17 +152,17 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Export files list in defined range
      *
-     * @param  int $offset
-     * @param  int $count
-     * @return array|bool
+     * @param  int         $offset
+     * @param  int         $count
+     * @return array|false
      */
     public function exportFiles($offset = 0, $count = 100)
     {
-        $offset = ((int) $offset >= 0) ? (int) $offset : 0;
-        $count  = ((int) $count >= 1) ? (int) $count : 1;
+        $offset = max((int) $offset, 0);
+        $count  = max((int) $count, 1);
 
         $result = $this->_getResource()->getFiles($offset, $count);
-        if (empty($result)) {
+        if ($result === []) {
             return false;
         }
 
@@ -193,7 +183,15 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
 
         $dateSingleton = Mage::getSingleton('core/date');
         foreach ($files as $file) {
-            if (!isset($file['filename']) || !strlen($file['filename']) || !isset($file['content'])) {
+            if (!isset($file['filename'])) {
+                continue;
+            }
+
+            if (!strlen($file['filename'])) {
+                continue;
+            }
+
+            if (!isset($file['content'])) {
                 continue;
             }
 
@@ -208,9 +206,9 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
                     : null;
 
                 $this->_getResource()->saveFile($file);
-            } catch (Exception $e) {
-                $this->_errors[] = $e->getMessage();
-                Mage::logException($e);
+            } catch (Exception $exception) {
+                $this->_errors[] = $exception->getMessage();
+                Mage::logException($exception);
             }
         }
 
@@ -304,7 +302,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Return directory listing
      *
-     * @param string $directory
+     * @param  string $directory
      * @return mixed
      */
     public function getDirectoryFiles($directory)
@@ -316,7 +314,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Delete file from database
      *
-     * @param string $path
+     * @param  string $path
      * @return $this
      */
     public function deleteFile($path)

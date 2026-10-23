@@ -1,0 +1,45 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Core_Block_Template
+ * @var Mage_Core_Block_Template $this
+ */
+?>
+<script type="text/javascript">
+//<![CDATA[
+var activeRestRole = getActiveRestRole();
+
+/* Retrieve current active rest role */
+function getActiveRestRole() {
+    var role;
+    api2_roles_sectionJsObject.rows.each(function(row) {
+        var radiobox = $(row).getElementsByClassName('radio')[0];
+        if ('undefined' != typeof radiobox && radiobox.checked) {
+            role = radiobox;
+        }
+    });
+    return role;
+}
+
+/* Callback function for rest role row click */
+function restRolesRowClick(grid, event) {
+    var newRestRole = getActiveRestRole();
+    if (newRestRole.value !== activeRestRole.value) {
+        if (!confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?')) ?>")) {
+            newRestRole.checked = !newRestRole.checked;
+            activeRestRole.checked = true;
+        } else {
+            activeRestRole = newRestRole;
+        }
+    }
+}
+
+api2_roles_sectionJsObject.rowClickCallback = restRolesRowClick;
+//]]>
+</script>

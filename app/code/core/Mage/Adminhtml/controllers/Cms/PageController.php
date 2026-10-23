@@ -1,27 +1,25 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Cms manage pages controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    public const ADMIN_RESOURCE = 'cms/page';
+
     /**
      * Init actions
      *
@@ -40,6 +38,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Index action
+     * @return void
      */
     public function indexAction()
     {
@@ -53,6 +52,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Create new CMS page
+     * @return void
      */
     public function newAction()
     {
@@ -62,6 +62,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Edit CMS page
+     * @return void
      */
     public function editAction()
     {
@@ -111,6 +112,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Save action
+     * @return void
      */
     public function saveAction()
     {
@@ -150,14 +152,15 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                     $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current' => true]);
                     return;
                 }
+
                 // go to grid
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addException(
-                    $e,
+                    $exception,
                     Mage::helper('cms')->__('An error occurred while saving the page.'),
                 );
             }
@@ -166,11 +169,13 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             $this->_redirect('*/*/edit', ['page_id' => $this->getRequest()->getParam('page_id')]);
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
     /**
      * Delete action
+     * @return void
      */
     public function deleteAction()
     {
@@ -191,15 +196,16 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 Mage::dispatchEvent('adminhtml_cmspage_on_delete', ['title' => $title, 'status' => 'success']);
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 Mage::dispatchEvent('adminhtml_cmspage_on_delete', ['title' => $title, 'status' => 'fail']);
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
                 // go back to edit form
                 $this->_redirect('*/*/edit', ['page_id' => $id]);
                 return;
             }
         }
+
         // display error message
         Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('Unable to find a page to delete.'));
         // go to grid
@@ -207,37 +213,91 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
+     * @return void
+     */
+    public function massDeleteAction()
+    {
+        $pageIds = $this->getRequest()->getParam('page');
+        if (!is_array($pageIds)) {
+            $this->_getSession()->addError($this->__('Please select page(s).'));
+        } elseif ($pageIds !== []) {
+            try {
+                $collection = Mage::getResourceModel('cms/page_collection');
+                $collection->addFieldToFilter('page_id', ['in' => $pageIds]);
+                $collection->delete();
+
+                $this->_getSession()->addSuccess(
+                    $this->__('Total of %d record(s) have been deleted.', count($pageIds)),
+                );
+            } catch (Throwable $throwable) {
+                $this->_getSession()->addError($throwable->getMessage());
+            }
+        }
+
+        $this->_redirect('*/*/index');
+    }
+
+    /**
+     * @return void
+     */
+    public function massStatusAction()
+    {
+        $pageIds = (array) $this->getRequest()->getParam('page');
+        $status  = (int) $this->getRequest()->getParam('status');
+
+        try {
+            // is_active/disabled is defined as 0
+            if ($status === 2) {
+                $status = 0;
+            }
+
+            $collection = Mage::getResourceModel('cms/page_collection');
+            $collection->addFieldToFilter('page_id', ['in' => $pageIds]);
+            $collection->walk('setIsActive', [$status]);
+            $collection->save();
+
+            $this->_getSession()->addSuccess(
+                $this->__('Total of %d record(s) have been updated.', count($pageIds)),
+            );
+        } catch (Throwable $throwable) {
+            $this->_getSession()->addError($throwable->getMessage());
+        }
+
+        $this->_redirect('*/*/index');
+    }
+
+    /**
      * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
+    #[Override]
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions('delete');
+        $this->_setForcedFormKeyActions(['delete', 'massDelete']);
         return parent::preDispatch();
     }
 
     /**
      * @inheritDoc
      */
-    protected function _isAllowed()
+    #[Override]
+    protected function _isAllowed(): bool
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'new':
-            case 'save':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/save');
-            case 'delete':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/delete');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page');
-        }
+        $aclPath = match ($action) {
+            'new', 'save', 'massstatus' => self::ADMIN_RESOURCE . '/save',
+            'delete', 'massdelete' => self::ADMIN_RESOURCE . '/delete',
+            default => self::ADMIN_RESOURCE,
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 
     /**
      * Filtering posted data. Converting localized data if needed
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _filterPostData($data)
@@ -248,8 +308,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     /**
      * Validate post data
      *
-     * @param array $data
-     * @return bool     Return FALSE if someone item is invalid
+     * @param  array $data
+     * @return bool  Return FALSE if someone item is invalid
      */
     protected function _validatePostData($data)
     {
@@ -260,15 +320,18 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             if (!empty($data['layout_update_xml']) && !$validatorCustomLayout->isValid($data['layout_update_xml'])) {
                 $errorNo = false;
             }
+
             if (!empty($data['custom_layout_update_xml'])
                 && !$validatorCustomLayout->isValid($data['custom_layout_update_xml'])
             ) {
                 $errorNo = false;
             }
+
             foreach ($validatorCustomLayout->getMessages() as $message) {
                 $this->_getSession()->addError($message);
             }
         }
+
         return $errorNo;
     }
 }

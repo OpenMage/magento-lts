@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml help url mapper
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstract
@@ -208,18 +200,15 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
     /**
      * Compose reconstructed URL using mapping
      *
-     * @param string $frontModule
-     * @param string $controllerName
-     * @param string $actionName
-     * @return string|bool
+     * @param  string      $frontModule
+     * @param  string      $controllerName
+     * @param  string      $actionName
+     * @return bool|string
      */
     protected function findInMapping($frontModule, $controllerName, $actionName)
     {
-        if ($actionName === 'index') {
-            $targetToFind = $controllerName;
-        } else {
-            $targetToFind = $controllerName . '/' . $actionName;
-        }
+        $targetToFind = $actionName === 'index' ? $controllerName : $controllerName . '/' . $actionName;
+
         if (isset($this->_moduleMappings[$frontModule])
             && isset($this->_moduleMappings[$frontModule][$targetToFind])
         ) {
@@ -232,7 +221,7 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
     /**
      * Determine which version of docs should target onto
      *
-     * @return Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false
+     * @return false|Mage_Core_Model_Config_Element|Varien_Simplexml_Element
      */
     protected function getHelpTargetVersion()
     {

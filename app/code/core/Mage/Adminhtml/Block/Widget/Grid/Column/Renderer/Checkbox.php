@@ -1,28 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Grid checkbox column renderer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     protected $_defaultWidth = 55;
+
     protected $_values;
 
     /**
@@ -32,16 +25,17 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
      */
     public function getValues()
     {
-        if (is_null($this->_values)) {
-            $this->_values = $this->getColumn()->getData('values') ? $this->getColumn()->getData('values') : [];
-        }
+        $this->_values ??= $this->getColumn()->getDataByKey('values') ? $this->getColumn()->getDataByKey('values') : [];
+
         return $this->_values;
     }
+
     /**
      * Renders grid column
      *
-     * @return  string
+     * @return string
      */
+    #[Override]
     public function render(Varien_Object $row)
     {
         $values = $this->getColumn()->getValues();
@@ -62,17 +56,17 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
         $this->setDisabled($disabled);
 
         if ($this->getNoObjectId() || $this->getColumn()->getUseIndex()) {
-            $v = $value;
+            $htmlValue = $value;
         } else {
-            $v = ($row->getId() != '') ? $row->getId() : $value;
+            $htmlValue = ($row->getId() != '') ? $row->getId() : $value;
         }
 
-        return $this->_getCheckboxHtml($v, $checked);
+        return $this->_getCheckboxHtml($htmlValue, $checked);
     }
 
     /**
-     * @param string $value   Value of the element
-     * @param bool   $checked Whether it is checked
+     * @param  string $value   Value of the element
+     * @param  string $checked Whether it is checked
      * @return string
      */
     protected function _getCheckboxHtml($value, $checked)
@@ -89,6 +83,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
      *
      * @return string
      */
+    #[Override]
     public function renderHeader()
     {
         if ($this->getColumn()->getHeader()) {
@@ -104,6 +99,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
         if ($this->getColumn()->getDisabled()) {
             $disabled = ' disabled="disabled"';
         }
+
         $html = '<input type="checkbox" ';
         $html .= 'name="' . $this->getColumn()->getFieldName() . '" ';
         $html .= 'onclick="' . $this->getColumn()->getGrid()->getJsObjectName() . '.checkCheckboxes(this)" ';

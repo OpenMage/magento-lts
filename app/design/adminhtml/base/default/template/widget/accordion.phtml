@@ -1,0 +1,23 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php
+/**
+ * Template for Mage_Adminhtml_Block_Widget_Accordion
+ *
+ * @var Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion $this
+ */
+?>
+<dl id="tab_content_<?php echo $this->getHtmlId() ?>" name="tab_content_<?php echo $this->getHtmlId() ?>" class="accordion">
+<?php foreach ($this->getItems() as $_item): ?>
+    <?php echo $this->getChildHtml($_item->getId()) ?>
+<?php endforeach ?>
+</dl>
+<script type="text/javascript">
+    tab_content_<?php echo $this->getHtmlId() ?>AccordionJs = new varienAccordion('tab_content_<?php echo $this->getHtmlId() ?>', '<?php echo $this->getShowOnlyOne() ?>');
+</script>

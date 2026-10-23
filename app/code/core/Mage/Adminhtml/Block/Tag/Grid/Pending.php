@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
@@ -19,13 +12,14 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 /**
  * Adminhtml pending tags grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tag_grid_pending';
+
     public function __construct()
     {
         parent::__construct();
@@ -39,6 +33,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('tag/tag_collection')
@@ -51,13 +46,13 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
 
     /**
      * @inheritDoc
+     * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
-        $baseUrl = $this->getUrl();
-
         $this->addColumn('name', [
             'header'        => Mage::helper('tag')->__('Tag'),
             'index'         => 'name',
@@ -78,7 +73,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         ]);
 
         // Collection for stores filters
-        if (!$collection = Mage::registry('stores_select_collection')) {
+        if (!Mage::registry('stores_select_collection')) {
             $collection =  Mage::app()->getStore()->getResourceCollection()
                 ->load();
             Mage::register('stores_select_collection', $collection);
@@ -98,18 +93,20 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
     /**
      * Retrieves row click URL
      *
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return string
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['tag_id' => $row->getId(), 'ret' => 'pending']);
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param  Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getIndex() === 'stores') {
@@ -122,8 +119,9 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('tag_id');
@@ -154,14 +152,13 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
             ],
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
-     * Retrieves Grid Url
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/tag/ajaxPendingGrid', ['_current' => true]);

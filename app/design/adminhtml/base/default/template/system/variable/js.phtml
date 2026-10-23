@@ -1,0 +1,30 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<script type="text/javascript">
+//<![CDATA[
+
+function toggleValueElement(element) {
+    var disabled = false;
+    if (element.value == 1) {
+        // use default value
+        disabled = true;
+    }
+    $('plain_value').disabled = disabled;
+    $('html_value').disabled = disabled;
+    if (disabled) {
+        $('plain_value').addClassName('disabled');
+        $('html_value').addClassName('disabled');
+    } else {
+        $('plain_value').removeClassName('disabled');
+        $('html_value').removeClassName('disabled');
+    }
+}
+
+//]]>
+</script>

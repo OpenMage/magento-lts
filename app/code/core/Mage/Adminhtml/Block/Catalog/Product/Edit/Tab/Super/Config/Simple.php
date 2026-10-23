@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Quiq simple product creation
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
@@ -33,6 +25,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
      * @return $this
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -76,6 +69,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
                 if (!in_array($inputType, $availableTypes)) {
                     continue;
                 }
+
                 $attribute->setAttributeCode('simple_product_' . $attributeCode);
                 $element = $fieldset->addField(
                     'simple_product_' . $attributeCode,
@@ -115,7 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
                 'values' => $attribute->getSource()->getAllOptions(true, true),
                 'required' => true,
                 'class'    => 'validate-configurable',
-                'onchange' => 'superProduct.showPricing(this, \'' . $attributeCode . '\')',
+                'onchange' => "superProduct.showPricing(this, '" . $attributeCode . "')",
             ]);
 
             $fieldset->addField('simple_product_' . $attributeCode . '_pricing_value', 'hidden', [
@@ -171,8 +165,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
         ]);
 
         $this->setForm($form);
-
-        return $this;
+        //Do not call parent to be consistent to previous behavior.
+        return Mage_Adminhtml_Block_Catalog_Form::_prepareForm();
     }
 
     /**
@@ -185,6 +179,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
         if (!$this->_product) {
             $this->_product = Mage::registry('current_product');
         }
+
         return $this->_product;
     }
 }

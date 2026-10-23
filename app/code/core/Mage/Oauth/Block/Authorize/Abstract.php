@@ -1,35 +1,27 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * OAuth abstract authorization block
  *
- * @category   Mage
  * @package    Mage_Oauth
  *
- * @method string getToken()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setToken(string $token)
- * @method bool getIsSimple()
- * @method Mage_Oauth_Block_Authorize_Button setIsSimple(bool $flag)
- * @method bool getHasException()
+ * @method bool                                   getHasException()
+ * @method bool                                   getIsLogged()
+ * @method bool                                   getIsSimple()
+ * @method string                                 getToken()
+ * @method null|string                            getVerifier()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setHasException(bool $flag)
- * @method null|string getVerifier()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier(string $verifier)
- * @method bool getIsLogged()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged(bool $flag)
+ * @method Mage_Oauth_Block_Authorize_Button      setIsSimple(bool $flag)
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setToken(string $token)
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier(string $verifier)
  */
 abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Template
 {
@@ -66,6 +58,7 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
             $token->load($this->getToken(), 'token');
             $this->_consumer = $token->getConsumer();
         }
+
         return $this->_consumer;
     }
 
@@ -76,6 +69,7 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
      *
      * @return string
      */
+    #[Override]
     public function getTemplateFile()
     {
         if (!$this->getIsSimple()) {

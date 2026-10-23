@@ -4,151 +4,74 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
-use Generator;
+use Override;
 use Mage;
 use Mage_Core_Exception;
-use Mage_Core_Model_App;
+use Mage_Core_Model_App as Subject;
 use Mage_Core_Model_Store;
 use Mage_Core_Model_Store_Exception;
 use Mage_Core_Model_Store_Group;
 use Mage_Core_Model_Website;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\AppTrait;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class AppTest extends TestCase
+final class AppTest extends OpenMageTest
 {
-    public Mage_Core_Model_App $subject;
+    use AppTrait;
 
-    public function setUp(): void
+    use CoreTrait;
+
+    private static Subject $subject;
+
+    #[Override]
+    public static function setUpBeforeClass(): void
     {
-        $this->subject = Mage::app();
+        self::$subject = Mage::app();
     }
 
     /**
-     * @dataProvider provideGetStore
-     * @group Mage_Core
-     * @group Mage_Core_Model
-     *
-     * @param bool|int|Mage_Core_Model_Store|null|string $id
+     * @dataProvider provideGetStoreConfigData
+     * @dataProvider provideGetStoreData
+     * @group Model
      */
-    public function testGetStore($id): void
+    public function testGetStore(null|bool|int|Mage_Core_Model_Store|string $id): void
     {
         try {
-            $this->assertInstanceOf(Mage_Core_Model_Store::class, $this->subject->getStore($id));
-        } catch (Mage_Core_Model_Store_Exception $e) {
-            $this->assertNotEmpty($e->getMessage());
-            $this->assertSame('Invalid store code requested.', $e->getMessage());
+            self::assertInstanceOf(Mage_Core_Model_Store::class, self::$subject->getStore($id));
+        } catch (Mage_Core_Model_Store_Exception $mageCoreModelStoreException) {
+            self::assertNotEmpty($mageCoreModelStoreException->getMessage());
+            self::assertSame('Invalid store code requested.', $mageCoreModelStoreException->getMessage());
         }
-    }
-
-    public function provideGetStore(): Generator
-    {
-        yield 'null' => [
-            null,
-        ];
-        yield 'true' => [
-            true,
-        ];
-        yield 'false' => [
-            false,
-        ];
-        yield 'int valid' => [
-            1,
-        ];
-        yield 'int invalid (exception)' => [
-            999,
-        ];
-        yield 'string' => [
-            '1',
-        ];
-        yield 'Mage_Core_Model_Store' => [
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-            new Mage_Core_Model_Store(),
-        ];
     }
 
     /**
-     * @dataProvider provideGetWebsite
-     * @group Mage_Core
-     * @group Mage_Core_Model
-     *
-     * @param int|Mage_Core_Model_Website|null|string|true $id
+     * @dataProvider provideGetStoreConfigData
+     * @dataProvider provideGetWebsiteData
+     * @group Model
      */
-    public function testGetWebsite($id): void
+    public function testGetWebsite(null|bool|int|Mage_Core_Model_Website|string $id): void
     {
         try {
-            $this->assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->getWebsite($id));
-        } catch (Mage_Core_Exception $e) {
-            $this->assertNotEmpty($e->getMessage());
-            $this->assertSame('Invalid website id requested.', $e->getMessage());
+            self::assertInstanceOf(Mage_Core_Model_Website::class, self::$subject->getWebsite($id));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertNotEmpty($mageCoreException->getMessage());
+            self::assertSame('Invalid website id requested.', $mageCoreException->getMessage());
         }
-    }
-
-    public function provideGetWebsite(): Generator
-    {
-        yield 'null' => [
-            null,
-        ];
-        yield 'true' => [
-            true,
-        ];
-        yield 'false' => [
-            false,
-        ];
-        yield 'int valid' => [
-            1,
-        ];
-        yield 'int invalid (exception)' => [
-            999,
-        ];
-        yield 'string' => [
-            '1',
-        ];
-        yield 'Mage_Core_Model_Website' => [
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-            new Mage_Core_Model_Website(),
-        ];
     }
 
     /**
-     * @dataProvider provideGetGroup
-     * @group Mage_Core
-     * @group Mage_Core_Model
-     *
-     * @param int|Mage_Core_Model_Store_Group|null|string $id
+     * @dataProvider provideGetStoreConfigData
+     * @dataProvider provideGetGroupData
+     * @group Model
      */
-    public function testGetGroup($id): void
+    public function testGetGroup(null|bool|int|Mage_Core_Model_Store_Group|string $id): void
     {
         try {
-            $this->assertInstanceOf(Mage_Core_Model_Store_Group::class, $this->subject->getGroup($id));
-        } catch (Mage_Core_Exception $e) {
-            $this->assertNotEmpty($e->getMessage());
-            $this->assertSame('Invalid store group id requested.', $e->getMessage());
+            self::assertInstanceOf(Mage_Core_Model_Store_Group::class, self::$subject->getGroup($id));
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertNotEmpty($mageCoreException->getMessage());
+            self::assertSame('Invalid store group id requested.', $mageCoreException->getMessage());
         }
-    }
-
-    public function provideGetGroup(): Generator
-    {
-        yield 'null' => [
-            null,
-        ];
-        yield 'true' => [
-            true,
-        ];
-        yield 'false' => [
-            false,
-        ];
-        yield 'int valid' => [
-            1,
-        ];
-        yield 'int invalid (exception)' => [
-            999,
-        ];
-        yield 'string' => [
-            '1',
-        ];
-        yield 'Mage_Core_Model_Store_Group' => [
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-            new Mage_Core_Model_Store_Group(),
-        ];
     }
 }

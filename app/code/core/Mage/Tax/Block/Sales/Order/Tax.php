@@ -1,21 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax totals modification block. Can be used just as subblock of Mage_Sales_Block_Order_Totals
+ *
+ * @method Mage_Adminhtml_Block_Sales_Order_Invoice_Totals getParentBlock()
  */
 class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
 {
@@ -32,13 +27,14 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     protected $_order;
 
     /**
-     * @var Mage_Sales_Model_Order_Invoice
+     * @var Mage_Sales_Model_Abstract
      */
     protected $_source;
 
     /**
-     * Initialize configuration object
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_config = Mage::getSingleton('tax/config');
@@ -71,7 +67,6 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
      */
     public function initTotals()
     {
-        /** @var Mage_Adminhtml_Block_Sales_Order_Invoice_Totals $parent */
         $parent = $this->getParentBlock();
         $this->_order   = $parent->getOrder();
         $this->_source  = $parent->getSource();
@@ -93,7 +88,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     /**
      * Add tax total string
      *
-     * @param string $after
+     * @param  string $after
      * @return $this
      */
     protected function _addTax($after = 'discount')
@@ -127,6 +122,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
         if (!$subtotal) {
             return $this;
         }
+
         if ($this->_config->displaySalesSubtotalBoth($store)) {
             $subtotal       = (float) $this->_source->getSubtotal();
             $baseSubtotal   = (float) $this->_source->getBaseSubtotal();
@@ -144,8 +140,8 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
                     //Adjust the discount amounts for the base and well as the weee to display the right totals
                     foreach ($this->_source->getAllItems() as $item) {
                         $subtotalIncl += $item->getHiddenTaxAmount() + $item->getDiscountAppliedForWeeeTax();
-                        $baseSubtotalIncl += $item->getBaseHiddenTaxAmount() +
-                            $item->getBaseDiscountAppliedForWeeeTax();
+                        $baseSubtotalIncl += $item->getBaseHiddenTaxAmount()
+                            + $item->getBaseDiscountAppliedForWeeeTax();
                     }
                 }
             }
@@ -176,6 +172,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
                     + $this->_source->getTaxAmount()
                     - $this->_source->getShippingTaxAmount();
             }
+
             if (!$baseSubtotalIncl) {
                 $baseSubtotalIncl = $this->_source->getBaseSubtotal()
                     + $this->_source->getBaseTaxAmount()
@@ -188,6 +185,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
                 $total->setBaseValue(max(0, $baseSubtotalIncl));
             }
         }
+
         return $this;
     }
 
@@ -210,6 +208,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
             if (!$shippingIncl) {
                 $shippingIncl   = $shipping + (float) $this->_source->getShippingTaxAmount();
             }
+
             $baseShippingIncl   = (float) $this->_source->getBaseShippingInclTax();
             if (!$baseShippingIncl) {
                 $baseShippingIncl = $baseShipping + (float) $this->_source->getBaseShippingTaxAmount();
@@ -235,17 +234,20 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
                 $shippingIncl = $this->_source->getShippingAmount()
                     + $this->_source->getShippingTaxAmount();
             }
+
             $baseShippingIncl   = $this->_source->getBaseShippingInclTax();
             if (!$baseShippingIncl) {
                 $baseShippingIncl = $this->_source->getBaseShippingAmount()
                     + $this->_source->getBaseShippingTaxAmount();
             }
+
             $total = $parent->getTotal('shipping');
             if ($total) {
                 $total->setValue($shippingIncl);
                 $total->setBaseValue($baseShippingIncl);
             }
         }
+
         return $this;
     }
 
@@ -288,6 +290,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
             $this->_addTax('grand_total');
             $parent->addTotal($totalIncl, 'tax');
         }
+
         return $this;
     }
 

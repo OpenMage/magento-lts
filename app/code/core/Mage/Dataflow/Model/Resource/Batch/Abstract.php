@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Dataflow Batch abstract resource model
  *
- * @category   Mage
  * @package    Mage_Dataflow
  */
 abstract class Mage_Dataflow_Model_Resource_Batch_Abstract extends Mage_Core_Model_Resource_Db_Abstract
@@ -26,6 +18,7 @@ abstract class Mage_Dataflow_Model_Resource_Batch_Abstract extends Mage_Core_Mod
      * Retrieve Id collection
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getIdCollection(Mage_Dataflow_Model_Batch_Abstract $object)
     {
@@ -33,7 +26,6 @@ abstract class Mage_Dataflow_Model_Resource_Batch_Abstract extends Mage_Core_Mod
             return [];
         }
 
-        $ids = [];
         $select = $this->_getWriteAdapter()->select()
             ->from($this->getMainTable(), [$this->getIdFieldName()])
             ->where('batch_id = :batch_id');
@@ -43,7 +35,8 @@ abstract class Mage_Dataflow_Model_Resource_Batch_Abstract extends Mage_Core_Mod
     /**
      * Delete current Batch collection
      *
-     * @return Mage_Dataflow_Model_Resource_Batch_Abstract
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function deleteCollection(Mage_Dataflow_Model_Batch_Abstract $object)
     {

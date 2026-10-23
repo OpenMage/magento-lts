@@ -1,37 +1,29 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CatalogInventory Stock Status Indexer Model
  *
- * @category   Mage
  * @package    Mage_CatalogInventory
  *
  * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock _getResource()
+ * @method int                                                getProductId()
+ * @method float                                              getQty()
  * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock getResource()
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method int getWebsiteId()
- * @method $this setWebsiteId(int $value)
- * @method int getStockId()
- * @method $this setStockId(int $value)
- * @method float getQty()
- * @method $this setQty(float $value)
- * @method int getStockStatus()
- * @method $this setStockStatus(int $value)
+ * @method int                                                getStockId()
+ * @method int                                                getStockStatus()
+ * @method int                                                getWebsiteId()
+ * @method $this                                              setProductId(int $value)
+ * @method $this                                              setQty(float $value)
+ * @method $this                                              setStockId(int $value)
+ * @method $this                                              setStockStatus(int $value)
+ * @method $this                                              setWebsiteId(int $value)
  */
 class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer_Abstract
 {
@@ -76,6 +68,9 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
         Mage_CatalogInventory_Helper_Data::XML_PATH_SHOW_OUT_OF_STOCK,
     ];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cataloginventory/indexer_stock');
@@ -96,6 +91,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      *
      * @return string
      */
+    #[Override]
     public function getDescription()
     {
         return Mage::helper('cataloginventory')->__('Index Product Stock Status');
@@ -107,6 +103,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      *
      * @return bool
      */
+    #[Override]
     public function matchEvent(Mage_Index_Model_Event $event)
     {
         $data = $event->getNewData();
@@ -118,19 +115,11 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
         if ($entity == Mage_Core_Model_Store::ENTITY) {
             /** @var Mage_Core_Model_Store $store */
             $store = $event->getDataObject();
-            if ($store && $store->isObjectNew()) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $store && $store->isObjectNew();
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             /** @var Mage_Core_Model_Store_Group $storeGroup */
             $storeGroup = $event->getDataObject();
-            if ($storeGroup && $storeGroup->dataHasChangedFor('website_id')) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $storeGroup && $storeGroup->dataHasChangedFor('website_id');
         } elseif ($entity == Mage_Core_Model_Config_Data::ENTITY) {
             $configData = $event->getDataObject();
             if ($configData && in_array($configData->getPath(), $this->_relatedConfigSettings)) {
@@ -182,6 +171,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
                             ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
                     }
                 }
+
                 break;
         }
     }
@@ -198,6 +188,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
                 if ($product && $product->getStockData()) {
                     $product->setForceReindexRequired(true);
                 }
+
                 break;
             case Mage_Index_Model_Event::TYPE_MASS_ACTION:
                 $this->_registerCatalogProductMassActionEvent($event);
@@ -214,10 +205,8 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     protected function _registerCatalogInventoryStockItemEvent(Mage_Index_Model_Event $event)
     {
-        switch ($event->getType()) {
-            case Mage_Index_Model_Event::TYPE_SAVE:
-                $this->_registerStockItemSaveEvent($event);
-                break;
+        if ($event->getType() === Mage_Index_Model_Event::TYPE_SAVE) {
+            $this->_registerStockItemSaveEvent($event);
         }
     }
 
@@ -314,6 +303,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
         if (!empty($data['cataloginventory_stock_reindex_all'])) {
             $this->reindexAll();
         }
+
         if (empty($data['cataloginventory_stock_skip_call_event_handler'])) {
             $this->callEventHandler($event);
         }

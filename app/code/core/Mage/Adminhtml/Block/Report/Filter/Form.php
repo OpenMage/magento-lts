@@ -1,27 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml report filter form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_report_filter_form';
+
     /**
      * Report type options
      */
@@ -40,8 +34,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Set field visibility
      *
-     * @param string $fieldId Field id
-     * @param bool $visibility Field visibility
+     * @param string $fieldId    Field id
+     * @param bool   $visibility Field visibility
      */
     public function setFieldVisibility($fieldId, $visibility)
     {
@@ -51,8 +45,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Get field visibility
      *
-     * @param string $fieldId Field id
-     * @param bool $defaultVisibility Default field visibility
+     * @param  string $fieldId           Field id
+     * @param  bool   $defaultVisibility Default field visibility
      * @return bool
      */
     public function getFieldVisibility($fieldId, $defaultVisibility = true)
@@ -60,6 +54,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
         if (!array_key_exists($fieldId, $this->_fieldVisibility)) {
             return $defaultVisibility;
         }
+
         return $this->_fieldVisibility[$fieldId];
     }
 
@@ -67,29 +62,27 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      * Set field option(s)
      *
      * @param string $fieldId Field id
-     * @param mixed $option Field option name
-     * @param mixed $value Field option value
+     * @param mixed  $option  Field option name
+     * @param mixed  $value   Field option value
      */
     public function setFieldOption($fieldId, $option, $value = null)
     {
-        if (is_array($option)) {
-            $options = $option;
-        } else {
-            $options = [$option => $value];
-        }
+        $options = is_array($option) ? $option : [$option => $value];
+
         if (!array_key_exists($fieldId, $this->_fieldOptions)) {
             $this->_fieldOptions[$fieldId] = [];
         }
-        foreach ($options as $k => $v) {
-            $this->_fieldOptions[$fieldId][$k] = $v;
+
+        foreach ($options as $key => $val) {
+            $this->_fieldOptions[$fieldId][$key] = $val;
         }
     }
 
     /**
      * Add report type option
      *
-     * @param string $key
-     * @param string $value
+     * @param  string $key
+     * @param  string $value
      * @return $this
      */
     public function addReportTypeOption($key, $value)
@@ -103,6 +96,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         $actionUrl = $this->getUrl('*/*/sales');
@@ -174,8 +168,9 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
      * Initialize form fields values
      * Method will be called after prepareForm and can be used for field values initialization
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
+    #[Override]
     protected function _initFormValues()
     {
         $data = $this->getFilterData()->getData();
@@ -184,6 +179,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
                 $data[$key] = explode(',', $value[0]);
             }
         }
+
         $this->getForm()->addValues($data);
         return parent::_initFormValues();
     }
@@ -191,8 +187,9 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * This method is called before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $result = parent::_beforeToHtml();
@@ -200,20 +197,21 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
         /** @var Varien_Data_Form_Element_Fieldset $fieldset */
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
-        if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
+        if ($fieldset instanceof Varien_Data_Form_Element_Fieldset) {
             // apply field visibility
             foreach ($fieldset->getElements() as $field) {
                 if (!$this->getFieldVisibility($field->getId())) {
                     $fieldset->removeField($field->getId());
                 }
             }
+
             // apply field options
             foreach ($this->_fieldOptions as $fieldId => $fieldOptions) {
                 $field = $fieldset->getElements()->searchById($fieldId);
                 /** @var Varien_Object $field */
                 if ($field) {
-                    foreach ($fieldOptions as $k => $v) {
-                        $field->setDataUsingMethod($k, $v);
+                    foreach ($fieldOptions as $key => $option) {
+                        $field->setDataUsingMethod($key, $option);
                     }
                 }
             }

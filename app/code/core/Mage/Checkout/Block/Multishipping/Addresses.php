@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Multishipping checkout choose item addresses block
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items_Abstract
@@ -33,13 +25,15 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     }
 
     /**
-     * @return Mage_Sales_Block_Items_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
             $headBlock->setTitle(Mage::helper('checkout')->__('Ship to Multiple Addresses') . ' - ' . $headBlock->getDefaultTitle());
         }
+
         return parent::_prepareLayout();
     }
 
@@ -58,8 +52,8 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     /**
      * Retrieve HTML for addresses dropdown
      *
-     * @param Mage_Sales_Model_Quote_Address_Item $item
-     * @param string $index
+     * @param  Mage_Sales_Model_Quote_Address_Item $item
+     * @param  string                              $index
      * @return string
      */
     public function getAddressesHtmlSelect($item, $index)
@@ -80,7 +74,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
      */
     public function getAddressOptions()
     {
-        $options = $this->getData('address_options');
+        $options = $this->getDataByKey('address_options');
         if (is_null($options)) {
             $options = [];
             foreach ($this->getCustomer()->getAddresses() as $address) {
@@ -89,6 +83,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
                     'label' => $address->format('oneline'),
                 ];
             }
+
             $this->setData('address_options', $options);
         }
 
@@ -104,7 +99,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     }
 
     /**
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return string
      */
     public function getItemUrl($item)
@@ -113,7 +108,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     }
 
     /**
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return string
      */
     public function getItemDeleteUrl($item)

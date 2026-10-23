@@ -1,0 +1,28 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items
+ * @var Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items $this
+ */
+?>
+
+<?php if ($this->canDisplayGiftMessage()): ?>
+    <div class="no-display">
+        <div id="gift-message-form-data-<?php echo $this->getItem()->getId(); ?>">
+            <?php echo $this->getFormHtml();?>
+        </div>
+
+        <?php if ($this->getMessageText()): ?>
+        <div class="gift-options-tooltip-content">
+            <div><strong><?php echo $this->helper('giftmessage')->__('Gift Message')?></strong>:</div>
+            <div><?php echo $this->getMessageText(); ?></div>
+        </div>
+        <?php endif ?>
+    </div>
+<?php endif ?>

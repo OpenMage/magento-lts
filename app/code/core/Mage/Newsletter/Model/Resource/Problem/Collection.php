@@ -1,29 +1,20 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter problems collection
  *
- * @category   Mage
  * @package    Mage_Newsletter
  *
- * @method Mage_Newsletter_Model_Problem[] getItems()
- * @method Mage_Newsletter_Model_Problem[] getItemsByColumnValue(string $column, string $value)
  * @method $this setCustomerFirstName(string $value)
  * @method $this setCustomerLastName(string $value)
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Newsletter_Model_Problem>
  */
 class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -42,8 +33,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     protected $_problemGrouped             = false;
 
     /**
-     * Define resource model and model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -90,7 +80,6 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
 
     /**
      * Loads customers info to collection
-     *
      */
     protected function _addCustomersData()
     {
@@ -102,7 +91,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
             }
         }
 
-        if (count($customersIds) == 0) {
+        if ($customersIds === []) {
             return;
         }
 
@@ -125,16 +114,18 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     /**
      * Loads collection and adds customers info
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
+    #[Override]
     public function load($printQuery = false, $logQuery = false)
     {
         parent::load($printQuery, $logQuery);
         if ($this->_subscribersInfoJoinedFlag && !$this->isLoaded()) {
             $this->_addCustomersData();
         }
+
         return $this;
     }
 }

@@ -1,27 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales order's statuses grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_sales_order_status_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -29,18 +23,25 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         //$this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
         $this->setDefaultSort('state');
-        $this->setDefaultDir('DESC');
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_status_collection');
         $collection->joinStates();
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('label', [
@@ -70,7 +71,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
             'type'  => 'text',
             'index' => 'state',
             'width'     => '250px',
-            'frame_callback' => [$this, 'decorateState'],
+            'frame_callback' => $this->decorateState(...),
         ]);
 
         $this->addColumn('unassign', [
@@ -78,7 +79,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
             'index'     => 'unassign',
             'width'     => '100px',
             'type'      => 'text',
-            'frame_callback' => [$this, 'decorateAction'],
+            'frame_callback' => $this->decorateAction(...),
             'sortable'  => false,
             'filter'    => false,
         ]);
@@ -94,11 +95,10 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
     public function decorateState($value, $row, $column, $isExport)
     {
         if ($value) {
-            $cell = $value . ' [' . Mage::getSingleton('sales/order_config')->getStateLabel($value) . ']';
-        } else {
-            $cell = $value;
+            return $value . ' [' . Mage::getSingleton('sales/order_config')->getStateLabel($value) . ']';
         }
-        return $cell;
+
+        return $value;
     }
 
     public function decorateAction($value, $row, $column, $isExport)
@@ -113,17 +113,26 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
             $label = Mage::helper('sales')->__('Unassign');
             $cell = '<a href="' . $url . '">' . $label . '</a>';
         }
+
         return $cell;
     }
 
     /**
-     * No pegination for this grid
+     * No pagination for this grid
+     *
+     * @inheritDoc
      */
+    #[Override]
     protected function _preparePage()
     {
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Order_Status $row
+     */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order_status/edit', ['status' => $row->getStatus()]);

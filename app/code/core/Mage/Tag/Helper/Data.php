@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Tag
  */
 class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
@@ -23,7 +15,7 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Tag';
 
     /**
-     * @return array
+     * @return array<int, string>
      */
     public function getStatusesArray()
     {
@@ -35,7 +27,7 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return array
+     * @return array<int, array<string, int|string>>
      */
     public function getStatusesOptionsArray()
     {
@@ -58,7 +50,7 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check tags on the correctness of symbols and split string to array of tags
      *
-     * @param string $tagNamesInString
+     * @param  string $tagNamesInString
      * @return array
      */
     public function extractTags($tagNamesInString)
@@ -74,12 +66,13 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
     public function cleanTags(array $tagNamesArr)
     {
         foreach (array_keys($tagNamesArr) as $key) {
-            $tagNamesArr[$key] = trim($tagNamesArr[$key], '\'');
+            $tagNamesArr[$key] = trim($tagNamesArr[$key], "'");
             $tagNamesArr[$key] = trim($tagNamesArr[$key]);
             if ($tagNamesArr[$key] == '') {
                 unset($tagNamesArr[$key]);
             }
         }
+
         return $tagNamesArr;
     }
 }

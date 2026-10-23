@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Configuration for Admin model
  *
- * @category   Mage
  * @package    Mage_Admin
  */
 class Mage_Admin_Model_Config extends Varien_Simplexml_Config
@@ -54,6 +46,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             if ($aclConfig) {
                 $adminhtmlConfig->getNode()->extendChild($aclConfig, true);
             }
+
             $menuConfig = Mage::getConfig()->getNode('adminhtml/menu');
             if ($menuConfig) {
                 $adminhtmlConfig->getNode()->extendChild($menuConfig, true);
@@ -72,8 +65,8 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     /**
      * Load Acl resources from config
      *
-     * @param Mage_Core_Model_Config_Element|Varien_Simplexml_Element $resource
-     * @param string $parentName
+     * @param  Mage_Core_Model_Config_Element|Varien_Simplexml_Element $resource
+     * @param  string                                                  $parentName
      * @return $this
      */
     public function loadAclResources(Mage_Admin_Model_Acl $acl, $resource = null, $parentName = null)
@@ -83,11 +76,11 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             $resourceName = null;
         } else {
             $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
-            $acl->add(Mage::getModel('admin/acl_resource', $resourceName), $parentName);
+            $acl->addResource(Mage::getModel('admin/acl_resource', $resourceName), $parentName);
         }
 
         if (isset($resource->all)) {
-            $acl->add(Mage::getModel('admin/acl_resource', 'all'), null);
+            $acl->addResource(Mage::getModel('admin/acl_resource', 'all'));
         }
 
         if (isset($resource->admin)) {
@@ -101,19 +94,21 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         }
 
         foreach ($children as $res) {
-            if ($res->disabled == 1) {
+            if ((string) $res->disabled === '1') {
                 continue;
             }
+
             $this->loadAclResources($acl, $res, $resourceName);
         }
+
         return $this;
     }
 
     /**
      * Get acl assert config
      *
-     * @param string $name
-     * @return false|SimpleXMLElement|Varien_Simplexml_Element|Mage_Core_Model_Config_Element
+     * @param  string                                                                         $name
+     * @return false|Mage_Core_Model_Config_Element|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getAclAssert($name = '')
     {
@@ -128,7 +123,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     /**
      * Retrieve privilege set by name
      *
-     * @param string $name
+     * @param  string                                          $name
      * @return false|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getAclPrivilegeSet($name = '')
@@ -154,7 +149,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     /**
      * Get menu item label by item path
      *
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     public function getMenuItemLabel($path)
@@ -164,6 +159,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         if ($menuNode->getAttribute('module')) {
             $moduleName = (string) $menuNode->getAttribute('module');
         }
+
         return Mage::helper($moduleName)->__((string) $menuNode->title);
     }
 }

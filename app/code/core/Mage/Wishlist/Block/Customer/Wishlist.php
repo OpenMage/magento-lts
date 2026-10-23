@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist block customer items
  *
- * @category   Mage
  * @package    Mage_Wishlist
  */
 class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
@@ -33,6 +25,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      * @param  Mage_Wishlist_Model_Resource_Item_Collection $collection
      * @return $this
      */
+    #[Override]
     protected function _prepareCollection($collection)
     {
         $collection->setInStockFilter(true)->setOrder('added_at', 'ASC');
@@ -44,6 +37,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -51,6 +45,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
         if ($headBlock) {
             $headBlock->setTitle($this->__('My Wishlist'));
         }
+
         return $this;
     }
 
@@ -67,10 +62,10 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Sets all options render configurations
      *
-     * @deprecated after 1.6.2.0
-     * @param null|array $optionCfg
+     * @param  null|array $optionCfg
      * @return $this
      */
+    #[Deprecated(message: 'after 1.6.2.0')]
     public function setOptionsRenderCfgs($optionCfg)
     {
         $this->_optionsCfg = $optionCfg;
@@ -80,9 +75,9 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Returns all options render configurations
      *
-     * @deprecated after 1.6.2.0
      * @return array
      */
+    #[Deprecated(message: 'after 1.6.2.0')]
     public function getOptionsRenderCfgs()
     {
         return $this->_optionsCfg;
@@ -91,12 +86,12 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Adds config for rendering product type options
      *
-     * @deprecated after 1.6.2.0
-     * @param string $productType
-     * @param string $helperName
-     * @param null|string $template
+     * @param  string      $productType
+     * @param  string      $helperName
+     * @param  null|string $template
      * @return $this
      */
+    #[Deprecated(message: 'after 1.6.2.0')]
     public function addOptionsRenderCfg($productType, $helperName, $template = null)
     {
         $this->_optionsCfg[$productType] = ['helper' => $helperName, 'template' => $template];
@@ -106,27 +101,21 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Returns html for showing item options
      *
-     * @deprecated after 1.6.2.0
-     * @param string $productType
-     * @return array|null
+     * @param  string     $productType
+     * @return null|array
      */
+    #[Deprecated(message: 'after 1.6.2.0')]
     public function getOptionsRenderCfg($productType)
     {
-        if (isset($this->_optionsCfg[$productType])) {
-            return $this->_optionsCfg[$productType];
-        } elseif (isset($this->_optionsCfg['default'])) {
-            return $this->_optionsCfg['default'];
-        } else {
-            return null;
-        }
+        return $this->_optionsCfg[$productType] ?? $this->_optionsCfg['default'] ?? null;
     }
 
     /**
      * Returns html for showing item options
      *
-     * @deprecated after 1.6.2.0
      * @return string
      */
+    #[Deprecated(message: 'after 1.6.2.0')]
     public function getDetailsHtml(Mage_Wishlist_Model_Item $item)
     {
         $cfg = $this->getOptionsRenderCfg($item->getProduct()->getTypeId());
@@ -151,6 +140,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
             if (!$cfgDefault) {
                 return '';
             }
+
             $template = $cfgDefault['template'];
         }
 
@@ -162,9 +152,9 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Returns qty to show visually to user
      *
-     * @deprecated after 1.6.2.0
      * @return float
      */
+    #[Deprecated(message: 'after 1.6.2.0')]
     public function getAddToCartQty(Mage_Wishlist_Model_Item $item)
     {
         $qty = $this->getQty($item);

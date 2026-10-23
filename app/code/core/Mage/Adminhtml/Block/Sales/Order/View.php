@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales order view
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_Form_Container
@@ -34,9 +26,9 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
 
         parent::__construct();
 
-        $this->_removeButton('delete');
-        $this->_removeButton('reset');
-        $this->_removeButton('save');
+        $this->_removeButton(self::BUTTON_TYPE_DELETE);
+        $this->_removeButton(self::BUTTON_TYPE_RESET);
+        $this->_removeButton(self::BUTTON_TYPE_SAVE);
         $this->setId('sales_order_view');
         $order = $this->getOrder();
         $coreHelper = Mage::helper('core');
@@ -58,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                     ->asArray()),
                 false,
             ));
-            if ($nonEditableTypes) {
+            if ($nonEditableTypes !== []) {
                 $confirmationMessage = $coreHelper->jsQuoteEscape(
                     Mage::helper('sales')->__(
                         'This order contains (%s) items and therefore cannot be edited through the admin interface at this time, if you wish to continue editing the (%s) items will be removed, the order will be canceled and a new order will be placed.',
@@ -69,7 +61,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                 $this->_updateButton(
                     'order_edit',
                     'onclick',
-                    'if (!confirm(\'' . $confirmationMessage . '\')) return false;' . $onclickJs,
+                    "if (!confirm('" . $confirmationMessage . "')) return false;" . $onclickJs,
                 );
             }
         }
@@ -136,6 +128,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                     ),
                 ]);
             }
+
             if ($order->canFetchPaymentReviewUpdate()) {
                 $this->_addButton('get_review_payment_update', [
                     'label'     => Mage::helper('sales')->__('Get Payment Update'),
@@ -145,9 +138,9 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         }
 
         if ($this->_isAllowedAction('invoice') && $order->canInvoice()) {
-            $label = $order->getForcedDoShipmentWithInvoice() ?
-                Mage::helper('sales')->__('Invoice and Ship') :
-                Mage::helper('sales')->__('Invoice');
+            $label = $order->getForcedDoShipmentWithInvoice()
+                ? Mage::helper('sales')->__('Invoice and Ship')
+                : Mage::helper('sales')->__('Invoice');
             $this->_addButton('order_invoice', [
                 'label'     => $label,
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getInvoiceUrl()),
@@ -173,6 +166,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                     Mage::helper('sales')->__('This will create an offline refund. To create an online refund, open an invoice and create credit memo for it. Do you wish to proceed?'),
                 );
             }
+
             $this->_addButton('order_creditmemo', [
                 'label'     => Mage::helper('sales')->__('Credit Memo'),
                 'onclick'   => $onClick,
@@ -217,13 +211,11 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     /**
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
-        if ($extOrderId = $this->getOrder()->getExtOrderId()) {
-            $extOrderId = '[' . $extOrderId . '] ';
-        } else {
-            $extOrderId = '';
-        }
+        $extOrderId = ($extOrderId = $this->getOrder()->getExtOrderId()) ? '[' . $extOrderId . '] ' : '';
+
         return Mage::helper('sales')->__(
             'Order # %s %s | %s',
             $this->getOrder()->getRealOrderId(),
@@ -237,10 +229,11 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @param string $params
-     * @param array $params2
+     * @param  string $params
+     * @param  array  $params2
      * @return string
      */
+    #[Override]
     public function getUrl($params = '', $params2 = [])
     {
         $params2['order_id'] = $this->getOrderId();
@@ -336,7 +329,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     protected function _isAllowedAction($action)
@@ -349,6 +342,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
      *
      * @return string
      */
+    #[Override]
     public function getBackUrl()
     {
         if ($this->getOrder()->getBackUrl()) {
@@ -359,7 +353,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @param string $action
+     * @param  string $action
      * @return string
      */
     public function getReviewPaymentUrl($action)
@@ -372,6 +366,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
      *
      * @return string
      */
+    #[Override]
     public function getHeaderHtml()
     {
         return '<h3 class="' . $this->getHeaderCssClass() . '">' . $this->escapeHtml($this->getHeaderText()) . '</h3>';

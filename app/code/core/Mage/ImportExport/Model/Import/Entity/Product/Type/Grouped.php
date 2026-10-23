@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity grouped product type model
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
@@ -34,7 +26,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
     /**
      * Import model behavior
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_behavior;
 
@@ -45,9 +37,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
      */
     public function getBehavior()
     {
-        if (is_null($this->_behavior)) {
-            $this->_behavior = Mage_ImportExport_Model_Import::getDataSourceModel()->getBehavior();
-        }
+        $this->_behavior ??= Mage_ImportExport_Model_Import::getDataSourceModel()->getBehavior();
+
         return $this->_behavior;
     }
 
@@ -56,6 +47,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
      *
      * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      */
+    #[Override]
     public function saveData()
     {
         $groupedLinkId = Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED;
@@ -81,6 +73,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                 'table' => $resource->getAttributeTypeTable($row['type']),
             ];
         }
+
         while ($bunch = $this->_entityModel->getNextBunch()) {
             $linksData     = [
                 'product_ids'      => [],
@@ -91,11 +84,14 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                 'relation'         => [],
             ];
             foreach ($bunch as $rowNum => $rowData) {
-                if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)
-                    || empty($rowData['_associated_sku'])
-                ) {
+                if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)) {
                     continue;
                 }
+
+                if (empty($rowData['_associated_sku'])) {
+                    continue;
+                }
+
                 if (isset($newSku[$rowData['_associated_sku']])) {
                     $linkedProductId = $newSku[$rowData['_associated_sku']]['entity_id'];
                 } elseif (isset($oldSku[$rowData['_associated_sku']])) {
@@ -112,11 +108,13 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                     $rowData[$colAttrSet] = $productData['attr_set_code'];
                     $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_TYPE] = $productData['type_id'];
                 }
+
                 $productId = $productData['entity_id'];
 
                 if ($this->_type != $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_TYPE]) {
                     continue;
                 }
+
                 $linksData['product_ids'][$productId] = true;
                 $linksData['links'][$productId][$linkedProductId] = $groupedLinkId;
                 $linksData['relation'][] = ['parent_id' => $productId, 'child_id' => $linkedProductId];
@@ -131,6 +129,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                             'value' => $pos,
                         ];
                     }
+
                     if ($qty) {
                         $linksData['qty']["{$productId} {$linkedProductId}"] = [
                             'product_link_attribute_id' => $attributes['qty']['id'],
@@ -139,6 +138,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                     }
                 }
             }
+
             // save links and relations
             if ($linksData['product_ids'] && $this->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND) {
                 $connection->delete(
@@ -149,6 +149,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                     ),
                 );
             }
+
             if ($linksData['links']) {
                 $mainData = [];
 
@@ -161,9 +162,11 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                         ];
                     }
                 }
+
                 $connection->insertOnDuplicate($mainTable, $mainData);
                 $connection->insertOnDuplicate($relationTable, $linksData['relation']);
             }
+
             // save positions and default quantity
             if ($linksData['attr_product_ids']) {
                 $savedData = $connection->fetchPairs($connection->select()
@@ -178,18 +181,22 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                     if (isset($linksData['position'][$pseudoKey])) {
                         $linksData['position'][$pseudoKey]['link_id'] = $linkId;
                     }
+
                     if (isset($linksData['qty'][$pseudoKey])) {
                         $linksData['qty'][$pseudoKey]['link_id'] = $linkId;
                     }
                 }
+
                 if ($linksData['position']) {
                     $connection->insertOnDuplicate($attributes['position']['table'], $linksData['position']);
                 }
+
                 if ($linksData['qty']) {
                     $connection->insertOnDuplicate($attributes['qty']['table'], $linksData['qty']);
                 }
             }
         }
+
         return $this;
     }
 }

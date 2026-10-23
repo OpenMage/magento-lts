@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales order create shipping method form block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
@@ -62,20 +54,22 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_
             */
             return $this->_rates = $groups;
         }
+
         return $this->_rates;
     }
 
     /**
      * Rertrieve carrier name from store configuration
      *
-     * @param   string $carrierCode
-     * @return  string
+     * @param  string $carrierCode
+     * @return string
      */
     public function getCarrierName($carrierCode)
     {
         if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title', $this->getStore()->getId())) {
             return $name;
         }
+
         return $carrierCode;
     }
 
@@ -92,8 +86,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_
     /**
      * Check activity of method by code
      *
-     * @param   string $code
-     * @return  bool
+     * @param  string $code
+     * @return bool
      */
     public function isMethodActive($code)
     {
@@ -103,20 +97,21 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_
     /**
      * Retrieve rate of active shipping method
      *
-     * @return Mage_Sales_Model_Quote_Address_Rate | false
+     * @return false|Mage_Sales_Model_Quote_Address_Rate
      */
     public function getActiveMethodRate()
     {
         $rates = $this->getShippingRates();
         if (is_array($rates)) {
             foreach ($rates as $group) {
-                foreach ($group as $code => $rate) {
+                foreach ($group as $rate) {
                     if ($rate->getCode() == $this->getShippingMethod()) {
                         return $rate;
                     }
                 }
             }
         }
+
         return false;
     }
 

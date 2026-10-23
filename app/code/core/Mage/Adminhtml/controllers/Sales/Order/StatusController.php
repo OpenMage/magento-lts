@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order status management controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Controller_Action
@@ -29,7 +21,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
     public const ADMIN_RESOURCE = 'system/order_statuses';
 
     /**
-     * Additional initialization
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -39,21 +31,21 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
     /**
      * Initialize status model based on status code in request
      *
-     * @return Mage_Sales_Model_Order_Status | false
+     * @return false|Mage_Sales_Model_Order_Status
      */
     protected function _initStatus()
     {
         $statusCode = $this->getRequest()->getParam('status');
         if ($statusCode) {
-            $status = Mage::getModel('sales/order_status')->load($statusCode);
-        } else {
-            $status = false;
+            return Mage::getModel('sales/order_status')->load($statusCode);
         }
-        return $status;
+
+        return false;
     }
 
     /**
      * Statuses grid page
+     * @return void
      */
     public function indexAction()
     {
@@ -63,6 +55,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
 
     /**
      * New status form
+     * @return void
      */
     public function newAction()
     {
@@ -72,6 +65,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
                 ->setData($data);
             Mage::register('current_status', $status);
         }
+
         $this->_title($this->__('Sales'))->_title($this->__('Create New Order Status'));
         $this->loadLayout()
             ->_setActiveMenu('system/order_statuses')
@@ -80,6 +74,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
 
     /**
      * Editing existing status form
+     * @return void
      */
     public function editAction()
     {
@@ -100,6 +95,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
 
     /**
      * Save status form processing
+     * @return void
      */
     public function saveAction()
     {
@@ -114,6 +110,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
             if ($isNew) {
                 $statusCode = $data['status'] = $helper->stripTags($data['status']);
             }
+
             $data['label'] = $helper->stripTags($data['label']);
             foreach ($data['store_labels'] as &$label) {
                 $label = $helper->stripTags($label);
@@ -138,27 +135,31 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The order status has been saved.'));
                 $this->_redirect('*/*/');
                 return;
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addException(
-                    $e,
+                    $exception,
                     Mage::helper('sales')->__('An error occurred while saving order status. The status has not been added.'),
                 );
             }
+
             $this->_getSession()->setFormData($data);
             if ($isNew) {
                 $this->_redirect('*/*/new');
             } else {
                 $this->_redirect('*/*/edit', ['status' => $this->getRequest()->getParam('status')]);
             }
+
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
     /**
      * Assign status to state form
+     * @return void
      */
     public function assignAction()
     {
@@ -170,6 +171,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
 
     /**
      * Save status assignment to state
+     * @return void
      */
     public function assignPostAction()
     {
@@ -184,25 +186,28 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
                     $this->_getSession()->addSuccess(Mage::helper('sales')->__('The order status has been assigned.'));
                     $this->_redirect('*/*/');
                     return;
-                } catch (Mage_Core_Exception $e) {
-                    $this->_getSession()->addError($e->getMessage());
-                } catch (Exception $e) {
+                } catch (Mage_Core_Exception $mageCoreException) {
+                    $this->_getSession()->addError($mageCoreException->getMessage());
+                } catch (Exception $exception) {
                     $this->_getSession()->addException(
-                        $e,
+                        $exception,
                         Mage::helper('sales')->__('An error occurred while assigning order status. Status has not been assigned.'),
                     );
                 }
             } else {
                 $this->_getSession()->addError(Mage::helper('sales')->__('Order status does not exist.'));
             }
+
             $this->_redirect('*/*/assign');
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
     /**
      * Unassign the status from a specific state
+     * @return void
      */
     public function unassignAction()
     {
@@ -216,17 +221,18 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
                 ]);
                 $status->unassignState($state);
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The order status has been unassigned.'));
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Mage_Core_Exception $mageCoreException) {
+                $this->_getSession()->addError($mageCoreException->getMessage());
+            } catch (Exception $exception) {
                 $this->_getSession()->addException(
-                    $e,
+                    $exception,
                     Mage::helper('sales')->__('An error occurred while unassigning order status.'),
                 );
             }
         } else {
             $this->_getSession()->addError(Mage::helper('sales')->__('Order status does not exist.'));
         }
+
         $this->_redirect('*/*/');
     }
 }

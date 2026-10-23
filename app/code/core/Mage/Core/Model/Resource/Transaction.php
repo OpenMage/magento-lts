@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Resource transaction model
  *
- * @category   Mage
  * @package    Mage_Core
  * @todo need collect connection by name
  */
@@ -43,6 +35,7 @@ class Mage_Core_Model_Resource_Transaction
      * @var array
      */
     protected $_beforeCommitCallbacks = [];
+
     /**
      * Begin transaction for all involved object resources
      *
@@ -53,6 +46,7 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_objects as $object) {
             $object->getResource()->beginTransaction();
         }
+
         return $this;
     }
 
@@ -66,6 +60,7 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_objects as $object) {
             $object->getResource()->commit();
         }
+
         return $this;
     }
 
@@ -79,6 +74,7 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_objects as $object) {
             $object->getResource()->rollBack();
         }
+
         return $this;
     }
 
@@ -92,13 +88,14 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_beforeCommitCallbacks as $callback) {
             call_user_func($callback);
         }
+
         return $this;
     }
 
     /**
      * Adding object for using in transaction
      *
-     * @param string $alias
+     * @param  string $alias
      * @return $this
      */
     public function addObject(Mage_Core_Model_Abstract $object, $alias = '')
@@ -107,13 +104,14 @@ class Mage_Core_Model_Resource_Transaction
         if (!empty($alias)) {
             $this->_objectsByAlias[$alias] = $object;
         }
+
         return $this;
     }
 
     /**
      * Add callback function which will be called before commit transactions
      *
-     * @param callable $callback
+     * @param  callable $callback
      * @return $this
      */
     public function addCommitCallback($callback)
@@ -137,24 +135,24 @@ class Mage_Core_Model_Resource_Transaction
             foreach ($this->_objects as $object) {
                 $object->save();
             }
-        } catch (Exception $e) {
-            $error = $e;
+        } catch (Exception $exception) {
+            $error = $exception;
         }
 
         if ($error === false) {
             try {
                 $this->_runCallbacks();
-            } catch (Exception $e) {
-                $error = $e;
+            } catch (Exception $exception) {
+                $error = $exception;
             }
         }
 
         if ($error) {
             $this->_rollbackTransaction();
             throw $error;
-        } else {
-            $this->_commitTransaction();
         }
+
+        $this->_commitTransaction();
 
         return $this;
     }
@@ -174,24 +172,25 @@ class Mage_Core_Model_Resource_Transaction
             foreach ($this->_objects as $object) {
                 $object->delete();
             }
-        } catch (Exception $e) {
-            $error = $e;
+        } catch (Exception $exception) {
+            $error = $exception;
         }
 
         if ($error === false) {
             try {
                 $this->_runCallbacks();
-            } catch (Exception $e) {
-                $error = $e;
+            } catch (Exception $exception) {
+                $error = $exception;
             }
         }
 
         if ($error) {
             $this->_rollbackTransaction();
             throw $error;
-        } else {
-            $this->_commitTransaction();
         }
+
+        $this->_commitTransaction();
+
         return $this;
     }
 }

@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Weee
  */
 class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_Total_Abstract
@@ -25,6 +17,7 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
      *
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
         $store = $invoice->getStore();
@@ -37,8 +30,11 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
         foreach ($invoice->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
             $orderItemQty = $orderItem->getQtyOrdered();
+            if (!$orderItemQty) {
+                continue;
+            }
 
-            if (!$orderItemQty || $orderItem->isDummy()) {
+            if ($orderItem->isDummy()) {
                 continue;
             }
 
@@ -75,6 +71,7 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
 
                 $newApplied[] = $one;
             }
+
             Mage::helper('weee')->setApplied($item, $newApplied);
 
             $item->setWeeeTaxRowDisposition($item->getWeeeTaxDisposition() * $item->getQty());

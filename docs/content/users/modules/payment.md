@@ -7,9 +7,10 @@ tags:
 # Payment modules
 
 ## `empiricompany/openmage-paypal-pay-later-banner-info`
-Render Paypal Pay Later Messages in product page and cart page for Magento 1 / OpenMage
+Render PayPal Pay Later Messages in product page and cart page for Magento 1 / OpenMage
 
-#### Install [^1]
+- GitHub [repository](https://github.com/empiricompany/openmage-paypal-pay-later-banner-info)
+
 ```bash
 composer require empiricompany/openmage-paypal-pay-later-banner-info
 ```
@@ -34,7 +35,7 @@ The HiPay Enterprise extension for Magento v1 is a library that allows you to ac
 
 ## `mollie/Magento`
 
-iDEAL, Creditcard, Bancontact/Mister Cash, SOFORT, Bank transfer, Bitcoin, PayPal & paysafecard for Magento https://www.mollie.com/.
+`iDEAL`, `Creditcard`, `Bancontact`/`Mister Cash`, `SOFORT`, `Bank transfer`, `Bitcoin`, `PayPal` & `paysafecard` for Magento [https://www.mollie.com/](https://www.mollie.com/).
 
 #### Install [^5]
 ```bash
@@ -45,15 +46,14 @@ composer require mollie/magento
 
 Magento 1.9 Plugin for OpenNode Bitcoin Payment Gateway
 
-The module was only tested with the default theme and Onepage Checkout.
+The module was only tested with the default theme and one-page checkout.
 
 !!! warning ""
 
     No composer install via packagist.org available. [^6]
 
-[^1]: https://github.com/empiricompany/openmage-paypal-pay-later-banner-info
-[^2]: https://github.com/justinbeaty/module-gene-braintree
-[^3]: https://github.com/braintree/braintree_php
-[^4]: https://github.com/hipay/hipay-fullservice-sdk-magento1
-[^5]: https://github.com/mollie/Magento
-[^6]: https://github.com/rvelhote/opennode-magento
+[^2]: [https://github.com/justinbeaty/module-gene-braintree](https://github.com/justinbeaty/module-gene-braintree)
+[^3]: [https://github.com/braintree/braintree_php](https://github.com/braintree/braintree_php)
+[^4]: [https://github.com/hipay/hipay-fullservice-sdk-magento1](https://github.com/hipay/hipay-fullservice-sdk-magento1)
+[^5]: [https://github.com/mollie/Magento](https://github.com/mollie/Magento)
+[^6]: [https://github.com/rvelhote/opennode-magento](https://github.com/rvelhote/opennode-magento)

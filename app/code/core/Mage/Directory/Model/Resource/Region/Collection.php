@@ -1,24 +1,18 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Country collection
  *
- * @category   Mage
  * @package    Mage_Directory
+ *
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Directory_Model_Region>
  */
 class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -38,7 +32,6 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
 
     /**
      * Define main, country, locale region name tables
-     *
      */
     protected function _construct()
     {
@@ -56,6 +49,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         parent::_initSelect();
@@ -74,7 +68,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     /**
      * Filter by country_id
      *
-     * @param string|array $countryId
+     * @param  array|string $countryId
      * @return $this
      */
     public function addCountryFilter($countryId)
@@ -86,13 +80,14 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
                 $this->addFieldToFilter('main_table.country_id', $countryId);
             }
         }
+
         return $this;
     }
 
     /**
      * Filter by country code (ISO 3)
      *
-     * @param string $countryCode
+     * @param  string $countryCode
      * @return $this
      */
     public function addCountryCodeFilter($countryCode)
@@ -110,7 +105,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     /**
      * Filter by Region code
      *
-     * @param string|array $regionCode
+     * @param  array|string $regionCode
      * @return $this
      */
     public function addRegionCodeFilter($regionCode)
@@ -122,13 +117,14 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
                 $this->addFieldToFilter('main_table.code', $regionCode);
             }
         }
+
         return $this;
     }
 
     /**
      * Filter by region name
      *
-     * @param string|array $regionName
+     * @param  array|string $regionName
      * @return $this
      */
     public function addRegionNameFilter($regionName)
@@ -140,13 +136,14 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
                 $this->addFieldToFilter('main_table.default_name', $regionName);
             }
         }
+
         return $this;
     }
 
     /**
      * Filter region by its code or name
      *
-     * @param string|array $region
+     * @param  array|string $region
      * @return $this
      */
     public function addRegionCodeOrNameFilter($region)
@@ -155,6 +152,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
             $condition = is_array($region) ? ['in' => $region] : $region;
             $this->addFieldToFilter(['main_table.code', 'main_table.default_name'], [$condition, $condition]);
         }
+
         return $this;
     }
 
@@ -163,6 +161,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
      *
      * @return array
      */
+    #[Override]
     public function toOptionArray()
     {
         $options = $this->_toOptionArray('region_id', 'default_name', ['title' => 'default_name']);
@@ -173,6 +172,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
                 'label' => Mage::helper('directory')->__('-- Please select --'),
             ]);
         }
+
         return $options;
     }
 }

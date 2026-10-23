@@ -1,24 +1,18 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Rules resource collection model
  *
- * @category   Mage
  * @package    Mage_SalesRule
+ *
+ * @extends Mage_Rule_Model_Resource_Rule_Collection_Abstract<Mage_SalesRule_Model_Rule>
  */
 class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Resource_Rule_Collection_Abstract
 {
@@ -41,7 +35,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     ];
 
     /**
-     * Set resource model and determine field mapping
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -54,10 +48,10 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      * Filter collection to use only active rules.
      * Involved sorting by sort_order column.
      *
-     * @param int $websiteId
-     * @param int $customerGroupId
-     * @param string $couponCode
-     * @param string|null $now
+     * @param int         $websiteId
+     * @param int         $customerGroupId
+     * @param string      $couponCode
+     * @param null|string $now
      * @uses Mage_SalesRule_Model_Resource_Rule_Collection::addWebsiteGroupDateFilter()
      *
      * @return $this
@@ -110,6 +104,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
             } else {
                 $this->addFieldToFilter('main_table.coupon_type', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
             }
+
             $this->setOrder('sort_order', self::SORT_ORDER_ASC);
             $this->setFlag('validation_filter', true);
         }
@@ -122,9 +117,9 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      * Filter collection to only active rules.
      * Sorting is not involved
      *
-     * @param int $websiteId
-     * @param int $customerGroupId
-     * @param string|null $now
+     * @param int         $websiteId
+     * @param int         $customerGroupId
+     * @param null|string $now
      * @uses Mage_SalesRule_Model_Resource_Rule_Collection::addWebsiteFilter()
      *
      * @return $this
@@ -132,9 +127,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     public function addWebsiteGroupDateFilter($websiteId, $customerGroupId, $now = null)
     {
         if (!$this->getFlag('website_group_date_filter')) {
-            if (is_null($now)) {
-                $now = Mage::getModel('core/date')->date('Y-m-d');
-            }
+            $now ??= Mage::getModel('core/date')->date('Y-m-d');
 
             $this->addWebsiteFilter($websiteId);
 
@@ -151,8 +144,8 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
                     ),
                     [],
                 )
-                ->where('from_date is null or from_date <= ?', $now)
-                ->where('to_date is null or to_date >= ?', $now);
+                ->where('`from_date` is null or `from_date` <= ?', $now)
+                ->where('`to_date` is null or `to_date` >= ?', $now);
 
             $this->addIsActiveFilter();
 
@@ -167,7 +160,8 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      *
      * @return $this
      */
-    public function _initSelect()
+    #[Override]
+    protected function _initSelect()
     {
         parent::_initSelect();
         $this->getSelect()

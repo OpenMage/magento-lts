@@ -1,0 +1,31 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * Head block Oauth simple pages
+ *
+ * @var Mage_Adminhtml_Block_Page_Head $this
+ */
+
+//Code partially copied from adminhtml/default/default/template/page/head.phtml
+?>
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>"/>
+<title><?php echo htmlspecialchars(html_entity_decode($this->getTitle())) ?></title>
+<link rel="icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon"/>
+
+<script type="text/javascript">
+//<![CDATA[
+    var BLANK_URL = '<?php echo $this->getJsUrl() ?>blank.html';
+    var BLANK_IMG = '<?php echo $this->getJsUrl() ?>spacer.gif';
+    var BASE_URL = '<?php echo $this->getUrl('*') ?>';
+    var SKIN_URL = '<?php echo $this->getSkinUrl() ?>';
+    var FORM_KEY = '<?php echo $this->getFormKey() ?>';
+//]]>
+</script>
+
+<?php echo $this->getCssJsHtml() ?>

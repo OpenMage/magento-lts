@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Categories tree block for urlrewrites
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block_Catalog_Category_Abstract
@@ -25,7 +17,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * List of allowed category ids
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_allowedCategoryIds = null;
 
@@ -41,9 +33,9 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * Get categories tree as recursive array
      *
-     * @param int $parentId
-     * @param bool $asJson
-     * @param int $recursionLevel
+     * @param  int          $parentId
+     * @param  bool         $asJson
+     * @param  int          $recursionLevel
      * @return array|string
      */
     public function getTreeArray($parentId = null, $asJson = false, $recursionLevel = 3)
@@ -80,7 +72,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * Get categories collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCategoryCollection()
     {
@@ -98,8 +90,8 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     /**
      * Convert categories tree to array recursively
      *
-     * @param  Varien_Data_Tree_Node $node
-     * @return array
+     * @param  Varien_Data_Tree_Node                                  $node
+     * @return array<string, null|bool|int|mixed[][]|string|string[]>
      */
     protected function _getNodesArray($node)
     {
@@ -123,6 +115,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
                 $result['children'][] = $this->_getNodesArray($childNode);
             }
         }
+
         $result['cls']      = ($result['is_active'] ? '' : 'no-') . 'active-category';
         $result['expanded'] = (!empty($result['children']));
 
@@ -136,6 +129,6 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
      */
     public function getLoadTreeUrl()
     {
-        return Mage::helper('adminhtml')->getUrl('*/*/categoriesJson');
+        return Mage::helper('adminhtml')::getUrl('*/*/categoriesJson');
     }
 }

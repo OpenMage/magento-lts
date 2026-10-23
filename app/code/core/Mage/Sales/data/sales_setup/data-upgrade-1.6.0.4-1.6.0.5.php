@@ -1,23 +1,19 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $this */
 $installer = $this;
 
-$subSelect = $installer->getConnection()->select()
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
+$connection = $installer->getConnection();
+
+$subSelect = $connection->select()
     ->from(
         ['citem' => $installer->getTable('sales/creditmemo_item')],
         [
@@ -45,7 +41,7 @@ $subSelect = $installer->getConnection()->select()
     )
     ->group('oitem.item_id');
 
-$select = $installer->getConnection()->select()
+$select = $connection->select()
     ->from(
         ['selected' => $subSelect],
         [
@@ -58,9 +54,9 @@ $select = $installer->getConnection()->select()
     )
     ->where('main.item_id = selected.item_id');
 
-$updateQuery = $installer->getConnection()->updateFromSelect(
+$updateQuery = $connection->updateFromSelect(
     $select,
     ['main' => $installer->getTable('sales/order_item')],
 );
 
-$installer->getConnection()->query($updateQuery);
+$connection->query($updateQuery);

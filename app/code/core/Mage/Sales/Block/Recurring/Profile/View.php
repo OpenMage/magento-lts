@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring profile view
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
@@ -227,10 +219,12 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 $this->getParentBlock()->unsetChild('sales.recurring.profile.view.shipping');
                 return;
             }
+
             $key = 'shipping_address_info';
         } else {
             $key = 'billing_address_info';
         }
+
         $this->setIsAddress(true);
         $address = Mage::getModel('sales/order_address', $this->_profile->getData($key));
         $this->_addInfo([
@@ -303,7 +297,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 'increment_id_link_url' => $this->getUrl('sales/order/view/', ['order_id' => $order->getId()]),
             ]);
         }
-        if ($orders) {
+
+        if ($orders !== []) {
             $this->setGridElements($orders);
         }
     }
@@ -319,12 +314,15 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         if ($value === null) {
             return '';
         }
+
         if (is_array($value)) {
             $value = implode("\n", $value);
         }
+
         if (!$row->getSkipHtmlEscaping()) {
             $value = $this->escapeHtml($value);
         }
+
         return nl2br($value);
     }
 
@@ -347,7 +345,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     /**
      * Add specified data to the $_info
      *
-     * @param string $key = null
+     * @param array<array<string, mixed>, mixed> $data
+     * @param string                             $key  = null
      */
     protected function _addInfo(array $data, $key = null)
     {
@@ -362,6 +361,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     /**
      * Get current profile from registry and assign store/locale information to it
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->_profile = Mage::registry('current_recurring_profile')
@@ -376,6 +376,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_profile || $this->_shouldRenderInfo && !$this->_info) {

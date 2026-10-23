@@ -1,31 +1,25 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle selection product grid
  *
- * @category   Mage
  * @package    Mage_Bundle
  *
- * @method bool getFirstShow()
+ * @method bool   getFirstShow()
  * @method string getIndex()
- * @method $this setIndex(string $value)
+ * @method $this  setIndex(string $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'bundle_adminhtml_catalog_product_edit_tab_bundle_option_search_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -40,6 +34,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->setId($this->getId() . '_' . $this->getIndex());
@@ -50,9 +45,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('catalog/product')->getCollection()
@@ -69,7 +65,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             ]);
 
         if ($products = $this->_getProducts()) {
-            $collection->addIdFilter($this->_getProducts(), true);
+            $collection->addIdFilter($products, true);
         }
 
         if ($this->getFirstShow()) {
@@ -83,10 +79,13 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
+     * @throws Exception
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Cache_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('id', [
@@ -154,9 +153,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @return string
+     * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/bundle_selection/grid', ['index' => $this->getIndex(), 'productss' => implode(',', $this->_getProducts())]);
@@ -177,17 +177,20 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
      */
     protected function _getProducts()
     {
-        if ($products = $this->getRequest()->getPost('products', null)) {
+        if ($products = $this->getRequest()->getPost('products')) {
             return $products;
-        } elseif ($productss = $this->getRequest()->getParam('productss', null)) {
-            return explode(',', $productss);
-        } else {
-            return [];
         }
+
+        if ($productss = $this->getRequest()->getParam('productss')) {
+            return explode(',', $productss);
+        }
+
+        return [];
     }
 
     /**
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore()

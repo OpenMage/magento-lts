@@ -1,27 +1,22 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable Product  Samples resource model
  *
- * @category   Mage
  * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('downloadable/sample', 'sample_id');
@@ -30,7 +25,7 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
     /**
      * Save title of sample item in store scope
      *
-     * @param Mage_Downloadable_Model_Sample $sampleObject
+     * @param  Mage_Downloadable_Model_Sample $sampleObject
      * @return $this
      */
     public function saveItemTitle($sampleObject)
@@ -61,54 +56,53 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
                     $where,
                 );
             }
-        } else {
-            if (!$sampleObject->getUseDefaultTitle()) {
-                $writeAdapter->insert(
-                    $sampleTitleTable,
-                    [
-                        'sample_id' => $sampleObject->getId(),
-                        'store_id'  => (int) $sampleObject->getStoreId(),
-                        'title'     => $sampleObject->getTitle(),
-                    ],
-                );
-            }
+        } elseif (!$sampleObject->getUseDefaultTitle()) {
+            $writeAdapter->insert(
+                $sampleTitleTable,
+                [
+                    'sample_id' => $sampleObject->getId(),
+                    'store_id'  => (int) $sampleObject->getStoreId(),
+                    'title'     => $sampleObject->getTitle(),
+                ],
+            );
         }
+
         return $this;
     }
 
     /**
      * Delete data by item(s)
      *
-     * @param Mage_Downloadable_Model_Sample|array|int $items
+     * @param  array|int|Mage_Downloadable_Model_Sample $items
      * @return $this
      */
     public function deleteItems($items)
     {
         $writeAdapter = $this->_getWriteAdapter();
-        $where = '';
+
         if ($items instanceof Mage_Downloadable_Model_Sample) {
             $where = ['sample_id = ?'    => $items->getId()];
         } else {
             $where = ['sample_id in (?)' => $items];
         }
-        if ($where) {
-            $writeAdapter->delete(
-                $this->getMainTable(),
-                $where,
-            );
-            $writeAdapter->delete(
-                $this->getTable('downloadable/sample_title'),
-                $where,
-            );
-        }
+
+        $writeAdapter->delete(
+            $this->getMainTable(),
+            $where,
+        );
+        $writeAdapter->delete(
+            $this->getTable('downloadable/sample_title'),
+            $where,
+        );
+
         return $this;
     }
 
     /**
      * Retrieve links searchable data
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return array
      */
     public function getSearchableData($productId, $storeId)

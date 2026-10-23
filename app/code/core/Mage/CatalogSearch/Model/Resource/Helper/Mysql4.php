@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CatalogSearch Mysql resource helper model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_Helper_Mysql4
@@ -25,10 +17,10 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
     /**
      * Join information for using full text search
      *
-     * @param string $table
-     * @param string $alias
-     * @param Varien_Db_Select $select
-     * @return Zend_Db_Expr $select
+     * @param  string           $table
+     * @param  string           $alias
+     * @param  Varien_Db_Select $select
+     * @return Zend_Db_Expr     $select
      */
     public function chooseFulltext($table, $alias, $select)
     {
@@ -40,9 +32,9 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
     /**
      * Prepare Terms
      *
-     * @param string $str The source string
-     * @param int $maxWordLength
-     * @return array (0=>words, 1=>terms)
+     * @param  string                                $str           The source string
+     * @param  int                                   $maxWordLength
+     * @return array<int, array<int|string, string>> (0=>words, 1=>terms)
      */
     public function prepareTerms($str, $maxWordLength = 0)
     {
@@ -67,8 +59,8 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
             $word = trim($word);
             if (strlen($word)) {
                 $word = str_replace('"', '', $word);
-                $isBool = in_array(strtoupper($word), $boolWords);
-                $isBracket = in_array($word, $brackets);
+                $isBool = in_array(strtoupper($word), $boolWords, true);
+                $isBracket = in_array($word, $brackets, true);
                 if (!$isBool && !$isBracket) {
                     $terms[$word] = $word;
                     $word = '"' . $word . '"';
@@ -79,30 +71,34 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
                     } else {
                         $isOpenBracket--;
                     }
+
                     $words[] = $word;
                 } elseif ($isBool) {
                     $words[] = $word;
                 }
             }
         }
+
         if ($isOpenBracket > 0) {
             $words[] = sprintf("%')" . $isOpenBracket . 's', '');
         } elseif ($isOpenBracket < 0) {
             $words[0] = sprintf("%'(" . $isOpenBracket . 's', '');
         }
+
         if ($maxWordLength && count($terms) > $maxWordLength) {
             $terms = array_slice($terms, 0, $maxWordLength);
         }
+
         return [$words, $terms];
     }
 
     /**
      * Use sql compatible with Full Text indexes
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $data Column-value pairs or array of column-value pairs.
-     * @param array $fields update fields pairs or values
-     * @return int The number of affected rows.
+     * @param  mixed $table  the table to insert data into
+     * @param  array $data   column-value pairs or array of column-value pairs
+     * @param  array $fields update fields pairs or values
+     * @return int   the number of affected rows
      */
     public function insertOnDuplicate($table, array $data, array $fields = [])
     {
