@@ -35,7 +35,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     public function customerAction()
     {
         if ($this->checkFeedEnable('order/customer')) {
-            if (Mage::app()->getStore()->isCurrentlySecure()) {
+            if (Mage::app()->isCurrentlySecure()) {
                 Mage::helper('rss')->authFrontend();
             } else {
                 $this->_redirect('rss/order/customer', ['_secure' => true]);

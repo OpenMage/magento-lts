@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_report_filter_form';
+
     /**
      * Report type options
      */

@@ -49,7 +49,6 @@ try {
             naming: false,
             instanceOf: true,
             earlyReturn: true,
-            strictBooleans: false,
             carbon: true,
             rectorPreset: true,
             phpunitCodeQuality: true,
@@ -63,7 +62,6 @@ try {
         ->withSkipPath(__DIR__ . '/vendor')
         ->withRules([
             Php83\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector::class,
-            Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withRules(Migration\TypeDeclarationDocblocks::getRules())
         ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Log::renameClassConst())
@@ -93,6 +91,7 @@ try {
             # skip avoid renaming of methods in tests
             Carbon\FuncCall\DateFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
+                __DIR__ . '/errors/report.php',
             ],
             # skip avoid renaming of methods in tests
             Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
@@ -131,14 +130,10 @@ try {
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
                 __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
             ],
-            # ... +300 occurrences
-            CodeQuality\If_\ExplicitBoolCompareRector::class,
             # ... review autoloading at all
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class,
             # ... breaks loading website
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class,
-            # ... +250 occurrences
-            CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class,
             # --- wait for phpstan strict rules
             CodingStyle\FuncCall\StrictArraySearchRector::class,
             # ... +200 occurrences, need closer review
@@ -151,12 +146,10 @@ try {
             ],
             # ... +400 occurrences, needs closer review
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class,
+            # SOON
+            CodeQuality\BooleanNot\NegatedAndsToPositiveOrsRector::class,
             # ... needs closer review
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class,
-            # ... check again https://github.com/rectorphp/rector/issues/9732
-            EarlyReturn\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector::class => [
-                __DIR__ . '/app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php',
-            ],
             # ... needs closer review and docblock fixes for magic methods
             Php71\FuncCall\RemoveExtraParametersRector::class,
             # ... needs closer review
@@ -165,12 +158,6 @@ try {
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class => [
                 __DIR__ . '/lib/Varien/Directory/Collection.php',
             ],
-            # ... +300 occurrences
-            Php81\FuncCall\NullToStrictStringFuncCallArgRector::class,
-            # ... ~100 occurrences
-            Strict\Empty_\DisallowedEmptyRuleFixerRector::class,
-            # ... needs closer review
-            TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class,
         ])
         # wait for rector support
         ->withSkip([

@@ -2447,26 +2447,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Io/Ftp.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $offset (string) of method Varien_Object::offsetExists() should be contravariant with parameter $offset (mixed) of method ArrayAccess<mixed,mixed>::offsetExists()',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $offset (string) of method Varien_Object::offsetGet() should be contravariant with parameter $offset (mixed) of method ArrayAccess<mixed,mixed>::offsetGet()',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $offset (string) of method Varien_Object::offsetSet() should be contravariant with parameter $offset (mixed) of method ArrayAccess<mixed,mixed>::offsetSet()',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $offset (string) of method Varien_Object::offsetUnset() should be contravariant with parameter $offset (mixed) of method ArrayAccess<mixed,mixed>::offsetUnset()',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $tags (array<string>) of method Zend_Cache_Backend@anonymous/tests/unit/Mage/Core/Model/Purifier/DefinitionCacheTest.php:48::getIdsMatchingAnyTags() should be contravariant with parameter $tags (array) of method Zend_Cache_Backend_ExtendedInterface::getIdsMatchingAnyTags()',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/Purifier/DefinitionCacheTest.php',

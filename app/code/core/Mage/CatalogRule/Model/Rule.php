@@ -281,9 +281,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
             $product = $this->_factory->getModel('catalog/product')->load($product);
         }
 
-        if (is_null($websiteIds)) {
-            $websiteIds = $this->getWebsiteIds();
-        }
+        $websiteIds ??= $this->getWebsiteIds();
 
         $this->getResource()->applyToProduct($this, $product, $websiteIds);
         $this->getResource()->applyAllRules($product);
@@ -448,9 +446,9 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @param string $format
      *
      * @return string
-     * @deprecated after 1.11.2.0
      */
     #[Override]
+    #[Deprecated(message: 'after 1.11.2.0')]
     public function toString($format = '')
     {
         return '';
@@ -469,9 +467,9 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * )
      *
      * @return array
-     * @deprecated after 1.11.2.0
      */
     #[Override]
+    #[Deprecated(message: 'after 1.11.2.0')]
     public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);

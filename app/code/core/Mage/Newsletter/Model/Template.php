@@ -145,8 +145,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Return true if this template can be used for sending queue as main template
      *
      * @return bool
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function isValidForSend()
     {
         return !Mage::getStoreConfigFlag('system/smtp/disable')
@@ -270,13 +270,11 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Retrieve mail object instance
      *
      * @return Zend_Mail
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function getMail()
     {
-        if (is_null($this->_mail)) {
-            $this->_mail = new Zend_Mail('utf-8');
-        }
+        $this->_mail ??= new Zend_Mail('utf-8');
 
         return $this->_mail;
     }
@@ -290,8 +288,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * @param  null|Mage_Newsletter_Model_Queue        $queue      queue model, used for problems reporting
      * @return bool
      * @throws Exception|Throwable
-     * @deprecated since 1.4.0.1
      **/
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function send($subscriber, array $variables = [], $name = null, ?Mage_Newsletter_Model_Queue $queue = null)
     {
         if (!$this->isValidForSend()) {
@@ -301,9 +299,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         $email = '';
         if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
             $email = $subscriber->getSubscriberEmail();
-            if (is_null($name)) {
-                $name = $subscriber->getSubscriberFullName();
-            }
+            $name ??= $subscriber->getSubscriberFullName();
         } else {
             $email = (string) $subscriber;
         }
@@ -387,8 +383,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @return $this
      * @throws Throwable
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function preprocess()
     {
         $this->_preprocessFlag = true;

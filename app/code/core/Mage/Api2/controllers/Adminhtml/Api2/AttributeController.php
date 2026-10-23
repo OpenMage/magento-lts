@@ -44,7 +44,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
         $this->loadLayout()->_setActiveMenu('system/api/rest_attributes');
 
-        $this->_addBreadcrumb($this->__('Web services'), $this->__('Web services'))
+        $this->_addBreadcrumb($this->__('Web Services'), $this->__('Web Services'))
             ->_addBreadcrumb($this->__('REST Attributes'), $this->__('REST Attributes'))
             ->_addBreadcrumb($this->__('Attributes'), $this->__('Attributes'));
 

@@ -213,22 +213,18 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      * @throws Zend_Controller_Response_Exception
-     * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Deprecated(message: 'Refactored and moved to Mage_Core_Controller_Request_Rewrite', since: OpenMageVersionInterface::VERSION_1_7_0_1)]
     public function rewrite(?Zend_Controller_Request_Http $request = null, ?Zend_Controller_Response_Http $response = null)
     {
         if (!Mage::isInstalled()) {
             return false;
         }
 
-        if (is_null($request)) {
-            $request = Mage::app()->getFrontController()->getRequest();
-        }
+        $request ??= Mage::app()->getFrontController()->getRequest();
 
-        if (is_null($response)) {
-            $response = Mage::app()->getFrontController()->getResponse();
-        }
+        $response ??= Mage::app()->getFrontController()->getResponse();
 
         if (is_null($this->getStoreId()) || $this->getStoreId() === false) {
             $this->setStoreId(Mage::app()->getStore()->getId());
@@ -327,9 +323,9 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * Prepare and return QUERY_STRING
      *
      * @return bool|string
-     * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      * @SuppressWarnings("PHPMD.Superglobals")
      */
+    #[Deprecated(message: 'Refactored and moved to Mage_Core_Controller_Request_Rewrite', since: OpenMageVersionInterface::VERSION_1_7_0_1)]
     protected function _getQueryString()
     {
         if (!empty($_SERVER['QUERY_STRING'])) {
@@ -366,9 +362,9 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      *
      * @param string $url
      * @param bool   $isPermanent
-     * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      * @SuppressWarnings("PHPMD.ExitExpression")
      */
+    #[Deprecated(message: 'Refactored and moved to Mage_Core_Controller_Request_Rewrite', since: OpenMageVersionInterface::VERSION_1_7_0_1)]
     protected function _sendRedirectHeaders($url, $isPermanent = false)
     {
         if ($isPermanent) {

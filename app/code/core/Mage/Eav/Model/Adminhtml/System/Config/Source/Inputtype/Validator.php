@@ -24,7 +24,7 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
     /**
      * @var string[]
      */
-    protected array $haystack = [];
+    protected array $haystack;
 
     public function __construct()
     {

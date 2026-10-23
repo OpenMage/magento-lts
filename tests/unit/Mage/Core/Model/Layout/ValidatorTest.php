@@ -47,7 +47,7 @@ final class ValidatorTest extends OpenMageTest
         }
     }
 
-    public function isValidDataProvider(): Generator
+    public static function isValidDataProvider(): Generator
     {
         yield 'valid string' => [
             true,

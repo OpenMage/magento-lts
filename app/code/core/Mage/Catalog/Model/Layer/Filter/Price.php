@@ -71,9 +71,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      */
     protected function _getResource()
     {
-        if (is_null($this->_resource)) {
-            $this->_resource = Mage::getResourceModel('catalog/layer_filter_price');
-        }
+        $this->_resource ??= Mage::getResourceModel('catalog/layer_filter_price');
 
         return $this->_resource;
     }
@@ -174,8 +172,8 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * @param  float                           $value
      * @return string
      * @throws Mage_Core_Model_Store_Exception
-     * @deprecated since 1.7.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     protected function _renderItemLabel($range, $value)
     {
         $store      = Mage::app()->getStore();
@@ -217,8 +215,8 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      *
      * @return string
      * @throws Mage_Core_Model_Store_Exception
-     * @deprecated after 1.4
      */
+    #[Deprecated(message: 'after 1.4')]
     protected function _getCacheKey()
     {
         $key = $this->getLayer()->getStateKey()
@@ -412,7 +410,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             }
         }
 
-        if ($priorFilters) {
+        if ($priorFilters !== []) {
             $this->setPriorIntervals($priorFilters);
         }
 
@@ -431,8 +429,8 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * @param  int   $range
      * @param  int   $index
      * @return $this
-     * @deprecated since 1.7.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     protected function _applyToCollection($range, $index)
     {
         $this->_getResource()->applyFilterToCollection($this, $range, $index);
@@ -474,9 +472,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     public function getCurrencyRate()
     {
         $rate = $this->_getData('currency_rate');
-        if (is_null($rate)) {
-            $rate = Mage::app()->getStore($this->getStoreId())->getCurrentCurrencyRate();
-        }
+        $rate ??= Mage::app()->getStore($this->getStoreId())->getCurrentCurrencyRate();
 
         if (!$rate) {
             return 1;

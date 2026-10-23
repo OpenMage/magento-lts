@@ -9,11 +9,11 @@
 <?php /** @var Mage_Adminhtml_Block_Sales_Order_Create_Store_Select $this */ ?>
 <div class="store-scope">
     <div class="tree-store-scope">
-    <?php foreach ($this->getWebsiteCollection() as $_website): ?>
+    <?php foreach ($this->getWebsites() as $_website): ?>
         <?php $showWebsite=false; ?>
-        <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
+        <?php foreach ($this->getStoreGroups($_website) as $_group): ?>
             <?php $showGroup=false; ?>
-            <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
+            <?php foreach ($this->getStores($_group) as $_store): ?>
                 <?php if ($showWebsite === false): ?>
                     <?php $showWebsite = true; ?>
                     <h3><?php echo $this->escapeHtml($_website->getName()) ?></h3>

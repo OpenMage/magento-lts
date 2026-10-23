@@ -128,9 +128,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                         $layoutHandle = $this->_layoutHandles[$pageGroup['page_group']];
                     }
 
-                    if (!isset($pageGroupData['template'])) {
-                        $pageGroupData['template'] = '';
-                    }
+                    $pageGroupData['template'] ??= '';
 
                     $tmpPageGroup = [
                         'page_id' => $pageGroupData['page_id'],
@@ -267,8 +265,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * Replace '_' to '/', if was set from request(GET request)
      *
      * @return $this
-     * @deprecated after 1.6.1.0-alpha1
      */
+    #[Deprecated(message: 'after 1.6.1.0-alpha1')]
     protected function _preparePackageTheme()
     {
         return $this;

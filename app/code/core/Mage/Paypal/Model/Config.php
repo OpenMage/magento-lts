@@ -139,9 +139,9 @@ class Mage_Paypal_Model_Config
     /**
      * Authorization amounts for Account Verification
      *
-     * @deprecated since 1.6.2.0
      * @var int
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public const AUTHORIZATION_AMOUNT_ZERO = 0;
 
     public const AUTHORIZATION_AMOUNT_ONE = 1;
@@ -652,7 +652,7 @@ class Mage_Paypal_Model_Config
         if ($params) {
             $method = array_shift($params);
             $this->setMethod($method);
-            if ($params) {
+            if ($params !== []) {
                 $storeId = array_shift($params);
                 $this->setStoreId($storeId);
             }
@@ -719,9 +719,7 @@ class Mage_Paypal_Model_Config
      */
     public function isMethodAvailable($methodCode = null)
     {
-        if ($methodCode === null) {
-            $methodCode = $this->getMethodCode();
-        }
+        $methodCode ??= $this->getMethodCode();
 
         $result = true;
 
@@ -816,6 +814,25 @@ class Mage_Paypal_Model_Config
         return $value;
     }
 
+
+    /**
+     * Config field magic isset
+     */
+    public function __isset(string $key): bool
+    {
+        if (array_key_exists($key, $this->_config)) {
+            return true;
+        }
+
+        $underscored = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $key));
+        if (array_key_exists($underscored, $this->_config)) {
+            return true;
+        }
+
+        $path = $this->_getSpecificConfigPath($underscored);
+        return $path !== null;
+    }
+
     /**
      * Perform additional config value preparation and return new value if needed
      *
@@ -880,13 +897,9 @@ class Mage_Paypal_Model_Config
      */
     public function isMethodSupportedForCountry($method = null, $countryCode = null)
     {
-        if ($method === null) {
-            $method = $this->getMethodCode();
-        }
+        $method ??= $this->getMethodCode();
 
-        if ($countryCode === null) {
-            $countryCode = $this->getMerchantCountry();
-        }
+        $countryCode ??= $this->getMerchantCountry();
 
         $countryMethods = $this->getCountryMethods($countryCode);
         return in_array($method, $countryMethods);
@@ -1099,7 +1112,7 @@ class Mage_Paypal_Model_Config
         return sprintf(
             'https://www.%spaypal.com/cgi-bin/webscr%s',
             $this->sandboxFlag ? 'sandbox.' : '',
-            $params ? '?' . http_build_query($params) : '',
+            $params !== [] ? '?' . http_build_query($params) : '',
         );
     }
 
@@ -1178,9 +1191,7 @@ class Mage_Paypal_Model_Config
             return $this->_getDynamicImageUrl(self::EC_BUTTON_TYPE_MARK, $localeCode, $orderTotal, $pal);
         }
 
-        if ($staticSize === null) {
-            $staticSize = $this->paymentMarkSize;
-        }
+        $staticSize ??= $this->paymentMarkSize;
 
         switch ($staticSize) {
             case self::PAYMENT_MARK_37X23:
@@ -1417,8 +1428,8 @@ class Mage_Paypal_Model_Config
      * Returns array of possible Authorization Amounts for Account Verification
      *
      * @return array<void>
-     * @deprecated since 1.6.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
     public function getAuthorizationAmounts()
     {
         return [];
@@ -1671,9 +1682,7 @@ class Mage_Paypal_Model_Config
             }
         }
 
-        if ($path === null) {
-            $path = $this->_mapGeneralFieldset($fieldName);
-        }
+        $path ??= $this->_mapGeneralFieldset($fieldName);
 
         if ($path === null) {
             return $this->_mapGenericStyleFieldset($fieldName);

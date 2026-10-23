@@ -11,17 +11,29 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit;
 
-use PHPUnit\Runner\AfterTestHook;
+use PHPUnit\Event\Test\Finished;
+use PHPUnit\Event\Test\FinishedSubscriber;
+use PHPUnit\Runner\Extension\Extension;
+use PHPUnit\Runner\Extension\Facade;
+use PHPUnit\Runner\Extension\ParameterCollection;
+use PHPUnit\TextUI\Configuration\Configuration;
 
 /**
  * Class LongRunningTestAlert
  */
-class LongRunningTestAlert implements AfterTestHook
+class LongRunningTestAlert implements Extension, FinishedSubscriber
 {
-    protected const MAX_SECONDS_ALLOWED = 1.0;
+    protected const MAX_SECONDS_ALLOWED = 5.0;
 
-    public function executeAfterTest(string $test, float $time): void
+    public function bootstrap(Configuration $configuration, Facade $facade, ParameterCollection $parameters): void
     {
+        $facade->registerSubscriber($this);
+    }
+
+    public function notify(Finished $event): void
+    {
+        $test = $event->test()->name();
+        $time = $event->telemetryInfo()->durationSincePrevious()->asFloat();
         if ($time > self::MAX_SECONDS_ALLOWED) {
             file_put_contents('php://stderr', sprintf("\n\nThe %s test took %s seconds!\n\n", $test, $time));
         }

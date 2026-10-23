@@ -117,9 +117,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      */
     public function getAttributes()
     {
-        if (is_null($this->_attributes)) {
-            $this->_attributes = $this->getItems()->getComparableAttributes();
-        }
+        $this->_attributes ??= $this->getItems()->getComparableAttributes();
 
         return $this->_attributes;
     }

@@ -185,13 +185,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_array($mixed)) {
             $arrKeys = array_keys($mixed);
-            $isDigit = false;
-            foreach ($arrKeys as $key) {
-                if (is_int($key)) {
-                    $isDigit = true;
-                    break;
-                }
-            }
+            $isDigit = array_any($arrKeys, fn($key) => is_int($key));
 
             $mixed = $isDigit ? $this->packArrayToObject($mixed) : (object) $mixed;
         }
@@ -362,14 +356,13 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  bool               $htmlSpecialChars
      * @return string
      * @throws Zend_Uri_Exception
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getServiceUrl($routePath = null, $routeParams = null, $htmlSpecialChars = false)
     {
         $request = Mage::app()->getRequest();
 
-        if (is_null($routeParams)) {
-            $routeParams = [];
-        }
+        $routeParams ??= [];
 
         $routeParams['_nosid'] = true;
 
@@ -379,7 +372,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $uri = Zend_Uri_Http::fromString($url);
         $uri->setHost($request->getHttpHost());
         if (!$urlModel->getRouteFrontName()) {
-            $uri->setPath('/' . trim($request->getBasePath() . '/' . basename(getenv('SCRIPT_FILENAME')), '/'));
+            $scriptFilename = (string) ($_SERVER['SCRIPT_FILENAME'] ?? $_SERVER['SCRIPT_NAME'] ?? '');
+            $uri->setPath('/' . trim($request->getBasePath() . '/' . basename($scriptFilename), '/'));
         } else {
             $uri->setPath($request->getBaseUrl() . $request->getPathInfo());
         }

@@ -95,6 +95,33 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
     }
 
     /**
+     * Check whether the associated attribute is globally-scoped and this
+     * field is being rendered for a specific store view (not the
+     * default/all-store-views scope).
+     *
+     * Editing a global attribute from a store view scope writes a
+     * store-scoped row for it, corrupting attribute data since a global
+     * attribute should never carry a per-store value. This mirrors
+     * canDisplayUseDefault() (which already excludes global-scope
+     * attributes from the "use default" checkbox), covering the case that
+     * mechanism leaves open: the field itself was still editable and
+     * savable from a store view.
+     *
+     * @return bool
+     */
+    public function isGlobalAttributeOnStoreScope()
+    {
+        $attribute = $this->getAttribute();
+        if ($attribute === null || !$attribute->isScopeGlobal()) {
+            return false;
+        }
+
+        $dataObject = $this->getDataObject();
+
+        return $dataObject !== null && (bool) $dataObject->getStoreId();
+    }
+
+    /**
      * Disable field in default value using case
      *
      * @return $this
@@ -102,6 +129,10 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
     public function checkFieldDisable()
     {
         if ($this->canDisplayUseDefault() && $this->usedDefault()) {
+            $this->getElement()->setDisabled(true);
+        }
+
+        if ($this->isGlobalAttributeOnStoreScope()) {
             $this->getElement()->setDisabled(true);
         }
 

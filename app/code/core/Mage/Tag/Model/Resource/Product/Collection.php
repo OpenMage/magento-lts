@@ -62,8 +62,8 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      *
      * @param  string $table
      * @return $this
-     * @deprecated after 1.3.2.3
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function setJoinFlag($table)
     {
         $this->setFlag($table, true);
@@ -76,8 +76,8 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      *
      * @param  string $table
      * @return $this
-     * @deprecated after 1.3.2.3
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_3)]
     public function unsetJoinFlag($table = null)
     {
         $this->setFlag($table, false);
@@ -114,9 +114,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
                 ->where('tag_id IN(?)', $tagIds);
             $tagsRaw = $this->getConnection()->fetchAll($select);
             foreach ($tagsRaw as $tag) {
-                if (!isset($tagsStores[$tag['tag_id']])) {
-                    $tagsStores[$tag['tag_id']] = [];
-                }
+                $tagsStores[$tag['tag_id']] ??= [];
 
                 $tagsStores[$tag['tag_id']][] = $tag['store_id'];
             }

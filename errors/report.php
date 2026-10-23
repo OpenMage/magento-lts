@@ -18,6 +18,7 @@ require_once 'processor.php';
 $processor = new Error_Processor();
 
 if (isset($reportData) && is_array($reportData)) {
+    $reportData['time'] = date('Y-m-d H:i:s');
     $processor->saveReport($reportData);
 }
 

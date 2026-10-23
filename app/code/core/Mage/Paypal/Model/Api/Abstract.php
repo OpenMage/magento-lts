@@ -294,7 +294,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     public function addRecurringPaymentProfiles(array $items)
     {
-        if ($items) {
+        if ($items !== []) {
             $this->_recurringPaymentProfiles = $items;
         }
 
@@ -481,7 +481,8 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
             return $this->getData($key);
         }
 
-        return $this->_config->$key ? $this->_config->$key : $default;
+        // @phpstan-ignore property.dynamicName
+        return $this->_config->$key ?? $default;
     }
 
     /**

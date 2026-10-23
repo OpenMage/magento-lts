@@ -253,7 +253,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function setType($type)
     {
         $this->_type = Mage::getSingleton('eav/config')->getEntityType($type);
-        $this->_afterSetConfig();
         return $this;
     }
 
@@ -533,9 +532,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function getSortedAttributes($setId = null)
     {
         $attributes = $this->getAttributesByCode();
-        if ($setId === null) {
-            $setId = $this->getEntityType()->getDefaultAttributeSetId();
-        }
+        $setId ??= $this->getEntityType()->getDefaultAttributeSetId();
 
         // initialize set info
         Mage::getSingleton('eav/entity_attribute_set')
@@ -832,7 +829,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             }
         }
 
-        if (!$errors) {
+        if ($errors === []) {
             return true;
         }
 
@@ -1455,9 +1452,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     protected function _saveAttribute($object, $attribute, $value)
     {
         $table = $attribute->getBackend()->getTable();
-        if (!isset($this->_attributeValuesToSave[$table])) {
-            $this->_attributeValuesToSave[$table] = [];
-        }
+        $this->_attributeValuesToSave[$table] ??= [];
 
         $entityIdField = $attribute->getBackend()->getEntityIdField();
 
@@ -1518,9 +1513,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         }
 
         $backendTable = $attribute->getBackendTable();
-        if (!isset(self::$_attributeBackendTables[$backendTable])) {
-            self::$_attributeBackendTables[$backendTable] = $this->_getReadAdapter()->describeTable($backendTable);
-        }
+        self::$_attributeBackendTables[$backendTable] ??= $this->_getReadAdapter()->describeTable($backendTable);
 
         $describe = self::$_attributeBackendTables[$backendTable];
         return $this->_getReadAdapter()->prepareColumnValue($describe['value'], $value);
@@ -1603,7 +1596,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                 $this->_insertAttribute($object, $attribute, $newValue);
             } elseif ($origValueId !== false && ($newValue !== null)) {
                 $this->_updateAttribute($object, $attribute, $origValueId, $newValue);
-            } elseif ($origValueId !== false && ($newValue === null)) {
+            } elseif ($origValueId !== false) {
                 $adapter->delete($table, $where);
             }
 
@@ -1743,17 +1736,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function getDefaultAttributes()
     {
         return array_unique(array_merge($this->_getDefaultAttributes(), [$this->getEntityIdField()]));
-    }
-
-    /**
-     * After set config process
-     *
-     * @return $this
-     * @deprecated
-     */
-    protected function _afterSetConfig()
-    {
-        return $this;
     }
 
     /**

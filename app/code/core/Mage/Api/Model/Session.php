@@ -75,15 +75,6 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @return void
-     */
-    #[Override]
-    public function revalidateCookie()
-    {
-        // In api we don't use cookies
-    }
-
-    /**
      * @return bool
      */
     #[Override]
@@ -161,9 +152,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function refreshAcl($user = null)
     {
-        if (is_null($user)) {
-            $user = $this->getUser();
-        }
+        $user ??= $this->getUser();
 
         if (!$user) {
             return $this;

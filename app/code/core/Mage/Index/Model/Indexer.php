@@ -66,9 +66,7 @@ class Mage_Index_Model_Indexer
      */
     public function getProcessesCollection()
     {
-        if (is_null($this->_processesCollection)) {
-            $this->_processesCollection = Mage::getResourceModel('index/process_collection');
-        }
+        $this->_processesCollection ??= Mage::getResourceModel('index/process_collection');
 
         return $this->_processesCollection;
     }
@@ -153,8 +151,8 @@ class Mage_Index_Model_Indexer
      * Lock indexer actions
      *
      * @return $this
-     * @deprecated after 1.6.1.0
      */
+    #[Deprecated(message: 'after 1.6.1.0')]
     public function lockIndexer()
     {
         $this->_lockFlag = true;
@@ -165,8 +163,8 @@ class Mage_Index_Model_Indexer
      * Unlock indexer actions
      *
      * @return $this
-     * @deprecated after 1.6.1.0
      */
+    #[Deprecated(message: 'after 1.6.1.0')]
     public function unlockIndexer()
     {
         $this->_lockFlag = false;
@@ -177,8 +175,8 @@ class Mage_Index_Model_Indexer
      * Check if object actions are locked
      *
      * @return bool
-     * @deprecated after 1.6.1.0
      */
+    #[Deprecated(message: 'after 1.6.1.0')]
     public function isLocked()
     {
         return $this->_lockFlag;

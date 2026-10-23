@@ -33,7 +33,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
     /**
      * @var array<string, mixed> Configuration data
      */
-    protected array $_config = [];
+    protected array $_config;
 
     /**
      * Constructor

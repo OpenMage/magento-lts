@@ -153,9 +153,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      */
     protected function _getCategoryInstance()
     {
-        if (is_null($this->_categoryInstance)) {
-            $this->_categoryInstance = Mage::getModel('catalog/category');
-        }
+        $this->_categoryInstance ??= Mage::getModel('catalog/category');
 
         return $this->_categoryInstance;
     }
@@ -345,8 +343,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      * @param  bool                        $last     Whether ot not this item is last, affects list item class
      * @return string
      * @throws Mage_Core_Exception
-     * @deprecated deprecated after 1.4
      */
+    #[Deprecated(message: 'deprecated after 1.4')]
     public function drawItem($category, $level = 0, $last = false)
     {
         return $this->_renderCategoryMenuItemHtml($category, $level, $last);

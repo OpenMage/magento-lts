@@ -369,10 +369,8 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
             $adapter = $this->_getSourceAdapter(self::getWorkingDir() . sprintf($filenameFormat, $i - 1));
             foreach ($adapter as $row) {
                 foreach ($colReg as $colName => $regExpType) {
-                    if (!empty($row[$colName])) {
-                        preg_match($regExps[$regExpType], $row[$colName], $matches);
-
-                        $row[$colName] = $matches[1] . ((int) $matches[2] + $size) . ($regExpType === 'middle' ? $matches[3] : '');
+                    if (!empty($row[$colName]) && preg_match($regExps[$regExpType], $row[$colName], $matches) !== false && ($matches) !== []) {
+                        $row[$colName] = $matches[1] . ((int) $matches[2] + $size) . ($matches[3] ?? '');
                     }
                 }
 

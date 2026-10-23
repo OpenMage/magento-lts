@@ -48,7 +48,9 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 
         $rolesArr = $adapter->fetchAll($select);
 
-        $this->loadRoles($acl, $rolesArr);
+        if (is_array($rolesArr)) {
+            $this->loadRoles($acl, $rolesArr);
+        }
 
         $select = $adapter->select()
             ->from(['r' => $ruleTable])
@@ -58,16 +60,72 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 ['assert_type', 'assert_data'],
             );
 
+        /**
+         * @var array<int, array<string, mixed>> $rulesArr
+         */
         $rulesArr = $adapter->fetchAll($select);
 
-        $this->loadRules($acl, $rulesArr);
+        if (is_array($rulesArr)) {
+            $this->loadRules($acl, $rulesArr);
+            $this->denyUnlistedResources($acl, $rulesArr);
+        }
 
         return $acl;
     }
 
     /**
+     * Deny every registered resource that has no explicit rule for a group role.
+     *
+     * The role editor writes an explicit allow/deny row for every resource that exists
+     * when the role is saved. A resource added to code afterwards has no row, and
+     * Zend_Acl inherits the nearest ancestor's rule for it. A role allowed on a parent
+     * therefore gains every new child until the role is saved again. Denying the
+     * unlisted resources makes the runtime match what the role editor shows and saves.
+     *
+     * Roles with an "all" allow row keep full access. The role editor also writes an
+     * "all" deny row for every other role, so only the permission decides. User roles
+     * inherit from their group role through Zend_Acl role inheritance, so only group
+     * roles need rules.
+     *
+     * @param array<int, array<string, mixed>> $rulesArr
+     */
+    public function denyUnlistedResources(Mage_Admin_Model_Acl $acl, array $rulesArr): void
+    {
+        $listed = [];
+        $allowAll = [];
+        foreach ($rulesArr as $rule) {
+            if (($rule['role_type'] ?? null) !== Mage_Admin_Model_Acl::ROLE_TYPE_GROUP) {
+                continue;
+            }
+
+            $roleId = $rule['role_type'] . $rule['role_id'];
+            $resourceId = (string) $rule['resource_id'];
+            $listed[$roleId][$resourceId] = true;
+            if ($resourceId === self::ACL_ALL_RULES && $rule['permission'] === 'allow') {
+                $allowAll[$roleId] = true;
+            }
+        }
+
+        $resources = $acl->getResources();
+        foreach ($acl->getRoles() as $roleId) {
+            $roleId = (string) $roleId;
+            if (!str_starts_with($roleId, Mage_Admin_Model_Acl::ROLE_TYPE_GROUP) || isset($allowAll[$roleId])) {
+                continue;
+            }
+
+            $rules = $listed[$roleId] ?? [];
+            foreach ($resources as $resourceId) {
+                if (!isset($rules[$resourceId])) {
+                    $acl->deny($roleId, $resourceId);
+                }
+            }
+        }
+    }
+
+    /**
      * Load roles
      *
+     * @param  array<int, array<string, mixed>> $rolesArr
      * @return $this
      * @throws Zend_Acl_Exception
      */
@@ -85,7 +143,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                     $roleId = $role['role_type'] . $role['user_id'];
                     if (!$acl->hasRole($roleId)) {
                         $acl->addRole(Mage::getModel('admin/acl_role_user', $roleId), $parent);
-                    } else {
+                    } elseif (!is_null($parent)) {
                         $acl->addRoleParent($roleId, $parent);
                     }
 
@@ -99,6 +157,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load rules
      *
+     * @param  array<int, array<string, mixed>> $rulesArr
      * @return $this
      */
     public function loadRules(Mage_Admin_Model_Acl $acl, array $rulesArr)
@@ -109,8 +168,14 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             $resource = $rule['resource_id'];
             $privileges = empty($rule['privileges']) ? null : explode(',', $rule['privileges']);
 
+            /**
+             * @var null|Zend_Acl_Assert_Interface $assert
+             */
             $assert = null;
             if ($rule['assert_id'] != 0) {
+                /**
+                 * @var interface-string<Zend_Acl_Assert_Interface> $assertClass
+                 */
                 $assertClass = Mage::getSingleton('admin/config')->getAclAssert($rule['assert_type'])->getClassName();
                 $assert = new $assertClass(unserialize($rule['assert_data'], ['allowed_classes' => false]));
             }

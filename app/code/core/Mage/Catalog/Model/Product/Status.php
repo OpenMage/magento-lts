@@ -57,8 +57,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Add visible filter to Product Collection
      *
      * @return $this
-     * @deprecated remove on new builds
      */
+    #[Deprecated(message: 'remove on new builds')]
     public function addVisibleFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
         return $this;
@@ -68,8 +68,8 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Add saleable filter to Product Collection
      *
      * @return $this
-     * @deprecated remove on new builds
      */
+    #[Deprecated(message: 'remove on new builds')]
     public function addSaleableFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
         return $this;

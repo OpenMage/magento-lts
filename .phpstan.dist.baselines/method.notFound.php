@@ -77,11 +77,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Mage_Admin_Model_Resource_Roles_User_Collection::setUserFilter().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Userroles.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::applyLogToCollection().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Pcompared.php',
@@ -1865,11 +1860,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::setId().',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Data/Form/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::hasData().',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method SimpleXMLElement::setNode().',

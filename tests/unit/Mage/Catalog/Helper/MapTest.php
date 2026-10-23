@@ -29,8 +29,6 @@ final class MapTest extends OpenMageTest
 
     /**
      * @group Helper
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetCategoryUrl(): void
     {
@@ -39,8 +37,6 @@ final class MapTest extends OpenMageTest
 
     /**
      * @group Helper
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetProductUrl(): void
     {

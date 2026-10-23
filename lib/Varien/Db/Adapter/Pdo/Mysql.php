@@ -844,8 +844,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  string                           $schemaName
      * @return bool|Zend_Db_Statement_Interface
      * @throws Throwable
-     *@deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function dropKey($tableName, $keyName, $schemaName = null)
     {
         return $this->dropIndex($tableName, $keyName, $schemaName);
@@ -911,8 +911,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  bool                                                       $purge
      * @return PDOStatement|Zend_Db_Statement|Zend_Db_Statement_Interface
      * @throws Throwable
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function addConstraint(
         $fkName,
         $tableName,
@@ -1164,8 +1164,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  string               $schemaName
      * @return array
      * @throws Zend_Cache_Exception
-     * @deprecated use getIndexList()
      */
+    #[Deprecated(message: 'use getIndexList()')]
     public function getKeyList($tableName, $schemaName = null)
     {
         $keyList   = [];
@@ -1438,8 +1438,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  string                      $schemaName
      * @return Zend_Db_Statement_Interface
      * @throws Zend_Db_Exception
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     public function addKey($tableName, $indexName, $fields, $indexType = 'index', $schemaName = null)
     {
         return $this->addIndex($tableName, $indexName, $fields, $indexType, $schemaName);
@@ -1462,7 +1462,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $where[] = $this->quoteInto($field . '=?', $ids[$index++]);
         }
 
-        if (!$where) {
+        if ($where === []) {
             return $this;
         }
 
@@ -2025,8 +2025,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param  string $tableName
      * @param  string $schemaName
      * @return $this
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function truncate($tableName, $schemaName = null)
     {
         return $this->truncateTable($tableName, $schemaName);
@@ -2165,7 +2165,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         $insertSql = $this->_getInsertSqlQuery($table, $cols, $values);
-        if ($updateFields) {
+        if ($updateFields !== []) {
             $insertSql .= ' ON DUPLICATE KEY UPDATE ' . implode(', ', $updateFields);
         }
 
@@ -2571,9 +2571,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $cIdentity  = false;
 
         // detect and validate column type
-        if ($ddlType === null) {
-            $ddlType = $this->_getDdlType($options);
-        }
+        $ddlType ??= $this->_getDdlType($options);
 
         if (empty($ddlType) || !isset($this->_ddlColumnTypes[$ddlType])) {
             throw new Zend_Db_Exception('Invalid column definition data');
@@ -3113,9 +3111,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $query = '';
         if (is_array($condition)) {
             $key = key(array_intersect_key($condition, $conditionKeyMap));
-            if (is_null($key)) {
-                $key = '';
-            }
+            $key ??= '';
 
             if (isset($condition['from']) || isset($condition['to'])) {
                 if (isset($condition['from'])) {
@@ -3689,7 +3685,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         $query = sprintf('%s INTO %s', $query, $this->quoteIdentifier($table));
-        if ($fields) {
+        if ($fields !== []) {
             $columns = array_map($this->quoteIdentifier(...), $fields);
             $query = sprintf('%s (%s)', $query, implode(', ', $columns));
         }
@@ -3697,7 +3693,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $query = sprintf('%s %s', $query, $select->assemble());
 
         if ($mode == self::INSERT_ON_DUPLICATE) {
-            if (!$fields) {
+            if ($fields === []) {
                 $describe = $this->describeTable($table);
                 foreach ($describe as $column) {
                     if ($column['PRIMARY'] === false) {
@@ -3730,7 +3726,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 }
             }
 
-            if ($update) {
+            if ($update !== []) {
                 $query = sprintf('%s ON DUPLICATE KEY UPDATE %s', $query, implode(', ', $update));
             }
         }
@@ -3866,7 +3862,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $joinConds[] = $join;
         }
 
-        if ($joinConds) {
+        if ($joinConds !== []) {
             $query = sprintf("%s\n%s", $query, implode("\n", $joinConds));
         }
 
@@ -3885,7 +3881,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $columns[] = sprintf('%s = %s', $this->quoteIdentifier([$tableAlias, $alias]), $column);
         }
 
-        if (!$columns) {
+        if ($columns === []) {
             throw new Varien_Db_Exception('The columns for UPDATE statement are not defined');
         }
 
@@ -4152,8 +4148,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * or specific date supported by all RDBMS.
      *
      * @return string
-     * @deprecated after 1.5.1.0
      */
+    #[Deprecated(message: 'after 1.5.1.0')]
     public function getSuggestedZeroDate()
     {
         return '0000-00-00 00:00:00';
@@ -4164,8 +4160,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param  string $fkName
      * @return string
-     * @deprecated after 1.6.0.0
      */
+    #[Deprecated(message: 'after 1.6.0.0')]
     protected function _getForeignKeyName($fkName)
     {
         if (!str_starts_with($fkName, 'FK_')) {

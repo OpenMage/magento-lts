@@ -141,8 +141,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param  Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param  Varien_Db_Select                      $select
      * @return Varien_Object
-     * @deprecated since 1.7.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     protected function _dispatchPreparePriceEvent($filter, $select)
     {
         // prepare response object for event
@@ -176,8 +176,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param  Mage_Catalog_Model_Layer_Filter_Price $filter
      * @return float
      * @throws Zend_Db_Select_Exception
-     * @deprecated since 1.7.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     public function getMaxPrice($filter)
     {
         return $filter->getLayer()->getProductCollection()->getMaxPrice();
@@ -282,8 +282,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param  int                                   $index  the range factor
      * @return $this
      * @throws Zend_Db_Select_Exception
-     * @deprecated since 1.7.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_7_0_0)]
     public function applyFilterToCollection($filter, $range, $index)
     {
         $select = $filter->getLayer()->getProductCollection()->getSelect();

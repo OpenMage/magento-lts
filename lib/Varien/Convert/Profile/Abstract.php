@@ -28,9 +28,7 @@ abstract class Varien_Convert_Profile_Abstract
 
     public function addAction(?Varien_Convert_Action_Interface $action = null)
     {
-        if (is_null($action)) {
-            $action = new $this->_actionDefaultClass();
-        }
+        $action ??= new $this->_actionDefaultClass();
 
         $this->_actions[] = $action;
         $action->setProfile($this);
@@ -54,9 +52,7 @@ abstract class Varien_Convert_Profile_Abstract
 
     public function getContainer($name = null)
     {
-        if (is_null($name)) {
-            $name = '_default';
-        }
+        $name ??= '_default';
 
         return $this->getContainers()->getItem($name);
     }

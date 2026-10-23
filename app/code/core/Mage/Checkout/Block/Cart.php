@@ -22,9 +22,8 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 {
     /**
      * Prepare cart items URLs
-     *
-     * @deprecated after 1.7.0.2
      */
+    #[Deprecated(message: 'after 1.7.0.2')]
     public function prepareItemUrls()
     {
         $products = [];
@@ -43,7 +42,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
             }
         }
 
-        if ($products) {
+        if ($products !== []) {
             $products = Mage::getResourceSingleton('catalog/url')
                 ->getRewriteByProductStore($products);
             foreach ($this->getItems() as $item) {

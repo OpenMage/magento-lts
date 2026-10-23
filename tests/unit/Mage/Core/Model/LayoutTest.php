@@ -15,10 +15,13 @@ use Override;
 use Error;
 use Mage;
 use Mage_Core_Block_Abstract;
+use Mage_Core_Block_Text;
 use Mage_Core_Model_Layout as Subject;
+use Mage_Core_Model_Layout_Element;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\LayoutTrait;
 use OpenMage\Tests\Unit\Traits\PhpStormMetaData\BlocksTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
+use ReflectionMethod;
 
 final class LayoutTest extends OpenMageTest
 {
@@ -82,5 +85,38 @@ final class LayoutTest extends OpenMageTest
         $this->expectExceptionMessage('Class "Mage_Invalid_Block_Type" not found');
 
         self::$subject->getBlockSingleton('invalid/type');
+    }
+
+    /**
+     * Regression test for https://github.com/OpenMage/magento-lts/pull/5670
+     *
+     * On PHP 8+, call_user_func_array() treats a string-keyed array as named arguments.
+     * The helper argument array built from the layout XML child node names (e.g. "value", "len")
+     * does not match the helper method's parameter names (e.g. "$string", "$length"), so passing
+     * it directly used to throw "Unknown named parameter". Wrapping it in array_values() restores
+     * the pre-PHP8 positional-argument behavior.
+     *
+     * @covers Mage_Core_Model_Layout::_generateAction()
+     * @group Model
+     */
+    public function testGenerateActionWithHelperCallbackArgument(): void
+    {
+        $block = self::$subject->createBlock('core/text', 'generateActionHelperCallbackTestBlock');
+        self::assertInstanceOf(Mage_Core_Block_Text::class, $block);
+
+        $xml = <<<'XML'
+            <action method="setText" block="generateActionHelperCallbackTestBlock">
+                <text helper="core/string/truncate">
+                    <value>Hello World Long String</value>
+                    <len>10</len>
+                </text>
+            </action>
+            XML;
+
+        $node = new Mage_Core_Model_Layout_Element($xml);
+
+        (new ReflectionMethod(Subject::class, '_generateAction'))->invoke(self::$subject, $node, $node);
+
+        self::assertSame('Hello W...', $block->getText());
     }
 }

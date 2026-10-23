@@ -35,8 +35,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         if (!empty($dateFrom) && !empty($dateTo)) {
             /** @var Mage_Core_Helper_Validate $validator */
             $validator = Mage::helper('core/validate');
-            if ($validator->validateDateTime(value: $dateFrom)->count() > 0
-                || $validator->validateDateTime(value: $dateTo)->count() > 0
+            if ($validator->validateDate(value: $dateFrom)->count() > 0
+                || $validator->validateDate(value: $dateTo)->count() > 0
             ) {
                 Mage::throwException(Mage::helper('core')->__('Invalid date'));
             }
@@ -143,9 +143,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function loadChange($storeId, $date = null)
     {
-        if (is_null($date)) {
-            $date = Varien_Date::now();
-        }
+        $date ??= Varien_Date::now();
 
         $select = $this->_getReadAdapter()->select()
             ->from(['main_table' => $this->getTable('design_change')])

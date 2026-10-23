@@ -74,9 +74,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
         $defaultCurrencies = $this->_getDefaultCurrencyCodes();
 
         foreach ($defaultCurrencies as $currencyFrom) {
-            if (!isset($data[$currencyFrom])) {
-                $data[$currencyFrom] = [];
-            }
+            $data[$currencyFrom] ??= [];
 
             $data = $this->_convertBatch($data, $currencyFrom, $currencies);
             ksort($data[$currencyFrom]);
