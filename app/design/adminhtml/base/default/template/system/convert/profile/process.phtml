@@ -168,7 +168,7 @@
                                 Element.insert($("updatedRows"), {before: config.tpl.evaluate({
                                     style: "background-color:"+config.styles.error.bg,
                                     image: config.styles.error.icon,
-                                    text: data.errors[i],
+                                    text: String(data.errors[i]).escapeHTML(),
                                     id: "id-" + (countOfUpdated + i + 1)
                                 })});
                                 countOfError ++;
