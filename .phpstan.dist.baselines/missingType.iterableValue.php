@@ -28637,51 +28637,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Sales/Helper/GuestTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::$calls type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php:34::update() has parameter $bind with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php:34::$queries type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php:34::$updates type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php:37::$queries type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php:37::$row type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php:36::fetchPairs() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php:36::$queries type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php:36::$result type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Sitemap\\Model\\SitemapTest::testGenerateXml() has parameter $methods with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Sitemap/Model/SitemapTest.php',

@@ -6452,32 +6452,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $couponId of method Mage_SalesRule_Model_Resource_Coupon::decrementTimesUsed() expects int, int<min, -1>|int<1, max>|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $couponId of method Mage_SalesRule_Model_Resource_Coupon::getTimesUsedForUpdate() expects int, int<min, -1>|int<1, max>|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $couponId of method Mage_SalesRule_Model_Resource_Coupon::getTimesUsedForUpdate() expects int, int|string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $couponId of method Mage_SalesRule_Model_Resource_Coupon::incrementTimesUsed() expects int, int<min, -1>|int<1, max>|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $websiteId of method Mage_SalesRule_Model_Resource_Rule::getActiveAttributes() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $couponId of method Mage_SalesRule_Model_Resource_Coupon_Usage::updateCustomerCouponTimesUsed() expects int, int<min, -1>|int<1, max>|string given.',
+    'rawMessage' => 'Parameter #2 $couponId of method Mage_SalesRule_Model_Resource_Coupon_Usage::updateCustomerCouponTimesUsed() expects int, int|string|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
@@ -9055,36 +9035,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $version1 of function version_compare expects string, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Rule/Model/AbstractTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $couponId of method Mage_SalesRule_Model_Resource_Coupon::getTimesUsedForUpdate() expects int, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $ruleCustomer of method Mage_SalesRule_Model_Resource_Rule_Customer::loadByCustomerRuleForUpdate() expects Mage_SalesRule_Model_Rule_Customer, Varien_Object given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $customerId of method Mage_SalesRule_Model_Resource_Rule_Customer::loadByCustomerRuleForUpdate() expects int, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $ruleId of method Mage_SalesRule_Model_Resource_Rule_Customer::loadByCustomerRuleForUpdate() expects int, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $ruleIds of method Mage_SalesRule_Model_Resource_Rule::lockRulesForUpdate() expects array<int>, array<int, int|string> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $ruleIds of method Mage_SalesRule_Model_Resource_Rule::lockRulesForUpdate() expects array<int>, array<int, int|string|null> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $sourceDimensionMeasure of method Mage_Usa_Helper_Data::convertMeasureDimension() expects \'centimeter\'|\'inch\'|\'meter\', string|null given.',

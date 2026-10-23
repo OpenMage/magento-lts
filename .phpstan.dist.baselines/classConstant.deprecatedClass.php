@@ -2,12 +2,6 @@
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
-    'rawMessage' => 'Fetching class constant WARN of deprecated class Zend_Log:
-use Mage_Core_Model_Logger instead; it uses Monolog as the underlying implementation',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Access to constant on deprecated class Mage_Adminhtml_Block_Report_Product_Ordered:
 after 1.4.0.1',
     'count' => 2,

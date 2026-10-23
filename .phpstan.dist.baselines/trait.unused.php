@@ -16,15 +16,5 @@ $ignoreErrors[] = [
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Traits/DataProvider/Mage/Oauth/Model/ServerTrait.php',
 ];
-$ignoreErrors[] = [
-    'rawMessage' => 'Trait OpenMage\\Tests\\Unit\\Traits\\DataProvider\\Mage\\SalesRule\\Model\\Resource\\Coupon\\UsageTrait is used zero times and is not analysed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Traits/DataProvider/Mage/SalesRule/Model/Resource/Coupon/UsageTrait.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Trait OpenMage\\Tests\\Unit\\Traits\\DataProvider\\Mage\\SalesRule\\Model\\Resource\\CouponTrait is used zero times and is not analysed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Traits/DataProvider/Mage/SalesRule/Model/Resource/CouponTrait.php',
-];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

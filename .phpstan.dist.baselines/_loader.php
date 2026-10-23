@@ -99,7 +99,6 @@ return ['includes' => [
     __DIR__ . '/return.empty.php',
     __DIR__ . '/return.missing.php',
     __DIR__ . '/return.type.php',
-    __DIR__ . '/return.unusedType.php',
     __DIR__ . '/smaller.invalid.php',
     __DIR__ . '/staticMethod.alreadyNarrowedType.php',
     __DIR__ . '/staticMethod.deprecated.php',

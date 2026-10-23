@@ -59,16 +59,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Rule.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/Page.php',
 ];
 $ignoreErrors[] = [

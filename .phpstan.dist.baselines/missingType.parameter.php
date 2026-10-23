@@ -2872,36 +2872,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Log/Model/CustomerTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::insert() has parameter $bind with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::insert() has parameter $table with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::update() has parameter $bind with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::update() has parameter $table with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::update() has parameter $where with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php:36::fetchPairs() has parameter $fetchMode with no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Usa\\Helper\\DataTest::testConvertMeasureDimension() has parameter $value with no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Usa/Helper/DataTest.php',

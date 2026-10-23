@@ -1951,15 +1951,5 @@ $ignoreErrors[] = [
     'count' => 2,
     'path' => __DIR__ . '/../tests/unit/Mage/Payment/Model/Method/FreeTest.php',
 ];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Mage_SalesRule_Model_Observer::isQuoteCounted().',
-    'count' => 5,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/ObserverTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Mage_SalesRule_Model_Observer::setQuoteCounted().',
-    'count' => 2,
-    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/ObserverTest.php',
-];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];
