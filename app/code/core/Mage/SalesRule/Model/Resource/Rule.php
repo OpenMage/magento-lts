@@ -133,6 +133,41 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     }
 
     /**
+     * Lock the given rules for the rest of the current transaction and return their fresh usage counters
+     *
+     * Every redemption and cancellation of a rule goes through this lock first, which serializes the
+     * counter updates of concurrent orders using the same rule (and its coupons). The rows are locked in
+     * ascending id order so that two orders applying the same set of rules cannot deadlock each other.
+     * A locking read always sees the latest committed data, unlike a plain read inside a transaction.
+     *
+     * @param  int[]           $ruleIds
+     * @return array<int, int> times_used by rule id, rules that do not exist are omitted
+     */
+    public function lockRulesForUpdate(array $ruleIds)
+    {
+        $ruleIds = array_values(array_unique(array_filter(array_map(intval(...), $ruleIds))));
+        if ($ruleIds === []) {
+            return [];
+        }
+
+        sort($ruleIds);
+
+        $adapter = $this->_getWriteAdapter();
+        $select = $adapter->select()
+            ->from($this->getMainTable(), ['rule_id', 'times_used'])
+            ->where('rule_id IN (?)', $ruleIds)
+            ->order('rule_id ' . Varien_Db_Select::SQL_ASC)
+            ->forUpdate(true);
+
+        $timesUsed = [];
+        foreach ($adapter->fetchPairs($select) as $ruleId => $value) {
+            $timesUsed[(int) $ruleId] = (int) $value;
+        }
+
+        return $timesUsed;
+    }
+
+    /**
      * Retrieve coupon/rule uses for specified customer
      *
      * @param Mage_SalesRule_Model_Rule $rule

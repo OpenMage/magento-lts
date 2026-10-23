@@ -75,6 +75,71 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     }
 
     /**
+     * Increment times_used counter with a single conditional statement
+     *
+     * The counter is read, checked and written by the database itself, so that concurrent
+     * order placements cannot all pass the usage limit check with the same stale value and
+     * then redeem the coupon beyond its limit.
+     *
+     * @param  int      $couponId
+     * @param  null|int $usageLimit Do not increment once the counter reached this limit
+     * @return bool     Whether the counter was incremented
+     */
+    public function incrementTimesUsed($couponId, $usageLimit = null)
+    {
+        $where = ['coupon_id = ?' => (int) $couponId];
+        if ($usageLimit) {
+            $where['times_used < ?'] = (int) $usageLimit;
+        }
+
+        return $this->_getWriteAdapter()->update(
+            $this->getMainTable(),
+            ['times_used' => new Zend_Db_Expr('times_used + 1')],
+            $where,
+        ) > 0;
+    }
+
+    /**
+     * Decrement times_used counter with a single conditional statement
+     *
+     * @param  int  $couponId
+     * @return bool Whether the counter was decremented
+     */
+    public function decrementTimesUsed($couponId)
+    {
+        return $this->_getWriteAdapter()->update(
+            $this->getMainTable(),
+            ['times_used' => new Zend_Db_Expr('times_used - 1')],
+            [
+                'coupon_id = ?' => (int) $couponId,
+                'times_used > ?' => 0,
+            ],
+        ) > 0;
+    }
+
+    /**
+     * Read the times_used counter with a locking read
+     *
+     * Use inside a transaction, after the rules of the coupon were locked, to get the latest committed
+     * value rather than the possibly older snapshot a plain read inside a transaction returns.
+     *
+     * @param  int      $couponId
+     * @return null|int null if the coupon does not exist
+     */
+    public function getTimesUsedForUpdate($couponId)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $select = $adapter->select()
+            ->from($this->getMainTable(), ['times_used'])
+            ->where('coupon_id = ?', (int) $couponId)
+            ->forUpdate(true);
+
+        $timesUsed = $adapter->fetchOne($select);
+
+        return $timesUsed === false ? null : (int) $timesUsed;
+    }
+
+    /**
      * Check if code exists
      *
      * @param  string $code
