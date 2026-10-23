@@ -1891,5 +1891,75 @@ $ignoreErrors[] = [
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Simplexml/Config.php',
 ];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Dataflow_Model_Convert_Adapter_Http_Curl::restrictProtocolsWrapper().',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Dataflow/Model/Convert/Adapter/Http/CurlTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Dataflow_Model_Convert_Adapter_Http_Curl::validateUriWrapper().',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Dataflow/Model/Convert/Adapter/Http/CurlTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Downloadable_Helper_Download::getAllowedAddressWrapper().',
+    'count' => 7,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Downloadable_Helper_Download::getAllowedUrlPrefixesWrapper().',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Downloadable_Helper_Download::getHandleWrapper().',
+    'count' => 2,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Downloadable_Helper_Download::isAllowedByPrefixWrapper().',
+    'count' => 10,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Downloadable_Helper_Download::isPublicAddressWrapper().',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Downloadable_Helper_Download::setUrl().',
+    'count' => 2,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Downloadable_Helper_Download::validateUrlWrapper().',
+    'count' => 3,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_Downloadable_Model_Link_UrlAudit::notify().',
+    'count' => 2,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Model/Link/UrlAuditTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method PHPUnit\\Framework\\MockObject\\MockObject::setRevoked().',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Oauth/Block/Customer/Token/ListTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method PHPUnit\\Framework\\MockObject\\MockObject::setGrandTotal().',
+    'count' => 2,
+    'path' => __DIR__ . '/../tests/unit/Mage/Payment/Model/Method/FreeTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_SalesRule_Model_Observer::isQuoteCounted().',
+    'count' => 5,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/ObserverTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method Mage_SalesRule_Model_Observer::setQuoteCounted().',
+    'count' => 2,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/ObserverTest.php',
+];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

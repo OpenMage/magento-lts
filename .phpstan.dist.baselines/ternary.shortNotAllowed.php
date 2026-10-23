@@ -54,6 +54,11 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
     'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/User.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Product/View.php',
 ];
 $ignoreErrors[] = [
@@ -118,6 +123,11 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Convert/Parser/Abstract.php',
 ];
@@ -170,6 +180,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
     'count' => 2,
     'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Pdo/Mysql.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Varien/Simplexml/Config/Cache/FileTest.php',
 ];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

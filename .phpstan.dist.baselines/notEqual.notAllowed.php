@@ -1588,11 +1588,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Model/Link/Api.php',
 ];
@@ -1960,6 +1955,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Loose comparison via "!=" between float and int is not allowed.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Free.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
@@ -2498,7 +2498,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and mixed is not allowed.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/controllers/DownloadController.php',
 ];
 $ignoreErrors[] = [
@@ -2515,11 +2515,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between int<0, max> and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Coupon/Massgenerator.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between mixed and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and int is not allowed.',

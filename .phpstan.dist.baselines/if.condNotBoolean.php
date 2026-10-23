@@ -2077,6 +2077,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/UrlrewriteController.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, int given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, array|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Config.php',
@@ -4862,6 +4867,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Validator.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, array<Varien_Simplexml_Element>|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Validator.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, int given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Locale.php',
@@ -5530,6 +5540,16 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, string|false given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, array<string, string> given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Model/Link/UrlAudit.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, array<int|string, string> given.',
@@ -8002,19 +8022,34 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Coupon/Massgenerator.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, int given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, int<0, max> given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, int|string|null given.',
-    'count' => 6,
+    'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, int given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Coupon.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, int|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Coupon.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, int|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
@@ -11362,9 +11397,19 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/StoreTest.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, string|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Newsletter/Model/TemplateTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in an if condition, Throwable|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, string|null given.',

@@ -957,6 +957,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Abstract.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Adapter_Http_Curl::_validateUri() has parameter $uri with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http/Curl.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Adapter_Io::getResource() has parameter $forWrite with no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php',
@@ -1505,6 +1510,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Varien_Convert::convert() has parameter $method with no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Convert.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Varien_Convert_Adapter_Http_Curl::_validateUri() has parameter $uri with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Varien/Convert/Adapter/Http/Curl.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Varien_Convert_Container_Abstract::addException() has parameter $error with no type specified.',
@@ -2827,9 +2837,69 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Customer/Model/CustomerTest.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Adapter_Http_Curl@anonymous/tests/unit/Mage/Dataflow/Model/Convert/Adapter/Http/CurlTest.php:29::validateUriWrapper() has parameter $uri with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Dataflow/Model/Convert/Adapter/Http/CurlTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download@anonymous/tests/unit/Mage/Downloadable/Helper/DownloadTest.php:32::getAllowedAddressWrapper() has parameter $checkAddress with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download@anonymous/tests/unit/Mage/Downloadable/Helper/DownloadTest.php:32::getAllowedAddressWrapper() has parameter $host with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download@anonymous/tests/unit/Mage/Downloadable/Helper/DownloadTest.php:32::isAllowedByPrefixWrapper() has parameter $url with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download@anonymous/tests/unit/Mage/Downloadable/Helper/DownloadTest.php:32::isPublicAddressWrapper() has parameter $address with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download@anonymous/tests/unit/Mage/Downloadable/Helper/DownloadTest.php:32::validateUrlWrapper() has parameter $url with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Log\\Model\\CustomerTest::testLoadByCustomer() has parameter $input with no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Log/Model/CustomerTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::insert() has parameter $bind with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::insert() has parameter $table with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::update() has parameter $bind with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::update() has parameter $table with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::update() has parameter $where with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php:36::fetchPairs() has parameter $fetchMode with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Usa\\Helper\\DataTest::testConvertMeasureDimension() has parameter $value with no type specified.',
@@ -2840,6 +2910,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Usa\\Helper\\DataTest::testConvertMeasureWeight() has parameter $value with no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Usa/Helper/DataTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Varien_Object@anonymous/tests/unit/Varien/Filter/TemplateTest.php:31::getConfig() has parameter $path with no type specified.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Varien/Filter/TemplateTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Varien\\Object_\\MapperTest::testAccumulateByMap() has parameter $expectedResult with no type specified.',

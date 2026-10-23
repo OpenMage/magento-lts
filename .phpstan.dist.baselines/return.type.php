@@ -3346,5 +3346,25 @@ $ignoreErrors[] = [
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Simplexml/Element.php',
 ];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_SalesRule_Model_Resource_Coupon_Usage@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:60::_getWriteAdapter() should return Magento_Db_Adapter_Pdo_Mysql but returns object.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_SalesRule_Model_Resource_Coupon@anonymous/tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php:69::_getWriteAdapter() should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Pdo_Mysql.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_SalesRule_Model_Resource_Rule_Customer@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php:61::_getWriteAdapter() should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Pdo_Mysql.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_SalesRule_Model_Resource_Rule@anonymous/tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php:64::_getWriteAdapter() should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Pdo_Mysql.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
+];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

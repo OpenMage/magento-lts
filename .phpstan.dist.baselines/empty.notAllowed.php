@@ -1923,7 +1923,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
 ];
 $ignoreErrors[] = [
@@ -2290,6 +2290,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Subscriber.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/code/core/Mage/Oauth/Helper/Data.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',

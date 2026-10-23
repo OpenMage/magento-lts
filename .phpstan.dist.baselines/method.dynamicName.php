@@ -211,5 +211,10 @@ $ignoreErrors[] = [
     'count' => 3,
     'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
+$ignoreErrors[] = [
+    'rawMessage' => 'Variable method call on Mage_Core_Block_Messages.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Core/Block/MessagesTest.php',
+];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

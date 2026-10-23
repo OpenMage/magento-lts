@@ -1561,5 +1561,30 @@ $ignoreErrors[] = [
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/Purifier/DefinitionCacheTest.php',
 ];
+$ignoreErrors[] = [
+    'rawMessage' => 'Return type (mixed) of method Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php:34::quote() should be covariant with return type (string) of method Varien_Db_Adapter_Interface::quote()',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Return type (string|false|null) of method Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php:34::fetchOne() should be covariant with return type (string) of method Varien_Db_Adapter_Interface::fetchOne()',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Return type (mixed) of method Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php:37::fetchRow() should be covariant with return type (array) of method Varien_Db_Adapter_Interface::fetchRow()',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Return type (mixed) of method Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php:37::quote() should be covariant with return type (string) of method Varien_Db_Adapter_Interface::quote()',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Return type (mixed) of method Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php:36::quote() should be covariant with return type (string) of method Varien_Db_Adapter_Interface::quote()',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
+];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

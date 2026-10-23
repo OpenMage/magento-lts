@@ -203,11 +203,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Email/PathValidator.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
     'count' => 6,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php',
 ];
@@ -1375,11 +1370,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Review/Model/Review.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function base64_decode() requires parameter #2 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rss/Helper/Order.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',

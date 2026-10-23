@@ -481,5 +481,20 @@ $ignoreErrors[] = [
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/File/Uploader/Image.php',
 ];
+$ignoreErrors[] = [
+    'rawMessage' => 'AnonymousClass5c05e38fce9ba22c3103ed42e420ea80::__construct() does not call parent constructor from Zend_Db_Adapter_Abstract.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'AnonymousClassde628961ac637196fa274c8e3742ba40::__construct() does not call parent constructor from Zend_Db_Adapter_Abstract.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'AnonymousClass86be670b71dba9ce661742ca6f6fb338::__construct() does not call parent constructor from Zend_Db_Adapter_Abstract.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
+];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

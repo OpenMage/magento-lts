@@ -328,6 +328,11 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, int|false given on the right side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in ||, int|false given on the right side.',
     'count' => 2,
     'path' => __DIR__ . '/../lib/Varien/Data/Collection/Filesystem.php',
 ];

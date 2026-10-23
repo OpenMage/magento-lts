@@ -313,7 +313,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset \'name\' on non-empty-array|true.',
-    'count' => 1,
+    'count' => 3,
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [

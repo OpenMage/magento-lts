@@ -1057,6 +1057,16 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Adminhtml/Helper/SalesTest.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Adminhtml\\Model\\Email\\PathValidatorTest::provideEncryptedConfigPaths() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Adminhtml/Model/Email/PathValidatorTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Adminhtml\\Model\\Email\\PathValidatorTest::provideUnencryptedConfigPaths() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Adminhtml/Model/Email/PathValidatorTest.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Adminhtml\\Model\\LayoutUpdate\\ValidatorTest::provideIsValidData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Adminhtml/Model/LayoutUpdate/ValidatorTest.php',
@@ -1335,6 +1345,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\Email\\Template\\AbstractTest::provideValidateFileExension() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/Email/Template/AbstractTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\Input\\Filter\\MaliciousCodeTest::provideEventHandlerPayloads() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/Input/Filter/MaliciousCodeTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\Layout\\ValidatorTest::provideUrl() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',

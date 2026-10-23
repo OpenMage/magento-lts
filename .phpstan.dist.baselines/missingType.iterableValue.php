@@ -15437,6 +15437,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Action/Abstract.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Adapter_Http_Curl::_getAllowedUrlPrefixes() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http/Curl.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Dataflow_Model_Convert_Parser_Csv::getCsvString() has parameter $fields with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php',
@@ -15850,6 +15855,31 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Downloadable_Helper_Catalog_Product_Configuration::getOptions() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Catalog/Product/Configuration.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download::_getAllowedUrlPrefixes() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download::_getUrlOrigin() has parameter $urlProp with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download::_reportBlockedUrl() has parameter $urlProp with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download::_resolveHost() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download::_validateUrl() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Downloadable_Helper_Download::getContentType() return type has no value type specified in iterable type array.',
@@ -18825,6 +18855,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Newsletter_Model_Template_Filter::widgetDirective() has parameter $construction with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Template/Filter.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Oauth_Helper_Data::_getCallbackUrlPort() has parameter $parsedUrl with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Oauth/Helper/Data.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Oauth_Helper_Data::$_endpoints type has no value type specified in iterable type array.',
@@ -28272,6 +28307,16 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Adminhtml/Helper/JsTest.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Api\\Model\\UserTest::testIsApiAccessRevokedBySave() has parameter $data with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Api/Model/UserTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Api\\Model\\UserTest::testIsApiAccessRevokedBySave() has parameter $origData with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Api/Model/UserTest.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Api\\Model\\UserTest::testValidate() has parameter $expectedResult with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Api/Model/UserTest.php',
@@ -28507,6 +28552,36 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Directory/Helper/DataTest.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download@anonymous/tests/unit/Mage/Downloadable/Helper/DownloadTest.php:32::_reportBlockedUrl() has parameter $urlProp with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download@anonymous/tests/unit/Mage/Downloadable/Helper/DownloadTest.php:32::_resolveHost() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download@anonymous/tests/unit/Mage/Downloadable/Helper/DownloadTest.php:32::getAllowedUrlPrefixesWrapper() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download@anonymous/tests/unit/Mage/Downloadable/Helper/DownloadTest.php:32::validateUrlWrapper() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Helper/DownloadTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Helper_Download@anonymous/tests/unit/Mage/Downloadable/Model/Link/UrlAuditTest.php:37::_resolveHost() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Model/Link/UrlAuditTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Downloadable_Model_Link_UrlAudit@anonymous/tests/unit/Mage/Downloadable/Model/Link/UrlAuditTest.php:51::notify() has parameter $report with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Model/Link/UrlAuditTest.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Log\\Model\\CustomerTest::testGetLoginAtTimestamp() has parameter $methods with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Log/Model/CustomerTest.php',
@@ -28525,6 +28600,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Review\\Model\\ReviewTest::testValidate() has parameter $methods with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Review/Model/ReviewTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Rss\\Helper\\OrderTest::decode() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Rss/Helper/OrderTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Rule\\Model\\AbstractTest::testLoadPost() has parameter $data with no value type specified in iterable type array.',
@@ -28550,6 +28630,56 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Rule\\Model\\AbstractTest::testValidateData() has parameter $expectedResul with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Rule/Model/AbstractTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Sales\\Helper\\GuestTest::setLookupPost() has parameter $post with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Sales/Helper/GuestTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property class@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php:36::$calls type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Coupon/UsageTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php:34::update() has parameter $bind with no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php:34::$queries type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php:34::$updates type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php:37::$queries type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php:37::$row type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php:36::fetchPairs() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php:36::$queries type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Varien_Db_Adapter_Pdo_Mysql@anonymous/tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php:36::$result type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Sitemap\\Model\\SitemapTest::testGenerateXml() has parameter $methods with no value type specified in iterable type array.',

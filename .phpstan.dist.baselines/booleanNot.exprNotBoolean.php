@@ -487,6 +487,16 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Helper/Sales.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Core_Model_Config_Element|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, Varien_Simplexml_Element given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, array|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
@@ -1098,7 +1108,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/User.php',
 ];
 $ignoreErrors[] = [
@@ -2062,6 +2072,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, list<string> given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
     'count' => 5,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Value/Api.php',
@@ -2935,6 +2950,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, string|false given.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Cms/Helper/Wysiwyg/Images.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Cms/Model/Adminhtml/Template/Filter.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, string|false given.',
@@ -4137,6 +4157,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, array given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http/Curl.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, Varien_Io_Abstract|false given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php',
@@ -4230,6 +4255,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Block/Checkout/Success.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, array given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
@@ -5617,6 +5647,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Review/controllers/ProductController.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Rss/Helper/Order.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Wishlist_Model_Wishlist|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Rss/controllers/IndexController.php',
@@ -6177,8 +6212,8 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int given.',
-    'count' => 1,
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
@@ -6788,7 +6823,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Wishlist_Model_Wishlist|false given.',
-    'count' => 9,
+    'count' => 10,
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/controllers/IndexController.php',
 ];
 $ignoreErrors[] = [
@@ -6808,7 +6843,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
-    'count' => 8,
+    'count' => 9,
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/controllers/IndexController.php',
 ];
 $ignoreErrors[] = [

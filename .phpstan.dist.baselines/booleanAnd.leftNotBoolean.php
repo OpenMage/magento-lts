@@ -2112,6 +2112,16 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/controllers/GuestController.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in &&, int given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in &&, int|string|null given on the left side.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, Magento_Db_Adapter_Pdo_Mysql given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php',

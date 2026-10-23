@@ -24,7 +24,22 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
     'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http/Curl.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Directory/Helper/Data.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Model/Link/UrlAudit.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
@@ -40,6 +55,16 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Product/Lowstock/Collection.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Rule.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function array_filter() requires parameter #2 to be passed to avoid loose comparison semantics.',

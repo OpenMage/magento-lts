@@ -64,6 +64,11 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Binary operation "." between non-falsy-string and array<string|null>|string|null results in an error.',
     'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Config/Form/Field/File.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Binary operation "." between non-falsy-string and array<string|null>|string|null results in an error.',
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Store/Grid/Render/Group.php',
 ];
 $ignoreErrors[] = [

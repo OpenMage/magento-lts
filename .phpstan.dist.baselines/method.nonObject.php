@@ -1192,6 +1192,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method loadModulesConfiguration() on Mage_Core_Model_Config|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
@@ -1885,6 +1890,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method setCanLoadExtJs() on Mage_Core_Block_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/UrlrewriteController.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method children() on Varien_Simplexml_Element|false.',
@@ -4265,6 +4275,16 @@ $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method streamStat() on resource|Varien_Io_File.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method fetchCol() on Varien_Db_Adapter_Interface|false.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Model/Link/UrlAudit.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method select() on Varien_Db_Adapter_Interface|false.',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Model/Link/UrlAudit.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getDownloadableData() on Mage_Catalog_Model_Product|null.',
@@ -7210,6 +7230,16 @@ $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method extend() on Varien_Simplexml_Element|false.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Simplexml/Config.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Adminhtml/Block/System/Convert/Profile/RunTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Cannot call method setNode() on Mage_Core_Model_Config|null.',
+    'count' => 2,
+    'path' => __DIR__ . '/../tests/unit/Mage/Adminhtml/Block/System/Convert/Profile/RunTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getCache() on Mage_Core_Model_Config|null.',

@@ -32,13 +32,18 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Argument of an invalid type array<Mage_Core_Model_Config_Element>|null supplied for foreach, only iterables are supported.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array<Varien_Simplexml_Element>|false|null supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array<Varien_Simplexml_Element>|null supplied for foreach, only iterables are supported.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
 ];
 $ignoreErrors[] = [
@@ -155,6 +160,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Argument of an invalid type list<string>|false supplied for foreach, only iterables are supported.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|string supplied for foreach, only iterables are supported.',
@@ -710,6 +720,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type Mage_Sales_Model_Resource_Order_Shipment_Collection|false supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/sales/order/shipment/items.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Argument of an invalid type list<string>|false supplied for foreach, only iterables are supported.',
+    'count' => 1,
+    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|string supplied for foreach, only iterables are supported.',

@@ -522,6 +522,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Helper/Sales.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $array of function array_unique expects an array of values castable to string, array<array<string, string>|string> given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $cache of method Varien_Simplexml_Config::setCache() expects Varien_Simplexml_Config_Cache_Abstract, Zend_Cache_Core given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config.php',
@@ -785,11 +790,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $num of function abs expects float|int, float|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $host of method Zend_Uri_Http::setHost() expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $path of function basename expects string, string|false given.',
@@ -1793,6 +1793,11 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $filename of method Mage_Core_Helper_File_Storage_Database::saveFileToFilesystem() expects string, string|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $haystack of function str_starts_with expects string, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
@@ -4142,6 +4147,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Action/Abstract.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Parameter #2 $array of function array_map expects array, list<string>|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http/Curl.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $subject of function preg_split expects string, bool|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http/Curl.php',
@@ -4268,6 +4278,11 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $stream of function fgets expects resource, resource|Varien_Io_File given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #2 $array of function array_map expects array, list<string>|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Downloadable/Helper/Download.php',
 ];
@@ -6437,12 +6452,32 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $couponId of method Mage_SalesRule_Model_Resource_Coupon::decrementTimesUsed() expects int, int<min, -1>|int<1, max>|string given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $couponId of method Mage_SalesRule_Model_Resource_Coupon::getTimesUsedForUpdate() expects int, int<min, -1>|int<1, max>|string given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $couponId of method Mage_SalesRule_Model_Resource_Coupon::getTimesUsedForUpdate() expects int, int|string|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $couponId of method Mage_SalesRule_Model_Resource_Coupon::incrementTimesUsed() expects int, int<min, -1>|int<1, max>|string given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $websiteId of method Mage_SalesRule_Model_Resource_Rule::getActiveAttributes() expects int, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $couponId of method Mage_SalesRule_Model_Resource_Coupon_Usage::updateCustomerCouponTimesUsed() expects int, int|string|null given.',
+    'rawMessage' => 'Parameter #2 $couponId of method Mage_SalesRule_Model_Resource_Coupon_Usage::updateCustomerCouponTimesUsed() expects int, int<min, -1>|int<1, max>|string given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
@@ -8922,6 +8957,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Cms/Helper/PageTest.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $path of function realpath expects string, string|false given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Cms/Model/Wysiwyg/Images/StorageTest.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $envStorage of method Mage_Core_Helper_EnvironmentConfigLoader::setEnvStore() expects array<string, int|string>, array<int|string, int> given.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Helper/EnvironmentConfigLoaderTest.php',
@@ -8952,9 +8992,39 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/AppTest.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Parameter #2 $haystack of static method PHPUnit\\Framework\\Assert::assertStringNotContainsStringIgnoringCase() expects string, array|string given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/Input/Filter/MaliciousCodeTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #2 $string of static method PHPUnit\\Framework\\Assert::assertDoesNotMatchRegularExpression() expects string, array|string given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/Input/Filter/MaliciousCodeTest.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $backendObject of method Zend_Cache_Core::setBackend() expects Zend_Cache_Backend, Zend_Cache_Backend|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/Purifier/DefinitionCacheTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $report of method Mage_Downloadable_Model_Link_UrlAudit::_notify() expects array{refused: array<string, string>, private: array<string, string>}, array given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Downloadable/Model/Link/UrlAuditTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $value of method Mage_GiftMessage_Block_Message_Inline::getEscaped() expects string, string|null given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/GiftMessage/Block/Message/InlineTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $model of method Mage_Oauth_Block_Customer_Token_List::getDeleteLink() expects Mage_Oauth_Model_Token, PHPUnit\\Framework\\MockObject\\MockObject given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Oauth/Block/Customer/Token/ListTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $model of method Mage_Oauth_Block_Customer_Token_List::getUpdateRevokeLink() expects Mage_Oauth_Model_Token, PHPUnit\\Framework\\MockObject\\MockObject given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Oauth/Block/Customer/Token/ListTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $expectedCount of static method PHPUnit\\Framework\\Assert::assertCount() expects int, int|string given.',
@@ -8985,6 +9055,36 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $version1 of function version_compare expects string, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Rule/Model/AbstractTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $couponId of method Mage_SalesRule_Model_Resource_Coupon::getTimesUsedForUpdate() expects int, string given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/CouponTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $ruleCustomer of method Mage_SalesRule_Model_Resource_Rule_Customer::loadByCustomerRuleForUpdate() expects Mage_SalesRule_Model_Rule_Customer, Varien_Object given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #2 $customerId of method Mage_SalesRule_Model_Resource_Rule_Customer::loadByCustomerRuleForUpdate() expects int, string given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #3 $ruleId of method Mage_SalesRule_Model_Resource_Rule_Customer::loadByCustomerRuleForUpdate() expects int, string given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/Rule/CustomerTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $ruleIds of method Mage_SalesRule_Model_Resource_Rule::lockRulesForUpdate() expects array<int>, array<int, int|string> given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $ruleIds of method Mage_SalesRule_Model_Resource_Rule::lockRulesForUpdate() expects array<int>, array<int, int|string|null> given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/SalesRule/Model/Resource/RuleTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $sourceDimensionMeasure of method Mage_Usa_Helper_Data::convertMeasureDimension() expects \'centimeter\'|\'inch\'|\'meter\', string|null given.',
