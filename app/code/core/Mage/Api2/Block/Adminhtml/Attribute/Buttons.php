@@ -76,6 +76,10 @@ class Mage_Api2_Block_Adminhtml_Attribute_Buttons extends Mage_Adminhtml_Block_T
      */
     public function getSaveButtonHtml()
     {
+        if (!Mage::getSingleton('admin/session')->isAllowed('system/api/rest_attributes/edit')) {
+            return '';
+        }
+
         return $this->getChildHtml('saveButton');
     }
 
