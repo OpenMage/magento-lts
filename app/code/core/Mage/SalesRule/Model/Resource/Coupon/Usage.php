@@ -77,8 +77,11 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
             );
 
             return true;
-        } catch (Exception) {
+        } catch (Zend_Db_Statement_Exception $zendDbStatementException) {
             // a concurrent request inserted the row first, retry the conditional update
+            if (!$this->_isDuplicateKeyError($zendDbStatementException)) {
+                throw $zendDbStatementException;
+            }
         }
 
         return $write->update(
@@ -114,5 +117,18 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
         }
 
         return $this;
+    }
+
+    /**
+     * Whether the exception is a duplicate key violation, anything else must not be swallowed
+     */
+    protected function _isDuplicateKeyError(Zend_Db_Statement_Exception $exception): bool
+    {
+        $previous = $exception->getPrevious();
+        if ($previous instanceof PDOException && isset($previous->errorInfo[1])) {
+            return (int) $previous->errorInfo[1] === 1062;
+        }
+
+        return str_contains($exception->getMessage(), 'Duplicate entry');
     }
 }

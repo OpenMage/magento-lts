@@ -11,11 +11,13 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Resource\Coupon;
 
-use Exception;
+use PDOException;
+use Throwable;
 use Mage_SalesRule_Model_Resource_Coupon_Usage as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Override;
 use Zend_Db_Expr;
+use Zend_Db_Statement_Exception;
 
 final class UsageTest extends OpenMageTest
 {
@@ -36,7 +38,7 @@ final class UsageTest extends OpenMageTest
 
             public int $affectedRows = 1;
 
-            public bool $insertFails = false;
+            public ?Throwable $insertFails = null;
 
             public function update($table, $bind, $where = '')
             {
@@ -48,7 +50,7 @@ final class UsageTest extends OpenMageTest
             {
                 $this->calls[] = ['op' => 'insert', 'bind' => $bind];
                 if ($this->insertFails) {
-                    throw new Exception('Duplicate entry');
+                    throw $this->insertFails;
                 }
 
                 return 1;
@@ -112,7 +114,7 @@ final class UsageTest extends OpenMageTest
     public function testIncrementReportsFailureWhenTheLimitIsReached(): void
     {
         $this->adapter->affectedRows = 0;
-        $this->adapter->insertFails = true;
+        $this->adapter->insertFails = $this->duplicateKeyException();
 
         self::assertFalse($this->subject->updateCustomerCouponTimesUsed(7, 12, false, 2));
 
@@ -136,5 +138,33 @@ final class UsageTest extends OpenMageTest
 
         self::assertSame('times_used - 1', (string) $update['bind']['times_used']);
         self::assertSame(0, $update['where']['times_used > ?']);
+    }
+
+    public function testIncrementDoesNotSwallowOtherInsertErrors(): void
+    {
+        $previous = new PDOException('SQLSTATE[HY000]: General error: 1205 Lock wait timeout exceeded');
+        $previous->errorInfo = ['HY000', 1205, 'Lock wait timeout exceeded'];
+        $exception = new Zend_Db_Statement_Exception($previous->getMessage(), 0, $previous);
+
+        $this->adapter->affectedRows = 0;
+        $this->adapter->insertFails = $exception;
+
+        try {
+            $this->subject->updateCustomerCouponTimesUsed(7, 12, false, 2);
+            self::fail('The insert error was swallowed');
+        } catch (Zend_Db_Statement_Exception $caught) {
+            self::assertSame($exception, $caught);
+        }
+
+        // no retry of the conditional update after an unrelated error
+        self::assertSame(['update', 'insert'], array_column($this->adapter->calls, 'op'));
+    }
+
+    private function duplicateKeyException(): Zend_Db_Statement_Exception
+    {
+        $previous = new PDOException("SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '12-7' for key 'PRIMARY'");
+        $previous->errorInfo = ['23000', 1062, "Duplicate entry '12-7' for key 'PRIMARY'"];
+
+        return new Zend_Db_Statement_Exception($previous->getMessage(), 23000, $previous);
     }
 }
