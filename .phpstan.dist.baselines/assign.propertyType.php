@@ -207,7 +207,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_ConfigurableSwatches_Helper_Productlist::$_swatchAttribute (Mage_Catalog_Model_Product_Type_Configurable_Attribute|false|null) does not accept Mage_Eav_Model_Entity_Attribute_Abstract|false.',
+    'rawMessage' => 'Property Mage_ConfigurableSwatches_Helper_Productlist::$_swatchAttribute (Mage_Catalog_Model_Product_Type_Configurable_Attribute|false|null) does not accept Mage_Catalog_Model_Product_Type_Configurable_Attribute|Mage_Eav_Model_Entity_Attribute_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php',
 ];
