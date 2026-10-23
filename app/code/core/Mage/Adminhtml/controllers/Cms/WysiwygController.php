@@ -28,18 +28,13 @@ class Mage_Adminhtml_Cms_WysiwygController extends Mage_Adminhtml_Controller_Act
      */
     public function directiveAction()
     {
-        $directive = $this->getRequest()->getParam('___directive');
-        $directive = Mage::helper('core')->urlDecode($directive);
-
         try {
-            if (!preg_match(Varien_Filter_Template::CONSTRUCTION_PATTERN, $directive, $construction)
-                || $construction[0] !== $directive
-                || $construction[1] !== 'media'
-            ) {
-                Mage::throwException(Mage::helper('core')->__('Invalid media directive.'));
-            }
+            $directive = (string) $this->getRequest()->getParam('___directive');
+            $directive = Mage::helper('core')->urlDecode($directive);
 
-            $url = Mage::getModel('cms/adminhtml_template_filter')->mediaDirective($construction);
+            /** @var Mage_Cms_Model_Adminhtml_Template_Filter $filter */
+            $filter = Mage::getModel('cms/adminhtml_template_filter');
+            $url = $filter->getMediaFilePath($directive);
             $image = Varien_Image_Adapter::factory('GD2');
             $image->open($url);
         } catch (Throwable) {
