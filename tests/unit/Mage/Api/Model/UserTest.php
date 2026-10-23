@@ -11,13 +11,19 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Api\Model;
 
+use Mage;
 use Mage_Api_Model_User as Subject;
+use ReflectionMethod;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\UserTrait;
 
 final class UserTest extends OpenMageTest
 {
     use UserTrait;
+
+    private const CURRENT_API_KEY = 'current-api-key';
+
+    private const CURRENT_API_KEY_HASH = '__hash_of_current_api_key__';
 
     /**
      * @dataProvider provideValidateApiUserData
@@ -30,5 +36,73 @@ final class UserTest extends OpenMageTest
 
         self::assertInstanceOf(Subject::class, $mock);
         self::assertSame($expectedResult, $mock->validate());
+    }
+
+    /**
+     * Saving an API user must invalidate its sessions when access is taken away
+     * (deactivation, a different API key), and only then (HackerOne #4084309).
+     *
+     * @dataProvider provideApiAccessRevokedBySaveData
+     * @group Model
+     */
+    public function testIsApiAccessRevokedBySave(bool $expectedResult, array $origData, array $data): void
+    {
+        // The stored hash of the current key; providers run before Mage::app() is available.
+        $currentHash = Mage::helper('core')->getHash(self::CURRENT_API_KEY, 32);
+        $replaceHash = static fn(array $values): array => array_map(
+            static fn($value) => $value === self::CURRENT_API_KEY_HASH ? $currentHash : $value,
+            $values,
+        );
+
+        $subject = new Subject();
+        foreach ($replaceHash($origData) as $key => $value) {
+            $subject->setOrigData($key, $value);
+        }
+
+        $subject->addData($replaceHash($data));
+
+        $method = new ReflectionMethod($subject, '_isApiAccessRevokedBySave');
+        self::assertSame($expectedResult, $method->invoke($subject));
+    }
+
+    /**
+     * @return array<string, array{bool, array<string, mixed>, array<string, mixed>}>
+     */
+    public static function provideApiAccessRevokedBySaveData(): array
+    {
+        $existing = ['user_id' => 7, 'api_key' => self::CURRENT_API_KEY_HASH, 'is_active' => '1'];
+
+        return [
+            'new user' => [
+                false,
+                [],
+                ['api_key' => self::CURRENT_API_KEY, 'is_active' => '1'],
+            ],
+            'unchanged existing user' => [
+                false,
+                $existing,
+                ['user_id' => 7, 'firstname' => 'Api', 'is_active' => '1'],
+            ],
+            'is_active not part of the save' => [
+                false,
+                $existing,
+                ['user_id' => 7, 'reload_acl_flag' => '0'],
+            ],
+            'deactivated' => [
+                true,
+                $existing,
+                ['user_id' => 7, 'is_active' => '0'],
+            ],
+            'new API key' => [
+                true,
+                $existing,
+                ['user_id' => 7, 'is_active' => '1', 'new_api_key' => 'rotated-api-key'],
+            ],
+            'same API key re-saved, e.g. hash upgrade on login' => [
+                false,
+                $existing,
+                ['user_id' => 7, 'api_key' => self::CURRENT_API_KEY_HASH, 'is_active' => '1', 'new_api_key' => self::CURRENT_API_KEY],
+            ],
+        ];
     }
 }
