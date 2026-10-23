@@ -63,6 +63,27 @@ final class MessagesTest extends OpenMageTest
     }
 
     /**
+     * The core/messages.phtml template, which the block itself does not use, must not print the
+     * raw message text either (GHSA-75mq-cvpr-g7wq)
+     *
+     * @group Block
+     */
+    public function testMessagesTemplateRendersSanitizedHtml(): void
+    {
+        $subject = new Subject();
+        $subject->setArea('frontend');
+        $subject->setTemplate('core/messages.phtml');
+        $subject->addMessage(new Mage_Core_Model_Message_Error('<a href="https://example.com/" onclick="alert(1)">x</a><script>alert(2)</script>'));
+
+        $html = $subject->renderView();
+
+        self::assertStringContainsString('error-msg', $html);
+        self::assertStringContainsString('<a href="https://example.com/">x</a>', $html);
+        self::assertStringNotContainsString('onclick', $html);
+        self::assertStringNotContainsString('<script>', $html);
+    }
+
+    /**
      * Render one message of every type through each public rendering method, on a fresh block
      * each time, because getGroupedHtml() (and so toHtml()) clears the collection.
      *
