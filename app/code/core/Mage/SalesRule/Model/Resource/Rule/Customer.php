@@ -45,31 +45,4 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
         $rule->setData($data);
         return $this;
     }
-
-    /**
-     * Load the rule usage record for a customer with a locking read
-     *
-     * Use inside a transaction, after the rule was locked, to get the latest committed counter rather
-     * than the possibly older snapshot a plain read inside a transaction returns. The rule lock is also
-     * what keeps two concurrent first uses from inserting two records, the table has no unique key.
-     *
-     * @param  Mage_SalesRule_Model_Rule_Customer $ruleCustomer
-     * @param  int                                $customerId
-     * @param  int                                $ruleId
-     * @return $this
-     */
-    public function loadByCustomerRuleForUpdate($ruleCustomer, $customerId, $ruleId)
-    {
-        $adapter = $this->_getWriteAdapter();
-        $select = $adapter->select()
-            ->from($this->getMainTable())
-            ->where('customer_id = ?', (int) $customerId)
-            ->where('rule_id = ?', (int) $ruleId)
-            ->forUpdate(true);
-
-        $data = $adapter->fetchRow($select);
-        $ruleCustomer->setData($data === false ? [] : $data);
-
-        return $this;
-    }
 }
