@@ -11,23 +11,80 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Payment\Model\Method;
 
-// use Mage;
-// use Mage_Payment_Model_Method_Free as Subject;
-use Override;
+use Generator;
+use Mage_Core_Exception;
+use Mage_Payment_Model_Method_Free as Subject;
+use Mage_Sales_Model_Order;
+use Mage_Sales_Model_Order_Payment;
+use Mage_Sales_Model_Quote;
+use Mage_Sales_Model_Quote_Payment;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Model\Method\FreeTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Varien_Object;
 
 final class FreeTest extends OpenMageTest
 {
     use FreeTrait;
 
-    // private static Subject $subject;
-
-    #[Override]
-    public static function setUpBeforeClass(): void
+    /**
+     * GHSA-rmw8-7h79-p386: the free method is selected while the cart totals zero, the cart is
+     * then raised to a real total and the order placed without re-importing payment data. The
+     * order payment must be refused at placement.
+     *
+     * @group Model
+     */
+    #[DataProvider('provideValidateOrderPayment')]
+    public function testValidateOrderPayment(float $grandTotal, bool $expectException): void
     {
-        parent::setUpBeforeClass();
-        // self::$subject = Mage::getModel('payment/method_free');
-        self::markTestSkipped('');
+        $order = $this->getMockWithCalledMethods(Mage_Sales_Model_Order::class, [
+            'getBillingAddress' => new Varien_Object(['country_id' => 'US']),
+        ]);
+        $order->setGrandTotal($grandTotal);
+        $payment = $this->getMockWithCalledMethods(Mage_Sales_Model_Order_Payment::class, [
+            'getOrder' => $order,
+        ]);
+
+        $subject = new Subject();
+        $subject->setInfoInstance($payment);
+
+        if ($expectException) {
+            $this->expectException(Mage_Core_Exception::class);
+            $this->expectExceptionMessage('The requested Payment Method is not available.');
+        }
+
+        self::assertSame($subject, $subject->validate());
+    }
+
+    public static function provideValidateOrderPayment(): Generator
+    {
+        yield 'zero total' => [0.0, false];
+        yield 'rounds to zero' => [0.001, false];
+        yield 'full price order' => [149.99, true];
+        yield 'one cent' => [0.01, true];
+    }
+
+    /**
+     * @group Model
+     */
+    #[DataProvider('provideValidateOrderPayment')]
+    public function testValidateQuotePayment(float $grandTotal, bool $expectException): void
+    {
+        $quote = $this->getMockWithCalledMethods(Mage_Sales_Model_Quote::class, [
+            'getBillingAddress' => new Varien_Object(['country_id' => 'US']),
+        ]);
+        $quote->setGrandTotal($grandTotal);
+        $payment = $this->getMockWithCalledMethods(Mage_Sales_Model_Quote_Payment::class, [
+            'getQuote' => $quote,
+        ]);
+
+        $subject = new Subject();
+        $subject->setInfoInstance($payment);
+
+        if ($expectException) {
+            $this->expectException(Mage_Core_Exception::class);
+        }
+
+        self::assertSame($subject, $subject->validate());
     }
 }
