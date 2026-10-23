@@ -55,7 +55,8 @@ class Varien_Convert_Adapter_Io extends Varien_Convert_Adapter_Abstract
         } else {
             $text = 'Saved successfully: ' . $filename . ' [' . strlen($data) . ' byte(s)]';
             if ($this->getVar('link')) {
-                $text .= ' <a href="' . $this->getVar('link') . '" target="_blank">Link</a>';
+                $text .= ' <a href="' . $this->getVar('link')
+                    . '" target="_blank" rel="noopener noreferrer">Link</a>';
             }
 
             $this->addException($text);
