@@ -794,6 +794,13 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             return;
         }
 
+        /** @var Mage_Wishlist_Model_Item $item */
+        $item = Mage::getModel('wishlist/item')->load($option->getWishlistItemId());
+        if (!$item->getId() || !$this->_getWishlist($item->getWishlistId())) {
+            $this->_forward('noRoute');
+            return;
+        }
+
         $optionId = null;
         if (str_starts_with($option->getCode(), Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX)) {
             $optionId = str_replace(Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX, '', $option->getCode());
@@ -819,7 +826,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $filePath  = Mage::getBaseDir() . $info['quote_path'];
             $secretKey = $this->getRequest()->getParam('key');
 
-            if ($secretKey == $info['secret_key']) {
+            if (is_string($secretKey)
+                && isset($info['secret_key'])
+                && is_string($info['secret_key'])
+                && hash_equals($info['secret_key'], $secretKey)
+            ) {
                 $this->_prepareDownloadResponse($info['title'], [
                     'value' => $filePath,
                     'type'  => 'filename',
