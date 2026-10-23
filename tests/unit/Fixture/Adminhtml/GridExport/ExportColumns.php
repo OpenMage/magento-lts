@@ -35,6 +35,7 @@ trait ExportColumns
             if ($index === 'name') {
                 $column->setFrameCallback(static fn($value, $row, $column, $isExport) => ($isExport ? 'export:' : 'display:') . $value);
             }
+
             $this->_columns[$index] = $column;
         }
     }

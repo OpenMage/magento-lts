@@ -25,7 +25,7 @@ class ExportCollection extends Varien_Data_Collection_Db
     public ExportTrace $trace;
 
     /** @param list<array<string, mixed>> $rows */
-    public function __construct(private array $rows)
+    public function __construct(private readonly array $rows)
     {
         parent::__construct(Mage::getSingleton('core/resource')->getConnection('core_read'));
         $this->trace = new ExportTrace();
@@ -41,8 +41,10 @@ class ExportCollection extends Varien_Data_Collection_Db
             foreach ($rows as $row) {
                 $this->addItem(new Varien_Object($row));
             }
+
             $this->_setIsLoaded();
         }
+
         return $this;
     }
 

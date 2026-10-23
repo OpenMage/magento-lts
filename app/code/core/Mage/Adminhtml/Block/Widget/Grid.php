@@ -1190,14 +1190,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _getExportHeaders()
     {
-        $row = [];
-        foreach ($this->_columns as $column) {
-            if (!$column->getIsSystem()) {
-                $row[] = $column->getExportHeader();
-            }
-        }
-
-        return $row;
+        return $this->getExportModel()->getHeaders($this->_columns, true);
     }
 
     /**
@@ -1266,16 +1259,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _exportCsvItem(Varien_Object $item, Varien_Io_File $adapter)
     {
-        $row = [];
-        foreach ($this->_columns as $column) {
-            if (!$column->getIsSystem()) {
-                $row[] = $column->getRowFieldExport($item);
-            }
-        }
-
-        $adapter->streamWriteCsv(
-            Mage::helper('core')->getEscapedCSVData($row),
-        );
+        $row = $this->getExportModel()->getRow($this->_columns, $item, true);
+        $adapter->streamWriteCsv(Mage::helper('core')->getEscapedCSVData($row));
     }
 
     /**
@@ -1291,34 +1276,13 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_isExport = true;
         $this->_prepareGrid();
 
-        $ioFile = new Varien_Io_File();
-
-        $path = Mage::getBaseDir('var') . DS . 'export' . DS;
-        $name = md5(microtime());
-        $file = $path . DS . $name . '.csv';
-
-        $ioFile->setAllowCreateFolders(true);
-        $ioFile->open(['path' => $path]);
-        $ioFile->streamOpen($file, 'w+');
-        $ioFile->streamLock(true);
-        $ioFile->streamWriteCsv($this->_getExportHeaders());
-
-        $this->_exportIterateCollection('_exportCsvItem', [$ioFile]);
-
-        if ($this->getCountTotals()) {
-            $ioFile->streamWriteCsv(
-                Mage::helper('core')->getEscapedCSVData($this->_getExportTotals()),
-            );
-        }
-
-        $ioFile->streamUnlock();
-        $ioFile->streamClose();
-
-        return [
-            'type'  => 'filename',
-            'value' => $file,
-            'rm'    => true, // can delete file after use
-        ];
+        return $this->getExportModel()->writeFile('csv', function (Varien_Io_File $ioFile): void {
+            $ioFile->streamWriteCsv($this->_getExportHeaders());
+            $this->_exportIterateCollection('_exportCsvItem', [$ioFile]);
+            if ($this->getCountTotals()) {
+                $ioFile->streamWriteCsv(Mage::helper('core')->getEscapedCSVData($this->_getExportTotals()));
+            }
+        });
     }
 
     /**
@@ -1329,57 +1293,17 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getCsv()
     {
-        $csv = '';
         $this->_isExport = true;
         $this->_prepareGrid();
-
-        $collection = $this->getCollection();
-        if ($collection instanceof Varien_Data_Collection_Db) {
-            $collection->getSelect()->limit();
-        }
-
-        $collection->setPageSize(0);
-        $this->_beforeLoadCollection();
-        $collection->load();
-        $this->_afterLoadCollection();
-
-        $data = [];
-        foreach ($this->_columns as $column) {
-            if (!$column->getIsSystem()) {
-                $data[] = '"' . $column->getExportHeader() . '"';
-            }
-        }
-
-        $csv .= implode(',', $data) . "\n";
-
+        $collection = $this->getCollectionForExport();
+        $export = $this->getExportModel();
+        $csv = $export->getCsvRow($export->getHeaders($this->_columns, true), escape: false);
         foreach ($collection as $item) {
-            $data = [];
-            foreach ($this->_columns as $column) {
-                if (!$column->getIsSystem()) {
-                    $data[] = '"' . str_replace(
-                        ['"', '\\'],
-                        ['""', '\\\\'],
-                        $column->getRowFieldExport($item),
-                    ) . '"';
-                }
-            }
-
-            $csv .= implode(',', $data) . "\n";
+            $csv .= $export->getCsvRow($export->getRow($this->_columns, $item, true));
         }
 
         if ($this->getCountTotals()) {
-            $data = [];
-            foreach ($this->_columns as $column) {
-                if (!$column->getIsSystem()) {
-                    $data[] = '"' . str_replace(
-                        ['"', '\\'],
-                        ['""', '\\\\'],
-                        $column->getRowFieldExport($this->getTotals()),
-                    ) . '"';
-                }
-            }
-
-            $csv .= implode(',', $data) . "\n";
+            $csv .= $export->getCsvRow($export->getRow($this->_columns, $this->getTotals(), true));
         }
 
         return $csv;
@@ -1394,15 +1318,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_isExport = true;
         $this->_prepareGrid();
 
-        $collection = $this->getCollection();
-        if ($collection instanceof Varien_Data_Collection_Db) {
-            $collection->getSelect()->limit();
-        }
-
-        $collection->setPageSize(0);
-        $this->_beforeLoadCollection();
-        $collection->load();
-        $this->_afterLoadCollection();
+        $collection = $this->getCollectionForExport();
         $indexes = [];
         foreach ($this->_columns as $column) {
             if (!$column->getIsSystem()) {
@@ -1432,15 +1348,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $parser ??= new Varien_Convert_Parser_Xml_Excel();
 
-        $row = [];
-        foreach ($this->_columns as $column) {
-            if (!$column->getIsSystem()) {
-                $row[] = $column->getRowFieldExport($item);
-            }
-        }
-
-        $data = $parser->getRowXml($row);
-        $adapter->streamWrite($data);
+        $row = $this->getExportModel()->getRow($this->_columns, $item, true);
+        $adapter->streamWrite($parser->getRowXml($row));
     }
 
     /**
@@ -1456,36 +1365,18 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $this->_isExport = true;
         $this->_prepareGrid();
-
         $parser = new Varien_Convert_Parser_Xml_Excel();
-        $ioFile = new Varien_Io_File();
 
-        $path = Mage::getBaseDir('var') . DS . 'export' . DS;
-        $name = md5(microtime());
-        $file = $path . DS . $name . '.xml';
+        return $this->getExportModel()->writeFile('xml', function (Varien_Io_File $ioFile) use ($parser, $sheetName): void {
+            $ioFile->streamWrite($parser->getHeaderXml($sheetName));
+            $ioFile->streamWrite($parser->getRowXml($this->_getExportHeaders()));
+            $this->_exportIterateCollection('_exportExcelItem', [$ioFile, $parser]);
+            if ($this->getCountTotals()) {
+                $ioFile->streamWrite($parser->getRowXml($this->_getExportTotals()));
+            }
 
-        $ioFile->setAllowCreateFolders(true);
-        $ioFile->open(['path' => $path]);
-        $ioFile->streamOpen($file, 'w+');
-        $ioFile->streamLock(true);
-        $ioFile->streamWrite($parser->getHeaderXml($sheetName));
-        $ioFile->streamWrite($parser->getRowXml($this->_getExportHeaders()));
-
-        $this->_exportIterateCollection('_exportExcelItem', [$ioFile, $parser]);
-
-        if ($this->getCountTotals()) {
-            $ioFile->streamWrite($parser->getRowXml($this->_getExportTotals()));
-        }
-
-        $ioFile->streamWrite($parser->getFooterXml());
-        $ioFile->streamUnlock();
-        $ioFile->streamClose();
-
-        return [
-            'type'  => 'filename',
-            'value' => $file,
-            'rm'    => true, // can delete file after use
-        ];
+            $ioFile->streamWrite($parser->getFooterXml());
+        });
     }
 
     /**
@@ -1499,7 +1390,33 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $this->_isExport = true;
         $this->_prepareGrid();
+        $collection = $this->getCollectionForExport();
+        $export = $this->getExportModel();
+        $data = [$export->getHeaders($this->_columns)];
+        foreach ($collection as $item) {
+            $data[] = $export->getRow($this->_columns, $item);
+        }
 
+        if ($this->getCountTotals()) {
+            $data[] = $export->getRow($this->_columns, $this->getTotals());
+        }
+
+        return $export->getExcel($data, $filename);
+    }
+
+    protected function getExportModel(): Mage_Adminhtml_Model_Grid_Export
+    {
+        return Mage::getSingleton('adminhtml/grid_export');
+    }
+
+    /**
+     * String exports load the full collection and invoke the existing load hooks.
+     * File exports retain their separate, overridable paged iterator.
+     *
+     * @return Varien_Data_Collection<Varien_Object>
+     */
+    protected function getCollectionForExport(): Varien_Data_Collection
+    {
         $collection = $this->getCollection();
         if ($collection instanceof Varien_Data_Collection_Db) {
             $collection->getSelect()->limit();
@@ -1509,44 +1426,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_beforeLoadCollection();
         $collection->load();
         $this->_afterLoadCollection();
-        $headers = [];
-        $data = [];
-        foreach ($this->_columns as $column) {
-            if (!$column->getIsSystem()) {
-                $headers[] = $column->getHeader();
-            }
-        }
 
-        $data[] = $headers;
-
-        foreach ($collection as $item) {
-            $row = [];
-            foreach ($this->_columns as $column) {
-                if (!$column->getIsSystem()) {
-                    $row[] = $column->getRowField($item);
-                }
-            }
-
-            $data[] = $row;
-        }
-
-        if ($this->getCountTotals()) {
-            $row = [];
-            foreach ($this->_columns as $column) {
-                if (!$column->getIsSystem()) {
-                    $row[] = $column->getRowField($this->getTotals());
-                }
-            }
-
-            $data[] = $row;
-        }
-
-        $xmlObj = new Varien_Convert_Parser_Xml_Excel();
-        $xmlObj->setVar('single_sheet', $filename);
-        $xmlObj->setData($data);
-        $xmlObj->unparse();
-
-        return $xmlObj->getData();
+        return $collection;
     }
 
     /**
