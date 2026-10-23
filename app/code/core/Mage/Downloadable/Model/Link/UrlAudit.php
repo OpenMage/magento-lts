@@ -63,7 +63,7 @@ class Mage_Downloadable_Model_Link_UrlAudit
      * origin is the first one that no trusted prefix covers. Origins whose URLs are all
      * covered are skipped without a DNS lookup.
      *
-     * @param  string[]                                                         $urls
+     * @param  string[]                                                              $urls
      * @return array{refused: array<string, string>, private: array<string, string>}
      */
     public function audit(array $urls): array
