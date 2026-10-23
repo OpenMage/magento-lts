@@ -14,14 +14,15 @@ namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Resource;
 use Mage_SalesRule_Model_Resource_Coupon as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Override;
+use Varien_Db_Adapter_Pdo_Mysql;
 use Zend_Db_Expr;
 
 final class CouponTest extends OpenMageTest
 {
     /**
-     * @var object records every write instead of talking to a database
+     * @var Varien_Db_Adapter_Pdo_Mysql records every query instead of talking to a database
      */
-    private object $adapter;
+    private Varien_Db_Adapter_Pdo_Mysql $adapter;
 
     private Subject $subject;
 
@@ -30,22 +31,45 @@ final class CouponTest extends OpenMageTest
     {
         parent::setUp();
 
-        $this->adapter = new class {
+        $this->adapter = new class extends Varien_Db_Adapter_Pdo_Mysql {
             public array $updates = [];
+
+            public array $queries = [];
 
             public int $affectedRows = 1;
 
-            public function update($table, $bind, $where = '')
+            public false|string $fetched = false;
+
+            public function __construct() {}
+
+            #[Override]
+            protected function _connect() {}
+
+            #[Override]
+            public function quote($value, $type = null)
+            {
+                return is_int($value) ? (string) $value : "'" . addslashes((string) $value) . "'";
+            }
+
+            #[Override]
+            public function update($table, array $bind, $where = '')
             {
                 $this->updates[] = ['table' => $table, 'bind' => $bind, 'where' => $where];
                 return $this->affectedRows;
             }
+
+            #[Override]
+            public function fetchOne($sql, $bind = [])
+            {
+                $this->queries[] = (string) $sql;
+                return $this->fetched;
+            }
         };
 
         $this->subject = new class ($this->adapter) extends Subject {
-            private object $adapter;
+            private Varien_Db_Adapter_Pdo_Mysql $adapter;
 
-            public function __construct(object $adapter)
+            public function __construct(Varien_Db_Adapter_Pdo_Mysql $adapter)
             {
                 $this->adapter = $adapter;
                 parent::__construct();
@@ -105,5 +129,21 @@ final class CouponTest extends OpenMageTest
         self::assertSame('times_used - 1', (string) $update['bind']['times_used']);
         self::assertSame(12, $update['where']['coupon_id = ?']);
         self::assertSame(0, $update['where']['times_used > ?']);
+    }
+
+    public function testGetTimesUsedForUpdateUsesALockingRead(): void
+    {
+        $this->adapter->fetched = '4';
+
+        self::assertSame(4, $this->subject->getTimesUsedForUpdate('12'));
+        self::assertSame(
+            'SELECT `salesrule_coupon`.`times_used` FROM `salesrule_coupon` WHERE (coupon_id = 12) FOR UPDATE',
+            $this->adapter->queries[0],
+        );
+    }
+
+    public function testGetTimesUsedForUpdateReturnsNullForAMissingCoupon(): void
+    {
+        self::assertNull($this->subject->getTimesUsedForUpdate(12));
     }
 }

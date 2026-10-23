@@ -118,6 +118,28 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     }
 
     /**
+     * Read the times_used counter with a locking read
+     *
+     * Use inside a transaction, after the rules of the coupon were locked, to get the latest committed
+     * value rather than the possibly older snapshot a plain read inside a transaction returns.
+     *
+     * @param  int      $couponId
+     * @return null|int null if the coupon does not exist
+     */
+    public function getTimesUsedForUpdate($couponId)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $select = $adapter->select()
+            ->from($this->getMainTable(), ['times_used'])
+            ->where('coupon_id = ?', (int) $couponId)
+            ->forUpdate(true);
+
+        $timesUsed = $adapter->fetchOne($select);
+
+        return $timesUsed === false ? null : (int) $timesUsed;
+    }
+
+    /**
      * Check if code exists
      *
      * @param  string $code

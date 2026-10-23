@@ -22,6 +22,13 @@ class Mage_SalesRule_Model_Observer
     protected $_validator;
 
     /**
+     * Quotes an order was already counted for in this request, see sales_order_afterPlace()
+     *
+     * @var array<int, true>
+     */
+    protected $_countedQuoteIds = [];
+
+    /**
      * Get quote item validator/processor object
      *
      * @param  Varien_Event                   $event
@@ -56,6 +63,16 @@ class Mage_SalesRule_Model_Observer
     /**
      * Registered callback: called after an order is placed
      *
+     * Counts the use of every applied rule and of the coupon, and enforces the usage limits once more
+     * against the latest committed counters. The check done while validating the quote is far too
+     * early to be relied upon: concurrent orders all pass it with the same counters.
+     *
+     * The rows of the applied rules are locked first. That serializes concurrent redemptions of the
+     * same rules, so every counter below is read with a locking read and written without racing,
+     * including salesrule_rule_customer, which has no unique key to arbitrate concurrent first uses.
+     * This runs as a commit callback of the order placement transaction where there is one, so the
+     * lock is held until the order is committed and throwing here rolls the order back.
+     *
      * @param  Varien_Event_Observer $observer
      * @return $this
      * @throws Throwable
@@ -67,60 +84,88 @@ class Mage_SalesRule_Model_Observer
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getOrder();
 
-        if (!$order) {
+        if (!$order || $order->getDiscountAmount() == 0) {
             return $this;
         }
 
         $customerId = $order->getCustomerId();
 
-        // use each rule (and apply to customer, if applicable)
-        if ($order->getDiscountAmount() != 0) {
-            // lookup rule ids
-            $ruleIds = array_map(intval(...), explode(',', (string) $order->getAppliedRuleIds()));
-            $ruleIds = array_unique($ruleIds);
+        // lookup rule ids
+        $ruleIds = array_map(intval(...), explode(',', (string) $order->getAppliedRuleIds()));
+        $ruleIds = array_filter(array_unique($ruleIds));
+
+        $coupon = Mage::getModel('salesrule/coupon');
+        if ($order->getCouponCode()) {
+            $coupon->load($order->getCouponCode(), 'code');
+        }
+
+        /**
+         * Multishipping checkout places one order per address from a single quote, which was validated
+         * once. Only the first order of a quote is checked against the limits, the others are counted
+         * as before, so that the coupon keeps applying to all orders of such a checkout.
+         */
+        $enforceLimits = !$this->_isQuoteCounted($order);
+
+        /** @var Mage_SalesRule_Model_Resource_Rule $ruleResource */
+        $ruleResource = Mage::getResourceModel('salesrule/rule');
+        /** @var Mage_SalesRule_Model_Resource_Coupon $couponResource */
+        $couponResource = Mage::getResourceModel('salesrule/coupon');
+
+        $ruleResource->beginTransaction();
+        try {
+            $rulesTimesUsed = $ruleResource->lockRulesForUpdate(
+                $coupon->getId() ? array_merge($ruleIds, [(int) $coupon->getRuleId()]) : $ruleIds,
+            );
 
             foreach ($ruleIds as $ruleId) {
-                if (!$ruleId) {
+                if (!isset($rulesTimesUsed[$ruleId])) {
                     continue;
                 }
 
                 $rule = Mage::getModel('salesrule/rule');
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $rule->load($ruleId);
-                if ($rule->getId()) {
-                    $rule->setTimesUsed($rule->getTimesUsed() + 1);
-                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                    $rule->save();
+                if (!$rule->getId()) {
+                    continue;
+                }
 
-                    if ($customerId) {
-                        $ruleCustomer = Mage::getModel('salesrule/rule_customer');
-                        $ruleCustomer->loadByCustomerRule($customerId, $ruleId);
+                $this->_refreshPrimaryCouponTimesUsed($rule, $couponResource);
+                $rule->setTimesUsed($rulesTimesUsed[$ruleId] + 1);
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $rule->save();
 
-                        if ($ruleCustomer->getId()) {
-                            $ruleCustomer->setTimesUsed($ruleCustomer->getTimesUsed() + 1);
-                        } else {
-                            $ruleCustomer
+                if ($customerId) {
+                    /** @var Mage_SalesRule_Model_Rule_Customer $ruleCustomer */
+                    $ruleCustomer = Mage::getModel('salesrule/rule_customer');
+                    /** @var Mage_SalesRule_Model_Resource_Rule_Customer $ruleCustomerResource */
+                    $ruleCustomerResource = $ruleCustomer->getResource();
+                    $ruleCustomerResource->loadByCustomerRuleForUpdate($ruleCustomer, $customerId, $ruleId);
+
+                    if ($ruleCustomer->getId()) {
+                        if ($enforceLimits
+                            && $rule->getUsesPerCustomer()
+                            && $ruleCustomer->getTimesUsed() >= $rule->getUsesPerCustomer()
+                        ) {
+                            Mage::throwException(
+                                Mage::helper('salesrule')->__('A discount applied to this order has already been used the maximum number of times by this customer.'),
+                            );
+                        }
+
+                        $ruleCustomer->setTimesUsed($ruleCustomer->getTimesUsed() + 1);
+                    } else {
+                        $ruleCustomer
                             ->setCustomerId($customerId)
                             ->setRuleId($ruleId)
                             ->setTimesUsed(1);
-                        }
-
-                        // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                        $ruleCustomer->save();
                     }
+
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                    $ruleCustomer->save();
                 }
             }
 
-            $coupon = Mage::getModel('salesrule/coupon');
-            $coupon->load($order->getCouponCode(), 'code');
             if ($coupon->getId()) {
-                // The usage limits are enforced by the counter updates themselves, the check done
-                // while validating the quote is far too early to be relied upon. This runs as a
-                // commit callback of the order placement transaction, so throwing here rolls the
-                // order back instead of letting the coupon be redeemed beyond its limit.
-                /** @var Mage_SalesRule_Model_Resource_Coupon $couponResource */
-                $couponResource = Mage::getResourceModel('salesrule/coupon');
-                if (!$couponResource->incrementTimesUsed($coupon->getId(), $coupon->getUsageLimit())) {
+                if (!$couponResource->incrementTimesUsed($coupon->getId(), $enforceLimits ? $coupon->getUsageLimit() : null)) {
                     Mage::throwException(
                         Mage::helper('salesrule')->__('Coupon code "%s" has already been used the maximum number of times.', $order->getCouponCode()),
                     );
@@ -129,20 +174,33 @@ class Mage_SalesRule_Model_Observer
                 if ($customerId) {
                     /** @var Mage_SalesRule_Model_Resource_Coupon_Usage $couponUsage */
                     $couponUsage = Mage::getResourceModel('salesrule/coupon_usage');
-                    if (!$couponUsage->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), false, $coupon->getUsagePerCustomer())) {
+                    $usagePerCustomer = $enforceLimits ? $coupon->getUsagePerCustomer() : null;
+                    if (!$couponUsage->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), false, $usagePerCustomer)) {
                         Mage::throwException(
                             Mage::helper('salesrule')->__('Coupon code "%s" has already been used the maximum number of times by this customer.', $order->getCouponCode()),
                         );
                     }
                 }
+
+                // save the coupon with the counter the database computed, so that coupon save events keep firing
+                $this->_saveCouponTimesUsed($coupon, $couponResource);
             }
+
+            $ruleResource->commit();
+        } catch (Throwable $throwable) {
+            $ruleResource->rollBack();
+            throw $throwable;
         }
+
+        $this->_setQuoteCounted($order);
 
         return $this;
     }
 
     /**
      * Registered callback: called after an order payment is canceled
+     *
+     * Gives the uses of the coupon back, under the same rule lock as the redemption.
      *
      * @param Varien_Event_Observer $observer
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
@@ -156,35 +214,128 @@ class Mage_SalesRule_Model_Observer
         /** @var Mage_Sales_Model_Order $order */
         $order = $event->getPayment()->getOrder();
 
-        if ($order->canCancel() && $code = $order->getCouponCode()) {
-            // Decrement coupon times_used
-            $coupon = Mage::getModel('salesrule/coupon')->loadByCode($code);
-            if ($coupon->getId()) {
-                /** @var Mage_SalesRule_Model_Resource_Coupon $couponResource */
-                $couponResource = Mage::getResourceModel('salesrule/coupon');
-                $couponResource->decrementTimesUsed($coupon->getId());
+        if (!$order->canCancel() || !($code = $order->getCouponCode())) {
+            return;
+        }
 
-                // Decrement times_used on rule
-                $rule = Mage::getModel('salesrule/rule');
-                $rule->load($coupon->getRuleId());
-                if ($rule->getId()) {
-                    $rule->setTimesUsed($rule->getTimesUsed() - 1);
-                    $rule->save();
-                }
+        $coupon = Mage::getModel('salesrule/coupon')->loadByCode($code);
+        if (!$coupon->getId()) {
+            return;
+        }
 
-                if ($customerId = $order->getCustomerId()) {
-                    // Decrement coupon_usage times_used
-                    Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), true);
+        /** @var Mage_SalesRule_Model_Resource_Rule $ruleResource */
+        $ruleResource = Mage::getResourceModel('salesrule/rule');
+        /** @var Mage_SalesRule_Model_Resource_Coupon $couponResource */
+        $couponResource = Mage::getResourceModel('salesrule/coupon');
 
-                    // Decrement rule times_used
-                    $customerCoupon = Mage::getModel('salesrule/rule_customer')->loadByCustomerRule($customerId, $coupon->getRuleId());
-                    if ($customerCoupon->getId()) {
-                        $customerCoupon->setTimesUsed($customerCoupon->getTimesUsed() - 1);
-                        $customerCoupon->save();
-                    }
+        $ruleResource->beginTransaction();
+        try {
+            $rulesTimesUsed = $ruleResource->lockRulesForUpdate([(int) $coupon->getRuleId()]);
+
+            // Decrement coupon times_used, and save it so that coupon save events keep firing
+            $couponResource->decrementTimesUsed($coupon->getId());
+            $this->_saveCouponTimesUsed($coupon, $couponResource);
+
+            // Decrement times_used on rule
+            $rule = Mage::getModel('salesrule/rule');
+            $rule->load($coupon->getRuleId());
+            if ($rule->getId() && isset($rulesTimesUsed[(int) $rule->getId()])) {
+                $this->_refreshPrimaryCouponTimesUsed($rule, $couponResource);
+                $rule->setTimesUsed(max(0, $rulesTimesUsed[(int) $rule->getId()] - 1));
+                $rule->save();
+            }
+
+            if ($customerId = $order->getCustomerId()) {
+                // Decrement coupon_usage times_used
+                Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), true);
+
+                // Decrement rule times_used
+                /** @var Mage_SalesRule_Model_Rule_Customer $customerCoupon */
+                $customerCoupon = Mage::getModel('salesrule/rule_customer');
+                /** @var Mage_SalesRule_Model_Resource_Rule_Customer $ruleCustomerResource */
+                $ruleCustomerResource = $customerCoupon->getResource();
+                $ruleCustomerResource->loadByCustomerRuleForUpdate($customerCoupon, $customerId, $coupon->getRuleId());
+                if ($customerCoupon->getId() && $customerCoupon->getTimesUsed() > 0) {
+                    $customerCoupon->setTimesUsed($customerCoupon->getTimesUsed() - 1);
+                    $customerCoupon->save();
                 }
             }
+
+            $ruleResource->commit();
+        } catch (Throwable $throwable) {
+            $ruleResource->rollBack();
+            throw $throwable;
         }
+    }
+
+    /**
+     * Refresh the counter of the primary coupon of a rule before the rule is saved
+     *
+     * Saving a rule saves its primary coupon as well, with every column it was loaded with. The coupon
+     * was loaded with a plain read, which inside a transaction can return an older snapshot than the
+     * latest committed counter, so saving it as loaded would roll back concurrent redemptions.
+     *
+     * @return $this
+     */
+    protected function _refreshPrimaryCouponTimesUsed(Mage_SalesRule_Model_Rule $rule, Mage_SalesRule_Model_Resource_Coupon $couponResource)
+    {
+        $primaryCoupon = $rule->getPrimaryCoupon();
+        if ($primaryCoupon->getId()) {
+            $timesUsed = $couponResource->getTimesUsedForUpdate($primaryCoupon->getId());
+            if ($timesUsed !== null) {
+                $primaryCoupon->setTimesUsed($timesUsed);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Save a coupon with the counter computed by the database
+     *
+     * The counter itself is updated with a single statement, the coupon is saved afterwards only so that
+     * the salesrule_coupon_save_before and salesrule_coupon_save_after events keep firing on redemption
+     * and cancellation as they did before. Writing the counter back is safe as the rule of the coupon is
+     * locked, no other redemption can change it until the transaction ends.
+     *
+     * @return $this
+     */
+    protected function _saveCouponTimesUsed(Mage_SalesRule_Model_Coupon $coupon, Mage_SalesRule_Model_Resource_Coupon $couponResource)
+    {
+        $timesUsed = $couponResource->getTimesUsedForUpdate($coupon->getId());
+        if ($timesUsed !== null) {
+            $coupon->setTimesUsed($timesUsed);
+            $coupon->save();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Whether an earlier order of the same quote was already counted in this request
+     *
+     * @return bool
+     */
+    protected function _isQuoteCounted(Mage_Sales_Model_Order $order)
+    {
+        $quoteId = (int) $order->getQuoteId();
+
+        return $quoteId && isset($this->_countedQuoteIds[$quoteId]);
+    }
+
+    /**
+     * Remember that an order of the quote was counted in this request
+     *
+     * @return $this
+     */
+    protected function _setQuoteCounted(Mage_Sales_Model_Order $order)
+    {
+        $quoteId = (int) $order->getQuoteId();
+        if ($quoteId) {
+            $this->_countedQuoteIds[$quoteId] = true;
+        }
+
+        return $this;
     }
 
     /**
