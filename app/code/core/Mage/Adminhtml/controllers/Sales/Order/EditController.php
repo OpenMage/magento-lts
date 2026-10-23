@@ -69,4 +69,16 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
             ->_setActiveMenu('sales/order')
             ->renderLayout();
     }
+
+    /**
+     * Every step of editing an order requires the Edit permission
+     *
+     * The parent controller maps its actions to the Create and Reorder permissions instead,
+     * so it must not decide access for this controller.
+     */
+    #[Override]
+    protected function _isAllowed(): bool
+    {
+        return Mage::getSingleton('admin/session')->isAllowed(self::ADMIN_RESOURCE);
+    }
 }
