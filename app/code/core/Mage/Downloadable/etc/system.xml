@@ -87,14 +87,24 @@
                             <show_in_store>0</show_in_store>
                             <comment>Guest checkout will only work with shareable.</comment>
                         </disable_guest_checkout>
-                        <link_url_allowed_prefixes translate="label comment">
-                            <label>Allowed Link URL Prefixes</label>
-                            <frontend_type>textarea</frontend_type>
+                        <link_url_allow_private_network translate="label comment">
+                            <label>Allow Link URLs on Private Networks</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>900</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Optional newline or comma separated list of allowed http(s) URL prefixes for URL type links and samples. Leave empty to allow any http(s) URL that resolves to a publicly routable address. Listed prefixes are also exempt from that address check, so only add destinations you trust.</comment>
+                            <comment>Whether URL type links and samples may be fetched from private-use addresses (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 100.64.0.0/10, fc00::/7). Loopback, link-local and cloud instance metadata addresses are always refused. Prefer listing trusted hosts below over enabling this.</comment>
+                        </link_url_allow_private_network>
+                        <link_url_allowed_prefixes translate="label comment">
+                            <label>Trusted Link URL Prefixes</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>910</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Optional newline or comma separated list of http(s) URL prefixes, e.g. http://files.example.lan/downloads/, that URL type links and samples may be fetched from even when the host resolves to a private, loopback or other restricted address. Scheme, host and port must match exactly. Links to other hosts are still fetched if they resolve to a public address. Only list hosts you control.</comment>
                         </link_url_allowed_prefixes>
                     </fields>
                 </downloadable>

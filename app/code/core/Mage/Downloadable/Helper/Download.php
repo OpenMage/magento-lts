@@ -22,6 +22,61 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 
     public const XML_PATH_LINK_URL_ALLOWED_PREFIXES = 'catalog/downloadable/link_url_allowed_prefixes';
 
+    public const XML_PATH_LINK_URL_ALLOW_PRIVATE_NETWORK = 'catalog/downloadable/link_url_allow_private_network';
+
+    /**
+     * Address classes returned by getAddressClass()
+     */
+    public const ADDRESS_PUBLIC     = 'public';
+
+    public const ADDRESS_PRIVATE    = 'private';
+
+    public const ADDRESS_RESTRICTED = 'restricted';
+
+    /**
+     * Destinations that are never fetched unless a trusted URL prefix covers them: loopback,
+     * link-local (cloud instance metadata), unspecified, multicast, documentation, benchmarking
+     * and other special-purpose ranges, plus known metadata addresses that sit inside otherwise
+     * private ranges (Alibaba Cloud 100.100.100.200, AWS IPv6 fd00:ec2::254).
+     *
+     * Kept as an explicit table rather than FILTER_FLAG_NO_RES_RANGE, whose coverage differs
+     * between PHP versions and omits several of these ranges.
+     */
+    protected const RESTRICTED_RANGES = [
+        '0.0.0.0/8',
+        '127.0.0.0/8',
+        '169.254.0.0/16',
+        '192.0.0.0/24',
+        '192.0.2.0/24',
+        '198.18.0.0/15',
+        '198.51.100.0/24',
+        '203.0.113.0/24',
+        '224.0.0.0/4',
+        '240.0.0.0/4',
+        '100.100.100.200/32',
+        '::/128',
+        '::1/128',
+        '64:ff9b:1::/48',
+        '100::/64',
+        '2001::/23',
+        '2001:db8::/32',
+        'fd00:ec2::254/128',
+        'fe80::/10',
+        'fec0::/10',
+        'ff00::/8',
+    ];
+
+    /**
+     * Private-use destinations, fetched only when the "allow private network" setting is on
+     */
+    protected const PRIVATE_RANGES = [
+        '10.0.0.0/8',
+        '100.64.0.0/10',
+        '172.16.0.0/12',
+        '192.168.0.0/16',
+        'fc00::/7',
+    ];
+
     protected $_moduleName = 'Mage_Downloadable';
 
     /**
@@ -67,6 +122,13 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     protected $_fileName        = 'download';
 
     /**
+     * Address and address class that made the last URL check fail, if it failed on the address
+     *
+     * @var null|array{0: string, 1: string}
+     */
+    protected $_blockedAddress  = null;
+
+    /**
      * Retrieve Resource file handle (socket, file pointer etc)
      *
      * @return resource|Varien_Io_File
@@ -85,12 +147,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                  * Validate URL
                  */
                 $urlProp = $this->_validateUrl($this->_resourceFile);
-
-                $allowedPrefixes = $this->_getAllowedUrlPrefixes();
-                $isAllowedByPrefix = $allowedPrefixes && $this->_isAllowedByPrefix($this->_resourceFile);
-                if ($allowedPrefixes && !$isAllowedByPrefix) {
-                    Mage::throwException(Mage::helper('downloadable')->__('The download URL is not allowed by the configured URL prefix whitelist.'));
-                }
+                $isAllowedByPrefix = $this->_isAllowedByPrefix($this->_resourceFile);
 
                 switch ($urlProp['scheme']) {
                     case 'https':
@@ -117,7 +174,17 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                  * Connect to the validated address instead of the hostname so that the destination
                  * cannot be swapped between validation and connection (DNS rebinding)
                  */
-                $address = $this->_getAllowedAddress($urlProp['host'], !$isAllowedByPrefix);
+                $this->_blockedAddress = null;
+                try {
+                    $address = $this->_getAllowedAddress($urlProp['host'], !$isAllowedByPrefix);
+                } catch (Mage_Core_Exception $exception) {
+                    if ($this->_blockedAddress !== null) {
+                        $this->_reportBlockedUrl($urlProp, ...$this->_blockedAddress);
+                    }
+
+                    throw $exception;
+                }
+
                 $remote = $transport . (str_contains($address, ':') ? '[' . $address . ']' : $address) . ':' . $port;
 
                 $context = stream_context_create();
@@ -225,9 +292,10 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Resolve the host and return the address the download may be fetched from
      *
-     * Unless the URL was explicitly whitelisted, every address the host resolves to must be
-     * publicly routable, so that loopback, private, link-local (cloud instance metadata) and
-     * other reserved destinations cannot be reached from the server.
+     * Unless the URL is covered by a trusted prefix, every address the host resolves to must
+     * be allowed by getAddressClass(): public addresses always, private-use addresses only
+     * when the "allow private network" setting is on, restricted addresses (loopback,
+     * link-local, cloud instance metadata, ...) never.
      *
      * @param  string              $host
      * @param  bool                $checkAddress
@@ -243,7 +311,9 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 
         if ($checkAddress) {
             foreach ($addresses as $address) {
-                if (!$this->_isPublicAddress($address)) {
+                $class = $this->getAddressClass($address);
+                if (!$this->_isAllowedAddressClass($class)) {
+                    $this->_blockedAddress = [$address, $class];
                     Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL host.'));
                 }
             }
@@ -284,15 +354,183 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
      */
     protected function _isPublicAddress($address)
     {
-        return (bool) filter_var(
-            $address,
-            FILTER_VALIDATE_IP,
-            FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE,
-        );
+        return $this->getAddressClass((string) $address) === self::ADDRESS_PUBLIC;
     }
 
     /**
-     * Check whether the URL matches one of the configured allowed prefixes
+     * Classify an IP address as public, private-use or restricted
+     *
+     * IPv6 addresses that embed an IPv4 address (IPv4-mapped, IPv4-compatible, NAT64 and
+     * 6to4) are classified by the embedded IPv4 address. Anything that is not a valid IP
+     * address is restricted.
+     */
+    public function getAddressClass(string $address): string
+    {
+        $packed = @inet_pton(trim($address, '[]'));
+        if ($packed === false) {
+            return self::ADDRESS_RESTRICTED;
+        }
+
+        if (strlen($packed) === 16) {
+            $embedded = $this->_getEmbeddedIpv4($packed);
+            if ($embedded !== null) {
+                return $this->getAddressClass((string) inet_ntop($embedded));
+            }
+        }
+
+        foreach (static::RESTRICTED_RANGES as $range) {
+            if ($this->_isAddressInRange($packed, $range)) {
+                return self::ADDRESS_RESTRICTED;
+            }
+        }
+
+        foreach (static::PRIVATE_RANGES as $range) {
+            if ($this->_isAddressInRange($packed, $range)) {
+                return self::ADDRESS_PRIVATE;
+            }
+        }
+
+        return self::ADDRESS_PUBLIC;
+    }
+
+    /**
+     * Whether private-use destinations (RFC 1918, carrier-grade NAT, unique local IPv6) may be fetched
+     */
+    public function isPrivateNetworkAllowed(): bool
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_LINK_URL_ALLOW_PRIVATE_NETWORK);
+    }
+
+    /**
+     * Inspect a URL type link without fetching it
+     *
+     * Applies exactly the checks used when the link is downloaded, so that the result can be
+     * used to tell a merchant which of their existing links would be refused.
+     *
+     * @return array{origin: string, allowed: bool, trusted: bool, address: null|string, address_class: null|string, reason: null|string}
+     */
+    public function inspectLinkUrl(string $url): array
+    {
+        $result = [
+            'origin'        => $url,
+            'allowed'       => false,
+            'trusted'       => false,
+            'address'       => null,
+            'address_class' => null,
+            'reason'        => null,
+        ];
+
+        try {
+            $urlProp = $this->_validateUrl($url);
+            $result['origin'] = $this->_getUrlOrigin($urlProp);
+            $result['trusted'] = $this->_isAllowedByPrefix($url);
+
+            $addresses = $this->_resolveHost($urlProp['host']);
+            if (!$addresses) {
+                $result['reason'] = Mage::helper('downloadable')->__('Cannot resolve the download URL host.');
+                return $result;
+            }
+
+            foreach ($addresses as $address) {
+                $class = $this->getAddressClass($address);
+                if ($result['address_class'] === null || $class !== self::ADDRESS_PUBLIC) {
+                    $result['address'] = $address;
+                    $result['address_class'] = $class;
+                }
+
+                if (!$result['trusted'] && !$this->_isAllowedAddressClass($class)) {
+                    $result['reason'] = Mage::helper('downloadable')->__('Invalid download URL host.');
+                    return $result;
+                }
+            }
+
+            $result['allowed'] = true;
+        } catch (Mage_Core_Exception $exception) {
+            $result['reason'] = $exception->getMessage();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Whether a trusted URL prefix covers the URL, which exempts it from the address check
+     */
+    public function isTrustedLinkUrl(string $url): bool
+    {
+        return $this->_isAllowedByPrefix($url);
+    }
+
+    /**
+     * @param string $class one of the ADDRESS_* constants
+     */
+    protected function _isAllowedAddressClass(string $class): bool
+    {
+        return $class === self::ADDRESS_PUBLIC
+            || ($class === self::ADDRESS_PRIVATE && $this->isPrivateNetworkAllowed());
+    }
+
+    /**
+     * Return the IPv4 address embedded in an IPv6 address, if any
+     *
+     * @param  string      $packed 16 byte in_addr6
+     * @return null|string 4 byte in_addr
+     */
+    protected function _getEmbeddedIpv4(string $packed): ?string
+    {
+        // ::ffff:0:0/96 IPv4-mapped
+        if (str_starts_with($packed, str_repeat("\0", 10) . "\xff\xff")) {
+            return substr($packed, 12, 4);
+        }
+
+        // ::/96 IPv4-compatible (deprecated); :: and ::1 are left to the range table
+        if (str_starts_with($packed, str_repeat("\0", 12))
+            && !in_array(substr($packed, 12), ["\0\0\0\0", "\0\0\0\1"], true)
+        ) {
+            return substr($packed, 12, 4);
+        }
+
+        // 64:ff9b::/96 NAT64 well-known prefix
+        if (str_starts_with($packed, "\x00\x64\xff\x9b" . str_repeat("\0", 8))) {
+            return substr($packed, 12, 4);
+        }
+
+        // 2002::/16 6to4
+        if (str_starts_with($packed, "\x20\x02")) {
+            return substr($packed, 2, 4);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $packed in_addr or in_addr6
+     * @param string $range  CIDR notation
+     */
+    protected function _isAddressInRange(string $packed, string $range): bool
+    {
+        [$network, $bits] = explode('/', $range);
+        $packedNetwork = inet_pton($network);
+        if ($packedNetwork === false || strlen($packedNetwork) !== strlen($packed)) {
+            return false;
+        }
+
+        $bits = (int) $bits;
+        $bytes = intdiv($bits, 8);
+        if (strncmp($packed, $packedNetwork, $bytes) !== 0) {
+            return false;
+        }
+
+        $remainder = $bits % 8;
+        if ($remainder === 0) {
+            return true;
+        }
+
+        $mask = chr((0xFF << (8 - $remainder)) & 0xFF);
+        return ($packed[$bytes] & $mask) === ($packedNetwork[$bytes] & $mask);
+    }
+
+    /**
+     * Check whether the URL is covered by one of the trusted URL prefixes
      *
      * @param  string $url
      * @return bool
@@ -300,7 +538,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     protected function _isAllowedByPrefix($url)
     {
         foreach ($this->_getAllowedUrlPrefixes() as $prefix) {
-            if (str_starts_with($url, $prefix)) {
+            if ($this->_urlMatchesPrefix((string) $url, $prefix)) {
                 return true;
             }
         }
@@ -309,7 +547,102 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve the configured allowed download URL prefixes
+     * Check whether the URL falls under the given prefix
+     *
+     * A plain string prefix comparison is not enough: "http://files.example.lan" would also
+     * match "http://files.example.lan.attacker.test/" and "http://files.example.lan@169.254.169.254/",
+     * and a trusted prefix skips the address check. The scheme, credentials, host and port
+     * must therefore match exactly, and only the path and query are compared as a string
+     * prefix. Dot segments are rejected so that a path prefix cannot be left with "../".
+     */
+    protected function _urlMatchesPrefix(string $url, string $prefix): bool
+    {
+        $urlParts = parse_url($url);
+        $prefixParts = parse_url($prefix);
+        if (!is_array($urlParts) || !is_array($prefixParts)
+            || !isset($urlParts['scheme'], $urlParts['host'], $prefixParts['scheme'], $prefixParts['host'])
+        ) {
+            return false;
+        }
+
+        $scheme = strtolower($urlParts['scheme']);
+        if ($scheme !== strtolower($prefixParts['scheme'])
+            || strtolower($urlParts['host']) !== strtolower($prefixParts['host'])
+            || ($urlParts['user'] ?? null) !== ($prefixParts['user'] ?? null)
+            || ($urlParts['pass'] ?? null) !== ($prefixParts['pass'] ?? null)
+        ) {
+            return false;
+        }
+
+        $defaultPort = $scheme === 'https' ? 443 : 80;
+        if (($urlParts['port'] ?? $defaultPort) !== ($prefixParts['port'] ?? $defaultPort)) {
+            return false;
+        }
+
+        $urlPath = ($urlParts['path'] ?? '') === '' ? '/' : $urlParts['path'];
+        foreach (explode('/', rawurldecode($urlPath)) as $segment) {
+            if ($segment === '.' || $segment === '..') {
+                return false;
+            }
+        }
+
+        $prefixPath = ($prefixParts['path'] ?? '') === '' ? '/' : $prefixParts['path'];
+        $urlRest = $urlPath . (isset($urlParts['query']) ? '?' . $urlParts['query'] : '');
+        $prefixRest = $prefixPath . (isset($prefixParts['query']) ? '?' . $prefixParts['query'] : '');
+
+        return str_starts_with($urlRest, $prefixRest);
+    }
+
+    /**
+     * @param array $urlProp result of _validateUrl()
+     */
+    protected function _getUrlOrigin(array $urlProp): string
+    {
+        return $urlProp['scheme'] . '://' . $urlProp['host'] . (isset($urlProp['port']) ? ':' . $urlProp['port'] : '');
+    }
+
+    /**
+     * Tell the merchant, once a day per destination, that a link download was refused
+     *
+     * The refusal otherwise only reaches the customer as a failed download. Only the origin
+     * is reported, never the full URL, which may carry a signed token.
+     *
+     * @param array $urlProp result of _validateUrl()
+     */
+    protected function _reportBlockedUrl(array $urlProp, string $address, string $addressClass): void
+    {
+        try {
+            $origin = $this->_getUrlOrigin($urlProp);
+            Mage::log(
+                sprintf('Downloadable link URL refused for %s: resolves to %s address %s', $origin, $addressClass, $address),
+                Zend_Log::WARN,
+            );
+
+            $cacheKey = 'downloadable_link_url_refused_' . md5($origin);
+            if (Mage::app()->loadCache($cacheKey)) {
+                return;
+            }
+
+            Mage::app()->saveCache('1', $cacheKey, [], 86400);
+
+            /** @var Mage_AdminNotification_Model_Inbox $inbox */
+            $inbox = Mage::getModel('adminnotification/inbox');
+            $inbox->addMajor(
+                Mage::helper('downloadable')->__('A downloadable product link could not be fetched from %s', $origin),
+                Mage::helper('downloadable')->__(
+                    'Customers could not download a URL type link or sample because %s resolves to %s, which is a %s network address. If this host is yours and trusted, add its URL prefix to System > Configuration > Catalog > Downloadable Product Options > Trusted Link URL Prefixes.',
+                    $origin,
+                    $address,
+                    $addressClass,
+                ),
+            );
+        } catch (Throwable $throwable) {
+            Mage::logException($throwable);
+        }
+    }
+
+    /**
+     * Retrieve the configured trusted download URL prefixes
      *
      * @return array
      */
