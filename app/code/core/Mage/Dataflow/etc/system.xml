@@ -26,7 +26,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Optional newline or comma separated list of allowed http(s) URL prefixes. Leave empty to allow any valid http(s) URL.</comment>
+                            <comment>Optional newline or comma separated list of allowed http(s) URL prefixes, e.g. https://feeds.example.com/exports/. The scheme, host and port of a fetched URL must match a prefix exactly and its path must start with the prefix path. Leave empty to allow any valid http(s) URL.</comment>
                         </allowed_url_prefixes>
                     </fields>
                 </dataflow_url_fetch>

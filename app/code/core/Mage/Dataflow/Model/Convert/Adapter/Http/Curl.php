@@ -79,12 +79,60 @@ class Mage_Dataflow_Model_Convert_Adapter_Http_Curl extends Mage_Dataflow_Model_
         }
 
         foreach ($allowedPrefixes as $prefix) {
-            if (str_starts_with($uri, $prefix)) {
+            if ($this->_uriMatchesPrefix($uri, $prefix)) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * Check whether the URI falls under the given allowed prefix
+     *
+     * A plain string prefix comparison is not enough: "https://feeds.example.com" would
+     * also match "https://feeds.example.com.attacker.test/" and
+     * "https://feeds.example.com@169.254.169.254/". The scheme, credentials, host and
+     * port must therefore match the prefix exactly, and only the path and query are
+     * compared as a string prefix. Dot segments are rejected so that a path prefix
+     * cannot be left with "../" once the URI is normalised.
+     */
+    protected function _uriMatchesPrefix(string $uri, string $prefix): bool
+    {
+        $uriParts = parse_url($uri);
+        $prefixParts = parse_url($prefix);
+        if (!is_array($uriParts) || !is_array($prefixParts)
+            || !isset($uriParts['scheme'], $uriParts['host'], $prefixParts['scheme'], $prefixParts['host'])
+        ) {
+            return false;
+        }
+
+        $scheme = strtolower($uriParts['scheme']);
+        if ($scheme !== strtolower($prefixParts['scheme'])
+            || strtolower($uriParts['host']) !== strtolower($prefixParts['host'])
+            || ($uriParts['user'] ?? null) !== ($prefixParts['user'] ?? null)
+            || ($uriParts['pass'] ?? null) !== ($prefixParts['pass'] ?? null)
+        ) {
+            return false;
+        }
+
+        $defaultPort = $scheme === 'https' ? 443 : 80;
+        if (($uriParts['port'] ?? $defaultPort) !== ($prefixParts['port'] ?? $defaultPort)) {
+            return false;
+        }
+
+        $uriPath = ($uriParts['path'] ?? '') === '' ? '/' : $uriParts['path'];
+        foreach (explode('/', rawurldecode($uriPath)) as $segment) {
+            if ($segment === '.' || $segment === '..') {
+                return false;
+            }
+        }
+
+        $prefixPath = ($prefixParts['path'] ?? '') === '' ? '/' : $prefixParts['path'];
+        $uriRest = $uriPath . (isset($uriParts['query']) ? '?' . $uriParts['query'] : '');
+        $prefixRest = $prefixPath . (isset($prefixParts['query']) ? '?' . $prefixParts['query'] : '');
+
+        return str_starts_with($uriRest, $prefixRest);
     }
 
     protected function _getAllowedUrlPrefixes(): array
