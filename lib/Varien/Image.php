@@ -63,7 +63,7 @@ class Varien_Image
     {
         $this->_getAdapter()->checkDependencies();
 
-        if (stripos($this->_fileName, 'phar://') === 0) {
+        if (stripos($this->_fileName, 'phar://') !== false) {
             throw new Exception("File '{$this->_fileName}' is not readable.");
         }
 
