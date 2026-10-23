@@ -281,7 +281,7 @@ class Mage_SalesRule_Model_Observer
      */
     protected function _updateCounter($update)
     {
-        for ($attempt = 1; ; ++$attempt) {
+        for ($attempt = 1; $attempt <= 3; ++$attempt) {
             try {
                 $update();
                 return $this;
@@ -294,6 +294,8 @@ class Mage_SalesRule_Model_Observer
                 return $this;
             }
         }
+
+        return $this;
     }
 
     /**

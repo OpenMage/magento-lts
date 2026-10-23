@@ -17,7 +17,6 @@ use Mage_SalesRule_Model_Rule;
 use Magento_Db_Adapter_Pdo_Mysql;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Resource\RuleTrait;
-use Override;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -32,11 +31,9 @@ final class RuleTest extends OpenMageTest
 
     private Subject $subject;
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->adapter = $this->createMock(Magento_Db_Adapter_Pdo_Mysql::class);
         $this->adapter->method('describeTable')->willReturn([
             'rule_id' => ['DATA_TYPE' => 'int', 'NULLABLE' => false],
@@ -48,7 +45,6 @@ final class RuleTest extends OpenMageTest
         $this->adapter->method('quoteInto')->willReturnCallback(
             static fn(string $text, mixed $value): string => str_replace('?', implode(', ', (array) $value), $text),
         );
-
         $subject = Mage::getResourceModel('salesrule/rule');
         self::assertInstanceOf(Subject::class, $subject);
         $this->subject = $subject;

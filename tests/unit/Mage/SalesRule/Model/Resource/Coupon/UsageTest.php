@@ -15,12 +15,14 @@ use Mage;
 use Mage_SalesRule_Model_Resource_Coupon_Usage as Subject;
 use Magento_Db_Adapter_Pdo_Mysql;
 use OpenMage\Tests\Unit\OpenMageTest;
-use Override;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionProperty;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Resource\Coupon\UsageTrait;
 
 final class UsageTest extends OpenMageTest
 {
+    use UsageTrait;
+
     private Magento_Db_Adapter_Pdo_Mysql&MockObject $adapter;
 
     private Subject $subject;
@@ -30,18 +32,15 @@ final class UsageTest extends OpenMageTest
      */
     private array $calls = [];
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->calls = [];
         $this->adapter = $this->createMock(Magento_Db_Adapter_Pdo_Mysql::class);
         $this->adapter->method('insertOnDuplicate')->willReturnCallback(function (string $table, array $data, array $fields): int {
             $this->calls[] = ['insertOnDuplicate', ['table' => $table, 'data' => $data, 'fields' => array_map(strval(...), $fields)]];
             return 1;
         });
-
         $subject = Mage::getResourceModel('salesrule/coupon_usage');
         self::assertInstanceOf(Subject::class, $subject);
         $this->subject = $subject;

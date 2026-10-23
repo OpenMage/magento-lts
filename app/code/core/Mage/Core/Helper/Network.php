@@ -149,7 +149,7 @@ class Mage_Core_Helper_Network extends Mage_Core_Helper_Abstract
             }
         }
 
-        return array_values($addresses);
+        return $addresses;
     }
 
     /**

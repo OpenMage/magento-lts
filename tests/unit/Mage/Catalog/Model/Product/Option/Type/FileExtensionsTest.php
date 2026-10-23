@@ -66,6 +66,7 @@ final class FileExtensionsTest extends OpenMageTest
         $subject->method('getConfigData')->with('forbidden_extensions')->willReturn('exe, Foo');
 
         $forbidden = (new ReflectionMethod(Subject::class, '_getForbiddenExtensions'))->invoke($subject);
+        self::assertIsArray($forbidden);
 
         self::assertSame(['exe', 'foo'], array_slice($forbidden, 0, 2));
         foreach (Subject::FORBIDDEN_EXTENSIONS_MINIMUM as $extension) {

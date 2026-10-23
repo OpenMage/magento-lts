@@ -16,22 +16,22 @@ use Mage_SalesRule_Model_Coupon;
 use Mage_SalesRule_Model_Resource_Coupon as Subject;
 use Magento_Db_Adapter_Pdo_Mysql;
 use OpenMage\Tests\Unit\OpenMageTest;
-use Override;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionMethod;
 use ReflectionProperty;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Resource\CouponTrait;
 
 final class CouponTest extends OpenMageTest
 {
+    use CouponTrait;
+
     private Magento_Db_Adapter_Pdo_Mysql&MockObject $adapter;
 
     private Subject $subject;
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->adapter = $this->createMock(Magento_Db_Adapter_Pdo_Mysql::class);
         $this->adapter->method('describeTable')->willReturn([
             'coupon_id' => ['DATA_TYPE' => 'int', 'NULLABLE' => false],
@@ -40,7 +40,6 @@ final class CouponTest extends OpenMageTest
             'times_used' => ['DATA_TYPE' => 'int', 'NULLABLE' => false],
         ]);
         $this->adapter->method('prepareColumnValue')->willReturnArgument(1);
-
         $subject = Mage::getResourceModel('salesrule/coupon');
         self::assertInstanceOf(Subject::class, $subject);
         $this->subject = $subject;

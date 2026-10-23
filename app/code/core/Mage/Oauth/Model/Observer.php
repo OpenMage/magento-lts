@@ -31,11 +31,11 @@ class Mage_Oauth_Model_Observer
      * tokens from working again if the account is reactivated later. They can be re-enabled
      * from the authorized OAuth tokens grid.
      */
-    public function revokeTokensOfDeactivatedAdmin(Varien_Event_Observer $observer)
+    public function revokeTokensOfDeactivatedAdmin(Varien_Event_Observer $observer): void
     {
         $user = $observer->getEvent()->getObject();
         if (!$user instanceof Mage_Admin_Model_User
-            || !$user->getId()
+            || (int) $user->getId() === 0
             || $user->getIsActive() === null
             || (int) $user->getIsActive() === 1
         ) {

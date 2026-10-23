@@ -56,7 +56,7 @@ final class CurlDestinationTest extends OpenMageTest
 
     public function testPrivateNetworkIsAllowedByDefault(): void
     {
-        self::assertSame('1', (string) Mage::getConfig()->getNode('default/' . Subject::XML_PATH_ALLOW_PRIVATE_NETWORK));
+        self::assertSame('1', (string) Mage::getConfig()?->getNode('default/' . Subject::XML_PATH_ALLOW_PRIVATE_NETWORK));
     }
 
     /**

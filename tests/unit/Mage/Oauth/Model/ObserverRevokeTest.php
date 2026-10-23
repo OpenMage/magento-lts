@@ -28,6 +28,8 @@ final class ObserverRevokeTest extends OpenMageTest
     /**
      * @dataProvider provideSavedObjects
      * @group Model
+     * @param null|array<string, mixed>                         $userData
+     * @param class-string<Mage_Admin_Model_User|Varien_Object> $class
      */
     public function testRevokeTokensOfDeactivatedAdmin(bool $expectRevoke, ?array $userData, string $class = Mage_Admin_Model_User::class): void
     {

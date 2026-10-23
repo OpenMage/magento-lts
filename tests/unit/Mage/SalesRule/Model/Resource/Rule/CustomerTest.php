@@ -16,7 +16,6 @@ use Mage_SalesRule_Model_Resource_Rule_Customer as Subject;
 use Magento_Db_Adapter_Pdo_Mysql;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Resource\Rule\CustomerTrait;
-use Override;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionProperty;
 
@@ -33,18 +32,15 @@ final class CustomerTest extends OpenMageTest
      */
     private array $calls = [];
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->calls = [];
         $this->adapter = $this->createMock(Magento_Db_Adapter_Pdo_Mysql::class);
         $this->adapter->method('insertOnDuplicate')->willReturnCallback(function (string $table, array $data, array $fields): int {
             $this->calls[] = ['insertOnDuplicate', ['table' => $table, 'data' => $data, 'fields' => array_map(strval(...), $fields)]];
             return 1;
         });
-
         $subject = Mage::getResourceModel('salesrule/rule_customer');
         self::assertInstanceOf(Subject::class, $subject);
         $this->subject = $subject;
