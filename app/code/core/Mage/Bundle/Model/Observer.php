@@ -91,7 +91,7 @@ class Mage_Bundle_Model_Observer
         // exclude up-sell product ids
         $bundleIds  = array_diff($bundleIds, $productIds);
 
-        if (!$bundleIds) {
+        if ($bundleIds === []) {
             return $this;
         }
 

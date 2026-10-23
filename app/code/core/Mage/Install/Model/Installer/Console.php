@@ -48,35 +48,33 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      */
     protected function _getOptions()
     {
-        if (is_null($this->_options)) {
-            $this->_options = [
-                'license_agreement_accepted'    => ['required' => true, 'comment' => ''],
-                'locale'              => ['required' => true, 'comment' => ''],
-                'timezone'            => ['required' => true, 'comment' => ''],
-                'default_currency'    => ['required' => true, 'comment' => ''],
-                'db_model'            => ['comment' => ''],
-                'db_host'             => ['required' => true, 'comment' => ''],
-                'db_name'             => ['required' => true, 'comment' => ''],
-                'db_user'             => ['required' => true, 'comment' => ''],
-                'db_pass'             => ['comment' => ''],
-                'db_prefix'           => ['comment' => ''],
-                'url'                 => ['required' => true, 'comment' => ''],
-                'skip_url_validation' => ['comment' => ''],
-                'use_rewrites'      => ['required' => true, 'comment' => ''],
-                'use_secure'        => ['required' => true, 'comment' => ''],
-                'secure_base_url'   => ['required' => true, 'comment' => ''],
-                'use_secure_admin'  => ['required' => true, 'comment' => ''],
-                'admin_lastname'    => ['required' => true, 'comment' => ''],
-                'admin_firstname'   => ['required' => true, 'comment' => ''],
-                'admin_email'       => ['required' => true, 'comment' => ''],
-                'admin_username'    => ['required' => true, 'comment' => ''],
-                'admin_password'    => ['required' => true, 'comment' => ''],
-                'encryption_key'    => ['comment' => ''],
-                'session_save'      => ['comment' => ''],
-                'admin_frontname'   => ['comment' => ''],
-                'enable_charts'     => ['comment' => ''],
-            ];
-        }
+        $this->_options ??= [
+            'license_agreement_accepted'    => ['required' => true, 'comment' => ''],
+            'locale'              => ['required' => true, 'comment' => ''],
+            'timezone'            => ['required' => true, 'comment' => ''],
+            'default_currency'    => ['required' => true, 'comment' => ''],
+            'db_model'            => ['comment' => ''],
+            'db_host'             => ['required' => true, 'comment' => ''],
+            'db_name'             => ['required' => true, 'comment' => ''],
+            'db_user'             => ['required' => true, 'comment' => ''],
+            'db_pass'             => ['comment' => ''],
+            'db_prefix'           => ['comment' => ''],
+            'url'                 => ['required' => true, 'comment' => ''],
+            'skip_url_validation' => ['comment' => ''],
+            'use_rewrites'      => ['required' => true, 'comment' => ''],
+            'use_secure'        => ['required' => true, 'comment' => ''],
+            'secure_base_url'   => ['required' => true, 'comment' => ''],
+            'use_secure_admin'  => ['required' => true, 'comment' => ''],
+            'admin_lastname'    => ['required' => true, 'comment' => ''],
+            'admin_firstname'   => ['required' => true, 'comment' => ''],
+            'admin_email'       => ['required' => true, 'comment' => ''],
+            'admin_username'    => ['required' => true, 'comment' => ''],
+            'admin_password'    => ['required' => true, 'comment' => ''],
+            'encryption_key'    => ['comment' => ''],
+            'session_save'      => ['comment' => ''],
+            'admin_frontname'   => ['comment' => ''],
+            'enable_charts'     => ['comment' => ''],
+        ];
 
         return $this->_options;
     }
@@ -213,9 +211,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      */
     protected function _getDataModel()
     {
-        if (is_null($this->_dataModel)) {
-            $this->_dataModel = Mage::getModel('install/installer_data');
-        }
+        $this->_dataModel ??= Mage::getModel('install/installer_data');
 
         return $this->_dataModel;
     }

@@ -702,11 +702,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/sales/order/shipment/items.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|string supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type list<string>|false supplied for foreach, only iterables are supported.',
     'count' => 2,
     'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',

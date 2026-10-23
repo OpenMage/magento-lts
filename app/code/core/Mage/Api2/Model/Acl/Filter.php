@@ -103,9 +103,7 @@ class Mage_Api2_Model_Acl_Filter
             /** @var Mage_Api2_Helper_Data $helper */
             $helper = Mage::helper('api2/data');
 
-            if ($operationType === null) {
-                $operationType = $helper->getTypeOfOperation($this->_resource->getOperation());
-            }
+            $operationType ??= $helper->getTypeOfOperation($this->_resource->getOperation());
 
             if ($helper->isAllAttributesAllowed($this->_resource->getUserType())) {
                 $this->_allowedAttributes = array_keys($this->_resource->getAvailableAttributes(

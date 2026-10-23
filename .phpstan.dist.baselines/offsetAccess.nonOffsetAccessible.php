@@ -228,7 +228,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset non-falsy-string on Mage_SalesRule_Model_Resource_Rule_Collection.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Validator.php',
 ];
 $ignoreErrors[] = [
@@ -337,21 +337,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'expire\' on array|bool.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'expire\' on non-empty-array|true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'tags\' on non-empty-array|true.',
-    'count' => 3,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset 0 on non-empty-list<string>|false.',
     'count' => 2,
     'path' => __DIR__ . '/../lib/Mage/System/Ftp.php',
@@ -433,7 +418,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset (int|string) on array|object.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 $ignoreErrors[] = [

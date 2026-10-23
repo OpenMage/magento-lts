@@ -142,11 +142,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Api/Roles.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Api_Tab_Roleinfo::_initForm() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Api/Tab/Roleinfo.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Api_Tab_Rolesedit::_getNodeJson() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Api/Tab/Rolesedit.php',
@@ -790,11 +785,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Permissions_Role_Grid_User::_getUsers() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Role/Grid/User.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Adminhtml_Block_Permissions_Tab_Roleinfo::_initForm() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Roleinfo.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Permissions_Tab_Rolesusers::_getGridHtml() has no return type specified.',

@@ -64,7 +64,7 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
         }
 
         $configDiff = array_diff_assoc($connConfig->asArray(), $origConfigParams);
-        if (!$configDiff) {
+        if ($configDiff === []) {
             $index = $name;
             $origName = $connConfig->getParent()->getName();
             if (isset($this->_connections[$origName])) {
