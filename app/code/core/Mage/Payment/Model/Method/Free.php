@@ -50,6 +50,37 @@ class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
+     * Validate payment method information object
+     *
+     * isAvailable() only runs when payment data is imported, but the order can be placed later
+     * without re-importing it (onepage saveOrder skips the import when the request carries no
+     * payment data), after the cart total has gone back up. Re-check the zero total against the
+     * order being placed so this method can never settle an order that has something to pay.
+     *
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
+    #[Override]
+    public function validate()
+    {
+        parent::validate();
+
+        $paymentInfo = $this->getInfoInstance();
+        if ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
+            $grandTotal = $paymentInfo->getOrder()->getGrandTotal();
+        } else {
+            $quote = $paymentInfo->getQuote();
+            $grandTotal = $quote ? $quote->getGrandTotal() : 0;
+        }
+
+        if (Mage::app()->getStore()->roundPrice((float) $grandTotal) != 0) {
+            Mage::throwException(Mage::helper('payment')->__('The requested Payment Method is not available.'));
+        }
+
+        return $this;
+    }
+
+    /**
      * Get config payment action, do nothing if status is pending
      *
      * @return null|string
