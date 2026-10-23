@@ -25,6 +25,38 @@ class Mage_Oauth_Model_Observer
     }
 
     /**
+     * Revoke the OAuth tokens of an admin user when the user is deactivated
+     *
+     * The REST API also refuses inactive admin users on every request; revoking keeps the
+     * tokens from working again if the account is reactivated later. They can be re-enabled
+     * from the authorized OAuth tokens grid.
+     */
+    public function revokeTokensOfDeactivatedAdmin(Varien_Event_Observer $observer)
+    {
+        $user = $observer->getEvent()->getObject();
+        if (!$user instanceof Mage_Admin_Model_User
+            || !$user->getId()
+            || $user->getIsActive() === null
+            || (int) $user->getIsActive() === 1
+        ) {
+            return;
+        }
+
+        $this->_getTokenResource()->revokeAdminTokens((int) $user->getId());
+    }
+
+    /**
+     * @return Mage_Oauth_Model_Resource_Token
+     */
+    protected function _getTokenResource()
+    {
+        /** @var Mage_Oauth_Model_Resource_Token $resource */
+        $resource = Mage::getResourceSingleton('oauth/token');
+
+        return $resource;
+    }
+
+    /**
      * Redirect customer to callback page after login
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
