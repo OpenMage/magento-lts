@@ -33,12 +33,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Label_Service extends Mage_Usa_Model_
     /**
      * @var array<string, mixed> Configuration data
      */
-    protected array $_config = [];
+    protected array $_config;
 
     /**
      * Constructor
      */
-    public function __construct(?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client = null)
+    public function __construct($client = null)
     {
         parent::__construct($client);
         $this->_loadConfig();

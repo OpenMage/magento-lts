@@ -250,13 +250,7 @@ class Mage_Customer_Model_Observer
             Mage_Core_Model_Encryption::HASH_VERSION_SHA512,
             Mage_Core_Model_Encryption::HASH_VERSION_LATEST,
         ];
-        $currentVersionHash = null;
-        foreach ($hashVersionArray as $hashVersion) {
-            if ($encryptor->validateHashByVersion($password, $model->getPasswordHash(), $hashVersion)) {
-                $currentVersionHash = $hashVersion;
-                break;
-            }
-        }
+        $currentVersionHash = array_find($hashVersionArray, fn($hashVersion) => $encryptor->validateHashByVersion($password, $model->getPasswordHash(), $hashVersion));
 
         if (Mage_Core_Model_Encryption::HASH_VERSION_SHA256 !== $currentVersionHash) {
             $model->changePassword($password, false);

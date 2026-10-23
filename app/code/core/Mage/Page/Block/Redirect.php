@@ -135,7 +135,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      */
     protected function _getFormFields()
     {
-        if (!is_array($this->_formFields) || count($this->_formFields) == 0) {
+        if (!is_array($this->_formFields) || $this->_formFields === []) {
             $this->_formFields = $this->getFormFields();
         }
 

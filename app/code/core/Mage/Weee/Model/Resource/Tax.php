@@ -115,7 +115,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
                 continue;
             }
 
-            if ($prevKey && ($prevKey != $key)) {
+            if ($prevKey && ($prevKey !== $key)) {
                 foreach ($productData as $product) {
                     $adapter->insert($this->getTable('weee/discount'), $product);
                 }

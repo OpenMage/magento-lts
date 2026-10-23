@@ -34,7 +34,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store extends Mage_Admi
     /**
      * Returns list of disabled (in the Default or the Website Scope) paypal methods
      *
-     * @return array
+     * @return array<string, int>
      */
     protected function getPaypalDisabledMethods()
     {

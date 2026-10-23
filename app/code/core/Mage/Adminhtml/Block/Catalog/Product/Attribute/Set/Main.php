@@ -264,7 +264,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             $items[] = $attr;
         }
 
-        if (count($items) == 0) {
+        if ($items === []) {
             $items[] = [
                 'text'      => Mage::helper('catalog')->__('Empty'),
                 'id'        => 'empty',

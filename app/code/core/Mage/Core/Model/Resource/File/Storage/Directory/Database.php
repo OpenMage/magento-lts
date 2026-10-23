@@ -92,7 +92,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
 
         $name = basename($path);
         $path = dirname($path);
-        if ($path == '.') {
+        if ($path === '.') {
             $path = '';
         }
 
@@ -122,7 +122,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
 
         $name = basename($path);
         $path = dirname($path);
-        if ($path == '.') {
+        if ($path === '.') {
             $path = '';
         }
 

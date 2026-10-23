@@ -217,7 +217,7 @@ class Mage_Paypal_Model_Info
     public function importToPayment($from, Mage_Payment_Model_Info $payment)
     {
         $fullMap = array_merge($this->_paymentMap, $this->_systemMap);
-        if (is_object($from)) {
+        if ($from instanceof Varien_Object) {
             $from = [$from, 'getDataUsingMethod'];
         }
 

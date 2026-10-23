@@ -253,7 +253,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
                 return;
             }
 
-            if ($queue->getQueueStatus() == Queue::STATUS_NEVER) {
+            if ($queue->getQueueStatus() === Queue::STATUS_NEVER) {
                 $queue->setQueueStartAtByString($this->getRequest()->getParam('start_at'));
             }
 

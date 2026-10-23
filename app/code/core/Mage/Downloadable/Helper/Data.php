@@ -47,6 +47,6 @@ class Mage_Downloadable_Helper_Data extends Mage_Core_Helper_Abstract
     public function getIsPriceWebsiteScope()
     {
         $scope =  (int) Mage::app()->getStore()->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
-        return $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE;
+        return $scope === Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE;
     }
 }

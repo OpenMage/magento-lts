@@ -17,6 +17,7 @@ class Mage_Core_Model_File_Validator_Image
     public const NAME = 'isImage';
 
     protected $_allowedImageTypes = [
+        IMAGETYPE_AVIF,
         IMAGETYPE_WEBP,
         IMAGETYPE_JPEG,
         IMAGETYPE_GIF,
@@ -34,6 +35,7 @@ class Mage_Core_Model_File_Validator_Image
     public function setAllowedImageTypes(array $imageFileExtensions = [])
     {
         $map = [
+            'avif' => [IMAGETYPE_AVIF],
             'webp' => [IMAGETYPE_WEBP],
             'tif' => [IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM],
             'tiff' => [IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM],
@@ -91,6 +93,15 @@ class Mage_Core_Model_File_Validator_Image
             //replace tmp image with re-sampled copy to exclude images with malicious data
             $image = imagecreatefromstring(file_get_contents($filePath));
             if ($image !== false) {
+                /**
+                 * PHP 8.2.0: Now returns the actual image dimensions, bits and channels of AVIF images;
+                 * previously, the dimensions were reported as 0x0, and bits and channels were not reported at all.
+                 */
+                if (($imageWidth === 0 || $imageHeight === 0) && PHP_VERSION_ID < 80200) {
+                    $imageWidth = imagesx($image);
+                    $imageHeight = imagesy($image);
+                }
+
                 $img = imagecreatetruecolor($imageWidth, $imageHeight);
                 imagealphablending($img, false);
                 imagecopyresampled($img, $image, 0, 0, 0, 0, $imageWidth, $imageHeight, $imageWidth, $imageHeight);
@@ -118,6 +129,9 @@ class Mage_Core_Model_File_Validator_Image
                         break;
                     case IMAGETYPE_JPEG:
                         imagejpeg($img, $filePath, $imageQuality);
+                        break;
+                    case IMAGETYPE_AVIF:
+                        imageavif($img, $filePath, $imageQuality);
                         break;
                     case IMAGETYPE_WEBP:
                         imagewebp($img, $filePath, $imageQuality);

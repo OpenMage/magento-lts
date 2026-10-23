@@ -119,7 +119,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
             $dirName = basename($path);
             $dirPath = dirname($path);
 
-            if ($dirPath != '.') {
+            if ($dirPath !== '.') {
                 $parentDir = $this->createRecursive($dirPath);
                 $parentId = $parentDir->getId();
             } else {
@@ -242,7 +242,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
         $name = basename($dirPath);
         $path = dirname($dirPath);
 
-        if ($path == '.') {
+        if ($path === '.') {
             $path = '';
         }
 

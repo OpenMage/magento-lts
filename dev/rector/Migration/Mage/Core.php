@@ -13,6 +13,7 @@ namespace OpenMage\Rector\Migration\Mage;
 
 use Mage_Core_Block_Abstract;
 use Mage_Core_Helper_Abstract;
+use Mage_Core_Model_Email_Template_Abstract;
 use Rector\Renaming\ValueObject\MethodCallRename;
 
 final class Core
@@ -27,6 +28,7 @@ final class Core
             new MethodCallRename(Mage_Core_Block_Abstract::class, 'urlEscape', 'escapeUrl'),
             new MethodCallRename(Mage_Core_Helper_Abstract::class, 'htmlEscape', 'escapeHtml'),
             new MethodCallRename(Mage_Core_Helper_Abstract::class, 'urlEscape', 'escapeUrl'),
+            new MethodCallRename(Mage_Core_Model_Email_Template_Abstract::class, 'validateFileExension', 'validateFileExtension'),
         ];
     }
 }

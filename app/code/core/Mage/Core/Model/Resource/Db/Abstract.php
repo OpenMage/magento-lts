@@ -14,9 +14,7 @@
  */
 abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Resource_Abstract
 {
-    /**
-     * @deprecated since 1.5.0.0
-     */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     public const CHECKSUM_KEY_NAME = 'Checksum';
 
     /**
@@ -477,8 +475,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Exception
-     * @deprecated
      */
+    #[Deprecated]
     public function forsedSave(Mage_Core_Model_Abstract $object)
     {
         $this->_beforeSave($object);
@@ -609,13 +607,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
-        foreach (array_keys($fields) as $field) {
-            if ($object->getOrigData($field) != $object->getData($field)) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any(array_keys($fields), fn($field) => $object->getOrigData($field) != $object->getData($field));
     }
 
     /**
@@ -677,7 +669,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         if ($existent !== []) {
-            if (count($existent) == 1) {
+            if (count($existent) === 1) {
                 $error = Mage::helper('core')->__('%s already exists.', $existent[0]);
             } else {
                 $error = Mage::helper('core')->__('%s already exist.', implode(', ', $existent));
@@ -771,7 +763,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         $checksum = $this->_getReadAdapter()->getTablesChecksum($table);
-        if (count($checksum) == 1) {
+        if (count($checksum) === 1) {
             return $checksum[$table];
         }
 

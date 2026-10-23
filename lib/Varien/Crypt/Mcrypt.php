@@ -86,7 +86,7 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
             throw new Varien_Exception('Crypt module is not initialized.');
         }
 
-        if (strlen($data) == 0) {
+        if ((string) $data === '') {
             return $data;
         }
 
@@ -105,7 +105,7 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
             throw new Varien_Exception('Crypt module is not initialized.');
         }
 
-        if (strlen($data) == 0) {
+        if ((string) $data === '') {
             return $data;
         }
 

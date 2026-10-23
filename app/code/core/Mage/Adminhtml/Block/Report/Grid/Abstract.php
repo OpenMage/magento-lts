@@ -164,7 +164,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
 
         $orderStatuses = $filterData->getDataByKey('order_statuses');
         if (is_array($orderStatuses)
-            && (count($orderStatuses) == 1 && str_contains($orderStatuses[0], ','))
+            && (count($orderStatuses) === 1 && str_contains($orderStatuses[0], ','))
         ) {
             $filterData->setData('order_statuses', explode(',', $orderStatuses[0]));
         }

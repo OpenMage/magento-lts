@@ -59,7 +59,7 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
                 ->getNode(sprintf('install/databases/%s/min_version', $dbModel));
 
             // check DB server version
-            if (version_compare($version, $requiredVersion) == -1) {
+            if (version_compare($version, $requiredVersion) === -1) {
                 Mage::throwException(
                     Mage::helper('install')->__("The database server version doesn't match system requirements (required: %s, actual: %s).", $requiredVersion, $version),
                 );
@@ -159,9 +159,8 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
      * Retrieve Connection Type
      *
      * @return string
-     *
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     protected function _getConnenctionType()
     {
         return (string) Mage::getConfig()->getNode('global/resources/default_setup/connection/type');
@@ -171,9 +170,8 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
      * Check database connection
      *
      * @param array $data
-     *
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     public function checkDatabase($data)
     {
         $this->checkDbConnectionData($data);

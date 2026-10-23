@@ -21,16 +21,16 @@ use Monolog\Level;
  */
 abstract class Mage_Usa_Model_Shipping_Carrier_Usps_AbstractService
 {
-    protected ?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client = null;
+    protected null|array|Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $_client;
 
-    protected bool $_debug = false;
+    protected bool $_debug;
 
     /**
      * Prefix for debug log messages — override in subclasses
      */
     protected string $_debugPrefix = 'USPS Service';
 
-    public function __construct(?Mage_Usa_Model_Shipping_Carrier_Usps_Rest_Client $client = null)
+    public function __construct($client = null)
     {
         $this->_client = $client;
         $this->_debug = Mage::getStoreConfigFlag('carriers/usps/debug');

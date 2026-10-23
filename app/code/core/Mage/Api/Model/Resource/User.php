@@ -263,7 +263,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     public function _saveRelations(Mage_Core_Model_Abstract $user)
     {
         $rolesIds = $user->getRoleIds();
-        if (!is_array($rolesIds) || count($rolesIds) == 0) {
+        if (!is_array($rolesIds) || $rolesIds === []) {
             return $user;
         }
 

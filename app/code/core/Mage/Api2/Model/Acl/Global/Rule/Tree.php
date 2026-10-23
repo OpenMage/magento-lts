@@ -338,7 +338,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
         }
 
         if (!empty($item[self::NAME_CHILDREN])) {
-            usort($item[self::NAME_CHILDREN], [$this, '_sortTree']);
+            usort($item[self::NAME_CHILDREN], $this->_sortTree(...));
         } elseif ($isGroup) {
             //skip empty group
             return null;

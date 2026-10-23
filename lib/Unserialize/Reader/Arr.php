@@ -61,7 +61,7 @@ class Unserialize_Reader_Arr
         if ($this->_status == self::READING_LENGTH) {
             if ($char == Unserialize_Parser::SYMBOL_COLON) {
                 $this->_length = (int) $this->_length;
-                if ($this->_length == 0) {
+                if ($this->_length === 0) {
                     $this->_status = self::FINISHED_ARR;
                     return null;
                 }

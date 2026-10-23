@@ -788,7 +788,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
                 $bodyXml = new SimpleXMLElement($responseBody);
                 $code = $bodyXml->xpath('//GetQuoteResponse/Note/Condition/ConditionCode');
-                if (isset($code[0]) && (int) $code[0] == self::CONDITION_CODE_SERVICE_DATE_UNAVAILABLE) {
+                if (isset($code[0]) && (int) $code[0] === self::CONDITION_CODE_SERVICE_DATE_UNAVAILABLE) {
                     $debugPoint['info'] = sprintf(
                         Mage::helper('usa')->__('DHL service is not available at %s date'),
                         $date,
@@ -1250,7 +1250,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             Mage::throwException(Mage::helper('usa')->__('Wrong Region.'));
         }
 
-        if ($originRegion == 'AM') {
+        if ($originRegion === 'AM') {
             $originRegion = '';
         }
 
@@ -1780,7 +1780,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         $destCountry = (string) $this->getCountryParams($destCountryCode)->name;
         $isDomestic = (string) $this->getCountryParams($destCountryCode)->domestic;
 
-        if ($origCountry == $destCountry && $isDomestic) {
+        if ($origCountry === $destCountry && $isDomestic) {
             $this->_isDomestic = true;
         }
 

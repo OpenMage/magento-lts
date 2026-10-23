@@ -470,7 +470,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         $this->_callWarnings = [];
         if ($response['RESULT'] == self::RESPONSE_CODE_APPROVED) {
             // collect warnings
-            if (!empty($response['RESPMSG']) && strtoupper($response['RESPMSG']) != 'APPROVED') {
+            if (!empty($response['RESPMSG']) && strtoupper($response['RESPMSG']) !== 'APPROVED') {
                 $this->_callWarnings[] = $response['RESPMSG'];
             }
 

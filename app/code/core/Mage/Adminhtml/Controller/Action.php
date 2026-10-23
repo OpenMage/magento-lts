@@ -228,8 +228,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     /**
      * @return $this
-     * @deprecated after 1.4.0.0 alpha, logic moved to Mage_Adminhtml_Block_Notification_Baseurl
      */
+    #[Deprecated(message: 'after 1.4.0.0 alpha, logic moved to Mage_Adminhtml_Block_Notification_Baseurl')]
     protected function _checkUrlSettings()
     {
         /**
@@ -248,7 +248,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             'default/' . Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL,
         );
 
-        if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
+        if ($defaultSecure === '{{base_url}}' || $defaultUnsecure === '{{base_url}}') {
             $this->_getSession()->addNotice(
                 $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', ['section' => 'web'])),
             );

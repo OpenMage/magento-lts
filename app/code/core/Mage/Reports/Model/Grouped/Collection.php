@@ -84,7 +84,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mag
      */
     protected function _mergeWithEmptyData()
     {
-        if (count($this->_items) == 0) {
+        if (count($this->_items) === 0) {
             return $this;
         }
 
@@ -110,7 +110,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mag
      */
     protected function _groupResourceData()
     {
-        if (count($this->_items) == 0) {
+        if (count($this->_items) === 0) {
             foreach ($this->_resourceCollection as $item) {
                 if (isset($this->_items[$item->getData($this->_columnGroupBy)])) {
                     $this->_items[$item->getData($this->_columnGroupBy)]->addChild($item->setIsEmpty(false));

@@ -286,8 +286,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * @param  null|string $file
      * @return bool
-     * @deprecated
      */
+    #[Deprecated]
     protected function _checkMemory($file = null)
     {
         if ($this->_getMemoryLimit() > ($this->_getMemoryUsage() + $this->_getNeedMemoryForFile($file))) {
@@ -299,8 +299,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     /**
      * @return int
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getMemoryLimit()
     {
         $memoryLimit = trim(strtoupper(ini_get('memory_limit')));
@@ -314,8 +314,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     /**
      * @return int
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getMemoryUsage()
     {
         if (function_exists('memory_get_usage')) {
@@ -328,8 +328,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * @param  string    $file
      * @return float|int
-     * @deprecated
      */
+    #[Deprecated]
     protected function _getNeedMemoryForFile($file = null)
     {
         $file ??= $this->getBaseFile();
@@ -397,7 +397,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         $baseDir = self::$_baseMediaPath;
 
-        if ($file == '/no_selection') {
+        if ($file === '/no_selection') {
             $file = null;
         }
 

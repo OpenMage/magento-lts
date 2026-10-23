@@ -242,7 +242,7 @@ class Mage_Captcha_Model_Observer
             $expire = Carbon::now()->subMinutes($timeout)->getTimestamp();
             $imageDirectory = Mage::helper('captcha')->getImgDir($website);
             foreach (new DirectoryIterator($imageDirectory) as $file) {
-                if ($file->isFile() && pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'png' && $file->getMTime() < $expire) {
+                if ($file->isFile() && pathinfo($file->getFilename(), PATHINFO_EXTENSION) === 'png' && $file->getMTime() < $expire) {
                     unlink($file->getPathname());
                 }
             }

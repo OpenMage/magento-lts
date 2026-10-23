@@ -79,8 +79,8 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      *
      * @param  string $childrenWrapClass
      * @return string
-     * @deprecated since 1.8.2.0 use child block catalog.topnav.renderer instead
      */
+    #[Deprecated(message: 'since 1.8.2.0 use child block catalog.topnav.renderer instead')]
     protected function _getHtml(Varien_Data_Tree_Node $menuTree, $childrenWrapClass)
     {
         $html = '';
@@ -97,7 +97,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
 
         foreach ($children as $child) {
             $child->setLevel($childLevel);
-            $child->setIsFirst($counter == 1);
+            $child->setIsFirst($counter === 1);
             $child->setIsLast($counter == $childrenCount);
             $child->setPositionClass($itemPositionClassPrefix . $counter);
 

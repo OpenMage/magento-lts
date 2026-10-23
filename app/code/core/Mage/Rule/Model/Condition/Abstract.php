@@ -418,7 +418,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
         $options = $this->getValueSelectOptions();
         $valueArr = [];
-        if ($options !== []) {
+        if (is_array($options) && $options !== []) {
             foreach ($options as $option) {
                 if (is_array($value)) {
                     if (in_array($option['value'], $value, true)) {
@@ -749,7 +749,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                         return false;
                     }
                 } elseif (is_array($validatedValue)) {
-                    $result = count($validatedValue) == 1 && array_shift($validatedValue) == $value;
+                    $result = count($validatedValue) === 1 && array_shift($validatedValue) == $value;
                 } else {
                     $result = $this->_compareValues($validatedValue, $value);
                 }
@@ -808,7 +808,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     $value = (array) $value;
                     $match = count(array_intersect($validatedValue, $value));
 
-                    $result = in_array($operator, ['[]', '![]'], true) ? $match == count($value) : $match > 0;
+                    $result = in_array($operator, ['[]', '![]'], true) ? $match === count($value) : $match > 0;
                 } else {
                     $value = (array) $value;
                     foreach ($value as $item) {
@@ -840,7 +840,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     protected function _compareValues($validatedValue, $value, $strict = true)
     {
         if ($strict && is_numeric($validatedValue) && is_numeric($value)) {
-            return $validatedValue == $value;
+            return $validatedValue === $value;
         }
 
         $validatedValue ??= '';

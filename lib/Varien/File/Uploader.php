@@ -136,9 +136,7 @@ class Varien_File_Uploader
 
     public const MULTIPLE_STYLE = 1;
 
-    /**
-     * @deprecated Use UPLOAD_ERR_NO_FILE instead
-     */
+    #[Deprecated(message: 'Use UPLOAD_ERR_NO_FILE instead')]
     public const TMP_NAME_EMPTY = UPLOAD_ERR_NO_FILE;
 
     /**
@@ -336,7 +334,8 @@ class Varien_File_Uploader
         $fileInfo = pathinfo($fileName);
 
         if (preg_match('/^_+$/', $fileInfo['filename'])) {
-            return 'file.' . $fileInfo['extension'];
+            $ext = isset($fileInfo['extension']) ? '.' . $fileInfo['extension'] : '';
+            return 'file' . $ext;
         }
 
         return $fileName;
@@ -359,7 +358,7 @@ class Varien_File_Uploader
 
     protected static function _addDirSeparator($dir)
     {
-        if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
+        if (substr($dir, -1) !== DIRECTORY_SEPARATOR) {
             $dir .= DIRECTORY_SEPARATOR;
         }
 
@@ -497,8 +496,8 @@ class Varien_File_Uploader
     /**
      * @param  string $extension
      * @return bool
-     * @deprecated after 1.5.0.0-beta2
      */
+    #[Deprecated(message: 'after 1.5.0.0-beta2')]
     public function chechAllowedExtension($extension)
     {
         return $this->checkAllowedExtension($extension);
@@ -541,7 +540,7 @@ class Varien_File_Uploader
             return $this;
         }
 
-        if (substr($destinationFolder, -1) == DIRECTORY_SEPARATOR) {
+        if (substr($destinationFolder, -1) === DIRECTORY_SEPARATOR) {
             $destinationFolder = substr($destinationFolder, 0, -1);
         }
 
@@ -557,9 +556,11 @@ class Varien_File_Uploader
         $fileInfo = pathinfo($destFile);
         if (file_exists($destFile)) {
             $index = 1;
-            $baseName = $fileInfo['filename'] . '.' . $fileInfo['extension'];
-            while (file_exists($fileInfo['dirname'] . DIRECTORY_SEPARATOR . $baseName)) {
-                $baseName = $fileInfo['filename'] . '_' . $index . '.' . $fileInfo['extension'];
+            $ext = isset($fileInfo['extension']) ? '.' . $fileInfo['extension'] : '';
+            $baseName = $fileInfo['filename'] . $ext;
+            $dirName = isset($fileInfo['dirname']) ? $fileInfo['dirname'] . DIRECTORY_SEPARATOR : '';
+            while (file_exists($dirName . $baseName)) {
+                $baseName = $fileInfo['filename'] . '_' . $index . $ext;
                 $index++;
             }
 

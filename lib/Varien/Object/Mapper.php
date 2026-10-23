@@ -33,8 +33,8 @@ class Varien_Object_Mapper
      *     <Varien_Object> => $from->setData($key, <from>)
      *     array(<Varien_Object>, <method>) => $from->$method($key, <from>)
      *
-     * @param  array|callable|Varien_Object $source
-     * @param  array|callable|Varien_Object $target
+     * @param  array|Varien_Object $source
+     * @param  array|Varien_Object $target
      * @return array|Varien_Object
      */
     public static function &accumulateByMap($source, $target, array $map, array $defaults = [])
@@ -96,7 +96,6 @@ class Varien_Object_Mapper
                     $target[$keyTo] = $value;
                 }
             } elseif ($toIsVO) {
-                /** @var Varien_Object $target */
                 if (!$target->hasData($keyTo)) {
                     $target->$set($keyTo, $value);
                 }

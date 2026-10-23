@@ -909,6 +909,7 @@
 'phpstan':
   - changed-files:
     - any-glob-to-any-file: [
+      .phpstan.dist.baselines/*,
       .phpstan*,
       .github/workflows/phpstan.yml,
       dev/phpstan/*,

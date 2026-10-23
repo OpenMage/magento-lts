@@ -1194,7 +1194,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         return preg_replace_callback(
             '#(\?|&amp;|&)___SID=([SU])(&amp;|&)?#',
-            [$this, 'sessionVarCallback'],
+            $this->sessionVarCallback(...),
             $html,
         );
     }

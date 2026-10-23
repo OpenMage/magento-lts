@@ -312,7 +312,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                 continue;
             }
 
-            if (!$isGlobal && (int) $data['website_id'] == 0) {
+            if (!$isGlobal && (int) $data['website_id'] === 0) {
                 continue;
             }
 

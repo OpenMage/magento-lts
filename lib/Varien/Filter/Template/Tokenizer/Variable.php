@@ -35,14 +35,14 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
             if ($this->char() != '.' && $this->char() != '(') {
                 // Property or method name
                 $parameterName .= $this->char();
-            } elseif ($this->char() == '(') {
+            } elseif ($this->char() === '(') {
                 // Method declaration
                 $methodArgs = $this->getMethodArgs();
                 $actions[] = ['type' => 'method',
                     'name' => $parameterName,
                     'args' => $methodArgs];
                 $parameterName = '';
-            } elseif ($parameterName != '') {
+            } elseif ($parameterName !== '') {
                 // Property or variable declaration
                 if ($variableSet) {
                     $actions[] = ['type' => 'property',
@@ -57,7 +57,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
             }
         } while ($this->next());
 
-        if ($parameterName != '') {
+        if ($parameterName !== '') {
             if ($variableSet) {
                 $actions[] = ['type' => 'property',
                     'name' => $parameterName];

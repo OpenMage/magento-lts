@@ -577,7 +577,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         $amount,
                     ),
                 );
-                if ($requestType == self::REQUEST_TYPE_AUTH_CAPTURE) {
+                if ($requestType === self::REQUEST_TYPE_AUTH_CAPTURE) {
                     $card->setCapturedAmount($card->getProcessedAmount());
                     $this->getCardsStorage($payment)->updateCard($card);
                 }
@@ -605,7 +605,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                             $amount,
                         ),
                     );
-                    if ($requestType == self::REQUEST_TYPE_AUTH_CAPTURE) {
+                    if ($requestType === self::REQUEST_TYPE_AUTH_CAPTURE) {
                         $card->setCapturedAmount($card->getProcessedAmount());
                         $this->getCardsStorage()->updateCard($card);
                     }
@@ -701,7 +701,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     $card->getProcessedAmount(),
                 ),
             );
-            if ($requestType == self::REQUEST_TYPE_AUTH_CAPTURE) {
+            if ($requestType === self::REQUEST_TYPE_AUTH_CAPTURE) {
                 $card->setCapturedAmount($card->getProcessedAmount());
                 $this->getCardsStorage()->updateCard($card);
             }

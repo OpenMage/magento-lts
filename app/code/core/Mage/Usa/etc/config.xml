@@ -176,14 +176,15 @@
             </dhl>
             <fedex>
                 <account backend_model="adminhtml/system_config_backend_encrypted"/>
-                <meter_number backend_model="adminhtml/system_config_backend_encrypted"/>
-                <key backend_model="adminhtml/system_config_backend_encrypted"/>
-                <password backend_model="adminhtml/system_config_backend_encrypted"/>
+                <client_id backend_model="adminhtml/system_config_backend_encrypted"/>
+                <client_secret backend_model="adminhtml/system_config_backend_encrypted"/>
+                <tracking_client_id backend_model="adminhtml/system_config_backend_encrypted"/>
+                <tracking_client_secret backend_model="adminhtml/system_config_backend_encrypted"/>
                 <sandbox_mode>0</sandbox_mode>
                 <shipment_requesttype>0</shipment_requesttype>
                 <active>0</active>
                 <sallowspecific>0</sallowspecific>
-                <allowed_methods>EUROPE_FIRST_INTERNATIONAL_PRIORITY,FEDEX_1_DAY_FREIGHT,FEDEX_2_DAY_FREIGHT,FEDEX_2_DAY,FEDEX_2_DAY_AM,FEDEX_3_DAY_FREIGHT,FEDEX_EXPRESS_SAVER,FEDEX_GROUND,FIRST_OVERNIGHT,GROUND_HOME_DELIVERY,INTERNATIONAL_ECONOMY,INTERNATIONAL_ECONOMY_FREIGHT,INTERNATIONAL_FIRST,INTERNATIONAL_GROUND,INTERNATIONAL_PRIORITY,INTERNATIONAL_PRIORITY_FREIGHT,PRIORITY_OVERNIGHT,SMART_POST,STANDARD_OVERNIGHT,FEDEX_FREIGHT,FEDEX_NATIONAL_FREIGHT</allowed_methods>
+                <allowed_methods>FEDEX_1_DAY_FREIGHT,FEDEX_2_DAY_FREIGHT,FEDEX_2_DAY,FEDEX_2_DAY_AM,FEDEX_3_DAY_FREIGHT,FEDEX_EXPRESS_SAVER,FEDEX_GROUND,FIRST_OVERNIGHT,GROUND_HOME_DELIVERY,INTERNATIONAL_ECONOMY,INTERNATIONAL_ECONOMY_FREIGHT,INTERNATIONAL_FIRST,FEDEX_INTERNATIONAL_PRIORITY,INTERNATIONAL_PRIORITY_FREIGHT,PRIORITY_OVERNIGHT,SMART_POST,STANDARD_OVERNIGHT</allowed_methods>
                 <cutoff_cost/>
                 <dropoff>REGULAR_PICKUP</dropoff>
                 <free_method>FEDEX_GROUND</free_method>

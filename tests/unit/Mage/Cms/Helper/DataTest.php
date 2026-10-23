@@ -53,12 +53,4 @@ final class DataTest extends OpenMageTest
     {
         self::assertInstanceOf(Varien_Filter_Template::class, self::$subject->getPageTemplateProcessor());
     }
-
-    /**
-     * @group Helper
-     */
-    public function testIsSwfDisabled(): void
-    {
-        self::assertTrue(self::$subject->isSwfDisabled());
-    }
 }

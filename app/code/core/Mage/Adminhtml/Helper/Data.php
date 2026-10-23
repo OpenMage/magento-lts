@@ -37,8 +37,8 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
      * @param  null|string $url
      * @param  null|string $suffix
      * @return mixed
-     * @deprecated
      */
+    #[Deprecated]
     public function getPageHelpUrl($url = null, $suffix = null)
     {
         if (!$this->_pageHelpUrl) {
@@ -54,8 +54,8 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
      * @param  null|string $url
      * @param  null|string $suffix
      * @return $this
-     * @deprecated
      */
+    #[Deprecated]
     public function setPageHelpUrl($url = null, $suffix = null)
     {
         $this->_pageHelpUrl = $url;
@@ -67,8 +67,8 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
      *
      * @param  null|string $suffix
      * @return $this
-     * @deprecated
      */
+    #[Deprecated]
     public function addPageHelpUrl($suffix)
     {
         $this->_pageHelpUrl = $this->getPageHelpUrl(null, $suffix);
@@ -122,7 +122,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
         $data = [];
         $filterString = base64_decode($filterString);
         parse_str($filterString, $data);
-        array_walk_recursive($data, [$this, 'decodeFilter']);
+        array_walk_recursive($data, $this->decodeFilter(...));
         return $data;
     }
 

@@ -191,7 +191,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     #[Override]
     public function getConfigData($field, $storeId = null)
     {
-        return $this->_pro->getConfig()->$field;
+        // @phpstan-ignore property.dynamicName
+        return $this->_pro->getConfig()->$field ?? parent::getConfigData($field, $storeId);
     }
 
     /**
@@ -722,7 +723,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     protected function _isTransactionExpired(Mage_Sales_Model_Order_Payment_Transaction $transaction, $period)
     {
         $period = (int) $period;
-        if ($period == 0) {
+        if ($period === 0) {
             return true;
         }
 

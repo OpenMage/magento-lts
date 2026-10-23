@@ -43,7 +43,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
     public function removeProducts($websiteIds, $productIds)
     {
         if (!is_array($websiteIds) || !is_array($productIds)
-            || count($websiteIds) == 0 || count($productIds) == 0
+            || $websiteIds === [] || $productIds === []
         ) {
             return $this;
         }
@@ -78,7 +78,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
     public function addProducts($websiteIds, $productIds)
     {
         if (!is_array($websiteIds) || !is_array($productIds)
-            || count($websiteIds) == 0 || count($productIds) == 0
+            || $websiteIds === [] || $productIds === []
         ) {
             return $this;
         }

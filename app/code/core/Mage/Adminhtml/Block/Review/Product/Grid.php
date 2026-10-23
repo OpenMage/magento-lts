@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Catalog_Product_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_review_product_grid';
+
     public function __construct()
     {
         parent::__construct();

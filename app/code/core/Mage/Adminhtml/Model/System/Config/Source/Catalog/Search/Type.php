@@ -16,6 +16,9 @@ declare(strict_types=1);
  */
 class Mage_Adminhtml_Model_System_Config_Source_Catalog_Search_Type
 {
+    /**
+     * @return array<int, array<string, int|string>>
+     */
     public function toOptionArray()
     {
         $types = [

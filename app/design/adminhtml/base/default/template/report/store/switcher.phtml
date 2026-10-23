@@ -16,16 +16,16 @@
 <p class="switcher"><label for="store_switcher"><?php echo $this->__('Show Report For:') ?></label>
 <select name="store_switcher" id="store_switcher" onchange="return switchStore(this);">
     <option value=""><?php echo $this->__('All Websites') ?></option>
-    <?php foreach ($this->getWebsiteCollection() as $_website): ?>
+    <?php foreach ($this->getWebsites() as $_website): ?>
         <?php $showWebsite=false; ?>
-        <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
+        <?php foreach ($this->getStoreGroups($_website) as $_group): ?>
             <?php $showGroup=false; ?>
-            <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
-                <?php if ($showWebsite == false): ?>
+            <?php foreach ($this->getStores($_group) as $_store): ?>
+                <?php if ($showWebsite === false): ?>
                     <?php $showWebsite = true; ?>
                     <option website="true" value="<?php echo $_website->getId() ?>"<?php if($this->getRequest()->getParam('website') == $_website->getId()): ?> selected<?php endif ?>><?php echo $this->escapeHtml($_website->getName()); ?></option>
                 <?php endif ?>
-                <?php if ($showGroup == false): ?>
+                <?php if ($showGroup === false): ?>
                     <?php $showGroup = true; ?>
                     <!--optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($_group->getName()); ?>"-->
                     <option group="true" value="<?php echo $_group->getId() ?>"<?php if($this->getRequest()->getParam('group') == $_group->getId()): ?> selected<?php endif ?>>&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($_group->getName()); ?></option>

@@ -53,7 +53,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
         if ($this->_useDb === null) {
             $currentStorage = (int) Mage::app()->getConfig()
                 ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA);
-            $this->_useDb = ($currentStorage == Mage_Core_Model_File_Storage::STORAGE_MEDIA_DATABASE);
+            $this->_useDb = ($currentStorage === Mage_Core_Model_File_Storage::STORAGE_MEDIA_DATABASE);
         }
 
         return $this->_useDb;

@@ -31,8 +31,7 @@
         "composer-runtime-api": "^2",
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
-        "components/jquery": "^3.7.1",
-        "cweagans/composer-patches": "^2.0",
+        "components/jquery": "^3.7.1 <4",
         "empiricompany/openmage_ignition": "^1.5",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
@@ -48,6 +47,7 @@
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "^1.24.1",
+        "shipstream/fedex-rest-sdk": "^1.4",
         "symfony/mime": "^6.4",
         "symfony/polyfill-php82": "^1.33",
         "symfony/polyfill-php83": "^1.33",
@@ -57,10 +57,12 @@
         "symfony/translation-contracts": "^3.5",
         "symfony/validator": "^6.4",
         "tinymce/tinymce": "^8.0",
+        "vaimo/composer-patches": "^6.0",
         "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
         "ext-xmlreader": "*",
+        "bamarni/composer-bin-plugin": "^1.9",
         "composer/composer": ">= 2.2.27 <2.3 || >= 2.9.6",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
@@ -75,11 +77,11 @@
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
-        "phpunit/phpunit": "^9.6",
+        "phpunit/phpunit": "^10.5",
         "rector/rector": "^2.1.12",
+        "shipmonk/phpstan-baseline-per-identifier": "^2.3",
         "squizlabs/php_codesniffer": "^3.7",
-        "symplify/easy-coding-standard": "^13.0",
-        "symplify/vendor-patches": "^12.0, !=12.0.5, !=12.0.6"
+        "symplify/easy-coding-standard": "^13.0"
     },
     "replace": {
         "symfony/polyfill-ctype": "*",
@@ -132,6 +134,11 @@
             "url": "https://opencollective.com/openmage"
         }
     ],
+    "autoload": {
+        "classmap": [
+            "app/OpenMageVersionInterface.php"
+        ]
+    },
     "autoload-dev": {
         "classmap": [
             "app/code/*/*/*/controllers",
@@ -139,6 +146,7 @@
         ],
         "psr-4": {
             "OpenMage\\Rector\\": "dev/rector",
+            "OpenMage\\Tests\\Functional\\": "tests/functional",
             "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
     },
@@ -150,15 +158,22 @@
             "openmage/dev-translations": "copy",
             "openmage/legacy-frontend-themes": "copy"
         },
-        "magento-force": true
+        "magento-force": true,
+        "patches-file": "patches.json",
+        "bamarni-bin": {
+            "target-directory": "vendor-bin",
+            "bin-links": true,
+            "forward-command": true
+        }
     },
     "config": {
         "allow-plugins": {
-            "cweagans/composer-patches": true,
+            "bamarni/composer-bin-plugin": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "magento-hackathon/magento-composer-installer": true,
             "openmage/composer-plugin": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "vaimo/composer-patches": true
         },
         "audit": {
             "block-insecure": false
@@ -177,7 +192,11 @@
         "phpmd:test": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html",
         "phpmd:baseline": "vendor/bin/phpmd app/code/core/Mage html .phpmd.dist.xml --color --cache --cache-file .cache/.phpmd.result-cache.php --baseline-file .phpmd.dist.baseline.xml --report-file build/phpmd/report.html --update-baseline --generate-baseline",
         "phpstan:test": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
-        "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baseline.php",
+        "phpstan:baseline": [
+            "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baselines/_loader.php",
+            "split-phpstan-baseline .phpstan.dist.baselines/_loader.php --no-error-count",
+            "git add .phpstan.dist.baselines/*"
+        ],
         "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --no-coverage",
         "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --testdox",
         "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --coverage-html build/phpunit/coverage",

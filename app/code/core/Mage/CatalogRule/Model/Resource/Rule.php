@@ -156,7 +156,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         if ($helper->isEnabled() && $helper->isBuiltAllStores()) {
             foreach ($this->_app->getStores(false) as $store) {
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                if (count($websiteIds) == 0 || in_array($store->getWebsiteId(), $websiteIds)) {
+                if (count($websiteIds) === 0 || in_array($store->getWebsiteId(), $websiteIds)) {
                     $selectByStore = $rule->getProductFlatSelect($store->getId());
                     $selectByStore->where('p.entity_id = ?', $product->getId());
                     $selectByStore->limit(1);
@@ -258,7 +258,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                 }
             }
         } else {
-            if (count($productIds) == 0) {
+            if ($productIds === []) {
                 Varien_Profiler::start('__MATCH_PRODUCTS__');
                 $productIds = $rule->getMatchingProductIds();
                 Varien_Profiler::stop('__MATCH_PRODUCTS__');
@@ -288,7 +288,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                         ];
 
                         // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                        if (count($rows) == 1000) {
+                        if (count($rows) === 1000) {
                             $write->insertMultiple($this->getTable('catalogrule/rule_product'), $rows);
                             $rows = [];
                         }
@@ -544,8 +544,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * @param int             $productId
      *
      * @return $this
-     * @deprecated after 1.7.0.2 use method applyAllRules
      */
+    #[Deprecated(message: 'after 1.7.0.2 use method applyAllRules')]
     public function applyAllRulesForDateRange($fromDate = null, $toDate = null, $productId = null)
     {
         return $this->applyAllRules($productId);

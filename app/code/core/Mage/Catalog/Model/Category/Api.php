@@ -241,7 +241,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 $categoryDataValue = $categoryData[$attrCode];
                 if ($categoryDataValue === 'use_config'
                     || (is_array($categoryDataValue)
-                    && count($categoryDataValue) == 1
+                    && count($categoryDataValue) === 1
                     && $categoryDataValue[0] === 'use_config')
                 ) {
                     $useConfig[] = $attrCode;

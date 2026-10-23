@@ -37,14 +37,14 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Template processor
      *
-     * @var null|array|string
+     * @var null|Closure|non-empty-array
      */
     protected $_templateProcessor = null;
 
     /**
      * Include processor
      *
-     * @var null|array|string
+     * @var null|Closure|non-empty-array
      */
     protected $_includeProcessor = null;
 
@@ -64,9 +64,10 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      * Sets the proccessor of templates. Templates are directives that include email templates based on system
      * configuration path.
      *
-     * @param array $callback it must return string
+     * @phpstan-param non-empty-array|Closure $callback it must return string
+     * @return $this
      */
-    public function setTemplateProcessor(array $callback)
+    public function setTemplateProcessor(array|Closure $callback)
     {
         $this->_templateProcessor = $callback;
         return $this;
@@ -75,7 +76,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of templates.
      *
-     * @return null|array
+     * @phpstan-return null|non-empty-array|Closure
      */
     public function getTemplateProcessor()
     {
@@ -85,9 +86,10 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of includes.
      *
-     * @param array $callback it must return string
+     * @phpstan-param non-empty-array|Closure $callback it must return string
+     * @return $this
      */
-    public function setIncludeProcessor(array $callback)
+    public function setIncludeProcessor(array|Closure $callback)
     {
         $this->_includeProcessor = $callback;
         return $this;
@@ -96,7 +98,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     /**
      * Sets the proccessor of includes.
      *
-     * @return null|array
+     * @phpstan-return null|non-empty-array|Closure
      */
     public function getIncludeProcessor()
     {
@@ -158,7 +160,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
     public function varDirective($construction)
     {
-        if (count($this->_templateVars) == 0) {
+        if (count($this->_templateVars) === 0) {
             // If template preprocessing
             return $construction[0];
         }
@@ -170,7 +172,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     {
         // Processing of {include template=... [...]} statement
         $includeParameters = $this->_getIncludeParameters($construction[2]);
-        if (!isset($includeParameters['template']) || !$this->getIncludeProcessor()) {
+        if (!isset($includeParameters['template']) || is_null($this->getIncludeProcessor())) {
             // Not specified template or not seted include processor
             return '{Error in include processing}';
         }
@@ -197,7 +199,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     {
         // Processing of {template config_path=... [...]} statement
         $templateParameters = $this->_getIncludeParameters($construction[2]);
-        if (!isset($templateParameters['config_path']) || !$this->getTemplateProcessor()) {
+        if (!isset($templateParameters['config_path']) || is_null($this->getTemplateProcessor())) {
             return '{Error in template processing}';
         }
 
@@ -211,7 +213,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
     public function dependDirective($construction)
     {
-        if (count($this->_templateVars) == 0) {
+        if (count($this->_templateVars) === 0) {
             // If template preprocessing
             return $construction[0];
         }
@@ -225,7 +227,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
     public function ifDirective($construction)
     {
-        if (count($this->_templateVars) == 0) {
+        if (count($this->_templateVars) === 0) {
             return $construction[0];
         }
 
@@ -281,7 +283,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $emailPathValidator = $this->getEmailPathValidator();
         $counter = count($stackVars);
         for ($i = 0; $i < $counter; $i++) {
-            if ($i == 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
+            if ($i === 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
                 // Getting of template value
                 $stackVars[$i]['variable'] = & $this->_templateVars[$stackVars[$i]['name']];
             } elseif (isset($stackVars[$i - 1]['variable']) && $stackVars[$i - 1]['variable'] instanceof Varien_Object) {

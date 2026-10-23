@@ -26,7 +26,7 @@ $itemPositionClassPrefix = $parentPositionClass ? $parentPositionClass . '-' : '
 
 foreach ($children as $child) {
     $child->setLevel($childLevel);
-    $child->setIsFirst($counter == 1);
+    $child->setIsFirst($counter === 1);
     $child->setIsLast($counter == $childrenCount);
     $child->setPositionClass($itemPositionClassPrefix . $counter);
 

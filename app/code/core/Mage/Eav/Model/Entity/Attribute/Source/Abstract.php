@@ -81,7 +81,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     {
         $bcWarning = false;
         foreach ($this->getAllOptions() as $option) {
-            if (strcasecmp($option['label'], $value) == 0) {
+            if (strcasecmp($option['label'], $value) === 0) {
                 return $option['value'];
             }
 

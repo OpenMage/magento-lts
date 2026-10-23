@@ -229,8 +229,8 @@ class Mage_Paypal_Model_Express_Checkout
      *
      * @param  int   $id
      * @return $this
-     * @deprecated please use self::setCustomer
      */
+    #[Deprecated(message: 'please use self::setCustomer')]
     public function setCustomerId($id)
     {
         $this->_customerId = $id;
@@ -901,7 +901,7 @@ class Mage_Paypal_Model_Express_Checkout
 
         // Magento will transfer only first 10 cheapest shipping options if there are more than 10 available.
         if (count($options) > 10) {
-            usort($options, [static::class,'cmpShippingOptions']);
+            usort($options, static::cmpShippingOptions(...));
             array_splice($options, 10);
             // User selected option will be always included in options list
             if (!is_null($userSelectedOption) && !in_array($userSelectedOption, $options, true)) {

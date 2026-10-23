@@ -232,7 +232,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             $editableAttributes = [];
             foreach ($this->getSetAttributes($product) as $attributeCode => $attribute) {
                 if (!is_array($attribute->getApplyTo())
-                        || count($attribute->getApplyTo()) == 0
+                        || $attribute->getApplyTo() === []
                     || in_array($this->getProduct($product)->getTypeId(), $attribute->getApplyTo())
                 ) {
                     $editableAttributes[$attributeCode] = $attribute;
@@ -544,9 +544,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param  Mage_Catalog_Model_Product $product
      * @return array
-     * @deprecated after 1.4.2.0
      * @see _prepareOptions()
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     protected function _prepareOptionsForCart(Varien_Object $buyRequest, $product = null)
     {
         return $this->_prepareOptions($buyRequest, $product, self::PROCESS_MODE_FULL);

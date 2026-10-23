@@ -36,7 +36,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         $action = strtolower($this->getRequest()->getActionName());
         if (!$allowGuest
-            && $action == 'post'
+            && $action === 'post'
             && $this->getRequest()->isPost()
             && !Mage::getSingleton('customer/session')->isLoggedIn()
         ) {
@@ -309,7 +309,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Crops POST values
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _cropReviewData(array $reviewData)
     {

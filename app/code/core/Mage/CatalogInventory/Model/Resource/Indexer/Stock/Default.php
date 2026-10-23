@@ -235,7 +235,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
                 'qty'           => (float) $row['qty'],
                 'stock_status'  => (int) $row['status'],
             ];
-            if (($index % 1000) == 0) {
+            if ($index % 1000 === 0) {
                 $this->_updateIndexTable($data);
                 $data = [];
             }

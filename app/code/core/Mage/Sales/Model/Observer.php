@@ -41,7 +41,7 @@ class Mage_Sales_Model_Observer
             $quotes = Mage::getResourceModel('sales/quote_collection');
             $quotes->addFieldToFilter('store_id', $storeId);
             $quotes->addFieldToFilter('updated_at', ['to' => Carbon::createFromTimestamp(Mage::helper('core/clock')->getTimestamp() - $lifetime)->format('Y-m-d')]);
-            if ($day == 0) {
+            if ($day === 0) {
                 $quotes->addFieldToFilter('is_active', 0);
             }
 

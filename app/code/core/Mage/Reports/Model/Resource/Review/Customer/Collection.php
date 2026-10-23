@@ -26,7 +26,6 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
          */
         $this->_useAnalyticFunction = true;
 
-        /** @var Varien_Db_Adapter_Interface $adapter */
         $adapter            = $this->getConnection();
         /** @var Mage_Customer_Model_Resource_Customer $customer */
         $customer           = Mage::getResourceSingleton('customer/customer');

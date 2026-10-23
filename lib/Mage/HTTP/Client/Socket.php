@@ -364,13 +364,13 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             $name = '';
             $value = '';
             $out = explode(': ', trim($line), 2);
-            if (count($out) == 2) {
+            if (count($out) === 2) {
                 $name = $out[0];
                 $value = $out[1];
             }
 
             if (!empty($value)) {
-                if ($name == 'Set-Cookie') {
+                if ($name === 'Set-Cookie') {
                     if (!isset($this->_responseHeaders[$name])) {
                         $this->_responseHeaders[$name] = [];
                     }
@@ -405,7 +405,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         $responseLine = trim(fgets($this->_sock, 1024));
 
         $line = explode(' ', $responseLine, 3);
-        if (count($line) != 3) {
+        if (count($line) !== 3) {
             return $this->doError('Invalid response line returned from server: ' . $responseLine);
         }
 

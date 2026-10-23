@@ -12,12 +12,6 @@
  */
 class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Template
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('permissions/userinfo.phtml');
-    }
-
     /**
      * @inheritDoc
      */
@@ -98,15 +92,10 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
      */
     public function getDeleteButtonHtml()
     {
-        if ((int) $this->getRequest()->getParam('rid') == 0) {
+        if ((int) $this->getRequest()->getParam('rid') === 0) {
             return '';
         }
 
         return $this->getChildHtml('deleteButton');
-    }
-
-    public function getUser()
-    {
-        return Mage::registry('user_data');
     }
 }

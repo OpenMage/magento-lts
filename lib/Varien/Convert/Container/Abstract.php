@@ -110,7 +110,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         }
 
         if (!is_array($data) || !is_array(current($data))) {
-            if (count($data) == 0) {
+            if (count($data) === 0) {
                 return true;
             }
 

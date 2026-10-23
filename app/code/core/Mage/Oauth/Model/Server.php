@@ -539,7 +539,7 @@ class Mage_Oauth_Model_Server
         }
 
         // validate consumer key length
-        if (strlen($this->_protocolParams['oauth_consumer_key']) != Mage_Oauth_Model_Consumer::KEY_LENGTH) {
+        if (strlen($this->_protocolParams['oauth_consumer_key']) !== Mage_Oauth_Model_Consumer::KEY_LENGTH) {
             $this->_throwException('', self::ERR_CONSUMER_KEY_REJECTED);
         }
 
@@ -596,7 +596,7 @@ class Mage_Oauth_Model_Server
             $this->_throwException('', self::ERR_TOKEN_REJECTED);
         }
 
-        if (strlen($this->_protocolParams['oauth_token']) != Mage_Oauth_Model_Token::LENGTH_TOKEN) {
+        if (strlen($this->_protocolParams['oauth_token']) !== Mage_Oauth_Model_Token::LENGTH_TOKEN) {
             $this->_throwException('', self::ERR_TOKEN_REJECTED);
         }
     }
@@ -614,7 +614,7 @@ class Mage_Oauth_Model_Server
             $this->_throwException('', self::ERR_VERIFIER_INVALID);
         }
 
-        if (strlen($this->_protocolParams['oauth_verifier']) != Mage_Oauth_Model_Token::LENGTH_VERIFIER) {
+        if (strlen($this->_protocolParams['oauth_verifier']) !== Mage_Oauth_Model_Token::LENGTH_VERIFIER) {
             $this->_throwException('', self::ERR_VERIFIER_INVALID);
         }
     }

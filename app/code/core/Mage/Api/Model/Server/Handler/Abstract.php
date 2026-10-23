@@ -20,7 +20,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
     public function __construct()
     {
-        set_error_handler([$this, 'handlePhpError'], E_ALL);
+        set_error_handler($this->handlePhpError(...), E_ALL);
         Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_ADMINHTML, Mage_Core_Model_App_Area::PART_EVENTS);
     }
 
@@ -302,7 +302,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             if (method_exists($model, $method)) {
-                if (isset($methodInfo->arguments) && ((string) $methodInfo->arguments) == 'array') {
+                if (isset($methodInfo->arguments) && (string) $methodInfo->arguments === 'array') {
                     $result = $model->$method((is_array($args) ? $args : [$args]));
                 } elseif (!is_array($args)) {
                     $result = $model->$method($args);
@@ -426,7 +426,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 }
 
                 if (method_exists($model, $method)) {
-                    if (isset($methodInfo->arguments) && ((string) $methodInfo->arguments) == 'array') {
+                    if (isset($methodInfo->arguments) && (string) $methodInfo->arguments === 'array') {
                         $callResult = $model->$method((is_array($args) ? $args : [$args]));
                     } elseif (!is_array($args)) {
                         $callResult = $model->$method($args);
@@ -509,7 +509,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 ];
             }
 
-            if (count($methods) == 0) {
+            if ($methods === []) {
                 continue;
             }
 

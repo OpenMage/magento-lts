@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -236,7 +237,7 @@ class Mage_Core_Model_Translate_Inline
         $urlPrefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
         $ajaxUrl = Mage::getUrl(
             $urlPrefix . '/ajax/translate',
-            ['_secure' => Mage::app()->getStore()->isCurrentlySecure()],
+            ['_secure' => Mage::app()->isCurrentlySecure()],
         );
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
 
@@ -303,10 +304,10 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Get translate data by regexp
      *
-     * @param  string       $regexp
-     * @param  string       $text
-     * @param  array|string $locationCallback
-     * @param  array        $options
+     * @param  string               $regexp
+     * @param  string               $text
+     * @param  array|Closure|string $locationCallback
+     * @param  array                $options
      * @return array
      */
     protected function _getTranslateData($regexp, &$text, $locationCallback, $options = [])
@@ -351,7 +352,7 @@ class Mage_Core_Model_Translate_Inline
             $tagHtml    = $tagMatch[0][0];
             $matches          = [];
             $attrRegExp = '#' . $this->_tokenRegex . '#S';
-            $trArr = $this->_getTranslateData($attrRegExp, $tagHtml, [$this, '_getAttributeLocation']);
+            $trArr = $this->_getTranslateData($attrRegExp, $tagHtml, $this->_getAttributeLocation(...));
             if ($trArr) {
                 $transRegExp = '# data-translate=' . $quoteHtml . '\[([^' . preg_quote($quoteHtml, '#') . ']*)]' . $quoteHtml . '#i';
                 if (preg_match($transRegExp, $tagHtml, $matches)) {
@@ -465,7 +466,7 @@ class Mage_Core_Model_Translate_Inline
             $trArr = $this->_getTranslateData(
                 '#' . $this->_tokenRegex . '#iS',
                 $tagHtml,
-                [$this, '_getTagLocation'],
+                $this->_getTagLocation(...),
                 [
                     'tagName' => $tagName,
                     'tagList' => $tagsList,
@@ -498,7 +499,7 @@ class Mage_Core_Model_Translate_Inline
         $tagLength = strlen($tagName);
         $length = $tagLength + 1;
         $end = $from + 1;
-        while (substr_count($body, $openTag, $from, $length) != substr_count($body, $closeTag, $from, $length)) {
+        while (substr_count($body, $openTag, $from, $length) !== substr_count($body, $closeTag, $from, $length)) {
             $end = strpos($body, $closeTag, $end + $tagLength + 1);
             if ($end === false) {
                 return false;
@@ -540,8 +541,8 @@ class Mage_Core_Model_Translate_Inline
      * Check is a Request contain Json flag
      *
      * @return bool
-     * @deprecated 1.3.2.2
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_0)]
     public function getIsAjaxRequest()
     {
         return (bool) Mage::app()->getRequest()->getQuery('isAjax');
@@ -552,8 +553,8 @@ class Mage_Core_Model_Translate_Inline
      *
      * @param  bool  $flag
      * @return $this
-     * @deprecated 1.3.2.2
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_0)]
     public function setIsAjaxRequest($flag)
     {
         Mage::app()->getRequest()->setQuery('isAjax', (int) (bool) $flag);

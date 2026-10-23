@@ -32,9 +32,7 @@ class Mage_Core_Model_Locale
 
     public const XML_PATH_DEFAULT_TIMEZONE = 'general/locale/timezone';
 
-    /**
-     * @deprecated since 1.4.1.0
-     */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_1_0)]
     public const XML_PATH_DEFAULT_COUNTRY  = 'general/country/default';
 
     public const XML_PATH_ALLOW_CODES      = 'global/locale/allow/codes';
@@ -303,7 +301,7 @@ class Mage_Core_Model_Locale
         foreach ($zones as $code => $name) {
             $name = trim($name);
             $zonesList = explode(' ', $code);
-            if (count($zonesList) == 1) {
+            if (count($zonesList) === 1) {
                 $options[] = [
                     'label' => empty($name) ? $code : $name . ' (' . $code . ')',
                     'value' => $code,

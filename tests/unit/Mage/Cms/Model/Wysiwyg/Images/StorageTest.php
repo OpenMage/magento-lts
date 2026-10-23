@@ -39,8 +39,6 @@ final class StorageTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testResizeOnTheFly(): void
     {
@@ -57,8 +55,6 @@ final class StorageTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
      */
     public function testGetSession(): void
     {

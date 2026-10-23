@@ -39,7 +39,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
 
     public function getVar($key, $default = null)
     {
-        if (!isset($this->_vars[$key]) || (!is_array($this->_vars[$key]) && strlen($this->_vars[$key]) == 0)) {
+        if (!isset($this->_vars[$key]) || (!is_array($this->_vars[$key]) && (string) $this->_vars[$key] === '')) {
             return $default;
         }
 
@@ -167,7 +167,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         }
 
         if (!is_array($data) || !is_array(current($data))) {
-            if (count($data) == 0) {
+            if (count($data) === 0) {
                 return true;
             }
 

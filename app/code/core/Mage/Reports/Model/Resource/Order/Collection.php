@@ -344,7 +344,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 $startDay = isset($startMonthDay[1]) ? (int) $startMonthDay[1] : 1;
                 $dateStart->setMonth($startMonth);
                 $dateStart->setDay($startDay);
-                if ($range == '2y') {
+                if ($range === '2y') {
                     $dateStart->subYear(1);
                 }
 

@@ -65,9 +65,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
     public const XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG   = 'newsletter/subscription/allow_guest_subscribe';
 
-    /**
-     * @deprecated since 1.4.0.1
-     */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public const XML_PATH_SENDING_SET_RETURN_PATH      = Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH;
 
     /**
@@ -342,7 +340,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             if ($isConfirmNeed) {
                 // if user subscribes own login email - confirmation is not needed
                 $isOwnSubscribes = $isSubscribeOwnEmail;
-                if ($isOwnSubscribes == true) {
+                if ($isOwnSubscribes) {
                     $this->setStatus(self::STATUS_SUBSCRIBED);
                 } else {
                     $this->setStatus(self::STATUS_NOT_ACTIVE);
@@ -436,7 +434,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             /**
              * If subscription status has been changed then send email to the customer
              */
-            if ($status != self::STATUS_UNCONFIRMED && $status != $this->getStatus()) {
+            if ($status !== self::STATUS_UNCONFIRMED && $status != $this->getStatus()) {
                 $sendInformationEmail = true;
             }
         } elseif (($this->getStatus() == self::STATUS_UNCONFIRMED) && (is_null($confirmation))) {

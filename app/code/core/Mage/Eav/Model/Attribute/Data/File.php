@@ -166,7 +166,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             $errors = array_merge($errors, $this->_validateByRules($value));
         }
 
-        if (count($errors) == 0) {
+        if ($errors === []) {
             $attribute->setAttributeValidationAsPassed();
             return true;
         }

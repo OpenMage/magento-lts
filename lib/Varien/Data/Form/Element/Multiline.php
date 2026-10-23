@@ -57,7 +57,7 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
         $lineCount = $this->getLineCount();
 
         for ($i = 0; $i < $lineCount; $i++) {
-            if ($i == 0 && $this->getRequired()) {
+            if ($i === 0 && $this->getRequired()) {
                 $this->setClass('input-text required-entry');
             } else {
                 $this->setClass('input-text');
@@ -66,7 +66,7 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
             $html .= '<div class="multi-input"><input id="' . $this->getHtmlId() . $i . '" name="' . $this->getName()
                 . '[' . $i . ']' . '" value="' . $this->getEscapedValue($i) . '" '
                 . $this->serialize($this->getHtmlAttributes()) . ' />' . "\n";
-            if ($i == 0) {
+            if ($i === 0) {
                 $html .= $this->getAfterElementHtml();
             }
 
@@ -87,7 +87,7 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
 
         for ($i = 0; $i < $lineCount; $i++) {
             $html .= ($this->getNoSpan() === true) ? '' : '<span class="field-row">' . "\n";
-            if ($i == 0) {
+            if ($i === 0) {
                 $html .= '<label for="' . $this->getHtmlId() . $i . '">' . $this->getLabel()
                     . ($this->getRequired() ? ' <span class="required">*</span>' : '') . '</label>' . "\n";
                 if ($this->getRequired()) {
@@ -100,7 +100,7 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
 
             $html .= '<input id="' . $this->getHtmlId() . $i . '" name="' . $this->getName() . '[' . $i . ']'
                 . '" value="' . $this->getEscapedValue($i) . '"' . $this->serialize($this->getHtmlAttributes()) . ' />' . "\n";
-            if ($i == 0) {
+            if ($i === 0) {
                 $html .= $this->getAfterElementHtml();
             }
 

@@ -71,7 +71,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Setup Connection
      *
-     * @var Varien_Db_Adapter_Interface|Varien_Db_Adapter_Pdo_Mysql|Zend_Db_Adapter_Pdo_Abstract
+     * @var Varien_Db_Adapter_Interface&Zend_Db_Adapter_Pdo_Abstract
      */
     protected $_conn;
 
@@ -143,7 +143,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Get connection object
      *
-     * @return Varien_Db_Adapter_Interface|Varien_Db_Adapter_Pdo_Mysql|Zend_Db_Adapter_Pdo_Abstract
+     * @return Varien_Db_Adapter_Interface&Zend_Db_Adapter_Pdo_Abstract
      */
     public function getConnection()
     {
@@ -226,6 +226,10 @@ class Mage_Core_Model_Resource_Setup
                 $className = $resource->setup->getClassName();
             }
 
+            if (!is_string($className)) {
+                continue;
+            }
+
             /** @var Mage_Core_Model_Resource_Setup $setupClass */
             $setupClass = new $className($resName);
             $setupClass->applyUpdates();
@@ -261,6 +265,10 @@ class Mage_Core_Model_Resource_Setup
             $className = self::class;
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
+            }
+
+            if (!is_string($className)) {
+                continue;
             }
 
             /** @var Mage_Core_Model_Resource_Setup $setupClass */
@@ -304,7 +312,7 @@ class Mage_Core_Model_Resource_Setup
          * Hook queries in adapter, so that in MySQL compatibility mode extensions and custom modules will avoid
          * errors due to changes in database structure
          */
-        if (((string) $this->_moduleConfig->codePool != 'core') && Mage::helper('core')->useDbCompatibleMode()) {
+        if (((string) $this->_moduleConfig->codePool !== 'core') && Mage::helper('core')->useDbCompatibleMode()) {
             $this->_hookQueries();
         }
 
@@ -668,7 +676,7 @@ class Mage_Core_Model_Resource_Setup
                     $versionInfo = explode('-', $version);
 
                     // In array must be 2 elements: 0 => version from, 1 => version to
-                    if (count($versionInfo) != 2) {
+                    if (count($versionInfo) !== 2) {
                         continue;
                     }
 
@@ -808,9 +816,8 @@ class Mage_Core_Model_Resource_Setup
      * @param  Zend_Db_Expr $conditionExpr
      * @param  Zend_Db_Expr $valueExpr
      * @return $this
-     *
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function updateTable($table, $conditionExpr, $valueExpr)
     {
         if (str_contains($table, '/')) {
@@ -852,8 +859,8 @@ class Mage_Core_Model_Resource_Setup
      * @param  string $label
      * @param  string $default
      * @return $this
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function addConfigField($path, $label, array $data = [], $default = null)
     {
         return $this;

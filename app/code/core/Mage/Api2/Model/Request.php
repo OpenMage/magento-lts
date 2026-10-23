@@ -102,7 +102,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             if ($typeWithQ) {
                 $qAndValue = explode('=', $typeWithQ[0]);
 
-                if (count($qAndValue) == 2) {
+                if (count($qAndValue) === 2) {
                     $quality = $qAndValue[1];
                 }
             }
@@ -163,7 +163,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         }
 
         // request encoding check if it is specified in header
-        if (isset($matches[2]) && self::REQUEST_CHARSET != strtolower($matches[2])) {
+        if (isset($matches[2]) && self::REQUEST_CHARSET !== strtolower($matches[2])) {
             throw new Mage_Api2_Exception(
                 'UTF-8 is the only supported charset',
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST,

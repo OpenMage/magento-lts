@@ -21,7 +21,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * DB connection
      *
-     * @var Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract
+     * @var Varien_Db_Adapter_Interface&Zend_Db_Adapter_Abstract
      */
     protected $_conn;
 
@@ -66,7 +66,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Fields map for correlation names & real selected fields
      *
-     * @var null|array{fields: array<string, string>}
+     * @var null|array<string, array<string, string|Zend_Db_Expr>>
      */
     protected $_map = null;
 
@@ -194,7 +194,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Retrieve connection object
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return Varien_Db_Adapter_Interface&Zend_Db_Adapter_Abstract
      */
     public function getConnection()
     {
@@ -252,7 +252,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function ($table) {
                 return ($table['joinType'] == Zend_Db_Select::LEFT_JOIN || $table['joinType'] == Zend_Db_Select::FROM);
             });
-            if (count($leftJoins) == count($countSelect->getPart(Zend_Db_Select::FROM))) {
+            if (count($leftJoins) === count($countSelect->getPart(Zend_Db_Select::FROM))) {
                 $mainTable = array_filter($leftJoins, function ($table) {
                     return $table['joinType'] == Zend_Db_Select::FROM;
                 });
@@ -348,7 +348,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         $this->_isOrdersRendered = false;
         $field = (string) $this->_getMappedField($field);
-        $direction = (strtoupper($direction) == self::SORT_ORDER_ASC) ? self::SORT_ORDER_ASC : self::SORT_ORDER_DESC;
+        $direction = (strtoupper($direction) === self::SORT_ORDER_ASC) ? self::SORT_ORDER_ASC : self::SORT_ORDER_DESC;
 
         unset($this->_orders[$field]); // avoid ordering by the same field twice
         if ($unshift) {
@@ -899,7 +899,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (is_null($this->_map)) {
             $this->_map = [$group => []];
-        } elseif (is_null($this->_map[$group])) {
+        } elseif (!array_key_exists($group, $this->_map)) {
             $this->_map[$group] = [];
         }
 

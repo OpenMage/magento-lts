@@ -360,9 +360,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         return self::$_regionModels[$region];
     }
 
-    /**
-     * @deprecated for public function format
-     */
+    #[Deprecated(message: 'for public function format')]
     public function getHtmlFormat()
     {
         return $this->getConfig()->getFormatByCode('html');
@@ -371,8 +369,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * @param  bool   $html
      * @return string
-     * @deprecated for public function format
      */
+    #[Deprecated(message: 'for public function format')]
     public function getFormated($html = false)
     {
         return $this->format($html ? 'html' : 'text');

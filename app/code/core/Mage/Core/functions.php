@@ -29,9 +29,9 @@ function destruct($object)
  * Translator function
  *
  * @return string
- * @deprecated 1.3
  * @SuppressWarnings("PHPMD.ShortMethodName")
  */
+#[Deprecated(message: '1.3')]
 function __()
 {
     return Mage::app()->getTranslator()->translate(func_get_args());
@@ -57,9 +57,9 @@ function uc_words($str, $destSep = '_', $srcSep = '_')
  *
  * @param  bool   $dayOnly
  * @return string
- * @deprecated use equivalent Varien method directly
  * @see Varien_Date::now()
  */
+#[Deprecated(message: 'use equivalent Varien method directly')]
 function now($dayOnly = false)
 {
     return Varien_Date::now($dayOnly);
@@ -112,19 +112,19 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     }
 
     $errno &= error_reporting();
-    if ($errno == 0) {
+    if ($errno === 0) {
         return false;
     }
 
     // PEAR specific message handling
     if (stripos($errfile . $errstr, 'pear') !== false) {
         // ignore strict and deprecated notices
-        if ((PHP_VERSION_ID < 80400 && $errno == E_STRICT) || ($errno == E_DEPRECATED)) {
+        if ((PHP_VERSION_ID < 80400 && $errno === E_STRICT) || ($errno === E_DEPRECATED)) {
             return true;
         }
 
         // ignore attempts to read system files when open_basedir is set
-        if ($errno == E_WARNING && stripos($errstr, 'open_basedir') !== false) {
+        if ($errno === E_WARNING && stripos($errstr, 'open_basedir') !== false) {
             return true;
         }
     }
@@ -177,7 +177,7 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
     }
 
     foreach ($debugBacktrace as $index => $value) {
-        if (!$showFirst && $index == 0) {
+        if (!$showFirst && $index === 0) {
             continue;
         }
 
@@ -211,7 +211,7 @@ function mageDelTree($path)
     if (is_dir($path)) {
         $entries = scandir($path);
         foreach ($entries as $entry) {
-            if ($entry != '.' && $entry != '..') {
+            if ($entry !== '.' && $entry !== '..') {
                 mageDelTree($path . DS . $entry);
             }
         }
@@ -235,7 +235,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
     $counter = count($elements);
     for ($i = 0; $i < $counter; $i++) {
         $nquotes = substr_count($elements[$i], $enclosure);
-        if ($nquotes % 2 == 1) {
+        if ($nquotes % 2 === 1) {
             for ($j = $i + 1; $j < count($elements); $j++) {
                 if (substr_count($elements[$j], $enclosure) > 0) {
                     // Put the quoted string's pieces back together again
@@ -296,11 +296,6 @@ function isDirWriteable($dir)
 /**
  * @param  string $dir
  * @return bool
- * @deprecated avoid php_codesniffer error
- *
- *     An error occurred during processing; checking has been aborted. The error message was: Undefined index: ^is_dir/i_writeab in
- *     /var/www/html/vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/PHP/ForbiddenFunctionsSniff.php on line 228
- *     The error originated in the Generic.PHP.ForbiddenFunctions sniff on line 228. (Internal.Exception)
  *
  * @see isDirWriteable()
  */

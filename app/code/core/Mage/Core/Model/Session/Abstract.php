@@ -503,7 +503,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     public function isValidForPath($path)
     {
         $cookiePath = trim($this->getCookiePath(), '/') . '/';
-        if ($cookiePath == '/') {
+        if ($cookiePath === '/') {
             return true;
         }
 

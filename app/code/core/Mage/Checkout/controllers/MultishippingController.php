@@ -79,7 +79,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         /**
          * Catch index action call to set some flags before checkout/type_multishipping model initialization
          */
-        if ($action == 'index') {
+        if ($action === 'index') {
             $checkoutSessionQuote->setIsMultiShipping(true);
             $this->_getCheckoutSession()->setCheckoutState(
                 Mage_Checkout_Model_Session::CHECKOUT_STATE_BEGIN,
@@ -117,7 +117,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
 
-        if ($action == 'success' && $this->_getCheckout()->getCheckoutSession()->getDisplaySuccess(true)) {
+        if ($action === 'success' && $this->_getCheckout()->getCheckoutSession()->getDisplaySuccess(true)) {
             return $this;
         }
 

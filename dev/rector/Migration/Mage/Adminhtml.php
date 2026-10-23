@@ -19,11 +19,23 @@ use Mage_Adminhtml_Block_Widget_Container;
 use Mage_Adminhtml_Block_Widget_Form;
 use Mage_Adminhtml_Block_Widget_Grid;
 use Mage_Adminhtml_Controller_Action;
+use PHPStan\Type\BooleanType;
 use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 use Rector\Renaming\ValueObject\MethodCallRename;
+use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
 
 final class Adminhtml
 {
+    /**
+     * @return AddReturnTypeDeclaration[]
+     */
+    public static function addReturnTypeDeclaration(): array
+    {
+        return [
+            new AddReturnTypeDeclaration(Mage_Adminhtml_Controller_Action::class, '_isAllowed', new BooleanType()),
+        ];
+    }
+
     /**
      * @return MethodCallRename[]
      */

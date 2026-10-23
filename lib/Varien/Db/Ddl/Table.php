@@ -367,7 +367,7 @@ class Varien_Db_Ddl_Table
                 $scale      = 0;
                 // parse size value
                 if (is_array($size)) {
-                    if (count($size) == 2) {
+                    if (count($size) === 2) {
                         $size       = array_values($size);
                         $precision  = $size[0];
                         $scale      = $size[1];
@@ -688,7 +688,7 @@ class Varien_Db_Ddl_Table
      */
     protected function _normalizeIndexColumnPosition($columns)
     {
-        uasort($columns, [$this, '_sortIndexColumnPosition']);
+        uasort($columns, $this->_sortIndexColumnPosition(...));
         $position = 0;
         foreach (array_keys($columns) as $columnId) {
             $columns[$columnId]['POSITION'] = $position;
@@ -706,7 +706,7 @@ class Varien_Db_Ddl_Table
      */
     protected function _normalizeColumnPosition($columns)
     {
-        uasort($columns, [$this, '_sortColumnPosition']);
+        uasort($columns, $this->_sortColumnPosition(...));
         $position = 0;
         foreach (array_keys($columns) as $columnId) {
             $columns[$columnId]['COLUMN_POSITION'] = $position;

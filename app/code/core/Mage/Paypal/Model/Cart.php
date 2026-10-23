@@ -412,7 +412,7 @@ class Mage_Paypal_Model_Cart
          * see http://php.net/float
          */
         // match sum of all the items and totals to the reference amount
-        if (sprintf('%.4F', $sum) != sprintf('%.4F', $referenceAmount)) {
+        if (sprintf('%.4F', $sum) !== sprintf('%.4F', $referenceAmount)) {
             $adjustment = $sum - $referenceAmount;
             $this->_totals[self::TOTAL_SUBTOTAL] -= $adjustment;
         }

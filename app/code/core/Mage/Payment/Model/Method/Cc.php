@@ -239,7 +239,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             /**
              * Double every second digit
              */
-            if ($i % 2 == 1) {
+            if ($i % 2 === 1) {
                 $currentNum *= 2;
             }
 
@@ -258,7 +258,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         /**
          * If the total has no remainder it's OK
          */
-        return ($numSum % 10 == 0);
+        return ($numSum % 10 === 0);
     }
 
     /**

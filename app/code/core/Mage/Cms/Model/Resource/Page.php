@@ -171,7 +171,36 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             $field = 'identifier';
         }
 
-        return parent::load($object, $value, $field);
+        if ($object->getStoreId() === null) {
+            return parent::load($object, $value, $field);
+        }
+
+        if (is_null($field)) {
+            $field = $this->getIdFieldName();
+        }
+
+        $read = $this->_getReadAdapter();
+
+        if (!is_null($value)) {
+            $data = $read->fetchRow(
+                $this->_getLoadSelectByStore($field, $value, $object, (int) $object->getStoreId()),
+            );
+
+            if ($data === false && (int) $object->getStoreId() !== Mage_Core_Model_App::ADMIN_STORE_ID) {
+                $data = $read->fetchRow(
+                    $this->_getLoadSelectByStore($field, $value, $object, Mage_Core_Model_App::ADMIN_STORE_ID),
+                );
+            }
+
+            if ($data !== false) {
+                $object->setData($data);
+            }
+        }
+
+        $this->unserializeFields($object);
+        $this->_afterLoad($object);
+
+        return $this;
     }
 
     /**
@@ -187,6 +216,29 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         return parent::_afterLoad($object);
+    }
+
+    /**
+     * Retrieve select object for load object data for a specific store.
+     *
+     * @param  string                                       $field
+     * @param  mixed                                        $value
+     * @param  Mage_Cms_Model_Page|Mage_Core_Model_Abstract $object
+     * @param  int                                          $storeId
+     * @return Zend_Db_Select
+     * @throws Exception
+     */
+    protected function _getLoadSelectByStore($field, $value, $object, $storeId)
+    {
+        return parent::_getLoadSelect($field, $value, $object)
+            ->join(
+                ['cms_page_store' => $this->getTable('cms/page_store')],
+                $this->getMainTable() . '.page_id = cms_page_store.page_id',
+                [],
+            )
+            ->where($this->getMainTable() . '.is_active = ?', 1)
+            ->where('cms_page_store.store_id = ?', (int) $storeId)
+            ->limit(1);
     }
 
     /**

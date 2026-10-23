@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForPath($file);
 
-        if (substr($file, 0, 1) == DS) {
+        if (substr($file, 0, 1) === DS) {
             return $this->getBaseMediaPath() . DS . substr($file, 1);
         }
 
@@ -178,7 +178,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForPath($file);
 
-        if (substr($file, 0, 1) == DS) {
+        if (substr($file, 0, 1) === DS) {
             return $this->getBaseTmpMediaPath() . DS . substr($file, 1);
         }
 
