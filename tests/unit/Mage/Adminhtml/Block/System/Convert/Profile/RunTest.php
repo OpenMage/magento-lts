@@ -11,22 +11,82 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert\Profile;
 
-// use Mage_Adminhtml_Block_System_Convert_Profile_Run as Subject;
-use Override;
+use Mage;
+use Mage_Adminhtml_Block_System_Convert_Profile_Run as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Convert\Profile\RunTrait;
+use Override;
 
+/**
+ * GHSA-m858-x59w-rmp5
+ */
 final class RunTest extends OpenMageTest
 {
     use RunTrait;
 
-    // private static Subject $subject;
+    private static Subject $subject;
+
+    private static ?string $originalCryptKey = null;
 
     #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        // self::$subject = new Subject();
-        self::markTestSkipped('');
+        self::$subject = new Subject();
+
+        // The HTMLPurifier definition cache is signed with the encryption key
+        $cryptKey = (string) Mage::getConfig()->getNode('global/crypt/key');
+        if ($cryptKey === '') {
+            self::$originalCryptKey = $cryptKey;
+            Mage::getConfig()->setNode('global/crypt/key', 'ghsa-m858-test-key');
+        }
+    }
+
+    #[Override]
+    public static function tearDownAfterClass(): void
+    {
+        if (self::$originalCryptKey !== null) {
+            Mage::getConfig()->setNode('global/crypt/key', self::$originalCryptKey);
+        }
+
+        parent::tearDownAfterClass();
+    }
+
+    /**
+     * @dataProvider providePurifyExceptionMessage
+     */
+    public function testPurifyExceptionMessage(string $expected, string $message): void
+    {
+        self::assertSame($expected, self::$subject->purifyExceptionMessage($message));
+    }
+
+    public static function providePurifyExceptionMessage(): array
+    {
+        return [
+            'plain text is escaped' => [
+                'Loaded &lt;b&gt;x&lt;/b&gt; &amp; y',
+                'Loaded <b>x</b> & y',
+            ],
+            'status link is kept' => [
+                'Saved.<a href="https://example.com/export.csv" target="_blank" rel="noopener noreferrer">Link</a>',
+                'Saved.<a href="https://example.com/export.csv" target="_blank" rel="noopener noreferrer">Link</a>',
+            ],
+            'javascript href is dropped' => [
+                'Saved.<a target="_blank" rel="noopener noreferrer">Link</a>',
+                'Saved.<a href="javascript:alert(document.cookie)" target="_blank" rel="noopener noreferrer">Link</a>',
+            ],
+            'attribute breakout from link var' => [
+                'Saved.<a href="x" target="_blank" rel="noreferrer noopener">Link</a>',
+                'Saved.<a href="x" onmouseover="alert(1)" target="_blank">Link</a>',
+            ],
+            'script after link is escaped' => [
+                'Saved.<a href="x">Link</a>"&gt;&lt;script&gt;alert(1)&lt;/script&gt;',
+                'Saved.<a href="x">Link</a>"><script>alert(1)</script>',
+            ],
+            'img inside link is escaped' => [
+                '<a href="x">&lt;img src="y" onerror="alert(1)" /&gt;</a>',
+                '<a href="x"><img src=y onerror=alert(1)></a>',
+            ],
+        ];
     }
 }
