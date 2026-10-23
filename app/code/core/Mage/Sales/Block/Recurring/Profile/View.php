@@ -45,16 +45,22 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
      */
     public function prepareViewData()
     {
+        // The form key in the action URLs is what the controller checks, themes that still
+        // navigate to these URLs with a GET keep working (GHSA-qfwh-wv4p-95qv)
+        $params = [
+            'profile' => $this->_profile->getId(),
+            Mage_Core_Model_Url::FORM_KEY => $this->getFormKey(),
+        ];
         $this->addData([
             'reference_id' => $this->_profile->getReferenceId(),
             'can_cancel'   => $this->_profile->canCancel(),
-            'cancel_url'   => $this->getUrl('*/*/updateState', ['profile' => $this->_profile->getId(), 'action' => 'cancel']),
+            'cancel_url'   => $this->getUrl('*/*/updateState', $params + ['action' => 'cancel']),
             'can_suspend'  => $this->_profile->canSuspend(),
-            'suspend_url'  => $this->getUrl('*/*/updateState', ['profile' => $this->_profile->getId(), 'action' => 'suspend']),
+            'suspend_url'  => $this->getUrl('*/*/updateState', $params + ['action' => 'suspend']),
             'can_activate' => $this->_profile->canActivate(),
-            'activate_url' => $this->getUrl('*/*/updateState', ['profile' => $this->_profile->getId(), 'action' => 'activate']),
+            'activate_url' => $this->getUrl('*/*/updateState', $params + ['action' => 'activate']),
             'can_update'   => $this->_profile->canFetchUpdate(),
-            'update_url'   => $this->getUrl('*/*/updateProfile', ['profile' => $this->_profile->getId()]),
+            'update_url'   => $this->getUrl('*/*/updateProfile', $params),
             'back_url'     => $this->getUrl('*/*/'),
             'confirmation_message' => Mage::helper('sales')->__('Are you sure you want to do this?'),
         ]);
