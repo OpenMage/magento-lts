@@ -21,18 +21,16 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
      */
     public function getAllOptions()
     {
-        if (is_null($this->_options)) {
-            $this->_options = [
-                [
-                    'label' => Mage::helper('bundle')->__('As Low as'),
-                    'value' =>  1,
-                ],
-                [
-                    'label' => Mage::helper('bundle')->__('Price Range'),
-                    'value' =>  0,
-                ],
-            ];
-        }
+        $this->_options ??= [
+            [
+                'label' => Mage::helper('bundle')->__('As Low as'),
+                'value' =>  1,
+            ],
+            [
+                'label' => Mage::helper('bundle')->__('Price Range'),
+                'value' =>  0,
+            ],
+        ];
 
         return $this->_options;
     }

@@ -435,21 +435,13 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             $data['is_global'] = Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE;
         }
 
-        if (!isset($data['is_configurable'])) {
-            $data['is_configurable'] = 0;
-        }
+        $data['is_configurable'] ??= 0;
 
-        if (!isset($data['is_filterable'])) {
-            $data['is_filterable'] = 0;
-        }
+        $data['is_filterable'] ??= 0;
 
-        if (!isset($data['is_filterable_in_search'])) {
-            $data['is_filterable_in_search'] = 0;
-        }
+        $data['is_filterable_in_search'] ??= 0;
 
-        if (!isset($data['apply_to'])) {
-            $data['apply_to'] = [];
-        }
+        $data['apply_to'] ??= [];
 
         // set frontend labels array with store_id as keys
         if (isset($data['frontend_label']) && is_array($data['frontend_label'])) {

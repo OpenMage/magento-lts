@@ -23,9 +23,7 @@ class Mage_Core_Exception extends Exception
      */
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
     {
-        if (!isset($this->_messages[$message->getType()])) {
-            $this->_messages[$message->getType()] = [];
-        }
+        $this->_messages[$message->getType()] ??= [];
 
         $this->_messages[$message->getType()][] = $message;
         return $this;
