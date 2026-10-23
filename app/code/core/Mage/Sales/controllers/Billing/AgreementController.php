@@ -154,24 +154,29 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     /**
      * Cancel action
      * Set billing agreement status to 'Canceled'
+     *
+     * The form key is what protects this action against cross-site requests. It is accepted
+     * from the POST body as well as from the URL, because the view block embeds it in the
+     * cancel URL so that themes still navigating to that URL with a GET keep working.
+     *
      * @return void
      */
     public function cancelAction()
     {
-        if (!$this->getRequest()->isPost() || !$this->_validateFormKey()) {
+        if (!$this->_validateFormKey()) {
             $this->norouteAction();
             return;
         }
 
         $agreement = $this->_initAgreement();
         if (!$agreement) {
-            $this->_redirect('*/*/view', ['_current' => true]);
+            $this->_redirect('*/*/view', ['_current' => true, Mage_Core_Model_Url::FORM_KEY => null]);
             return;
         }
 
         $customerIdSession = $this->_getSession()->getCustomer()->getId();
         if (!$agreement->canPerformAction($customerIdSession)) {
-            $this->_redirect('*/*/view', ['_current' => true]);
+            $this->_redirect('*/*/view', ['_current' => true, Mage_Core_Model_Url::FORM_KEY => null]);
             return;
         }
 
@@ -187,7 +192,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
             }
         }
 
-        $this->_redirect('*/*/view', ['_current' => true]);
+        $this->_redirect('*/*/view', ['_current' => true, Mage_Core_Model_Url::FORM_KEY => null]);
     }
 
     /**

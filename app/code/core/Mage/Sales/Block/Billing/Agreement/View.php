@@ -159,7 +159,9 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             $this->setCancelUrl(
                 $this->getUrl('*/billing_agreement/cancel', [
                     '_current' => true,
-                    'payment_method' => $this->_billingAgreementInstance->getMethodCode()]),
+                    'payment_method' => $this->_billingAgreementInstance->getMethodCode(),
+                    Mage_Core_Model_Url::FORM_KEY => $this->getFormKey(),
+                ]),
             );
 
             $paymentMethodTitle = $this->_billingAgreementInstance->getAgreementLabel();
