@@ -18,7 +18,7 @@ trait MessagesTrait
     /**
      * @return Generator<string, array{string, string}, mixed, void>
      */
-    public function provideMessageTextAndForbiddenSubstrings(): Generator
+    public static function provideMessageTextAndForbiddenSubstrings(): Generator
     {
         yield 'script tag' => [
             '<script>alert("xss")</script>',
@@ -63,6 +63,37 @@ trait MessagesTrait
         yield 'span onclick' => [
             '<span onclick=alert(1)>click me</span>',
             '<span onclick',
+        ];
+    }
+
+    /**
+     * @return Generator<string, array{string, string}, mixed, void>
+     */
+    public static function provideMessageTextAndPreservedMarkup(): Generator
+    {
+        yield 'link' => [
+            'To resend the confirmation email please <a href="https://example.com/customer/account/confirmation/">click here</a>.',
+            '<a href="https://example.com/customer/account/confirmation/">click here</a>',
+        ];
+
+        yield 'line break' => [
+            'First error<br>Second error',
+            'First error<br />Second error',
+        ];
+
+        yield 'emphasis' => [
+            'Warning: <strong>disk full</strong>',
+            '<strong>disk full</strong>',
+        ];
+
+        yield 'list' => [
+            '<ul><li>one</li><li>two</li></ul>',
+            '<ul><li>one</li><li>two</li></ul>',
+        ];
+
+        yield 'already escaped value stays text' => [
+            'Invalid country code: &lt;script&gt;',
+            'Invalid country code: &lt;script&gt;',
         ];
     }
 }

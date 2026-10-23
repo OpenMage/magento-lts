@@ -23,14 +23,21 @@ class Mage_Core_Model_Purifier_Message extends Mage_Core_Model_Purifier_Abstract
     public function __construct()
     {
         parent::__construct([
+            // Inline formatting and links, plus line breaks and simple lists: core builds
+            // messages with <br> (e.g. Mage_Wishlist_IndexController::sendAction()) and
+            // extensions commonly list validation errors with <p>/<ul>/<li>.
             self::OPTION_ALLOWED_ELEMENTS => [
                 'a',
                 'abbr',
                 'b',
+                'br',
                 'cite',
                 'code',
                 'em',
                 'i',
+                'li',
+                'ol',
+                'p',
                 'q',
                 's',
                 'small',
@@ -39,6 +46,7 @@ class Mage_Core_Model_Purifier_Message extends Mage_Core_Model_Purifier_Abstract
                 'sub',
                 'sup',
                 'u',
+                'ul',
             ],
             self::OPTION_ALLOWED_CLASSES => [],
             self::OPTION_ALLOWED_STYLE_PROPERTIES => [],
