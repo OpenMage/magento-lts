@@ -119,4 +119,52 @@ final class DataTest extends OpenMageTest
     {
         self::assertIsArray(self::$subject->getStoreConfigPolicy());
     }
+
+    /**
+     * @group Helper
+     */
+    public function testGetStoreConfigPolicyReadsSerializedHosts(): void
+    {
+        $value = serialize([
+            '_1' => ['host' => 'cdn.example.com'],
+            '_2' => ['host' => 'fonts.example.com'],
+        ]);
+
+        self::assertSame(['cdn.example.com', 'fonts.example.com'], $this->getStoreConfigPolicyFor($value));
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testGetStoreConfigPolicyDoesNotUnserializeObjects(): void
+    {
+        DataTestFixture::$awakened = false;
+        $value = serialize([
+            '_1' => ['host' => 'cdn.example.com'],
+            '_2' => new DataTestFixture(),
+        ]);
+
+        $hosts = $this->getStoreConfigPolicyFor($value);
+
+        self::assertFalse(DataTestFixture::$awakened);
+        self::assertSame(['cdn.example.com'], $hosts);
+    }
+
+    /**
+     * Read the frontend default-src policy with the given value stored in config
+     *
+     * @return array<string>
+     */
+    private function getStoreConfigPolicyFor(string $value): array
+    {
+        $path = 'csp/' . Mage_Core_Model_App_Area::AREA_FRONTEND . '/default-src';
+        $store = Mage::app()->getStore();
+        $previous = (string) $store->getConfig($path);
+        $store->setConfig($path, $value);
+        try {
+            return self::$subject->getStoreConfigPolicy(Mage_Core_Model_App_Area::AREA_FRONTEND, 'default-src');
+        } finally {
+            $store->setConfig($path, $previous);
+        }
+    }
 }
