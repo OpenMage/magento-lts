@@ -459,60 +459,13 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     #[Override]
     public function getCsv()
     {
-        $csv = '';
         $this->_prepareGrid();
-
-        $data = ['"' . $this->__('Period') . '"'];
-        foreach ($this->_columns as $column) {
-            if (!$column->getIsSystem()) {
-                $data[] = '"' . $column->getHeader() . '"';
-            }
-        }
-
-        $csv .= implode(',', $data) . "\n";
-
-        foreach ($this->getCollection()->getIntervals() as $_index => $_item) {
-            $report = $this->getReport($_item['start'], $_item['end']);
-            foreach ($report as $_subItem) {
-                $data = ['"' . $_index . '"'];
-                foreach ($this->_columns as $column) {
-                    if (!$column->getIsSystem()) {
-                        $data[] = '"' . str_replace(
-                            ['"', '\\'],
-                            ['""', '\\\\'],
-                            $column->getRowField($_subItem),
-                        ) . '"';
-                    }
-                }
-
-                $csv .= implode(',', $data) . "\n";
-            }
-
-            if ($this->getCountTotals() && $this->getSubtotalVisibility()) {
-                $data = ['"' . $_index . '"'];
-                $j = 0;
-                foreach ($this->_columns as $column) {
-                    $j++;
-                    if (!$column->getIsSystem()) {
-                        $data[] = ($j === 1)
-                                ? '"' . $this->__('Subtotal') . '"'
-                                : '"' . str_replace('"', '""', $column->getRowField($this->getTotals())) . '"';
-                    }
-                }
-
-                $csv .= implode(',', $data) . "\n";
-            }
-        }
-
-        if ($this->getCountTotals()) {
-            $data = ['"' . $this->__('Total') . '"'];
-            foreach ($this->_columns as $column) {
-                if (!$column->getIsSystem()) {
-                    $data[] = '"' . str_replace('"', '""', $column->getRowField($this->getGrandTotals())) . '"';
-                }
-            }
-
-            $csv .= implode(',', $data) . "\n";
+        $export = $this->getExportModel();
+        $headers = array_merge([$this->__('Period')], $export->getHeaders($this->_columns));
+        $csv = $export->getCsvRow($headers, escape: false);
+        $separator = $export->getCsvSeparator();
+        foreach ($this->getReportExportRows($export->getCsvField(...)) as $row) {
+            $csv .= implode($separator, $row) . "\n";
         }
 
         return $csv;
@@ -521,7 +474,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Retrieve grid as Excel Xml
      *
-     * @return mixed
+     * @param  string              $filename
+     * @return string
      * @throws Exception
      * @throws Zend_Date_Exception
      */
@@ -529,61 +483,77 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     public function getExcel($filename = '')
     {
         $this->_prepareGrid();
-
-        $data = [];
-        $row = [$this->__('Period')];
-        foreach ($this->_columns as $column) {
-            if (!$column->getIsSystem()) {
-                $row[] = $column->getHeader();
-            }
+        $export = $this->getExportModel();
+        $data = [array_merge([$this->__('Period')], $export->getHeaders($this->_columns))];
+        foreach ($this->getReportExportRows(static fn($value) => $value) as $row) {
+            $data[] = $row;
         }
 
-        $data[] = $row;
+        return $export->getExcel($data, $filename);
+    }
 
-        foreach ($this->getCollection()->getIntervals() as $_index => $_item) {
-            $report = $this->getReport($_item['start'], $_item['end']);
-            foreach ($report as $_subItem) {
-                $row = [$_index];
-                foreach ($this->_columns as $column) {
-                    if (!$column->getIsSystem()) {
-                        $row[] = $column->getRowField($_subItem);
-                    }
-                }
-
-                $data[] = $row;
+    /**
+     * Traverse each report interval once for either string format.
+     * The field formatter preserves the legacy CSV distinction between ordinary
+     * values, labels (no escaping) and totals (quote escaping only).
+     *
+     * @template TValue
+     * @param  callable(mixed, bool, bool): TValue $formatField
+     * @return Generator<int, list<TValue>>
+     */
+    protected function getReportExportRows(callable $formatField): Generator
+    {
+        foreach ($this->getCollection()->getIntervals() as $index => $interval) {
+            $report = $this->getReport($interval['start'], $interval['end']);
+            foreach ($report as $item) {
+                yield $this->getReportExportRow(
+                    $index,
+                    $formatField,
+                    static fn($column) => $formatField($column->getRowField($item), true, true),
+                );
             }
 
             if ($this->getCountTotals() && $this->getSubtotalVisibility()) {
-                $row = [$_index];
-                $j = 0;
-                foreach ($this->_columns as $column) {
-                    $j++;
-                    if (!$column->getIsSystem()) {
-                        $row[] = ($j === 1) ? $this->__('Subtotal') : $column->getRowField($this->getTotals());
-                    }
-                }
-
-                $data[] = $row;
+                yield $this->getReportExportRow(
+                    $index,
+                    $formatField,
+                    fn($column, $position) => $position === 1
+                        ? $formatField($this->__('Subtotal'), false, false)
+                        : $formatField($column->getRowField($this->getTotals()), true, false),
+                );
             }
         }
 
         if ($this->getCountTotals()) {
-            $row = [$this->__('Total')];
-            foreach ($this->_columns as $column) {
-                if (!$column->getIsSystem()) {
-                    $row[] = $column->getRowField($this->getGrandTotals());
-                }
-            }
+            yield $this->getReportExportRow(
+                $this->__('Total'),
+                $formatField,
+                fn($column) => $formatField($column->getRowField($this->getGrandTotals()), true, false),
+            );
+        }
+    }
 
-            $data[] = $row;
+    /**
+     * Keep report labels and the original column positions when projecting a row.
+     * In particular, a leading system column still occupies the subtotal-label position.
+     *
+     * @template TValue
+     * @param  callable(mixed, bool, bool): TValue                            $formatField
+     * @param  callable(Mage_Adminhtml_Block_Widget_Grid_Column, int): TValue $formatColumn
+     * @return list<TValue>
+     */
+    protected function getReportExportRow(mixed $label, callable $formatField, callable $formatColumn): array
+    {
+        $row = [$formatField($label, false, false)];
+        $position = 0;
+        foreach ($this->_columns as $column) {
+            $position++;
+            if (!$column->getIsSystem()) {
+                $row[] = $formatColumn($column, $position);
+            }
         }
 
-        $xmlObj = new Varien_Convert_Parser_Xml_Excel();
-        $xmlObj->setVar('single_sheet', $filename);
-        $xmlObj->setData($data);
-        $xmlObj->unparse();
-
-        return $xmlObj->getData();
+        return $row;
     }
 
     /**
