@@ -593,8 +593,9 @@ class Varien_Io_File extends Varien_Io_Abstract
     protected function _normalizeSeparators($path)
     {
         $path = (string) $path;
+        $parts = preg_split('#[\\\\/]+#', $path);
         $segments = [];
-        foreach (preg_split('#[\\\\/]+#', $path) as $segment) {
+        foreach ($parts === false ? [] : $parts as $segment) {
             if ($segment !== '' && $segment !== '.') {
                 $segments[] = $segment;
             }

@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model;
 
 use Mage_Sales_Model_Order;
-use Mage_SalesRule_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\ObserverTrait;
 use Varien_Event;
@@ -59,19 +58,9 @@ final class ObserverTest extends OpenMageTest
         self::assertFalse($subject->isQuoteCounted($order));
     }
 
-    private function subject(): Subject
+    private function subject(): ObserverTestFixture
     {
-        return new class extends Subject {
-            public function isQuoteCounted(Mage_Sales_Model_Order $order): bool
-            {
-                return $this->_isQuoteCounted($order);
-            }
-
-            public function setQuoteCounted(Mage_Sales_Model_Order $order): void
-            {
-                $this->_setQuoteCounted($order);
-            }
-        };
+        return new ObserverTestFixture();
     }
 
     private function observer(Mage_Sales_Model_Order $order): Varien_Event_Observer

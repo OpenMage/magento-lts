@@ -266,7 +266,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             return false;
         }
 
-        $allowed = Mage::getConfig()->getNode(self::XML_PATH_ALLOWED_LAYOUT_HANDLES);
+        $config = Mage::getConfig();
+        $allowed = $config instanceof Mage_Core_Model_Config ? $config->getNode(self::XML_PATH_ALLOWED_LAYOUT_HANDLES) : false;
         if (!$allowed instanceof Varien_Simplexml_Element) {
             return false;
         }

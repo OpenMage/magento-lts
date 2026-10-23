@@ -796,7 +796,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         /** @var Mage_Wishlist_Model_Item $item */
         $item = Mage::getModel('wishlist/item')->load($option->getWishlistItemId());
-        if (!$item->getId() || !$this->_getWishlist($item->getWishlistId())) {
+        if ((int) $item->getId() === 0 || $this->_getWishlist($item->getWishlistId()) === false) {
             $this->_forward('noRoute');
             return;
         }

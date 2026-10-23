@@ -17,27 +17,20 @@ use Mage;
 use Mage_Dataflow_Model_Convert_Adapter_Http_Curl as Subject;
 use Mage_Dataflow_Model_Convert_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Dataflow\Model\Convert\Adapter\Http\CurlTrait;
 
 final class CurlTest extends OpenMageTest
 {
-    private Subject $subject;
+    use CurlTrait;
+
+    private CurlTestFixture $subject;
 
     private string $originalAllowedPrefixes;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = new class extends Subject {
-            public function validateUriWrapper($uri): void
-            {
-                $this->_validateUri($uri);
-            }
-
-            public function restrictProtocolsWrapper(Varien_Http_Adapter_Curl $http): void
-            {
-                $this->_restrictProtocols($http);
-            }
-        };
+        $this->subject = new CurlTestFixture();
         $this->originalAllowedPrefixes = (string) Mage::getStoreConfig(Subject::XML_PATH_ALLOWED_URL_PREFIXES);
         $this->setAllowedPrefixes('');
     }

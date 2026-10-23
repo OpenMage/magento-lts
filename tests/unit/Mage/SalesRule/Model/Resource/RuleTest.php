@@ -15,56 +15,23 @@ use Mage_SalesRule_Model_Resource_Rule as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Resource\RuleTrait;
 use Override;
-use Varien_Db_Adapter_Pdo_Mysql;
 
 final class RuleTest extends OpenMageTest
 {
     use RuleTrait;
 
-    /**
-     * @var Varien_Db_Adapter_Pdo_Mysql records every query instead of talking to a database
-     */
-    private Varien_Db_Adapter_Pdo_Mysql $adapter;
+    private AdapterFixture $adapter;
 
     private Subject $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->adapter = new class extends Varien_Db_Adapter_Pdo_Mysql {
-            /**
-             * @var string[]
-             */
-            public array $queries = [];
-
-            public array $result = [];
-
-            public function __construct() {}
-
-            #[Override]
-            protected function _connect() {}
-
-            #[Override]
-            public function quote($value, $type = null)
-            {
-                if (is_array($value)) {
-                    return implode(', ', array_map(fn($item) => $this->quote($item), $value));
-                }
-
-                return is_int($value) ? (string) $value : "'" . addslashes((string) $value) . "'";
-            }
-
-            #[Override]
-            public function fetchPairs($sql, $bind = [], $fetchMode = null)
-            {
-                $this->queries[] = (string) $sql;
-                return $this->result;
-            }
-        };
+        $this->adapter = new AdapterFixture();
         $this->subject = new class ($this->adapter) extends Subject {
-            private readonly Varien_Db_Adapter_Pdo_Mysql $adapter;
+            private readonly AdapterFixture $adapter;
 
-            public function __construct(Varien_Db_Adapter_Pdo_Mysql $adapter)
+            public function __construct(AdapterFixture $adapter)
             {
                 $this->adapter = $adapter;
                 parent::__construct();
@@ -89,9 +56,10 @@ final class RuleTest extends OpenMageTest
 
     public function testLockRulesForUpdateUsesALockingReadInAscendingIdOrder(): void
     {
-        $this->adapter->result = ['3' => '0', '5' => '7'];
+        $this->adapter->fetchPairsResult = ['3' => '0', '5' => '7'];
 
-        self::assertSame([3 => 0, 5 => 7], $this->subject->lockRulesForUpdate(['5', 3, 0, 5, '']));
+        // rule ids read from the database or a comma separated list arrive as strings, unset ones as '' or null
+        self::assertSame([3 => 0, 5 => 7], $this->subject->lockRulesForUpdate(['5', 3, 0, 5, ''])); // @phpstan-ignore argument.type
 
         self::assertCount(1, $this->adapter->queries);
         self::assertSame(
@@ -103,14 +71,14 @@ final class RuleTest extends OpenMageTest
 
     public function testLockRulesForUpdateOmitsRulesThatDoNotExist(): void
     {
-        $this->adapter->result = ['3' => '2'];
+        $this->adapter->fetchPairsResult = ['3' => '2'];
 
         self::assertSame([3 => 2], $this->subject->lockRulesForUpdate([3, 4]));
     }
 
     public function testLockRulesForUpdateDoesNotQueryWithoutRules(): void
     {
-        self::assertSame([], $this->subject->lockRulesForUpdate([0, '', null]));
+        self::assertSame([], $this->subject->lockRulesForUpdate([0, '', null])); // @phpstan-ignore argument.type
         self::assertSame([], $this->adapter->queries);
     }
 }

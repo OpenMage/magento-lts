@@ -70,10 +70,10 @@ class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
             $grandTotal = $paymentInfo->getOrder()->getGrandTotal();
         } else {
             $quote = $paymentInfo->getQuote();
-            $grandTotal = $quote ? $quote->getGrandTotal() : 0;
+            $grandTotal = $quote instanceof Mage_Sales_Model_Quote ? $quote->getGrandTotal() : 0;
         }
 
-        if (Mage::app()->getStore()->roundPrice((float) $grandTotal) != 0) {
+        if (Mage::app()->getStore()->roundPrice((float) $grandTotal) !== 0.0) {
             Mage::throwException(Mage::helper('payment')->__('The requested Payment Method is not available.'));
         }
 

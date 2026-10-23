@@ -54,7 +54,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
             ) > 0;
         }
 
-        if ($usageLimit) {
+        if ((int) $usageLimit !== 0) {
             $where['times_used < ?'] = (int) $usageLimit;
         }
 
@@ -64,7 +64,11 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
 
         /**
          * Nothing was updated, so either there is no row for this customer yet or the limit
-         * was reached, let the primary key decide which of the two it is
+         * was reached, let the primary key decide which of the two it is.
+         *
+         * PHPStan sees no exception from insert(), as Varien_Db_Adapter_Interface::insert() documents
+         * none, but a duplicate key surfaces from Varien_Db_Statement_Pdo_Mysql::_execute() as a
+         * Zend_Db_Statement_Exception that Varien_Db_Adapter_Pdo_Mysql::query() rethrows unchanged.
          */
         try {
             $write->insert(
@@ -77,18 +81,18 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
             );
 
             return true;
-        } catch (Zend_Db_Statement_Exception $zendDbStatementException) {
+        } catch (Zend_Db_Statement_Exception $zendDbStatementException) { // @phpstan-ignore catch.neverThrown
             // a concurrent request inserted the row first, retry the conditional update
             if (!$this->_isDuplicateKeyError($zendDbStatementException)) {
                 throw $zendDbStatementException;
             }
-        }
 
-        return $write->update(
-            $this->getMainTable(),
-            ['times_used' => new Zend_Db_Expr('times_used + 1')],
-            $where,
-        ) > 0;
+            return $write->update(
+                $this->getMainTable(),
+                ['times_used' => new Zend_Db_Expr('times_used + 1')],
+                $where,
+            ) > 0;
+        }
     }
 
     /**

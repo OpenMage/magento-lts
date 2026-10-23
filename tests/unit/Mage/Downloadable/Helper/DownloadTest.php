@@ -16,11 +16,13 @@ use Mage;
 use Mage_Core_Exception;
 use Mage_Downloadable_Helper_Download as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
-use Override;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\Helper\DownloadTrait;
 
 final class DownloadTest extends OpenMageTest
 {
-    private Subject $subject;
+    use DownloadTrait;
+
+    private DownloadTestFixture $subject;
 
     private string $originalAllowedPrefixes;
 
@@ -29,67 +31,7 @@ final class DownloadTest extends OpenMageTest
     protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = new class extends Subject {
-            /** @var array<string, string[]> */
-            public array $dns = [];
-
-            /** @var list<array{0: string, 1: string, 2: string}> */
-            public array $reports = [];
-
-            public function setUrl(string $url): void
-            {
-                $this->_resourceFile = $url;
-                $this->_linkType = self::LINK_TYPE_URL;
-                $this->_handle = null;
-            }
-
-            public function getHandleWrapper(): mixed
-            {
-                return $this->_getHandle();
-            }
-
-            #[Override]
-            protected function _resolveHost($host)
-            {
-                $host = trim($host, '[]');
-                if (filter_var($host, FILTER_VALIDATE_IP)) {
-                    return [$host];
-                }
-
-                return $this->dns[$host] ?? [];
-            }
-
-            #[Override]
-            protected function _reportBlockedUrl(array $urlProp, string $address, string $addressClass): void
-            {
-                $this->reports[] = [$this->_getUrlOrigin($urlProp), $address, $addressClass];
-            }
-
-            public function validateUrlWrapper($url): array
-            {
-                return $this->_validateUrl($url);
-            }
-
-            public function getAllowedAddressWrapper($host, $checkAddress = true): string
-            {
-                return $this->_getAllowedAddress($host, $checkAddress);
-            }
-
-            public function isPublicAddressWrapper($address): bool
-            {
-                return $this->_isPublicAddress($address);
-            }
-
-            public function isAllowedByPrefixWrapper($url): bool
-            {
-                return $this->_isAllowedByPrefix($url);
-            }
-
-            public function getAllowedUrlPrefixesWrapper(): array
-            {
-                return $this->_getAllowedUrlPrefixes();
-            }
-        };
+        $this->subject = new DownloadTestFixture();
         $this->originalAllowedPrefixes = (string) Mage::getStoreConfig(Subject::XML_PATH_LINK_URL_ALLOWED_PREFIXES);
         $this->originalAllowPrivateNetwork = (string) Mage::getStoreConfig(Subject::XML_PATH_LINK_URL_ALLOW_PRIVATE_NETWORK);
         $this->setAllowedPrefixes('');

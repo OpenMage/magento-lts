@@ -33,6 +33,7 @@ final class MaliciousCodeTest extends OpenMageTest
         /** @var Subject $subject */
         $subject = Mage::getModel('core/input_filter_maliciousCode');
         $output = $subject->filter($input);
+        self::assertIsString($output);
 
         self::assertDoesNotMatchRegularExpression('/\son[a-z]+\s*=/i', $output);
         self::assertStringNotContainsStringIgnoringCase('javascript:', $output);

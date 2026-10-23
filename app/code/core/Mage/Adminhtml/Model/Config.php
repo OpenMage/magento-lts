@@ -268,7 +268,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      */
     public function getEncryptedNodeEntriesPaths($explodePathToEntities = false)
     {
-        $paths = [];
+        $entities = [];
         $configSections = $this->getSections();
         if ($configSections) {
             foreach ($configSections->xpath('//sections/*/groups/*/fields/*/backend_model') as $node) {
@@ -276,25 +276,25 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
                     $section = $node->getParent()->getParent()->getParent()->getParent()->getParent()->getName();
                     $group   = $node->getParent()->getParent()->getParent()->getName();
                     $field   = $node->getParent()->getName();
-                    if ($explodePathToEntities) {
-                        $paths[] = ['section' => $section, 'group' => $group, 'field' => $field];
-                    } else {
-                        $paths[] = $section . '/' . $group . '/' . $field;
-                    }
+                    $entities[] = ['section' => $section, 'group' => $group, 'field' => $field];
                 }
             }
         }
 
-        if (!$explodePathToEntities) {
-            $paths = array_merge(
-                $paths,
-                $this->_getEncryptedConfigPathOverrides(),
-                $this->_getEncryptedDefaultConfigPaths(),
-            );
-            $paths = array_values(array_unique($paths));
+        if ($explodePathToEntities) {
+            return $entities;
         }
 
-        return $paths;
+        $paths = [];
+        foreach ($entities as $entity) {
+            $paths[] = $entity['section'] . '/' . $entity['group'] . '/' . $entity['field'];
+        }
+
+        return array_values(array_unique(array_merge(
+            $paths,
+            $this->_getEncryptedConfigPathOverrides(),
+            $this->_getEncryptedDefaultConfigPaths(),
+        )));
     }
 
     /**
@@ -308,12 +308,17 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     {
         $paths = [];
         $configSections = $this->getSections();
-        if (!$configSections) {
+        if (!$configSections instanceof Varien_Simplexml_Element) {
             return $paths;
         }
 
         $xpath = '//sections//fields/*[backend_model="adminhtml/system_config_backend_encrypted"]/config_path';
-        foreach ($configSections->xpath($xpath) as $node) {
+        $nodes = $configSections->xpath($xpath);
+        if (!is_array($nodes)) {
+            return $paths;
+        }
+
+        foreach ($nodes as $node) {
             $path = trim((string) $node, '/');
             if ($path !== '') {
                 $paths[] = $path;
@@ -331,12 +336,18 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     protected function _getEncryptedDefaultConfigPaths(): array
     {
         $paths = [];
-        $defaultConfig = Mage::getConfig()->getNode('default');
-        if (!$defaultConfig) {
+        $config = Mage::getConfig();
+        $defaultConfig = $config instanceof Mage_Core_Model_Config ? $config->getNode('default') : false;
+        if (!$defaultConfig instanceof Varien_Simplexml_Element) {
             return $paths;
         }
 
-        foreach ($defaultConfig->xpath('.//*[@backend_model="adminhtml/system_config_backend_encrypted"]') as $node) {
+        $nodes = $defaultConfig->xpath('.//*[@backend_model="adminhtml/system_config_backend_encrypted"]');
+        if (!is_array($nodes)) {
+            return $paths;
+        }
+
+        foreach ($nodes as $node) {
             $path = $this->_getDefaultConfigNodePath($node);
             if ($path !== '') {
                 $paths[] = $path;
@@ -356,8 +367,9 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $path = [];
         while ($node->getName() !== 'default') {
             array_unshift($path, $node->getName());
+            // getParent() returns null above the document root, whatever its return type says
             $node = $node->getParent();
-            if (!$node) {
+            if (!$node instanceof Varien_Simplexml_Element) {
                 return '';
             }
         }

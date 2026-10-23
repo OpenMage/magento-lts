@@ -415,7 +415,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         while (!$archiveReader->eof()) {
             $header = $this->_extractFileHeader();
 
-            if (!$header) {
+            if (!is_array($header)) {
                 continue;
             }
 
@@ -478,17 +478,16 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             return false;
         }
 
-        if ($path[0] === '/' || $path[0] === '\\' || preg_match('/^[a-zA-Z]:/', $path)) {
+        if ($path[0] === '/' || $path[0] === '\\' || preg_match('/^[a-zA-Z]:/', $path) === 1) {
             return false;
         }
 
-        foreach (preg_split('#[/\\\\]#', $path) as $segment) {
-            if ($segment === '..') {
-                return false;
-            }
+        $segments = preg_split('#[/\\\\]#', $path);
+        if ($segments === false) {
+            return false;
         }
 
-        return true;
+        return !in_array('..', $segments, true);
     }
 
     /**

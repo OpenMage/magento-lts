@@ -173,7 +173,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
          * The cancel return cancels the customer's last order. Bind it to this order with a nonce
          * so a forged cross-site request to that URL cannot do the same.
          */
-        if ($request->getData('cancel_return') && $payment->getOrder()) {
+        if ((string) $request->getData('cancel_return') !== '' && $payment->getOrder()) {
             /** @var Mage_Paypal_Helper_Checkout $checkoutHelper */
             $checkoutHelper = Mage::helper('paypal/checkout');
             $request->setData('cancel_return', $checkoutHelper->addCancelNonceToUrl(

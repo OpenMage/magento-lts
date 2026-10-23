@@ -110,8 +110,13 @@ class Mage_Paypal_Helper_Checkout extends Mage_Core_Helper_Abstract
         }
 
         $order = $session->getLastRealOrder();
-        if (!$order || !$order->getId() || !$order->getPayment()
-            || !in_array($order->getPayment()->getMethod(), (array) $methodCodes, true)
+        if (!$order instanceof Varien_Object || (int) $order->getId() === 0) {
+            return false;
+        }
+
+        $payment = $order->getPayment();
+        if (!$payment instanceof Varien_Object
+            || !in_array($payment->getMethod(), (array) $methodCodes, true)
         ) {
             return false;
         }

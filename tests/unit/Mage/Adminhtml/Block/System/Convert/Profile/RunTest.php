@@ -14,6 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert\Profile;
 use Iterator;
 use Mage;
 use Mage_Adminhtml_Block_System_Convert_Profile_Run as Subject;
+use Mage_Core_Model_Config;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\System\Convert\Profile\RunTrait;
 use Override;
@@ -36,10 +37,10 @@ final class RunTest extends OpenMageTest
         self::$subject = new Subject();
 
         // The HTMLPurifier definition cache is signed with the encryption key
-        $cryptKey = (string) Mage::getConfig()->getNode('global/crypt/key');
+        $cryptKey = (string) self::getConfig()->getNode('global/crypt/key');
         if ($cryptKey === '') {
             self::$originalCryptKey = $cryptKey;
-            Mage::getConfig()->setNode('global/crypt/key', 'ghsa-m858-test-key');
+            self::getConfig()->setNode('global/crypt/key', 'ghsa-m858-test-key');
         }
     }
 
@@ -47,10 +48,18 @@ final class RunTest extends OpenMageTest
     public static function tearDownAfterClass(): void
     {
         if (self::$originalCryptKey !== null) {
-            Mage::getConfig()->setNode('global/crypt/key', self::$originalCryptKey);
+            self::getConfig()->setNode('global/crypt/key', self::$originalCryptKey);
         }
 
         parent::tearDownAfterClass();
+    }
+
+    private static function getConfig(): Mage_Core_Model_Config
+    {
+        $config = Mage::getConfig();
+        self::assertInstanceOf(Mage_Core_Model_Config::class, $config);
+
+        return $config;
     }
 
     /**

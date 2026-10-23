@@ -242,8 +242,8 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Return escaped value
      *
-     * @param  string $value
-     * @param  string $defaultValue
+     * @param  null|string $value
+     * @param  string      $defaultValue
      * @return string
      */
     public function getEscaped($value, $defaultValue = '')

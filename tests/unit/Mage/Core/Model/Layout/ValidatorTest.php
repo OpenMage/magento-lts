@@ -11,25 +11,14 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Layout;
 
-use Override;
 use Generator;
 use Mage;
-use Mage_Core_Model_Layout_Validator as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\UrlTrait;
 
 final class ValidatorTest extends OpenMageTest
 {
     use UrlTrait;
-
-    private static Subject $subject;
-
-    #[Override]
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('core/layout_validator');
-    }
 
     /**
      * @dataProvider isValidDataProvider

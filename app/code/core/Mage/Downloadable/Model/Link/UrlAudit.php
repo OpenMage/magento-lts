@@ -71,7 +71,8 @@ class Mage_Downloadable_Model_Link_UrlAudit
         $helper = $this->_getDownloadHelper();
 
         $byOrigin = [];
-        foreach (array_unique(array_filter(array_map(strval(...), $urls))) as $url) {
+        $urls = array_filter(array_map(strval(...), $urls), static fn(string $url): bool => $url !== '');
+        foreach (array_unique($urls) as $url) {
             $parts = parse_url($url);
             $origin = is_array($parts) && isset($parts['scheme'], $parts['host'])
                 ? strtolower($parts['scheme']) . '://' . strtolower($parts['host']) . (isset($parts['port']) ? ':' . $parts['port'] : '')
@@ -103,6 +104,10 @@ class Mage_Downloadable_Model_Link_UrlAudit
         /** @var Mage_Core_Model_Resource $resource */
         $resource = Mage::getSingleton('core/resource');
         $adapter = $resource->getConnection('core_read');
+        if (!$adapter instanceof Varien_Db_Adapter_Interface) {
+            return [];
+        }
+
         $type = Mage_Downloadable_Helper_Download::LINK_TYPE_URL;
 
         $selects = [
@@ -139,7 +144,7 @@ class Mage_Downloadable_Model_Link_UrlAudit
         $helper = Mage::helper('downloadable');
         $location = 'System > Configuration > Catalog > Downloadable Product Options';
 
-        if ($report['refused']) {
+        if ($report['refused'] !== []) {
             $this->_addInboxMessage(
                 $helper->__('%d downloadable product link host(s) will be refused', count($report['refused'])),
                 $helper->__(
@@ -150,7 +155,7 @@ class Mage_Downloadable_Model_Link_UrlAudit
             );
         }
 
-        if ($report['private']) {
+        if ($report['private'] !== []) {
             $this->_addInboxMessage(
                 $helper->__('%d downloadable product link host(s) are on a private network', count($report['private'])),
                 $helper->__(

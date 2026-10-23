@@ -15,6 +15,9 @@ use Generator;
 
 trait MaliciousCodeTrait
 {
+    /**
+     * @return Generator<string, array{string}>
+     */
     public static function provideEventHandlerPayloads(): Generator
     {
         yield 'well formed tag' => ['<img src=x onerror=alert(1)>'];

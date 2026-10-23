@@ -52,6 +52,7 @@ class Varien_Convert_Adapter_Http_Curl extends Varien_Convert_Adapter_Abstract
     }
 
     /**
+     * @param  mixed                    $uri
      * @throws Varien_Convert_Exception
      */
     protected function _validateUri($uri): void

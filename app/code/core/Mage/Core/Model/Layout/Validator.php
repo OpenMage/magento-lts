@@ -158,7 +158,8 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
         // Layout XML never uses namespaces. SimpleXML (and so the layout generator) treats an element in a
         // default namespace as if it had none, while XPath name tests do not match it, so a namespaced
         // element could slip past the checks below. Reject any namespaced element or attribute outright.
-        if ($value->xpath("//*[namespace-uri() != ''] | //@*[namespace-uri() != '']")) {
+        $namespacedNodes = $value->xpath("//*[namespace-uri() != ''] | //@*[namespace-uri() != '']");
+        if (is_array($namespacedNodes) && $namespacedNodes !== []) {
             $this->_error(self::XML_INVALID);
             return false;
         }

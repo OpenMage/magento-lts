@@ -12,55 +12,30 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\SalesRule\Model\Resource\Coupon;
 
 use PDOException;
-use Throwable;
 use Mage_SalesRule_Model_Resource_Coupon_Usage as Subject;
+use OpenMage\Tests\Unit\Mage\SalesRule\Model\Resource\AdapterFixture;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\SalesRule\Model\Resource\Coupon\UsageTrait;
 use Override;
 use Zend_Db_Expr;
 use Zend_Db_Statement_Exception;
 
 final class UsageTest extends OpenMageTest
 {
-    /**
-     * @var object records every write instead of talking to a database
-     */
-    private object $adapter;
+    use UsageTrait;
+
+    private AdapterFixture $adapter;
 
     private Subject $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->adapter = new class {
-            /**
-             * @var array<mixed, array<string, mixed>>
-             */
-            public array $calls = [];
-
-            public int $affectedRows = 1;
-
-            public ?Throwable $insertFails = null;
-
-            public function update($table, $bind, $where = '')
-            {
-                $this->calls[] = ['op' => 'update', 'bind' => $bind, 'where' => $where];
-                return $this->affectedRows;
-            }
-
-            public function insert($table, $bind)
-            {
-                $this->calls[] = ['op' => 'insert', 'bind' => $bind];
-                if ($this->insertFails instanceof Throwable) {
-                    throw $this->insertFails;
-                }
-
-                return 1;
-            }
-        };
+        $this->adapter = new AdapterFixture();
         $this->subject = new class ($this->adapter) extends Subject {
-            private readonly object $adapter;
+            private readonly AdapterFixture $adapter;
 
-            public function __construct(object $adapter)
+            public function __construct(AdapterFixture $adapter)
             {
                 $this->adapter = $adapter;
                 parent::__construct();

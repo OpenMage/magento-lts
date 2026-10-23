@@ -56,7 +56,7 @@ class Mage_Cms_Model_Adminhtml_Template_Filter extends Mage_Cms_Model_Template_F
      */
     public function getMediaFilePath(string $directive): string
     {
-        if (!preg_match(Varien_Filter_Template::CONSTRUCTION_PATTERN, $directive, $construction)
+        if (preg_match(Varien_Filter_Template::CONSTRUCTION_PATTERN, $directive, $construction) !== 1
             || $construction[0] !== $directive
             || $construction[1] !== 'media'
         ) {

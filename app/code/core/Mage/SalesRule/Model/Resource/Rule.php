@@ -145,7 +145,10 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      */
     public function lockRulesForUpdate(array $ruleIds)
     {
-        $ruleIds = array_values(array_unique(array_filter(array_map(intval(...), $ruleIds))));
+        $ruleIds = array_values(array_unique(array_filter(
+            array_map(intval(...), $ruleIds),
+            static fn(int $ruleId): bool => $ruleId !== 0,
+        )));
         if ($ruleIds === []) {
             return [];
         }

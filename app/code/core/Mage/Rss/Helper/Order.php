@@ -102,7 +102,7 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
 
         // Fail closed on an order that carries no protect_code: an empty HMAC key
         // would otherwise let anyone who can guess the identifiers derive the digest.
-        if (!$order->getId() || (string) $order->getProtectCode() === '') {
+        if ((int) $order->getId() === 0 || (string) $order->getProtectCode() === '') {
             return null;
         }
 

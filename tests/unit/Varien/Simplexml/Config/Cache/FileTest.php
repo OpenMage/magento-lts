@@ -27,7 +27,8 @@ final class FileTest extends OpenMageTest
 
     protected function tearDown(): void
     {
-        array_map(unlink(...), glob($this->dir . DS . '*') ?: []);
+        $files = glob($this->dir . DS . '*');
+        array_map(unlink(...), $files === false ? [] : $files);
         rmdir($this->dir);
         parent::tearDown();
     }

@@ -51,6 +51,8 @@ final class UserTest extends OpenMageTest
      *
      * @dataProvider provideApiAccessRevokedBySaveData
      * @group Model
+     * @param array<string, mixed> $origData
+     * @param array<string, mixed> $data
      */
     public function testIsApiAccessRevokedBySave(bool $expectedResult, array $origData, array $data): void
     {

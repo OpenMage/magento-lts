@@ -176,8 +176,8 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         // Without an authority there is nothing to compare structurally
-        if (empty($callback['scheme']) || empty($callback['host'])
-            || empty($registered['scheme']) || empty($registered['host'])
+        if (($callback['scheme'] ?? '') === '' || ($callback['host'] ?? '') === ''
+            || ($registered['scheme'] ?? '') === '' || ($registered['host'] ?? '') === ''
         ) {
             return $callbackUrl === $registeredCallbackUrl;
         }

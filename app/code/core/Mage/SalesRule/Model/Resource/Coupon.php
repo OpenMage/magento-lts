@@ -88,7 +88,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     public function incrementTimesUsed($couponId, $usageLimit = null)
     {
         $where = ['coupon_id = ?' => (int) $couponId];
-        if ($usageLimit) {
+        if ((int) $usageLimit !== 0) {
             $where['times_used < ?'] = (int) $usageLimit;
         }
 

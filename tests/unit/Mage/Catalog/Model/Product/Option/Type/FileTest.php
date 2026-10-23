@@ -53,8 +53,8 @@ final class FileTest extends OpenMageTest
     #[DataProvider('acceptedPathProvider')]
     public function testAcceptsPathsInsideTargetDirs(string $path): void
     {
+        $this->expectNotToPerformAssertions();
         $this->validate($path);
-        self::assertTrue(true, 'no exception expected');
     }
 
     public static function rejectedPathProvider(): Iterator

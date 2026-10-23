@@ -77,7 +77,11 @@ final class MessagesTest extends OpenMageTest
             $subject->addMessage(new Mage_Core_Model_Message_Notice($messageText));
             $subject->addMessage(new Mage_Core_Model_Message_Success($messageText));
             $subject->addMessage(new Mage_Core_Model_Message_Warning($messageText));
-            $rendered[$method] = $subject->{$method}();
+            $rendered[$method] = match ($method) {
+                'toHtml' => $subject->toHtml(),
+                'getHtml' => $subject->getHtml(),
+                'getGroupedHtml' => $subject->getGroupedHtml(),
+            };
         }
 
         return $rendered;

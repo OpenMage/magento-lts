@@ -431,7 +431,9 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $config = Mage::getConfig();
-        if ((int) $config->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_USE_CUSTOM_ADMIN_URL)) {
+        if ($config instanceof Mage_Core_Model_Config
+            && (int) $config->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_USE_CUSTOM_ADMIN_URL) !== 0
+        ) {
             $urls[] = (string) $config->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_CUSTOM_ADMIN_URL);
         }
 

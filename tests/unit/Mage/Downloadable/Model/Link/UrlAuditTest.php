@@ -13,18 +13,16 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Model\Link;
 
 use Mage;
 use Mage_Downloadable_Helper_Download;
-use Mage_Downloadable_Model_Link_UrlAudit as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
-use Override;
 
 /**
  * GHSA-68jq-pfh7-9pjx
  */
 final class UrlAuditTest extends OpenMageTest
 {
-    private Subject $subject;
+    private UrlAuditTestFixture $subject;
 
-    private Mage_Downloadable_Helper_Download $helper;
+    private UrlAuditTestHelperFixture $helper;
 
     private string $originalAllowedPrefixes;
 
@@ -33,43 +31,8 @@ final class UrlAuditTest extends OpenMageTest
     protected function setUp(): void
     {
         parent::setUp();
-        $this->helper = new class extends Mage_Downloadable_Helper_Download {
-            /** @var array<string, string[]> */
-            public array $dns = [];
-
-            /** @var string[] */
-            public array $lookups = [];
-
-            #[Override]
-            protected function _resolveHost($host)
-            {
-                $this->lookups[] = $host;
-                return $this->dns[$host] ?? [];
-            }
-        };
-        $this->subject = new class ($this->helper) extends Subject {
-            /** @var list<array{0: string, 1: string}> */
-            public array $messages = [];
-
-            public function __construct(private readonly Mage_Downloadable_Helper_Download $helper) {}
-
-            public function notify(array $report): void
-            {
-                $this->_notify($report);
-            }
-
-            #[Override]
-            protected function _getDownloadHelper(): Mage_Downloadable_Helper_Download
-            {
-                return $this->helper;
-            }
-
-            #[Override]
-            protected function _addInboxMessage(string $title, string $description): void
-            {
-                $this->messages[] = [$title, $description];
-            }
-        };
+        $this->helper = new UrlAuditTestHelperFixture();
+        $this->subject = new UrlAuditTestFixture($this->helper);
         $this->originalAllowedPrefixes = (string) Mage::getStoreConfig(Mage_Downloadable_Helper_Download::XML_PATH_LINK_URL_ALLOWED_PREFIXES);
         $this->originalAllowPrivateNetwork = (string) Mage::getStoreConfig(Mage_Downloadable_Helper_Download::XML_PATH_LINK_URL_ALLOW_PRIVATE_NETWORK);
         $this->setConfig(Mage_Downloadable_Helper_Download::XML_PATH_LINK_URL_ALLOWED_PREFIXES, '');
@@ -154,8 +117,8 @@ final class UrlAuditTest extends OpenMageTest
         ]);
 
         self::assertCount(2, $this->subject->messages);
-        self::assertStringContainsString('http://metadata.example (169.254.169.254)', (string) $this->subject->messages[0][1]);
-        self::assertStringContainsString('http://nas.lan (192.168.1.20)', (string) $this->subject->messages[1][1]);
+        self::assertStringContainsString('http://metadata.example (169.254.169.254)', $this->subject->messages[0][1]);
+        self::assertStringContainsString('http://nas.lan (192.168.1.20)', $this->subject->messages[1][1]);
     }
 
     private function setConfig(string $path, string $value): void

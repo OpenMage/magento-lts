@@ -30,7 +30,7 @@ final class TemplateTest extends OpenMageTest
     public function testGetConfigDoesNotDiscloseEncryptedPaths(string $directive, string $expected): void
     {
         $store = new class extends Varien_Object {
-            public function getConfig($path)
+            public function getConfig(?string $path): string
             {
                 return $path === null ? '' : 'value-of:' . $path;
             }

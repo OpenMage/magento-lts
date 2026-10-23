@@ -750,8 +750,13 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      */
     protected function _normalizePath($path)
     {
+        $segments = preg_split('#[/\\\\]+#', $path);
+        if ($segments === false) {
+            return false;
+        }
+
         $resolved = [];
-        foreach (preg_split('#[/\\\\]+#', $path) as $segment) {
+        foreach ($segments as $segment) {
             if ($segment === '' || $segment === '.') {
                 continue;
             }
@@ -837,7 +842,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * @param  string              $rootPath
      * @throws Mage_Core_Exception
      */
-    protected function _assertResolvesInside($fullPath, $rootPath)
+    protected function _assertResolvesInside($fullPath, $rootPath): void
     {
         $realRoot = realpath($rootPath);
         if ($realRoot === false) {
@@ -865,7 +870,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * @throws Mage_Core_Exception
      */
-    protected function _throwInvalidFilePath()
+    protected function _throwInvalidFilePath(): never
     {
         Mage::throwException(Mage::helper('catalog')->__('Invalid file path.'));
     }
