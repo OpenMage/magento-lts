@@ -84,7 +84,7 @@ final class GridExportTest extends OpenMageTest
             $json = file_get_contents(__DIR__ . '/_files/grid-export.json');
             self::assertIsString($json);
             $expected = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
-            self::assertSame($expected[$key], $output);
+            $this->assertExportSame($expected[$key], $output, $method);
             self::assertSame(['prepare'], array_slice($grid->calls, 0, 1));
             if (!$report) {
                 self::assertSame(str_ends_with($method, 'File') ? ['prepare'] : ['prepare', 'before', 'after'], $grid->calls);
@@ -94,6 +94,18 @@ final class GridExportTest extends OpenMageTest
         } finally {
             $store->setConfig($path, $original);
         }
+    }
+
+    private function assertExportSame(string $expected, string $actual, string $method): void
+    {
+        if ($method === 'getExcelFile') {
+            // libxml versions serialize a retained CR as either &#13; or &#xD;.
+            // Normalize only that equivalent reference; preserve CR/LF and all other bytes.
+            $expected = str_replace('&#13;', '&#xD;', $expected);
+            $actual = str_replace('&#13;', '&#xD;', $actual);
+        }
+
+        self::assertSame($expected, $actual);
     }
 
     private function export(Mage_Adminhtml_Block_Widget_Grid $grid, string $method, mixed $sheetName = 'Sales report'): string
@@ -145,7 +157,7 @@ final class GridExportTest extends OpenMageTest
             }
 
             $key = $method . '-sheet-' . json_encode($sheetName);
-            self::assertSame($expected[$key], $this->export(new ExportGrid(), $method, $sheetName));
+            $this->assertExportSame($expected[$key], $this->export(new ExportGrid(), $method, $sheetName), $method);
         }
     }
 
@@ -178,7 +190,12 @@ final class GridExportTest extends OpenMageTest
         }
     }
 
-    /** @dataProvider provideFileFormats */
+    /**
+     * Subclass the real Magento grid to verify its protected extension hooks.
+     *
+     * @dataProvider provideFileFormats
+     * @SuppressWarnings("php:S110")
+     */
     public function testFileExportRetainsSubclassHooks(string $method): void
     {
         $grid = new class extends ExportGrid {
@@ -267,7 +284,12 @@ final class GridExportTest extends OpenMageTest
         yield ['getExcelFile', new Error('Renderer failed')];
     }
 
-    /** @dataProvider provideExportFailures */
+    /**
+     * Subclass the real Magento grid to throw from its export extension point.
+     *
+     * @dataProvider provideExportFailures
+     * @SuppressWarnings("php:S110")
+     */
     public function testFailedExportsCloseAndRemovePartialFiles(string $method, Throwable $failure): void
     {
         $grid = new class extends ExportGrid {

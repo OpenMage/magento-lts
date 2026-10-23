@@ -12,6 +12,9 @@ declare(strict_types=1);
 /**
  * Shared serialization and file handling for admin grid exports.
  * Grid preparation, collection loading and extension hooks stay in the blocks.
+ * Magento model aliases require underscore-separated class names.
+ *
+ * @SuppressWarnings("php:S101")
  */
 class Mage_Adminhtml_Model_Grid_Export
 {
@@ -100,13 +103,14 @@ class Mage_Adminhtml_Model_Grid_Export
     {
         $ioFile = new Varien_Io_File();
         $path = Mage::getBaseDir('var') . DS . 'export' . DS;
-        $file = $path . DS . md5(microtime()) . '.' . $extension;
+        $file = $path . DS . bin2hex(random_bytes(16)) . '.' . $extension;
         $ioFile->setAllowCreateFolders(true);
         $ioFile->open(['path' => $path]);
 
+        $ioFile->streamOpen($file, 'x+');
+
         $complete = false;
         try {
-            $ioFile->streamOpen($file, 'w+');
             $ioFile->streamLock(true);
             $write($ioFile);
             $complete = true;

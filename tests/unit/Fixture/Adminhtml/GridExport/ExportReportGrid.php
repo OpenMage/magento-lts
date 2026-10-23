@@ -16,6 +16,11 @@ use Mage_Reports_Model_Resource_Report_Collection;
 use Override;
 use Varien_Object;
 
+/**
+ * Exercise the real Magento grid hierarchy without changing production inheritance.
+ *
+ * @SuppressWarnings("php:S110")
+ */
 class ExportReportGrid extends Mage_Adminhtml_Block_Report_Grid
 {
     use ExportColumns;

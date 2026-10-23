@@ -40,6 +40,11 @@ trait ExportColumns
         }
     }
 
+    /**
+     * The overridden Magento hook requires its original method name.
+     *
+     * @SuppressWarnings("php:S100")
+     */
     #[Override]
     protected function _prepareGrid()
     {

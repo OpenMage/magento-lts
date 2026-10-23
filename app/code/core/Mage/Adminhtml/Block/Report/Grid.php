@@ -505,42 +505,54 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         foreach ($this->getCollection()->getIntervals() as $index => $interval) {
             $report = $this->getReport($interval['start'], $interval['end']);
             foreach ($report as $item) {
-                $row = [$formatField($index, false, false)];
-                foreach ($this->_columns as $column) {
-                    if (!$column->getIsSystem()) {
-                        $row[] = $formatField($column->getRowField($item), true, true);
-                    }
-                }
-
-                yield $row;
+                yield $this->getReportExportRow(
+                    $index,
+                    $formatField,
+                    static fn($column) => $formatField($column->getRowField($item), true, true),
+                );
             }
 
             if ($this->getCountTotals() && $this->getSubtotalVisibility()) {
-                $row = [$formatField($index, false, false)];
-                $position = 0;
-                foreach ($this->_columns as $column) {
-                    $position++;
-                    if (!$column->getIsSystem()) {
-                        $row[] = $position === 1
-                            ? $formatField($this->__('Subtotal'), false, false)
-                            : $formatField($column->getRowField($this->getTotals()), true, false);
-                    }
-                }
-
-                yield $row;
+                yield $this->getReportExportRow(
+                    $index,
+                    $formatField,
+                    fn($column, $position) => $position === 1
+                        ? $formatField($this->__('Subtotal'), false, false)
+                        : $formatField($column->getRowField($this->getTotals()), true, false),
+                );
             }
         }
 
         if ($this->getCountTotals()) {
-            $row = [$formatField($this->__('Total'), false, false)];
-            foreach ($this->_columns as $column) {
-                if (!$column->getIsSystem()) {
-                    $row[] = $formatField($column->getRowField($this->getGrandTotals()), true, false);
-                }
-            }
-
-            yield $row;
+            yield $this->getReportExportRow(
+                $this->__('Total'),
+                $formatField,
+                fn($column) => $formatField($column->getRowField($this->getGrandTotals()), true, false),
+            );
         }
+    }
+
+    /**
+     * Keep report labels and the original column positions when projecting a row.
+     * In particular, a leading system column still occupies the subtotal-label position.
+     *
+     * @template TValue
+     * @param  callable(mixed, bool, bool): TValue                            $formatField
+     * @param  callable(Mage_Adminhtml_Block_Widget_Grid_Column, int): TValue $formatColumn
+     * @return list<TValue>
+     */
+    protected function getReportExportRow(mixed $label, callable $formatField, callable $formatColumn): array
+    {
+        $row = [$formatField($label, false, false)];
+        $position = 0;
+        foreach ($this->_columns as $column) {
+            $position++;
+            if (!$column->getIsSystem()) {
+                $row[] = $formatColumn($column, $position);
+            }
+        }
+
+        return $row;
     }
 
     /**
