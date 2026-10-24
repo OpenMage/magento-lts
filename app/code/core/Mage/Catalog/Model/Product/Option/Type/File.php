@@ -27,12 +27,12 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     public const ERROR_FILESIZE_TOO_BIG                     = 'fileFilesSizeTooBig';
 
     /**
-     * Extensions refused for custom option uploads whatever catalog/custom_options/forbidden_extensions
-     * is set to: types a browser renders as an active document in the store origin. The configured
-     * list can only add to these, so a store that saved its own value before they were added to the
-     * default still refuses them.
+     * Types a browser renders as an active document in the store origin. They are refused for
+     * uploads to an option that has no "Allowed File Extensions" list, whatever
+     * catalog/custom_options/forbidden_extensions is set to. An option that lists one of them
+     * explicitly still accepts it; such stores must keep media/custom_options private.
      */
-    public const FORBIDDEN_EXTENSIONS_MINIMUM = ['htm', 'html', 'svg', 'svgz', 'xhtml', 'xht', 'xml', 'xsl', 'xslt'];
+    public const ACTIVE_CONTENT_EXTENSIONS = ['htm', 'html', 'svg', 'svgz', 'xhtml', 'xht', 'xml', 'xsl', 'xslt'];
 
     /**
      * Url for custom option download controller
@@ -236,11 +236,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $upload->addValidator('Extension', false, $_allowed);
         }
 
-        // Block both protected extensions and legacy forbidden_extensions for backwards compatibility
-        $_forbidden = array_unique(array_merge(
-            $this->_getProtectedFileExtensions(),
-            $this->_getForbiddenExtensions(),
-        ));
+        $_forbidden = $this->_getUploadForbiddenExtensions($_allowed);
         if ($_forbidden !== []) {
             $upload->addValidator('ExcludeExtension', false, $_forbidden);
         }
@@ -1010,6 +1006,25 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     }
 
     /**
+     * Extensions refused for a new upload to this option
+     *
+     * Protected extensions and the legacy forbidden_extensions always apply. Active-content
+     * types are added only when the option has no allowed-extension list, so a merchant who
+     * lists one of them explicitly keeps accepting it.
+     *
+     * @param  null|string[] $allowed The option's allowed extensions, null when it has none
+     * @return string[]
+     */
+    protected function _getUploadForbiddenExtensions(?array $allowed): array
+    {
+        return array_values(array_unique(array_merge(
+            $this->_getProtectedFileExtensions(),
+            $this->_getForbiddenExtensions(),
+            $allowed === null ? self::ACTIVE_CONTENT_EXTENSIONS : [],
+        )));
+    }
+
+    /**
      * Get legacy forbidden_extensions from config for backwards compatibility
      *
      * @return string[]
@@ -1025,12 +1040,6 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         foreach ((array) $extensions as $ext) {
             $ext = strtolower(trim($ext));
             if ($ext !== '') {
-                $result[] = $ext;
-            }
-        }
-
-        foreach (self::FORBIDDEN_EXTENSIONS_MINIMUM as $ext) {
-            if (!in_array($ext, $result, true)) {
                 $result[] = $ext;
             }
         }

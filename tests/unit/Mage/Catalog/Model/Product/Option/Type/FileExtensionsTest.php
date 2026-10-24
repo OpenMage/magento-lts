@@ -20,8 +20,8 @@ use ReflectionMethod;
 final class FileExtensionsTest extends OpenMageTest
 {
     /**
-     * The extensions a storefront custom option upload must refuse even when the
-     * option has no allowed-extension list of its own.
+     * Extensions a storefront custom option upload refuses when the option has
+     * no allowed-extension list of its own.
      */
     public static function blockedExtensionProvider(): Iterator
     {
@@ -44,50 +44,67 @@ final class FileExtensionsTest extends OpenMageTest
     /**
      * @dataProvider blockedExtensionProvider
      */
-    public function testUploadDenylistContains(string $extension): void
+    public function testUnlistedOptionRefuses(string $extension): void
     {
-        self::assertContains($extension, $this->denylist());
+        self::assertContains($extension, $this->uploadForbidden(null));
     }
 
-    public function testUploadDenylistLeavesCommonTypesAlone(): void
+    public function testUnlistedOptionLeavesCommonTypesAlone(): void
     {
-        $denylist = $this->denylist();
+        $forbidden = $this->uploadForbidden(null);
         foreach (['jpg', 'jpeg', 'png', 'gif', 'pdf', 'txt', 'zip'] as $extension) {
-            self::assertNotContains($extension, $denylist);
+            self::assertNotContains($extension, $forbidden);
         }
     }
 
     /**
-     * A saved catalog/custom_options/forbidden_extensions value from before the active-content
-     * types were added to the default must not let them through (GHSA-4fxg-469f-r6fc).
+     * An option that lists an active-content type keeps accepting it, as before the
+     * GHSA-4fxg-469f-r6fc fix; script extensions stay refused.
      */
-    public function testForbiddenExtensionsKeepTheMinimumWhenConfigIsShorter(): void
+    public function testListedOptionKeepsActiveContentTypes(): void
+    {
+        $forbidden = $this->uploadForbidden(['svg', 'xml', 'png']);
+        foreach (['svg', 'svgz', 'xml', 'xsl', 'xslt', 'xhtml', 'xht'] as $extension) {
+            self::assertNotContains($extension, $forbidden);
+        }
+
+        foreach (['php', 'phar', 'phtml', 'exe'] as $extension) {
+            self::assertContains($extension, $forbidden);
+        }
+    }
+
+    /**
+     * The configured catalog/custom_options/forbidden_extensions list applies whether or
+     * not the option has an allowed-extension list.
+     */
+    public function testConfiguredForbiddenExtensionsAlwaysApply(): void
     {
         $subject = $this->createPartialMock(Subject::class, ['getConfigData']);
         $subject->method('getConfigData')->with('forbidden_extensions')->willReturn('exe, Foo');
 
-        $forbidden = (new ReflectionMethod(Subject::class, '_getForbiddenExtensions'))->invoke($subject);
-        self::assertIsArray($forbidden);
+        self::assertSame(
+            ['exe', 'foo'],
+            (new ReflectionMethod(Subject::class, '_getForbiddenExtensions'))->invoke($subject),
+        );
 
-        self::assertSame(['exe', 'foo'], array_slice($forbidden, 0, 2));
-        foreach (Subject::FORBIDDEN_EXTENSIONS_MINIMUM as $extension) {
-            self::assertContains($extension, $forbidden);
+        $method = new ReflectionMethod(Subject::class, '_getUploadForbiddenExtensions');
+        foreach ([null, ['png']] as $allowed) {
+            $forbidden = $method->invoke($subject, $allowed);
+            self::assertIsArray($forbidden);
+            self::assertContains('foo', $forbidden);
+            self::assertSame(array_values(array_unique($forbidden)), $forbidden);
         }
-
-        self::assertSame(array_unique($forbidden), $forbidden);
     }
 
     /**
+     * @param  null|string[] $allowed
      * @return string[]
      */
-    private function denylist(): array
+    private function uploadForbidden(?array $allowed): array
     {
         /** @var Subject $subject */
         $subject = Mage::getModel('catalog/product_option_type_file');
 
-        return array_merge(
-            (new ReflectionMethod(Subject::class, '_getProtectedFileExtensions'))->invoke($subject),
-            (new ReflectionMethod(Subject::class, '_getForbiddenExtensions'))->invoke($subject),
-        );
+        return (new ReflectionMethod(Subject::class, '_getUploadForbiddenExtensions'))->invoke($subject, $allowed);
     }
 }
