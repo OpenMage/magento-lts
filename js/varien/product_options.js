@@ -12,12 +12,19 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
+/**
+ * Rewritten to vanilla JS — no Prototype.js dependency.
+ */
+
 var Product = Product || {};
 
 /**************************** PRICE RELOADER ********************************/
-Product.OptionsPrice = Class.create();
+Product.OptionsPrice = function () {
+    this.initialize(...arguments);
+};
+
 Product.OptionsPrice.prototype = {
-    initialize: function(config) {
+    initialize: function (config) {
         this.productId          = config.productId;
         this.priceFormat        = config.priceFormat;
         this.includeTax         = config.includeTax;
@@ -35,9 +42,9 @@ Product.OptionsPrice.prototype = {
         this.tierPrices         = config.tierPrices;
         this.tierPricesInclTax  = config.tierPricesInclTax;
 
-        this.oldPlusDisposition = config.oldPlusDisposition;
-        this.plusDisposition    = config.plusDisposition;
-        this.plusDispositionTax = config.plusDispositionTax;
+        this.oldPlusDisposition  = config.oldPlusDisposition;
+        this.plusDisposition     = config.plusDisposition;
+        this.plusDispositionTax  = config.plusDispositionTax;
 
         this.oldMinusDisposition = config.oldMinusDisposition;
         this.minusDisposition    = config.minusDisposition;
@@ -48,16 +55,16 @@ Product.OptionsPrice.prototype = {
         this.customPrices   = {};
         this.containers     = {};
 
-        this.displayZeroPrice   = true;
+        this.displayZeroPrice = true;
 
         this.initPrices();
     },
 
-    setDuplicateIdSuffix: function(idSuffix) {
+    setDuplicateIdSuffix: function (idSuffix) {
         this.duplicateIdSuffix = idSuffix;
     },
 
-    initPrices: function() {
+    initPrices: function () {
         this.containers[0] = 'product-price-' + this.productId;
         this.containers[1] = 'bundle-price-' + this.productId;
         this.containers[2] = 'price-including-tax-' + this.productId;
@@ -65,97 +72,106 @@ Product.OptionsPrice.prototype = {
         this.containers[4] = 'old-price-' + this.productId;
     },
 
-    changePrice: function(key, price) {
+    changePrice: function (key, price) {
         this.optionPrices[key] = price;
     },
 
-    addCustomPrices: function(key, price) {
+    addCustomPrices: function (key, price) {
         this.customPrices[key] = price;
     },
-    getOptionPrices: function() {
-        var price = 0;
-        var nonTaxable = 0;
-        var oldPrice = 0;
-        var priceInclTax = 0;
-        var currentTax = this.currentTax;
-        $H(this.optionPrices).each(function(pair) {
-            if ('undefined' != typeof(pair.value.price) && 'undefined' != typeof(pair.value.oldPrice)) {
-                price += parseFloat(pair.value.price);
-                oldPrice += parseFloat(pair.value.oldPrice);
-            } else if (pair.key == 'nontaxable') {
-                nonTaxable = pair.value;
-            } else if (pair.key == 'priceInclTax') {
-                priceInclTax += pair.value;
-            } else if (pair.key == 'optionsPriceInclTax') {
-                priceInclTax += pair.value * (100 + currentTax) / 100;
+
+    getOptionPrices: function () {
+        let price = 0;
+        let nonTaxable = 0;
+        let oldPrice = 0;
+        let priceInclTax = 0;
+        const currentTax = this.currentTax;
+        const optionPrices = this.optionPrices;
+
+        Object.keys(optionPrices).forEach(function (key) {
+            const value = optionPrices[key];
+            if ('undefined' != typeof(value.price) && 'undefined' != typeof(value.oldPrice)) {
+                price += parseFloat(value.price);
+                oldPrice += parseFloat(value.oldPrice);
+            } else if (key == 'nontaxable') {
+                nonTaxable = value;
+            } else if (key == 'priceInclTax') {
+                priceInclTax += value;
+            } else if (key == 'optionsPriceInclTax') {
+                priceInclTax += value * (100 + currentTax) / 100;
             } else {
-                price += parseFloat(pair.value);
-                oldPrice += parseFloat(pair.value);
+                price += parseFloat(value);
+                oldPrice += parseFloat(value);
             }
         });
+
         return [price, nonTaxable, oldPrice, priceInclTax];
     },
 
-    reload: function() {
-        var price;
-        var formattedPrice;
-        var optionPrices = this.getOptionPrices();
-        var nonTaxable = optionPrices[1];
-        var optionOldPrice = optionPrices[2];
-        var priceInclTax = optionPrices[3];
+    reload: function () {
+        const self = this;
+        let price;
+        let formattedPrice;
+        let optionPrices = this.getOptionPrices();
+        const nonTaxable = optionPrices[1];
+        const optionOldPrice = optionPrices[2];
+        const priceInclTax = optionPrices[3];
         optionPrices = optionPrices[0];
 
-        $H(this.containers).each(function(pair) {
-            var _productPrice;
-            var _plusDisposition;
-            var _minusDisposition;
-            var _priceInclTax;
-            var excl;
-            var incl;
-            var tax;
+        Object.keys(this.containers).forEach(function (key) {
+            let containerId = self.containers[key];
+            let _productPrice;
+            let _plusDisposition;
+            let _minusDisposition;
+            let _priceInclTax;
+            let excl;
+            let incl;
+            let tax;
 
-            if ($(pair.value) == null) {
-                pair.value = "product-price-weee-" + this.productId;
+            if (!document.getElementById(containerId)) {
+                containerId = 'product-price-weee-' + self.productId;
             }
-            if ($(pair.value)) {
-                if (pair.value == 'old-price-'+this.productId && this.productOldPrice != this.productPrice) {
-                    _productPrice = this.productOldPrice;
-                    _plusDisposition = this.oldPlusDisposition;
-                    _minusDisposition = this.oldMinusDisposition;
+
+            const el = document.getElementById(containerId);
+            if (el) {
+                if (containerId == 'old-price-' + self.productId && self.productOldPrice != self.productPrice) {
+                    _productPrice = self.productOldPrice;
+                    _plusDisposition = self.oldPlusDisposition;
+                    _minusDisposition = self.oldMinusDisposition;
                 } else {
-                    _productPrice = this.productPrice;
-                    _plusDisposition = this.plusDisposition;
-                    _minusDisposition = this.minusDisposition;
+                    _productPrice = self.productPrice;
+                    _plusDisposition = self.plusDisposition;
+                    _minusDisposition = self.minusDisposition;
                 }
                 _priceInclTax = priceInclTax;
 
-                if (pair.value == 'old-price-'+this.productId && optionOldPrice !== undefined) {
-                    price = optionOldPrice+parseFloat(_productPrice);
-                } else if (this.specialTaxPrice == 'true' && this.priceInclTax !== undefined && this.priceExclTax !== undefined) {
-                    price = optionPrices+parseFloat(this.priceExclTax);
-                    _priceInclTax += this.priceInclTax;
+                if (containerId == 'old-price-' + self.productId && optionOldPrice !== undefined) {
+                    price = optionOldPrice + parseFloat(_productPrice);
+                } else if (self.specialTaxPrice == 'true' && self.priceInclTax !== undefined && self.priceExclTax !== undefined) {
+                    price = optionPrices + parseFloat(self.priceExclTax);
+                    _priceInclTax += self.priceInclTax;
                 } else {
-                    price = optionPrices+parseFloat(_productPrice);
-                    _priceInclTax += parseFloat(_productPrice) * (100 + this.currentTax) / 100;
+                    price = optionPrices + parseFloat(_productPrice);
+                    _priceInclTax += parseFloat(_productPrice) * (100 + self.currentTax) / 100;
                 }
 
-                if (this.specialTaxPrice == 'true') {
+                if (self.specialTaxPrice == 'true') {
                     excl = price;
                     incl = _priceInclTax;
-                } else if (this.includeTax == 'true') {
-                    // tax = tax included into product price by admin
-                    tax = price / (100 + this.defaultTax) * this.defaultTax;
+                } else if (self.includeTax == 'true') {
+                    // tax included into product price by admin
+                    tax = price / (100 + self.defaultTax) * self.defaultTax;
                     excl = price - tax;
-                    incl = excl*(1+(this.currentTax/100));
+                    incl = excl * (1 + (self.currentTax / 100));
                 } else {
-                    tax = price * (this.currentTax / 100);
+                    tax = price * (self.currentTax / 100);
                     excl = price;
                     incl = excl + tax;
                 }
 
-                var subPrice = 0;
-                var subPriceincludeTax = 0;
-                Object.values(this.customPrices).each(function(el){
+                let subPrice = 0;
+                let subPriceincludeTax = 0;
+                Object.values(self.customPrices).forEach(function (el) {
                     if (el.excludeTax && el.includeTax) {
                         subPrice += parseFloat(el.excludeTax);
                         subPriceincludeTax += parseFloat(el.includeTax);
@@ -167,114 +183,102 @@ Product.OptionsPrice.prototype = {
                 excl += subPrice;
                 incl += subPriceincludeTax;
 
-                if (typeof this.exclDisposition == 'undefined') {
+                if (typeof self.exclDisposition == 'undefined') {
                     excl += parseFloat(_plusDisposition);
                 }
 
-                incl += parseFloat(_plusDisposition) + parseFloat(this.plusDispositionTax);
+                incl += parseFloat(_plusDisposition) + parseFloat(self.plusDispositionTax);
                 excl -= parseFloat(_minusDisposition);
                 incl -= parseFloat(_minusDisposition);
 
-                //adding nontaxlable part of options
+                // adding nontaxable part of options
                 excl += parseFloat(nonTaxable);
                 incl += parseFloat(nonTaxable);
 
-                if (pair.value == 'price-including-tax-'+this.productId) {
+                if (containerId == 'price-including-tax-' + self.productId) {
                     price = incl;
-                } else if (pair.value == 'price-excluding-tax-'+this.productId) {
+                } else if (containerId == 'price-excluding-tax-' + self.productId) {
                     price = excl;
-                } else if (pair.value == 'old-price-'+this.productId) {
-                    if (this.showIncludeTax || this.showBothPrices) {
-                        price = incl;
-                    } else {
-                        price = excl;
-                    }
+                } else if (containerId == 'old-price-' + self.productId) {
+                    price = (self.showIncludeTax || self.showBothPrices) ? incl : excl;
                 } else {
-                    if (this.showIncludeTax) {
-                        price = incl;
-                    } else {
-                        price = excl;
-                    }
+                    price = self.showIncludeTax ? incl : excl;
                 }
 
                 if (price < 0) price = 0;
 
-                if (price > 0 || this.displayZeroPrice) {
-                    formattedPrice = this.formatPrice(price);
-                } else {
-                    formattedPrice = '';
-                }
+                formattedPrice = (price > 0 || self.displayZeroPrice) ? self.formatPrice(price) : '';
 
-                if ($(pair.value).select('.price')[0]) {
-                    $(pair.value).select('.price')[0].innerHTML = formattedPrice;
-                    if ($(pair.value+this.duplicateIdSuffix) && $(pair.value+this.duplicateIdSuffix).select('.price')[0]) {
-                        $(pair.value+this.duplicateIdSuffix).select('.price')[0].innerHTML = formattedPrice;
+                const priceEl = el.querySelector('.price');
+                if (priceEl) {
+                    priceEl.innerHTML = formattedPrice;
+                    var dupEl = document.getElementById(containerId + self.duplicateIdSuffix);
+                    if (dupEl) {
+                        const dupPriceEl = dupEl.querySelector('.price');
+                        if (dupPriceEl) dupPriceEl.innerHTML = formattedPrice;
                     }
                 } else {
-                    $(pair.value).innerHTML = formattedPrice;
-                    if ($(pair.value+this.duplicateIdSuffix)) {
-                        $(pair.value+this.duplicateIdSuffix).innerHTML = formattedPrice;
-                    }
+                    el.innerHTML = formattedPrice;
+                    var dupEl = document.getElementById(containerId + self.duplicateIdSuffix);
+                    if (dupEl) dupEl.innerHTML = formattedPrice;
                 }
-            };
-        }.bind(this));
+            }
+        });
 
-        if (typeof(skipTierPricePercentUpdate) === "undefined" && typeof(this.tierPrices) !== "undefined") {
-            for (var i = 0; i < this.tierPrices.length; i++) {
-                $$('.benefit').each(function(el) {
-                    var parsePrice = function(html) {
-                        var format = this.priceFormat;
-                        var decimalSymbol = format.decimalSymbol === undefined ? "," : format.decimalSymbol;
-                        var regexStr = '[^0-9-' + decimalSymbol + ']';
-                        //remove all characters except number and decimal symbol
+        if (typeof(skipTierPricePercentUpdate) === 'undefined' && typeof(this.tierPrices) !== 'undefined') {
+            for (let i = 0; i < this.tierPrices.length; i++) {
+                document.querySelectorAll('.benefit').forEach(function (benefitEl) {
+                    const parsePrice = function (html) {
+                        const format = self.priceFormat;
+                        const decimalSymbol = format.decimalSymbol === undefined ? ',' : format.decimalSymbol;
+                        const regexStr = '[^0-9-' + decimalSymbol + ']';
                         html = html.replace(new RegExp(regexStr, 'g'), '');
                         html = html.replace(decimalSymbol, '.');
                         return parseFloat(html);
-                    }.bind(this);
+                    };
 
-                    var updateTierPriceInfo = function(priceEl, tierPriceDiff, tierPriceEl, benefitEl) {
-                        if (typeof(tierPriceEl) === "undefined") {
-                            //tierPrice is not shown, e.g., MAP, no need to update the tier price info
+                    const updateTierPriceInfo = function (priceEl, tierPriceDiff, tierPriceEl, el) {
+                        if (typeof(tierPriceEl) === 'undefined') {
                             return;
                         }
-                        var price = parsePrice(priceEl.innerHTML);
-                        var tierPrice = price + tierPriceDiff;
+                        const price = parsePrice(priceEl.innerHTML);
+                        const tierPrice = price + tierPriceDiff;
 
-                        tierPriceEl.innerHTML = this.formatPrice(tierPrice);
+                        tierPriceEl.innerHTML = self.formatPrice(tierPrice);
 
-                        var $percent = Selector.findChildElements(benefitEl, ['.percent.tier-' + i]);
-                        $percent.each(function(el) {
-                            el.innerHTML = Math.ceil(100 - ((100 / price) * tierPrice));
+                        el.querySelectorAll('.percent.tier-' + i).forEach(function (percentEl) {
+                            percentEl.innerHTML = Math.ceil(100 - ((100 / price) * tierPrice));
                         });
-                    }.bind(this);
+                    };
 
-                    var tierPriceElArray = $$('.tier-price.tier-' + i + ' .price');
-                    if (this.showBothPrices) {
-                        var containerExclTax = $(this.containers[3]);
-                        var tierPriceExclTaxDiff = this.tierPrices[i];
+                    const tierPriceElArray = document.querySelectorAll('.tier-price.tier-' + i + ' .price');
+                    if (self.showBothPrices) {
+                        const containerExclTax = document.getElementById(self.containers[3]);
+                        var tierPriceExclTaxDiff = self.tierPrices[i];
                         var tierPriceExclTaxEl = tierPriceElArray[0];
-                        updateTierPriceInfo(containerExclTax, tierPriceExclTaxDiff, tierPriceExclTaxEl, el);
-                        var containerInclTax = $(this.containers[2]);
-                        var tierPriceInclTaxDiff = this.tierPricesInclTax[i];
+                        updateTierPriceInfo(containerExclTax, tierPriceExclTaxDiff, tierPriceExclTaxEl, benefitEl);
+                        const containerInclTax = document.getElementById(self.containers[2]);
+                        var tierPriceInclTaxDiff = self.tierPricesInclTax[i];
                         var tierPriceInclTaxEl = tierPriceElArray[1];
-                        updateTierPriceInfo(containerInclTax, tierPriceInclTaxDiff, tierPriceInclTaxEl, el);
-                    } else if (this.showIncludeTax) {
-                        var container = $(this.containers[0]);
-                        var tierPriceInclTaxDiff = this.tierPricesInclTax[i];
+                        updateTierPriceInfo(containerInclTax, tierPriceInclTaxDiff, tierPriceInclTaxEl, benefitEl);
+                    } else if (self.showIncludeTax) {
+                        var container = document.getElementById(self.containers[0]);
+                        var tierPriceInclTaxDiff = self.tierPricesInclTax[i];
                         var tierPriceInclTaxEl = tierPriceElArray[0];
-                        updateTierPriceInfo(container, tierPriceInclTaxDiff, tierPriceInclTaxEl, el);
+                        updateTierPriceInfo(container, tierPriceInclTaxDiff, tierPriceInclTaxEl, benefitEl);
                     } else {
-                        var container = $(this.containers[0]);
-                        var tierPriceExclTaxDiff = this.tierPrices[i];
+                        var container = document.getElementById(self.containers[0]);
+                        var tierPriceExclTaxDiff = self.tierPrices[i];
                         var tierPriceExclTaxEl = tierPriceElArray[0];
-                        updateTierPriceInfo(container, tierPriceExclTaxDiff, tierPriceExclTaxEl, el);
+                        updateTierPriceInfo(container, tierPriceExclTaxDiff, tierPriceExclTaxEl, benefitEl);
                     }
-                }, this);
+                });
             }
         }
-
     },
-    formatPrice: function(price) {
+
+    formatPrice: function (price) {
         return formatCurrency(price, this.priceFormat);
     }
 };
+Varien.classCompat(Product.OptionsPrice);
