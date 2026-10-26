@@ -73,9 +73,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      */
     public function getImage()
     {
-        if (is_null($this->_image)) {
-            $this->_image = $this->_getResource()->getImage($this);
-        }
+        $this->_image ??= $this->_getResource()->getImage($this);
 
         return $this->_image;
     }

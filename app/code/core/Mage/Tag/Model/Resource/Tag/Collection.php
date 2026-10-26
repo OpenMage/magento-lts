@@ -206,9 +206,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
             $tagsRaw = $this->getConnection()->fetchAll($select);
 
             foreach ($tagsRaw as $tag) {
-                if (!isset($tagsStores[$tag['tag_id']])) {
-                    $tagsStores[$tag['tag_id']] = [];
-                }
+                $tagsStores[$tag['tag_id']] ??= [];
 
                 $tagsStores[$tag['tag_id']][] = $tag['store_id'];
             }

@@ -92,15 +92,11 @@ class Mage_Core_Model_Design_Package
 
     public function __construct()
     {
-        if (is_null($this->_config)) {
-            $this->_config = Mage::getSingleton('core/design_config');
-        }
+        $this->_config ??= Mage::getSingleton('core/design_config');
 
-        if (is_null($this->_fallback)) {
-            $this->_fallback = Mage::getSingleton('core/design_fallback', [
-                'config' => $this->_config,
-            ]);
-        }
+        $this->_fallback ??= Mage::getSingleton('core/design_fallback', [
+            'config' => $this->_config,
+        ]);
     }
 
     /**
@@ -148,9 +144,7 @@ class Mage_Core_Model_Design_Package
      */
     public function getArea()
     {
-        if (is_null($this->_area)) {
-            $this->_area = self::DEFAULT_AREA;
-        }
+        $this->_area ??= self::DEFAULT_AREA;
 
         return $this->_area;
     }

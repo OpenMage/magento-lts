@@ -65,9 +65,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
      */
     public function getStore()
     {
-        if (is_null($this->_store)) {
-            $this->_store = Mage::app()->getStore();
-        }
+        $this->_store ??= Mage::app()->getStore();
 
         return $this->_store;
     }

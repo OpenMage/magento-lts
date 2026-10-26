@@ -227,7 +227,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
 
                     $colsAbsent = array_diff($attributes, $fileData);
-                    if ($colsAbsent) {
+                    if ($colsAbsent !== []) {
                         foreach ($newUploadedFilenames as $newUploadedFilename) {
                             unlink($path . $newUploadedFilename);
                         }

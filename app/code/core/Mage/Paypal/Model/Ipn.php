@@ -707,7 +707,7 @@ class Mage_Paypal_Model_Ipn
             $fraudFilters[] = $value;
         }
 
-        if ($fraudFilters) {
+        if ($fraudFilters !== []) {
             $from[Mage_Paypal_Model_Info::FRAUD_FILTERS] = $fraudFilters;
         }
 
@@ -720,7 +720,7 @@ class Mage_Paypal_Model_Ipn
          */
         if ($this->_info::isPaymentReviewRequired($payment)) {
             $payment->setIsTransactionPending(true);
-            if ($fraudFilters) {
+            if ($fraudFilters !== []) {
                 $payment->setIsFraudDetected(true);
             }
         }
