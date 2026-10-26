@@ -280,8 +280,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         $baseShipping = $address->getBaseShippingTaxable();
         $rateKey = ($taxId == null) ? (string) $rate : $taxId;
 
-        $hiddenTax = null;
-        $baseHiddenTax = null;
         switch ($this->_helper->getCalculationSequence($this->_store)) {
             case Mage_Tax_Model_Calculation::CALC_TAX_BEFORE_DISCOUNT_ON_EXCL:
             case Mage_Tax_Model_Calculation::CALC_TAX_BEFORE_DISCOUNT_ON_INCL:
@@ -543,10 +541,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         $isWeeeEnabled = $this->_weeeHelper->isEnabled();
         $isWeeeTaxable = $this->_weeeHelper->isTaxable();
 
-        $hiddenTax = null;
-        $baseHiddenTax = null;
-        $weeeTax = null;
-        $baseWeeeTax = null;
         $unitTaxBeforeDiscount = null;
         $weeeTaxBeforeDiscount = null;
         $baseUnitTaxBeforeDiscount = null;
@@ -824,10 +818,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         $isWeeeEnabled = $this->_weeeHelper->isEnabled();
         $isWeeeTaxable = $this->_weeeHelper->isTaxable();
 
-        $hiddenTax = null;
-        $baseHiddenTax = null;
-        $weeeTax = null;
-        $baseWeeeTax = null;
         $rowTaxBeforeDiscount = null;
         $baseRowTaxBeforeDiscount = null;
         $weeeRowTaxBeforeDiscount = null;
@@ -1364,9 +1354,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         $totalWeeeAmountExclTax = 0;
 
         foreach ($this->_weeeHelper->getApplied($item) as $tax) {
-            $weeeAmountInclTax = 0;
-            $weeeAmountExclTax = 0;
-
             if ($base) {
                 $weeeAmountInclTax = $tax['base_amount_incl_tax'] ?? 0;
                 $weeeAmountExclTax = $tax['base_amount'] ?? 0;
@@ -1421,9 +1408,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         $totalWeeeAmountExclTax = 0;
 
         foreach ($this->_weeeHelper->getApplied($item) as $tax) {
-            $weeeAmountInclTax = 0;
-            $weeeAmountExclTax = 0;
-
             if ($base) {
                 $weeeAmountInclTax = $tax['base_row_amount_incl_tax'] ?? 0;
                 $weeeAmountExclTax = $tax['base_row_amount'] ?? 0;

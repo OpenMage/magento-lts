@@ -1717,11 +1717,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Api.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $filename of method Mage_Core_Helper_File_Storage_Database::saveFileToFilesystem() expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $shorthand of function ini_parse_quantity expects string, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
@@ -3457,11 +3452,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $update of method Mage_Core_Model_Layout_Update::addUpdate() expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Update.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $updates of method Mage_Core_Model_Layout_Update::addFallbackThemesLayoutUpdates() expects Mage_Core_Model_Config_Element, Mage_Core_Model_Config_Element|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Update.php',
@@ -3600,11 +3590,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $websiteId of method Mage_Core_Model_Resource_Store_Group::_updateStoreWebsite() expects int, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Store/Group.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $host of method Mage_Core_Model_Session_Abstract::addHost() expects string, true given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Session/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $callback of function call_user_func expects callable(): mixed, string given.',
@@ -4278,11 +4263,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $object of method Mage_Eav_Model_Config::getEntityAttributeCodes() expects Varien_Object|null, object|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 of function sprintf is expected to be int by placeholder #2 ("%%d"), int<min, -1>|int<1, max>|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Abstract.php',
 ];
@@ -8220,11 +8200,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #3 $type of method Zend_Db_Select::where() expects int|null, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $params of method Varien_Db_Statement_Pdo_Mysql::_executeWithBinding() expects array, array|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Statement/Pdo/Mysql.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $haystack of function strpos expects string, int|list<mixed>|object|string given.',

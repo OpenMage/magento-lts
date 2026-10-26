@@ -442,7 +442,6 @@ class Mage_Sales_Model_Observer
         $merchantCountryCode = $coreHelper->getMerchantCountryCode();
         $merchantVatNumber = $coreHelper->getMerchantVatNumber();
 
-        $gatewayResponse = null;
         if ($addressHelper->getValidateOnEachTransaction($storeId)
             || $customerCountryCode != $quoteAddress->getValidatedCountryCode()
             || $customerVatNumber != $quoteAddress->getValidatedVatNumber()

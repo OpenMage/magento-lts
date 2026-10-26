@@ -1336,8 +1336,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $attrTable = $this->_getAttributeTableAlias($attributeCode);
         if (isset($this->_joinAttributes[$attributeCode])) {
             $attribute      = $this->_joinAttributes[$attributeCode]['attribute'];
-            $entity         = $attribute->getEntity();
-            $entityIdField  = $entity->getEntityIdField();
             $fkName         = $this->_joinAttributes[$attributeCode]['bind'];
             $fkAttribute    = $this->_joinAttributes[$attributeCode]['bindAttribute'];
             $fkTable        = $this->_getAttributeTableAlias($fkName);

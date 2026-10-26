@@ -836,8 +836,6 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             Mage::getModel('catalog/category')->setId(1)->setPath(1)->save();
         }
 
-        $categories = [];
-
         $select = $this->getConnection()->select();
         $select->from($this->getTable('catalog/category'));
 

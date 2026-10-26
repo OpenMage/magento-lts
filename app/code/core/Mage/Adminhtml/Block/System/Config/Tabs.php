@@ -311,7 +311,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
             return false;
         }
 
-        if (!$permissions) {
+        if ($permissions === null) {
             $permissions = Mage::getSingleton('admin/session');
         }
 

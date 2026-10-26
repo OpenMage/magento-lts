@@ -1077,7 +1077,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $anchorStmt->limit(); //reset limits
                 $anchorStmt->where('count_table.category_id IN (?)', $isAnchor);
                 $productCounts += $this->getConnection()->fetchPairs($anchorStmt);
-                $anchorStmt = null;
+                $anchorStmt = null; /** @phpstan-ignore assign.unused */
             }
 
             if ($isNotAnchor !== []) {
@@ -1086,10 +1086,10 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $notAnchorStmt->where('count_table.category_id IN (?)', $isNotAnchor);
                 $notAnchorStmt->where('count_table.is_parent = 1');
                 $productCounts += $this->getConnection()->fetchPairs($notAnchorStmt);
-                $notAnchorStmt = null;
+                $notAnchorStmt = null; /** @phpstan-ignore assign.unused */
             }
 
-            $select = null;
+            $select = null; /** @phpstan-ignore assign.unused */
             $this->unsProductCountSelect();
         }
 
@@ -2125,11 +2125,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $item->unsStockItem();
             }
 
-            $item = $this->_items[$itemId] = null;
+            $item = $this->_items[$itemId] = null; /** @phpstan-ignore assign.overwritten */
         }
 
         foreach ($this->_itemsById as $itemId => $item) {
-            $item = $this->_itemsById[$itemId] = null;
+            $item = $this->_itemsById[$itemId] = null; /** @phpstan-ignore assign.overwritten */
         }
 
         unset($this->_items, $this->_data, $this->_itemsById);

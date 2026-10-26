@@ -206,7 +206,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 $websiteId = 0;
             } else {
                 $websiteId = (int) Mage::app()->getStore($this->getStoreId())->getWebsiteId();
-                $pricing[$websiteId] = [];
             }
 
             $select = $this->getConnection()->select()

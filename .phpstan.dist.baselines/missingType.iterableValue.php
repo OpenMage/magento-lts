@@ -16413,7 +16413,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var for variable $saveData has no value type specified in iterable type array.',
-    'count' => 4,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Abstract.php',
 ];
 $ignoreErrors[] = [

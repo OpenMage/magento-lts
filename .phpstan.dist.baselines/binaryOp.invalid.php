@@ -157,11 +157,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "*" between string|false|null and 0.3 results in an error.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Binary operation "+" between int<0, max> and string|false|null results in an error.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php',

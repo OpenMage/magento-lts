@@ -27,24 +27,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Foreach overwrites $type with its key variable.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Quote.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Foreach overwrites $wsName with its key variable.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Convert/Parser/Xml/Excel.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Foreach overwrites $correlationName with its key variable.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Db/Adapter/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Foreach overwrites $field with its key variable.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object.php',
 ];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

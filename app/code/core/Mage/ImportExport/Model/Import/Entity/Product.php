@@ -1194,7 +1194,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         $adapter = $this->_connection;
 
         // pre-load 'position' attributes ID for each link type once
-        foreach ($this->_linkNameToId as $linkName => $linkId) {
+        foreach ($this->_linkNameToId as $linkId) {
             $select = $adapter->select()
                 ->from(
                     $resource->getTable('catalog/product_link_attribute'),
@@ -1355,7 +1355,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         static $tableName = null;
 
-        if (!$tableName) {
+        if ($tableName === null) {
             $tableName = Mage::getModel('importexport/import_proxy_product_resource')->getProductCategoryTable();
         }
 
@@ -1400,7 +1400,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         static $entityTable = null;
 
-        if (!$entityTable) {
+        if ($entityTable === null) {
             $entityTable = Mage::getModel('importexport/import_proxy_product_resource')->getEntityTable();
         }
 
@@ -1726,7 +1726,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         static $tableName = null;
 
-        if (!$tableName) {
+        if ($tableName === null) {
             $tableName = Mage::getModel('importexport/import_proxy_product_resource')
                     ->getTable('catalog/product_attribute_tier_price');
         }
@@ -1771,7 +1771,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         static $tableName = null;
 
-        if (!$tableName) {
+        if ($tableName === null) {
             $tableName = Mage::getModel('importexport/import_proxy_product_resource')
                 ->getTable('catalog/product_attribute_group_price');
         }
@@ -1870,12 +1870,12 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         static $mediaValueTableName = null;
         static $productId = null;
 
-        if (!$mediaGalleryTableName) {
+        if ($mediaGalleryTableName === null) {
             $mediaGalleryTableName = Mage::getModel('importexport/import_proxy_product_resource')
                     ->getTable('catalog/product_attribute_media_gallery');
         }
 
-        if (!$mediaValueTableName) {
+        if ($mediaValueTableName === null) {
             $mediaValueTableName = Mage::getModel('importexport/import_proxy_product_resource')
                     ->getTable('catalog/product_attribute_media_gallery_value');
         }
@@ -1947,7 +1947,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         static $tableName = null;
 
-        if (!$tableName) {
+        if ($tableName === null) {
             $tableName = Mage::getModel('importexport/import_proxy_product_resource')->getProductWebsiteTable();
         }
 

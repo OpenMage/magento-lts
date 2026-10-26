@@ -406,15 +406,5 @@ $ignoreErrors[] = [
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Io/File.php',
 ];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset (int|string) on array|object.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset mixed on array|object.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
-];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];
