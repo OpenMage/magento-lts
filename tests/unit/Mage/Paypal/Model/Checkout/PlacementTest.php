@@ -23,6 +23,7 @@ use Mage_Paypal_Model_Helper;
 use Mage_Paypal_Model_Payment;
 use Mage_Paypal_Model_Transaction;
 use Mage_Sales_Model_Order;
+use Mage_Sales_Model_Order_Payment_Transaction;
 use Mage_Sales_Model_Quote;
 use Mage_Sales_Model_Quote_Payment;
 use Mage_Sales_Model_Service_Quote;
@@ -355,6 +356,7 @@ final class PlacementTest extends OpenMageTest
         /** @var Mage_Sales_Model_Quote_Payment&MockObject $payment */
         $payment = $quote->getPayment();
         $payment->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID, self::PAYPAL_ORDER_ID);
+        $payment->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID, self::PAYPAL_ORDER_ID);
         $payment->expects(self::once())->method('save');
 
         $subject = $this->buildSubject($helper, [null], ['placeApprovedOrder']);
@@ -362,14 +364,16 @@ final class PlacementTest extends OpenMageTest
         $subject->expects(self::never())->method('placeApprovedOrder');
 
         self::assertNull($subject->resolvePendingCharge($quote));
-        self::assertNull($quote->getPayment()->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID));
+        self::assertNull($payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID));
+        self::assertTrue($payment->hasData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID));
+        self::assertNull($payment->getData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID));
     }
 
     /**
      * @dataProvider provideChargedPendingQuotes
      * @group Model
      */
-    public function testResolvePendingChargePlacesAChargedPayment(bool $hasRecordedCapture): void
+    public function testResolvePendingChargePlacesAChargedPayment(bool $hasRecordedCapture, string $captureStatus): void
     {
         $order = Mage::getModel('sales/order')->setId(7);
         $helper = $this->createMock(Mage_Paypal_Model_Helper::class);
@@ -378,9 +382,9 @@ final class PlacementTest extends OpenMageTest
         $helper->method('acquirePaypalOrderLock')->willReturn(true);
 
         $subject = $this->buildSubject($helper, [null], ['placeApprovedOrder']);
-        $subject->expects($hasRecordedCapture ? self::never() : self::once())
+        $subject->expects(self::once())
             ->method('fetchPaypalOrder')
-            ->willReturn($this->buildResponse('COMPLETED'));
+            ->willReturn($this->buildResponse('COMPLETED', $captureStatus));
         $subject->expects(self::once())
             ->method('placeApprovedOrder')
             ->with(self::isInstanceOf(Mage_Sales_Model_Quote::class), self::PAYPAL_ORDER_ID, false, false)
@@ -390,12 +394,51 @@ final class PlacementTest extends OpenMageTest
     }
 
     /**
-     * @return Iterator<string, array{bool}>
+     * @return Iterator<string, array{bool, string}>
      */
     public static function provideChargedPendingQuotes(): Iterator
     {
-        yield 'capture recorded on the quote' => [true];
-        yield 'attempt only, PayPal reports completed' => [false];
+        yield 'capture recorded on the quote' => [true, 'COMPLETED'];
+        yield 'attempt only, PayPal reports completed' => [false, 'COMPLETED'];
+        yield 'partially refunded capture still pays for the order' => [true, 'PARTIALLY_REFUNDED'];
+    }
+
+    /**
+     * @dataProvider provideReversedCaptures
+     * @group Model
+     */
+    public function testResolvePendingChargeForgetsAReversedCharge(string $captureStatus): void
+    {
+        $helper = $this->buildHelper(pendingPaypalOrderId: self::PAYPAL_ORDER_ID);
+        $helper->method('hasUnplacedPaypalPayment')->willReturn(true);
+
+        $quote = $this->buildQuote();
+        /** @var Mage_Sales_Model_Quote_Payment&MockObject $payment */
+        $payment = $quote->getPayment();
+        $payment->setAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS, ['capture_id' => 'CAP-1'])
+            ->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CAPTURED_AMOUNT, 10.0)
+            ->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID, self::PAYPAL_ORDER_ID)
+            ->setPaypalCorrelationId('CAP-1');
+        $payment->expects(self::once())->method('save');
+
+        $subject = $this->buildSubject($helper, [null], ['placeApprovedOrder']);
+        $subject->method('fetchPaypalOrder')->willReturn($this->buildResponse('COMPLETED', $captureStatus));
+        $subject->expects(self::never())->method('placeApprovedOrder');
+
+        self::assertNull($subject->resolvePendingCharge($quote));
+        self::assertNull($payment->getAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS));
+        self::assertNull($payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CAPTURED_AMOUNT));
+        self::assertNull($payment->getData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID));
+        self::assertNull($payment->getPaypalCorrelationId());
+    }
+
+    /**
+     * @return Iterator<string, array{string}>
+     */
+    public static function provideReversedCaptures(): Iterator
+    {
+        yield 'refunded by the merchant' => ['REFUNDED'];
+        yield 'declined by PayPal' => ['DECLINED'];
     }
 
     /**

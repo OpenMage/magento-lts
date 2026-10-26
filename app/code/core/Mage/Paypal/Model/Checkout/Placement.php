@@ -102,8 +102,9 @@ class Mage_Paypal_Model_Checkout_Placement
     /**
      * Settle a quote that may already be paid before the buyer is allowed to start another PayPal order.
      *
-     * Returns the placed order when PayPal did charge. Returns null, and forgets the earlier attempt, when
-     * PayPal confirms it did not, so a new PayPal order can be started.
+     * Returns the placed order when PayPal did charge. Returns null, and forgets the earlier attempt and its PayPal
+     * order, when PayPal confirms it did not or the charge was since refunded, voided or declined, so a new PayPal
+     * order can be started.
      *
      * @throws Mage_Core_Exception
      * @throws Mage_Paypal_Model_Checkout_UnplacedPaymentException
@@ -116,30 +117,90 @@ class Mage_Paypal_Model_Checkout_Placement
             return null;
         }
 
-        if (!$helper->hasUnplacedPaypalPayment($quote)) {
-            if (!$helper->acquirePaypalOrderLock($paypalOrderId, self::LOCK_TIMEOUT_SECONDS)) {
-                Mage::throwException(
-                    Mage::helper('paypal')->__('Your PayPal payment is still being processed. Please wait a moment and try again.'),
-                );
+        if (!$helper->acquirePaypalOrderLock($paypalOrderId, self::LOCK_TIMEOUT_SECONDS)) {
+            Mage::throwException(
+                Mage::helper('paypal')->__('Your PayPal payment is still being processed. Please wait a moment and try again.'),
+            );
+        }
+
+        try {
+            $order = $this->findOrderByPaypalOrderId($paypalOrderId);
+            if ($order instanceof Mage_Sales_Model_Order) {
+                return $this->completePlacedOrder($quote, $order);
             }
 
-            try {
-                $order = $this->findOrderByPaypalOrderId($paypalOrderId);
-                if ($order instanceof Mage_Sales_Model_Order) {
-                    return $this->completePlacedOrder($quote, $order);
-                }
-
-                $details = $this->decodePaypalOrder($this->fetchPaypalOrder($quote, $paypalOrderId));
-                if (strtoupper((string) ($details['status'] ?? '')) !== 'COMPLETED') {
-                    $quote->getPayment()->unsAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID)->save();
-                    return null;
-                }
-            } finally {
-                $helper->releasePaypalOrderLock($paypalOrderId);
+            $details = $this->decodePaypalOrder($this->fetchPaypalOrder($quote, $paypalOrderId));
+            $isCharged = $helper->hasUnplacedPaypalPayment($quote)
+                || strtoupper((string) ($details['status'] ?? '')) === 'COMPLETED';
+            // A charge the merchant refunded or voided, or that PayPal declined, holds no money for an order.
+            if (!$isCharged || $this->isPaymentReversed($details)) {
+                $this->forgetPaypalOrder($quote);
+                return null;
             }
+        } finally {
+            $helper->releasePaypalOrderLock($paypalOrderId);
         }
 
         return $this->placeApprovedOrder($quote, $paypalOrderId, false, false);
+    }
+
+    /**
+     * Detach the quote from a PayPal order that holds no money for it: the attempt marker, the recorded charge and
+     * the order link go, so a new PayPal order can be started and the webhook cannot find this one and charge it.
+     */
+    private function forgetPaypalOrder(Mage_Sales_Model_Quote $quote): void
+    {
+        $payment = $quote->getPayment();
+        foreach ([
+            Mage_Paypal_Model_Payment::PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID,
+            Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
+            Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_STATUS,
+            Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID,
+            Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME,
+            Mage_Paypal_Model_Payment::PAYPAL_CAPTURED_AMOUNT,
+        ] as $key) {
+            $payment->unsAdditionalInformation($key);
+        }
+
+        $payment->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID, null)
+            ->setPaypalCorrelationId(null)
+            ->save();
+    }
+
+    /**
+     * Whether every charge on the PayPal order was taken back: captures refunded, declined or failed, or the
+     * authorization voided, denied or expired. A partial refund still leaves money for the order.
+     *
+     * @param array<string, mixed> $details
+     */
+    private function isPaymentReversed(array $details): bool
+    {
+        if (strtoupper((string) ($details['status'] ?? '')) === 'VOIDED') {
+            return true;
+        }
+
+        $payments = is_array($details['purchase_units'][0]['payments'] ?? null) ? $details['purchase_units'][0]['payments'] : [];
+        $charges = [
+            ...array_map(
+                static fn($capture): array => [$capture, ['REFUNDED', 'DECLINED', 'FAILED']],
+                (array) ($payments['captures'] ?? []),
+            ),
+            ...array_map(
+                static fn($authorization): array => [$authorization, ['VOIDED', 'DENIED', 'EXPIRED']],
+                (array) ($payments['authorizations'] ?? []),
+            ),
+        ];
+        if ($charges === []) {
+            return false;
+        }
+
+        foreach ($charges as [$charge, $reversedStatuses]) {
+            if (!is_array($charge) || !in_array(strtoupper((string) ($charge['status'] ?? '')), $reversedStatuses, true)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
