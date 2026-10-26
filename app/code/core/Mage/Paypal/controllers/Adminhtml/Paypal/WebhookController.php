@@ -110,6 +110,13 @@ class Mage_Paypal_Adminhtml_Paypal_WebhookController extends Mage_Adminhtml_Cont
         $this->_redirect('*/*/index');
     }
 
+    #[Override]
+    public function preDispatch()
+    {
+        $this->_setForcedFormKeyActions(['massReprocess', 'massDelete']);
+        return parent::preDispatch();
+    }
+
     /**
      * Checks if the current user has permission to access this controller.
      */

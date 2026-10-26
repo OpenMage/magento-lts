@@ -90,6 +90,13 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
         $this->_redirect('*/*/index');
     }
 
+    #[Override]
+    public function preDispatch()
+    {
+        $this->_setForcedFormKeyActions(['massDelete', 'deleteAll']);
+        return parent::preDispatch();
+    }
+
     /**
      * Checks if the current user has permission to access this controller.
      */
