@@ -11,26 +11,6 @@ declare(strict_types=1);
 
 class Mage_Paypal_Model_Config extends Varien_Object
 {
-    public const BUTTON_SHAPE_RECT = 'rect';
-
-    public const BUTTON_SHAPE_PILL = 'pill';
-
-    public const BUTTON_SHAPE_SHARP = 'sharp';
-
-    public const BUTTON_COLOR_GOLD = 'gold';
-
-    public const BUTTON_COLOR_BLUE = 'blue';
-
-    public const BUTTON_COLOR_SILVER = 'silver';
-
-    public const BUTTON_COLOR_WHITE = 'white';
-
-    public const BUTTON_COLOR_BLACK = 'black';
-
-    public const BUTTON_LAYOUT_VERTICAL = 'vertical';
-
-    public const BUTTON_LAYOUT_HORIZONTAL = 'horizontal';
-
     public const BUTTON_LABEL_PAYPAL = 'paypal';
 
     public const BUTTON_LABEL_CHECKOUT = 'checkout';
@@ -39,7 +19,11 @@ class Mage_Paypal_Model_Config extends Varien_Object
 
     public const BUTTON_LABEL_PAY = 'pay';
 
-    public const BUTTON_LABEL_INSTALLMENT = 'installment';
+    public const PAGE_TYPE_CHECKOUT = 'checkout';
+
+    public const PAGE_TYPE_CART = 'cart';
+
+    public const PAGE_TYPE_PRODUCT = 'product-details';
 
     /**
      * API credentials cache, keyed by store id so website-scoped
@@ -136,18 +120,43 @@ class Mage_Paypal_Model_Config extends Varien_Object
     }
 
     /**
-     * Retrieves an array of configuration settings for the PayPal button.
-     *
-     * @return array<string, bool|string>
+     * URL of the PayPal JavaScript SDK v6 core script.
      */
-    public function getButtonConfiguration(): array
+    public function getSdkUrl(): string
+    {
+        return rtrim($this->getEndpoint(), '/') . '/web-sdk/v6/core' . ($this->isDebugEnabled() ? '?debug=true' : '');
+    }
+
+    /**
+     * The SDK button type for the configured label; empty for the plain PayPal logo.
+     */
+    public function getButtonType(): string
+    {
+        $label = (string) $this->getConfigData('button_label');
+
+        return in_array($label, [self::BUTTON_LABEL_CHECKOUT, self::BUTTON_LABEL_BUYNOW, self::BUTTON_LABEL_PAY], true)
+            ? $label
+            : '';
+    }
+
+    /**
+     * Settings the storefront passes to PayPalSdk.renderButtons().
+     *
+     * @return array{sdkUrl: string, clientId: string, pageType: string, locale: string, currencyCode: string,
+     *               amount: string, buttonType: string, payLaterEnabled: bool, creditEnabled: bool}
+     */
+    public function getSdkConfig(string $pageType, string $currencyCode, ?float $amount = null, ?string $buttonType = null): array
     {
         return [
-            'shape' => (string) $this->getConfigData('button_shape'),
-            'color' => (string) $this->getConfigData('button_color'),
-            'layout' => (string) $this->getConfigData('button_layout'),
-            'label' => (string) $this->getConfigData('button_label'),
-            'message' => (bool) $this->getConfigData('button_message'),
+            'sdkUrl' => $this->getSdkUrl(),
+            'clientId' => $this->getApiCredentials()['client_id'],
+            'pageType' => $pageType,
+            'locale' => str_replace('_', '-', Mage::app()->getLocale()->getLocaleCode()),
+            'currencyCode' => $currencyCode,
+            'amount' => $amount !== null && $amount > 0 ? number_format($amount, 2, '.', '') : '',
+            'buttonType' => $buttonType ?? $this->getButtonType(),
+            'payLaterEnabled' => (bool) $this->getConfigData('show_paylater_button'),
+            'creditEnabled' => (bool) $this->getConfigData('show_credit_button'),
         ];
     }
 

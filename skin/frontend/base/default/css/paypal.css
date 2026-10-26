@@ -26,6 +26,9 @@
 
 .paypal-express-shortcut {
     clear: both;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     margin: 12px 0 0;
     max-width: 320px;
     min-height: 40px;

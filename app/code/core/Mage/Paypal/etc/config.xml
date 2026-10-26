@@ -10,7 +10,7 @@
 <config>
     <modules>
         <Mage_Paypal>
-            <version>2.0.2.0</version>
+            <version>2.0.3.0</version>
         </Mage_Paypal>
     </modules>
     <global>
@@ -170,11 +170,9 @@
                 <retry_on_timeout>1</retry_on_timeout>
                 <retry_status_codes>408,413,429,500,502,503,504,521,522,524</retry_status_codes>
                 <retry_http_methods>GET,PUT</retry_http_methods>
-                <button_shape>rect</button_shape>
-                <button_color>gold</button_color>
-                <button_layout>vertical</button_layout>
                 <button_label>paypal</button_label>
-                <button_message>1</button_message>
+                <show_paylater_button>0</show_paylater_button>
+                <show_credit_button>0</show_credit_button>
                 <visible_on_product>0</visible_on_product>
                 <visible_on_cart>0</visible_on_cart>
             </paypal>

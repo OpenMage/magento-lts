@@ -15,7 +15,8 @@ class PayPalShortcut {
     constructor(config = {}) {
         this.config = config;
         this.container = null;
-        this.sdkLoaded = false;
+        this.buttons = null;
+        this.rendering = false;
         this.abortController = new AbortController();
         this.replacementObserver = null;
         this.replacementTimer = null;
@@ -33,13 +34,7 @@ class PayPalShortcut {
         this.container = document.getElementById(this.config.containerId);
         if (!this.container) return;
 
-        try {
-            await this.loadPayPalSDK();
-            await this.renderButton();
-        } catch (error) {
-            this.showError(error.message || this.config.errorMessage);
-        }
-
+        await this.renderButton();
         this.observeContainerReplacement();
     }
 
@@ -53,79 +48,47 @@ class PayPalShortcut {
             if (this.replacementTimer) {
                 clearTimeout(this.replacementTimer);
             }
-            this.replacementTimer = setTimeout(async () => {
+            this.replacementTimer = setTimeout(() => {
                 const current = document.getElementById(this.config.containerId);
-                if (!current || current.querySelector('iframe')) return;
+                // Only a new node needs buttons: re-rendering into the same one after a failure would loop,
+                // since the error message itself mutates the page.
+                if (!current || current === this.container || this.rendering) return;
 
                 this.container = current;
-                try {
-                    await this.loadPayPalSDK();
-                    await this.renderButton();
-                } catch (error) {
-                    this.showError(error.message || this.config.errorMessage);
-                }
+                this.renderButton();
             }, 150);
         });
         this.replacementObserver.observe(document.body, { childList: true, subtree: true });
     }
 
-    async loadPayPalSDK() {
-        if (typeof paypal !== 'undefined' && paypal.Buttons) {
-            this.sdkLoaded = true;
-            return;
-        }
-
-        return new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = this.config.sdkUrl;
-            script.async = true;
-            script.onload = () => {
-                this.sdkLoaded = true;
-                resolve();
-            };
-            script.onerror = () => reject(new Error('Failed to load PayPal SDK'));
-            document.head.appendChild(script);
-        });
-    }
-
     async renderButton() {
-        if (!this.sdkLoaded) {
-            throw new Error('PayPal SDK not loaded');
-        }
+        this.rendering = true;
+        this.buttons?.destroy();
+        this.buttons = null;
 
-        const layout = this.config.buttonLayout || 'vertical';
-        const style = {
-            layout: layout,
-            color: this.config.buttonColor || 'gold',
-            shape: this.config.buttonShape || 'rect',
-            label: this.config.buttonLabel || 'paypal',
-            height: parseInt(this.config.buttonHeight, 10) || 40
-        };
-        // The SDK rejects tagline outright on vertical layouts.
-        if (layout === 'horizontal') {
-            style.tagline = Boolean(this.config.buttonMessage);
+        try {
+            this.buttons = await PayPalSdk.renderButtons(this.container, this.config.sdk, {
+                validate: () => this.validateSourceForm(),
+                createOrder: source => this.createOrder(source),
+                onApprove: data => this.onApprove(data),
+                onCancel: () => this.onCancel(),
+                onError: error => this.onError(error)
+            });
+        } catch (error) {
+            this.showError(error.message || this.config.errorMessage);
+        } finally {
+            this.rendering = false;
         }
-
-        await paypal.Buttons({
-            style: style,
-            createOrder: data => this.createOrder(data),
-            onApprove: data => this.onApprove(data),
-            onCancel: () => this.onCancel(),
-            onError: error => this.onError(error)
-        }).render(this.container);
     }
 
-    async createOrder(data) {
-        this.clearError();
-
-        if (!this.validateSourceForm()) {
-            this.showError(this.config.validationMessage);
-            throw new Error('Form validation failed');
-        }
-
+    /**
+     * @param {string} source the clicked button: paypal, paylater or credit
+     * @returns {Promise<{orderId: string}>}
+     */
+    async createOrder(source) {
         this.setLoading(true);
         try {
-            const requestBody = this.buildRequestBody(data);
+            const requestBody = this.buildRequestBody(source);
             const response = await fetch(this.config.startUrl, {
                 method: 'POST',
                 body: requestBody,
@@ -142,31 +105,29 @@ class PayPalShortcut {
                 throw new Error(result?.message || result?.error || this.config.errorMessage);
             }
 
-            return result.id;
+            return { orderId: result.id };
         } catch (error) {
             this.showError(error.message || this.config.errorMessage);
+            error.handled = true;
             throw error;
         } finally {
             this.setLoading(false);
         }
     }
 
-    buildRequestBody(data) {
+    buildRequestBody(source) {
         const form = this.getSourceForm();
         const requestBody = form ? new FormData(form) : new FormData();
         requestBody.set('form_key', this.config.formKey);
         requestBody.set('shortcut_context', this.config.context || 'cart');
-
-        if (data?.paymentSource) {
-            requestBody.set('funding_source', data.paymentSource);
-        }
+        requestBody.set('funding_source', source);
 
         return requestBody;
     }
 
     async onApprove(data) {
         const reviewUrl = new URL(this.config.reviewUrl, window.location.href);
-        reviewUrl.searchParams.set('token', data.orderID);
+        reviewUrl.searchParams.set('token', data.orderId);
         reviewUrl.searchParams.set('form_key', this.config.formKey);
         window.location.href = reviewUrl.toString();
     }
@@ -191,6 +152,16 @@ class PayPalShortcut {
     }
 
     validateSourceForm() {
+        this.clearError();
+        if (this.isSourceFormValid()) {
+            return true;
+        }
+
+        this.showError(this.config.validationMessage);
+        return false;
+    }
+
+    isSourceFormValid() {
         if (this.config.context !== 'product') {
             return true;
         }
@@ -246,6 +217,9 @@ class PayPalShortcut {
 
     destroy() {
         this.abortController.abort();
+        this.replacementObserver?.disconnect();
+        clearTimeout(this.replacementTimer);
+        this.buttons?.destroy();
         this.clearError();
     }
 }

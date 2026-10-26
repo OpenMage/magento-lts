@@ -42,17 +42,6 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieves the configuration settings for the PayPal button, optionally for a specific store.
-     *
-     * @param  mixed                      $store the store ID or object
-     * @return array<string, bool|string>
-     */
-    public function getButtonConfig(mixed $store = null): array
-    {
-        return $this->getConfig($store)->getButtonConfiguration();
-    }
-
-    /**
      * Checks whether the product-page PayPal shortcut may render.
      */
     public function isShortcutVisibleOnProduct(mixed $store = null): bool

@@ -17,12 +17,7 @@
         <?php echo json_encode([
             'formKey' => $this->getFormKey(),
             'methodCode' => $this->getMethodCode(),
-            'sdkUrl' => $this->getSdkUrl(),
-            'buttonLayout' => $this->getButtonConfig()['layout'],
-            'buttonColor' => $this->getButtonConfig()['color'],
-            'buttonShape' => $this->getButtonConfig()['shape'],
-            'buttonLabel' => $this->getButtonConfig()['label'],
-            'buttonMessage' => (bool)$this->getButtonConfig()['message'],
+            'sdk' => $this->getSdkConfig(),
             'createOrderUrl' => $this->getUrl('paypal/payment/create'),
             'captureUrl' => $this->getUrl('paypal/payment/process'),
             'cancelUrl' => $this->getUrl('paypal/payment/cancel'),

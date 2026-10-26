@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model;
 
+use Iterator;
+
 trait ConfigTrait
 {
     /**
@@ -110,5 +112,17 @@ trait ConfigTrait
                 ],
             ],
         ];
+    }
+
+    /**
+     * @return Iterator<string, array{string, string}>
+     */
+    public static function provideButtonTypeData(): Iterator
+    {
+        yield 'PayPal logo' => ['', 'paypal'];
+        yield 'checkout' => ['checkout', 'checkout'];
+        yield 'buy now' => ['buynow', 'buynow'];
+        yield 'pay' => ['pay', 'pay'];
+        yield 'label without a v6 type' => ['', 'installment'];
     }
 }

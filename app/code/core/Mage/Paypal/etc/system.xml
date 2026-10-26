@@ -166,57 +166,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <fields>
-                                <button_shape translate="label comment">
-                                    <label>Button Shape</label>
-                                    <frontend_type>select</frontend_type>
-                                    <source_model>paypal/system_config_source_buttonShapes</source_model>
-                                    <config_path>payment/paypal/button_shape</config_path>
-                                    <sort_order>10</sort_order>
-                                    <show_in_default>1</show_in_default>
-                                    <show_in_website>1</show_in_website>
-                                    <comment><![CDATA[Select the shape of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#shape" target="_blank">Learn more about PayPal button shapes</a>]]></comment>
-                                    <depends>
-                                        <active>
-                                            <value>1</value>
-                                            <fieldset>paypal</fieldset>
-                                        </active>
-                                    </depends>
-                                    <required>1</required>
-                                </button_shape>
-                                <button_color translate="label comment">
-                                    <label>Button Color</label>
-                                    <frontend_type>select</frontend_type>
-                                    <source_model>paypal/system_config_source_buttonColors</source_model>
-                                    <config_path>payment/paypal/button_color</config_path>
-                                    <sort_order>20</sort_order>
-                                    <show_in_default>1</show_in_default>
-                                    <show_in_website>1</show_in_website>
-                                    <comment><![CDATA[Select the color of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#color" target="_blank">Learn more about PayPal button colors</a>]]></comment>
-                                    <depends>
-                                        <active>
-                                            <value>1</value>
-                                            <fieldset>paypal</fieldset>
-                                        </active>
-                                    </depends>
-                                    <required>1</required>
-                                </button_color>
-                                <button_layout translate="label comment">
-                                    <label>Button Layout</label>
-                                    <frontend_type>select</frontend_type>
-                                    <source_model>paypal/system_config_source_buttonLayouts</source_model>
-                                    <config_path>payment/paypal/button_layout</config_path>
-                                    <sort_order>30</sort_order>
-                                    <show_in_default>1</show_in_default>
-                                    <show_in_website>1</show_in_website>
-                                    <comment><![CDATA[Select the layout of the PayPal button.<a href="https://developer.paypal.com/sdk/js/reference/#layout" target="_blank">Learn more about PayPal button layouts</a>]]></comment>
-                                    <depends>
-                                        <active>
-                                            <value>1</value>
-                                            <fieldset>paypal</fieldset>
-                                        </active>
-                                    </depends>
-                                    <required>1</required>
-                                </button_layout>
                                 <button_label translate="label comment">
                                     <label>Button Label</label>
                                     <frontend_type>select</frontend_type>
@@ -225,8 +174,7 @@
                                     <sort_order>40</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment><![CDATA[Select the label for the PayPal button.
-                                        <a href="https://developer.paypal.com/sdk/js/reference/#label" target="_blank">Learn more about PayPal button labels</a>]]></comment>
+                                    <comment>Label of the PayPal button at checkout. The product and cart page shortcuts always read Buy Now and Checkout.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -235,24 +183,38 @@
                                     </depends>
                                     <required>1</required>
                                 </button_label>
-                                <button_message translate="label comment">
-                                    <label>Button Message</label>
+                                <show_paylater_button translate="label comment">
+                                    <label>Show Pay Later Button</label>
                                     <frontend_type>select</frontend_type>
                                     <source_model>adminhtml/system_config_source_yesno</source_model>
-                                    <config_path>payment/paypal/button_message</config_path>
+                                    <config_path>payment/paypal/show_paylater_button</config_path>
                                     <sort_order>50</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment><![CDATA[Select the message to display on the PayPal button.
-                                        <a href="https://developer.paypal.com/sdk/js/reference/#message" target="_blank">Learn more about PayPal button messages</a>]]></comment>
+                                    <comment>Show a Pay Later button next to the PayPal button. It only appears when PayPal offers Pay Later to the buyer.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
                                             <fieldset>paypal</fieldset>
                                         </active>
                                     </depends>
-                                    <required>1</required>
-                                </button_message>
+                                </show_paylater_button>
+                                <show_credit_button translate="label comment">
+                                    <label>Show PayPal Credit Button</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                                    <config_path>payment/paypal/show_credit_button</config_path>
+                                    <sort_order>55</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <comment>Show a PayPal Credit button next to the PayPal button. It only appears when PayPal offers Credit to the buyer (US and UK).</comment>
+                                    <depends>
+                                        <active>
+                                            <value>1</value>
+                                            <fieldset>paypal</fieldset>
+                                        </active>
+                                    </depends>
+                                </show_credit_button>
                                 <visible_on_product translate="label comment">
                                     <label>Show on Product Page</label>
                                     <frontend_type>select</frontend_type>

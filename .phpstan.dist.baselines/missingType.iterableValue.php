@@ -19252,11 +19252,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/Info.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Paypal_Block_Form::getButtonConfig() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Form.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Paypal_Model_Cart::__construct() has parameter $params with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',

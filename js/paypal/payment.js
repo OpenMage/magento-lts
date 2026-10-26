@@ -7,7 +7,7 @@
  *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2026 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -15,7 +15,7 @@ class PayPalPayment {
     constructor(config = {}) {
         this.config = config;
         this.buttonInitialized = false;
-        this.sdkLoaded = false;
+        this.buttons = null;
         this.renderPromise = null;
         this.reviewContainerInterval = null;
         this.abortController = new AbortController();
@@ -100,37 +100,13 @@ class PayPalPayment {
         if (this.buttonInitialized) return;
 
         try {
-            await this.loadPayPalSDK();
             await this.renderButton();
         } catch (error) {
             this.showError('Failed to load PayPal. Please try another payment method.');
         }
     }
 
-    async loadPayPalSDK() {
-        if (typeof paypal !== 'undefined') {
-            this.sdkLoaded = true;
-            return;
-        }
-
-        return new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = this.config.sdkUrl;
-            script.async = true;
-            script.onload = () => {
-                this.sdkLoaded = true;
-                resolve();
-            };
-            script.onerror = () => reject(new Error('Failed to load PayPal SDK'));
-            document.head.appendChild(script);
-        });
-    }
-
     async renderButton() {
-        if (!this.sdkLoaded) {
-            throw new Error('PayPal SDK not loaded');
-        }
-
         const reviewContainer = document.getElementById(this.config.reviewButtonContainerId);
         if (!reviewContainer) {
             throw new Error('Review container not found');
@@ -166,30 +142,20 @@ class PayPalPayment {
         const container = document.createElement('div');
         container.id = this.config.containerId;
         container.className = 'paypal-button-container';
-        // The SDK caps button width at 750px; right-align the block so it
-        // lines up with the totals column instead of floating mid-page.
-        container.style.cssText = 'margin: 0 0 0 auto; min-height: 35px; max-width: 750px;';
+        // Right-align the stacked buttons so they line up with the totals
+        // column instead of floating mid-page.
+        container.style.cssText = 'display: flex; flex-direction: column; gap: 10px; margin: 0 0 0 auto; min-height: 35px; max-width: 750px;';
         return container;
     }
 
     async createPayPalButton(paypalContainer, reviewContainer) {
-        const buttonWrapper = document.createElement('div');
-        buttonWrapper.className = 'paypal-button-wrapper';
-        paypalContainer.appendChild(buttonWrapper);
-
-        await paypal.Buttons({
-            style: {
-                layout: this.config.buttonLayout || 'vertical',
-                color: this.config.buttonColor || 'gold',
-                shape: this.config.buttonShape || 'rect',
-                label: this.config.buttonLabel || 'paypal',
-                height: parseInt(this.config.buttonHeight, 10) || 40
-            },
-            createOrder: (data) => this.createOrder(data),
+        this.buttons = await PayPalSdk.renderButtons(paypalContainer, this.config.sdk, {
+            validate: () => this.validateForm(),
+            createOrder: (source) => this.createOrder(source),
             onApprove: (data) => this.onApprove(data),
-            onError: (error) => this.onButtonError(error),
-            onCancel: () => this.onCancel()
-        }).render(buttonWrapper);
+            onCancel: () => this.onCancel(),
+            onError: (error) => this.onButtonError(error)
+        });
 
         this.buttonInitialized = true;
     }
@@ -223,21 +189,18 @@ class PayPalPayment {
         }
     }
 
-    async createOrder(data) {
+    /**
+     * @param {string} source the clicked button: paypal, paylater or credit
+     * @returns {Promise<{orderId: string}>}
+     */
+    async createOrder(source) {
         this.showLoadingMask();
 
         try {
-            if (!this.validateForm()) {
-                throw new Error('Form validation failed');
-            }
-
             const requestBody = new URLSearchParams({
-                form_key: this.config.formKey
+                form_key: this.config.formKey,
+                funding_source: source
             });
-
-            if (data?.paymentSource) {
-                requestBody.append('funding_source', data.paymentSource);
-            }
 
             this.collectAgreementParams().forEach(([name, value]) => {
                 requestBody.append(name, value);
@@ -268,11 +231,12 @@ class PayPalPayment {
                 throw new Error(result?.message || 'Failed to create PayPal order');
             }
 
-            return result.id;
+            return { orderId: result.id };
         } catch (error) {
             console.error('Create order error:', error);
             this.showError(error.message);
             this.hideLoadingMask();
+            error.handled = true;
             throw error;
         } finally {
             this.hideLoadingMask();
@@ -284,7 +248,7 @@ class PayPalPayment {
 
         try {
             const requestBody = new URLSearchParams({
-                order_id: data.orderID,
+                order_id: data.orderId,
                 form_key: this.config.formKey
             });
 
@@ -343,7 +307,7 @@ class PayPalPayment {
     onButtonError(error) {
         console.error('PayPal button error:', error);
         this.onCancel();
-        this.showError(error);
+        this.showError(error?.message);
     }
 
     onCancel() {
@@ -370,17 +334,6 @@ class PayPalPayment {
         const isValid = form.checkValidity();
         if (!isValid) {
             form.reportValidity();
-        }
-
-        // FireCheckout keeps its section-level checks — shipping method, payment method,
-        // agreements — in checkout.validator.afterValidate, and the only thing that runs them is
-        // the Place Order button we hide in renderButton(). A bare Validation() pass cannot stand
-        // in for it: the shipping method radios carry no field-validator class, so nothing below
-        // would notice the customer never picked one. Defer to FireCheckout's own validator so the
-        // shopper gets the inline error instead of a round-trip to PayPal.
-        const firecheckoutValidator = this.isFirecheckout ? window.checkout?.validator : null;
-        if (firecheckoutValidator) {
-            return firecheckoutValidator.validate() && isValid;
         }
 
         if (typeof Validation !== 'undefined') {
@@ -428,6 +381,9 @@ class PayPalPayment {
     }
 
     removePayPalButton() {
+        this.buttons?.destroy();
+        this.buttons = null;
+
         const container = document.getElementById(this.config.containerId);
         if (container) {
             container.remove();

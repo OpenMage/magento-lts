@@ -63,6 +63,53 @@ final class ConfigTest extends OpenMageTest
         self::assertSame($expectedResult, self::$subject->getRetryConfiguration());
     }
 
+    /**
+     * @dataProvider provideButtonTypeData
+     * @group Model
+     */
+    public function testGetButtonType(string $expectedResult, string $label): void
+    {
+        $this->setPaypalConfig('button_label', $label);
+
+        self::assertSame($expectedResult, self::$subject->getButtonType());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetSdkConfig(): void
+    {
+        $this->setPaypalConfig('sandbox_mode', '1');
+        $this->setPaypalConfig('debug', '0');
+        $this->setPaypalConfig('button_label', 'pay');
+        $this->setPaypalConfig('show_paylater_button', '1');
+        $this->setPaypalConfig('show_credit_button', '0');
+
+        $config = self::$subject->getSdkConfig(Subject::PAGE_TYPE_CART, 'USD', 42.5);
+
+        self::assertSame('https://www.sandbox.paypal.com/web-sdk/v6/core', $config['sdkUrl']);
+        self::assertSame(Subject::PAGE_TYPE_CART, $config['pageType']);
+        self::assertSame('USD', $config['currencyCode']);
+        self::assertSame('42.50', $config['amount']);
+        self::assertSame('pay', $config['buttonType']);
+        self::assertTrue($config['payLaterEnabled']);
+        self::assertFalse($config['creditEnabled']);
+        self::assertStringNotContainsString('_', $config['locale']);
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetSdkConfigLetsTheCallerChooseTheButtonType(): void
+    {
+        $this->setPaypalConfig('button_label', 'pay');
+
+        $config = self::$subject->getSdkConfig(Subject::PAGE_TYPE_PRODUCT, 'EUR', null, Subject::BUTTON_LABEL_BUYNOW);
+
+        self::assertSame(Subject::BUTTON_LABEL_BUYNOW, $config['buttonType']);
+        self::assertSame('', $config['amount']);
+    }
+
     private function setPaypalConfig(string $field, string $value): void
     {
         Mage::app()->getStore()->setConfig('payment/paypal/' . $field, $value);

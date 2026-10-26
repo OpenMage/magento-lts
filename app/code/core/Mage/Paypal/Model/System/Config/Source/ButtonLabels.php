@@ -33,10 +33,6 @@ class Mage_Paypal_Model_System_Config_Source_ButtonLabels
                 'value' => Mage_Paypal_Model_Config::BUTTON_LABEL_PAY,
                 'label' => Mage::helper('paypal')->__('Pay with PayPal'),
             ],
-            [
-                'value' => Mage_Paypal_Model_Config::BUTTON_LABEL_INSTALLMENT,
-                'label' => Mage::helper('paypal')->__('PayPal Installment'),
-            ],
         ];
     }
 }

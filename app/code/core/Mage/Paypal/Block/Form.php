@@ -25,52 +25,17 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
     }
 
     /**
-     * Retrieves the configuration for the PayPal button.
+     * Settings for rendering the PayPal SDK v6 buttons at checkout.
+     *
+     * @return array<string, bool|string>
      */
-    public function getButtonConfig(): array
+    public function getSdkConfig(): array
     {
-        return Mage::helper('paypal')->getButtonConfig();
-    }
-
-    /**
-     * Retrieves the PayPal API endpoint URL.
-     */
-    public function getEndpointUrl(): string
-    {
-        return Mage::helper('paypal')->getConfig()->getEndpoint();
-    }
-
-    /**
-     * Retrieves the PayPal client ID from the API credentials.
-     */
-    public function getClientId(): string
-    {
-        return Mage::helper('paypal')->getConfig()->getApiCredentials()['client_id'];
-    }
-
-    /**
-     * Constructs and retrieves the full URL for the PayPal JavaScript SDK.
-     */
-    public function getSdkUrl(): string
-    {
-        $intent = Mage::getSingleton('paypal/config')->getPaymentAction();
-
-        $params = [
-            'client-id' => $this->getClientId(),
-            'components' => 'buttons',
-            'intent' => (string) $intent,
-            'currency' => Mage::app()->getStore()->getCurrentCurrencyCode(),
-        ];
-        if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
-            $params['debug'] = 'true';
-        }
-
-        $baseUrl = $this->getEndpointUrl();
-        if (!str_ends_with($baseUrl, '/')) {
-            $baseUrl .= '/';
-        }
-
-        return $baseUrl . 'sdk/js?' . http_build_query($params);
+        return Mage::helper('paypal')->getConfig()->getSdkConfig(
+            Mage_Paypal_Model_Config::PAGE_TYPE_CHECKOUT,
+            $this->getCurrencyCode(),
+            $this->getAmount(),
+        );
     }
 
     /**

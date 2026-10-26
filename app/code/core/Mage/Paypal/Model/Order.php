@@ -153,6 +153,9 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
             case 'venmo':
                 return $paymentSourceBuilder->venmo(VenmoWalletRequestBuilder::init()->build())->build();
 
+                // Pay Later and PayPal Credit are funded through the buyer's PayPal wallet.
+            case 'paylater':
+            case 'credit':
             case 'paypal':
                 // The wallet itself needs no payer details, but set return/cancel URLs so the
                 // order also works as a redirect flow: when a post-approval patch raises the total

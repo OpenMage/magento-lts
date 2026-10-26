@@ -95,42 +95,21 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     }
 
     /**
-     * Retrieves the PayPal JavaScript SDK URL.
-     */
-    public function getSdkUrl(): string
-    {
-        $intent = Mage::getSingleton('paypal/config')->getPaymentAction();
-        $params = [
-            'client-id' => Mage::helper('paypal')->getConfig()->getApiCredentials()['client_id'],
-            'components' => 'buttons',
-            'intent' => (string) $intent,
-            'currency' => Mage::app()->getStore()->getCurrentCurrencyCode(),
-        ];
-        if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
-            $params['debug'] = 'true';
-        }
-
-        $baseUrl = Mage::helper('paypal')->getConfig()->getEndpoint();
-        if (!str_ends_with($baseUrl, '/')) {
-            $baseUrl .= '/';
-        }
-
-        return $baseUrl . 'sdk/js?' . http_build_query($params);
-    }
-
-    /**
-     * Retrieves the shortcut button style configuration.
+     * Settings for rendering the PayPal SDK v6 buttons; the label fits the page instead of the configured one.
      *
      * @return array<string, bool|string>
      */
-    public function getButtonConfig(): array
+    public function getSdkConfig(): array
     {
-        $config = Mage::helper('paypal')->getButtonConfig();
-        $config['label'] = $this->isProductContext()
-            ? Mage_Paypal_Model_Config::BUTTON_LABEL_BUYNOW
-            : Mage_Paypal_Model_Config::BUTTON_LABEL_CHECKOUT;
+        $isProduct = $this->isProductContext();
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
 
-        return $config;
+        return Mage::helper('paypal')->getConfig()->getSdkConfig(
+            $isProduct ? Mage_Paypal_Model_Config::PAGE_TYPE_PRODUCT : Mage_Paypal_Model_Config::PAGE_TYPE_CART,
+            Mage::app()->getStore()->getCurrentCurrencyCode(),
+            $isProduct ? null : (float) $quote->getGrandTotal(),
+            $isProduct ? Mage_Paypal_Model_Config::BUTTON_LABEL_BUYNOW : Mage_Paypal_Model_Config::BUTTON_LABEL_CHECKOUT,
+        );
     }
 
     /**
@@ -140,22 +119,15 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      */
     public function getShortcutConfig(): array
     {
-        $buttonConfig = $this->getButtonConfig();
-
         return [
             'context' => $this->getShortcutContext(),
             'containerId' => $this->getContainerId(),
             'formId' => $this->isProductContext() ? 'product_addtocart_form' : null,
             'formKey' => $this->getFormKey(),
-            'sdkUrl' => $this->getSdkUrl(),
+            'sdk' => $this->getSdkConfig(),
             'startUrl' => $this->getUrl('paypal/express/start'),
             'reviewUrl' => $this->getUrl('paypal/express/review'),
             'cancelUrl' => $this->getUrl('paypal/express/cancel'),
-            'buttonLayout' => $buttonConfig['layout'],
-            'buttonColor' => $buttonConfig['color'],
-            'buttonShape' => $buttonConfig['shape'],
-            'buttonLabel' => $buttonConfig['label'],
-            'buttonMessage' => (bool) $buttonConfig['message'],
             'errorMessage' => $this->__('An error occurred while processing your PayPal checkout. Please try again.'),
             'validationMessage' => $this->__('Please specify the required product options.'),
         ];

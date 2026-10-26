@@ -2,6 +2,7 @@
 <layout version="0.1.0">
     <checkout_onepage_index>
         <reference name="head">
+            <action method="addJs"><script>paypal/sdk.js</script></action>
             <action method="addJs"><script>paypal/payment.js</script></action>
             <action method="addCss"><stylesheet>css/paypal.css</stylesheet></action>
         </reference>
@@ -15,6 +16,7 @@
 
     <catalog_product_view>
         <reference name="head">
+            <action method="addJs"><script>paypal/sdk.js</script></action>
             <action method="addJs"><script>paypal/shortcut.js</script></action>
             <action method="addCss"><stylesheet>css/paypal.css</stylesheet></action>
         </reference>
@@ -27,6 +29,7 @@
 
     <checkout_cart_index>
         <reference name="head">
+            <action method="addJs"><script>paypal/sdk.js</script></action>
             <action method="addJs"><script>paypal/shortcut.js</script></action>
             <action method="addCss"><stylesheet>css/paypal.css</stylesheet></action>
         </reference>
