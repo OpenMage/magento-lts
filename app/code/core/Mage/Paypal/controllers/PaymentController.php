@@ -170,10 +170,16 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 Mage::logException($markException);
             }
 
+            // PayPal's re-approval page returns to the Express review, which an in-checkout order cannot use.
+            // The next click on the PayPal button starts a fresh order instead.
+            $message = $exception instanceof Mage_Paypal_Model_Exception && $exception->isPayerActionRequired()
+                ? Mage::helper('paypal')->__('PayPal needs you to confirm this payment again. Please click the PayPal button to continue.')
+                : $exception->getMessage();
+
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)->setBody(Mage::helper('core')->jsonEncode([
                     'success' => false,
-                    'message' => $exception->getMessage(),
+                    'message' => $message,
                 ]));
         }
     }
