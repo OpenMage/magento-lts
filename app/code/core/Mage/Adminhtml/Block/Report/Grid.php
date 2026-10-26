@@ -456,13 +456,14 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getCsv(), 'text/csv');
      *                       the new way: $this->_prepareDownloadResponse(...$grid->getCsv($fileName, -1));
      *
-     * @param string $fileName
-     * @param int $limit
+     * @param  string              $fileName
+     * @param  int                 $limit
+     * @return array{0: string, 1: string, 2: string}|string the download arguments when $fileName and $limit are set, otherwise the content
      * @throws Exception
      * @throws Zend_Date_Exception
      */
     #[Override]
-    public function getCsv($fileName = '', $limit = 0): string
+    public function getCsv($fileName = '', $limit = 0): array|string
     {
         $csv = '';
         $count = 0;
@@ -535,11 +536,12 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName), 'application/vnd.ms-excel');
      *                       the new way: $this->_prepareDownloadResponse(...$grid->getExcel($fileName, -1));
      *
+     * @return array{0: string, 1: string, 2: string}|string the download arguments when $fileName and $limit are set, otherwise the content
      * @throws Exception
      * @throws Zend_Date_Exception
      */
     #[Override]
-    public function getExcel(string $fileName = '', int $limit = 0): string
+    public function getExcel(string $fileName = '', int $limit = 0): array|string
     {
         $this->_prepareGrid();
 
