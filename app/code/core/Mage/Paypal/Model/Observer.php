@@ -16,13 +16,14 @@ class Mage_Paypal_Model_Observer
 {
     /**
      * Refuse to convert a quote into an order when PayPal is the selected
-     * method but no PayPal order was created and approved for the quote.
+     * method but PayPal has not charged or authorized it yet.
      *
-     * The REST flow (PaymentController / ExpressController) stores the
-     * PayPal request id on the quote payment before placing the order.
-     * Third-party checkouts (one-step checkouts and the like) can submit
-     * the quote directly through the generic sales service, which would
-     * otherwise create an unpaid order that looks paid.
+     * The REST flow (Placement) records the PayPal capture or authorization
+     * on the quote payment before placing the order. Third-party checkouts
+     * (one-step checkouts and the like) can submit the quote directly through
+     * the generic sales service, which would otherwise create an unpaid order
+     * that looks paid. A created PayPal order alone is not enough: the buyer
+     * may never have approved it.
      *
      * Observes: sales_model_service_quote_submit_before
      */
@@ -38,10 +39,7 @@ class Mage_Paypal_Model_Observer
             return;
         }
 
-        $hasReference = (string) $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID) !== ''
-            || (string) $payment->getPaypalCorrelationId() !== '';
-
-        if (!$hasReference) {
+        if (!Mage::getSingleton('paypal/helper')->hasRecordedPaypalCharge($payment)) {
             Mage::throwException(
                 Mage::helper('paypal')->__('Please complete the PayPal payment before placing the order.'),
             );

@@ -333,7 +333,15 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
             return false;
         }
 
-        $rawDetails = $quote->getPayment()->getAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS);
+        return $this->hasRecordedPaypalCharge($quote->getPayment());
+    }
+
+    /**
+     * Whether a PayPal capture or authorization has been recorded on the payment.
+     */
+    public function hasRecordedPaypalCharge(Mage_Payment_Model_Info $payment): bool
+    {
+        $rawDetails = $payment->getAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS);
         if (!is_array($rawDetails)) {
             return false;
         }
