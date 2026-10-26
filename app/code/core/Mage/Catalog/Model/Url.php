@@ -350,6 +350,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 if (!self::$_categoryResourceSingleton) {
                     self::$_categoryResourceSingleton = Mage::getResourceSingleton('catalog/category');
                 }
+
                 if (empty(self::$_categoryResourceSingleton->getAttributeRawValue($idCategory, 'url_key', 0))) { // set default value
                     self::$_mustCreateCategoryUrlkey[$idCategory] = $idCategory;
                     $urlKey = $this->getCategoryModel()
@@ -361,6 +362,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                     $this->getResource()->saveCategoryAttribute($default, 'url_key');
                     unset($default);
                 }
+
                 $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($category->getName());
             } else {
                 $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($category->getUrlKey());
@@ -426,6 +428,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             if (!self::$_productResourceSingleton) {
                 self::$_productResourceSingleton = Mage::getResourceSingleton('catalog/product');
             }
+
             if (empty(self::$_productResourceSingleton->getAttributeRawValue($idProduct, 'url_key', 0))) { // set default value
                 self::$_mustCreateProductUrlkey[$idProduct] = $idProduct;
                 $urlKey = $this->getProductModel()
@@ -437,6 +440,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 $this->getResource()->saveProductAttribute($default, 'url_key');
                 unset($default);
             }
+
             $urlKey = $this->getProductModel()->setLocale($locale)->formatUrlKey($product->getName());
         } else {
             $urlKey = $this->getProductModel()->setLocale($locale)->formatUrlKey($product->getUrlKey());

@@ -2,6 +2,11 @@
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in &&, string given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/Mage.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, string|null given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/Mage.php',

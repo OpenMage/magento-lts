@@ -7,6 +7,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/Mage.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in &&, string given on the right side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/Mage.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, mixed given on the right side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Redirectpolicy.php',

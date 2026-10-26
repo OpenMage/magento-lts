@@ -603,7 +603,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $xmlObj->setData($data);
         $xmlObj->unparse();
 
-        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.xml', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.xml', $fileName), $xmlObj->getData(), 'application/vnd.ms-excel'] : $xmlObj->getData();
+        return (!empty($fileName) && ($limit !== 0)) ? [str_replace('.xml', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.xml', $fileName), $xmlObj->getData(), 'application/vnd.ms-excel'] : $xmlObj->getData();
     }
 
     /**

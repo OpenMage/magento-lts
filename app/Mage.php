@@ -191,6 +191,7 @@ final class Mage
      * Gets the detailed OpenMage version information
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
+     * @return array<string, string>
      */
     public static function getOpenMageVersionInfo(): array
     {

@@ -149,9 +149,8 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Open session
      *
-     * @param  string $savePath ignored
-     * @param  string $sessName ignored
-     * @return bool
+     * @param string $savePath ignored
+     * @param string $sessName ignored
      */
     public function open($savePath, $sessName): bool
     {
@@ -160,8 +159,6 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
 
     /**
      * Close session
-     *
-     * @return bool
      */
     public function close(): bool
     {
@@ -193,9 +190,8 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Update session
      *
-     * @param  string $sessId
-     * @param  string $sessData
-     * @return bool
+     * @param string $sessId
+     * @param string $sessData
      */
     public function write($sessId, $sessData): bool
     {
@@ -227,8 +223,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Destroy session
      *
-     * @param  string $sessId
-     * @return bool
+     * @param string $sessId
      */
     public function destroy($sessId): bool
     {
@@ -240,8 +235,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Garbage collection
      *
-     * @param  int       $sessMaxLifeTime ignored
-     * @return false|int
+     * @param int $sessMaxLifeTime ignored
      * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function gc($sessMaxLifeTime): false|int

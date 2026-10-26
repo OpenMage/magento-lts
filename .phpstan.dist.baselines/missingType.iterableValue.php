@@ -32,11 +32,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/Mage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage::getOpenMageVersionInfo() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/Mage.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage::getResourceModel() has parameter $arguments with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/Mage.php',

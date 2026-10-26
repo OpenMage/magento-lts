@@ -133,7 +133,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between int and int is not allowed.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
 ];
 $ignoreErrors[] = [
@@ -212,11 +212,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Config/Tabs.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Edit/Tab/Run.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between string and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Container.php',
@@ -225,11 +220,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Form.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between int and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and mixed is not allowed.',
@@ -3030,11 +3020,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Io/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../shell/rename-mysql4-class-to-resource.php',
 ];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];
