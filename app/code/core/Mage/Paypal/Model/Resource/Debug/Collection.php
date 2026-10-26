@@ -22,8 +22,7 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
     /**
      * Adds a filter to the collection for a specific quote ID.
      *
-     * @param  int   $quoteId the quote ID to filter by
-     * @return $this
+     * @param int $quoteId the quote ID to filter by
      */
     public function addQuoteIdFilter(int $quoteId): self
     {
@@ -34,8 +33,7 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
     /**
      * Adds a filter to the collection for a specific transaction ID.
      *
-     * @param  string $transactionId the transaction ID to filter by
-     * @return $this
+     * @param string $transactionId the transaction ID to filter by
      */
     public function addTransactionIdFilter(string $transactionId): self
     {
@@ -46,8 +44,7 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
     /**
      * Adds a filter to the collection for a specific action.
      *
-     * @param  string $action the action string to filter by
-     * @return $this
+     * @param string $action the action string to filter by
      */
     public function addActionFilter(string $action): self
     {
@@ -58,9 +55,8 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
     /**
      * Adds a date range filter to the collection based on the 'created_at' field.
      *
-     * @param  null|string $from   the start date of the range
-     * @param  null|string $toDate the end date of the range
-     * @return $this
+     * @param null|string $from   the start date of the range
+     * @param null|string $toDate the end date of the range
      */
     public function addDateRangeFilter(?string $from, ?string $toDate): self
     {
@@ -77,8 +73,6 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
 
     /**
      * Initializes the select object for the collection, setting the default order.
-     *
-     * @return $this
      */
     #[Override]
     protected function _initSelect(): self

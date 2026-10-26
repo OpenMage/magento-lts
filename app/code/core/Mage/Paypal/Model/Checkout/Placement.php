@@ -392,7 +392,7 @@ class Mage_Paypal_Model_Checkout_Placement
 
         try {
             $this->chargeApprovedOrder($quote, $paypalOrderId, $isAuthorize);
-        } catch (Throwable $chargeException) {
+        } catch (Throwable $throwable) {
             // A failed call does not prove PayPal did not charge (a timeout after PayPal captured, a failure while
             // recording the result), so ask PayPal before reporting a failure the buyer could answer by paying again.
             try {
@@ -400,14 +400,14 @@ class Mage_Paypal_Model_Checkout_Placement
                 $details = $this->decodePaypalOrder($response);
             } catch (Throwable $readException) {
                 Mage::logException($readException);
-                throw $chargeException;
+                throw $throwable;
             }
 
             if (strtoupper((string) ($details['status'] ?? '')) !== 'COMPLETED') {
-                throw $chargeException;
+                throw $throwable;
             }
 
-            Mage::logException($chargeException);
+            Mage::logException($throwable);
             $this->recordCompletedPayment($quote, $response, $details, $paypalOrderId, $isAuthorize, false);
         }
     }

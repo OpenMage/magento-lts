@@ -393,9 +393,7 @@ class Mage_Paypal_Model_Checkout_Finalizer extends Mage_Core_Model_Abstract
      */
     private function _getCustomerSession(): Mage_Customer_Model_Session
     {
-        if (is_null($this->_customerSession)) {
-            $this->_customerSession = Mage::getSingleton('customer/session');
-        }
+        $this->_customerSession ??= Mage::getSingleton('customer/session');
 
         return $this->_customerSession;
     }

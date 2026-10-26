@@ -34,12 +34,12 @@ class Mage_Paypal_Model_Observer
         }
 
         $payment = $quote->getPayment();
-        if (!$payment || $payment->getMethod() !== 'paypal') {
+        if ($payment->getMethod() !== 'paypal') {
             return;
         }
 
-        $hasReference = $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID)
-            || $payment->getPaypalCorrelationId();
+        $hasReference = (string) $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID) !== ''
+            || (string) $payment->getPaypalCorrelationId() !== '';
 
         if (!$hasReference) {
             Mage::throwException(

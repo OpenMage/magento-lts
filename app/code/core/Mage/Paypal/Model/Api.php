@@ -268,8 +268,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
 
     /**
      * Reset client instance (useful for testing or config changes)
-     *
-     * @return $this
      */
     public function resetClient(): self
     {
@@ -284,8 +282,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * client must be rebuilt against the order's store to pick up
      * website-scoped PayPal credentials and sandbox mode.
      *
-     * @param  mixed $store store id or object
-     * @return $this
+     * @param mixed $store store id or object
      */
     public function setStore(mixed $store): self
     {

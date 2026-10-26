@@ -16,7 +16,7 @@ trait ResolverTrait
     /**
      * @return array<string, array{0: array<string, mixed>, 1: array<string, mixed>, 2: string[]}>
      */
-    public function provideCandidateIdsData(): array
+    public static function provideCandidateIdsData(): array
     {
         return [
             'event and resource ids are de-duplicated' => [
@@ -58,7 +58,7 @@ trait ResolverTrait
     /**
      * @return array<string, array{0: array<string, mixed>, 1: string[]}>
      */
-    public function provideIncrementIdsData(): array
+    public static function provideIncrementIdsData(): array
     {
         return [
             'resource and purchase unit order references' => [

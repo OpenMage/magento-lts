@@ -18,7 +18,7 @@ trait ProcessorTrait
     /**
      * @return array<string, array{0: string, 1: string}>
      */
-    public function provideEventActionData(): array
+    public static function provideEventActionData(): array
     {
         return [
             'order approved' => ['CHECKOUT.ORDER.APPROVED', Subject::ACTION_ORDER_APPROVED],
@@ -40,7 +40,7 @@ trait ProcessorTrait
     /**
      * @return array<string, array{0: string, 1: int, 2: string, 3: null|array{0: bool, 1: bool}}>
      */
-    public function provideRecoveryData(): array
+    public static function provideRecoveryData(): array
     {
         $pastGrace = '2026-09-14 11:54:00';
         $withinGrace = '2026-09-14 11:58:00';

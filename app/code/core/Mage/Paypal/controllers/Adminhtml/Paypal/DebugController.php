@@ -13,8 +13,6 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
 {
     /**
      * Initializes the layout and sets the active menu for the debug log page.
-     *
-     * @return $this
      */
     protected function _initAction(): self
     {

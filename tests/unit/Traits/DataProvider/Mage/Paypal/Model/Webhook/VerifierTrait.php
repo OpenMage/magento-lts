@@ -18,7 +18,7 @@ trait VerifierTrait
     /**
      * @return array<string, array{0: array<string, null|string>, 1: array<string, string>}>
      */
-    public function provideRequiredHeadersData(): array
+    public static function provideRequiredHeadersData(): array
     {
         return [
             'lowercase names and trimmed values' => [
@@ -43,7 +43,7 @@ trait VerifierTrait
     /**
      * @return array<string, array{0: bool, 1: array<string, mixed>}>
      */
-    public function provideVerificationResponses(): array
+    public static function provideVerificationResponses(): array
     {
         return [
             'success' => [true, ['verification_status' => Subject::VERIFICATION_SUCCESS]],

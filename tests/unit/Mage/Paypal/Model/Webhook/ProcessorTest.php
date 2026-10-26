@@ -21,7 +21,6 @@ use Mage_Paypal_Model_Webhook_Event_Resolver;
 use Mage_Paypal_Model_Webhook_Processor as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\Webhook\ProcessorTrait;
-use Override;
 
 final class ProcessorTest extends OpenMageTest
 {
@@ -29,7 +28,6 @@ final class ProcessorTest extends OpenMageTest
 
     private const CONFIG_SINGLETON = '_singleton/paypal/config';
 
-    #[Override]
     protected function tearDown(): void
     {
         Carbon::setTestNow();

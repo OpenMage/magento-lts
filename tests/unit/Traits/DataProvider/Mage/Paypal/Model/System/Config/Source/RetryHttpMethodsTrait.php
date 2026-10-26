@@ -16,7 +16,7 @@ trait RetryHttpMethodsTrait
     /**
      * @return array<string, array{0: string[]}>
      */
-    public function provideOptionValuesData(): array
+    public static function provideOptionValuesData(): array
     {
         return [
             'supported methods' => [['GET', 'POST', 'PUT', 'PATCH', 'DELETE']],

@@ -20,9 +20,6 @@ class Mage_Paypal_Block_Adminhtml_Webhook_Grid extends Mage_Adminhtml_Block_Widg
         $this->setSaveParametersInSession(true);
     }
 
-    /**
-     * @return $this
-     */
     #[Override]
     protected function _prepareCollection(): self
     {
@@ -31,9 +28,6 @@ class Mage_Paypal_Block_Adminhtml_Webhook_Grid extends Mage_Adminhtml_Block_Widg
         return parent::_prepareCollection();
     }
 
-    /**
-     * @return $this
-     */
     #[Override]
     protected function _prepareColumns(): self
     {
@@ -113,9 +107,6 @@ class Mage_Paypal_Block_Adminhtml_Webhook_Grid extends Mage_Adminhtml_Block_Widg
         return parent::_prepareColumns();
     }
 
-    /**
-     * @return $this
-     */
     #[Override]
     protected function _prepareMassaction(): self
     {

@@ -16,7 +16,7 @@ trait RetryStatusCodesTrait
     /**
      * @return array<string, array{0: string, 1: mixed}>
      */
-    public function provideValidRetryStatusCodesData(): array
+    public static function provideValidRetryStatusCodesData(): array
     {
         return [
             'comma-separated string' => ['408,429,500', '408, 429,500'],
@@ -29,7 +29,7 @@ trait RetryStatusCodesTrait
     /**
      * @return array<string, array{0: mixed}>
      */
-    public function provideInvalidRetryStatusCodesData(): array
+    public static function provideInvalidRetryStatusCodesData(): array
     {
         return [
             'non-integer' => ['408,foo'],

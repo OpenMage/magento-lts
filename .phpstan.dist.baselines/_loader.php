@@ -82,7 +82,6 @@ return ['includes' => [
     __DIR__ . '/offsetAccess.notFound.php',
     __DIR__ . '/offsetAssign.dimType.php',
     __DIR__ . '/parameterByRef.type.php',
-    __DIR__ . '/phpunit.dataProviderStatic.php',
     __DIR__ . '/plus.leftNonNumeric.php',
     __DIR__ . '/plus.rightNonNumeric.php',
     __DIR__ . '/postInc.nonNumeric.php',

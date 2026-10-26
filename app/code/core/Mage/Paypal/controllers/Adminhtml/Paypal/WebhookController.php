@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 class Mage_Paypal_Adminhtml_Paypal_WebhookController extends Mage_Adminhtml_Controller_Action
 {
-    /**
-     * @return $this
-     */
     protected function _initAction(): self
     {
         $this->loadLayout()

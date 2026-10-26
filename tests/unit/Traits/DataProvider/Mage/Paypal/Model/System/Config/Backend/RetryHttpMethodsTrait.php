@@ -16,7 +16,7 @@ trait RetryHttpMethodsTrait
     /**
      * @return array<string, array{0: string, 1: mixed}>
      */
-    public function provideValidRetryHttpMethodsData(): array
+    public static function provideValidRetryHttpMethodsData(): array
     {
         return [
             'comma-separated string' => ['GET,PUT', 'get, PUT'],
@@ -29,7 +29,7 @@ trait RetryHttpMethodsTrait
     /**
      * @return array<string, array{0: mixed}>
      */
-    public function provideInvalidRetryHttpMethodsData(): array
+    public static function provideInvalidRetryHttpMethodsData(): array
     {
         return [
             'unknown method' => ['TRACE'],

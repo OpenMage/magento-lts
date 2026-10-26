@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Paypal\Model\Checkout;
 
+use Iterator;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Core_Model_App_Emulation;
@@ -26,7 +27,6 @@ use Mage_Sales_Model_Quote;
 use Mage_Sales_Model_Quote_Payment;
 use Mage_Sales_Model_Service_Quote;
 use OpenMage\Tests\Unit\OpenMageTest;
-use Override;
 use PaypalServerSdkLib\Http\ApiResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use RuntimeException;
@@ -43,7 +43,6 @@ final class PlacementTest extends OpenMageTest
     /** @var list<string> */
     private array $calls = [];
 
-    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -52,7 +51,6 @@ final class PlacementTest extends OpenMageTest
         Mage::register(self::CHECKOUT_SESSION_SINGLETON, new Varien_Object());
     }
 
-    #[Override]
     protected function tearDown(): void
     {
         Mage::unregister(self::CHECKOUT_SESSION_SINGLETON);
@@ -162,7 +160,9 @@ final class PlacementTest extends OpenMageTest
             ->willThrowException(new Mage_Paypal_Model_Exception('The PayPal payment amount no longer matches your quote total.'));
 
         $quote = $this->buildQuote();
-        $quote->getPayment()->expects(self::never())->method('save');
+        /** @var Mage_Sales_Model_Quote_Payment&MockObject $payment */
+        $payment = $quote->getPayment();
+        $payment->expects(self::never())->method('save');
 
         $subject = $this->buildSubject($helper);
         $subject->method('loadQuote')->willReturn($this->buildQuote());
@@ -195,15 +195,13 @@ final class PlacementTest extends OpenMageTest
     }
 
     /**
-     * @return array<string, array{string, bool}>
+     * @return Iterator<string, array{string, bool}>
      */
-    public static function provideUnchargeableStates(): array
+    public static function provideUnchargeableStates(): Iterator
     {
-        return [
-            'approved, but only charged orders may be placed' => ['APPROVED', false],
-            'created, never approved by the buyer'            => ['CREATED', true],
-            'voided'                                          => ['VOIDED', true],
-        ];
+        yield 'approved, but only charged orders may be placed' => ['APPROVED', false];
+        yield 'created, never approved by the buyer' => ['CREATED', true];
+        yield 'voided' => ['VOIDED', true];
     }
 
     /**
@@ -215,6 +213,7 @@ final class PlacementTest extends OpenMageTest
     public function testRecordsTheChargeAttemptBeforeCharging(): void
     {
         $quote = $this->buildQuote();
+        /** @var Mage_Sales_Model_Quote_Payment&MockObject $payment */
         $payment = $quote->getPayment();
         $payment->method('save')->willReturnCallback(function () use ($payment) {
             $this->calls[] = 'attempt saved:' . $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID);
@@ -231,8 +230,8 @@ final class PlacementTest extends OpenMageTest
         try {
             $subject->placeApprovedOrder($quote, self::PAYPAL_ORDER_ID);
             self::fail('A declined charge was reported as success.');
-        } catch (Mage_Paypal_Model_Exception $exception) {
-            self::assertSame('INSTRUMENT_DECLINED', $exception->getMessage());
+        } catch (Mage_Paypal_Model_Exception $magePaypalModelException) {
+            self::assertSame('INSTRUMENT_DECLINED', $magePaypalModelException->getMessage());
             self::assertSame(['prepare', 'attempt saved:' . self::PAYPAL_ORDER_ID, 'charge'], $this->calls);
         }
     }
@@ -334,8 +333,10 @@ final class PlacementTest extends OpenMageTest
         $helper = $this->buildHelper(pendingPaypalOrderId: self::PAYPAL_ORDER_ID);
 
         $quote = $this->buildQuote();
-        $quote->getPayment()->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID, self::PAYPAL_ORDER_ID);
-        $quote->getPayment()->expects(self::once())->method('save');
+        /** @var Mage_Sales_Model_Quote_Payment&MockObject $payment */
+        $payment = $quote->getPayment();
+        $payment->setAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_CHECKOUT_ATTEMPT_ORDER_ID, self::PAYPAL_ORDER_ID);
+        $payment->expects(self::once())->method('save');
 
         $subject = $this->buildSubject($helper, [null], ['placeApprovedOrder']);
         $subject->method('fetchPaypalOrder')->willReturn($this->buildResponse('APPROVED'));
@@ -370,14 +371,12 @@ final class PlacementTest extends OpenMageTest
     }
 
     /**
-     * @return array<string, array{bool}>
+     * @return Iterator<string, array{bool}>
      */
-    public static function provideChargedPendingQuotes(): array
+    public static function provideChargedPendingQuotes(): Iterator
     {
-        return [
-            'capture recorded on the quote'          => [true],
-            'attempt only, PayPal reports completed' => [false],
-        ];
+        yield 'capture recorded on the quote' => [true];
+        yield 'attempt only, PayPal reports completed' => [false];
     }
 
     /**
@@ -396,16 +395,14 @@ final class PlacementTest extends OpenMageTest
     }
 
     /**
-     * @return array<string, array{bool, bool, ?string, ?string}>
+     * @return Iterator<string, array{bool, bool, (null|string), (null|string)}>
      */
-    public static function provideSkippedRecoveries(): array
+    public static function provideSkippedRecoveries(): Iterator
     {
-        return [
-            'order already placed'                     => [true, true, null, null],
-            'no open cart for the PayPal order'        => [false, false, null, null],
-            'shortcut approval awaits the review page' => [false, true, self::PAYPAL_ORDER_ID, null],
-            'checkout already handled this approval'   => [false, true, null, self::PAYPAL_ORDER_ID],
-        ];
+        yield 'order already placed' => [true, true, null, null];
+        yield 'no open cart for the PayPal order' => [false, false, null, null];
+        yield 'shortcut approval awaits the review page' => [false, true, self::PAYPAL_ORDER_ID, null];
+        yield 'checkout already handled this approval' => [false, true, null, self::PAYPAL_ORDER_ID];
     }
 
     /**
@@ -428,15 +425,13 @@ final class PlacementTest extends OpenMageTest
     }
 
     /**
-     * @return array<string, array{bool, ?string, ?string, bool}>
+     * @return Iterator<string, array{bool, (null|string), (null|string), bool}>
      */
-    public static function provideRecoverableEvents(): array
+    public static function provideRecoverableEvents(): Iterator
     {
-        return [
-            'untouched in-checkout approval is charged' => [true, null, null, true],
-            'shortcut capture is placed'                => [false, self::PAYPAL_ORDER_ID, null, false],
-            'capture after a checkout attempt'          => [false, null, self::PAYPAL_ORDER_ID, true],
-        ];
+        yield 'untouched in-checkout approval is charged' => [true, null, null, true];
+        yield 'shortcut capture is placed' => [false, self::PAYPAL_ORDER_ID, null, false];
+        yield 'capture after a checkout attempt' => [false, null, self::PAYPAL_ORDER_ID, true];
     }
 
     /**
@@ -445,7 +440,9 @@ final class PlacementTest extends OpenMageTest
     public function testMarkCheckoutAttemptOnlyForTheQuotesCurrentPaypalOrder(): void
     {
         $quote = $this->buildQuote();
-        $quote->getPayment()->expects(self::once())->method('save');
+        /** @var Mage_Sales_Model_Quote_Payment&MockObject $payment */
+        $payment = $quote->getPayment();
+        $payment->expects(self::once())->method('save');
 
         $helper = $this->createMock(Mage_Paypal_Model_Helper::class);
         $helper->method('getQuotePaypalOrderId')->willReturn(self::PAYPAL_ORDER_ID);
@@ -462,7 +459,7 @@ final class PlacementTest extends OpenMageTest
 
     /**
      * @param  list<null|Mage_Sales_Model_Order> $foundOrders  successive results of findOrderByPaypalOrderId()
-     * @param  list<string>                      $extraMethods
+     * @param  list<non-empty-string>            $extraMethods
      * @return MockObject&Subject
      */
     private function buildSubject(Mage_Paypal_Model_Helper $helper, array $foundOrders = [null], array $extraMethods = []): Subject

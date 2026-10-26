@@ -26,8 +26,6 @@ class Mage_Paypal_Block_Adminhtml_Debug_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * Prepare collection
-     *
-     * @return $this
      */
     #[Override]
     protected function _prepareCollection(): self
@@ -39,8 +37,6 @@ class Mage_Paypal_Block_Adminhtml_Debug_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * Prepare columns
-     *
-     * @return $this
      */
     #[Override]
     protected function _prepareColumns(): self
@@ -104,8 +100,6 @@ class Mage_Paypal_Block_Adminhtml_Debug_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * Prepare massaction
-     *
-     * @return $this
      */
     #[Override]
     protected function _prepareMassaction(): self

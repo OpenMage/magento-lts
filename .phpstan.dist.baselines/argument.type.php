@@ -4912,11 +4912,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $paypalRequestId of method Mage_Paypal_Model_Api::captureOrder() expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payment.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $payment of method Mage_Paypal_Model_Webhook_Event_Resolver::buildResult() expects Mage_Sales_Model_Order_Payment|null, Mage_Sales_Model_Order_Payment|false given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Webhook/Event/Resolver.php',

@@ -16,7 +16,7 @@ trait ConfigTrait
     /**
      * @return array<string, array{0: int, 1: string}>
      */
-    public function provideApiTimeoutData(): array
+    public static function provideApiTimeoutData(): array
     {
         return [
             'disabled SDK default' => [0, '0'],
@@ -40,7 +40,7 @@ trait ConfigTrait
      *     1: array<string, string>
      * }>
      */
-    public function provideGetRetryConfigurationData(): array
+    public static function provideGetRetryConfigurationData(): array
     {
         return [
             'defaults' => [

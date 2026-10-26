@@ -95,12 +95,10 @@ class Mage_Paypal_Model_Config extends Varien_Object
         }
 
         $storeKey = (string) $storeId;
-        if (!isset($this->_cachedCredentials[$storeKey])) {
-            $this->_cachedCredentials[$storeKey] = [
-                'client_id' => (string) $this->getConfigData('client_id'),
-                'client_secret' => (string) Mage::helper('core')->decrypt($this->getConfigData('client_secret')),
-            ];
-        }
+        $this->_cachedCredentials[$storeKey] ??= [
+            'client_id' => (string) $this->getConfigData('client_id'),
+            'client_secret' => (string) Mage::helper('core')->decrypt($this->getConfigData('client_secret')),
+        ];
 
         return $this->_cachedCredentials[$storeKey];
     }

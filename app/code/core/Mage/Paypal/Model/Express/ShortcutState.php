@@ -124,7 +124,7 @@ class Mage_Paypal_Model_Express_ShortcutState extends Mage_Core_Model_Abstract
     {
         $value = (string) $quote->getPayment()->getAdditionalInformation($key);
         if ($value === '') {
-            $value = (string) $this->_getCheckoutSession()->getData($key);
+            return (string) $this->_getCheckoutSession()->getData($key);
         }
 
         return $value;

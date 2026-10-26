@@ -148,19 +148,26 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                     'success' => true,
                     'redirect_url' => $this->_getSuccessUrl(),
                 ]));
+        } catch (Mage_Paypal_Model_Checkout_UnplacedPaymentException $exception) {
+            // The buyer was charged: leave the attempt unmarked so the webhook fallback still places the order.
+            Mage::logException($exception);
+
+            $this->getResponse()
+                ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)->setBody(Mage::helper('core')->jsonEncode([
+                    'success' => false,
+                    'message' => $exception->getMessage(),
+                ]));
         } catch (Exception $exception) {
             Mage::logException($exception);
 
             // The buyer is now told this approval failed, so the webhook fallback must not charge it later.
-            if (!$exception instanceof Mage_Paypal_Model_Checkout_UnplacedPaymentException) {
-                try {
-                    $this->_getPlacement()->markCheckoutAttempt(
-                        $this->_getQuote(),
-                        (string) $this->getRequest()->getParam('order_id'),
-                    );
-                } catch (Exception $markException) {
-                    Mage::logException($markException);
-                }
+            try {
+                $this->_getPlacement()->markCheckoutAttempt(
+                    $this->_getQuote(),
+                    (string) $this->getRequest()->getParam('order_id'),
+                );
+            } catch (Exception $markException) {
+                Mage::logException($markException);
             }
 
             $this->getResponse()
@@ -370,9 +377,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
      */
     private function _getCustomerSession(): Mage_Customer_Model_Session
     {
-        if (is_null($this->_customerSession)) {
-            $this->_customerSession = Mage::getSingleton('customer/session');
-        }
+        $this->_customerSession ??= Mage::getSingleton('customer/session');
 
         return $this->_customerSession;
     }
