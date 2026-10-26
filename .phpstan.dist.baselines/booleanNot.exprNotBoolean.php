@@ -3809,11 +3809,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Helper/Address.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Helper/Data.php',
 ];
 $ignoreErrors[] = [

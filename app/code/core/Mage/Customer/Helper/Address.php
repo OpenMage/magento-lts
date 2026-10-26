@@ -69,7 +69,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function getRenderer($renderer)
     {
-        if (is_string($renderer) && $className = Mage::getConfig()->getBlockClassName($renderer)) {
+        if (is_string($renderer) && ($className = Mage::getConfig()->getBlockClassName($renderer)) !== '') {
             return new $className();
         }
 
@@ -165,12 +165,12 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     {
         /** @var Mage_Customer_Model_Attribute $attribute */
         $attribute = $this->_attributes[$attributeCode] ?? Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
-        $class = $attribute && $attribute->getIsVisible() ? $attribute->getFrontend()->getClass() : '';
+        $class = $attribute !== false && (bool) $attribute->getIsVisible() ? $attribute->getFrontend()->getClass() : '';
 
         if (in_array($attributeCode, ['firstname', 'middlename', 'lastname', 'prefix', 'suffix', 'taxvat'])) {
             /** @var Mage_Customer_Model_Attribute $customerAttribute */
             $customerAttribute = Mage::getSingleton('eav/config')->getAttribute('customer', $attributeCode);
-            $class = $customerAttribute && $customerAttribute->getIsVisible()
+            $class = $customerAttribute !== false && (bool) $customerAttribute->getIsVisible()
                 ? $customerAttribute->getFrontend()->getClass() : '';
             $class = implode(' ', array_unique(array_filter(explode(' ', $class))));
         }
