@@ -66,9 +66,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
     public function addProfile($name, ?Mage_Dataflow_Model_Convert_Profile_Interface $profile = null)
     {
-        if (is_null($profile)) {
-            $profile = new $this->_profileDefaultClass();
-        }
+        $profile ??= new $this->_profileDefaultClass();
 
         $this->_profiles[$name] = $profile;
         return $profile;
@@ -170,12 +168,12 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
                      * Get state name from directory by iso name
                      * (only for US)
                      */
-                    if ($value && (string) $varNode['name'] == 'filter/country') {
+                    if ($value && (string) $varNode['name'] === 'filter/country') {
                         /**
                          * Save country for convert state iso to name (for US only)
                          */
                         $country = $value;
-                    } elseif ($value && (string) $varNode['name'] == 'filter/region' && $country == 'US') {
+                    } elseif ($value && (string) $varNode['name'] === 'filter/region' && $country === 'US') {
                         /**
                          * Get state name by iso for US
                          */

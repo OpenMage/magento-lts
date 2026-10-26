@@ -337,7 +337,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 }
 
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                if (count($csvFields) != count($val)) {
+                if (count($csvFields) !== count($val)) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
                 }
 

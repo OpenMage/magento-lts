@@ -23,6 +23,16 @@ trait AbstractTrait
             [],
             null,
         ];
+        yield 'array, allowed tags' => [
+            ['text<s>1</s>'],
+            ['text<s>1</s>'],
+            ['s'],
+        ];
+        yield 'array, no allowed tags' => [
+            ['text&lt;s&gt;1&lt;/s&gt;'],
+            ['text<s>1</s>'],
+            null,
+        ];
         yield 'empty string' => [
             '',
             '',

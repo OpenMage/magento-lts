@@ -180,7 +180,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
     {
         $result = new Varien_Object();
 
-        $month = strlen($data->getCardExpMonth()) == 1 ? '0' . $data->getCardExpMonth() : $data->getCardExpMonth();
+        $month = strlen($data->getCardExpMonth()) === 1 ? '0' . $data->getCardExpMonth() : $data->getCardExpMonth();
         $currencyCode = $data->getCurrencyCode();
         $currencyNumber = self::$_iso4217Currencies[$currencyCode] ?? '';
         if (!$currencyNumber) {

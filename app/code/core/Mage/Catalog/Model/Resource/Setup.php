@@ -828,8 +828,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      * Converts old tree to new
      *
      * @return $this
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     public function convertOldTreeToNew()
     {
         if (!Mage::getModel('catalog/category')->load(1)->getId()) {
@@ -906,8 +906,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      * Creates level values for categories and saves them
      *
      * @return $this
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     public function rebuildCategoryLevels()
     {
         $adapter = $this->getConnection();

@@ -1059,9 +1059,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function addProductAdvanced(Mage_Catalog_Model_Product $product, $request = null, $processMode = null)
     {
-        if ($request === null) {
-            $request = 1;
-        }
+        $request ??= 1;
 
         if (is_numeric($request)) {
             $request = new Varien_Object(['qty' => $request]);
@@ -1579,7 +1577,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         }
 
         $sortedTotals = [];
-        foreach ($this->getBillingAddress()->getTotalModels() as $total) {
+        foreach ($this->getBillingAddress()->getTotalCollector()->getRetrievers() as $total) {
             /** @var Mage_Sales_Model_Quote_Address_Total_Abstract $total */
             if (isset($totals[$total->getCode()])) {
                 $sortedTotals[$total->getCode()] = $totals[$total->getCode()];
@@ -1597,9 +1595,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function addMessage($message, $index = 'error')
     {
         $messages = $this->getDataByKey('messages');
-        if (is_null($messages)) {
-            $messages = [];
-        }
+        $messages ??= [];
 
         if (isset($messages[$index])) {
             return $this;
@@ -1705,9 +1701,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function addErrorInfo($type = 'error', $origin = null, $code = null, $message = null, $additionalData = null)
     {
-        if (!isset($this->_errorInfoGroups[$type])) {
-            $this->_errorInfoGroups[$type] = Mage::getModel('sales/status_list');
-        }
+        $this->_errorInfoGroups[$type] ??= Mage::getModel('sales/status_list');
 
         $this->_errorInfoGroups[$type]->addItem($origin, $code, $message, $additionalData);
 
@@ -1776,9 +1770,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function removeMessageByText($type, $text)
     {
         $messages = $this->getDataByKey('messages');
-        if (is_null($messages)) {
-            $messages = [];
-        }
+        $messages ??= [];
 
         if (!isset($messages[$type])) {
             return $this;
@@ -1894,7 +1886,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         }
 
-        return $countItems == 0 ? false : $isVirtual;
+        return $countItems === 0 ? false : $isVirtual;
     }
 
     /**
@@ -2124,9 +2116,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         return parent::_afterLoad();
     }
 
-    /**
-     * @deprecated after 1.4 beta1 - one page checkout responsibility
-     */
+    #[Deprecated(message: 'after 1.4 beta1 - one page checkout responsibility')]
     public const CHECKOUT_METHOD_REGISTER  = 'register';
 
     public const CHECKOUT_METHOD_GUEST     = 'guest';
@@ -2138,8 +2128,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * @param  bool   $originalMethod if true return defined method from beginning
      * @return string
-     * @deprecated after 1.4 beta1 it is checkout module responsibility
      */
+    #[Deprecated(message: 'after 1.4 beta1 it is checkout module responsibility')]
     public function getCheckoutMethod($originalMethod = false)
     {
         if ($this->getCustomerId() && !$originalMethod) {
@@ -2153,8 +2143,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Check is allow Guest Checkout
      *
      * @return bool
-     * @deprecated after 1.4 beta1 it is checkout module responsibility
      */
+    #[Deprecated(message: 'after 1.4 beta1 it is checkout module responsibility')]
     public function isAllowedGuestCheckout()
     {
         return Mage::helper('checkout')->isAllowedGuestCheckout($this, $this->getStoreId());

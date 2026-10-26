@@ -1087,11 +1087,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Class/Edit.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method setLegend() on Mage_Core_Block_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Form.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method toHtml() on Mage_Core_Block_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Title/Fieldset.php',
@@ -1262,19 +1257,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method saveConfig() on Mage_Core_Model_Config|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Custom.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method deleteConfig() on Mage_Core_Model_Config|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Usecustom.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
@@ -2002,11 +1987,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Block/Adminhtml/Roles/Tab/Users.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method children() on array|Varien_Simplexml_Element.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php',
@@ -2073,7 +2053,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getId() on Mage_Bundle_Model_Option|null.',
-    'count' => 6,
+    'count' => 5,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Product/Type.php',
 ];
 $ignoreErrors[] = [

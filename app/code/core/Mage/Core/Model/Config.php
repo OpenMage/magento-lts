@@ -266,9 +266,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getResourceModel()
     {
-        if (is_null($this->_resourceModel)) {
-            $this->_resourceModel = Mage::getResourceModel('core/config');
-        }
+        $this->_resourceModel ??= Mage::getResourceModel('core/config');
 
         return $this->_resourceModel;
     }
@@ -1046,7 +1044,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if ($this->_moduleNamespaces === null) {
             $this->_moduleNamespaces = [];
             foreach ($this->_xml->xpath('modules/*') as $config) {
-                if ((string) $config->active == 'true') {
+                if ((string) $config->active === 'true') {
                     $moduleName = $config->getName();
                     $module = strtolower($moduleName);
                     $this->_moduleNamespaces[substr($module, 0, strpos($module, '_'))][$module] = $moduleName;
@@ -1097,9 +1095,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $mergeToObject->loadString('<config/>');
         }
 
-        if ($mergeModel === null) {
-            $mergeModel = clone $this->_prototype;
-        }
+        $mergeModel ??= clone $this->_prototype;
 
         $modules = $this->getNode('modules')->children();
         foreach ($modules as $modName => $module) {
@@ -1248,8 +1244,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param  string              $type
      * @return string
      * @throws Mage_Core_Exception
-     * @deprecated in favor of Mage_Core_Model_Config_Options
      */
+    #[Deprecated(message: 'in favor of Mage_Core_Model_Config_Options')]
     public function getBaseDir($type = 'base')
     {
         return $this->getOptions()->getDir($type);
@@ -1373,7 +1369,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         $classArr = explode('/', trim($classId));
         $group = $classArr[0];
-        $class = empty($classArr[1]) ? null : $classArr[1];
+        $class = empty($classArr[1]) ? '' : $classArr[1];
 
         if (isset($this->_classNameCache[$groupRootNode][$group][$class])) {
             return $this->_classNameCache[$groupRootNode][$group][$class];
@@ -1383,7 +1379,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         // First - check maybe the entity class was rewritten
         $className = '';
-        if (isset($config->rewrite->$class)) {
+        if ($class !== '' && isset($config->rewrite->$class)) {
             $className = (string) $config->rewrite->$class;
         }
 
@@ -1505,17 +1501,21 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * @param  string $path
-     * @return bool
+     * @param  string      $path
+     * @return null|object
      */
     public function getNodeClassInstance($path)
     {
         $config = Mage::getConfig()->getNode($path);
         if (!$config) {
-            return false;
+            return null;
         }
 
         $className = $config->getClassName();
+        if (!is_string($className)) {
+            return null;
+        }
+
         return new $className();
     }
 
@@ -1688,9 +1688,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getEventConfig($area, $eventName)
     {
         //return $this->getNode($area)->events->{$eventName};
-        if (!isset($this->_eventAreas[$area])) {
-            $this->_eventAreas[$area] = $this->getNode($area)->events;
-        }
+        $this->_eventAreas[$area] ??= $this->getNode($area)->events;
 
         return $this->_eventAreas[$area]->{$eventName};
     }
@@ -1787,7 +1785,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected function _getResourceModelFactoryClassName($modelClass)
     {
         $classArray = explode('/', $modelClass);
-        if (count($classArray) != 2) {
+        if (count($classArray) !== 2) {
             return false;
         }
 

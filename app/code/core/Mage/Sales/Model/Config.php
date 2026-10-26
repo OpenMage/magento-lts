@@ -15,8 +15,8 @@ class Mage_Sales_Model_Config
     public const XML_PATH_ORDER_STATES = 'global/sales/order/states';
 
     /**
-     * @param  string $type
-     * @return bool
+     * @param  string      $type
+     * @return null|object
      */
     public function getQuoteRuleConditionInstance($type)
     {
@@ -24,8 +24,8 @@ class Mage_Sales_Model_Config
     }
 
     /**
-     * @param  string $type
-     * @return bool
+     * @param  string      $type
+     * @return null|object
      */
     public function getQuoteRuleActionInstance($type)
     {

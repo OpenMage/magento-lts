@@ -499,8 +499,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * @return void
      * @throws Mage_Core_Exception
-     * @deprecated since 1.2
      */
+    #[Deprecated(message: 'since 1.2')]
     public function bundlesAction()
     {
         $product = $this->_initProduct();
@@ -599,9 +599,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->_filterStockData($productData['stock_data']);
         }
 
-        if (!isset($productData['website_ids'])) {
-            $productData['website_ids'] = [];
-        }
+        $productData['website_ids'] ??= [];
 
         $wasLockedMedia = false;
         if ($product->isLockedAttribute('media')) {
@@ -719,9 +717,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             return;
         }
 
-        if (!isset($stockData['use_config_manage_stock'])) {
-            $stockData['use_config_manage_stock'] = 0;
-        }
+        $stockData['use_config_manage_stock'] ??= 0;
 
         if (isset($stockData['qty']) && (float) $stockData['qty'] > self::MAX_QTY_VALUE) {
             $stockData['qty'] = self::MAX_QTY_VALUE;
@@ -864,9 +860,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
     }
 
-    /**
-     * @deprecated since 1.4.0.0-alpha2
-     */
+    #[Deprecated(message: 'since 1.4.0.0-alpha2')]
     protected function _decodeInput($encoded)
     {
         parse_str($encoded, $data);
@@ -932,8 +926,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * @return $this
-     * @deprecated since 1.5.0.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_5_0_0)]
     public function addCustomersToAlertQueueAction()
     {
         return $this;
@@ -1005,6 +999,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function massStatusAction()
     {
+        /**
+         * @var list<int|string> $productIds
+         */
         $productIds = (array) $this->getRequest()->getParam('product');
         $storeId    = (int) $this->getRequest()->getParam('store', 0);
         $status     = (int) $this->getRequest()->getParam('status');
@@ -1031,6 +1028,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * Validate batch of products before theirs status will be set
      *
+     * @param  list<int|string>    $productIds
      * @param  int                 $status
      * @throws Mage_Core_Exception
      */

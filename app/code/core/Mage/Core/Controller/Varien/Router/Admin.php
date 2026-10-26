@@ -141,7 +141,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
         if ((string) Mage::getConfig()->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_USE_CUSTOM_ADMIN_PATH)) {
             $customUrl = (string) Mage::getConfig()->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_CUSTOM_ADMIN_PATH);
             $xmlPath = Mage_Adminhtml_Helper_Data::XML_PATH_ADMINHTML_ROUTER_FRONTNAME;
-            if ((string) Mage::getConfig()->getNode($xmlPath) != $customUrl) {
+            if ((string) Mage::getConfig()->getNode($xmlPath) !== $customUrl) {
                 Mage::getConfig()->setNode($xmlPath, $customUrl, true);
             }
         }

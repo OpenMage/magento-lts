@@ -469,9 +469,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             return false;
         }
 
-        if (is_null($this->_website)) {
-            $this->_website = Mage::app()->getWebsite($this->getWebsiteId());
-        }
+        $this->_website ??= Mage::app()->getWebsite($this->getWebsiteId());
 
         return $this->_website;
     }
@@ -529,8 +527,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @param  string $value
      * @return string
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function processSubst($value)
     {
         if (!is_string($value)) {
@@ -599,7 +597,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if (!isset($this->_baseUrlCache[$cacheKey])) {
             switch ($type) {
                 case self::URL_TYPE_WEB:
-                    $secure = is_null($secure) ? $this->isCurrentlySecure() : (bool) $secure;
+                    $secure = is_null($secure) ? Mage::app()->isCurrentlySecure() : (bool) $secure;
                     $url = $this->getConfig('web/' . ($secure ? 'secure' : 'unsecure') . '/base_url');
                     break;
 
@@ -618,7 +616,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
                 case self::URL_TYPE_SKIN:
                 case self::URL_TYPE_JS:
-                    $secure = is_null($secure) ? $this->isCurrentlySecure() : (bool) $secure;
+                    $secure = is_null($secure) ? Mage::app()->isCurrentlySecure() : (bool) $secure;
                     $url = $this->getConfig('web/' . ($secure ? 'secure' : 'unsecure') . '/base_' . $type . '_url');
                     break;
 
@@ -681,7 +679,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     protected function _updateMediaPathUseRewrites($secure = null, $type = self::URL_TYPE_MEDIA)
     {
-        $secure = is_null($secure) ? $this->isCurrentlySecure() : (bool) $secure;
+        $secure = is_null($secure) ? Mage::app()->isCurrentlySecure() : (bool) $secure;
         $secureStringFlag = $secure ? 'secure' : 'unsecure';
         $url = $this->getConfig('web/' . $secureStringFlag . '/base_' . $type . '_url');
         if (!$this->getConfig(self::XML_PATH_USE_REWRITES)
@@ -748,10 +746,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isAdminUrlSecure()
     {
-        if ($this->_isAdminSecure === null) {
-            $this->_isAdminSecure = (bool) (int) (string) Mage::getConfig()
-                ->getNode(Mage_Core_Model_Url::XML_PATH_SECURE_IN_ADMIN);
-        }
+        $this->_isAdminSecure ??= (bool) (int) (string) Mage::getConfig()
+            ->getNode(Mage_Core_Model_Url::XML_PATH_SECURE_IN_ADMIN);
 
         return $this->_isAdminSecure;
     }
@@ -763,12 +759,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isFrontUrlSecure()
     {
-        if ($this->_isFrontSecure === null) {
-            $this->_isFrontSecure = Mage::getStoreConfigFlag(
-                Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
-                $this->getId(),
-            );
-        }
+        $this->_isFrontSecure ??= Mage::getStoreConfigFlag(
+            Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
+            $this->getId(),
+        );
 
         return $this->_isFrontSecure;
     }
@@ -777,8 +771,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Check if request was secure
      *
      * @return bool
-     * @deprecated
      */
+    #[Deprecated]
     public function isCurrentlySecure()
     {
         return Mage::app()->isCurrentlySecure();
@@ -1091,9 +1085,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             return false;
         }
 
-        if (is_null($this->_group)) {
-            $this->_group = Mage::getModel('core/store_group')->load($this->getGroupId());
-        }
+        $this->_group ??= Mage::getModel('core/store_group')->load($this->getGroupId());
 
         return $this->_group;
     }
@@ -1157,7 +1149,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             ltrim(Mage::app()->getRequest()->getRequestString(), '/'),
         );
 
-        $storeUrl = Mage::app()->getStore()->isCurrentlySecure()
+        $storeUrl = Mage::app()->isCurrentlySecure()
             ? $this->getUrl('', ['_secure' => true])
             : $this->getUrl('');
         // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
@@ -1191,7 +1183,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         return $storeParsedUrl['scheme'] . '://' . $storeParsedUrl['host']
             . (isset($storeParsedUrl['port']) ? ':' . $storeParsedUrl['port'] : '')
             . $storeParsedUrl['path'] . $requestString
-            . ($storeParsedQuery ? '?' . http_build_query($storeParsedQuery, '', '&amp;') : '');
+            . ($storeParsedQuery !== [] ? '?' . http_build_query($storeParsedQuery, '', '&amp;') : '');
     }
 
     /**

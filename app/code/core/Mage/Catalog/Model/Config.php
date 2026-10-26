@@ -280,7 +280,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getSourceOptionId($source, $value)
     {
         foreach ($source->getAllOptions() as $option) {
-            if (strcasecmp($option['label'], $value) == 0 || $option['value'] == $value) {
+            if (strcasecmp($option['label'], $value) === 0 || $option['value'] == $value) {
                 return $option['value'];
             }
         }
@@ -295,9 +295,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
      */
     public function getProductAttributes()
     {
-        if (is_null($this->_productAttributes)) {
-            $this->_productAttributes = array_keys($this->getAttributesUsedInProductListing());
-        }
+        $this->_productAttributes ??= array_keys($this->getAttributesUsedInProductListing());
 
         return $this->_productAttributes;
     }

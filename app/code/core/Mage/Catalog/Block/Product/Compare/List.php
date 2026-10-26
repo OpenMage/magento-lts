@@ -117,9 +117,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      */
     public function getAttributes()
     {
-        if (is_null($this->_attributes)) {
-            $this->_attributes = $this->getItems()->getComparableAttributes();
-        }
+        $this->_attributes ??= $this->getItems()->getComparableAttributes();
 
         return $this->_attributes;
     }
@@ -146,7 +144,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
             $value = $product->getData($attribute->getAttributeCode());
         }
 
-        return ((string) $value == '') ? Mage::helper('catalog')->__('No') : $value;
+        return ((string) $value === '') ? Mage::helper('catalog')->__('No') : $value;
     }
 
     /**

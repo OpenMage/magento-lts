@@ -208,7 +208,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
             $limitCount = (int) $limitCount;
             $limitOffset = (int) $limitOffset;
 
-            if ($limitOffset + $limitCount != $limitOffset + 1) {
+            if ($limitOffset + $limitCount !== $limitOffset + 1) {
                 $columns = [];
                 foreach ($columnList as $columnEntry) {
                     $columns[] = $columnEntry[2] ? $columnEntry[2] : $columnEntry[1];

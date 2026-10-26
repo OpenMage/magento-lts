@@ -18,7 +18,7 @@
     <table class="data-table compare-table" id="product_comparison">
         <?php $_i=0 ?>
         <?php foreach($this->getItems() as $_item): ?>
-            <?php if($_i++%10==0): ?>
+            <?php if($_i++ % 10 === 0): ?>
                 <col width="1" />
             <?php endif ?>
             <col width="<?php echo floor(100/$_total); ?>%" />
@@ -28,7 +28,7 @@
             <tr>
                 <?php $_i=0 ?>
                 <?php foreach($this->getItems() as $_item): ?>
-                    <?php if($_i++%10==0): ?>
+                    <?php if($_i++ % 10 === 0): ?>
                         <th>&nbsp;</th>
                     <?php endif ?>
                     <td class="a-right"><a href="#" class="btn-remove" onclick="removeItem('<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>');" title="<?php echo $this->quoteEscape($this->__('Remove This Item')) ?>"><?php echo $this->__('Remove This Item') ?></a></td>
@@ -40,7 +40,7 @@
         <tr class="product-shop-row top">
             <?php $_i=0 ?>
             <?php foreach($this->getItems() as $_item): ?>
-                <?php if($_i++%10==0): ?>
+                <?php if($_i++ % 10 === 0): ?>
                     <th>&nbsp;</th>
                 <?php endif ?>
                 <td>
@@ -54,7 +54,7 @@
         <tr class="product-shop-row bottom">
             <?php $_i=0 ?>
             <?php foreach($this->getItems() as $_item): ?>
-                <?php if($_i++%10==0): ?>
+                <?php if($_i++ % 10 === 0): ?>
                     <th>&nbsp;</th>
                 <?php endif ?>
                 <td>
@@ -94,7 +94,7 @@
             <tr>
                 <?php $_i=0 ?>
                 <?php foreach($this->getItems() as $_item): ?>
-                    <?php if($_i++%10==0): ?>
+                    <?php if($_i++ % 10 === 0): ?>
                         <th><span class="nobr"><?php echo $_attribute->getStoreLabel() ?></span></th>
                     <?php endif ?>
                     <td>
@@ -123,7 +123,7 @@
         <tr class="add-to-row">
             <?php $_i=0 ?>
             <?php foreach($this->getItems() as $_item): ?>
-                <?php if($_i++%10==0): ?>
+                <?php if($_i++ % 10 === 0): ?>
                     <th>&nbsp;</th>
                 <?php endif ?>
                 <td>

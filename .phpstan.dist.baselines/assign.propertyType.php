@@ -207,7 +207,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_ConfigurableSwatches_Helper_Productlist::$_swatchAttribute (Mage_Catalog_Model_Product_Type_Configurable_Attribute|false|null) does not accept Mage_Eav_Model_Entity_Attribute_Abstract|false.',
+    'rawMessage' => 'Property Mage_ConfigurableSwatches_Helper_Productlist::$_swatchAttribute (Mage_Catalog_Model_Product_Type_Configurable_Attribute|false|null) does not accept Mage_Catalog_Model_Product_Type_Configurable_Attribute|Mage_Eav_Model_Entity_Attribute_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php',
 ];
@@ -560,16 +560,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_HTTP_Client_Socket::$_sock (resource) does not accept resource|false.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/HTTP/Client/Socket.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Data_Collection_Db<T of Varien_Object>::$_map (array{fields: array<string, string>}|null) does not accept non-empty-array<string, array<string, string>>.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Varien_Data_Collection_Db<T of Varien_Object>::$_map (array{fields: array<string, string>}|null) does not accept non-empty-array<string, array{}>.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Data/Collection/Db.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Varien_Data_Form_Filter_Date::$_locale (string|Zend_Locale) does not accept string|Zend_Locale|null.',

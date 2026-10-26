@@ -564,8 +564,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Prepare Url Data object
      *
      * @return $this
-     * @deprecated after 1.7.0.2
      */
+    #[Deprecated(message: 'after 1.7.0.2')]
     protected function _prepareUrlDataObject()
     {
         $objects = [];
@@ -670,9 +670,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function addStoreFilter($store = null)
     {
-        if ($store === null) {
-            $store = $this->getStoreId();
-        }
+        $store ??= $this->getStoreId();
 
         $store = Mage::app()->getStore($store);
 
@@ -981,9 +979,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     protected function _buildClearSelect($select = null)
     {
-        if (is_null($select)) {
-            $select = clone $this->getSelect();
-        }
+        $select ??= clone $this->getSelect();
 
         $select->reset(Zend_Db_Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
@@ -1076,7 +1072,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 ['collection' => $this],
             );
 
-            if ($isAnchor) {
+            if ($isAnchor !== []) {
                 $anchorStmt = clone $select;
                 $anchorStmt->limit(); //reset limits
                 $anchorStmt->where('count_table.category_id IN (?)', $isAnchor);
@@ -1084,7 +1080,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $anchorStmt = null;
             }
 
-            if ($isNotAnchor) {
+            if ($isNotAnchor !== []) {
                 $notAnchorStmt = clone $select;
                 $notAnchorStmt->limit(); //reset limits
                 $notAnchorStmt->where('count_table.category_id IN (?)', $isNotAnchor);
@@ -1138,8 +1134,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @return $this
      * @throws Mage_Core_Exception
-     * @deprecated after 1.7.0.2. Method is not used anywhere in the code.
      */
+    #[Deprecated(message: 'after 1.7.0.2. Method is not used anywhere in the code.')]
     public function joinUrlRewrite()
     {
         $this->joinTable(
@@ -1205,9 +1201,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
             $urlRewrites = [];
             foreach ($this->getConnection()->fetchAll($select) as $row) {
-                if (!isset($urlRewrites[$row['product_id']])) {
-                    $urlRewrites[$row['product_id']] = $row['request_path'];
-                }
+                $urlRewrites[$row['product_id']] ??= $row['request_path'];
             }
 
             if ($this->_cacheConf) {
@@ -1237,9 +1231,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add minimal price to product collection
      *
      * @return $this
-     * @deprecated since 1.3.2.2
      * @see Mage_Catalog_Model_Resource_Product_Collection::addPriceData
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_3_2_2)]
     protected function _addMinimalPrice()
     {
         return $this;
@@ -1423,7 +1417,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         $this->_allIdsCache = null;
 
-        if (is_string($attribute) && $attribute == 'is_saleable') {
+        if (is_string($attribute) && $attribute === 'is_saleable') {
             $columns = $this->getSelect()->getPart(Zend_Db_Select::COLUMNS);
             foreach ($columns as $columnEntry) {
                 [$correlationName, $column, $alias] = $columnEntry;
@@ -1471,9 +1465,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         return $this->_addTaxPercents;
     }
 
-    /**
-     * @deprecated from 1.3.0
-     */
+    #[Deprecated(message: 'from 1.3.0')]
     protected function _addTaxPercents()
     {
         $classToRate = [];
@@ -2034,7 +2026,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $tierPrices[$item->getId()] = [];
         }
 
-        if (!$productIds) {
+        if ($productIds === []) {
             return $this;
         }
 

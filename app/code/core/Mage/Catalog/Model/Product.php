@@ -393,9 +393,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getUrlModel()
     {
-        if ($this->_urlModel === null) {
-            $this->_urlModel = Mage::getSingleton('catalog/factory')->getProductUrlInstance();
-        }
+        $this->_urlModel ??= Mage::getSingleton('catalog/factory')->getProductUrlInstance();
 
         return $this->_urlModel;
     }
@@ -487,16 +485,12 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getTypeInstance($singleton = false)
     {
         if ($singleton === true) {
-            if (is_null($this->_typeInstanceSingleton)) {
-                $this->_typeInstanceSingleton = Mage::getSingleton('catalog/product_type')::factory($this, true);
-            }
+            $this->_typeInstanceSingleton ??= Mage::getSingleton('catalog/product_type')::factory($this, true);
 
             return $this->_typeInstanceSingleton;
         }
 
-        if ($this->_typeInstance === null) {
-            $this->_typeInstance = Mage::getSingleton('catalog/product_type')::factory($this);
-        }
+        $this->_typeInstance ??= Mage::getSingleton('catalog/product_type')::factory($this);
 
         return $this->_typeInstance;
     }
@@ -1859,8 +1853,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
     /**
      * @return $this
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function loadParentProductIds()
     {
         return $this->setParentProductIds([]);
@@ -2135,8 +2129,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Return re-sized image URL
      *
      * @return string
-     * @deprecated since 1.1.5
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_1_5_0)]
     public function getImageUrl()
     {
         return (string) $this->_getImageHelper()->init($this, 'image')->resize(265);
@@ -2148,8 +2142,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param  int    $width
      * @param  int    $height
      * @return string
-     * @deprecated since 1.1.5
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_1_5_0)]
     public function getSmallImageUrl($width = 88, $height = 77)
     {
         return (string) $this->_getImageHelper()->init($this, 'small_image')->resize($width, $height);
@@ -2161,8 +2155,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param  int    $width
      * @param  int    $height
      * @return string
-     * @deprecated since 1.1.5
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_1_5_0)]
     public function getThumbnailUrl($width = 75, $height = 75)
     {
         return (string) $this->_getImageHelper()->init($this, 'thumbnail')->resize($width, $height);
@@ -2275,23 +2269,18 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Check for empty SKU on each product
      *
-     * @return null|bool
+     * @param  list<int|string>    $productIds
+     * @return bool
      * @throws Mage_Core_Exception
      */
     public function isProductsHasSku(array $productIds)
     {
         $products = $this->_getResource()->getProductsSku($productIds);
         if (count($products)) {
-            foreach ($products as $product) {
-                if (!strlen($product['sku'])) {
-                    return false;
-                }
-            }
-
-            return true;
+            return array_all($products, fn($product) => (string) $product['sku'] !== '');
         }
 
-        return null;
+        return false;
     }
 
     /**

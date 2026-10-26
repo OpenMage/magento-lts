@@ -184,7 +184,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
 
         if ($additionalWhere !== []) {
             foreach ($additionalWhere as $condition) {
-                if (is_array($condition) && count($condition) == 2) {
+                if (is_array($condition) && count($condition) === 2) {
                     $condition = $adapter->quoteInto($condition[0], $condition[1]);
                 } elseif (is_array($condition)) { // Invalid condition
                     continue;
@@ -239,7 +239,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         }
 
         $whereCondition = implode(' OR ', $whereCondition);
-        if ($whereCondition == '') {
+        if ($whereCondition === '') {
             $whereCondition = '1=0';  // FALSE condition!
         }
 
@@ -306,7 +306,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
 
         if ($additionalWhere !== []) {
             foreach ($additionalWhere as $condition) {
-                if (is_array($condition) && count($condition) == 2) {
+                if (is_array($condition) && count($condition) === 2) {
                     $condition = $adapter->quoteInto($condition[0], $condition[1]);
                 } elseif (is_array($condition)) { // Invalid condition
                     continue;
@@ -393,7 +393,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $then = $this->_getWriteAdapter()
                 ->getDateAddSql($column, $offset, Varien_Db_Adapter_Interface::INTERVAL_SECOND);
 
-            $query .= (++$index == $periodsCount) ? $then : 'CASE WHEN ' . implode(' OR ', $subParts) . " THEN {$then} ELSE ";
+            $query .= (++$index === $periodsCount) ? $then : 'CASE WHEN ' . implode(' OR ', $subParts) . " THEN {$then} ELSE ";
         }
 
         return $query . str_repeat('END ', count($periods) - 1);

@@ -57,9 +57,7 @@ class Mage_CatalogInventory_Model_Observer
         $product = $observer->getEvent()->getProduct();
         if ($product instanceof Mage_Catalog_Model_Product) {
             $productId = (int) $product->getId();
-            if (!isset($this->_stockItemsArray[$productId])) {
-                $this->_stockItemsArray[$productId] = Mage::getModel('cataloginventory/stock_item');
-            }
+            $this->_stockItemsArray[$productId] ??= Mage::getModel('cataloginventory/stock_item');
 
             $productStockItem = $this->_stockItemsArray[$productId];
             $productStockItem->assignProduct($product);
@@ -577,8 +575,8 @@ class Mage_CatalogInventory_Model_Observer
      * @param  int         $productId
      * @param  float       $itemQty
      * @return float|mixed
-     * @deprecated after 1.4.2.0-rc1
      */
+    #[Deprecated(message: 'after 1.4.2.0-rc1')]
     protected function _getProductQtyForCheck($productId, $itemQty)
     {
         $qty = $itemQty;
@@ -981,8 +979,8 @@ class Mage_CatalogInventory_Model_Observer
      * some orders in one time
      * @param  Varien_Event_Observer $observer
      * @return $this
-     * @deprecated after 1.4
      */
+    #[Deprecated(message: 'after 1.4')]
     public function lockOrderInventoryData($observer)
     {
         /** @var Mage_Sales_Model_Order $order */
@@ -1014,8 +1012,8 @@ class Mage_CatalogInventory_Model_Observer
      *
      * @param  Varien_Event_Observer $observer
      * @return $this
-     * @deprecated after 1.4
      */
+    #[Deprecated(message: 'after 1.4')]
     public function createOrderItem($observer)
     {
         /** @var Mage_Sales_Model_Order_Item $item */
@@ -1038,8 +1036,8 @@ class Mage_CatalogInventory_Model_Observer
      *
      * @param  Varien_Event_Observer $observer
      * @return $this
-     * @deprecated after 1.4
      */
+    #[Deprecated(message: 'after 1.4')]
     public function refundOrderItem($observer)
     {
         /** @var Mage_Sales_Model_Order_Creditmemo_Item $item */

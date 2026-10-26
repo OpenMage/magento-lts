@@ -13,8 +13,21 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model;
 
 use Generator;
 
+/**
+ * @phpstan-type ValidateData array{
+ *     "username": string,
+ *     "firstname": string,
+ *     "lastname": string,
+ *     "email": string,
+ *     "api_key": string,
+ *     "api_key_confirmation": string
+ * }
+ */
 trait UserTrait
 {
+    /**
+     * @return Generator<string, list{bool|string[], ValidateData, bool}, void, void>
+     */
     public static function provideValidateApiUserData(): Generator
     {
         $errorAlphaNumeric = 'Api Key must include both numeric and alphabetic characters.';
@@ -23,99 +36,104 @@ trait UserTrait
         $errorLength = 'Api Key must be at least of 7 characters.';
 
         $validUser = [
-            'getUsername' => 'validuser',
-            'getFirstname' => 'John',
-            'getLastname' => 'Doe',
-            'getEmail' => 'john.doe@example.com',
-            'hasNewApiKey' => false,
-            'getNewApiKey' => null,
-            'hasApiKey' => true,
-            'getApiKey' => 'validapikey123',
-            'hasApiKeyConfirmation' => true,
-            'getApiKeyConfirmation' => 'validapikey123',
-            'userExists' => false,
+            'username' => 'validuser',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
+            'email' => 'john.doe@example.com',
+            'api_key' => 'validapikey123',
+            'api_key_confirmation' => 'validapikey123',
         ];
 
         yield 'valid data' => [
             true,
             $validUser,
+            false,
         ];
 
         $data = $validUser;
-        $data['getUsername'] = '';
+        $data['username'] = '';
         yield 'missing username' => [
             ['User Name is required field.'],
             $data,
+            false,
         ];
 
         $data = $validUser;
-        $data['getFirstname'] = '';
+        $data['firstname'] = '';
         yield 'missing firstname' => [
             ['First Name is required field.'],
             $data,
+            false,
         ];
 
         $data = $validUser;
-        $data['getLastname'] = '';
+        $data['lastname'] = '';
         yield 'missing lastname' => [
             ['Last Name is required field.'],
             $data,
+            false,
         ];
 
         $data = $validUser;
-        $data['getEmail'] = '';
+        $data['email'] = '';
         yield 'missing email' => [
             [$errorInvalidEmail],
             $data,
+            false,
         ];
 
         $data = $validUser;
-        $data['getEmail'] = 'invalid-email';
+        $data['email'] = 'invalid-email';
         yield 'invalid email' => [
             [$errorInvalidEmail],
             $data,
+            false,
         ];
 
         $data = $validUser;
-        $data['getApiKey'] = '';
+        $data['api_key'] = '';
         yield 'missing api key' => [
             [
                 $errorLength,
                 $errorIdentical,
             ],
             $data,
+            false,
         ];
 
         $data = $validUser;
-        $data['getApiKeyConfirmation'] = '';
+        $data['api_key_confirmation'] = '';
         yield 'missing api confirm key' => [
             [$errorIdentical],
             $data,
+            false,
         ];
 
         $data = $validUser;
         $apiKey = '1234567';
-        $data['getApiKey'] = $apiKey;
-        $data['getApiKeyConfirmation'] = $apiKey;
+        $data['api_key'] = $apiKey;
+        $data['api_key_confirmation'] = $apiKey;
         yield 'numeric only api key' => [
             [$errorAlphaNumeric],
             $data,
+            false,
         ];
 
         $data = $validUser;
         $apiKey = 'abcdefg';
-        $data['getApiKey'] = $apiKey;
-        $data['getApiKeyConfirmation'] = $apiKey;
+        $data['api_key'] = $apiKey;
+        $data['api_key_confirmation'] = $apiKey;
         yield 'string only api key' => [
             [$errorAlphaNumeric],
             $data,
+            false,
         ];
 
         $data = $validUser;
-        $data['userExists'] = true;
         yield 'user exists' => [
             ['A user with the same user name or email already exists.'],
             $data,
+            true,
         ];
     }
 }

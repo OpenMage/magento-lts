@@ -773,9 +773,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function getOrderWebsiteId()
     {
-        if (is_null($this->_orderWebsiteId)) {
-            $this->_orderWebsiteId = (int) $this->getResource()->getOrderWebsiteId($this->getOrderId());
-        }
+        $this->_orderWebsiteId ??= (int) $this->getResource()->getOrderWebsiteId($this->getOrderId());
 
         return $this->_orderWebsiteId;
     }
@@ -787,9 +785,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected function _verifyTxnType($txnType = null)
     {
-        if ($txnType === null) {
-            $txnType = $this->getTxnType();
-        }
+        $txnType ??= $this->getTxnType();
 
         switch ($txnType) {
             case self::TYPE_PAYMENT:
@@ -827,7 +823,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected function _verifyTxnId($txnId)
     {
-        if ($txnId !== null && strlen($txnId) == 0) {
+        if ($txnId !== null && (string) $txnId === '') {
             Mage::throwException(Mage::helper('sales')->__('Transaction ID must not be empty.'));
         }
     }

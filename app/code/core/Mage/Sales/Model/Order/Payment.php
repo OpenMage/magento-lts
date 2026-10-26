@@ -391,7 +391,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             } else {
                 // check if $orderStatus has assigned a state
                 $states = $order->getConfig()->getStatusStates($orderStatus);
-                if (count($states) == 0) {
+                if (count($states) === 0) {
                     $orderStatus = $order->getConfig()->getStateDefaultStatus($orderState);
                 }
             }
@@ -1437,8 +1437,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * @param  string              $txnId
      * @throws Mage_Core_Exception
-     * @deprecated after 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     protected function _avoidDoubleTransactionProcessing($txnId = null)
     {
         if ($this->_isTransactionExists($txnId)) {
@@ -1457,9 +1457,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected function _isTransactionExists($txnId = null)
     {
-        if ($txnId === null) {
-            $txnId = $this->getTransactionId();
-        }
+        $txnId ??= $this->getTransactionId();
 
         return $txnId && $this->_lookupTransaction($txnId);
     }

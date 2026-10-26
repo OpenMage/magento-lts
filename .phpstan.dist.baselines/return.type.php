@@ -632,16 +632,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Category.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Helper_Data::getMsrpExplanationMessage() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Helper_Data::getMsrpExplanationMessageWhatsThis() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Helper_Image::_getModel() should return Mage_Catalog_Model_Product_Image but returns Mage_Catalog_Model_Product_Image|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Helper/Image.php',
@@ -855,16 +845,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Product_Option_Type_File::_isImage() should return bool but returns string|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Product_Option_Type_Select::getFormattedOptionValue() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/Select.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Catalog_Model_Product_Option_Type_Text::getFormattedOptionValue() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/Text.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Catalog_Model_Product_Status::getOptionText() should return string but returns string|null.',
@@ -1112,11 +1092,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogRule/Model/Resource/Rule.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_CatalogSearch_Helper_Data::getEscapedQueryText() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_CatalogSearch_Model_Advanced::getProductCollection() should return Mage_CatalogSearch_Model_Resource_Advanced_Collection but returns array|float|int|string|false|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Model/Advanced.php',
@@ -1315,11 +1290,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Core_Controller_Varien_Router_Default::_getNoRouteConfig() should return string but returns string|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Controller/Varien/Router/Default.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Core_Helper_Abstract::stripTags() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Helper/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Core_Helper_Cookie::getAcceptedSaveCookiesWebsiteIds() should return string but returns string|false.',
@@ -1555,11 +1525,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Core_Model_Design_Source_Design::getOptionText() should return string but returns int|string.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Design/Source/Design.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Core_Model_Email_Template_Filter::htmlescapeDirective() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Email/Template/Filter.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Core_Model_Encryption::getHash() should return string but returns string|false|null.',
@@ -1937,11 +1902,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Customer/Attribute/Backend/Password.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Customer_AccountController::_escapeHtml() should return string but returns string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/controllers/AccountController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Customer_AccountController::_getModel() should return Mage_Core_Model_Abstract|false but returns object|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/controllers/AccountController.php',
@@ -2310,11 +2270,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Media_Model_Image::getTmpImage() should return GdImage|resource but returns resource|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Media/Model/Image.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Page_Block_Html_Topmenu_Renderer::render() should return string but returns string|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Html/Topmenu/Renderer.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Page_Block_Switch::getCurrentStoreId() should return int but returns int|null.',
@@ -3247,7 +3202,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Filter/Template/Simple.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Varien_Http_Adapter_Curl::_getResource() should return CurlHandle|resource but returns CurlHandle|resource|false.',
+    'rawMessage' => 'Method Varien_Http_Adapter_Curl::_getResource() should return CurlHandle but returns CurlHandle|null.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
 ];

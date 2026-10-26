@@ -81,8 +81,8 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      *
      * @return array
      * @throws Exception
-     * @deprecated after 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     protected function _getCollectionNames()
     {
         $codes = $this->getRequest()->getParam('code');
@@ -199,9 +199,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     #[Override]
     protected function _getSession()
     {
-        if (is_null($this->_adminSession)) {
-            $this->_adminSession = Mage::getSingleton('admin/session');
-        }
+        $this->_adminSession ??= Mage::getSingleton('admin/session');
 
         return $this->_adminSession;
     }

@@ -35,7 +35,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     public function customerAction()
     {
         if ($this->checkFeedEnable('order/customer')) {
-            if (Mage::app()->getStore()->isCurrentlySecure()) {
+            if (Mage::app()->isCurrentlySecure()) {
                 Mage::helper('rss')->authFrontend();
             } else {
                 $this->_redirect('rss/order/customer', ['_secure' => true]);
@@ -77,7 +77,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     public function preDispatch()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        if ($action == 'new' && $this->isFeedEnable('order/new')) {
+        if ($action === 'new' && $this->isFeedEnable('order/new')) {
             $this->_currentArea = 'adminhtml';
             Mage::helper('rss')->authAdmin('sales/order');
         }

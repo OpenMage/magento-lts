@@ -89,7 +89,7 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
             }
         }
 
-        if (count($errors) == 0) {
+        if ($errors === []) {
             return true;
         }
 

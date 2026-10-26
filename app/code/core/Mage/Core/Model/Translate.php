@@ -163,21 +163,13 @@ class Mage_Core_Model_Translate
     public function setConfig($config)
     {
         $this->_config = $config;
-        if (!isset($this->_config[self::CONFIG_KEY_LOCALE])) {
-            $this->_config[self::CONFIG_KEY_LOCALE] = $this->getLocale();
-        }
+        $this->_config[self::CONFIG_KEY_LOCALE] ??= $this->getLocale();
 
-        if (!isset($this->_config[self::CONFIG_KEY_STORE])) {
-            $this->_config[self::CONFIG_KEY_STORE] = Mage::app()->getStore()->getId();
-        }
+        $this->_config[self::CONFIG_KEY_STORE] ??= Mage::app()->getStore()->getId();
 
-        if (!isset($this->_config[self::CONFIG_KEY_DESIGN_PACKAGE])) {
-            $this->_config[self::CONFIG_KEY_DESIGN_PACKAGE] = Mage::getDesign()->getPackageName();
-        }
+        $this->_config[self::CONFIG_KEY_DESIGN_PACKAGE] ??= Mage::getDesign()->getPackageName();
 
-        if (!isset($this->_config[self::CONFIG_KEY_DESIGN_THEME])) {
-            $this->_config[self::CONFIG_KEY_DESIGN_THEME] = Mage::getDesign()->getTheme('locale');
-        }
+        $this->_config[self::CONFIG_KEY_DESIGN_THEME] ??= Mage::getDesign()->getTheme('locale');
 
         return $this;
     }
@@ -343,9 +335,7 @@ class Mage_Core_Model_Translate
      */
     public function getLocale()
     {
-        if (is_null($this->_locale)) {
-            $this->_locale = Mage::app()->getLocale()->getLocaleCode();
-        }
+        $this->_locale ??= Mage::app()->getLocale()->getLocaleCode();
 
         return $this->_locale;
     }
@@ -377,9 +367,7 @@ class Mage_Core_Model_Translate
      */
     public function getTranslate()
     {
-        if (is_null($this->_translate)) {
-            $this->_translate = new Zend_Translate('array', $this->getData(), $this->getLocale());
-        }
+        $this->_translate ??= new Zend_Translate('array', $this->getData(), $this->getLocale());
 
         return $this->_translate;
     }
@@ -395,7 +383,7 @@ class Mage_Core_Model_Translate
     {
         $text = array_shift($args);
 
-        if (is_string($text) && $text == ''
+        if (is_string($text) && $text === ''
             || is_null($text)
             || is_bool($text) && $text === false
             || is_object($text) && $text->getText() == ''

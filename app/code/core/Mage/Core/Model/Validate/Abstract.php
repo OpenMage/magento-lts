@@ -118,7 +118,7 @@ abstract class Mage_Core_Model_Validate_Abstract implements Mage_Core_Model_Vali
      */
     public function __get(string $property)
     {
-        if ($property == 'value') {
+        if ($property === 'value') {
             return $this->_value;
         }
 
@@ -196,9 +196,7 @@ abstract class Mage_Core_Model_Validate_Abstract implements Mage_Core_Model_Vali
             $messageKey = current($keys);
         }
 
-        if ($value === null) {
-            $value = $this->_value;
-        }
+        $value ??= $this->_value;
 
         $this->_messages[$messageKey] = $this->_createMessage($messageKey, $value);
     }

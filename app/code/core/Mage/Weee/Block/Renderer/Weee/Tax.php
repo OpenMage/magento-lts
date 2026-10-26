@@ -152,10 +152,8 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
      */
     public function getCountries()
     {
-        if (is_null($this->_countries)) {
-            $this->_countries = Mage::getModel('adminhtml/system_config_source_country')
-                ->toOptionArray();
-        }
+        $this->_countries ??= Mage::getModel('adminhtml/system_config_source_country')
+            ->toOptionArray();
 
         return $this->_countries;
     }

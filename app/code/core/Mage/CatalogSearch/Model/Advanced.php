@@ -121,8 +121,8 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param  array|string                              $value
      * @return mixed
-     * @deprecated after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()
      */
+    #[Deprecated(message: 'after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()')]
     protected function _prepareCondition($attribute, $value)
     {
         return $this->_getResource()->prepareCondition($attribute, $value, $this->getProductCollection());
@@ -170,7 +170,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     }
                 }
             } elseif ($attribute->isIndexable()) {
-                if ((!is_string($value) || strlen($value) != 0) && $this->_getResource()
+                if ((!is_string($value) || strlen($value) !== 0) && $this->_getResource()
                     ->addIndexableAttributeModifiedFilter(
                         $this->getProductCollection(),
                         $attribute,
@@ -194,7 +194,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             }
         }
 
-        if ($allConditions) {
+        if ($allConditions !== []) {
             $this->getProductCollection()->addFieldsToFilter($allConditions);
         } elseif (!$hasConditions) {
             Mage::throwException(Mage::helper('catalogsearch')->__('Please specify at least one search term.'));

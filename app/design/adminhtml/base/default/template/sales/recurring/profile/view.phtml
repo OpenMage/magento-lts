@@ -15,7 +15,7 @@
         <?php for ($j = 1; $j <= 2; $j++):?>
             <?php foreach ($infoBlocks as $alias => $block):?>
 <?php if ($j == $this->getObjectData($block, 'view_column')):?>
-    <div class="box-<?php echo $j == 1 ? 'left' : 'right'?>">
+    <div class="box-<?php echo $j === 1 ? 'left' : 'right'?>">
         <div class="entry-edit">
             <div class="entry-edit-head">
                 <h4 class="icon-head"><?php echo $this->escapeHtml($this->getObjectData($block, 'view_label')) ?></h4>

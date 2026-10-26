@@ -80,7 +80,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
             && property_exists($obj, 'key')
             && property_exists($obj, 'value')
         ) {
-            if (count(array_keys(get_object_vars($obj))) == 2) {
+            if (count(array_keys(get_object_vars($obj))) === 2) {
                 $obj = [$obj->key => $obj->value];
                 return true;
             }
@@ -124,7 +124,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
             foreach ($mixed as $value) {
                 if (is_object($value)) {
                     $value = get_object_vars($value);
-                    if (count($value) == 2 && isset($value['key']) && isset($value['value'])) {
+                    if (count($value) === 2 && isset($value['key']) && isset($value['value'])) {
                         $tmpArr[$value['key']] = $value['value'];
                     }
                 }
@@ -137,7 +137,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
 
         if (is_object($mixed)) {
             $numOfVals = count(get_object_vars($mixed));
-            if ($numOfVals == 2 && isset($mixed->key) && isset($mixed->value)) {
+            if ($numOfVals === 2 && isset($mixed->key) && isset($mixed->value)) {
                 $mixed = get_object_vars($mixed);
                 /*
                  * Processing an associative arrays.
@@ -185,13 +185,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_array($mixed)) {
             $arrKeys = array_keys($mixed);
-            $isDigit = false;
-            foreach ($arrKeys as $key) {
-                if (is_int($key)) {
-                    $isDigit = true;
-                    break;
-                }
-            }
+            $isDigit = array_any($arrKeys, fn($key) => is_int($key));
 
             $mixed = $isDigit ? $this->packArrayToObject($mixed) : (object) $mixed;
         }
@@ -362,14 +356,13 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  bool               $htmlSpecialChars
      * @return string
      * @throws Zend_Uri_Exception
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getServiceUrl($routePath = null, $routeParams = null, $htmlSpecialChars = false)
     {
         $request = Mage::app()->getRequest();
 
-        if (is_null($routeParams)) {
-            $routeParams = [];
-        }
+        $routeParams ??= [];
 
         $routeParams['_nosid'] = true;
 
@@ -379,7 +372,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $uri = Zend_Uri_Http::fromString($url);
         $uri->setHost($request->getHttpHost());
         if (!$urlModel->getRouteFrontName()) {
-            $uri->setPath('/' . trim($request->getBasePath() . '/' . basename(getenv('SCRIPT_FILENAME')), '/'));
+            $scriptFilename = (string) ($_SERVER['SCRIPT_FILENAME'] ?? $_SERVER['SCRIPT_NAME'] ?? '');
+            $uri->setPath('/' . trim($request->getBasePath() . '/' . basename($scriptFilename), '/'));
         } else {
             $uri->setPath($request->getBaseUrl() . $request->getPathInfo());
         }

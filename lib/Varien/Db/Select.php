@@ -229,12 +229,12 @@ class Varien_Db_Select extends Zend_Db_Select
             }
         }
 
-        if (!$needle) {
+        if ($needle === []) {
             return false;
         }
 
         foreach ($needle as $position) {
-            if ($position == 0) {
+            if ($position === 0) {
                 return true;
             }
 

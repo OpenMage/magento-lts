@@ -240,7 +240,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         $newName = $suffix;
         foreach ($vars as $index => $value) {
             $newName .= '[' . $value;
-            if ($index == 0) {
+            if ($index === 0) {
                 $newName .= ']';
             }
         }
@@ -290,7 +290,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if ($useContainer = $this->getUseContainer()) {
             $html .= '<form ' . $this->serialize($this->getHtmlAttributes()) . '>';
             $html .= '<div>';
-            if (strtolower((string) $this->getDataByKey('method')) == 'post') {
+            if (strtolower((string) $this->getDataByKey('method')) === 'post') {
                 $html .= '<input name="form_key" type="hidden" value="' . Mage::getSingleton('core/session')->getFormKey() . '" />';
             }
 

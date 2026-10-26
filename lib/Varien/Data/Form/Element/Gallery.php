@@ -69,7 +69,7 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
             }
         }
 
-        if ($i == 0) {
+        if ($i === 0) {
             $html .= '<script type="text/javascript">document.getElementById("gallery_thead").style.visibility="hidden";</script>';
         }
 

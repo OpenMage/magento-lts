@@ -160,7 +160,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
     public function varDirective($construction)
     {
-        if (count($this->_templateVars) == 0) {
+        if (count($this->_templateVars) === 0) {
             // If template preprocessing
             return $construction[0];
         }
@@ -213,7 +213,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
     public function dependDirective($construction)
     {
-        if (count($this->_templateVars) == 0) {
+        if (count($this->_templateVars) === 0) {
             // If template preprocessing
             return $construction[0];
         }
@@ -227,7 +227,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
     public function ifDirective($construction)
     {
-        if (count($this->_templateVars) == 0) {
+        if (count($this->_templateVars) === 0) {
             return $construction[0];
         }
 
@@ -283,7 +283,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $emailPathValidator = $this->getEmailPathValidator();
         $counter = count($stackVars);
         for ($i = 0; $i < $counter; $i++) {
-            if ($i == 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
+            if ($i === 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
                 // Getting of template value
                 $stackVars[$i]['variable'] = & $this->_templateVars[$stackVars[$i]['name']];
             } elseif (isset($stackVars[$i - 1]['variable']) && $stackVars[$i - 1]['variable'] instanceof Varien_Object) {

@@ -102,7 +102,7 @@ class CentinelClient
             // Execute the request.
 
             $result = curl_exec($handle);
-            $succeeded = curl_errno($handle) == 0;
+            $succeeded = curl_errno($handle) === 0;
 
             // close cURL resource, and free up system resources
 

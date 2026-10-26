@@ -12,11 +12,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Edit/Form.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, array given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Ajax/Serializer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Options/Option.php',
@@ -210,11 +205,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, Varien_Simplexml_Element|false given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Config/Data.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, array<mixed> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Observer.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, (Varien_Simplexml_Element|null) given.',
@@ -450,11 +440,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Resource.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, list<string> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, float given.',
@@ -745,11 +730,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Setup.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, array<int|string, mixed> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Store.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, Mage_Core_Model_Store|false given.',
@@ -1045,11 +1025,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, int given.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, Mage_Sales_Model_Quote_Item_Abstract|null given.',
-    'count' => 7,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Quote/Address.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, bool|null given.',

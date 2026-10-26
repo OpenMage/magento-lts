@@ -218,8 +218,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     /**
      * @return array
      * @throws Mage_Core_Exception
-     * @deprecated To be Removed on next release
      */
+    #[Deprecated(message: 'To be Removed on next release')]
     protected function _parseDescription()
     {
         $description = $this->getItem()->getDescription();

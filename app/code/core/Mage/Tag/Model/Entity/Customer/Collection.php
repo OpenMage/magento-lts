@@ -96,9 +96,7 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
         $tags = [];
         $data = $this->_read->fetchAll($this->getSelect());
         foreach ($data as $row) {
-            if (!isset($tags[ $row['customer_id'] ])) {
-                $tags[ $row['customer_id'] ] = [];
-            }
+            $tags[ $row['customer_id'] ] ??= [];
 
             $tags[ $row['customer_id'] ][] = $row;
         }

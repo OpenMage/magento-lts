@@ -109,10 +109,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function getSubscribersCollection()
     {
-        if (is_null($this->_subscribersCollection)) {
-            $this->_subscribersCollection = Mage::getResourceModel('newsletter/subscriber_collection')
-                ->useQueue($this);
-        }
+        $this->_subscribersCollection ??= Mage::getResourceModel('newsletter/subscriber_collection')
+            ->useQueue($this);
 
         return $this->_subscribersCollection;
     }
@@ -122,8 +120,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      *
      * @param  Varien_Object $data
      * @return $this
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function addTemplateData($data)
     {
         $template = $this->getTemplate();
@@ -211,7 +209,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             }
         }
 
-        if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) == 0) {
+        if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) === 0) {
             $this->_finishQueue();
         }
 
@@ -263,8 +261,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      *
      * @param  bool|int|string $value
      * @return $this
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function setSaveTemplateFlag($value)
     {
         $this->_saveTemplateFlag = (bool) $value;
@@ -275,8 +273,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * Getter for save template flag.
      *
      * @return bool
-     * @deprecated since 1.4.0.1
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_0_1)]
     public function getSaveTemplateFlag()
     {
         return $this->_saveTemplateFlag;
@@ -337,10 +335,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function getTemplate()
     {
-        if (is_null($this->_template)) {
-            $this->_template = Mage::getModel('newsletter/template')
-                ->load($this->getTemplateId());
-        }
+        $this->_template ??= Mage::getModel('newsletter/template')
+            ->load($this->getTemplateId());
 
         return $this->_template;
     }

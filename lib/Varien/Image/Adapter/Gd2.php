@@ -65,8 +65,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Checks whether memory limit is reached.
      *
      * @return bool
-     * @deprecated
      */
+    #[Deprecated]
     protected function _isMemoryLimitReached()
     {
         $limit = $this->_convertToByte(ini_get('memory_limit'));
@@ -90,9 +90,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      *
      * @param  string $memoryValue
      * @return int
-     * @deprecated
      * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
      */
+    #[Deprecated]
     protected function _convertToByte($memoryValue)
     {
         $memoryValue = trim($memoryValue);
@@ -130,11 +130,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     {
         if (isset($destination) && isset($newName)) {
             $fileName = $destination . '/' . $newName;
-        } elseif (isset($destination) && !isset($newName)) {
+        } elseif (isset($destination)) {
             $info = pathinfo($destination);
             $fileName = $destination;
             $destination = $info['dirname'];
-        } elseif (!isset($destination) && isset($newName)) {
+        } elseif (isset($newName)) {
             $fileName = $this->_fileSrcPath . '/' . $newName;
         } else {
             $fileName = $this->_fileSrcPath . $this->_fileSrcName;
@@ -227,9 +227,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     private function _getCallback($callbackType, $fileType = null, $unsupportedText = 'Unsupported image format.')
     {
-        if (null === $fileType) {
-            $fileType = $this->_fileType;
-        }
+        $fileType ??= $this->_fileType;
 
         if (empty(self::$_callbacks[$fileType])) {
             throw new Exception("{$unsupportedText}. Type: {$fileType}. File: {$this->_fileName}");
@@ -280,7 +278,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         [$rgbR, $rgbG, $rgbB]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
-                        $transparentColor = imagecolorallocate($imageResourceTo, (int) $rgbR, (int) $rgbG, (int) $rgbB);
+                        $transparentColor = imagecolorallocate($imageResourceTo, $rgbR, $rgbG, $rgbB);
                     }
 
                     if (false === $transparentColor) {
@@ -316,7 +314,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function checkAlpha($fileName)
     {
-        return ((ord(file_get_contents($fileName, false, null, 25, 1)) & 6) & 4) == 4;
+        return (ord(file_get_contents($fileName, false, null, 25, 1)) & 6 & 4) === 4;
     }
 
     private function _getTransparency($imageResource, $fileType, &$isAlpha = false, &$isTrueColor = false)

@@ -295,7 +295,7 @@ class Mage_Core_Model_Layout_Update
     public function merge($handle)
     {
         $this->fetchPackageLayoutUpdates($handle);
-        if (Mage::app()->isInstalled()) {
+        if (Mage::isInstalled()) {
             $this->fetchDbLayoutUpdates($handle);
         }
 
@@ -401,7 +401,7 @@ class Mage_Core_Model_Layout_Update
     public function fetchRecursiveUpdates($updateXml)
     {
         foreach ($updateXml->children() as $child) {
-            if ((strtolower($child->getName()) == 'update') && isset($child['handle'])) {
+            if ((strtolower($child->getName()) === 'update') && isset($child['handle'])) {
                 $allow = true;
                 if (isset($child['ifconfig']) && ($configPath = (string) $child['ifconfig'])) {
                     $allow = Mage::getStoreConfigFlag($configPath);
@@ -429,9 +429,7 @@ class Mage_Core_Model_Layout_Update
      */
     public function getFileLayoutUpdatesXml($area, $package, $theme, $storeId = null)
     {
-        if ($storeId === null) {
-            $storeId = Mage::app()->getStore()->getId();
-        }
+        $storeId ??= Mage::app()->getStore()->getId();
 
         /** @var Mage_Core_Model_Design_Package $design */
         $design = Mage::getSingleton('core/design_package');

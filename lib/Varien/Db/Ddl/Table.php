@@ -367,7 +367,7 @@ class Varien_Db_Ddl_Table
                 $scale      = 0;
                 // parse size value
                 if (is_array($size)) {
-                    if (count($size) == 2) {
+                    if (count($size) === 2) {
                         $size       = array_values($size);
                         $precision  = $size[0];
                         $scale      = $size[1];
@@ -426,9 +426,7 @@ class Varien_Db_Ddl_Table
             $identity = true;
         }
 
-        if ($comment === null) {
-            $comment = ucfirst($name);
-        }
+        $comment ??= ucfirst($name);
 
         $upperName = strtoupper($name);
         $this->_columns[$upperName] = [

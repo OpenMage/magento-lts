@@ -143,6 +143,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 
         $username = new Mage_Core_Model_Security_Obfuscated($username);
         $password = new Mage_Core_Model_Security_Obfuscated($password);
+        $user = null;
 
         try {
             /** @var Mage_Admin_Model_User $user */
@@ -183,7 +184,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->_loginFailed($exception, $request, $username, $message);
         }
 
-        return $user ?? null;
+        return $user;
     }
 
     /**
@@ -194,9 +195,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function refreshAcl($user = null)
     {
-        if (is_null($user)) {
-            $user = $this->getUser();
-        }
+        $user ??= $this->getUser();
 
         if (!$user) {
             return $this;
@@ -265,9 +264,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function isFirstPageAfterLogin()
     {
-        if (is_null($this->_isFirstPageAfterLogin)) {
-            $this->_isFirstPageAfterLogin = $this->getData('is_first_visit', true);
-        }
+        $this->_isFirstPageAfterLogin ??= $this->getData('is_first_visit', true);
 
         return $this->_isFirstPageAfterLogin;
     }

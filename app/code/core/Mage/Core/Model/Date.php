@@ -79,9 +79,7 @@ class Mage_Core_Model_Date
      */
     public function gmtDate($format = null, $input = null)
     {
-        if (is_null($format)) {
-            $format = Varien_Date::DATETIME_PHP_FORMAT;
-        }
+        $format ??= Varien_Date::DATETIME_PHP_FORMAT;
 
         $date = $this->gmtTimestamp($input);
 
@@ -102,9 +100,7 @@ class Mage_Core_Model_Date
      */
     public function date($format = null, $input = null)
     {
-        if (is_null($format)) {
-            $format = Varien_Date::DATETIME_PHP_FORMAT;
-        }
+        $format ??= Varien_Date::DATETIME_PHP_FORMAT;
 
         return Carbon::createFromTimestamp($this->timestamp($input))->format($format);
     }
@@ -193,8 +189,8 @@ class Mage_Core_Model_Date
      * @param  int  $minute
      * @param  int  $second
      * @return bool
-     * @deprecated since 1.1.7
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_1_7_0)]
     public function checkDateTime($year, $month, $day, $hour = 0, $minute = 0, $second = 0)
     {
         if (!checkdate($month, $day, $year)) {
@@ -216,8 +212,8 @@ class Mage_Core_Model_Date
      * @param  string              $dateTimeFormat
      * @return array<int, int>
      * @throws Mage_Core_Exception
-     * @deprecated since 1.1.7
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_1_7_0)]
     public function parseDateTime($dateTimeString, $dateTimeFormat)
     {
         // look for supported format

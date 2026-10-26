@@ -90,9 +90,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $productsWebsites = [];
         foreach ($this->_getWriteAdapter()->fetchAll($select) as $productInfo) {
             $productId = $productInfo['product_id'];
-            if (!isset($productsWebsites[$productId])) {
-                $productsWebsites[$productId] = [];
-            }
+            $productsWebsites[$productId] ??= [];
 
             $productsWebsites[$productId][] = $productInfo['website_id'];
         }
@@ -270,7 +268,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 ];
             }
 
-            if ($data) {
+            if ($data !== []) {
                 $write->insertMultiple($this->_productCategoryTable, $data);
             }
         }
@@ -638,21 +636,25 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Get SKU through product identifiers
      *
-     * @return array
+     * @param  list<int|string>                            $productIds
+     * @return list<array{entity_id: string, sku: string}>
      */
     public function getProductsSku(array $productIds)
     {
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('catalog/product'), ['entity_id', 'sku'])
             ->where('entity_id IN (?)', $productIds);
-        return $this->_getReadAdapter()->fetchAll($select);
+
+        /** @var list<array{entity_id: string, sku: string}> $result */
+        $result = $this->_getReadAdapter()->fetchAll($select);
+        return $result;
     }
 
     /**
      * @param  Mage_Catalog_Model_Product $object
      * @return array<void>
-     * @deprecated after 1.4.2.0
      */
+    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_4_2_0)]
     public function getParentProductIds($object)
     {
         return [];

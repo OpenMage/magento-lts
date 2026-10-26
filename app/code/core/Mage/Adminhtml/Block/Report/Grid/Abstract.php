@@ -164,7 +164,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
 
         $orderStatuses = $filterData->getDataByKey('order_statuses');
         if (is_array($orderStatuses)
-            && (count($orderStatuses) == 1 && str_contains($orderStatuses[0], ','))
+            && (count($orderStatuses) === 1 && str_contains($orderStatuses[0], ','))
         ) {
             $filterData->setData('order_statuses', explode(',', $orderStatuses[0]));
         }
@@ -289,11 +289,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      */
     public function getCurrentCurrencyCode()
     {
-        if (is_null($this->_currentCurrencyCode)) {
-            $this->_currentCurrencyCode = (count($this->_storeIds) > 0)
-                ? Mage::app()->getStore(array_shift($this->_storeIds))->getBaseCurrencyCode()
-                : Mage::app()->getStore()->getBaseCurrencyCode();
-        }
+        $this->_currentCurrencyCode ??= (count($this->_storeIds) > 0)
+            ? Mage::app()->getStore(array_shift($this->_storeIds))->getBaseCurrencyCode()
+            : Mage::app()->getStore()->getBaseCurrencyCode();
 
         return $this->_currentCurrencyCode;
     }

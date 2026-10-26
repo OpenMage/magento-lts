@@ -136,7 +136,7 @@ $numColumns = count($this->getColumns());
 
                 <?php if ($this->shouldRenderCell($_item, $_column)):?>
                     <?php $_rowspan = $this->getRowspan($_item, $_column);?>
-                    <td <?php echo ($_rowspan ? 'rowspan="' . $_rowspan . '" ' : '') ?>class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns?'last':'' ?>">
+                    <td <?php echo ($_rowspan ? 'rowspan="' . $_rowspan . '" ' : '') ?>class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i === $numColumns?'last':'' ?>">
                         <?php echo (($_html = $_column->getRowField($_item)) != '' ? $_html : '&nbsp;') ?>
                     </td>
                     <?php if ($this->shouldRenderEmptyCell($_item, $_column)):?>
@@ -150,7 +150,7 @@ $numColumns = count($this->getColumns());
                 <?php foreach ($_multipleRows as $_i):?>
                 <tr>
                     <?php $i=0;foreach ($this->getMultipleRowColumns($_i) as $_column): ?>
-                        <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns-1?'last':'' ?>">
+                        <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i === $numColumns - 1?'last':'' ?>">
                             <?php echo (($_html = $_column->getRowField($_i)) != '' ? $_html : '&nbsp;') ?>
                         </td>
                     <?php endforeach ?>
@@ -161,7 +161,7 @@ $numColumns = count($this->getColumns());
             <?php if ($this->shouldRenderSubTotal($_item)): ?>
                 <tr class="subtotals">
                     <?php $i = 0; foreach ($this->getSubTotalColumns() as $_column): ?>
-                        <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i == $numColumns ? 'last' : '' ?>">
+                        <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i === $numColumns ? 'last' : '' ?>">
                             <?php echo ($_column->hasSubtotalsLabel() ? $_column->getSubtotalsLabel() :
                                 $_column->getRowField($this->getSubTotalItem($_item))
                             );

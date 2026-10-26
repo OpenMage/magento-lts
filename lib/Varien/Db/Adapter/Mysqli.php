@@ -95,7 +95,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
                 $result = $connection->query($sql);
                 $this->clear_result();
             } catch (Exception $exception) {
-                if ($tries < 10 && $exception->getMessage() == $timeoutMessage) {
+                if ($tries < 10 && $exception->getMessage() === $timeoutMessage) {
                     $retry = true;
                     $tries++;
                 } else {

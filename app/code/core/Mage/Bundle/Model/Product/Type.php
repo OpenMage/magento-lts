@@ -190,7 +190,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
             }
 
-            if ($virtualCount == count($selections)) {
+            if ($virtualCount === count($selections)) {
                 return true;
             }
         }
@@ -233,9 +233,9 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $options = $product->getBundleOptionsData();
                 if ($options) {
                     foreach ($options as $option) {
-                        if (empty($option['delete']) || (int) $option['delete'] != 1) {
+                        if (empty($option['delete']) || (int) $option['delete'] !== 1) {
                             $product->setTypeHasOptions(true);
-                            if ((int) $option['required'] == 1) {
+                            if ((int) $option['required'] === 1) {
                                 $product->setTypeHasRequiredOptions(true);
                                 break;
                             }
@@ -295,9 +295,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                             unset($selection['selection_id']);
                         }
 
-                        if (!isset($selection['is_default'])) {
-                            $selection['is_default'] = 0;
-                        }
+                        $selection['is_default'] ??= 0;
 
                         $selectionModel = Mage::getModel('bundle/selection')
                             ->setData($selection)
@@ -504,7 +502,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             }
         }
 
-        return (array_sum($requiredOptionIds) == count($requiredOptionIds) && $salableSelectionCount);
+        return (array_sum($requiredOptionIds) === count($requiredOptionIds) && $salableSelectionCount);
     }
 
     /**
@@ -621,7 +619,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $options = $optionCollection->appendSelections($selectionCollection, false, $_appendAllSelections);
 
             foreach ($options as $option) {
-                if ($option->getRequired() && count($option->getSelections()) == 1) {
+                if ($option->getRequired() && count($option->getSelections()) === 1) {
                     $selections = array_merge($selections, $option->getSelections());
                 } else {
                     $selections = [];
@@ -724,7 +722,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $usedSelections     = $this->getProduct($product)->getData($this->_keyUsedSelections);
         $usedSelectionsIds  = $this->getProduct($product)->getData($this->_keyUsedSelectionsIds);
 
-        if (!$usedSelections || serialize($usedSelectionsIds) != serialize($selectionIds)) {
+        if (!$usedSelections || serialize($usedSelectionsIds) !== serialize($selectionIds)) {
             $storeId = $this->getProduct($product)->getStoreId();
             $usedSelections = Mage::getResourceModel('bundle/selection_collection')
                 ->addAttributeToSelect('*')
@@ -762,7 +760,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $usedOptions     = $this->getProduct($product)->getData($this->_keyUsedOptions);
         $usedOptionsIds  = $this->getProduct($product)->getData($this->_keyUsedOptionsIds);
 
-        if (!$usedOptions || serialize($usedOptionsIds) != serialize($optionIds)) {
+        if (!$usedOptions || serialize($usedOptionsIds) !== serialize($optionIds)) {
             $usedOptions = Mage::getModel('bundle/option')->getResourceCollection()
                 ->setProductIdFilter($this->getProduct($product)->getId())
                 ->setPositionOrder()
@@ -810,13 +808,11 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                         );
 
                         $option = $options->getItemById($selection->getOptionId());
-                        if (!isset($bundleOptions[$option->getId()])) {
-                            $bundleOptions[$option->getId()] = [
-                                'option_id' => $option->getId(),
-                                'label' => $option->getTitle(),
-                                'value' => [],
-                            ];
-                        }
+                        $bundleOptions[$option->getId()] ??= [
+                            'option_id' => $option->getId(),
+                            'label' => $option->getTitle(),
+                            'value' => [],
+                        ];
 
                         $bundleOptions[$option->getId()]['value'][] = [
                             'title' => $selection->getName(),

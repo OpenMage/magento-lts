@@ -71,9 +71,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      */
     protected function _addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
     {
-        if (!isset($this->_buttons[$level])) {
-            $this->_buttons[$level] = [];
-        }
+        $this->_buttons[$level] ??= [];
 
         $data['test_id'] = $this->getTestIdentifier($id);
 
@@ -232,8 +230,14 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         foreach ($this->_buttons as $cachedButtons) {
             $buttons = [];
             foreach ($cachedButtons as $buttonId => $data) {
-                $buttons[$data['sort_order']]['buttonId'] = $buttonId;
-                $buttons[$data['sort_order']]['data'] = $data;
+                $sortOrder = $data['sort_order'];
+
+                while (isset($buttons[$sortOrder])) {
+                    $sortOrder++;
+                }
+
+                $buttons[$sortOrder]['buttonId'] = $buttonId;
+                $buttons[$sortOrder]['data'] = $data;
             }
 
             ksort($buttons);

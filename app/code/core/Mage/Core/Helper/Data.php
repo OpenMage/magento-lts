@@ -29,29 +29,19 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
     public const XML_PATH_DEV_ALLOW_IPS                = 'dev/restrict/allow_ips';
 
-    /**
-     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ENABLED instead
-     */
+    #[Deprecated(message: 'use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ENABLED instead')]
     public const XML_PATH_DEV_LOG_ENABLED              = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ENABLED;
 
-    /**
-     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS instead
-     */
+    #[Deprecated(message: 'use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS instead')]
     public const XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS   = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_ALLOWED_EXTENSIONS;
 
-    /**
-     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_FILE instead
-     */
+    #[Deprecated(message: 'use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_FILE instead')]
     public const XML_PATH_DEV_LOG_FILE                 = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_FILE;
 
-    /**
-     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE instead
-     */
+    #[Deprecated(message: 'use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE instead')]
     public const XML_PATH_DEV_LOG_EXCEPTION_FILE       = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_EXCEPTION_FILE;
 
-    /**
-     * @deprecated use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_MAX_LEVEL instead
-     */
+    #[Deprecated(message: 'use Mage_Core_Helper_Log::XML_PATH_DEV_LOG_MAX_LEVEL instead')]
     public const XML_PATH_DEV_LOG_MAX_LEVEL            = Mage_Core_Helper_Log::XML_PATH_DEV_LOG_MAX_LEVEL;
 
     public const XML_PATH_CACHE_BETA_TYPES             = 'global/cache/betatypes';
@@ -301,9 +291,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRandomString($len, $chars = null)
     {
-        if (is_null($chars)) {
-            $chars = self::CHARS_LOWERS . self::CHARS_UPPERS . self::CHARS_DIGITS;
-        }
+        $chars ??= self::CHARS_LOWERS . self::CHARS_UPPERS . self::CHARS_DIGITS;
 
         for ($i = 0, $str = '', $lc = strlen($chars) - 1; $i < $len; $i++) {
             $str .= $chars[random_int(0, $lc)];
@@ -533,7 +521,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             $value = $sourceIsArray ? $source[$code] ?? null : $source->getDataUsingMethod($code);
 
             $targetCode = (string) $node->$aspect;
-            $targetCode = $targetCode == '*' ? $code : $targetCode;
+            $targetCode = $targetCode === '*' ? $code : $targetCode;
 
             if ($targetIsArray) {
                 $target[$targetCode] = $value;
@@ -768,34 +756,31 @@ XML;
      */
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
-        switch (true) {
-            case ($encodedValue === null):
-                $encodedValue = 'null';
-                break;
-            case ($encodedValue === true):
-                $encodedValue = 'true';
-                break;
-            case ($encodedValue === false):
-                $encodedValue = 'false';
-                break;
-            case ($encodedValue === ''):
-                $encodedValue = '""';
-                break;
-            default:
-                // do nothing
-        }
+        $encodedValue = match ($encodedValue) {
+            null => 'null',
+            true => 'true',
+            false => 'false',
+            '' => '""',
+            default => $encodedValue
+        };
 
         return Zend_Json::decode($encodedValue, $objectDecodeType);
     }
 
     /**
-     * Generate a hash from unique ID
+     * Generate a random hash, optionally prefixed
+     *
+     * Uses a cryptographically secure RNG (random_bytes) so the result is safe
+     * for security-sensitive tokens (password-reset links, wishlist sharing
+     * codes, newsletter confirmation keys). Output shape is unchanged: the
+     * prefix followed by 32 hexadecimal characters.
+     *
      * @param  string $prefix
      * @return string
      */
     public function uniqHash($prefix = '')
     {
-        return $prefix . md5(uniqid(microtime() . mt_rand(), true));
+        return $prefix . bin2hex(random_bytes(16));
     }
 
     /**

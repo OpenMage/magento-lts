@@ -78,7 +78,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
         $charsetSize = count($charset);
         for ($index = 0; $index < $length; $index++) {
             $char = $charset[random_int(0, $charsetSize - 1)];
-            if ($split > 0 && ($index % $split) == 0 && $index != 0) {
+            if ($split > 0 && $index % $split === 0 && $index !== 0) {
                 $char = $splitChar . $char;
             }
 

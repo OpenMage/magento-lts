@@ -28,7 +28,7 @@ class Mage_Core_Controller_Varien_Router_Default extends Mage_Core_Controller_Va
 
         if ($this->_isAdmin()) {
             $adminFrontName = (string) Mage::getConfig()->getNode('admin/routers/adminhtml/args/frontName');
-            if ($adminFrontName != $moduleName) {
+            if ($adminFrontName !== $moduleName) {
                 $moduleName     = 'core';
                 $controllerName = 'index';
                 $actionName     = 'noRoute';

@@ -22,9 +22,7 @@ class Mage_Core_Model_Design_Package
 
     public const BASE_PACKAGE    = 'base';
 
-    /**
-     * @deprecated after 1.4.0.0-alpha3
-     */
+    #[Deprecated(message: 'after 1.4.0.0-alpha3')]
     public const FALLBACK_THEME  = 'default';
 
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
@@ -94,15 +92,11 @@ class Mage_Core_Model_Design_Package
 
     public function __construct()
     {
-        if (is_null($this->_config)) {
-            $this->_config = Mage::getSingleton('core/design_config');
-        }
+        $this->_config ??= Mage::getSingleton('core/design_config');
 
-        if (is_null($this->_fallback)) {
-            $this->_fallback = Mage::getSingleton('core/design_fallback', [
-                'config' => $this->_config,
-            ]);
-        }
+        $this->_fallback ??= Mage::getSingleton('core/design_fallback', [
+            'config' => $this->_config,
+        ]);
     }
 
     /**
@@ -150,9 +144,7 @@ class Mage_Core_Model_Design_Package
      */
     public function getArea()
     {
-        if (is_null($this->_area)) {
-            $this->_area = self::DEFAULT_AREA;
-        }
+        $this->_area ??= self::DEFAULT_AREA;
 
         return $this->_area;
     }
@@ -948,11 +940,11 @@ class Mage_Core_Model_Design_Package
             }
 
             foreach ($pathParts as $key => $part) {
-                if ($part == '.' || $part == '..') {
+                if ($part === '.' || $part === '..') {
                     unset($pathParts[$key]);
                 }
 
-                if ($part == '..' && count($fileDirParts)) {
+                if ($part === '..' && count($fileDirParts)) {
                     $fileDirParts = array_slice($fileDirParts, 0, count($fileDirParts) - 1);
                 }
             }
@@ -970,8 +962,8 @@ class Mage_Core_Model_Design_Package
     /**
      * Default theme getter
      * @return string
-     * @deprecated since 1.8.2.0
      */
+    #[Deprecated(message: 'since 1.8.2.0')]
     public function getFallbackTheme()
     {
         return Mage::getStoreConfig('design/theme/default', $this->getStore());

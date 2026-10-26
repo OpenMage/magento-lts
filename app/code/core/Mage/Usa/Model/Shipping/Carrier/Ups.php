@@ -324,9 +324,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
      */
     public function getShipmentByCode($code, $origin = null)
     {
-        if ($origin === null) {
-            $origin = $this->getConfigData('origin_shipment');
-        }
+        $origin ??= $this->getConfigData('origin_shipment');
 
         $arr = $this->getCode('originShipment', $origin);
         return $arr[$code] ?? false;
@@ -869,9 +867,7 @@ XMLRequest;
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier('ups');
             $error->setCarrierTitle($this->getConfigData('title'));
-            if (!isset($errorTitle)) {
-                $errorTitle = Mage::helper('usa')->__('Cannot retrieve shipping rates');
-            }
+            $errorTitle ??= Mage::helper('usa')->__('Cannot retrieve shipping rates');
 
             $error->setErrorMessage($this->getConfigData('specificerrmsg'));
             $result->append($error);
@@ -1054,13 +1050,13 @@ XMLAuth;
                         $timeArr[] = substr($time, 2, 2);
                         $timeArr[] = substr($time, -2, 2);
 
-                        if ($i == 1) {
+                        if ($i === 1) {
                             $resultArr['status'] = (string) $activityTag->Status->StatusType->Description;
                             $resultArr['deliverydate'] = implode('-', $dateArr);//YYYY-MM-DD
                             $resultArr['deliverytime'] = implode(':', $timeArr);//HH:MM:SS
                             $resultArr['deliverylocation'] = (string) $activityTag->ActivityLocation->Description;
                             $resultArr['signedby'] = (string) $activityTag->ActivityLocation->SignedForByName;
-                            if ($addArr) {
+                            if ($addArr !== []) {
                                 $resultArr['deliveryto'] = implode(', ', $addArr);
                             }
                         } else {
@@ -1068,7 +1064,7 @@ XMLAuth;
                             $tempArr['activity'] = (string) $activityTag->Status->StatusType->Description;
                             $tempArr['deliverydate'] = implode('-', $dateArr);//YYYY-MM-DD
                             $tempArr['deliverytime'] = implode(':', $timeArr);//HH:MM:SS
-                            if ($addArr) {
+                            if ($addArr !== []) {
                                 $tempArr['deliverylocation'] = implode(', ', $addArr);
                             }
 
@@ -1205,7 +1201,7 @@ XMLAuth;
                             $resultArr['status'] = (string) $activityTag['status']['description'];
                             $resultArr['deliverydate'] = implode('-', $dateArr); //YYYY-MM-DD
                             $resultArr['deliverytime'] = implode(':', $timeArr); //HH:MM:SS
-                            if ($addressArr) {
+                            if ($addressArr !== []) {
                                 $resultArr['deliveryto'] = implode(', ', $addressArr);
                             }
                         } else {
@@ -1213,7 +1209,7 @@ XMLAuth;
                             $tempArr['activity'] = (string) $activityTag['status']['description'];
                             $tempArr['deliverydate'] = implode('-', $dateArr); //YYYY-MM-DD
                             $tempArr['deliverytime'] = implode(':', $timeArr); //HH:MM:SS
-                            if ($addressArr) {
+                            if ($addressArr !== []) {
                                 $tempArr['deliverylocation'] = implode(', ', $addressArr);
                             }
 
@@ -2011,7 +2007,7 @@ XMLAuth;
             // 08: UPS Worldwide Expedited
             // 65: UPS Worldwide Saver
             if (in_array($method, ['07', '08', '65'], true)) {
-                if ($method != '08') {
+                if ($method !== '08') {
                     $containerTypes = [
                         '01'   => Mage::helper('usa')->__('UPS Letter Envelope'),
                         '24'   => Mage::helper('usa')->__('UPS Worldwide 25 kilo'),

@@ -225,7 +225,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 
         $ioFile = new Varien_Io_File();
 
-        if ($rootCmp == $pathCmp) {
+        if ($rootCmp === $pathCmp) {
             Mage::throwException(Mage::helper('cms')->__(
                 'Cannot delete root directory %s.',
                 $ioFile->getFilteredPath($path),

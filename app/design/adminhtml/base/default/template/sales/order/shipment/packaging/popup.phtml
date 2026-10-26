@@ -41,7 +41,7 @@ document.observe("dom:loaded", function() {
                 <table class="package-options" cellspacing="0">
                     <thead>
                         <th><?php echo Mage::helper('sales')->__('Type') ?></th>
-                        <?php if ($girthEnabled == 1): ?>
+                        <?php if ($girthEnabled === 1): ?>
                             <th><?php echo Mage::helper('sales')->__('Size') ?></th>
                             <th><?php echo Mage::helper('sales')->__('Girth') ?></th>
                             <th>&nbsp;</th>
@@ -74,7 +74,7 @@ document.observe("dom:loaded", function() {
                                 <?php endforeach ?>
                             </select>
                         </td>
-                        <?php if ($girthEnabled == 1): ?>
+                        <?php if ($girthEnabled === 1): ?>
                             <td>
                                 <select name="package_size" onchange="packaging.checkSizeAndGirthParameter(this, <?php echo  $girthEnabled ?>);">
                                     <?php foreach ($sizeSource as $key => $value): ?>

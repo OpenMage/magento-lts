@@ -146,8 +146,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
     /**
      * Minimum Password Length
-     * @deprecated Use getMinPasswordLength() method instead
      */
+    #[Deprecated(message: 'Use getMinPasswordLength() method instead')]
     public const MINIMUM_PASSWORD_LENGTH = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
 
     /**
@@ -473,11 +473,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getAttributes()
     {
-        if ($this->_attributes === null) {
-            $this->_attributes = $this->_getResource()
-            ->loadAllAttributes($this)
-            ->getSortedAttributes();
-        }
+        $this->_attributes ??= $this->_getResource()
+        ->loadAllAttributes($this)
+        ->getSortedAttributes();
 
         return $this->_attributes;
     }
@@ -1468,13 +1466,13 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $usca   = ['US', 'CA'];
         $prefix = $type ? $type . '_' : '';
 
-        if ($data) {
+        if ($data !== []) {
             foreach ($fields as $field) {
                 if (!isset($data[$prefix . $field])) {
                     return false;
                 }
 
-                if ($field == 'country'
+                if ($field === 'country'
                     && in_array(strtolower($data[$prefix . $field]), $usca)
                 ) {
                     if (!isset($data[$prefix . 'region'])) {

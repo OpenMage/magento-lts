@@ -11,6 +11,7 @@
  * Varien Object
  *
  * @package    Varien_Object
+ * @implements ArrayAccess<string, mixed>
  */
 class Varien_Object implements ArrayAccess
 {
@@ -242,10 +243,7 @@ class Varien_Object implements ArrayAccess
             $this->_data = $key;
             $this->_addFullNames();
         } else {
-            if (is_null($key)) {
-                $key = '';
-            }
-
+            $key ??= '';
             $this->_data[$key] = $value;
             if (isset($this->_syncFieldsMap[$key])) {
                 $fullFieldName = $this->_syncFieldsMap[$key];
@@ -322,9 +320,7 @@ class Varien_Object implements ArrayAccess
             return $this->_data;
         }
 
-        if (is_null($key)) {
-            $key = '';
-        }
+        $key ??= '';
 
         $data = $this->_data[$key] ?? null;
         if ($data === null && str_contains($key, '/')) {
@@ -432,9 +428,7 @@ class Varien_Object implements ArrayAccess
      */
     public function getDataSetDefault($key, $default)
     {
-        if (!isset($this->_data[$key])) {
-            $this->_data[$key] = $default;
-        }
+        $this->_data[$key] ??= $default;
 
         return $this->_data[$key];
     }
@@ -494,9 +488,7 @@ class Varien_Object implements ArrayAccess
     protected function _prepareArray(&$arr, array $elements = [])
     {
         foreach ($elements as $element) {
-            if (!isset($arr[$element])) {
-                $arr[$element] = null;
-            }
+            $arr[$element] ??= null;
         }
 
         return $arr;
@@ -780,19 +772,16 @@ class Varien_Object implements ArrayAccess
      * Implementation of ArrayAccess::offsetSet()
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetset.php
-     * @param string $offset
-     * @param mixed  $value
      */
     public function offsetSet($offset, $value): void
     {
-        $this->_data[$offset] = $value;
+        $this->_data[(string) $offset] = $value;
     }
 
     /**
      * Implementation of ArrayAccess::offsetExists()
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetexists.php
-     * @param string $offset
      */
     public function offsetExists($offset): bool
     {
@@ -803,7 +792,6 @@ class Varien_Object implements ArrayAccess
      * Implementation of ArrayAccess::offsetUnset()
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetunset.php
-     * @param string $offset
      */
     public function offsetUnset($offset): void
     {
@@ -814,8 +802,6 @@ class Varien_Object implements ArrayAccess
      * Implementation of ArrayAccess::offsetGet()
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetget.php
-     * @param  string $offset
-     * @return mixed
      */
     #[ReturnTypeWillChange]
     public function offsetGet($offset)

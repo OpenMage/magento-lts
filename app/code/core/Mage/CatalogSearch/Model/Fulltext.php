@@ -138,18 +138,17 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      */
     public function getSearchType($storeId = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_CATALOG_SEARCH_TYPE, $storeId);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_CATALOG_SEARCH_TYPE, $storeId);
     }
 
     // Deprecated methods
-
     /**
      * Set whether table changes are allowed
      *
      * @param  bool  $value
      * @return $this
-     * @deprecated after 1.6.1.0
      */
+    #[Deprecated(message: 'after 1.6.1.0')]
     public function setAllowTableChanges($value = true)
     {
         $this->_allowTableChanges = $value;
@@ -163,8 +162,8 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      * @param array $categoryIds
      *
      * @return $this
-     * @deprecated after 1.6.2.0
      */
+    #[Deprecated(message: 'after 1.6.2.0')]
     public function updateCategoryIndex($productIds, $categoryIds)
     {
         $this->getResource()->updateCategoryIndex($productIds, $categoryIds);

@@ -1142,8 +1142,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param  string $comment
      * @param  bool   $isCustomerNotified
      * @return $this
-     * @deprecated after 1.4.0.0-alpha3
      */
+    #[Deprecated(message: 'after 1.4.0.0-alpha3')]
     public function addStatusToHistory($status, $comment = '', $isCustomerNotified = false)
     {
         $this->addStatusHistoryComment($comment, $status)
@@ -1264,7 +1264,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->canCancel() || $this->isPaymentReview()) {
             $cancelState = self::STATE_CANCELED;
             foreach ($this->getAllItems() as $item) {
-                if ($cancelState != self::STATE_PROCESSING && $item->getQtyToRefund()) {
+                if ($cancelState !== self::STATE_PROCESSING && $item->getQtyToRefund()) {
                     $cancelState = $item->getQtyToShip() > $item->getQtyToCancel() ? self::STATE_PROCESSING : self::STATE_COMPLETE;
                 }
 
@@ -1349,9 +1349,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
 
         $segments = explode('_', $shippingMethod, 2);
-        if (!isset($segments[1])) {
-            $segments[1] = $segments[0];
-        }
+        $segments[1] ??= $segments[0];
 
         [$carrierCode, $method] = $segments;
         return new Varien_Object([
@@ -2027,9 +2025,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getOrderCurrency()
     {
-        if (is_null($this->_orderCurrency)) {
-            $this->_orderCurrency = Mage::getModel('directory/currency')->load($this->getOrderCurrencyCode());
-        }
+        $this->_orderCurrency ??= Mage::getModel('directory/currency')->load($this->getOrderCurrencyCode());
 
         return $this->_orderCurrency;
     }
@@ -2076,9 +2072,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getBaseCurrency()
     {
-        if (is_null($this->_baseCurrency)) {
-            $this->_baseCurrency = Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
-        }
+        $this->_baseCurrency ??= Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
 
         return $this->_baseCurrency;
     }
@@ -2087,8 +2081,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Retrieve order website currency for working with base prices
      *
      * @return Mage_Directory_Model_Currency
-     * @deprecated  please use getBaseCurrency instead
      */
+    #[Deprecated(message: 'please use getBaseCurrency instead')]
     public function getStoreCurrency()
     {
         return $this->getDataByKey('store_currency');

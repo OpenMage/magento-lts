@@ -74,7 +74,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         $insert = array_diff($newStores, $oldStores);
         $delete = array_diff($oldStores, $newStores);
 
-        if ($delete) {
+        if ($delete !== []) {
             $where = [
                 'block_id = ?'     => (int) $object->getId(),
                 'store_id IN (?)' => $delete,
@@ -83,7 +83,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             $this->_getWriteAdapter()->delete($table, $where);
         }
 
-        if ($insert) {
+        if ($insert !== []) {
             $data = [];
 
             foreach ($insert as $storeId) {
@@ -109,7 +109,34 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             $field = 'identifier';
         }
 
-        return parent::load($object, $value, $field);
+        if ($object->getStoreId() === null) {
+            return parent::load($object, $value, $field);
+        }
+
+        $field ??= $this->getIdFieldName();
+
+        $read = $this->_getReadAdapter();
+
+        if ($read !== false && !is_null($value)) {
+            $data = $read->fetchRow(
+                $this->_getLoadSelectByStore($field, $value, $object, (int) $object->getStoreId()),
+            );
+
+            if (($data === false || $data === []) && (int) $object->getStoreId() !== Mage_Core_Model_App::ADMIN_STORE_ID) {
+                $data = $read->fetchRow(
+                    $this->_getLoadSelectByStore($field, $value, $object, Mage_Core_Model_App::ADMIN_STORE_ID),
+                );
+            }
+
+            if ($data !== false && $data !== []) {
+                $object->setData($data);
+            }
+        }
+
+        $this->unserializeFields($object);
+        $this->_afterLoad($object);
+
+        return $this;
     }
 
     /**
@@ -126,6 +153,30 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         return parent::_afterLoad($object);
+    }
+
+    /**
+     * Retrieve select object for load object data for a specific store.
+     *
+     * @param  string                   $field
+     * @param  mixed                    $value
+     * @param  Mage_Core_Model_Abstract $object
+     * @param  int                      $storeId
+     * @return Zend_Db_Select
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     */
+    protected function _getLoadSelectByStore($field, $value, $object, $storeId)
+    {
+        return parent::_getLoadSelect($field, $value, $object)
+            ->join(
+                ['cbs' => $this->getTable('cms/block_store')],
+                $this->getMainTable() . '.block_id = cbs.block_id',
+                ['store_id'],
+            )
+            ->where($this->getMainTable() . '.is_active = ?', 1)
+            ->where('cbs.store_id = ?', (int) $storeId)
+            ->limit(1);
     }
 
     /**

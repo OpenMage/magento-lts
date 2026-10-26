@@ -17,11 +17,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Filter/Form.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc tag @var with type Mage_Core_Model_Config_Element is not subtype of type *NEVER*.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var with type Varien_Data_Form is not subtype of type Varien_Data_Form_Element_Fieldset.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php',

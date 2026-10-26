@@ -292,11 +292,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Session.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Return type (void) of method Mage_Api_Model_Session::revalidateCookie() should be compatible with return type ($this(Mage_Core_Model_Session_Abstract_Varien)) of method Mage_Core_Model_Session_Abstract_Varien::revalidateCookie()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Session.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Return type (Mage_Core_Model_Abstract) of method Mage_Api_Model_User::delete() should be covariant with return type ($this(Mage_Core_Model_Abstract)) of method Mage_Core_Model_Abstract::delete()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/User.php',
@@ -1282,11 +1277,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Return type (string|null) of method Mage_Usa_Model_Shipping_Carrier_Abstract::getCarrierCode() should be covariant with return type (string) of method Mage_Shipping_Model_Carrier_Abstract::getCarrierCode()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Return type (array|bool) of method Mage_Usa_Model_Shipping_Carrier_Dhl::getContainerTypes() should be covariant with return type (array<string|void>) of method Mage_Shipping_Model_Carrier_Abstract::getContainerTypes()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
@@ -1360,26 +1350,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Return type ($this(Mage_Wishlist_IndexController)|null) of method Mage_Wishlist_IndexController::preDispatch() should be covariant with return type ($this(Mage_Core_Controller_Front_Action)) of method Mage_Core_Controller_Front_Action::preDispatch()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/controllers/IndexController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (array|bool) of method Mage_Cache_Backend_File::_getMetadatas() should be covariant with return type (array|false) of method Zend_Cache_Backend_File::_getMetadatas()',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (array|string) of method Mage_Cache_Backend_File::_path() should be covariant with return type (string) of method Zend_Cache_Backend_File::_path()',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (bool|string) of method Mage_Cache_Backend_File::load() should be covariant with return type (string|false) of method Zend_Cache_Backend_File::load()',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (bool|string) of method Mage_Cache_Backend_File::load() should be covariant with return type (string|false) of method Zend_Cache_Backend_Interface::load()',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Return type (float|string) of method Magento_Db_Adapter_Pdo_Mysql::_quote() should be covariant with return type (string) of method Zend_Db_Adapter_Pdo_Abstract::_quote()',

@@ -334,8 +334,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         $bind = [];
         $like = [];
         $likeCond = '';
-        if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE
-            || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
+        if ($searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE
+            || $searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
         ) {
             $helper = Mage::getResourceHelper('core');
             $words = Mage::helper('core/string')->splitWords($queryText, true, $query->getMaxQueryWords());
@@ -343,7 +343,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 $like[] = $helper->getCILike('s.data_index', $word, ['position' => 'any']);
             }
 
-            if ($like) {
+            if ($like !== []) {
                 $separator = Mage::getStoreConfig(Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_SEPARATOR);
                 $likeCond = '(' . implode(' ' . $separator . ' ', $like) . ')';
             }
@@ -362,16 +362,16 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             ->where($mainTableAlias . '.store_id = ?', (int) $query->getStoreId());
 
         $where = '';
-        if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT
-            || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
+        if ($searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT
+            || $searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
         ) {
             $bind[':query'] = implode(' ', $preparedTerms[0]);
             $where = $searchHelper->chooseFulltext($this->getMainTable(), $mainTableAlias, $select);
         }
 
-        if ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
+        if ($likeCond !== '' && $searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
             $where .= ($where ? ' OR ' : '') . $likeCond;
-        } elseif ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE) {
+        } elseif ($likeCond !== '' && $searchType === Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE) {
             $select->columns(['relevance' => new Zend_Db_Expr('0')]);
             $where = $likeCond;
         }
@@ -551,7 +551,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             }
         }
 
-        if ($selects) {
+        if ($selects !== []) {
             $select = $adapter->select()->union($selects, Zend_Db_Select::SQL_UNION_ALL);
             $query = $adapter->query($select);
             while ($row = $query->fetch()) {
@@ -831,14 +831,13 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     }
 
     // Deprecated methods
-
     /**
      * Set whether table changes are allowed
      *
      * @param  bool  $value
      * @return $this
-     * @deprecated after 1.6.1.0
      */
+    #[Deprecated(message: 'after 1.6.1.0')]
     public function setAllowTableChanges($value = true)
     {
         $this->_allowTableChanges = $value;
@@ -851,8 +850,8 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * @param  array $productIds
      * @param  array $categoryIds
      * @return $this
-     * @deprecated after 1.6.2.0
      */
+    #[Deprecated(message: 'after 1.6.2.0')]
     public function updateCategoryIndex($productIds, $categoryIds)
     {
         return $this;

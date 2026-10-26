@@ -57,11 +57,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Notification/Grid/Renderer/Severity.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "." between \'<div>\' and array<string|null>|string|null results in an error.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Config/Form/Field/File.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Binary operation "." between non-falsy-string and array<string|null>|string|null results in an error.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/System/Store/Grid/Render/Group.php',
@@ -137,26 +132,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Select.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "." between \'&nbsp;&nbsp;&nbsp;\' and array<string|null>|string|null results in an error.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Store.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "." between \'&nbsp;&nbsp;&nbsp;…\' and array<string|null>|string|null results in an error.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Store.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "." between array<string|null>|string|null and \'<br/>\' results in an error.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Store.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "." between string and array<string|null>|string|null results in an error.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Store.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Binary operation "." between non-falsy-string and array<string|null>|string|null results in an error.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Block/Adminhtml/Sales/Order/Items/Renderer.php',
@@ -170,11 +145,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Binary operation "." between non-falsy-string and array<string|null>|string|null results in an error.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Block/Sales/Order/Items/Renderer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "." between non-falsy-string and array<string|null>|string|null results in an error.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Helper/Catalog/Product/Configuration.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Binary operation "." between non-falsy-string and array<string|null>|string|null results in an error.',
@@ -295,16 +265,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Binary operation "+" between string|false|null and 1 results in an error.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Group.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "." between \' value="\' and array<string|null>|string|null results in an error.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "." between non-falsy-string and array<string|null>|string|null results in an error.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Binary operation "+" between non-falsy-string and 1 results in an error.',

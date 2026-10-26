@@ -433,9 +433,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     protected function _getLockInstance()
     {
-        if (is_null($this->_lockInstance)) {
-            $this->_lockInstance = Mage_Index_Model_Lock::getInstance();
-        }
+        $this->_lockInstance ??= Mage_Index_Model_Lock::getInstance();
 
         return $this->_lockInstance;
     }
@@ -572,8 +570,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      *
      * @param  bool  $value
      * @return $this
-     * @deprecated after 1.6.1.0
      */
+    #[Deprecated(message: 'after 1.6.1.0')]
     public function setAllowTableChanges($value = true)
     {
         $this->_allowTableChanges = $value;

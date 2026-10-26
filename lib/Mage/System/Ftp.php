@@ -208,7 +208,7 @@ class Mage_System_Ftp
             return false;
         }
 
-        if ((int) $data[0] != 257) {
+        if ((int) $data[0] !== 257) {
             return false;
         }
 

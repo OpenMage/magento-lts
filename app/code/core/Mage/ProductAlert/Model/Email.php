@@ -178,10 +178,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
      */
     protected function _getPriceBlock()
     {
-        if (is_null($this->_priceBlock)) {
-            $this->_priceBlock = Mage::helper('productalert')
-                ->createBlock('productalert/email_price');
-        }
+        $this->_priceBlock ??= Mage::helper('productalert')
+            ->createBlock('productalert/email_price');
 
         return $this->_priceBlock;
     }
@@ -193,10 +191,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
      */
     protected function _getStockBlock()
     {
-        if (is_null($this->_stockBlock)) {
-            $this->_stockBlock = Mage::helper('productalert')
-                ->createBlock('productalert/email_stock');
-        }
+        $this->_stockBlock ??= Mage::helper('productalert')
+            ->createBlock('productalert/email_stock');
 
         return $this->_stockBlock;
     }
@@ -212,8 +208,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             return false;
         }
 
-        if (($this->_type == 'price' && count($this->_priceProducts) == 0)
-            || ($this->_type == 'stock' && count($this->_stockProducts) == 0)
+        if (($this->_type == 'price' && count($this->_priceProducts) === 0)
+            || ($this->_type == 'stock' && count($this->_stockProducts) === 0)
         ) {
             return false;
         }
@@ -239,7 +235,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
         $appEmulation = Mage::getSingleton('core/app_emulation');
         $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
 
-        if ($this->_type == 'price') {
+        if ($this->_type === 'price') {
             $this->_getPriceBlock()
                 ->setStore($store)
                 ->reset();

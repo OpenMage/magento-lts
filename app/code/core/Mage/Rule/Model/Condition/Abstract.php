@@ -146,22 +146,20 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getDefaultOperatorOptions()
     {
-        if ($this->_defaultOperatorOptions === null) {
-            $this->_defaultOperatorOptions = [
-                '=='  => static::$translate ? Mage::helper('rule')->__('is') : 'is',
-                '!='  => static::$translate ? Mage::helper('rule')->__('is not') : 'is not',
-                '>='  => static::$translate ? Mage::helper('rule')->__('equals or greater than') : 'equals or greater than',
-                '<='  => static::$translate ? Mage::helper('rule')->__('equals or less than') : 'equals or less than',
-                '>'   => static::$translate ? Mage::helper('rule')->__('greater than') : 'greater than',
-                '<'   => static::$translate ? Mage::helper('rule')->__('less than') : 'less than',
-                '{}'  => static::$translate ? Mage::helper('rule')->__('contains') : 'contains',
-                '!{}' => static::$translate ? Mage::helper('rule')->__('does not contain') : 'does not contain',
-                '[]'  => static::$translate ? Mage::helper('rule')->__('contains') : 'contains',
-                '![]' => static::$translate ? Mage::helper('rule')->__('does not contain') : 'does not contain',
-                '()'  => static::$translate ? Mage::helper('rule')->__('is one of') : 'is one of',
-                '!()' => static::$translate ? Mage::helper('rule')->__('is not one of') : 'is not one of',
-            ];
-        }
+        $this->_defaultOperatorOptions ??= [
+            '=='  => static::$translate ? Mage::helper('rule')->__('is') : 'is',
+            '!='  => static::$translate ? Mage::helper('rule')->__('is not') : 'is not',
+            '>='  => static::$translate ? Mage::helper('rule')->__('equals or greater than') : 'equals or greater than',
+            '<='  => static::$translate ? Mage::helper('rule')->__('equals or less than') : 'equals or less than',
+            '>'   => static::$translate ? Mage::helper('rule')->__('greater than') : 'greater than',
+            '<'   => static::$translate ? Mage::helper('rule')->__('less than') : 'less than',
+            '{}'  => static::$translate ? Mage::helper('rule')->__('contains') : 'contains',
+            '!{}' => static::$translate ? Mage::helper('rule')->__('does not contain') : 'does not contain',
+            '[]'  => static::$translate ? Mage::helper('rule')->__('contains') : 'contains',
+            '![]' => static::$translate ? Mage::helper('rule')->__('does not contain') : 'does not contain',
+            '()'  => static::$translate ? Mage::helper('rule')->__('is one of') : 'is one of',
+            '!()' => static::$translate ? Mage::helper('rule')->__('is not one of') : 'is not one of',
+        ];
 
         return $this->_defaultOperatorOptions;
     }
@@ -749,7 +747,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                         return false;
                     }
                 } elseif (is_array($validatedValue)) {
-                    $result = count($validatedValue) == 1 && array_shift($validatedValue) == $value;
+                    $result = count($validatedValue) === 1 && array_shift($validatedValue) == $value;
                 } else {
                     $result = $this->_compareValues($validatedValue, $value);
                 }
@@ -808,7 +806,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     $value = (array) $value;
                     $match = count(array_intersect($validatedValue, $value));
 
-                    $result = in_array($operator, ['[]', '![]'], true) ? $match == count($value) : $match > 0;
+                    $result = in_array($operator, ['[]', '![]'], true) ? $match === count($value) : $match > 0;
                 } else {
                     $value = (array) $value;
                     foreach ($value as $item) {
@@ -840,7 +838,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     protected function _compareValues($validatedValue, $value, $strict = true)
     {
         if ($strict && is_numeric($validatedValue) && is_numeric($value)) {
-            return $validatedValue == $value;
+            return $validatedValue === $value;
         }
 
         $validatedValue ??= '';

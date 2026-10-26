@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     {
         // One available method. Return this method as selected, because no other variant is possible.
         $methods = $this->getMethods();
-        if (count($methods) == 1) {
+        if (count($methods) === 1) {
             foreach ($methods as $method) {
                 return $method->getCode();
             }

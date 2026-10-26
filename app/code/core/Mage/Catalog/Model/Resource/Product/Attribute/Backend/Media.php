@@ -186,7 +186,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             $valueIdMap[$row['value_id']] = $this->insertGallery($data);
         }
 
-        if (count($valueIdMap) == 0) {
+        if ($valueIdMap === []) {
             return $this;
         }
 

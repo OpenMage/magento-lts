@@ -75,7 +75,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
             $adapter->select()
                 ->from($this->getMainTable(), ['behavior']),
         ));
-        if (count($behaviors) != 1) {
+        if (count($behaviors) !== 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: behaviors are mixed'));
         }
 
@@ -95,7 +95,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
             $adapter->select()
                 ->from($this->getMainTable(), ['entity']),
         ));
-        if (count($entityCodes) != 1) {
+        if (count($entityCodes) !== 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: entity codes are mixed'));
         }
 

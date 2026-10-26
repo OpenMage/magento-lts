@@ -53,7 +53,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
         if ($this->_useDb === null) {
             $currentStorage = (int) Mage::app()->getConfig()
                 ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA);
-            $this->_useDb = ($currentStorage == Mage_Core_Model_File_Storage::STORAGE_MEDIA_DATABASE);
+            $this->_useDb = ($currentStorage === Mage_Core_Model_File_Storage::STORAGE_MEDIA_DATABASE);
         }
 
         return $this->_useDb;
@@ -66,9 +66,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function getStorageDatabaseModel()
     {
-        if (is_null($this->_databaseModel)) {
-            $this->_databaseModel = Mage::getModel('core/file_storage_database');
-        }
+        $this->_databaseModel ??= Mage::getModel('core/file_storage_database');
 
         return $this->_databaseModel;
     }
@@ -90,9 +88,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function getResourceStorageModel()
     {
-        if (is_null($this->_resourceModel)) {
-            $this->_resourceModel = $this->getStorageDatabaseModel()->getResource();
-        }
+        $this->_resourceModel ??= $this->getStorageDatabaseModel()->getResource();
 
         return $this->_resourceModel;
     }

@@ -34,7 +34,7 @@ class Mage_Tag_Block_All extends Mage_Core_Block_Template
                 ->load()
                 ->getItems();
 
-            if (count($tags) == 0) {
+            if (count($tags) === 0) {
                 return $this;
             }
 

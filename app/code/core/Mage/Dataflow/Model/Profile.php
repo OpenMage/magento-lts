@@ -99,7 +99,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $charSingleList = ['\\', '/', '.', '!', '@', '#', '$', '%', '&', '*', '~', '^'];
             if (isset($guiData['file']['type']) && $guiData['file']['type'] == 'file') {
                 if (empty($guiData['file']['path'])
-                    || (strlen($guiData['file']['path']) == 1
+                    || (strlen($guiData['file']['path']) === 1
                     && in_array($guiData['file']['path'], $charSingleList))
                 ) {
                     $guiData['file']['path'] = self::DEFAULT_EXPORT_PATH;
@@ -193,7 +193,11 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                         $fileData = array_shift($fileData);
                     } else {
                         try {
-                            $xmlParser->loadXML(file_get_contents($path . $uploadFile));
+                            $contents = file_get_contents($path . $uploadFile);
+                            if ($contents !== '' && $contents !== false) {
+                                $xmlParser->loadXML($contents);
+                            }
+
                             $cells = $this->getNode($xmlParser, 'Worksheet')->item(0);
                             $cells = $this->getNode($cells, 'Row')->item(0);
                             $cells = $this->getNode($cells, 'Cell');
@@ -223,7 +227,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
 
                     $colsAbsent = array_diff($attributes, $fileData);
-                    if ($colsAbsent) {
+                    if ($colsAbsent !== []) {
                         foreach ($newUploadedFilenames as $newUploadedFilename) {
                             unlink($path . $newUploadedFilename);
                         }
@@ -248,7 +252,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 //BOM deleting for UTF files
                 if (isset($path, $newFilename) && $newFilename) {
                     $contents = file_get_contents($path . $newFilename);
-                    if (ord($contents[0]) == 0xEF && ord($contents[1]) == 0xBB && ord($contents[2]) == 0xBF) {
+                    if (ord($contents[0]) === 0xEF && ord($contents[1]) === 0xBB && ord($contents[2]) === 0xBF) {
                         $contents = substr($contents, 3);
                         file_put_contents($path . $newFilename, $contents);
                     }
@@ -463,7 +467,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     $parseFileXmlInter .= '    <var name="filter/' . $filter . '"><![CDATA[' . $value . ']]></var>' . $newLine;
                 } elseif (is_array($value)) {
                     foreach ($value as $a => $b) {
-                        if (strlen($b) == 0) {
+                        if ((string) $b === '') {
                             continue;
                         }
 
