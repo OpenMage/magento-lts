@@ -168,12 +168,14 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
                 ->setPaypalPayerStatus($paypalWallet->getAccountStatus());
         }
 
-        $payment->setAdditionalInformation([
-            self::PAYPAL_PAYMENT_STATUS => $authorization->getStatus(),
-            self::PAYPAL_PAYMENT_AUTHORIZATION_ID => $authorization->getId(),
-            self::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME => $authorization->getExpirationTime(),
-            Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS => $this->getHelper()->prepareRawDetails($response->getBody()),
-        ]);
+        // Key by key: the array form replaces all additional_information, including the checkout markers.
+        $payment->setAdditionalInformation(self::PAYPAL_PAYMENT_STATUS, $authorization->getStatus())
+            ->setAdditionalInformation(self::PAYPAL_PAYMENT_AUTHORIZATION_ID, $authorization->getId())
+            ->setAdditionalInformation(self::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME, $authorization->getExpirationTime())
+            ->setAdditionalInformation(
+                Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
+                $this->getHelper()->prepareRawDetails($response->getBody()),
+            );
         $payment->save();
     }
 
