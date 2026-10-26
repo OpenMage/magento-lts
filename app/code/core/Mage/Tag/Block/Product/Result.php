@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * List of tagged products
  *
- * @category   Mage
  * @package    Mage_Tag
  *
  * @method $this setResultCount(int $value)
@@ -24,7 +17,7 @@
 class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
 {
     /**
-     * @var Mage_Tag_Model_Resource_Tag_Collection|null
+     * @var null|Mage_Tag_Model_Resource_Product_Collection
      */
     protected $_productCollection;
 
@@ -39,6 +32,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $title = $this->getHeaderText();
@@ -81,7 +75,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     }
 
     /**
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return Mage_Tag_Model_Resource_Product_Collection
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getProductCollection()
@@ -93,14 +87,12 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
                 ->addTagFilter($this->getTag()->getId())
                 ->addStoreFilter(Mage::app()->getStore()->getId())
                 ->addAttributeToFilter('status', [
-                    'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+                    'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
                 ])
-                ->addMinimalPrice()
+                ->addPriceData()
                 ->addUrlRewrite()
+                ->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInSiteIds())
                 ->setActiveFilter();
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection(
-                $this->_productCollection
-            );
         }
 
         return $this->_productCollection;
@@ -112,11 +104,12 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
      */
     public function getResultCount()
     {
-        if (!$this->getData('result_count')) {
+        if (!$this->getDataByKey('result_count')) {
             $size = $this->_getProductCollection()->getSize();
             $this->setResultCount($size);
         }
-        return $this->getData('result_count');
+
+        return $this->getDataByKey('result_count');
     }
 
     /**
@@ -127,6 +120,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
         if ($this->getTag()->getName()) {
             return Mage::helper('tag')->__("Products tagged with '%s'", $this->escapeHtml($this->getTag()->getName()));
         }
+
         return false;
     }
 

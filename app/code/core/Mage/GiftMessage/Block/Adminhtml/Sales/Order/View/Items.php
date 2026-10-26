@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Gift message adminhtml sales order view items
  *
- * @category   Mage
  * @package    Mage_GiftMessage
  */
 class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Adminhtml_Block_Template
@@ -70,14 +63,18 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
         if ($this->getItem()->getOrder()) {
             if ($this->getItem()->getOrder()->getShippingAddress()) {
                 return $this->getItem()->getOrder()->getShippingAddress()->getName();
-            } elseif ($this->getItem()->getOrder()->getBillingAddress()) {
+            }
+
+            if ($this->getItem()->getOrder()->getBillingAddress()) {
                 return $this->getItem()->getOrder()->getBillingAddress()->getName();
             }
         }
 
         if ($this->getItem()->getShippingAddress()) {
             return $this->getItem()->getShippingAddress()->getName();
-        } elseif ($this->getItem()->getBillingAddress()) {
+        }
+
+        if ($this->getItem()->getBillingAddress()) {
             return $this->getItem()->getBillingAddress()->getName();
         }
 
@@ -87,7 +84,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
     /**
      * Retrieve real name for field
      *
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     public function getFieldName($name)
@@ -98,7 +95,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
     /**
      * Retrieve real html id for field
      *
-     * @param string $id
+     * @param  string $id
      * @return string
      */
     public function getFieldId($id)
@@ -119,7 +116,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
     /**
      * Initialize gift message for entity
      *
-     * @return Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items
+     * @return $this
      */
     protected function _initMessage()
     {
@@ -131,6 +128,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
         if (!$this->getMessage()->getSender()) {
             $this->getMessage()->setSender($this->getDefaultSender());
         }
+
         if (!$this->getMessage()->getRecipient()) {
             $this->getMessage()->setRecipient($this->getDefaultRecipient());
         }
@@ -162,7 +160,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
         return $this->getUrl('*/sales_order_view_giftmessage/save', [
             'entity'    => $this->getItem()->getId(),
             'type'      => 'order_item',
-            'reload'    => true
+            'reload'    => true,
         ]);
     }
 
@@ -183,7 +181,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     public function canDisplayGiftmessage()
     {
-        return $this->getItem()->getGiftMessageId();
+        return (bool) $this->getItem()->getGiftMessageId();
     }
 
     /**

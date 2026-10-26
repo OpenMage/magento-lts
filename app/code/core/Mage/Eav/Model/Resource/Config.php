@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Eav Resource Config model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstract
@@ -35,6 +28,9 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
      */
     protected static $_attributes    = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('eav/entity_type', 'entity_type_id');
@@ -51,7 +47,8 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
         if (!$adapter) {
             return $this;
         }
-        if (empty(self::$_entityTypes)) {
+
+        if (self::$_entityTypes === []) {
             $select = $adapter->select()->from($this->getMainTable());
             $data   = $adapter->fetchAll($select);
             foreach ($data as $row) {
@@ -66,7 +63,7 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Load attribute types
      *
-     * @param int $typeId
+     * @param  int   $typeId
      * @return array
      */
     protected function _loadTypeAttributes($typeId)
@@ -87,8 +84,8 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Retrieve entity type data
      *
-     * @param string $entityType
-     * @return array
+     * @param  string               $entityType
+     * @return array<string, mixed>
      */
     public function fetchEntityTypeData($entityType)
     {

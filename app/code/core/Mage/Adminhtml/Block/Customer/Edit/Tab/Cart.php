@@ -1,26 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml customer orders grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method int getWebsiteId()
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_customer_edit_tab_cart';
+
     /**
      * @var string
      */
@@ -41,6 +38,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareGrid()
     {
         $this->setId('customer_cart_grid' . $this->getWebsiteId());
@@ -50,6 +48,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $customer = Mage::registry('current_customer');
@@ -59,12 +58,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
             ->setSharedStoreIds($storeIds)
             ->loadByCustomer($customer);
 
-        if ($quote) {
-            $collection = $quote->getItemsCollection(false);
-        } else {
-            $collection = new Varien_Data_Collection();
-        }
-
+        $collection = $quote ? $quote->getItemsCollection(false) : new Varien_Data_Collection();
         $collection->addFieldToFilter('parent_item_id', ['null' => true]);
 
         $this->setCollection($collection);
@@ -74,7 +68,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('product_id', [
@@ -86,7 +82,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
         $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Product Name'),
             'index'     => 'name',
-            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item'
+            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item',
         ]);
 
         $this->addColumn('sku', [
@@ -99,42 +95,37 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
             'header'    => Mage::helper('catalog')->__('Qty'),
             'index'     => 'qty',
             'type'      => 'number',
-            'width'     => '60px',
         ]);
 
         $this->addColumn('price', [
-            'header'        => Mage::helper('catalog')->__('Price'),
-            'index'         => 'price',
             'type'          => 'currency',
-            'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
+            'currency_code' => Mage_Directory_Helper_Data::getConfigCurrencyBase(),
         ]);
 
         $this->addColumn('total', [
             'header'        => Mage::helper('sales')->__('Total'),
             'index'         => 'row_total',
             'type'          => 'currency',
-            'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
+            'currency_code' => Mage_Directory_Helper_Data::getConfigCurrencyBase(),
         ]);
 
         $this->addColumn('action', [
-            'header'    => Mage::helper('customer')->__('Action'),
+            'type'      => 'action',
             'index'     => 'quote_item_id',
             'renderer'  => 'adminhtml/customer_grid_renderer_multiaction',
-            'filter'    => false,
-            'sortable'  => false,
             'actions'   => [
                 [
                     'caption'           => Mage::helper('customer')->__('Configure'),
                     'url'               => 'javascript:void(0)',
                     'process'           => 'configurable',
-                    'control_object'    => $this->getJsObjectName() . 'cartControl'
+                    'control_object'    => $this->getJsObjectName() . 'cartControl',
                 ],
                 [
                     'caption'   => Mage::helper('customer')->__('Delete'),
                     'url'       => '#',
-                    'onclick'   => 'return ' . $this->getJsObjectName() . 'cartControl.removeItem($item_id);'
-                ]
-            ]
+                    'onclick'   => 'return ' . $this->getJsObjectName() . 'cartControl.removeItem($item_id);',
+                ],
+            ],
         ]);
 
         return parent::_prepareColumns();
@@ -153,6 +144,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     /**
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/cart', ['_current' => true, 'website_id' => $this->getWebsiteId()]);
@@ -161,6 +153,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     /**
      * @return string
      * @throws Exception
+     * @throws Throwable
      */
     public function getGridParentHtml()
     {
@@ -168,6 +161,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
         return $this->fetchView($templateName);
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Sales_Model_Quote_Item $row
+     */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);

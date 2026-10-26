@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Review form block
  *
- * @category   Mage
  * @package    Mage_Rss
  */
 class Mage_Rss_Block_List extends Mage_Core_Block_Template
@@ -31,6 +24,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         /** @var Mage_Page_Block_Html_Head $head */
@@ -41,6 +35,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
                 $head->addItem('rss', $feed['url'], 'title="' . $feed['label'] . '"');
             }
         }
+
         return parent::_prepareLayout();
     }
 
@@ -57,10 +52,10 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     /**
      * Add new rss feed
      *
-     * @param string $url
-     * @param string $label
-     * @param array $param
-     * @param bool $customerGroup
+     * @param  string                          $url
+     * @param  string                          $label
+     * @param  array                           $param
+     * @param  bool                            $customerGroup
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -74,8 +69,8 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         $this->_rssFeeds[] = new Varien_Object(
             [
                 'url'   => Mage::getUrl($url, $param),
-                'label' => $label
-            ]
+                'label' => $label,
+            ],
         );
         return $this;
     }
@@ -107,7 +102,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
      *
      * array structure:
      *
-     * @return  array
+     * @return array
      */
     public function getRssCatalogFeeds()
     {

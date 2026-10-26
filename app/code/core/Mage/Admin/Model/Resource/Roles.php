@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin roles resource model
  *
- * @category   Mage
  * @package    Mage_Admin
  */
 class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
@@ -35,6 +28,9 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected $_ruleTable;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('admin/role', 'role_id');
@@ -46,26 +42,30 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role before saving
      *
-     * @param Mage_Core_Model_Abstract|Mage_Admin_Model_Roles $role
+     * @param  Mage_Admin_Model_Roles $object
      * @return $this
+     * @throws Mage_Core_Exception
      */
-    protected function _beforeSave(Mage_Core_Model_Abstract $role)
+    #[Override]
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        if ($role->getId() == '') {
-            if ($role->getIdFieldName()) {
-                $role->unsetData($role->getIdFieldName());
+        parent::_beforeSave($object);
+
+        if ($object->getId() == '') {
+            if ($object->getIdFieldName()) {
+                $object->unsetData($object->getIdFieldName());
             } else {
-                $role->unsetData('id');
+                $object->unsetData('id');
             }
         }
 
-        if ($role->getPid() > 0) {
+        if ($object->getPid() > 0) {
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getMainTable(), ['tree_level'])
                 ->where("{$this->getIdFieldName()} = :pid");
 
             $binds = [
-                'pid' => (int) $role->getPid(),
+                'pid' => (int) $object->getPid(),
             ];
 
             $treeLevel = $this->_getReadAdapter()->fetchOne($select, $binds);
@@ -73,8 +73,8 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
             $treeLevel = 0;
         }
 
-        $role->setTreeLevel($treeLevel + 1);
-        $role->setRoleName($role->getName());
+        $object->setTreeLevel($treeLevel + 1);
+        $object->setRoleName($object->getName());
 
         return $this;
     }
@@ -82,38 +82,50 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role after saving
      *
-     * @param Mage_Core_Model_Abstract $role
+     * @param  Mage_Admin_Model_Roles    $object
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
-    protected function _afterSave(Mage_Core_Model_Abstract $role)
+    #[Override]
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $this->_updateRoleUsersAcl($role);
-        Mage::app()->getCache()->clean(
-            Zend_Cache::CLEANING_MODE_MATCHING_TAG,
-            [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS]
-        );
+        parent::_afterSave($object);
+
+        if ($this->_updateRoleUsersAcl($object)) {
+            Mage::app()->getCache()->clean(
+                Zend_Cache::CLEANING_MODE_MATCHING_TAG,
+                [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS],
+            );
+        }
+
         return $this;
     }
 
     /**
      * Process role after deleting
      *
-     * @param Mage_Core_Model_Abstract $role
+     * @param  Mage_Admin_Model_Roles $object
      * @return $this
+     * @throws Mage_Core_Exception
      */
-    protected function _afterDelete(Mage_Core_Model_Abstract $role)
+    #[Override]
+    protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
+        parent::_afterDelete($object);
+
         $adapter = $this->_getWriteAdapter();
-        $adapter->delete($this->getMainTable(), ['parent_id = ?' => (int) $role->getId()]);
-        $adapter->delete($this->_ruleTable, ['role_id = ?' => (int) $role->getId()]);
+        $adapter->delete($this->getMainTable(), ['parent_id = ?' => (int) $object->getId()]);
+        $adapter->delete($this->_ruleTable, ['role_id = ?' => (int) $object->getId()]);
         return $this;
     }
 
     /**
      * Get role users
      *
-     * @param Mage_Admin_Model_Roles $role
-     * @return array
+     * @return string[]
+     * @throws Mage_Core_Exception
      */
     public function getRoleUsers(Mage_Admin_Model_Roles $role)
     {
@@ -129,10 +141,10 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Update role users
      *
-     * @param Mage_Admin_Model_Roles $role
-     * @return bool
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
-    private function _updateRoleUsersAcl(Mage_Admin_Model_Roles $role)
+    private function _updateRoleUsersAcl(Mage_Admin_Model_Roles $role): bool
     {
         $users = $this->getRoleUsers($role);
         $rowsCount = 0;
@@ -141,7 +153,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
             $rowsCount = $this->_getWriteAdapter()->update(
                 $this->_usersTable,
                 ['reload_acl_flag' => 1],
-                ['user_id IN (?)' => $users]
+                ['user_id IN (?)' => $users],
             );
         }
 

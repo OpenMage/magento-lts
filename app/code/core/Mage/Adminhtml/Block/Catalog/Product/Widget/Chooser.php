@@ -1,28 +1,35 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product Chooser for "Product Link" Cms Widget Plugin
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
+ * @method int                                            getCategoryId()
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
+ * @method array                                          getConfig()
+ * @method int                                            getFieldsetId()
+ * @method int                                            getProductTypeId()
+ * @method Mage_Core_Helper_Abstract                      getTranslationHelper()
+ * @method bool                                           getUseMassaction()
+ * @method $this                                          setCategoryId(int $value)
+ * @method $this                                          setConfig(array $value)
+ * @method $this                                          setFieldsetId(int $value)
+ * @method $this                                          setProductTypeId(int $value)
+ * @method $this                                          setTranslationHelper(Mage_Core_Helper_Abstract $value)
+ * @method $this                                          setUseMassaction(bool $value)
  */
 class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_widget_chooser';
+
     protected $_selectedProducts = [];
 
     /**
@@ -40,7 +47,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     /**
      * Prepare chooser element HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element Form Element
+     * @param  Varien_Data_Form_Element_Abstract $element Form Element
      * @return Varien_Data_Form_Element_Abstract
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -65,16 +72,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
             if (isset($value[0], $value[1]) && $value[0] === 'product') {
                 $productId = $value[1];
             }
+
             $categoryId = $value[2] ?? false;
             $label = '';
             if ($categoryId) {
                 $label = Mage::getResourceSingleton('catalog/category')
                     ->getAttributeRawValue($categoryId, 'name', Mage::app()->getStore()) . '/';
             }
+
             if ($productId) {
                 $label .= Mage::getResourceSingleton('catalog/product')
                     ->getAttributeRawValue($productId, 'name', Mage::app()->getStore());
             }
+
             $chooser->setLabel($label);
         }
 
@@ -94,6 +104,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 $(grid.containerId).fire('product:changed', {element: element});
             }";
         }
+
         return '';
     }
 
@@ -125,6 +136,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 }
             ';
         }
+
         return '';
     }
 
@@ -135,7 +147,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
      */
     public function getCategoryClickListenerJs()
     {
-        $js = '
+        $str = '
             function (node, e) {
                 {jsObject}.addVarToUrl("category_id", node.attributes.id);
                 {jsObject}.reload({jsObject}.url);
@@ -143,16 +155,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 {jsObject}.categoryName = node.attributes.id != "none" ? node.text : false;
             }
         ';
-        $js = str_replace('{jsObject}', $this->getJsObjectName(), $js);
-        return $js;
+        return str_replace('{jsObject}', $this->getJsObjectName(), $str);
     }
 
     /**
      * Filter checked/unchecked rows in grid
      *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getId() === 'in_products') {
@@ -165,14 +178,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
     /**
      * Prepare products collection, defined collection filters (category, product type)
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
@@ -186,9 +201,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 // $collection->addCategoryFilter($category);
                 $productIds = $category->getProductsPosition();
                 $productIds = array_keys($productIds);
-                if (empty($productIds)) {
+                if ($productIds === []) {
                     $productIds = 0;
                 }
+
                 $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
             }
         }
@@ -202,10 +218,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     }
 
     /**
-     * Prepare columns for products grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         if ($this->getUseMassaction()) {
@@ -224,20 +240,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
 
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60px',
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
         $this->addColumn('chooser_sku', [
             'header'    => Mage::helper('catalog')->__('SKU'),
             'name'      => 'chooser_sku',
             'width'     => '80px',
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
         $this->addColumn('chooser_name', [
             'header'    => Mage::helper('catalog')->__('Product Name'),
             'name'      => 'chooser_name',
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         return parent::_prepareColumns();
@@ -248,6 +262,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/catalog_product_widget/chooser', [
@@ -255,14 +270,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
             '_current' => true,
             'uniq_id' => $this->getId(),
             'use_massaction' => $this->getUseMassaction(),
-            'product_type_id' => $this->getProductTypeId()
+            'product_type_id' => $this->getProductTypeId(),
         ]);
     }
 
     /**
      * Setter
      *
-     * @param array $selectedProducts
+     * @param  array $selectedProducts
      * @return $this
      */
     public function setSelectedProducts($selectedProducts)
@@ -275,12 +290,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
      * Getter
      *
      * @return array
+     * @throws Exception
      */
     public function getSelectedProducts()
     {
-        if ($selectedProducts = $this->getRequest()->getParam('selected_products', null)) {
+        if ($selectedProducts = $this->getRequest()->getParam('selected_products')) {
             $this->setSelectedProducts($selectedProducts);
         }
+
         return $this->_selectedProducts;
     }
 }

@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Mage\Admin\Model;
+
+use Override;
+use Exception;
+use Mage;
+use Mage_Admin_Model_Variable as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\VariableTrait;
+
+/**
+ * @phpstan-import-type ValidateData from VariableTrait
+ */
+final class VariableTest extends OpenMageTest
+{
+    use VariableTrait;
+
+    private static Subject $subject;
+
+    #[Override]
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('admin/variable');
+    }
+
+    /**
+     * @dataProvider provideValidateAdminVariableData
+     * @phpstan-param ValidateData $data
+     * @group Model
+     * @throws Exception
+     */
+    public function testValidate(array|bool $expectedResult, array $data): void
+    {
+        self::$subject->setData($data);
+        self::assertSame($expectedResult, self::$subject->validate());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testIsPathAllowed(): void
+    {
+        self::assertIsBool(self::$subject->isPathAllowed('invalid-path'));
+    }
+}

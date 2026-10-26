@@ -1,50 +1,46 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
 
 /**
  * HTML select element block
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method string getClass()
- * @method $this setClass(string $value)
  * @method string getExtraParams()
- * @method $this setExtraParams(string $value)
  * @method string getFormat()
- * @method $this setFormat(string $value)
  * @method string getImage()
- * @method $this setImage(string $value)
  * @method string getName()
- * @method $this setName(string $value)
  * @method string getTime()
- * @method $this setTime(string $value)
- * @method $this setTitle(string $value)
  * @method string getValue()
- * @method $this setValue(string $value)
  * @method string getYearsRange()
- * @method $this setYearsRange(string $value)
+ * @method $this  setClass(string $value)
+ * @method $this  setExtraParams(string $value)
+ * @method $this  setFormat(string $value)
+ * @method $this  setImage(string $value)
+ * @method $this  setName(string $value)
+ * @method $this  setTime(string $value)
+ * @method $this  setTitle(string $value)
+ * @method $this  setValue(string $value)
+ * @method $this  setYearsRange(string $value)
  */
 class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
 {
     /**
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
-        $displayFormat = Varien_Date::convertZendToStrftime($this->getFormat(), true, (bool)$this->getTime());
+        $displayFormat = Varien_Date::convertZendToStrftime($this->getFormat(), true, (bool) $this->getTime());
 
         $html  = '<input type="text" name="' . $this->getName() . '" id="' . $this->getId() . '" ';
         $html .= 'value="' . $this->escapeHtml($this->getValue()) . '" class="' . $this->getClass() . '" ' . $this->getExtraParams() . '/> ';
@@ -52,8 +48,8 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
         $html .= '<img src="' . $this->getImage() . '" alt="' . $this->helper('core')->__('Select Date') . '" class="v-middle" ';
         $html .= 'title="' . $this->helper('core')->__('Select Date') . '" id="' . $this->getId() . '_trig" />';
 
-        $html .=
-        '<script type="text/javascript">
+        $html
+        .= '<script type="text/javascript">
         //<![CDATA[
             var calendarSetupObject = {
                 inputField  : "' . $this->getId() . '",
@@ -71,22 +67,20 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
                 ';
         }
 
-        $html .= '
+        return $html . '
             Calendar.setup(calendarSetupObject);
         //]]>
         </script>';
-
-        return $html;
     }
 
     /**
-     * @param null $index deprecated
+     * @param  null   $index deprecated
      * @return string
      */
     public function getEscapedValue($index = null)
     {
         if ($this->getFormat() && $this->getValue()) {
-            return strftime($this->getFormat(), strtotime($this->getValue()));
+            return Carbon::parse($this->getValue())->format($this->getFormat());
         }
 
         return htmlspecialchars($this->getValue());

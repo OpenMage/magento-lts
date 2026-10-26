@@ -1,31 +1,24 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Filter item model
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
- * @method int getCount()
- * @method $this setCount(int $value)
+ * @method int    getCount()
  * @method string getLabel()
- * @method $this setLabel(string $value)
  * @method string getValue()
- * @method $this setValue(string $value)
- * @method $this setFilter(Mage_Catalog_Model_Layer_Filter_Abstract $value)
+ * @method $this  setCount(int $value)
+ * @method $this  setFilter(Mage_Catalog_Model_Layer_Filter_Abstract $value)
+ * @method $this  setLabel(string $value)
+ * @method $this  setValue(string $value)
  */
 class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
 {
@@ -36,12 +29,13 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
      */
     public function getFilter()
     {
-        $filter = $this->getData('filter');
+        $filter = $this->getDataByKey('filter');
         if (!is_object($filter)) {
             Mage::throwException(
-                Mage::helper('catalog')->__('Filter must be an object. Please set correct filter.')
+                Mage::helper('catalog')->__('Filter must be an object. Please set correct filter.'),
             );
         }
+
         return $filter;
     }
 
@@ -54,7 +48,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
     {
         $query = [
             $this->getFilter()->getRequestVar() => $this->getValue(),
-            Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
+            Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null, // exclude current page from urls
         ];
         return Mage::getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true, '_query' => $query]);
     }
@@ -116,6 +110,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
         if (is_array($value)) {
             return implode(',', $value);
         }
+
         return $value;
     }
 }

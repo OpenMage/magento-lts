@@ -1,37 +1,30 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Quote rule action abstract
  *
- * @category   Mage
  * @package    Mage_Rule
  *
- * @method array getAttributeOption()
- * @method $this setAttributeOption(array $value)
- * @method array getOperatorOption()
- * @method $this setOperatorOption(array $value)
- * @method array getValueOption()
- * @method $this setValueOption(array $value)
- * @method string getAttribute()
- * @method $this setAttribute(string $value)
- * @method string getOperator()
- * @method $this setOperator(string $value)
- * @method string getType()
- * @method string getValue()
+ * @method string                   getAttribute()
+ * @method array                    getAttributeOption()
+ * @method string                   getOperator()
+ * @method array                    getOperatorOption()
  * @method Mage_Rule_Model_Abstract getRule()
+ * @method string                   getType()
+ * @method string                   getValue()
+ * @method array                    getValueOption()
+ * @method $this                    setAttribute(string $value)
+ * @method $this                    setAttributeOption(array $value)
+ * @method $this                    setOperator(string $value)
+ * @method $this                    setOperatorOption(array $value)
+ * @method $this                    setValueOption(array $value)
  */
 abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements Mage_Rule_Model_Action_Interface
 {
@@ -52,11 +45,12 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         parent::__construct();
         $this->loadAttributeOptions()->loadOperatorOptions()->loadValueOptions();
 
-        foreach ($this->getAttributeOption() as $attr => $dummy) {
+        foreach (array_keys($this->getAttributeOption()) as $attr) {
             $this->setAttribute($attr);
             break;
         }
-        foreach ($this->getOperatorOption() as $operator => $dummy) {
+
+        foreach (array_keys($this->getOperatorOption()) as $operator) {
             $this->setOperator($operator);
             break;
         }
@@ -71,8 +65,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @param array $arrAttributes
-     * @return array
+     * @return array<string, string>
      */
     public function asArray(array $arrAttributes = [])
     {
@@ -89,14 +82,13 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function asXml()
     {
-        return "<type>" . $this->getType() . "</type>"
-            . "<attribute>" . $this->getAttribute() . "</attribute>"
-            . "<operator>" . $this->getOperator() . "</operator>"
-            . "<value>" . $this->getValue() . "</value>";
+        return '<type>' . $this->getType() . '</type>'
+            . '<attribute>' . $this->getAttribute() . '</attribute>'
+            . '<operator>' . $this->getOperator() . '</operator>'
+            . '<value>' . $this->getValue() . '</value>';
     }
 
     /**
-     * @param array $arr
      * @return $this
      */
     public function loadArray(array $arr)
@@ -128,9 +120,13 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function getAttributeSelectOptions()
     {
         $opt = [];
-        foreach ($this->getAttributeOption() as $k => $v) {
-            $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getAttributeOption() as $key => $value) {
+            $opt[] = [
+                'value' => $key,
+                'label' => $value,
+            ];
         }
+
         return $opt;
     }
 
@@ -160,9 +156,13 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function getOperatorSelectOptions()
     {
         $opt = [];
-        foreach ($this->getOperatorOption() as $k => $v) {
-            $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getOperatorOption() as $key => $value) {
+            $opt[] = [
+                'value' => $key,
+                'label' => $value,
+            ];
         }
+
         return $opt;
     }
 
@@ -189,9 +189,13 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function getValueSelectOptions()
     {
         $opt = [];
-        foreach ($this->getValueOption() as $k => $v) {
-            $opt[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getValueOption() as $key => $value) {
+            $opt[] = [
+                'value' => $key,
+                'label' => $value,
+            ];
         }
+
         return $opt;
     }
 
@@ -205,7 +209,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @return array
+     * @return array<int, array<string, string>>
      */
     public function getNewChildSelectOptions()
     {
@@ -255,12 +259,19 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function getAttributeElement()
     {
-        return $this->getForm()->addField('action:' . $this->getId() . ':attribute', 'select', [
+        $element = $this->getForm()->addField('action:' . $this->getId() . ':attribute', 'select', [
             'name' => 'rule[actions][' . $this->getId() . '][attribute]',
             'values' => $this->getAttributeSelectOptions(),
             'value' => $this->getAttribute(),
             'value_name' => $this->getAttributeName(),
-        ])->setRenderer(Mage::getBlockSingleton('rule/editable'));
+        ]);
+
+        $renderer = Mage::getBlockSingleton('rule/editable');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**
@@ -268,12 +279,19 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function getOperatorElement()
     {
-        return $this->getForm()->addField('action:' . $this->getId() . ':operator', 'select', [
+        $element = $this->getForm()->addField('action:' . $this->getId() . ':operator', 'select', [
             'name' => 'rule[actions][' . $this->getId() . '][operator]',
             'values' => $this->getOperatorSelectOptions(),
             'value' => $this->getOperator(),
             'value_name' => $this->getOperatorName(),
-        ])->setRenderer(Mage::getBlockSingleton('rule/editable'));
+        ]);
+
+        $renderer = Mage::getBlockSingleton('rule/editable');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**
@@ -281,11 +299,18 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function getValueElement()
     {
-        return $this->getForm()->addField('action:' . $this->getId() . ':value', 'text', [
+        $element = $this->getForm()->addField('action:' . $this->getId() . ':value', 'text', [
             'name' => 'rule[actions][' . $this->getId() . '][value]',
             'value' => $this->getValue(),
             'value_name' => $this->getValueName(),
-        ])->setRenderer(Mage::getBlockSingleton('rule/editable'));
+        ]);
+
+        $renderer = Mage::getBlockSingleton('rule/editable');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**
@@ -308,16 +333,16 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public function asString($format = '')
     {
-        return "";
+        return '';
     }
 
     /**
-     * @param int $level
+     * @param  int    $level
      * @return string
      */
     public function asStringRecursive($level = 0)

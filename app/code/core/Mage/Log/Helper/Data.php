@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Log data helper
  *
- * @category   Mage
  * @package    Mage_Log
  */
 class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
@@ -32,12 +25,13 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Allowed extensions that can be used to create a log file
+     *
+     * @var array
      */
     private $_allowedFileExtensions = ['log', 'txt', 'html', 'csv'];
 
     /**
      * Mage_Log_Helper_Data constructor.
-     * @param array $data
      */
     public function __construct(array $data = [])
     {
@@ -78,7 +72,7 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Checking if file extensions is allowed. If passed then return true.
      *
-     * @param string $file
+     * @param  string $file
      * @return bool
      */
     public function isLogFileExtensionValid($file)
@@ -86,7 +80,7 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
         $result = false;
         $validatedFileExtension = pathinfo($file, PATHINFO_EXTENSION);
         if ($validatedFileExtension && in_array($validatedFileExtension, $this->_allowedFileExtensions)) {
-            $result = true;
+            return true;
         }
 
         return $result;

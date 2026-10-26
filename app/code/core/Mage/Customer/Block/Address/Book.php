@@ -1,32 +1,26 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer address book block
  *
- * @category   Mage
  * @package    Mage_Customer
  *
  * @method string getRefererUrl()
- * @method $this setRefererUrl(string $url)
+ * @method $this  setRefererUrl(string $url)
  */
 class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
 {
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->getLayout()->getBlock('head')
@@ -51,6 +45,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
         if ($this->getRefererUrl()) {
             return $this->getRefererUrl();
         }
+
         return $this->getUrl('customer/account/', ['_secure' => true]);
     }
 
@@ -61,12 +56,12 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
     {
         return $this->getUrl(
             'customer/address/delete',
-            [Mage_Core_Model_Url::FORM_KEY => Mage::getSingleton('core/session')->getFormKey()]
+            [Mage_Core_Model_Url::FORM_KEY => Mage::getSingleton('core/session')->getFormKey()],
         );
     }
 
     /**
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return string
      */
     public function getAddressEditUrl($address)
@@ -95,7 +90,11 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
      */
     public function hasPrimaryAddress()
     {
-        return $this->getPrimaryBillingAddress() || $this->getPrimaryShippingAddress();
+        if ($this->getPrimaryBillingAddress()) {
+            return true;
+        }
+
+        return (bool) $this->getPrimaryShippingAddress();
     }
 
     /**
@@ -108,8 +107,8 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Customer_Model_Address $address
-     * @return string|null
+     * @param  Mage_Customer_Model_Address $address
+     * @return null|string
      */
     public function getAddressHtml($address)
     {
@@ -122,11 +121,12 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
      */
     public function getCustomer()
     {
-        $customer = $this->getData('customer');
+        $customer = $this->getDataByKey('customer');
         if (is_null($customer)) {
             $customer = Mage::getSingleton('customer/session')->getCustomer();
             $this->setData('customer', $customer);
         }
+
         return $customer;
     }
 }

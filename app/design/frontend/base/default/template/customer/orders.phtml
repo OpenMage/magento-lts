@@ -1,19 +1,16 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+?>
 
+<?php
 /**
+ * @see Mage_Core_Block_Template
+ * @var Mage_Core_Block_Template $this
  * @deprecated  after 1.4.0.0-alpha3
  */
 ?>
@@ -36,7 +33,7 @@
     <?php foreach ($orders as $order): ?>
         <tr>
             <td><?php echo $order->getRealOrderId() ?>&nbsp;</td>
-            <td><?php echo date("D, j M, Y", strtotime($order->getCreatedAt())) ?>&nbsp;</td>
+            <td><?php echo \Carbon\Carbon::parse($order->getCreatedAt())->format("D, j M, Y") ?>&nbsp;</td>
             <!--<td class="a-center">{$page.orders[io].customer}</td>-->
             <td><?php echo $order->getGrandTotal() ?>&nbsp;</td>
             <td><?php echo $order->getStatus() ?>&nbsp;</td>

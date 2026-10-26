@@ -1,0 +1,265 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass form.scss ../form.css
+ */
+select, textarea, input.input-text {
+  font: 400 12px/1.33 "Open Sans", sans-serif;
+  display: inline-block;
+  padding: 1px 3px;
+  margin: 0;
+  background-color: #fff;
+  height: 26px;
+  color: #202856;
+  border: 1px solid #c8c8c8;
+  box-sizing: border-box;
+}
+
+.form-list td.label label, .form-list td.label {
+  font-size: 12px;
+  font-weight: 400;
+  color: #202856;
+}
+
+.field-100 input.input-text, .field-100 textarea {
+  float: none;
+  border: 1px solid #c8c8c8 !important;
+  padding: 1px 3px !important;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline-offset: 0;
+  outline: 2px solid #025988;
+  box-shadow: 0 0 4px 2px #0090FF;
+}
+
+input {
+  vertical-align: middle;
+}
+input[type=checkbox], input[type=radio] {
+  outline-offset: 2px;
+}
+
+textarea {
+  margin: 0;
+}
+textarea:disabled {
+  background: #f6f6f6;
+}
+textarea.disabled {
+  background: #f6f6f6;
+}
+
+select {
+  height: 26px;
+  border: 1px solid #c8c8c8;
+  box-sizing: border-box;
+  text-transform: none;
+  margin: 0;
+}
+select.disabled {
+  background: #f6f6f6;
+}
+select:disabled {
+  background: #f6f6f6;
+}
+select optgroup {
+  font-weight: 600;
+}
+
+input[type=text].disabled {
+  background: #f6f6f6;
+}
+input[type=text]:disabled {
+  background: #f6f6f6;
+}
+
+select[multiple] {
+  height: auto;
+}
+
+select[size] {
+  height: auto;
+}
+
+button,
+.form-button {
+  text-transform: none;
+  background: #71798e;
+  padding: 0 12px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 28px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+button span,
+.form-button span {
+  padding: 0;
+}
+button.large,
+.form-button.large {
+  font-size: 22px;
+  padding: 14px 22px 16px;
+}
+button.icon-btn,
+.form-button.icon-btn {
+  width: auto !important;
+}
+button.icon-btn span,
+.form-button.icon-btn span {
+  text-indent: 0;
+  width: auto;
+  display: inline;
+}
+button:hover, button:focus, button:active,
+.form-button:hover,
+.form-button:focus,
+.form-button:active {
+  background: #2f2f2f;
+}
+button:focus-visible,
+.form-button:focus-visible {
+  outline-offset: -4px;
+  outline: 2px solid white;
+}
+button.disabled, button:disabled,
+.form-button.disabled,
+.form-button:disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.5;
+}
+button.save, button.add, button.ok_button,
+.form-button.save,
+.form-button.add,
+.form-button.ok_button {
+  background: #0090FF;
+}
+button.save:hover, button.save:focus, button.save:active, button.add:hover, button.add:focus, button.add:active, button.ok_button:hover, button.ok_button:focus, button.ok_button:active,
+.form-button.save:hover,
+.form-button.save:focus,
+.form-button.save:active,
+.form-button.add:hover,
+.form-button.add:focus,
+.form-button.add:active,
+.form-button.ok_button:hover,
+.form-button.ok_button:focus,
+.form-button.ok_button:active {
+  background: #025988;
+}
+button.cancel, button.cancel_button, button.delete, button.fail,
+.form-button.cancel,
+.form-button.cancel_button,
+.form-button.delete,
+.form-button.fail {
+  background: #e63a3a;
+}
+button.cancel:hover, button.cancel:focus, button.cancel:active, button.cancel_button:hover, button.cancel_button:focus, button.cancel_button:active, button.delete:hover, button.delete:focus, button.delete:active, button.fail:hover, button.fail:focus, button.fail:active,
+.form-button.cancel:hover,
+.form-button.cancel:focus,
+.form-button.cancel:active,
+.form-button.cancel_button:hover,
+.form-button.cancel_button:focus,
+.form-button.cancel_button:active,
+.form-button.delete:hover,
+.form-button.delete:focus,
+.form-button.delete:active,
+.form-button.fail:hover,
+.form-button.fail:focus,
+.form-button.fail:active {
+  background: #963535;
+}
+button.success,
+.form-button.success {
+  background: #56af45;
+}
+button.success:hover, button.success:focus, button.success:active,
+.form-button.success:hover,
+.form-button.success:focus,
+.form-button.success:active {
+  background: #185b00;
+}
+
+.field-100 {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.form-list td.label label {
+  padding: 0 10px 0 0;
+}
+.form-list td.scope-label {
+  color: #999;
+  font-size: 11px;
+}
+.form-list td.value input.input-text, .form-list td.value textarea, .form-list td.value select {
+  width: 330px;
+}
+.form-list td.value p.note {
+  padding-top: 2px;
+  color: #202856;
+  font-size: 11px;
+  font-weight: 400;
+}
+.form-list td.value p.note span.input-counter-error {
+  color: #e63a3a;
+}
+
+fieldset[disabled] button.save, fieldset[disabled] button.add, fieldset[disabled] button.ok_button {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.input-text.large {
+  padding: 12px 12px 14px;
+  font-size: 18px;
+}
+
+td:has(input.swatch-option) {
+  display: flex;
+  gap: 2px;
+}
+td:has(input.swatch-option) .swatch-delete {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
+  background: #e63a3a;
+  color: #fff;
+  border-radius: 2px;
+}
+td:has(input.swatch-option) .swatch-option {
+  width: 26px !important;
+  height: 26px;
+}
+
+td:has(input.swatch-disabled) {
+  background-image: url('data:image/svg+xml,<svg id="e5490f2e-3f54-4acd-9496-57eed667c240" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 28.41093 28.29249"><title>placeholder</title><rect x="1.20546" y="1.08375" width="26" height="26" fill="%23fff" stroke="%23ccc" stroke-miterlimit="10"/><line x1="0.70546" y1="27.58375" x2="27.70546" y2="0.70875" fill="none" stroke="%23ff003a" stroke-miterlimit="10" stroke-width="2"/></svg>');
+  background-repeat: no-repeat;
+  outline: 1px solid #c8c8c8;
+  border: 1px solid #fff;
+  padding: 0;
+  margin: 2px;
+  width: 24px;
+  height: 24px;
+  display: block;
+  background-position: center center;
+  border-radius: 2px;
+}
+td:has(input.swatch-disabled) .swatch-option {
+  opacity: 0;
+}
+td:has(input.swatch-disabled) .swatch-delete {
+  display: none;
+}
+
+/*# sourceMappingURL=form.css.map */

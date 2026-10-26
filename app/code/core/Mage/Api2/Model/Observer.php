@@ -1,30 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 observer
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Observer
 {
     /**
      * Save relation of admin user to API2 role
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function saveAdminToRoleRelation(Varien_Event_Observer $observer)
     {
@@ -32,7 +23,7 @@ class Mage_Api2_Model_Observer
         $user = $observer->getObject();
 
         if ($user->hasData('api2_roles')) {
-            $roles = $user->getData('api2_roles');
+            $roles = $user->getDataByKey('api2_roles');
 
             if (!is_array($roles) || !isset($roles[0])) {
                 throw new Exception('API2 roles property has wrong data format.');
@@ -47,7 +38,6 @@ class Mage_Api2_Model_Observer
     /**
      * After save attribute if it is not visible on front remove it from Attribute ACL
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogAttributeSaveAfter(Varien_Event_Observer $observer)
@@ -85,7 +75,7 @@ class Mage_Api2_Model_Observer
             && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
                 $apiKey,
                 $model->getApiKey(),
-                Mage_Core_Model_Encryption::HASH_VERSION_SHA256
+                Mage_Core_Model_Encryption::HASH_VERSION_SHA256,
             )
         ) {
             Mage::getModel('api/user')->load($model->getId())->setNewApiKey($apiKey)->save();

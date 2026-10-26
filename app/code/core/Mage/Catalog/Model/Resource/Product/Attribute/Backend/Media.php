@@ -1,33 +1,31 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product media gallery attribute backend resource
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_Core_Model_Resource_Db_Abstract
 {
     public const GALLERY_TABLE       = 'catalog/product_attribute_media_gallery';
+
     public const GALLERY_VALUE_TABLE = 'catalog/product_attribute_media_gallery_value';
 
     protected $_eventPrefix = 'catalog_product_attribute_backend_media';
 
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_attributeId = null;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init(self::GALLERY_TABLE, 'value_id');
@@ -36,8 +34,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Load gallery images for product using reusable select method
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Catalog_Model_Product_Attribute_Backend_Media $object
+     * @param  Mage_Catalog_Model_Product                         $product
+     * @param  Mage_Catalog_Model_Product_Attribute_Backend_Media $object
      * @return array
      */
     public function loadGallery($product, $object)
@@ -45,12 +43,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         $eventObjectWrapper = new Varien_Object(
             [
                 'product' => $product,
-                'backend_attribute' => $object
-            ]
+                'backend_attribute' => $object,
+            ],
         );
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_gallery_before',
-            ['event_object_wrapper' => $eventObjectWrapper]
+            ['event_object_wrapper' => $eventObjectWrapper],
         );
 
         if ($eventObjectWrapper->hasProductIdsOverride()) {
@@ -70,7 +68,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Remove duplicates
      *
-     * @param array $result
+     * @param  array $result
      * @return $this
      */
     protected function _removeDuplicates(&$result)
@@ -93,8 +91,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Insert gallery value to db and retrieve last id
      *
-     * @param array $data
-     * @return int
+     * @param  array  $data
+     * @return string
      */
     public function insertGallery($data)
     {
@@ -108,12 +106,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Delete gallery value in db
      *
-     * @param array|int $valueId
+     * @param  array|int $valueId
      * @return $this
      */
     public function deleteGallery($valueId)
     {
-        if (is_array($valueId) && count($valueId) > 0) {
+        if (is_array($valueId) && $valueId !== []) {
             $condition = $this->_getWriteAdapter()->quoteInto('value_id IN(?) ', $valueId);
         } elseif (!is_array($valueId)) {
             $condition = $this->_getWriteAdapter()->quoteInto('value_id = ? ', $valueId);
@@ -128,7 +126,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Insert gallery value for store to db
      *
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function insertGalleryValueInStore($data)
@@ -142,8 +140,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Delete gallery value for store in db
      *
-     * @param int $valueId
-     * @param int $storeId
+     * @param  int   $valueId
+     * @param  int   $storeId
      * @return $this
      */
     public function deleteGalleryValueInStore($valueId, $storeId)
@@ -163,10 +161,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Duplicates gallery db values
      *
-     * @param Mage_Catalog_Model_Product_Attribute_Backend_Media $object
-     * @param array $newFiles
-     * @param int $originalProductId
-     * @param int $newProductId
+     * @param  Mage_Catalog_Model_Product_Attribute_Backend_Media $object
+     * @param  array                                              $newFiles
+     * @param  int                                                $originalProductId
+     * @param  int                                                $newProductId
      * @return $this
      */
     public function duplicate($object, $newFiles, $originalProductId, $newProductId)
@@ -182,13 +180,13 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             $data = [
                 'attribute_id' => $object->getAttribute()->getId(),
                 'entity_id'    => $newProductId,
-                'value'        => $newFiles[$row['value_id']] ?? $row['value']
+                'value'        => $newFiles[$row['value_id']] ?? $row['value'],
             ];
 
             $valueIdMap[$row['value_id']] = $this->insertGallery($data);
         }
 
-        if (count($valueIdMap) == 0) {
+        if ($valueIdMap === []) {
             return $this;
         }
 
@@ -209,9 +207,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Get select to retrieve media gallery images
      * for given product IDs.
      *
-     * @param array $productIds
-     * @param int $storeId
-     * @param int $attributeId
+     * @param  int              $storeId
+     * @param  int              $attributeId
      * @return Varien_Db_Select
      */
     protected function _getLoadGallerySelect(array $productIds, $storeId, $attributeId)
@@ -224,12 +221,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         return $adapter->select()
             ->from(
                 ['main' => $this->getMainTable()],
-                ['value_id', 'value AS file', 'product_id' => 'entity_id']
+                ['value_id', 'value AS file', 'product_id' => 'entity_id'],
             )
             ->joinLeft(
                 ['value' => $this->getTable(self::GALLERY_VALUE_TABLE)],
-                $adapter->quoteInto('main.value_id = value.value_id AND value.store_id = ?', (int)$storeId),
-                ['label','position','disabled']
+                $adapter->quoteInto('main.value_id = value.value_id AND value.store_id = ?', (int) $storeId),
+                ['label','position','disabled'],
             )
             ->joinLeft( // Joining default values
                 ['default_value' => $this->getTable(self::GALLERY_VALUE_TABLE)],
@@ -237,8 +234,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
                 [
                     'label_default' => 'label',
                     'position_default' => 'position',
-                    'disabled_default' => 'disabled'
-                ]
+                    'disabled_default' => 'disabled',
+                ],
             )
             ->where('main.attribute_id = ?', $attributeId)
             ->where('main.entity_id in (?)', $productIds)
@@ -258,14 +255,14 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
 
             $this->_attributeId = $attribute->getId();
         }
+
         return $this->_attributeId;
     }
 
     /**
      * Get media gallery set for given product IDs
      *
-     * @param array $productIds
-     * @param int $storeId
+     * @param  int   $storeId
      * @return array
      */
     public function loadGallerySet(array $productIds, $storeId)

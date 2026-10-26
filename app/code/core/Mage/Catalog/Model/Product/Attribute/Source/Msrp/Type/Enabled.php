@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Source model for 'msrp_enabled' product attribute
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
@@ -47,33 +40,33 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
             $this->_options = [
                 [
                     'label' => Mage::helper('catalog')->__('Yes'),
-                    'value' => self::MSRP_ENABLE_YES
+                    'value' => self::MSRP_ENABLE_YES,
                 ],
                 [
                     'label' => Mage::helper('catalog')->__('No'),
-                    'value' => self::MSRP_ENABLE_NO
+                    'value' => self::MSRP_ENABLE_NO,
                 ],
                 [
                     'label' => Mage::helper('catalog')->__('Use config'),
-                    'value' => self::MSRP_ENABLE_USE_CONFIG
-                ]
+                    'value' => self::MSRP_ENABLE_USE_CONFIG,
+                ],
             ];
         }
+
         return $this->_options;
     }
 
     /**
-     * Retrieve flat column definition
-     *
-     * @return array
+     * @inheritDoc
      */
+    #[Override]
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $column = [
             'unsigned'  => false,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
         ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
@@ -92,8 +85,8 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $store
-     * @return Varien_Db_Select|null
+     * @param  int                   $store
+     * @return null|Varien_Db_Select
      */
     public function getFlatUpdateSelect($store)
     {

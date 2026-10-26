@@ -1,72 +1,68 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml report reviews product grid block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Mage_Adminhtml_Block_Report_Review_Detail_Grid constructor.
-     */
+    protected string $_eventPrefix = 'adminhtml_report_review_detail_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('reviews_grid');
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/review_collection')
-            ->addProductFilter((int)$this->getRequest()->getParam('id'));
+            ->addProductFilter((int) $this->getRequest()->getParam('id'));
         $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('nickname', [
             'header'    => Mage::helper('reports')->__('Customer'),
             'width'     => '100px',
-            'index'     => 'nickname'
+            'index'     => 'nickname',
         ]);
 
         $this->addColumn('title', [
             'header'    => Mage::helper('reports')->__('Title'),
             'width'     => '150px',
-            'index'     => 'title'
+            'index'     => 'title',
         ]);
 
         $this->addColumn('detail', [
             'header'    => Mage::helper('reports')->__('Detail'),
-            'index'     => 'detail'
+            'index'     => 'detail',
         ]);
 
         $this->addColumn('created_at', [
             'header'    => Mage::helper('reports')->__('Created At'),
             'index'     => 'created_at',
             'width'     => '200px',
-            'type'      => 'datetime'
+            'type'      => 'datetime',
         ]);
 
         $this->setFilterVisibility(false);

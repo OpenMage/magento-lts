@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Web service api main helper
  *
- * @category   Mage
  * @package    Mage_Api
  */
 class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
@@ -57,6 +50,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 if (is_object($value)) {
                     $this->wsiArrayUnpacker($value);
                 }
+
                 if (is_array($value)) {
                     foreach ($value as &$val) {
                         if (is_object($val)) {
@@ -77,7 +71,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Go through an object parameters and unpack associative object to array.
      *
-     * @param Object|array $obj - Link to Object
+     * @param  array|Object $obj - Link to Object
      * @return bool
      */
     public function v2AssociativeArrayUnpacker(&$obj)
@@ -86,7 +80,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
             && property_exists($obj, 'key')
             && property_exists($obj, 'value')
         ) {
-            if (count(array_keys(get_object_vars($obj))) == 2) {
+            if (count(array_keys(get_object_vars($obj))) === 2) {
                 $obj = [$obj->key => $obj->value];
                 return true;
             }
@@ -103,6 +97,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                     $needReplacement = false;
                 }
             }
+
             if ($needReplacement) {
                 $obj = $arr;
             }
@@ -113,34 +108,36 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->v2AssociativeArrayUnpacker($obj->$key);
             }
         }
+
         return false;
     }
 
     /**
      * Go through mixed and turns it to a correct look.
      *
-     * @param Mixed $mixed A link to variable that may contain associative array.
+     * @param Mixed $mixed a link to variable that may contain associative array
      */
     public function associativeArrayUnpack(&$mixed)
     {
         if (is_array($mixed)) {
             $tmpArr = [];
-            foreach ($mixed as $key => $value) {
+            foreach ($mixed as $value) {
                 if (is_object($value)) {
                     $value = get_object_vars($value);
-                    if (count($value) == 2 && isset($value['key']) && isset($value['value'])) {
+                    if (count($value) === 2 && isset($value['key']) && isset($value['value'])) {
                         $tmpArr[$value['key']] = $value['value'];
                     }
                 }
             }
-            if (count($tmpArr)) {
+
+            if ($tmpArr !== []) {
                 $mixed = $tmpArr;
             }
         }
 
         if (is_object($mixed)) {
             $numOfVals = count(get_object_vars($mixed));
-            if ($numOfVals == 2 && isset($mixed->key) && isset($mixed->value)) {
+            if ($numOfVals === 2 && isset($mixed->key) && isset($mixed->value)) {
                 $mixed = get_object_vars($mixed);
                 /*
                  * Processing an associative arrays.
@@ -154,8 +151,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Corrects data representation.
      *
-     * @param Object $obj - Link to Object
-     * @return array
+     * @param  Object   $obj - Link to Object
+     * @return string[]
      */
     public function clearWsiFootprints(&$obj)
     {
@@ -170,47 +167,42 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 } else { // for one element array
                     $obj->$key = [$obj->$key->complexObjectArray];
                 }
+
                 $modifiedKeys[] = $key;
             }
         }
+
         return $modifiedKeys;
     }
 
     /**
      * For the WSI, generates an response object.
      *
-     * @param mixed $mixed - Link to Object
+     * @param  mixed $mixed - Link to Object
      * @return mixed
      */
     public function wsiArrayPacker($mixed)
     {
         if (is_array($mixed)) {
             $arrKeys = array_keys($mixed);
-            $isDigit = false;
-            foreach ($arrKeys as $key) {
-                if (is_int($key)) {
-                    $isDigit = true;
-                    break;
-                }
-            }
-            if ($isDigit) {
-                $mixed = $this->packArrayToObject($mixed);
-            } else {
-                $mixed = (object)$mixed;
-            }
+            $isDigit = array_any($arrKeys, fn($key) => is_int($key));
+
+            $mixed = $isDigit ? $this->packArrayToObject($mixed) : (object) $mixed;
         }
+
         if (is_object($mixed) && isset($mixed->complexObjectArray)) {
-            foreach ($mixed->complexObjectArray as $k => $v) {
-                $mixed->complexObjectArray[$k] = $this->wsiArrayPacker($v);
+            foreach ($mixed->complexObjectArray as $index => $value) {
+                $mixed->complexObjectArray[$index] = $this->wsiArrayPacker($value);
             }
         }
+
         return $mixed;
     }
 
     /**
      * For response to the WSI, generates an object from array.
      *
-     * @param array $arr - Link to Object
+     * @param  array    $arr - Link to Object
      * @return stdClass
      */
     public function packArrayToObject(array $arr)
@@ -231,6 +223,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_object($data)) {
             $data = get_object_vars($data);
         }
+
         if (is_array($data)) {
             foreach ($data as &$value) {
                 if (is_array($value) || is_object($value)) {
@@ -243,8 +236,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Parse filters and format them to be applicable for collection filtration
      *
-     * @param null|object|array $filters
-     * @param array $fieldsMap Map of field names in format: array('field_name_in_filter' => 'field_name_in_db')
+     * @param  null|array|object $filters
+     * @param  array             $fieldsMap Map of field names in format: array('field_name_in_filter' => 'field_name_in_db')
      * @return array
      */
     public function parseFilters($filters, $fieldsMap = null)
@@ -262,6 +255,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                     }
                 }
             }
+
             // parse complex filter
             if (isset($filters->complex_filter) && is_array($filters->complex_filter)) {
                 $parsedFilters += $this->_parseComplexFilter($filters->complex_filter);
@@ -269,10 +263,12 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
 
             $filters = $parsedFilters;
         }
+
         // make sure that method result is always array
         if (!is_array($filters)) {
             $filters = [];
         }
+
         // apply fields mapping
         if (isset($fieldsMap) && is_array($fieldsMap)) {
             foreach ($filters as $field => $value) {
@@ -283,6 +279,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $filters;
     }
 
@@ -290,7 +287,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * Parses complex filter, which may contain several nodes, e.g. when user want to fetch orders which were updated
      * between two dates.
      *
-     * @param array $complexFilter
+     * @param  array $complexFilter
      * @return array
      */
     protected function _parseComplexFilter($complexFilter)
@@ -298,9 +295,14 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $parsedFilters = [];
 
         foreach ($complexFilter as $filter) {
-            if (!isset($filter->key) || !isset($filter->value)) {
+            if (!isset($filter->key)) {
                 continue;
             }
+
+            if (!isset($filter->value)) {
+                continue;
+            }
+
             $fieldName = $filter->key;
             $condition = $filter->value;
             $conditionName = $condition->key;
@@ -324,11 +326,11 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $conditionOperator
      * @param string $conditionValue
-     * @param-out string|array $conditionValue
+     * @param-out array|string $conditionValue
      */
     public function formatFilterConditionValue($conditionOperator, &$conditionValue)
     {
-        if (is_string($conditionOperator) && in_array($conditionOperator, ['in', 'nin', 'finset'])
+        if (is_string($conditionOperator) && in_array($conditionOperator, ['in', 'nin', 'finset'], true)
             && is_string($conditionValue)
         ) {
             $delimiter = ',';
@@ -349,19 +351,18 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get service url
      *
-     * @param string|null $routePath
-     * @param array|null $routeParams
-     * @param bool $htmlSpecialChars
+     * @param  null|string        $routePath
+     * @param  null|array         $routeParams
+     * @param  bool               $htmlSpecialChars
      * @return string
      * @throws Zend_Uri_Exception
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getServiceUrl($routePath = null, $routeParams = null, $htmlSpecialChars = false)
     {
         $request = Mage::app()->getRequest();
 
-        if (is_null($routeParams)) {
-            $routeParams = [];
-        }
+        $routeParams ??= [];
 
         $routeParams['_nosid'] = true;
 
@@ -369,13 +370,81 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $urlModel = Mage::getSingleton('core/url');
         $url = $urlModel->getUrl($routePath, $routeParams);
         $uri = Zend_Uri_Http::fromString($url);
-        $uri->setHost($request->getHttpHost());
+
+        // The service url determines where the SoapServer instance will load the WSDL from which
+        // should only be a trusted source, so we do not allow it to be manipulated by the Host header.
+        // A Host header naming one of the store's own configured hosts is still honoured, so that
+        // multi-domain installs keep advertising the domain the client used. Developer mode accepts
+        // any host to allow loading from alternate urls that don't match the server config.
+        $requestHost = (string) $request->getHttpHost();
+        if ($requestHost !== ''
+            && (Mage::getIsDeveloperMode() || $this->isConfiguredHost($requestHost))
+        ) {
+            $uri->setHost($requestHost);
+        }
+
         if (!$urlModel->getRouteFrontName()) {
-            $uri->setPath('/' . trim($request->getBasePath() . '/' . basename(getenv('SCRIPT_FILENAME')), '/'));
+            $scriptFilename = (string) ($_SERVER['SCRIPT_FILENAME'] ?? $_SERVER['SCRIPT_NAME'] ?? '');
+            $uri->setPath('/' . trim($request->getBasePath() . '/' . basename($scriptFilename), '/'));
         } else {
             $uri->setPath($request->getBaseUrl() . $request->getPathInfo());
         }
 
-        return $htmlSpecialChars === true ? htmlspecialchars($uri) : (string)$uri;
+        return $htmlSpecialChars === true ? htmlspecialchars($uri) : (string) $uri;
+    }
+
+    /**
+     * Whether the host is one the installation is configured to be served on
+     *
+     * Compares against the secure and unsecure base and link URLs of every store, including
+     * admin, and the custom admin URL. Ports are ignored, as Mage_Core_Controller_Request_Http::getHttpHost()
+     * strips them by default.
+     */
+    public function isConfiguredHost(string $host): bool
+    {
+        $host = strtolower(trim($host, '[]'));
+        return $host !== '' && in_array($host, $this->getConfiguredHosts(), true);
+    }
+
+    /**
+     * Retrieve the hosts the installation is configured to be served on
+     *
+     * @return string[]
+     */
+    public function getConfiguredHosts(): array
+    {
+        $paths = [
+            Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL,
+            Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL,
+            Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_LINK_URL,
+            Mage_Core_Model_Store::XML_PATH_SECURE_BASE_LINK_URL,
+        ];
+
+        $stores = Mage::app()->getStores(true);
+        $stores[] = Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+
+        $urls = [];
+        foreach ($stores as $store) {
+            foreach ($paths as $path) {
+                $urls[] = (string) $store->getConfig($path);
+            }
+        }
+
+        $config = Mage::getConfig();
+        if ($config instanceof Mage_Core_Model_Config
+            && (int) $config->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_USE_CUSTOM_ADMIN_URL) !== 0
+        ) {
+            $urls[] = (string) $config->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_CUSTOM_ADMIN_URL);
+        }
+
+        $hosts = [];
+        foreach ($urls as $url) {
+            $host = parse_url($url, PHP_URL_HOST);
+            if (is_string($host) && $host !== '') {
+                $hosts[strtolower(trim($host, '[]'))] = true;
+            }
+        }
+
+        return array_keys($hosts);
     }
 }

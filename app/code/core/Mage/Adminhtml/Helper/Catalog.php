@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml Catalog helper
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
@@ -28,7 +21,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     /**
      * Attribute Tab block name for product edit
      *
-     * @var string|null
+     * @var null|string
      */
     protected $_attributeTabBlock = null;
 
@@ -42,7 +35,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Attribute Tab Block Name for Product Edit
      *
-     * @return string|null
+     * @return null|string
      */
     public function getAttributeTabBlock()
     {
@@ -52,7 +45,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     /**
      * Set Custom Attribute Tab Block Name for Product Edit
      *
-     * @param string $attributeTabBlock
+     * @param  string $attributeTabBlock
      * @return $this
      */
     public function setAttributeTabBlock($attributeTabBlock)
@@ -74,7 +67,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     /**
      * Set Custom Attribute Tab Block Name for Category Edit
      *
-     * @param string $attributeTabBlock
+     * @param  string $attributeTabBlock
      * @return $this
      */
     public function setCategoryAttributeTabBlock($attributeTabBlock)
@@ -93,7 +86,6 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
         $path = Mage::getStoreConfig(self::XML_PATH_SITEMAP_VALID_PATHS);
         /** @var Mage_Core_Helper_Data $helper */
         $helper = Mage::helper('core');
-        $path = array_merge($path, $helper->getPublicFilesValidPath());
-        return $path;
+        return array_merge($path, $helper->getPublicFilesValidPath());
     }
 }

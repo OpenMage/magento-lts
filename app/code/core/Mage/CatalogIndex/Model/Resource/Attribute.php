@@ -1,35 +1,31 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Attribute index resource model
  *
- * @category   Mage
  * @package    Mage_CatalogIndex
  */
 class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model_Resource_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogindex/eav', 'index_id');
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param string $filter
-     * @param int|array $entityFilter
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  string                          $filter
+     * @param  array|int                       $entityFilter
      * @return array
      */
     public function getFilteredEntities($attribute, $filter, $entityFilter)
@@ -48,8 +44,8 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param Zend_Db_Select $entitySelect
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  Zend_Db_Select                  $entitySelect
      * @return array
      */
     public function getCount($attribute, $entitySelect)
@@ -75,13 +71,14 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
         foreach ($result as $row) {
             $counts[$row['value']] = $row['count'];
         }
+
         return $counts;
     }
 
     /**
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param string $value
+     * @param  Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
+     * @param  Mage_Eav_Model_Entity_Attribute                     $attribute
+     * @param  string                                              $value
      * @return $this
      */
     public function applyFilterToCollection($collection, $attribute, $value)
@@ -93,7 +90,7 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
         $collection->getSelect()->join(
             [$alias => $this->getMainTable()],
             $alias . '.entity_id=e.entity_id',
-            []
+            [],
         )
         ->where($alias . '.store_id = ?', $this->getStoreId())
         ->where($alias . '.attribute_id = ?', $attribute->getId())

@@ -1,22 +1,17 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
 
 /**
  * PayPal specific model for certificate based authentication
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
@@ -26,6 +21,9 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
      */
     public const BASEPATH_PAYPAL_CERT  = 'cert/paypal';
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('paypal/cert');
@@ -34,8 +32,8 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
     /**
      * Load model by website id
      *
-     * @param int $websiteId
-     * @param bool $strictLoad
+     * @param  int   $websiteId
+     * @param  bool  $strictLoad
      * @return $this
      */
     public function loadByWebsite($websiteId, $strictLoad = true)
@@ -56,12 +54,13 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
             Mage::throwException(Mage::helper('paypal')->__('PayPal certificate does not exist.'));
         }
 
-        $certFileName = sprintf('cert_%s_%s.pem', $this->getWebsiteId(), strtotime($this->getUpdatedAt()));
+        $certFileName = sprintf('cert_%s_%s.pem', $this->getWebsiteId(), Carbon::parse($this->getUpdatedAt())->getTimestamp());
         $certFile = $this->_getBaseDir() . DS . $certFileName;
 
         if (!file_exists($certFile)) {
             $this->_createCertFile($certFile);
         }
+
         return $certFile;
     }
 
@@ -92,7 +91,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
         if (is_dir($certDir)) {
             $entries = scandir($certDir);
             foreach ($entries as $entry) {
-                if ($entry != '.' && $entry != '..' && strpos($entry, 'cert_' . $this->getWebsiteId()) !== false) {
+                if ($entry !== '.' && $entry !== '..' && str_contains($entry, 'cert_' . $this->getWebsiteId())) {
                     unlink($certDir . DS . $entry);
                 }
             }
@@ -114,6 +113,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
      *
      * @return $this
      */
+    #[Override]
     protected function _afterDelete()
     {
         $this->_removeOutdatedCertFile();

@@ -1,0 +1,50 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info
+ * @var Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info $this
+ */
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('General Information'); ?></h4>
+    </div>
+    <div class="log-details">
+        <table cellspacing="0">
+            <col width="25%" />
+            <col />
+            <tbody>
+                <tr>
+                    <th><?php echo $this->__('Reference ID'); ?></th>
+                    <td><?php echo $this->escapeHtml($this->getReferenceId()) ?></td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->__('Customer'); ?></th>
+                    <td>
+                        <a href="<?php echo $this->getCustomerUrl(); ?>">
+                            <?php echo $this->escapeHtml($this->getCustomerEmail()) ?>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->__('Status'); ?></th>
+                    <td><?php echo $this->getStatus() ?></td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->__('Created At'); ?></th>
+                    <td><?php echo $this->getCreatedAt(); ?></td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->__('Updated At'); ?></th>
+                    <td><?php echo $this->getUpdatedAt(); ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

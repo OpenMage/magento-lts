@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Products Ordered (Bestsellers) Report collection
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Reports_Model_Resource_Product_Collection
@@ -24,35 +17,36 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
     /**
      * Join fields
      *
-     * @param string $from
-     * @param string $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    protected function _joinFields($from = '', $to = '')
+    #[Override]
+    protected function _joinFields($dateFrom = '', $dateTo = '')
     {
         $this->addAttributeToSelect('*')
-            ->addOrderedQty($from, $to)
+            ->addOrderedQty($dateFrom, $dateTo)
             ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
 
         return $this;
     }
 
     /**
-     * @param int $from
-     * @param int $to
+     * @param  null|string $dateFrom
+     * @param  null|string $dateTo
      * @return $this
      */
-    public function setDateRange($from, $to)
+    public function setDateRange($dateFrom, $dateTo)
     {
         $this->_reset()
-            ->_joinFields($from, $to);
+            ->_joinFields($dateFrom, $dateTo);
         return $this;
     }
 
     /**
      * Set store ids
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)

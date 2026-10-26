@@ -1,30 +1,26 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Order Create Form Abstract Block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method string getJsVariablePrefix()
+ * @method $this  setJsVariablePrefix(string $value)
  */
 abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
     /**
      * Data Form object
      *
-     * @var Varien_Data_Form|null
+     * @var null|Varien_Data_Form
      */
     protected $_form;
 
@@ -32,21 +28,27 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
      * Prepare global layout
      * Add renderers to Varien_Data_Form
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
 
-        Varien_Data_Form::setElementRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element')
-        );
-        Varien_Data_Form::setFieldsetRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset')
-        );
-        Varien_Data_Form::setFieldsetElementRenderer(
-            $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element')
-        );
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            Varien_Data_Form::setElementRenderer($renderer);
+        }
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            Varien_Data_Form::setFieldsetRenderer($renderer);
+        }
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            Varien_Data_Form::setFieldsetElementRenderer($renderer);
+        }
 
         return $this;
     }
@@ -69,14 +71,14 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Prepare Form and add elements to form
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
      */
     abstract protected function _prepareForm();
 
     /**
      * Return array of additional form element types by type
      *
-     * @return array
+     * @return array<string, string>
      */
     protected function _getAdditionalFormElementTypes()
     {
@@ -102,8 +104,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Add additional data to form element
      *
-     * @param Varien_Data_Form_Element_Abstract $element
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
      */
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
     {
@@ -113,9 +114,8 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Add rendering EAV attributes to Form element
      *
-     * @param array|Varien_Data_Collection $attributes
-     * @param Varien_Data_Form_Abstract $form
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @param  array|Varien_Data_Collection $attributes
+     * @return $this
      */
     protected function _addAttributesToForm($attributes, Varien_Data_Form_Abstract $form)
     {
@@ -124,6 +124,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
         foreach ($types as $type => $className) {
             $form->addType($type, $className);
         }
+
         $renderers = $this->_getAdditionalFormElementRenderers();
 
         foreach ($attributes as $attribute) {
@@ -137,11 +138,12 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
                     'label'     => $this->__($attribute->getStoreLabel()),
                     'class'     => $attribute->getFrontend()->getClass(),
                     'required'  => $attribute->getIsRequired(),
-                    'note'      => $this->escapeHtml($this->__($attribute->getNote()))
+                    'note'      => $this->escapeHtml($this->__($attribute->getNote())),
                 ]);
                 if ($inputType == 'multiline') {
                     $element->setLineCount($attribute->getMultilineCount());
                 }
+
                 $element->setEntityAttribute($attribute);
                 $this->_addAdditionalFormElementData($element);
 
@@ -165,7 +167,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Return Form Elements values
      *
-     * @return array
+     * @return array<string, mixed>|array<void>
      */
     public function getFormValues()
     {

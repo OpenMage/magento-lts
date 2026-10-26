@@ -1,23 +1,16 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Date range promo widget chooser
  * Currently works without localized format
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml_Block_Abstract
@@ -49,6 +42,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (empty($this->_targetElementId)) {
@@ -72,6 +66,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
             $element->setId($id);
             $form->addElement($element);
         }
+
         return $form->toHtml() . "<script type=\"text/javascript\">
             dateTimeChoose_{$idSuffix} = function() {
                 $('{$this->_targetElementId}').value = $('from_{$idSuffix}').value + '{$this->_rangeDelimiter}' + $('to_{$idSuffix}').value;
@@ -82,7 +77,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
     /**
      * Target element ID setter
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setTargetElementId($value)
@@ -94,13 +89,13 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
     /**
      * Range values setter
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $min
+     * @param  string $max
      * @return $this
      */
-    public function setRangeValues($from, $to)
+    public function setRangeValues($min, $max)
     {
-        $this->_rangeValues = ['from' => $from, 'to' => $to];
+        $this->_rangeValues = ['from' => $min, 'to' => $max];
         return $this;
     }
 
@@ -108,26 +103,26 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      * Range values setter, string implementation.
      * Automatically attempts to split the string by delimiter
      *
-     * @param string $delimitedString
+     * @param  string $delimitedString
      * @return $this
      */
     public function setRangeValue($delimitedString)
     {
-        $split = explode($this->_rangeDelimiter, $delimitedString, 2);
-        $from = $split[0];
-        $to = $split[1] ?? '';
-        return $this->setRangeValues($from, $to);
+        $split    = explode($this->_rangeDelimiter, $delimitedString, 2);
+        $dateFrom = $split[0];
+        $dateTo   = $split[1] ?? '';
+        return $this->setRangeValues($dateFrom, $dateTo);
     }
 
     /**
      * Range delimiter setter
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setRangeDelimiter($value)
     {
-        $this->_rangeDelimiter = (string)$value;
+        $this->_rangeDelimiter = (string) $value;
         return $this;
     }
 }

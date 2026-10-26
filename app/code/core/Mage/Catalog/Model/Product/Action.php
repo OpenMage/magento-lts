@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Mass Action processing model
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Action _getResource()
@@ -24,6 +17,9 @@
  */
 class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_action');
@@ -32,9 +28,9 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
     /**
      * Update attribute values for entity list per store
      *
-     * @param array $productIds
-     * @param array $attrData
-     * @param int $storeId
+     * @param  array $productIds
+     * @param  array $attrData
+     * @param  int   $storeId
      * @return $this
      */
     public function updateAttributes($productIds, $attrData, $storeId)
@@ -42,21 +38,21 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
         Mage::dispatchEvent('catalog_product_attribute_update_before', [
             'attributes_data' => &$attrData,
             'product_ids'   => &$productIds,
-            'store_id'      => &$storeId
+            'store_id'      => &$storeId,
         ]);
 
         $this->_getResource()->updateAttributes($productIds, $attrData, $storeId);
         $this->setData([
             'product_ids'       => array_unique($productIds),
             'attributes_data'   => $attrData,
-            'store_id'          => $storeId
+            'store_id'          => $storeId,
         ]);
 
         // register mass action indexer event
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this,
             Mage_Catalog_Model_Product::ENTITY,
-            Mage_Index_Model_Event::TYPE_MASS_ACTION
+            Mage_Index_Model_Event::TYPE_MASS_ACTION,
         );
 
         Mage::dispatchEvent('catalog_product_attribute_update_after', [
@@ -73,8 +69,8 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
      * - add
      * - remove
      *
-     * @param array $productIds
-     * @param array $websiteIds
+     * @param array  $productIds
+     * @param array  $websiteIds
      * @param string $type
      */
     public function updateWebsites($productIds, $websiteIds, $type)
@@ -82,7 +78,7 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
         Mage::dispatchEvent('catalog_product_website_update_before', [
             'website_ids'   => $websiteIds,
             'product_ids'   => $productIds,
-            'action'        => $type
+            'action'        => $type,
         ]);
 
         if ($type === 'add') {
@@ -94,21 +90,21 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
         $this->setData([
             'product_ids' => array_unique($productIds),
             'website_ids' => $websiteIds,
-            'action_type' => $type
+            'action_type' => $type,
         ]);
 
         // register mass action indexer event
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this,
             Mage_Catalog_Model_Product::ENTITY,
-            Mage_Index_Model_Event::TYPE_MASS_ACTION
+            Mage_Index_Model_Event::TYPE_MASS_ACTION,
         );
 
         // add back compatibility system event
         Mage::dispatchEvent('catalog_product_website_update', [
             'website_ids'   => $websiteIds,
             'product_ids'   => $productIds,
-            'action'        => $type
+            'action'        => $type,
         ]);
     }
 }

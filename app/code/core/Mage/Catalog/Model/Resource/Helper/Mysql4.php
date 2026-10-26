@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Eav Mysql resource helper model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_Helper_Mysql4
@@ -24,10 +17,11 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
     /**
      * Returns columns for select
      *
-     * @param string $tableAlias
-     * @param string $eavType
+     * @param  string $tableAlias
+     * @param  string $eavType
      * @return string
      */
+    #[Override]
     public function attributeSelectFields($tableAlias, $eavType)
     {
         return '*';
@@ -37,18 +31,15 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
      * Compare Flat style with Describe style columns
      * If column a different - return false
      *
-     * @param array $column
-     * @param array $describe
+     * @param  array $column
+     * @param  array $describe
      * @return bool
      */
     public function compareIndexColumnProperties($column, $describe)
     {
         $type = $column['type'];
-        if (isset($column['length'])) {
-            $type = sprintf('%s(%s)', $type[0], $column['length']);
-        } else {
-            $type = $type[0];
-        }
+        $type = isset($column['length']) ? sprintf('%s(%s)', $type[0], $column['length']) : $type[0];
+
         $length     = null;
         $precision  = null;
         $scale      = null;
@@ -71,8 +62,8 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
 
         return ($describe['DATA_TYPE'] == $type)
             && ($describe['DEFAULT'] == $column['default'])
-            && ((bool)$describe['NULLABLE'] == (bool)$column['nullable'])
-            && ((bool)$describe['UNSIGNED'] == (bool)$column['unsigned'])
+            && ((bool) $describe['NULLABLE'] === (bool) $column['nullable'])
+            && ((bool) $describe['UNSIGNED'] === (bool) $column['unsigned'])
             && ($describe['LENGTH'] == $length)
             && ($describe['SCALE'] == $scale)
             && ($describe['PRECISION'] == $precision);
@@ -81,8 +72,8 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
     /**
      * Getting condition isNull(f1,f2) IS NOT Null
      *
-     * @param string $field1
-     * @param string $field2
+     * @param  string $field1
+     * @param  string $field2
      * @return string
      */
     public function getIsNullNotNullCondition($field1, $field2)

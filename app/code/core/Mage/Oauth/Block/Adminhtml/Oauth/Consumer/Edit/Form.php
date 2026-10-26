@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * OAuth consumer edit form block
  *
- * @category   Mage
  * @package    Mage_Oauth
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
@@ -38,6 +31,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
         if ($this->_model === null) {
             $this->_model = Mage::registry('current_consumer');
         }
+
         return $this->_model;
     }
 
@@ -46,20 +40,22 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         $model = $this->getModel();
         $form = new Varien_Data_Form([
-            'id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'
+            'id' => 'edit_form', 'action' => $this->getDataByKey('action'), 'method' => 'post',
         ]);
 
         $fieldset = $form->addFieldset('base_fieldset', [
-            'legend' => Mage::helper('oauth')->__('Consumer Information'), 'class' => 'fieldset-wide'
+            'legend' => Mage::helper('oauth')->__('Consumer Information'), 'class' => 'fieldset-wide',
         ]);
 
         if ($model->getId()) {
             $fieldset->addField('id', 'hidden', ['name' => 'id', 'value' => $model->getId()]);
         }
+
         $fieldset->addField('name', 'text', [
             'name'      => 'name',
             'label'     => Mage::helper('oauth')->__('Name'),
@@ -109,8 +105,8 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
                 'name'  => 'current_password',
                 'label' => Mage::helper('oauth')->__('Current Admin Password'),
                 'title' => Mage::helper('oauth')->__('Current Admin Password'),
-                'required' => true
-            ]
+                'required' => true,
+            ],
         );
 
         $form->setAction($this->getUrl('*/*/save'));

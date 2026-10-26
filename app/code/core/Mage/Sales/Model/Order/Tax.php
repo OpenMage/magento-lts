@@ -1,49 +1,49 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Tax _getResource()
- * @method Mage_Sales_Model_Resource_Order_Tax getResource()
- * @method int getOrderId()
- * @method $this setOrderId(int $value)
- * @method string getCode()
- * @method $this setCode(string $value)
- * @method string getTitle()
- * @method $this setTitle(string $value)
- * @method float getPercent()
- * @method $this setPercent(float $value)
- * @method float getAmount()
- * @method $this setAmount(float $value)
- * @method int getPriority()
- * @method $this setPriority(int $value)
- * @method int getPosition()
- * @method $this setPosition(int $value)
- * @method float getBaseAmount()
- * @method $this setBaseAmount(float $value)
- * @method int getProcess()
- * @method $this setProcess(int $value)
- * @method float getBaseRealAmount()
- * @method $this setBaseRealAmount(float $value)
- * @method int getHidden()
- * @method $this setHidden(int $value)
+ * @method Mage_Sales_Model_Resource_Order_Tax            _getResource()
+ * @method float                                          getAmount()
+ * @method float                                          getBaseAmount()
+ * @method float                                          getBaseRealAmount()
+ * @method string                                         getCode()
+ * @method Mage_Sales_Model_Resource_Order_Tax_Collection getCollection()
+ * @method int                                            getHidden()
+ * @method int                                            getOrderId()
+ * @method float                                          getPercent()
+ * @method int                                            getPosition()
+ * @method int                                            getPriority()
+ * @method int                                            getProcess()
+ * @method Mage_Sales_Model_Resource_Order_Tax            getResource()
+ * @method Mage_Sales_Model_Resource_Order_Tax_Collection getResourceCollection()
+ * @method string                                         getTitle()
+ * @method $this                                          setAmount(float $value)
+ * @method $this                                          setBaseAmount(float $value)
+ * @method $this                                          setBaseRealAmount(float $value)
+ * @method $this                                          setCode(string $value)
+ * @method $this                                          setHidden(int $value)
+ * @method $this                                          setOrderId(int $value)
+ * @method $this                                          setPercent(float $value)
+ * @method $this                                          setPosition(int $value)
+ * @method $this                                          setPriority(int $value)
+ * @method $this                                          setProcess(int $value)
+ * @method $this                                          setTitle(string $value)
  */
 class Mage_Sales_Model_Order_Tax extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_tax');

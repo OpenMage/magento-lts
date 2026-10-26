@@ -1,0 +1,23 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php $_source  = $this->getSource() ?>
+<?php $this->setPriceDataObject($_source) ?>
+
+<tr>
+    <td class="label">
+        <strong><big>
+        <?php if ($this->getGrandTotalTitle()): ?>
+            <?php echo $this->getGrandTotalTitle() ?>
+        <?php else: ?>
+            <?php echo Mage::helper('sales')->__('Grand Total') ?>
+        <?php endif ?>
+        </big></strong>
+    </td>
+    <td class="emph"><big><?php echo $this->displayPriceAttribute('grand_total', true) ?></big></td>
+</tr>

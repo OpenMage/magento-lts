@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Item option collection
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -36,8 +29,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     protected $_optionsByProduct     = [];
 
     /**
-     * Define resource model for collection
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -49,6 +41,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
      *
      * @return $this
      */
+    #[Override]
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -62,6 +55,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
             } else {
                 $this->_optionsByItem[$itemId] = [$optionId];
             }
+
             if (isset($this->_optionsByProduct[$productId])) {
                 $this->_optionsByProduct[$productId][] = $optionId;
             } else {
@@ -75,8 +69,9 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     /**
      * Apply quote item(s) filter to collection
      *
-     * @param int | array $item
+     * @param  array|int|Mage_Sales_Model_Quote_Item $item
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addItemFilter($item)
     {
@@ -109,16 +104,13 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     /**
      * Get all option for item
      *
-     * @param mixed $item
-     * @return array
+     * @param  int|Mage_Sales_Model_Quote_Item|string $item
+     * @return Mage_Core_Model_Abstract[]
+     * @throws Mage_Core_Exception
      */
     public function getOptionsByItem($item)
     {
-        if ($item instanceof Mage_Sales_Model_Quote_Item) {
-            $itemId = $item->getId();
-        } else {
-            $itemId = $item;
-        }
+        $itemId = $item instanceof Mage_Sales_Model_Quote_Item ? $item->getId() : $item;
 
         $this->load();
 
@@ -135,16 +127,13 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     /**
      * Get all option for item
      *
-     * @param int | Mage_Catalog_Model_Product $product
-     * @return array
+     * @param  int|Mage_Catalog_Model_Product $product
+     * @return Mage_Core_Model_Abstract[]
+     * @throws Mage_Core_Exception
      */
     public function getOptionsByProduct($product)
     {
-        if ($product instanceof Mage_Catalog_Model_Product) {
-            $productId = $product->getId();
-        } else {
-            $productId = $product;
-        }
+        $productId = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
 
         $this->load();
 

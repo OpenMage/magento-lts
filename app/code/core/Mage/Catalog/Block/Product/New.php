@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * New products block
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
@@ -29,13 +22,14 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Products count
      *
-     * @var null
+     * @var int
      */
     protected $_productsCount;
 
     /**
      * Initialize block's cache
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -53,18 +47,20 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Get Key pieces for caching block content
      *
-     * @return array
+     * @return array<int|string, mixed>
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         return [
-           'CATALOG_PRODUCT_NEW',
-           Mage::app()->getStore()->getId(),
-           Mage::getDesign()->getPackageName(),
-           Mage::getDesign()->getTheme('template'),
-           Mage::getSingleton('customer/session')->getCustomerGroupId(),
-           'template' => $this->getTemplate(),
-           $this->getProductsCount()
+            'CATALOG_PRODUCT_NEW',
+            Mage::app()->getStore()->getId(),
+            Mage::getDesign()->getPackageName(),
+            Mage::getDesign()->getTheme('template'),
+            Mage::getSingleton('customer/session')->getCustomerGroupId(),
+            'template' => $this->getTemplate(),
+            $this->getProductsCount(),
+            Mage::app()->getStore()->getCurrentCurrencyCode(),
         ];
     }
 
@@ -85,37 +81,35 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
 
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_collection');
-        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
+        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')::getVisibleInCatalogIds());
 
-        $collection = $this->_addProductAttributesAndPrices($collection)
+        return $this->_addProductAttributesAndPrices($collection)
             ->addStoreFilter()
             ->addAttributeToFilter('news_from_date', ['or' => [
                 0 => ['date' => true, 'to' => $todayEndOfDayDate],
-                1 => ['is' => new Zend_Db_Expr('null')]]
+                1 => ['is' => new Zend_Db_Expr('null')]],
             ], 'left')
             ->addAttributeToFilter('news_to_date', ['or' => [
                 0 => ['date' => true, 'from' => $todayStartOfDayDate],
-                1 => ['is' => new Zend_Db_Expr('null')]]
+                1 => ['is' => new Zend_Db_Expr('null')]],
             ], 'left')
             ->addAttributeToFilter(
                 [
                     ['attribute' => 'news_from_date', 'is' => new Zend_Db_Expr('not null')],
-                    ['attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null')]
-                ]
+                    ['attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null')],
+                ],
             )
             ->addAttributeToSort('news_from_date', 'desc')
             ->setPageSize($this->getProductsCount())
-            ->setCurPage(1)
-        ;
-
-        return $collection;
+            ->setCurPage(1);
     }
 
     /**
      * Prepare collection with new products
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->setProductCollection($this->_getProductCollection());
@@ -125,7 +119,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Set how much product should be displayed at once.
      *
-     * @param int $count
+     * @param  int   $count
      * @return $this
      */
     public function setProductsCount($count)
@@ -144,6 +138,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
         if ($this->_productsCount === null) {
             $this->_productsCount = self::DEFAULT_PRODUCTS_COUNT;
         }
+
         return $this->_productsCount;
     }
 }

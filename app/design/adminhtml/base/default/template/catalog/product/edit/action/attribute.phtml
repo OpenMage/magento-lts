@@ -1,0 +1,46 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
+ * @var Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes $this
+ */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3><?php echo Mage::helper('catalog')->__('Update attributes') ?></h3></td>
+            <td class="form-buttons">
+            <?php echo $this->getBackButtonHtml() ?>
+            <?php echo $this->getCancelButtonHtml() ?>
+            <?php echo $this->getSaveButtonHtml() ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="attributes_edit_form" enctype="multipart/form-data">
+    <?php echo $this->getBlockHtml('formkey')?>
+</form>
+<script type="text/javascript">
+var attributesForm = new varienForm('attributes_edit_form', '<?php echo $this->getValidationUrl() ?>');
+attributesForm._processValidationResult = function(transport) {
+    var response = transport.responseText.evalJSON();
+
+    if (response.error){
+        if (response.attribute && $(response.attribute)) {
+            $(response.attribute).setHasError(true, attributesForm);
+            Validation.ajaxError($(response.attribute), response.message);
+            $(response.attribute).focus();
+        } else if ($('messages')) {
+            $('messages').innerHTML = '<ul class="messages"><li class="error-msg"><ul><li>' + response.message + '</li></ul></li></ul>';
+        }
+    } else {
+        attributesForm._submit();
+    }
+};
+</script>

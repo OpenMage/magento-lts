@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Search Controller
  *
- * @category   Mage
  * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Action
@@ -30,8 +23,10 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
     {
         return Mage::getSingleton('catalog/session');
     }
+
     /**
      * Display search result
+     * @return void
      */
     public function indexAction()
     {
@@ -56,9 +51,9 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
                     $query->save();
                     $this->getResponse()->setRedirect($query->getRedirect());
                     return;
-                } else {
-                    $query->prepare();
                 }
+
+                $query->prepare();
             }
 
             Mage::helper('catalogsearch')->checkNotes();

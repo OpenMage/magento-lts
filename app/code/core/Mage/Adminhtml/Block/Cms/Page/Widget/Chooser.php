@@ -1,35 +1,24 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CMS page chooser for Wysiwyg CMS widget
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Block construction, prepare grid params
-     *
-     * @param array $arguments Object data
-     */
+    protected string $_eventPrefix = 'adminhtml_cms_page_widget_chooser';
+
     public function __construct($arguments = [])
     {
         parent::__construct($arguments);
-        //$this->setDefaultSort('name');
         $this->setUseAjax(true);
         $this->setDefaultFilter(['chooser_is_active' => '1']);
     }
@@ -37,8 +26,9 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     /**
      * Prepare chooser element HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element Form Element
+     * @param  Varien_Data_Form_Element_Abstract $element Form Element
      * @return Varien_Data_Form_Element_Abstract
+     * @throws Mage_Core_Exception
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
@@ -54,7 +44,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
             ->setUniqId($uniqId);
 
         if ($element->getValue()) {
-            $page = Mage::getModel('cms/page')->load((int)$element->getValue());
+            $page = Mage::getModel('cms/page')->load((int) $element->getValue());
             if ($page->getId()) {
                 $chooser->setLabel($page->getTitle());
             }
@@ -87,8 +77,9 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     /**
      * Prepare pages collection
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Cms_Model_Resource_Page_Collection $collection */
@@ -102,15 +93,16 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     /**
      * Prepare columns for pages grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('chooser_id', [
             'header'    => Mage::helper('cms')->__('ID'),
             'align'     => 'right',
             'index'     => 'page_id',
-            'width'     => 50
+            'width'     => 50,
         ]);
 
         $this->addColumn('chooser_title', [
@@ -122,7 +114,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
         $this->addColumn('chooser_identifier', [
             'header'    => Mage::helper('cms')->__('URL Key'),
             'align'     => 'left',
-            'index'     => 'identifier'
+            'index'     => 'identifier',
         ]);
 
         $this->addColumn('chooser_root_template', [
@@ -144,6 +136,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
         return parent::_prepareColumns();
     }
 
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/cms_page_widget/chooser', ['_current' => true]);

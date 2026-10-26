@@ -1,29 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog fieldset element renderer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
 {
     /**
-     * Initialize block template
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('catalog/form/renderer/fieldset/element.phtml');
@@ -32,7 +26,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
     /**
      * Retrieve data object related with form
      *
-     * @return Mage_Catalog_Model_Product | Mage_Catalog_Model_Category
+     * @return Mage_Catalog_Model_Category|Mage_Catalog_Model_Product
      */
     public function getDataObject()
     {
@@ -66,16 +60,13 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
      */
     public function canDisplayUseDefault()
     {
-        if ($attribute = $this->getAttribute()) {
-            if (!$attribute->isScopeGlobal()
+        return ($attribute = $this->getAttribute())
+            && (
+                !$attribute->isScopeGlobal()
                 && $this->getDataObject()
                 && $this->getDataObject()->getId()
                 && $this->getDataObject()->getStoreId()
-            ) {
-                return true;
-            }
-        }
-        return false;
+            );
     }
 
     /**
@@ -87,18 +78,47 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $defaultValue = $this->getDataObject()->getAttributeDefaultValue($attributeCode);
-
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } elseif ($this->getElement()->getValue() == $defaultValue &&
-            $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()
-        ) {
+        }
+
+        if ($this->getElement()->getValue() == $defaultValue
+            && $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
             return false;
         }
+
         if ($defaultValue === false && !$this->getAttribute()->getIsRequired() && $this->getElement()->getValue()) {
             return false;
         }
+
         return $defaultValue === false;
+    }
+
+    /**
+     * Check whether the associated attribute is globally-scoped and this
+     * field is being rendered for a specific store view (not the
+     * default/all-store-views scope).
+     *
+     * Editing a global attribute from a store view scope writes a
+     * store-scoped row for it, corrupting attribute data since a global
+     * attribute should never carry a per-store value. This mirrors
+     * canDisplayUseDefault() (which already excludes global-scope
+     * attributes from the "use default" checkbox), covering the case that
+     * mechanism leaves open: the field itself was still editable and
+     * savable from a store view.
+     *
+     * @return bool
+     */
+    public function isGlobalAttributeOnStoreScope()
+    {
+        $attribute = $this->getAttribute();
+        if ($attribute === null || !$attribute->isScopeGlobal()) {
+            return false;
+        }
+
+        $dataObject = $this->getDataObject();
+
+        return $dataObject !== null && (bool) $dataObject->getStoreId();
     }
 
     /**
@@ -111,6 +131,11 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
         if ($this->canDisplayUseDefault() && $this->usedDefault()) {
             $this->getElement()->setDisabled(true);
         }
+
+        if ($this->isGlobalAttributeOnStoreScope()) {
+            $this->getElement()->setDisabled(true);
+        }
+
         return $this;
     }
 
@@ -164,6 +189,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
         if (!empty($label)) {
             $element->setLabel($this->__($label));
         }
+
         return $element->getLabelHtml();
     }
 

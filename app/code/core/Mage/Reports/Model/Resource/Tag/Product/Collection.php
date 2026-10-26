@@ -1,26 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Report Products Tags collection
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_Resource_Product_Collection
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -29,6 +26,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
          */
         $this->_useAnalyticFunction = true;
     }
+
     /**
      * Add unique target count to result
      *
@@ -90,6 +88,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
      *
      * @return $this
      */
+    #[Override]
     public function addGroupByTag()
     {
         $this->getSelect()
@@ -102,27 +101,24 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add product filter
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addProductFilter($customerId)
     {
         $this->getSelect()
-             ->where('relation.product_id = ?', (int)$customerId);
-        $this->_customerFilterId = (int)$customerId;
+             ->where('relation.product_id = ?', (int) $customerId);
+        $this->_customerFilterId = (int) $customerId;
         return $this;
     }
 
     /**
-     * Set order
-     *
-     * @param string $attribute
-     * @param string $dir
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'utaged' || $attribute == 'taged' || $attribute == 'tag_name') {
+        if (in_array($attribute, ['utaged', 'taged', 'tag_name'])) {
             $this->getSelect()->order($attribute . ' ' . $dir);
         } else {
             parent::setOrder($attribute, $dir);
@@ -136,6 +132,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
      *
      * @return $this
      */
+    #[Override]
     protected function _joinFields()
     {
         $this->addAttributeToSelect('name');
@@ -143,12 +140,12 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
             ->join(
                 ['relation' => $this->getTable('tag/relation')],
                 'relation.product_id = e.entity_id',
-                []
+                [],
             )
             ->join(
                 ['t' => $this->getTable('tag/tag')],
                 't.tag_id = relation.tag_id',
-                ['tag_id',  'status', 'tag_name' => 'name']
+                ['tag_id',  'status', 'tag_name' => 'name'],
             );
 
         return $this;

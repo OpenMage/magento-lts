@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Configurable Products Price Indexer Resource model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
@@ -26,6 +19,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
      *
      * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -33,19 +27,21 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
         try {
             $this->_prepareGroupedProductPriceData();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
+
         return $this;
     }
 
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
+    #[Override]
     public function reindexEntity($entityIds)
     {
         $this->_prepareGroupedProductPriceData($entityIds);
@@ -57,7 +53,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
      * Calculate minimal and maximal prices for Grouped products
      * Use calculated price for relation products
      *
-     * @param int|array $entityIds  the parent entity ids limitation
+     * @param  array|int $entityIds the parent entity ids limitation
      * @return $this
      */
     protected function _prepareGroupedProductPriceData($entityIds = null)
@@ -70,22 +66,22 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
             ->join(
                 ['l' => $this->getTable('catalog/product_link')],
                 'e.entity_id = l.product_id AND l.link_type_id=' . Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
-                []
+                [],
             )
             ->join(
                 ['cg' => $this->getTable('customer/customer_group')],
                 '',
-                ['customer_group_id']
+                ['customer_group_id'],
             );
         $this->_addWebsiteJoinToSelect($select, true);
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'e.entity_id');
-        $minCheckSql = $write->getCheckSql('le.required_options = 0', 'i.min_price', 0);
-        $maxCheckSql = $write->getCheckSql('le.required_options = 0', 'i.max_price', 0);
+        $minCheckSql = $write->getCheckSql('le.required_options = 0', 'i.min_price', '0');
+        $maxCheckSql = $write->getCheckSql('le.required_options = 0', 'i.max_price', '0');
         $select->columns('website_id', 'cw')
             ->join(
                 ['le' => $this->getTable('catalog/product')],
                 'le.entity_id = l.linked_product_id',
-                []
+                [],
             )
             ->join(
                 ['i' => $table],
@@ -100,7 +96,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
                     'max_price'    => new Zend_Db_Expr('MAX(' . $maxCheckSql . ')'),
                     'tier_price'   => new Zend_Db_Expr('NULL'),
                     'group_price'  => new Zend_Db_Expr('NULL'),
-                ]
+                ],
             )
             ->group(['e.entity_id', 'cg.customer_group_id', 'cw.website_id'])
             ->where('e.type_id=?', $this->getTypeId());
@@ -119,7 +115,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
             'select'        => $select,
             'entity_field'  => new Zend_Db_Expr('e.entity_id'),
             'website_field' => new Zend_Db_Expr('cw.website_id'),
-            'store_field'   => new Zend_Db_Expr('cs.store_id')
+            'store_field'   => new Zend_Db_Expr('cs.store_id'),
         ]);
 
         $query = $select->insertFromSelect($table);

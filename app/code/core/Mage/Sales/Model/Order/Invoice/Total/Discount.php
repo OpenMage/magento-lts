@@ -1,28 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Order_Invoice_Total_Abstract
 {
     /**
-     * @param Mage_Sales_Model_Order_Invoice $invoice
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
         $invoice->setDiscountAmount(0);
@@ -44,8 +37,8 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
         }
 
         if ($addShippingDicount) {
-            $totalDiscountAmount     = $totalDiscountAmount + $invoice->getOrder()->getShippingDiscountAmount();
-            $baseTotalDiscountAmount = $baseTotalDiscountAmount + $invoice->getOrder()->getBaseShippingDiscountAmount();
+            $totalDiscountAmount += $invoice->getOrder()->getShippingDiscountAmount();
+            $baseTotalDiscountAmount += $invoice->getOrder()->getBaseShippingDiscountAmount();
         }
 
         foreach ($invoice->getAllItems() as $item) {
@@ -62,10 +55,10 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
                 /**
                  * Resolve rounding problems
                  *
-                 * We dont want to include the weee discount amount as the right amount
+                 * We don't want to include the weee discount amount as the right amount
                  * is added when calculating the taxes.
                  *
-                 * Also the subtotal is without weee
+                 * Also, the subtotal is without weee
                  */
 
                 $discount = $orderItemDiscount - $orderItem->getDiscountInvoiced();

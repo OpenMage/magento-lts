@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Magento
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Magento_Profiler
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,9 +21,13 @@ class Magento_Profiler
      * FETCH_* constants represent keys to retrieve profiling results
      */
     public const FETCH_TIME    = 'sum';
+
     public const FETCH_COUNT   = 'count';
+
     public const FETCH_AVG     = 'avg';
+
     public const FETCH_REALMEM = 'realmem';
+
     public const FETCH_EMALLOC = 'emalloc';
 
     /**
@@ -83,7 +81,7 @@ class Magento_Profiler
     /**
      * Retrieve unique identifier among all timers
      *
-     * @param string|null $timerName Timer name
+     * @param  null|string $timerName Timer name
      * @return string
      */
     private static function _getTimerId($timerName = null)
@@ -92,6 +90,7 @@ class Magento_Profiler
         if ($timerName) {
             $currentPath[] = $timerName;
         }
+
         return implode(self::NESTING_SEPARATOR, $currentPath);
     }
 
@@ -102,9 +101,10 @@ class Magento_Profiler
     public static function enable()
     {
         if (!self::$_isInitialized) {
-            register_shutdown_function([__CLASS__, 'display']);
+            register_shutdown_function([self::class, 'display']);
             self::$_isInitialized = true;
         }
+
         self::$_enabled = true;
     }
 
@@ -120,7 +120,7 @@ class Magento_Profiler
     /**
      * Reset collected statistics for specified timer or for whole profiler if timer name is omitted
      *
-     * @param string|null $timerName
+     * @param null|string $timerName
      */
     public static function reset($timerName = null)
     {
@@ -129,6 +129,7 @@ class Magento_Profiler
             self::$_currentPath = [];
             return;
         }
+
         $timerId = self::_getTimerId($timerName);
         self::$_timers[$timerId] = [
             'start'             => false,
@@ -142,7 +143,7 @@ class Magento_Profiler
     /**
      * Start collecting statistics for specified timer
      *
-     * @param string $timerName
+     * @param  string           $timerName
      * @throws Varien_Exception
      */
     public static function start($timerName)
@@ -175,7 +176,7 @@ class Magento_Profiler
      * Call with no arguments to stop the recently started timer.
      * Only the latest started timer can be stopped.
      *
-     * @param  string|null $timerName
+     * @param  null|string      $timerName
      * @throws Varien_Exception
      */
     public static function stop($timerName = null)
@@ -194,6 +195,7 @@ class Magento_Profiler
             } else {
                 $exceptionMsg = sprintf('Timer "%s" has not been started.', $timerName);
             }
+
             throw new Varien_Exception($exceptionMsg);
         }
 
@@ -213,9 +215,9 @@ class Magento_Profiler
     /**
      * Retrieve statistics on specified timer
      *
-     * @param  string $timerId
-     * @param  string $key Information to return
-     * @return int|float
+     * @param  string           $timerId
+     * @param  self::FETCH_*    $key     Information to return
+     * @return float|int
      * @throws Varien_Exception
      */
     public static function fetch($timerId, $key = self::FETCH_TIME)
@@ -223,21 +225,26 @@ class Magento_Profiler
         if (empty(self::$_timers[$timerId])) {
             throw new Varien_Exception(sprintf('Timer "%s" does not exist.', $timerId));
         }
+
         if (!in_array($key, self::$_supportedFetchKeys)) {
             throw new Varien_Exception(sprintf('Requested key "%s" is not supported.', $key));
         }
+
         /* FETCH_AVG = FETCH_TIME / FETCH_COUNT */
         $isAvg = ($key == self::FETCH_AVG);
         if ($isAvg) {
             $key = self::FETCH_TIME;
         }
+
         $result = self::$_timers[$timerId][$key];
         if ($key == self::FETCH_TIME && self::$_timers[$timerId]['start'] !== false) {
             $result += (microtime(true) - self::$_timers[$timerId]['start']);
         }
+
         if ($isAvg) {
             $result /= self::$_timers[$timerId][self::FETCH_COUNT];
         }
+
         return $result;
     }
 
@@ -253,8 +260,6 @@ class Magento_Profiler
 
     /**
      * Register profiler output instance to display profiling result at the end of execution
-     *
-     * @param Magento_Profiler_OutputAbstract $output
      */
     public static function registerOutput(Magento_Profiler_OutputAbstract $output)
     {
@@ -270,6 +275,7 @@ class Magento_Profiler
         if (!self::$_enabled) {
             return;
         }
+
         /** @var Magento_Profiler_OutputAbstract $output */
         foreach (self::$_outputs as $output) {
             $output->display();

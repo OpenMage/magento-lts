@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product api
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
@@ -24,7 +17,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     protected $_filtersMap = [
         'product_id' => 'entity_id',
         'set'        => 'attribute_set_id',
-        'type'       => 'type_id'
+        'type'       => 'type_id',
     ];
 
     protected $_defaultProductAttributeList = [
@@ -58,7 +51,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         'small_image_label',
         'thumbnail_label',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     public function __construct()
@@ -71,8 +64,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve list of products with basic info (id, sku, type, set, name)
      *
-     * @param null|object|array $filters
-     * @param string|int $store
+     * @param  null|array|object $filters
+     * @param  int|string        $store
      * @return array
      */
     public function items($filters = null, $store = null)
@@ -87,9 +80,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
             foreach ($filters as $field => $value) {
                 $collection->addFieldToFilter($field, $value);
             }
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('filters_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('filters_invalid', $mageCoreException->getMessage());
         }
+
         $result = [];
         /** @var Mage_Catalog_Model_Product $product */
         foreach ($collection as $product) {
@@ -100,19 +94,20 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                 'set'        => $product->getAttributeSetId(),
                 'type'       => $product->getTypeId(),
                 'category_ids' => $product->getCategoryIds(),
-                'website_ids'  => $product->getWebsiteIds()
+                'website_ids'  => $product->getWebsiteIds(),
             ];
         }
+
         return $result;
     }
 
     /**
      * Retrieve product info
      *
-     * @param int|string $productId
-     * @param string|int $store
-     * @param array      $attributes
-     * @param string     $identifierType
+     * @param  int|string $productId
+     * @param  int|string $store
+     * @param  array      $attributes
+     * @param  string     $identifierType
      * @return array
      */
     public function info($productId, $store = null, $attributes = null, $identifierType = null)
@@ -130,13 +125,13 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
             'set'        => $product->getAttributeSetId(),
             'type'       => $product->getTypeId(),
             'categories' => $product->getCategoryIds(),
-            'websites'   => $product->getWebsiteIds()
+            'websites'   => $product->getWebsiteIds(),
         ];
 
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $attributes)) {
                 $result[$attribute->getAttributeCode()] = $product->getData(
-                    $attribute->getAttributeCode()
+                    $attribute->getAttributeCode(),
                 );
             }
         }
@@ -147,11 +142,11 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Create new product.
      *
-     * @param string $type
-     * @param int $set
-     * @param string $sku
-     * @param array $productData
-     * @param string $store
+     * @param  string $type
+     * @param  int    $set
+     * @param  string $sku
+     * @param  array  $productData
+     * @param  string $store
      * @return int
      */
     public function create($type, $set, $sku, $productData, $store = null)
@@ -193,14 +188,16 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                     if ($error === true) {
                         $error = Mage::helper('catalog')->__('Attribute "%s" is invalid.', $code);
                     }
+
                     $strErrors[] = $error;
                 }
+
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $product->getId();
@@ -209,10 +206,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Update product data
      *
-     * @param int|string $productId
-     * @param array $productData
-     * @param string|int|null $store
-     * @param string|null $identifierType
+     * @param  int|string                      $productId
+     * @param  array                           $productData
+     * @param  null|int|string                 $store
+     * @param  null|string                     $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -236,14 +233,16 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                     } else {
                         $error = Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
                     }
+
                     $strErrors[] = $error;
                 }
+
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 
             $product->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;
@@ -252,8 +251,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      *  Set additional data before product saved
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $productData
+     * @param  Mage_Catalog_Model_Product      $product
+     * @param  array                           $productData
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareDataForSave($product, $productData)
@@ -275,17 +274,17 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                 if (isset($productData[$attribute->getAttributeCode()])) {
                     $product->setData(
                         $attribute->getAttributeCode(),
-                        $productData[$attribute->getAttributeCode()]
+                        $productData[$attribute->getAttributeCode()],
                     );
                 } elseif (isset($productData['additional_attributes']['single_data'][$attribute->getAttributeCode()])) {
                     $product->setData(
                         $attribute->getAttributeCode(),
-                        $productData['additional_attributes']['single_data'][$attribute->getAttributeCode()]
+                        $productData['additional_attributes']['single_data'][$attribute->getAttributeCode()],
                     );
                 } elseif (isset($productData['additional_attributes']['multi_data'][$attribute->getAttributeCode()])) {
                     $product->setData(
                         $attribute->getAttributeCode(),
-                        $productData['additional_attributes']['multi_data'][$attribute->getAttributeCode()]
+                        $productData['additional_attributes']['multi_data'][$attribute->getAttributeCode()],
                     );
                 }
             }
@@ -300,10 +299,11 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                 if (is_string($website)) {
                     try {
                         $website = Mage::app()->getWebsite($website)->getId();
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                     }
                 }
             }
+
             $product->setWebsiteIds($productData['websites']);
         }
 
@@ -325,11 +325,11 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Update product special price
      *
-     * @param int|string $productId
-     * @param float $specialPrice
-     * @param string $fromDate
-     * @param string $toDate
-     * @param string|int $store
+     * @param  int|string $productId
+     * @param  float      $specialPrice
+     * @param  string     $fromDate
+     * @param  string     $toDate
+     * @param  int|string $store
      * @return bool
      */
     public function setSpecialPrice($productId, $specialPrice = null, $fromDate = null, $toDate = null, $store = null)
@@ -337,16 +337,16 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         return $this->update($productId, [
             'special_price'     => $specialPrice,
             'special_from_date' => $fromDate,
-            'special_to_date'   => $toDate
+            'special_to_date'   => $toDate,
         ], $store);
     }
 
     /**
      * Retrieve product special price
      *
-     * @param int|string $productId
-     * @param string|int $store
-     * @return array
+     * @param  int|string           $productId
+     * @param  int|string           $store
+     * @return array<string, mixed>
      */
     public function getSpecialPrice($productId, $store = null)
     {
@@ -355,15 +355,15 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         return [
             'special_price'     => $product->getSpecialPrice(),
             'special_from_date' => $product->getSpecialFromDate(),
-            'special_to_date'   => $product->getSpecialToDate()
+            'special_to_date'   => $product->getSpecialToDate(),
         ];
     }
 
     /**
      * Delete product
      *
-     * @param int|string $productId
-     * @param string|null $identifierType
+     * @param  int|string         $productId
+     * @param  null|string        $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -373,8 +373,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
 
         try {
             $product->delete();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('not_deleted', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('not_deleted', $mageCoreException->getMessage());
         }
 
         return true;
@@ -383,8 +383,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Get list of additional attributes which are not in default create/update list
      *
-     * @param  int $productType
-     * @param  int $attributeSetId
+     * @param  string $productType
+     * @param  int    $attributeSetId
      * @return array
      */
     public function getAdditionalAttributes($productType, $attributeSetId)
@@ -417,7 +417,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                     'code' => $attribute->getAttributeCode(),
                     'type' => $attribute->getFrontendInput(),
                     'required' => $attribute->getIsRequired(),
-                    'scope' => $scope
+                    'scope' => $scope,
                 ];
             }
         }
@@ -428,12 +428,12 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Check if product type exists
      *
-     * @param int $productType
+     * @param string $productType
      * @throw Mage_Api_Exception
      */
     protected function _checkProductTypeExists($productType)
     {
-        if (!array_key_exists($productType, Mage::getModel('catalog/product_type')->getOptionArray())) {
+        if (!array_key_exists($productType, Mage::getModel('catalog/product_type')::getOptionArray())) {
             $this->_fault('product_type_not_exists');
         }
     }
@@ -450,6 +450,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         if (is_null($attributeSet->getId())) {
             $this->_fault('product_attribute_set_not_exists');
         }
+
         if (Mage::getModel('catalog/product')->getResource()->getTypeId() != $attributeSet->getEntityTypeId()) {
             $this->_fault('product_attribute_set_not_valid');
         }

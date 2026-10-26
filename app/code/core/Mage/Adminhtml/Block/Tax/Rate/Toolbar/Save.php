@@ -1,23 +1,16 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Admin tax rate save toolbar
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Template
@@ -36,6 +29,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -43,9 +37,9 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Back'),
-                    'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
-                    'class'     => 'back'
-                ])
+                    'onclick'   => "window.location.href='" . $this->getUrl('*/*/') . "'",
+                    'class'     => 'back',
+                ]),
         );
 
         $this->setChild(
@@ -53,8 +47,9 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Reset'),
-                    'onclick'   => 'window.location.reload()'
-                ])
+                    'onclick'   => 'window.location.reload()',
+                    'class'     => 'reset',
+                ]),
         );
 
         $this->setChild(
@@ -63,8 +58,8 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Save Rate'),
                     'onclick'   => 'wigetForm.submit();return false;',
-                    'class'     => 'save'
-                ])
+                    'class'     => 'save',
+                ]),
         );
 
         $this->setChild(
@@ -73,10 +68,10 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Delete Rate'),
                     'onclick'   => Mage::helper('core/js')->getDeleteConfirmJs(
-                        $this->getUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')])
+                        $this->getUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')]),
                     ),
-                    'class'     => 'delete'
-                ])
+                    'class'     => 'delete',
+                ]),
         );
         return parent::_prepareLayout();
     }
@@ -106,14 +101,15 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * @return string|void
+     * @return string
      * @throws Exception
      */
     public function getDeleteButtonHtml()
     {
-        if ((int) $this->getRequest()->getParam('rate') == 0) {
-            return;
+        if ((int) $this->getRequest()->getParam('rate') === 0) {
+            return '';
         }
+
         return $this->getChildHtml('deleteButton');
     }
 }

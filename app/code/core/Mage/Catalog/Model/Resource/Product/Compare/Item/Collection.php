@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Compare Items Resource Collection
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_Catalog_Model_Resource_Product_Collection
@@ -38,13 +31,14 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Comparable attributes cache
      *
-     * @var Mage_Eav_Model_Entity_Attribute_Abstract[]|null
+     * @var null|Mage_Eav_Model_Entity_Attribute_Abstract[]
      */
     protected $_comparableAttributes;
 
     /**
-     * Initialize resources
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_init('catalog/product_compare_item', 'catalog/product');
@@ -54,12 +48,12 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Set customer filter to collection
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function setCustomerId($customerId)
     {
-        $this->_customerId = (int)$customerId;
+        $this->_customerId = (int) $customerId;
         $this->_addJoinToSelect();
         return $this;
     }
@@ -67,12 +61,12 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Set visitor filter to collection
      *
-     * @param int $visitorId
+     * @param  int   $visitorId
      * @return $this
      */
     public function setVisitorId($visitorId)
     {
-        $this->_visitorId = (int)$visitorId;
+        $this->_visitorId = (int) $visitorId;
         $this->_addJoinToSelect();
         return $this;
     }
@@ -130,9 +124,9 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                 'customer_id'   => 'customer_id',
                 'visitor_id'    => 'visitor_id',
                 'item_store_id' => 'store_id',
-                'catalog_compare_item_id' => 'catalog_compare_item_id'
+                'catalog_compare_item_id' => 'catalog_compare_item_id',
             ],
-            $this->getConditionForJoin()
+            $this->getConditionForJoin(),
         );
 
         $this->_productLimitationFilters['store_table']  = 't_compare';
@@ -141,7 +135,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     }
 
     /**
-     * Retrieve comapre products attribute set ids
+     * Retrieve compare products attribute set ids
      *
      * @return array
      */
@@ -160,10 +154,10 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
         }
 
         // prepare website filter
-        $websiteId    = (int)Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+        $websiteId    = (int) Mage::app()->getStore($this->getStoreId())->getWebsiteId();
         $websiteConds = [
             'website.product_id = entity.entity_id',
-            $this->getConnection()->quoteInto('website.website_id = ?', $websiteId)
+            $this->getConnection()->quoteInto('website.website_id = ?', $websiteId),
         ];
 
         // retrieve attribute sets
@@ -171,17 +165,17 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
             ->distinct(true)
             ->from(
                 ['entity' => $this->getEntity()->getEntityTable()],
-                'attribute_set_id'
+                'attribute_set_id',
             )
             ->join(
                 ['website' => $this->getTable('catalog/product_website')],
                 implode(' AND ', $websiteConds),
-                []
+                [],
             )
             ->join(
                 ['compare' => $this->getTable('catalog/compare_item')],
                 implode(' AND ', $compareConds),
-                []
+                [],
             );
         return $this->getConnection()->fetchCol($select);
     }
@@ -189,7 +183,6 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Retrieve attribute ids by set ids
      *
-     * @param array $setIds
      * @return array
      */
     protected function _getAttributeIdsBySetIds(array $setIds)
@@ -218,7 +211,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                 $attributeSortInfo = [];
                 foreach ($attributeIds as $attributeId) {
                     $attribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeId);
-                    if ($attribute->getData('is_comparable')) {
+                    if ($attribute->getDataByKey('is_comparable')) {
                         $this->_comparableAttributes[$attribute->getAttributeCode()] = $attribute;
                         $attributeSortInfo[$attribute->getAttributeCode()] = $eavConfig->getAttributeSetGroupInfo($attributeId, $setIds);
                     }
@@ -235,6 +228,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                 });
             }
         }
+
         return $this->_comparableAttributes;
     }
 
@@ -250,6 +244,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
         foreach ($comparableAttributes as $attribute) {
             $attributes[] = $attribute->getAttributeCode();
         }
+
         $this->addAttributeToSelect($attributes);
 
         return $this;
@@ -290,6 +285,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
      *
      * @return $this
      */
+    #[Override]
     public function clear()
     {
         Mage::getResourceSingleton('catalog/product_compare_item')
@@ -305,11 +301,13 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
      *
      * @return bool
      */
+    #[Override]
     public function isEnabledFlat()
     {
         if (!Mage::helper('catalog/product_compare')->getAllowUsedFlat()) {
             return false;
         }
+
         return parent::isEnabledFlat();
     }
 }

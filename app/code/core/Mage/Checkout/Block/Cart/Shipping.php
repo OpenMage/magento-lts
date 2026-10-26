@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstract
@@ -34,9 +27,9 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
     /**
      * Address Model
      *
-     * @var array
+     * @var Mage_Sales_Model_Quote_Address
      */
-    protected $_address = [];
+    protected $_address;
 
     /**
      * Get Estimate Rates
@@ -49,6 +42,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
             $groups = $this->getAddress()->getGroupedAllShippingRates();
             $this->_rates = $groups;
         }
+
         return $this->_rates;
     }
 
@@ -59,16 +53,17 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getAddress()
     {
-        if (empty($this->_address)) {
+        if (is_null($this->_address)) {
             $this->_address = $this->getQuote()->getShippingAddress();
         }
+
         return $this->_address;
     }
 
     /**
      * Get Carrier Name
      *
-     * @param string $carrierCode
+     * @param  string $carrierCode
      * @return mixed
      */
     public function getCarrierName($carrierCode)
@@ -76,6 +71,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
         if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
+
         return $carrierCode;
     }
 
@@ -122,7 +118,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
     /**
      * Get Estimate Region Id
      *
-     * @return mixed
+     * @return int
      */
     public function getEstimateRegionId()
     {
@@ -146,8 +142,11 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getCityActive()
     {
-        return Mage::getStoreConfigFlag('carriers/dhl/active')
-            || Mage::getStoreConfigFlag('carriers/dhlint/active');
+        if (Mage::getStoreConfigFlag('carriers/dhl/active')) {
+            return true;
+        }
+
+        return Mage::getStoreConfigFlag('carriers/dhlint/active');
     }
 
     /**
@@ -157,15 +156,21 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getStateActive()
     {
-        return Mage::getStoreConfigFlag('carriers/dhl/active')
-            || Mage::getStoreConfigFlag('carriers/tablerate/active')
-            || Mage::getStoreConfigFlag('carriers/dhlint/active');
+        if (Mage::getStoreConfigFlag('carriers/dhl/active')) {
+            return true;
+        }
+
+        if (Mage::getStoreConfigFlag('carriers/tablerate/active')) {
+            return true;
+        }
+
+        return Mage::getStoreConfigFlag('carriers/dhlint/active');
     }
 
     /**
      * Convert price from default currency to current currency
      *
-     * @param float $price
+     * @param  float $price
      * @return float
      */
     public function formatPrice($price)
@@ -176,8 +181,8 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
     /**
      * Get Shipping Price
      *
-     * @param float $price
-     * @param bool $flag
+     * @param  float $price
+     * @param  bool  $flag
      * @return float
      */
     public function getShippingPrice($price, $flag)
@@ -188,7 +193,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
             $price,
             $flag,
             $this->getAddress(),
-            $this->getQuote()->getCustomerTaxClassId()
+            $this->getQuote()->getCustomerTaxClassId(),
         ));
     }
 
@@ -210,6 +215,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 }
             }
         }
+
         return $this->_carriers;
     }
 
@@ -225,6 +231,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 return true;
             }
         }
+
         return false;
     }
 
@@ -240,6 +247,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 return true;
             }
         }
+
         return false;
     }
 
@@ -255,6 +263,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
                 return true;
             }
         }
+
         return false;
     }
 

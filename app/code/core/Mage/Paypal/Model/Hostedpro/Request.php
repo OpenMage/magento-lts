@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  *  Website Payments Pro Hosted Solution request model to get token.
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
@@ -36,14 +29,14 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     protected $_paymentMethod;
 
     /**
-     * Name formate for button variables
+     * Name format for button variables
      *
      * @var string
      */
     protected $_buttonVarFormat = 'L_BUTTONVAR%d';
 
     /**
-     * Request Parameters which dont have to wrap as button vars
+     * Request Parameters which don't have to wrap as button vars
      *
      * @var array
      */
@@ -79,7 +72,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Append payment data to request
      *
-     * @param Mage_Paypal_Model_Hostedpro $paymentMethod
+     * @param  Mage_Paypal_Model_Hostedpro $paymentMethod
      * @return $this
      */
     public function setPaymentMethod($paymentMethod)
@@ -94,7 +87,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Append order data to request
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return $this
      */
     public function setOrder($order)
@@ -109,8 +102,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Get peymet request data as array
      *
-     * @param Mage_Paypal_Model_Hostedpro $paymentMethod
-     * @return array
+     * @return array<string, string>
      */
     protected function _getPaymentData(Mage_Paypal_Model_Hostedpro $paymentMethod)
     {
@@ -128,14 +120,13 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
             'showBillingPhone'      => 'false',
             'showCustomerName'      => 'false',
             'showCardInfo'          => 'true',
-            'showHostedThankyouPage' => 'false'
+            'showHostedThankyouPage' => 'false',
         ];
     }
 
     /**
      * Get order request data as array
      *
-     * @param Mage_Sales_Model_Order $order
      * @return array
      */
     protected function _getOrderData(Mage_Sales_Model_Order $order)
@@ -151,7 +142,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
             'discount'         => $this->_formatPrice(
                 $order->getBaseGiftCardsAmount()
                 + abs($order->getBaseDiscountAmount())
-                + $order->getBaseCustomerBalanceAmount()
+                + $order->getBaseCustomerBalanceAmount(),
             ),
         ];
 
@@ -162,7 +153,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
 
         // append to request shipping address data
         if ($shippingAddress = $order->getShippingAddress()) {
-            $request = array_merge($request, $this->_getShippingAddress($shippingAddress));
+            return array_merge($request, $this->_getShippingAddress($shippingAddress));
         }
 
         return $request;
@@ -171,8 +162,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Get shipping address request data
      *
-     * @param Varien_Object $address
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _getShippingAddress(Varien_Object $address)
     {
@@ -198,8 +188,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Get billing address request data
      *
-     * @param Varien_Object $address
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _getBillingAddress(Varien_Object $address)
     {
@@ -225,8 +214,8 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Format price string
      *
-     * @param mixed $string
-     * @return mixed
+     * @param  float|int|string $string
+     * @return string
      */
     protected function _formatPrice($string)
     {

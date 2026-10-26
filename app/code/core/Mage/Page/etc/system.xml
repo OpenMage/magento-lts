@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -128,6 +121,8 @@
                         <logo_src translate="label">
                             <label>Logo Image Src</label>
                             <sort_order>10</sort_order>
+                            <frontend_type>logo</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image_logo</backend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -139,12 +134,27 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </logo_alt>
-                        <logo_src_small translate="label">
-                            <label>Small Logo Image Src</label>
-                            <sort_order>25</sort_order>
+                        <logo_src_small_same_as_main translate="label comment">
+                            <label>Use Same Image for Small Logo</label>
+                            <comment>Check this to use the main logo image for the small logo as well</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>22</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                        </logo_src_small_same_as_main>
+                        <logo_src_small translate="label">
+                            <label>Small Logo Image Src</label>
+                            <sort_order>25</sort_order>
+                            <frontend_type>logo</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image_logo</backend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <logo_src_small_same_as_main>0</logo_src_small_same_as_main>
+                            </depends>
                         </logo_src_small>
                         <welcome translate="label">
                             <label>Welcome Text</label>

@@ -1,26 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sitemap
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sitemap cms page collection model
  *
- * @category   Mage
  * @package    Mage_Sitemap
  */
 class Mage_Sitemap_Model_Resource_Cms_Page extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cms/page', 'page_id');
@@ -29,7 +25,7 @@ class Mage_Sitemap_Model_Resource_Cms_Page extends Mage_Core_Model_Resource_Db_A
     /**
      * Retrieve cms page collection array
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return array
      */
     public function getCollection($storeId)
@@ -41,7 +37,7 @@ class Mage_Sitemap_Model_Resource_Cms_Page extends Mage_Core_Model_Resource_Db_A
             ->join(
                 ['store_table' => $this->getTable('cms/page_store')],
                 'main_table.page_id=store_table.page_id',
-                []
+                [],
             )
             ->where('main_table.is_active=1')
             ->where('store_table.store_id IN(?)', [0, $storeId]);
@@ -50,6 +46,7 @@ class Mage_Sitemap_Model_Resource_Cms_Page extends Mage_Core_Model_Resource_Db_A
             if ($row['url'] == Mage_Cms_Model_Page::NOROUTE_PAGE_ID) {
                 continue;
             }
+
             $page = $this->_prepareObject($row);
             $pages[$page->getId()] = $page;
         }
@@ -60,7 +57,6 @@ class Mage_Sitemap_Model_Resource_Cms_Page extends Mage_Core_Model_Resource_Db_A
     /**
      * Prepare page object
      *
-     * @param array $data
      * @return Varien_Object
      */
     protected function _prepareObject(array $data)

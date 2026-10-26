@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Source model for available bml banners size
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_System_Config_Source_BmlSize
@@ -24,7 +17,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
     /**
      * Options getter for Home Page and position Header
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeHPH()
     {
@@ -34,14 +27,14 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
             '300x50' => Mage::helper('paypal')->__('300 x 50'),
             '468x60' => Mage::helper('paypal')->__('468 x 60'),
             '728x90' => Mage::helper('paypal')->__('728 x 90'),
-            '800x66' => Mage::helper('paypal')->__('800 x 66')
+            '800x66' => Mage::helper('paypal')->__('800 x 66'),
         ];
     }
 
     /**
      * Options getter for Home Page and position Sidebar (right)
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeHPS()
     {
@@ -52,14 +45,14 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
             '120x240' => Mage::helper('paypal')->__('120 x 240'),
             '120x600' => Mage::helper('paypal')->__('120 x 600'),
             '234x400' => Mage::helper('paypal')->__('234 x 400'),
-            '250x250' => Mage::helper('paypal')->__('250 x 250')
+            '250x250' => Mage::helper('paypal')->__('250 x 250'),
         ];
     }
 
     /**
      * Options getter for Catalog Category Page and position Center
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCCPC()
     {
@@ -69,14 +62,14 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
             '300x50' => Mage::helper('paypal')->__('300 x 50'),
             '468x60' => Mage::helper('paypal')->__('468 x 60'),
             '728x90' => Mage::helper('paypal')->__('728 x 90'),
-            '800x66' => Mage::helper('paypal')->__('800 x 66')
+            '800x66' => Mage::helper('paypal')->__('800 x 66'),
         ];
     }
 
     /**
      * Options getter for Catalog Category Page and position Sidebar (right)
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCCPS()
     {
@@ -87,14 +80,14 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
             '120x240' => Mage::helper('paypal')->__('120 x 240'),
             '120x600' => Mage::helper('paypal')->__('120 x 600'),
             '234x400' => Mage::helper('paypal')->__('234 x 400'),
-            '250x250' => Mage::helper('paypal')->__('250 x 250')
+            '250x250' => Mage::helper('paypal')->__('250 x 250'),
         ];
     }
 
     /**
      * Options getter for Catalog Product Page and position Center
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCPPC()
     {
@@ -104,14 +97,14 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
             '300x50' => Mage::helper('paypal')->__('300 x 50'),
             '468x60' => Mage::helper('paypal')->__('468 x 60'),
             '728x90' => Mage::helper('paypal')->__('728 x 90'),
-            '800x66' => Mage::helper('paypal')->__('800 x 66')
+            '800x66' => Mage::helper('paypal')->__('800 x 66'),
         ];
     }
 
     /**
      * Options getter for Catalog Product Page and position Near Bill Me Later checkout button
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCPPN()
     {
@@ -122,14 +115,14 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
             '120x240' => Mage::helper('paypal')->__('120 x 240'),
             '120x600' => Mage::helper('paypal')->__('120 x 600'),
             '234x400' => Mage::helper('paypal')->__('234 x 400'),
-            '250x250' => Mage::helper('paypal')->__('250 x 250')
+            '250x250' => Mage::helper('paypal')->__('250 x 250'),
         ];
     }
 
     /**
      * Options getter for Checkout Cart Page and position Center
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCheckoutC()
     {
@@ -138,21 +131,21 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
             '300x50' => Mage::helper('paypal')->__('300 x 50'),
             '468x60' => Mage::helper('paypal')->__('468 x 60'),
             '728x90' => Mage::helper('paypal')->__('728 x 90'),
-            '800x66' => Mage::helper('paypal')->__('800 x 66')
+            '800x66' => Mage::helper('paypal')->__('800 x 66'),
         ];
     }
 
     /**
      * Options getter for Checkout Cart Page and position Near Bill Me Later checkout button
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getBmlSizeCheckoutN()
     {
         return [
             '234x60' => Mage::helper('paypal')->__('234 x 60'),
             '300x50' => Mage::helper('paypal')->__('300 x 50'),
-            '468x60' => Mage::helper('paypal')->__('468 x 60')
+            '468x60' => Mage::helper('paypal')->__('468 x 60'),
         ];
     }
 }

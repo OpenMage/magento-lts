@@ -1,16 +1,9 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /**
@@ -23,7 +16,7 @@
     <h3><?php echo $this->__("Welcome to OpenMage's Installation Wizard") ?>!</h3>
 </div>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
-<?php if(count($this->getMessagesBlock()->getMessages())==0): ?>
+<?php if(count($this->getMessagesBlock()->getMessages()) === 0): ?>
 <form action="<?php echo $this->getPostUrl() ?>" method="post">
 <div style="height:20em; border:1px solid #ccc; margin-bottom:8px; padding:5px; background:#fff; overflow: auto; overflow-x:hidden; overflow-y:scroll;">
 <?php echo $this->getLicenseHtml() ?>

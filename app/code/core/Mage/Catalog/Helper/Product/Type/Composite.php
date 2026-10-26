@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Helper for preparing properties for configurable product
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstract
@@ -26,11 +19,12 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Calculation real price
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param float $price
-     * @param bool $isPercent
-     * @param null|int $storeId
-     * @return mixed
+     * @param  Mage_Catalog_Model_Product      $product
+     * @param  float                           $price
+     * @param  bool                            $isPercent
+     * @param  null|int                        $storeId
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function preparePrice($product, $price, $isPercent = false, $storeId = null)
     {
@@ -44,11 +38,12 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Calculation price before special price
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param float $price
-     * @param bool $isPercent
-     * @param null|int $storeId
-     * @return mixed
+     * @param  Mage_Catalog_Model_Product      $product
+     * @param  float                           $price
+     * @param  bool                            $isPercent
+     * @param  null|int                        $storeId
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function prepareOldPrice($product, $price, $isPercent = false, $storeId = null)
     {
@@ -62,21 +57,22 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Replace ',' on '.' for js
      *
-     * @param float $price
+     * @param  float  $price
      * @return string
      */
     public function registerJsPrice($price)
     {
-        return str_replace(',', '.', $price);
+        return str_replace(',', '.', (string) $price);
     }
 
     /**
      * Convert price from default currency to current currency
      *
-     * @param float $price
-     * @param bool $round
-     * @param null|int $storeId
-     * @return float
+     * @param  float                           $price
+     * @param  bool                            $round
+     * @param  null|int                        $storeId
+     * @return float|int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function convertPrice($price, $round = false, $storeId = null)
     {
@@ -86,7 +82,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
 
         $price = $this->getCurrentStore($storeId)->convertPrice($price);
         if ($round) {
-            $price = $this->getCurrentStore($storeId)->roundPrice($price);
+            return $this->getCurrentStore($storeId)->roundPrice($price);
         }
 
         return $price;
@@ -95,8 +91,9 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Retrieve current store
      *
-     * @param null $storeId
+     * @param  null|bool|int|Mage_Core_Model_Store|string $storeId
      * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentStore($storeId = null)
     {
@@ -105,10 +102,10 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
 
     /**
      * Prepare general params for product to be used in getJsonConfig()
+     *
+     * @return array<string, mixed>
      * @see Mage_Catalog_Block_Product_View::getJsonConfig()
      * @see Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price::getJsonConfig()
-     *
-     * @return array
      */
     public function prepareJsonGeneralConfig()
     {
@@ -128,20 +125,23 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
 
     /**
      * Prepare product specific params to be used in getJsonConfig()
-     * @see Mage_Catalog_Block_Product_View::getJsonConfig()
-     * @see Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price::getJsonConfig()
+     * @param  Mage_Catalog_Model_Product      $product
+     * @return array<string, mixed>
+     * @throws Mage_Core_Model_Store_Exception
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @return array
+     * @see Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price::getJsonConfig()
+     * @see Mage_Catalog_Block_Product_View::getJsonConfig()
      */
     public function prepareJsonProductConfig($product)
     {
         $_request = Mage::getSingleton('tax/calculation')->getDefaultRateRequest();
         $_request->setProductClassId($product->getTaxClassId());
+
         $defaultTax = Mage::getSingleton('tax/calculation')->getRate($_request);
 
         $_request = Mage::getSingleton('tax/calculation')->getRateRequest();
         $_request->setProductClassId($product->getTaxClassId());
+
         $currentTax = Mage::getSingleton('tax/calculation')->getRate($_request);
 
         $_regularPrice = $product->getPrice();
@@ -156,7 +156,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
                 null,
                 null,
                 null,
-                false
+                false,
             );
             $_priceExclTax = Mage::helper('tax')->getPrice(
                 $product,
@@ -167,33 +167,45 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
                 null,
                 null,
                 null,
-                false
+                false,
             );
         } else {
             $_priceInclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, true);
             $_priceExclTax = Mage::helper('tax')->getPrice($product, $_finalPrice);
         }
+
         $_tierPrices = [];
         $_tierPricesInclTax = [];
         foreach ($product->getTierPrice() as $tierPrice) {
-            $_tierPrices[] = Mage::helper('core')->currency(
-                Mage::helper('tax')->getPrice($product, (float)$tierPrice['website_price'], false) - $_priceExclTax,
+            // Skip tier prices >= lower of final price or group price
+            $comparePrice = $_finalPrice;
+            $groupPrice = $product->getGroupPrice();
+            if ($groupPrice !== null && $groupPrice < $comparePrice) {
+                $comparePrice = $groupPrice;
+            }
+
+            if ((float) $tierPrice['website_price'] >= $comparePrice) {
+                continue;
+            }
+
+            $_tierPrices[] = Mage::helper('core')::currency(
+                Mage::helper('tax')->getPrice($product, (float) $tierPrice['website_price'], false) - $_priceExclTax,
                 false,
-                false
+                false,
             );
-            $_tierPricesInclTax[] = Mage::helper('core')->currency(
-                Mage::helper('tax')->getPrice($product, (float)$tierPrice['website_price'], true) - $_priceInclTax,
+            $_tierPricesInclTax[] = Mage::helper('core')::currency(
+                Mage::helper('tax')->getPrice($product, (float) $tierPrice['website_price'], true) - $_priceInclTax,
                 false,
-                false
+                false,
             );
         }
 
         return [
             'productId'           => $product->getId(),
-            'productPrice'        => Mage::helper('core')->currency($_finalPrice, false, false),
-            'productOldPrice'     => Mage::helper('core')->currency($_regularPrice, false, false),
-            'priceInclTax'        => Mage::helper('core')->currency($_priceInclTax, false, false),
-            'priceExclTax'        => Mage::helper('core')->currency($_priceExclTax, false, false),
+            'productPrice'        => Mage::helper('core')::currency($_finalPrice, false, false),
+            'productOldPrice'     => Mage::helper('core')::currency($_regularPrice, false, false),
+            'priceInclTax'        => Mage::helper('core')::currency($_priceInclTax, false, false),
+            'priceExclTax'        => Mage::helper('core')::currency($_priceExclTax, false, false),
             'skipCalculate'       => ($_priceExclTax != $_priceInclTax ? 0 : 1),
             'defaultTax'          => $defaultTax,
             'currentTax'          => $currentTax,

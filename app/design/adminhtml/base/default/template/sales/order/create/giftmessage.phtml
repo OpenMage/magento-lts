@@ -1,0 +1,38 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage $this */
+?>
+<?php
+/**
+ * @var Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage $this
+ */
+?>
+<?php if ($this->canDisplayGiftmessage()): ?>
+<?php $_items = $this->getItems(); ?>
+<div id="order-giftmessage">
+<div class="clear"></div>
+<div class="giftmessage-order-create box-left">
+    <div class="entry-edit">
+        <div><?php echo Mage::helper('sales')->__('Gift Message for the Entire Order') ?></div><br />
+        <div class="fieldset">
+            <div>
+                <div class="entire-order">
+                    <h5><?php echo Mage::helper('sales')->__("You can leave a box blank if you don't wish to add a gift message for whole order") ?></h5>
+                    <?php echo $this->getFormHtml($this->getQuote(), 'main') ?>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    order.giftmessageFieldsBind('order-giftmessage');
+</script>
+</div>
+<?php endif ?>

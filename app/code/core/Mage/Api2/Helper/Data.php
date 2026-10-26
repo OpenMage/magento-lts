@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservice API2 data helper
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
@@ -35,6 +28,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      * Config paths
      */
     public const XML_PATH_AUTH_ADAPTERS = 'global/api2/auth_adapters';
+
     public const XML_PATH_USER_TYPES    = 'global/api2/user_types';
 
     protected $_moduleName = 'Mage_Api2';
@@ -42,42 +36,40 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Compare order to be used in adapters list sort
      *
-     * @param int $a
-     * @param int $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected static function _compareOrder($a, $b)
     {
-        if ($a['order'] == $b['order']) {
-            return 0;
-        }
-        return ($a['order'] < $b['order']) ? -1 : 1;
+        return $a['order'] <=> $b['order'];
     }
 
     /**
      * Retrieve Auth adapters info from configuration file as array
      *
-     * @param bool $enabledOnly
+     * @param  bool  $enabledOnly
      * @return array
      */
     public function getAuthAdapters($enabledOnly = false)
     {
-        $adapters = Mage::getConfig()->getNode(self::XML_PATH_AUTH_ADAPTERS);
+        $adapters = Mage::getConfig()?->getNode(self::XML_PATH_AUTH_ADAPTERS);
 
-        if (!$adapters) {
+        if (!$adapters instanceof Varien_Simplexml_Element) {
             return [];
         }
+
         $adapters = $adapters->asArray();
 
-        if ($enabledOnly) {
-            foreach ($adapters as $adapter) {
-                if (empty($adapter['enabled'])) {
-                    unset($adapters);
-                }
-            }
-            $adapters = (array) $adapters;
+        if (!is_array($adapters)) {
+            return [];
         }
-        uasort($adapters, ['Mage_Api2_Helper_Data', '_compareOrder']);
+
+        if ($enabledOnly) {
+            $adapters = array_filter($adapters, fn($adapter) => !empty($adapter['enabled']));
+        }
+
+        uasort($adapters, self::_compareOrder(...));
 
         return $adapters;
     }
@@ -89,16 +81,25 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getUserTypes()
     {
-        $userModels = [];
-        $types = Mage::getConfig()->getNode(self::XML_PATH_USER_TYPES);
+        $types = Mage::getConfig()?->getNode(self::XML_PATH_USER_TYPES);
 
-        if ($types) {
-            foreach ($types->asArray() as $type => $params) {
-                if (!empty($params['allowed'])) {
-                    $userModels[$type] = $params['model'];
-                }
+        if (!$types instanceof Varien_Simplexml_Element) {
+            return [];
+        }
+
+        $types = $types->asArray();
+
+        if (!is_array($types)) {
+            return [];
+        }
+
+        $userModels = [];
+        foreach ($types as $type => $params) {
+            if (!empty($params['allowed'])) {
+                $userModels[$type] = $params['model'];
             }
         }
+
         return $userModels;
     }
 
@@ -125,20 +126,20 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check API type support
      *
-     * @param string $type
+     * @param  string $type
      * @return bool
      */
     public function isApiTypeSupported($type)
     {
-        return in_array($type, Mage_Api2_Model_Server::getApiTypes());
+        return in_array($type, Mage_Api2_Model_Server::getApiTypes(), true);
     }
 
     /**
      * Get allowed attributes of a rule
      *
-     * @param string $userType
-     * @param string $resourceId
-     * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param  string                                          $userType
+     * @param  string                                          $resourceId
+     * @param  Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operation
      * @return array
      */
     public function getAllowedAttributes($userType, $resourceId, $operation)
@@ -154,7 +155,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if ALL attributes are allowed
      *
-     * @param string $userType
+     * @param  string $userType
      * @return bool
      */
     public function isAllAttributesAllowed($userType)
@@ -168,20 +169,24 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get operation type for specified operation
      *
-     * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_... constant
-     * @return string One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param  Mage_Api2_Model_Resource::OPERATION_*           $operation
+     * @return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_*
      * @throws Exception
      */
     public function getTypeOfOperation($operation)
     {
         if (Mage_Api2_Model_Resource::OPERATION_RETRIEVE === $operation) {
             return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ;
-        } elseif (Mage_Api2_Model_Resource::OPERATION_CREATE === $operation) {
-            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
-        } elseif (Mage_Api2_Model_Resource::OPERATION_UPDATE === $operation) {
-            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
-        } else {
-            throw new Exception('Can not determine operation type');
         }
+
+        if (Mage_Api2_Model_Resource::OPERATION_CREATE === $operation) {
+            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
+        }
+
+        if (Mage_Api2_Model_Resource::OPERATION_UPDATE === $operation) {
+            return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE;
+        }
+
+        throw new Exception('Can not determine operation type');
     }
 }

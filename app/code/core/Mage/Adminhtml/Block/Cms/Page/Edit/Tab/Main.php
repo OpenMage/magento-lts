@@ -1,29 +1,25 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Cms page edit form main tab
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_cms_page_edit_tab_main';
+
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareForm()
     {
         /** @var Mage_Cms_Model_Page $model */
@@ -32,11 +28,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
         /*
          * Checking if user have permissions to save information
          */
-        if ($this->_isAllowedAction('save')) {
-            $isElementDisabled = false;
-        } else {
-            $isElementDisabled = true;
-        }
+        $isElementDisabled = !$this->_isAllowedAction('save');
 
         $form = new Varien_Data_Form();
 
@@ -55,7 +47,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
             'label'     => Mage::helper('cms')->__('Page Title'),
             'title'     => Mage::helper('cms')->__('Page Title'),
             'required'  => true,
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         $fieldset->addField('identifier', 'text', [
@@ -64,7 +56,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
             'title'     => Mage::helper('cms')->__('URL Key'),
             'class'     => 'validate-identifier',
             'note'      => Mage::helper('cms')->__('Relative to Website Base URL'),
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         /**
@@ -79,12 +71,12 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
                 'disabled'  => $isElementDisabled,
             ]);
-            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $renderer = $this->getStoreSwitcherRenderer();
             $field->setRenderer($renderer);
         } else {
             $fieldset->addField('store_id', 'hidden', [
                 'name'      => 'stores[]',
-                'value'     => Mage::app()->getStore(true)->getId()
+                'value'     => Mage::app()->getStore(true)->getId(),
             ]);
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }
@@ -100,8 +92,6 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
         if (!$model->getId()) {
             $model->setData('is_active', $isElementDisabled ? '0' : '1');
         }
-
-        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_main_prepare_form', ['form' => $form]);
 
         $form->setValues($model->getData());
         $this->setForm($form);
@@ -152,7 +142,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
     /**
      * Check permission for passed action
      *
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     protected function _isAllowedAction($action)

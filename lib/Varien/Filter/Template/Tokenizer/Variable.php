@@ -1,25 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Filter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template constructions variables tokenizer
  *
- * @category   Varien
  * @package    Varien_Filter
  */
-
 class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_Tokenizer_Abstract
 {
     /**
@@ -36,37 +30,40 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
             if ($this->isWhiteSpace()) {
                 // Ignore white spaces
                 continue;
-            } elseif ($this->char() != '.' && $this->char() != '(') {
+            }
+
+            if ($this->char() != '.' && $this->char() != '(') {
                 // Property or method name
                 $parameterName .= $this->char();
-            } elseif ($this->char() == '(') {
+            } elseif ($this->char() === '(') {
                 // Method declaration
                 $methodArgs = $this->getMethodArgs();
                 $actions[] = ['type' => 'method',
-                                   'name' => $parameterName,
-                                   'args' => $methodArgs];
+                    'name' => $parameterName,
+                    'args' => $methodArgs];
                 $parameterName = '';
-            } elseif ($parameterName != '') {
+            } elseif ($parameterName !== '') {
                 // Property or variable declaration
                 if ($variableSet) {
                     $actions[] = ['type' => 'property',
-                                       'name' => $parameterName];
+                        'name' => $parameterName];
                 } else {
                     $variableSet = true;
                     $actions[] = ['type' => 'variable',
-                                       'name' => $parameterName];
+                        'name' => $parameterName];
                 }
+
                 $parameterName = '';
             }
         } while ($this->next());
 
-        if ($parameterName != '') {
+        if ($parameterName !== '') {
             if ($variableSet) {
                 $actions[] = ['type' => 'property',
-                                       'name' => $parameterName];
+                    'name' => $parameterName];
             } else {
                 $actions[] = ['type' => 'variable',
-                                   'name' => $parameterName];
+                    'name' => $parameterName];
             }
         }
 
@@ -84,6 +81,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
         if ($this->isWhiteSpace()) {
             return $value;
         }
+
         $qouteStart = $this->isQuote();
 
         if ($qouteStart) {
@@ -113,7 +111,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
     /**
      * Return true if current char is a number
      *
-     * @return boolean
+     * @return bool
      */
     public function isNumeric()
     {
@@ -121,13 +119,17 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
     }
 
     /**
-     * Return true if current char is qoute or apostroph
+     * Return true if current char is quote or apostrophe
      *
-     * @return boolean
+     * @return bool
      */
     public function isQuote()
     {
-        return $this->char() == '"' || $this->char() == "'";
+        if ($this->char() === '"') {
+            return true;
+        }
+
+        return $this->char() === "'";
     }
 
     /**
@@ -138,16 +140,17 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
     public function getMethodArgs()
     {
         $value = [];
-        $numberStr = '';
 
         while ($this->next() && $this->char() != ')') {
-            if ($this->isWhiteSpace() || $this->char() == ',') {
+            if ($this->isWhiteSpace()) {
                 continue;
-            } elseif ($this->isNumeric()) {
-                $value[] = $this->getNumber();
-            } else {
-                $value[] = $this->getString();
             }
+
+            if ($this->char() == ',') {
+                continue;
+            }
+
+            $value[] = $this->isNumeric() ? $this->getNumber() : $this->getString();
         }
 
         return $value;

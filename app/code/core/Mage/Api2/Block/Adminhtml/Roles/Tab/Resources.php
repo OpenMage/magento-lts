@@ -1,26 +1,19 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Block for rendering resources list tab
  *
- * @category   Mage
  * @package    Mage_Api2
  *
  * @method Mage_Api2_Model_Acl_Global_Role getRole()
- * @method $this setRole(Mage_Api2_Model_Acl_Global_Role $role)
+ * @method $this                           setRole(Mage_Api2_Model_Acl_Global_Role $role)
  */
 class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -34,7 +27,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block
     /**
      * Tree model
      *
-     * @var Mage_Api2_Model_Acl_Global_Rule_Tree
+     * @var false|Mage_Api2_Model_Acl_Global_Rule_Tree
      */
     protected $_treeModel = false;
 
@@ -50,7 +43,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block
 
         $this->_treeModel = Mage::getModel(
             'api2/acl_global_rule_tree',
-            ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_PRIVILEGE]
+            ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_PRIVILEGE],
         );
     }
 
@@ -82,6 +75,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block
         } else {
             $role = Mage::getModel('api2/acl_global_role');
         }
+
         $this->_treeModel->setRole($role);
         return $this;
     }

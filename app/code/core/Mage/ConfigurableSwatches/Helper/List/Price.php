@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class implementing price change for swatches in product listing pages
  *
- * @category   Mage
  * @package    Mage_ConfigurableSwatches
  */
 class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstract
@@ -33,8 +26,10 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
      * Depends on following product data:
      * - product must have children products attached and be configurable by type
      *
-     * @param array $products
-     * @param int $storeId
+     * @param  Mage_Catalog_Model_Product[]    $products
+     * @param  int                             $storeId
+     * @return void
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function attachConfigurableProductChildrenPricesMapping(array $products, $storeId = null)
     {
@@ -42,7 +37,6 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
         $result = [];
 
         foreach ($products as $product) {
-            /** @var Mage_Catalog_Model_Product $product */
             if ($product->getTypeId() !== Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE
                 && !is_array($product->getChildrenProducts())
             ) {
@@ -64,26 +58,26 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
                             $product,
                             $attributePrice['pricing_value'],
                             $attributePrice['is_percent'],
-                            $storeId
-                        )
+                            $storeId,
+                        ),
                     );
                     Mage::dispatchEvent(
                         'catalog_product_type_configurable_price',
-                        ['product' => $product]
+                        ['product' => $product],
                     );
                     $configurablePrice = $product->getConfigurablePrice();
-                    $cofigurableSwatchesHelper = Mage::helper('configurableswatches');
-                    $result[$cofigurableSwatchesHelper::normalizeKey($attributePrice['store_label'])] = [
-                       'price' => $configurablePrice,
-                    'oldPrice' => $this->_getHelper()->prepareOldPrice(
-                        $product,
-                        $attributePrice['pricing_value'],
-                        $attributePrice['is_percent'],
-                        $storeId
-                    ),
+                    $result[Mage_ConfigurableSwatches_Helper_Data::normalizeKey($attributePrice['store_label'])] = [
+                        'price' => $configurablePrice,
+                        'oldPrice' => $this->_getHelper()->prepareOldPrice(
+                            $product,
+                            $attributePrice['pricing_value'],
+                            $attributePrice['is_percent'],
+                            $storeId,
+                        ),
                     ];
                 }
             }
+
             $product->setSwatchPrices($result);
         }
     }

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml order create gift message block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
@@ -24,14 +17,13 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
     /**
      * Generate form for editing of gift message for entity
      *
-     * @param Varien_Object $entity
-     * @param string        $entityType
+     * @param  string $entityType
      * @return string
      */
     public function getFormHtml(Varien_Object $entity, $entityType = 'quote')
     {
         return $this->getLayout()->createBlock(
-            'adminhtml/sales_order_create_giftmessage_form'
+            'adminhtml/sales_order_create_giftmessage_form',
         )->setEntity($entity)->setEntityType($entityType)->toHtml();
     }
 
@@ -44,6 +36,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
      */
     public function getItems()
     {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
 
@@ -52,14 +48,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
 
         foreach ($allItems as $item) {
             if ($this->_getGiftmessageSaveModel()->getIsAllowedQuoteItem($item)
-                && $helper->getIsMessagesAvailable('item', $item, $this->getStore())
+                && $helper->getIsMessagesAvailable($helper::TYPE_ITEM, $item, $this->getStore())
             ) {
                 // if item allowed
                 $items[] = $item;
             }
         }
 
-        if (count($items)) {
+        if ($items !== []) {
             return $items;
         }
 
@@ -74,5 +70,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
     protected function _getGiftmessageSaveModel()
     {
         return Mage::getSingleton('adminhtml/giftmessage_save');
+    }
+
+    public function canDisplayGiftmessage(): bool
+    {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable($helper::TYPE_CONFIG, $this->getQuote(), $this->getStoreId());
     }
 }

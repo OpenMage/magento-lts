@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * admin product edit tabs
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
@@ -31,12 +24,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
         $this->setTitle(Mage::helper('catalog')->__('Product Information'));
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         $product = $this->getProduct();
 
         if (!($setId = $product->getAttributeSetId())) {
-            $setId = $this->getRequest()->getParam('set', null);
+            $setId = $this->getRequest()->getParam('set');
         }
 
         if ($setId) {
@@ -55,22 +49,23 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                     }
                 }
 
-                if (count($attributes) == 0) {
+                if (count($attributes) === 0) {
                     continue;
                 }
 
                 $this->addTab('group_' . $group->getId(), [
                     'label'     => Mage::helper('catalog')->__($group->getAttributeGroupName()),
+                    'code'      => $group->getAttributeGroupName(),
                     'content'   => $this->_translateHtml($this->getLayout()->createBlock(
                         $this->getAttributeTabBlock(),
-                        'adminhtml.catalog.product.edit.tab.attributes'
+                        'adminhtml.catalog.product.edit.tab.attributes',
                     )->setGroup($group)
                             ->setGroupAttributes($attributes)
                             ->toHtml()),
                 ]);
             }
 
-            if (Mage::helper('core')->isModuleEnabled('Mage_CatalogInventory')) {
+            if ($this->isModuleEnabled('Mage_CatalogInventory')) {
                 $this->addTab('inventory', [
                     'label'     => Mage::helper('catalog')->__('Inventory'),
                     'content'   => $this->_translateHtml($this->getLayout()
@@ -113,11 +108,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 'class'     => 'ajax',
             ]);
 
-            $storeId = 0;
-            if ($this->getRequest()->getParam('store')) {
-                $storeId = Mage::app()->getStore($this->getRequest()->getParam('store'))->getId();
-            }
-
             $alertPriceAllow = Mage::getStoreConfig('catalog/productalert/allow_price');
             $alertStockAllow = Mage::getStoreConfig('catalog/productalert/allow_stock');
 
@@ -125,34 +115,34 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 $this->addTab('productalert', [
                     'label'     => Mage::helper('catalog')->__('Product Alerts'),
                     'content'   => $this->_translateHtml($this->getLayout()
-                        ->createBlock('adminhtml/catalog_product_edit_tab_alerts', 'admin.alerts.products')->toHtml())
+                        ->createBlock('adminhtml/catalog_product_edit_tab_alerts', 'admin.alerts.products')->toHtml()),
                 ]);
             }
 
             if ($this->getRequest()->getParam('id', false)) {
-                if (Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
-                    if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')) {
-                        $this->addTab('reviews', [
-                            'label' => Mage::helper('catalog')->__('Product Reviews'),
-                            'url'   => $this->getUrl('*/*/reviews', ['_current' => true]),
-                            'class' => 'ajax',
-                        ]);
-                    }
+                if ($this->isModuleEnabled('Mage_Review', 'catalog')
+                    && Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')
+                ) {
+                    $this->addTab('reviews', [
+                        'label' => Mage::helper('catalog')->__('Product Reviews'),
+                        'url'   => $this->getUrl('*/*/reviews', ['_current' => true]),
+                        'class' => 'ajax',
+                    ]);
                 }
-                if (Mage::helper('catalog')->isModuleEnabled('Mage_Tag')) {
-                    if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')) {
-                        $this->addTab('tags', [
-                         'label'     => Mage::helper('catalog')->__('Product Tags'),
-                         'url'   => $this->getUrl('*/*/tagGrid', ['_current' => true]),
-                         'class' => 'ajax',
-                        ]);
 
-                        $this->addTab('customers_tags', [
-                            'label'     => Mage::helper('catalog')->__('Customers Tagged Product'),
-                            'url'   => $this->getUrl('*/*/tagCustomerGrid', ['_current' => true]),
-                            'class' => 'ajax',
-                        ]);
-                    }
+                if ($this->isModuleEnabled('Mage_Tag', 'catalog')
+                    && Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')
+                ) {
+                    $this->addTab('tags', [
+                        'label'     => Mage::helper('catalog')->__('Product Tags'),
+                        'url'   => $this->getUrl('*/*/tagGrid', ['_current' => true]),
+                        'class' => 'ajax',
+                    ]);
+                    $this->addTab('customers_tags', [
+                        'label'     => Mage::helper('catalog')->__('Customers Tagged Product'),
+                        'url'   => $this->getUrl('*/*/tagCustomerGrid', ['_current' => true]),
+                        'class' => 'ajax',
+                    ]);
                 }
             }
 
@@ -173,9 +163,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 'label'     => Mage::helper('catalog')->__('Settings'),
                 'content'   => $this->_translateHtml($this->getLayout()
                     ->createBlock('adminhtml/catalog_product_edit_tab_settings')->toHtml()),
-                'active'    => true
+                'active'    => true,
             ]);
         }
+
         return parent::_prepareLayout();
     }
 
@@ -186,22 +177,24 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
      */
     public function getProduct()
     {
-        if (!($this->getData('product') instanceof Mage_Catalog_Model_Product)) {
+        if (!($this->getDataByKey('product') instanceof Mage_Catalog_Model_Product)) {
             $this->setData('product', Mage::registry('product'));
         }
-        return $this->getData('product');
+
+        return $this->getDataByKey('product');
     }
 
     /**
      * Getting attribute block name for tabs
      *
-     * @return string|null
+     * @return null|string
      */
     public function getAttributeTabBlock()
     {
         if (is_null(Mage::helper('adminhtml/catalog')->getAttributeTabBlock())) {
             return $this->_attributeTabBlock;
         }
+
         return Mage::helper('adminhtml/catalog')->getAttributeTabBlock();
     }
 
@@ -214,7 +207,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
     /**
      * Translate html content
      *
-     * @param string $html
+     * @param  string $html
      * @return string
      */
     protected function _translateHtml($html)

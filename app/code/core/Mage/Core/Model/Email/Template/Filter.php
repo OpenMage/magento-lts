@@ -1,26 +1,24 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Email Template Filter Model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 {
+    /**
+     * Config node listing the layout handles that the {{layout}} directive may render
+     */
+    public const XML_PATH_ALLOWED_LAYOUT_HANDLES = 'global/template/email_layout_handles';
+
     /**
      * Use absolute links flag
      *
@@ -57,19 +55,18 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     protected $_inlineCssFile = false;
 
-    /** @var Mage_Admin_Model_Variable  */
+    /** @var Mage_Admin_Model_Variable */
     protected $_permissionVariable;
 
-    /** @var Mage_Admin_Model_Block  */
+    /** @var Mage_Admin_Model_Block */
     protected $_permissionBlock;
 
     /**
      * Setup callbacks for filters
-     *
      */
     public function __construct()
     {
-        $this->_modifiers['escape'] = [$this, 'modifierEscape'];
+        $this->_modifiers['escape'] = $this->modifierEscape(...);
         $this->_permissionVariable = Mage::getModel('admin/variable');
         $this->_permissionBlock = Mage::getModel('admin/block');
     }
@@ -77,7 +74,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Set use absolute links flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setUseAbsoluteLinks($flag)
@@ -90,7 +87,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Setter whether SID is allowed in store directive
      * Doesn't set anything intentionally, since SID is not allowed in any kind of emails
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setUseSessionInUrl($flag)
@@ -102,12 +99,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Setter
      *
-     * @param bool $plainTemplateMode
+     * @param  bool  $plainTemplateMode
      * @return $this
      */
     public function setPlainTemplateMode($plainTemplateMode)
     {
-        $this->_plainTemplateMode = (bool)$plainTemplateMode;
+        $this->_plainTemplateMode = (bool) $plainTemplateMode;
         return $this;
     }
 
@@ -124,7 +121,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Setter
      *
-     * @param Mage_Core_Model_Store|int $storeId
+     * @param  int|Mage_Core_Model_Store $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -138,21 +135,22 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * if $_storeId is null return Design store id
      *
      * @return int
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()
     {
-        if ($this->_storeId === null) {
-            $this->_storeId = Mage::app()->getStore()->getId();
-        }
+        $this->_storeId ??= Mage::app()->getStore()->getId();
+
         return $this->_storeId;
     }
 
     /**
      * Retrieve Block html directive
      *
-     * @param array $construction
+     * @param  array               $construction
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function blockDirective($construction)
     {
@@ -177,11 +175,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         if ($block) {
             $block->setBlockParams($blockParameters);
-            foreach ($blockParameters as $k => $v) {
-                if (in_array($k, $skipParams)) {
+            foreach ($blockParameters as $key => $value) {
+                if (in_array($key, $skipParams)) {
                     continue;
                 }
-                $block->setDataUsingMethod($k, $v);
+
+                $block->setDataUsingMethod($key, $value);
             }
         } else {
             return '';
@@ -190,16 +189,18 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (isset($blockParameters['output'])) {
             $method = $blockParameters['output'];
         }
+
         if (!isset($method) || !is_string($method) || !method_exists($block, $method)) {
             $method = 'toHtml';
         }
+
         return $block->$method();
     }
 
     /**
      * Retrieve layout html directive
      *
-     * @param array $construction
+     * @param  array               $construction
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -208,6 +209,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $skipParams = ['handle', 'area'];
 
         $params = $this->_getIncludeParameters($construction[2]);
+        $handle = isset($params['handle']) && is_string($params['handle']) ? $params['handle'] : '';
+        if (!$this->isLayoutHandleAllowed($handle)) {
+            Mage::log('Security problem: layout handle ' . $handle . ' has not been whitelisted.');
+            return '';
+        }
+
         $layout = Mage::getModel('core/layout');
         /** @var Mage_Core_Model_Layout $layout */
         if (isset($params['area'])) {
@@ -216,20 +223,20 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             $layout->setArea(Mage::app()->getLayout()->getArea());
         }
 
-        $layout->getUpdate()->addHandle($params['handle']);
+        $layout->getUpdate()->addHandle($handle);
         $layout->getUpdate()->load();
 
         $layout->generateXml();
         $layout->generateBlocks();
 
         /** @var Mage_Core_Block_Abstract $block */
-        foreach ($layout->getAllBlocks() as $blockName => $block) {
-            foreach ($params as $k => $v) {
-                if (in_array($k, $skipParams)) {
+        foreach ($layout->getAllBlocks() as $block) {
+            foreach ($params as $key => $value) {
+                if (in_array($key, $skipParams)) {
                     continue;
                 }
 
-                $block->setDataUsingMethod($k, $v);
+                $block->setDataUsingMethod($key, $value);
             }
         }
 
@@ -247,9 +254,37 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     }
 
     /**
+     * Whether a layout handle may be rendered by the {{layout}} directive
+     *
+     * Template content can be edited by admin roles that are not trusted with arbitrary blocks (see the block
+     * whitelist enforced by blockDirective()), so only handles declared under
+     * global/template/email_layout_handles are rendered. Modules that ship email layout handles declare them there.
+     */
+    public function isLayoutHandleAllowed(string $handle): bool
+    {
+        if ($handle === '') {
+            return false;
+        }
+
+        $config = Mage::getConfig();
+        $allowed = $config instanceof Mage_Core_Model_Config ? $config->getNode(self::XML_PATH_ALLOWED_LAYOUT_HANDLES) : false;
+        if (!$allowed instanceof Varien_Simplexml_Element) {
+            return false;
+        }
+
+        foreach ($allowed->children() as $node) {
+            if ($node->getName() === $handle) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Retrieve block parameters
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return array
      */
     protected function _getBlockParameters($value)
@@ -263,7 +298,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Retrieve Skin URL directive
      *
-     * @param array $construction
+     * @param  array     $construction
      * @return string
      * @throws Exception
      */
@@ -278,7 +313,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Retrieve media file URL directive
      *
-     * @param array $construction
+     * @param  array  $construction
      * @return string
      */
     public function mediaDirective($construction)
@@ -291,22 +326,23 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Retrieve store URL directive
      * Support url and direct_url properties
      *
-     * @param array $construction
+     * @param  array                           $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function storeDirective($construction)
     {
         $params = $this->_getIncludeParameters($construction[2]);
-        if (!isset($params['_query'])) {
-            $params['_query'] = [];
-        }
-        foreach ($params as $k => $v) {
-            if (str_starts_with($k, '_query_')) {
-                $params['_query'][substr($k, 7)] = $v;
-                unset($params[$k]);
+        $params['_query'] ??= [];
+
+        foreach ($params as $key => $value) {
+            if (str_starts_with($key, '_query_')) {
+                $params['_query'][substr($key, 7)] = $value;
+                unset($params[$key]);
             }
         }
+
         $params['_absolute'] = $this->_useAbsoluteLinks;
 
         if ($this->_useSessionInUrl === false) {
@@ -330,7 +366,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Supported options:
      *     allowed_tags - Comma separated html tags that have not to be converted
      *
-     * @param array $construction
+     * @param  array  $construction
      * @return string
      */
     public function htmlescapeDirective($construction)
@@ -351,22 +387,24 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Var directive with modifiers support
      *
-     * @param array $construction
+     * @param  array               $construction
      * @return string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function varDirective($construction)
     {
-        if (count($this->_templateVars) == 0) {
+        if (count($this->_templateVars) === 0) {
             // If template preprocessing
             return $construction[0];
         }
 
         $parts = explode('|', $construction[2], 2);
         if (count($parts) === 2) {
-            list($variableName, $modifiersString) = $parts;
+            [$variableName, $modifiersString] = $parts;
             return $this->_amplifyModifiers($this->_getVariable($variableName, ''), $modifiersString);
         }
+
         return $this->_getVariable($construction[2], '');
     }
 
@@ -375,8 +413,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * Modifier syntax: modifier1[:param1:param2:...][|modifier2:...]
      *
-     * @param string $value
-     * @param string $modifiers
+     * @param  string $value
+     * @param  string $modifiers
      * @return string
      */
     protected function _amplifyModifiers($value, $modifiers)
@@ -385,6 +423,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             if (empty($part)) {
                 continue;
             }
+
             $params   = explode(':', $part);
             $modifier = array_shift($params);
             if (isset($this->_modifiers[$modifier])) {
@@ -392,33 +431,30 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
                 if (!$callback) {
                     $callback = $modifier;
                 }
+
                 array_unshift($params, $value);
                 $value = call_user_func_array($callback, $params);
             }
         }
+
         return $value;
     }
 
     /**
      * Escape specified string
      *
-     * @param string $value
-     * @param string $type
+     * @param  string $value
+     * @param  string $type
      * @return string
      */
     public function modifierEscape($value, $type = 'html')
     {
-        switch ($type) {
-            case 'html':
-                return htmlspecialchars($value, ENT_QUOTES);
-
-            case 'htmlentities':
-                return htmlentities($value, ENT_QUOTES);
-
-            case 'url':
-                return rawurlencode($value);
-        }
-        return $value;
+        return match ($type) {
+            'html' => htmlspecialchars($value, ENT_QUOTES),
+            'htmlentities' => htmlentities($value, ENT_QUOTES),
+            'url' => rawurlencode($value),
+            default => $value,
+        };
     }
 
     /**
@@ -430,25 +466,26 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * {{protocol http="http://url" https="https://url"}
      * also allow additional parameter "store"
      *
-     * @param array $construction
+     * @param  array                           $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function protocolDirective($construction)
     {
         $params = $this->_getIncludeParameters($construction[2]);
-        $store = null;
-        if (isset($params['store'])) {
-            $store = Mage::app()->getSafeStore($params['store']);
-        }
-        $isSecure = Mage::app()->getStore($store)->isCurrentlySecure();
+
+        $isSecure = Mage::app()->isCurrentlySecure();
         $protocol = $isSecure ? 'https' : 'http';
         if (isset($params['url'])) {
             return $protocol . '://' . $params['url'];
-        } elseif (isset($params['http']) && isset($params['https'])) {
+        }
+
+        if (isset($params['http']) && isset($params['https'])) {
             if ($isSecure) {
                 return $params['https'];
             }
+
             return $params['http'];
         }
 
@@ -458,8 +495,9 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Store config directive
      *
-     * @param array $construction
+     * @param  array                           $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function configDirective($construction)
@@ -468,16 +506,18 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $params = $this->_getIncludeParameters($construction[2]);
         $storeId = $this->getStoreId();
         if (isset($params['path']) && $this->_permissionVariable->isPathAllowed($params['path'])) {
-            $configValue = Mage::getStoreConfig($params['path'], $storeId);
+            return Mage::getStoreConfig($params['path'], $storeId);
         }
+
         return $configValue;
     }
 
     /**
      * Custom Variable directive
      *
-     * @param array $construction
+     * @param  array                           $construction
      * @return string
+     * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
     public function customvarDirective($construction)
@@ -495,6 +535,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
                 $customVarValue = $value;
             }
         }
+
         return $customVarValue;
     }
 
@@ -503,7 +544,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Syntax: {{inlinecss file=""}}  If this directive is used, the file will be stored on this object so that
      * it can be retrieved later
      *
-     * @param array $construction
+     * @param  array  $construction
      * @return string
      */
     public function inlinecssDirective($construction)
@@ -512,13 +553,14 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         if (isset($params['file'])) {
             $this->_setInlineCssFile($params['file']);
         }
+
         return '';
     }
 
     /**
      * Set filename of CSS file to inline
      *
-     * @param string $filename
+     * @param  string $filename
      * @return $this
      */
     protected function _setInlineCssFile($filename)
@@ -539,39 +581,43 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
     /**
      * Filter the string as template.
-     * Rewrited for logging exceptions
+     * Rewritten for logging exceptions
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
+    #[Override]
     public function filter($value)
     {
         try {
             $value = parent::filter($value);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $value = '';
-            Mage::logException($e);
+            Mage::logException($exception);
         }
+
         return $value;
     }
 
     /**
      * Return variable value for var construction
      *
-     * @param string $value raw parameters
-     * @param string $default default value
+     * @param  string              $value   raw parameters
+     * @param  string              $default default value
      * @return string
      * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _getVariable($value, $default = '{no_value_defined}')
     {
         Mage::register('varProcessing', true);
         try {
             $result = parent::_getVariable($value, $default);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $result = '';
-            Mage::logException($e);
+            Mage::logException($exception);
         }
+
         Mage::unregister('varProcessing');
         return $result;
     }

@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Mage\Sitemap\Model;
+
+use Mage_Sitemap_Model_Sitemap as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\SitemapTrait;
+use Throwable;
+
+final class SitemapTest extends OpenMageTest
+{
+    use SitemapTrait;
+
+    /**
+     * @dataProvider provideGetPreparedFilenameData
+     * @param array<string, string> $data
+     * @group Model
+     */
+    public function testGetPreparedFilename(array $data): void
+    {
+        $mock = $this->getMockWithCalledMethods(Subject::class, []);
+        $mock->setData($data);
+
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertIsString($mock->getPreparedFilename());
+    }
+
+    /**
+     * @dataProvider provideGenerateXmlData
+     * @param array<string, string> $data
+     * @group Model
+     * @throws Throwable
+     * @todo  test validation
+     * @todo  test content of xml
+     */
+    public function testGenerateXml(array $data): void
+    {
+        $mock = $this->getMockWithCalledMethods(Subject::class, ['save' => null]);
+        $mock->setData($data);
+        self::assertInstanceOf(Subject::class, $mock);
+
+        $result = $mock->generateXml();
+        self::assertInstanceOf(Subject::class, $result);
+
+        /** @var string $file */
+        $file = $data['sitemap_filename'];
+        self::assertFileExists($file);
+        unlink($file);
+    }
+}

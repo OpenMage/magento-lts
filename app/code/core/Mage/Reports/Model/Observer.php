@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Reports Observer
  */
@@ -7,7 +8,7 @@ class Mage_Reports_Model_Observer
     /**
      * Refresh viewed report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
      * @return $this
      */
     public function aggregateReportsReportProductViewedData($schedule)

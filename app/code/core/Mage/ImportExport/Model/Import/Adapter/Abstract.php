@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract import adapter
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements SeekableIterator
@@ -59,7 +52,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Adapter object constructor.
      *
-     * @param string $source Source file path.
+     * @param  string              $source source file path
      * @throws Mage_Core_Exception
      */
     final public function __construct($source)
@@ -69,9 +62,11 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
         if (!is_string($source)) {
             Mage::throwException(Mage::helper('importexport')->__('Source file path must be a string'));
         }
+
         if (!is_readable($source)) {
-            Mage::throwException(Mage::helper('importexport')->__("%s file does not exists or is not readable", $source));
+            Mage::throwException(Mage::helper('importexport')->__('%s file does not exists or is not readable', $source));
         }
+
         $this->_source = $source;
 
         $this->_init();
@@ -80,7 +75,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
         if (is_array($this->_colNames) && !empty($this->_colNames)) {
             $this->_colQuantity = count($this->_colNames);
 
-            if (count(array_unique($this->_colNames)) != $this->_colQuantity) {
+            if (count(array_unique($this->_colNames)) !== $this->_colQuantity) {
                 Mage::throwException(Mage::helper('importexport')->__('Column names have duplicates'));
             }
         } else {
@@ -91,14 +86,12 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Destruct method on shutdown
      */
-    public function destruct()
-    {
-    }
+    public function destruct() {}
 
     /**
      * Method called as last step of object instance creation. Can be overridden in child classes.
      *
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return $this
      */
     protected function _init()
     {
@@ -110,14 +103,14 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @return array
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function current()
     {
         return array_combine(
             $this->_colNames,
             count($this->_currentRow) != $this->_colQuantity
                     ? array_pad($this->_currentRow, $this->_colQuantity, '')
-                    : $this->_currentRow
+                    : $this->_currentRow,
         );
     }
 
@@ -134,9 +127,9 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Return the key of the current element.
      *
-     * @return int More than 0 integer on success, integer 0 on failure.
+     * @return int more than 0 integer on success, integer 0 on failure
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->_currentKey;
@@ -145,9 +138,9 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Seeks to a position.
      *
-     * @param int $position The position to seek to.
+     * @param int $position the position to seek to
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function seek($position)
     {
         Mage::throwException(Mage::helper('importexport')->__('Not implemented yet'));
@@ -156,9 +149,9 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Checks if current position is valid.
      *
-     * @return bool Returns true on success or false on failure.
+     * @return bool returns true on success or false on failure
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function valid()
     {
         return !empty($this->_currentRow);
@@ -167,7 +160,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Check source file for validity.
      *
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return $this
      */
     public function validateSource()
     {

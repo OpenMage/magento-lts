@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * File uploader for API
  *
- * @category   Mage
  * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Uploader
@@ -36,29 +29,29 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     /**
      * Check if the uploaded file exists
      *
+     * @param  array     $file
      * @throws Exception
-     * @param array $file
      */
     public function __construct($file)
     {
         $this->_setUploadFile($file);
         if (!file_exists($this->_file['tmp_name'])) {
-            throw new Exception('', 'file_not_uploaded');
-        } else {
-            $this->_fileExists = true;
+            throw new Exception('file_not_uploaded');
         }
+
+        $this->_fileExists = true;
     }
 
     /**
      * Sets uploaded file info and decodes the file
      *
+     * @param  array     $fileInfo
      * @throws Exception
-     * @param array $fileInfo
      */
     private function _setUploadFile($fileInfo)
     {
         if (!is_array($fileInfo)) {
-            throw new Exception('', 'file_data_not_correct');
+            throw new Exception('file_data_not_correct');
         }
 
         $this->_file = $this->_decodeFile($fileInfo);
@@ -68,8 +61,8 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     /**
      * Decode uploaded file base64 encoded content
      *
-     * @param array $fileInfo
-     * @return array
+     * @param  array                $fileInfo
+     * @return array<string, mixed>
      */
     private function _decodeFile($fileInfo)
     {
@@ -86,7 +79,7 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
             'type' => $fileInfo['type'] ?? self::DEFAULT_FILE_TYPE,
             'tmp_name' => $tmpFileName,
             'error' => 0,
-            'size' => filesize($tmpFileName)
+            'size' => filesize($tmpFileName),
         ];
     }
 
@@ -103,10 +96,11 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     /**
      * Moves a file
      *
-     * @param string $sourceFile
-     * @param string $destinationFile
+     * @param  string $sourceFile
+     * @param  string $destinationFile
      * @return bool
      */
+    #[Override]
     protected function _moveFile($sourceFile, $destinationFile)
     {
         return rename($sourceFile, $destinationFile);

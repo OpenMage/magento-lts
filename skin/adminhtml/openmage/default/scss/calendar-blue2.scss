@@ -1,0 +1,246 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass calendar-blue2.scss ../calendar-blue2.css
+ */
+
+@import "base";
+
+.calendar {
+  box-shadow: 1px 3px 4px $color_silver_approx;
+
+  table {
+    color: $openmage_base_blue_text;
+    cursor: default;
+    background: $white;
+    font: 400 12px/1.33 'Open Sans', sans-serif;
+
+    .wn {
+      padding: 2px 3px 2px 2px;
+      border-right: 1px solid $black;
+      background: $white;
+    }
+  }
+
+  .button {
+    text-align: center;
+    padding: 2px;
+  }
+
+  thead {
+    .title {
+      font-weight: 600;
+      text-align: center;
+      color: $white;
+      padding: 2px;
+    }
+
+    tr {
+      background: $openmage_base_blue;
+      color: $white;
+    }
+
+    .daynames {
+      background: $white;
+    }
+
+    .name {
+      border-bottom: 1px solid $openmage_base_blue;
+      padding: 2px;
+      text-align: center;
+      color: $openmage_base_blue_text;
+    }
+
+    .weekend {
+      color: $openmage_red_dark;
+    }
+
+    .hilite {
+      background-color: $openmage_base_blue_dark;
+      color: $white;
+    }
+
+    .active {
+      background-color: $openmage_base_blue_dark;
+      color: $white;
+      padding: 2px 0 0 2px;
+    }
+  }
+
+  tbody {
+    .day {
+      width: 2em;
+      color: $openmage_base_blue_text;
+      text-align: right;
+      padding: 2px 4px 2px 2px;
+
+      &.othermonth {
+        font-size: 80%;
+        color: $color_silver_approx;
+
+        &.oweekend {
+          color: $openmage_red_dark;
+        }
+      }
+    }
+
+    td {
+      &.hilite {
+        background: $openmage_blue_light;
+        padding: 1px 3px 1px 1px;
+        border: 1px solid $openmage_base_blue;
+      }
+
+      &.active {
+        background: $openmage_base_blue_dark;
+        padding: 2px 2px 0 2px;
+      }
+
+      &.selected {
+        font-weight: 600;
+        border: 1px solid $black;
+        padding: 1px 3px 1px 1px;
+        background: $white;
+        color: $openmage_base_blue_text;
+      }
+
+      &.weekend {
+        color: $openmage_red_dark;
+      }
+
+      &.today {
+        font-weight: 600;
+        color: $openmage_red;
+      }
+    }
+
+    .disabled {
+      color: $color_silver_approx;
+    }
+
+    .emptycell {
+      visibility: hidden;
+    }
+
+    .emptyrow {
+      display: none;
+    }
+
+    .rowhilite td {
+      background: $openmage_blue_light;
+
+      &.wn {
+        background: $openmage_blue_light;
+      }
+    }
+  }
+
+  tfoot {
+    .footrow {
+      text-align: center;
+      background: $openmage_base_blue;
+      color: $white;
+    }
+
+    .ttip {
+      color: $white;
+      padding: 4px;
+    }
+
+    .hilite {
+      background: $openmage_base_blue_dark;
+      border: 1px solid $openmage_base_blue_dark;
+      color: $white;
+      padding: 1px;
+    }
+
+    .active {
+      background: $openmage_base_blue_dark;
+      color: $white;
+      padding: 2px 0 0 2px;
+    }
+  }
+
+  .combo {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 4em;
+    cursor: default;
+    border: 1px solid $openmage_base_blue;
+    background: $white;
+    color: $openmage_base_blue_text;
+    font-size: 90%;
+    z-index: 100;
+
+    .label {
+      text-align: center;
+      padding: 1px;
+    }
+
+    .label-IEfix {
+      text-align: center;
+      padding: 1px;
+      width: 4em;
+    }
+
+    .hilite {
+      background: $openmage_base_blue_dark;
+      border-top: 1px solid $openmage_base_blue_dark;
+      border-bottom: 1px solid $openmage_base_blue_dark;
+      color: $white;
+      font-weight: 600;
+    }
+
+    .active {
+      border-top: 1px solid $openmage_base_blue_dark;
+      border-bottom: 1px solid $openmage_base_blue_dark;
+      background: $openmage_base_blue_dark;
+      color: white;
+      font-weight: 600;
+    }
+  }
+
+  td.time {
+    border-top: 1px solid $black;
+    padding: 5px 0;
+    text-align: center;
+    background-color: $white;
+
+    .hour {
+      @extend %extend_28;
+    }
+
+    .minute {
+      @extend %extend_28;
+    }
+
+    .ampm {
+      @extend %extend_28;
+      text-align: center;
+    }
+
+    .colon {
+      padding: 0 2px 0 3px;
+      font-weight: 600;
+    }
+
+    span {
+      &.hilite {
+        border-color: $openmage_blue_dark;
+        background-color: $openmage_blue_dark;
+        color: $white;
+      }
+
+      &.active {
+        border-color: $black;
+        background-color: $black;
+        color: $white;
+      }
+    }
+  }
+}
+
+div.calendar {
+  position: relative;
+}

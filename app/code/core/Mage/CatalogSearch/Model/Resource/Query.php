@@ -1,29 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog search query resource model
  *
- * @category   Mage
  * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Init resource data
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -33,8 +25,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     /**
      * Custom load model by search query string
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function loadByQuery(Mage_Core_Model_Abstract $object, $value)
@@ -52,7 +43,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
 
         $synonymSelect->where('synonym_for = ?', $value);
 
-        $select->union([$querySelect, "($synonymSelect)"], Zend_Db_Select::SQL_UNION_ALL)
+        $select->union([$querySelect, "({$synonymSelect})"], Zend_Db_Select::SQL_UNION_ALL)
             ->order('synonym_for ASC')
             ->limit(1);
 
@@ -68,8 +59,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     /**
      * Custom load model only by query text (skip synonym for)
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function loadByQueryText(Mage_Core_Model_Abstract $object, $value)
@@ -83,31 +73,34 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
             $object->setData($data);
             $this->_afterLoad($object);
         }
+
         return $this;
     }
 
     /**
      * Loading string as a value or regular numeric
      *
-     * @param int|string $value
+     * @param int|string  $value
      * @param null|string $field
      * @inheritDoc
      */
+    #[Override]
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
         if (is_numeric($value)) {
             return parent::load($object, $value);
-        } else {
-            $this->loadByQuery($object, $value);
         }
+
+        $this->loadByQuery($object, $value);
+
         return $this;
     }
 
     /**
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
-    public function _beforeSave(Mage_Core_Model_Abstract $object)
+    #[Override]
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $object->setUpdatedAt($this->formatDate(Mage::getModel('core/date')->gmtTimestamp()));
         return $this;

@@ -1,22 +1,17 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
 
 /**
  * Model  for flex reports
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Test extends Varien_Object
@@ -30,7 +25,7 @@ class Mage_Reports_Model_Test extends Varien_Object
     }
 
     /**
-     * @param int $countryId
+     * @param  int    $countryId
      * @return string
      */
     public function getUsersCities($countryId)
@@ -46,10 +41,8 @@ class Mage_Reports_Model_Test extends Varien_Object
         for ($i = 0; $i < $rows -> length; $i++) {
             for ($j = 0; $j < $rows -> item($i) -> childNodes -> length; $j++) {
                 if ($rows -> item($i) -> childNodes -> item($j) -> nodeType == XML_ELEMENT_NODE
-                        &&
-                    $rows -> item($i) -> childNodes -> item($j) -> nodeName == 'countryId'
-                        &&
-                    $rows -> item($i) -> childNodes -> item($j) -> nodeValue != $countryId
+                    && $rows -> item($i) -> childNodes -> item($j) -> nodeName == 'countryId'
+                    && $rows -> item($i) -> childNodes -> item($j) -> nodeValue != $countryId
                 ) {
                     $childsToRemove[] = $rows -> item($i);
                 }
@@ -77,17 +70,17 @@ class Mage_Reports_Model_Test extends Varien_Object
     public function getAllLinearExample()
     {
         $session = Mage::getModel('review/session');
-
-        $startPoint = time() - 24 * 60 * 60;
+        $startPoint = Carbon::now()->subDays(1)->getTimestamp();
+        $format = 'Y-m-d H:i';
 
         $allData = [];
         $countOfStartData = 12;
         for ($i = 1; $i <= $countOfStartData; $i++) {
-            $allData[] = ['time' => date("Y-m-d H:i", $startPoint), 'value' => rand(1, 100)];
+            $allData[] = ['time' => Carbon::createFromTimestamp($startPoint)->format($format), 'value' => random_int(1, 100)];
             $startPoint += 30 * 60;
         }
 
-        $allData[] = ['time' => date("Y-m-d H:i", $startPoint + (90 * 60))];
+        $allData[] = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format($format)];
 
         $session -> setData('startPoint', $startPoint);
 
@@ -100,17 +93,16 @@ class Mage_Reports_Model_Test extends Varien_Object
     public function getNewLinearData()
     {
         $session = Mage::getModel('review/session');
-
-        $startPoint = $session->getData('startPoint');
-
+        $startPoint = $session->getDataByKey('startPoint');
         $reset = 12;
+        $format = 'Y-m-d H:i';
 
         $newData  = [
-            ['time' => date("Y-m-d H:i", $startPoint), 'value' => rand(1, 100)]
+            ['time' => Carbon::createFromTimestamp($startPoint)->format($format), 'value' => random_int(1, 100)],
         ];
 
         $startPoint += 30 * 60;
-        $newData[]  = ['time' => date("Y-m-d H:i", $startPoint + (90 * 60))];
+        $newData[]  = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format($format)];
 
         $session->setData('startPoint', $startPoint);
 
@@ -118,21 +110,23 @@ class Mage_Reports_Model_Test extends Varien_Object
     }
 
     /**
-     * @param array $array
-     * @param int $reset
+     * @param  array  $array
+     * @param  int    $reset
      * @return string
      */
     private function returnAsDataSource(&$array, $reset = 0)
     {
         $dom = new DOMDocument();
         $dom -> preserveWhiteSpace = false;
-        $dom -> loadXML("<" . "?xml version=\"1.0\" encoding=\"UTF-8\"?" . ">\n<dataSource></dataSource>");
+        $dom -> loadXML('<?xml version="1.0" encoding="UTF-8"?' . ">\n<dataSource></dataSource>");
+
         $root = $dom ->documentElement;
         if ($reset) {
-            $resetItem = $dom -> createElement("reset");
+            $resetItem = $dom -> createElement('reset');
             $resetItem -> nodeValue = $reset;
             $root->appendChild($resetItem);
         }
+
         foreach ($array as $item) {
             $row = $dom->createElement('row');
             foreach ($item as $key => $val) {

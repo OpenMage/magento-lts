@@ -1,30 +1,32 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml footer block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method bool  getShowProfiler()
+ * @method $this setShowProfiler(bool $value)
  */
 class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 {
     public const LOCALE_CACHE_LIFETIME = 7200;
+
     public const LOCALE_CACHE_KEY      = 'footer_locale';
+
     public const LOCALE_CACHE_TAG      = 'adminhtml';
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('page/footer.phtml');
@@ -80,26 +82,6 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @param string $url
-     * @return $this
-     * @deprecated see setReportIssuesUrl()
-     */
-    public function setBugreportUrl(string $url)
-    {
-        return $this->setReportIssuesUrl($url);
-    }
-
-    /**
-     * @return string
-     * @deprecated see getReportIssuesUrl()
-     */
-    public function getBugreportUrl(): string
-    {
-        return $this->getReportIssuesUrl();
-    }
-
-    /**
-     * @param string $url
      * @return $this
      */
     public function setReportIssuesUrl(string $url)
@@ -107,35 +89,12 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
         return $this->setData('report_issues_url', $url);
     }
 
-    /**
-     * @return string
-     */
     public function getReportIssuesUrl(): string
     {
         return (string) $this->_getData('report_issues_url');
     }
 
     /**
-     * @param string $url
-     * @return $this
-     * @deprecated see setOpenMageProjectUrl()
-     */
-    public function setConnectWithMagentoUrl(string $url)
-    {
-        return $this->setOpenMageProjectUrl($url);
-    }
-
-    /**
-     * @return string
-     * @deprecated see getOpenMageProjectUrl()
-     */
-    public function getConnectWithMagentoUrl(): string
-    {
-        return $this->getOpenMageProjectUrl();
-    }
-
-    /**
-     * @param string $url
      * @return $this
      */
     public function setOpenMageProjectUrl(string $url)
@@ -143,9 +102,6 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
         return $this->setData('openmage_project_url', $url);
     }
 
-    /**
-     * @return string
-     */
     public function getOpenMageProjectUrl(): string
     {
         return (string) $this->_getData('openmage_project_url');

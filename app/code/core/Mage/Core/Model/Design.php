@@ -1,37 +1,35 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Resource_Design _getResource()
- * @method Mage_Core_Model_Resource_Design getResource()
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getDesign()
- * @method $this setDesign(string $value)
- * @method string getDateFrom()
- * @method $this setDateFrom(string $value)
- * @method string getDateTo()
- * @method $this setDateTo(string $value)
- * @method string getPackage()
- * @method string getTheme()
+ * @method Mage_Core_Model_Resource_Design            _getResource()
+ * @method Mage_Core_Model_Resource_Design_Collection getCollection()
+ * @method string                                     getDateFrom()
+ * @method string                                     getDateTo()
+ * @method string                                     getDesign()
+ * @method string                                     getPackage()
+ * @method Mage_Core_Model_Resource_Design            getResource()
+ * @method Mage_Core_Model_Resource_Design_Collection getResourceCollection()
+ * @method int                                        getStoreId()
+ * @method string                                     getTheme()
+ * @method $this                                      setDateFrom(string $value)
+ * @method $this                                      setDateTo(string $value)
+ * @method $this                                      setDesign(string $value)
+ * @method $this                                      setStoreId(int $value)
  */
 class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/design');
@@ -47,8 +45,8 @@ class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $storeId
-     * @param string|null $date
+     * @param  int         $storeId
+     * @param  null|string $date
      * @return $this
      */
     public function loadChange($storeId, $date = null)

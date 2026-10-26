@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Api
  */
 class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mage_Api_Model_Server_Adapter_Interface
@@ -24,7 +17,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
     /**
      * Set handler class name for webservice
      *
-     * @param string $handler
+     * @param  string $handler
      * @return $this
      */
     public function setHandler($handler)
@@ -40,13 +33,12 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
      */
     public function getHandler()
     {
-        return $this->getData('handler');
+        return $this->getDataByKey('handler');
     }
 
     /**
      * Set webservice api controller
      *
-     * @param Mage_Api_Controller_Action $controller
      * @return $this
      */
     public function setController(Mage_Api_Controller_Action $controller)
@@ -62,15 +54,16 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
      */
     public function getController()
     {
-        $controller = $this->getData('controller');
+        $controller = $this->getDataByKey('controller');
 
         if (null === $controller) {
             $controller = new Varien_Object(
-                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()]
+                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()],
             );
 
             $this->setData('controller', $controller);
         }
+
         return $controller;
     }
 
@@ -107,7 +100,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
         Mage::dispatchEvent('api_server_adapter_jsonrpc_run_after', [
             'method' => $method,
             'request' => $request,
-            'response' => $this->_jsonRpc->getResponse()
+            'response' => $this->_jsonRpc->getResponse(),
         ]);
 
         return $this;
@@ -116,7 +109,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
     /**
      * Dispatch webservice fault
      *
-     * @param int $code
+     * @param int    $code
      * @param string $message
      */
     public function fault($code, $message)

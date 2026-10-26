@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Default review helper
  *
- * @category   Mage
  * @package    Mage_Review
  */
 class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
@@ -26,7 +19,7 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Review';
 
     /**
-     * @param string $origDetail
+     * @param  string $origDetail
      * @return string
      */
     public function getDetail($origDetail)
@@ -36,7 +29,7 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * getDetailHtml return short detail info in HTML
-     * @param string $origDetail Full detail info
+     * @param  string $origDetail Full detail info
      * @return string
      */
     public function getDetailHtml($origDetail)
@@ -55,7 +48,7 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get review statuses with their codes
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getReviewStatuses()
     {
@@ -74,8 +67,11 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
     public function getReviewStatusesOptionArray()
     {
         $result = [];
-        foreach ($this->getReviewStatuses() as $k => $v) {
-            $result[] = ['value' => $k, 'label' => $v];
+        foreach ($this->getReviewStatuses() as $key => $value) {
+            $result[] = [
+                'value' => $key,
+                'label' => $value,
+            ];
         }
 
         return $result;

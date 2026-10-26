@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category abstract block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Block_Template
@@ -36,6 +29,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         if ($this->getCategory()) {
             return $this->getCategory()->getId();
         }
+
         return Mage_Catalog_Model_Category::TREE_ROOT_ID;
     }
 
@@ -49,16 +43,14 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         if ($this->getCategory()) {
             return $this->getCategory()->getPath();
         }
+
         return Mage_Catalog_Model_Category::TREE_ROOT_ID;
     }
 
     public function hasStoreRootCategory()
     {
         $root = $this->getRoot();
-        if ($root && $root->getId()) {
-            return true;
-        }
-        return false;
+        return $root && $root->getId();
     }
 
     public function getStore()
@@ -72,6 +64,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         if (!is_null($parentNodeCategory) && $parentNodeCategory->getId()) {
             return $this->getNode($parentNodeCategory, $recursionLevel);
         }
+
         $root = Mage::registry('root');
         if (is_null($root)) {
             $storeId = (int) $this->getRequest()->getParam('store');
@@ -113,8 +106,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
      * Tree with minimal required nodes (all parents and neighbours) will be built.
      * If ids are empty, default tree with depth = 2 will be returned.
      *
-     * @param array $ids
-     * @return mixed|Varien_Data_Tree_Node|null
+     * @param  array                            $ids
+     * @return null|mixed|Varien_Data_Tree_Node
      */
     public function getRootByIds($ids)
     {
@@ -132,6 +125,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
             $tree->addCollectionData($this->getCategoryCollection());
             Mage::register('root', $root);
         }
+
         return $root;
     }
 
@@ -163,7 +157,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
 
     public function getEditUrl()
     {
-        return $this->getUrl("*/catalog_category/edit", ['_current' => true, 'store' => null, '_query' => false, 'id' => null, 'parent' => null]);
+        return $this->getUrl('*/catalog_category/edit', ['_current' => true, 'store' => null, '_query' => false, 'id' => null, 'parent' => null]);
     }
 
     /**
@@ -173,14 +167,16 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
      */
     public function getRootIds()
     {
-        $ids = $this->getData('root_ids');
+        $ids = $this->getDataByKey('root_ids');
         if (is_null($ids)) {
             $ids = [];
             foreach (Mage::app()->getGroups() as $store) {
                 $ids[] = $store->getRootCategoryId();
             }
+
             $this->setData('root_ids', $ids);
         }
+
         return $ids;
     }
 }

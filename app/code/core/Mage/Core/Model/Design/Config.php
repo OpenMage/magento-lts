@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Configuration for Design model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
@@ -25,7 +18,6 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
 
     /**
      * Assemble themes inheritance config
-     * @param array $params
      * @throws Mage_Core_Exception
      */
     public function __construct(array $params = [])
@@ -34,10 +26,12 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
             if (!is_dir($params['designRoot'])) {
                 throw new Mage_Core_Exception("Design root '{$params['designRoot']}' isn't a directory.");
             }
+
             $this->_designRoot = $params['designRoot'];
         } else {
             $this->_designRoot = Mage::getBaseDir('design');
         }
+
         $this->_cacheChecksum = null;
         $this->setCacheId('config_theme');
         $this->setCache(Mage::app()->getCache());
@@ -48,10 +42,11 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
             foreach ($files as $file) {
                 $config = new Varien_Simplexml_Config();
                 $config->loadFile($file);
-                list($area, $package, $theme) = $this->_getThemePathSegments($file);
+                [$area, $package, $theme] = $this->_getThemePathSegments($file);
                 $this->setNode($area . '/' . $package . '/' . $theme, null);
                 $this->getNode($area . '/' . $package . '/' . $theme)->extend($config->getNode());
             }
+
             $this->saveCache();
         }
     }
@@ -61,20 +56,23 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
      *
      * @return bool
      */
+    #[Override]
     public function loadCache()
     {
         if ($this->_canUseCache()) {
             return parent::loadCache();
         }
+
         return false;
     }
 
     /**
      * Save cache
      *
-     * @param array $tags
+     * @param  array $tags
      * @return $this
      */
+    #[Override]
     public function saveCache($tags = null)
     {
         if ($this->_canUseCache()) {
@@ -82,8 +80,10 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
             if (!in_array(Mage_Core_Model_Config::CACHE_TAG, $tags)) {
                 $tags[] = Mage_Core_Model_Config::CACHE_TAG;
             }
+
             parent::saveCache($tags);
         }
+
         return $this;
     }
 
@@ -92,14 +92,14 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
      */
     protected function _canUseCache()
     {
-        return (bool)Mage::app()->useCache('config');
+        return (bool) Mage::app()->useCache('config');
     }
 
     /**
      * Get area, package and theme from path .../app/design/{area}/{package}/{theme}/etc/theme.xml
      *
-     * @param string $filePath
-     * @return array
+     * @param  string             $filePath
+     * @return array<int, string>
      */
     protected function _getThemePathSegments($filePath)
     {

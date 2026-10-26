@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Sales_Model_Order_Creditmemo_Total_Tax
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
@@ -24,9 +17,9 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
     /**
      * Collects the total tax for the credit memo
      *
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return $this
      */
+    #[Override]
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
         $shippingTaxAmount     = 0;
@@ -35,8 +28,6 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
         $baseTotalTax          = 0;
         $totalHiddenTax        = 0;
         $baseTotalHiddenTax    = 0;
-        $weeeTaxAmount         = 0;
-        $baseWeeeTaxAmount     = 0;
 
         $order = $creditmemo->getOrder();
 
@@ -45,6 +36,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
             if ($orderItem->isDummy()) {
                 continue;
             }
+
             $orderItemTax     = $orderItem->getTaxInvoiced();
             $baseOrderItemTax = $orderItem->getBaseTaxInvoiced();
             $orderItemHiddenTax = $orderItem->getHiddenTaxInvoiced();
@@ -103,11 +95,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
         } else {
             $orderShippingAmount = $order->getShippingAmount();
             $baseOrderShippingAmount = $order->getBaseShippingAmount();
-            $orderShippingHiddenTaxAmount = $order->getShippingHiddenTaxAmount();
-            $baseOrderShippingHiddenTaxAmount = $order->getBaseShippingHiddenTaxAmount();
-
             $baseOrderShippingRefundedAmount = $order->getBaseShippingRefunded();
-            $baseOrderShippingHiddenTaxRefunded = $order->getBaseShippingHiddenTaxRefunded();
 
             $shippingTaxAmount = 0;
             $baseShippingTaxAmount = 0;
@@ -135,6 +123,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
                 $baseShippingHiddenTaxAmount = $order->getBaseShippingHiddenTaxAmount()
                         - $order->getBaseShippingHiddenTaxRefunded();
             }
+
             $totalTax           += $shippingTaxAmount;
             $baseTotalTax       += $baseShippingTaxAmount;
             $totalHiddenTax     += $shippingHiddenTaxAmount;

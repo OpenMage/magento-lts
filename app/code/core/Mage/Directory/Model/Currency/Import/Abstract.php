@@ -1,26 +1,20 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract model for import currency
  *
- * @category   Mage
  * @package    Mage_Directory
  *
  * @property string $_url
  */
+#[AllowDynamicProperties]
 abstract class Mage_Directory_Model_Currency_Import_Abstract
 {
     /**
@@ -51,17 +45,17 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
     /**
      * Retrieve rate
      *
-     * @param   string $currencyFrom
-     * @param   string $currencyTo
-     * @return  float
+     * @param  string $currencyFrom
+     * @param  string $currencyTo
+     * @return float
      */
     abstract protected function _convert($currencyFrom, $currencyTo);
 
     /**
      * Saving currency rates
      *
-     * @param   array $rates
-     * @return  Mage_Directory_Model_Currency_Import_Abstract
+     * @param  array $rates
+     * @return $this
      */
     protected function _saveRates($rates)
     {
@@ -71,13 +65,14 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
                 ->setRates($currencyRates)
                 ->save();
         }
+
         return $this;
     }
 
     /**
      * Import rates
      *
-     * @return Mage_Directory_Model_Currency_Import_Abstract
+     * @return $this
      */
     public function importRates()
     {
@@ -88,6 +83,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
 
     /**
      * @return array
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function fetchRates()
     {
@@ -96,9 +92,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
         $defaultCurrencies = $this->_getDefaultCurrencyCodes();
         @set_time_limit(0);
         foreach ($defaultCurrencies as $currencyFrom) {
-            if (!isset($data[$currencyFrom])) {
-                $data[$currencyFrom] = [];
-            }
+            $data[$currencyFrom] ??= [];
 
             foreach ($currencies as $currencyTo) {
                 if ($currencyFrom == $currencyTo) {
@@ -107,6 +101,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
                     $data[$currencyFrom][$currencyTo] = $this->_numberFormat($this->_convert($currencyFrom, $currencyTo));
                 }
             }
+
             ksort($data[$currencyFrom]);
         }
 
@@ -114,7 +109,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
     }
 
     /**
-     * @param float $number
+     * @param  float $number
      * @return float
      */
     protected function _numberFormat($number)

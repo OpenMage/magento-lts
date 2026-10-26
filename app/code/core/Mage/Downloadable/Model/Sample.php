@@ -1,51 +1,43 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable sample model
  *
- * @category   Mage
  * @package    Mage_Downloadable
  *
- * @method Mage_Downloadable_Model_Resource_Sample _getResource()
- * @method Mage_Downloadable_Model_Resource_Sample getResource()
+ * @method Mage_Downloadable_Model_Resource_Sample            _getResource()
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getCollection()
- *
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method string getSampleUrl()
- * @method $this setSampleUrl(string $value)
- * @method string|null getSampleFile()
- * @method $this setSampleFile(string $value)
- * @method string getSampleType()
- * @method $this setSampleType(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getStoreTitle()
- * @method string getTitle()
- * @method bool getUseDefaultTitle()
+ * @method int                                                getProductId()
+ * @method Mage_Downloadable_Model_Resource_Sample            getResource()
+ * @method Mage_Downloadable_Model_Resource_Sample_Collection getResourceCollection()
+ * @method null|string                                        getSampleFile()
+ * @method string                                             getSampleType()
+ * @method string                                             getSampleUrl()
+ * @method int                                                getSortOrder()
+ * @method int                                                getStoreId()
+ * @method string                                             getStoreTitle()
+ * @method string                                             getTitle()
+ * @method bool                                               getUseDefaultTitle()
+ * @method $this                                              setProductId(int $value)
+ * @method $this                                              setSampleFile(string $value)
+ * @method $this                                              setSampleType(string $value)
+ * @method $this                                              setSampleUrl(string $value)
+ * @method $this                                              setSortOrder(int $value)
+ * @method $this                                              setStoreId(int $value)
  */
 class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
 {
     public const XML_PATH_SAMPLES_TITLE = 'catalog/downloadable/samples_title';
 
     /**
-     * Initialize resource
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -68,6 +60,7 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _afterSave()
     {
         $this->getResource()
@@ -84,9 +77,9 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     {
         if ($this->getSampleUrl()) {
             return $this->getSampleUrl();
-        } else {
-            return $this->getSampleFile();
         }
+
+        return $this->getSampleFile();
     }
 
     /**
@@ -112,8 +105,8 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     /**
      * Retrieve links searchable data
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return array
      */
     public function getSearchableData($productId, $storeId)

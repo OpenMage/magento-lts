@@ -1,22 +1,16 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 
 <?php
 /**
  * @see Mage_Catalog_Block_Product_View
+ * @var Mage_Catalog_Block_Product_View $this
  */
 $_product = $this->getProduct();
 if ($this->getParent()->getPriceType() != Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
@@ -24,8 +18,10 @@ if ($this->getParent()->getPriceType() != Mage_Bundle_Model_Product_Price::PRICE
 }
 $_finalPriceInclTax = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice(), true);
 
-/** @var $_catalogHelper Mage_Catalog_Helper_Data */
+/** @var Mage_Catalog_Helper_Data $_catalogHelper */
 $_catalogHelper = Mage::helper('catalog');
+/** @var Mage_Core_Helper_Data $_coreHelper */
+$_coreHelper = Mage::helper('core');
 
 $_weeeTaxAmount = Mage::helper('weee')->getAmountForDisplay($_product);
 if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
@@ -59,7 +55,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
                     <?php echo $this->__('%1$s incl tax.', $_price['formated_price_incl_weee']); ?>
                     <?php $separator = ' + '; foreach ($_weeeTaxAttributes as $_attribute): ?>
                         <?php echo $separator; ?>
-                        <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
+                        <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')::currency($_attribute->getAmount()); ?>
                     <?php endforeach ?>
                     </small>)
                     <?php endif ?>
@@ -71,7 +67,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
                     <?php echo $this->__('%1$s incl tax.', $_price['formated_price_incl_weee']); ?>
                     <?php $separator = ' + '; foreach ($_weeeTaxAttributes as $_attribute): ?>
                         <?php echo $separator; ?>
-                        <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()+$_attribute->getTaxAmount()); ?>
+                        <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')::currency($_attribute->getAmount()+$_attribute->getTaxAmount()); ?>
                     <?php endforeach ?>
                     </small>)
                     <?php endif ?>
@@ -81,7 +77,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
                     <?php if ($_weeeTaxAttributes): ?>
                     (<small>
                     <?php foreach ($_weeeTaxAttributes as $_attribute): ?>
-                        <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
+                        <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')::currency($_attribute->getAmount()); ?>
                     <?php endforeach ?>
                     <?php echo $this->__('Total incl. Tax: %1$s', $_price['formated_price_incl_weee']); ?>
                     </small>)
@@ -100,7 +96,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
                         (<small>
                         <?php $separator = ''; foreach ($_weeeTaxAttributes as $_attribute): ?>
                             <?php echo $separator; ?>
-                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
+                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')::currency($_attribute->getAmount()); ?>
                         <?php $separator = ' + '; endforeach; ?>
                         </small>)
                         <?php endif ?>
@@ -111,7 +107,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
                         (<small>
                         <?php $separator = ''; foreach ($_weeeTaxAttributes as $_attribute): ?>
                             <?php echo $separator; ?>
-                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()+$_attribute->getTaxAmount()); ?>
+                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')::currency($_attribute->getAmount()+$_attribute->getTaxAmount()); ?>
                         <?php $separator = ' + '; endforeach; ?>
                         </small>)
                         <?php endif ?>
@@ -121,7 +117,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
                         <?php if ($_weeeTaxAttributes): ?>
                         (<small>
                         <?php foreach ($_weeeTaxAttributes as $_attribute): ?>
-                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
+                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')::currency($_attribute->getAmount()); ?>
                         <?php endforeach ?>
                         <?php echo $this->__('Total incl. Tax: %1$s', $_price['formated_price_incl_weee']); ?>
                         </small>)
@@ -139,7 +135,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
                         (<small>
                         <?php $separator = ''; foreach ($_weeeTaxAttributes as $_attribute): ?>
                             <?php echo $separator; ?>
-                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
+                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')::currency($_attribute->getAmount()); ?>
                         <?php $separator = ' + '; endforeach; ?>
                         </small>)
                         <?php endif ?>
@@ -150,7 +146,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
                         (<small>
                         <?php $separator = ''; foreach ($_weeeTaxAttributes as $_attribute): ?>
                             <?php echo $separator; ?>
-                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()+$_attribute->getTaxAmount()); ?>
+                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')::currency($_attribute->getAmount()+$_attribute->getTaxAmount()); ?>
                         <?php $separator = ' + '; endforeach; ?>
                         </small>)
                         <?php endif ?>
@@ -160,7 +156,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
                         <?php if ($_weeeTaxAttributes): ?>
                         (<small>
                         <?php foreach ($_weeeTaxAttributes as $_attribute): ?>
-                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
+                            <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')::currency($_attribute->getAmount()); ?>
                         <?php endforeach ?>
                         <?php echo $this->__('Total incl. Tax: %1$s', $_price['formated_price_incl_weee_only']); ?>
                         </small>)
@@ -192,20 +188,20 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
             ?>
             <?php if (!$this->getInGrouped()): ?>
                 var newLink = {
-                    url: "<?php echo $addToCartUrl; ?>",
-                    qty: "<?php echo $_price['price_qty']?>"
+                    url: <?php echo $_coreHelper->jsonEncode($addToCartUrl) ?>,
+                    qty: <?php echo $_coreHelper->jsonEncode($_price['price_qty']) ?>
                 };
             <?php else: ?>
                 var newLink = {
-                    url: "<?php echo $addToCartUrl; ?>",
+                    url: <?php echo $_coreHelper->jsonEncode($addToCartUrl) ?>,
                     notUseForm: true
                 };
             <?php endif ?>
                 Catalog.Map.addHelpLink(
                     $('<?php echo $popupId ?>'),
-                    "<?php echo $this->escapeHtml($_product->getName()) ?>",
-                    <?php echo json_encode($_price['real_price_html']) ?>,
-                    "<?php echo $this->helper('core')->currency($_product->getMsrp(),true,false) ?>",
+                    <?php echo $_coreHelper->jsonEncode($this->escapeHtml($_product->getName())) ?>,
+                    <?php echo $_coreHelper->jsonEncode($_price['real_price_html']) ?>,
+                    <?php echo $_coreHelper->jsonEncode($_coreHelper::currency($_product->getMsrp(), true, false)) ?>,
                     newLink
                 );
             </script>

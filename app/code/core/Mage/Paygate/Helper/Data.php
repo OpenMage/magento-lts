@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paygate
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paygate data helper
  *
- * @category   Mage
  * @package    Mage_Paygate
  */
 class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
@@ -26,7 +19,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Converts a lot of messages to message
      *
-     * @param  array $messages
+     * @param  array  $messages
      * @return string
      */
     public function convertMessagesToMessage($messages)
@@ -37,12 +30,12 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return message for gateway transaction request
      *
-     * @param Mage_Payment_Model_Info $payment
-     * @param string $requestType
-     * @param string $lastTransactionId
-     * @param Varien_Object $card
-     * @param float|false $amount
-     * @param string|false $exception
+     * @param  Mage_Payment_Model_Info $payment
+     * @param  string                  $requestType
+     * @param  string                  $lastTransactionId
+     * @param  Varien_Object           $card
+     * @param  false|float             $amount
+     * @param  false|string            $exception
      * @return bool|string
      */
     public function getTransactionMessage(
@@ -59,20 +52,20 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
             $lastTransactionId,
             $card,
             $amount,
-            $exception
+            $exception,
         );
     }
 
     /**
      * Return message for gateway transaction request
      *
-     * @param Mage_Payment_Model_Info $payment
-     * @param string $requestType
-     * @param string $lastTransactionId
-     * @param Varien_Object $card
-     * @param float|false $amount
-     * @param string|false $exception
-     * @param string|false $additionalMessage Custom message, which will be added to the end of generated message
+     * @param  Mage_Payment_Model_Info $payment
+     * @param  string                  $requestType
+     * @param  null|string             $lastTransactionId
+     * @param  Varien_Object           $card
+     * @param  false|float             $amount
+     * @param  false|string            $exception
+     * @param  false|string            $additionalMessage Custom message, which will be added to the end of generated message
      * @return bool|string
      */
     public function getExtendedTransactionMessage(
@@ -94,11 +87,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
             $amount = $this->__('amount %s', $this->_formatPrice($payment, $amount));
         }
 
-        if ($exception) {
-            $result = $this->__('failed');
-        } else {
-            $result = $this->__('successful');
-        }
+        $result = $exception ? $this->__('failed') : $this->__('successful');
 
         $card = $this->__('Credit Card: xxxx-%s', $card->getCcLast4());
 
@@ -114,40 +103,35 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
             $pattern .= ' %s.';
             $texts[] = $additionalMessage;
         }
+
         $pattern .= ' %s';
         $texts[] = $exception;
 
-        return call_user_func_array([$this, '__'], array_merge([$pattern], $texts));
+        return $this->__(...array_merge([$pattern], $texts));
     }
 
     /**
      * Return operation name for request type
      *
-     * @param  string $requestType
+     * @param  string      $requestType
      * @return bool|string
      */
     protected function _getOperation($requestType)
     {
-        switch ($requestType) {
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_ONLY:
-                return $this->__('authorize');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_CAPTURE:
-                return $this->__('authorize and capture');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_PRIOR_AUTH_CAPTURE:
-                return $this->__('capture');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_CREDIT:
-                return $this->__('refund');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_VOID:
-                return $this->__('void');
-            default:
-                return false;
-        }
+        return match ($requestType) {
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_ONLY => $this->__('authorize'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_CAPTURE => $this->__('authorize and capture'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_PRIOR_AUTH_CAPTURE => $this->__('capture'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_CREDIT => $this->__('refund'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_VOID => $this->__('void'),
+            default => false,
+        };
     }
 
     /**
      * Format price with currency sign
      * @param  Mage_Payment_Model_Info $payment
-     * @param float $amount
+     * @param  float                   $amount
      * @return string
      */
     protected function _formatPrice($payment, $amount)

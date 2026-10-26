@@ -1,30 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax Event Observer
  *
- * @category   Mage
  * @package    Mage_Tax
  */
 class Mage_Tax_Model_Observer
 {
     /**
      * Put quote address tax information into order
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function salesEventConvertQuoteAddressToOrder(Varien_Event_Observer $observer)
     {
@@ -38,6 +29,7 @@ class Mage_Tax_Model_Observer
             if (is_array($order->getAppliedTaxes())) {
                 $taxes = array_merge($order->getAppliedTaxes(), $taxes);
             }
+
             $order->setAppliedTaxes($taxes);
             $order->setConvertingFromQuote(true);
         }
@@ -45,8 +37,6 @@ class Mage_Tax_Model_Observer
 
     /**
      * Save order tax information
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function salesEventOrderAfterSave(Varien_Event_Observer $observer)
     {
@@ -64,13 +54,14 @@ class Mage_Tax_Model_Observer
         if (!is_array($getTaxesForItems)) {
             $getTaxesForItems = [];
         }
+
         foreach ($getTaxesForItems as $quoteItemId => $taxesArray) {
             foreach ($taxesArray as $rates) {
-                if (count($rates['rates']) == 1) {
+                if (count($rates['rates']) === 1) {
                     $ratesIdQuoteItemId[$rates['id']][] = [
                         'id'        => $quoteItemId,
                         'percent'   => $rates['percent'],
-                        'code'      => $rates['rates'][0]['code']
+                        'code'      => $rates['rates'][0]['code'],
                     ];
                 } else {
                     $percentDelta   = $rates['percent'];
@@ -79,7 +70,7 @@ class Mage_Tax_Model_Observer
                         $ratesIdQuoteItemId[$rates['id']][] = [
                             'id'        => $quoteItemId,
                             'percent'   => $rate['percent'],
-                            'code'      => $rate['code']
+                            'code'      => $rate['code'],
                         ];
                         $percentSum += $rate['percent'];
                     }
@@ -102,11 +93,17 @@ class Mage_Tax_Model_Observer
                 if (is_null($row['percent'])) {
                     $baseRealAmount = $row['base_amount'];
                 } else {
-                    if ($row['percent'] == 0 || $tax['percent'] == 0) {
+                    if ($row['percent'] == 0) {
                         continue;
                     }
+
+                    if ($tax['percent'] == 0) {
+                        continue;
+                    }
+
                     $baseRealAmount = $row['base_amount'] / $row['percent'] * $tax['percent'];
                 }
+
                 $hidden = $row['hidden'] ?? 0;
                 $data = [
                     'order_id'          => $order->getId(),
@@ -132,7 +129,7 @@ class Mage_Tax_Model_Observer
                                 $data = [
                                     'item_id'       => $item->getId(),
                                     'tax_id'        => $result->getTaxId(),
-                                    'tax_percent'   => $quoteItemId['percent']
+                                    'tax_percent'   => $quoteItemId['percent'],
                                 ];
                                 Mage::getModel('tax/sales_order_tax_item')->setData($data)->save();
                             }
@@ -148,20 +145,16 @@ class Mage_Tax_Model_Observer
     /**
      * Prepare select which is using to select index data for layered navigation
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Tax_Model_Observer
+     * @return $this
      */
     public function prepareCatalogIndexPriceSelect(Varien_Event_Observer $observer)
     {
         $table = $observer->getEvent()->getTable();
         $response = $observer->getEvent()->getResponseObject();
-        $select = $observer->getEvent()->getSelect();
-        $storeId = $observer->getEvent()->getStoreId();
-
         $additionalCalculations = $response->getAdditionalCalculations();
         $calculation = Mage::helper('tax')->getPriceTaxSql(
             $table . '.min_price',
-            $table . '.tax_class_id'
+            $table . '.tax_class_id',
         );
 
         if (!empty($calculation)) {
@@ -170,7 +163,12 @@ class Mage_Tax_Model_Observer
             /**
              * Tax class presented in price index table
              */
-            //Mage::helper('tax')->joinTaxClass($select, $storeId, $table);
+            /*
+            $select = $observer->getEvent()->getSelect();
+            $storeId = $observer->getEvent()->getStoreId();
+            Mage::helper('tax')->joinTaxClass($select, $storeId, $table);
+            */
+
         }
 
         return $this;
@@ -179,8 +177,8 @@ class Mage_Tax_Model_Observer
     /**
      * Add tax percent values to product collection items
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Tax_Model_Observer
+     * @param  Varien_Event_Observer $observer
+     * @return $this
      */
     public function addTaxPercentToProductCollection($observer)
     {
@@ -198,20 +196,23 @@ class Mage_Tax_Model_Observer
                 if ($item->getTaxClassId() === null) {
                     $item->setTaxClassId($item->getMinimalTaxClassId());
                 }
+
                 if (!isset($classToRate[$item->getTaxClassId()])) {
                     $request->setProductClassId($item->getTaxClassId());
                     $classToRate[$item->getTaxClassId()] = Mage::getSingleton('tax/calculation')->getRate($request);
                 }
+
                 $item->setTaxPercent($classToRate[$item->getTaxClassId()]);
             }
         }
+
         return $this;
     }
 
     /**
      * Refresh sales tax report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
      * @return $this
      */
     public function aggregateSalesReportTaxData($schedule)
@@ -227,7 +228,6 @@ class Mage_Tax_Model_Observer
     /**
      * Reset extra tax amounts on quote addresses before recollecting totals
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function quoteCollectTotalsBefore(Varien_Event_Observer $observer)
@@ -238,6 +238,7 @@ class Mage_Tax_Model_Observer
             $address->setExtraTaxAmount(0);
             $address->setBaseExtraTaxAmount(0);
         }
+
         return $this;
     }
 }

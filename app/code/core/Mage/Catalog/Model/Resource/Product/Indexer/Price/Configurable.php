@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Configurable Products Price Indexer Resource model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
@@ -26,6 +19,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
      *
      * @return $this
      */
+    #[Override]
     public function reindexAll()
     {
         $this->useIdxTable(true);
@@ -36,19 +30,21 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
             $this->_applyConfigurableOption();
             $this->_movePriceDataToIndexTable();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
+
         return $this;
     }
 
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param  array|int $entityIds
      * @return $this
      */
+    #[Override]
     public function reindexEntity($entityIds)
     {
         $this->_prepareFinalPriceData($entityIds);
@@ -69,6 +65,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_cfg_option_aggregate_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_cfg_option_aggregate_tmp');
     }
 
@@ -82,6 +79,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_cfg_option_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_cfg_option_tmp');
     }
 
@@ -127,35 +125,35 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
             ->join(
                 ['l' => $this->getTable('catalog/product_super_link')],
                 'l.parent_id = i.entity_id',
-                ['parent_id', 'product_id']
+                ['parent_id', 'product_id'],
             )
             ->columns(['customer_group_id', 'website_id'], 'i')
             ->join(
                 ['a' => $this->getTable('catalog/product_super_attribute')],
                 'l.parent_id = a.product_id',
-                []
+                [],
             )
             ->join(
                 ['cp' => $this->getValueTable('catalog/product', 'int')],
                 'l.product_id = cp.entity_id AND cp.attribute_id = a.attribute_id AND cp.store_id = 0',
-                []
+                [],
             )
             ->joinLeft(
                 ['apd' => $this->getTable('catalog/product_super_attribute_pricing')],
                 'a.product_super_attribute_id = apd.product_super_attribute_id'
                     . ' AND apd.website_id = 0 AND cp.value = apd.value_index',
-                []
+                [],
             )
             ->joinLeft(
                 ['apw' => $this->getTable('catalog/product_super_attribute_pricing')],
                 'a.product_super_attribute_id = apw.product_super_attribute_id'
                     . ' AND apw.website_id = i.website_id AND cp.value = apw.value_index',
-                []
+                [],
             )
             ->join(
                 ['le' => $this->getTable('catalog/product')],
                 'le.entity_id = l.product_id',
-                []
+                [],
             )
             ->where('le.required_options=0')
             ->group(['l.parent_id', 'i.customer_group_id', 'i.website_id', 'l.product_id']);
@@ -172,12 +170,12 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
         $tierPrice = $priceExpression;
         $tierRoundPriceExp = $write->getCheckSql("{$percentExpr} = 1", $roundExpr, $tierPrice);
         $tierPriceExp = $write->getCheckSql("{$tierPrice} IS NULL", '0', $tierRoundPriceExp);
-        $tierPriceColumn = $write->getCheckSql("MIN(i.tier_price) IS NOT NULL", "SUM({$tierPriceExp})", 'NULL');
+        $tierPriceColumn = $write->getCheckSql('MIN(i.tier_price) IS NOT NULL', "SUM({$tierPriceExp})", 'NULL');
 
         $groupPrice = $priceExpression;
         $groupRoundPriceExp = $write->getCheckSql("{$percentExpr} = 1", $roundExpr, $groupPrice);
         $groupPriceExp = $write->getCheckSql("{$groupPrice} IS NULL", '0', $groupRoundPriceExp);
-        $groupPriceColumn = $write->getCheckSql("MIN(i.group_price) IS NOT NULL", "SUM({$groupPriceExp})", 'NULL');
+        $groupPriceColumn = $write->getCheckSql('MIN(i.group_price) IS NOT NULL', "SUM({$groupPriceExp})", 'NULL');
 
         $select->columns([
             'price'       => $priceColumn,
@@ -196,8 +194,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
                 [$coaTable],
                 [
                     'parent_id', 'customer_group_id', 'website_id',
-                    'MIN(price)', 'MAX(price)', 'MIN(tier_price)', 'MIN(group_price)'
-                ]
+                    'MIN(price)', 'MAX(price)', 'MIN(tier_price)', 'MIN(group_price)',
+                ],
             )
             ->group(['parent_id', 'customer_group_id', 'website_id']);
 
@@ -210,7 +208,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
                 ['io' => $copTable],
                 'i.entity_id = io.entity_id AND i.customer_group_id = io.customer_group_id'
                     . ' AND i.website_id = io.website_id',
-                []
+                [],
             );
         $select->columns([
             'min_price'   => new Zend_Db_Expr('i.min_price + io.min_price'),
@@ -219,7 +217,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
             'group_price' => $write->getCheckSql(
                 'i.group_price IS NOT NULL',
                 'i.group_price + io.group_price',
-                'NULL'
+                'NULL',
             ),
         ]);
 
@@ -231,12 +229,12 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
             ->join(
                 ['e' => $this->getTable('catalog/product')],
                 'e.entity_id = i.entity_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['coa' => $coaTable],
                 'coa.parent_id = i.entity_id',
-                []
+                [],
             )
             ->where('e.type_id = ?', $this->getTypeId())
             ->where('coa.parent_id IS NULL');

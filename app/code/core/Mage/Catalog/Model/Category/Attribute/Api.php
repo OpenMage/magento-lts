@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog category attribute api
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_Resource
@@ -52,7 +45,7 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
                     'code'         => $attribute->getAttributeCode(),
                     'type'         => $attribute->getFrontendInput(),
                     'required'     => $attribute->getIsRequired(),
-                    'scope'        => $scope
+                    'scope'        => $scope,
                 ];
             }
         }
@@ -63,8 +56,8 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
     /**
      * Retrieve category attribute options
      *
-     * @param int|string $attributeId
-     * @param string|int $store
+     * @param  int|string $attributeId
+     * @param  int|string $store
      * @return array
      */
     public function options($attributeId, $store = null)
@@ -81,14 +74,10 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
         $result = [];
         if ($attribute->usesSource()) {
             foreach ($attribute->getSource()->getAllOptions(false) as $optionId => $optionValue) {
-                if (is_array($optionValue)) {
-                    $result[] = $optionValue;
-                } else {
-                    $result[] = [
-                        'value' => $optionId,
-                        'label' => $optionValue
-                    ];
-                }
+                $result[] = is_array($optionValue) ? $optionValue : [
+                    'value' => $optionId,
+                    'label' => $optionValue,
+                ];
             }
         }
 

@@ -1,22 +1,17 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
 
 /**
  * DHL Abstract class
  *
- * @category   Mage
  * @package    Mage_Usa
  */
 abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Model_Shipping_Carrier_Abstract
@@ -39,22 +34,22 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
     /**
      * Get shipping date
      *
-     * @param bool $domestic
+     * @param  bool   $domestic
      * @return string
      */
     protected function _getShipDate($domestic = true)
     {
         return $this->_determineShippingDay(
             $this->getConfigData($domestic ? 'shipment_days' : 'intl_shipment_days'),
-            date(self::REQUEST_DATE_FORMAT)
+            date(self::REQUEST_DATE_FORMAT),
         );
     }
 
     /**
      * Determine shipping day according to configuration settings
      *
-     * @param array $shippingDays
-     * @param string $date
+     * @param  string $shippingDays
+     * @param  string $date
      * @return string
      */
     protected function _determineShippingDay($shippingDays, $date)
@@ -65,13 +60,13 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
 
         $shippingDays = explode(',', $shippingDays);
 
-        $i = 0;
-        $weekday = date('D', strtotime($date));
-        while (!in_array($weekday, $shippingDays) && $i < 10) {
-            $i++;
-            $weekday = date('D', strtotime("$date +$i day"));
+        $index = 0;
+        $weekday = Carbon::parse($date)->format('D');
+        while (!in_array($weekday, $shippingDays) && $index < 10) {
+            $index++;
+            $weekday = Carbon::parse("{$date} +{$index} day")->format('D');
         }
 
-        return date(self::REQUEST_DATE_FORMAT, strtotime("$date +$i day"));
+        return Carbon::parse("{$date} +{$index} day")->format(self::REQUEST_DATE_FORMAT);
     }
 }

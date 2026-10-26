@@ -1,15 +1,8 @@
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2015-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var Checkout = Class.create();
 Checkout.prototype = {
@@ -408,6 +401,7 @@ Shipping.prototype = {
         this.form = form;
         if ($(this.form)) {
             $(this.form).observe('submit', function(event){this.save();Event.stop(event);}.bind(this));
+            $(this.form).select('#shipping\\:country_id').first()?.addEventListener('change', () => { if (window.shipping) shipping.setSameAsBilling(false) });
         }
         this.addressUrl = addressUrl;
         this.saveUrl = saveUrl;

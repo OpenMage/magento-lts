@@ -1,36 +1,20 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php  foreach ($types as $type) {
-            if ( $messages = $this->getMessages($type) ) {
-                if ( !$html ) {
-                    $html .= '<ul class="messages">';
-                }
-                $html .= '<li class="' . $type . '-msg">';
-                $html .= '<ul>';
 
-                foreach ( $messages as $message ) {
-                    $html.= '<li>';
-                    $html.= $message->getText();
-                    $html.= '</li>';
-                }
-                $html .= '</ul>';
-                $html .= '</li>';
-            }
-        }
-        if ( $html) {
-            $html .= '</ul>';
-        }
+<?php
+/**
+ * Mage_Core_Block_Messages renders its messages in _toHtml() and does not use this template.
+ * A theme that renders it anyway gets the same output, with every message escaped or purified
+ * by the block, never the raw message text.
+ *
+ * @see Mage_Core_Block_Messages::getGroupedHtml()
+ * @var Mage_Core_Block_Messages $this
+ */
 ?>
+<?php echo $this->getGroupedHtml() ?>

@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Mage\Admin\Model;
+
+use Override;
+use Mage;
+use Mage_Admin_Model_Acl;
+use Mage_Admin_Model_Config as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
+use Varien_Simplexml_Config;
+
+final class ConfigTest extends OpenMageTest
+{
+    private static Subject $subject;
+
+    #[Override]
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('admin/config');
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetAclAssert(): void
+    {
+        self::assertFalse(self::$subject->getAclAssert(''));
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetAclPrivilegeSet(): void
+    {
+        self::assertFalse(self::$subject->getAclPrivilegeSet());
+    }
+
+    /**
+     * @group Model
+     */
+    public function testLoadAclResources(): void
+    {
+        self::assertInstanceOf(Subject::class, self::$subject->loadAclResources(new Mage_Admin_Model_Acl()));
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetAdminhtmlConfig(): void
+    {
+        self::assertInstanceOf(Varien_Simplexml_Config::class, self::$subject->getAdminhtmlConfig());
+    }
+}

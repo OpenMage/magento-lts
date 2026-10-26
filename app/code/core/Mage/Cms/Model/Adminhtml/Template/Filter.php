@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Cms Adminhtml Template Filter Model
  *
- * @category   Mage
  * @package    Mage_Cms
  */
 class Mage_Cms_Model_Adminhtml_Template_Filter extends Mage_Cms_Model_Template_Filter
@@ -29,9 +22,9 @@ class Mage_Cms_Model_Adminhtml_Template_Filter extends Mage_Cms_Model_Template_F
      * @param array $construction
      *
      * @return string
-     *
      * @throws Mage_Core_Exception
      */
+    #[Override]
     public function mediaDirective($construction)
     {
         $params = $this->_getIncludeParameters($construction[2]);
@@ -39,6 +32,37 @@ class Mage_Cms_Model_Adminhtml_Template_Filter extends Mage_Cms_Model_Template_F
             Mage::throwException('Undefined url parameter for media directive.');
         }
 
-        return Mage::getBaseDir('media') . DS . $params['url'];
+        $mediaRoot = realpath(Mage::getBaseDir('media'));
+        $mediaPath = realpath(Mage::getBaseDir('media') . DS . $params['url']);
+        if ($mediaRoot === false
+            || $mediaPath === false
+            || !str_starts_with($mediaPath, $mediaRoot . DS)
+            || !is_file($mediaPath)
+        ) {
+            Mage::throwException('Invalid media path.');
+        }
+
+        return $mediaPath;
+    }
+
+    /**
+     * Resolve a WYSIWYG image directive to a file inside the media directory
+     *
+     * The directive must be exactly one {{media url="..."}} construction. Every other
+     * directive, and any text around the construction, is rejected so that the result
+     * can never be a URL (SSRF) or a path produced by another directive.
+     *
+     * @throws Mage_Core_Exception
+     */
+    public function getMediaFilePath(string $directive): string
+    {
+        if (preg_match(Varien_Filter_Template::CONSTRUCTION_PATTERN, $directive, $construction) !== 1
+            || $construction[0] !== $directive
+            || $construction[1] !== 'media'
+        ) {
+            Mage::throwException(Mage::helper('core')->__('Invalid media directive.'));
+        }
+
+        return $this->mediaDirective($construction);
     }
 }

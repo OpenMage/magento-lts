@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales orders controller
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
@@ -26,20 +19,22 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
      *
      * Check customer authentication for some actions
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
-        $action = $this->getRequest()->getActionName();
         $loginUrl = Mage::helper('customer')->getLoginUrl();
 
         if (!Mage::getSingleton('customer/session')->authenticate($this, $loginUrl)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+
         return $this;
     }
 
     /**
      * Customer order history
+     * @return void
      */
     public function historyAction()
     {
@@ -51,16 +46,17 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
         if ($block = $this->getLayout()->getBlock('customer.account.link.back')) {
             $block->setRefererUrl($this->_getRefererUrl());
         }
+
         $this->renderLayout();
     }
 
     /**
      * Check osCommerce order view availability
      *
-     * @deprecated after 1.6.0.0
-     * @param   array $order
-     * @return  bool
+     * @param  array $order
+     * @return bool
      */
+    #[Deprecated(message: 'after 1.6.0.0')]
     protected function _canViewOscommerceOrder($order)
     {
         return false;
@@ -69,9 +65,9 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
     /**
      * osCommerce Order view page
      *
-     * @deprecated after 1.6.0.0
-     *
+     * @return void
      */
+    #[Deprecated(message: 'after 1.6.0.0')]
     public function viewOldAction()
     {
         $this->_forward('noRoute');

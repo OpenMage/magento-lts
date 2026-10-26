@@ -1,22 +1,18 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Convert
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
 
 /**
  * Convert CURL HTTP adapter
  *
- * @category   Varien
  * @package    Varien_Convert
  */
 class Varien_Convert_Adapter_Http_Curl extends Varien_Convert_Adapter_Abstract
@@ -26,14 +22,11 @@ class Varien_Convert_Adapter_Http_Curl extends Varien_Convert_Adapter_Abstract
     {
         // we expect <var name="uri">http://...</var>
         $uri = $this->getVar('uri');
-
-        // validate input parameter
-        if (!Zend_Uri::check($uri)) {
-            $this->addException("Expecting a valid 'uri' parameter");
-        }
+        $this->_validateUri($uri);
 
         // use Varien curl adapter
         $http = new Varien_Http_Adapter_Curl();
+        $this->_restrictProtocols($http);
 
         // send GET request
         $http->write('GET', $uri);
@@ -56,5 +49,39 @@ class Varien_Convert_Adapter_Http_Curl extends Varien_Convert_Adapter_Abstract
     {
         // no save implemented
         return $this;
+    }
+
+    /**
+     * @param  mixed                    $uri
+     * @throws Varien_Convert_Exception
+     */
+    protected function _validateUri($uri): void
+    {
+        // validate input parameter
+        $validator = Validation::createValidator();
+        $violations = $validator->validate($uri, [
+            new Assert\NotBlank(),
+            new Assert\Url(protocols: ['http', 'https']),
+        ]);
+
+        if ($violations->count() > 0) {
+            throw $this->addException(
+                "Expecting a valid 'uri' parameter with http or https protocol",
+                Varien_Convert_Exception::FATAL,
+            );
+        }
+    }
+
+    protected function _restrictProtocols(Varien_Http_Adapter_Curl $http): void
+    {
+        $protocols = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+
+        if (defined('CURLOPT_PROTOCOLS')) {
+            $http->addOption(CURLOPT_PROTOCOLS, $protocols);
+        }
+
+        if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+            $http->addOption(CURLOPT_REDIR_PROTOCOLS, $protocols);
+        }
     }
 }

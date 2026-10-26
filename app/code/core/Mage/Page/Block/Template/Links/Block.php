@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Simple links list block
  *
- * @category   Mage
  * @package    Mage_Page
  */
 class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
@@ -57,14 +50,14 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     protected $_title = null;
 
     /**
-     * Li elemnt params
+     * Li element params
      *
      * @var string
      */
     protected $_liParams = null;
 
     /**
-     * A elemnt params
+     * A element params
      *
      * @var string
      */
@@ -91,9 +84,9 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     protected $_position = 0;
 
     /**
-     * Set default template
-     *
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('page/template/linksblock.phtml');
@@ -122,13 +115,12 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Set first list flag
      *
-     * @param bool $value
-     * return Mage_Page_Block_Template_Links_Block
-     * @return Mage_Page_Block_Template_Links_Block
+     * @param  bool  $value
+     * @return $this
      */
     public function setIsFirst($value)
     {
-        $this->_isFirst = (bool)$value;
+        $this->_isFirst = (bool) $value;
         return $this;
     }
 
@@ -145,13 +137,12 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Set last list flag
      *
-     * @param bool $value
-     * return Mage_Page_Block_Template_Links_Block
-     * @return Mage_Page_Block_Template_Links_Block
+     * @param  bool  $value
+     * @return $this
      */
     public function setIsLast($value)
     {
-        $this->_isLast = (bool)$value;
+        $this->_isLast = (bool) $value;
         return $this;
     }
 
@@ -188,38 +179,42 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     /**
      * Prepare tag attributes
      *
-     * @param string|array $params
+     * @param  array|string $params
      * @return string
      */
     protected function _prepareParams($params)
     {
         if (is_string($params)) {
             return $params;
-        } elseif (is_array($params)) {
+        }
+
+        if (is_array($params)) {
             $result = '';
             foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';
             }
+
             return $result;
         }
+
         return '';
     }
 
     /**
-    * Return Li Params
-    *
-    * @return string
-    */
+     * Return Li Params
+     *
+     * @return string
+     */
     public function getLiParams()
     {
         return $this->_prepareParams($this->_liParams);
     }
 
     /**
-    * Return Link Tag Params
-    *
-    * @return string
-    */
+     * Return Link Tag Params
+     *
+     * @return string
+     */
     public function getAParams()
     {
         return $this->_prepareParams($this->_aParams);

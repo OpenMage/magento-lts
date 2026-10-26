@@ -1,16 +1,9 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 
@@ -18,18 +11,19 @@
 /**
  * Template for displaying product price at catalog and sidebars
  *
- * @var $this Mage_Catalog_Block_Product_Price
+ * @var Mage_Catalog_Block_Product_Price $this
  */
 ?>
 <?php
-    /** @var $_product Mage_Catalog_Model_Product */
     $_product = $this->getProduct();
+    $_coreHelper = $this->helper('core');
     $_msrpPrice = "";
+    $_addToCartUrl = $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, [], false) : '';
 ?>
     <div class="price-box map-info">
     <?php $_price = $this->helper('tax')->getPrice($_product, $_product->getMsrp()) ?>
         <?php if ($_product->getMsrp()): ?>
-            <?php $_msrpPrice = $this->helper('core')->currency($_product->getMsrp(),true,true) ?>
+            <?php $_msrpPrice = $this->helper('core')::currency($_product->getMsrp(),true,true) ?>
             <span class="old-price" id="product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>"><?php echo $_msrpPrice ?></span>
         <?php endif ?>
         <?php $helpLinkId = 'msrp-click-' . $_product->getId() . $this->helper('core')->getRandomString(20); ?>
@@ -37,14 +31,14 @@
         <script type="text/javascript">
             <?php if ($this->helper('catalog')->isShowPriceOnGesture($_product)): ?>
                 var productLink = {
-                    url: "<?php echo $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, [], false) : '' ?>",
+                    url: <?php echo $_coreHelper->jsonEncode($_addToCartUrl) ?>,
                     notUseForm: true
                 };
                 var newLink = Catalog.Map.addHelpLink(
                         $('<?php echo $helpLinkId ?>'),
-                        "<?php echo $this->escapeHtml($_product->getName()) ?>",
+                        <?php echo $_coreHelper->jsonEncode($this->escapeHtml($_product->getName())) ?>,
                         <?php echo $this->getRealPriceJs($_product) ?>,
-                        '<?php echo $_msrpPrice ?>',
+                        <?php echo $_coreHelper->jsonEncode($_msrpPrice) ?>,
                         productLink
                 );
                 newLink.product_id = '<?php echo $_product->getId() ?>';
@@ -54,7 +48,7 @@
                         null,
                         null,
                         null,
-                        "<?php echo $_product->getProductUrl() ?>"
+                        <?php echo $_coreHelper->jsonEncode($_product->getProductUrl()) ?>
                 );
             <?php endif ?>
 

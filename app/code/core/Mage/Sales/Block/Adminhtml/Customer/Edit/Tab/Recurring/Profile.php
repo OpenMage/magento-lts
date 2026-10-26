@@ -1,30 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml customer recurring profiles tab
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
-    /**
-     * Disable filters and paging
-     *
-     */
+    protected string $_eventPrefix = 'sales_adminhtml_customer_edit_tab_recurring_profile';
+
     public function __construct()
     {
         parent::__construct();
@@ -32,9 +23,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     }
 
     /**
-     * Return Tab label
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabLabel()
     {
@@ -42,9 +31,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     }
 
     /**
-     * Return Tab title
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabTitle()
     {
@@ -52,20 +39,16 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     }
 
     /**
-     * Can show tab in tabs
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canShowTab()
     {
         $customer = Mage::registry('current_customer');
-        return (bool)$customer->getId();
+        return (bool) $customer->getId();
     }
 
     /**
-     * Tab is hidden
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function isHidden()
     {
@@ -75,8 +58,9 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this|Mage_Adminhtml_Block_Widget_Grid
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/recurring_profile_collection')
@@ -84,6 +68,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
         if (!$this->getParam($this->getVarNameSort())) {
             $collection->setOrder('profile_id', 'desc');
         }
+
         $this->setCollection($collection);
         return Mage_Adminhtml_Block_Widget_Grid::_prepareCollection();
     }
@@ -99,10 +84,9 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     }
 
     /**
-     * Return grid url
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/sales_recurring_profile/customerGrid', ['_current' => true]);

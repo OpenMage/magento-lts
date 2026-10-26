@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Rule entity resource model
  *
- * @category   Mage
  * @package    Mage_Rule
  */
 abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
@@ -46,23 +39,22 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Prepare rule's active "from" and "to" dates
      *
-     * @param Mage_Core_Model_Abstract $object
-     *
-     * @return Mage_Rule_Model_Resource_Abstract
+     * @return $this
      */
-    public function _beforeSave(Mage_Core_Model_Abstract $object)
+    #[Override]
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         $fromDate = $object->getFromDate();
         if ($fromDate instanceof Zend_Date) {
             $object->setFromDate($fromDate->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
-        } elseif (!is_string($fromDate) || empty($fromDate)) {
+        } elseif (!is_string($fromDate) || $fromDate === '') {
             $object->setFromDate(null);
         }
 
         $toDate = $object->getToDate();
         if ($toDate instanceof Zend_Date) {
             $object->setToDate($toDate->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
-        } elseif (!is_string($toDate) || empty($toDate)) {
+        } elseif (!is_string($toDate) || $toDate === '') {
             $object->setToDate(null);
         }
 
@@ -73,8 +65,8 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Prepare select for condition
      *
-     * @param int $storeId
-     * @param Mage_Rule_Model_Condition_Abstract $condition
+     * @param  int                                $storeId
+     * @param  Mage_Rule_Model_Condition_Abstract $condition
      * @return Varien_Db_Select
      */
     public function getProductFlatSelect($storeId, $condition)
@@ -82,20 +74,20 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         $select = $this->_getReadAdapter()->select();
         $select->from(
             ['p' => $this->getTable('catalog/product')],
-            [new Zend_Db_Expr('DISTINCT p.entity_id')]
+            [new Zend_Db_Expr('DISTINCT p.entity_id')],
         )
             ->joinInner(
                 ['cpf' => $this->getTable('catalog/product_flat') . '_' . $storeId],
                 'cpf.entity_id = p.entity_id',
-                []
+                [],
             )->joinLeft(
                 ['ccp' => $this->getTable('catalog/category_product')],
                 'ccp.product_id = p.entity_id',
-                []
+                [],
             );
 
         $where = $condition->prepareConditionSql();
-        if (!empty($where)) {
+        if ($where !== '') {
             $select->where($where);
         }
 
@@ -107,23 +99,25 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      *
      * @param array|int|string $ruleIds
      * @param array|int|string $entityIds
-     * @param string $entityType
-     * @param bool $deleteOldResults
+     * @param string           $entityType
+     * @param bool             $deleteOldResults
      *
+     * @return $this
      * @throws Exception
-     * @return Mage_Rule_Model_Resource_Abstract
      */
     public function bindRuleToEntity($ruleIds, $entityIds, $entityType, $deleteOldResults = true)
     {
         if (empty($ruleIds) || empty($entityIds)) {
             return $this;
         }
+
         $adapter    = $this->_getWriteAdapter();
         $entityInfo = $this->_getAssociatedEntityInfo($entityType);
 
         if (!is_array($ruleIds)) {
             $ruleIds = [(int) $ruleIds];
         }
+
         if (!is_array($entityIds)) {
             $entityIds = [(int) $entityIds];
         }
@@ -138,39 +132,40 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
                 foreach ($entityIds as $entityId) {
                     $data[] = [
                         $entityInfo['entity_id_field'] => $entityId,
-                        $entityInfo['rule_id_field'] => $ruleId
+                        $entityInfo['rule_id_field'] => $ruleId,
                     ];
                     $count++;
-                    if (($count % 1000) == 0) {
+                    if ($count % 1000 === 0) {
                         $adapter->insertOnDuplicate(
                             $this->getTable($entityInfo['associations_table']),
                             $data,
-                            [$entityInfo['rule_id_field']]
+                            [$entityInfo['rule_id_field']],
                         );
                         $data = [];
                     }
                 }
             }
-            if (!empty($data)) {
+
+            if ($data !== []) {
                 $adapter->insertOnDuplicate(
                     $this->getTable($entityInfo['associations_table']),
                     $data,
-                    [$entityInfo['rule_id_field']]
+                    [$entityInfo['rule_id_field']],
                 );
             }
 
             if ($deleteOldResults) {
                 $adapter->delete(
                     $this->getTable($entityInfo['associations_table']),
-                    $adapter->quoteInto($entityInfo['rule_id_field']   . ' IN (?) AND ', $ruleIds) .
-                    $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)', $entityIds)
+                    $adapter->quoteInto($entityInfo['rule_id_field'] . ' IN (?) AND ', $ruleIds)
+                    . $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)', $entityIds),
                 );
             }
 
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -181,9 +176,9 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      *
      * @param array|int|string $ruleIds
      * @param array|int|string $entityIds
-     * @param string $entityType
+     * @param string           $entityType
      *
-     * @return Mage_Rule_Model_Resource_Abstract
+     * @return $this
      */
     public function unbindRuleFromEntity($ruleIds, $entityIds, $entityType)
     {
@@ -191,17 +186,19 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         $entityInfo = $this->_getAssociatedEntityInfo($entityType);
 
         if (!is_array($entityIds)) {
-            $entityIds = [(int)$entityIds];
+            $entityIds = [(int) $entityIds];
         }
+
         if (!is_array($ruleIds)) {
-            $ruleIds = [(int)$ruleIds];
+            $ruleIds = [(int) $ruleIds];
         }
 
         $where = [];
-        if (!empty($ruleIds)) {
+        if ($ruleIds !== []) {
             $where[] = $writeAdapter->quoteInto($entityInfo['rule_id_field'] . ' IN (?)', $ruleIds);
         }
-        if (!empty($entityIds)) {
+
+        if ($entityIds !== []) {
             $where[] = $writeAdapter->quoteInto($entityInfo['entity_id_field'] . ' IN (?)', $entityIds);
         }
 
@@ -213,7 +210,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Retrieve rule's associated entity Ids by entity type
      *
-     * @param int $ruleId
+     * @param int    $ruleId
      * @param string $entityType
      *
      * @return array
@@ -232,7 +229,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Retrieve website ids of specified rule
      *
-     * @param int $ruleId
+     * @param  int   $ruleId
      * @return array
      */
     public function getWebsiteIds($ruleId)
@@ -243,7 +240,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Retrieve customer group ids of specified rule
      *
-     * @param int $ruleId
+     * @param  int   $ruleId
      * @return array
      */
     public function getCustomerGroupIds($ruleId)
@@ -267,7 +264,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
 
         throw Mage::exception(
             'Mage_Core',
-            Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType)
+            Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType),
         );
     }
 }

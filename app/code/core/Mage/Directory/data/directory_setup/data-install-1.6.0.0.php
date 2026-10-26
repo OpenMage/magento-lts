@@ -1,19 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 
 /**
@@ -81,7 +75,7 @@ $data = [
     ['VC', 'VC', 'VCT'], ['VE', 'VE', 'VEN'], ['VG', 'VG', 'VGB'], ['VI', 'VI', 'VIR'],
     ['VN', 'VN', 'VNM'], ['VU', 'VU', 'VUT'], ['WF', 'WF', 'WLF'], ['WS', 'WS', 'WSM'],
     ['YE', 'YE', 'YEM'], ['YT', 'YT', 'MYT'], ['ZA', 'ZA', 'ZAF'], ['ZM', 'ZM', 'ZMB'],
-    ['ZW', 'ZW', 'ZWE']
+    ['ZW', 'ZW', 'ZWE'],
 ];
 
 $columns = ['country_id', 'iso2_code', 'iso3_code'];
@@ -181,7 +175,7 @@ $data = [
     ['FR', 84, 'Vaucluse'], ['FR', 85, 'Vendée'], ['FR', 86, 'Vienne'], ['FR', 87, 'Haute-Vienne'],
     ['FR', 88, 'Vosges'], ['FR', 89, 'Yonne'], ['FR', 90, 'Territoire-de-Belfort'],
     ['FR', 91, 'Essonne'], ['FR', 92, 'Hauts-de-Seine'], ['FR', 93, 'Seine-Saint-Denis'],
-    ['FR', 94, 'Val-de-Marne'], ['FR', 95, 'Val-d\'Oise'], ['RO', 'AB', 'Alba'],
+    ['FR', 94, 'Val-de-Marne'], ['FR', 95, "Val-d'Oise"], ['RO', 'AB', 'Alba'],
     ['RO', 'AR', 'Arad'], ['RO', 'AG', 'Argeş'], ['RO', 'BC', 'Bacău'], ['RO', 'BH', 'Bihor'],
     ['RO', 'BN', 'Bistriţa-Năsăud'], ['RO', 'BT', 'Botoşani'], ['RO', 'BV', 'Braşov'],
     ['RO', 'BR', 'Brăila'], ['RO', 'B', 'Bucureşti'], ['RO', 'BZ', 'Buzău'],
@@ -272,7 +266,7 @@ $data = [
     ['LT', 'LT-MR', 'Marijampolės Apskritis'], ['LT', 'LT-PN', 'Panevėžio Apskritis'],
     ['LT', 'LT-SA', 'Šiaulių Apskritis'], ['LT', 'LT-TA', 'Tauragės Apskritis'],
     ['LT', 'LT-TE', 'Telšių Apskritis'], ['LT', 'LT-UT', 'Utenos Apskritis'],
-    ['LT', 'LT-VL', 'Vilniaus Apskritis']
+    ['LT', 'LT-VL', 'Vilniaus Apskritis'],
 ];
 
 foreach ($data as $row) {
@@ -287,7 +281,7 @@ foreach ($data as $row) {
     $bind = [
         'locale'    => 'en_US',
         'region_id' => $regionId,
-        'name'      => $row[2]
+        'name'      => $row[2],
     ];
     $installer->getConnection()->insert($installer->getTable('directory/country_region_name'), $bind);
 }

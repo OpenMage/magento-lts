@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Generate options for media database selection
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Database
@@ -59,20 +52,25 @@ class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Database
      */
     public function toOptionArray()
     {
-        $media_storages = [];
+        $mediaStorages = [];
 
         $this->_connections = (array) Mage::app()->getConfig()->getNode('global/resources')->children();
         foreach (array_keys($this->_connections) as $connectionName) {
             $connection = $this->_collectConnectionConfig($connectionName);
-            if (!isset($connection['active']) || $connection['active'] != 1) {
+            if (!isset($connection['active'])) {
                 continue;
             }
 
-            $media_storages[] = ['value' => $connectionName, 'label' => $connectionName];
-        }
-        sort($media_storages);
-        reset($media_storages);
+            if ($connection['active'] != 1) {
+                continue;
+            }
 
-        return $media_storages;
+            $mediaStorages[] = ['value' => $connectionName, 'label' => $connectionName];
+        }
+
+        sort($mediaStorages);
+        reset($mediaStorages);
+
+        return $mediaStorages;
     }
 }

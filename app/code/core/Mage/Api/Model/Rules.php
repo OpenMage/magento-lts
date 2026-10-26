@@ -1,39 +1,36 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Api
  *
- * @method Mage_Api_Model_Resource_Rules _getResource()
- * @method Mage_Api_Model_Resource_Rules getResource()
- * @method int getRoleId()
- * @method $this setRoleId(int $value)
- * @method string getResourceId()
- * @method $this setResourceId(string $value)
- * @method string getPrivileges()
- * @method $this setPrivileges(string $value)
- * @method int getAssertId()
- * @method $this setAssertId(int $value)
- * @method string getRoleType()
- * @method $this setRoleType(string $value)
- * @method string getPermission()
- * @method $this setPermission(string $value)
+ * @method Mage_Api_Model_Resource_Rules            _getResource()
+ * @method int                                      getAssertId()
+ * @method string                                   getPermission()
+ * @method string                                   getPrivileges()
+ * @method Mage_Api_Model_Resource_Rules            getResource()
+ * @method Mage_Api_Model_Resource_Rules_Collection getResourceCollection()
+ * @method string                                   getResourceId()
+ * @method int                                      getRoleId()
+ * @method string                                   getRoleType()
+ * @method $this                                    setAssertId(int $value)
+ * @method $this                                    setPermission(string $value)
+ * @method $this                                    setPrivileges(string $value)
+ * @method $this                                    setResourceId(string $value)
+ * @method $this                                    setRoleId(int $value)
+ * @method $this                                    setRoleType(string $value)
  */
 class Mage_Api_Model_Rules extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api/rules');
@@ -51,6 +48,7 @@ class Mage_Api_Model_Rules extends Mage_Core_Model_Abstract
     /**
      * @return Mage_Api_Model_Resource_Permissions_Collection
      */
+    #[Override]
     public function getCollection()
     {
         return Mage::getResourceModel('api/permissions_collection');

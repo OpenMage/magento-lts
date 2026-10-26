@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Domainpolicy
@@ -48,7 +41,7 @@ class Mage_Core_Model_Domainpolicy
 
     /**
      * Mage_Core_Model_Domainpolicy constructor.
-     * @param array $options
+     * @param  array                           $options
      * @throws Mage_Core_Model_Store_Exception
      */
     public function __construct($options = [])
@@ -59,7 +52,6 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Add X-Frame-Options header to response, depends on config settings
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function addDomainPolicyHeader(Varien_Event_Observer $observer)
@@ -84,39 +76,34 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Get backend policy
      *
-     * @return string|null
+     * @return null|string
      */
     public function getBackendPolicy()
     {
-        return $this->_getDomainPolicyByCode((int)(string)$this->_store->getConfig(self::XML_DOMAIN_POLICY_BACKEND));
+        return $this->_getDomainPolicyByCode((int) (string) $this->_store->getConfig(self::XML_DOMAIN_POLICY_BACKEND));
     }
 
     /**
      * Get frontend policy
      *
-     * @return string|null
+     * @return null|string
      */
     public function getFrontendPolicy()
     {
-        return $this->_getDomainPolicyByCode((int)(string)$this->_store->getConfig(self::XML_DOMAIN_POLICY_FRONTEND));
+        return $this->_getDomainPolicyByCode((int) (string) $this->_store->getConfig(self::XML_DOMAIN_POLICY_FRONTEND));
     }
 
     /**
      * Return string representation for policy code
      *
-     * @param string $policyCode
-     * @return string|null
+     * @param  string      $policyCode
+     * @return null|string
      */
     protected function _getDomainPolicyByCode($policyCode)
     {
-        switch ($policyCode) {
-            case self::FRAME_POLICY_ALLOW:
-                $policy = null;
-                break;
-            default:
-                $policy = 'SAMEORIGIN';
-        }
-
-        return $policy;
+        return match ($policyCode) {
+            self::FRAME_POLICY_ALLOW => null,
+            default => 'SAMEORIGIN',
+        };
     }
 }

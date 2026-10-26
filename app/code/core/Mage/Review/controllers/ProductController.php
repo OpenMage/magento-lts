@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Review controller
  *
- * @category   Mage
  * @package    Mage_Review
  */
 class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
@@ -29,34 +22,38 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     protected $_cookieCheckActions = ['post'];
 
     /**
-     * @return $this|Mage_Core_Controller_Front_Action|void
+     * @return null|$this|Mage_Core_Controller_Front_Action
      */
+    #[Override]
     public function preDispatch()
     {
         parent::preDispatch();
 
         $allowGuest = Mage::helper('review')->getIsGuestAllowToWrite();
         if (!$this->getRequest()->isDispatched()) {
-            return;
+            return null;
         }
 
         $action = strtolower($this->getRequest()->getActionName());
-        if (!$allowGuest && $action == 'post' && $this->getRequest()->isPost()) {
-            if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-                Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
-                Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
-                    ->setRedirectUrl($this->_getRefererUrl());
-                $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
-            }
+        if (!$allowGuest
+            && $action === 'post'
+            && $this->getRequest()->isPost()
+            && !Mage::getSingleton('customer/session')->isLoggedIn()
+        ) {
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
+            Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
+                ->setRedirectUrl($this->_getRefererUrl());
+            $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
         }
 
         return $this;
     }
+
     /**
      * Initialize and check product
      *
-     * @return Mage_Catalog_Model_Product|false
+     * @return false|Mage_Catalog_Model_Product
      */
     protected function _initProduct()
     {
@@ -78,10 +75,10 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             Mage::dispatchEvent('review_controller_product_init', ['product' => $product]);
             Mage::dispatchEvent('review_controller_product_init_after', [
                 'product'           => $product,
-                'controller_action' => $this
+                'controller_action' => $this,
             ]);
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            Mage::logException($mageCoreException);
             return false;
         }
 
@@ -92,7 +89,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      * Load product model with data by passed id.
      * Return false if product was not loaded or has incorrect status.
      *
-     * @param int $productId
+     * @param  int                             $productId
      * @return bool|Mage_Catalog_Model_Product
      */
     protected function _loadProduct($productId)
@@ -119,7 +116,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      * Load review model with data by passed id.
      * Return false if review was not loaded or review is not approved.
      *
-     * @param int $reviewId
+     * @param  int                           $reviewId
      * @return bool|Mage_Review_Model_Review
      */
     protected function _loadReview($reviewId)
@@ -141,7 +138,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Submit new review action
-     *
+     * @return void
      */
     public function postAction()
     {
@@ -188,7 +185,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
                     $review->aggregate();
                     $session->addSuccess($this->__('Your review has been accepted for moderation.'));
-                } catch (Exception $e) {
+                } catch (Exception) {
                     $session->setFormData($data);
                     $session->addError($this->__('Unable to post the review.'));
                 }
@@ -208,12 +205,13 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $this->_redirectUrl($redirectUrl);
             return;
         }
+
         $this->_redirectReferer();
     }
 
     /**
      * Show list of product's reviews
-     *
+     * @return void
      */
     public function listAction()
     {
@@ -225,6 +223,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             if ($settings->getCustomDesign()) {
                 $design->applyCustomDesign($settings->getCustomDesign());
             }
+
             $this->_initProductLayout($product);
 
             // update breadcrumbs
@@ -247,7 +246,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Show details of one review
-     *
+     * @return void
      */
     public function viewAction()
     {
@@ -292,24 +291,25 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $this->getLayout()->helper('page/layout')
                 ->applyTemplate($product->getPageLayout());
         }
+
         $customLayout = $product->getCustomLayoutUpdate();
         if ($customLayout) {
             try {
                 if (!Mage::getModel('core/layout_validator')->isValid($customLayout)) {
                     $customLayout = '';
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $customLayout = '';
             }
         }
+
         $update->addUpdate($customLayout);
         $this->generateLayoutXml()->generateLayoutBlocks();
     }
 
     /**
      * Crops POST values
-     * @param array $reviewData
-     * @return array
+     * @return array<string, mixed>
      */
     protected function _cropReviewData(array $reviewData)
     {

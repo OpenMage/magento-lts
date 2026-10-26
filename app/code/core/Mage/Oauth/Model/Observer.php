@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * OAuth observer
  *
- * @category   Mage
  * @package    Mage_Oauth
  */
 class Mage_Oauth_Model_Observer
@@ -24,7 +17,7 @@ class Mage_Oauth_Model_Observer
     /**
      * Retrieve oauth_token param from request
      *
-     * @return string|null
+     * @return null|string
      */
     protected function _getOauthToken()
     {
@@ -32,9 +25,41 @@ class Mage_Oauth_Model_Observer
     }
 
     /**
+     * Revoke the OAuth tokens of an admin user when the user is deactivated
+     *
+     * The REST API also refuses inactive admin users on every request; revoking keeps the
+     * tokens from working again if the account is reactivated later. They can be re-enabled
+     * from the authorized OAuth tokens grid.
+     */
+    public function revokeTokensOfDeactivatedAdmin(Varien_Event_Observer $observer): void
+    {
+        $user = $observer->getEvent()->getObject();
+        if (!$user instanceof Mage_Admin_Model_User
+            || (int) $user->getId() === 0
+            || $user->getIsActive() === null
+            || (int) $user->getIsActive() === 1
+        ) {
+            return;
+        }
+
+        $this->_getTokenResource()->revokeAdminTokens((int) $user->getId());
+    }
+
+    /**
+     * @return Mage_Oauth_Model_Resource_Token
+     */
+    protected function _getTokenResource()
+    {
+        /** @var Mage_Oauth_Model_Resource_Token $resource */
+        $resource = Mage::getResourceSingleton('oauth/token');
+
+        return $resource;
+    }
+
+    /**
      * Redirect customer to callback page after login
      *
-     * @param Varien_Event_Observer $observer
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function afterCustomerLogin(Varien_Event_Observer $observer)
     {
@@ -52,7 +77,7 @@ class Mage_Oauth_Model_Observer
     /**
      * Redirect admin to authorize controller after login success
      *
-     * @param Varien_Event_Observer $observer
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function afterAdminLogin(Varien_Event_Observer $observer)
     {
@@ -70,7 +95,7 @@ class Mage_Oauth_Model_Observer
     /**
      * Redirect admin to authorize controller after login fail
      *
-     * @param Varien_Event_Observer $observer
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function afterAdminLoginFailed(Varien_Event_Observer $observer)
     {

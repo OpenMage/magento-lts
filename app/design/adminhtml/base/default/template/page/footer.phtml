@@ -1,0 +1,28 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Page_Footer $this */
+?>
+<p class="bug-report">
+    <?php echo $this->__('Interface Locale: %s', $this->getLanguageSelect()) ?>
+</p>
+<p class="legality">
+    <a href="<?php echo $this->getOpenMageProjectUrl() ?>" target="_blank"><?php echo $this->__('OpenMage Project') ?></a> |
+    <a href="<?php echo $this->getReportIssuesUrl() ?>" target="_blank"><?php echo $this->__('Report Issues') ?></a>
+</p>
+<?php echo $this->__('OpenMage %s', Mage::getOpenMageVersion()) ?>
+<script type="text/javascript">
+    function setInterfaceLanguage(evt) {
+        var elem = Event.element(evt);
+        if (elem) {
+            setLocation('<?php echo $this->getChangeLocaleUrl() ?>locale/'+elem.value+'/<?php echo $this->getRefererParamName() ?>/<?php echo $this->getUrlForReferer() ?>');
+        }
+    }
+    Event.observe('interface_locale', 'change', setInterfaceLanguage);
+    addCopyIcons();
+</script>

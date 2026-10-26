@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Eav Form Fieldset Resource Collection
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -24,13 +17,12 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     /**
      * Store scope ID
      *
-     * @var int|null
+     * @var null|int
      */
     protected $_storeId;
 
     /**
-     * Initialize collection model
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -40,7 +32,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     /**
      * Add Form Type filter to collection
      *
-     * @param Mage_Eav_Model_Form_Type|int $type
+     * @param  int|Mage_Eav_Model_Form_Type $type
      * @return $this
      */
     public function addTypeFilter($type)
@@ -66,20 +58,21 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     /**
      * Retrieve label store scope
      *
-     * @return int
+     * @return null|int
      */
     public function getStoreId()
     {
         if (is_null($this->_storeId)) {
             return Mage::app()->getStore()->getId();
         }
+
         return $this->_storeId;
     }
 
     /**
      * Set store scope ID
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -93,6 +86,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
      *
      * @return $this
      */
+    #[Override]
     protected function _initSelect()
     {
         parent::_initSelect();
@@ -100,7 +94,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
         $select->join(
             ['default_label' => $this->getTable('eav/form_fieldset_label')],
             'main_table.fieldset_id = default_label.fieldset_id AND default_label.store_id = 0',
-            []
+            [],
         );
         if ($this->getStoreId() == 0) {
             $select->columns('label', 'default_label');
@@ -110,12 +104,12 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
             $joinCondition = $this->getConnection()
                 ->quoteInto(
                     'main_table.fieldset_id = store_label.fieldset_id AND store_label.store_id = ?',
-                    (int)$this->getStoreId()
+                    (int) $this->getStoreId(),
                 );
             $select->joinLeft(
                 ['store_label' => $this->getTable('eav/form_fieldset_label')],
                 $joinCondition,
-                ['label' => $labelExpr]
+                ['label' => $labelExpr],
             );
         }
 

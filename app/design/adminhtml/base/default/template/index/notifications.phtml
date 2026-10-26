@@ -1,0 +1,18 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Index_Block_Adminhtml_Notifications $this */
+?>
+<?php $_processes = $this->getProcessesForReindex()?>
+<?php if($_processes):?>
+<div class="notification-global">
+    <strong><?php echo $this->helper('index')->__('One or more of the Indexes are not up to date:') ?></strong>
+    <?php echo implode(', ', $_processes)?>.
+    <?php echo $this->helper('index')->__('Click here to go to <a href="%s">Index Management</a> and rebuild required indexes.', $this->getManageUrl());?>
+</div>
+<?php endif ?>

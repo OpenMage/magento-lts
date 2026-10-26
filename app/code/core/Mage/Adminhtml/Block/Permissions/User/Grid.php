@@ -1,35 +1,34 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml permissions user grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_permissions_user_grid';
+
     public function __construct()
     {
         parent::__construct();
         $this->setId('permissionsUserGrid');
         $this->setDefaultSort('username');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('admin/user_collection');
@@ -37,36 +36,40 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('user_id', [
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'width'     => 5,
             'align'     => 'right',
-            'sortable'  => true,
-            'index'     => 'user_id'
+            'index'     => 'user_id',
         ]);
 
         $this->addColumn('username', [
             'header'    => Mage::helper('adminhtml')->__('User Name'),
-            'index'     => 'username'
+            'index'     => 'username',
         ]);
 
         $this->addColumn('firstname', [
             'header'    => Mage::helper('adminhtml')->__('First Name'),
-            'index'     => 'firstname'
+            'index'     => 'firstname',
         ]);
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('adminhtml')->__('Last Name'),
-            'index'     => 'lastname'
+            'index'     => 'lastname',
         ]);
 
         $this->addColumn('email', [
             'header'    => Mage::helper('adminhtml')->__('Email'),
             'width'     => 40,
             'align'     => 'left',
-            'index'     => 'email'
+            'index'     => 'email',
         ]);
 
         $this->addColumn('is_active', [
@@ -79,14 +82,22 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     * @param Mage_Admin_Model_User $row
+     */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['user_id' => $row->getId()]);
     }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     public function getGridUrl()
     {
-        //$uid = $this->getRequest()->getParam('user_id');
-        return $this->getUrl('*/*/roleGrid', []);
+        return $this->getUrl('*/*/roleGrid');
     }
 }

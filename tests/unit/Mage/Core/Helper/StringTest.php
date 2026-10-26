@@ -1,0 +1,134 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Mage\Core\Helper;
+
+use Override;
+use Mage;
+use Mage_Core_Helper_Array;
+use Mage_Core_Helper_String as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
+
+final class StringTest extends OpenMageTest
+{
+    public const TEST_STRING        = '1234567890';
+
+    public const TEST_STRING_JSON   = '{"name":"John", "age":30, "car":null}';
+
+    private static Subject $subject;
+
+    #[Override]
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('core/string');
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testTruncate(): void
+    {
+        self::assertSame('', self::$subject->truncate(null));
+        self::assertSame('', self::$subject->truncate(self::TEST_STRING, 0));
+
+        self::assertSame('', self::$subject->truncate(self::TEST_STRING, 3));
+
+        $remainder = '';
+        self::assertSame('12...', self::$subject->truncate(self::TEST_STRING, 5, '...', $remainder, false));
+
+        $resultString = self::$subject->truncate(self::TEST_STRING, 5, '...');
+        self::assertSame('12...', $resultString);
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testSubstr(): void
+    {
+        $resultString = self::$subject->substr(self::TEST_STRING, 2, 2);
+        self::assertSame('34', $resultString);
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testSplitInjection(): void
+    {
+        $resultString = self::$subject->splitInjection(self::TEST_STRING, 1, '-', ' ');
+        #$this->assertSame('1-2-3-4-5-6-7-8-9-0-', $resultString);
+        self::assertIsString($resultString);
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testStrlen(): void
+    {
+        self::assertSame(10, self::$subject->strlen(self::TEST_STRING));
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testStrSplit(): void
+    {
+        self::assertIsArray(self::$subject->str_split(''));
+        self::assertIsArray(self::$subject->str_split(self::TEST_STRING));
+        self::assertIsArray(self::$subject->str_split(self::TEST_STRING, 3));
+        self::assertIsArray(self::$subject->str_split(self::TEST_STRING, 3, true, true));
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testSplitWords(): void
+    {
+        self::assertIsArray(self::$subject->splitWords(null));
+        self::assertIsArray(self::$subject->splitWords(''));
+        self::assertIsArray(self::$subject->splitWords(self::TEST_STRING));
+        self::assertIsArray(self::$subject->splitWords(self::TEST_STRING, true));
+        self::assertIsArray(self::$subject->splitWords(self::TEST_STRING, true, 1));
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testParseQueryStr(): void
+    {
+        self::assertIsArray(self::$subject->parseQueryStr(self::TEST_STRING));
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testGetArrayHelper(): void
+    {
+        self::assertInstanceOf(Mage_Core_Helper_Array::class, self::$subject->getArrayHelper());
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testUnserialize(): void
+    {
+        self::assertNull(self::$subject->unserialize(null));
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testValidateSerializedObject(): void
+    {
+        self::assertIsBool(self::$subject->validateSerializedObject(self::TEST_STRING));
+        self::assertIsBool(self::$subject->validateSerializedObject(self::TEST_STRING_JSON));
+    }
+}

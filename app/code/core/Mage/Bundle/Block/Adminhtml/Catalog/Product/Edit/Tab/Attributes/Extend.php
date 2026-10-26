@@ -1,35 +1,29 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Bundle Extended Attribures Block
+ * Bundle Extended Attributes Block
  *
- * @category   Mage
  * @package    Mage_Bundle
  *
- * @method bool getCanEditPrice()
- * @method $this setCanEditPrice(bool $true)
- * @method bool getCanReadPrice()
- * @method $this setCanReadPrice(bool $true)
+ * @method bool   getCanEditPrice()
+ * @method bool   getCanReadPrice()
  * @method string getDefaultProductPrice()
- * @method bool getDisableChild()
- * @method $this setDisableChild(bool $value)
+ * @method bool   getDisableChild()
+ * @method $this  setCanEditPrice(bool $true)
+ * @method $this  setCanReadPrice(bool $true)
+ * @method $this  setDisableChild(bool $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
 {
     public const DYNAMIC = 0;
+
     public const FIXED = 1;
 
     /**
@@ -47,6 +41,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $elementHtml = parent::getElementHtml();
@@ -70,9 +65,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
         ) {
             $html .= '<span class="next-toselect">' . $elementHtml . '</span>';
         }
+
         if ($this->getDisableChild() && !$this->getElement()->getReadonly()) {
-            $html .= "<script type=\"text/javascript\">
-                function " . $switchAttributeCode . "_change() {
+            $html .= '<script type="text/javascript">
+                function ' . $switchAttributeCode . "_change() {
                     if ($('" . $switchAttributeCode . "').value == '" . self::DYNAMIC . "') {
                         if ($('" . $this->getAttribute()->getAttributeCode() . "')) {
                             $('" . $this->getAttribute()->getAttributeCode() . "').disabled = true;
@@ -92,7 +88,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
                 && $this->getProduct()->isObjectNew()
             ) {
                 $defaultProductPrice = ($this->getDefaultProductPrice()) ? $this->getDefaultProductPrice() : "''";
-                $html .= "$('" . $this->getAttribute()->getAttributeCode() . "').value = " . $defaultProductPrice . ";";
+                $html .= "$('" . $this->getAttribute()->getAttributeCode() . "').value = " . $defaultProductPrice . ';';
             } else {
                 $html .= "$('" . $this->getAttribute()->getAttributeCode() . "').disabled = false;
                           $('" . $this->getAttribute()->getAttributeCode() . "').addClassName('required-entry');";
@@ -110,11 +106,13 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
                 && !$this->getCanEditPrice()
                 && !$this->getProduct()->isObjectNew())
             ) {
-                $html .= "$('" . $switchAttributeCode . "').observe('change', " . $switchAttributeCode . "_change);";
+                $html .= "$('" . $switchAttributeCode . "').observe('change', " . $switchAttributeCode . '_change);';
             }
-            $html .= $switchAttributeCode . "_change();
-            </script>";
+
+            $html .= $switchAttributeCode . '_change();
+            </script>';
         }
+
         return $html;
     }
 
@@ -123,9 +121,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
      */
     public function getProduct()
     {
-        if (!$this->getData('product')) {
+        if (!$this->getDataByKey('product')) {
             $this->setData('product', Mage::registry('product'));
         }
-        return $this->getData('product');
+
+        return $this->getDataByKey('product');
     }
 }

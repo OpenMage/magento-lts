@@ -1,22 +1,17 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Captcha
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Carbon\Carbon;
 
 /**
  * Log Attempts resource
  *
- * @category   Mage
  * @package    Mage_Captcha
  */
 class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
@@ -31,6 +26,9 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      */
     public const TYPE_LOGIN = 2;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_setMainTable('captcha/log');
@@ -39,7 +37,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save or Update count Attempts
      *
-     * @param string|null $login
+     * @param  null|string $login
      * @return $this
      */
     public function logAttempt($login)
@@ -48,30 +46,32 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getMainTable(),
                 [
-                     'type' => self::TYPE_LOGIN, 'value' => $login, 'count' => 1,
-                     'updated_at' => Mage::getSingleton('core/date')->gmtDate()
+                    'type' => self::TYPE_LOGIN, 'value' => $login, 'count' => 1,
+                    'updated_at' => Mage::getSingleton('core/date')->gmtDate(),
                 ],
-                ['count' => new Zend_Db_Expr('count+1'), 'updated_at']
+                ['count' => new Zend_Db_Expr('count+1'), 'updated_at'],
             );
         }
-        $ip = Mage::helper('core/http')->getRemoteAddr();
-        if ($ip != null) {
+
+        $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
+        if ($remoteAddr != null) {
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getMainTable(),
                 [
-                     'type' => self::TYPE_REMOTE_ADDRESS, 'value' => $ip, 'count' => 1,
-                     'updated_at' => Mage::getSingleton('core/date')->gmtDate()
+                    'type' => self::TYPE_REMOTE_ADDRESS, 'value' => $remoteAddr, 'count' => 1,
+                    'updated_at' => Mage::getSingleton('core/date')->gmtDate(),
                 ],
-                ['count' => new Zend_Db_Expr('count+1'), 'updated_at']
+                ['count' => new Zend_Db_Expr('count+1'), 'updated_at'],
             );
         }
+
         return $this;
     }
 
     /**
      * Delete User attempts by login
      *
-     * @param string $login
+     * @param  string $login
      * @return $this
      */
     public function deleteUserAttempts($login)
@@ -79,14 +79,15 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
         if ($login != null) {
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
-                ['type = ?' => self::TYPE_LOGIN, 'value = ?' => $login]
+                ['type = ?' => self::TYPE_LOGIN, 'value = ?' => $login],
             );
         }
-        $ip = Mage::helper('core/http')->getRemoteAddr();
-        if ($ip != null) {
+
+        $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
+        if ($remoteAddr != null) {
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
-                ['type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip]
+                ['type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $remoteAddr],
             );
         }
 
@@ -96,31 +97,33 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Get count attempts by ip
      *
-     * @return string|int
+     * @return int|string
      */
     public function countAttemptsByRemoteAddress()
     {
-        $ip = Mage::helper('core/http')->getRemoteAddr();
-        if (!$ip) {
+        $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
+        if (!$remoteAddr) {
             return 0;
         }
+
         $read = $this->_getReadAdapter();
         $select = $read->select()->from($this->getMainTable(), 'count')->where('type = ?', self::TYPE_REMOTE_ADDRESS)
-            ->where('value = ?', $ip);
+            ->where('value = ?', $remoteAddr);
         return $read->fetchOne($select);
     }
 
     /**
      * Get count attempts by user login
      *
-     * @param string $login
-     * @return string|int
+     * @param  string     $login
+     * @return int|string
      */
     public function countAttemptsByUserLogin($login)
     {
         if (!$login) {
             return 0;
         }
+
         $read = $this->_getReadAdapter();
         $select = $read->select()->from($this->getMainTable(), 'count')->where('type = ?', self::TYPE_LOGIN)
             ->where('value = ?', $login);
@@ -134,7 +137,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     {
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60 * 30)]
+            ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, Carbon::now()->subMinutes(30)->getTimestamp())],
         );
     }
 }

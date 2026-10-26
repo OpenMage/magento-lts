@@ -1,31 +1,25 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Crossell products admin grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Catalog_Model_Resource_Product_Link_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_crosssell';
+
     /**
-     * Set grid params
-     *
+     * @throws Mage_Core_Exception
      */
     public function __construct()
     {
@@ -36,13 +30,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         if ($this->_getProduct()->getId()) {
             $this->setDefaultFilter(['in_products' => 1]);
         }
+
         if ($this->isReadonly()) {
             $this->setFilterVisibility(false);
         }
     }
 
     /**
-     * Retirve currently edited product model
+     * Retrieve currently edited product model
      *
      * @return Mage_Catalog_Model_Product
      */
@@ -52,11 +47,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
     }
 
     /**
-     * Add filter
-     *
-     * @param object $column
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
@@ -65,6 +59,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             if (empty($productIds)) {
                 $productIds = 0;
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
             } elseif ($productIds) {
@@ -73,12 +68,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection */
@@ -92,6 +89,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             if (empty($productIds)) {
                 $productIds = [0];
             }
+
             $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
         }
 
@@ -112,7 +110,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         if (!$this->isReadonly()) {
@@ -122,20 +122,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
                 'name'              => 'in_products',
                 'values'            => $this->_getSelectedProducts(),
                 'align'             => 'center',
-                'index'             => 'entity_id'
+                'index'             => 'entity_id',
             ]);
         }
 
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
-            'sortable'  => true,
-            'width'     => 60,
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
 
         $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('type', [
@@ -143,7 +141,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             'width'     => 100,
             'index'     => 'type_id',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_type')::getOptionArray(),
         ]);
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -164,7 +162,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             'width'     => 90,
             'index'     => 'status',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_status')::getOptionArray(),
         ]);
 
         $this->addColumn('visibility', [
@@ -172,20 +170,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             'width'     => 90,
             'index'     => 'visibility',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('catalog/product_visibility')->getOptionArray(),
+            'options'   => Mage::getSingleton('catalog/product_visibility')::getOptionArray(),
         ]);
 
         $this->addColumn('sku', [
             'header'    => Mage::helper('catalog')->__('SKU'),
             'width'     => 80,
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
 
         $this->addColumn('price', [
-            'header'        => Mage::helper('catalog')->__('Price'),
             'type'          => 'currency',
-            'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
-            'index'         => 'price'
+            'currency_code' => Mage_Directory_Helper_Data::getConfigCurrencyBase(),
         ]);
 
         $this->addColumn('position', [
@@ -197,17 +193,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             'index'                     => 'position',
             'editable'                  => !$this->isReadonly(),
             'edit_only'                 => !$this->_getProduct()->getId(),
-            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback']
+            'filter_condition_callback' => $this->_addLinkModelFilterCallback(...),
         ]);
 
         return parent::_prepareColumns();
     }
 
     /**
-     * Rerieve grid URL
+     * Retrieve grid URL
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->_getData('grid_url') ?: $this->getUrl('*/*/crosssellGrid', ['_current' => true]);
@@ -222,8 +219,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
     {
         $products = $this->getProductsCrossSell();
         if (!is_array($products)) {
-            $products = array_keys($this->getSelectedCrossSellProducts());
+            return array_keys($this->getSelectedCrossSellProducts());
         }
+
         return $products;
     }
 
@@ -238,6 +236,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         foreach (Mage::registry('current_product')->getCrossSellProducts() as $product) {
             $products[$product->getId()] = ['position' => $product->getPosition()];
         }
+
         return $products;
     }
 }

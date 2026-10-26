@@ -1,33 +1,29 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product website resource model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Product atrribute cache
+     * Product attribute cache
      *
      * @var array
      */
     protected $_productAttributes  = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_enabled_index', 'product_id');
@@ -36,7 +32,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     /**
      * Retrieve product attribute (public method for status model)
      *
-     * @param string $attributeCode
+     * @param  string                                   $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getProductAttribute($attributeCode)
@@ -47,23 +43,24 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     /**
      * Retrieve product attribute
      *
-     * @param string|int|Mage_Core_Model_Config_Element $attribute
+     * @param  int|Mage_Core_Model_Config_Element|string $attribute
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     protected function _getProductAttribute($attribute)
     {
         if (empty($this->_productAttributes[$attribute])) {
-            $this->_productAttributes[$attribute] =
-                Mage::getSingleton('catalog/product')->getResource()->getAttribute($attribute);
+            $this->_productAttributes[$attribute]
+                = Mage::getSingleton('catalog/product')->getResource()->getAttribute($attribute);
         }
+
         return $this->_productAttributes[$attribute];
     }
 
     /**
      * Refresh enabled index cache
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return $this
      */
     public function refreshEnabledIndex($productId, $storeId)
@@ -84,9 +81,9 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     /**
      * Update product status for store
      *
-     * @param int $productId
-     * @param int $storeId
-     * @param int $value
+     * @param  int                       $productId
+     * @param  int                       $storeId
+     * @param  int                       $value
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -104,7 +101,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             'attribute_id'   => $statusAttributeId,
             'store_id'       => $storeId,
             'entity_id'      => $productId,
-            'value'          => $value
+            'value'          => $value,
         ]);
 
         $data = $this->_prepareDataForTable($data, $statusTable);
@@ -139,8 +136,8 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      * Retrieve Product(s) status for store
      * Return array where key is a product_id, value - status
      *
-     * @param array|int $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return array
      */
     public function getProductStatus($productIds, $storeId = null)
@@ -169,13 +166,13 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             $select = $adapter->select()
                 ->from(
                     ['t1' => $attributeTable],
-                    ['entity_id' => 't1.entity_id', 'value' => $valueCheckSql]
+                    ['entity_id' => 't1.entity_id', 'value' => $valueCheckSql],
                 )
                 ->joinLeft(
                     ['t2' => $attributeTable],
                     't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = '
-                        . (int)$storeId,
-                    ['']
+                        . (int) $storeId,
+                    [''],
                 )
                 ->where('t1.store_id = ?', Mage_Core_Model_App::ADMIN_STORE_ID)
                 ->where('t1.attribute_id = ?', $attribute->getAttributeId())
@@ -184,11 +181,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
         }
 
         foreach ($productIds as $productId) {
-            if (isset($rows[$productId])) {
-                $statuses[$productId] = $rows[$productId];
-            } else {
-                $statuses[$productId] = -1;
-            }
+            $statuses[$productId] = $rows[$productId] ?? -1;
         }
 
         return $statuses;

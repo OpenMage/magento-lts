@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 User Admin Class
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
@@ -31,6 +24,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getLabel()
     {
         return Mage::helper('api2')->__('Admin');
@@ -49,6 +43,8 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
                 throw new Exception('Admin identifier is not set');
             }
 
+            $this->_assertAdminUserIsActive();
+
             /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
             $collection = Mage::getModel('api2/acl_global_role')->getCollection();
             $collection->addFilterByAdminId($this->getUserId());
@@ -66,6 +62,34 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
     }
 
     /**
+     * Refuse API access to an admin user that has been deactivated or deleted
+     *
+     * An OAuth access token stays valid after its admin user is deactivated, so the account
+     * state is checked on every request, as the admin login does.
+     *
+     * @throws Mage_Api2_Exception
+     */
+    protected function _assertAdminUserIsActive(): void
+    {
+        $user = $this->_loadAdminUser((int) $this->getUserId());
+        if ((int) $user->getId() === 0 || (int) $user->getIsActive() !== 1) {
+            throw new Mage_Api2_Exception(
+                'Admin user is not active',
+                Mage_Api2_Model_Server::HTTP_UNAUTHORIZED,
+            );
+        }
+    }
+
+    protected function _loadAdminUser(int $userId): Mage_Admin_Model_User
+    {
+        /** @var Mage_Admin_Model_User $user */
+        $user = Mage::getModel('admin/user');
+        $user->load($userId);
+
+        return $user;
+    }
+
+    /**
      * Retrieve user type
      *
      * @return string
@@ -78,7 +102,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
     /**
      * Set user role
      *
-     * @param int $role
+     * @param  int       $role
      * @return $this
      * @throws Exception
      */
@@ -87,6 +111,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
         if ($this->_role) {
             throw new Exception('Admin role has been already set to ' . $this->_role . ' for user ID ' . $this->getUserId());
         }
+
         $this->_role = $role;
 
         return $this;

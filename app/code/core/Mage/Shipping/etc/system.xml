@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -47,6 +40,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><checkout_multiple>1</checkout_multiple></depends>
                         </checkout_multiple_maximum_qty>
                     </fields>
                 </option>
@@ -136,6 +130,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </name>
                         <price translate="label">
                             <label>Price</label>
@@ -144,6 +139,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </price>
                         <handling_type translate="label">
                             <label>Calculate Handling Fee</label>
@@ -153,6 +149,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_type>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
@@ -161,6 +158,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_fee>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -168,6 +166,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -175,6 +174,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </title>
                         <type translate="label">
                             <label>Type</label>
@@ -184,6 +184,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </type>
                         <sallowspecific translate="label">
                             <label>Ship to Applicable Countries</label>
@@ -194,6 +195,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sallowspecific>
                         <specificcountry translate="label">
                             <label>Ship to Specific Countries</label>
@@ -204,6 +206,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show Method if Not Applicable</label>
@@ -213,6 +216,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </showmethod>
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>
@@ -221,6 +225,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </specificerrmsg>
                     </fields>
                 </flatrate>
@@ -247,6 +252,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </free_shipping_subtotal>
                         <name translate="label">
                             <label>Method Name</label>
@@ -254,6 +260,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </name>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -261,6 +268,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -268,6 +276,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </title>
                         <sallowspecific translate="label">
                             <label>Ship to Applicable Countries</label>
@@ -278,6 +287,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sallowspecific>
                         <specificcountry translate="label">
                             <label>Ship to Specific Countries</label>
@@ -288,6 +298,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show Method if Not Applicable</label>
@@ -297,6 +308,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </showmethod>
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>
@@ -305,6 +317,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </specificerrmsg>
                     </fields>
                 </freeshipping>
@@ -323,7 +336,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </handling_type>
+                             <depends><active>1</active></depends>
+                         </handling_type>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
                             <validate>validate-number validate-zero-or-greater</validate>
@@ -331,6 +345,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </handling_fee>
                         <active translate="label">
                             <label>Enabled</label>
@@ -349,6 +364,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </condition_name>
                         <include_virtual_price translate="label">
                             <label>Include Virtual Products in Price Calculation</label>
@@ -358,6 +374,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </include_virtual_price>
                         <export translate="label">
                             <label>Export</label>
@@ -366,6 +383,7 @@
                             <show_in_default>0</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </export>
                         <import translate="label">
                             <label>Import</label>
@@ -375,6 +393,7 @@
                             <show_in_default>0</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </import>
                         <name translate="label">
                             <label>Method Name</label>
@@ -382,6 +401,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </name>
                         <sort_order translate="label">
                             <label>Sort Order</label>
@@ -389,6 +409,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -396,6 +417,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </title>
                         <sallowspecific translate="label">
                             <label>Ship to Applicable Countries</label>
@@ -406,6 +428,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </sallowspecific>
                         <specificcountry translate="label">
                             <label>Ship to Specific Countries</label>
@@ -416,6 +439,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><active>1</active></depends>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show Method if Not Applicable</label>
@@ -426,6 +450,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </showmethod>
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>
@@ -434,6 +459,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </specificerrmsg>
                     </fields>
                 </tablerate>

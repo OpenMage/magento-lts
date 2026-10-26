@@ -1,19 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 /** @var Mage_Eav_Model_Config $eavConfig */
 $eavConfig = Mage::getSingleton('eav/config');
@@ -50,31 +46,35 @@ foreach ($attributes as $attributeCode => $data) {
     if (!$attribute) {
         continue;
     }
-    if (($attribute->getData('is_system') == 1 && $attribute->getData('is_visible') == 0) === false) {
+
+    if (($attribute->getDataByKey('is_system') == 1 && $attribute->getDataByKey('is_visible') == 0) === false) {
         $usedInForms = $defaultUsedInForms;
         if (!empty($data['adminhtml_only'])) {
             $usedInForms = ['adminhtml_customer'];
         } else {
             $usedInForms[] = 'adminhtml_customer';
         }
+
         if (!empty($data['admin_checkout'])) {
             $usedInForms[] = 'adminhtml_checkout';
         }
+
         $attribute->setData('used_in_forms', $usedInForms);
     }
+
     $attribute->save();
 }
 
 // update customer address system attributes used_in_forms data
 $attributes = [
     'prefix', 'firstname', 'middlename', 'lastname', 'suffix', 'company', 'street', 'city', 'country_id',
-    'region', 'region_id', 'postcode', 'telephone', 'fax'
+    'region', 'region_id', 'postcode', 'telephone', 'fax',
 ];
 
 $defaultUsedInForms = [
     'adminhtml_customer_address',
     'customer_address_edit',
-    'customer_register_address'
+    'customer_register_address',
 ];
 
 foreach ($attributes as $attributeCode) {
@@ -82,8 +82,10 @@ foreach ($attributes as $attributeCode) {
     if (!$attribute) {
         continue;
     }
-    if (($attribute->getData('is_system') == 1 && $attribute->getData('is_visible') == 0) === false) {
+
+    if (($attribute->getDataByKey('is_system') == 1 && $attribute->getDataByKey('is_visible') == 0) === false) {
         $attribute->setData('used_in_forms', $defaultUsedInForms);
     }
+
     $attribute->save();
 }

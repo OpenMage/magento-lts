@@ -1,34 +1,33 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Persistent
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Persistent Shopping Cart Data Helper
  *
- * @category   Mage
  * @package    Mage_Persistent
  */
 class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
 {
     public const XML_PATH_ENABLED = 'persistent/options/enabled';
+
     public const XML_PATH_LIFE_TIME = 'persistent/options/lifetime';
+
     public const XML_PATH_LOGOUT_CLEAR = 'persistent/options/logout_clear';
+
     public const XML_PATH_REMEMBER_ME_ENABLED = 'persistent/options/remember_enabled';
+
     public const XML_PATH_REMEMBER_ME_DEFAULT = 'persistent/options/remember_default';
+
     public const XML_PATH_PERSIST_SHOPPING_CART = 'persistent/options/shopping_cart';
 
     public const LOGGED_IN_LAYOUT_HANDLE = 'customer_logged_in_psc_handle';
+
     public const LOGGED_OUT_LAYOUT_HANDLE = 'customer_logged_out_psc_handle';
 
     protected $_moduleName = 'Mage_Persistent';
@@ -43,7 +42,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Checks whether Persistence Functionality is enabled
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isEnabled($store = null)
@@ -54,7 +53,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Checks whether "Remember Me" enabled
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isRememberMeEnabled($store = null)
@@ -65,7 +64,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Is "Remember Me" checked by default
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isRememberMeCheckedDefault($store = null)
@@ -76,7 +75,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Is shopping cart persist
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return bool
      */
     public function isShoppingCartPersist($store = null)
@@ -87,13 +86,13 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Get Persistence Lifetime
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|Mage_Core_Model_Store|string $store
      * @return int
      */
     public function getLifeTime($store = null)
     {
         $lifeTime = Mage::getStoreConfigAsInt(self::XML_PATH_LIFE_TIME, $store);
-        return ($lifeTime < 0) ? 0 : $lifeTime;
+        return max(0, $lifeTime);
     }
 
     /**
@@ -139,7 +138,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check whether specified action should be processed
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return bool
      */
     public function canProcess($observer)
@@ -150,23 +149,26 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
         if ($action instanceof Mage_Core_Controller_Varien_Action) {
             return !$action->getFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_START_SESSION);
         }
+
         if ($controllerAction instanceof Mage_Core_Controller_Varien_Action) {
             return !$controllerAction->getFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_START_SESSION);
         }
+
         return true;
     }
 
     /**
      * Get create account url depends on checkout
      *
-     * @param string $url
+     * @param  string $url
      * @return string
      */
     public function getCreateAccountUrl($url)
     {
         if (Mage::helper('checkout')->isContextCheckout()) {
-            $url = Mage::helper('core/url')->addRequestParam($url, ['context' => 'checkout']);
+            return Mage::helper('core/url')->addRequestParam($url, ['context' => 'checkout']);
         }
+
         return $url;
     }
 }

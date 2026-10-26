@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer Address Street Model
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends Mage_Core_Model_Config_Data
@@ -26,6 +19,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends
      *
      * @return $this
      */
+    #[Override]
     protected function _afterSave()
     {
         $attribute = Mage::getSingleton('eav/config')->getAttribute('customer_address', 'street');
@@ -35,15 +29,17 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends
                 $website = Mage::app()->getWebsite($this->getWebsiteCode());
                 $attribute->setWebsite($website);
                 $attribute->load($attribute->getId());
-                if ($attribute->getData('multiline_count') != $value) {
+                if ($attribute->getDataByKey('multiline_count') != $value) {
                     $attribute->setData('scope_multiline_count', $value);
                 }
+
                 break;
 
             case 'default':
                 $attribute->setData('multiline_count', $value);
                 break;
         }
+
         $attribute->save();
         return $this;
     }
@@ -51,8 +47,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends
     /**
      * Processing object after delete data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _afterDelete()
     {
         $result = parent::_afterDelete();

@@ -1,19 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 
@@ -62,7 +56,7 @@ $table = $installer->getConnection()
     ], 'Store ID')
     ->addIndex(
         $installer->getIdxName('cms/block_store', ['store_id']),
-        ['store_id']
+        ['store_id'],
     )
     ->addForeignKey(
         $installer->getFkName('cms/block_store', 'block_id', 'cms/block', 'block_id'),
@@ -70,7 +64,7 @@ $table = $installer->getConnection()
         $installer->getTable('cms/block'),
         'block_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('cms/block_store', 'store_id', 'core/store', 'store_id'),
@@ -78,7 +72,7 @@ $table = $installer->getConnection()
         $installer->getTable('core/store'),
         'store_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('CMS Block To Store Linkage Table');
 $installer->getConnection()->createTable($table);
@@ -94,10 +88,10 @@ $table = $installer->getConnection()
         'primary'   => true,
     ], 'Page ID')
     ->addColumn('title', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
-        'nullable'  => true
+        'nullable'  => true,
     ], 'Page Title')
     ->addColumn('root_template', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
-        'nullable'  => true
+        'nullable'  => true,
     ], 'Page Template')
     ->addColumn('meta_keywords', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', [
         'nullable'  => true,
@@ -146,7 +140,7 @@ $table = $installer->getConnection()
     ], 'Page Custom Theme Active To Date')
     ->addIndex(
         $installer->getIdxName('cms/page', ['identifier']),
-        ['identifier']
+        ['identifier'],
     )
     ->setComment('CMS Page Table');
 $installer->getConnection()->createTable($table);
@@ -167,7 +161,7 @@ $table = $installer->getConnection()
     ], 'Store ID')
     ->addIndex(
         $installer->getIdxName('cms/page_store', ['store_id']),
-        ['store_id']
+        ['store_id'],
     )
     ->addForeignKey(
         $installer->getFkName('cms/page_store', 'page_id', 'cms/page', 'page_id'),
@@ -175,7 +169,7 @@ $table = $installer->getConnection()
         $installer->getTable('cms/page'),
         'page_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('cms/page_store', 'store_id', 'core/store', 'store_id'),
@@ -183,7 +177,7 @@ $table = $installer->getConnection()
         $installer->getTable('core/store'),
         'store_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('CMS Page To Store Linkage Table');
 $installer->getConnection()->createTable($table);

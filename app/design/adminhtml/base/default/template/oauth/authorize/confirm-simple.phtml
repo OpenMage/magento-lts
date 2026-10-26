@@ -1,0 +1,34 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * Authorize confirmation simple template
+ *
+ * @var Mage_Oauth_Block_AuthorizeBaseAbstract $this
+ */
+?>
+<div class="login-container">
+    <div class="login-box">
+        <div class="page-title">
+            <h1><?php echo $this->__('Confirmation Of Authorization') ?></h1>
+        </div>
+        <div class="form-box">
+            <?php echo $this->getMessagesBlock()->toHtml() ?>
+            <?php if ($this->getVerifier()): ?>
+                <h2><?php echo $this->__('Authorization confirmed') ?></h2>
+                <p><?php echo $this->__('Give the verifier code to application administrator') ?></p>
+                <p style="font-size: 14px;"><?php echo $this->__('Verifier code: %s', $this->getVerifier()) ?></p>
+            <?php endif ?>
+            <button type="submit" class="button"
+                    onclick="window.close();"
+                    title="<?php echo $this->quoteEscape($this->__('Close')) ?>">
+                <span><span><?php echo $this->__('Close') ?></span></span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml invoice create form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtml_Block_Sales_Order_Abstract
@@ -26,6 +19,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
      *
      * @return Mage_Sales_Model_Order
      */
+    #[Override]
     public function getOrder()
     {
         return $this->getInvoice()->getOrder();
@@ -51,6 +45,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
         return Mage::registry('current_invoice');
     }
 
+    #[Override]
     protected function _prepareLayout()
     {
         /*  $infoBlock = $this->getLayout()->createBlock('adminhtml/sales_order_view_info')
@@ -86,6 +81,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
                 return true;
             }
         }
+
         return false;
     }
 
@@ -96,16 +92,14 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
                 return true;
             }
         }
+
         return false;
     }
 
     public function canShipPartiallyItem()
     {
         $value = $this->getOrder()->getCanShipPartiallyItem();
-        if (!is_null($value) && !$value) {
-            return false;
-        }
-        return true;
+        return !(!is_null($value) && !$value);
     }
 
     /**

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Eav Mysql resource helper model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Mysql4
@@ -39,14 +32,14 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
         Varien_Db_Ddl_Table::TYPE_DATETIME      => 'datetime',
         Varien_Db_Ddl_Table::TYPE_TEXT          => 'text',
         Varien_Db_Ddl_Table::TYPE_BLOB          => 'blob',
-        Varien_Db_Ddl_Table::TYPE_VARBINARY     => 'blob'
+        Varien_Db_Ddl_Table::TYPE_VARBINARY     => 'blob',
     ];
 
     /**
      * Returns columns for select
      *
-     * @param string $tableAlias
-     * @param string $eavType
+     * @param  string $tableAlias
+     * @param  string $eavType
      * @return string
      */
     public function attributeSelectFields($tableAlias, $eavType)
@@ -57,7 +50,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
     /**
      * Returns DDL type by column type in database
      *
-     * @param string $columnType
+     * @param  string $columnType
      * @return string
      */
     public function getDdlTypeByColumnType($columnType)
@@ -81,8 +74,8 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
     /**
      * Prepares value fields for unions depend on type
      *
-     * @param string $value
-     * @param string $eavType
+     * @param  string $value
+     * @param  string $eavType
      * @return string
      */
     public function prepareEavAttributeValue($value, $eavType)
@@ -93,26 +86,27 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
     /**
      * Groups selects to separate unions depend on type
      *
-     * @param array $selects
+     * @param  array $selects
      * @return array
      */
     public function getLoadAttributesSelectGroups($selects)
     {
         $mainGroup  = [];
-        foreach ($selects as $eavType => $selectGroup) {
+        foreach ($selects as $selectGroup) {
             $mainGroup = array_merge($mainGroup, $selectGroup);
         }
+
         return $mainGroup;
     }
 
     /**
      * Retrieve 'cast to int' expression
      *
-     * @param string|Zend_Db_Expr $expression
+     * @param  string|Zend_Db_Expr $expression
      * @return Zend_Db_Expr
      */
     public function getCastToIntExpression($expression)
     {
-        return new Zend_Db_Expr("CAST($expression AS SIGNED)");
+        return new Zend_Db_Expr("CAST({$expression} AS SIGNED)");
     }
 }

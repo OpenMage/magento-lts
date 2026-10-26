@@ -1,31 +1,28 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart price rule chooser
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method array                     getConfig()
+ * @method int                       getFieldsetId()
+ * @method Mage_Core_Helper_Abstract getTranslationHelper()
+ * @method $this                     setConfig(array $value)
+ * @method $this                     setFieldsetId(int $value)
+ * @method $this                     setTranslationHelper(Mage_Core_Helper_Abstract $value)
  */
 class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Block constructor, prepare grid params
-     *
-     * @param array $arguments
-     */
+    protected string $_eventPrefix = 'adminhtml_promo_widget_chooser';
+
     public function __construct($arguments = [])
     {
         parent::__construct($arguments);
@@ -37,8 +34,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
     /**
      * Prepare chooser element HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element Form Element
+     * @param  Varien_Data_Form_Element_Abstract $element Form Element
      * @return Varien_Data_Form_Element_Abstract
+     * @throws Mage_Core_Exception
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
@@ -54,7 +52,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
             ->setUniqId($uniqId);
 
         if ($element->getValue()) {
-            $rule = Mage::getModel('salesrule/rule')->load((int)$element->getValue());
+            $rule = Mage::getModel('salesrule/rule')->load((int) $element->getValue());
             if ($rule->getId()) {
                 $chooser->setLabel($rule->getName());
             }
@@ -67,7 +65,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
     /**
      * Grid Row JS Callback
      *
-     * @return string
+     * @inheritDoc
      */
     public function getRowClickCallback()
     {
@@ -85,27 +83,26 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare rules collection
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('salesrule/rule')->getResourceCollection();
         $this->setCollection($collection);
 
         Mage::dispatchEvent('adminhtml_block_promo_widget_chooser_prepare_collection', [
-            'collection' => $collection
+            'collection' => $collection,
         ]);
 
         return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns for rules grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('rule_id', [
@@ -159,10 +156,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Prepare grid URL
-     *
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/promo_quote/chooser', ['_current' => true]);

@@ -1,16 +1,15 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Sales_Block_Order_History
+ * @see Mage_Sales_Block_Reorder_Sidebar
+ * @var Mage_Sales_Block_Order_History|Mage_Sales_Block_Reorder_Sidebar $this
  */
 ?>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
@@ -46,12 +45,16 @@
             <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
             <td><em><?php echo $_order->getStatusLabel() ?></em></td>
             <td class="a-center">
-                <span class="nobr"><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a>
+                <div class="nobr"><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a>
                     <?php /*<span class="separator">|</span><a href="<?php echo $this->getTrackUrl($_order) ?>"><?php echo $this->__('Track Order') ?></a>&nbsp;*/ ?>
                     <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
-                    <span class="separator">|</span> <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>
+                    <span class="separator">|</span>
+                    <form action="<?php echo $this->getReorderUrl($_order) ?>" method="post" style="display:inline">
+                        <?php echo $this->getBlockHtml('formkey') ?>
+                        <button type="submit" class="link-reorder" style="border:0;background:transparent;padding:0;cursor:pointer"><?php echo $this->__('Reorder') ?></button>
+                    </form>
                 <?php endif ?>
-                </span>
+                </div>
             </td>
         </tr>
         <?php endforeach ?>

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category form input image element
  *
- * @category   Varien
  * @package    Varien_Data
  */
 class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
@@ -34,10 +27,9 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
     /**
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
-        $gallery = $this->getValue();
-
         $html = '<table id="gallery" class="gallery" border="0" cellspacing="3" cellpadding="0">';
         $html .= '<thead id="gallery_thead" class="gallery"><tr class="gallery"><td class="gallery" valign="middle" align="center">Big Image</td><td class="gallery" valign="middle" align="center">Thumbnail</td><td class="gallery" valign="middle" align="center">Small Thumb</td><td class="gallery" valign="middle" align="center">Sort Order</td><td class="gallery" valign="middle" align="center">Delete</td></tr></thead>';
         $widgetButton = $this->getForm()->getParent()->getLayout();
@@ -46,7 +38,7 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
                     [
                         'label'     => 'Add New Image',
                         'onclick'   => 'addNewImg()',
-                        'class'     => 'add']
+                        'class'     => 'add'],
                 )
                 ->toHtml();
 
@@ -70,12 +62,14 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
                     <img id="' . $this->getHtmlId() . '_image_' . $type . '_' . $image->getValueId() . '" src="' . $url . '" alt="' . $image->getValue() . '" height="25" align="absmiddle" class="small-image-preview"></a><br/>';
                     $html .= '<input type="file" name="' . $this->getName() . '_' . $type . '[' . $image->getValueId() . ']" size="1"></td>';
                 }
+
                 $html .= '<td class="gallery" align="center" style="vertical-align:bottom;"><input type="input" name="' . parent::getName() . '[position][' . $image->getValueId() . ']" value="' . $image->getPosition() . '" id="' . $this->getHtmlId() . '_position_' . $image->getValueId() . '" size="3"/></td>';
                 $html .= '<td class="gallery" align="center" style="vertical-align:bottom;"><input type="checkbox" name="' . parent::getName() . '[delete][' . $image->getValueId() . ']" value="' . $image->getValueId() . '" id="' . $this->getHtmlId() . '_delete_' . $image->getValueId() . '"/></td>';
                 $html .= '</tr>';
             }
         }
-        if ($i == 0) {
+
+        if ($i === 0) {
             $html .= '<script type="text/javascript">document.getElementById("gallery_thead").style.visibility="hidden";</script>';
         }
 
@@ -166,16 +160,16 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
         </script>
 
 EndSCRIPT;
-        $html .= $this->getAfterElementHtml();
-        return $html;
+        return $html . $this->getAfterElementHtml();
     }
 
     /**
      * @return string
      */
+    #[Override]
     public function getName()
     {
-        return $this->getData('name');
+        return $this->getDataByKey('name');
     }
 
     /**

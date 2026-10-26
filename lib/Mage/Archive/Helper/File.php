@@ -1,24 +1,18 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Archive
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
-* Helper class that simplifies files stream reading and writing
-*
-* @category    Mage
-* @package     Mage_Archive
-*/
+ * Helper class that simplifies files stream reading and writing
+ *
+ * @category    Mage
+ * @package     Mage_Archive
+ */
 class Mage_Archive_Helper_File
 {
     /**
@@ -52,7 +46,7 @@ class Mage_Archive_Helper_File
     /**
      * File handler
      *
-     * @var resource|false pointer
+     * @var false|resource pointer
      */
     protected $_fileHandler;
 
@@ -83,8 +77,8 @@ class Mage_Archive_Helper_File
     /**
      * Open file
      *
-     * @param string $mode
-     * @param int $chmod
+     * @param  string         $mode
+     * @param  int            $chmod
      * @throws Mage_Exception
      */
     public function open($mode = 'w+', $chmod = 0666)
@@ -95,7 +89,7 @@ class Mage_Archive_Helper_File
             }
 
             if (is_file($this->_filePath) && !is_writable($this->_filePath)) {
-                throw new Mage_Exception("Can't open file " . $this->_fileName . " for writing. Permission denied.");
+                throw new Mage_Exception("Can't open file " . $this->_fileName . ' for writing. Permission denied.');
             }
         }
 
@@ -128,15 +122,15 @@ class Mage_Archive_Helper_File
     /**
      * Read data from file
      *
-     * @param int $length
-     * @return string|boolean
+     * @param  int         $length
+     * @return bool|string
      */
     public function read($length = 4096)
     {
         $data = false;
         $this->_checkFileOpened();
         if ($length > 0) {
-            $data = $this->_read($length);
+            return $this->_read($length);
         }
 
         return $data;
@@ -145,7 +139,7 @@ class Mage_Archive_Helper_File
     /**
      * Check whether end of file reached
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {
@@ -156,7 +150,7 @@ class Mage_Archive_Helper_File
     /**
      * Close file
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function close()
     {
@@ -169,10 +163,10 @@ class Mage_Archive_Helper_File
     /**
      * Implementation of file opening
      *
-     * @param string $mode
+     * @param  string         $mode
      * @throws Mage_Exception
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _open($mode)
     {
@@ -186,10 +180,10 @@ class Mage_Archive_Helper_File
     /**
      * Implementation of writing data to file
      *
-     * @param string $data
+     * @param  string         $data
      * @throws Mage_Exception
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _write($data)
     {
@@ -203,7 +197,7 @@ class Mage_Archive_Helper_File
     /**
      * Implementation of file reading
      *
-     * @param int $length
+     * @param  int            $length
      * @throws Mage_Exception
      */
     protected function _read($length)
@@ -220,7 +214,7 @@ class Mage_Archive_Helper_File
     /**
      * Implementation of EOF indicator
      *
-     * @return boolean
+     * @return bool
      */
     protected function _eof()
     {
@@ -246,10 +240,10 @@ class Mage_Archive_Helper_File
     }
 
     /**
-    * Check whether requested mode is readable mode
-    *
-    * @param string $mode
-    */
+     * Check whether requested mode is readable mode
+     *
+     * @param string $mode
+     */
     protected function _isReadableMode($mode)
     {
         return !$this->_isWritableMode($mode);

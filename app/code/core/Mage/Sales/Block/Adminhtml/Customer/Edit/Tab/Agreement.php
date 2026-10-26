@@ -1,26 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml customer billing agreement tab
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'sales_adminhtml_customer_edit_tab_agreement';
+
     /**
      * Columns, that should be removed from grid
      *
@@ -30,13 +25,9 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
         'customer_email',
         'customer_firstname',
         'customer_middlename',
-        'customer_lastname'
+        'customer_lastname',
     ];
 
-    /**
-     * Disable filters and paging
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -44,9 +35,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     }
 
     /**
-     * Return Tab label
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabLabel()
     {
@@ -54,9 +43,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     }
 
     /**
-     * Return Tab title
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getTabTitle()
     {
@@ -64,20 +51,16 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     }
 
     /**
-     * Can show tab in tabs
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canShowTab()
     {
         $customer = Mage::registry('current_customer');
-        return (bool)$customer->getId();
+        return (bool) $customer->getId();
     }
 
     /**
-     * Tab is hidden
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function isHidden()
     {
@@ -85,8 +68,9 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/sales_billing_agreement/customerGrid', ['_current' => true]);
@@ -105,8 +89,9 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     /**
      * Prepare collection for grid
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this|Mage_Adminhtml_Block_Widget_Grid
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/billing_agreement_collection')
@@ -119,17 +104,19 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     /**
      * Remove some columns and make other not sortable
      *
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $result = parent::_prepareColumns();
 
-        foreach ($this->_columns as $key => $value) {
+        foreach (array_keys($this->_columns) as $key) {
             if (in_array($key, $this->_columnsToRemove)) {
                 unset($this->_columns[$key]);
             }
         }
+
         return $result;
     }
 }

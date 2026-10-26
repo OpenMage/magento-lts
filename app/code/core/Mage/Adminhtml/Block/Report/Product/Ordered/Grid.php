@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -20,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Block_Report_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_report_product_ordered_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -27,8 +23,9 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         parent::_prepareCollection();
@@ -38,32 +35,32 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
 
     /**
      * @inheritDoc
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $baseCurrencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('price', [
-            'header'        => Mage::helper('reports')->__('Price'),
             'width'         => '120px',
             'type'          => 'currency',
             'currency_code' => $baseCurrencyCode,
-            'index'         => 'price',
             'rate'          => $this->getRate($baseCurrencyCode),
         ]);
 
         $this->addColumn('ordered_qty', [
             'header'    => Mage::helper('reports')->__('Quantity Ordered'),
             'width'     => '120px',
-            'align'     => 'right',
             'index'     => 'ordered_qty',
             'total'     => 'sum',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->addExportType('*/*/exportOrderedCsv', Mage::helper('reports')->__('CSV'));

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Adminhtml report filter form
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block_Report_Filter_Form
@@ -26,6 +19,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
      *
      * @return $this
      */
+    #[Override]
     protected function _prepareForm()
     {
         parent::_prepareForm();
@@ -34,14 +28,14 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
         /** @var Varien_Data_Form_Element_Fieldset $fieldset */
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
-        if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
+        if ($fieldset instanceof Varien_Data_Form_Element_Fieldset) {
             $statuses = Mage::getModel('sales/order_config')->getStatuses();
             $values = [];
             foreach ($statuses as $code => $label) {
                 if (!str_contains($code, 'pending')) {
                     $values[] = [
                         'label' => Mage::helper('reports')->__($label),
-                        'value' => $code
+                        'value' => $code,
                     ];
                 }
             }
@@ -50,8 +44,8 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
                 'name'      => 'show_order_statuses',
                 'label'     => Mage::helper('reports')->__('Order Status'),
                 'options'   => [
-                        '0' => Mage::helper('reports')->__('Any'),
-                        '1' => Mage::helper('reports')->__('Specified'),
+                    '0' => Mage::helper('reports')->__('Any'),
+                    '1' => Mage::helper('reports')->__('Specified'),
                 ],
                 'note'      => Mage::helper('reports')->__('Applies to Any of the Specified Order Statuses'),
             ], 'to');
@@ -59,7 +53,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
             $fieldset->addField('order_statuses', 'multiselect', [
                 'name'      => 'order_statuses',
                 'values'    => $values,
-                'display'   => 'none'
+                'display'   => 'none',
             ], 'show_order_statuses');
 
             // define field dependencies

@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
@@ -18,13 +12,14 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 /**
  * Adminhtml all tags grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tag_tag_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -36,9 +31,9 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getIndex() === 'stores') {
@@ -46,6 +41,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -53,6 +49,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @inheritDoc
      * @throws Mage_Core_Model_Store_Exception
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('tag/tag_collection')
@@ -66,6 +63,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @inheritDoc
      * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -76,7 +74,6 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn('products', [
             'header'        => Mage::helper('tag')->__('Products'),
             'width'         => 140,
-            'align'         => 'right',
             'index'         => 'products',
             'type'          => 'number',
         ]);
@@ -84,7 +81,6 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn('customers', [
             'header'        => Mage::helper('tag')->__('Customers'),
             'width'         => 140,
-            'align'         => 'right',
             'index'         => 'customers',
             'type'          => 'number',
         ]);
@@ -106,7 +102,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 'skipAllStoresLabel'    => true,
                 'index'                 => 'stores',
                 'sortable'              => false,
-                'store_view'            => true
+                'store_view'            => true,
             ]);
         }
 
@@ -114,16 +110,17 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('tag_id');
         $this->getMassactionBlock()->setFormFieldName('tag');
 
         $this->getMassactionBlock()->addItem(MassAction::DELETE, [
-             'label'    => Mage::helper('tag')->__('Delete'),
-             'url'      => $this->getUrl('*/*/massDelete')
+            'label'    => Mage::helper('tag')->__('Delete'),
+            'url'      => $this->getUrl('*/*/massDelete'),
         ]);
 
         /** @var Mage_Tag_Helper_Data $helper */
@@ -141,12 +138,12 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     'type'     => 'select',
                     'class'    => 'required-entry',
                     'label'    => Mage::helper('tag')->__('Status'),
-                    'values'   => $statuses
-                ]
-            ]
+                    'values'   => $statuses,
+                ],
+            ],
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
@@ -154,17 +151,18 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/tag/ajaxGrid', ['_current' => true]);
     }
 
     /**
-     * Retrieves row click URL
-     *
-     * @param  Mage_Tag_Model_Tag $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Tag_Model_Tag  $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['tag_id' => $row->getId()]);

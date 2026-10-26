@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ProductAlert
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * ProductAlert data helper
  *
- * @category   Mage
  * @package    Mage_ProductAlert
  */
 class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
@@ -40,13 +33,14 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
         if (!is_null($this->_product)) {
             return $this->_product;
         }
+
         return Mage::registry('product');
     }
 
     /**
      * Set current product instance
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setProduct($product)
@@ -73,19 +67,19 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getSaveUrl($type)
     {
         return $this->_getUrl('productalert/add/' . $type, [
             'product_id'    => $this->getProduct()->getId(),
-            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
+            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl(),
         ]);
     }
 
     /**
-     * @param string $block
+     * @param  string                                                                  $block
      * @return Mage_ProductAlert_Block_Email_Price|Mage_ProductAlert_Block_Email_Stock
      * @throws Mage_Core_Exception
      */
@@ -93,20 +87,21 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
     {
         $error = Mage::helper('core')->__('Invalid block type: %s', $block);
         if (is_string($block)) {
-            if (str_contains($block, '/')) {
-                if (!$block = Mage::getConfig()->getBlockClassName($block)) {
-                    Mage::throwException($error);
-                }
+            if (str_contains($block, '/') && !$block = Mage::getConfig()->getBlockClassName($block)) {
+                Mage::throwException($error);
             }
+
             $fileName = mageFindClassFile($block);
             if ($fileName !== false) {
                 include_once($fileName);
                 $block = new $block([]);
             }
         }
+
         if (!$block instanceof Mage_Core_Block_Abstract) {
             Mage::throwException($error);
         }
+
         return $block;
     }
 

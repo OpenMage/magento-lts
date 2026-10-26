@@ -1,27 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Page layout config model
  *
- * @category   Mage
  * @package    Mage_Page
  */
 class Mage_Page_Model_Config
 {
     public const XML_PATH_PAGE_LAYOUTS = 'global/page/layouts';
+
     public const XML_PATH_CMS_LAYOUTS = 'global/cms/layouts';
 
     /**
@@ -43,13 +37,14 @@ class Mage_Page_Model_Config
             $this->_appendPageLayouts(self::XML_PATH_CMS_LAYOUTS);
             $this->_appendPageLayouts(self::XML_PATH_PAGE_LAYOUTS);
         }
+
         return $this;
     }
 
     /**
      * Fill in $_pageLayouts by reading layouts from config
      *
-     * @param string $xmlPath XML path to layouts root
+     * @param  string $xmlPath XML path to layouts root
      * @return $this
      */
     protected function _appendPageLayouts($xmlPath)
@@ -57,18 +52,21 @@ class Mage_Page_Model_Config
         if (!Mage::getConfig()->getNode($xmlPath)) {
             return $this;
         }
+
         if (!is_array($this->_pageLayouts)) {
             $this->_pageLayouts = [];
         }
+
         foreach (Mage::getConfig()->getNode($xmlPath)->children() as $layoutCode => $layoutConfig) {
             $this->_pageLayouts[$layoutCode] = new Varien_Object([
-                'label'         => Mage::helper('page')->__((string)$layoutConfig->label),
+                'label'         => Mage::helper('page')->__((string) $layoutConfig->label),
                 'code'          => $layoutCode,
-                'template'      => (string)$layoutConfig->template,
-                'layout_handle' => (string)$layoutConfig->layout_handle,
-                'is_default'    => (int)$layoutConfig->is_default,
+                'template'      => (string) $layoutConfig->template,
+                'layout_handle' => (string) $layoutConfig->layout_handle,
+                'is_default'    => (int) $layoutConfig->is_default,
             ]);
         }
+
         return $this;
     }
 
@@ -86,8 +84,8 @@ class Mage_Page_Model_Config
     /**
      * Retrieve page layout by code
      *
-     * @param string $layoutCode
-     * @return Varien_Object|false
+     * @param  string              $layoutCode
+     * @return false|Varien_Object
      */
     public function getPageLayout($layoutCode)
     {

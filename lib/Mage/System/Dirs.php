@@ -1,27 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_System
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_System_Dirs
 {
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public static function rm($dirname)
     {
         if (is_array($dirname)) {
             $dirname = $dirname[1];
         }
+
         // Sanity check
         if (!@file_exists($dirname)) {
             return false;
@@ -48,12 +43,17 @@ class Mage_System_Dirs
 
             // Otherwise add it to the stack
             $stack[] = $entry;
-            $dh = opendir($entry);
-            while (false !== $child = readdir($dh)) {
+            $handle = opendir($entry);
+            while (false !== $child = readdir($handle)) {
                 // Ignore pointers
-                if ($child === '.' || $child === '..') {
+                if ($child === '.') {
                     continue;
                 }
+
+                if ($child === '..') {
+                    continue;
+                }
+
                 // Unlink files and add directories to stack
                 $child = $entry . DIRECTORY_SEPARATOR . $child;
                 if (is_dir($child) && !is_link($child)) {
@@ -62,13 +62,15 @@ class Mage_System_Dirs
                     @unlink($child);
                 }
             }
-            @closedir($dh);
+
+            @closedir($handle);
         }
+
         return true;
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public static function mkdirStrict($path, $recursive = true, $mode = 0777)
     {
@@ -76,13 +78,16 @@ class Mage_System_Dirs
         if ($exists && is_dir($path)) {
             return true;
         }
+
         if ($exists && !is_dir($path)) {
             throw new Exception("'{$path}' already exists, should be a dir, not a file!");
         }
+
         $out = @mkdir($path, $mode, $recursive);
         if (false === $out) {
             throw new Exception("Can't create dir: '{$path}'");
         }
+
         return true;
     }
 

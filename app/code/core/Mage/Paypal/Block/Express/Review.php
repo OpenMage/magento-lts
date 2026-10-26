@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paypal Express Onepage checkout block
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
@@ -48,7 +41,6 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Quote object setter
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @return $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
@@ -70,20 +62,21 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Return quote shipping address
      *
-     * @return Mage_Sales_Model_Quote_Address|false
+     * @return false|Mage_Sales_Model_Quote_Address
      */
     public function getShippingAddress()
     {
         if ($this->_quote->getIsVirtual()) {
             return false;
         }
+
         return $this->_quote->getShippingAddress();
     }
 
     /**
      * Get HTML output for specified address
      *
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return string
      */
     public function renderAddress($address)
@@ -94,7 +87,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Return carrier name from config, base on carrier code
      *
-     * @param string $carrierCode
+     * @param  string $carrierCode
      * @return string
      */
     public function getCarrierName($carrierCode)
@@ -102,13 +95,13 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         if ($name = Mage::getStoreConfig("carriers/{$carrierCode}/title")) {
             return $name;
         }
+
         return $carrierCode;
     }
 
     /**
      * Get either shipping rate code or empty value on error
      *
-     * @param Varien_Object $rate
      * @return string
      */
     public function renderShippingRateValue(Varien_Object $rate)
@@ -116,15 +109,16 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         if ($rate->getErrorMessage()) {
             return '';
         }
+
         return $rate->getCode();
     }
 
     /**
      * Get shipping rate code title and its price or error message
      *
-     * @param Varien_Object $rate
-     * @param string $format
-     * @param string $inclTaxFormat
+     * @param  Varien_Object $rate
+     * @param  string        $format
+     * @param  string        $inclTaxFormat
      * @return string
      */
     public function renderShippingRateOption($rate, $format = '%s - %s%s', $inclTaxFormat = ' (%s %s)')
@@ -142,6 +136,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
                 $renderedInclTax = sprintf($inclTaxFormat, Mage::helper('tax')->__('Incl. Tax'), $incl);
             }
         }
+
         return sprintf($format, $this->escapeHtml($rate->getMethodTitle()), $price, $renderedInclTax);
     }
 
@@ -167,10 +162,9 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Return formatted shipping price
      *
-     * @param float $price
-     * @param bool $isInclTax
-     *
-     * @return bool
+     * @param  float $price
+     * @param  bool  $isInclTax
+     * @return float
      */
     protected function _getShippingPrice($price, $isInclTax)
     {
@@ -182,8 +176,8 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Format price base on store convert price method
      *
-     * @param float $price
-     * @return string
+     * @param  float $price
+     * @return float
      */
     protected function _formatPrice($price)
     {
@@ -195,6 +189,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $methodInstance = $this->_quote->getPayment()->getMethodInstance();
@@ -210,7 +205,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
             if ($groups && $this->_address) {
                 $this->setShippingRateGroups($groups);
                 // determine current selected code & name
-                foreach ($groups as $code => $rates) {
+                foreach ($groups as $rates) {
                     foreach ($rates as $rate) {
                         if ($this->_address->getShippingMethod() == $rate->getCode()) {
                             $this->_currentShippingRate = $rate;

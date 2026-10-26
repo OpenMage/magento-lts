@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml store tree
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
@@ -31,7 +24,8 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     /**
      * Internal constructor, that is called from real constructor
      */
-    public function _construct()
+    #[Override]
+    protected function _construct()
     {
         $this->setTemplate('system/store/tree.phtml');
         parent::_construct();
@@ -40,8 +34,9 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     /**
      * Prepare block layout
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->_cellTemplate = $this->getLayout()
@@ -65,7 +60,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
             $data[$websiteId] = [
                 'object' => $website,
                 'storeGroups' => [],
-                'count' => 0
+                'count' => 0,
             ];
             $defaultGroupId = $website->getDefaultGroupId();
             foreach ($groupCollection as $storeGroup) {
@@ -75,17 +70,18 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
                 $data[$websiteId]['storeGroups'][$storeGroup->getId()] = [
                     'object' => $storeGroup,
                     'stores' => [],
-                    'count' => $storeGroupCount
+                    'count' => $storeGroupCount,
                 ];
                 $data[$websiteId]['count'] += $storeGroupCount;
                 if ($storeGroup->getId() == $defaultGroupId) {
                     $storeGroup->setData('is_default', true);
                 }
+
                 $defaultStoreId = $storeGroup->getDefaultStoreId();
                 foreach ($storeCollection as $store) {
                     /** @var Mage_Core_Model_Store $store */
                     $data[$websiteId]['storeGroups'][$storeGroup->getId()]['stores'][$store->getId()] = [
-                        'object' => $store
+                        'object' => $store,
                     ];
                     if ($store->getId() == $defaultStoreId) {
                         $store->setData('is_default', true);
@@ -95,6 +91,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
 
             $data[$websiteId]['count'] = max(1, $data[$websiteId]['count']);
         }
+
         return $data;
     }
 
@@ -111,7 +108,6 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     /**
      * Render website
      *
-     * @param Mage_Core_Model_Website $website
      * @return string
      */
     public function renderWebsite(Mage_Core_Model_Website $website)
@@ -126,7 +122,6 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     /**
      * Render store group
      *
-     * @param Mage_Core_Model_Store_Group $storeGroup
      * @return string
      */
     public function renderStoreGroup(Mage_Core_Model_Store_Group $storeGroup)
@@ -142,7 +137,6 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     /**
      * Render store
      *
-     * @param Mage_Core_Model_Store $store
      * @return string
      */
     public function renderStore(Mage_Core_Model_Store $store)
@@ -154,6 +148,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
         if (!$store->getIsActive()) {
             $cell->setClass('strike');
         }
+
         return $cell->toHtml();
     }
 }

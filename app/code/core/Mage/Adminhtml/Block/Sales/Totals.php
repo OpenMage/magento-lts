@@ -1,20 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
@@ -22,9 +15,10 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
     /**
      * Format total value based on order currency
      *
-     * @param   Varien_Object $total
-     * @return  string
+     * @param  Varien_Object $total
+     * @return string
      */
+    #[Override]
     public function formatValue($total)
     {
         if (!$total->getIsFormated()) {
@@ -33,17 +27,19 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             return $helper->displayPrices(
                 $this->getOrder(),
                 $total->getBaseValue(),
-                $total->getValue()
+                $total->getValue(),
             );
         }
+
         return $total->getValue();
     }
 
     /**
      * Initialize order totals array
      *
-     * @return Mage_Sales_Block_Order_Totals
+     * @return $this
      */
+    #[Override]
     protected function _initTotals()
     {
         $this->_totals = [];
@@ -51,7 +47,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             'code'      => 'subtotal',
             'value'     => $this->getSource()->getSubtotal(),
             'base_value' => $this->getSource()->getBaseSubtotal(),
-            'label'     => $this->helper('sales')->__('Subtotal')
+            'label'     => $this->helper('sales')->__('Subtotal'),
         ]);
 
         /**
@@ -64,27 +60,28 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
                 'code'      => 'shipping',
                 'value'     => $this->getSource()->getShippingAmount(),
                 'base_value' => $this->getSource()->getBaseShippingAmount(),
-                'label' => $this->helper('sales')->__('Shipping & Handling')
+                'label' => $this->helper('sales')->__('Shipping & Handling'),
             ]);
         }
 
         /**
          * Add discount
          */
-        if ((float)$this->getSource()->getDiscountAmount() != 0) {
+        if ((float) $this->getSource()->getDiscountAmount() != 0) {
             if ($this->getSource()->getDiscountDescription()) {
                 $discountLabel = $this->helper('sales')->__(
                     'Discount (%s)',
-                    $this->getSource()->getDiscountDescription()
+                    $this->getSource()->getDiscountDescription(),
                 );
             } else {
                 $discountLabel = $this->helper('sales')->__('Discount');
             }
+
             $this->_totals['discount'] = new Varien_Object([
                 'code'      => 'discount',
                 'value'     => $this->getSource()->getDiscountAmount(),
                 'base_value' => $this->getSource()->getBaseDiscountAmount(),
-                'label'     => $discountLabel
+                'label'     => $discountLabel,
             ]);
         }
 
@@ -94,7 +91,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             'value'     => $this->getSource()->getGrandTotal(),
             'base_value' => $this->getSource()->getBaseGrandTotal(),
             'label'     => $this->helper('sales')->__('Grand Total'),
-            'area'      => 'footer'
+            'area'      => 'footer',
         ]);
 
         return $this;

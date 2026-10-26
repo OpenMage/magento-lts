@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 chdir(__DIR__);
@@ -18,7 +12,7 @@ require 'app/bootstrap.php';
 require 'app/Mage.php';
 
 if (!Mage::isInstalled()) {
-    echo "Application is not installed yet, please complete install wizard first.";
+    echo 'Application is not installed yet, please complete install wizard first.';
     exit;
 }
 
@@ -28,14 +22,14 @@ $_SERVER['SCRIPT_FILENAME'] = str_replace(basename(__FILE__), 'index.php', $_SER
 
 try {
     Mage::app('admin')->setUseSessionInUrl(false);
-} catch (Exception $e) {
-    Mage::printException($e);
+} catch (Exception $exception) {
+    Mage::printException($exception);
     exit;
 }
 
 umask(0);
 
-$disabledFuncs = array_map('trim', preg_split("/,|\s+/", strtolower(ini_get('disable_functions'))));
+$disabledFuncs = array_map(trim(...), preg_split("/,|\s+/", strtolower(ini_get('disable_functions'))));
 $isWinOS = !str_contains(strtolower(PHP_OS), 'darwin') && str_contains(strtolower(PHP_OS), 'win');
 $isShellDisabled = in_array('shell_exec', $disabledFuncs)
     || $isWinOS
@@ -58,8 +52,8 @@ try {
             $fileName = escapeshellarg(basename(__FILE__));
             $cronPath = escapeshellarg(__DIR__ . '/cron.sh');
 
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . " &");
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . " &");
+            shell_exec(escapeshellcmd("/bin/sh {$cronPath} {$fileName} -mdefault 1") . ' &');
+            shell_exec(escapeshellcmd("/bin/sh {$cronPath} {$fileName} -malways 1") . ' &');
             exit;
         }
     }
@@ -69,10 +63,10 @@ try {
     if ($isShellDisabled) {
         Mage::dispatchEvent('always');
         Mage::dispatchEvent('default');
-    } else {
+    } elseif (isset($cronMode)) {
         Mage::dispatchEvent($cronMode);
     }
-} catch (Exception $e) {
-    Mage::printException($e);
+} catch (Exception $exception) {
+    Mage::printException($exception);
     exit(1);
 }

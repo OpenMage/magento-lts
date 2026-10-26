@@ -1,27 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml detailed rating stars
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_Template
 {
     protected $_voteCollection = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -68,7 +62,7 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
                     ->setStoreFilter(
                         $this->getRequest()->getParam('select_stores')
                             ? $this->getRequest()->getParam('select_stores')
-                            : $this->getRequest()->getParam('stores')
+                            : $this->getRequest()->getParam('stores'),
                     )
                     ->setPositionOrder()
                     ->load()
@@ -82,8 +76,10 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
                         ->addRatingOptions();
                 }
             }
+
             $this->setRatingCollection(($ratingCollection->getSize()) ? $ratingCollection : false);
         }
+
         return $this->getRatingCollection();
     }
 
@@ -97,10 +93,11 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
     {
         if ($this->getIsIndependentMode()) {
             $ratings = $this->getRequest()->getParam('ratings');
-
             if (isset($ratings[$option->getRatingId()])) {
                 return $option->getId() == $ratings[$option->getRatingId()];
-            } elseif (!$this->_voteCollection) {
+            }
+
+            if (!$this->_voteCollection) {
                 return false;
             }
         }

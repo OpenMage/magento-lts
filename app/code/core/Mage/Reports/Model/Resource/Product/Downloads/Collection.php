@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product Downloads Report collection
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Catalog_Model_Resource_Product_Collection
@@ -27,6 +20,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
      * @var string
      */
     protected $_idFieldName    = 'link_id';
+
     /**
      * Add downloads summary grouping by product
      *
@@ -44,17 +38,17 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
                 [
                     'purchases' => new Zend_Db_Expr('SUM(d.number_of_downloads_bought)'),
                     'downloads' => new Zend_Db_Expr('SUM(d.number_of_downloads_used)'),
-                ]
+                ],
             )
             ->joinInner(
                 ['l' => $this->getTable('downloadable/link_title')],
                 'd.link_id = l.link_id',
-                ['l.link_id']
+                ['l.link_id'],
             )
             ->joinLeft(
                 ['l_store' => $this->getTable('downloadable/link_title')],
-                $adapter->quoteInto('l.link_id = l_store.link_id AND l_store.store_id = ?', (int)$this->getStoreId()),
-                ['link_title' => $linkExpr]
+                $adapter->quoteInto('l.link_id = l_store.link_id AND l_store.store_id = ?', (int) $this->getStoreId()),
+                ['link_title' => $linkExpr],
             )
             ->where(implode(' OR ', [
                 $adapter->quoteInto('d.number_of_downloads_bought > ?', 0),
@@ -70,29 +64,28 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
     }
 
     /**
-     * Add sorting
-     *
-     * @param string $attribute
-     * @param string $dir
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if ($attribute == 'purchases' || $attribute == 'downloads' || $attribute == 'link_title') {
+        if (in_array($attribute, ['purchases', 'downloads', 'link_title'])) {
             $this->getSelect()->order($attribute . ' ' . $dir);
         } else {
             parent::setOrder($attribute, $dir);
         }
+
         return $this;
     }
 
     /**
      * Add filtering
      *
-     * @param string $field
-     * @param string $condition
+     * @param  string $field
+     * @param  string $condition
      * @return $this
      */
+    #[Override]
     public function addFieldToFilter($field, $condition = null)
     {
         if ($field == 'link_title') {
@@ -101,6 +94,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
         } else {
             parent::addFieldToFilter($field, $condition);
         }
+
         return $this;
     }
 }

@@ -1,29 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Shipping_Model_Info
  *
- * @category   Mage
  * @package    Mage_Shipping
  *
- * @method int getOrderId()
+ * @method int    getOrderId()
  * @method string getProtectCode()
- * @method $this setProtectCode(string $value)
- * @method int getShipId()
- * @method int getTrackId()
+ * @method int    getShipId()
+ * @method int    getTrackId()
+ * @method $this  setProtectCode(string $value)
  */
 class Mage_Shipping_Model_Info extends Varien_Object
 {
@@ -37,8 +30,9 @@ class Mage_Shipping_Model_Info extends Varien_Object
     /**
      * Generating tracking info
      *
-     * @param array $hash
+     * @param  string              $hash
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadByHash($hash)
     {
@@ -57,6 +51,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
                 $this->getTrackingInfoByTrackId();
             }
         }
+
         return $this;
     }
 
@@ -73,7 +68,8 @@ class Mage_Shipping_Model_Info extends Varien_Object
     /**
      * Instantiate order model
      *
-     * @return Mage_Sales_Model_Order|bool
+     * @return false|Mage_Sales_Model_Order
+     * @throws Mage_Core_Exception
      */
     protected function _initOrder()
     {
@@ -89,7 +85,8 @@ class Mage_Shipping_Model_Info extends Varien_Object
     /**
      * Instantiate ship model
      *
-     * @return Mage_Sales_Model_Order_Shipment|bool
+     * @return false|Mage_Sales_Model_Order_Shipment
+     * @throws Mage_Core_Exception
      */
     protected function _initShipment()
     {
@@ -107,6 +104,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
      * Retrieve all tracking by order id
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getTrackingInfoByOrder()
     {
@@ -116,16 +114,18 @@ class Mage_Shipping_Model_Info extends Varien_Object
             $shipments = $order->getShipmentsCollection();
             /** @var Mage_Sales_Model_Order_Shipment $shipment */
             foreach ($shipments as $shipment) {
-                $increment_id = $shipment->getIncrementId();
+                $incrementId = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
                 $trackingInfos = [];
                 foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
-                $shipTrack[$increment_id] = $trackingInfos;
+
+                $shipTrack[$incrementId] = $trackingInfos;
             }
         }
+
         $this->_trackingInfo = $shipTrack;
         return $this->_trackingInfo;
     }
@@ -134,21 +134,24 @@ class Mage_Shipping_Model_Info extends Varien_Object
      * Retrieve all tracking by ship id
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getTrackingInfoByShip()
     {
         $shipTrack = [];
         $shipment = $this->_initShipment();
         if ($shipment) {
-            $increment_id = $shipment->getIncrementId();
+            $incrementId = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
             $trackingInfos = [];
             foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
-            $shipTrack[$increment_id] = $trackingInfos;
+
+            $shipTrack[$incrementId] = $trackingInfos;
         }
+
         $this->_trackingInfo = $shipTrack;
         return $this->_trackingInfo;
     }
@@ -157,6 +160,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
      * Retrieve tracking by tracking entity id
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getTrackingInfoByTrackId()
     {
@@ -164,6 +168,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
         if ($track->getId() && $this->getProtectCode() === $track->getProtectCode()) {
             $this->_trackingInfo = [[$track->getNumberDetail()]];
         }
+
         return $this->_trackingInfo;
     }
 }

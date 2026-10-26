@@ -1,27 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * One page checkout status
  *
- * @category   Mage
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkout_Block_Onepage_Abstract
 {
     protected $_rates;
+
     protected $_address;
 
     /**
@@ -48,11 +42,12 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
         if (empty($this->_address)) {
             $this->_address = $this->getQuote()->getShippingAddress();
         }
+
         return $this->_address;
     }
 
     /**
-     * @param string $carrierCode
+     * @param  string $carrierCode
      * @return mixed
      */
     public function getCarrierName($carrierCode)
@@ -60,6 +55,7 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
         if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
+
         return $carrierCode;
     }
 
@@ -72,8 +68,8 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
     }
 
     /**
-     * @param float $price
-     * @param bool $flag
+     * @param  float $price
+     * @param  bool  $flag
      * @return float
      */
     public function getShippingPrice($price, $flag)

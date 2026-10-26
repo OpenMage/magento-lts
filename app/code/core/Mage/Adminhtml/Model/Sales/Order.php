@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order control model
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Model_Sales_Order
@@ -39,7 +32,7 @@ class Mage_Adminhtml_Model_Sales_Order
         $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
         if (!$customer->getId()) {
             $this->_getSession()->addNotice(
-                Mage::helper('adminhtml')->__(' The customer does not exist in the system anymore.')
+                Mage::helper('adminhtml')->__(' The customer does not exist in the system anymore.'),
             );
         }
 
@@ -62,17 +55,19 @@ class Mage_Adminhtml_Model_Sales_Order
                     Mage::helper('adminhtml')->__(
                         'The item %s (SKU %s) does not exist in the catalog anymore.',
                         $item->getName(),
-                        $item->getSku()
-                    )
+                        $item->getSku(),
+                    ),
                 );
                 $hasBadItems = true;
             }
         }
+
         if ($hasBadItems) {
             $this->_getSession()->addError(
-                Mage::helper('adminhtml')->__('Some of the ordered items do not exist in the catalog anymore and will be removed if you try to edit the order.')
+                Mage::helper('adminhtml')->__('Some of the ordered items do not exist in the catalog anymore and will be removed if you try to edit the order.'),
             );
         }
+
         return $this;
     }
 }

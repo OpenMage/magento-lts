@@ -1,19 +1,12 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /* @var $this Mage_Sales_Block_Recurring_Profile_View */ ?>
+<?php /** @var Mage_Sales_Block_Recurring_Profile_View $this */ ?>
 
 <div class="order-page">
 
@@ -21,16 +14,28 @@
 <div class="page-title title-buttons">
     <h1><?php echo $this->__('Recurring Profile # %s', $this->escapeHtml($this->getReferenceId())) ?></h1>
     <?php if ($this->getCanCancel()): ?>
-        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(),true) ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><?php echo $this->__('Cancel') ?></button>
+        <form action="<?php echo $this->getCancelUrl() ?>" method="post" style="display:inline" onsubmit="return confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(),true) ?>');">
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel')) ?>" class="button"><?php echo $this->__('Cancel') ?></button>
+        </form>
     <?php endif ?>
     <?php if ($this->getCanSuspend()): ?>
-        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Suspend')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>') ) { window.location.href = '<?php echo $this->getSuspendUrl() ?>'; } return false;"><?php echo $this->__('Suspend') ?></button>
+        <form action="<?php echo $this->getSuspendUrl() ?>" method="post" style="display:inline" onsubmit="return confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>');">
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Suspend')) ?>" class="button"><?php echo $this->__('Suspend') ?></button>
+        </form>
     <?php endif ?>
     <?php if ($this->getCanActivate()): ?>
-        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Activate')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(),true) ?>') ) { window.location.href = '<?php echo $this->getActivateUrl() ?>'; } return false;"><?php echo $this->__('Activate') ?></button>
+        <form action="<?php echo $this->getActivateUrl() ?>" method="post" style="display:inline" onsubmit="return confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(),true) ?>');">
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Activate')) ?>" class="button"><?php echo $this->__('Activate') ?></button>
+        </form>
     <?php endif ?>
     <?php if ($this->getCanUpdate()):?>
-        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Get Update')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>') ) { window.location.href = '<?php echo $this->getUpdateUrl() ?>'; } return false;"><?php echo $this->__('Get Update') ?></button>
+        <form action="<?php echo $this->getUpdateUrl() ?>" method="post" style="display:inline" onsubmit="return confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>');">
+            <?php echo $this->getBlockHtml('formkey') ?>
+            <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Get Update')) ?>" class="button"><?php echo $this->__('Get Update') ?></button>
+        </form>
     <?php endif ?>
 </div>
 

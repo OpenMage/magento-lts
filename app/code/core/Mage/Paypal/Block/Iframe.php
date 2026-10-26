@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * HSS iframe block
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
@@ -43,15 +36,15 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Current iframe block instance
      *
-     * @var Mage_Payment_Block_Form
+     * @var Mage_Paypal_Block_Iframe
      */
     protected $_block;
 
     /**
      * Internal constructor
      * Set info template for payment step
-     *
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -76,18 +69,20 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get current block instance
      *
-     * @return $this
+     * @return Mage_Paypal_Block_Iframe
      * @throws Mage_Core_Exception
      */
     protected function _getBlock()
     {
         if (!$this->_block) {
-            $this->_block = $this->getAction()
+            $block = $this->getAction()
                 ->getLayout()
                 ->createBlock('paypal/' . $this->_paymentMethodCode . '_iframe');
-            if (!$this->_block instanceof Mage_Paypal_Block_Iframe) {
+            if (!$block instanceof Mage_Paypal_Block_Iframe) {
                 Mage::throwException('Invalid block type');
             }
+
+            $this->_block = $block;
         }
 
         return $this->_block;
@@ -105,6 +100,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             $this->_order = Mage::getModel('sales/order')
                 ->loadByIncrementId($incrementId);
         }
+
         return $this->_order;
     }
 
@@ -121,13 +117,14 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Before rendering html, check if is block rendering needed
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
-        if ($this->_getOrder()->getId() &&
-            $this->_getOrder()->getQuoteId() == $this->_getCheckout()->getLastQuoteId() &&
-            $this->_paymentMethodCode
+        if ($this->_getOrder()->getId()
+            && $this->_getOrder()->getQuoteId() == $this->_getCheckout()->getLastQuoteId()
+            && $this->_paymentMethodCode
         ) {
             $this->_shouldRender = true;
         }
@@ -145,15 +142,18 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
      * @return string
      * @throws Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         if ($this->_isAfterPaymentSave()) {
             $this->setTemplate('paypal/hss/js.phtml');
             return parent::_toHtml();
         }
+
         if (!$this->_shouldRender) {
             return '';
         }
+
         return parent::_toHtml();
     }
 
@@ -166,15 +166,10 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     protected function _isAfterPaymentSave()
     {
         $quote = $this->_getCheckout()->getQuote();
-        if ($quote->getPayment()->getMethod() == $this->_paymentMethodCode &&
-            $quote->getIsActive() &&
-            $this->getTemplate() &&
-            $this->getRequest()->getActionName() == 'savePayment'
-        ) {
-            return true;
-        }
-
-        return false;
+        return $quote->getPayment()->getMethod() == $this->_paymentMethodCode
+            && $quote->getIsActive()
+            && $this->getTemplate()
+            && $this->getRequest()->getActionName() == 'savePayment';
     }
 
     /**

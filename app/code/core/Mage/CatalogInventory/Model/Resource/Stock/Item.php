@@ -1,26 +1,22 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Stock item resource model
  *
- * @category   Mage
  * @package    Mage_CatalogInventory
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('cataloginventory/stock_item', 'item_id');
@@ -29,8 +25,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     /**
      * Loading stock item data by product
      *
-     * @param Mage_CatalogInventory_Model_Stock_Item $item
-     * @param int $productId
+     * @param  int   $productId
      * @return $this
      */
     public function loadByProductId(Mage_CatalogInventory_Model_Stock_Item $item, $productId)
@@ -41,6 +36,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
         if ($data) {
             $item->setData($data);
         }
+
         $this->_afterLoad($item);
         return $this;
     }
@@ -48,31 +44,32 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     /**
      * Retrieve select object and join it to product entity table to get type ids
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_CatalogInventory_Model_Stock_Item $object
+     * @param  string                                 $field
+     * @param  mixed                                  $value
+     * @param  Mage_CatalogInventory_Model_Stock_Item $object
      * @return Varien_Db_Select
      */
+    #[Override]
     protected function _getLoadSelect($field, $value, $object)
     {
         return parent::_getLoadSelect($field, $value, $object)
             ->join(
                 ['p' => $this->getTable('catalog/product')],
                 'product_id=p.entity_id',
-                ['type_id']
+                ['type_id'],
             );
     }
 
     /**
      * Add join for catalog in stock field to product collection
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return $this
      */
     public function addCatalogInventoryToProductCollection($productCollection)
     {
         $adapter = $this->_getReadAdapter();
-        $isManageStock = Mage::getStoreConfigAsInt(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
+        $isManageStock = (string) Mage::getStoreConfigAsInt(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
         $stockExpr = $adapter->getCheckSql('cisi.use_config_manage_stock = 1', $isManageStock, 'cisi.manage_stock');
         $stockExpr = $adapter->getCheckSql("({$stockExpr} = 1)", 'cisi.is_in_stock', '1');
 
@@ -81,10 +78,10 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
             'product_id=entity_id',
             [
                 'is_saleable' => new Zend_Db_Expr($stockExpr),
-                'inventory_in_stock' => 'is_in_stock'
+                'inventory_in_stock' => 'is_in_stock',
             ],
             null,
-            'left'
+            'left',
         );
         return $this;
     }
@@ -92,10 +89,11 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     /**
      * Use qty correction for qty column update
      *
-     * @param Mage_CatalogInventory_Model_Stock_Item $object
-     * @param string $table
+     * @param  Mage_CatalogInventory_Model_Stock_Item $object
+     * @param  string                                 $table
      * @return array
      */
+    #[Override]
     protected function _prepareDataForTable(Varien_Object $object, $table)
     {
         $data = parent::_prepareDataForTable($object, $table);
@@ -107,6 +105,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
                 $data['qty'] = new Zend_Db_Expr('qty+' . $object->getQtyCorrection());
             }
         }
+
         return $data;
     }
 }

@@ -1,23 +1,17 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CatalogSearch layer attribute filter
  *
- *
- * @category   Mage
  * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer_Filter_Attribute
@@ -25,9 +19,10 @@ class Mage_CatalogSearch_Model_Layer_Filter_Attribute extends Mage_Catalog_Model
     /**
      * Check whether specified attribute can be used in LN
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return int
      */
+    #[Override]
     protected function _getIsFilterableAttribute($attribute)
     {
         return $attribute->getIsFilterableInSearch();

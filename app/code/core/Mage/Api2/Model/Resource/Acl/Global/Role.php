@@ -1,29 +1,25 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 global ACL role resource model
  *
- * @category   Mage
  * @package    Mage_Api2
  *
- * @method int getId()
+ * @method int    getId()
  * @method string getRoleName()
  */
 class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('api2/acl_role', 'entity_id');
@@ -32,8 +28,8 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
     /**
      * Create/update relation row of admin user to API2 role
      *
-     * @param int $adminId Admin user id
-     * @param int $roleId API2 role id
+     * @param  int   $adminId Admin user id
+     * @param  int   $roleId  API2 role id
      * @return $this
      */
     public function saveAdminToRoleRelation($adminId, $roleId)
@@ -42,7 +38,7 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
             || Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID == $roleId
         ) {
             Mage::throwException(
-                Mage::helper('api2')->__('The role is a special one and not for assigning it to admin users.')
+                Mage::helper('api2')->__('The role is a special one and not for assigning it to admin users.'),
             );
         }
 
@@ -66,8 +62,8 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
     /**
      * delete relation row of admin user to API2 role
      *
-     * @param int $adminId Admin user id
-     * @param int $roleId API2 role id
+     * @param  int   $adminId Admin user id
+     * @param  int   $roleId  API2 role id
      * @return $this
      */
     public function deleteAdminToRoleRelation($adminId, $roleId)
@@ -77,7 +73,7 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
 
         $where = [
             'role_id = ?' => $roleId,
-            'admin_id = ?' => $adminId
+            'admin_id = ?' => $adminId,
         ];
 
         $write->delete($table, $where);
@@ -88,7 +84,6 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
     /**
      * Get users
      *
-     * @param Mage_Api2_Model_Acl_Global_Role $role
      * @return array
      */
     public function getRoleUsers(Mage_Api2_Model_Acl_Global_Role $role)

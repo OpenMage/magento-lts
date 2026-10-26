@@ -1,44 +1,42 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * String translation model
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Translate_String _getResource()
+ * @method string                                    getLocale()
  * @method Mage_Core_Model_Resource_Translate_String getResource()
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getTranslate()
- * @method $this setTranslate(string $value)
- * @method array getStoreTranslations()
- * @method $this setStoreTranslations(array $value)
- * @method string getLocale()
- * @method $this setLocale(string $value)
+ * @method int                                       getStoreId()
+ * @method array                                     getStoreTranslations()
+ * @method string                                    getTranslate()
+ * @method $this                                     setLocale(string $value)
+ * @method $this                                     setStoreId(int $value)
+ * @method $this                                     setStoreTranslations(array $value)
+ * @method $this                                     setTranslate(string $value)
  */
 class Mage_Core_Model_Translate_String extends Mage_Core_Model_Abstract
 {
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('core/translate_string');
     }
 
     /**
-     * @param string $string
+     * @param  string $string
      * @return $this
      */
     public function setString($string)
@@ -55,7 +53,7 @@ class Mage_Core_Model_Translate_String extends Mage_Core_Model_Abstract
      */
     public function getString()
     {
-        //return strtolower($this->getData('string'));
-        return $this->getData('string');
+        //return strtolower($this->getDataByKey('string'));
+        return $this->getDataByKey('string');
     }
 }

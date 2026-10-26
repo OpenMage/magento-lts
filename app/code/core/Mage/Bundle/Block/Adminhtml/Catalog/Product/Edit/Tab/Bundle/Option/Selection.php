@@ -1,27 +1,20 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle selection renderer
  *
- * @category   Mage
  * @package    Mage_Bundle
  *
- * @method bool getCanEditPrice()
+ * @method bool  getCanEditPrice()
+ * @method bool  getCanReadPrice()
  * @method $this setCanEditPrice(bool $value)
- * @method bool getCanReadPrice()
  * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection extends Mage_Adminhtml_Block_Widget
@@ -61,6 +54,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -69,8 +63,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
                 ->setData([
                     'label' => Mage::helper('catalog')->__('Delete'),
                     'class' => 'delete icon-btn',
-                    'on_click' => 'bSelection.remove(event)'
-                ])
+                    'on_click' => 'bSelection.remove(event)',
+                ]),
         );
         return parent::_prepareLayout();
     }
@@ -95,13 +89,14 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData([
                 'id'    => $this->getFieldId() . '_{{index}}_price_type',
-                'class' => 'select select-product-option-type required-option-select'
+                'class' => 'select select-product-option-type required-option-select',
             ])
             ->setName($this->getFieldName() . '[{{parentIndex}}][{{index}}][selection_price_type]')
             ->setOptions(Mage::getSingleton('bundle/source_option_selection_price_type')->toOptionArray());
         if ($this->getCanEditPrice() === false) {
             $select->setExtraParams('disabled="disabled"');
         }
+
         return $select->getHtml();
     }
 
@@ -115,7 +110,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData([
                 'id' => $this->getFieldId() . '_{{index}}_can_change_qty',
-                'class' => 'select'
+                'class' => 'select',
             ])
             ->setName($this->getFieldName() . '[{{parentIndex}}][{{index}}][selection_can_change_qty]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());
@@ -136,7 +131,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     /**
      * Check if used website scope price
      *
-     * @return string
+     * @return bool
      */
     public function isUsedWebsitePrice()
     {
@@ -161,6 +156,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
                 . '"' . $disabled . ' value="1" />';
             $checkboxHtml .= '<label class="normal" for="' . $id . '">' . $label . '</label>';
         }
+
         return $checkboxHtml;
     }
 }

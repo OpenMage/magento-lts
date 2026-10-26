@@ -1,19 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Index_Model_Resource_Setup $installer */
+/** @var Mage_Index_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 
@@ -46,7 +40,7 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('index/event', ['type', 'entity', 'entity_pk'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         ['type', 'entity', 'entity_pk'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->setComment('Index Event');
 $installer->getConnection()->createTable($table);
@@ -80,7 +74,7 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('index/process', ['indexer_code'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         ['indexer_code'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->setComment('Index Process');
 $installer->getConnection()->createTable($table);
@@ -106,7 +100,7 @@ $table = $installer->getConnection()
     ], 'Status')
     ->addIndex(
         $installer->getIdxName('index/process_event', ['event_id']),
-        ['event_id']
+        ['event_id'],
     )
     ->addForeignKey(
         $installer->getFkName('index/process_event', 'event_id', 'index/event', 'event_id'),
@@ -114,7 +108,7 @@ $table = $installer->getConnection()
         $installer->getTable('index/event'),
         'event_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('index/process_event', 'process_id', 'index/process', 'process_id'),
@@ -122,7 +116,7 @@ $table = $installer->getConnection()
         $installer->getTable('index/process'),
         'process_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Index Process Event');
 $installer->getConnection()->createTable($table);

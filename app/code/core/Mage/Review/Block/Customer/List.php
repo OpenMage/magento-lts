@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer Reviews list block
  *
- * @category   Mage
  * @package    Mage_Review
  */
 class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashboard
@@ -29,8 +22,9 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     protected $_collection;
 
     /**
-     * Initializes collection
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->_collection = Mage::getModel('review/review')->getProductCollection();
@@ -63,8 +57,9 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     /**
      * Initializes toolbar
      *
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _prepareLayout()
     {
         $toolbar = $this->getLayout()->createBlock('page/html_pager', 'customer_review_list.toolbar')
@@ -117,7 +112,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     /**
      * Format date in short format
      *
-     * @param string|Zend_Date|null $date
+     * @param  null|string|Zend_Date $date
      * @return string
      */
     public function dateFormat($date)
@@ -126,8 +121,9 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     }
 
     /**
-     * @return Mage_Core_Block_Abstract
+     * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->_getCollection()

@@ -1,29 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml newsletter queue edit block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Check for template Id in request
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -46,13 +40,14 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         $this->setTemplate('newsletter/queue/edit.phtml');
 
         $this->setChild(
             'form',
-            $this->getLayout()->createBlock('adminhtml/newsletter_queue_edit_form', 'form')
+            $this->getLayout()->createBlock('adminhtml/newsletter_queue_edit_form', 'form'),
         );
 
         return parent::_beforeToHtml();
@@ -69,12 +64,14 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
         } else {
             $params = ['id' => $this->getRequest()->getParam('id')];
         }
+
         return $this->getUrl('*/*/save', $params);
     }
 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         // Load Wysiwyg on demand and Prepare layout
@@ -88,8 +85,8 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Preview Template'),
                     'onclick'   => 'queueControl.preview();',
-                    'class'     => 'task'
-                ])
+                    'class'     => 'task preview',
+                ]),
         );
 
         $this->setChild(
@@ -98,8 +95,8 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save Newsletter'),
                     'onclick'   => 'queueControl.save()',
-                    'class'     => 'save'
-                ])
+                    'class'     => 'save',
+                ]),
         );
 
         $this->setChild(
@@ -108,8 +105,8 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save and Resume'),
                     'onclick'   => 'queueControl.resume()',
-                    'class'     => 'save'
-                ])
+                    'class'     => 'save',
+                ]),
         );
 
         $this->setChild(
@@ -117,8 +114,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Reset'),
-                    'onclick'   => 'window.location = window.location'
-                ])
+                    'onclick'   => 'window.location = window.location',
+                    'class'     => 'reset',
+                ]),
         );
 
         $this->setChild(
@@ -130,9 +128,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                         'onclick' => "window.location.href = '" . $this->getUrl((
                             $this->getTemplateId() ? '*/newsletter_template/' : '*/*'
                         )) . "'",
-                        'class'   => 'back'
-                    ]
-                )
+                        'class'   => 'back',
+                    ],
+                ),
         );
 
         return parent::_prepareLayout();
@@ -207,7 +205,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     {
         return !in_array($this->getQueue()->getQueueStatus(), [
             Mage_Newsletter_Model_Queue::STATUS_NEVER,
-            Mage_Newsletter_Model_Queue::STATUS_PAUSE
+            Mage_Newsletter_Model_Queue::STATUS_PAUSE,
         ]);
     }
 

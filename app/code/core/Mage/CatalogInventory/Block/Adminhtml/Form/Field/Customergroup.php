@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * HTML select element block with customer groups options
  *
- * @category   Mage
  * @package    Mage_CatalogInventory
  */
 class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mage_Core_Block_Html_Select
@@ -24,7 +17,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     /**
      * Customer groups cache
      *
-     * @var array|null
+     * @var null|array
      */
     private $_customerGroups;
 
@@ -38,7 +31,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     /**
      * Retrieve allowed customer groups
      *
-     * @param int $groupId  return name by customer group id
+     * @param  int          $groupId return name by customer group id
      * @return array|string
      */
     protected function _getCustomerGroups($groupId = null)
@@ -51,15 +44,17 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
                 $this->_customerGroups[$item->getId()] = $item->getCustomerGroupCode();
             }
         }
+
         if (!is_null($groupId)) {
             return $this->_customerGroups[$groupId] ?? null;
         }
+
         return $this->_customerGroups;
     }
 
     /**
-     * @param string $value
-     * @return Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup
+     * @param  string $value
+     * @return $this
      */
     public function setInputName($value)
     {
@@ -71,16 +66,19 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
      *
      * @return string
      */
-    public function _toHtml()
+    #[Override]
+    protected function _toHtml()
     {
         if (!$this->getOptions()) {
             if ($this->_addGroupAllOption) {
-                $this->addOption(Mage_Customer_Model_Group::CUST_GROUP_ALL, Mage::helper('customer')->__('ALL GROUPS'));
+                $this->addOption((string) Mage_Customer_Model_Group::CUST_GROUP_ALL, Mage::helper('customer')->__('ALL GROUPS'));
             }
+
             foreach ($this->_getCustomerGroups() as $groupId => $groupLabel) {
                 $this->addOption($groupId, addslashes($groupLabel));
             }
         }
+
         return parent::_toHtml();
     }
 }

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer Shared Wishlist Rss Block
  *
- * @category   Mage
  * @package    Mage_Rss
  */
 class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
@@ -24,7 +17,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Customer instance
      *
-     * @var Mage_Customer_Model_Customer|null
+     * @var null|Mage_Customer_Model_Customer
      */
     protected $_customer;
 
@@ -41,6 +34,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      * @return Mage_Wishlist_Model_Wishlist
      * @throws Exception
      */
+    #[Override]
     protected function _getWishlist()
     {
         if (is_null($this->_wishlist)) {
@@ -51,12 +45,11 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 if ($this->_wishlist->getCustomerId() != $this->_getCustomer()->getId()) {
                     $this->_wishlist->unsetData();
                 }
-            } else {
-                if ($this->_getCustomer()->getId()) {
-                    $this->_wishlist->loadByCustomer($this->_getCustomer());
-                }
+            } elseif ($this->_getCustomer()->getId()) {
+                $this->_wishlist->loadByCustomer($this->_getCustomer());
             }
         }
+
         return $this->_wishlist;
     }
 
@@ -90,16 +83,17 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      */
     protected function _getTitle()
     {
-        return Mage::helper('rss')->__('%s\'s Wishlist', $this->_getCustomer()->getName());
+        return Mage::helper('rss')->__("%s's Wishlist", $this->_getCustomer()->getName());
     }
 
     /**
      * Render block HTML
      *
      * @return string
-     * @throws Mage_Core_Exception
      * @throws Exception
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     protected function _toHtml()
     {
         /** @var Mage_Rss_Model_Rss $rssObj */
@@ -107,7 +101,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
 
         if ($this->_getWishlist()->getId()) {
             $newUrl = Mage::getUrl('wishlist/shared/index', [
-                'code'  => $this->_getWishlist()->getSharingCode()
+                'code'  => $this->_getWishlist()->getSharingCode(),
             ]);
 
             $title  = $this->_getTitle();
@@ -118,7 +112,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 'description'   => $title,
                 'link'          => $newUrl,
                 'charset'       => 'UTF-8',
-                'language'      => $lang
+                'language'      => $lang,
             ]);
 
             /** @var Mage_Wishlist_Model_Item $wishlistItem */
@@ -151,6 +145,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 if ($product->getAllowedPriceInRss()) {
                     $description .= $this->getPriceHtml($product, true);
                 }
+
                 $description .= '</p>';
                 if ($this->hasDescription($product)) {
                     $description .= '<p>' . Mage::helper('wishlist')->__('Comment:')
@@ -181,10 +176,11 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Retrieve Product View URL
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $additional
      * @return string
      */
+    #[Override]
     public function getProductUrl($product, $additional = [])
     {
         $additional['_rss'] = true;
@@ -194,16 +190,17 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * Adding customized price template for product type, used as action in layouts
      *
-     * @param string $type Catalog Product Type
-     * @param string $block Block Type
+     * @param string $type     Catalog Product Type
+     * @param string $block    Block Type
      * @param string $template Template
      */
+    #[Override]
     public function addPriceBlockType($type, $block = '', $template = '')
     {
         if ($type) {
             $this->_priceBlockTypes[$type] = [
                 'block' => $block,
-                'template' => $template
+                'template' => $template,
             ];
         }
     }

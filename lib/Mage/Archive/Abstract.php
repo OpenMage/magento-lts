@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Archive
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class to work with archives
  *
- * @category   Mage
  * @package    Mage_Archive
  */
 class Mage_Archive_Abstract
@@ -24,9 +17,9 @@ class Mage_Archive_Abstract
     /**
      * Write data to file. If file can't be opened - throw exception
      *
-     * @param string $destination
-     * @param string $data
-     * @return boolean
+     * @param  string         $destination
+     * @param  string         $data
+     * @return bool
      * @throws Mage_Exception
      */
     protected function _writeFile($destination, $data)
@@ -35,17 +28,18 @@ class Mage_Archive_Abstract
         if (false === file_put_contents($destination, $data)) {
             throw new Mage_Exception("Can't write to file: " . $destination);
         }
+
         return true;
     }
 
     /**
      * Read data from file. If file can't be opened, throw to exception.
      *
-     * @param string $source
+     * @param  string         $source
      * @return string
      * @throws Mage_Exception
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _readFile($source)
     {
@@ -56,22 +50,24 @@ class Mage_Archive_Abstract
                 throw new Mage_Exception("Can't get contents from: " . $source);
             }
         }
+
         return $data;
     }
 
     /**
      * Get file name from source (URI) without last extension.
      *
-     * @param string $source
-     * @param bool $withExtension
+     * @param  string       $source
+     * @param  bool         $withExtension
      * @return mixed|string
      */
     public function getFilename($source, $withExtension = false)
     {
         $file = str_replace(dirname($source) . DS, '', $source);
         if (!$withExtension) {
-            $file = substr($file, 0, strrpos($file, '.'));
+            return substr($file, 0, strrpos($file, '.'));
         }
+
         return $file;
     }
 }

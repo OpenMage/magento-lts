@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 Global ACL role resources permissions model
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Model_Acl_PermissionInterface
@@ -69,8 +62,8 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Mo
 
             /** @var Varien_Simplexml_Element $node */
             foreach ($config->getResources() as $resourceType => $node) {
-                $resourceId = (string)$resourceType;
-                $allowedRoles = (array)$node->privileges;
+                $resourceId = (string) $resourceType;
+                $allowedRoles = (array) $node->privileges;
                 $allowedPrivileges = $allowedRoles[$roleConfigNodeName] ?? [];
                 foreach ($privileges as $privilege) {
                     if (empty($allowedPrivileges[$privilege])
@@ -85,15 +78,17 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Mo
                     }
                 }
             }
+
             $this->_resourcesPermissions = $rulesPairs;
         }
+
         return $this->_resourcesPermissions;
     }
 
     /**
      * Set filter value
      *
-     * @param Mage_Api2_Model_Acl_Global_Role $role
+     * @param  Mage_Api2_Model_Acl_Global_Role $role
      * @return $this
      */
     public function setFilterValue($role)

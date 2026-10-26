@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Create order account form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
@@ -62,7 +55,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
 
         // add system required attributes
         foreach ($customerForm->getSystemAttributes() as $attribute) {
-            /** @var Mage_Customer_Model_Attribute $attribute */
             if ($attribute->getIsRequired()) {
                 $attributes[$attribute->getAttributeCode()] = $attribute;
             }
@@ -92,36 +84,23 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
     /**
      * Add additional data to form element
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return $this
      */
+    #[Override]
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
     {
-        switch ($element->getId()) {
-            case 'email':
-                $element->setRequired(0);
-                $element->setClass('validate-email');
-                break;
+        if ($element->getId() === 'email') {
+            $element->setRequired(0);
+            $element->setClass('validate-email');
         }
+
         return $this;
     }
 
     /**
-     * Return customer data
-     *
-     * @deprecated since 1.4.0.1
-     * @return array
+     * @inheritDoc
      */
-    public function getCustomerData()
-    {
-        return $this->getFormValues();
-    }
-
-    /**
-     * Return Form Elements values
-     *
-     * @return array
-     */
+    #[Override]
     public function getFormValues()
     {
         $data = $this->getCustomer()->getData();

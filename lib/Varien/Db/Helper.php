@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Varien Db Helper
  *
- * @category   Varien
  * @package    Varien_Db
  */
 class Varien_Db_Helper
@@ -70,13 +63,13 @@ class Varien_Db_Helper
         'shipping'      => 'shpp',
         'calculation'   => 'calc',
         'search'        => 'srch',
-        'query'         => 'qr'
+        'query'         => 'qr',
     ];
 
     /**
      * Convert name using dictionary
      *
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     public static function shortName($name)
@@ -87,11 +80,11 @@ class Varien_Db_Helper
     /**
      * Add or replace translate to dictionary
      *
-     * @param string $from
-     * @param string $to
+     * @param string $source
+     * @param string $target
      */
-    public static function addTranslate($from, $to)
+    public static function addTranslate($source, $target)
     {
-        self::$_translateMap[$from] = $to;
+        self::$_translateMap[$source] = $target;
     }
 }

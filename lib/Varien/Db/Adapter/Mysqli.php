@@ -1,39 +1,40 @@
 <?php
+
+use Carbon\Carbon;
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
 {
     public const ISO_DATE_FORMAT       = 'yyyy-MM-dd';
+
     public const ISO_DATETIME_FORMAT   = 'yyyy-MM-dd HH-mm-ss';
 
     /**
      * Creates a real connection to the database with multi-query capability.
      *
      * @return void
+     * @throws Zend_Db_Adapter_Exception
      * @throws Zend_Db_Adapter_Mysqli_Exception
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
+    #[Override]
     protected function _connect()
     {
         if ($this->_connection) {
             return;
         }
+
         if (!extension_loaded('mysqli')) {
             throw new Zend_Db_Adapter_Exception('mysqli extension is not installed');
         }
+
         // Suppress connection warnings here.
         // Throw an exception instead.
         @$conn = new mysqli();
@@ -42,17 +43,17 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         }
 
         $conn->init();
-        $conn->options(MYSQLI_OPT_LOCAL_INFILE, true);
-        #$conn->options(MYSQLI_CLIENT_MULTI_QUERIES, true);
+        $conn->options(MYSQLI_OPT_LOCAL_INFILE, 1);
+        #$conn->options(MYSQLI_CLIENT_MULTI_QUERIES, 1);
 
-        $port = !empty($this->_config['port']) ? $this->_config['port'] : null;
-        $socket = !empty($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null;
+        $port = empty($this->_config['port']) ? null : $this->_config['port'];
+        $socket = empty($this->_config['unix_socket']) ? null : $this->_config['unix_socket'];
         // socket specified in host config
-        if (strpos($this->_config['host'], '/') !== false) {
+        if (str_contains($this->_config['host'], '/')) {
             $socket = $this->_config['host'];
             $this->_config['host'] = null;
-        } elseif (strpos($this->_config['host'], ':') !== false) {
-            list($this->_config['host'], $port) = explode(':', $this->_config['host']);
+        } elseif (str_contains($this->_config['host'], ':')) {
+            [$this->_config['host'], $port] = explode(':', $this->_config['host']);
         }
 
         $connectionSuccessful = @$conn->real_connect(
@@ -61,7 +62,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             $this->_config['password'],
             $this->_config['dbname'],
             $port,
-            $socket
+            $socket,
         );
         if (!$connectionSuccessful) {
             throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_error());
@@ -76,8 +77,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     /**
      * Run RAW Query
      *
-     * @param string $sql
+     * @param  string                           $sql
      * @return mysqli_result
+     * @throws Zend_Db_Adapter_Mysqli_Exception
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function raw_query($sql)
@@ -92,12 +94,12 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
                 $connection = $this->getConnection();
                 $result = $connection->query($sql);
                 $this->clear_result();
-            } catch (Exception $e) {
-                if ($tries < 10 && $e->getMessage() == $timeoutMessage) {
+            } catch (Exception $exception) {
+                if ($tries < 10 && $exception->getMessage() === $timeoutMessage) {
                     $retry = true;
                     $tries++;
                 } else {
-                    throw $e;
+                    throw $exception;
                 }
             }
         } while ($retry);
@@ -110,7 +112,8 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($date instanceof Zend_Date) {
             return $date->toString(self::ISO_DATE_FORMAT);
         }
-        return date(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT, strtotime($date));
+
+        return Carbon::parse($date)->format(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT);
     }
 
     public function convertDateTime($datetime)
@@ -118,26 +121,37 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($datetime instanceof Zend_Date) {
             return $datetime->toString(self::ISO_DATETIME_FORMAT);
         }
-        return date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($datetime));
+
+        return Carbon::parse($datetime)->format(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
     }
 
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
+    /**
+     * @throws Exception
+     */
     public function raw_fetchRow($sql, $field = null)
     {
         if (!$result = $this->raw_query($sql)) {
             return false;
         }
+
         if (!$row = $result->fetch_assoc()) {
             return false;
         }
+
         if (empty($field)) {
             return $row;
-        } else {
-            return isset($row[$field]) ? $row[$field] : false;
         }
+
+        return $row[$field] ?? false;
     }
 
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
+    /**
+     * @throws Zend_Db_Adapter_Mysqli_Exception
+     */
     public function multi_query($sql)
     {
         $this->beginTransaction();
@@ -151,14 +165,17 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             } else {
                 throw new Zend_Db_Adapter_Mysqli_Exception('multi_query: ' . $connection->error);
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return true;
     }
 
+    /**
+     * @throws Zend_Db_Adapter_Mysqli_Exception
+     */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function clear_result()
     {
@@ -173,35 +190,45 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         }
     }
 
-    public function dropForeignKey($table, $fk)
+    /**
+     * @throws Exception
+     * @throws Zend_Db_Adapter_Mysqli_Exception
+     */
+    public function dropForeignKey($table, $foreignKey)
     {
-        $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (strpos($create, "CONSTRAINT `$fk` FOREIGN KEY (") !== false) {
-            return $this->raw_query("ALTER TABLE `$table` DROP FOREIGN KEY `$fk`");
+        $create = $this->raw_fetchRow("show create table `{$table}`", 'Create Table');
+        if (str_contains($create, "CONSTRAINT `{$foreignKey}` FOREIGN KEY (")) {
+            return $this->raw_query("ALTER TABLE `{$table}` DROP FOREIGN KEY `{$foreignKey}`");
         }
+
         return true;
     }
 
+    /**
+     * @throws Exception
+     * @throws Zend_Db_Adapter_Mysqli_Exception
+     */
     public function dropKey($table, $key)
     {
-        $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (strpos($create, "KEY `$key` (") !== false) {
-            return $this->raw_query("ALTER TABLE `$table` DROP KEY `$key`");
+        $create = $this->raw_fetchRow("show create table `{$table}`", 'Create Table');
+        if (str_contains($create, "KEY `{$key}` (")) {
+            return $this->raw_query("ALTER TABLE `{$table}` DROP KEY `{$key}`");
         }
+
         return true;
     }
 
     /**
      * ADD CONSTRAINT
      *
-     *
-     * @param string $fkName
-     * @param string $tableName
-     * @param string $keyName
-     * @param string $refTableName
-     * @param string $refKeyName
-     * @param string $onUpdate
-     * @param string $onDelete
+     * @param  string    $fkName
+     * @param  string    $tableName
+     * @param  string    $keyName
+     * @param  string    $refTableName
+     * @param  string    $refKeyName
+     * @param  string    $onDelete
+     * @param  string    $onUpdate
+     * @throws Exception
      */
     public function addConstraint(
         $fkName,
@@ -212,7 +239,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         $onDelete = 'cascade',
         $onUpdate = 'cascade'
     ) {
-        if (substr($fkName, 0, 3) != 'FK_') {
+        if (!str_starts_with($fkName, 'FK_')) {
             $fkName = 'FK_' . $fkName;
         }
 
@@ -221,6 +248,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if (!is_null($onDelete)) {
             $sql .= ' ON DELETE ' . strtoupper($onDelete);
         }
+
         if (!is_null($onUpdate)) {
             $sql .= ' ON UPDATE ' . strtoupper($onUpdate);
         }
@@ -235,18 +263,25 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
                 return true;
             }
         }
+
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
     public function addColumn($tableName, $columnName, $definition)
     {
         if ($this->tableColumnExists($tableName, $columnName)) {
             return true;
         }
-        $result = $this->raw_query("alter table `$tableName` add column `$columnName` " . $definition);
-        return $result;
+
+        return $this->raw_query("alter table `{$tableName}` add column `{$columnName}` " . $definition);
     }
 
+    /**
+     * @throws Exception
+     */
     public function dropColumn($tableName, $columnName)
     {
         if (!$this->tableColumnExists($tableName, $columnName)) {
@@ -277,6 +312,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      *
      * @return Varien_Db_Select
      */
+    #[Override]
     public function select()
     {
         return new Varien_Db_Select($this);

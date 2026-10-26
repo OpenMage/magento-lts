@@ -1,19 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 
 $middlenameAttributeCode = 'middlename';
@@ -26,7 +20,7 @@ $installer->addAttribute('customer', $middlenameAttributeCode, [
     'sort_order' => 50,
     'is_visible' => 1,
     'is_system'  => 0,
-    'position'   => 50
+    'position'   => 50,
 ]);
 
 $middlenameAttribute = Mage::getSingleton('eav/config')
@@ -36,7 +30,7 @@ $middlenameAttribute->setData('used_in_forms', [
     'customer_account_edit',
     'checkout_register',
     'adminhtml_customer',
-    'adminhtml_checkout'
+    'adminhtml_checkout',
 ]);
 $middlenameAttribute->save();
 
@@ -48,7 +42,7 @@ $installer->addAttribute('customer_address', $middlenameAttributeCode, [
     'sort_order' => 30,
     'is_visible' => 1,
     'is_system'  => 0,
-    'position'   => 30
+    'position'   => 30,
 ]);
 
 $middlenameAttribute = Mage::getSingleton('eav/config')
@@ -56,6 +50,6 @@ $middlenameAttribute = Mage::getSingleton('eav/config')
 $middlenameAttribute->setData('used_in_forms', [
     'adminhtml_customer_address',
     'customer_address_edit',
-    'customer_register_address'
+    'customer_register_address',
 ]);
 $middlenameAttribute->save();

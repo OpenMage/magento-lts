@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Api resource abstract
  *
- * @category   Mage
  * @package    Mage_Api
  */
 class Mage_Api_Model_Resource_Abstract
@@ -51,7 +44,6 @@ class Mage_Api_Model_Resource_Abstract
     /**
      * Set configuration for api resource
      *
-     * @param Varien_Simplexml_Element $xml
      * @return $this
      */
     public function setResourceConfig(Varien_Simplexml_Element $xml)
@@ -83,10 +75,10 @@ class Mage_Api_Model_Resource_Abstract
     /**
      * Dispatches fault
      *
-     * @param string $code
-     * @param string|null $customMessage
-     * @throws Mage_Api_Exception
+     * @param  string             $code
+     * @param  null|string        $customMessage
      * @return never
+     * @throws Mage_Api_Exception
      */
     protected function _fault($code, $customMessage = null)
     {

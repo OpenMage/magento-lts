@@ -1,28 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Child Of Mage_Adminhtml_Block_Tag_Customer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method Mage_Tag_Model_Resource_Customer_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected string $_eventPrefix = 'adminhtml_tag_customer_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -37,6 +32,7 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/customer', ['_current' => true]);
@@ -45,6 +41,7 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         $tagId = Mage::registry('current_tag')->getId();
@@ -63,6 +60,7 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _afterLoadCollection()
     {
         $this->getCollection()->addProductName();
@@ -71,7 +69,9 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('customer_id', [
@@ -116,9 +116,11 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param Varien_Object $row
-     * @return string
+     * @inheritDoc
+     * @param  Mage_Customer_Model_Customer $row
+     * @throws Mage_Core_Exception
      */
+    #[Override]
     public function getRowUrl($row)
     {
         return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);

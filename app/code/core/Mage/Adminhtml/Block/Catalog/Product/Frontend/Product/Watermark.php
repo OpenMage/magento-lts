@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Fieldset config form element renderer
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
@@ -63,14 +56,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
             $html .= $field->toHtml();
         }
 
-        $html .= $this->_getFooterHtml($element);
-
-        return $html;
+        return $html . $this->_getFooterHtml($element);
     }
 
     protected function _getHeaderHtml($element)
     {
-        $id = $element->getHtmlId();
         $default = !$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store');
 
         $html = '<h4 class="icon-head head-edit-form">' . $element->getLegend() . '</h4>';
@@ -82,9 +72,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
         if (!$default) {
             $html .= '<colgroup class="use-default" />';
         }
-        $html .= '<tbody>';
 
-        return $html;
+        return $html . '<tbody>';
     }
 
     protected function _getFooterHtml($element)

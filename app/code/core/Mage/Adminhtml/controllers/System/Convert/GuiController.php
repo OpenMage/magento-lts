@@ -1,24 +1,17 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-include_once "ProfileController.php";
+include_once 'ProfileController.php';
 
 /**
  * Convert GUI admin controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_Convert_ProfileController
@@ -31,7 +24,9 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
     /**
      * Profiles list action
+     * @return void
      */
+    #[Override]
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -42,18 +37,19 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
             $this->_forward('grid');
             return;
         }
+
         $this->loadLayout();
 
         /**
          * Set active menu item
          */
-        $this->_setActiveMenu('system/convert');
+        $this->_setActiveMenu('system/convert/gui');
 
         /**
          * Append profiles block to content
          */
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/system_convert_gui', 'convert_profile')
+            $this->getLayout()->createBlock('adminhtml/system_convert_gui', 'convert_profile'),
         );
 
         /**
@@ -65,6 +61,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         $this->renderLayout();
     }
 
+    #[Override]
     public function gridAction()
     {
         $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/system_convert_gui_grid')->toHtml());
@@ -72,7 +69,9 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
     /**
      * Profile edit action
+     * @return void
      */
+    #[Override]
     public function editAction()
     {
         $this->_initProfile();
@@ -89,10 +88,10 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
         $this->_title($profile->getId() ? $profile->getName() : $this->__('New Profile'));
 
-        $this->_setActiveMenu('system/convert');
+        $this->_setActiveMenu('system/convert/gui');
 
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit')
+            $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit'),
         );
 
         /**
@@ -103,25 +102,35 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         $this->renderLayout();
     }
 
+    /**
+     * @return void
+     */
     public function uploadAction()
     {
         $this->_initProfile();
-        $profile = Mage::registry('current_convert_profile');
+        Mage::registry('current_convert_profile');
     }
 
+    /**
+     * @return void
+     */
     public function uploadPostAction()
     {
         $this->_initProfile();
-        $profile = Mage::registry('current_convert_profile');
+        Mage::registry('current_convert_profile');
     }
 
+    /**
+     * @return void
+     */
     public function downloadAction()
     {
         $filename = $this->getRequest()->getParam('filename');
         if (!$filename || str_contains($filename, '..') || $filename[0] === '.') {
             return;
         }
+
         $this->_initProfile();
-        $profile = Mage::registry('current_convert_profile');
+        Mage::registry('current_convert_profile');
     }
 }

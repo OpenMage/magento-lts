@@ -1,0 +1,19 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Sales_Order_Create_Form_Account $this */
+ ?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head fieldset-legend <?php echo $this->getHeaderCssClass() ?>"><?php echo $this->getHeaderText() ?></h4>
+    </div>
+    <div id="customer_account_fieds">
+        <?php echo $this->getForm()->getHtml() ?>
+    </div>
+    <script type="text/javascript">order.accountFieldsBind($('customer_account_fieds'))</script>
+</div>

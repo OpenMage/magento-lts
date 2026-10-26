@@ -1,30 +1,33 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Rss data helper
  *
- * @category   Mage
  * @package    Mage_Rss
+ *
+ * @phpstan-import-type ConfigStoreId from Mage
  */
 class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
      * Config path to RSS field
      */
-    public const XML_PATH_RSS_ACTIVE = 'rss/config/active';
+    public const XML_PATH_RSS_ACTIVE                    = 'rss/config/active';
+
+    public const XML_PATH_RSS_ADMIN_CATALOG_NOTIFYSTOCK = 'rss/admin_catalog/notifystock';
+
+    public const XML_PATH_RSS_ADMIN_CATALOG_REVIEW      = 'rss/admin_catalog/review';
+
+    public const XML_PATH_RSS_ADMIN_ORDER_NEW           = 'rss/admin_order/new';
+
+    public const XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD    = 'rss/admin_order/new_period';
 
     protected $_moduleName = 'Mage_Rss';
 
@@ -40,15 +43,14 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Authenticate customer on frontend
-     *
      */
     public function authFrontend()
     {
         if (!$this->_rssSession->isCustomerLoggedIn()) {
-            list($username, $password) = $this->authValidate();
+            [$username, $password] = $this->authValidate();
             $customer = Mage::getModel('customer/customer')->authenticate($username, $password);
             if ($customer && $customer->getId()) {
-                $this->_rssSession->settCustomer($customer);
+                $this->_rssSession->setCustomer($customer);
             } else {
                 $this->authFailed();
             }
@@ -63,21 +65,24 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     public function authAdmin($path)
     {
         if (!$this->_rssSession->isAdminLoggedIn() || !$this->_adminSession->isLoggedIn()) {
-            list($username, $password) = $this->authValidate();
+            [$username, $password] = $this->authValidate();
             Mage::getSingleton('adminhtml/url')->setNoSecret(true);
             $user = $this->_adminSession->login($username, $password);
         } else {
             $user = $this->_rssSession->getAdmin();
         }
+
         if ($user && $user->getId() && $user->getIsActive() == '1' && $this->_adminSession->isAllowed($path)) {
             $adminUserExtra = $user->getExtra();
             if ($adminUserExtra && !is_array($adminUserExtra)) {
                 $adminUserExtra = Mage::helper('core/unserializeArray')->unserialize($user->getExtra());
             }
+
             if (!isset($adminUserExtra['indirect_login'])) {
                 $adminUserExtra = array_merge($adminUserExtra, ['indirect_login' => true]);
                 $user->saveExtra($adminUserExtra);
             }
+
             $this->_adminSession->setIndirectLogin(true);
             $this->_rssSession->setAdmin($user);
         } else {
@@ -88,7 +93,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Validate Authenticate
      *
-     * @param array $headers
+     * @param  array $headers
      * @return array
      */
     public function authValidate($headers = null)
@@ -98,7 +103,6 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Send authenticate failed headers
-     *
      */
     public function authFailed()
     {
@@ -130,5 +134,31 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     public function isRssEnabled()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_RSS_ACTIVE);
+    }
+
+    public function isRssAdminCatalogNotifyStockEnabled(): bool
+    {
+        return $this->isRssEnabled() && Mage::getStoreConfigFlag(self::XML_PATH_RSS_ADMIN_CATALOG_NOTIFYSTOCK);
+    }
+
+    public function isRssAdminCatalogReviewEnabled(): bool
+    {
+        return $this->isRssEnabled() && Mage::getStoreConfigFlag(self::XML_PATH_RSS_ADMIN_CATALOG_REVIEW);
+    }
+
+    /**
+     * @param ConfigStoreId $store
+     */
+    public function isRssAdminOrderNewEnabled($store = null): bool
+    {
+        return $this->isRssEnabled() && Mage::getStoreConfigFlag(self::XML_PATH_RSS_ADMIN_ORDER_NEW, $store);
+    }
+
+    /**
+     * @param ConfigStoreId $store
+     */
+    public function getRssAdminOrderNewPeriod($store = null): int
+    {
+        return Mage::getStoreConfigAsInt(self::XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD, $store);
     }
 }

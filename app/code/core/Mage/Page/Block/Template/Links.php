@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Simple links list block
  *
- * @category   Mage
  * @package    Mage_Page
  */
 class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
@@ -36,9 +29,9 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     protected $_cacheKeyInfo = null;
 
     /**
-     * Set default template
-     *
+     * @inheritDoc
      */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('page/template/links.phtml');
@@ -57,17 +50,18 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Add link to the list
      *
-     * @param string $label
-     * @param string $url
-     * @param string $title
-     * @param bool $prepare
-     * @param array $urlParams
-     * @param int $position
-     * @param string|array $liParams
-     * @param string|array $aParams
-     * @param string $beforeText
-     * @param string $afterText
+     * @param  string       $label
+     * @param  string       $url
+     * @param  string       $title
+     * @param  bool         $prepare
+     * @param  array        $urlParams
+     * @param  int          $position
+     * @param  array|string $liParams
+     * @param  array|string $aParams
+     * @param  string       $beforeText
+     * @param  string       $afterText
      * @return $this
+     * @SuppressWarnings("PHPMD.ExcessiveParameterList")
      */
     public function addLink(
         $label,
@@ -84,6 +78,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         if (is_null($label) || $label === false) {
             return $this;
         }
+
         $link = new Varien_Object([
             'label'         => $label,
             'url'           => ($prepare ? $this->getUrl($url, (is_array($urlParams) ? $urlParams : [])) : $url),
@@ -102,8 +97,8 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Add link into collection
      *
-     * @param Varien_Object $link
-     * @param int $position
+     * @param  Varien_Object $link
+     * @param  int           $position
      * @return $this
      */
     protected function _addIntoPosition($link, $position)
@@ -120,23 +115,24 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Add block to link list
      *
-     * @param string $blockName
+     * @param  string $blockName
      * @return $this
      */
     public function addLinkBlock($blockName)
     {
         $block = $this->getLayout()->getBlock($blockName);
         if ($block) {
-            $position = (int)$block->getPosition();
+            $position = (int) $block->getPosition();
             $this->_addIntoPosition($block, $position);
         }
+
         return $this;
     }
 
     /**
      * Remove Link block by blockName
      *
-     * @param string $blockName
+     * @param  string $blockName
      * @return $this
      */
     public function removeLinkBlock($blockName)
@@ -146,20 +142,21 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
                 unset($this->_links[$key]);
             }
         }
+
         return $this;
     }
 
     /**
      * Removes link by url
      *
-     * @param string $url
+     * @param  string $url
      * @return $this
      */
     public function removeLinkByUrl($url)
     {
-        foreach ($this->_links as $k => $v) {
-            if ($v->getUrl() == $url) {
-                unset($this->_links[$k]);
+        foreach ($this->_links as $key => $link) {
+            if ($link->getUrl() == $url) {
+                unset($this->_links[$key]);
             }
         }
 
@@ -172,21 +169,21 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         if (is_null($this->_cacheKeyInfo)) {
             $links = [];
-            if (!empty($this->_links)) {
-                foreach ($this->_links as $position => $link) {
-                    if ($link instanceof Varien_Object) {
-                        $links[$position] = $link->getData();
-                    }
+            foreach ($this->_links as $position => $link) {
+                if ($link instanceof Varien_Object) {
+                    $links[$position] = $link->getData();
                 }
             }
+
             $this->_cacheKeyInfo = parent::getCacheKeyInfo() + [
                 'links' => base64_encode(serialize($links)),
-                'name' => $this->getNameInLayout()
-                ];
+                'name' => $this->getNameInLayout(),
+            ];
         }
 
         return $this->_cacheKeyInfo;
@@ -195,20 +192,24 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     /**
      * Prepare tag attributes
      *
-     * @param string|array $params
+     * @param  array|string $params
      * @return string
      */
     protected function _prepareParams($params)
     {
         if (is_string($params)) {
             return $params;
-        } elseif (is_array($params)) {
+        }
+
+        if (is_array($params)) {
             $result = '';
             foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';
             }
+
             return $result;
         }
+
         return '';
     }
 
@@ -217,21 +218,21 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @inheritDoc
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         if (!empty($this->_links)) {
-            reset($this->_links);
-            $this->_links[key($this->_links)]->setIsFirst(true);
-            end($this->_links);
-            $this->_links[key($this->_links)]->setIsLast(true);
+            $this->_links[array_key_first($this->_links)]->setIsFirst(true);
+            $this->_links[array_key_last($this->_links)]->setIsLast(true);
         }
+
         return parent::_beforeToHtml();
     }
 
     /**
      * Return new link position in list
      *
-     * @param int $position
+     * @param  int $position
      * @return int
      */
     protected function _getNewPosition($position = 0)
@@ -242,11 +243,13 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             }
         } else {
             $position = 0;
-            foreach ($this->_links as $k => $v) {
+            foreach (array_keys($this->_links) as $k) {
                 $position = $k;
             }
+
             $position += 10;
         }
+
         return $position;
     }
 
@@ -255,6 +258,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @return array
      */
+    #[Override]
     public function getCacheTags()
     {
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {

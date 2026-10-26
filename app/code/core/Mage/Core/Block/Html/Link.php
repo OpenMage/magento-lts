@@ -1,31 +1,29 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * HTML anchor element block
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         $this->setTemplate('core/link.phtml');
         parent::_construct();
     }
+
     /**
      * Prepare link attributes as serialized and formatted string
      *
@@ -39,7 +37,7 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
             'id', 'class', 'style', // %coreattrs
             'lang', 'dir', // %i18n
             'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmousemove',
-            'onmouseout', 'onkeypress', 'onkeydown', 'onkeyup' // %events
+            'onmouseout', 'onkeypress', 'onkeydown', 'onkeyup', // %events
         ];
 
         $attributes = [];
@@ -50,30 +48,30 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
             }
         }
 
-        if (!empty($attributes)) {
+        if ($attributes !== []) {
             return $this->serialize($attributes);
         }
+
         return '';
     }
 
     /**
      * serialize attributes
      *
-     * @param   array $attributes
-     * @param   string $valueSeparator
-     * @param   string $fieldSeparator
-     * @param   string $quote
-     * @return  string
+     * @param  array  $attributes
+     * @param  string $valueSeparator
+     * @param  string $fieldSeparator
+     * @param  string $quote
+     * @return string
      */
+    #[Override]
     public function serialize($attributes = [], $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
-        $res  = '';
         $data = [];
-
         foreach ($attributes as $key => $value) {
             $data[] = $key . $valueSeparator . $quote . $value . $quote;
         }
-        $res = implode($fieldSeparator, $data);
-        return $res;
+
+        return implode($fieldSeparator, $data);
     }
 }

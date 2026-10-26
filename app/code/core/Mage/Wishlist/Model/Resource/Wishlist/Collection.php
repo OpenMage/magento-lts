@@ -1,31 +1,23 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Wislist model collection
+ * Wishlist model collection
  *
- * @category   Mage
  * @package    Mage_Wishlist
  *
- * @method Mage_Wishlist_Model_Wishlist[] getItems()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Wishlist_Model_Wishlist>
  */
 class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize resource
-     *
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -35,7 +27,6 @@ class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_R
     /**
      * Filter collection by customer
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function filterByCustomer(Mage_Customer_Model_Customer $customer)
@@ -46,7 +37,7 @@ class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_R
     /**
      * Filter collection by customer id
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function filterByCustomerId($customerId)
@@ -58,7 +49,6 @@ class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_R
     /**
      * Filter collection by customer ids
      *
-     * @param array $customerIds
      * @return $this
      */
     public function filterByCustomerIds(array $customerIds)

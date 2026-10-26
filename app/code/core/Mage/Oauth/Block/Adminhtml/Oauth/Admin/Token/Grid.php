@@ -1,29 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * OAuth My Application grid block
  *
- * @category   Mage
  * @package    Mage_Oauth
  */
 class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Construct grid block
-     */
+    protected string $_eventPrefix = 'oauth_adminhtml_oauth_admin_token_grid';
+
     public function __construct()
     {
         parent::__construct();
@@ -35,14 +27,13 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareCollection()
     {
         /** @var Mage_Admin_Model_User $user */
-        $user = Mage::getSingleton('admin/session')->getData('user');
+        $user = Mage::getSingleton('admin/session')->getDataByKey('user');
 
         /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
         $collection = Mage::getModel('oauth/token')->getCollection();
@@ -51,22 +42,19 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
                 ->addFilterByAdminId($user->getId());
         $this->setCollection($collection);
 
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
+    #[Override]
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('oauth')->__('ID'),
             'index'     => 'entity_id',
-            'align'     => 'right',
-            'width'     => '50px',
         ]);
 
         $this->addColumn('name', [
@@ -83,18 +71,15 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
             'width'     => '100px',
             'type'      => 'options',
             'options'   => $sourceYesNo->toArray(),
-            'sortable'  => true,
         ]);
 
-        parent::_prepareColumns();
-        return $this;
+        return parent::_prepareColumns();
     }
 
     /**
-     * Add mass-actions to grid
-     *
-     * @return $this
+     * @inheritDoc
      */
+    #[Override]
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('id');
@@ -114,7 +99,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
             'url'   => $this->getUrl('*/*/delete'),
         ]);
 
-        return $this;
+        return parent::_prepareMassaction();
     }
 
     /**
@@ -122,6 +107,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
      *
      * @return string
      */
+    #[Override]
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);

@@ -1,30 +1,21 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Persistent
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Persistent Session Observer
  *
- * @category   Mage
  * @package    Mage_Persistent
  */
 class Mage_Persistent_Model_Observer_Session
 {
     /**
      * Create/Update and Load session when customer log in
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function synchronizePersistentOnLogin(Varien_Event_Observer $observer)
     {
@@ -65,15 +56,13 @@ class Mage_Persistent_Model_Observer_Session
             Mage::getSingleton('core/cookie')->set(
                 Mage_Persistent_Model_Session::COOKIE_NAME,
                 $sessionModel->getKey(),
-                $persistentLifeTime
+                $persistentLifeTime,
             );
         }
     }
 
     /**
      * Unload persistent session (if set in config)
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function synchronizePersistentOnLogout(Varien_Event_Observer $observer)
     {
@@ -96,8 +85,6 @@ class Mage_Persistent_Model_Observer_Session
 
     /**
      * Synchronize persistent session info
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function synchronizePersistentInfo(Varien_Event_Observer $observer)
     {
@@ -120,8 +107,6 @@ class Mage_Persistent_Model_Observer_Session
 
     /**
      * Set Checked status of "Remember Me"
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function setRememberMeCheckedStatus(Varien_Event_Observer $observer)
     {
@@ -134,19 +119,17 @@ class Mage_Persistent_Model_Observer_Session
         $controllerAction = $observer->getEvent()->getControllerAction();
         if ($controllerAction) {
             $rememberMeCheckbox = $controllerAction->getRequest()->getPost('persistent_remember_me');
-            Mage::helper('persistent/session')->setRememberMeChecked((bool)$rememberMeCheckbox);
+            Mage::helper('persistent/session')->setRememberMeChecked((bool) $rememberMeCheckbox);
             if ($controllerAction->getFullActionName() == 'checkout_onepage_saveBilling'
                     || $controllerAction->getFullActionName() == 'customer_account_createpost'
             ) {
-                Mage::getSingleton('checkout/session')->setRememberMeChecked((bool)$rememberMeCheckbox);
+                Mage::getSingleton('checkout/session')->setRememberMeChecked((bool) $rememberMeCheckbox);
             }
         }
     }
 
     /**
      * Renew persistent cookie
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function renewCookie(Varien_Event_Observer $observer)
     {
@@ -163,7 +146,7 @@ class Mage_Persistent_Model_Observer_Session
         ) {
             Mage::getSingleton('core/cookie')->renew(
                 Mage_Persistent_Model_Session::COOKIE_NAME,
-                Mage::helper('persistent')->getLifeTime()
+                Mage::helper('persistent')->getLifeTime(),
             );
         }
     }

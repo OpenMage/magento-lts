@@ -1,35 +1,36 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Html page block
  *
- * @category   Mage
  * @package    Mage_Page
  * @todo       Separate order, mode and pager
  */
 class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 {
     protected $_collection = null;
+
     protected $_pageVarName    = 'p';
+
     protected $_limitVarName   = 'limit';
+
     protected $_availableLimit = [10 => 10,20 => 20,50 => 50];
+
     protected $_dispersion     = 3;
+
     protected $_displayPages   = 5;
+
     protected $_showPerPage    = true;
+
     protected $_limit          = null;
+
     protected $_outputRequired = true;
 
     /**
@@ -62,6 +63,10 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     protected $_frameEnd;
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
     protected function _construct()
     {
         parent::_construct();
@@ -80,6 +85,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         if (is_object($this->_collection)) {
             return $this->_collection->getCurPage();
         }
+
         return (int) $this->getRequest()->getParam($this->getPageVarName(), 1);
     }
 
@@ -93,12 +99,12 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         if ($this->_limit !== null) {
             return $this->_limit;
         }
+
         $limits = $this->getAvailableLimit();
-        if ($limit = $this->getRequest()->getParam($this->getLimitVarName())) {
-            if (isset($limits[$limit])) {
-                return $limit;
-            }
+        if (($limit = $this->getRequest()->getParam($this->getLimitVarName())) && isset($limits[$limit])) {
+            return $limit;
         }
+
         $limits = array_keys($limits);
         return $limits[0];
     }
@@ -106,7 +112,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Setter for limit items per page
      *
-     * @param int $limit
+     * @param  int   $limit
      * @return $this
      */
     public function setLimit($limit)
@@ -144,7 +150,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $varName
+     * @param  string $varName
      * @return $this
      */
     public function setPageVarName($varName)
@@ -162,7 +168,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $varName
+     * @param  bool  $varName
      * @return $this
      */
     public function setShowPerPage($varName)
@@ -179,11 +185,12 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         if (count($this->getAvailableLimit()) <= 1) {
             return false;
         }
+
         return $this->_showPerPage;
     }
 
     /**
-     * @param string $varName
+     * @param  string $varName
      * @return $this
      */
     public function setLimitVarName($varName)
@@ -200,9 +207,6 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         return $this->_limitVarName;
     }
 
-    /**
-     * @param array $limits
-     */
     public function setAvailableLimit(array $limits)
     {
         $this->_availableLimit = $limits;
@@ -267,7 +271,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     }
 
     /**
-     * @param int $limit
+     * @param  int  $limit
      * @return bool
      */
     public function isLimitCurrent($limit)
@@ -276,7 +280,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     }
 
     /**
-     * @param int $page
+     * @param  int  $page
      * @return bool
      */
     public function isPageCurrent($page)
@@ -293,27 +297,26 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 
         $start = 1;
         $finish = 1;
-        $pages = [];
-        if ($collection->getLastPageNumber() <= $this->_displayPages) {
-            $pages = range(1, $collection->getLastPageNumber());
-        } else {
-            $half = ceil($this->_displayPages / 2);
-            if ($collection->getCurPage() >= $half
-                && $collection->getCurPage() <= $collection->getLastPageNumber() - $half
-            ) {
-                $start  = ($collection->getCurPage() - $half) + 1;
-                $finish = ($start + $this->_displayPages) - 1;
-            } elseif ($collection->getCurPage() < $half) {
-                $start  = 1;
-                $finish = $this->_displayPages;
-            } elseif ($collection->getCurPage() > ($collection->getLastPageNumber() - $half)) {
-                $finish = $collection->getLastPageNumber();
-                $start  = $finish - $this->_displayPages + 1;
-            }
 
-            $pages = range($start, $finish);
+        if ($collection->getLastPageNumber() <= $this->_displayPages) {
+            return range(1, $collection->getLastPageNumber());
         }
-        return $pages;
+
+        $half = ceil($this->_displayPages / 2);
+        if ($collection->getCurPage() >= $half
+            && $collection->getCurPage() <= $collection->getLastPageNumber() - $half
+        ) {
+            $start  = ($collection->getCurPage() - $half) + 1;
+            $finish = ($start + $this->_displayPages) - 1;
+        } elseif ($collection->getCurPage() < $half) {
+            $start  = 1;
+            $finish = $this->_displayPages;
+        } elseif ($collection->getCurPage() > ($collection->getLastPageNumber() - $half)) {
+            $finish = $collection->getLastPageNumber();
+            $start  = $finish - $this->_displayPages + 1;
+        }
+
+        return range($start, $finish);
     }
 
     /**
@@ -349,7 +352,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     }
 
     /**
-     * @param int $page
+     * @param  int    $page
      * @return string
      */
     public function getPageUrl($page)
@@ -358,7 +361,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     }
 
     /**
-     * @param int $limit
+     * @param  int    $limit
      * @return string
      */
     public function getLimitUrl($limit)
@@ -367,7 +370,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     }
 
     /**
-     * @param array $params
+     * @param  array  $params
      * @return string
      */
     public function getPagerUrl($params = [])
@@ -417,13 +420,14 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Return page number of Previous jump
      *
-     * @return int|null
+     * @return null|int
      */
     public function getPreviousJumpPage()
     {
         if (!$this->getJump()) {
             return null;
         }
+
         $frameStart = $this->getFrameStart();
         if ($frameStart - 1 > 1) {
             return max(2, $frameStart - $this->getJump());
@@ -445,13 +449,14 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Return page number of Next jump
      *
-     * @return int|null
+     * @return null|int
      */
     public function getNextJumpPage()
     {
         if (!$this->getJump()) {
             return null;
         }
+
         $frameEnd = $this->getFrameEnd();
         if ($this->getLastPageNum() - $frameEnd > 1) {
             return min($this->getLastPageNum() - 1, $frameEnd + $this->getJump());
@@ -493,7 +498,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Setter for $_frameLength
      *
-     * @param int $frame
+     * @param  int   $frame
      * @return $this
      */
     public function setFrameLength($frame)
@@ -502,6 +507,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         if ($frame == 0) {
             $frame = $this->_frameLength;
         }
+
         if ($this->getFrameLength() != $frame) {
             $this->_setFrameInitialized(false);
             $this->_frameLength = $frame;
@@ -513,7 +519,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Setter for $_jump
      *
-     * @param int $jump
+     * @param  int   $jump
      * @return $this
      */
     public function setJump($jump)
@@ -597,6 +603,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
                     $start  = $end - $this->getFrameLength() + 1;
                 }
             }
+
             $this->_frameStart = $start;
             $this->_frameEnd = $end;
 
@@ -609,12 +616,12 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Setter for flag _frameInitialized
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     protected function _setFrameInitialized($flag)
     {
-        $this->_frameInitialized = (bool)$flag;
+        $this->_frameInitialized = (bool) $flag;
         return $this;
     }
 
@@ -651,12 +658,12 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Set whether output of the pager is mandatory
      *
-     * @param bool $isRequired
+     * @param  bool  $isRequired
      * @return $this
      */
     public function setIsOutputRequired($isRequired)
     {
-        $this->_outputRequired = (bool)$isRequired;
+        $this->_outputRequired = (bool) $isRequired;
         return $this;
     }
 
@@ -665,11 +672,13 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if ($this->_outputRequired || $this->getTotalNum() > $this->getLimit()) {
             return parent::_toHtml();
         }
+
         return '';
     }
 }

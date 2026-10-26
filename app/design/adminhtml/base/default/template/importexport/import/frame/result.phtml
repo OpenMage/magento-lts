@@ -1,0 +1,18 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_ImportExport_Block_Adminhtml_Import_Frame_Result
+ * @var Mage_ImportExport_Block_Adminhtml_Import_Frame_Result $this
+ */
+?>
+<script type='text/javascript'>
+//<![CDATA[
+    top.editForm.postToFrameComplete(<?php echo $this->getResponseJson() ?>);
+//]]>
+</script>

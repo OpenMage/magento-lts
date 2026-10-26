@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart item render block
  *
- * @category   Mage
  * @package    Mage_Bundle
  */
 class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_Cart_Item_Renderer
@@ -27,7 +20,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      * Returns array of options objects.
      * Each option object will contain array of selections objects
      *
-     * @param bool $useCache
+     * @param  bool  $useCache
      * @return array
      */
     protected function _getBundleOptions($useCache = true)
@@ -38,7 +31,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
     /**
      * Obtain final price of selection in a bundle product
      *
-     * @param Mage_Catalog_Model_Product $selectionProduct
+     * @param  Mage_Catalog_Model_Product $selectionProduct
      * @return float
      */
     protected function _getSelectionFinalPrice($selectionProduct)
@@ -50,7 +43,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
     /**
      * Get selection quantity
      *
-     * @param int $selectionId
+     * @param  int   $selectionId
      * @return float
      */
     protected function _getSelectionQty($selectionId)
@@ -64,6 +57,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      *
      * @return array
      */
+    #[Override]
     public function getOptionList()
     {
         return Mage::helper('bundle/catalog_product_configuration')->getOptions($this->getItem());
@@ -74,18 +68,19 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      *
      * @return array
      */
+    #[Override]
     public function getMessages()
     {
         $messages = [];
         $quoteItem = $this->getItem();
 
-        // Add basic messages occuring during this page load
+        // Add basic messages occurring during this page load
         $baseMessages = $quoteItem->getMessage(false);
         if ($baseMessages) {
             foreach ($baseMessages as $message) {
                 $messages[] = [
                     'text' => $message,
-                    'type' => $quoteItem->getHasError() ? 'error' : 'notice'
+                    'type' => $quoteItem->getHasError() ? 'error' : 'notice',
                 ];
             }
         }

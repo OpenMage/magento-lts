@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Messages block
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Block_Messages extends Mage_Core_Block_Template
@@ -64,9 +57,18 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     protected $_usedStorageTypes = ['core/session'];
 
     /**
+     * Purifier for message text when the escape flag is off; created on first use
+     *
+     * Private so that a subclass declaring its own (untyped) property of the same name
+     * cannot collide with it. Override _getMessagePurifier() to customise.
+     */
+    private ?Mage_Core_Model_Purifier_Interface $messagePurifier = null;
+
+    /**
      * @inheritDoc
      */
-    public function _prepareLayout()
+    #[Override]
+    protected function _prepareLayout()
     {
         $this->addMessages(Mage::getSingleton('core/session')->getMessages(true));
         return parent::_prepareLayout();
@@ -74,7 +76,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
 
     /**
      * Set message escape flag
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setEscapeMessageFlag($flag)
@@ -86,8 +88,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Set messages collection
      *
-     * @param   Mage_Core_Model_Message_Collection $messages
-     * @return  Mage_Core_Block_Messages
+     * @return $this
      */
     public function setMessages(Mage_Core_Model_Message_Collection $messages)
     {
@@ -98,7 +99,6 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Add messages to display
      *
-     * @param Mage_Core_Model_Message_Collection $messages
      * @return $this
      */
     public function addMessages(Mage_Core_Model_Message_Collection $messages)
@@ -106,6 +106,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         foreach ($messages->getItems() as $message) {
             $this->getMessageCollection()->add($message);
         }
+
         return $this;
     }
 
@@ -119,14 +120,14 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         if (!($this->_messages instanceof Mage_Core_Model_Message_Collection)) {
             $this->_messages = Mage::getModel('core/message_collection');
         }
+
         return $this->_messages;
     }
 
     /**
      * Adding new message to message collection
      *
-     * @param   Mage_Core_Model_Message_Abstract $message
-     * @return  Mage_Core_Block_Messages
+     * @return $this
      */
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
     {
@@ -137,8 +138,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new error message
      *
-     * @param   string $message
-     * @return  Mage_Core_Block_Messages
+     * @param  string $message
+     * @return $this
      */
     public function addError($message)
     {
@@ -149,8 +150,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new warning message
      *
-     * @param   string $message
-     * @return  Mage_Core_Block_Messages
+     * @param  string $message
+     * @return $this
      */
     public function addWarning($message)
     {
@@ -161,8 +162,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new nitice message
      *
-     * @param   string $message
-     * @return  Mage_Core_Block_Messages
+     * @param  string $message
+     * @return $this
      */
     public function addNotice($message)
     {
@@ -173,8 +174,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new success message
      *
-     * @param   string $message
-     * @return  Mage_Core_Block_Messages
+     * @param  string $message
+     * @return $this
      */
     public function addSuccess($message)
     {
@@ -185,8 +186,8 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Retrieve messages array by message type
      *
-     * @param   string $type
-     * @return  array
+     * @param  string $type
+     * @return array
      */
     public function getMessages($type = null)
     {
@@ -196,25 +197,27 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Retrieve messages in HTML format
      *
-     * @param   string $type
-     * @return  string
+     * @param  string $type
+     * @return string
      */
     public function getHtml($type = null)
     {
         $html = '<' . $this->_messagesFirstLevelTagName . ' id="admin_messages">';
         foreach ($this->getMessages($type) as $message) {
+            $messageContent = $this->_renderMessageText($message);
+
             $html .= '<' . $this->_messagesSecondLevelTagName . ' class="' . $message->getType() . '-msg">'
-                . ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText()
+                . $messageContent
                 . '</' . $this->_messagesSecondLevelTagName . '>';
         }
-        $html .= '</' . $this->_messagesFirstLevelTagName . '>';
-        return $html;
+
+        return $html . ('</' . $this->_messagesFirstLevelTagName . '>');
     }
 
     /**
      * Retrieve messages in HTML format grouped by type
      *
-     * @return  string
+     * @return string
      */
     public function getGroupedHtml()
     {
@@ -222,7 +225,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
             Mage_Core_Model_Message::ERROR,
             Mage_Core_Model_Message::WARNING,
             Mage_Core_Model_Message::NOTICE,
-            Mage_Core_Model_Message::SUCCESS
+            Mage_Core_Model_Message::SUCCESS,
         ];
         $html = '';
         foreach ($types as $type) {
@@ -230,30 +233,71 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                 if (!$html) {
                     $html .= '<' . $this->_messagesFirstLevelTagName . ' class="messages">';
                 }
+
                 $html .= '<' . $this->_messagesSecondLevelTagName . ' class="' . $type . '-msg">';
                 $html .= '<' . $this->_messagesFirstLevelTagName . '>';
 
                 foreach ($messages as $message) {
+                    $messageContent = $this->_renderMessageText($message);
+
                     $html .= '<' . $this->_messagesSecondLevelTagName . '>';
                     $html .= '<' . $this->_messagesContentWrapperTagName . '>';
-                    $html .= ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText();
+                    $html .= $messageContent;
                     $html .= '</' . $this->_messagesContentWrapperTagName . '>';
                     $html .= '</' . $this->_messagesSecondLevelTagName . '>';
                 }
+
                 $html .= '</' . $this->_messagesFirstLevelTagName . '>';
                 $html .= '</' . $this->_messagesSecondLevelTagName . '>';
             }
         }
+
         if ($html) {
             $html .= '</' . $this->_messagesFirstLevelTagName . '>';
         }
+
         $this->_messages = $this->getMessageCollection()->clear();
         return $html;
     }
 
     /**
+     * Render the text of one message as HTML
+     *
+     * Message text routinely carries exception messages and request values, so it is
+     * never output raw. With the escape flag set it is fully escaped; otherwise it is
+     * purified, which keeps the simple markup core messages use (links, emphasis, line
+     * breaks, lists) and removes scripts, event handlers and unsafe URLs.
+     *
      * @return string
      */
+    protected function _renderMessageText(Mage_Core_Model_Message_Abstract $message)
+    {
+        $text = (string) $message->getText();
+        if ($this->_escapeMessageFlag) {
+            return (string) $this->escapeHtml($text);
+        }
+
+        return $this->_getMessagePurifier()->purify($text);
+    }
+
+    /**
+     * @return Mage_Core_Model_Purifier_Interface
+     */
+    protected function _getMessagePurifier()
+    {
+        if (!$this->messagePurifier instanceof Mage_Core_Model_Purifier_Interface) {
+            /** @var Mage_Core_Model_Purifier_Message $purifier */
+            $purifier = Mage::getSingleton('core/purifier_message');
+            $this->messagePurifier = $purifier;
+        }
+
+        return $this->messagePurifier;
+    }
+
+    /**
+     * @return string
+     */
+    #[Override]
     protected function _toHtml()
     {
         return $this->getGroupedHtml();
@@ -282,12 +326,13 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Get cache key informative items
      *
-     * @return array
+     * @return array<string, string>
      */
+    #[Override]
     public function getCacheKeyInfo()
     {
         return [
-            'storage_types' => serialize($this->_usedStorageTypes)
+            'storage_types' => serialize($this->_usedStorageTypes),
         ];
     }
 

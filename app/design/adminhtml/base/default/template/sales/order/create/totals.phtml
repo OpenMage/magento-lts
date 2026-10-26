@@ -1,0 +1,48 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/** @var Mage_Adminhtml_Block_Sales_Order_Create_Totals $this */
+?>
+<table cellspacing="0" cellpadding="8" width="100%">
+    <tbody>
+        <?php echo $this->renderTotals(); ?>
+        <?php echo $this->renderTotals('footer'); ?>
+    </tbody>
+</table>
+<div class="divider"></div>
+<div class="order-totals-bottom">
+    <p>
+        <label for="notify_customer" class="normal"><?php echo Mage::helper('sales')->__('Append Comments') ?></label>
+        <input type="checkbox" id="notify_customer" name="order[comment][customer_note_notify]" value="1" <?php if($this->getNoteNotify()): ?>checked="true"<?php endif ?>/>
+    </p>
+    <?php if ($this->canSendNewOrderConfirmationEmail()): ?>
+    <p>
+        <label for="send_confirmation" class="normal"><?php echo Mage::helper('sales')->__('Email Order Confirmation') ?></label>
+        <input type="checkbox" id="send_confirmation" name="order[send_confirmation]" value="1" checked="checked"/>
+    </p>
+    <?php endif ?>
+    <p><?php echo $this->getButtonHtml(Mage::helper('sales')->__('Submit Order'),'order.submit()','save'); ?></p>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var sendEmailCheckbox = $('send_confirmation');
+if (sendEmailCheckbox) {
+    Event.observe(sendEmailCheckbox, 'change', notifyCustomerUpdate);
+    notifyCustomerUpdate();
+}
+
+function notifyCustomerUpdate() {
+    var sendEmailCheckbox = $('send_confirmation');
+    var notifyCustomerCheckbox = $('notify_customer');
+    if (!sendEmailCheckbox || !notifyCustomerCheckbox)
+        return;
+    notifyCustomerCheckbox.disabled = !sendEmailCheckbox.checked;
+}
+//]]>
+</script>

@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Order Email items grouped renderer
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Order_Email_Items_Order_Grouped extends Mage_Sales_Block_Order_Email_Items_Order_Default
@@ -28,18 +21,17 @@ class Mage_Sales_Block_Order_Email_Items_Order_Grouped extends Mage_Sales_Block_
      *
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
-        if ($this->getItem()->getOrderItem()) {
-            $item = $this->getItem()->getOrderItem();
-        } else {
-            $item = $this->getItem();
-        }
+        $item = $this->getItem()->getOrderItem() ? $this->getItem()->getOrderItem() : $this->getItem();
+
         if ($productType = $item->getRealProductType()) {
             $renderer = $this->getRenderedBlock()->getItemRenderer($productType);
             $renderer->setItem($this->getItem());
             return $renderer->toHtml();
         }
+
         return parent::_toHtml();
     }
 }

@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -18,7 +12,6 @@
  * Assumes that one element may depend on other element values.
  * Will toggle as "enabled" only if all elements it depends from toggle as true.
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml_Block_Abstract
@@ -52,8 +45,8 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
     /**
      * Add name => id mapping
      *
-     * @param string $fieldId - element ID in DOM
-     * @param string $fieldName - element name in their fieldset/form namespace
+     * @param  string $fieldId   - element ID in DOM
+     * @param  string $fieldName - element name in their fieldset/form namespace
      * @return $this
      */
     public function addFieldMap($fieldId, $fieldName)
@@ -65,9 +58,9 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
     /**
      * Register field name dependence one from each other by specified values
      *
-     * @param string $fieldName
-     * @param string $fieldNameFrom
-     * @param string|array $refValues
+     * @param  string       $fieldName
+     * @param  string       $fieldNameFrom
+     * @param  array|string $refValues
      * @return $this
      */
     public function addFieldDependence($fieldName, $fieldNameFrom, $refValues)
@@ -79,7 +72,6 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
     /**
      * Add misc configuration options to the javascript dependencies controller
      *
-     * @param array $options
      * @return $this
      */
     public function addConfigOptions(array $options)
@@ -92,11 +84,13 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
      * HTML output getter
      * @return string
      */
+    #[Override]
     protected function _toHtml()
     {
         if (!$this->_depends) {
             return '';
         }
+
         return '<script type="text/javascript"> new FormElementDependenceController('
             . $this->_getDependsJson()
             . ($this->_configOptions ? ', ' . Mage::helper('core')->jsonEncode($this->_configOptions) : '')
@@ -110,11 +104,12 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
     protected function _getDependsJson()
     {
         $result = [];
-        foreach ($this->_depends as $to => $row) {
+        foreach ($this->_depends as $key => $row) {
             foreach ($row as $from => $value) {
-                $result[$this->_fields[$to]][$this->_fields[$from]] = $value;
+                $result[$this->_fields[$key]][$this->_fields[$from]] = $value;
             }
         }
+
         return Mage::helper('core')->jsonEncode($result);
     }
 }

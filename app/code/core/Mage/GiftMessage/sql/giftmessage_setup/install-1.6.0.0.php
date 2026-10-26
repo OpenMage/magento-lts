@@ -1,19 +1,13 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_GiftMessage_Model_Resource_Setup $installer */
+/** @var Mage_GiftMessage_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 
@@ -52,12 +46,12 @@ $entities = [
     'quote_item',
     'quote_address_item',
     'order',
-    'order_item'
+    'order_item',
 ];
 $options = [
     'type'     => Varien_Db_Ddl_Table::TYPE_INTEGER,
     'visible'  => false,
-    'required' => false
+    'required' => false,
 ];
 foreach ($entities as $entity) {
     $installer->addAttribute($entity, 'gift_message_id', $options);
@@ -67,6 +61,7 @@ foreach ($entities as $entity) {
  * Add 'gift_message_available' attributes for entities
  */
 $installer->addAttribute('order_item', 'gift_message_available', $options);
+// @phpstan-ignore argument.type
 Mage::getResourceModel('catalog/setup', 'catalog_setup')->addAttribute(
     Mage_Catalog_Model_Product::ENTITY,
     'gift_message_available',
@@ -86,8 +81,8 @@ Mage::getResourceModel('catalog/setup', 'catalog_setup')->addAttribute(
         'apply_to'      => '',
         'input_renderer'   => 'giftmessage/adminhtml_product_helper_form_config',
         'is_configurable'  => 0,
-        'visible_on_front' => false
-    ]
+        'visible_on_front' => false,
+    ],
 );
 
 $installer->endSetup();

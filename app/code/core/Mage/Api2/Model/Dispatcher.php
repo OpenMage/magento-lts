@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservice api2 dispatcher model
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Dispatcher
@@ -36,8 +29,6 @@ class Mage_Api2_Model_Dispatcher
     /**
      * Instantiate resource class, set parameters to the instance, run resource internal dispatch method
      *
-     * @param Mage_Api2_Model_Request $request
-     * @param Mage_Api2_Model_Response $response
      * @return $this
      * @throws Mage_Api2_Exception
      */
@@ -46,14 +37,15 @@ class Mage_Api2_Model_Dispatcher
         if (!$request->getModel() || !$request->getApiType()) {
             throw new Mage_Api2_Exception(
                 'Request does not contains all necessary data',
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
+
         $model = self::loadResourceModel(
             $request->getModel(),
             $request->getApiType(),
             $this->getApiUser()->getType(),
-            $this->getVersion($request->getResourceType(), $request->getVersion())
+            $this->getVersion($request->getResourceType(), $request->getVersion()),
         );
 
         $model->setRequest($request);
@@ -68,10 +60,10 @@ class Mage_Api2_Model_Dispatcher
     /**
      * Pack resource model class path from components and try to load it
      *
-     * @param string $model
-     * @param string $apiType API type
-     * @param string $userType API User type (e.g. admin, customer, guest)
-     * @param int $version Requested version
+     * @param  string                   $model
+     * @param  string                   $apiType  API type
+     * @param  string                   $userType API User type (e.g. admin, customer, guest)
+     * @param  int                      $version  Requested version
      * @return Mage_Api2_Model_Resource
      * @throws Mage_Api2_Exception
      */
@@ -79,25 +71,26 @@ class Mage_Api2_Model_Dispatcher
     {
         $class = strtr(
             self::RESOURCE_CLASS_TEMPLATE,
-            [':resource' => $model, ':api' => $apiType, ':user' => $userType, ':version' => $version]
+            [':resource' => $model, ':api' => $apiType, ':user' => $userType, ':version' => $version],
         );
 
         try {
             /** @var Mage_Api2_Model_Resource $modelObj */
             $modelObj = Mage::getModel($class);
-        } catch (Exception $e) {
+        } catch (Exception) {
             // getModel() throws exception when in application is in development mode - skip it to next check
         }
+
         if (empty($modelObj) || !$modelObj instanceof Mage_Api2_Model_Resource) {
             throw new Mage_Api2_Exception('Resource not found', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
+
         return $modelObj;
     }
 
     /**
      * Set API user object
      *
-     * @param Mage_Api2_Model_Auth_User_Abstract $apiUser
      * @return $this
      */
     public function setApiUser(Mage_Api2_Model_Auth_User_Abstract $apiUser)
@@ -124,8 +117,8 @@ class Mage_Api2_Model_Dispatcher
     /**
      * Get correct version of the resource model
      *
-     * @param string $resourceType
-     * @param string|bool $requestedVersion
+     * @param  string              $resourceType
+     * @param  bool|string         $requestedVersion
      * @return int
      * @throws Mage_Api2_Exception
      */
@@ -134,9 +127,10 @@ class Mage_Api2_Model_Dispatcher
         if ($requestedVersion !== false && !preg_match('/^[1-9]\d*$/', $requestedVersion)) {
             throw new Mage_Api2_Exception(
                 sprintf('Invalid version "%s" requested.', htmlspecialchars($requestedVersion)),
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
+
         return $this->getConfig()->getResourceLastVersion($resourceType, $requestedVersion);
     }
 

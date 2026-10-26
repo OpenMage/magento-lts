@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Category form input image element
  *
- * @category   Varien
  * @package    Varien_Data
  *
  * @method bool getDisabled()
@@ -39,14 +32,15 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getElementHtml()
     {
         $html = '';
 
-        if ((string)$this->getValue()) {
+        if ((string) $this->getValue()) {
             $url = $this->_getUrl();
 
-            if (!preg_match("/^http\:\/\/|https\:\/\//", $url)) {
+            if (!preg_match('/^http\:\/\/|https\:\/\//', $url)) {
                 $url = Mage::getBaseUrl('media') . $url;
             }
 
@@ -56,11 +50,11 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
                 . ' alt="' . $this->getValue() . '" height="22" width="22" class="small-image-preview v-middle" />'
                 . '</a> ';
         }
+
         $this->setClass('input-file');
         $html .= parent::getElementHtml();
-        $html .= $this->_getDeleteCheckbox();
 
-        return $html;
+        return $html . $this->_getDeleteCheckbox();
     }
 
     /**
@@ -100,7 +94,7 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
     /**
      * Get image preview url
      *
-     * @return string
+     * @return null|string
      */
     protected function _getUrl()
     {
@@ -112,8 +106,9 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
      *
      * @return string
      */
+    #[Override]
     public function getName()
     {
-        return  $this->getData('name');
+        return  $this->getDataByKey('name');
     }
 }

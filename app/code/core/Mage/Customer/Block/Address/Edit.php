@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer address edit block
  *
- * @category   Mage
  * @package    Mage_Customer
  *
  * @method $this setBackUrl(string $value)
@@ -27,12 +20,15 @@
 class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
 {
     protected $_address;
+
     protected $_countryCollection;
+
     protected $_regionCollection;
 
     /**
      * @inheritDoc
      */
+    #[Override]
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -61,6 +57,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if ($postedData = Mage::getSingleton('customer/session')->getAddressFormData(true)) {
             $this->_address->addData($postedData);
         }
+
         return $this;
     }
 
@@ -83,15 +80,15 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
      */
     public function getTitle()
     {
-        if ($title = $this->getData('title')) {
+        if ($title = $this->getDataByKey('title')) {
             return $title;
         }
+
         if ($this->getAddress()->getId()) {
-            $title = Mage::helper('customer')->__('Edit Address');
-        } else {
-            $title = Mage::helper('customer')->__('Add New Address');
+            return Mage::helper('customer')->__('Edit Address');
         }
-        return $title;
+
+        return Mage::helper('customer')->__('Add New Address');
     }
 
     /**
@@ -99,15 +96,15 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
      */
     public function getBackUrl()
     {
-        if ($this->getData('back_url')) {
-            return $this->getData('back_url');
+        if ($this->getDataByKey('back_url')) {
+            return $this->getDataByKey('back_url');
         }
 
         if ($this->getCustomerAddressCount()) {
             return $this->getUrl('customer/address');
-        } else {
-            return $this->getUrl('customer/account/');
         }
+
+        return $this->getUrl('customer/account/');
     }
 
     /**
@@ -127,13 +124,15 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
     }
 
     /**
-     * @return int
+     * @return string
      */
+    #[Override]
     public function getCountryId()
     {
         if ($countryId = $this->getAddress()->getCountryId()) {
             return $countryId;
         }
+
         return parent::getCountryId();
     }
 
@@ -161,6 +160,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if (!$this->getAddress()->getId()) {
             return $this->getCustomerAddressCount();
         }
+
         return !$this->isDefaultBilling();
     }
 
@@ -172,6 +172,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if (!$this->getAddress()->getId()) {
             return $this->getCustomerAddressCount();
         }
+
         return !$this->isDefaultShipping();
     }
 
@@ -208,8 +209,8 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
     {
         if ($this->getCustomerAddressCount()) {
             return $this->getUrl('customer/address');
-        } else {
-            return $this->getUrl('customer/account/');
         }
+
+        return $this->getUrl('customer/account/');
     }
 }

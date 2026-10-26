@@ -1,0 +1,26 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+?>
+<?php /** @var Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options $this */ ?>
+<?php $options = Mage::helper('core')->decorateArray($this->getOptions()); ?>
+<?php if (count($options)): ?>
+
+<?php echo $this->getChildHtml('options_js') ?>
+
+<div id="product_composite_configure_fields_options" class="<?php echo $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
+    <h4><?php echo Mage::helper('catalog')->__('Custom Options') ?></h4>
+    <div class="product-options">
+        <dl>
+            <?php foreach($options as $option): ?>
+                <?php echo $this->getOptionHtml($option); ?>
+            <?php endforeach ?>
+        </dl>
+    </div>
+</div>
+
+<?php endif ?>

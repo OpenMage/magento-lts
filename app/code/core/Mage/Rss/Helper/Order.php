@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Default rss helper
  *
- * @category   Mage
  * @package    Mage_Rss
  */
 class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
@@ -30,30 +23,51 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
      */
     public function isStatusNotificationAllow()
     {
-        if (Mage::getStoreConfig('rss/order/status_notified')) {
-            return true;
-        }
-        return false;
+        return Mage::getStoreConfigFlag('rss/order/status_notified');
     }
 
     /**
      * Retrieve order status history url
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getStatusHistoryRssUrl($order)
     {
         return $this->_getUrl(
             'rss/order/status',
-            ['_secure' => true, '_query' => ['data' => $this->getStatusUrlKey($order)]]
+            ['_secure' => true, '_query' => ['data' => $this->getStatusUrlKey($order)]],
         );
+    }
+
+    /**
+     * Derive the digest that authenticates an order status feed URL
+     *
+     * Keyed with the order's own protect_code -- the same per-order secret that
+     * already authenticates the guest order view -- so no new secret has to be
+     * introduced or managed. The secret is used as an HMAC key rather than
+     * carried in the URL verbatim: a feed URL travels through Referer headers,
+     * browser history, proxy logs and third-party feed readers, and must not
+     * itself become a reusable guest-order credential.
+     *
+     * @param  Mage_Sales_Model_Order $order
+     * @return string
+     */
+    protected function _getStatusUrlDigest($order)
+    {
+        $message = implode('|', [
+            (string) $order->getId(),
+            (string) $order->getIncrementId(),
+            (string) $order->getCustomerId(),
+        ]);
+
+        return hash_hmac('sha256', $message, (string) $order->getProtectCode());
     }
 
     /**
      * Retrieve order status url key
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getStatusUrlKey($order)
@@ -61,7 +75,8 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
         $data = [
             'order_id' => $order->getId(),
             'increment_id' => $order->getIncrementId(),
-            'customer_id' => $order->getCustomerId()
+            'customer_id' => $order->getCustomerId(),
+            'hash' => $this->_getStatusUrlDigest($order),
         ];
         return base64_encode(json_encode($data));
     }
@@ -69,32 +84,42 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
     /**
      * Retrieve order instance by specified status url key
      *
-     * @param string $key
-     * @return Mage_Sales_Model_Order|null
+     * @param  string                      $key
+     * @return null|Mage_Sales_Model_Order
      */
     public function getOrderByStatusUrlKey($key)
     {
-        $data = json_decode(base64_decode($key), true);
-        if (!is_array($data) || !isset($data['order_id']) || !isset($data['increment_id'])
-            || !isset($data['customer_id'])
+        $data = json_decode((string) base64_decode($key, true), true);
+        if (!is_array($data)
+            || !isset($data['order_id'], $data['increment_id'], $data['customer_id'], $data['hash'])
+            || !is_string($data['hash'])
         ) {
             return null;
         }
 
-        $orderId = (int) $data['order_id'];
-        $incrementId = (int) $data['increment_id'];
-        $customerId = (int) $data['customer_id'];
-
         /** @var Mage_Sales_Model_Order $order */
-        $order = Mage::getModel('sales/order')->load($orderId);
+        $order = Mage::getModel('sales/order')->load((int) $data['order_id']);
 
-        if (!is_null($order->getId())
-            && (int) $order->getIncrementId() === $incrementId
-            && (int) $order->getCustomerId() === $customerId
-        ) {
-            return $order;
+        // Fail closed on an order that carries no protect_code: an empty HMAC key
+        // would otherwise let anyone who can guess the identifiers derive the digest.
+        if ((int) $order->getId() === 0 || (string) $order->getProtectCode() === '') {
+            return null;
         }
 
-        return null;
+        // The digest is recomputed from the stored order, never from the values in
+        // the URL, so a forged payload cannot authenticate itself.
+        if (!hash_equals($this->_getStatusUrlDigest($order), $data['hash'])) {
+            return null;
+        }
+
+        // increment_id is compared as a string: stores using a non-numeric increment
+        // prefix cast to 0 under the previous (int) comparison and never matched.
+        if ((string) $order->getIncrementId() !== (string) $data['increment_id']
+            || (int) $order->getCustomerId() !== (int) $data['customer_id']
+        ) {
+            return null;
+        }
+
+        return $order;
     }
 }

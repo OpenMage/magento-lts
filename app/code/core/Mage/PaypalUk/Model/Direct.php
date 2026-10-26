@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_PaypalUk
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPalUk Direct Module
  *
- * @category   Mage
  * @package    Mage_PaypalUk
  */
 class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
@@ -40,6 +33,7 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
      *
      * @return string
      */
+    #[Override]
     public function getAllowedCcTypes()
     {
         return $this->_pro->getConfig()->cctypes;
@@ -50,24 +44,24 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
      *
      * @return bool
      */
+    #[Override]
     public function getIsCentinelValidationEnabled()
     {
         if (!parent::getIsCentinelValidationEnabled()) {
             return false;
         }
+
         // available only for US and UK merchants
-        if (in_array($this->_pro->getConfig()->getMerchantCountry(), ['US', 'GB'])) {
-            return true;
-        }
-        return false;
+        return in_array($this->_pro->getConfig()->getMerchantCountry(), ['US', 'GB']);
     }
 
     /**
      * Import direct payment results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
      */
+    #[Override]
     protected function _importResultToPayment($api, $payment)
     {
         $payment->setTransactionId($api->getPaypalTransactionId())->setIsTransactionClosed(0)
@@ -82,10 +76,11 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
      * Format credit card expiration date based on month and year values
      * Format: mmyy
      *
-     * @param string|int $month
-     * @param string|int $year
+     * @param  int|string $month
+     * @param  int|string $year
      * @return string
      */
+    #[Override]
     protected function _getFormattedCcExpirationDate($month, $year)
     {
         return sprintf('%02d', $month) . sprintf('%02d', substr($year, -2, 2));

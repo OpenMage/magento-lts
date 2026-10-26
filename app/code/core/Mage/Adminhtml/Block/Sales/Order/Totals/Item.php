@@ -1,23 +1,18 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Totals item block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method Mage_Sales_Block_Order_Totals getParentBlock()
  */
 class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_Sales_Order_Totals
 {
@@ -26,6 +21,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
      *
      * @return $this
      */
+    #[Override]
     protected function _beforeToHtml()
     {
         parent::_beforeToHtml();
@@ -48,21 +44,22 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
             'code'      => $this->getNameInLayout(),
             'block_name' => $this->getNameInLayout(),
             'area'      => $this->getDisplayArea(),
-            'strong'    => $this->getStrong()
+            'strong'    => $this->getStrong(),
         ]);
         if ($this->getBeforeCondition()) {
             $this->getParentBlock()->addTotalBefore($total, $this->getBeforeCondition());
         } else {
             $this->getParentBlock()->addTotal($total, $this->getAfterCondition());
         }
+
         return $this;
     }
 
     /**
      * Price HTML getter
      *
-     * @param float $baseAmount
-     * @param float $amount
+     * @param  float  $baseAmount
+     * @param  float  $amount
      * @return string
      */
     public function displayPrices($baseAmount, $amount)
@@ -75,9 +72,9 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     /**
      * Price attribute HTML getter
      *
-     * @param string $code
-     * @param bool $strong
-     * @param string $separator
+     * @param  string $code
+     * @param  bool   $strong
+     * @param  string $separator
      * @return string
      */
     public function displayPriceAttribute($code, $strong = false, $separator = '<br/>')
@@ -90,8 +87,9 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     /**
      * Source order getter
      *
-     * @return Mage_Sales_Model_Order
+     * @return Mage_Sales_Model_Abstract
      */
+    #[Override]
     public function getSource()
     {
         return $this->getParentBlock()->getSource();

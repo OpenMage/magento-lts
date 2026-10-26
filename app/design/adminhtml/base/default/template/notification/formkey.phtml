@@ -1,0 +1,23 @@
+<?php
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package     default_default
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Checkout_Formkey
+ * @var Mage_Adminhtml_Block_Checkout_Formkey $this 
+ */
+?>
+
+<?php if ($this->canShow()): ?>
+    <div class="notification-global notification-global-warning">
+        <strong style="color:red">Important: </strong>
+        <span>Formkey validation is disabled. This may expose you to security risks.
+        We strongly recommend to enable in
+        <a href="<?php echo $this->getEnableCSRFUrl(); ?>">Advanced / System / CSRF Protection</a>,
+        to protect your checkout, contact and newsletter forms.</span>
+    </div>
+<?php endif ?>

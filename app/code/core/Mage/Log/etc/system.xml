@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -41,6 +34,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><enable_log separator=",">1,2</enable_log></depends>
                         </clean_after_day>
                         <enabled translate="label">
                             <label>Enable Log Cleaning</label>
@@ -50,6 +44,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><enable_log separator=",">1,2</enable_log></depends>
                         </enabled>
                         <time translate="label">
                             <label>Start Time</label>
@@ -58,6 +53,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><enable_log separator=",">1,2</enable_log></depends>
                         </time>
                         <frequency translate="label">
                             <label>Frequency</label>
@@ -68,6 +64,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><enable_log separator=",">1,2</enable_log></depends>
                         </frequency>
                         <error_email translate="label">
                             <label>Error Email Recipient</label>
@@ -76,6 +73,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><enable_log separator=",">1,2</enable_log></depends>
                         </error_email>
                         <error_email_identity translate="label">
                             <label>Error Email Sender</label>
@@ -85,6 +83,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><enable_log separator=",">1,2</enable_log></depends>
                         </error_email_identity>
                         <error_email_template translate="label">
                             <label>Error Email Template</label>
@@ -94,6 +93,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><enable_log separator=",">1,2</enable_log></depends>
                         </error_email_template>
                     </fields>
                 </log>

@@ -1,17 +1,11 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
 /**
  * "Grant Access" button
  *
@@ -27,7 +21,8 @@
     <?php if (!$this->getHasException()): ?>
         <h2><?php echo $this->__('<strong>%s</strong> requests access to your account', $this->escapeHtml($this->getConsumer()->getName())); ?></h2>
         <p><?php echo $this->__('After authorization application will have access to you account.'); ?></p>
-        <form id="oauth_authorize_confirm" action="<?php echo $this->getConfirmUrl() ?>" method="get">
+        <form id="oauth_authorize_confirm" action="<?php echo $this->getConfirmUrl() ?>" method="post">
+            <?php echo $this->getBlockHtml('formkey') ?>
             <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
             <button type="submit" class="button" title="<?php echo $this->__('Authorize') ?>" name="authorize">
                 <?php echo $this->__('Authorize') ?>

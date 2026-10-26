@@ -31,6 +31,27 @@ Examples of unacceptable behavior by participants include:
 * Other conduct which could reasonably be considered inappropriate in a
   professional setting
 
+### Attribution to Others
+
+We expect all contributors to provide appropriate attribution to others in appreciation
+of work performed or ideas inspired by other members of the OpenMage community or other communities.
+
+When creating a Pull Request or otherwise representing work or ideas to the community,
+if the work includes substantial code or inspiration leading directly to the authorship
+of specific lines of code taken from reading PRs, blog posts, release notes, etc. from
+another project (in particular Maho Commerce), website or other source, a mention must
+be made in the PR description or equivalent. The definition of "substantial" shall be
+as little as one line of code - if it's worth creating a commit and pull request for,
+it will be considered substantial.
+
+For example:
+
+> Credit for prior work inspiration to {ref}
+
+Additionally, if the file that the code was copied from or heavily inspired by, in whole
+or in part, contains a copyright notice on a single line, that line must also be copied
+to the corresponding file in OpenMage, even if the filenames are slightly different.
+
 ## Our Responsibilities
 
 Project maintainers are responsible for clarifying the standards of acceptable

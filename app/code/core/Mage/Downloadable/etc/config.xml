@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -379,7 +372,21 @@
                 <links_target_new_window>1</links_target_new_window>
                 <content_disposition>attachment</content_disposition>
                 <disable_guest_checkout>1</disable_guest_checkout>
+                <link_url_allow_private_network>0</link_url_allow_private_network>
+                <link_url_allowed_prefixes></link_url_allowed_prefixes>
             </downloadable>
         </catalog>
     </default>
+    <crontab>
+        <jobs>
+            <downloadable_link_url_audit>
+                <schedule>
+                    <cron_expr>25 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>downloadable/link_urlAudit::run</model>
+                </run>
+            </downloadable_link_url_audit>
+        </jobs>
+    </crontab>
 </config>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package    Mage_Newsletter
+ */
+-->
+<widgets>
+    <newsletter_subscribe type="newsletter/widget_subscribe" translate="name description" module="newsletter">
+        <name>Newsletter Subscription Form</name>
+        <description>Newsletter Subscribe Form</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <template translate="label">
+                <label>Template</label>
+                <visible>1</visible>
+                <type>select</type>
+                <value>newsletter/subscribe.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>newsletter/subscribe.phtml</value>
+                        <label>Default Template</label>
+                    </default>
+                </values>
+                <sort_order>10</sort_order>
+            </template>
+        </parameters>
+    </newsletter_subscribe>
+</widgets>

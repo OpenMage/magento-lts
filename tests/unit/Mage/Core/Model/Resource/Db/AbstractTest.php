@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Mage\Core\Model\Resource\Db;
+
+// use Mage;
+// use Mage_Core_Model_Resource_Db_Abstract as Subject;
+use Override;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Resource\Db\AbstractTrait;
+
+final class AbstractTest extends OpenMageTest
+{
+    use AbstractTrait;
+
+    // private static Subject $subject;
+
+    #[Override]
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        // self::$subject = Mage::getModel('core/resource_db_abstract');
+        self::markTestSkipped('');
+    }
+}

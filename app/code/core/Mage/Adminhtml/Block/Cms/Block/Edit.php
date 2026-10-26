@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CMS block edit form container
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
@@ -28,15 +21,27 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Block'));
-        $this->_updateButton('delete', 'label', Mage::helper('cms')->__('Delete Block'));
+        if ($this->_isAllowedAction('save')) {
+            $this->_addButton(self::BUTTON_TYPE_SAVE_EDIT, [
+                'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
+                'onclick'   => 'saveAndContinueEdit()',
+                'class'     => 'save continue',
+            ], -100);
+        } else {
+            $this->_removeButton(self::BUTTON_TYPE_SAVE);
+        }
 
-        $this->_addButton('saveandcontinue', [
-            'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-            'onclick'   => 'saveAndContinueEdit()',
-            'class'     => 'save',
-        ], -100);
+        if (!$this->_isAllowedAction('delete')) {
+            $this->_removeButton(self::BUTTON_TYPE_DELETE);
+        }
+    }
 
+    /**
+     * @inheritDoc
+     */
+    #[Override]
+    protected function _prepareLayout()
+    {
         $this->_formScripts[] = "
             function toggleEditor() {
                 tinymce.execCommand('mceToggleEditor', false, wysiwygblock_content);
@@ -46,6 +51,8 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
                 editForm.submit($('edit_form').action+'back/edit/');
             }
         ";
+
+        return parent::_prepareLayout();
     }
 
     /**
@@ -53,11 +60,21 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
      *
      * @return string
      */
+    #[Override]
     public function getHeaderText()
     {
         if (Mage::registry('cms_block')->getId()) {
             return Mage::helper('cms')->__("Edit Block '%s'", $this->escapeHtml(Mage::registry('cms_block')->getTitle()));
         }
+
         return Mage::helper('cms')->__('New Block');
+    }
+
+    /**
+     * Check permission for passed action
+     */
+    protected function _isAllowedAction(string $action): bool
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('cms/block/' . $action);
     }
 }

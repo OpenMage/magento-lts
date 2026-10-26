@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shell
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 require_once 'abstract.php';
@@ -18,7 +12,6 @@ require_once 'abstract.php';
 /**
  * Magento Indexer Shell Script
  *
- * @category   Mage
  * @package    Mage_Shell
  */
 class Mage_Shell_Indexer extends Mage_Shell_Abstract
@@ -36,7 +29,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
     /**
      * Parse string with indexers and return array of indexer instances
      *
-     * @param string $string
+     * @param  string $string
      * @return array
      */
     protected function _parseIndexerString($string)
@@ -48,27 +41,29 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                 if ($process->getIndexer()->isVisible() === false) {
                     continue;
                 }
+
                 $processes[] = $process;
             }
         } elseif (!empty($string)) {
             $codes = explode(',', $string);
-            $codes = array_map('trim', $codes);
+            $codes = array_map(trim(...), $codes);
             $processes = $this->_getIndexer()->getProcessesCollectionByCodes($codes);
             foreach ($processes as $key => $process) {
                 if ($process->getIndexer()->getVisibility() === false) {
                     unset($processes[$key]);
                 }
             }
+
             if ($this->_getIndexer()->hasErrors()) {
                 echo implode(PHP_EOL, $this->_getIndexer()->getErrors()), PHP_EOL;
             }
         }
+
         return $processes;
     }
 
     /**
      * Run script
-     *
      */
     public function run()
     {
@@ -86,24 +81,17 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
             } else {
                 $processes  = $this->_parseIndexerString($this->getArg('mode'));
             }
+
             /** @var Mage_Index_Model_Process $process */
             foreach ($processes as $process) {
                 $status = 'unknown';
                 if ($this->getArg('status')) {
-                    switch ($process->getStatus()) {
-                        case Mage_Index_Model_Process::STATUS_PENDING:
-                            $status = 'Pending';
-                            break;
-                        case Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX:
-                            $status = 'Require Reindex';
-                            break;
-                        case Mage_Index_Model_Process::STATUS_RUNNING:
-                            $status = 'Running';
-                            break;
-                        default:
-                            $status = 'Ready';
-                            break;
-                    }
+                    $status = match ($process->getStatus()) {
+                        Mage_Index_Model_Process::STATUS_PENDING => 'Pending',
+                        Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX => 'Require Reindex',
+                        Mage_Index_Model_Process::STATUS_RUNNING => 'Running',
+                        default => 'Ready',
+                    };
                 } else {
                     switch ($process->getMode()) {
                         case Mage_Index_Model_Process::MODE_SCHEDULE:
@@ -117,6 +105,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                             break;
                     }
                 }
+
                 echo sprintf('%-35s ', $process->getIndexer()->getName() . ':') . $status . "\n";
             }
         } elseif ($this->getArg('mode-realtime') || $this->getArg('mode-manual')) {
@@ -127,16 +116,17 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                 $mode       = Mage_Index_Model_Process::MODE_MANUAL;
                 $processes  = $this->_parseIndexerString($this->getArg('mode-manual'));
             }
+
             /** @var Mage_Index_Model_Process $process */
             foreach ($processes as $process) {
                 try {
                     $process->setMode($mode)->save();
                     echo $process->getIndexer()->getName() . " index was successfully changed index mode\n";
-                } catch (Mage_Core_Exception $e) {
-                    echo $e->getMessage() . "\n";
-                } catch (Exception $e) {
+                } catch (Mage_Core_Exception $mageCoreException) {
+                    echo $mageCoreException->getMessage() . "\n";
+                } catch (Exception $exception) {
                     echo $process->getIndexer()->getName() . " index process unknown error:\n";
-                    echo $e . "\n";
+                    echo $exception . "\n";
                 }
             }
         } elseif ($this->getArg('reindex') || $this->getArg('reindexall') || $this->getArg('reindexallrequired')) {
@@ -154,24 +144,26 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                     if ($this->getArg('reindexallrequired') && $process->getStatus() == Mage_Index_Model_Process::STATUS_PENDING) {
                         continue;
                     }
+
                     try {
                         $startTime = microtime(true);
                         $process->reindexEverything();
                         $resultTime = microtime(true) - $startTime;
                         Mage::dispatchEvent($process->getIndexerCode() . '_shell_reindex_after');
                         echo $process->getIndexer()->getName()
-                            . " index was rebuilt successfully in " . gmdate('H:i:s', ceil($resultTime)) . "\n";
-                    } catch (Mage_Core_Exception $e) {
-                        echo $e->getMessage() . "\n";
-                    } catch (Exception $e) {
+                            . ' index was rebuilt successfully in ' . gmdate('H:i:s', (int) ceil($resultTime)) . "\n";
+                    } catch (Mage_Core_Exception $mageCoreException) {
+                        echo $mageCoreException->getMessage() . "\n";
+                    } catch (Exception $exception) {
                         echo $process->getIndexer()->getName() . " index process unknown error:\n";
-                        echo $e . "\n";
+                        echo $exception . "\n";
                     }
                 }
+
                 Mage::dispatchEvent('shell_reindex_finalize_process');
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 Mage::dispatchEvent('shell_reindex_finalize_process');
-                echo $e->getMessage() . "\n";
+                echo $exception->getMessage() . "\n";
             }
         } else {
             echo $this->usageHelp();
@@ -180,8 +172,8 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
 
     /**
      * Retrieve Usage Help Message
-     *
      */
+    #[Override]
     public function usageHelp()
     {
         return <<<USAGE

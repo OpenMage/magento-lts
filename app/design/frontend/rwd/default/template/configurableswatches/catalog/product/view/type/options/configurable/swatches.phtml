@@ -1,17 +1,12 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/** @var Mage_ConfigurableSwatches_Block_Catalog_Product_View_Type_Configurable_Swatches $this */
 ?>
 <?php
 $_product    = $this->getProduct();
@@ -45,25 +40,44 @@ $_swatchArray = $_config->attributes->$_id;
             <?php foreach ($_swatchArray->options as $_option): ?>
                 <?php
                 $_optionCode = Mage::helper('configurableswatches')->getHyphenatedString($_option->label);
-                $_swatchUrl = Mage::helper('configurableswatches/productimg')->getSwatchUrl($_product, $_option->label, $_swatchInnerWidth, $_swatchInnerHeight, $_swatchType);
+                $_swatchUrl = Mage::helper('configurableswatches/productimg')->getSwatchUrl(
+                    $_product,
+                    $_option->label,
+                    $_swatchInnerWidth,
+                    $_swatchInnerHeight,
+                    $_swatchType
+                );
+
+                $_label = $this->escapeHtml($_option->label);
                 $_hasImage = !empty($_swatchUrl);
                 $_liClass = '';
                 $_aClass = 'swatch-link swatch-link-' . $_attribute->getAttributeId();
                 if ($_hasImage) {
                     $_liClass .= $_swatchType == 'media' ? ' is-media' : '';
                     $_aClass .= ' has-image';
-                } elseif (strlen($_option->label) > 3) {
+                } elseif (strlen($_label) > 3) {
                     $_liClass .= ' wide-swatch';
                 }
                 ?>
-                <li class="option-<?php echo $_optionCode; ?><?php echo $_liClass; ?>" id="option<?php echo $_option->id; ?>">
-                    <a href="javascript:void(0)" name="<?php echo $_optionCode; ?>" id="swatch<?php echo $_option->id; ?>" class="<?php echo $_aClass ?>" title="<?php echo $_option->label; ?>"
-                       style="height: <?php echo $_swatchOuterHeight ?>px; <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchOuterWidth ?>px;">
-                <span class="swatch-label" style="height: <?php echo $_swatchInnerHeight ?>px; <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchInnerWidth ?>px; line-height: <?php echo $_swatchInnerHeight ?>px;">
+                <li class="option-<?php echo $_optionCode ?><?php echo $_liClass ?>"
+                    id="option<?php echo $_option->id ?>">
+                    <a href="javascript:void(0)"
+                       name="<?php echo $_optionCode ?>"
+                       id="swatch<?php echo $_option->id ?>"
+                       class="<?php echo $_aClass ?>"
+                       title="<?php echo $_label ?>"
+                       style="height: <?php echo $_swatchOuterHeight ?>px;
+                       <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchOuterWidth ?>px;">
+                <span class="swatch-label"
+                      style="height: <?php echo $_swatchInnerHeight ?>px;
+                      <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchInnerWidth ?>px; line-height: <?php echo $_swatchInnerHeight ?>px;">
                 <?php if ($_hasImage): ?>
-                    <img src="<?php echo $_swatchUrl; ?>" alt="<?php echo $_option->label; ?>" width="<?php echo $_swatchInnerWidth ?>" height="<?php echo $_swatchInnerHeight ?>" />
+                    <img src="<?php echo $_swatchUrl ?>"
+                         alt="<?php echo $_label ?>"
+                         width="<?php echo $_swatchInnerWidth ?>"
+                         height="<?php echo $_swatchInnerHeight ?>" />
                 <?php else: ?>
-                    <?php echo $_option->label; ?>
+                    <?php echo $_label ?>
                 <?php endif ?>
                  </span>
                         <span class="x">X</span>

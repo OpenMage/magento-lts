@@ -1,22 +1,15 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog textarea attribute WYSIWYG button
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_Element_Textarea
@@ -26,6 +19,7 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
      *
      * @return string
      */
+    #[Override]
     public function getAfterElementHtml()
     {
         $html = parent::getAfterElementHtml();
@@ -37,9 +31,10 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
                     'type'    => 'button',
                     'disabled' => $disabled,
                     'class' => 'btn-wysiwyg',
-                    'onclick' => 'catalogWysiwygEditor.open(\'' . Mage::helper('adminhtml')->getUrl('*/*/wysiwyg') . '\', \'' . $this->getHtmlId() . '\')'
+                    'onclick' => "catalogWysiwygEditor.open('" . Mage::helper('adminhtml')::getUrl('*/*/wysiwyg') . "', '" . $this->getHtmlId() . "')",
                 ])->toHtml();
         }
+
         return $html;
     }
 
@@ -51,8 +46,8 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
     public function getIsWysiwygEnabled()
     {
         if (Mage::helper('catalog')->isModuleEnabled('Mage_Cms')) {
-            return (bool)(Mage::getSingleton('cms/wysiwyg_config')->isEnabled()
-                && $this->getEntityAttribute()->getIsWysiwygEnabled());
+            return Mage::getSingleton('cms/wysiwyg_config')->isEnabled()
+                && $this->getEntityAttribute()->getIsWysiwygEnabled();
         }
 
         return false;
