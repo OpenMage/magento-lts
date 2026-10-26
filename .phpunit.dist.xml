@@ -101,9 +101,6 @@
         <testsuite name="Mage_CatalogSearch">
             <directory>tests/unit/Mage/CatalogSearch</directory>
         </testsuite>
-        <testsuite name="Mage_Centinel">
-            <directory>tests/unit/Mage/Centinel</directory>
-        </testsuite>
         <testsuite name="Mage_Checkout">
             <directory>tests/unit/Mage/Checkout</directory>
         </testsuite>

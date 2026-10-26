@@ -40,22 +40,6 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
     }
 
     /**
-     * Merchant country limitation for 3d secure feature, rewrite for parent implementation
-     *
-     * @return bool
-     */
-    #[Override]
-    public function getIsCentinelValidationEnabled()
-    {
-        if (!parent::getIsCentinelValidationEnabled()) {
-            return false;
-        }
-
-        // available only for US and UK merchants
-        return in_array($this->_pro->getConfig()->getMerchantCountry(), ['US', 'GB']);
-    }
-
-    /**
      * Import direct payment results to payment
      *
      * @param Mage_Paypal_Model_Api_Nvp      $api

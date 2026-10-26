@@ -188,17 +188,6 @@ Mage.php:
           - app/design/frontend/*/*/layout/catalogsearch.xml
           - app/design/frontend/*/*/template/catalogsearch/*
           - app/design/frontend/*/*/template/catalogsearch/**/*
-'Component: Centinel':
-  - changed-files:
-      - any-glob-to-any-file:
-          - app/code/core/Mage/Centinel/*
-          - app/code/core/Mage/Centinel/**/*
-          - app/design/adminhtml/*/*/layout/centinel.xml
-          - app/design/adminhtml/*/*/template/centinel/*
-          - app/design/adminhtml/*/*/template/centinel/**/*
-          - app/design/frontend/*/*/layout/centinel.xml
-          - app/design/frontend/*/*/template/centinel/*
-          - app/design/frontend/*/*/template/centinel/**/*
 'Component: Checkout':
   - changed-files:
       - any-glob-to-any-file:

@@ -59,9 +59,6 @@ parameters:
         # Cannot declare class Varien_Date, because the name is already in use
         - app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
 
-        # Cannot declare class XMLParser, because the name is already in use
-        - app/code/core/Mage/Centinel/Model/Api.php
-        - app/code/core/Mage/Centinel/Model/Api/Client.php
 
         # Class phpseclib\Net\SSH2 not found.
         - app/code/core/Mage/Paypal/Model/Report/Settlement.php
