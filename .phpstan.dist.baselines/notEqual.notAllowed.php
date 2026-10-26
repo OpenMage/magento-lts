@@ -2519,11 +2519,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and int is not allowed.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between mixed and int is not allowed.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Quote/Discount.php',
 ];
 $ignoreErrors[] = [

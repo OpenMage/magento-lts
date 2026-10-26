@@ -6212,11 +6212,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, int<0, max> given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Quote/Discount.php',

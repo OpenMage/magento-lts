@@ -76,6 +76,7 @@ class Mage_SalesRule_Model_Observer
         // lookup rule ids — applied rules can produce zero discount (e.g. free-shipping-only rules)
         $ruleIds = array_unique(array_filter(
             array_map(intval(...), explode(',', (string) $order->getAppliedRuleIds())),
+            static fn(int $ruleId): bool => $ruleId > 0,
         ));
 
         foreach ($ruleIds as $ruleId) {
@@ -107,7 +108,7 @@ class Mage_SalesRule_Model_Observer
         }
 
         $couponCode = (string) $order->getCouponCode();
-        if ($ruleIds && $couponCode !== '') {
+        if ($ruleIds !== [] && $couponCode !== '') {
             $coupon = Mage::getModel('salesrule/coupon');
             $coupon->load($couponCode, 'code');
             if ($coupon->getId()) {
