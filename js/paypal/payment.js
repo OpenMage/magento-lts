@@ -23,13 +23,16 @@ class PayPalPayment {
         this.init();
     }
 
-    async init() {
+    init() {
         if (document.readyState === 'loading') {
-            await new Promise(resolve => {
-                document.addEventListener('DOMContentLoaded', resolve, { once: true });
-            });
+            document.addEventListener('DOMContentLoaded', () => this.start(), { once: true });
+            return;
         }
 
+        this.start();
+    }
+
+    start() {
         this.setupEventListeners();
         this.checkAndInitialize();
     }
@@ -87,7 +90,7 @@ class PayPalPayment {
 
     checkAndInitialize() {
         if (this.getCurrentPaymentMethod() === this.config.methodCode) {
-            this.initializePayPalButton();
+            this.initializePayPalButton().catch(error => console.error('PayPal button error:', error));
         }
     }
 
