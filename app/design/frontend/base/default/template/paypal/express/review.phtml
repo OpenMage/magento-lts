@@ -39,8 +39,8 @@
             <h2><?php echo (string) $this->__('Items in Your Order') ?></h2>
             <table class="data-table paypal-express-review-items" id="paypal-express-review-items">
                 <col />
-                <col width="1" />
-                <col width="1" />
+                <col style="width: 1px" />
+                <col style="width: 1px" />
                 <thead>
                     <tr>
                         <th><?php echo (string) $this->__('Product Name') ?></th>
@@ -125,7 +125,7 @@
                         <?php $_agreementContent = $_agreement->getContent(); ?>
                         <?php if ($_agreementContent !== null && $_agreementContent !== ''): ?>
                             <?php $_agreementContentHeight = $_agreement->getContentHeight(); ?>
-                            <div class="agreement-content"<?php echo (($_agreementContentHeight !== null && $_agreementContentHeight !== '') ? ' style="height:' . $_agreementContentHeight . '"' : '')?>>
+                            <div class="agreement-content"<?php if ($_agreementContentHeight !== null && $_agreementContentHeight !== ''): ?> style="height:<?php echo $_agreementContentHeight ?>"<?php endif ?>>
                                 <?php if ((int) $_agreement->getIsHtml() !== 0): ?>
                                     <?php echo $_agreementContent ?>
                                 <?php else: ?>
