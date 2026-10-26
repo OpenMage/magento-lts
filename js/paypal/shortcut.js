@@ -12,6 +12,15 @@
  */
 
 class PayPalShortcut {
+    static whenDomReady(callback) {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', callback, { once: true });
+            return;
+        }
+
+        callback();
+    }
+
     constructor(config = {}) {
         this.config = config;
         this.container = null;
@@ -25,12 +34,7 @@ class PayPalShortcut {
     }
 
     init() {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.start(), { once: true });
-            return;
-        }
-
-        this.start();
+        PayPalShortcut.whenDomReady(() => this.start());
     }
 
     start() {
@@ -237,12 +241,7 @@ class PayPalExpressReview {
     }
 
     init() {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.start(), { once: true });
-            return;
-        }
-
-        this.start();
+        PayPalShortcut.whenDomReady(() => this.start());
     }
 
     start() {
