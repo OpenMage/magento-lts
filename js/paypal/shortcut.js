@@ -24,17 +24,20 @@ class PayPalShortcut {
         this.init();
     }
 
-    async init() {
+    init() {
         if (document.readyState === 'loading') {
-            await new Promise(resolve => {
-                document.addEventListener('DOMContentLoaded', resolve, { once: true });
-            });
+            document.addEventListener('DOMContentLoaded', () => this.start(), { once: true });
+            return;
         }
 
+        this.start();
+    }
+
+    start() {
         this.container = document.getElementById(this.config.containerId);
         if (!this.container) return;
 
-        await this.renderButton();
+        this.renderButton().catch(error => console.error('PayPal shortcut error:', error));
         this.observeContainerReplacement();
     }
 
@@ -55,7 +58,7 @@ class PayPalShortcut {
                 if (!current || current === this.container || this.rendering) return;
 
                 this.container = current;
-                this.renderButton();
+                this.renderButton().catch(error => console.error('PayPal shortcut error:', error));
             }, 150);
         });
         this.replacementObserver.observe(document.body, { childList: true, subtree: true });
@@ -233,13 +236,16 @@ class PayPalExpressReview {
         this.init();
     }
 
-    async init() {
+    init() {
         if (document.readyState === 'loading') {
-            await new Promise(resolve => {
-                document.addEventListener('DOMContentLoaded', resolve, { once: true });
-            });
+            document.addEventListener('DOMContentLoaded', () => this.start(), { once: true });
+            return;
         }
 
+        this.start();
+    }
+
+    start() {
         this.form = document.getElementById(this.config.formId);
         if (!this.form) return;
 
@@ -251,7 +257,7 @@ class PayPalExpressReview {
         this.form.querySelectorAll('input[name="shipping_method"]').forEach(input => {
             input.addEventListener('change', () => {
                 if (input.checked) {
-                    this.saveShippingMethod(input.value);
+                    this.saveShippingMethod(input.value).catch(error => this.showError(error.message));
                 }
             }, { signal: this.abortController.signal });
         });
