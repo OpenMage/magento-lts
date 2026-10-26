@@ -147,6 +147,25 @@
         </routers>
     </admin>
     <default>
+        <csp>
+            <frontend>
+                <script-src>
+                    <paypal-sandbox>www.sandbox.paypal.com</paypal-sandbox>
+                </script-src>
+                <img-src>
+                    <paypal-sandbox-img>www.sandbox.paypal.com</paypal-sandbox-img>
+                </img-src>
+                <connect-src>
+                    <paypal-sandbox-connect>www.sandbox.paypal.com</paypal-sandbox-connect>
+                </connect-src>
+                <frame-src>
+                    <paypal-sandbox-frame>www.sandbox.paypal.com</paypal-sandbox-frame>
+                </frame-src>
+                <form-action>
+                    <paypal-sandbox-form>www.sandbox.paypal.com</paypal-sandbox-form>
+                </form-action>
+            </frontend>
+        </csp>
         <payment>
             <paypal>
                 <model>paypal/paypal</model>
