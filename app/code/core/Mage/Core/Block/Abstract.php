@@ -1488,8 +1488,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         $cacheData = $this->_getApp()->loadCache($cacheKey);
         if ($cacheData) {
             return str_replace(
-                $this->_getSidPlaceholder($cacheKey),
-                $session->getSessionIdQueryParam() . '=' . $session->getEncryptedSessionId(),
+                [$this->_getSidPlaceholder($cacheKey), $this->_getFormKeyPlaceholder($cacheKey)],
+                [$session->getSessionIdQueryParam() . '=' . $session->getEncryptedSessionId(), $session->getFormKey()],
                 $cacheData,
             );
         }
@@ -1517,6 +1517,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $this->_getSidPlaceholder($cacheKey),
             $data,
         );
+        // The form key belongs to the visitor who rendered the block; cached HTML must not hand it to others
+        $data = str_replace($session->getFormKey(), $this->_getFormKeyPlaceholder($cacheKey), $data);
 
         $tags = $this->getCacheTags();
 
@@ -1553,6 +1555,19 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         $cacheKey ??= $this->getCacheKey();
 
         return '<!--SID=' . $cacheKey . '-->';
+    }
+
+    /**
+     * Get form key placeholder for cache
+     *
+     * @param  null|string $cacheKey
+     * @return string
+     */
+    protected function _getFormKeyPlaceholder($cacheKey = null)
+    {
+        $cacheKey ??= $this->getCacheKey();
+
+        return '<!--FORM_KEY=' . $cacheKey . '-->';
     }
 
     /**
