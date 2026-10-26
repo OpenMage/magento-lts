@@ -297,22 +297,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'name\' on non-empty-array|true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset \'size\' on array|bool.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset \'type\' on array|bool.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'type\' on non-empty-array|true.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];

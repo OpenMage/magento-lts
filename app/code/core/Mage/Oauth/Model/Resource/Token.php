@@ -57,6 +57,26 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
+     * Revoke every token issued to an admin user
+     *
+     * @param  int $adminId
+     * @return int The number of revoked tokens
+     */
+    public function revokeAdminTokens($adminId)
+    {
+        $adapter = $this->_getWriteAdapter();
+
+        return $adapter->update(
+            $this->getMainTable(),
+            ['revoked' => 1],
+            [
+                'admin_id = ?' => (int) $adminId,
+                'revoked = ?' => 0,
+            ],
+        );
+    }
+
+    /**
      * Delete old entries
      *
      * @param  int                 $minutes

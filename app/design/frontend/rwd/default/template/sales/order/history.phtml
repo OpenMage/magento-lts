@@ -46,12 +46,16 @@
             <td class="total"><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
             <td class="status"><em><?php echo $_order->getStatusLabel() ?></em></td>
             <td class="a-center view">
-                <span class="nobr"><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a>
+                <div class="nobr"><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a>
                     <?php /*<span class="separator">|</span><a href="<?php echo $this->getTrackUrl($_order) ?>"><?php echo $this->__('Track Order') ?></a>&nbsp;*/ ?>
                     <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
-                    <span class="separator">|</span> <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>
+                    <span class="separator">|</span>
+                    <form action="<?php echo $this->getReorderUrl($_order) ?>" method="post" style="display:inline">
+                        <?php echo $this->getBlockHtml('formkey') ?>
+                        <button type="submit" class="link-reorder" style="border:0;background:transparent;padding:0;cursor:pointer"><?php echo $this->__('Reorder') ?></button>
+                    </form>
                 <?php endif ?>
-                </span>
+                </div>
             </td>
         </tr>
         <?php endforeach ?>

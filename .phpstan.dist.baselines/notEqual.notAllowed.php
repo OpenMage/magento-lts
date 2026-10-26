@@ -2183,7 +2183,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and mixed is not allowed.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/controllers/DownloadController.php',
 ];
 $ignoreErrors[] = [
@@ -2195,11 +2195,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between int|null and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/controllers/Recurring/ProfileController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between mixed and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and int is not allowed.',

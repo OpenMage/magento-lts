@@ -415,8 +415,12 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         while (!$archiveReader->eof()) {
             $header = $this->_extractFileHeader();
 
-            if (!$header) {
+            if (!is_array($header)) {
                 continue;
+            }
+
+            if (!$this->_isContainedPath($header['name'])) {
+                throw new Mage_Exception('Archive entry escapes the destination directory: ' . $header['name']);
             }
 
             $currentFile = $destination . $header['name'];
@@ -435,7 +439,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                 $list[] = $currentFile;
             } elseif ($header['type'] == '5') {
                 if (!file_exists($dirname)) {
-                    $mkdirResult = @mkdir($currentFile, $header['mode'], true);
+                    $mkdirResult = @mkdir($currentFile, $header['mode'] & 0777, true);
 
                     if (false === $mkdirResult) {
                         throw new Mage_Exception('Failed to create directory ' . $currentFile);
@@ -444,12 +448,46 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
 
                 $list[] = $currentFile . DS;
             } elseif ($header['type'] == '2') {
+                // A link target outside the destination would let a later entry of the same
+                // name write through it, so such links are skipped like any other failed link.
+                if (!$this->_isContainedPath($header['symlink'])) {
+                    continue;
+                }
+
                 //we do not interrupt unpack process if symlink creation failed as symlinks are not so important
                 @symlink($header['symlink'], $currentFile);
             }
         }
 
         return $list;
+    }
+
+    /**
+     * Check that an archive entry name or link target stays below the directory it is resolved from
+     *
+     * Rejects empty and absolute paths, Windows drive and UNC paths, NUL bytes and any ".." segment.
+     * Without ".." or an absolute root every component descends, so neither an entry nor a link
+     * created from the archive can resolve outside the extraction directory.
+     *
+     * @param  string $path
+     * @return bool
+     */
+    protected function _isContainedPath($path)
+    {
+        if (!is_string($path) || $path === '' || str_contains($path, "\0")) {
+            return false;
+        }
+
+        if ($path[0] === '/' || $path[0] === '\\' || preg_match('/^[a-zA-Z]:/', $path) === 1) {
+            return false;
+        }
+
+        $segments = preg_split('#[/\\\\]#', $path);
+        if ($segments === false) {
+            return false;
+        }
+
+        return !in_array('..', $segments, true);
     }
 
     /**
@@ -572,7 +610,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     protected function _extractAndWriteFile($fileHeader, $destination)
     {
         $fileWriter = new Mage_Archive_Helper_File($destination);
-        $fileWriter->open('w', $fileHeader['mode']);
+        $fileWriter->open('w', $fileHeader['mode'] & 0777);
 
         $archiveReader = $this->_getReader();
 

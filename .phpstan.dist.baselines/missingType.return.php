@@ -6537,11 +6537,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Coupon/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_SalesRule_Model_Resource_Coupon_Usage::updateCustomerCouponTimesUsed() has no return type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_SalesRule_Model_Rule::setCouponCodeGenerator() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Rule.php',

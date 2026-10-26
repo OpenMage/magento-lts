@@ -470,18 +470,28 @@ class Mage_Oauth_Model_Server
             $this->_throwException('oauth_callback', self::ERR_PARAMETER_REJECTED);
         }
 
-        // Is the callback URL whitelisted?
+        // Out-of-band callback, no redirect is performed
+        if (self::CALLBACK_ESTABLISHED === $this->_protocolParams['oauth_callback']) {
+            return;
+        }
+
+        // Is the callback URL whitelisted by the consumer registration?
         $callbackUrl = $this->_consumer->getCallbackUrl();
-        if ($callbackUrl && str_starts_with($this->_protocolParams['oauth_callback'], $callbackUrl)) {
+        if ($callbackUrl) {
+            /** @var Mage_Oauth_Helper_Data $helper */
+            $helper = Mage::helper('oauth');
+
+            if (!$helper->isCallbackUrlWhitelisted($this->_protocolParams['oauth_callback'], $callbackUrl)) {
+                $this->_throwException('oauth_callback', self::ERR_PARAMETER_REJECTED);
+            }
+
             return;
         }
 
         /** @var Mage_Core_Helper_Validate $validator */
         $validator = Mage::helper('core/validate');
 
-        if (self::CALLBACK_ESTABLISHED !== $this->_protocolParams['oauth_callback']
-            && $validator->validateUrl($this->_protocolParams['oauth_callback'])->count() > 0
-        ) {
+        if ($validator->validateUrl($this->_protocolParams['oauth_callback'])->count() > 0) {
             $this->_throwException('oauth_callback', self::ERR_PARAMETER_REJECTED);
         }
     }
@@ -644,7 +654,7 @@ class Mage_Oauth_Model_Server
      */
     public function authorizeToken($userId, $userType)
     {
-        $token = $this->checkAuthorizeRequest();
+        $token = $this->checkAuthorizeRequest(true);
 
         $token->authorize($userId, $userType);
 
@@ -666,17 +676,27 @@ class Mage_Oauth_Model_Server
     /**
      * Check authorize request for validity and return token
      *
+     * @param  bool                   $isPost
      * @return Mage_Oauth_Model_Token
      */
-    public function checkAuthorizeRequest()
+    public function checkAuthorizeRequest($isPost = false)
     {
-        if (!$this->_request->isGet()) {
-            Mage::throwException('Request is not GET');
+        if ($isPost ? !$this->_request->isPost() : !$this->_request->isGet()) {
+            Mage::throwException($isPost ? 'Request is not POST' : 'Request is not GET');
         }
 
         $this->_requestType = self::REQUEST_AUTHORIZE;
 
-        $this->_fetchProtocolParamsFromQuery();
+        if ($isPost) {
+            foreach ($this->_request->getPost() as $paramName => $paramValue) {
+                if ($this->_isProtocolParameter($paramName)) {
+                    $this->_protocolParams[$paramName] = $paramValue;
+                }
+            }
+        } else {
+            $this->_fetchProtocolParamsFromQuery();
+        }
+
         $this->_initToken();
 
         return $this->_token;

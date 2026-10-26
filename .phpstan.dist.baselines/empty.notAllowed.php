@@ -2719,11 +2719,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Coupon.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php',
 ];
 $ignoreErrors[] = [

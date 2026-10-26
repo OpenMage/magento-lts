@@ -747,11 +747,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $host of method Zend_Uri_Http::setHost() expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $node of method Varien_Simplexml_Config::setXml() expects Varien_Simplexml_Element, Varien_Simplexml_Element|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Config.php',
@@ -6099,11 +6094,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $websiteId of method Mage_SalesRule_Model_Resource_Rule::getActiveAttributes() expects int, int|string|null given.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $couponId of method Mage_SalesRule_Model_Resource_Coupon_Usage::updateCustomerCouponTimesUsed() expects int, int|string|null given.',
-    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [

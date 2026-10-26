@@ -41,11 +41,15 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
      * @var array
      */
     protected $_disallowedXPathExpressions = [
-        '*//template',
+        "*//*[local-name()='template']",
         '*//@template',
-        "//*[@method='setTemplate']",
-        '//*[@method=\'setDataUsingMethod\']//*[contains(translate(text(),
-        \'ABCDEFGHIJKLMNOPQRSTUVWXYZ\', \'abcdefghijklmnopqrstuvwxyz\'), \'template\')]/../*',
+        // PHP resolves method names case-insensitively and accepts "Class::method" callables, so the
+        // method attribute is compared after dropping any "Class::" part and lower-casing it
+        "//*[translate(concat(substring-after(@method, '::'), substring(@method, 1 div not(contains(@method, '::')))),
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='settemplate']",
+        "//*[translate(concat(substring-after(@method, '::'), substring(@method, 1 div not(contains(@method, '::')))),
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='setdatausingmethod']//*[contains(translate(text(),
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'template')]/../*",
     ];
 
     /**
@@ -66,7 +70,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
      * @var array
      */
     protected $_protectedExpressions = [
-        self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR => '//action/*[@helper]',
+        self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR => "//*[local-name()='action']/*[@helper]",
     ];
 
     public function __construct()
@@ -138,6 +142,11 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
      */
     public function isValid($value)
     {
+        // Reset messages and give _error() a value: errors raised before the parsed value is set would
+        // otherwise pass null to _createMessage() and throw a TypeError, which callers catching
+        // Exception (e.g. Mage_Catalog_Model_Design) do not handle.
+        $this->_setValue(is_string($value) ? $value : '');
+
         if (is_string($value)) {
             $value = trim($value);
             try {
@@ -150,7 +159,17 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
             throw new Exception($this->_messageTemplates[self::INVALID_XML_OBJECT_EXCEPTION]);
         }
 
-        if ($value->xpath($this->getXpathBlockValidationExpression())) {
+        // Layout XML never uses namespaces. SimpleXML (and so the layout generator) treats an element in a
+        // default namespace as if it had none, while XPath name tests do not match it, so a namespaced
+        // element could slip past the checks below. Reject any namespaced element or attribute outright.
+        $namespacedNodes = $value->xpath("//*[namespace-uri() != ''] | //@*[namespace-uri() != '']");
+        if (is_array($namespacedNodes) && $namespacedNodes !== []) {
+            $this->_error(self::XML_INVALID);
+            return false;
+        }
+
+        $disallowedBlocks = $value->xpath($this->getXpathBlockValidationExpression());
+        if ((is_array($disallowedBlocks) && $disallowedBlocks !== []) || $this->_hasDisallowedBlock($value)) {
             $this->_error(self::INVALID_BLOCK_NAME);
             return false;
         }
@@ -214,7 +233,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
             foreach ($this->_disallowedBlock as $key => $value) {
                 $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
                 $this->_xpathBlockValidationExpression
-                    .= "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
+                    .= "//*[local-name()='block'][translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
                 $this->_xpathBlockValidationExpression
                     .= "translate('{$value}', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')]";
             }
@@ -224,8 +243,90 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
     }
 
     /**
+     * Whether the layout update declares a block whose class is disallowed
+     *
+     * The layout generator instantiates the "class" attribute when it is set and the "type"
+     * attribute otherwise, resolves "module/name" aliases through the configuration and loads
+     * class names case-insensitively, with or without a leading backslash. The XPath block test
+     * only compares the literal "type" attribute, so every block is also checked here against
+     * the class the generator would actually create, including subclasses of a disallowed class.
+     */
+    protected function _hasDisallowedBlock(Varien_Simplexml_Element $xml): bool
+    {
+        $disallowed = [];
+        foreach ($this->getDisallowedBlocks() as $blockName) {
+            $className = $this->_resolveBlockClassName((string) $blockName);
+            if ($className !== '') {
+                $disallowed[strtolower($className)] = $className;
+            }
+        }
+
+        if ($disallowed === []) {
+            return false;
+        }
+
+        $blocks = $xml->xpath("//*[local-name()='block']");
+        foreach (is_array($blocks) ? $blocks : [] as $block) {
+            foreach (['class', 'type'] as $attribute) {
+                $className = $this->_resolveBlockClassName((string) $block[$attribute]);
+                if ($className === '') {
+                    continue;
+                }
+
+                if (isset($disallowed[strtolower($className)])) {
+                    return true;
+                }
+
+                foreach ($disallowed as $disallowedClass) {
+                    if ($this->_isSubclassOf($className, $disallowedClass)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Resolve a block type or class name to the class name the layout generator would load
+     */
+    protected function _resolveBlockClassName(string $blockType): string
+    {
+        $blockType = trim($blockType);
+        if (str_contains($blockType, '/')) {
+            $blockType = (string) Mage::getConfig()?->getBlockClassName($blockType);
+        }
+
+        return ltrim($blockType, '\\');
+    }
+
+    /**
+     * Whether $className extends $parentClassName
+     *
+     * A class that is not loaded yet is only autoloaded when its name is a plain class name with a
+     * file on the include path, the same condition under which the layout generator loads it.
+     */
+    protected function _isSubclassOf(string $className, string $parentClassName): bool
+    {
+        foreach ([$className, $parentClassName] as $name) {
+            if (!class_exists($name, false)
+                && (preg_match('/^[A-Za-z_][A-Za-z0-9_]*$/', $name) !== 1 || !is_string(mageFindClassFile($name)))
+            ) {
+                return false;
+            }
+        }
+
+        return is_subclass_of($className, $parentClassName);
+    }
+
+    /**
      * Validate template path for preventing access to the directory above
-     * If template path value has "../"
+     *
+     * Every value that may reach setTemplate() is checked: the node itself or, for an action, each
+     * of its arguments, both as written and decoded the way the layout may decode it (C-style
+     * escapes, JSON for arguments listed in the "json" attribute). Template::fetchView() refuses
+     * any ".." in a template path, so such paths are refused here as well.
      *
      * @throws Exception
      */
@@ -233,12 +334,38 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
     {
         /** @var Varien_Simplexml_Element $path */
         foreach ($templatePaths as $path) {
-            $path = $path->hasChildren()
-                ? stripcslashes(trim((string) $path->children(), '"'))
-                : (string) $path;
-            if (str_contains($path, '..' . DS)) {
-                throw new Exception();
+            foreach ($this->_getTemplatePathCandidates($path) as $candidate) {
+                if (str_contains($candidate, '..')) {
+                    throw new Exception();
+                }
             }
         }
+    }
+
+    /**
+     * @return list<string>
+     */
+    protected function _getTemplatePathCandidates(Varien_Simplexml_Element $path): array
+    {
+        $values = [];
+        if ($path->hasChildren()) {
+            foreach ($path->children() as $argument) {
+                $values[] = (string) $argument;
+            }
+        } else {
+            $values[] = (string) $path;
+        }
+
+        $candidates = [];
+        foreach ($values as $value) {
+            $candidates[] = $value;
+            $candidates[] = stripcslashes(trim($value, '"'));
+            $decoded = json_decode($value, true);
+            if (is_string($decoded)) {
+                $candidates[] = $decoded;
+            }
+        }
+
+        return $candidates;
     }
 }
