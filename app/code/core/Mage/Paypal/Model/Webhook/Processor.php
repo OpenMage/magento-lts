@@ -346,8 +346,7 @@ class Mage_Paypal_Model_Webhook_Processor
                 ->save();
         } elseif ($captureAmount !== null && !$isFullCapture) {
             $message = Mage::helper('paypal')->__(
-                'PayPal webhook confirmed a partial capture. Capture ID: %s. '
-                . 'Create the invoice manually for the captured items.',
+                'PayPal webhook confirmed a partial capture. Capture ID: %s. Create the invoice manually for the captured items.',
                 $captureId,
             );
         }

@@ -28,8 +28,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <comment>If you want to use PayPal Express Checkout, you must complete
-                                the settings below.</comment>
+                            <comment>If you want to use PayPal Express Checkout, you must complete the settings below.</comment>
                         </active>
 
                         <general translate="label" module="paypal" type="group">
@@ -41,8 +40,7 @@
                             <fields>
                                 <merchant_country translate="label comment">
                                     <label>Merchant Country</label>
-                                    <comment><![CDATA[If not specified, Default Country from General Config will be
-                                        used. <a href="https://developer.paypal.com/docs/multiparty/seller-onboarding/#country-eligibility" target="_blank">Learn more about PayPal Supported Countries.</a>]]></comment>
+                                    <comment><![CDATA[If not specified, Default Country from General Config will be used. <a href="https://developer.paypal.com/docs/multiparty/seller-onboarding/#country-eligibility" target="_blank">Learn more about PayPal Supported Countries.</a>]]></comment>
                                     <frontend_type>select</frontend_type>
                                     <source_model>paypal/system_config_source_merchantCountry</source_model>
                                     <backend_model>paypal/system_config_backend_merchantCountry</backend_model>
@@ -82,11 +80,7 @@
                                     <sort_order>30</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment>Select whether to authorize or capture the payment
-                                        immediately. Note: Authorization is not supported for
-                                        multishipping orders and will automatically use capture
-                                        instead.<br /><br />When using Authorize, funds are reserved
-                                        for up to 29 days, but it's best to capture within 3 days.</comment>
+                                    <comment>Select whether to authorize or capture the payment immediately. Note: Authorization is not supported for multishipping orders and will automatically use capture instead.<br /><br />When using Authorize, funds are reserved for up to 29 days, but it's best to capture within 3 days.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -146,9 +140,7 @@
                                     <sort_order>30</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment>Enable this option to use the PayPal Sandbox
-                                        environment for
-                                        testing.</comment>
+                                    <comment>Enable this option to use the PayPal Sandbox environment for testing.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -264,8 +256,7 @@
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
                                     <validate>validate-digits validate-zero-or-greater</validate>
-                                    <comment>Timeout in seconds for PayPal SDK API calls. Use 0 for
-                                        the SDK default.</comment>
+                                    <comment>Timeout in seconds for PayPal SDK API calls. Use 0 for the SDK default.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -281,8 +272,7 @@
                                     <sort_order>20</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment>Retry transient PayPal SDK HTTP failures. Keep retry
-                                        counts low for checkout paths.</comment>
+                                    <comment>Retry transient PayPal SDK HTTP failures. Keep retry counts low for checkout paths.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -298,8 +288,7 @@
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
                                     <validate>validate-digits validate-zero-or-greater</validate>
-                                    <comment>Maximum number of retry attempts after the first
-                                        request.</comment>
+                                    <comment>Maximum number of retry attempts after the first request.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -350,8 +339,7 @@
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
                                     <validate>validate-digits validate-zero-or-greater</validate>
-                                    <comment>Maximum retry wait time in seconds. Use 0 for the SDK
-                                        default.</comment>
+                                    <comment>Maximum retry wait time in seconds. Use 0 for the SDK default.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -385,8 +373,7 @@
                                     <sort_order>80</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment>Comma-separated HTTP status codes that should trigger a
-                                        retry.</comment>
+                                    <comment>Comma-separated HTTP status codes that should trigger a retry.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -404,8 +391,7 @@
                                     <sort_order>90</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment>HTTP methods eligible for retry. Retrying POST is
-                                        unsafe without idempotency keys.</comment>
+                                    <comment>HTTP methods eligible for retry. Retrying POST is unsafe without idempotency keys.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -446,8 +432,7 @@
                                     <sort_order>20</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment>PayPal REST webhook ID from the PayPal developer
-                                        dashboard.</comment>
+                                    <comment>PayPal REST webhook ID from the PayPal developer dashboard.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -465,8 +450,7 @@
                                     <sort_order>30</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment>Persist verified webhook events first and process
-                                        business effects from cron.</comment>
+                                    <comment>Persist verified webhook events first and process business effects from cron.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -500,8 +484,7 @@
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
                                     <validate>validate-digits validate-zero-or-greater</validate>
-                                    <comment>Number of days to retain processed and ignored webhook
-                                        events.</comment>
+                                    <comment>Number of days to retain processed and ignored webhook events.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -527,8 +510,7 @@
                                     <sort_order>10</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment>Enable this option to log PayPal API requests and
-                                        responses.</comment>
+                                    <comment>Enable this option to log PayPal API requests and responses.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
@@ -544,10 +526,7 @@
                                     <sort_order>20</sort_order>
                                     <show_in_default>1</show_in_default>
                                     <show_in_website>1</show_in_website>
-                                    <comment>Email address that receives alerts when PayPal
-                                        authorizations are
-                                        about to expire. Leave empty to use the General Contact
-                                        email.</comment>
+                                    <comment>Email address that receives alerts when PayPal authorizations are about to expire. Leave empty to use the General Contact email.</comment>
                                     <depends>
                                         <active>
                                             <value>1</value>
