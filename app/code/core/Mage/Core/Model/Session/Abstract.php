@@ -58,7 +58,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Encrypted session id cache
      *
-     * @var string|null
+     * @var null|string
      */
     protected static $_encryptedSessionId;
 
@@ -515,7 +515,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Add hostname to session
      *
-     * @param  string|boolean $host
+     * @param  bool|string $host
      * @return $this
      */
     public function addHost($host)
