@@ -2287,6 +2287,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in a negated boolean, Mage_Catalog_Model_Category given.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, Varien_Object|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',

@@ -1537,6 +1537,16 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid::getCsvFile() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid::getExcelFile() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Widget_Grid::getExportTypes() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
@@ -2778,11 +2788,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Api_Model_Wsdl_Config_Element::getAttributes() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Api_Model_Wsdl_Config_Element::getChildren() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
 ];
@@ -8503,6 +8508,16 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Catalog_Model_Url::$_categoryUrlSuffix type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Catalog_Model_Url::$_mustCreateCategoryUrlkey type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Catalog_Model_Url::$_mustCreateProductUrlkey type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
 ];
@@ -15532,11 +15547,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Directory/Model/Currency.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Class Mage_Directory_Model_Currency_Import_Abstract has PHPDoc tag @property for property $_messages with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Directory/Model/Currency/Import/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Directory_Model_Currency_Import_Abstract::_getCurrencyCodes() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Directory/Model/Currency/Import/Abstract.php',
@@ -15558,6 +15568,11 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Directory_Model_Currency_Import_Abstract::getMessages() return type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Directory/Model/Currency/Import/Abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Directory_Model_Currency_Import_Abstract::$_messages type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Directory/Model/Currency/Import/Abstract.php',
 ];
@@ -15645,6 +15660,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Directory_Model_Currency_Import_Fixerio::$_messages type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Directory/Model/Currency/Import/Fixerio.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Property Mage_Directory_Model_Currency_Import_Webservicex::$_messages type has no value type specified in iterable type array.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Directory_Model_Region_Api::items() return type has no value type specified in iterable type array.',

@@ -47,11 +47,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Page/Menu.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Return type (mixed) of method Mage_Adminhtml_Block_Report_Grid::getExcel() should be covariant with return type (string) of method Mage_Adminhtml_Block_Widget_Grid::getExcel()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Return type (Mage_Adminhtml_Block_Report_Grid_Abstract) of method Mage_Adminhtml_Block_Report_Grid_Abstract::addColumn() should be covariant with return type ($this(Mage_Adminhtml_Block_Widget_Grid)) of method Mage_Adminhtml_Block_Widget_Grid::addColumn()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
@@ -328,16 +323,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Return type (Varien_Simplexml_Element) of method Mage_Api_Model_Wsdl_Config_Element::extend() should be covariant with return type ($this(Varien_Simplexml_Element)) of method Varien_Simplexml_Element::extend()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (array) of method Mage_Api_Model_Wsdl_Config_Element::getChildren() should be compatible with return type (RecursiveIterator|null) of method RecursiveIterator<string,static(SimpleXMLElement)>::getChildren()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (array) of method Mage_Api_Model_Wsdl_Config_Element::getChildren() should be compatible with return type (RecursiveIterator|null) of method SimpleXMLElement::getChildren()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
 ];
@@ -725,11 +710,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Return type (Varien_Db_Adapter_Interface) of method Mage_Core_Model_Resource_File_Storage_Abstract::_getWriteAdapter() should be covariant with return type (Magento_Db_Adapter_Pdo_Mysql) of method Mage_Core_Model_Resource_Db_Abstract::_getWriteAdapter()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/File/Storage/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Return type (bool) of method Mage_Core_Model_Resource_Session::gc() should be covariant with return type (int|false) of method SessionHandlerInterface::gc()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Session.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Return type (Zend_Db_Select) of method Mage_Core_Model_Resource_Url_Rewrite::_getLoadSelect() should be covariant with return type (Varien_Db_Select) of method Mage_Core_Model_Resource_Db_Abstract::_getLoadSelect()',

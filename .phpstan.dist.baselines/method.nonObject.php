@@ -2528,7 +2528,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getCheckSql() on Varien_Db_Adapter_Interface|false.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -2563,12 +2563,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method quoteInto() on Varien_Db_Adapter_Interface|false.',
-    'count' => 3,
+    'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method select() on Varien_Db_Adapter_Interface|false.',
-    'count' => 6,
+    'count' => 7,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -3398,7 +3398,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
-    'count' => 8,
+    'count' => 7,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Controller/Varien/Router/Admin.php',
 ];
 $ignoreErrors[] = [
@@ -4870,11 +4870,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getCountryId() on Mage_Sales_Model_Order_Address|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getNode() on Mage_Core_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Cc.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getLabel() on Mage_Sales_Model_Order_Status|false.',

@@ -414,6 +414,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Page/Block/Html/HeadTest.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Call to deprecated method getLogoSrcSmall() of class Mage_Page_Block_Html_Header:
+Use SVG or srcset',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Page/Block/Html/HeaderTest.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method asArray() of class Mage_Rule_Model_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Rule/Model/AbstractTest.php',

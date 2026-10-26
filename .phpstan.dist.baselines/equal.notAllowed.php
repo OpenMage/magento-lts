@@ -912,11 +912,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Server.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Server.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Attributes/Extend.php',
@@ -3717,11 +3712,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Cc.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Cc.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Cc.php',
@@ -5870,6 +5860,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../shell/indexer.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
+    'count' => 1,
+    'path' => __DIR__ . '/../shell/rename-mysql4-class-to-resource.php',
 ];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

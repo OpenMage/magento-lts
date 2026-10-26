@@ -2217,11 +2217,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Directory/Model/Country.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Directory_Model_Currency_Import_Webservicex::$_messages has no type specified.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_Directory_Model_Currency_Import_Webservicex::$_url has no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php',

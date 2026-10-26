@@ -589,7 +589,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         }
 
         $returnArray = false;
-        $entityId = (int)$entityId;
+        $entityId = (int) $entityId;
 
         if (!is_array($attribute)) {
             $attribute = [$attribute];
@@ -664,7 +664,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                             'attr.store_id IN (' . $this->getDefaultStoreId() . ', ' . $store . ')',
                             'attr.entity_type_id = ' . $this->getTypeId(),
                         ]),
-                        []
+                        [],
                     );
                     // default_value join
                     $select->joinLeft(
@@ -674,7 +674,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                             'default_value.attribute_id = attr.attribute_id',
                             'default_value.store_id = ' . $this->getDefaultStoreId(),
                         ]),
-                        []
+                        [],
                     );
                     // store_value join
                     $valueExpr = $adapter->getCheckSql(
@@ -685,7 +685,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                     $attributeIdExpr = $adapter->getCheckSql(
                         'store_value.attribute_id IS NULL',
                         'default_value.attribute_id',
-                        'store_value.attribute_id'
+                        'store_value.attribute_id',
                     );
                     $select->joinLeft(
                         ['store_value' => $table],

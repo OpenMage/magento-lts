@@ -176,7 +176,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @param  string $sessId
      * @return string
      */
-    public function read($sessId): string|false
+    public function read($sessId): false|string
     {
         $select = $this->_read->select()
             ->from($this->_sessionTable, ['session_data'])
@@ -244,7 +244,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @return false|int
      * @SuppressWarnings("PHPMD.ShortMethodName")
      */
-    public function gc($sessMaxLifeTime): int|false
+    public function gc($sessMaxLifeTime): false|int
     {
         if ($this->_automaticCleaningFactor > 0
             && ($this->_automaticCleaningFactor == 1 || random_int(1, $this->_automaticCleaningFactor) === 1)

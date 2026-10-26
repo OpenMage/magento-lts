@@ -42,7 +42,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     protected $_fontNormal;
 
     /**
-     * @var  Zend_Pdf_Resource_Font
+     * @var Zend_Pdf_Resource_Font
      */
     protected $_fontBold;
 

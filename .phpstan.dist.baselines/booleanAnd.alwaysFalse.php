@@ -4,6 +4,11 @@ $ignoreErrors = [];
 $ignoreErrors[] = [
     'rawMessage' => 'Result of && is always false.',
     'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/File/Validator/Image.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Result of && is always false.',
+    'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Simplexml/Config.php',
 ];
 

@@ -182,6 +182,16 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item/Collection.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Static property Mage_Catalog_Model_Url::$_categoryResourceSingleton (Mage_Catalog_Model_Category) does not accept object.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Static property Mage_Catalog_Model_Url::$_productResourceSingleton (Mage_Catalog_Model_Category) does not accept object.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_CatalogSearch_Helper_Data::$_engine (Mage_CatalogSearch_Model_Resource_Fulltext_Engine) does not accept object.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogSearch/Helper/Data.php',

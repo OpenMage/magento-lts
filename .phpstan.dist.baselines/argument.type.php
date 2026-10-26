@@ -887,11 +887,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $source of static method Mage_Api_Model_Wsdl_Config_Element::_getChildren() expects Varien_Simplexml_Element, Varien_Simplexml_Element|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $elmNamespace of method Mage_Api_Model_Wsdl_Config_Element::getElementByName() expects string, string|null given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
@@ -3555,6 +3550,16 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #3 $length of function substr expects int|null, int<0, max>|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Helper/Mysql4.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #3 $read of function session_set_save_handler expects callable(string): string, Closure(string): (string|false) given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Session.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #6 $gc of function session_set_save_handler expects callable(int): bool, Closure(int): (int|false) given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Session.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $tableName of method Mage_Core_Model_Resource::getIdxName() expects string, array|string given.',
@@ -8675,6 +8680,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $subject of function preg_match_all expects string, string|false given.',
     'count' => 2,
     'path' => __DIR__ . '/../shell/abstract.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #3 $subject of function preg_replace expects array<float|int|string>|string, string|false given.',
+    'count' => 3,
+    'path' => __DIR__ . '/../shell/rename-mysql4-class-to-resource.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $timestamp of static method Carbon\\Carbon::createFromTimestamp() expects float|int|string, int|false given.',

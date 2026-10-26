@@ -2,6 +2,7 @@
 
 return ['includes' => [
     __DIR__ . '/argument.type.php',
+    __DIR__ . '/argument.unpackNonIterable.php',
     __DIR__ . '/arguments.count.php',
     __DIR__ . '/array.invalidKey.php',
     __DIR__ . '/arrayFilter.strict.php',
@@ -27,6 +28,7 @@ return ['includes' => [
     __DIR__ . '/cast.useless.php',
     __DIR__ . '/catch.neverThrown.php',
     __DIR__ . '/class.extendsDeprecatedClass.php',
+    __DIR__ . '/class.extendsFinalByPhpDoc.php',
     __DIR__ . '/class.notFound.php',
     __DIR__ . '/classConstant.deprecatedClass.php',
     __DIR__ . '/clone.nonObject.php',
@@ -95,8 +97,10 @@ return ['includes' => [
     __DIR__ . '/return.empty.php',
     __DIR__ . '/return.missing.php',
     __DIR__ . '/return.type.php',
+    __DIR__ . '/smaller.alwaysFalse.php',
     __DIR__ . '/smaller.invalid.php',
     __DIR__ . '/staticMethod.deprecated.php',
+    __DIR__ . '/staticMethod.dynamicCall.php',
     __DIR__ . '/staticMethod.notFound.php',
     __DIR__ . '/switch.type.php',
     __DIR__ . '/ternary.alwaysTrue.php',

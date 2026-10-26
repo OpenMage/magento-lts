@@ -687,6 +687,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Call to an undefined method object::getAttributeRawValue().',
+    'count' => 4,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_CatalogIndex_Model_Resource_Attribute::checkCount().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Attribute.php',
@@ -1763,7 +1768,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getTracking().',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/shipping/tracking/popup.phtml',
 ];
 $ignoreErrors[] = [

@@ -189,9 +189,9 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     /**
      * Check if form_key validation enabled on checkout process
      *
+     * @return bool
      * @deprecated
      * @see _isFormKeyEnabled
-     * @return bool
      */
     protected function isFormkeyValidationOnCheckoutEnabled()
     {

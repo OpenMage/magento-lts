@@ -633,6 +633,11 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
+    'count' => 8,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Observer.php',
 ];
@@ -1300,11 +1305,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to function array_search() requires parameter #3 to be set.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Direct.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',

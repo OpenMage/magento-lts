@@ -188,6 +188,11 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Items/Column/Default.php',
 ];
@@ -308,7 +313,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 2,
+    'count' => 6,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
 ];
 $ignoreErrors[] = [
@@ -493,7 +498,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 5,
+    'count' => 6,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Cms/PageController.php',
 ];
 $ignoreErrors[] = [
@@ -1038,7 +1043,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 2,
+    'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -1153,7 +1158,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 3,
+    'count' => 5,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Url.php',
 ];
 $ignoreErrors[] = [
@@ -1380,6 +1385,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/OnepageController.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
+    'count' => 2,
+    'path' => __DIR__ . '/../app/code/core/Mage/Cms/Model/Resource/Page.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',

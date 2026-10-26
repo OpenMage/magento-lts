@@ -10,6 +10,7 @@ Captcha
 CLI
 Cloudflare
 CMS
+CSRF
 Cron
 CVE
 CodeQL
