@@ -89,7 +89,7 @@ final class ProcessorTest extends OpenMageTest
         $subject->setPlacement($placement);
 
         $subject->recoverMissingOrder(
-            $this->buildEvent('PAYMENT.CAPTURE.COMPLETED', 0, '2026-09-14 11:00:00')->setData('paypal_order_id', null),
+            $this->buildEvent('PAYMENT.CAPTURE.COMPLETED', 0, '2026-09-14 11:00:00')->setData('paypal_order_id'),
         );
     }
 

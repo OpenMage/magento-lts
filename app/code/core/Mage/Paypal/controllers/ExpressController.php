@@ -9,6 +9,7 @@
 
 declare(strict_types=1);
 
+use PaypalServerSdkLib\Http\ApiResponse;
 use PaypalServerSdkLib\Models\PurchaseUnitRequest;
 
 /**
@@ -687,7 +688,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         }
 
         $patchResponse = $api->patchOrder($orderId, $patch);
-        if ($patchResponse !== null && $patchResponse->isError()) {
+        if ($patchResponse instanceof ApiResponse && $patchResponse->isError()) {
             Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
         }
     }

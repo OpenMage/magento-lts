@@ -162,7 +162,7 @@ class Mage_Paypal_Model_Checkout_Placement
             $payment->unsAdditionalInformation($key);
         }
 
-        $payment->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID, null)
+        $payment->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID)
             ->setPaypalCorrelationId(null)
             ->save();
     }

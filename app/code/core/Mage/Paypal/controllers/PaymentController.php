@@ -206,7 +206,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 $payment->unsAdditionalInformation((string) $key);
             }
 
-            $payment->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID, null)
+            $payment->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID)
                 ->setPaypalCorrelationId('')
                 ->save();
             $this->_getQuote()->setReservedOrderId(null)->save();

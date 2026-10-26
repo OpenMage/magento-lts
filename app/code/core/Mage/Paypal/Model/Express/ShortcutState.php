@@ -73,7 +73,7 @@ class Mage_Paypal_Model_Express_ShortcutState extends Mage_Core_Model_Abstract
             $payment->unsAdditionalInformation($key);
         }
 
-        $payment->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID, null)
+        $payment->setData(Mage_Paypal_Model_Payment::PAYPAL_ORDER_ID)
             ->setPaypalCorrelationId(null)
             ->setTransactionId(null)
             ->setIsTransactionClosed(false);
