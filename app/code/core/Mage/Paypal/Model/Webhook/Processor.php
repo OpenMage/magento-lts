@@ -130,6 +130,9 @@ class Mage_Paypal_Model_Webhook_Processor
                 case self::ACTION_DISPUTE:
                     $this->processDispute($event, $order);
                     break;
+                default:
+                    // Ignored and subscription events returned above.
+                    break;
             }
 
             $event->markProcessed()->save();

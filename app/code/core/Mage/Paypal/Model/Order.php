@@ -175,6 +175,9 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
                 // Card fields render inline; no explicit payment source needed.
             case 'card':
                 return null;
+
+            default:
+                break;
         }
 
         // Remaining methods (local bank redirects) require payer details.
