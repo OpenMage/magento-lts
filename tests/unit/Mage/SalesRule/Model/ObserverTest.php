@@ -23,15 +23,29 @@ final class ObserverTest extends OpenMageTest
 {
     use ObserverTrait;
 
-    public function testOrdersWithoutDiscountAreNotCounted(): void
+    public function testOrdersWithoutRuleOrCouponAreNotCounted(): void
     {
         $subject = new Subject();
         $order = new Mage_Sales_Model_Order();
-        $order->setQuoteId(5)->setDiscountAmount(0)->setAppliedRuleIds('3')->setCouponCode('SINGLE1');
+        $order->setQuoteId(5)->setDiscountAmount(0)->setAppliedRuleIds('0,');
 
         // returns before any database access
         self::assertSame($subject, $subject->sales_order_afterPlace($this->observer($order)));
         self::assertFalse($this->isQuoteCounted($subject, $order));
+    }
+
+    /**
+     * Free shipping only rules give no discount amount, their coupons are counted all the same (#4757)
+     *
+     * @dataProvider provideHasAppliedRulesData
+     */
+    public function testOrdersAreCountedWhateverTheirDiscountAmount(bool $expected, ?string $appliedRuleIds, ?string $couponCode): void
+    {
+        $subject = new Subject();
+        $order = new Mage_Sales_Model_Order();
+        $order->setDiscountAmount(0)->setAppliedRuleIds($appliedRuleIds)->setCouponCode($couponCode);
+
+        self::assertSame($expected, (new ReflectionMethod($subject, '_hasAppliedRules'))->invoke($subject, $order));
     }
 
     public function testOnlyTheFirstOrderOfAQuoteIsCheckedAgainstTheLimits(): void

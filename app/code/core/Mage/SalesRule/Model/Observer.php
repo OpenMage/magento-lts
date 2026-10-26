@@ -67,6 +67,9 @@ class Mage_SalesRule_Model_Observer
      * with the counters themselves. The check done while validating the quote is far too early to be
      * relied upon: concurrent orders all pass it with the same counters.
      *
+     * Orders without a discount amount are counted too: a rule that only grants free shipping gives
+     * none, and its coupon has to be counted against its limits all the same.
+     *
      * This runs inside the order placement transaction where there is one (onepage, admin and API
      * checkouts), so that throwing here rolls the order back. Only the counters that have a limit are
      * updated inside it, each with a single conditional statement that locks nothing but the existing
@@ -94,7 +97,7 @@ class Mage_SalesRule_Model_Observer
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getOrder();
 
-        if (!$order || (float) $order->getDiscountAmount() === 0.0) {
+        if (!$order || !$this->_hasAppliedRules($order)) {
             return $this;
         }
 
@@ -400,6 +403,24 @@ class Mage_SalesRule_Model_Observer
         }
 
         return $this;
+    }
+
+    /**
+     * Whether a rule or a coupon was applied to the order, whatever discount amount it gave
+     */
+    protected function _hasAppliedRules(Mage_Sales_Model_Order $order): bool
+    {
+        if ((string) $order->getCouponCode() !== '') {
+            return true;
+        }
+
+        foreach (explode(',', (string) $order->getAppliedRuleIds()) as $ruleId) {
+            if ((int) $ruleId > 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
