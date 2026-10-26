@@ -101,18 +101,11 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         }
 
         $address = $this->getShippingAddress();
-        // Read the rates the controller already collected — do NOT call collectShippingRates()
-        // here. It runs requestShippingRates(), which writes the raw base-currency rate price
-        // straight into shipping_amount; the template renders this block before the totals, so
-        // Total_Shipping::fetch() would then print that unconverted amount (e.g. the USD rate
-        // labelled in EUR) while grand_total kept the converted one.
+        // Read the rates the controller already collected; see Mage_Paypal_Model_Helper::recollectShippingTotals()
+        // for why collectShippingRates() must not run here.
         if ($address->getAllShippingRates() === []) {
-            // Nothing persisted (direct render without the controller's prepare step): collect
-            // through collectTotals() so Total_Shipping::collect() restores the converted amount.
-            $address->setCollectShippingRates(true);
-            $quote = $address->getQuote();
-            $quote->setTotalsCollectedFlag(false);
-            $quote->collectTotals();
+            // Nothing persisted (direct render without the controller's prepare step).
+            Mage::getSingleton('paypal/helper')->recollectShippingTotals($address->getQuote());
         }
 
         return $address->getGroupedAllShippingRates();

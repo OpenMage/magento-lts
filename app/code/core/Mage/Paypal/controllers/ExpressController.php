@@ -140,20 +140,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             $this->_prepareShippingRates($quote);
             $quote->collectTotals()->save();
 
-            // Skip the patch when PayPal already holds the current total (e.g. the buyer just came
-            // back from re-approving it) — patching an approved order needlessly would cost us that
-            // approval again.
-            if (!$this->_paypalAmountMatchesQuote($details, $quote)) {
-                $patch = $this->_buildPatch($quote);
-                if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
-                    Mage::log(['order_id' => $orderId, 'patch' => $patch], null, 'paypal_patch.log', true);
-                }
-
-                $patchResponse = $api->patchOrder($orderId, $patch);
-                if ($patchResponse !== null && $patchResponse->isError()) {
-                    Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
-                }
-            }
+            $this->_patchStalePaypalAmount($api, $orderId, $quote, $details);
 
             $this->loadLayout()
                 ->_initLayoutMessages('checkout/session')
@@ -215,8 +202,9 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             }
 
             $address->setShippingMethod($shippingMethod);
-            // collectShippingRates() above left the raw base-currency price in shipping_amount;
-            // Total_Shipping::collect() converts it back, so this collect must not be short-circuited.
+            // collectShippingRates() above left the raw base-currency price in shipping_amount (see
+            // Mage_Paypal_Model_Helper::recollectShippingTotals()); this collect converts it back, so it must not be
+            // short-circuited. The rates are not requested again: the carriers were just asked.
             $quote->setTotalsCollectedFlag(false);
             $quote->collectTotals()->save();
 
@@ -291,17 +279,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 // PAYER_ACTION_REQUIRED and the capture is then rejected. reviewAction already patched the
                 // shipping in, so re-sending the same amount here buys nothing and breaks the charge. Only
                 // patch when PayPal is actually holding a stale total.
-                if (!$this->_paypalAmountMatchesQuote($details, $quote)) {
-                    $patch = $this->_buildPatch($quote);
-                    if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
-                        Mage::log(['order_id' => $orderId, 'patch' => $patch], null, 'paypal_patch.log', true);
-                    }
-
-                    $patchResponse = $api->patchOrder($orderId, $patch);
-                    if ($patchResponse !== null && $patchResponse->isError()) {
-                        Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
-                    }
-                }
+                $this->_patchStalePaypalAmount($api, $orderId, $quote, $details);
             }
 
             try {
@@ -349,9 +327,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
             }
 
             $quote = $this->_getQuote();
-            if (Mage::getSingleton('paypal/helper')->hasPendingPaypalCharge($quote)
-                && Mage::getSingleton('paypal/checkout_placement')->resolvePendingCharge($quote) instanceof Mage_Sales_Model_Order
-            ) {
+            if (Mage::getSingleton('paypal/checkout_placement')->resolvePendingCharge($quote) instanceof Mage_Sales_Model_Order) {
                 $this->_jsonResponse(['success' => true]);
                 return;
             }
@@ -690,6 +666,29 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
         $status = strtoupper((string) ($details['status'] ?? ''));
         if (!in_array($status, ['CREATED', 'APPROVED', 'PAYER_ACTION_REQUIRED'], true)) {
             Mage::throwException(Mage::helper('paypal')->__('This PayPal order can no longer be updated. Please restart PayPal checkout.'));
+        }
+    }
+
+    /**
+     * Send the quote's current amounts to PayPal, unless PayPal already holds the current total: patching an
+     * approved order costs the buyer's approval again.
+     *
+     * @param array<string, mixed> $details
+     */
+    private function _patchStalePaypalAmount(Mage_Paypal_Model_Api $api, string $orderId, Mage_Sales_Model_Quote $quote, array $details): void
+    {
+        if ($this->_paypalAmountMatchesQuote($details, $quote)) {
+            return;
+        }
+
+        $patch = $this->_buildPatch($quote);
+        if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
+            Mage::log(['order_id' => $orderId, 'patch' => $patch], null, 'paypal_patch.log', true);
+        }
+
+        $patchResponse = $api->patchOrder($orderId, $patch);
+        if ($patchResponse !== null && $patchResponse->isError()) {
+            Mage::getSingleton('paypal/helper')->handleApiError($patchResponse, 'Unable to update PayPal order.');
         }
     }
 

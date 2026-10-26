@@ -49,9 +49,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             $this->_validateCheckoutAgreements();
 
             // The cart may already be paid for: settle that payment before the buyer can start another one.
-            if (Mage::getSingleton('paypal/helper')->hasPendingPaypalCharge($this->_getQuote())
-                && $this->_getPlacement()->resolvePendingCharge($this->_getQuote()) instanceof Mage_Sales_Model_Order
-            ) {
+            if ($this->_getPlacement()->resolvePendingCharge($this->_getQuote()) instanceof Mage_Sales_Model_Order) {
                 $this->getResponse()
                     ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
                     ->setBody(Mage::helper('core')->jsonEncode([

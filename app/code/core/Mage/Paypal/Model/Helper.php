@@ -135,6 +135,21 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Re-request the shipping rates and recollect the totals, so the quote prices the selected method.
+     *
+     * Always through collectTotals(), never collectShippingRates() alone: requestShippingRates() writes the raw,
+     * base-currency rate price straight into shipping_amount (a known core quirk; Total_Shipping::collect() is
+     * what converts it back). On its own it would leave the unconverted amount on the address, which then rides
+     * into the order and its invoice while grand_total keeps the converted value.
+     */
+    public function recollectShippingTotals(Mage_Sales_Model_Quote $quote): void
+    {
+        $quote->getShippingAddress()->setCollectShippingRates(true);
+        $quote->setTotalsCollectedFlag(false);
+        $quote->collectTotals();
+    }
+
+    /**
      * Ensure physical quotes have a valid selected shipping method.
      *
      * Mage_Sales_Model_Service_Quote::_validate() enforces this at submit time, which for PayPal
@@ -155,14 +170,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
 
         $address = $quote->getShippingAddress();
         if ($refreshRates) {
-            // Refresh the rates through collectTotals() rather than calling collectShippingRates()
-            // directly: requestShippingRates() writes the raw, base-currency rate price straight into
-            // shipping_amount (a known core quirk — Total_Shipping::collect() is what converts it back).
-            // Calling it on its own would leave the address holding the unconverted amount, which then
-            // rides into the order and its invoice while grand_total keeps the converted value.
-            $address->setCollectShippingRates(true);
-            $quote->setTotalsCollectedFlag(false);
-            $quote->collectTotals();
+            $this->recollectShippingTotals($quote);
         }
 
         $method = (string) $address->getShippingMethod();
