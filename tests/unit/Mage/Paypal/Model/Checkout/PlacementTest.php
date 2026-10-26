@@ -195,6 +195,25 @@ final class PlacementTest extends OpenMageTest
     }
 
     /**
+     * @group Model
+     */
+    public function testOrderAwaitingReapprovalRaisesPayerActionRequired(): void
+    {
+        $subject = $this->buildSubject($this->buildHelper());
+        $subject->method('loadQuote')->willReturn($this->buildQuote());
+        $subject->method('fetchPaypalOrder')->willReturn($this->buildResponse('PAYER_ACTION_REQUIRED'));
+        $subject->expects(self::never())->method('chargeApprovedOrder');
+
+        try {
+            $subject->placeApprovedOrder($this->buildQuote(), self::PAYPAL_ORDER_ID, true, false);
+            self::fail('Expected a PayPal exception.');
+        } catch (Mage_Paypal_Model_Exception $magePaypalModelException) {
+            self::assertTrue($magePaypalModelException->isPayerActionRequired());
+            self::assertSame(self::PAYPAL_ORDER_ID, $magePaypalModelException->getDebugData()['id'] ?? null);
+        }
+    }
+
+    /**
      * @return Iterator<string, array{string, bool}>
      */
     public static function provideUnchargeableStates(): Iterator

@@ -29,4 +29,24 @@ class Mage_Paypal_Model_Exception extends Mage_Core_Exception
     {
         return $this->_debugData;
     }
+
+    /**
+     * Whether PayPal asks the buyer to approve the order again (an error issue, or the order status itself).
+     */
+    public function isPayerActionRequired(): bool
+    {
+        if (str_contains($this->getMessage(), 'PAYER_ACTION_REQUIRED')
+            || strtoupper((string) ($this->_debugData['status'] ?? '')) === 'PAYER_ACTION_REQUIRED'
+        ) {
+            return true;
+        }
+
+        foreach ((array) ($this->_debugData['details'] ?? []) as $detail) {
+            if (is_array($detail) && ($detail['issue'] ?? '') === 'PAYER_ACTION_REQUIRED') {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

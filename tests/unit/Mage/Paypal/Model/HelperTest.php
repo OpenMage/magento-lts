@@ -24,6 +24,7 @@ use Mage_Sales_Model_Quote_Address_Rate;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Paypal\Model\HelperTrait;
+use PaypalServerSdkLib\Http\ApiResponse;
 use PaypalServerSdkLib\Models\Builders\MoneyBuilder;
 use PaypalServerSdkLib\Models\Builders\OrderBuilder;
 use PaypalServerSdkLib\Models\Builders\OrdersCaptureBuilder;
@@ -357,6 +358,28 @@ final class HelperTest extends OpenMageTest
         }
 
         self::assertSame($expected, self::$subject->hasUnplacedPaypalPayment($quote));
+    }
+
+    /**
+     * @group Model
+     */
+    public function testHandleApiErrorKeepsThePayloadOfObjectResults(): void
+    {
+        $body = [
+            'name' => 'UNPROCESSABLE_ENTITY',
+            'details' => [['issue' => 'PAYER_ACTION_REQUIRED']],
+            'links' => [['rel' => 'payer-action', 'href' => 'https://www.paypal.com/checkoutnow?token=5O190127TN364715T']],
+        ];
+        $response = $this->createMock(ApiResponse::class);
+        $response->method('getResult')->willReturn(new Varien_Object(['message' => 'The requested action could not be performed.']));
+        $response->method('getBody')->willReturn((string) json_encode($body));
+
+        try {
+            self::$subject->handleApiError($response, 'Unable to capture PayPal order.');
+        } catch (Mage_Paypal_Model_Exception $magePaypalModelException) {
+            self::assertTrue($magePaypalModelException->isPayerActionRequired());
+            self::assertSame($body['links'], $magePaypalModelException->getDebugData()['links'] ?? null);
+        }
     }
 
     /**

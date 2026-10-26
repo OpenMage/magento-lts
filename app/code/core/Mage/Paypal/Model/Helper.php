@@ -472,7 +472,12 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
         // Carry the raw error payload: PAYER_ACTION_REQUIRED handling needs the
         // payer-action link PayPal ships inside the failed response's links.
         $result = $response->getResult();
-        throw new Mage_Paypal_Model_Exception($errorMsg, is_array($result) ? $result : []);
+        if (!is_array($result)) {
+            $decoded = json_decode((string) $response->getBody(), true);
+            $result = is_array($decoded) ? $decoded : [];
+        }
+
+        throw new Mage_Paypal_Model_Exception($errorMsg, $result);
     }
 
     /**

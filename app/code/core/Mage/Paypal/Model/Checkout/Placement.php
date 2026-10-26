@@ -81,6 +81,12 @@ class Mage_Paypal_Model_Checkout_Placement
                 $isNewCustomer ??= $this->getFinalizer()->prepareQuoteForCheckout($quote, $saveCustomerAddresses);
                 $this->validateQuoteBeforeCharge($quote, $details, $paypalOrderId);
                 $this->chargeApprovedOrderOnce($quote, $paypalOrderId, $isAuthorize);
+            } elseif ($status === 'PAYER_ACTION_REQUIRED') {
+                // The details carry the payer-action link the caller sends the buyer to.
+                throw new Mage_Paypal_Model_Exception(
+                    Mage::helper('paypal')->__('Please approve the updated order total with PayPal.'),
+                    $details,
+                );
             } else {
                 Mage::throwException(
                     Mage::helper('paypal')->__('Your PayPal payment was not approved. Please complete the PayPal checkout and try again.'),

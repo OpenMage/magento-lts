@@ -316,7 +316,7 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
                 // ML-driven overcharge threshold, roughly 115% / +$75), the charge is rejected with
                 // PAYER_ACTION_REQUIRED and PayPal expects us to send the buyer back to re-approve
                 // the new amount. See developer.paypal.com "overcharge handling".
-                if (str_contains($paypalException->getMessage(), 'PAYER_ACTION_REQUIRED')
+                if ($paypalException->isPayerActionRequired()
                     && $this->_redirectToPayerAction($orderId, $paypalException)
                 ) {
                     return;
@@ -680,12 +680,15 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
     /**
      * Ensure the PayPal order can still be patched before capture/authorization.
      *
+     * PAYER_ACTION_REQUIRED is kept open: a buyer who cancelled the re-approval comes back to review and must be
+     * able to place the order again, which sends them back to PayPal.
+     *
      * @param array<string, mixed> $details
      */
     private function _assertPatchablePaypalStatus(array $details): void
     {
         $status = strtoupper((string) ($details['status'] ?? ''));
-        if (!in_array($status, ['CREATED', 'APPROVED'], true)) {
+        if (!in_array($status, ['CREATED', 'APPROVED', 'PAYER_ACTION_REQUIRED'], true)) {
             Mage::throwException(Mage::helper('paypal')->__('This PayPal order can no longer be updated. Please restart PayPal checkout.'));
         }
     }
@@ -711,14 +714,15 @@ class Mage_Paypal_ExpressController extends Mage_Core_Controller_Front_Action
      *
      * A CREATED order is patchable but not payable: capturing it makes PayPal reject the call with
      * PAYER_ACTION_REQUIRED, which surfaces to the shopper as an opaque "semantically incorrect"
-     * error. Fail early with something they can act on instead.
+     * error. Fail early with something they can act on instead. PAYER_ACTION_REQUIRED passes: the buyer approved
+     * once and Placement sends them back to PayPal to approve the new total.
      *
      * @param array<string, mixed> $details
      */
     private function _assertApprovedForCapture(array $details): void
     {
         $status = strtoupper((string) ($details['status'] ?? ''));
-        if ($status !== 'APPROVED') {
+        if (!in_array($status, ['APPROVED', 'PAYER_ACTION_REQUIRED'], true)) {
             Mage::throwException(
                 Mage::helper('paypal')->__('Your PayPal payment was not approved. Please complete the PayPal checkout and try again.'),
             );
