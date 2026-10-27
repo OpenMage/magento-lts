@@ -105,7 +105,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
      * @param  null|mixed                                                   $represent2Darray
      * @param  bool                                                         $rawNodes
      * @param  string                                                       $module
-     * @return ($rawNodes is true ? Varien_Simplexml_Element|false : array)
+     * @return ($rawNodes is true ? false|Varien_Simplexml_Element : array)
      */
     protected function _buildResourcesArray(
         ?Varien_Simplexml_Element $resource = null,
