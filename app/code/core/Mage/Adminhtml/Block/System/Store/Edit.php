@@ -60,7 +60,8 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
         }
 
         if (Mage::registry('store_data')->isReadOnly()) {
-            $this->_removeButton(self::BUTTON_TYPE_SAVE)->_removeButton(self::BUTTON_TYPE_RESET);
+            $this->_removeButton(self::BUTTON_TYPE_SAVE)
+                ->_removeButton(self::BUTTON_TYPE_RESET);
         }
     }
 

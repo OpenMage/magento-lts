@@ -22,20 +22,25 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
         $this->_headerText = Mage::helper('core')->__('Cache Storage Management');
         parent::__construct();
         $this->_removeButton(self::BUTTON_TYPE_ADD);
-        $this->_addButton('flush_magento', [
-            'label'     => Mage::helper('core')->__('Flush & Apply Updates'),
-            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getFlushSystemUrl()),
-            'class'     => 'delete cache',
-        ]);
 
-        $this->_addButton('flush_system', [
-            'label'     => Mage::helper('core')->__('Flush Cache Storage'),
-            'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                $this->getFlushStorageUrl(),
-                Mage::helper('core')->__('Cache storage may contain additional data. Are you sure that you want flush it?'),
-            ),
-            'class'     => 'delete flush',
-        ]);
+        $this->_addPreparedButton(
+            id: 'flush_magento',
+            label: Mage::helper('core')->__('Flush & Apply Updates'),
+            class: 'delete cache',
+            onClickUrl: $this->getFlushSystemUrl(),
+        );
+
+        $onClick = Mage::helper('core/js')->getConfirmSetLocationJs(
+            $this->getFlushStorageUrl(),
+            Mage::helper('core')->__('Are you sure you want to flush cache storage?'),
+        );
+
+        $this->_addPreparedButton(
+            id: 'flush_system',
+            label: Mage::helper('core')->__('Flush Cache Storage'),
+            class: 'delete flush',
+            onClick: $onClick,
+        );
     }
 
     /**
