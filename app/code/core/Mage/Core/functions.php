@@ -228,6 +228,7 @@ function mageDelTree($path)
  * @param  string $enclosure
  * @param  string $escape
  * @return array
+ * @phpstan-ignore function.unusedParameter
  */
 function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\')
 {

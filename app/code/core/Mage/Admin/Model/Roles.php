@@ -59,7 +59,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Return tree of acl resources
      *
-     * @return array|Varien_Simplexml_Element
+     * @return false|Varien_Simplexml_Element
      */
     public function getResourcesTree()
     {
@@ -69,7 +69,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Return list of acl resources
      *
-     * @return array|Varien_Simplexml_Element
+     * @return array
      */
     public function getResourcesList()
     {
@@ -79,7 +79,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Return list of acl resources in 2D format
      *
-     * @return array|Varien_Simplexml_Element
+     * @return array
      */
     public function getResourcesList2D()
     {
@@ -100,12 +100,12 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Build resources array process
      *
-     * @param  null|string                          $parentName
-     * @param  null|int                             $level
-     * @param  null|mixed                           $represent2Darray
-     * @param  bool                                 $rawNodes
-     * @param  string                               $module
-     * @return array|false|Varien_Simplexml_Element
+     * @param  null|string                                                  $parentName
+     * @param  null|int                                                     $level
+     * @param  null|mixed                                                   $represent2Darray
+     * @param  bool                                                         $rawNodes
+     * @param  string                                                       $module
+     * @return ($rawNodes is true ? false|Varien_Simplexml_Element : array)
      */
     protected function _buildResourcesArray(
         ?Varien_Simplexml_Element $resource = null,
@@ -136,7 +136,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
                 }
 
                 if (is_null($represent2Darray)) {
-                    $result[$resourceName]['name']  = Mage::helper($module)->__((string) $resource->title);
+                    $result[$resourceName]['name']  = Mage::helper($module)->__((string) $resource->title); /** @phpstan-ignore offsetAssign.dimType */
                     $result[$resourceName]['level'] = $level;
                 } else {
                     $result[] = $resourceName;
@@ -159,6 +159,6 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
             return $resource;
         }
 
-        return $result;
+        return $result ?? [];
     }
 }

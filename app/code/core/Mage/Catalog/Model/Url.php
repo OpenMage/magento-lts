@@ -426,10 +426,9 @@ class Mage_Catalog_Model_Url extends Varien_Object
     protected function _refreshCategoryProductRewrites(Varien_Object $category)
     {
         $originalRewrites = $this->_rewrites;
-        $process = true;
         $lastEntityId = 0;
         $firstIteration = true;
-        while ($process) {
+        while (true) {
             $products = $this->getResource()->getProductsByCategory($category, $lastEntityId);
             if (!$products) {
                 if ($firstIteration) {
@@ -440,7 +439,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
                     );
                 }
 
-                $process = false;
                 break;
             }
 
@@ -580,12 +578,10 @@ class Mage_Catalog_Model_Url extends Varien_Object
         $this->_categories[$storeRootCategoryId] = $this->getResource()->getCategory($storeRootCategoryId, $storeId);
 
         $lastEntityId = 0;
-        $process = true;
 
-        while ($process) {
+        while (true) {
             $products = $this->getResource()->getProductsByStore($storeId, $lastEntityId);
             if (!$products) {
-                $process = false;
                 break;
             }
 

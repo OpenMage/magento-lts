@@ -115,7 +115,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 // draw QTY
                 $text = $orderItem->getQty() * 1;
                 $line[] = [
-                    'text'  => $orderItem->getQty() * 1,
+                    'text'  => $text,
                     'feed'  => $xAxis,
                     'font'  => 'bold',
                     'align' => 'center',
@@ -132,7 +132,6 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                     'align' => 'right',
                     'width' => 45,
                 ];
-                $xAxis += 45;
 
                 // draw Total(inc)
                 $text = $order->formatPriceTxt(

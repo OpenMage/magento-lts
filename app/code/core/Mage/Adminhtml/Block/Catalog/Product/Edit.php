@@ -217,7 +217,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
 
     public function getProductSetId()
     {
-        $setId = false;
         if (!($setId = $this->getProduct()->getAttributeSetId()) && $this->getRequest()) {
             return $this->getRequest()->getParam('set');
         }
@@ -251,7 +250,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
      */
     public function getHeader()
     {
-        $header = '';
         if ($this->getProduct()->getId()) {
             $header = $this->escapeHtml($this->getProduct()->getName());
         } else {

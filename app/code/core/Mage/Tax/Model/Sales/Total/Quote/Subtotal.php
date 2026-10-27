@@ -219,13 +219,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $rate = $this->_calculator->getRate($request);
         $qty = $item->getTotalQty();
         $price = $this->_calculator->round($item->getCalculationPriceOriginal());
-        $taxPrice = $price;
         $basePrice = $this->_calculator->round($item->getBaseCalculationPriceOriginal());
-        $baseTaxPrice = $basePrice;
         $subtotal = $this->_calculator->round($item->getRowTotal());
-        $taxSubtotal = $subtotal;
         $baseSubtotal = $this->_calculator->round($item->getBaseRowTotal());
-        $baseTaxSubtotal = $baseSubtotal;
 
         // if we have a custom price, determine if tax should be based on the original price
         $taxOnOrigPrice = !$this->_helper->applyTaxOnCustomPrice($this->_store) && $item->hasCustomPrice();
@@ -364,9 +360,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $rate = $this->_calculator->getRate($request);
         $qty = $item->getTotalQty();
         $price = $this->_calculator->round($item->getCalculationPriceOriginal());
-        $taxPrice = $price;
         $basePrice = $this->_calculator->round($item->getBaseCalculationPriceOriginal());
-        $baseTaxPrice = $basePrice;
         $subtotal = $this->_calculator->round($item->getRowTotal());
         $taxSubtotal = $subtotal;
         $baseSubtotal = $this->_calculator->round($item->getBaseRowTotal());
@@ -517,13 +511,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $rate = $calc->getRate($request);
         $qty = $item->getTotalQty();
         $price = $this->_calculator->round($item->getCalculationPriceOriginal());
-        $taxPrice = $price;
         $basePrice = $this->_calculator->round($item->getBaseCalculationPriceOriginal());
-        $baseTaxPrice = $basePrice;
         $subtotal = $this->_calculator->round($item->getRowTotal());
-        $taxSubtotal = $subtotal;
         $baseSubtotal = $this->_calculator->round($item->getBaseRowTotal());
-        $baseTaxSubtotal = $baseSubtotal;
 
         // if we have a custom price, determine if tax should be based on the original price
         $taxOnOrigPrice = !$this->_helper->applyTaxOnCustomPrice($this->_store) && $item->hasCustomPrice();

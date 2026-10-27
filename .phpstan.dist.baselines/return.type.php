@@ -32,21 +32,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/Mage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Roles::getResourcesList() should return array|Varien_Simplexml_Element but returns array|Varien_Simplexml_Element|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Roles::getResourcesList2D() should return array|Varien_Simplexml_Element but returns array|Varien_Simplexml_Element|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Roles::getResourcesTree() should return array|Varien_Simplexml_Element but returns array|Varien_Simplexml_Element|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main::_getSetId() should return int but returns int|string|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Main.php',
@@ -2940,11 +2925,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Ups::getCode() should return array|false but returns array{\'01\': string, \'02\': string, \'03\': string, \'07\': string, \'08\': string, 11: string, 12: string, 13: string, ...}|array{\'01\': string, \'02\': string, \'03\': string, \'07\': string, \'08\': string, 12: string, 14: string, 54: string, ...}|array{\'01\': string, \'02\': string, \'07\': string, \'08\': string, 11: string, 12: string, 14: string, 65: string}|array{\'07\': string, \'08\': string, 11: string, 54: string, 65: string, 82: string, 83: string, 84: string, ...}|array{\'07\': string, \'08\': string, 11: string, 54: string, 65: string}|array{containers: array{\'00\'}, filters: array{within_us: array{method: array{\'01\', \'13\', \'12\', \'59\', \'03\', \'14\', \'02\'}}, from_us: array{method: array{\'07\', \'54\', \'08\', \'65\', \'11\'}}}}|array{containers: array{\'01\', \'04\'}, filters: array{within_us: array{method: array{\'01\', \'14\', \'02\', \'59\', \'13\'}}, from_us: array{method: array{\'07\', \'54\', \'65\'}}}}|array{containers: array{\'04\'}, filters: array{within_us: array{method: array{}}, from_us: array{method: array{\'08\'}}}}|array{containers: array{\'24\', \'25\'}, filters: array{within_us: array{method: array{}}, from_us: array{method: array{\'07\', \'54\', \'65\'}}}}|array{containers: array{\'2a\', \'2b\', \'2c\', \'03\'}, filters: array{within_us: array{method: array{\'01\', \'13\', \'14\', \'02\', \'59\', \'13\'}}, from_us: array{method: array{\'07\', \'54\', \'08\', \'65\'}}}}|array{label: \'Customer Counter\', code: \'03\'}|array{label: \'Letter Center\', code: \'19\'}|array{label: \'On Call Air\', code: \'07\'}|array{label: \'One Time Pickup\', code: \'06\'}|array{label: \'Regular Daily Pickup\', code: \'01\'}|string|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Usps::getCode() should return array<string, mixed>|bool but returns array<int|string, array<string, array<int|string, array<string, list<string>>|string>>|string>.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Usps::getCode() should return array<string, mixed>|bool but returns array<string, array<int|string, array<string, list<string>>|string>>|string|false.',

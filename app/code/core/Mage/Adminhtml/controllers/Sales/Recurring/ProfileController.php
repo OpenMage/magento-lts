@@ -123,7 +123,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             Mage::logException($exception);
         }
 
-        if ($profile) {
+        if ($profile !== null) {
             $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
             $this->_redirect('*/*/');
@@ -153,7 +153,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             Mage::logException($exception);
         }
 
-        if ($profile) {
+        if ($profile !== null) {
             $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
             $this->_redirect('*/*/');

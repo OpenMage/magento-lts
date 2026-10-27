@@ -1292,16 +1292,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Block/Widget/Name.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Customer_Model_Attribute given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Helper/Address.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, string given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Helper/Address.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, int given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Address/Abstract.php',

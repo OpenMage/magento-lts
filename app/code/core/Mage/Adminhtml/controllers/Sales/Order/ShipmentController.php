@@ -601,7 +601,6 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $shipment = $this->_initShipment();
             $labelContent = $shipment->getShippingLabel();
             if ($labelContent) {
-                $pdfContent = null;
                 if (stripos($labelContent, '%PDF-') !== false) {
                     $pdfContent = $labelContent;
                 } else {

@@ -171,7 +171,6 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                 'options'   => [],
             ];
 
-            $optionPrices = [];
             $prices = $attribute->getPrices();
             if (is_array($prices)) {
                 foreach ($prices as $value) {
@@ -212,7 +211,6 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                         ),
                         'products'  => $productsIndex,
                     ];
-                    $optionPrices[] = $configurablePrice;
                 }
             }
 

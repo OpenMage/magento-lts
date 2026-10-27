@@ -645,8 +645,6 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomerVatClass($customerCountryCode, $vatValidationResult, $store = null)
     {
-        $vatClass = null;
-
         $isVatNumberValid = $vatValidationResult->getIsValid();
 
         if (is_string($customerCountryCode)
@@ -678,7 +676,6 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getVatValidationUserMessage($customerAddress, $customerGroupAutoAssignDisabled, $validationResult)
     {
-        $message = '';
         $isError = true;
         $customerVatClass = $this->getCustomerVatClass($customerAddress->getCountryId(), $validationResult);
         $groupAutoAssignDisabled = Mage::getStoreConfigFlag(self::XML_PATH_CUSTOMER_VIV_GROUP_AUTO_ASSIGN);

@@ -50,7 +50,7 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     public function getCounts($dateFrom, $dateTo, $store)
     {
         $adapter    = $this->_getReadAdapter();
-        $result     = ['customers' => 0, 'visitors' => 0];
+        $result     = [];
         $select     = $adapter->select()
             ->from($this->getTable('log/customer'), 'visitor_id')
             ->where('login_at >= ?', $dateFrom)

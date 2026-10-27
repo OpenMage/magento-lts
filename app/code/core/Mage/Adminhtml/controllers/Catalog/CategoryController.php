@@ -347,7 +347,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
                 $this->_getSession()->addError($exception->getMessage())
                     ->setCategoryData($data);
-                $refreshTree = 'false';
             }
         }
 

@@ -224,6 +224,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
 
         $request ??= Mage::app()->getFrontController()->getRequest();
 
+        // @phpstan-ignore assign.unused
         $response ??= Mage::app()->getFrontController()->getResponse();
 
         if (is_null($this->getStoreId()) || $this->getStoreId() === false) {

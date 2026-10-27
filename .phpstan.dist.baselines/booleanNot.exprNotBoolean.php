@@ -812,31 +812,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/RatingController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/CustomerController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/ReviewController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/TagController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, int|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Billing/AgreementController.php',
@@ -3607,11 +3582,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Translate.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, int<0, max> given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Url/Rewrite.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Url/Rewrite/Collection.php',
@@ -3630,21 +3600,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Session.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Session/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Session/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, string|false given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Session/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, bool|null given.',
@@ -3850,11 +3805,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Block/Address/Renderer/Default.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Helper/Address.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a negated boolean, mixed given.',

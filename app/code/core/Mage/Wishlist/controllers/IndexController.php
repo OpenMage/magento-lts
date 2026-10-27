@@ -96,7 +96,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             }
 
             if (!$wishlist->getId() || $wishlist->getCustomerId() != $customerId) {
-                $wishlist = null;
                 Mage::throwException(
                     Mage::helper('wishlist')->__("Requested wishlist doesn't exist"),
                 );
@@ -328,6 +327,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             return;
         }
 
+        $wishlist = false;
         try {
             $id = (int) $this->getRequest()->getParam('id');
             /** @var Mage_Wishlist_Model_Item $item */
@@ -359,7 +359,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             Mage::logException($exception);
         }
 
-        $this->_redirect('*/*', ['wishlist_id' => $wishlist->getId()]);
+        if ($wishlist !== false) {
+            $this->_redirect('*/*', ['wishlist_id' => $wishlist->getId()]);
+        } else {
+            $this->_redirect('*/*/');
+        }
     }
 
     /**
