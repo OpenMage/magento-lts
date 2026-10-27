@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
+/**
+ * @var Mage_Paypal_Block_Form $this
+ */
+?>
+
+<script type="text/javascript">
+    new PayPalPayment(
+        <?php echo json_encode([
+            'formKey' => $this->getFormKey(),
+            'methodCode' => $this->getMethodCode(),
+            'sdk' => $this->getSdkConfig(),
+            'createOrderUrl' => $this->getUrl('paypal/payment/create'),
+            'captureUrl' => $this->getUrl('paypal/payment/process'),
+            'cancelUrl' => $this->getUrl('paypal/payment/cancel'),
+            'errorMessage' => $this->__('An error occurred while processing your payment. Please try again.'),
+            'containerId' => 'paypal-button-container',
+            'reviewButtonContainerId' => 'review-buttons-container'
+        ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>);
+</script>

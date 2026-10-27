@@ -7,133 +7,42 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 /**
- * PayPal module observer
- *
- * @package    Mage_Paypal
+ * PayPal event observers
  */
 class Mage_Paypal_Model_Observer
 {
     /**
-     * Goes to reports.paypal.com and fetches Settlement reports.
-     */
-    public function fetchReports()
-    {
-        try {
-            $reports = Mage::getModel('paypal/report_settlement');
-            /** @var Mage_Paypal_Model_Report_Settlement $reports */
-            $credentials = $reports->getSftpCredentials(true);
-            foreach ($credentials as $config) {
-                try {
-                    $reports->fetchAndSave($config);
-                } catch (Exception $exception) {
-                    Mage::logException($exception);
-                }
-            }
-        } catch (Exception $exception) {
-            Mage::logException($exception);
-        }
-    }
-
-    /**
-     * Clean unfinished transaction
+     * Refuse to convert a quote into an order when PayPal is the selected
+     * method but PayPal has not charged or authorized it yet.
      *
-     * @return $this
-     */
-    #[Deprecated(since: OpenMageVersionInterface::VERSION_1_6_2_0)]
-    public function cleanTransactions()
-    {
-        return $this;
-    }
-
-    /**
-     * Save order into registry to use it in the overloaded controller.
+     * The REST flow (Placement) records the PayPal capture or authorization
+     * on the quote payment before placing the order. Third-party checkouts
+     * (one-step checkouts and the like) can submit the quote directly through
+     * the generic sales service, which would otherwise create an unpaid order
+     * that looks paid. A created PayPal order alone is not enough: the buyer
+     * may never have approved it.
      *
-     * @return $this
+     * Observes: sales_model_service_quote_submit_before
      */
-    public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
+    public function requirePaypalOrderReference(Varien_Event_Observer $observer): void
     {
-        /** @var Mage_Sales_Model_Order $order */
-        $order = $observer->getEvent()->getDataByKey('order');
-        Mage::register('hss_order', $order, true);
-
-        return $this;
-    }
-
-    /**
-     * Set data for response of frontend saveOrder action
-     *
-     * @return $this
-     */
-    public function setResponseAfterSaveOrder(Varien_Event_Observer $observer)
-    {
-        /** @var Mage_Sales_Model_Order $order */
-        $order = Mage::registry('hss_order');
-
-        if ($order && $order->getId()) {
-            $payment = $order->getPayment();
-            if ($payment && in_array($payment->getMethod(), Mage::helper('paypal/hss')->getHssMethods())) {
-                /** @var Mage_Core_Controller_Varien_Action $controller */
-                $controller = $observer->getEvent()->getDataByKey('controller_action');
-                $result = Mage::helper('core')->jsonDecode(
-                    $controller->getResponse()->getBody('default'),
-                    Zend_Json::TYPE_ARRAY,
-                );
-
-                if (empty($result['error'])) {
-                    $controller->loadLayout('checkout_onepage_review');
-                    $html = $controller->getLayout()->getBlock('paypal.iframe')->toHtml();
-                    $result['update_section'] = [
-                        'name' => 'paypaliframe',
-                        'html' => $html,
-                    ];
-                    $result['redirect'] = false;
-                    $result['success'] = false;
-                    $controller->getResponse()->clearHeader('Location');
-                    $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-                }
-            }
+        $quote = $observer->getEvent()->getQuote();
+        if (!$quote instanceof Mage_Sales_Model_Quote) {
+            return;
         }
 
-        return $this;
-    }
-
-    /**
-     * Load country dependent PayPal solutions system configuration
-     */
-    public function loadCountryDependentSolutionsConfig(Varien_Event_Observer $observer)
-    {
-        $countryCode = Mage::helper('paypal')->getConfigurationCountryCode();
-        $paymentGroups   = $observer->getEvent()->getConfig()->getNode('sections/payment/groups');
-        $paymentsConfigs = $paymentGroups->xpath('paypal_payments/*/backend_config/' . $countryCode);
-        if ($paymentsConfigs) {
-            foreach ($paymentsConfigs as $config) {
-                $parent = $config->getParent()->getParent();
-                $parent->extend($config, true);
-            }
+        $payment = $quote->getPayment();
+        if ($payment->getMethod() !== 'paypal') {
+            return;
         }
 
-        $payments = $paymentGroups->xpath('paypal_payments/*');
-        foreach ($payments as $payment) {
-            if ((int) $payment->include) {
-                $fields = $paymentGroups->xpath($payment->group . '/fields');
-                if (isset($fields[0])) {
-                    $fields[0]->appendChild($payment, true);
-                }
-            }
+        if (!Mage::getSingleton('paypal/helper')->hasRecordedPaypalCharge($payment)) {
+            Mage::throwException(
+                Mage::helper('paypal')->__('Please complete the PayPal payment before placing the order.'),
+            );
         }
-    }
-
-    /**
-     * Update transaction with HTML representation of txn_id
-     */
-    public function observeHtmlTransactionId(Varien_Event_Observer $observer)
-    {
-        /** @var Varien_Object $transaction */
-        $transaction = $observer->getEvent()->getTransaction();
-        $transaction->setHtmlTxnId(Mage::helper('paypal')->getHtmlTransactionId(
-            $observer->getEvent()->getPayment()->getMethodInstance()->getCode(),
-            $transaction->getTxnId(),
-        ));
     }
 }

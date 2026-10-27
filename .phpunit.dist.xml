@@ -185,9 +185,6 @@
         <testsuite name="Mage_Paypal">
             <directory>tests/unit/Mage/Paypal</directory>
         </testsuite>
-        <testsuite name="Mage_PaypalUk">
-            <directory>tests/unit/Mage/PaypalUk</directory>
-        </testsuite>
         <testsuite name="Mage_Persistent">
             <directory>tests/unit/Mage/Persistent</directory>
         </testsuite>

@@ -167,42 +167,6 @@
         li {
             display: inline-block;
         }
-
-        .bml_button {
-            display: inline-block;
-            vertical-align: top;
-
-            img {
-                display: block;
-            }
-        }
-
-        .paypal-logo .paypal-or {
-            margin-top: 5px;
-        }
-    }
-
-    &.bottom,
-    &.minicart {
-        .paypal-logo {
-            a {
-                display: block;
-            }
-        }
-        .paypal-or {
-            margin: 0px;
-            display: block;
-            text-align: center;
-        }
-    }
-}
-
-@include bp(min-width, 741px) {
-    .checkout-types.bottom {
-        .paypal-or {
-            text-align: right;
-            padding-right: 70px;
-        }
     }
 }
 
@@ -214,14 +178,6 @@
     .checkout-types {
         float: none;
         text-align: center;
-
-        &.bottom,
-        &.minicart {
-            .paypal-or {
-                width: auto;
-                float: none;
-            }
-        }
     }
 
     .checkout-types li {

@@ -45,10 +45,10 @@ final class TemplateTest extends OpenMageTest
     public static function provideGetConfigDirectives(): Generator
     {
         yield 'plain field' => ['{{var store.getConfig("general/store_information/name")}}', 'value-of:general/store_information/name'];
-        yield 'encrypted field' => ['{{var store.getConfig("paypal/wpp/api_password")}}', ''];
-        yield 'lower case method' => ['{{var store.getconfig("paypal/wpp/api_password")}}', ''];
-        yield 'upper case method' => ['{{var store.GETCONFIG("paypal/wpp/api_password")}}', ''];
-        yield 'mixed case method' => ['{{var store.GetConfig("paypal/wpp/api_signature")}}', ''];
-        yield 'encrypted parent group' => ['{{var store.getConfig("paypal/wpp")}}', ''];
+        yield 'encrypted field' => ['{{var store.getConfig("payment/paypal/client_secret")}}', ''];
+        yield 'lower case method' => ['{{var store.getconfig("payment/paypal/client_secret")}}', ''];
+        yield 'upper case method' => ['{{var store.GETCONFIG("payment/paypal/client_secret")}}', ''];
+        yield 'mixed case method' => ['{{var store.GetConfig("carriers/ups/password")}}', ''];
+        yield 'encrypted parent group' => ['{{var store.getConfig("payment/paypal")}}', ''];
     }
 }

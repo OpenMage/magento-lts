@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
+/**
+ * @see Mage_Paypal_Block_Adminhtml_Info
+ * @var Mage_Paypal_Block_Adminhtml_Info $this
+ */
+?>
+<div class="paypal-info">
+    <div class="paypal-method">
+        <?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?>
+    </div>
+    <?php if ($this->getTransactionId()): ?>
+        <div class="paypal-transaction">
+            <strong><?php echo $this->__('Transaction ID') ?>:</strong>
+            <?php if ($this->getTransactionUrl()): ?>
+                <a href="<?php echo $this->escapeHtml($this->getTransactionUrl()) ?>" target="_blank">
+                    <?php echo $this->escapeHtml($this->getTransactionId()) ?>
+                </a>
+            <?php else: ?>
+                <?php echo $this->escapeHtml($this->getTransactionId()) ?>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->getPaymentInfo()): ?>
+        <div class="paypal-payment-info">
+            <dl class="payment-details">
+                <?php foreach ($this->getPaymentInfo() as $label => $value): ?>
+                    <dt><?php echo $this->escapeHtml($label) ?></dt>
+                    <dd><?php echo $this->escapeHtml($value) ?></dd>
+                <?php endforeach; ?>
+            </dl>
+        </div>
+    <?php endif; ?>
+</div>
+<style>
+    .paypal-transaction {
+        margin-bottom: 10px;
+    }
+
+    .paypal-payment-info .payment-details {
+        margin: 0;
+    }
+
+    .paypal-payment-info dt {
+        font-weight: bold;
+        display: inline;
+        color: #333;
+    }
+
+    .paypal-payment-info dt:after {
+        content: ": ";
+    }
+
+    .paypal-payment-info dd {
+        display: inline;
+        margin: 0;
+        color: #666;
+    }
+
+    .paypal-payment-info dd:after {
+        content: "\A";
+        white-space: pre;
+    }
+
+    .paypal-reauthorize {
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 1px solid #d6d6d6;
+    }
+
+    .paypal-reauthorize .note {
+        margin-top: 5px;
+        font-style: italic;
+        color: #666;
+    }
+
+    .paypal-method {
+        margin-bottom: 10px;
+    }
+</style>

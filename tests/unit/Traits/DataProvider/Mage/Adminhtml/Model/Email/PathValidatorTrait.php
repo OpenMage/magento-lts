@@ -17,20 +17,20 @@ trait PathValidatorTrait
 {
     public static function provideEncryptedConfigPaths(): Generator
     {
-        yield 'system xml encrypted field' => ['paypal/wpp/api_password'];
-        yield 'default config encrypted field' => ['payment/payflow_link/pwd'];
-        yield 'default config encrypted api username' => ['paypal/wpp/api_username'];
-        yield 'default config encrypted api signature' => ['paypal/wpp/api_signature'];
-        yield 'config_path override in nested system xml group' => ['paypal/fetch_reports/ftp_password'];
-        yield 'parent group returns decrypted children' => ['paypal/wpp'];
-        yield 'parent section returns decrypted children' => ['paypal'];
-        yield 'surrounding slashes' => ['/paypal/wpp/api_password/'];
+        yield 'system xml encrypted field' => ['payment_services/centinel/password'];
+        yield 'default config encrypted field' => ['carriers/ups/password'];
+        yield 'default config encrypted api username' => ['carriers/ups/username'];
+        yield 'default config encrypted api key' => ['carriers/ups/access_license_number'];
+        yield 'config_path override in nested system xml group' => ['payment/paypal/client_secret'];
+        yield 'parent group returns decrypted children' => ['payment/paypal'];
+        yield 'parent section returns decrypted children' => ['payment'];
+        yield 'surrounding slashes' => ['/payment/paypal/client_secret/'];
     }
 
     public static function provideUnencryptedConfigPaths(): Generator
     {
         yield 'store name' => ['general/store_information/name'];
-        yield 'sibling sharing a prefix' => ['paypal/wpp/api_password_not'];
+        yield 'sibling sharing a prefix' => ['payment/paypal/client_secret_not'];
         yield 'empty' => [''];
     }
 }

@@ -67,11 +67,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Page/Block/Html/Breadcrumbs.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only numeric types are allowed in +, int<0, max>|false given on the left side.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only numeric types are allowed in +, float|null given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Item.php',
