@@ -155,7 +155,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
                 return $resource;
             }
 
-            return $result === null ? [] : $result;
+            return $result ?? [];
         }
 
         foreach ($children as $child) {
@@ -166,7 +166,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             return $resource;
         }
 
-        return $result === null ? [] : $result;
+        return $result ?? [];
     }
 
     /**

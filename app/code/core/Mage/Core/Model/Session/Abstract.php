@@ -402,9 +402,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function getEncryptedSessionId()
     {
-        if (self::$_encryptedSessionId === null) {
-            self::$_encryptedSessionId = $this->getSessionId();
-        }
+        self::$_encryptedSessionId ??= $this->getSessionId();
 
         return self::$_encryptedSessionId;
     }

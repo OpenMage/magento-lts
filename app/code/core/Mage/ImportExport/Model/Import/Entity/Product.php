@@ -1355,9 +1355,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         static $tableName = null;
 
-        if ($tableName === null) {
-            $tableName = Mage::getModel('importexport/import_proxy_product_resource')->getProductCategoryTable();
-        }
+        $tableName ??= Mage::getModel('importexport/import_proxy_product_resource')->getProductCategoryTable();
 
         if ($categoriesData !== []) {
             $categoriesIn = [];
@@ -1400,9 +1398,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         static $entityTable = null;
 
-        if ($entityTable === null) {
-            $entityTable = Mage::getModel('importexport/import_proxy_product_resource')->getEntityTable();
-        }
+        $entityTable ??= Mage::getModel('importexport/import_proxy_product_resource')->getEntityTable();
 
         if ($entityRowsUp !== []) {
             $this->_connection->insertOnDuplicate(
@@ -1726,10 +1722,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         static $tableName = null;
 
-        if ($tableName === null) {
-            $tableName = Mage::getModel('importexport/import_proxy_product_resource')
-                    ->getTable('catalog/product_attribute_tier_price');
-        }
+        $tableName ??= Mage::getModel('importexport/import_proxy_product_resource')
+                ->getTable('catalog/product_attribute_tier_price');
 
         if ($tierPriceData !== []) {
             $tierPriceIn  = [];
@@ -1771,10 +1765,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         static $tableName = null;
 
-        if ($tableName === null) {
-            $tableName = Mage::getModel('importexport/import_proxy_product_resource')
-                ->getTable('catalog/product_attribute_group_price');
-        }
+        $tableName ??= Mage::getModel('importexport/import_proxy_product_resource')
+            ->getTable('catalog/product_attribute_group_price');
 
         if ($groupPriceData !== []) {
             $groupPriceIn = [];
@@ -1870,15 +1862,11 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         static $mediaValueTableName = null;
         static $productId = null;
 
-        if ($mediaGalleryTableName === null) {
-            $mediaGalleryTableName = Mage::getModel('importexport/import_proxy_product_resource')
-                    ->getTable('catalog/product_attribute_media_gallery');
-        }
+        $mediaGalleryTableName ??= Mage::getModel('importexport/import_proxy_product_resource')
+                ->getTable('catalog/product_attribute_media_gallery');
 
-        if ($mediaValueTableName === null) {
-            $mediaValueTableName = Mage::getModel('importexport/import_proxy_product_resource')
-                    ->getTable('catalog/product_attribute_media_gallery_value');
-        }
+        $mediaValueTableName ??= Mage::getModel('importexport/import_proxy_product_resource')
+                ->getTable('catalog/product_attribute_media_gallery_value');
 
         foreach ($mediaGalleryData as $productSku => $mediaGalleryRows) {
             $productId = $this->_newSku[$productSku]['entity_id'];
@@ -1947,9 +1935,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     {
         static $tableName = null;
 
-        if ($tableName === null) {
-            $tableName = Mage::getModel('importexport/import_proxy_product_resource')->getProductWebsiteTable();
-        }
+        $tableName ??= Mage::getModel('importexport/import_proxy_product_resource')->getProductWebsiteTable();
 
         if ($websiteData !== []) {
             $websitesData = [];

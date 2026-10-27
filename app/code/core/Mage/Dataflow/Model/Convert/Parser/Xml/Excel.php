@@ -78,6 +78,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             if (!is_string($xmlOriginalString)) {
                 break;
             }
+
             $xmlString .= $xmlOriginalString;
             if (!$isWorksheet) {
                 $strposS = strpos($xmlString, '<Worksheet');
