@@ -8,4 +8,10 @@
             <action method="addItem"><type>skin_css</type><name>calendar-blue2.css</name><params/></action>
         </reference>
     </default>
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>configuration.css</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/configuration.js</name></action>
+        </reference>
+    </adminhtml_system_config_edit>
 </layout>
