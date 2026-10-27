@@ -11,6 +11,7 @@
  * Quote addresses collection
  *
  * @package    Mage_Sales
+ * @extends Mage_Eav_Model_Entity_Collection_Abstract<Mage_Sales_Model_Quote_Payment>
  */
 class Mage_Sales_Model_Entity_Quote_Payment_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {

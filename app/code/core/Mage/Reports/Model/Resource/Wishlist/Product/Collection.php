@@ -11,8 +11,9 @@
  * Wishlist Report collection
  *
  * @package    Mage_Reports
+ * @extends Mage_Catalog_Model_Resource_Collection_Abstract<Mage_Wishlist_Model_Wishlist>
  */
-class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishlist_Model_Resource_Product_Collection
+class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
     /**
      * @inheritDoc
