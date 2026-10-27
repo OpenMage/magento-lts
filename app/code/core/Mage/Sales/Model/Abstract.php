@@ -23,6 +23,8 @@
  */
 abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
 {
+    public const XML_PATH_EMAIL_ENABLE_QUEUE_USAGE = 'sales_email/general/enable_queue_usage';
+
     /**
      * Get object store identifier
      *
