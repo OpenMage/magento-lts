@@ -33,7 +33,11 @@ final class DataTest extends OpenMageTest
      */
     public function testGenerateResetPasswordLinkToken(): void
     {
-        self::assertIsString(self::$subject->generateResetPasswordLinkToken());
+        $firstToken = self::$subject->generateResetPasswordLinkToken();
+        $secondToken = self::$subject->generateResetPasswordLinkToken();
+
+        self::assertMatchesRegularExpression('/^[a-f0-9]{32}$/', $firstToken);
+        self::assertNotSame($firstToken, $secondToken);
     }
 
     /**

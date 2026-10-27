@@ -17,6 +17,23 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     public const ADMIN_RESOURCE = 'system/api/rest_roles';
 
     /**
+     * @inheritDoc
+     */
+    #[Override]
+    protected function _isAllowed(): bool
+    {
+        $action = strtolower($this->getRequest()->getActionName());
+        $aclPath = match ($action) {
+            'new' => self::ADMIN_RESOURCE . '/add',
+            'save' => self::ADMIN_RESOURCE . ((bool) $this->getRequest()->getParam('id') ? '/edit' : '/add'),
+            'delete' => self::ADMIN_RESOURCE . '/delete',
+            default => self::ADMIN_RESOURCE,
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
+    }
+
+    /**
      * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action

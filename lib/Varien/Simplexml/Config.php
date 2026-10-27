@@ -348,9 +348,7 @@ class Varien_Simplexml_Config
             return $this;
         }
 
-        if (is_null($tags)) {
-            $tags = $this->_cacheTags;
-        }
+        $tags ??= $this->_cacheTags;
 
         if (!is_null($this->getCacheChecksum())) {
             $this->_saveCache($this->getCacheChecksum(), $this->getCacheChecksumId(), $tags, $this->getCacheLifetime());

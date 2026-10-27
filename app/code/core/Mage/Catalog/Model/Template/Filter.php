@@ -93,9 +93,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
     public function storeDirective($construction)
     {
         $params = $this->_getIncludeParameters($construction[2]);
-        if (!isset($params['_query'])) {
-            $params['_query'] = [];
-        }
+        $params['_query'] ??= [];
 
         foreach ($params as $key => $value) {
             if (str_starts_with($key, '_query_')) {

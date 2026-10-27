@@ -71,7 +71,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         ;
 
         $newurl = Mage::getUrl('rss/catalog/special/store_id/' . $storeId);
-        $title = Mage::helper('rss')->__('%s - Special Products', Mage::app()->getStore()->getFrontendName());
+        $title = Mage::helper('rss')->__('%s - Special Products', $this->escapeHtml(Mage::app()->getStore()->getFrontendName()));
         $lang = Mage::getStoreConfig('general/locale/code');
 
         $rssObj = Mage::getModel('rss/rss');
@@ -109,8 +109,8 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
                     '<table><tr>
                     <td><a href="%s"><img src="%s" alt="" border="0" align="left" height="75" width="75" /></a></td>
                     <td style="text-decoration:none;">%s',
-                    $product->getProductUrl(),
-                    $imageHelper->init($product, 'thumbnail')->resize(75, 75),
+                    $this->escapeUrl($product->getProductUrl()),
+                    $this->escapeUrl($imageHelper->init($product, 'thumbnail')->resize(75, 75)),
                     $outputHelper->productAttribute(
                         $product,
                         $product->getDescription(),
@@ -121,7 +121,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
                 // add price data if needed
                 if ($product->getAllowedPriceInRss()) {
                     if (Mage::helper('catalog')->canApplyMsrp($product)) {
-                        $html .= '<br/><a href="' . $product->getProductUrl() . '">'
+                        $html .= '<br/><a href="' . $this->escapeUrl($product->getProductUrl()) . '">'
                             . $this->__('Click for price') . '</a>';
                     } else {
                         $special = '';
@@ -141,7 +141,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
                 $html .= '</td></tr></table>';
 
                 $rssObj->_addEntry([
-                    'title'       => $product->getName(),
+                    'title'       => $this->escapeHtml($product->getName()),
                     'link'        => $product->getProductUrl(),
                     'description' => $html,
                 ]);
@@ -159,9 +159,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      */
     public function addSpecialXmlCallback($args)
     {
-        if (!isset(self::$_currentDate)) {
-            self::$_currentDate = new Zend_Date();
-        }
+        self::$_currentDate ??= new Zend_Date();
 
         // dispatch event to determine whether the product will eventually get to the result
         $product = new Varien_Object(['allowed_in_rss' => true, 'allowed_price_in_rss' => true]);

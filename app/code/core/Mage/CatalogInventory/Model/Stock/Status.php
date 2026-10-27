@@ -94,9 +94,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      */
     public function getWebsites($websiteId = null)
     {
-        if (is_null($this->_websites)) {
-            $this->_websites = $this->getResource()->getWebsiteStores();
-        }
+        $this->_websites ??= $this->getResource()->getWebsiteStores();
 
         $websites = $this->_websites;
         if (!is_null($websiteId) && isset($this->_websites[$websiteId])) {
@@ -223,9 +221,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      */
     public function updateStatus($productId, $productType = null, $websiteId = null)
     {
-        if (is_null($productType)) {
-            $productType = $this->getProductType($productId);
-        }
+        $productType ??= $this->getProductType($productId);
 
         $item = $this->getStockItemModel()->loadByProduct($productId);
 
@@ -337,7 +333,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
             $parentIds = array_merge($parentIds, $typeInstance->getParentIdsByChild($productId));
         }
 
-        if (!$parentIds) {
+        if ($parentIds === []) {
             return $this;
         }
 
@@ -439,9 +435,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      */
     public function addStockStatusToProducts($productCollection, $websiteId = null, $stockId = null)
     {
-        if ($stockId === null) {
-            $stockId = Mage_CatalogInventory_Model_Stock::DEFAULT_STOCK_ID;
-        }
+        $stockId ??= Mage_CatalogInventory_Model_Stock::DEFAULT_STOCK_ID;
 
         if ($websiteId === null) {
             $websiteId = Mage::app()->getStore()->getWebsiteId();
