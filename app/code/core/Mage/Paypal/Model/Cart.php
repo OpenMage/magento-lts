@@ -287,7 +287,6 @@ class Mage_Paypal_Model_Cart
         $lastRegularItemKey = array_key_last($this->_items);
 
         // regular totals
-        $shippingDescription = '';
         if ($this->_salesEntity instanceof Mage_Sales_Model_Order) {
             $shippingDescription = $this->_salesEntity->getShippingDescription();
             $this->_totals = [

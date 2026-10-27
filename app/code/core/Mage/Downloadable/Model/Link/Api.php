@@ -42,7 +42,6 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             $tmpPath = Mage_Downloadable_Model_Link::getBaseSampleTmpPath();
         }
 
-        $result = [];
         try {
             /** @var Mage_Downloadable_Model_Link_Api_Uploader $uploader */
             $uploader = Mage::getModel('downloadable/link_api_uploader', $fileInfo);

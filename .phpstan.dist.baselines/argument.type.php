@@ -47,11 +47,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Block.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$arrays of function array_intersect expects array, array|Varien_Simplexml_Element given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Rules.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $encodedValue of method Mage_Core_Helper_Data::jsonDecode() expects string, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Variable.php',
@@ -75,11 +70,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $subject of function preg_split expects string, string|true given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/AdminNotification/Model/Feed.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function array_key_exists expects array, array|Varien_Simplexml_Element|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Api/Tab/Rolesedit.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $groupId of method Mage_Eav_Model_Entity_Attribute_Abstract::isInGroup() expects int, int|string|null given.',
@@ -190,11 +180,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $parent of method Mage_Adminhtml_Block_Page_Menu::_buildMenuArray() expects Varien_Simplexml_Element, Varien_Simplexml_Element|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Page/Menu.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function array_key_exists expects array, array|Varien_Simplexml_Element given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Rolesedit.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $separator of function explode expects non-empty-string, string given.',
@@ -827,11 +812,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sessionId of method Mage_Api_Model_Server_Handler_Abstract::_startSession() expects string|null, stdClass|string|null given.',
-    'count' => 5,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $xml of method Mage_Api_Model_Resource_Abstract::setResourceConfig() expects Varien_Simplexml_Element, object given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
@@ -933,16 +913,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $node of method Mage_Api2_Model_Acl_Global_Rule_Tree::_addPrivileges() expects Varien_Simplexml_Element, array|Varien_Simplexml_Element given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $name of method Mage_Api2_Model_Acl_Global_Rule_Tree::_addOperations() expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $name of method Mage_Api2_Model_Acl_Global_Rule_Tree::_addPrivileges() expects string, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php',
 ];

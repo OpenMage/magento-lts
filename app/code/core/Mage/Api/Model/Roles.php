@@ -65,7 +65,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return array|false|Varien_Simplexml_Element
+     * @return false|Varien_Simplexml_Element
      */
     public function getResourcesTree()
     {
@@ -73,7 +73,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return array|false|Varien_Simplexml_Element
+     * @return array
      */
     public function getResourcesList()
     {
@@ -81,7 +81,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return array|false|Varien_Simplexml_Element
+     * @return array
      */
     public function getResourcesList2D()
     {
@@ -97,12 +97,12 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param  null|string                          $parentName
-     * @param  int                                  $level
-     * @param  null|bool                            $represent2Darray
-     * @param  bool                                 $rawNodes
-     * @param  string                               $module
-     * @return array|false|Varien_Simplexml_Element
+     * @param  null|string                                                  $parentName
+     * @param  int                                                          $level
+     * @param  null|bool                                                    $represent2Darray
+     * @param  bool                                                         $rawNodes
+     * @param  string                                                       $module
+     * @return ($rawNodes is true ? Varien_Simplexml_Element|false : array)
      */
     protected function _buildResourcesArray(
         ?Varien_Simplexml_Element $resource = null,
@@ -113,6 +113,11 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
         $module = 'adminhtml'
     ) {
         static $result;
+
+        if (!$rawNodes) {
+            $result = [];
+        }
+
 
         if (is_null($resource)) {
             $resource = Mage::getSingleton('api/config')->getNode('acl/resources');
@@ -136,7 +141,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
                 $resource->title = Mage::helper($module)->__((string) $resource->title);
 
                 if (is_null($represent2Darray)) {
-                    $result[$resourceName]['name']  = (string) $resource->title;
+                    $result[$resourceName]['name']  = (string) $resource->title; /** @phpstan-ignore offsetAssign.dimType */
                     $result[$resourceName]['level'] = $level;
                 } else {
                     $result[] = $resourceName;
@@ -150,7 +155,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
                 return $resource;
             }
 
-            return $result;
+            return $result === null ? [] : $result;
         }
 
         foreach ($children as $child) {
@@ -161,7 +166,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             return $resource;
         }
 
-        return $result;
+        return $result === null ? [] : $result;
     }
 
     /**

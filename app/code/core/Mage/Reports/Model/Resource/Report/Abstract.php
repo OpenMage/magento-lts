@@ -216,7 +216,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 $selectResult = [];
                 $query = $this->_getReadAdapter()->query($select);
                 while ($date = $query->fetchColumn()) {
-                    $selectResult[] = $date;
+                    $selectResult[] = (string) $date;
                 }
             } catch (Exception) {
                 $selectResult = false;

@@ -355,7 +355,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     public function getAllowedMethods()
     {
         $contentType = $this->getConfigData('content_type');
-        $allowedMethods = [];
         if ($this->_isDomestic) {
             $allowedMethods = array_merge(
                 explode(',', $this->getConfigData('doc_methods')),

@@ -473,7 +473,6 @@ class Mage_Paypal_Model_Info
      */
     protected function _getValue($value, $key)
     {
-        $label = '';
         switch ($key) {
             case 'paypal_avs_code':
                 $label = $this->_getAvsLabel($value);
