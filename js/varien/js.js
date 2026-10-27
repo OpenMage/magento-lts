@@ -280,10 +280,12 @@ if (typeof Ajax !== 'undefined' && typeof Ajax.Responders !== 'undefined') {
 /**
  * Run the <script> elements inside a container, as Element.update() did with
  * evalScripts. innerHTML inserts scripts inert; re-creating them executes them.
+ * Like Prototype, only inline scripts run: a <script src> stays inert.
  */
 Varien.evalScripts = function(container) {
     if (!container) return;
     Array.from(container.querySelectorAll('script')).forEach(function(old) {
+        if (old.hasAttribute('src')) return;
         const s = document.createElement('script');
         Array.from(old.attributes).forEach(function(attr) {
             s.setAttribute(attr.name, attr.value);
