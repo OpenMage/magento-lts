@@ -1464,6 +1464,16 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             ->setSkipImagesOnDuplicate($newProduct->getSkipImagesOnDuplicate())
             ->duplicate($this->getId(), $newProduct->getId());
 
+        $attributes = $this->getTypeInstance(true)->getSetAttributes($this);
+        // duplicate media after $this->getResource()->duplicate()
+        if (!$newProduct->getSkipImagesOnDuplicate() && isset($attributes['media_gallery'])) {
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $mediaGalleryAttribute */
+            $mediaGalleryAttribute = $attributes['media_gallery'];
+            /** @var Mage_Catalog_Model_Product_Attribute_Backend_Media $backend */
+            $backend = $mediaGalleryAttribute->getBackend();
+            $backend->duplicate($newProduct);
+        }
+
         // TODO - duplicate product on all stores of the websites it is associated with
         /*if ($storeIds = $this->getWebsiteIds()) {
             foreach ($storeIds as $storeId) {
