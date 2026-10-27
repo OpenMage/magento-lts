@@ -2047,11 +2047,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between int|null and int|null is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and int|string|null is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
@@ -2068,11 +2063,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between (iterable<Mage_Sales_Model_Order_Creditmemo_Comment>&Mage_Sales_Model_Resource_Order_Creditmemo_Comment_Collection)|null and null is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between int|null and int|null is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
 ];
@@ -2095,11 +2085,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and int is not allowed.',
     'count' => 3,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo/Total/Shipping.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between int|null and int|null is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and int is not allowed.',
@@ -2140,11 +2125,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between float and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Pdf/Total/Default.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between int|null and int|null is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Shipment.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and int|string|null is not allowed.',
