@@ -30,7 +30,7 @@ $numColumns = count($this->getColumns());
     <tbody>
     <?php if (($this->getCollection()->getSize()>0) && (!$this->getIsCollapsed())): ?>
     <?php foreach ($this->getCollection() as $_item): ?>
-        <tr title="<?php echo $this->getRowId($_item) ?>">
+        <tr title="<?php echo $this->getRowUrl($_item) ?>">
         <?php $i=0;foreach ($this->getColumns() as $_column): ?>
             <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i === $numColumns?'last':'' ?>"><?php echo (($_html = $_column->getRowField($_item)) != '' ? $_html : '&nbsp;') ?></td>
         <?php endforeach ?>
@@ -47,7 +47,7 @@ $numColumns = count($this->getColumns());
 <?php if($this->canDisplayContainer()): ?>
 <script type="text/javascript">
 //<![CDATA[
-    <?php echo $this->getJsObjectName() ?> = new varienGrid('<?php echo $this->getId() ?>', '<?php echo $this->getGridUrl() ?>', '<?php echo $this->getVarNamePage() ?>', '<?php echo $this->getVarNameSort() ?>', '<?php echo $this->getVarNameDir() ?>', '<?php echo $this->getVarNameFilter() ?>');
+    <?php echo $this->getJsObjectName() ?> = new varienGrid('<?php echo $this->getId() ?>', '<?php echo $this->getAbsoluteGridUrl() ?>', '<?php echo $this->getVarNamePage() ?>', '<?php echo $this->getVarNameSort() ?>', '<?php echo $this->getVarNameDir() ?>', '<?php echo $this->getVarNameFilter() ?>');
     <?php echo $this->getJsObjectName() ?>.useAjax = '<?php echo $this->getUseAjax() ?>';
     <?php if($this->getRowClickCallback()): ?>
         <?php echo $this->getJsObjectName() ?>.rowClickCallback = <?php echo $this->getRowClickCallback() ?>;
