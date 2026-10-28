@@ -152,11 +152,28 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
         }
 
         if (!$this->_container) {
-            $class = $this->getParam('class');
+            $class = (string) $this->getParam('class');
+            self::validateContainerClass($class);
             $this->setContainer(new $class());
         }
 
         return $this->_container;
+    }
+
+    /**
+     * Refuse to instantiate anything that is not a Dataflow container
+     *
+     * The class comes from the type attribute of profile actions XML, which an admin with
+     * the Advanced Profiles permission controls. Without this check any autoloadable class
+     * was constructed before the container type hint rejected it (GHSA-j64x-5vpp-m5pm).
+     *
+     * @throws Mage_Core_Exception
+     */
+    public static function validateContainerClass(string $class): void
+    {
+        if ($class === '' || !is_subclass_of($class, Mage_Dataflow_Model_Convert_Container_Interface::class)) {
+            Mage::throwException(Mage::helper('dataflow')->__('Invalid action type in profile actions XML.'));
+        }
     }
 
     public function importXml(Varien_Simplexml_Element $actionNode)
@@ -197,8 +214,8 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     public function run(array $args = [])
     {
         if ($method = $this->getParam('method')) {
-            if (!method_exists($this->getContainer(), $method)) {
-                $this->getContainer()->addException(
+            if (!is_callable([$this->getContainer(), $method])) {
+                throw $this->getContainer()->addException(
                     'Unable to run action method: ' . $method,
                     Mage_Dataflow_Model_Convert_Exception::FATAL,
                 );

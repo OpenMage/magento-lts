@@ -11,8 +11,11 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Block;
 
-// use Mage_Core_Block_Messages as Subject;
-use Override;
+use Mage_Core_Block_Messages as Subject;
+use Mage_Core_Model_Message_Error;
+use Mage_Core_Model_Message_Notice;
+use Mage_Core_Model_Message_Success;
+use Mage_Core_Model_Message_Warning;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Block\MessagesTrait;
 
@@ -20,13 +23,88 @@ final class MessagesTest extends OpenMageTest
 {
     use MessagesTrait;
 
-    // private static Subject $subject;
-
-    #[Override]
-    public static function setUpBeforeClass(): void
+    /**
+     * @dataProvider provideMessageTextAndForbiddenSubstrings
+     * @group Block
+     */
+    public function testMessageHtmlIsSanitized(string $messageText, string $forbiddenSubstring): void
     {
-        parent::setUpBeforeClass();
-        // self::$subject = new Subject();
-        self::markTestSkipped('');
+        foreach ($this->renderAllWays($messageText) as $method => $html) {
+            self::assertStringContainsString('-msg', $html, "{$method}() rendered no message");
+            self::assertStringNotContainsString(
+                $forbiddenSubstring,
+                $html,
+                "{$method}() includes unsanitized '{$forbiddenSubstring}' from malicious payload",
+            );
+        }
+    }
+
+    /**
+     * @dataProvider provideMessageTextAndPreservedMarkup
+     * @group Block
+     */
+    public function testMessageMarkupUsedByCoreIsPreserved(string $messageText, string $expectedSubstring): void
+    {
+        foreach ($this->renderAllWays($messageText) as $method => $html) {
+            self::assertStringContainsString($expectedSubstring, $html, "{$method}() altered legitimate markup");
+        }
+    }
+
+    /**
+     * @group Block
+     */
+    public function testEscapeFlagEscapesEverything(): void
+    {
+        $subject = new Subject();
+        $subject->setEscapeMessageFlag(true);
+        $subject->addMessage(new Mage_Core_Model_Message_Error('<a href="https://example.com/">x</a>'));
+
+        self::assertStringContainsString('&lt;a href=&quot;https://example.com/&quot;&gt;x&lt;/a&gt;', (string) $subject->getGroupedHtml());
+    }
+
+    /**
+     * The core/messages.phtml template, which the block itself does not use, must not print the
+     * raw message text either (GHSA-75mq-cvpr-g7wq)
+     *
+     * @group Block
+     */
+    public function testMessagesTemplateRendersSanitizedHtml(): void
+    {
+        $subject = new Subject();
+        $subject->setArea('frontend');
+        $subject->setTemplate('core/messages.phtml');
+        $subject->addMessage(new Mage_Core_Model_Message_Error('<a href="https://example.com/" onclick="alert(1)">x</a><script>alert(2)</script>'));
+
+        $html = $subject->renderView();
+
+        self::assertStringContainsString('error-msg', (string) $html);
+        self::assertStringContainsString('<a href="https://example.com/">x</a>', (string) $html);
+        self::assertStringNotContainsString('onclick', (string) $html);
+        self::assertStringNotContainsString('<script>', (string) $html);
+    }
+
+    /**
+     * Render one message of every type through each public rendering method, on a fresh block
+     * each time, because getGroupedHtml() (and so toHtml()) clears the collection.
+     *
+     * @return array<string, string>
+     */
+    private function renderAllWays(string $messageText): array
+    {
+        $rendered = [];
+        foreach (['toHtml', 'getHtml', 'getGroupedHtml'] as $method) {
+            $subject = new Subject();
+            $subject->addMessage(new Mage_Core_Model_Message_Error($messageText));
+            $subject->addMessage(new Mage_Core_Model_Message_Notice($messageText));
+            $subject->addMessage(new Mage_Core_Model_Message_Success($messageText));
+            $subject->addMessage(new Mage_Core_Model_Message_Warning($messageText));
+            $rendered[$method] = match ($method) {
+                'toHtml' => $subject->toHtml(),
+                'getHtml' => $subject->getHtml(),
+                'getGroupedHtml' => $subject->getGroupedHtml(),
+            };
+        }
+
+        return $rendered;
     }
 }

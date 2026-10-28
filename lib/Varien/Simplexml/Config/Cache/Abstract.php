@@ -59,7 +59,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
             return false;
         }
 
-        return array_all($data, fn($stat, $sourceFile) => !(empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile) !== $stat['mtime']));
+        return array_all($data, fn($stat, $sourceFile) => !(!is_array($stat) || empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile) !== $stat['mtime']));
     }
 
     public function getComponentsHash()

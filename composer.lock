@@ -2636,16 +2636,16 @@
         },
         {
             "name": "nnnick/chartjs",
-            "version": "v4.5.1",
+            "version": "v4.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chartjs/Chart.js.git",
-                "reference": "9c5cf9fac7ec04a71b516e2aff3f7d76876be369"
+                "reference": "76d8cf895a7485dc838c90ef37e2bc9d9e388fcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/9c5cf9fac7ec04a71b516e2aff3f7d76876be369",
-                "reference": "9c5cf9fac7ec04a71b516e2aff3f7d76876be369",
+                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/76d8cf895a7485dc838c90ef37e2bc9d9e388fcb",
+                "reference": "76d8cf895a7485dc838c90ef37e2bc9d9e388fcb",
                 "shasum": ""
             },
             "require": {
@@ -2675,9 +2675,9 @@
             ],
             "support": {
                 "issues": "https://github.com/chartjs/Chart.js/issues",
-                "source": "https://github.com/chartjs/Chart.js/tree/v4.5.1"
+                "source": "https://github.com/chartjs/Chart.js/tree/v4.6.1"
             },
-            "time": "2025-10-13T05:37:11+00:00"
+            "time": "2026-10-22T17:12:42+00:00"
         },
         {
             "name": "openmage/composer-plugin",
@@ -5070,16 +5070,16 @@
         },
         {
             "name": "symfony/polyfill-php84",
-            "version": "v1.38.1",
+            "version": "v1.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php84.git",
-                "reference": "f4e1dfaee5b74aba5964fe1fd4dfc7ba5e3085fa"
+                "reference": "22c6548499cbe5c5bb072fc0c42312dff062a015"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php84/zipball/f4e1dfaee5b74aba5964fe1fd4dfc7ba5e3085fa",
-                "reference": "f4e1dfaee5b74aba5964fe1fd4dfc7ba5e3085fa",
+                "url": "https://api.github.com/repos/symfony/polyfill-php84/zipball/22c6548499cbe5c5bb072fc0c42312dff062a015",
+                "reference": "22c6548499cbe5c5bb072fc0c42312dff062a015",
                 "shasum": ""
             },
             "require": {
@@ -5126,7 +5126,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php84/tree/v1.38.1"
+                "source": "https://github.com/symfony/polyfill-php84/tree/v1.43.0"
             },
             "funding": [
                 {
@@ -5146,7 +5146,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-26T12:51:13+00:00"
+            "time": "2026-09-23T22:01:09+00:00"
         },
         {
             "name": "symfony/polyfill-php85",
