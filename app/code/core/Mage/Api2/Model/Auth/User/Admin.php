@@ -43,6 +43,8 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
                 throw new Exception('Admin identifier is not set');
             }
 
+            $this->_assertAdminUserIsActive();
+
             /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
             $collection = Mage::getModel('api2/acl_global_role')->getCollection();
             $collection->addFilterByAdminId($this->getUserId());
@@ -57,6 +59,34 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
         }
 
         return $this->_role;
+    }
+
+    /**
+     * Refuse API access to an admin user that has been deactivated or deleted
+     *
+     * An OAuth access token stays valid after its admin user is deactivated, so the account
+     * state is checked on every request, as the admin login does.
+     *
+     * @throws Mage_Api2_Exception
+     */
+    protected function _assertAdminUserIsActive(): void
+    {
+        $user = $this->_loadAdminUser((int) $this->getUserId());
+        if ((int) $user->getId() === 0 || (int) $user->getIsActive() !== 1) {
+            throw new Mage_Api2_Exception(
+                'Admin user is not active',
+                Mage_Api2_Model_Server::HTTP_UNAUTHORIZED,
+            );
+        }
+    }
+
+    protected function _loadAdminUser(int $userId): Mage_Admin_Model_User
+    {
+        /** @var Mage_Admin_Model_User $user */
+        $user = Mage::getModel('admin/user');
+        $user->load($userId);
+
+        return $user;
     }
 
     /**

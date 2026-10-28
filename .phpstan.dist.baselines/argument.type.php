@@ -747,11 +747,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $host of method Zend_Uri_Http::setHost() expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $node of method Varien_Simplexml_Config::setXml() expects Varien_Simplexml_Element, Varien_Simplexml_Element|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Config.php',
@@ -6292,11 +6287,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $couponId of method Mage_SalesRule_Model_Resource_Coupon_Usage::updateCustomerCouponTimesUsed() expects int, int|string|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $cond of method Varien_Db_Select::where() expects string, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Report/Rule/Createdat.php',
@@ -8310,36 +8300,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $callback of function call_user_func_array expects callable(): mixed, array{Varien_Object, mixed} given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Filter/Template.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_errno expects CurlHandle, CurlHandle|resource given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_error expects CurlHandle, CurlHandle|resource given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_exec expects CurlHandle, CurlHandle|resource given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_getinfo expects CurlHandle, CurlHandle|resource given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_setopt expects CurlHandle, CurlHandle|resource given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_setopt_array expects CurlHandle, CurlHandle|resource given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $haystack of function stripos expects string, bool|string given.',

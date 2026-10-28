@@ -63,7 +63,7 @@ class Varien_Image
     {
         $this->_getAdapter()->checkDependencies();
 
-        if (str_starts_with($this->_fileName, 'phar://')) {
+        if (stripos($this->_fileName, 'phar://') !== false) {
             throw new Exception("File '{$this->_fileName}' is not readable.");
         }
 
@@ -289,9 +289,7 @@ class Varien_Image
      */
     protected function _getAdapter($adapter = null)
     {
-        if (!isset($this->_adapter)) {
-            $this->_adapter = Varien_Image_Adapter::factory($adapter);
-        }
+        $this->_adapter ??= Varien_Image_Adapter::factory($adapter);
 
         return $this->_adapter;
     }

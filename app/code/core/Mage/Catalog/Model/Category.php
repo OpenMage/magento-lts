@@ -217,9 +217,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getTreeModelInstance()
     {
-        if (is_null($this->_treeModel)) {
-            $this->_treeModel = Mage::getResourceSingleton('catalog/category_tree');
-        }
+        $this->_treeModel ??= Mage::getResourceSingleton('catalog/category_tree');
 
         return $this->_treeModel;
     }
@@ -980,7 +978,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             }
         }
 
-        if (!$availableSortBy) {
+        if ($availableSortBy === []) {
             return $defaultSortBy;
         }
 

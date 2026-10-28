@@ -32,7 +32,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         $storeId = $this->_getStoreId();
 
         $newurl = Mage::getUrl('rss/catalog/new/store_id/' . $storeId);
-        $title = Mage::helper('rss')->__('New Products from %s', Mage::app()->getStore()->getGroup()->getName());
+        $title = Mage::helper('rss')->__('New Products from %s', $this->escapeHtml(Mage::app()->getStore()->getGroup()->getName()));
         $lang = Mage::getStoreConfig('general/locale/code');
 
         $rssObj = Mage::getModel('rss/rss');
@@ -123,8 +123,8 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 
         $product->setData($args['row']);
         $description = '<table><tr>'
-            . '<td><a href="' . $product->getProductUrl() . '"><img src="'
-            . $helper->init($product, 'thumbnail')->resize(75, 75)
+            . '<td><a href="' . $this->escapeUrl($product->getProductUrl()) . '"><img src="'
+            . $this->escapeUrl($helper->init($product, 'thumbnail')->resize(75, 75))
             . '" border="0" align="left" height="75" width="75"></a></td>'
             . '<td  style="text-decoration:none;">' . $product->getDescription();
 
@@ -137,7 +137,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 
         $rssObj = $args['rssObj'];
         $data = [
-            'title'         => $product->getName(),
+            'title'         => $this->escapeHtml($product->getName()),
             'link'          => $product->getProductUrl(),
             'description'   => $description,
         ];

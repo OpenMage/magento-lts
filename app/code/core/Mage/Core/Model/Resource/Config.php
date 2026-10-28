@@ -138,14 +138,14 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             }
         }
 
-        if ($deleteWebsites) {
+        if ($deleteWebsites !== []) {
             $this->_getWriteAdapter()->delete($this->getMainTable(), [
                 'scope = ?'      => 'websites',
                 'scope_id IN(?)' => $deleteWebsites,
             ]);
         }
 
-        if ($deleteStores) {
+        if ($deleteStores !== []) {
             $this->_getWriteAdapter()->delete($this->getMainTable(), [
                 'scope=?'        => 'stores',
                 'scope_id IN(?)' => $deleteStores,

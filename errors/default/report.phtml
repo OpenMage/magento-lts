@@ -45,7 +45,7 @@
         </li>
     </ul>
         <?php endif ?>
-    <form action="<?php echo "{$this->getBaseUrl(true)}errors/report.php?id={$this->reportId}" ?>" method="post" id="form-validate">
+    <form action="<?php echo htmlspecialchars("{$this->getBaseUrl(true)}errors/report.php?id={$this->reportId}", ENT_QUOTES, 'UTF-8') ?>" method="post" id="form-validate">
         <fieldset class="fieldset">
             <h2>Personal Information</h2>
             <ul class="form-list group-select">
@@ -89,7 +89,7 @@
     <?php if ($this->reportAction === 'print'): ?>
     <div class="trace-container">
         <div class="trace">
-            <pre><?php echo $this->reportData[0] ?><br />
+            <pre><?php echo htmlspecialchars($this->reportData[0]) ?><br />
 <strong>Trace:</strong>
 <?php echo htmlspecialchars($this->reportData[1]) ?><br />
 </pre>

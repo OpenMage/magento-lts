@@ -80,7 +80,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
             $taxInfoFields['tax_rate'] = 'order_tax.percent';
         }
 
-        if ($taxInfoFields) {
+        if ($taxInfoFields !== []) {
             $collection->getSelect()->joinLeft(
                 ['order_tax' => $collection->getTable('sales/order_tax')],
                 'main_table.entity_id = order_tax.order_id',
@@ -290,7 +290,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
             $ordersData[$order->getId()] = $order->toArray();
         }
 
-        if ($ordersData) {
+        if ($ordersData !== []) {
             foreach ($this->_getAddresses(array_keys($ordersData)) as $orderId => $addresses) {
                 $ordersData[$orderId]['addresses'] = $addresses;
             }

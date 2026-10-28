@@ -152,9 +152,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function refreshAcl($user = null)
     {
-        if (is_null($user)) {
-            $user = $this->getUser();
-        }
+        $user ??= $this->getUser();
 
         if (!$user) {
             return $this;
@@ -249,6 +247,13 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         $user = Mage::getModel('api/user')->loadBySessId($sessId);
         if (!$user->getId() || !$user->getSessid()) {
+            return false;
+        }
+
+        // A deactivated user may not log in, so a session opened before the
+        // deactivation must not keep working either.
+        if ((int) $user->getIsActive() !== 1) {
+            $user->getResource()->clearBySessId($sessId);
             return false;
         }
 
