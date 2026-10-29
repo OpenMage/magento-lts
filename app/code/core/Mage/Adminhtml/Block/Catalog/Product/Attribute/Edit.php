@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
      * @return string
      */
     #[Override]
-    public function getSaveUrl()
+    public function getFormActionUrl()
     {
         return $this->getUrl('*/' . $this->_controller . '/save', ['_current' => true, 'back' => null]);
     }
