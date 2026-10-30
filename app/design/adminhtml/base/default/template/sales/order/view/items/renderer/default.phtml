@@ -13,7 +13,7 @@
 <tr class="border">
     <td>
         <?php if ($this->canDisplayContainer()): ?>
-        <div id="<?php echo $this->getHtmlId() ?>" class="item-container">
+        <div id="order_item_<?php echo $_item->getId() ?>" class="item-container">
         <?php endif ?>
         <div class="item-text">
             <?php echo $this->getColumnHtml($_item, 'name') ?>
