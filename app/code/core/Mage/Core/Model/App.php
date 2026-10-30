@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Level;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -233,6 +235,13 @@ class Mage_Core_Model_App
      * @var null|bool
      */
     protected $_isInstalled = null;
+
+    /**
+     * Skipped observers that were already logged, keyed by "event/observer"
+     *
+     * @var array<string, true>
+     */
+    protected array $loggedSkippedObservers = [];
 
     /**
      * Initialize application without request processing
@@ -1492,17 +1501,45 @@ class Mage_Core_Model_App
     {
         if (is_object($object) && method_exists($object, $method)) {
             $object->$method($observer);
-        } elseif (Mage::getIsDeveloperMode()) {
-            if (is_object($object)) {
-                $message = 'Method "' . $method . '" is not defined in "' . $object::class . '"';
-            } else {
-                $message = 'Class from observer "' . $observerName . '" is not initialized';
-            }
+            return $this;
+        }
 
+        if (is_object($object)) {
+            $message = 'Method "' . $method . '" is not defined in "' . $object::class . '"';
+        } else {
+            $message = 'Class from observer "' . $observerName . '" is not initialized';
+        }
+
+        if (Mage::getIsDeveloperMode()) {
             Mage::throwException($message);
         }
 
+        $this->logSkippedObserver($message, $observer, $observerName);
+
         return $this;
+    }
+
+    /**
+     * Log an observer that is skipped outside developer mode, once per observer and event
+     *
+     * Respects dev/log/active, like any other Mage::log() call.
+     */
+    protected function logSkippedObserver(string $message, Varien_Event_Observer $observer, string $observerName): void
+    {
+        $event = $observer->getEvent();
+        $eventName = $event instanceof Varien_Event ? (string) $event->getName() : 'undefined';
+
+        $key = $eventName . '/' . $observerName;
+        if (isset($this->loggedSkippedObservers[$key])) {
+            return;
+        }
+
+        $this->loggedSkippedObservers[$key] = true;
+
+        Mage::log(
+            sprintf('Observer "%s" for event "%s" skipped: %s', $observerName, $eventName, $message),
+            Level::Error,
+        );
     }
 
     /**
