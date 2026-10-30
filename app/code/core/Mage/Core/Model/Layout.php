@@ -507,8 +507,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $block));
             }
 
-            // The autoloader fails silently, so this no longer needs its own include path lookup
-            if (class_exists($block)) {
+            // Autoloads the class but only constructs blocks: no constructor of another class runs
+            if (is_subclass_of($block, Mage_Core_Block_Abstract::class)) {
                 $block = new $block($attributes);
             }
         }

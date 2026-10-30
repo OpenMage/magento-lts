@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use ArrayObject;
 use Override;
 use Error;
 use Mage;
@@ -133,6 +134,37 @@ final class LayoutTest extends OpenMageTest
 
         self::assertInstanceOf(Mage_Core_Block_Text::class, $block);
         self::assertTrue(class_exists('OpenMageLayoutTest_Autoloaded_Block', false));
+    }
+
+    /**
+     * A class that is not a block is rejected before it is constructed
+     *
+     * @covers Mage_Core_Model_Layout::_getBlockInstance()
+     * @group Model
+     */
+    public function testCreateBlockDoesNotConstructOtherClasses(): void
+    {
+        $file = sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid('openmage_layout_', true) . '.php';
+        file_put_contents($file, "<?php\n\nclass OpenMageLayoutTest_Not_A_Block\n{\n    public function __construct(array \$attributes)\n    {\n        \$attributes['probe']['constructed'] = true;\n    }\n}\n");
+
+        $autoloader = static function (string $class) use ($file): void {
+            if ($class === 'OpenMageLayoutTest_Not_A_Block') {
+                require_once $file;
+            }
+        };
+        spl_autoload_register($autoloader);
+        $probe = new ArrayObject();
+
+        try {
+            $block = self::$subject->createBlock('OpenMageLayoutTest_Not_A_Block', '', ['probe' => $probe]);
+        } finally {
+            spl_autoload_unregister($autoloader);
+            unlink($file);
+        }
+
+        self::assertFalse($block);
+        self::assertTrue(class_exists('OpenMageLayoutTest_Not_A_Block', false));
+        self::assertArrayNotHasKey('constructed', $probe);
     }
 
     /**
