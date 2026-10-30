@@ -118,18 +118,6 @@ after 1.4 beta1 it is checkout module responsibility',
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Cart/Api.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Onepage.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isAllowedGuestCheckout() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Onepage.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface:
 after 1.5.1.0',
     'count' => 2,
