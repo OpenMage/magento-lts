@@ -181,7 +181,7 @@ class Mage_Checkout_Model_Type_Onepage
             return self::METHOD_CUSTOMER;
         }
 
-        if (!$this->getQuote()->getCheckoutMethod()) {
+        if (!$this->_getQuoteCheckoutMethod($this->getQuote())) {
             if ($this->_helper->isAllowedGuestCheckout($this->getQuote())) {
                 $this->getQuote()->setCheckoutMethod(self::METHOD_GUEST);
             } else {
@@ -189,7 +189,17 @@ class Mage_Checkout_Model_Type_Onepage
             }
         }
 
-        return $this->getQuote()->getCheckoutMethod();
+        return $this->_getQuoteCheckoutMethod($this->getQuote());
+    }
+
+    /**
+     * The quote's checkout method, as the deprecated Mage_Sales_Model_Quote::getCheckoutMethod() returns it
+     */
+    protected function _getQuoteCheckoutMethod(Mage_Sales_Model_Quote $quote): string
+    {
+        return $quote->getCustomerId()
+            ? Mage_Sales_Model_Quote::CHECKOUT_METHOD_LOGIN_IN
+            : (string) $quote->getData('checkout_method');
     }
 
     /**
@@ -303,7 +313,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         if (!$this->getQuote()->getCustomerId()
-            && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()
+            && self::METHOD_REGISTER === $this->_getQuoteCheckoutMethod($this->getQuote())
             && $this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())
         ) {
             return ['error' => 1, 'message' => $this->_customerEmailExistsMessage];
@@ -405,7 +415,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         $customerForm->compactData($customerData);
 
-        if ($quote->getCheckoutMethod() == self::METHOD_REGISTER) {
+        if ($this->_getQuoteCheckoutMethod($quote) === self::METHOD_REGISTER) {
             // set customer password
             $customer->setPassword($customerRequest->getParam('customer_password'));
             $customer->setPasswordConfirmation($customerRequest->getParam('confirm_password'));
@@ -427,7 +437,7 @@ class Mage_Checkout_Model_Type_Onepage
             ];
         }
 
-        if ($quote->getCheckoutMethod() == self::METHOD_REGISTER) {
+        if ($this->_getQuoteCheckoutMethod($quote) === self::METHOD_REGISTER) {
             // save customer encrypted password in quote
             $quote->setPasswordHash($customer->encryptPassword($customer->getPassword()));
         }
@@ -468,7 +478,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         // invoke customer model, if it is registering
-        if (self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
+        if (self::METHOD_REGISTER === $this->_getQuoteCheckoutMethod($this->getQuote())) {
             // set customer password hash for further usage
             $customer = Mage::getModel('customer/customer');
             $this->getQuote()->setPasswordHash($customer->encryptPassword($address->getCustomerPassword()));
@@ -498,7 +508,7 @@ class Mage_Checkout_Model_Type_Onepage
                     'message' => implode(', ', $validationResult),
                 ];
             }
-        } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
+        } elseif (self::METHOD_GUEST === $this->_getQuoteCheckoutMethod($this->getQuote())) {
             $email = $address->getDataByKey('email');
             /** @var Mage_Core_Helper_Validate $validator */
             $validator = Mage::helper('core/validate');
@@ -670,7 +680,7 @@ class Mage_Checkout_Model_Type_Onepage
             Mage::throwException(Mage::helper('checkout')->__('Invalid checkout type.'));
         }
 
-        if ($quote->getCheckoutMethod() == self::METHOD_GUEST && !$quote->isAllowedGuestCheckout()) {
+        if ($this->_getQuoteCheckoutMethod($quote) === self::METHOD_GUEST && !$this->_helper->isAllowedGuestCheckout($quote, $quote->getStoreId())) {
             Mage::throwException(Mage::helper('checkout')->__('Sorry, guest checkout is not enabled. Please try again or contact store owner.'));
         }
     }
