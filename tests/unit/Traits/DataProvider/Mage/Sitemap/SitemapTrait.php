@@ -24,6 +24,15 @@ trait SitemapTrait
         ];
     }
 
+    /**
+     * @return Generator<string, array{string, string}>
+     */
+    public static function provideGetHomePageIdentifierData(): Generator
+    {
+        yield 'identifier' => ['home', 'home'];
+        yield 'identifier with page id' => ['home', 'home|2'];
+    }
+
     public static function provideGenerateXmlData(): Generator
     {
         yield 'default' => [
