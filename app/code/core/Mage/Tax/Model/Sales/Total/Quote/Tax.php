@@ -481,8 +481,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             $this->_saveAppliedTaxes(
                 $address,
                 $appliedRates,
-                $item->getTaxAmount(),
-                $item->getBaseTaxAmount(),
+                $item->getData('tax_amount'),
+                $item->getData('base_tax_amount'),
                 $rate,
             );
         } else {
@@ -513,8 +513,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             $itemTaxGroups[$item->getId()] = $appliedRates;
         }
 
-        $this->_addAmount($item->getTaxAmount());
-        $this->_addBaseAmount($item->getBaseTaxAmount());
+        $this->_addAmount($item->getData('tax_amount'));
+        $this->_addBaseAmount($item->getData('base_tax_amount'));
     }
 
     /**
@@ -653,8 +653,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         if (isset($unitTax, $baseUnitTax)) {
             $rowTax = $this->_store->roundPrice(max(0, $qty * $unitTax));
             $baseRowTax = $this->_store->roundPrice(max(0, $qty * $baseUnitTax));
-            $item->setTaxAmount($item->getTaxAmount() + $rowTax);
-            $item->setBaseTaxAmount($item->getBaseTaxAmount() + $baseRowTax);
+            $item->setTaxAmount($item->getData('tax_amount') + $rowTax);
+            $item->setBaseTaxAmount($item->getData('base_tax_amount') + $baseRowTax);
             if (is_array($taxGroups)) {
                 $taxGroups[$rateKey]['tax'] = max(0, $rowTax);
                 $taxGroups[$rateKey]['base_tax'] = max(0, $baseRowTax);
@@ -763,8 +763,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             $this->_saveAppliedTaxes(
                 $address,
                 $appliedRates,
-                $item->getTaxAmount(),
-                $item->getBaseTaxAmount(),
+                $item->getData('tax_amount'),
+                $item->getData('base_tax_amount'),
                 $rate,
             );
         } else {
@@ -795,8 +795,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             $itemTaxGroups[$item->getId()] = $appliedRates;
         }
 
-        $this->_addAmount($item->getTaxAmount());
-        $this->_addBaseAmount($item->getBaseTaxAmount());
+        $this->_addAmount($item->getData('tax_amount'));
+        $this->_addBaseAmount($item->getData('base_tax_amount'));
     }
 
     /**
@@ -943,8 +943,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         }
 
         if (isset($rowTax, $baseRowTax)) {
-            $item->setTaxAmount($item->getTaxAmount() + max(0, $rowTax));
-            $item->setBaseTaxAmount($item->getBaseTaxAmount() + max(0, $baseRowTax));
+            $item->setTaxAmount($item->getData('tax_amount') + max(0, $rowTax));
+            $item->setBaseTaxAmount($item->getData('base_tax_amount') + max(0, $baseRowTax));
             if (is_array($taxGroups)) {
                 $taxGroups[$rateKey]['tax'] = max(0, $rowTax);
                 $taxGroups[$rateKey]['base_tax'] = max(0, $baseRowTax);
@@ -1164,8 +1164,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                     'base',
                 );
                 $baseRowTax = $baseTaxBeforeDiscountRounded;
-                $item->setTaxAmount($item->getTaxAmount() + max(0, $rowTax));
-                $item->setBaseTaxAmount($item->getBaseTaxAmount() + max(0, $baseRowTax));
+                $item->setTaxAmount($item->getData('tax_amount') + max(0, $rowTax));
+                $item->setBaseTaxAmount($item->getData('base_tax_amount') + max(0, $baseRowTax));
                 break;
             case Mage_Tax_Model_Calculation::CALC_TAX_AFTER_DISCOUNT_ON_EXCL:
             case Mage_Tax_Model_Calculation::CALC_TAX_AFTER_DISCOUNT_ON_INCL:
@@ -1201,8 +1201,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                 $rowTax = $this->_deltaRound($rowTax, $rateKey, $inclTax);
                 $baseRowTax = $this->_deltaRound($baseRowTax, $rateKey, $inclTax, 'base');
 
-                $item->setTaxAmount($item->getTaxAmount() + max(0, $rowTax));
-                $item->setBaseTaxAmount($item->getBaseTaxAmount() + max(0, $baseRowTax));
+                $item->setTaxAmount($item->getData('tax_amount') + max(0, $rowTax));
+                $item->setBaseTaxAmount($item->getData('base_tax_amount') + max(0, $baseRowTax));
 
                 //Calculate the Row taxes before discount
                 $rowTaxBeforeDiscount = $this->_calculator->calcTaxAmount(
@@ -1526,8 +1526,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         $rowTaxAmount = 0;
         $baseRowTaxAmount = 0;
         foreach ($item->getChildren() as $child) {
-            $rowTaxAmount += $child->getTaxAmount();
-            $baseRowTaxAmount += $child->getBaseTaxAmount();
+            $rowTaxAmount += $child->getData('tax_amount');
+            $baseRowTaxAmount += $child->getData('base_tax_amount');
         }
 
         $item->setTaxAmount($rowTaxAmount);

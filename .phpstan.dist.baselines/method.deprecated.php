@@ -249,16 +249,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/Model/Tag.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getBaseTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
-    'count' => 9,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
-    'count' => 9,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method _processLocalizedQty() of class Mage_Wishlist_Controller_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/Controller/Abstract.php',
