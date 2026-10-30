@@ -185,10 +185,16 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
         $systemNode = Mage::getStoreConfig(sprintf('csp/%s/%s', $area, $directiveName));
         if ($systemNode) {
             if (is_string($systemNode) && preg_match('/^a:\d+:{.*}$/', $systemNode)) {
-                $unserializedData = unserialize($systemNode);
+                $unserializedData = unserialize($systemNode, ['allowed_classes' => false]);
                 if (is_array($unserializedData)) {
-                    /** @var array<string> $systemNode */
-                    $systemNode = array_column($unserializedData, 'host');
+                    // Only well-formed rows count: an embedded object is now a
+                    // __PHP_Incomplete_Class, which array_column() would warn on.
+                    $systemNode = [];
+                    foreach ($unserializedData as $row) {
+                        if (is_array($row) && isset($row['host']) && is_string($row['host'])) {
+                            $systemNode[] = $row['host'];
+                        }
+                    }
                 }
             }
 

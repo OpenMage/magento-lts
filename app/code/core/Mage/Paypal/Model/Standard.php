@@ -112,7 +112,12 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
             ->setOrder($order)
             ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
             ->setReturnUrl(Mage::getUrl('paypal/standard/success'))
-            ->setCancelUrl(Mage::getUrl('paypal/standard/cancel'));
+            ->setCancelUrl(
+                Mage::helper('paypal/checkout')->addCancelNonceToUrl(
+                    Mage::getUrl('paypal/standard/cancel'),
+                    $orderIncrementId,
+                ),
+            );
 
         // export address
         $isOrderVirtual = $order->getIsVirtual();

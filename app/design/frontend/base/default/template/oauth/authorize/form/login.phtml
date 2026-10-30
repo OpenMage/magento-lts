@@ -23,7 +23,7 @@ $rejectJs = "document.location.href='{$this->getRejectUrl()}';";
                 <div class="col-1 registered-users">
                     <div class="content" style="margin: 0 auto; padding-bottom: 13px;">
                         <h2><?php echo $this->__('Log in as a customer') ?></h2>
-                        <p class="description"><?php echo $this->__('Log in to use <strong>%s</strong>', $this->getConsumer()->getName()) ?></p>
+                        <p class="description"><?php echo $this->__('Log in to use <strong>%s</strong>', $this->escapeHtml($this->getConsumer()->getName())) ?></p>
                         <ul class="form-list">
                             <li>
                                 <label for="email"><?php echo $this->__('Email Address') ?></label>

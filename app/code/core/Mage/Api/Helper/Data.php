@@ -370,7 +370,19 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $urlModel = Mage::getSingleton('core/url');
         $url = $urlModel->getUrl($routePath, $routeParams);
         $uri = Zend_Uri_Http::fromString($url);
-        $uri->setHost($request->getHttpHost());
+
+        // The service url determines where the SoapServer instance will load the WSDL from which
+        // should only be a trusted source, so we do not allow it to be manipulated by the Host header.
+        // A Host header naming one of the store's own configured hosts is still honoured, so that
+        // multi-domain installs keep advertising the domain the client used. Developer mode accepts
+        // any host to allow loading from alternate urls that don't match the server config.
+        $requestHost = (string) $request->getHttpHost();
+        if ($requestHost !== ''
+            && (Mage::getIsDeveloperMode() || $this->isConfiguredHost($requestHost))
+        ) {
+            $uri->setHost($requestHost);
+        }
+
         if (!$urlModel->getRouteFrontName()) {
             $scriptFilename = (string) ($_SERVER['SCRIPT_FILENAME'] ?? $_SERVER['SCRIPT_NAME'] ?? '');
             $uri->setPath('/' . trim($request->getBasePath() . '/' . basename($scriptFilename), '/'));
@@ -379,5 +391,60 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return $htmlSpecialChars === true ? htmlspecialchars($uri) : (string) $uri;
+    }
+
+    /**
+     * Whether the host is one the installation is configured to be served on
+     *
+     * Compares against the secure and unsecure base and link URLs of every store, including
+     * admin, and the custom admin URL. Ports are ignored, as Mage_Core_Controller_Request_Http::getHttpHost()
+     * strips them by default.
+     */
+    public function isConfiguredHost(string $host): bool
+    {
+        $host = strtolower(trim($host, '[]'));
+        return $host !== '' && in_array($host, $this->getConfiguredHosts(), true);
+    }
+
+    /**
+     * Retrieve the hosts the installation is configured to be served on
+     *
+     * @return string[]
+     */
+    public function getConfiguredHosts(): array
+    {
+        $paths = [
+            Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL,
+            Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL,
+            Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_LINK_URL,
+            Mage_Core_Model_Store::XML_PATH_SECURE_BASE_LINK_URL,
+        ];
+
+        $stores = Mage::app()->getStores(true);
+        $stores[] = Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+
+        $urls = [];
+        foreach ($stores as $store) {
+            foreach ($paths as $path) {
+                $urls[] = (string) $store->getConfig($path);
+            }
+        }
+
+        $config = Mage::getConfig();
+        if ($config instanceof Mage_Core_Model_Config
+            && (int) $config->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_USE_CUSTOM_ADMIN_URL) !== 0
+        ) {
+            $urls[] = (string) $config->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_CUSTOM_ADMIN_URL);
+        }
+
+        $hosts = [];
+        foreach ($urls as $url) {
+            $host = parse_url($url, PHP_URL_HOST);
+            if (is_string($host) && $host !== '') {
+                $hosts[strtolower(trim($host, '[]'))] = true;
+            }
+        }
+
+        return array_keys($hosts);
     }
 }

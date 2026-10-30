@@ -81,7 +81,10 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
      */
     public function getReorderUrl($order)
     {
-        return $this->getUrl('*/*/reorder', ['order_id' => $order->getId()]);
+        return $this->getUrl('*/*/reorder', [
+            'order_id' => $order->getId(),
+            Mage_Core_Model_Url::FORM_KEY => $this->getFormKey(),
+        ]);
     }
 
     /**

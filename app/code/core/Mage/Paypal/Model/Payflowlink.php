@@ -383,6 +383,17 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             ->setInvnum($payment->getOrder()->getIncrementId())
             ->setCustref($payment->getOrder()->getIncrementId())
             ->setPonum($payment->getOrder()->getId());
+
+        /**
+         * The cancel and decline returns cancel the customer's last order. Bind them to this order
+         * with a nonce so a forged cross-site request to those URLs cannot do the same.
+         */
+        /** @var Mage_Paypal_Helper_Checkout $checkoutHelper */
+        $checkoutHelper = Mage::helper('paypal/checkout');
+        $orderIncrementId = $payment->getOrder()->getIncrementId();
+        $request->setCancelurl($checkoutHelper->addCancelNonceToUrl($request->getCancelurl(), $orderIncrementId))
+            ->setErrorurl($checkoutHelper->addCancelNonceToUrl($request->getErrorurl(), $orderIncrementId))
+            ->setReturnurl($checkoutHelper->addCancelNonceToUrl($request->getReturnurl(), $orderIncrementId));
         //This is PaPal issue with taxes and shipping
         //->setSubtotal($this->_formatStr('%.2F', $payment->getOrder()->getBaseSubtotal()))
         //->setTaxamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseTaxAmount()))

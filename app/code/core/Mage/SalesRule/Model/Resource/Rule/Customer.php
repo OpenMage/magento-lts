@@ -45,4 +45,73 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
         $rule->setData($data);
         return $this;
     }
+
+    /**
+     * Increment the times_used counter of a customer for a rule with atomic statements
+     *
+     * The primary key (rule_id, customer_id) arbitrates concurrent first uses through
+     * INSERT ... ON DUPLICATE KEY UPDATE, which only takes a record lock on an existing row. See
+     * Mage_SalesRule_Model_Resource_Coupon_Usage::updateCustomerCouponTimesUsed() for why a locking
+     * read or an UPDATE of a row that may not exist yet is avoided.
+     *
+     * @param  int      $ruleId
+     * @param  int      $customerId
+     * @param  null|int $usageLimit Do not increment once the counter reached this limit
+     * @return bool     Whether the counter was incremented
+     */
+    public function incrementTimesUsed($ruleId, $customerId, $usageLimit = null)
+    {
+        $write = $this->_getWriteAdapter();
+        $key = [
+            'rule_id' => (int) $ruleId,
+            'customer_id' => (int) $customerId,
+        ];
+
+        if ((int) $usageLimit <= 0) {
+            $write->insertOnDuplicate(
+                $this->getMainTable(),
+                $key + ['times_used' => 1],
+                ['times_used' => new Zend_Db_Expr('times_used + 1')],
+            );
+
+            return true;
+        }
+
+        // make sure the row exists, then increment it only while it is below the limit
+        $write->insertOnDuplicate(
+            $this->getMainTable(),
+            $key + ['times_used' => 0],
+            ['times_used' => new Zend_Db_Expr('times_used')],
+        );
+
+        return $write->update(
+            $this->getMainTable(),
+            ['times_used' => new Zend_Db_Expr('times_used + 1')],
+            [
+                'rule_id = ?' => $key['rule_id'],
+                'customer_id = ?' => $key['customer_id'],
+                'times_used < ?' => (int) $usageLimit,
+            ],
+        ) > 0;
+    }
+
+    /**
+     * Decrement the times_used counter of a customer for a rule, never below 0
+     *
+     * @param  int  $ruleId
+     * @param  int  $customerId
+     * @return bool Whether the counter was decremented
+     */
+    public function decrementTimesUsed($ruleId, $customerId)
+    {
+        return $this->_getWriteAdapter()->update(
+            $this->getMainTable(),
+            ['times_used' => new Zend_Db_Expr('times_used - 1')],
+            [
+                'rule_id = ?' => (int) $ruleId,
+                'customer_id = ?' => (int) $customerId,
+                'times_used > ?' => 0,
+            ],
+        ) > 0;
+    }
 }
