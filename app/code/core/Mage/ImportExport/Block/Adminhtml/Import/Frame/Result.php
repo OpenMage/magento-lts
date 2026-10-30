@@ -161,22 +161,27 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
     /**
      * Messages rendered HTML getter.
      *
+     * The messages block purifies message text, which would escape the import button, so the button passes it as a
+     * text placeholder and is put back afterwards.
+     *
      * @return string
      */
     public function getMessagesHtml()
     {
         /** @var Mage_Core_Block_Messages $messagesBlock */
         $messagesBlock = $this->_layout->createBlock('core/messages');
+        $buttonHtml = $this->getImportButtonHtml();
+        $placeholder = '{{import_button_' . bin2hex(random_bytes(8)) . '}}';
 
         foreach ($this->_messages as $priority => $messages) {
             $method = "add{$priority}";
 
             foreach ($messages as $message) {
-                $messagesBlock->$method($message);
+                $messagesBlock->$method(str_replace($buttonHtml, $placeholder, $message));
             }
         }
 
-        return $messagesBlock->toHtml();
+        return str_replace($placeholder, $buttonHtml, $messagesBlock->toHtml());
     }
 
     /**
