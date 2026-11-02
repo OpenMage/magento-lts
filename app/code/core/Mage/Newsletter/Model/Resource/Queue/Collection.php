@@ -206,7 +206,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     #[Override]
     public function toOptionArray()
     {
-        return $this->_toOptionArray('queue_id', 'template_subject');
+        return $this->_toOptionArray('queue_id', 'newsletter_subject');
     }
 
     /**
