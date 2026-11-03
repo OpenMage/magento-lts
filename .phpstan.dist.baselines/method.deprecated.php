@@ -215,12 +215,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method _getTrackingUrl() of class Mage_Shipping_Helper_Data:
-the non-model usage',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method addVisibleFilterToCollection() of class Mage_Catalog_Model_Product_Status:
 remove on new builds',
     'count' => 1,

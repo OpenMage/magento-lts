@@ -6367,17 +6367,17 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Validator.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order_Shipment_Track|string given.',
+    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order_Shipment_Track|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order_Shipment|string given.',
+    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order_Shipment|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order|string given.',
+    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Helper/Data.php',
 ];
