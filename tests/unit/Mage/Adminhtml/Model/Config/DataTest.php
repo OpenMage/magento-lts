@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\Config;
 
+use Iterator;
 use Mage_Adminhtml_Model_Config_Data as Subject;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -45,20 +46,18 @@ final class DataTest extends OpenMageTest
         self::assertSame($expected, $method->invoke(self::$subject, $value));
     }
 
-    public static function provideIdentifiers(): array
+    public static function provideIdentifiers(): Iterator
     {
-        return [
-            'simple field name' => [true, 'use_custom'],
-            'name with underscore' => [true, 'base_url'],
-            'numeric string' => [true, '123'],
-            'xpath union injection' => [false, 'x|//admin/groups/url/fields/use_custom'],
-            'absolute path injection' => [false, '//admin/groups/url/fields/use_custom'],
-            'path traversal' => [false, '../../web/cookie_domain'],
-            'slash separated path' => [false, 'url/fields/use_custom'],
-            'attribute predicate injection' => [false, 'use_custom[@type="group"]'],
-            'empty string' => [false, ''],
-            'array value' => [false, ['use_custom']],
-            'null value' => [false, null],
-        ];
+        yield 'simple field name' => [true, 'use_custom'];
+        yield 'name with underscore' => [true, 'base_url'];
+        yield 'numeric string' => [true, '123'];
+        yield 'xpath union injection' => [false, 'x|//admin/groups/url/fields/use_custom'];
+        yield 'absolute path injection' => [false, '//admin/groups/url/fields/use_custom'];
+        yield 'path traversal' => [false, '../../web/cookie_domain'];
+        yield 'slash separated path' => [false, 'url/fields/use_custom'];
+        yield 'attribute predicate injection' => [false, 'use_custom[@type="group"]'];
+        yield 'empty string' => [false, ''];
+        yield 'array value' => [false, ['use_custom']];
+        yield 'null value' => [false, null];
     }
 }
