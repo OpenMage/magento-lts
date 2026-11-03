@@ -286,20 +286,10 @@ since 1.14.2.0',
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/product/edit/downloadable/links.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/order/view/items/renderer/downloadable.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
 Use getAbsoluteGridUrl() method instead',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/view/items/renderer/default.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
