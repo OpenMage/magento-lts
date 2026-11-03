@@ -2312,11 +2312,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Layer/Filter/Price/Algorithm.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method reinit() on Mage_Core_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Observer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getSource() on Mage_Catalog_Model_Resource_Eav_Attribute|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product.php',

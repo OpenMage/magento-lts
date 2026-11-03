@@ -472,16 +472,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Layer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::refreshEnabledIndex().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::refreshProductIndex().',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Observer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method Mage_Eav_Model_Entity_Attribute_Backend_Abstract::addImage().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product.php',

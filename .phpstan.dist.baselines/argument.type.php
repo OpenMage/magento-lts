@@ -1627,11 +1627,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Compare/List.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $store of method Mage_Catalog_Model_Product_Flat_Indexer::deleteStore() expects int, int|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Flat/Observer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $heigth of method Varien_Image::setWatermarkHeigth() expects int, string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Image.php',
