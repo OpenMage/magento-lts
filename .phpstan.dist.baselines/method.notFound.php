@@ -67,7 +67,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Problem.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method object::addTemplateInfo().',
+    'rawMessage' => 'Call to an undefined method object::addOnlyUnsentFilter().',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Subscriber.php',
 ];
