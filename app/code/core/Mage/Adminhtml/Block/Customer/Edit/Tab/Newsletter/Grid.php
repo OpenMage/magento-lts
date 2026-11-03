@@ -41,7 +41,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('newsletter/queue_collection')
-            ->addTemplateInfo()
             ->addSubscriberFilter(Mage::registry('subscriber')->getId());
 
         $this->setCollection($collection);
@@ -89,10 +88,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
             'default'   =>  ' ---- ',
         ]);
 
-        $this->addColumn('template_subject', [
+        $this->addColumn('newsletter_subject', [
             'header'    => Mage::helper('customer')->__('Subject'),
             'align'     => 'center',
-            'index'     => 'template_subject',
+            'index'     => 'newsletter_subject',
         ]);
 
         $this->addColumn('status', [
