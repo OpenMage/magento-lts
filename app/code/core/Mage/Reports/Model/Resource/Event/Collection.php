@@ -14,6 +14,7 @@
  *
  * @method Mage_Reports_Model_Resource_Event _getResource()
  * @method Mage_Reports_Model_Resource_Event getResource()
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Reports_Model_Event>
  */
 class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

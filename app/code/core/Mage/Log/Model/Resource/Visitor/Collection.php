@@ -11,6 +11,7 @@
  * Visitor log collection
  *
  * @package    Mage_Log
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Log_Model_Visitor>
  */
 class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

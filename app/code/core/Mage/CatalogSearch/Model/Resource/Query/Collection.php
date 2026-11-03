@@ -11,6 +11,7 @@
  * Catalog search query collection
  *
  * @package    Mage_CatalogSearch
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_CatalogSearch_Model_Query>
  */
 class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

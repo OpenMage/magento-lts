@@ -13,6 +13,7 @@ declare(strict_types=1);
  * AdminNotification Inbox model
  *
  * @package    Mage_AdminNotification
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_AdminNotification_Model_Inbox>
  */
 class Mage_AdminNotification_Model_Resource_Inbox_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

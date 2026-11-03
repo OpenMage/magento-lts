@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Resource authorizenet debug collection model
  *
  * @package    Mage_Paygate
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Paygate_Model_Authorizenet_Debug>
  */
 class Mage_Paygate_Model_Resource_Authorizenet_Debug_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
