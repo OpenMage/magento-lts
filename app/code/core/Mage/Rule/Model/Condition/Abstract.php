@@ -839,8 +839,9 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     {
         if ($strict && is_numeric($validatedValue) && is_numeric($value)) {
             if (is_float($validatedValue) || is_float($value)) {
-                return (float) $validatedValue === (float) $value;
+                return abs($validatedValue - $value) < 0.00001;
             }
+
             return (int) $validatedValue === (int) $value;
         }
 
