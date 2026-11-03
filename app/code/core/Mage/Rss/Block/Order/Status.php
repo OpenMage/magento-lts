@@ -58,7 +58,7 @@ class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
 
                 $description = '<p>'
                 . Mage::helper('rss')->__('Notified Date: %s<br/>', $this->formatDate($result['created_at']))
-                . Mage::helper('rss')->__('Comment: %s<br/>', $result['comment'])
+                . Mage::helper('rss')->__('Comment: %s<br/>', $this->escapeHtml($result['comment']))
                 . '</p>'
                 ;
                 $url = Mage::getUrl('sales/order/' . $urlAppend, ['order_id' => $order->getId()]);

@@ -466,7 +466,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {
-            'importexport' => 'sales/tax/import_export',
+            'importexport', 'importpost', 'exportpost' => 'sales/tax/import_export',
             default => 'sales/tax/rates',
         };
 

@@ -27,6 +27,14 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     public const ERROR_FILESIZE_TOO_BIG                     = 'fileFilesSizeTooBig';
 
     /**
+     * Types a browser renders as an active document in the store origin. They are refused for
+     * uploads to an option that has no "Allowed File Extensions" list, whatever
+     * catalog/custom_options/forbidden_extensions is set to. An option that lists one of them
+     * explicitly still accepts it; such stores must keep media/custom_options private.
+     */
+    public const ACTIVE_CONTENT_EXTENSIONS = ['htm', 'html', 'svg', 'svgz', 'xhtml', 'xht', 'xml', 'xsl', 'xslt'];
+
+    /**
      * Url for custom option download controller
      * @var string
      */
@@ -228,11 +236,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $upload->addValidator('Extension', false, $_allowed);
         }
 
-        // Block both protected extensions and legacy forbidden_extensions for backwards compatibility
-        $_forbidden = array_unique(array_merge(
-            $this->_getProtectedFileExtensions(),
-            $this->_getForbiddenExtensions(),
-        ));
+        $_forbidden = $this->_getUploadForbiddenExtensions($_allowed);
         if ($_forbidden !== []) {
             $upload->addValidator('ExcludeExtension', false, $_forbidden);
         }
@@ -324,10 +328,12 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
          */
         $checkPaths = [];
         if (isset($optionValue['quote_path'])) {
+            $this->_validateOptionFilePath($optionValue['quote_path']);
             $checkPaths[] = Mage::getBaseDir() . $optionValue['quote_path'];
         }
 
         if (isset($optionValue['order_path']) && !$this->getUseQuotePath()) {
+            $this->_validateOptionFilePath($optionValue['order_path']);
             $checkPaths[] = Mage::getBaseDir() . $optionValue['order_path'];
         }
 
@@ -429,7 +435,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         if (!$errors) {
             return is_readable($fileFullPath)
                 && isset($optionValue['secret_key'])
-                && substr(md5(file_get_contents($fileFullPath)), 0, 20) == $optionValue['secret_key'];
+                && is_string($optionValue['secret_key'])
+                && hash_equals(substr(md5(file_get_contents($fileFullPath)), 0, 20), $optionValue['secret_key']);
         }
 
         $this->setIsValid(false);
@@ -713,15 +720,17 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $quoteOption = $this->getConfigurationItemOption();
         try {
             $value = Mage::helper('core/unserializeArray')->unserialize($quoteOption->getValue());
-            if (!isset($value['quote_path'])) {
+            if (!isset($value['quote_path'], $value['order_path'])) {
                 throw new Exception();
             }
 
+            $this->_validateOptionFilePath($value['quote_path']);
             $quoteFileFullPath = Mage::getBaseDir() . $value['quote_path'];
             if (!is_file($quoteFileFullPath) || !is_readable($quoteFileFullPath)) {
                 throw new Exception();
             }
 
+            $this->_validateOptionFilePath($value['order_path']);
             $orderFileFullPath = Mage::getBaseDir() . $value['order_path'];
             $dir = pathinfo($orderFileFullPath, PATHINFO_DIRNAME);
             $this->_createWriteableDir($dir);
@@ -732,6 +741,142 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         }
 
         return $this;
+    }
+
+    /**
+     * Resolve a path lexically, collapsing "." and ".." segments
+     *
+     * Unlike realpath() this works on paths that do not exist yet, which matters
+     * because the order directory is only created while the order is placed.
+     *
+     * @param  string       $path Relative path, using either separator
+     * @return false|string False when the path traverses above its own root
+     */
+    protected function _normalizePath($path)
+    {
+        $segments = preg_split('#[/\\\\]+#', $path);
+        if ($segments === false) {
+            return false;
+        }
+
+        $resolved = [];
+        foreach ($segments as $segment) {
+            if ($segment === '' || $segment === '.') {
+                continue;
+            }
+
+            if ($segment === '..') {
+                if ($resolved === []) {
+                    return false;
+                }
+
+                array_pop($resolved);
+                continue;
+            }
+
+            $resolved[] = $segment;
+        }
+
+        return DS . implode(DS, $resolved);
+    }
+
+    /**
+     * Check that a stored option file path stays inside the custom options directories
+     *
+     * Public counterpart of _validateOptionFilePath() for the download controllers,
+     * which receive the same stored quote_path/order_path values.
+     *
+     * @param mixed $filePath Relative path as stored in the quote/order item option
+     */
+    public function isValidOptionFilePath($filePath): bool
+    {
+        if (!is_string($filePath) || $filePath === '') {
+            return false;
+        }
+
+        try {
+            $this->_validateOptionFilePath($filePath);
+        } catch (Mage_Core_Exception) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validate that a stored option file path stays inside the custom options directories
+     *
+     * The path is resolved lexically before it is compared, so ".." is collapsed rather
+     * than pattern matched and the directory check below is sufficient on its own. Where
+     * the directory already exists the resolved path is additionally checked against
+     * realpath(), so a symlink placed inside it cannot point somewhere else.
+     *
+     * @param  string              $filePath Relative path as stored in the quote/order item option
+     * @throws Mage_Core_Exception
+     */
+    protected function _validateOptionFilePath(string $filePath): void
+    {
+        if (str_contains($filePath, "\0")) {
+            $this->_throwInvalidFilePath();
+        }
+
+        $normalized = $this->_normalizePath($filePath);
+        if ($normalized === false) {
+            $this->_throwInvalidFilePath();
+        }
+
+        foreach ([$this->getQuoteTargetDir(true), $this->getOrderTargetDir(true)] as $targetDir) {
+            $root = $this->_normalizePath($targetDir);
+            if ($root !== false && str_starts_with($normalized, $root . DS)) {
+                $this->_assertResolvesInside(Mage::getBaseDir() . $normalized, Mage::getBaseDir() . $root);
+                return;
+            }
+        }
+
+        $this->_throwInvalidFilePath();
+    }
+
+    /**
+     * Check that the nearest existing ancestor of a path resolves inside the given root
+     *
+     * Skipped when the root does not exist yet, which is the normal state before the
+     * first upload, since there is then nothing a symlink could redirect.
+     *
+     * @param  string              $fullPath
+     * @param  string              $rootPath
+     * @throws Mage_Core_Exception
+     */
+    protected function _assertResolvesInside($fullPath, $rootPath): void
+    {
+        $realRoot = realpath($rootPath);
+        if ($realRoot === false) {
+            return;
+        }
+
+        $existing = $fullPath;
+        while (!file_exists($existing)) {
+            $parent = dirname($existing);
+            if ($parent === $existing) {
+                return;
+            }
+
+            $existing = $parent;
+        }
+
+        $realExisting = realpath($existing);
+        if ($realExisting === false
+            || ($realExisting !== $realRoot && !str_starts_with($realExisting, $realRoot . DS))
+        ) {
+            $this->_throwInvalidFilePath();
+        }
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    protected function _throwInvalidFilePath(): never
+    {
+        Mage::throwException(Mage::helper('catalog')->__('Invalid file path.'));
     }
 
     /**
@@ -859,6 +1004,25 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         }
 
         return $result;
+    }
+
+    /**
+     * Extensions refused for a new upload to this option
+     *
+     * Protected extensions and the legacy forbidden_extensions always apply. Active-content
+     * types are added only when the option has no allowed-extension list, so a merchant who
+     * lists one of them explicitly keeps accepting it.
+     *
+     * @param  null|string[] $allowed The option's allowed extensions, null when it has none
+     * @return string[]
+     */
+    protected function _getUploadForbiddenExtensions(?array $allowed): array
+    {
+        return array_values(array_unique(array_merge(
+            $this->_getProtectedFileExtensions(),
+            $this->_getForbiddenExtensions(),
+            $allowed === null ? self::ACTIVE_CONTENT_EXTENSIONS : [],
+        )));
     }
 
     /**

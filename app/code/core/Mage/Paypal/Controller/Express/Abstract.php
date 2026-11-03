@@ -148,11 +148,22 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     public function cancelAction()
     {
         try {
+            /**
+             * PayPal appends the Express Checkout token to the cancel URL. This URL is entered as a
+             * cross-site GET and cannot carry a form key, so only a request echoing the token of the
+             * current Express Checkout may cancel an order; a forged request only ends the session.
+             */
+            $sessionToken = (string) $this->_getSession()->getExpressCheckoutToken();
+            $requestToken = $this->getRequest()->getParam('token');
+            $isGatewayReturn = $sessionToken !== ''
+                && is_string($requestToken)
+                && hash_equals($sessionToken, $requestToken);
+
             $this->_initToken(false);
             // TODO verify if this logic of order cancellation is deprecated
             // if there is an order - cancel it
             $orderId = $this->_getCheckoutSession()->getLastOrderId();
-            $order = ($orderId) ? Mage::getModel('sales/order')->load($orderId) : false;
+            $order = ($isGatewayReturn && $orderId) ? Mage::getModel('sales/order')->load($orderId) : false;
             if ($order && $order->getId() && $order->getQuoteId() == $this->_getCheckoutSession()->getQuoteId()) {
                 $order->cancel()->save();
                 $this->_getCheckoutSession()

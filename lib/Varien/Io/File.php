@@ -508,6 +508,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         if (str_contains($filename, chr(0))
             || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $filename)
+            || !$this->_isWriteAllowed($filename)
         ) {
             throw new Exception('Detected malicious path or filename input.');
         }
@@ -529,6 +530,122 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
 
         return $result;
+    }
+
+    /**
+     * Check that a write target stays inside the working directory set by open()/cd()
+     *
+     * Without a working directory no boundary was requested, so nothing is enforced and
+     * write() behaves as it always has. With one, the target folder is accepted when it is
+     * inside the working directory either as written or once symlinks are resolved, so a
+     * merchant-created symlink below the working directory (media or var on shared storage)
+     * keeps working while an absolute path elsewhere is refused. Parent traversal has
+     * already been rejected by write().
+     *
+     * @param  string $filename
+     * @return bool
+     */
+    protected function _isWriteAllowed($filename)
+    {
+        $cwd = (string) $this->_cwd;
+        if ($cwd === '') {
+            return true;
+        }
+
+        $filename = (string) $filename;
+        if ($this->_isAbsolutePath($filename)) {
+            $folder = dirname($filename);
+        } else {
+            $folder = dirname(rtrim($cwd, '\\/') . DIRECTORY_SEPARATOR . ltrim($filename, '\\/'));
+        }
+
+        if ($this->_isPathInside($this->_normalizeSeparators($folder), $this->_normalizeSeparators($cwd))) {
+            return true;
+        }
+
+        $realRoot = realpath($cwd);
+        $realFolder = $this->_getExistingParent($folder);
+
+        return is_string($realRoot) && is_string($realFolder) && $this->_isPathInside($realFolder, $realRoot);
+    }
+
+    /**
+     * Check whether a folder equals or lies below a root, on a separator boundary
+     *
+     * @param  string $folder
+     * @param  string $root
+     * @return bool
+     */
+    protected function _isPathInside($folder, $root)
+    {
+        $folder = rtrim($folder, '\\/') . DIRECTORY_SEPARATOR;
+        $root = rtrim($root, '\\/') . DIRECTORY_SEPARATOR;
+
+        return str_starts_with($folder, $root);
+    }
+
+    /**
+     * Collapse repeated separators and "." segments without touching the file system
+     *
+     * @param  string $path
+     * @return string
+     */
+    protected function _normalizeSeparators($path)
+    {
+        $path = (string) $path;
+        $parts = preg_split('#[\\\\/]+#', $path);
+        $segments = [];
+        foreach ($parts === false ? [] : $parts as $segment) {
+            if ($segment !== '' && $segment !== '.') {
+                $segments[] = $segment;
+            }
+        }
+
+        $prefix = $this->_isAbsolutePath($path) && preg_match('#^[a-z]:#i', $path) !== 1
+            ? DIRECTORY_SEPARATOR
+            : '';
+
+        return $prefix . implode(DIRECTORY_SEPARATOR, $segments);
+    }
+
+    /**
+     * Resolve the nearest existing ancestor of a directory path
+     *
+     * The folder of a write target does not have to exist yet, but once parent
+     * traversal has been rejected everything below an existing ancestor is a plain
+     * suffix of it, so resolving that ancestor is enough to place the target.
+     *
+     * @param  string       $folder
+     * @return false|string
+     */
+    protected function _getExistingParent($folder)
+    {
+        while (true) {
+            $realFolder = realpath($folder);
+            if ($realFolder !== false) {
+                return $realFolder;
+            }
+
+            $parent = dirname($folder);
+            if ($parent === $folder) {
+                return false;
+            }
+
+            $folder = $parent;
+        }
+    }
+
+    /**
+     * Check path is absolute
+     *
+     * @param  string $path
+     * @return bool
+     */
+    protected function _isAbsolutePath($path)
+    {
+        return str_starts_with($path, '/')
+            || str_starts_with($path, '\\')
+            || preg_match('#^[a-z]:[\\\\/]#i', $path) === 1;
     }
 
     /**

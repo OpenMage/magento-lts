@@ -31,6 +31,9 @@ class Mage_Adminhtml_Model_Email_PathValidator
     /**
      * Return bool after checking the encrypted model in the path to config node
      *
+     * A parent of an encrypted path counts as encrypted too: getConfig() on a group returns an
+     * array of its children with encrypted values already decrypted.
+     *
      * @param  string $path
      * @return bool
      */
@@ -39,6 +42,17 @@ class Mage_Adminhtml_Model_Email_PathValidator
         /** @var Mage_Adminhtml_Model_Config $configModel */
         $configModel = Mage::getSingleton('adminhtml/config');
 
-        return in_array((string) $path, $configModel->getEncryptedNodeEntriesPaths());
+        $path = trim((string) $path, '/');
+        if ($path === '') {
+            return false;
+        }
+
+        foreach ($configModel->getEncryptedNodeEntriesPaths() as $encryptedPath) {
+            if ($encryptedPath === $path || str_starts_with($encryptedPath, $path . '/')) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

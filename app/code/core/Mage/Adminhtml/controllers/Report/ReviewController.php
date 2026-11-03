@@ -166,8 +166,9 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {
-            'customer' => 'report/review/customer',
-            'product' => 'report/review/product',
+            'customer', 'exportcustomercsv', 'exportcustomerexcel' => 'report/review/customer',
+            'product', 'exportproductcsv', 'exportproductexcel',
+            'productdetail', 'exportproductdetailcsv', 'exportproductdetailexcel' => 'report/review/product',
             default => 'report/review',
         };
 

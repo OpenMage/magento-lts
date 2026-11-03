@@ -160,9 +160,9 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {
-            'customer' => 'report/shopcart/customer',
-            'product' => 'report/shopcart/product',
-            'abandoned' => 'report/shopcart/abandoned',
+            'customer', 'exportcustomercsv', 'exportcustomerexcel' => 'report/shopcart/customer',
+            'product', 'exportproductcsv', 'exportproductexcel' => 'report/shopcart/product',
+            'abandoned', 'exportabandonedcsv', 'exportabandonedexcel' => 'report/shopcart/abandoned',
             default => 'report/shopcart',
         };
 

@@ -73,13 +73,24 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
     {
         $session = Mage::getSingleton('checkout/session');
         $session->setQuoteId($session->getPaypalStandardQuoteId(true));
-        if ($session->getLastRealOrderId()) {
+
+        /**
+         * This URL is the cancel return handed to PayPal and is entered as a cross-site GET, so it
+         * cannot carry a form key. Only the nonce minted for the last placed PayPal Standard order
+         * may cancel that order, otherwise any page could cancel the customer's last order.
+         */
+        /** @var Mage_Paypal_Helper_Checkout $helper */
+        $helper = Mage::helper('paypal/checkout');
+        $nonce = $this->getRequest()->getParam(Mage_Paypal_Helper_Checkout::CANCEL_NONCE_PARAM);
+        if ($session->getLastRealOrderId()
+            && $helper->canCancelLastRealOrder($nonce, Mage_Paypal_Model_Config::METHOD_WPS)
+        ) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($session->getLastRealOrderId());
             if ($order->getId()) {
                 $order->cancel()->save();
             }
 
-            Mage::helper('paypal/checkout')->restoreQuote();
+            $helper->restoreQuote();
         }
 
         $this->_redirect('checkout/cart');

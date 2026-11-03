@@ -103,7 +103,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             }
         }
 
-        if (str_starts_with($path, 'phar://')) {
+        if (stripos($path, 'phar://') !== false) {
             return $this->getCollection()
                 ->setCollectDirs(false)
                 ->setCollectFiles(false);
@@ -424,7 +424,20 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $path = $this->getHelper()->getCurrentPath();
         }
 
-        return $this->resizeFile($path . DS . $filename);
+        $file = $path . DS . $filename;
+        $source = realpath($file);
+        $storageRoot = realpath($this->getHelper()->getStorageRoot());
+        if ($source === false
+            || $storageRoot === false
+            || !str_starts_with($source, $storageRoot . DS)
+            || !is_file($source)
+        ) {
+            return false;
+        }
+
+        // Resize the unresolved path: getThumbsPath() maps it against the configured (unresolved) media dir,
+        // so passing the realpath would misplace thumbnails when media/ is a symlink.
+        return $this->resizeFile($file);
     }
 
     /**

@@ -14,11 +14,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Ternary operator condition is always true.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Block/Messages.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Ternary operator condition is always true.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/price.phtml',
 ];
 $ignoreErrors[] = [

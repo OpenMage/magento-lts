@@ -242,14 +242,15 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Return escaped value
      *
-     * @param  string $value
-     * @param  string $defaultValue
+     * @param  null|string $value
+     * @param  string      $defaultValue
      * @return string
      */
     public function getEscaped($value, $defaultValue = '')
     {
         if ($value === null || (string) $value === '') {
-            return $defaultValue;
+            // the default is a customer or address name, so it needs escaping as much as a stored value
+            $value = (string) $defaultValue;
         }
 
         return $this->escapeHtml(trim($value));

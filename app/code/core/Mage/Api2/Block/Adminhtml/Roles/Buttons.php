@@ -89,6 +89,11 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
      */
     public function getSaveButtonHtml()
     {
+        $privilege = $this->getRole() && $this->getRole()->getId() ? 'edit' : 'add';
+        if (!Mage::getSingleton('admin/session')->isAllowed('system/api/rest_roles/' . $privilege)) {
+            return '';
+        }
+
         return $this->getChildHtml('saveButton');
     }
 
@@ -101,6 +106,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
     {
         if (!$this->getRole() || !$this->getRole()->getId()
             || Mage_Api2_Model_Acl_Global_Role::isSystemRole($this->getRole())
+            || !Mage::getSingleton('admin/session')->isAllowed('system/api/rest_roles/delete')
         ) {
             return '';
         }

@@ -11,9 +11,10 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Model\Email;
 
-// use Mage;
-// use Mage_Adminhtml_Model_Email_PathValidator as Subject;
+use Mage;
+use Mage_Adminhtml_Model_Email_PathValidator as Subject;
 use Override;
+use PHPUnit\Framework\Attributes\DataProvider;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Model\Email\PathValidatorTrait;
 
@@ -21,13 +22,30 @@ final class PathValidatorTest extends OpenMageTest
 {
     use PathValidatorTrait;
 
-    // private static Subject $subject;
+    private static Subject $subject;
 
     #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        // self::$subject = Mage::getModel('adminhtml/email_pathvalidator');
-        self::markTestSkipped('');
+        self::$subject = Mage::getModel('adminhtml/email_pathValidator');
+    }
+
+    /**
+     * @group Model
+     */
+    #[DataProvider('provideEncryptedConfigPaths')]
+    public function testEncryptedConfigPathsAreBlocked(string $path): void
+    {
+        self::assertTrue(self::$subject->isValid([$path]));
+    }
+
+    /**
+     * @group Model
+     */
+    #[DataProvider('provideUnencryptedConfigPaths')]
+    public function testUnencryptedConfigPathsAreAllowed(string $path): void
+    {
+        self::assertFalse(self::$subject->isValid([$path]));
     }
 }

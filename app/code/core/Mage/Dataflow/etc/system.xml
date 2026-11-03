@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package    Mage_Dataflow
+ */
+-->
+<config>
+    <sections>
+        <system>
+            <groups>
+                <dataflow_url_fetch translate="label comment" module="dataflow">
+                    <label>Dataflow URL Fetch</label>
+                    <sort_order>90</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <comment>Restrict URLs fetched by Dataflow HTTP adapters.</comment>
+                    <fields>
+                        <allowed_url_prefixes translate="label comment">
+                            <label>Allowed URL Prefixes</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Optional newline or comma separated list of allowed http(s) URL prefixes, e.g. https://feeds.example.com/exports/. The scheme, host and port of a fetched URL must match a prefix exactly and its path must start with the prefix path. URLs matching a prefix are also exempt from the network address restrictions below, so only list hosts you control. Leave empty to allow any valid http(s) URL on a permitted network address.</comment>
+                        </allowed_url_prefixes>
+                        <allow_private_network translate="label comment">
+                            <label>Allow URLs on Private Networks</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Whether Dataflow may fetch URLs from private-use addresses (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 100.64.0.0/10, fc00::/7), e.g. an export on a LAN host. Loopback, link-local and cloud instance metadata addresses are always refused unless the URL matches an allowed URL prefix.</comment>
+                        </allow_private_network>
+                    </fields>
+                </dataflow_url_fetch>
+            </groups>
+        </system>
+    </sections>
+</config>

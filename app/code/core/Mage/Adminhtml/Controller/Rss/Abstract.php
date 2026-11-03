@@ -27,6 +27,24 @@ class Mage_Adminhtml_Controller_Rss_Abstract extends Mage_Adminhtml_Controller_A
     }
 
     /**
+     * Force the XML content type on the response
+     *
+     * The default response header is text/html and setHeader() appends by default,
+     * so the header has to be replaced. Feeds rendered as HTML would let any markup
+     * kept in a feed entry, including the contents of a CDATA section, be parsed and
+     * executed by the browser.
+     *
+     * @return $this
+     */
+    protected function _setFeedContentType()
+    {
+        $this->getResponse()
+            ->setHeader('Content-Type', 'text/xml; charset=UTF-8', true)
+            ->setHeader('X-Content-Type-Options', 'nosniff', true);
+        return $this;
+    }
+
+    /**
      * Do check feed enabled and prepare response
      *
      * @param  string $code
@@ -35,7 +53,7 @@ class Mage_Adminhtml_Controller_Rss_Abstract extends Mage_Adminhtml_Controller_A
     protected function checkFeedEnable($code)
     {
         if ($this->isFeedEnable($code)) {
-            $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
+            $this->_setFeedContentType();
             return true;
         }
 
