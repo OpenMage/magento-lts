@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
      * @return string
      */
     #[Override]
-    public function getSaveUrl()
+    public function getFormActionUrl()
     {
         return $this->getUrl('*/*/save', ['_current' => true, 'back' => null]);
     }
