@@ -445,6 +445,28 @@ CSV . "\n"];
         }
     }
 
+    /** @SuppressWarnings("php:S110") */
+    public function testOverriddenCsvItemHookUsesConfiguredSeparator(): void
+    {
+        $store = Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+        $path = Mage_Adminhtml_Model_Grid_Export::XML_PATH_CSV_SEPARATOR;
+        $original = $store->getConfig($path);
+        $store->setConfig($path, ';');
+        try {
+            $grid = new class (false) extends ExportGrid {
+                #[Override]
+                protected function _exportCsvItem(Varien_Object $item, Varien_Io_File $adapter): void
+                {
+                    $adapter->streamWriteCsv(['custom', 'row']);
+                }
+            };
+            $grid->setCollection(new ExportCollection([['name' => 'row', 'amount' => '0']]));
+            self::assertSame("\"name export\";\"amount export\"\ncustom;row\n", $this->export($grid, 'getCsvFile'));
+        } finally {
+            $store->setConfig($path, $original);
+        }
+    }
+
     public static function provideStringFormats(): Iterator
     {
         yield ['getCsv'];
