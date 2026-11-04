@@ -15,10 +15,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         test.new.__buttons.save.click();
-
-        // TODO: see https://github.com/OpenMage/magento-lts/pull/5281
-        validation.hasSuccessMessage();
-        // validation.hasErrorMessage();
+        validation.hasErrorMessage('Search Query is required field.', { match: 'have.text' });
     });
 
     it(`tests index route`, () => {
