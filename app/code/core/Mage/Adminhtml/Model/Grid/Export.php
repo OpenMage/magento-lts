@@ -118,6 +118,7 @@ class Mage_Adminhtml_Model_Grid_Export
         $ioFile = new Varien_Io_File();
         // Subclass hooks calling streamWriteCsv() without a delimiter use the configured separator.
         $ioFile->setCsvDelimiter($this->getCsvSeparator());
+
         $path = Mage::getBaseDir('var') . DS . 'export' . DS;
         $file = $path . DS . bin2hex(random_bytes(16)) . '.' . $extension;
         $ioFile->setAllowCreateFolders(true);
