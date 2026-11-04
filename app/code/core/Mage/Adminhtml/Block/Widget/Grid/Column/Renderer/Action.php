@@ -37,9 +37,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
 
         $out = '<select class="action-select" onchange="varienGridAction.execute(this);">'
              . '<option value=""></option>';
-        $i = 0;
         foreach ($actions as $action) {
-            $i++;
             if (is_array($action)) {
                 $out .= $this->_toOptionHtml($action, $row);
             }

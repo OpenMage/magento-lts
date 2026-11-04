@@ -1778,7 +1778,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $matches = [];
         if (preg_match('/^((?:var)?binary)\((\d+)\)/', $tableColumnInfo['DATA_TYPE'], $matches)) {
-            [$fieldFullDescription, $fieldType, $fieldLength] = $matches;
+            [, $fieldType, $fieldLength] = $matches;
             $tableColumnInfo['DATA_TYPE'] = $fieldType;
             $tableColumnInfo['LENGTH'] = $fieldLength;
         }

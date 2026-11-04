@@ -244,7 +244,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                     $text[] = $str;
                 }
 
-                foreach ($text as $ignored) {
+                foreach ($text as $ignored) {/** @phpstan-ignore foreach.unusedValue */
                     $yAxis += 15;
                 }
             }
@@ -896,7 +896,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                         }
 
                         $top = 0;
-                        foreach ($column['text'] as $part) {
+                        foreach ($column['text'] as $part) {/** @phpstan-ignore foreach.valueOverwritten */
                             $top += $lineSpacing;
                         }
 

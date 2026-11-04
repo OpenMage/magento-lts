@@ -374,7 +374,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 if (!empty($data['account']['new_password'])) {
                     $newPassword = trim($data['account']['new_password']);
                     if ($newPassword === 'auto') {
-                        $newPassword = $customer->generatePassword();
+                        $customer->generatePassword();
                         $customer->sendPasswordLinkEmail($isNewCustomer);
                     } else {
                         $minPasswordLength = Mage::getModel('customer/customer')->getMinPasswordLength();

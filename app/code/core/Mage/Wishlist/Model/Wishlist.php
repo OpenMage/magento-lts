@@ -385,7 +385,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 
             // Collect errors instead of throwing first one
             if ($item->getHasError()) {
-                $errors[] = $item->getMessage();
+                $errors[] = $item->getMessage(); /** @phpstan-ignore assign.unused */
             }
         }
 

@@ -36,7 +36,6 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
             $tmpPath = Mage_Downloadable_Model_Link::getBaseSampleTmpPath();
         }
 
-        $result = [];
         try {
             $uploader = Mage::getModel('core/file_uploader', $type);
             $uploader->setAllowRenameFiles(true);

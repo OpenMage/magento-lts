@@ -146,7 +146,6 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
         }
 
         if ($data['not_attributes']) {
-            $modelAttributeArray = [];
             foreach ($data['not_attributes'] as $attributeId) {
                 $modelAttribute = Mage::getModel('eav/entity_attribute');
 

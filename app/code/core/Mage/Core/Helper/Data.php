@@ -388,7 +388,9 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     {
         static $replacements;
 
-        if (empty($replacements[$german])) {
+        $arrayKey = $german ? 'true' : 'false';
+
+        if (empty($replacements[$arrayKey])) {
             $subst = [
                 // single ISO-8859-1 letters
                 192 => 'A', 193 => 'A', 194 => 'A', 195 => 'A', 196 => 'A', 197 => 'A', 199 => 'C',
@@ -420,9 +422,9 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 ] + $subst;
             }
 
-            $replacements[$german] = [];
+            $replacements[$arrayKey] = [];
             foreach ($subst as $key => $value) {
-                $replacements[$german][$key < 256 ? chr($key) : '&#' . $key . ';'] = $value;
+                $replacements[$arrayKey][$key < 256 ? chr($key) : '&#' . $key . ';'] = $value;
             }
         }
 
@@ -433,7 +435,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         // Replace
-        $string = strtr($string, $replacements[$german]);
+        $string = strtr($string, $replacements[$arrayKey]);
 
         return $string;
     }

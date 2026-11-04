@@ -81,14 +81,10 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
                 $baseShippingTaxAmount       = $invoice->getBaseShippingTaxAmount() * $taxFactor;
                 $totalHiddenTax             += $invoice->getShippingHiddenTaxAmount() * $taxFactor;
                 $baseTotalHiddenTax         += $invoice->getBaseShippingHiddenTaxAmount() * $taxFactor;
-                $shippingHiddenTaxAmount     = $invoice->getShippingHiddenTaxAmount() * $taxFactor;
-                $baseShippingHiddenTaxAmount = $invoice->getBaseShippingHiddenTaxAmount() * $taxFactor;
                 $shippingTaxAmount           = $creditmemo->roundPrice($shippingTaxAmount);
                 $baseShippingTaxAmount       = $creditmemo->roundPrice($baseShippingTaxAmount, 'base');
                 $totalHiddenTax              = $creditmemo->roundPrice($totalHiddenTax);
                 $baseTotalHiddenTax          = $creditmemo->roundPrice($baseTotalHiddenTax, 'base');
-                $shippingHiddenTaxAmount     = $creditmemo->roundPrice($shippingHiddenTaxAmount);
-                $baseShippingHiddenTaxAmount = $creditmemo->roundPrice($baseShippingHiddenTaxAmount, 'base');
                 $totalTax                   += $shippingTaxAmount;
                 $baseTotalTax               += $baseShippingTaxAmount;
             }
@@ -97,8 +93,6 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
             $baseOrderShippingAmount = $order->getBaseShippingAmount();
             $baseOrderShippingRefundedAmount = $order->getBaseShippingRefunded();
 
-            $shippingTaxAmount = 0;
-            $baseShippingTaxAmount = 0;
             $shippingHiddenTaxAmount = 0;
             $baseShippingHiddenTaxAmount = 0;
 
