@@ -114,7 +114,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     ) {
         static $result;
 
-        if (!$rawNodes) {
+        if (!$rawNodes && $level === 0) {
             $result = [];
         }
 
