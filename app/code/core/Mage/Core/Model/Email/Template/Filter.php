@@ -15,6 +15,11 @@
 class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 {
     /**
+     * Config node listing the layout handles that the {{layout}} directive may render
+     */
+    public const XML_PATH_ALLOWED_LAYOUT_HANDLES = 'global/template/email_layout_handles';
+
+    /**
      * Use absolute links flag
      *
      * @var bool
@@ -204,6 +209,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $skipParams = ['handle', 'area'];
 
         $params = $this->_getIncludeParameters($construction[2]);
+        $handle = isset($params['handle']) && is_string($params['handle']) ? $params['handle'] : '';
+        if (!$this->isLayoutHandleAllowed($handle)) {
+            Mage::log('Security problem: layout handle ' . $handle . ' has not been whitelisted.');
+            return '';
+        }
+
         $layout = Mage::getModel('core/layout');
         /** @var Mage_Core_Model_Layout $layout */
         if (isset($params['area'])) {
@@ -212,7 +223,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             $layout->setArea(Mage::app()->getLayout()->getArea());
         }
 
-        $layout->getUpdate()->addHandle($params['handle']);
+        $layout->getUpdate()->addHandle($handle);
         $layout->getUpdate()->load();
 
         $layout->generateXml();
@@ -240,6 +251,34 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         $layout->setDirectOutput(false);
         return $layout->getOutput();
+    }
+
+    /**
+     * Whether a layout handle may be rendered by the {{layout}} directive
+     *
+     * Template content can be edited by admin roles that are not trusted with arbitrary blocks (see the block
+     * whitelist enforced by blockDirective()), so only handles declared under
+     * global/template/email_layout_handles are rendered. Modules that ship email layout handles declare them there.
+     */
+    public function isLayoutHandleAllowed(string $handle): bool
+    {
+        if ($handle === '') {
+            return false;
+        }
+
+        $config = Mage::getConfig();
+        $allowed = $config instanceof Mage_Core_Model_Config ? $config->getNode(self::XML_PATH_ALLOWED_LAYOUT_HANDLES) : false;
+        if (!$allowed instanceof Varien_Simplexml_Element) {
+            return false;
+        }
+
+        foreach ($allowed->children() as $node) {
+            if ($node->getName() === $handle) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

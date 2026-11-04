@@ -48,6 +48,15 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             return false;
         }
 
+        // A lookup is about to be attempted. Refuse it outright if this client is
+        // still inside the timeframe of an earlier failure, and do not record a
+        // hit for the refusal itself -- otherwise a blocked client would keep
+        // extending its own block by retrying.
+        if (Mage::helper('core')->isRateLimitExceeded(true, false)) {
+            Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/guest/form'));
+            return false;
+        }
+
         if (!empty($post) && isset($post['oar_order_id']) && isset($post['oar_type'])) {
             $type           = $post['oar_type'];
             $incrementId    = $post['oar_order_id'];
@@ -86,6 +95,8 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             if (!$errors) {
                 $toCookie = base64_encode($order->getProtectCode() . ':' . $incrementId);
                 $cookieModel->set($this->_cookieName, $toCookie, $this->_lifeTime, '/');
+            } else {
+                Mage::helper('core')->recordRateLimitHit();
             }
         } elseif ($cookieModel->get($this->_cookieName)) {
             $cookie = $cookieModel->get($this->_cookieName);
@@ -109,7 +120,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             return true;
         }
 
-        if ($errors || Mage::helper('core')->isRateLimitExceeded(true, false)) {
+        if ($errors) {
             Mage::getSingleton('core/session')->addError($this->__($errorMessage));
         }
 

@@ -299,7 +299,8 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                         || str_starts_with($stackVars[$i]['name'], 'get')
                     ) {
                         $isEncrypted = false;
-                        if ($stackVars[$i]['name'] == 'getConfig') {
+                        // PHP method names are case-insensitive, store.GetConfig() reaches the same method
+                        if (strcasecmp($stackVars[$i]['name'], 'getConfig') === 0) {
                             $isEncrypted = $emailPathValidator->isValid($stackVars[$i]['args']);
                         }
 

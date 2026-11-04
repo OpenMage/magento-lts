@@ -7,11 +7,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Main.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method addTemplateInfo() of class Mage_Newsletter_Model_Resource_Queue_Collection.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Newsletter/Grid.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php',
@@ -118,18 +113,6 @@ after 1.4 beta1 it is checkout module responsibility',
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Cart/Api.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Onepage.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method isAllowedGuestCheckout() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Onepage.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getSuggestedZeroDate() of interface Varien_Db_Adapter_Interface:
 after 1.5.1.0',
     'count' => 2,
@@ -232,12 +215,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method _getTrackingUrl() of class Mage_Shipping_Helper_Data:
-the non-model usage',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method addVisibleFilterToCollection() of class Mage_Catalog_Model_Product_Status:
 remove on new builds',
     'count' => 1,
@@ -247,16 +224,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method aggregate() of class Mage_Tag_Model_Resource_Tag.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/Model/Tag.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getBaseTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
-    'count' => 9,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
-    'count' => 9,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method _processLocalizedQty() of class Mage_Wishlist_Controller_Abstract.',
@@ -269,37 +236,16 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/controllers/IndexController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
-Use getAbsoluteGridUrl() method instead',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getRowId() of class Mage_Adminhtml_Block_Widget_Grid.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/grid.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getIsPriceWebsiteScope() of class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links:
 since 1.14.2.0',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/product/edit/downloadable/links.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/order/view/items/renderer/downloadable.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
 Use getAbsoluteGridUrl() method instead',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/report/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getHtmlId() of class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/view/items/renderer/default.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:

@@ -11,9 +11,8 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Input\Filter;
 
-// use Mage;
-// use Mage_Core_Model_Input_Filter_MaliciousCode as Subject;
-use Override;
+use Mage;
+use Mage_Core_Model_Input_Filter_MaliciousCode as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Input\Filter\MaliciousCodeTrait;
 
@@ -21,13 +20,23 @@ final class MaliciousCodeTest extends OpenMageTest
 {
     use MaliciousCodeTrait;
 
-    // private static Subject $subject;
-
-    #[Override]
-    public static function setUpBeforeClass(): void
+    /**
+     * The regular expressions are only a first pass; filter() always finishes with HTMLPurifier,
+     * which is what actually guarantees no event handler survives. GHSA-5656-5m7v-f3q9 reported
+     * shapes that slip past the expressions alone, so lock in that the complete filter removes them.
+     *
+     * @dataProvider provideEventHandlerPayloads
+     * @group Model
+     */
+    public function testFilterRemovesEventHandlers(string $input): void
     {
-        parent::setUpBeforeClass();
-        // self::$subject = Mage::getModel('core/input_filter_maliciouscode');
-        self::markTestSkipped('');
+        /** @var Subject $subject */
+        $subject = Mage::getModel('core/input_filter_maliciousCode');
+        $output = $subject->filter($input);
+        self::assertIsString($output);
+
+        self::assertDoesNotMatchRegularExpression('/\son[a-z]+\s*=/i', $output);
+        self::assertStringNotContainsStringIgnoringCase('javascript:', $output);
+        self::assertStringNotContainsStringIgnoringCase('<script', $output);
     }
 }

@@ -208,4 +208,21 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
         parent::setExceptions($exceptions);
         return $exceptions;
     }
+
+    /**
+     * Preserve Dataflow's status links while treating all other message markup as text.
+     */
+    public function purifyExceptionMessage(string $message): string
+    {
+        /** @var Mage_Core_Model_Purifier $purifier */
+        $purifier = Mage::getModel('core/purifier', [
+            'allowedElements' => ['a'],
+            'allowedAttributes' => ['a.href', 'a.target', 'a.rel'],
+            'allowedClasses' => [],
+            'allowedStyleProperties' => [],
+            'escapeInvalidTags' => true,
+        ]);
+
+        return $purifier->purify($message);
+    }
 }

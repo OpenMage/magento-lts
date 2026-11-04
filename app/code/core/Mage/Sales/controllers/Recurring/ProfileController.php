@@ -74,10 +74,20 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Attempt to set profile state
+     *
+     * The form key is what protects this action against cross-site requests. It is accepted
+     * from the POST body as well as from the URL, because the view block embeds it in the
+     * action URLs so that themes still navigating to them with a GET keep working.
+     *
      * @return void
      */
     public function updateStateAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
         $profile = null;
         try {
             $profile = $this->_initProfile();
@@ -111,10 +121,18 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
 
     /**
      * Fetch an update with profile
+     *
+     * Form key accepted from the POST body or the URL, see updateStateAction()
+     *
      * @return void
      */
     public function updateProfileAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
         $profile = null;
         try {
             $profile = $this->_initProfile();

@@ -196,6 +196,11 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
      */
     public function confirmAction()
     {
+        if (!$this->getRequest()->isPost() || !$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
         $this->_initConfirmPage();
     }
 
@@ -205,6 +210,11 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
      */
     public function confirmSimpleAction()
     {
+        if (!$this->getRequest()->isPost() || !$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
         $this->_initConfirmPage(true);
     }
 

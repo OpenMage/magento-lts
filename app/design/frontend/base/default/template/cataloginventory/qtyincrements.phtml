@@ -13,6 +13,6 @@
 ?>
 <?php if ($this->getProductQtyIncrements()) : ?>
     <div class="product-pricing">
-        <?php echo $this->__('%s is available for purchase in increments of %s', $this->getProductName(), $this->getProductQtyIncrements()) ?>
+        <?php echo $this->__('%s is available for purchase in increments of %s', $this->escapeHtml($this->getProductName()), $this->getProductQtyIncrements()) ?>
     </div>
 <?php endif ?>

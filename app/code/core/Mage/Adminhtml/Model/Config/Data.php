@@ -128,7 +128,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                         . $mappedFields[$field]);
                 }
 
-                if (!$fieldConfig) {
+                if (!$fieldConfig && $this->_isPlainIdentifier($group) && $this->_isPlainIdentifier($field)) {
                     $node = $sections->xpath($section . '//' . $group . '[@type="group"]/fields/' . $field);
                     if ($node) {
                         $fieldConfig = $node[0];
@@ -439,7 +439,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 }
 
                 $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
-                if (!$fieldConfig) {
+                if (!$fieldConfig && $this->_isPlainIdentifier($group) && $this->_isPlainIdentifier($field)) {
                     $node = $sections->xpath($section . '//' . $group . '[@type="group"]/fields/' . $field);
                     if ($node) {
                         $fieldConfig = $node[0];
@@ -478,6 +478,23 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             self::SCOPE_STORES => (bool) (int) $field->show_in_store,
             default => true,
         };
+    }
+
+    /**
+     * Whether a posted group or field key is a plain config node name
+     *
+     * Group and field keys are concatenated into an XPath expression for the
+     * dynamic_group fallback lookup. Anything other than a plain identifier
+     * (e.g. an XPath union such as "x|//admin/...") must be rejected before
+     * it reaches that expression, or it can select a node outside the
+     * requested section.
+     *
+     * @param  string $value
+     * @return bool
+     */
+    protected function _isPlainIdentifier($value)
+    {
+        return is_scalar($value) && preg_match('/^[a-zA-Z0-9_]+$/', (string) $value) === 1;
     }
 
     /**
