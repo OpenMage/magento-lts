@@ -68,16 +68,13 @@ class Mage_Adminhtml_Model_Grid_Export
     }
 
     /**
-     * Preserve the string export's quoting, including its legacy backslash escaping.
-     * Report labels are unescaped; report totals escape quotes only.
+     * Quotes are always doubled so every field stays a valid CSV field.
+     * Preserve the string export's legacy backslash escaping, which headers,
+     * report labels and report totals never had.
      */
-    public function getCsvField(mixed $value, bool $escapeQuotes = true, bool $escapeBackslashes = true): string
+    public function getCsvField(mixed $value, bool $escapeBackslashes = true): string
     {
-        $value = (string) $value;
-        if ($escapeQuotes) {
-            $value = str_replace('"', '""', $value);
-        }
-
+        $value = str_replace('"', '""', (string) $value);
         if ($escapeBackslashes) {
             $value = str_replace('\\', '\\\\', $value);
         }
@@ -86,11 +83,11 @@ class Mage_Adminhtml_Model_Grid_Export
     }
 
     /** @param array<mixed> $row */
-    public function getCsvRow(array $row, bool $escape = true): string
+    public function getCsvRow(array $row, bool $escapeBackslashes = true): string
     {
         $fields = [];
         foreach ($row as $value) {
-            $fields[] = $this->getCsvField($value, $escape, $escape);
+            $fields[] = $this->getCsvField($value, $escapeBackslashes);
         }
 
         return implode($this->getCsvSeparator(), $fields) . "\n";

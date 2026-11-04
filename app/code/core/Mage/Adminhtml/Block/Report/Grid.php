@@ -462,7 +462,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->_prepareGrid();
         $export = $this->getExportModel();
         $headers = array_merge([$this->__('Period')], $export->getHeaders($this->_columns));
-        $csv = $export->getCsvRow($headers, escape: false);
+        $csv = $export->getCsvRow($headers, escapeBackslashes: false);
         $separator = $export->getCsvSeparator();
         foreach ($this->getReportExportRows($export->getCsvField(...)) as $row) {
             $csv .= implode($separator, $row) . "\n";
@@ -494,11 +494,11 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     /**
      * Traverse each report interval once for either string format.
-     * The field formatter preserves the legacy CSV distinction between ordinary
-     * values, labels (no escaping) and totals (quote escaping only).
+     * The field formatter's flag preserves the legacy CSV backslash escaping,
+     * which only ordinary values have, not labels or totals.
      *
      * @template TValue
-     * @param  callable(mixed, bool, bool): TValue $formatField
+     * @param  callable(mixed, bool): TValue $formatField
      * @return Generator<int, list<TValue>>
      */
     protected function getReportExportRows(callable $formatField): Generator
@@ -509,7 +509,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 yield $this->getReportExportRow(
                     $index,
                     $formatField,
-                    static fn($column) => $formatField($column->getRowField($item), true, true),
+                    static fn($column) => $formatField($column->getRowField($item), true),
                 );
             }
 
@@ -518,8 +518,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     $index,
                     $formatField,
                     fn($column, $position) => $position === 1
-                        ? $formatField($this->__('Subtotal'), false, false)
-                        : $formatField($column->getRowField($this->getTotals()), true, false),
+                        ? $formatField($this->__('Subtotal'), false)
+                        : $formatField($column->getRowField($this->getTotals()), false),
                 );
             }
         }
@@ -528,7 +528,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             yield $this->getReportExportRow(
                 $this->__('Total'),
                 $formatField,
-                fn($column) => $formatField($column->getRowField($this->getGrandTotals()), true, false),
+                fn($column) => $formatField($column->getRowField($this->getGrandTotals()), false),
             );
         }
     }
@@ -538,13 +538,13 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * In particular, a leading system column still occupies the subtotal-label position.
      *
      * @template TValue
-     * @param  callable(mixed, bool, bool): TValue                            $formatField
+     * @param  callable(mixed, bool): TValue                                  $formatField
      * @param  callable(Mage_Adminhtml_Block_Widget_Grid_Column, int): TValue $formatColumn
      * @return list<TValue>
      */
     protected function getReportExportRow(mixed $label, callable $formatField, callable $formatColumn): array
     {
-        $row = [$formatField($label, false, false)];
+        $row = [$formatField($label, false)];
         $position = 0;
         foreach ($this->_columns as $column) {
             $position++;

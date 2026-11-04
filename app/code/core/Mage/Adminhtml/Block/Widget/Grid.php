@@ -1297,7 +1297,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_prepareGrid();
         $collection = $this->getCollectionForExport();
         $export = $this->getExportModel();
-        $csv = $export->getCsvRow($export->getHeaders($this->_columns, true), escape: false);
+        $csv = $export->getCsvRow($export->getHeaders($this->_columns, true), escapeBackslashes: false);
         foreach ($collection as $item) {
             $csv .= $export->getCsvRow($export->getRow($this->_columns, $item, true));
         }

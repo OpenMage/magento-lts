@@ -86,6 +86,15 @@ final class GridExportTest extends OpenMageTest
         }
     }
 
+    public function testCsvFieldsAlwaysEscapeQuotes(): void
+    {
+        $export = Mage::getSingleton('adminhtml/grid_export');
+        self::assertSame('"Size 15"" \\\\ wide"', $export->getCsvField('Size 15" \\ wide'));
+        self::assertSame('"Size 15"" \\ wide"', $export->getCsvField('Size 15" \\ wide', false));
+        $row = rtrim($export->getCsvRow(['Size 15"', 'a,b;c'], false));
+        self::assertSame(['Size 15"', 'a,b;c'], str_getcsv($row, $export->getCsvSeparator(), '"', ''));
+    }
+
     public function testCsvSeparatorUsesGlobalAdminConfiguration(): void
     {
         $adminStore = Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID);
@@ -133,13 +142,13 @@ CSV . "\n"];
 "All rows";24,68
 CSV . "\n"];
         yield 'comma-report' => [true, 'getCsv', ',', <<<'CSV'
-"Period","name "header"","amount "header""
+"Period","name ""header""","amount ""header"""
 "first;period,day","A;B,""C""","12,34"
 "first;period,day","Subtotal","12,34"
 "Total","A;B,""C""","12,34"
 CSV . "\n"];
         yield 'semicolon-report' => [true, 'getCsv', ';', <<<'CSV'
-"Period";"name "header"";"amount "header""
+"Period";"name ""header""";"amount ""header"""
 "first;period,day";"A;B,""C""";"12,34"
 "first;period,day";"Subtotal";"12,34"
 "Total";"A;B,""C""";"12,34"
