@@ -87,6 +87,13 @@ class Varien_Io_File extends Varien_Io_Abstract
     protected $_streamException;
 
     /**
+     * Delimiter used by streamWriteCsv() when none is passed
+     *
+     * @var string
+     */
+    protected $_csvDelimiter = ',';
+
+    /**
      * @var string[]
      */
     public const ALLOWED_IMAGES_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'avif'];
@@ -230,18 +237,18 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Format line as CSV and write to file pointer
      *
-     * @param  string   $delimiter
-     * @param  string   $enclosure
+     * @param  null|string $delimiter defaults to the delimiter set by setCsvDelimiter()
+     * @param  string      $enclosure
      * @return bool|int
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
-    public function streamWriteCsv(array $row, $delimiter = ',', $enclosure = '"')
+    public function streamWriteCsv(array $row, $delimiter = null, $enclosure = '"')
     {
         if (!$this->_streamHandler) {
             return false;
         }
 
-        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure, '\\');
+        return @fputcsv($this->_streamHandler, $row, $delimiter ?? $this->_csvDelimiter, $enclosure, '\\');
     }
 
     /**
@@ -337,6 +344,18 @@ class Varien_Io_File extends Varien_Io_Abstract
     public function setAllowCreateFolders($flag)
     {
         $this->_allowCreateFolders = $flag;
+        return $this;
+    }
+
+    /**
+     * Set the delimiter used by streamWriteCsv() when none is passed
+     *
+     * @param  string $delimiter
+     * @return $this
+     */
+    public function setCsvDelimiter($delimiter)
+    {
+        $this->_csvDelimiter = $delimiter;
         return $this;
     }
 

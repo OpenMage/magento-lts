@@ -206,6 +206,9 @@
             <target_version>ce</target_version>
         </help>
         <admin>
+            <grid_export>
+                <csv_separator>,</csv_separator>
+            </grid_export>
             <design>
                 <use_legacy_theme>0</use_legacy_theme>
             </design>

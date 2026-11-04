@@ -47,11 +47,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Page/Menu.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Return type (mixed) of method Mage_Adminhtml_Block_Report_Grid::getExcel() should be covariant with return type (string) of method Mage_Adminhtml_Block_Widget_Grid::getExcel()',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Return type (Mage_Adminhtml_Block_Report_Grid_Abstract) of method Mage_Adminhtml_Block_Report_Grid_Abstract::addColumn() should be covariant with return type ($this(Mage_Adminhtml_Block_Widget_Grid)) of method Mage_Adminhtml_Block_Widget_Grid::addColumn()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php',
