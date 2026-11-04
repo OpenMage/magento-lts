@@ -858,7 +858,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             }
 
             // only possible ints are left
-            return (int)$validatedValue === (int)$value;
+            return (int) $validatedValue === (int) $value;
         }
 
         $validatedValue ??= '';
