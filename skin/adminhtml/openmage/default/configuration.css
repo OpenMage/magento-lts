@@ -1,0 +1,99 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder:
+   $ sass configuration.scss ../configuration.css
+ */
+@media screen and (min-width: 1000px) and (min-height: 640px) {
+  .adminhtml-system-config-edit.config-panels .columns {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 25px;
+    height: var(--config-panel-height);
+    min-height: 0;
+  }
+  .adminhtml-system-config-edit.config-panels .columns::after {
+    display: none;
+  }
+  .adminhtml-system-config-edit.config-panels .side-col,
+  .adminhtml-system-config-edit.config-panels .main-col {
+    float: none;
+    width: auto;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    box-sizing: border-box;
+  }
+  .adminhtml-system-config-edit.config-panels .side-col:focus-visible,
+  .adminhtml-system-config-edit.config-panels .main-col:focus-visible {
+    outline: 2px solid #025988;
+    outline-offset: -2px;
+  }
+  .adminhtml-system-config-edit.config-panels .side-col {
+    padding-right: 10px;
+  }
+  .adminhtml-system-config-edit.config-panels .main-col {
+    scroll-padding-top: var(--config-header-height, 60px);
+  }
+  .adminhtml-system-config-edit.config-panels .main-col .main-col-inner {
+    float: none;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0 10px 20px 0;
+    box-sizing: border-box;
+  }
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config {
+    width: 100%;
+    min-width: 0;
+    min-inline-size: 0;
+    box-sizing: border-box;
+  }
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list {
+    width: 100%;
+    table-layout: fixed;
+  }
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.label {
+    width: 28%;
+    overflow-wrap: anywhere;
+  }
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.value {
+    width: auto;
+    min-width: 0;
+  }
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.value > input.input-text,
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.value > select,
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.value > textarea,
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.value > p.note {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.scope-label {
+    width: 65px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.use-default {
+    width: 90px;
+    white-space: normal;
+  }
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td[class=""]:last-child {
+    width: 16px;
+  }
+  .adminhtml-system-config-edit.config-panels .main-col .content-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #f6f6f6;
+  }
+  .adminhtml-system-config-edit.config-panels .content-header-floating {
+    display: none !important;
+  }
+}
+
+/*# sourceMappingURL=configuration.css.map */
