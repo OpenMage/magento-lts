@@ -22,11 +22,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid/Renderer/Action.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method _getCollectionNames() of class Mage_Adminhtml_Report_StatisticsController.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php',
