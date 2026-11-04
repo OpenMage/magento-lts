@@ -838,11 +838,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     protected function _compareValues($validatedValue, $value, $strict = true)
     {
         if ($strict && is_numeric($validatedValue) && is_numeric($value)) {
-            if (is_float($validatedValue) || is_float($value)) {
-                return abs($validatedValue - $value) < 0.00001;
-            }
-
-            return (int) $validatedValue === (int) $value;
+            return abs($validatedValue - $value) < 0.00001;
         }
 
         $validatedValue ??= '';
