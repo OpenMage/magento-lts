@@ -5372,11 +5372,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Rss/Block/Catalog/New.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getId() on true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Rss/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method fetchAll() on Varien_Db_Adapter_Interface|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Rss/Model/Resource/Order.php',
