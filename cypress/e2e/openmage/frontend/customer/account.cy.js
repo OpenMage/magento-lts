@@ -95,4 +95,20 @@ describe('Checks customer account create', () => {
         tools.click(test._buttonSubmit);
         validation.hasErrorMessage();
     });
+
+    const newsletter = cy.openmage.test.frontend.homepage.newsletter.config;
+
+    it('subscribes to newsletter', () => {
+        cy.visit(cy.openmage.test.frontend.homepage._url);
+        cy.get(newsletter._id).type(email);
+        tools.click(newsletter._buttonSubmit);
+        validation.hasErrorMessage();
+    });
+
+    it('resubscribes to newsletter with own email', () => {
+        cy.visit(cy.openmage.test.frontend.homepage._url);
+        cy.get(newsletter._id).type(email);
+        tools.click(newsletter._buttonSubmit);
+        validation.hasErrorMessage();
+    });
 });
