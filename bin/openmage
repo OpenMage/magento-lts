@@ -1,0 +1,76 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Console
+ */
+
+declare(strict_types=1);
+
+use OpenMage\Console\Application;
+
+if (PHP_SAPI !== 'cli') {
+    exit(1);
+}
+
+// Set by the vendor/bin proxy of Composer >= 2.2 as "vendor/bin/../autoload.php". When the script is
+// run from vendor/<vendor>/<package>/bin, the autoloader is found from the Composer vendor directory.
+$autoloadPath = $GLOBALS['_composer_autoload_path'] ?? null;
+if ($autoloadPath === null && is_file(dirname(__DIR__, 3) . '/composer/installed.json')) {
+    $autoloadPath = dirname(__DIR__, 3) . '/autoload.php';
+}
+
+$autoloadPath = is_string($autoloadPath) ? realpath($autoloadPath) : false;
+
+/**
+ * Root order: --root-dir, then magento-root-dir of the Composer project when installed as a package,
+ * then the clone that holds this script.
+ */
+$rootDir = (static function (mixed $argv) use ($autoloadPath): string {
+    $argv = is_array($argv) ? $argv : [];
+    foreach ($argv as $index => $arg) {
+        if (!is_string($arg) || $arg === '--') {
+            break;
+        }
+
+        if (str_starts_with($arg, '--root-dir=')) {
+            return substr($arg, strlen('--root-dir='));
+        }
+
+        if ($arg === '--root-dir') {
+            $value = $argv[$index + 1] ?? '';
+
+            return is_string($value) ? $value : '';
+        }
+    }
+
+    // Assumes the vendor directory sits in the project root.
+    if ($autoloadPath !== false) {
+        $projectDir = dirname($autoloadPath, 2);
+        $composer = is_file($projectDir . '/composer.json')
+            ? json_decode((string) file_get_contents($projectDir . '/composer.json'), true)
+            : null;
+        $magentoRootDir = $composer['extra']['magento-root-dir'] ?? '.';
+
+        return $projectDir . '/' . $magentoRootDir;
+    }
+
+    return dirname(__DIR__);
+})($_SERVER['argv'] ?? []);
+
+$mageFile = realpath($rootDir . '/app/Mage.php');
+if ($mageFile === false) {
+    fwrite(STDERR, sprintf("No OpenMage installation found in \"%s\"; use --root-dir.\n", $rootDir));
+    exit(1);
+}
+
+if ($autoloadPath !== false) {
+    require_once $autoloadPath;
+}
+
+require_once $mageFile;
+
+exit(Application::create()->run());
