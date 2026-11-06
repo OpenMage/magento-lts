@@ -108,9 +108,6 @@ Catalog.Map = {
         if (helpBox.parentNode != bodyNode) {
             helpBox.remove();
             bodyNode.insert(helpBox);
-            // Fix for FF4-FF5 bug with missing alt text after DOM manipulations
-            var paypalImg = helpBox.select('.paypal-logo > a > img')[0];
-            if (paypalImg) paypalImg.src = paypalImg.src;
         }
 
         if (this != Catalog.Map && Catalog.Map.active != this.link) {

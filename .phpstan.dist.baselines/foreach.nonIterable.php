@@ -472,6 +472,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Argument of an invalid type Mage_Core_Model_Resource_Db_Collection_Abstract|false supplied for foreach, only iterables are supported.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/controllers/Adminhtml/Paypal/DebugController.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array<Varien_Simplexml_Element>|false|null supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Persistent/Model/Observer.php',

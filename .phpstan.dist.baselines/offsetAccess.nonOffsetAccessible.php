@@ -197,21 +197,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Info.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset 1 on list<string>|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'amount\' on Varien_Object|void.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'qty\' on Varien_Object|void.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset mixed on array<Mage_Sales_Model_Order_Payment_Transaction>|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php',

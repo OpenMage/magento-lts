@@ -142,46 +142,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Method/Free.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc type array of property Mage_Paypal_Model_Api_Nvp::$_lineItemTotalExportMap is not the same as PHPDoc type mixed of overridden property Mage_Paypal_Model_Api_Abstract::$_lineItemTotalExportMap.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc type array of property Mage_Paypal_Model_Api_Standard::$_lineItemTotalExportMap is not the same as PHPDoc type mixed of overridden property Mage_Paypal_Model_Api_Abstract::$_lineItemTotalExportMap.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Standard.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc type string of property Mage_Paypal_Model_Bml::$_code is not the same as PHPDoc type mixed of overridden property Mage_Paypal_Model_Express::$_code.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Bml.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc type string of property Mage_Paypal_Model_Bml::$_formBlockType is not the same as PHPDoc type mixed of overridden property Mage_Paypal_Model_Express::$_formBlockType.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Bml.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc type string of property Mage_Paypal_Model_Method_Agreement::$_code is not the same as PHPDoc type mixed of overridden property Mage_Payment_Model_Method_Abstract::$_code.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Method/Agreement.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc type string of property Mage_Paypal_Model_Payflowadvanced::$_code is not the same as PHPDoc type mixed of overridden property Mage_Paypal_Model_Payflowlink::$_code.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowadvanced.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc type string of property Mage_Paypal_Model_Payflowadvanced::$_formBlockType is not the same as PHPDoc type mixed of overridden property Mage_Paypal_Model_Payflowlink::$_formBlockType.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowadvanced.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc type string of property Mage_Paypal_Model_Payflowadvanced::$_infoBlockType is not the same as PHPDoc type mixed of overridden property Mage_Paypal_Model_Payflowlink::$_infoBlockType.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflowadvanced.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'PHPDoc type string of property Mage_Reports_Block_Product_Compared::$_indexName is not the same as PHPDoc type string|null of overridden property Mage_Reports_Block_Product_Abstract::$_indexName.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Block/Product/Compared.php',

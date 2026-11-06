@@ -180,15 +180,6 @@
     }
 }
 
-@include bp(max-width, $bp-xsmall) {
-    .opc,
-    .paypal-express-review {
-        .buttons-set .button + .buttons-set .button {
-            margin-left: 0;
-        }
-    }
-}
-
 .opc #opc-login {
     .step {
         padding: 0px;
@@ -265,14 +256,6 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
     }
     dd li {
         margin: 5px 0;
-    }
-    label img { // This applies to the Paypal Express label
-        float: left;
-    }
-    label a { // This applies to the Paypal Express label
-        margin-top: 6px;
-        float: right;
-        margin-left: 10px;
     }
     .price {
         font-weight: bold;

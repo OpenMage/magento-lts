@@ -162,6 +162,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Index/Model/Indexer/Abstract.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Variable method call on object.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Helper.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Variable method call on object|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Persistent/Model/Persistent/Config.php',

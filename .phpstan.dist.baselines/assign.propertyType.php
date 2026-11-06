@@ -447,21 +447,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Billing/AgreementAbstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Express_Checkout::$_billingAgreement (Mage_Sales_Model_Billing_Agreement) does not accept Mage_Sales_Model_Billing_Agreement|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Express_Checkout::$_customerId (int) does not accept int|string|null.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Paypal_Model_Pro::$_api (Mage_Paypal_Model_Api_Nvp|false|null) does not accept object|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Pro.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Property Mage_ProductAlert_Model_Email::$_priceBlock (Mage_ProductAlert_Block_Email_Price|null) does not accept Mage_ProductAlert_Block_Email_Price|Mage_ProductAlert_Block_Email_Stock.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/ProductAlert/Model/Email.php',

@@ -130,50 +130,11 @@
             }
         }
 
-        .paypal-logo {
-            width: auto;
-
-            a {
-                display: inline-block;
-                float: left;
-                clear: left;
-            }
-
-            .paypal-or {
-                float: left;
-                text-align: center;
-                padding: 5px 15px;
-                clear: left;
-            }
-
-            &:after {
-                @include clearfix;
-            }
-
-            .bml_button {
-                a {
-                    clear: left;
-                }
-            }
-        }
-
         @include bp(max-width, $bp-xsmall) {
             text-align: center;
 
-            .button,
-            .additional-addtocart-box,
-            .paypal-logo a,
-            .paypal-logo .paypal-or {
-                float: none;
-            }
-
             .additional-addtocart-box {
                 min-width: 0px;
-            }
-
-            .paypal-logo .paypal-or {
-                margin: 0px;
-                margin-bottom: 10px;
             }
         }
 

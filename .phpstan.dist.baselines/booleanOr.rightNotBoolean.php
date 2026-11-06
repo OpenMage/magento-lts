@@ -197,36 +197,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Info/Cc.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in ||, mixed given on the right side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Payflowlink/Info.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in ||, Mage_Sales_Model_Quote_Address given on the right side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Review/Billing.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in ||, Mage_Sales_Model_Quote_Address given on the right side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Block/Express/Review/Shipping.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in ||, mixed given on the right side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in ||, mixed given on the right side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Express/Checkout.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in ||, string|false given on the right side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Payflow/Request.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in ||, string|null given on the right side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php',

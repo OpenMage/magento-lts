@@ -102,51 +102,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Install/Model/Installer/Db.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $apiAuthentication on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $apiPassword on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $apiSignature on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $apiUsername on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $debug on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $sandboxFlag on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $verifyPeer on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $payment_action on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $sandboxFlag on Mage_Paypal_Model_Config|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Api/Nvp.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot access property $childNodes on DOMElement|null.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Test.php',
