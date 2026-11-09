@@ -266,6 +266,28 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     }
 
     /**
+     * Keep historical orders accessible when their payment module has been removed.
+     * Quote payments still require a configured method through the parent implementation.
+     *
+     * @inheritDoc
+     */
+    #[Override]
+    public function getMethodInstance()
+    {
+        if (!$this->hasMethodInstance() && $this->getMethod()) {
+            $instance = Mage::helper('payment')->getMethodInstance($this->getMethod());
+            if (!$instance) {
+                $instance = Mage::getModel('payment/method_unavailable');
+            }
+
+            $instance->setInfoInstance($this);
+            $this->setMethodInstance($instance);
+        }
+
+        return parent::getMethodInstance();
+    }
+
+    /**
      * Check order payment capture action availability
      *
      * @return bool
