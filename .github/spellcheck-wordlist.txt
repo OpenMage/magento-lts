@@ -1,9 +1,11 @@
 ACL
 ActionScript
 analytics
+autoloader
 bool
 boolean
 backorders
+backend
 Braintree
 Browsersync
 Captcha
@@ -11,9 +13,13 @@ CLI
 Cloudflare
 CMS
 Cron
+cron
+CSV
 CVE
 CodeQL
 config
+decrypted
+decrypts
 DevOps
 DDEV
 DNS
@@ -40,6 +46,7 @@ Magento
 magerun
 Mailpit
 mkcert
+namespaced
 MkDocs
 Matomo
 MTF
@@ -61,6 +68,7 @@ programmatically
 RCE
 reCaptcha
 Redis
+reindex
 RPC
 RSS
 RWD
@@ -72,6 +80,7 @@ SKU
 SKUs
 SMTP
 SSL
+Symfony
 TinyMCE
 toc
 URI
