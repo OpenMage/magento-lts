@@ -14,13 +14,14 @@ declare(strict_types=1);
  */
 class Mage_Payment_Model_Method_Unavailable extends Mage_Payment_Model_Method_Abstract
 {
-    protected $_canUseInternal = false;
-
-    protected $_canUseCheckout = false;
-
-    protected $_canUseForMultishipping = false;
-
-    protected $_canManageRecurringProfiles = false;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_canUseInternal = false;
+        $this->_canUseCheckout = false;
+        $this->_canUseForMultishipping = false;
+        $this->_canManageRecurringProfiles = false;
+    }
 
     #[Override]
     public function getCode(): string

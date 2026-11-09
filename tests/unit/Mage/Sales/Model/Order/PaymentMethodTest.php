@@ -32,6 +32,7 @@ use Varien_Object;
 /** Exercise the real model factories and payment rendering without a database. */
 final class PaymentMethodTest extends TestCase
 {
+    /** @var array<string, mixed> */
     private array $mageState = [];
 
     #[Override]
@@ -160,9 +161,19 @@ final class PaymentMethodTest extends TestCase
     public function testFallbackCannotBeSelectedOrUsedOnline(): void
     {
         $method = (new Subject(['method' => 'removed_method']))->getMethodInstance();
-        foreach (['canUseCheckout', 'canUseInternal', 'canUseForMultishipping', 'canManageRecurringProfiles',
-            'canOrder', 'canAuthorize', 'canCapture', 'canRefund', 'canEdit', 'isAvailable'] as $capability) {
-            self::assertFalse($method->$capability(), $capability);
+        foreach ([
+            'checkout' => $method->canUseCheckout(),
+            'admin order creation' => $method->canUseInternal(),
+            'multishipping' => $method->canUseForMultishipping(),
+            'recurring profiles' => $method->canManageRecurringProfiles(),
+            'order' => $method->canOrder(),
+            'authorize' => $method->canAuthorize(),
+            'capture' => $method->canCapture(),
+            'refund' => $method->canRefund(),
+            'edit' => $method->canEdit(),
+            'available' => $method->isAvailable(),
+        ] as $capability => $available) {
+            self::assertFalse($available, $capability);
         }
         $this->expectException(Mage_Core_Exception::class);
         $method->validate();
@@ -173,7 +184,14 @@ final class PaymentMethodTest extends TestCase
     {
         $payment = new Subject(['method' => 'removed_method']);
         $this->expectException(Mage_Core_Exception::class);
-        $payment->getMethodInstance()->$action($payment, 10.0);
+        $method = $payment->getMethodInstance();
+        match ($action) {
+            'order' => $method->order($payment, 10.0),
+            'authorize' => $method->authorize($payment, 10.0),
+            'capture' => $method->capture($payment, 10.0),
+            'refund' => $method->refund($payment, 10.0),
+            default => self::fail('Unknown action'),
+        };
     }
 
     public static function provideOnlineActions(): Generator

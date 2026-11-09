@@ -44,6 +44,7 @@ final class OptionsTest extends TestCase
         }
     }
 
+    /** @param array<string, string> $options */
     #[DataProvider('provideRender')]
     public function testRender(array $options, mixed $value, bool $showMissing, string $expected): void
     {

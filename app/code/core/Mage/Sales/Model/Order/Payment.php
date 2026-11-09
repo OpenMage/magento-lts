@@ -276,7 +276,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     {
         if (!$this->hasMethodInstance() && $this->getMethod()) {
             $instance = Mage::helper('payment')->getMethodInstance($this->getMethod());
-            if (!$instance) {
+            if ($instance === false) {
                 $instance = Mage::getModel('payment/method_unavailable');
             }
 
