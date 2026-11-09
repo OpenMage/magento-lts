@@ -14,10 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order;
 use Generator;
 use Mage;
 use Mage_Core_Exception;
+use Mage_Core_Block_Template;
 use Mage_Core_Helper_Data;
 use Mage_Core_Model_App;
 use Mage_Core_Model_Config;
 use Mage_Core_Model_Store;
+use Mage_Payment_Block_Info;
 use Mage_Payment_Helper_Data;
 use Mage_Payment_Model_Method_Banktransfer;
 use Mage_Payment_Model_Method_Unavailable;
@@ -32,14 +34,20 @@ use Varien_Object;
 /** Exercise the real model factories and payment rendering without a database. */
 final class PaymentMethodTest extends TestCase
 {
-    /** @var array<string, mixed> */
-    private array $mageState = [];
+    /** @var array<array{ReflectionProperty, mixed}> */
+    private array $staticState = [];
 
     #[Override]
     protected function setUp(): void
     {
-        foreach (['_config', '_app', '_registry', '_appRoot'] as $property) {
-            $this->mageState[$property] = (new ReflectionProperty(Mage::class, $property))->getValue();
+        foreach ([
+            Mage::class => ['_config', '_app', '_registry', '_appRoot'],
+            Mage_Core_Block_Template::class => ['_showTemplateHints', '_showTemplateHintsBlocks'],
+        ] as $class => $properties) {
+            foreach ($properties as $property) {
+                $reflection = new ReflectionProperty($class, $property);
+                $this->staticState[] = [$reflection, $reflection->getValue()];
+            }
         }
 
         Mage::setRoot(BP . '/app');
@@ -78,8 +86,8 @@ final class PaymentMethodTest extends TestCase
     #[Override]
     protected function tearDown(): void
     {
-        foreach ($this->mageState as $property => $value) {
-            (new ReflectionProperty(Mage::class, $property))->setValue(null, $value);
+        foreach ($this->staticState as [$property, $value]) {
+            $property->setValue(null, $value);
         }
     }
 
@@ -103,20 +111,13 @@ final class PaymentMethodTest extends TestCase
         self::assertFalse($payment->canFetchTransactionInfo());
 
         $block = Mage::helper('payment')->getInfoBlock($payment);
+        self::assertInstanceOf(Mage_Payment_Block_Info::class, $block);
         self::assertSame($method, $block->getMethod());
         self::assertSame('payment/info/default.phtml', $block->getTemplate());
         self::assertSame([], $block->getSpecificInformation());
 
-        $render = function (): void {
-            include BP . '/app/design/frontend/base/default/template/payment/info/default.phtml';
-        };
-        ob_start();
-        try {
-            $render->call($block);
-            $html = ob_get_contents();
-        } finally {
-            ob_end_clean();
-        }
+        $block->setScriptPath(Mage::getBaseDir('design'));
+        $html = $block->fetchView('frontend/base/default/template/payment/info/default.phtml');
         self::assertStringContainsString('<strong>' . htmlspecialchars($code, ENT_COMPAT, 'UTF-8', false) . '</strong>', $html);
     }
 
