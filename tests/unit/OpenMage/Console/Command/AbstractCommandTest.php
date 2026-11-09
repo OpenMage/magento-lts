@@ -55,6 +55,51 @@ final class AbstractCommandTest extends TestCase
         self::assertStringNotContainsString('line', $display);
     }
 
+    #[RunInSeparateProcess]
+    public function testStoreOptionSelectsTheStartStore(): void
+    {
+        if (!Mage::isInstalled()) {
+            self::markTestSkipped('Needs an installed OpenMage.');
+        }
+
+        $tester = $this->createTester(Application::create());
+
+        $status = $tester->run(['command' => 'sys:info', 'key' => 'version', '--store' => 'default']);
+        $this->restorePhpunitErrorHandling();
+
+        self::assertSame(Command::SUCCESS, $status);
+        self::assertSame('default', Mage::app()->getStore()->getCode());
+    }
+
+    #[RunInSeparateProcess]
+    public function testUnknownStoreCodeFails(): void
+    {
+        if (!Mage::isInstalled()) {
+            self::markTestSkipped('Needs an installed OpenMage.');
+        }
+
+        $tester = $this->createTester(Application::create());
+
+        $status = $tester->run(
+            ['command' => 'sys:info', 'key' => 'version', '--store' => 'openmage_console_unknown_store'],
+            ['capture_stderr_separately' => true],
+        );
+        $this->restorePhpunitErrorHandling();
+
+        self::assertSame(Command::FAILURE, $status);
+        self::assertSame('', $tester->getDisplay());
+        self::assertStringContainsString('Invalid store code requested.', $tester->getErrorOutput());
+    }
+
+    /**
+     * Mage::app() stacks its error handler over PHPUnit's one; PHPUnit removes a single handler after the test
+     * and its own one then fails on the warnings of the isolated process shutdown.
+     */
+    private function restorePhpunitErrorHandling(): void
+    {
+        restore_error_handler();
+    }
+
     private function createTester(Application $application): ApplicationTester
     {
         $application->setAutoExit(false);

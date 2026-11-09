@@ -24,6 +24,10 @@
                     <name>cache:flush</name>
                     <class>OpenMage\Console\Command\Cache\FlushCommand</class>
                 </cache_flush>
+                <sys_info>
+                    <name>sys:info</name>
+                    <class>OpenMage\Console\Command\Sys\InfoCommand</class>
+                </sys_info>
             </commands>
         </console>
         <models>
