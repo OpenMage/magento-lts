@@ -55,6 +55,7 @@ final class OptionsTest extends TestCase
         ]);
         $subject = new Subject();
         $subject->setColumn($column);
+
         $row = new Varien_Object(['method' => $value]);
 
         self::assertSame($expected, $subject->render($row));

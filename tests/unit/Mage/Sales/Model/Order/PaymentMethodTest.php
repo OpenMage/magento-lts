@@ -68,6 +68,7 @@ final class PaymentMethodTest extends TestCase
             foreach (explode('/', $path) as $part) {
                 $value = is_array($value) ? ($value[$part] ?? null) : null;
             }
+
             return $value;
         });
         $app = $this->createMock(Mage_Core_Model_App::class);
@@ -118,7 +119,7 @@ final class PaymentMethodTest extends TestCase
 
         $block->setScriptPath(Mage::getBaseDir('design'));
         $html = $block->fetchView('frontend/base/default/template/payment/info/default.phtml');
-        self::assertStringContainsString('<strong>' . htmlspecialchars($code, ENT_COMPAT, 'UTF-8', false) . '</strong>', $html);
+        self::assertStringContainsString('<strong>' . htmlspecialchars($code, ENT_COMPAT, 'UTF-8', false) . '</strong>', (string) $html);
     }
 
     public static function provideMissingMethods(): Generator
@@ -176,6 +177,7 @@ final class PaymentMethodTest extends TestCase
         ] as $capability => $available) {
             self::assertFalse($available, $capability);
         }
+
         $this->expectException(Mage_Core_Exception::class);
         $method->validate();
     }
