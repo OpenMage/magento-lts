@@ -1013,6 +1013,8 @@
 "Synchronize","Synchronize"
 "Synchronizing %s to %s","Synchronizing %s to %s"
 "Synchronizing...","Synchronizing..."
+"Syslog","Syslog"
+"Syslog (UDP)","Syslog (UDP)"
 "System","System"
 "System busy","System busy"
 "Tags","Tags"

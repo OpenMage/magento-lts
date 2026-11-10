@@ -69,19 +69,11 @@ class Mage_Core_Model_Logger
 
         try {
             if (!isset(self::$loggers[$file])) {
-                if ($useStdout) {
-                    $logFile = $file;
-                } else {
-                    $logFile = HelperLog::getLogFilePath($file);
-                    if ($logFile === null) {
-                        return;
-                    }
+                $logger = $this->createLogger($file, $useStdout);
+                if (!$logger instanceof Logger) {
+                    return;
                 }
 
-                $handler = HelperLog::getHandler($logFile);
-
-                $logger = new Logger('OpenMage');
-                $logger->pushHandler($handler);
                 self::$loggers[$file] = $logger;
             }
 
@@ -94,6 +86,44 @@ class Mage_Core_Model_Logger
         } catch (Exception) {
             // Silent catch
         }
+    }
+
+    /**
+     * Create the logger of a log file with the configured handler
+     *
+     * The channel is the log file name without extension (e.g. "system", "exception").
+     * If syslog is configured but its handler cannot be created, the file handler is used
+     * and the reason is logged there, so a wrong setting never drops messages.
+     */
+    private function createLogger(string $file, bool $useStdout): ?Logger
+    {
+        if ($file === '') {
+            return null;
+        }
+
+        $logger = new Logger(pathinfo($file, PATHINFO_FILENAME));
+        $fallbackReason = null;
+
+        $handlerType = $useStdout ? HelperLog::HANDLER_FILE : HelperLog::getConfigHandler();
+        if ($handlerType !== HelperLog::HANDLER_FILE) {
+            try {
+                return $logger->pushHandler(HelperLog::getSyslogHandler($handlerType));
+            } catch (Exception $exception) {
+                $fallbackReason = $exception->getMessage();
+            }
+        }
+
+        $logFile = $useStdout ? $file : HelperLog::getLogFilePath($file);
+        if ($logFile === null) {
+            return null;
+        }
+
+        $logger->pushHandler(HelperLog::getHandler($logFile));
+        if ($fallbackReason !== null) {
+            $logger->warning('Syslog handler unavailable, logging to file instead: ' . $fallbackReason);
+        }
+
+        return $logger;
     }
 
     /**
