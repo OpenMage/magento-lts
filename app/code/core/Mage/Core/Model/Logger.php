@@ -8,6 +8,7 @@
  */
 
 use Mage_Core_Helper_Log as HelperLog;
+use Monolog\Handler\HandlerInterface;
 use Monolog\Level;
 use Monolog\Logger;
 
@@ -97,28 +98,30 @@ class Mage_Core_Model_Logger
      */
     private function createLogger(string $file, bool $useStdout): ?Logger
     {
-        if ($file === '') {
-            return null;
-        }
-
-        $logger = new Logger(pathinfo($file, PATHINFO_FILENAME));
+        $handler = null;
         $fallbackReason = null;
 
-        $handlerType = $useStdout ? HelperLog::HANDLER_FILE : HelperLog::getConfigHandler();
+        // without a log name there is no destination: the file branch below returns null
+        $handlerType = $useStdout || $file === '' ? HelperLog::HANDLER_FILE : HelperLog::getConfigHandler();
         if ($handlerType !== HelperLog::HANDLER_FILE) {
             try {
-                return $logger->pushHandler(HelperLog::getSyslogHandler($handlerType));
+                $handler = HelperLog::getSyslogHandler($handlerType);
             } catch (Exception $exception) {
                 $fallbackReason = $exception->getMessage();
             }
         }
 
-        $logFile = $useStdout ? $file : HelperLog::getLogFilePath($file);
-        if ($logFile === null) {
-            return null;
+        if (!$handler instanceof HandlerInterface) {
+            $logFile = $useStdout ? $file : HelperLog::getLogFilePath($file);
+            if ($logFile === null) {
+                return null;
+            }
+
+            $handler = HelperLog::getHandler($logFile);
         }
 
-        $logger->pushHandler(HelperLog::getHandler($logFile));
+        $logger = new Logger(pathinfo($file, PATHINFO_FILENAME));
+        $logger->pushHandler($handler);
         if ($fallbackReason !== null) {
             $logger->warning('Syslog handler unavailable, logging to file instead: ' . $fallbackReason);
         }
