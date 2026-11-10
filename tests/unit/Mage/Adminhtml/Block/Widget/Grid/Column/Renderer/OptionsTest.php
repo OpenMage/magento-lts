@@ -13,37 +13,16 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget\Grid\Column\Renderer;
 
 use Generator;
 use Mage;
+use Mage_Adminhtml_Block_Widget_Grid;
 use Mage_Adminhtml_Block_Widget_Grid_Column;
 use Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select;
 use Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options as Subject;
-use Mage_Core_Helper_Data;
 use OpenMage\Tests\Unit\OpenMageTest;
-use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
-use ReflectionMethod;
 use Varien_Object;
 
 final class OptionsTest extends OpenMageTest
 {
-    private mixed $previousCoreHelper;
-
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->previousCoreHelper = Mage::registry('_helper/core');
-        Mage::unregister('_helper/core');
-        Mage::register('_helper/core', new Mage_Core_Helper_Data());
-    }
-
-    #[Override]
-    protected function tearDown(): void
-    {
-        Mage::unregister('_helper/core');
-        if ($this->previousCoreHelper !== null) {
-            Mage::register('_helper/core', $this->previousCoreHelper);
-        }
-    }
-
     /** @param array<string, string> $options */
     #[DataProvider('provideRender')]
     public function testRender(array $options, mixed $value, bool $showMissing, string $expected): void
@@ -80,20 +59,23 @@ final class OptionsTest extends OpenMageTest
 
     public function testMissingCodesAreNotAddedToFilterOptions(): void
     {
-        $column = new Mage_Adminhtml_Block_Widget_Grid_Column([
+        $grid = new Mage_Adminhtml_Block_Widget_Grid();
+        $grid->setLayout(Mage::app()->getLayout());
+        $grid->addColumn('method', [
             'index' => 'method',
+            'type' => 'options',
             'options' => ['checkmo' => 'Check'],
             'show_missing_option_values' => true,
         ]);
-        $subject = new Subject();
-        $subject->setColumn($column);
-        self::assertSame('removed_method', $subject->render(new Varien_Object(['method' => 'removed_method'])));
+        $column = $grid->getColumn('method');
+        self::assertInstanceOf(Mage_Adminhtml_Block_Widget_Grid_Column::class, $column);
+        self::assertSame('removed_method', $column->getRenderer()->render(new Varien_Object(['method' => 'removed_method'])));
 
-        $filter = new Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select();
-        $filter->setColumn($column);
-        self::assertSame([
-            ['value' => null, 'label' => ''],
-            ['value' => 'checkmo', 'label' => 'Check'],
-        ], (new ReflectionMethod($filter, '_getOptions'))->invoke($filter));
+        $filter = $column->getFilter();
+        self::assertInstanceOf(Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select::class, $filter);
+        $html = $filter->getHtml();
+        self::assertStringContainsString('<option value="checkmo">Check</option>', (string) $html);
+        self::assertStringNotContainsString('removed_method', (string) $html);
+        self::assertSame(2, substr_count($html, '<option '));
     }
 }

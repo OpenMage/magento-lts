@@ -14,87 +14,44 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Model\Order;
 use Generator;
 use Mage;
 use Mage_Core_Exception;
-use Mage_Core_Block_Template;
-use Mage_Core_Helper_Data;
-use Mage_Core_Model_App;
-use Mage_Core_Model_Config;
-use Mage_Core_Model_Store;
 use Mage_Payment_Block_Info;
-use Mage_Payment_Helper_Data;
 use Mage_Payment_Model_Method_Banktransfer;
 use Mage_Payment_Model_Method_Unavailable;
+use Mage_Sales_Model_Order;
 use Mage_Sales_Model_Order_Payment as Subject;
 use Mage_Sales_Model_Quote_Payment;
-use Override;
+use OpenMage\Tests\Unit\OpenMageTest;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
-use ReflectionProperty;
-use Varien_Object;
 
-/** Exercise the real model factories and payment rendering without a database. */
-final class PaymentMethodTest extends TestCase
+final class PaymentMethodTest extends OpenMageTest
 {
-    /** @var array<array{ReflectionProperty, mixed}> */
-    private array $staticState = [];
+    /** @var array<string, mixed> */
+    private array $originalConfig = [];
 
-    #[Override]
     protected function setUp(): void
     {
-        foreach ([
-            Mage::class => ['_config', '_app', '_registry', '_appRoot'],
-            Mage_Core_Block_Template::class => ['_showTemplateHints', '_showTemplateHintsBlocks'],
-        ] as $class => $properties) {
-            foreach ($properties as $property) {
-                $reflection = new ReflectionProperty($class, $property);
-                $this->staticState[] = [$reflection, $reflection->getValue()];
-            }
+        parent::setUp();
+        foreach (['payment/banktransfer/model', 'payment/banktransfer/active'] as $path) {
+            $this->originalConfig[$path] = Mage::getStoreConfig($path);
         }
-
-        Mage::setRoot(BP . '/app');
-        $config = new Mage_Core_Model_Config();
-        $config->loadString('<config><global><models>'
-            . '<payment><class>Mage_Payment_Model</class></payment>'
-            . '<sales><class>Mage_Sales_Model</class></sales>'
-            . '</models><blocks><payment><class>Mage_Payment_Block</class></payment></blocks></global></config>');
-        (new ReflectionProperty(Mage::class, '_config'))->setValue(null, $config);
-
-        $methods = [
-            'banktransfer' => ['model' => 'payment/method_banktransfer', 'title' => 'Bank Transfer', 'active' => '0'],
-            'missing_model' => ['model' => 'removed/method', 'title' => 'Old Method', 'active' => '0'],
-        ];
-        $store = $this->createMock(Mage_Core_Model_Store::class);
-        $store->method('getConfig')->willReturnCallback(static function (string $path) use ($methods): mixed {
-            $value = ['payment' => $methods];
-            foreach (explode('/', $path) as $part) {
-                $value = is_array($value) ? ($value[$part] ?? null) : null;
-            }
-
-            return $value;
-        });
-        $app = $this->createMock(Mage_Core_Model_App::class);
-        $app->method('getStore')->willReturn($store);
-        (new ReflectionProperty(Mage::class, '_app'))->setValue(null, $app);
-
-        $helper = $this->createPartialMock(Mage_Payment_Helper_Data::class, ['__']);
-        $helper->method('__')->willReturnCallback(static fn(string $message, mixed ...$args): string => vsprintf($message, $args));
-        (new ReflectionProperty(Mage::class, '_registry'))->setValue(null, [
-            '_helper/payment' => $helper,
-            '_helper/core' => new Mage_Core_Helper_Data(),
-            '_singleton/core/logger' => new Varien_Object(),
-        ]);
     }
 
-    #[Override]
     protected function tearDown(): void
     {
-        foreach ($this->staticState as [$property, $value]) {
-            $property->setValue(null, $value);
+        foreach ($this->originalConfig as $path => $value) {
+            Mage::app()->getStore()->setConfig($path, $value);
         }
+
+        parent::tearDown();
     }
 
     #[DataProvider('provideMissingMethods')]
     public function testMissingOrderMethodCanBeDisplayed(string $code): void
     {
+        if ($code === 'banktransfer') {
+            Mage::app()->getStore()->setConfig('payment/banktransfer/model', 'Removed_Payment_Method');
+        }
+
         $payment = new Subject(['method' => $code]);
         $methodsBefore = Mage::helper('payment')->getPaymentMethodList();
         $method = $payment->getMethodInstance();
@@ -118,26 +75,41 @@ final class PaymentMethodTest extends TestCase
         self::assertSame([], $block->getSpecificInformation());
 
         $block->setScriptPath(Mage::getBaseDir('design'));
-        $html = $block->fetchView('frontend/base/default/template/payment/info/default.phtml');
-        self::assertStringContainsString('<strong>' . htmlspecialchars($code, ENT_COMPAT, 'UTF-8', false) . '</strong>', (string) $html);
+        foreach ([
+            'frontend/base/default/template/payment/info/default.phtml',
+            'adminhtml/base/default/template/payment/info/default.phtml',
+            'adminhtml/base/default/template/payment/info/pdf/default.phtml',
+        ] as $template) {
+            $html = $block->fetchView($template);
+            self::assertStringContainsString(htmlspecialchars($code, ENT_COMPAT, 'UTF-8', false), (string) $html);
+        }
     }
 
     public static function provideMissingMethods(): Generator
     {
         yield 'removed configuration' => ['removed_method'];
-        yield 'removed model class' => ['missing_model'];
+        yield 'removed model class' => ['banktransfer'];
         yield 'escaped historical code' => ['<removed&method>'];
     }
 
-    public function testDisabledConfiguredMethodKeepsItsImplementation(): void
+    #[DataProvider('provideActiveFlags')]
+    public function testConfiguredMethodKeepsItsImplementation(string $active): void
     {
+        Mage::app()->getStore()->setConfig('payment/banktransfer/active', $active);
+        $title = Mage::getStoreConfig('payment/banktransfer/title');
         $payment = new Subject(['method' => 'banktransfer']);
         $method = $payment->getMethodInstance();
 
         self::assertInstanceOf(Mage_Payment_Model_Method_Banktransfer::class, $method);
-        self::assertSame('Bank Transfer', $method->getTitle());
+        self::assertSame($title, $method->getTitle());
         self::assertSame($payment, $method->getInfoInstance());
         self::assertSame($method, $payment->getMethodInstance());
+    }
+
+    public static function provideActiveFlags(): Generator
+    {
+        yield 'disabled' => ['0'];
+        yield 'enabled' => ['1'];
     }
 
     public function testExplicitMethodInstanceIsPreserved(): void
@@ -147,11 +119,25 @@ final class PaymentMethodTest extends TestCase
         self::assertSame($method, $payment->getMethodInstance());
     }
 
-    public function testQuoteDoesNotUseTheOrderFallback(): void
+    #[DataProvider('provideMissingMethods')]
+    public function testQuoteDoesNotUseTheOrderFallback(string $code): void
     {
-        $payment = new Mage_Sales_Model_Quote_Payment(['method' => 'removed_method']);
+        if ($code === 'banktransfer') {
+            Mage::app()->getStore()->setConfig('payment/banktransfer/model', 'Removed_Payment_Method');
+        }
+
+        $payment = new Mage_Sales_Model_Quote_Payment(['method' => $code]);
         $this->expectException(Mage_Core_Exception::class);
         $payment->getMethodInstance();
+    }
+
+    public function testFallbackCannotPlaceAnOrder(): void
+    {
+        $payment = new Subject(['method' => 'removed_method']);
+        $payment->setOrder(new Mage_Sales_Model_Order());
+        $this->expectException(Mage_Core_Exception::class);
+        $this->expectExceptionMessage('The requested Payment Method is not available.');
+        $payment->place();
     }
 
     public function testEmptyOrderPaymentStillThrows(): void
@@ -193,6 +179,7 @@ final class PaymentMethodTest extends TestCase
             'authorize' => $method->authorize($payment, 10.0),
             'capture' => $method->capture($payment, 10.0),
             'refund' => $method->refund($payment, 10.0),
+            'void' => $method->void($payment),
             default => self::fail('Unknown action'),
         };
     }
@@ -203,5 +190,6 @@ final class PaymentMethodTest extends TestCase
         yield 'authorize' => ['authorize'];
         yield 'capture' => ['capture'];
         yield 'refund' => ['refund'];
+        yield 'void' => ['void'];
     }
 }
