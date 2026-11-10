@@ -296,7 +296,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             return false;
         }
 
-        $email = '';
         if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
             $email = $subscriber->getSubscriberEmail();
             $name ??= $subscriber->getSubscriberFullName();

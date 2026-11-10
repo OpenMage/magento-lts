@@ -1827,16 +1827,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/System/StoreController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method isReadOnly() on Mage_Core_Model_Store|Mage_Core_Model_Store_Group|Mage_Core_Model_Website|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/System/StoreController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method load() on Mage_Core_Model_Store|Mage_Core_Model_Store_Group|Mage_Core_Model_Website|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/System/StoreController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method addData() on Varien_Object|true.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php',
@@ -6198,7 +6188,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getDestCountryId() on Varien_Object|null.',
-    'count' => 8,
+    'count' => 7,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
 ];
 $ignoreErrors[] = [

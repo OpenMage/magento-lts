@@ -139,7 +139,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             }
         } else {
             // For duplicating we need copy original images.
-            $duplicate = [];
             foreach ($value['images'] as &$image) {
                 if (!isset($image['value_id'])) {
                     continue;
@@ -150,7 +149,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                     'new_file' => $newFile,
                     'label' => $image['label'],
                 ];
-                $duplicate[$image['value_id']] = $newFile;
             }
         }
 

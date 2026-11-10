@@ -12,11 +12,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Config.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot access property $admin on array|Varien_Simplexml_Element.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Rolesedit.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot access property $groups on Varien_Simplexml_Element|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Email/Identity.php',

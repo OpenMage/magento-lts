@@ -123,11 +123,21 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
                 }
 
                 $model->addData($data);
-                $model->setIsProcessed(0);
-                $model->save();
-                $this->_getSession()->addSuccess(
-                    Mage::helper('catalog')->__('You saved the search term.'),
-                );
+
+                $result = $model->validate();
+                if (is_array($result)) {
+                    foreach ($result as $message) {
+                        $this->_getSession()->addError($message);
+                    }
+
+                    $hasError = true;
+                } else {
+                    $model->setIsProcessed(0);
+                    $model->save();
+                    $this->_getSession()->addSuccess(
+                        Mage::helper('catalog')->__('You saved the search term.'),
+                    );
+                }
             } catch (Mage_Core_Exception $mageCoreException) {
                 $this->_getSession()->addError($mageCoreException->getMessage());
                 $hasError = true;

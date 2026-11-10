@@ -12,11 +12,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Variable $defaultValues might not be defined.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Variable $productId might not be defined.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Product.php',
@@ -125,11 +120,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Variable $result might not be defined.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Variable $wishlist might not be defined.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/controllers/IndexController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Variable $out might not be defined.',

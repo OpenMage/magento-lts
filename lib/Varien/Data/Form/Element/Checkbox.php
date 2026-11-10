@@ -42,7 +42,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
     #[Override]
     public function getElementHtml()
     {
-        if ($checked = $this->getChecked()) {
+        if ($this->getChecked()) {
             $this->setData('checked', true);
         } else {
             $this->unsetData('checked');

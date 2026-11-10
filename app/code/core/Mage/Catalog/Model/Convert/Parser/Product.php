@@ -409,7 +409,6 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
 
             $row = [
                 'store'         => $this->getStore()->getCode(),
-                'websites'      => '',
                 'attribute_set' => $this->getAttributeSetName(
                     $product->getEntityTypeId(),
                     $product->getAttributeSetId(),

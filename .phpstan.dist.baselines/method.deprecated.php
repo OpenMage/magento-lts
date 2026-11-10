@@ -22,11 +22,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid/Renderer/Action.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method _getCollectionNames() of class Mage_Adminhtml_Report_StatisticsController.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php',
@@ -215,12 +210,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Recurring/Profile.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method _getTrackingUrl() of class Mage_Shipping_Helper_Data:
-the non-model usage',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method addVisibleFilterToCollection() of class Mage_Catalog_Model_Product_Status:
 remove on new builds',
     'count' => 1,
@@ -232,16 +221,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Tag/Model/Tag.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getBaseTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
-    'count' => 9,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getTaxAmount() of class Mage_Sales_Model_Quote_Item_Abstract.',
-    'count' => 9,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method _processLocalizedQty() of class Mage_Wishlist_Controller_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/Controller/Abstract.php',
@@ -250,17 +229,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method _processLocalizedQty() of class Mage_Wishlist_Controller_Abstract.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Wishlist/controllers/IndexController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getGridUrl() of class Mage_Adminhtml_Block_Widget_Grid:
-Use getAbsoluteGridUrl() method instead',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/grid.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getRowId() of class Mage_Adminhtml_Block_Widget_Grid.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/dashboard/grid.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method getIsPriceWebsiteScope() of class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links:
