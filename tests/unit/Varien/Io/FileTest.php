@@ -228,4 +228,25 @@ final class FileTest extends OpenMageTest
         $fileName = self::$workingDirectory . DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR . 'sub' . DIRECTORY_SEPARATOR . 'dot.txt';
         self::assertNotFalse($subject->write($fileName, 'content'));
     }
+
+    /**
+     * @group Varien_Io
+     */
+    public function testStreamWriteCsvDelimiter(): void
+    {
+        $subject = $this->getSubject();
+        $subject->streamOpen('delimiter.csv', 'w');
+        try {
+            $subject->streamWriteCsv(['a', 'b']);
+            $subject->setCsvDelimiter(';');
+            $subject->streamWriteCsv(['a', 'b']);
+            $subject->streamWriteCsv(['a', 'b'], ',');
+            $subject->streamWriteCsv(['a', 'b'], enclosure: "'");
+        } finally {
+            $subject->streamClose();
+        }
+
+        $fileName = self::$workingDirectory . DIRECTORY_SEPARATOR . 'delimiter.csv';
+        self::assertSame("a,b\na;b\na,b\na;b\n", file_get_contents($fileName));
+    }
 }
