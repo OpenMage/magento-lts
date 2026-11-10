@@ -197,7 +197,6 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
         $proposedLength = (isset($matches[3]) && strlen($matches[3])) ? $matches[3] : null;
         switch (strtolower($matches[1])) {
             case 'bool':
-                $length = null;
                 $type = Varien_Db_Ddl_Table::TYPE_BOOLEAN;
                 break;
             case 'char':

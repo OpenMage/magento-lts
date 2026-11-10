@@ -53,7 +53,7 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
         // modify image name
         $extension  = pathinfo($value['name'], PATHINFO_EXTENSION);
         if ($extension != $allowImageTypes[$imageProp[2]]) {
-            $value['name'] = pathinfo($value['name'], PATHINFO_FILENAME) . '.' . $allowImageTypes[$imageProp[2]];
+            $value['name'] = pathinfo($value['name'], PATHINFO_FILENAME) . '.' . $allowImageTypes[$imageProp[2]]; /** @phpstan-ignore assign.unused */
         }
 
         $errors = [];

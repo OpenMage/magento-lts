@@ -182,7 +182,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
             }
         }
 
-        $args['results'][] = $row;
+        $args['results'][] = $row; /** @phpstan-ignore assign.unused */
     }
 
     /**

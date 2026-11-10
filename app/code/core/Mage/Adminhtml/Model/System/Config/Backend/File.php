@@ -51,7 +51,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 );
             } catch (Exception $exception) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('adminhtml')->__('The file %s has not been uploaded.', $file['name']),
+                    Mage::helper('adminhtml')->__('The file %s has not been uploaded.', $file['name'] ?? ''),
                 );
                 Mage::throwException($exception->getMessage());
             }

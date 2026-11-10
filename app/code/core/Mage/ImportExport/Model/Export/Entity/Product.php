@@ -745,7 +745,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         }
                     }
 
-                    $item = null;
+                    $item = null; /** @phpstan-ignore assign.overwritten */
                 }
 
                 $collection->clear();
@@ -890,10 +890,10 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $customOptionsDataPre[$option['product_id']][$option['option_id']][] = $row;
                     }
 
-                    $option = null;
+                    $option = null; /** @phpstan-ignore assign.overwritten */
                 }
 
-                $options = null;
+                $options = null; /** @phpstan-ignore assign.overwritten */
             }
 
             unset($storeId);

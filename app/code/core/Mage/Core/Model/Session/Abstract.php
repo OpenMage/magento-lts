@@ -58,7 +58,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Encrypted session id cache
      *
-     * @var string
+     * @var null|string
      */
     protected static $_encryptedSessionId;
 
@@ -216,7 +216,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function getMessages($clear = false)
     {
-        if (!$this->getDataByKey('messages')) {
+        if ($this->getDataByKey('messages') === null) {
             $this->setMessages(Mage::getModel('core/message_collection'));
         }
 
@@ -402,9 +402,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function getEncryptedSessionId()
     {
-        if (!self::$_encryptedSessionId) {
-            self::$_encryptedSessionId = $this->getSessionId();
-        }
+        self::$_encryptedSessionId ??= $this->getSessionId();
 
         return self::$_encryptedSessionId;
     }
@@ -458,7 +456,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         }
 
         $httpHost = Mage::app()->getFrontController()->getRequest()->getHttpHost();
-        if (!$httpHost) {
+        if ($httpHost === false) {
             return '';
         }
 
@@ -515,16 +513,16 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Add hostname to session
      *
-     * @param  string $host
+     * @param  bool|string $host
      * @return $this
      */
     public function addHost($host)
     {
-        if ($host === true && !$host = Mage::app()->getFrontController()->getRequest()->getHttpHost()) {
-            return $this;
+        if ($host === true) {
+            $host = Mage::app()->getFrontController()->getRequest()->getHttpHost();
         }
 
-        if (!$host) {
+        if ($host === '' || $host === false) {
             return $this;
         }
 

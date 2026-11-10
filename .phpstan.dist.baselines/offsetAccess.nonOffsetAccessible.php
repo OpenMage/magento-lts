@@ -258,7 +258,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset 0 on array<Varien_Simplexml_Element>|false.',
-    'count' => 8,
+    'count' => 7,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
 $ignoreErrors[] = [
@@ -405,16 +405,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset \'name\' on array{name: string, passwd: string, uid: int, gid: int, gecos: string, dir: string, shell: string}|false.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Io/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset (int|string) on array|object.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset mixed on array|object.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

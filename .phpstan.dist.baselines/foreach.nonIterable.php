@@ -82,11 +82,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Argument of an invalid type array|Varien_Simplexml_Element|false supplied for foreach, only iterables are supported.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Resource/Rules.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Argument of an invalid type array|null supplied for foreach, only iterables are supported.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Resource/User.php',

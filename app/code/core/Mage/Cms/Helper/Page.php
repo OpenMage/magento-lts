@@ -227,6 +227,8 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
             unset($data[$key], $key, $path);
         }
 
+        unset($item);
+
         foreach ($data as $path => $items) {
             $scopes = [];
             foreach ($items as $item) {
