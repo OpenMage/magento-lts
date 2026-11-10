@@ -6,7 +6,7 @@
  */
 
 var windowLoaded = false;
-Event.observe(window, 'load', function() { windowLoaded = true; });
+window.addEventListener('load', function() { windowLoaded = true; });
 
 // rewrite the fillselect method from /js/varien/configurable.js
 Product.Config.prototype.fillSelect = function (element) {
@@ -40,7 +40,7 @@ Product.Config.prototype.handleSelectChange = function(element) {
 Product.Config.prototype.origConfigure = Product.Config.prototype.configure;
 Product.Config.prototype.configure = function(event) {
     this.origConfigure(event);
-    var element = Event.element(event);
+    var element = event.target;
     this.configureObservers.each(function(funct) {
         funct(element);
     });
@@ -212,9 +212,11 @@ Product.ConfigurableSwatches.prototype = {
         };
         this._E.availability = $$('p.availability');
         // Set cart button event
-        this._E.cartBtn.btn.invoke('up').invoke('observe','mouseenter',function(){
-            clearTimeout(this._N.resetTimeout);
-            this.resetAvailableOptions();
+        this._E.cartBtn.btn.forEach(function(btn) {
+            btn.parentElement.addEventListener('mouseenter', function(){
+                clearTimeout(this._N.resetTimeout);
+                this.resetAvailableOptions();
+            }.bind(this));
         }.bind(this));
     },
     /**
@@ -283,8 +285,9 @@ Product.ConfigurableSwatches.prototype = {
         var attr = opt.attr;
         // Swatch Events
         if (opt._f.isSwatch) {
-            opt._e.a.observe('click', function(event) {
-                Event.stop(event);
+            opt._e.a.addEventListener('click', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
                 this._F.currentAction = "click";
                 // set new last option
                 attr._e._last.selectedOption = attr._e.selectedOption;
@@ -294,14 +297,16 @@ Product.ConfigurableSwatches.prototype = {
                 // Run the event
                 this.onOptionClick( attr );
                 return false;
-            }.bind(this)).observe('mouseenter', function(){
+            }.bind(this));
+            opt._e.a.addEventListener('mouseenter', function(){
                 this._F.currentAction = "over-swatch";
                 // set active over option to this option
                 this._E.optionOver = opt;
                 this.onOptionOver();
                 // set the new last option
                 this._E._last.optionOver = this._E.optionOver;
-            }.bind(this)).observe('mouseleave', function(){
+            }.bind(this));
+            opt._e.a.addEventListener('mouseleave', function(){
                 this._F.currentAction = "out-swatch";
                 this._E.optionOut = opt;
                 this.onOptionOut();
@@ -440,7 +445,7 @@ Product.ConfigurableSwatches.prototype = {
         if ((this._O.selectFirstOption && !this._F.firstOptionSelected) ||
             (this._F.hasPresetValues && !this._F.presetValuesSelected) ||
             (!windowLoaded)) {
-            Event.observe(window, 'load', function() {
+            window.addEventListener('load', function() {
                 window.setTimeout(function() {
                     this.updateSelect( attr );
                     this._F.firstOptionSelected = true;
@@ -664,11 +669,12 @@ Product.ConfigurableSwatches.prototype = {
             });
             this._E.cartBtn.btn.each(function(el) {
                 var el = $(el);
-                el.addClassName('out-of-stock');
+                el.classList.add('out-of-stock');
                 el.disabled = true;
                 el.removeAttribute('onclick');
-                el.observe('click', function(event) {
-                    Event.stop(event);
+                el.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
                     return false;
                 });
                 el.writeAttribute('title', Translator.translate('Out of Stock'));
