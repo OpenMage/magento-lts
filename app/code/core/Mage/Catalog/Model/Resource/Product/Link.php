@@ -72,7 +72,6 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
         }
 
         foreach ($data as $linkedProductId => $linkInfo) {
-            $linkId = null;
             if (isset($links[$linkedProductId])) {
                 $linkId = $links[$linkedProductId];
                 unset($links[$linkedProductId]);

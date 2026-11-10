@@ -354,7 +354,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         if ($item->getTaxBeforeDiscount()) {
             $tax = $item->getTaxBeforeDiscount();
         } else {
-            $tax = $item->getTaxAmount() ?: 0;
+            $tax = $item->getData('tax_amount') ?: 0;
         }
 
         return $this->formatPrice($item->getRowTotal() + $tax);
@@ -384,7 +384,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     public function displayRowTotalWithDiscountInclTax($item)
     {
-        $tax = ($item->getTaxAmount() ?: 0);
+        $tax = ($item->getData('tax_amount') ?: 0);
         return $this->formatPrice($item->getRowTotal() - $item->getDiscountAmount() + $tax);
     }
 

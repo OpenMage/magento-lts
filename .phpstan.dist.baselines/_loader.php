@@ -46,7 +46,6 @@ return ['includes' => [
     __DIR__ . '/foreach.nonIterable.php',
     __DIR__ . '/foreach.valueOverwrite.php',
     __DIR__ . '/function.alreadyNarrowedType.php',
-    __DIR__ . '/function.impossibleType.php',
     __DIR__ . '/function.strict.php',
     __DIR__ . '/greater.alwaysFalse.php',
     __DIR__ . '/greater.alwaysTrue.php',

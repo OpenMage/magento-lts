@@ -31,8 +31,6 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
 
         $oldRates = $this->_loadOldRates($oldRateTypes);
 
-        $oldToNewRateIds = [];
-
         foreach ($oldRates as $rate) {
             foreach ($oldRateTypes as $type) {
                 $rateIndex = sprintf('data_%s', $type['type_id']);
@@ -58,7 +56,6 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
                     $newRateModel = Mage::getModel('tax/calculation_rate');
 
                     $newRateModel->setData($insertData)->save();
-                    $oldToNewRateIds[$rate['tax_rate_id']] = $newRateModel->getId();
                     $ratesByType[$type['type_id']][] = $newRateModel->getId();
                 }
             }

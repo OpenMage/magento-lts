@@ -998,8 +998,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $invoice = $this->_getInvoiceForTransactionId($transactionId);
 
         // invoke the payment method to determine what to do with the transaction
-        $result = null;
-        $message = null;
         switch ($action) {
             case self::REVIEW_ACTION_ACCEPT:
                 if ($isOnline) {

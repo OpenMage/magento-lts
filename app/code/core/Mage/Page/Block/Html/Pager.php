@@ -309,7 +309,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
             $start  = ($collection->getCurPage() - $half) + 1;
             $finish = ($start + $this->_displayPages) - 1;
         } elseif ($collection->getCurPage() < $half) {
-            $start  = 1;
+            $start  = 1; /** @phpstan-ignore assign.redundant */
             $finish = $this->_displayPages;
         } elseif ($collection->getCurPage() > ($collection->getLastPageNumber() - $half)) {
             $finish = $collection->getLastPageNumber();

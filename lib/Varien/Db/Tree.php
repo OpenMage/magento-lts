@@ -407,7 +407,7 @@ class Varien_Db_Tree
         $left_key = $eInfo[$this->_left];
         $right_key = $eInfo[$this->_right];
         $right_key_near = 0;
-        $left_key_near = 0;
+        $left_key_near = 0; /** @phpstan-ignore variable.unused */
         $skew_level = 0;
 
         if ($pId != 0) {
@@ -423,7 +423,7 @@ class Varien_Db_Tree
             $right_key_near = $this->_db->fetchOne('SELECT MAX(' . $this->_right . ') FROM ' . $this->_table);
         } elseif (isset($aInfo) && $aId != 0 && $pId == $eInfo[$this->_pid]) { // if we have after ID
             $right_key_near = $aInfo[$this->_right];
-            $left_key_near = $aInfo[$this->_left];
+            $left_key_near = $aInfo[$this->_left]; /** @phpstan-ignore variable.unused */
         } elseif (isset($pInfo) && $aId == 0 && $pId == $eInfo[$this->_pid]) { // if we do not have after ID
             $right_key_near = $pInfo[$this->_left];
         } elseif (isset($pInfo) && $pId != $eInfo[$this->_pid]) {
