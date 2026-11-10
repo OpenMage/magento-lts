@@ -42,11 +42,11 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         }
 
         if ($this->getShipment()->getId()) {
-            $this->_addButton(self::BUTTON_TYPE_PRINT, [
-                'label'     => Mage::helper('sales')->__('Print'),
-                'class'     => 'save print',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_PRINT,
+                module: 'sales',
+                onClickUrl: $this->getPrintUrl(),
+            );
         }
     }
 

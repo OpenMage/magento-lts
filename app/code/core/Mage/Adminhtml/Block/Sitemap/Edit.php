@@ -24,11 +24,12 @@ class Mage_Adminhtml_Block_Sitemap_Edit extends Mage_Adminhtml_Block_Widget_Form
 
         parent::__construct();
 
-        $this->_addButton('generate', [
-            'label'   => Mage::helper('adminhtml')->__('Save & Generate'),
-            'onclick' => "$('generate').value=1; editForm.submit();",
-            'class'   => 'add generate',
-        ]);
+        $this->_addPreparedButton(
+            id: 'generate',
+            label: Mage::helper('adminhtml')->__('Save & Generate'),
+            class: 'add generate',
+            onClick: "$('generate').value=1; editForm.submit();",
+        );
     }
 
     /**

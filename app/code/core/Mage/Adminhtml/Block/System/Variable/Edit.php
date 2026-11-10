@@ -39,13 +39,14 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
     #[Override]
     protected function _prepareLayout()
     {
-        $this->_addButton(self::BUTTON_TYPE_SAVE_EDIT, [
-            'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-            'class'     => 'save continue',
-            'onclick'   => "editForm.submit('" . $this->getSaveAndContinueUrl() . "');",
-        ], 100);
+        $this->_addPreparedButton(
+            id: self::BUTTON_TYPE_SAVE_EDIT,
+            level: 100,
+            onClick: "editForm.submit('" . $this->getSaveAndContinueUrl() . "');",
+        );
+
         if (!$this->getVariable()->getId()) {
-            $this->removeButton('delete');
+            $this->removeButton(self::BUTTON_TYPE_DELETE);
         }
 
         return parent::_prepareLayout();

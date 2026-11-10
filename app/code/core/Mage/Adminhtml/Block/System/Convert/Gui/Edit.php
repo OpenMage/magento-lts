@@ -23,11 +23,12 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit extends Mage_Adminhtml_Block_
 
         $this->_updateButton(self::BUTTON_TYPE_SAVE, 'label', Mage::helper('adminhtml')->__('Save Profile'));
         $this->_updateButton(self::BUTTON_TYPE_DELETE, 'label', Mage::helper('adminhtml')->__('Delete Profile'));
-        $this->_addButton(self::BUTTON_TYPE_SAVE_EDIT, [
-            'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-            'onclick'   => "$('edit_form').action += 'continue/true/'; editForm.submit();",
-            'class'     => 'save continue',
-        ], -100);
+
+        $this->_addPreparedButton(
+            id: self::BUTTON_TYPE_SAVE_EDIT,
+            level: -100,
+            onClick: "$('edit_form').action += 'continue/true/'; editForm.submit();",
+        );
     }
 
     public function getProfileId()
