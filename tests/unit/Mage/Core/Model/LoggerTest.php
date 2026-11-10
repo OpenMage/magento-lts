@@ -58,6 +58,7 @@ final class LoggerTest extends OpenMageTest
         foreach ($this->originalConfig as $path => $value) {
             $this->setConfig($path, $value);
         }
+
         parent::tearDown();
     }
 
