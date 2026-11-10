@@ -1162,6 +1162,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     protected function _initAttributes()
     {
         foreach ($this->getAttributeCollection() as $attribute) {
+            /**
+             * @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+             */
             $this->_attributeValues[$attribute->getAttributeCode()] = $this->getAttributeOptions($attribute);
             $this->_attributeTypes[$attribute->getAttributeCode()]
                 = Mage_ImportExport_Model_Import::getAttributeType($attribute);

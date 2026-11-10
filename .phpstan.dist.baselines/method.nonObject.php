@@ -1407,11 +1407,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/CategoryController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getFrontend() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/CategoryController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getId() on Mage_Catalog_Model_Category|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Catalog/CategoryController.php',
@@ -2322,11 +2317,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Api/V2.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBackend() on bool|Mage_Catalog_Model_Resource_Attribute.',
-    'count' => 11,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method changeStatus() on Mage_Index_Model_Process|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php',
@@ -2783,21 +2773,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getAttributeCode() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBackend() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getId() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getAttributeCode() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item/Collection.php',
 ];
@@ -2867,46 +2842,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable/Attribute/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBackend() on Mage_Catalog_Model_Resource_Eav_Attribute|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBackend() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getEntityTypeId() on Mage_Catalog_Model_Resource_Eav_Attribute|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getEntityTypeId() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getId() on Mage_Catalog_Model_Resource_Eav_Attribute|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getId() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getIsGlobal() on Mage_Catalog_Model_Resource_Eav_Attribute|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getIsGlobal() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getRootCategoryId() on array<Mage_Core_Model_Store>|Mage_Core_Model_Store.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
@@ -2918,11 +2853,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getUrlPath() on Varien_Object|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method isStatic() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Url.php',
 ];
@@ -5977,59 +5907,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/controllers/TrackingController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBackend() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Category.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBackendType() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Category.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getCategoryUrlRewriteHelper() on Mage_Catalog_Model_Factory|string.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Category.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getEntityTypeId() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Category.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getId() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Category.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getIsGlobal() on Mage_Eav_Model_Entity_Attribute_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Category.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBackend() on Mage_Catalog_Model_Resource_Eav_Attribute|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getBackendType() on Mage_Catalog_Model_Resource_Eav_Attribute|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getEntityTypeId() on Mage_Catalog_Model_Resource_Eav_Attribute|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getId() on Mage_Catalog_Model_Resource_Eav_Attribute|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getIsGlobal() on Mage_Catalog_Model_Resource_Eav_Attribute|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sitemap/Model/Resource/Catalog/Product.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getProductUrlRewriteHelper() on Mage_Catalog_Model_Factory|string.',

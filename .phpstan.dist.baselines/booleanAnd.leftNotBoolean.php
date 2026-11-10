@@ -752,11 +752,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Url.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Eav_Model_Entity_Attribute_Abstract|false given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, array<int, mixed> given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php',
