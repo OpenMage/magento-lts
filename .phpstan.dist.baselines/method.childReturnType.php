@@ -337,7 +337,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Return type (array) of method Mage_Api_Model_Wsdl_Config_Element::getChildren() should be compatible with return type (RecursiveIterator|null) of method SimpleXMLElement::getChildren()',
+    'rawMessage' => 'Return type (array) of method Mage_Api_Model_Wsdl_Config_Element::getChildren() should be compatible with return type (SimpleXMLElement|null) of method SimpleXMLElement::getChildren()',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Wsdl/Config/Element.php',
 ];

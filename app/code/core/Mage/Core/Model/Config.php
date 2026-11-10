@@ -1855,6 +1855,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     protected function _isNodeNameHasUpperCase(Mage_Core_Model_Config_Element $event)
     {
-        return (strtolower($event->getName()) !== (string) $event->getName());
+        return (strtolower($event->getName()) !== $event->getName());
     }
 }
