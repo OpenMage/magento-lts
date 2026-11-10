@@ -1,7 +1,7 @@
 "* Required Fields","* Required Fields"
 "<strong style=""color:red"">Important!</strong> Enabling this option means that your custom templates used for contacts form must contain <code>form_key</code> block output. Otherwise contacts form will not work.","<strong style=""color:red"">Important!</strong> Enabling this option means that your custom templates used for contacts form must contain <code>form_key</code> block output. Otherwise contacts form will not work."
+"<strong style=""color:red"">Warning!</strong> Enabling this feature may cause unwanted messages to be sent to people whose email addresses are being used abusively. Please make sure that you have implemented security measures before enabling (e.g. CAPTCHA, HoneySpam).","<strong style=""color:red"">Warning!</strong> Enabling this feature may cause unwanted messages to be sent to people whose email addresses are being used abusively. Please make sure that you have implemented security measures before enabling (e.g. CAPTCHA, HoneySpam)."
 "Auto Reply","Auto Reply"
-"Warning! Enabling this feature may cause unwanted messages to be sent to people whose email addresses are being used abusively. Please make sure that you have implemented security measures before enabling (e.g. CAPTCHA, HoneySpam).","Warning! Enabling this feature may cause unwanted messages to be sent to people whose email addresses are being used abusively. Please make sure that you have implemented security measures before enabling (e.g. CAPTCHA, HoneySpam)."
 "Comment","Comment"
 "Contact Form","Contact Form"
 "Contact Form Auto Reply","Contact Form Auto Reply"
