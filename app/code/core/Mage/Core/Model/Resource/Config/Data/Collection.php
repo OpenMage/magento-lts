@@ -11,6 +11,7 @@
  * Config data collection
  *
  * @package    Mage_Core
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Core_Model_Config_Data>
  */
 class Mage_Core_Model_Resource_Config_Data_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

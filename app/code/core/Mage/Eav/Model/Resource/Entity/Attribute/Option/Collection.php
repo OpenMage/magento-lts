@@ -11,6 +11,7 @@
  * Entity attribute option collection
  *
  * @package    Mage_Eav
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Eav_Model_Entity_Attribute_Option>
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

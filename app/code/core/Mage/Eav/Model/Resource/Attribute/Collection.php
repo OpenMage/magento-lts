@@ -11,6 +11,8 @@
  * EAV additional attribute resource collection (Using Forms)
  *
  * @package    Mage_Eav
+ * @template T of Mage_Eav_Model_Entity_Attribute
+ * @extends Mage_Eav_Model_Resource_Entity_Attribute_Collection<Mage_Eav_Model_Entity_Attribute>
  */
 abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {

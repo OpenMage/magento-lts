@@ -13,6 +13,7 @@ use Carbon\Carbon;
  * Report Reviews collection
  *
  * @package    Mage_Reports
+ * @extends Varien_Data_Collection<Mage_Reports_model_Report>
  */
 class Mage_Reports_Model_Resource_Report_Collection extends Varien_Data_Collection
 {
