@@ -299,6 +299,11 @@
                 <max_level>7</max_level>
                 <file>system.log</file>
                 <exception_file>exception.log</exception_file>
+                <handler>file</handler>
+                <syslog_ident>openmage</syslog_ident>
+                <syslog_facility>user</syslog_facility>
+                <syslog_host>127.0.0.1</syslog_host>
+                <syslog_port>514</syslog_port>
             </log>
             <js>
                 <merge_files>0</merge_files>
