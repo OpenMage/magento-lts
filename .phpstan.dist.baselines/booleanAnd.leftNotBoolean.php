@@ -1907,29 +1907,14 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, array|false given on the left side.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, null given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Config.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, array|bool given on the left side.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, float given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo/Total/Discount.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, array|bool given on the left side.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, float given on the left side.',
@@ -1980,11 +1965,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, int|null given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, array|false given on the left side.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Shipment.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, int|string|null given on the left side.',
