@@ -40,7 +40,6 @@ final class AppTest extends OpenMageTest
         try {
             self::assertInstanceOf(Mage_Core_Model_Store::class, self::$subject->getStore($id));
         } catch (Mage_Core_Model_Store_Exception $mageCoreModelStoreException) {
-            self::assertNotEmpty($mageCoreModelStoreException->getMessage());
             self::assertSame('Invalid store code requested.', $mageCoreModelStoreException->getMessage());
         }
     }
@@ -55,7 +54,6 @@ final class AppTest extends OpenMageTest
         try {
             self::assertInstanceOf(Mage_Core_Model_Website::class, self::$subject->getWebsite($id));
         } catch (Mage_Core_Exception $mageCoreException) {
-            self::assertNotEmpty($mageCoreException->getMessage());
             self::assertSame('Invalid website id requested.', $mageCoreException->getMessage());
         }
     }
@@ -70,7 +68,6 @@ final class AppTest extends OpenMageTest
         try {
             self::assertInstanceOf(Mage_Core_Model_Store_Group::class, self::$subject->getGroup($id));
         } catch (Mage_Core_Exception $mageCoreException) {
-            self::assertNotEmpty($mageCoreException->getMessage());
             self::assertSame('Invalid store group id requested.', $mageCoreException->getMessage());
         }
     }

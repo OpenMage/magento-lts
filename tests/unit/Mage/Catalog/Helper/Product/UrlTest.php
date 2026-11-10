@@ -49,7 +49,7 @@ final class UrlTest extends OpenMageTest
     public function testGetConvertTableCustom(): void
     {
         $result = self::$subject->getConvertTableCustom();
-        self::assertEmpty($result);
+        self::assertCount(0, $result);
     }
 
     /**
