@@ -67,11 +67,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Eav/Attribute.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method loadParentProductIds() of class Mage_Catalog_Model_Product.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Observer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method _prepareCondition() of class Mage_CatalogSearch_Model_Advanced:
 after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()',
     'count' => 1,

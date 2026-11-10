@@ -1502,16 +1502,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Flat/Indexer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Flat/Observer.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Flat/Observer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Image.php',
@@ -1885,11 +1875,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Indexer/Tierprice.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/CatalogIndex/Model/Observer.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
