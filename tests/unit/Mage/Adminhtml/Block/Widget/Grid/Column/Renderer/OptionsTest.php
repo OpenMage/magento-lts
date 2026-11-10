@@ -17,13 +17,13 @@ use Mage_Adminhtml_Block_Widget_Grid_Column;
 use Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select;
 use Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options as Subject;
 use Mage_Core_Helper_Data;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use Varien_Object;
 
-final class OptionsTest extends TestCase
+final class OptionsTest extends OpenMageTest
 {
     private mixed $previousCoreHelper;
 
