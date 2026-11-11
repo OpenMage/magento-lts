@@ -179,6 +179,9 @@ gtag('set', 'user_id', '{$customer->getId()}');
             }
         }
 
+        // A theme or extension can remove or rename the category toolbar, then there is no product page to report
+        $toolbarBlock = Mage::app()->getLayout()->getBlock('product_list_toolbar');
+
         if ($moduleName == 'catalog' && $controllerName == 'product') {
             // This event signifies that some content was shown to the user. Use this event to discover the most popular items viewed.
             // @see https://developers.google.com/tag-platform/gtagjs/reference/events#view_item
@@ -201,7 +204,9 @@ gtag('set', 'user_id', '{$customer->getId()}');
 
             $eventData['items'][] = $_item;
             $result[] = ['view_item', $eventData];
-        } elseif ($moduleName == 'catalog' && $controllerName == 'category') {
+        } elseif ($moduleName == 'catalog' && $controllerName == 'category'
+            && $toolbarBlock instanceof Mage_Catalog_Block_Product_List_Toolbar
+        ) {
             // Log this event when the user has been presented with a list of items of a certain category.
             // @see https://developers.google.com/tag-platform/gtagjs/reference/events#view_item_list
             $layer = Mage::getSingleton('catalog/layer');
@@ -209,11 +214,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
             $productCollection = clone $layer->getProductCollection();
             $productCollection->addAttributeToSelect('sku');
 
-            $toolbarBlock = Mage::app()->getLayout()->getBlock('product_list_toolbar');
             $pageSize = $toolbarBlock->getLimit();
             $currentPage = $toolbarBlock->getCurrentPage();
             if ($pageSize !== 'all') {
-                $productCollection->setPageSize($pageSize)->setCurPage($currentPage);
+                $productCollection->setPageSize((int) $pageSize)->setCurPage($currentPage);
             }
 
             $eventData = [];
