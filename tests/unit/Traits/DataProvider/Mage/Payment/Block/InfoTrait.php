@@ -11,4 +11,16 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Payment\Block;
 
-trait InfoTrait {}
+use Generator;
+
+trait InfoTrait
+{
+    /**
+     * @return Generator<string, array{string}, mixed, void>
+     */
+    public static function provideToPdfArea(): Generator
+    {
+        yield 'frontend' => ['frontend'];
+        yield 'adminhtml' => ['adminhtml'];
+    }
+}
