@@ -4497,16 +4497,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/GiftMessage/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getCurrentPage() on Mage_Core_Block_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GoogleAnalytics/Block/Ga.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getLimit() on Mage_Core_Block_Abstract|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/GoogleAnalytics/Block/Ga.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method setData() on Mage_Adminhtml_Block_Widget_Grid_Column|false.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php',
