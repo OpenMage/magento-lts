@@ -108,7 +108,7 @@
 "Canceled order online.","Canceled order online."
 "Cannot add order history.","Cannot add order history."
 "Cannot create an empty shipment.","Cannot create an empty shipment."
-"Cannot determine the field name.","Cannot determine the field name."
+"Cannot determine the field name for %s.","Cannot determine the field name for %s."
 "Cannot do invoice for order.","Cannot do invoice for order."
 "Cannot do shipment for order.","Cannot do shipment for order."
 "Cannot get order instance","Cannot get order instance"

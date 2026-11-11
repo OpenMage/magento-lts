@@ -32,7 +32,8 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
         }
 
         if (!$field) {
-            Mage::throwException(Mage::helper('sales')->__('Cannot determine the field name.'));
+            $given = is_string($attribute) ? var_export($attribute, true) : get_debug_type($attribute);
+            Mage::throwException(Mage::helper('sales')->__('Cannot determine the field name for %s.', $given));
         }
 
         return $field;
