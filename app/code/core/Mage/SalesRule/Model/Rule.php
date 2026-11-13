@@ -494,15 +494,15 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Return id for address
      *
      * @param  Mage_Sales_Model_Quote_Address $address
-     * @return string
+     * @return int|string
      */
     private function _getAddressId($address)
     {
         if ($address instanceof Mage_Sales_Model_Quote_Address) {
-            return $address->getId();
+            return $address->getId() ?? '';
         }
 
-        return $address;
+        return $address ?? '';
     }
 
     /**
