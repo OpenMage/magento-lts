@@ -82,6 +82,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
             'index'     => 'method',
             'type'      => 'options',
             'options'       => Mage::helper('payment')->getPaymentMethodList(),
+            'show_missing_option_values' => true,
             'option_groups' => Mage::helper('payment')->getPaymentMethodList(true, true, true),
         ]);
 
