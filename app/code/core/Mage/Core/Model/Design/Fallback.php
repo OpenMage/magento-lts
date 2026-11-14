@@ -93,7 +93,7 @@ class Mage_Core_Model_Design_Fallback
                 $theme = (string) Mage::getConfig()->getNode('stores/admin/design/theme/default');
                 // In the admin that is usually the missing theme itself, use the package's default theme then,
                 // so its theme.xml (e.g. the layout updates of openmage/default) is part of the fallback chain
-                if (!is_dir(Mage::getBaseDir('design') . DS . $area . DS . $package . DS . $theme)) {
+                if ($area === 'adminhtml' && !is_dir(Mage::getBaseDir('design') . DS . $area . DS . $package . DS . $theme)) {
                     $theme = Mage_Core_Model_Design_Package::DEFAULT_THEME;
                 }
             }
