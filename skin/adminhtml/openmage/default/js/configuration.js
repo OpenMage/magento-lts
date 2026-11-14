@@ -63,13 +63,13 @@
         try {
             const saved = JSON.parse(window.sessionStorage.getItem(storageKey) || 'null');
             window.sessionStorage.removeItem(storageKey);
-            const age = saved ? Date.now() - saved.time : NaN;
+            const age = saved ? Date.now() - saved.time : Number.NaN;
             if (desktop.matches && saved && active && saved.section === active.id &&
                 age >= 0 && age < 60000 && Number.isFinite(saved.top)) {
                 sidebar.scrollTop = Math.max(0, saved.top);
                 restored = true;
             }
-        } catch (ignore) {
+        } catch (error_) {
             // Disabled storage must not prevent navigation or reveal form data.
         }
         if (desktop.matches && active && !restored) {
@@ -94,7 +94,7 @@
                     top: sidebar.scrollTop,
                     time: Date.now(),
                 }));
-            } catch (ignore) {
+            } catch (error_) {
                 // Keep native links and form handling when storage is unavailable.
             }
         });

@@ -85,6 +85,19 @@
                 max-width: 100%;
                 box-sizing: border-box;
               }
+
+              // Keep help beside the control so its popup stays inside the panel.
+              &.with-tooltip {
+                > input.input-text,
+                > select,
+                > textarea {
+                  width: calc(100% - 30px);
+                }
+
+                > .field-tooltip {
+                  margin-left: 8px;
+                }
+              }
             }
 
             > td.scope-label {

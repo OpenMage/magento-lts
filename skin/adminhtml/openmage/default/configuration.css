@@ -73,6 +73,14 @@
     max-width: 100%;
     box-sizing: border-box;
   }
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.value.with-tooltip > input.input-text,
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.value.with-tooltip > select,
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.value.with-tooltip > textarea {
+    width: calc(100% - 30px);
+  }
+  .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.value.with-tooltip > .field-tooltip {
+    margin-left: 8px;
+  }
   .adminhtml-system-config-edit.config-panels .main-col fieldset.config > table.form-list > tbody > tr > td.scope-label {
     width: 65px;
     white-space: normal;

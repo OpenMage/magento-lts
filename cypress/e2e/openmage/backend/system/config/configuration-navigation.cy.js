@@ -2,6 +2,11 @@ const general = cy.openmage.test.backend.system.config.general.general.config;
 const sitemap = cy.openmage.test.backend.system.config.catalog.sitemap.config;
 const sidebarSelector = '[id="page:left"]';
 const contentSelector = '#content';
+const carriersSection = {
+    _: '#section-carriers',
+    title: 'Shipping Methods',
+    url: 'system_config/edit/section/carriers',
+};
 
 const openAllFieldsets = () => {
     cy.get('#content .section-config').each($section => {
@@ -81,6 +86,59 @@ describe('System configuration navigation', () => {
             expect($content[0].scrollWidth).to.be.at.most($content[0].clientWidth + 1);
         });
         cy.get('#content .use-default').should('exist');
+    });
+
+    ['default', 'website'].forEach(scope => {
+        it(`keeps USPS tooltip controls and help inside the panel at 1024px in ${scope} scope`, () => {
+            cy.viewport(1024, 768);
+            cy.openmage.admin.goToSection(carriersSection);
+            if (scope === 'website') {
+                cy.get('#store_switcher option[value^="website_"]').first().invoke('val').then(value => {
+                    cy.openmage.admin.goToConfigScope(carriersSection, value);
+                });
+            }
+            cy.get('#carriers_usps').closest('.section-config').then($section => {
+                if (!$section.hasClass('active')) {
+                    cy.wrap($section).find('.entry-edit-head > a').click({force: true});
+                }
+            });
+            cy.get('#carriers_usps_active').then($field => {
+                const inherit = $field.closest('tr').find('input.config-inherit');
+                if (inherit.length) {
+                    cy.wrap(inherit).uncheck();
+                }
+            });
+            // Reveal the dependent controls only; never save or call the carrier API.
+            cy.get('#carriers_usps_active').select('1');
+
+            ['environment', 'gateway_url'].forEach(field => {
+                const selector = `#carriers_usps_${field}`;
+                cy.get(selector).scrollIntoView({offset: {top: -150, left: 0}}).should('be.visible');
+                cy.get(selector).should($field => {
+                    const control = $field[0].getBoundingClientRect();
+                    const icon = $field[0].parentElement.querySelector('.field-tooltip').getBoundingClientRect();
+                    expect(icon.left, `${field} icon beside its control`).to.be.at.least(control.right - 1);
+                    expect(icon.top, `${field} icon on the same line`).to.be.lessThan(control.bottom);
+                    expect(icon.bottom).to.be.greaterThan(control.top);
+                });
+
+                const popup = `#row_carriers_usps_${field} .field-tooltip > div`;
+                // Cypress does not trigger CSS :hover. Reveal only visibility/opacity;
+                // retain the real popup dimensions and positioning for this layout test.
+                cy.get(popup).invoke('css', {visibility: 'visible', opacity: 1}).should('be.visible')
+                    .should($popup => {
+                        const panel = $popup[0].closest(contentSelector);
+                        const bounds = panel.getBoundingClientRect();
+                        const help = $popup[0].getBoundingClientRect();
+                        const left = bounds.left + panel.clientLeft;
+                        expect(help.width).to.be.greaterThan(0);
+                        expect(help.left, `${field} help stays inside left edge`).to.be.at.least(left - 1);
+                        expect(help.right, `${field} help stays inside right edge`).to.be.at.most(left + panel.clientWidth + 1);
+                        expect(panel.scrollWidth).to.be.at.most(panel.clientWidth + 1);
+                    });
+                cy.get(popup).invoke('css', {visibility: '', opacity: ''});
+            });
+        });
     });
 
     it('restores normal document scrolling on narrow and short viewports', () => {
