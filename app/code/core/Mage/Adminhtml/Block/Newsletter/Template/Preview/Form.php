@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Template_Preview_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_newsletter_template_preview_form';
+
     /**
      * Preparing from for revision page
      *

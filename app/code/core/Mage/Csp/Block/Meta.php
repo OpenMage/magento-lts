@@ -39,9 +39,7 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
             return $this;
         }
 
-        if (!isset($this->directives[$directive])) {
-            $this->directives[$directive] = [];
-        }
+        $this->directives[$directive] ??= [];
 
         $this->directives[$directive][] = $value;
 

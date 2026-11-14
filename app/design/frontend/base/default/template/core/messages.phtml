@@ -9,31 +9,12 @@
 
 <?php
 /**
- * @see Mage_Core_Block_Messages
+ * Mage_Core_Block_Messages renders its messages in _toHtml() and does not use this template.
+ * A theme that renders it anyway gets the same output, with every message escaped or purified
+ * by the block, never the raw message text.
+ *
+ * @see Mage_Core_Block_Messages::getGroupedHtml()
  * @var Mage_Core_Block_Messages $this
  */
 ?>
-<?php  foreach ($types as $type) {
-            if ( $messages = $this->getMessages($type) ) {
-                if ( !$html ) {
-                    $html .= '<ul class="messages">';
-                }
-
-                $html .= '<li class="' . $type . '-msg">';
-                $html .= '<ul>';
-
-                foreach ( $messages as $message ) {
-                    $html.= '<li>';
-                    $html.= $message->getText();
-                    $html.= '</li>';
-                }
-
-                $html .= '</ul>';
-                $html .= '</li>';
-            }
-        }
-
-        if ( $html) {
-            $html .= '</ul>';
-        }
-?>
+<?php echo $this->getGroupedHtml() ?>

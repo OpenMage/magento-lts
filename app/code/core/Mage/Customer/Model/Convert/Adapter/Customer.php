@@ -116,9 +116,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
      */
     public function getStoreByCode($store)
     {
-        if (is_null($this->_stores)) {
-            $this->_stores = Mage::app()->getStores(true, true);
-        }
+        $this->_stores ??= Mage::app()->getStores(true, true);
 
         return $this->_stores[$store] ?? false;
     }
@@ -131,9 +129,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
      */
     public function getWebsiteByCode($websiteCode)
     {
-        if (is_null($this->_websites)) {
-            $this->_websites = Mage::app()->getWebsites(true, true);
-        }
+        $this->_websites ??= Mage::app()->getWebsites(true, true);
 
         return $this->_websites[$websiteCode] ?? false;
     }
@@ -146,9 +142,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
      */
     public function getAttribute($code)
     {
-        if (!isset($this->_attributes[$code])) {
-            $this->_attributes[$code] = $this->getCustomerModel()->getResource()->getAttribute($code);
-        }
+        $this->_attributes[$code] ??= $this->getCustomerModel()->getResource()->getAttribute($code);
 
         return $this->_attributes[$code];
     }
@@ -169,9 +163,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 ->getCollection();
             /** @var Mage_Directory_Model_Region $region */
             foreach ($collection as $region) {
-                if (!isset($this->_regions[$region->getCountryId()])) {
-                    $this->_regions[$region->getCountryId()] = [];
-                }
+                $this->_regions[$region->getCountryId()] ??= [];
 
                 $this->_regions[$region->getCountryId()][$region->getDefaultName()] = $region->getId();
             }
@@ -637,7 +629,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 }
             }
 
-            if ($street) {
+            if ($street !== []) {
                 $billingAddress->setDataUsingMethod('street', $street);
             }
 
@@ -692,7 +684,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 }
             }
 
-            if ($street) {
+            if ($street !== []) {
                 $shippingAddress->setDataUsingMethod('street', $street);
             }
 

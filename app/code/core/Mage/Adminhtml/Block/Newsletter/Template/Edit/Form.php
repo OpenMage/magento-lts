@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_newsletter_template_edit_form';
+
     /**
      * Retrieve template object
      *

@@ -50,7 +50,8 @@ class Mage_Rss_Model_Resource_Order
                     'entity_type_code' => new Zend_Db_Expr("'{$entityTypeCode}'"),
                 ])
                 ->join(['slave' => $slaveTable], 'main.entity_id = slave.parent_id', $fields)
-                ->where('main.order_id = ?', $orderId);
+                ->where('main.order_id = ?', $orderId)
+                ->where('slave.is_visible_on_front > 0');
             $commentSelects[] = '(' . $select . ')';
         }
 

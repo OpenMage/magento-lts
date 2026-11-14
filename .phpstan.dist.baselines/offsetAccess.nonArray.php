@@ -22,11 +22,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/File/Validator/Image.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot use array destructuring on array|true.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot use array destructuring on array<int|string, int|string>|false.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Image/Adapter/Gd2.php',

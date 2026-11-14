@@ -11,11 +11,13 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Iterator;
 use Override;
 use Mage;
 use Mage_Core_Helper_Data as Subject;
 use Mage_Core_Model_Encryption;
 use Mage_Core_Model_Locale;
+use ReflectionMethod;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\DataTrait;
 use Varien_Crypt_Mcrypt;
@@ -210,11 +212,15 @@ final class DataTest extends OpenMageTest
             'php4' => 'php4',
             'php5' => 'php5',
             'php7' => 'php7',
+            'php8' => 'php8',
+            'phar' => 'phar',
+            'phps' => 'phps',
             'htaccess' => 'htaccess',
             'jsp' => 'jsp',
             'pl' => 'pl',
             'py' => 'py',
             'asp' => 'asp',
+            'aspx' => 'aspx',
             'sh' => 'sh',
             'cgi' => 'cgi',
             'htm' => 'htm',
@@ -224,6 +230,53 @@ final class DataTest extends OpenMageTest
             'shtml' => 'shtml',
         ];
         self::assertSame($expectedResult, self::$subject->getProtectedFileExtensions());
+    }
+
+    /**
+     * A saved general/file/protected_extensions value can extend the protected list but not
+     * shrink it below the built-in minimum (GHSA-4fxg-469f-r6fc).
+     *
+     * @dataProvider provideConfiguredProtectedFileExtensions
+     * @group Helper
+     * @param array<string, string>|string $configured
+     */
+    public function testProtectedFileExtensionsKeepTheMinimum($configured, string $extra): void
+    {
+        $method = new ReflectionMethod(Subject::class, '_addMinimumProtectedFileExtensions');
+        $result = $method->invoke(self::$subject, $configured);
+
+        self::assertSame(is_string($configured) ? 'string' : 'array', gettype($result));
+        $list = is_string($result) ? explode(',', $result) : array_values($result);
+        $list = array_map(static fn(string $extension): string => strtolower(trim($extension)), $list);
+
+        foreach (Subject::PROTECTED_FILE_EXTENSIONS_MINIMUM as $extension) {
+            self::assertContains($extension, $list);
+        }
+
+        self::assertContains($extra, $list);
+        self::assertSame(array_unique($list), $list);
+    }
+
+    /**
+     * @return Iterator<string, array{(array<string, string> | string), string}>
+     */
+    public static function provideConfiguredProtectedFileExtensions(): Iterator
+    {
+        yield 'saved string from an older release' => ['php,php3,php4,php5,htaccess,jsp,pl,py,asp,sh,cgi,htm,html,phtml,shtml', 'html'];
+        yield 'saved string with spaces and upper case' => [' PHP , Phtml ,exe', 'exe'];
+        yield 'saved string with a merchant addition' => ['php,foo', 'foo'];
+        yield 'empty saved string' => ['', 'php'];
+        yield 'node list missing new entries' => [['php' => 'php', 'exe' => 'exe'], 'exe'];
+        yield 'node list with an emptied entry' => [['php' => '', 'html' => 'html'], 'html'];
+    }
+
+    public function testProtectedFileExtensionsLeaveACompleteListUnchanged(): void
+    {
+        $configured = array_combine(Subject::PROTECTED_FILE_EXTENSIONS_MINIMUM, Subject::PROTECTED_FILE_EXTENSIONS_MINIMUM);
+        $configured['html'] = 'html';
+
+        $method = new ReflectionMethod(Subject::class, '_addMinimumProtectedFileExtensions');
+        self::assertSame($configured, $method->invoke(self::$subject, $configured));
     }
 
     /**

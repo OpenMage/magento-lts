@@ -141,7 +141,7 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
             Mage::throwException(Mage::helper('importexport')->__('Header column names already set'));
         }
 
-        if ($headerCols) {
+        if ($headerCols !== []) {
             foreach ($headerCols as $colName) {
                 $this->_headerCols[$colName] = false;
             }

@@ -470,9 +470,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         unset($rowSet);
         foreach ($categoryIds as $categoryId) {
-            if (!isset($attributes[$categoryId])) {
-                $attributes[$categoryId] = null;
-            }
+            $attributes[$categoryId] ??= null;
         }
 
         return $attributes;
@@ -614,9 +612,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         unset($rowSet);
         foreach ($productIds as $productId) {
-            if (!isset($attributes[$productId])) {
-                $attributes[$productId] = null;
-            }
+            $attributes[$productId] ??= null;
         }
 
         return $attributes;
@@ -653,7 +649,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $rootCategoryIds[$rootCategoryId] = $rootCategoryId;
         }
 
-        if ($rootCategoryIds) {
+        if ($rootCategoryIds !== []) {
             $categories = $this->_getCategories($rootCategoryIds);
         }
 
@@ -972,7 +968,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         unset($rowSet);
 
-        if ($products) {
+        if ($products !== []) {
             $select = $adapter->select()
                 ->from(
                     $this->getTable('catalog/category_product'),

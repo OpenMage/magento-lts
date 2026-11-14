@@ -20,7 +20,7 @@ class Mage_Dataflow_Model_Session_Adapter_Http extends Mage_Dataflow_Model_Conve
      */
     public function load()
     {
-        if (!$_FILES) {
+        if ($_FILES === []) {
             echo '<form method="POST" enctype="multipart/form-data">';
             echo 'File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>';
             echo '</form>';

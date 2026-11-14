@@ -52,9 +52,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
                 $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid tier prices. The product is not associated to the requested website.'));
             }
 
-            if (!isset($tierPrice->customer_group_id)) {
-                $tierPrice->customer_group_id = 'all';
-            }
+            $tierPrice->customer_group_id ??= 'all';
 
             if ($tierPrice->customer_group_id == 'all') {
                 $tierPrice->customer_group_id = Mage_Customer_Model_Group::CUST_GROUP_ALL;

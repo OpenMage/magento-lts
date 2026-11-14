@@ -50,6 +50,8 @@
 
 /media/*
 !/media/.htaccess
+!/media/custom_options/
+/media/custom_options/*
 !/media/custom_options/.htaccess
 !/media/customer/.htaccess
 !/media/dhl/logo.jpg

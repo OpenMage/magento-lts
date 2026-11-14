@@ -48,7 +48,7 @@ class Varien_Simplexml_Config_Cache_File extends Varien_Simplexml_Config_Cache_A
         }
 
         // try to validate stats
-        if (!$this->validateComponents(unserialize($stats))) {
+        if (!$this->validateComponents(unserialize($stats, ['allowed_classes' => false]))) {
             return false;
         }
 

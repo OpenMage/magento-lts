@@ -286,9 +286,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         }
 
         if ($this->_dataNamespace) {
-            if (!isset($newData[$this->_dataNamespace])) {
-                $newData[$this->_dataNamespace] = [];
-            }
+            $newData[$this->_dataNamespace] ??= [];
 
             $newData[$this->_dataNamespace] = array_merge($newData[$this->_dataNamespace], $key);
         } else {

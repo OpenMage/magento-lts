@@ -63,7 +63,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
                 $visitors[$row['visitor_id']]['customer_id']  = null;
             }
 
-            if (!$visitors) {
+            if ($visitors === []) {
                 $this->commit();
                 return $this;
             }

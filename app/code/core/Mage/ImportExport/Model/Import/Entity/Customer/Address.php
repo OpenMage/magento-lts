@@ -368,7 +368,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      */
     protected function _saveAddressEntity(array $entityRows)
     {
-        if ($entityRows) {
+        if ($entityRows !== []) {
             if (Mage_ImportExport_Model_Import::BEHAVIOR_APPEND != $this->_customer->getBehavior()) {
                 $customersToClean = [];
 

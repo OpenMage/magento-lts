@@ -413,7 +413,6 @@ class Varien_Db_Ddl_Table
             if (isset($options['primary_position'])) {
                 $primaryPosition = (int) $options['primary_position'];
             } else {
-                $primaryPosition = 0;
                 foreach ($this->_columns as $column) {
                     if ($column['PRIMARY']) {
                         $primaryPosition++;
@@ -426,9 +425,7 @@ class Varien_Db_Ddl_Table
             $identity = true;
         }
 
-        if ($comment === null) {
-            $comment = ucfirst($name);
-        }
+        $comment ??= ucfirst($name);
 
         $upperName = strtoupper($name);
         $this->_columns[$upperName] = [

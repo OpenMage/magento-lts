@@ -440,14 +440,17 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Generate unique token based on customer Id for reset password confirmation link
+     * Generate unique token used in place of the customer Id in reset password confirmation links
+     *
+     * The value obfuscates the customer Id in a public link, so it is generated
+     * from a CSPRNG and no longer derived from the customer Id itself.
      *
      * @param  int    $customerId
      * @return string
      */
     public function generateResetPasswordLinkCustomerId($customerId)
     {
-        return md5(uniqid($customerId . microtime() . mt_rand(), true));
+        return bin2hex(random_bytes(16));
     }
 
     /**
@@ -642,8 +645,6 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomerVatClass($customerCountryCode, $vatValidationResult, $store = null)
     {
-        $vatClass = null;
-
         $isVatNumberValid = $vatValidationResult->getIsValid();
 
         if (is_string($customerCountryCode)
@@ -675,7 +676,6 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getVatValidationUserMessage($customerAddress, $customerGroupAutoAssignDisabled, $validationResult)
     {
-        $message = '';
         $isError = true;
         $customerVatClass = $this->getCustomerVatClass($customerAddress->getCountryId(), $validationResult);
         $groupAutoAssignDisabled = Mage::getStoreConfigFlag(self::XML_PATH_CUSTOMER_VIV_GROUP_AUTO_ASSIGN);

@@ -259,6 +259,11 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
      */
     public function confirmAction()
     {
+        if (!$this->getRequest()->isPost() || !$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
         $this->_initConfirmPage();
     }
 
@@ -268,7 +273,12 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
      */
     public function confirmSimpleAction()
     {
-        $this->_initConfirmPage();
+        if (!$this->getRequest()->isPost() || !$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
+        $this->_initConfirmPage(true);
     }
 
     /**

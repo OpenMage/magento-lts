@@ -64,7 +64,7 @@ class Mage_Core_Model_Resource_Cache extends Mage_Core_Model_Resource_Db_Abstrac
         $adapter->beginTransaction();
         try {
             $this->_getWriteAdapter()->delete($this->getMainTable());
-            if ($data) {
+            if ($data !== []) {
                 $this->_getWriteAdapter()->insertArray($this->getMainTable(), ['code', 'value'], $data);
             }
 

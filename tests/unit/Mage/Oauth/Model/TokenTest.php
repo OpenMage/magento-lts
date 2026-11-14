@@ -14,6 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Mage\Oauth\Model;
 use Override;
 use Generator;
 use Mage;
+use Mage_Oauth_Model_Consumer as Consumer;
 use Mage_Oauth_Model_Token as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
@@ -31,7 +32,7 @@ final class TokenTest extends OpenMageTest
     /**
      * @dataProvider validateDataProvider
      * @group Model
-     * @param array<string, string> $data
+     * @param array<string, mixed> $data
      */
     public function testValidate(bool|string $expected, array $data): void
     {
@@ -45,7 +46,7 @@ final class TokenTest extends OpenMageTest
     }
 
     /**
-     * @return Generator<string, list{bool|string, array<string, string>}, void, void>
+     * @return Generator<string, list{bool|string, array<string, mixed>}, void, void>
      */
     public static function validateDataProvider(): Generator
     {
@@ -96,6 +97,30 @@ final class TokenTest extends OpenMageTest
         $data['callback_url'] = 'invalid-url';
         yield 'invalid url' => [
             'Invalid URL "invalid-url".',
+            $data,
+        ];
+
+        $data = $validData;
+        $data['consumer'] = (new Consumer())->setCallbackUrl('https://legit-app.com');
+        $data['callback_url'] = 'https://legit-app.com/cb';
+        yield 'url covered by the consumer callback url' => [
+            true,
+            $data,
+        ];
+
+        $data = $validData;
+        $data['consumer'] = (new Consumer())->setCallbackUrl('myapp://callback');
+        $data['callback_url'] = 'myapp://callback';
+        yield 'custom scheme covered by the consumer callback url' => [
+            true,
+            $data,
+        ];
+
+        $data = $validData;
+        $data['consumer'] = (new Consumer())->setCallbackUrl('https://legit-app.com');
+        $data['callback_url'] = 'https://legit-app.com.evil.com/cb';
+        yield 'url not covered by the consumer callback url' => [
+            'Invalid URL "https://legit-app.com.evil.com/cb".',
             $data,
         ];
     }

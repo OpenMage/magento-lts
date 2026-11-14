@@ -20,7 +20,7 @@ class Mage_Dataflow_Model_Convert_Iterator_Http extends Mage_Dataflow_Model_Conv
      */
     public function load()
     {
-        if (!$_FILES) {
+        if ($_FILES === []) {
             echo '<form method="post" enctype="multipart/form-data">';
             echo 'File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>';
             echo '</form>';

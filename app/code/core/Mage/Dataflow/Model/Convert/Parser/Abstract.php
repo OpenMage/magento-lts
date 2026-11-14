@@ -49,9 +49,7 @@ abstract class Mage_Dataflow_Model_Convert_Parser_Abstract extends Mage_Dataflow
      */
     public function getBatchModel()
     {
-        if (is_null($this->_batch)) {
-            $this->_batch = Mage::getSingleton('dataflow/batch');
-        }
+        $this->_batch ??= Mage::getSingleton('dataflow/batch');
 
         return $this->_batch;
     }

@@ -176,9 +176,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      */
     public function saveTitles($titles = null)
     {
-        if (is_null($titles)) {
-            $titles = $this->getTitle();
-        }
+        $titles ??= $this->getTitle();
 
         $this->getTitleModel()->deleteByRateId($this->getId());
         if (is_array($titles) && $titles) {
@@ -202,9 +200,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      */
     public function getTitleModel()
     {
-        if (is_null($this->_titleModel)) {
-            $this->_titleModel = Mage::getModel('tax/calculation_rate_title');
-        }
+        $this->_titleModel ??= Mage::getModel('tax/calculation_rate_title');
 
         return $this->_titleModel;
     }
@@ -217,9 +213,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      */
     public function getTitles()
     {
-        if (is_null($this->_titles)) {
-            $this->_titles = $this->getTitleModel()->getCollection()->loadByRateId($this->getId());
-        }
+        $this->_titles ??= $this->getTitleModel()->getCollection()->loadByRateId($this->getId());
 
         return $this->_titles;
     }

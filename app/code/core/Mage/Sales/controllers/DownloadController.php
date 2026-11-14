@@ -23,7 +23,11 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
     {
         $secretKey = $this->getRequest()->getParam('key');
         try {
-            if ($secretKey != $info['secret_key']) {
+            if (!is_string($secretKey)
+                || !isset($info['secret_key'])
+                || !is_string($info['secret_key'])
+                || !hash_equals($info['secret_key'], $secretKey)
+            ) {
                 throw new Exception();
             }
 
@@ -38,6 +42,13 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                 }
             }
 
+            // The key is derived from the file content at upload time. Checking it against the
+            // file actually served binds the download to that file even where the stored info
+            // array did not come from the upload itself (recurring profile buy requests).
+            if (!hash_equals(substr((string) md5_file($filePath), 0, 20), $secretKey)) {
+                throw new Exception();
+            }
+
             $this->_prepareDownloadResponse($info['title'], [
                 'value' => $filePath,
                 'type'  => 'filename',
@@ -48,14 +59,22 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * Check that both stored paths stay inside the custom options directories
+     *
+     * Both are validated because the quote_path is used as a fallback when the
+     * order_path file does not exist.
+     *
      * @param  array     $info
      * @throws Exception
      */
     protected function _validateFilePath($info)
     {
+        /** @var Mage_Catalog_Model_Product_Option_Type_File $optionFile */
         $optionFile = Mage::getModel('catalog/product_option_type_file');
-        $optionStoragePath = $optionFile->getOrderTargetDir(true);
-        if (!str_starts_with($info['order_path'], $optionStoragePath)) {
+        if (!is_array($info)
+            || !$optionFile->isValidOptionFilePath($info['order_path'] ?? null)
+            || !$optionFile->isValidOptionFilePath($info['quote_path'] ?? null)
+        ) {
             throw new Exception('Unexpected file path');
         }
     }
@@ -106,6 +125,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
 
         if (!$recurringProfile->getId()) {
             $this->_forward('noRoute');
+            return;
         }
 
         $orderItemInfo = $recurringProfile->getDataByKey('order_item_info');

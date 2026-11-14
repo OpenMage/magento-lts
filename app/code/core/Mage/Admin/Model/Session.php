@@ -195,9 +195,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function refreshAcl($user = null)
     {
-        if (is_null($user)) {
-            $user = $this->getUser();
-        }
+        $user ??= $this->getUser();
 
         if (!$user) {
             return $this;
@@ -266,9 +264,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function isFirstPageAfterLogin()
     {
-        if (is_null($this->_isFirstPageAfterLogin)) {
-            $this->_isFirstPageAfterLogin = $this->getData('is_first_visit', true);
-        }
+        $this->_isFirstPageAfterLogin ??= $this->getData('is_first_visit', true);
 
         return $this->_isFirstPageAfterLogin;
     }

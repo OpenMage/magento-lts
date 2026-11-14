@@ -93,7 +93,11 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     {
         return Mage::getUrl(
             'oauth/customer_token/revoke/',
-            ['id' => $model->getId(), 'status' => (int) !$model->getRevoked()],
+            [
+                'id' => $model->getId(),
+                'status' => (int) !$model->getRevoked(),
+                Mage_Core_Model_Url::FORM_KEY => $this->getFormKey(),
+            ],
         );
     }
 
@@ -104,7 +108,10 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     public function getDeleteLink(Mage_Oauth_Model_Token $model)
     {
-        return Mage::getUrl('oauth/customer_token/delete/', ['id' => $model->getId()]);
+        return Mage::getUrl('oauth/customer_token/delete/', [
+            'id' => $model->getId(),
+            Mage_Core_Model_Url::FORM_KEY => $this->getFormKey(),
+        ]);
     }
 
     /**

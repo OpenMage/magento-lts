@@ -124,6 +124,16 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
         $gotoSection = false;
         /** @var Mage_Paypal_Helper_Checkout $helper */
         $helper = Mage::helper('paypal/checkout');
+
+        /**
+         * This is a gateway return URL entered cross-site, so it cannot carry a form key. Only the
+         * nonce minted for the last placed order of this payment method may cancel that order.
+         */
+        $nonce = $this->getRequest()->getParam(Mage_Paypal_Helper_Checkout::CANCEL_NONCE_PARAM);
+        if (!$helper->canCancelLastRealOrder($nonce, Mage_Paypal_Model_Config::METHOD_PAYFLOWADVANCED)) {
+            return $gotoSection;
+        }
+
         $helper->cancelCurrentOrder($errorMsg);
         if ($helper->restoreQuote()) {
             return 'payment';

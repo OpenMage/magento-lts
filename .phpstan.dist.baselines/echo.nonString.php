@@ -423,7 +423,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 2,
+    'count' => 4,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/totals/tax.phtml',
 ];
 $ignoreErrors[] = [

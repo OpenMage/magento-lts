@@ -58,8 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Admin
                 $productIds[] = $event->getObjectId();
             }
 
-            $productCollection = null;
-            if ($productIds) {
+            if ($productIds !== []) {
                 $productCollection = Mage::getModel('catalog/product')
                     ->getCollection()
                     ->setStoreId($this->getQuote()->getStoreId())

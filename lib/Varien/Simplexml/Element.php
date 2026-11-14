@@ -64,7 +64,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
 
         // simplexml bug: @attributes is in children() but invisible in foreach
-        foreach ($this->children() as $ignored) {
+        foreach ($this->children() as $ignored) { /** @phpstan-ignore foreach.unusedValue */
             return true;
         }
 
@@ -307,9 +307,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      */
     public function xmlentities($value = null)
     {
-        if (is_null($value)) {
-            $value = $this;
-        }
+        $value ??= $this;
 
         $value = (string) $value;
 

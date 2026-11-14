@@ -745,7 +745,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         }
                     }
 
-                    $item = null;
+                    $item = null; /** @phpstan-ignore assign.overwritten */
                 }
 
                 $collection->clear();
@@ -856,7 +856,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         }
                     }
 
-                    if ($row) {
+                    if ($row !== []) {
                         if ($defaultStoreId != $storeId) {
                             $row['_custom_option_store'] = $this->_storeIdToCode[$storeId];
                         }
@@ -890,10 +890,10 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $customOptionsDataPre[$option['product_id']][$option['option_id']][] = $row;
                     }
 
-                    $option = null;
+                    $option = null; /** @phpstan-ignore assign.overwritten */
                 }
 
-                $options = null;
+                $options = null; /** @phpstan-ignore assign.overwritten */
             }
 
             unset($storeId);
@@ -1120,7 +1120,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             $attrApplyTo = $attribute->getApplyTo();
             $attrApplyTo = $attrApplyTo ? array_intersect($attrApplyTo, $validTypes) : $validTypes;
 
-            if ($attrApplyTo) {
+            if ($attrApplyTo !== []) {
                 foreach ($attrApplyTo as $productType) { // override attributes by its product type model
                     if ($this->_productTypeModels[$productType]->overrideAttribute($attribute)) {
                         break;

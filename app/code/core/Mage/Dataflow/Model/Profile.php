@@ -227,7 +227,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
 
                     $colsAbsent = array_diff($attributes, $fileData);
-                    if ($colsAbsent) {
+                    if ($colsAbsent !== []) {
                         foreach ($newUploadedFilenames as $newUploadedFilename) {
                             unlink($path . $newUploadedFilename);
                         }
@@ -302,7 +302,12 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $profile->setDataflowProfile($this->getData());
             $profile->run();
         } catch (Exception $exception) {
-            echo $exception;
+            Mage::logException($exception);
+            $profileException = new Mage_Dataflow_Model_Convert_Exception(
+                Mage::helper('dataflow')->__('An error occurred while running the profile.'),
+            );
+            $profileException->setLevel(Mage_Dataflow_Model_Convert_Exception::FATAL);
+            $profile->addException($profileException);
         }
 
         $this->setExceptions($profile->getExceptions());

@@ -133,6 +133,80 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     }
 
     /**
+     * Do not write back an unchanged usage counter of a loaded rule
+     *
+     * The counter is maintained with atomic statements when rules are used or given back. A rule
+     * loaded earlier, for example in the admin, would otherwise overwrite it with its possibly
+     * outdated value and undo concurrent uses. Setting a new value explicitly still writes it.
+     *
+     * @return array<string, mixed>
+     */
+    #[Override]
+    protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
+    {
+        $data = parent::_prepareDataForSave($object);
+        if ($object->getId() !== null && $object->getOrigData() !== null && !$object->dataHasChangedFor('times_used')) {
+            unset($data['times_used']);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Add to the times_used counter of rules with a single statement
+     *
+     * @param  array<int|string> $ruleIds
+     * @param  int               $delta   1 to count a use, -1 to give one back (never below 0)
+     * @return int               Number of rules updated
+     */
+    public function updateTimesUsed(array $ruleIds, $delta = 1)
+    {
+        $ruleIds = array_values(array_unique(array_filter(array_map(intval(...), $ruleIds), static fn(int $ruleId): bool => $ruleId > 0)));
+        if ($ruleIds === []) {
+            return 0;
+        }
+
+        sort($ruleIds);
+        $where = ['rule_id IN (?)' => $ruleIds];
+        if ($delta < 0) {
+            $where['times_used >= ?'] = -$delta;
+        }
+
+        return $this->_getWriteAdapter()->update(
+            $this->getMainTable(),
+            ['times_used' => new Zend_Db_Expr(sprintf('times_used %s %d', $delta < 0 ? '-' : '+', abs($delta)))],
+            $where,
+        );
+    }
+
+    /**
+     * Retrieve the uses per customer limit of existing rules
+     *
+     * @param  array<int|string> $ruleIds
+     * @return array<int, int>   uses_per_customer by rule id in ascending rule id order, rules that do not exist are omitted
+     */
+    public function getUsesPerCustomer(array $ruleIds)
+    {
+        $ruleIds = array_values(array_unique(array_filter(array_map(intval(...), $ruleIds), static fn(int $ruleId): bool => $ruleId > 0)));
+        if ($ruleIds === []) {
+            return [];
+        }
+
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select()
+            ->from($this->getMainTable(), ['rule_id', 'uses_per_customer'])
+            ->where('rule_id IN (?)', $ruleIds)
+            ->order('rule_id ' . Varien_Db_Select::SQL_ASC);
+
+        $usesPerCustomer = [];
+        foreach ($adapter->fetchPairs($select) as $ruleId => $limit) {
+            $usesPerCustomer[(int) $ruleId] = (int) $limit;
+        }
+
+        return $usesPerCustomer;
+    }
+
+    /**
      * Retrieve coupon/rule uses for specified customer
      *
      * @param Mage_SalesRule_Model_Rule $rule

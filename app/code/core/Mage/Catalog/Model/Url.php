@@ -204,9 +204,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      */
     public function getResource()
     {
-        if (is_null($this->_resourceModel)) {
-            $this->_resourceModel = Mage::getResourceModel('catalog/url');
-        }
+        $this->_resourceModel ??= Mage::getResourceModel('catalog/url');
 
         return $this->_resourceModel;
     }
@@ -428,10 +426,9 @@ class Mage_Catalog_Model_Url extends Varien_Object
     protected function _refreshCategoryProductRewrites(Varien_Object $category)
     {
         $originalRewrites = $this->_rewrites;
-        $process = true;
         $lastEntityId = 0;
         $firstIteration = true;
-        while ($process) {
+        while (true) {
             $products = $this->getResource()->getProductsByCategory($category, $lastEntityId);
             if (!$products) {
                 if ($firstIteration) {
@@ -442,7 +439,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
                     );
                 }
 
-                $process = false;
                 break;
             }
 
@@ -541,9 +537,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             // Add rewrites for all needed categories
             // If product is assigned to any of store's categories -
             // we also should use store root category to create root product url rewrite
-            if (!isset($categories[$storeRootCategoryId])) {
-                $categories[$storeRootCategoryId] = $this->getResource()->getCategory($storeRootCategoryId, $storeId);
-            }
+            $categories[$storeRootCategoryId] ??= $this->getResource()->getCategory($storeRootCategoryId, $storeId);
 
             // Create product url rewrites
             foreach ($categories as $category) {
@@ -584,12 +578,10 @@ class Mage_Catalog_Model_Url extends Varien_Object
         $this->_categories[$storeRootCategoryId] = $this->getResource()->getCategory($storeRootCategoryId, $storeId);
 
         $lastEntityId = 0;
-        $process = true;
 
-        while ($process) {
+        while (true) {
             $products = $this->getResource()->getProductsByStore($storeId, $lastEntityId);
             if (!$products) {
-                $process = false;
                 break;
             }
 
@@ -604,7 +596,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 }
             }
 
-            if ($loadCategories) {
+            if ($loadCategories !== []) {
                 $categories = $this->getResource()->getCategories($loadCategories, $storeId) ?: [];
                 foreach ($categories as $category) {
                     $this->_categories[$category->getId()] = $category;

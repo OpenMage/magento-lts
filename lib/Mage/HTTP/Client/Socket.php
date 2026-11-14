@@ -371,9 +371,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
             if (!empty($value)) {
                 if ($name === 'Set-Cookie') {
-                    if (!isset($this->_responseHeaders[$name])) {
-                        $this->_responseHeaders[$name] = [];
-                    }
+                    $this->_responseHeaders[$name] ??= [];
 
                     $this->_responseHeaders[$name][] = $value;
                 } else {

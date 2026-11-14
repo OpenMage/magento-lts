@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_system_convert_profile_edit_form';
+
     #[Override]
     protected function _prepareForm()
     {

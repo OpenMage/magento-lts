@@ -206,7 +206,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         $pCount = $write->fetchOne($select);
 
         // if affected more 30% of all products - run reindex all products
-        if ($pCount * 0.3 < count($processIds)) {
+        if ((int) $pCount * 0.3 < count($processIds)) {
             return $this->reindexAll();
         }
 
@@ -221,7 +221,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         $bCount = $write->fetchOne($select);
 
         // if affected with relations more 30% of all products - run reindex all products
-        if ($pCount * 0.3 < count($processIds) + $aCount + $bCount) {
+        if ((int) $pCount * 0.3 < count($processIds) + $aCount + $bCount) {
             return $this->reindexAll();
         }
 
@@ -317,9 +317,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      */
     protected function _getIndexer($productTypeId)
     {
-        if ($productTypeId === null) {
-            $productTypeId = '';
-        }
+        $productTypeId ??= '';
 
         $types = $this->getTypeIndexers();
         if (!isset($types[$productTypeId])) {
@@ -604,7 +602,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             $table = $this->_getWebsiteDateTable();
             $write->delete($table);
 
-            if ($data) {
+            if ($data !== []) {
                 $write->insertMultiple($table, $data);
             }
 

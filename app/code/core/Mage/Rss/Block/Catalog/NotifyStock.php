@@ -105,10 +105,14 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
             ['id' => $product->getId(), '_secure' => true, '_nosecret' => true],
         );
         $qty = 1 * $product->getQty();
-        $description = Mage::helper('rss')->__('%s has reached a quantity of %s.', $product->getName(), $qty);
+        $description = Mage::helper('rss')->__(
+            '%s has reached a quantity of %s.',
+            $this->escapeHtml($product->getName()),
+            $qty,
+        );
         $rssObj = $args['rssObj'];
         $data = [
-            'title'         => $product->getName(),
+            'title'         => $this->escapeHtml($product->getName()),
             'link'          => $url,
             'description'   => $description,
         ];

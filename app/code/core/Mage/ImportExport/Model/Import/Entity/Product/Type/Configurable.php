@@ -295,7 +295,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      */
     protected function _processSuperData(array $superData, array &$superAttributes)
     {
-        if ($superData) {
+        if ($superData !== []) {
             $usedCombs = [];
             // is associated products applicable?
             foreach (array_keys($superData['assoc_ids']) as $assocId) {
@@ -453,9 +453,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                 if (isset($rowData['_super_attribute_option']) && strlen($rowData['_super_attribute_option'])) {
                     $optionId = $attrParams['options'][strtolower($rowData['_super_attribute_option'])];
 
-                    if (!isset($productSuperData['used_attributes'][$attrParams['id']][$optionId])) {
-                        $productSuperData['used_attributes'][$attrParams['id']][$optionId] = false;
-                    }
+                    $productSuperData['used_attributes'][$attrParams['id']][$optionId] ??= false;
 
                     if (!empty($rowData['_super_attribute_price_corr'])) {
                         $superAttributes['pricing'][] = [
@@ -492,7 +490,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                 }
             }
 
-            if ($mainData) {
+            if ($mainData !== []) {
                 $connection->insertOnDuplicate($mainTable, $mainData);
             }
 

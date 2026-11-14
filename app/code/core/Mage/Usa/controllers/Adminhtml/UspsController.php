@@ -146,7 +146,7 @@ class Mage_Usa_Adminhtml_UspsController extends Mage_Adminhtml_Controller_Action
     #[Override]
     protected function _isAllowed(): bool
     {
-        return Mage::getSingleton('admin/session')->isAllowed('system/config');
+        return Mage::getSingleton('admin/session')->isAllowed('system/config/carriers');
     }
 
     public function testRateQuoteAction(): void

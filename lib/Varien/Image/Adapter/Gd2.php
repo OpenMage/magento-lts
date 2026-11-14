@@ -227,9 +227,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     private function _getCallback($callbackType, $fileType = null, $unsupportedText = 'Unsupported image format.')
     {
-        if (null === $fileType) {
-            $fileType = $this->_fileType;
-        }
+        $fileType ??= $this->_fileType;
 
         if (empty(self::$_callbacks[$fileType])) {
             throw new Exception("{$unsupportedText}. Type: {$fileType}. File: {$this->_fileName}");
@@ -454,7 +452,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function watermark($watermarkImage, $positionX = 0, $positionY = 0, $watermarkImageOpacity = 30, $repeat = false)
     {
-        [$watermarkSrcWidth, $watermarkSrcHeight, $watermarkFileType, ] = getimagesize($watermarkImage);
+        [, , $watermarkFileType, ] = getimagesize($watermarkImage);
         $this->_getFileAttributes();
         $watermark = call_user_func($this->_getCallback(
             'create',

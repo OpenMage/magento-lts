@@ -349,13 +349,11 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
     private function getChartYLabels(): array
     {
-        $localmaxlength = [];
         $localmaxvalue = [];
         $localminvalue = [];
 
         // process each string in the array, and find the max length
         foreach ($this->getAllSeries() as $index => $serie) {
-            $localmaxlength[$index] = count($serie);
             $localmaxvalue[$index] = max($serie);
             $localminvalue[$index] = min($serie);
         }

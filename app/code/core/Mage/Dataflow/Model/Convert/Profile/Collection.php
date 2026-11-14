@@ -66,9 +66,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
     public function addProfile($name, ?Mage_Dataflow_Model_Convert_Profile_Interface $profile = null)
     {
-        if (is_null($profile)) {
-            $profile = new $this->_profileDefaultClass();
-        }
+        $profile ??= new $this->_profileDefaultClass();
 
         $this->_profiles[$name] = $profile;
         return $profile;
@@ -109,7 +107,8 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
                 continue;
             }
 
-            $class = $this->getClassNameByType((string) $containerNode['type']);
+            $class = (string) $this->getClassNameByType((string) $containerNode['type']);
+            Mage_Dataflow_Model_Convert_Action_Abstract::validateContainerClass($class);
             $container = $this->addContainer((string) $containerNode['name'], new $class());
             foreach ($containerNode->var as $varNode) {
                 $container->setVar((string) $varNode['name'], (string) $varNode);

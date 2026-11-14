@@ -47,11 +47,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Block.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 ...$arrays of function array_intersect expects array, array|Varien_Simplexml_Element given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Rules.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $encodedValue of method Mage_Core_Helper_Data::jsonDecode() expects string, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Resource/Variable.php',
@@ -75,11 +70,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $subject of function preg_split expects string, string|true given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/AdminNotification/Model/Feed.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function array_key_exists expects array, array|Varien_Simplexml_Element|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Api/Tab/Rolesedit.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $groupId of method Mage_Eav_Model_Entity_Attribute_Abstract::isInGroup() expects int, int|string|null given.',
@@ -190,11 +180,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $parent of method Mage_Adminhtml_Block_Page_Menu::_buildMenuArray() expects Varien_Simplexml_Element, Varien_Simplexml_Element|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Page/Menu.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $array of function array_key_exists expects array, array|Varien_Simplexml_Element given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Rolesedit.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $separator of function explode expects non-empty-string, string given.',
@@ -747,11 +732,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $host of method Zend_Uri_Http::setHost() expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Helper/Data.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $node of method Varien_Simplexml_Config::setXml() expects Varien_Simplexml_Element, Varien_Simplexml_Element|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Config.php',
@@ -829,11 +809,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $sessId of method Mage_Api_Model_Session::isLoggedIn() expects string|false, stdClass|string|null given.',
     'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $sessionId of method Mage_Api_Model_Server_Handler_Abstract::_startSession() expects string|null, stdClass|string|null given.',
-    'count' => 5,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
 ];
 $ignoreErrors[] = [
@@ -938,16 +913,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $node of method Mage_Api2_Model_Acl_Global_Rule_Tree::_addPrivileges() expects Varien_Simplexml_Element, array|Varien_Simplexml_Element given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $name of method Mage_Api2_Model_Acl_Global_Rule_Tree::_addOperations() expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 $name of method Mage_Api2_Model_Acl_Global_Rule_Tree::_addPrivileges() expects string, string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Acl/Global/Rule/Tree.php',
 ];
@@ -1720,11 +1685,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $optionId of method Mage_Catalog_Model_Product::getOptionById() expects string, int|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Api.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $filename of method Mage_Core_Helper_File_Storage_Database::saveFileToFilesystem() expects string, string|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $shorthand of function ini_parse_quantity expects string, string|false given.',
@@ -3462,11 +3422,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $update of method Mage_Core_Model_Layout_Update::addUpdate() expects string, string|false given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Update.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $updates of method Mage_Core_Model_Layout_Update::addFallbackThemesLayoutUpdates() expects Mage_Core_Model_Config_Element, Mage_Core_Model_Config_Element|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Layout/Update.php',
@@ -3605,11 +3560,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $websiteId of method Mage_Core_Model_Resource_Store_Group::_updateStoreWebsite() expects int, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Resource/Store/Group.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $host of method Mage_Core_Model_Session_Abstract::addHost() expects string, true given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Session/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $callback of function call_user_func expects callable(): mixed, string given.',
@@ -4283,11 +4233,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $object of method Mage_Eav_Model_Config::getEntityAttributeCodes() expects Varien_Object|null, object|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #3 of function sprintf is expected to be int by placeholder #2 ("%%d"), int<min, -1>|int<1, max>|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Abstract.php',
 ];
@@ -6292,11 +6237,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $couponId of method Mage_SalesRule_Model_Resource_Coupon_Usage::updateCustomerCouponTimesUsed() expects int, int|string|null given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Observer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $cond of method Varien_Db_Select::where() expects string, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Report/Rule/Createdat.php',
@@ -6377,17 +6317,17 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Validator.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order_Shipment_Track|string given.',
+    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order_Shipment_Track|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order_Shipment|string given.',
+    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order_Shipment|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Helper/Data.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order|string given.',
+    'rawMessage' => 'Parameter #2 $model of method Mage_Shipping_Helper_Data::_getTrackingUrl() expects Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track, Mage_Sales_Model_Order|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Helper/Data.php',
 ];
@@ -7817,22 +7757,12 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $filename of function is_writable expects string, array|string given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $id of method Mage_Cache_Backend_File::_tagFile() expects string, resource|string given.',
     'count' => 2,
     'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $specificLifetime of method Zend_Cache_Backend::getLifetime() expects int|false, bool|int given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #2 $offset of function substr expects int, float|int given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
 ];
@@ -8242,11 +8172,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Db/Select.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $params of method Varien_Db_Statement_Pdo_Mysql::_executeWithBinding() expects array, array|null given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Db/Statement/Pdo/Mysql.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $haystack of function strpos expects string, int|list<mixed>|object|string given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Debug.php',
@@ -8320,36 +8245,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $callback of function call_user_func_array expects callable(): mixed, array{Varien_Object, mixed} given.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Filter/Template.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_errno expects CurlHandle, CurlHandle|resource given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_error expects CurlHandle, CurlHandle|resource given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_exec expects CurlHandle, CurlHandle|resource given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_getinfo expects CurlHandle, CurlHandle|resource given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_setopt expects CurlHandle, CurlHandle|resource given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $handle of function curl_setopt_array expects CurlHandle, CurlHandle|resource given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $haystack of function stripos expects string, bool|string given.',

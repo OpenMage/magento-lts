@@ -48,10 +48,28 @@ class Mage_Core_Helper_Purifier_DefinitionCache
     }
 
     /**
+     * The definition cache implementation for a new purifier, null for no definition cache
+     *
+     * Cache entries are signed with a key derived from the Magento encryption key. Without one,
+     * which is the normal state while the installer runs (app/etc/local.xml does not exist yet),
+     * the cache model cannot be constructed, so definitions are built uncached instead of every
+     * purify() call throwing. The installer renders session messages through the purifier.
+     *
      * @return null|class-string
      */
     public function getCacheDefinitionImpl(): ?string
     {
+        if ($this->cacheDefinitionImpl !== null && !$this->hasEncryptionKey()) {
+            return null;
+        }
+
         return $this->cacheDefinitionImpl;
+    }
+
+    protected function hasEncryptionKey(): bool
+    {
+        $config = Mage::getConfig();
+
+        return $config !== null && (string) $config->getNode('global/crypt/key') !== '';
     }
 }

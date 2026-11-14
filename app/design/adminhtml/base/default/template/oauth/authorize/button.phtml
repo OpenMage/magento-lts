@@ -25,7 +25,8 @@
             <?php if (!$this->getHasException()) : ?>
                 <h2><?php echo $this->__('<strong>%s</strong> requests access to your account', $this->escapeHtml($this->getConsumer()->getName())); ?></h2>
                 <p><?php echo $this->__('After authorization application will have access to you account.'); ?></p>
-                <form id="oauth_authorize_confirm" action="<?php echo $this->getConfirmUrl() ?>" method="get">
+                <form id="oauth_authorize_confirm" action="<?php echo $this->getConfirmUrl() ?>" method="post">
+                    <?php echo $this->getBlockHtml('formkey') ?>
                     <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
                     <button type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Authorize')) ?>"><span><span><?php echo $this->__('Authorize') ?></span></span></button>
                 </form>

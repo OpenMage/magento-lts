@@ -222,13 +222,10 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
             return false;
         }
 
-        if (is_null($request)) {
-            $request = Mage::app()->getFrontController()->getRequest();
-        }
+        $request ??= Mage::app()->getFrontController()->getRequest();
 
-        if (is_null($response)) {
-            $response = Mage::app()->getFrontController()->getResponse();
-        }
+        // @phpstan-ignore assign.unused
+        $response ??= Mage::app()->getFrontController()->getResponse();
 
         if (is_null($this->getStoreId()) || $this->getStoreId() === false) {
             $this->setStoreId(Mage::app()->getStore()->getId());

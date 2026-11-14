@@ -236,7 +236,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
             $item->setStores([]);
         }
 
-        if (!$ratingIds) {
+        if ($ratingIds === []) {
             return $this;
         }
 

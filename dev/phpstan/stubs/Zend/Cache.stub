@@ -1,0 +1,13 @@
+<?php 
+
+class Zend_Cache_Backend_File
+{
+    /**
+     * Return the complete directory path of a filename (including hashedDirectoryStructure)
+     *
+     * @param  string $id Cache id
+     * @param  boolean $parts if true, returns array of directory parts instead of single string
+     * @return ($parts is true ? string[] : string)
+     */
+    protected function _path($id, $parts = false) {}
+}

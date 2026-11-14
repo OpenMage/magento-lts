@@ -11,23 +11,39 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\CatalogSearch\Model;
 
-// use Mage;
-// use Mage_CatalogSearch_Model_Query as Subject;
+use Exception;
+use Mage;
+use Mage_CatalogSearch_Model_Query as Subject;
 use Override;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogSearch\Model\QueryTrait;
 
+/**
+ * @phpstan-import-type ValidateData from QueryTrait
+ */
 final class QueryTest extends OpenMageTest
 {
     use QueryTrait;
 
-    // private static Subject $subject;
+    private static Subject $subject;
 
     #[Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        // self::$subject = Mage::getModel('catalogsearch/query');
-        self::markTestSkipped('');
+        self::$subject = Mage::getModel('catalogsearch/query');
+    }
+
+    /**
+     * @dataProvider provideValidateCatalogSearchQueryData
+     * @param string[]|true $expectedResult
+     * @phpstan-param ValidateData $data
+     * @group Model
+     * @throws Exception
+     */
+    public function testValidate(array|bool $expectedResult, array $data): void
+    {
+        self::$subject->setData($data);
+        self::assertSame($expectedResult, self::$subject->validate());
     }
 }

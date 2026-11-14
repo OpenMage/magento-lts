@@ -28,6 +28,23 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     protected $_isSectionAllowedFlag = true;
 
     /**
+     * @inheritDoc
+     */
+    #[Override]
+    protected function _isAllowed(): bool
+    {
+        if (!parent::_isAllowed()) {
+            return false;
+        }
+
+        return match (strtolower($this->getRequest()->getActionName())) {
+            // Table rates are part of the Shipping Methods section, and the export has no section parameter
+            'exporttablerates' => Mage::getSingleton('admin/session')->isAllowed('system/config/carriers'),
+            default => true,
+        };
+    }
+
+    /**
      * Controller pre-dispatch method
      * Check if current section is found and is allowed
      *
@@ -37,6 +54,11 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     public function preDispatch()
     {
         parent::preDispatch();
+
+        // Already denied, redirected or forwarded: the section check would render the denied page a second time
+        if ($this->getFlag('', self::FLAG_NO_DISPATCH) === true) {
+            return $this;
+        }
 
         if ($this->getRequest()->getParam('section')) {
             $this->_isSectionAllowedFlag = $this->_isSectionAllowed($this->getRequest()->getParam('section'));
@@ -320,9 +342,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
                 $extra = [];
             }
 
-            if (!isset($extra['configState'])) {
-                $extra['configState'] = [];
-            }
+            $extra['configState'] ??= [];
 
             foreach ($configState as $fieldset => $state) {
                 $extra['configState'][$fieldset] = $state;

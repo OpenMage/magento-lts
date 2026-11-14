@@ -208,8 +208,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      */
     protected function _processActivityRestTagInfo(array $activityTag, array &$packageProgress): void
     {
-        $eventTimestamp = null;
-
         if (isset($activityTag['eventTimestamp'])) {
             try {
                 $eventTimestamp = new DateTime($activityTag['eventTimestamp']);

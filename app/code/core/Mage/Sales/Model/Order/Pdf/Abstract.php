@@ -244,7 +244,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                     $text[] = $str;
                 }
 
-                foreach ($text as $ignored) {
+                foreach ($text as $ignored) {/** @phpstan-ignore foreach.unusedValue */
                     $yAxis += 15;
                 }
             }
@@ -703,9 +703,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             Mage::throwException(Mage::helper('sales')->__('Invalid renderer model'));
         }
 
-        if (is_null($this->_renderers[$type]['renderer'])) {
-            $this->_renderers[$type]['renderer'] = Mage::getSingleton($this->_renderers[$type]['model']);
-        }
+        $this->_renderers[$type]['renderer'] ??= Mage::getSingleton($this->_renderers[$type]['model']);
 
         return $this->_renderers[$type]['renderer'];
     }
@@ -898,7 +896,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                         }
 
                         $top = 0;
-                        foreach ($column['text'] as $part) {
+                        foreach ($column['text'] as $part) {/** @phpstan-ignore foreach.valueOverwritten */
                             $top += $lineSpacing;
                         }
 

@@ -24,6 +24,8 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      */
     protected $_form;
 
+    protected string $_eventPrefix = '';
+
     /**
      * @inheritDoc
      */
@@ -39,7 +41,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * Preparing global layout
      *
-     * You can redefine this method in child classes for changin layout
+     * You can redefine this method in child classes for changing layout
      *
      * @return $this
      */
@@ -59,6 +61,18 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element');
         if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
             Varien_Data_Form::setFieldsetElementRenderer($renderer);
+        }
+
+        Mage::dispatchEvent('adminhtml_widget_form_prepare_layout', [
+            'block' => $this,
+            'form'  => $this->getForm(),
+        ]);
+
+        if ($this->_eventPrefix !== '') {
+            Mage::dispatchEvent($this->_eventPrefix . '_prepare_layout', [
+                'block' => $this,
+                'form'  => $this->getForm(),
+            ]);
         }
 
         return parent::_prepareLayout();
@@ -108,6 +122,18 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareForm()
     {
+        Mage::dispatchEvent('adminhtml_widget_form_prepare_form', [
+            'block' => $this,
+            'form' => $this->getForm(),
+        ]);
+
+        if ($this->_eventPrefix !== '') {
+            Mage::dispatchEvent($this->_eventPrefix . '_prepare_form', [
+                'block' => $this,
+                'form' => $this->getForm(),
+            ]);
+        }
+
         return $this;
     }
 

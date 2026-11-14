@@ -51,17 +51,15 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
      */
     public function getRelatedOrders()
     {
-        if (is_null($this->_relatedOrders)) {
-            $this->_relatedOrders = Mage::getResourceModel('sales/order_collection')
-                ->addFieldToSelect('*')
-                ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
-                ->addFieldToFilter(
-                    'state',
-                    ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()],
-                )
-                ->addBillingAgreementsFilter($this->_billingAgreementInstance->getAgreementId())
-                ->setOrder('created_at', 'desc');
-        }
+        $this->_relatedOrders ??= Mage::getResourceModel('sales/order_collection')
+            ->addFieldToSelect('*')
+            ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
+            ->addFieldToFilter(
+                'state',
+                ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()],
+            )
+            ->addBillingAgreementsFilter($this->_billingAgreementInstance->getAgreementId())
+            ->setOrder('created_at', 'desc');
 
         return $this->_relatedOrders;
     }
@@ -111,9 +109,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
     #[Override]
     protected function _prepareLayout()
     {
-        if (is_null($this->_billingAgreementInstance)) {
-            $this->_billingAgreementInstance = Mage::registry('current_billing_agreement');
-        }
+        $this->_billingAgreementInstance ??= Mage::registry('current_billing_agreement');
 
         parent::_prepareLayout();
 
@@ -159,7 +155,9 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             $this->setCancelUrl(
                 $this->getUrl('*/billing_agreement/cancel', [
                     '_current' => true,
-                    'payment_method' => $this->_billingAgreementInstance->getMethodCode()]),
+                    'payment_method' => $this->_billingAgreementInstance->getMethodCode(),
+                    Mage_Core_Model_Url::FORM_KEY => $this->getFormKey(),
+                ]),
             );
 
             $paymentMethodTitle = $this->_billingAgreementInstance->getAgreementLabel();

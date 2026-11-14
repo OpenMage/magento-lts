@@ -150,7 +150,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
                 $i++;
             }
 
-            if ($orWhere) {
+            if ($orWhere !== []) {
                 $select->where(implode(' OR ', $orWhere));
             }
         } else {

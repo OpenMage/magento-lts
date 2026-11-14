@@ -14,6 +14,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price extends Mage_Adminhtml_Block_Widget_Form
 {
+    protected string $_eventPrefix = 'adminhtml_catalog_product_edit_tab_price';
+
     #[Override]
     protected function _prepareForm()
     {
@@ -42,6 +44,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price extends Mage_Adminhtml
         }
 
         $this->setForm($form);
-        return $this;
+        return parent::_prepareForm();
     }
 }

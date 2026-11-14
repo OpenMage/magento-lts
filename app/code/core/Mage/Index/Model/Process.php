@@ -433,9 +433,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     protected function _getLockInstance()
     {
-        if (is_null($this->_lockInstance)) {
-            $this->_lockInstance = Mage_Index_Model_Lock::getInstance();
-        }
+        $this->_lockInstance ??= Mage_Index_Model_Lock::getInstance();
 
         return $this->_lockInstance;
     }

@@ -66,7 +66,7 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
             $tagModel->loadByName($tagName);
             if ($tagModel->getId() && $tagModel->getStatus() == $tagModel->getApprovedStatus()) {
                 Mage::register('tag_model', $tagModel);
-                $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
+                $this->_setFeedContentType();
                 $this->loadLayout(false);
                 $this->renderLayout();
                 return;

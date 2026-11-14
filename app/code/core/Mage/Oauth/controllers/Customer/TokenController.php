@@ -82,6 +82,12 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
      */
     public function revokeAction()
     {
+        // The list block embeds the form key in the action links, a cross-site request lacks it
+        if (!$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
         $id = $this->getRequest()->getParam('id');
         $status = $this->getRequest()->getParam('status');
 
@@ -141,6 +147,12 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
      */
     public function deleteAction()
     {
+        // The list block embeds the form key in the action links, a cross-site request lacks it
+        if (!$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
         $id = $this->getRequest()->getParam('id');
 
         if ((int) $id === 0) {

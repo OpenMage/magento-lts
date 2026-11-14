@@ -123,13 +123,9 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      */
     public function getCategoryUrlSuffix($storeId = null)
     {
-        if (is_null($storeId)) {
-            $storeId = Mage::app()->getStore()->getId();
-        }
+        $storeId ??= Mage::app()->getStore()->getId();
 
-        if (!isset($this->_categoryUrlSuffix[$storeId])) {
-            $this->_categoryUrlSuffix[$storeId] = Mage::getStoreConfig(self::XML_PATH_CATEGORY_URL_SUFFIX, $storeId);
-        }
+        $this->_categoryUrlSuffix[$storeId] ??= Mage::getStoreConfig(self::XML_PATH_CATEGORY_URL_SUFFIX, $storeId);
 
         return $this->_categoryUrlSuffix[$storeId];
     }

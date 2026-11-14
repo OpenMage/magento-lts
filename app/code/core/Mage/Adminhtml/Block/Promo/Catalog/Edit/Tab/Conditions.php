@@ -12,6 +12,8 @@
  */
 class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Conditions extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    protected string $_eventPrefix = 'adminhtml_promo_catalog_edit_tab_conditions';
+
     /**
      * Prepare content for tab
      *

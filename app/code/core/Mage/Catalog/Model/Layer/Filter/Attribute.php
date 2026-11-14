@@ -39,9 +39,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
      */
     protected function _getResource()
     {
-        if (is_null($this->_resource)) {
-            $this->_resource = Mage::getResourceModel('catalog/layer_filter_attribute');
-        }
+        $this->_resource ??= Mage::getResourceModel('catalog/layer_filter_attribute');
 
         return $this->_resource;
     }

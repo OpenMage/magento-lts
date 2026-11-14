@@ -394,10 +394,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
         $attribute = $attributeInstance;
 
-        if (empty($attributeId)) {
-            $attributeId = $attribute->getAttributeId();
-        }
-
         if (isset($attributeCode) && !$attribute->getAttributeCode()) {
             $attribute->setAttributeCode($attributeCode);
         }
@@ -532,9 +528,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function getSortedAttributes($setId = null)
     {
         $attributes = $this->getAttributesByCode();
-        if ($setId === null) {
-            $setId = $this->getEntityType()->getDefaultAttributeSetId();
-        }
+        $setId ??= $this->getEntityType()->getDefaultAttributeSetId();
 
         // initialize set info
         Mage::getSingleton('eav/entity_attribute_set')
@@ -831,7 +825,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             }
         }
 
-        if (!$errors) {
+        if ($errors === []) {
             return true;
         }
 
@@ -1371,7 +1365,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
             $newObject->setId($entityId);
         } else {
-            $where = sprintf('%s=%d', $adapter->quoteIdentifier($entityIdField), $entityId);
+            $where = sprintf('%s=%d', $adapter->quoteIdentifier($entityIdField), (int) $entityId);
             $adapter->update($entityTable, $entityRow, $where);
         }
 
@@ -1454,9 +1448,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     protected function _saveAttribute($object, $attribute, $value)
     {
         $table = $attribute->getBackend()->getTable();
-        if (!isset($this->_attributeValuesToSave[$table])) {
-            $this->_attributeValuesToSave[$table] = [];
-        }
+        $this->_attributeValuesToSave[$table] ??= [];
 
         $entityIdField = $attribute->getBackend()->getEntityIdField();
 
@@ -1517,9 +1509,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         }
 
         $backendTable = $attribute->getBackendTable();
-        if (!isset(self::$_attributeBackendTables[$backendTable])) {
-            self::$_attributeBackendTables[$backendTable] = $this->_getReadAdapter()->describeTable($backendTable);
-        }
+        self::$_attributeBackendTables[$backendTable] ??= $this->_getReadAdapter()->describeTable($backendTable);
 
         $describe = self::$_attributeBackendTables[$backendTable];
         return $this->_getReadAdapter()->prepareColumnValue($describe['value'], $value);

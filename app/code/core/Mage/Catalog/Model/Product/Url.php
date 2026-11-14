@@ -70,9 +70,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
      */
     public function getProductUrl($product, $useSid = null)
     {
-        if ($useSid === null) {
-            $useSid = Mage::app()->getUseSessionInUrl();
-        }
+        $useSid ??= Mage::app()->getUseSessionInUrl();
 
         $params = [];
         if (!$useSid) {
@@ -134,9 +132,7 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
         }
 
         // reset cached URL instance GET query params
-        if (!isset($params['_query'])) {
-            $params['_query'] = [];
-        }
+        $params['_query'] ??= [];
 
         $this->getUrlInstance()->setStore($storeId);
         $productUrl = $this->_getProductUrl($product, $requestPath, $params);

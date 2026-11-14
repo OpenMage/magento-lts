@@ -77,6 +77,14 @@
                     </oauth>
                 </observers>
             </admin_session_user_login_failed>
+            <admin_user_save_after>
+                <observers>
+                    <oauth_revoke_deactivated_admin_tokens>
+                        <class>oauth/observer</class>
+                        <method>revokeTokensOfDeactivatedAdmin</method>
+                    </oauth_revoke_deactivated_admin_tokens>
+                </observers>
+            </admin_user_save_after>
         </events>
         <template>
             <email>

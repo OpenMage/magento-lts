@@ -32,21 +32,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/Mage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Roles::getResourcesList() should return array|Varien_Simplexml_Element but returns array|Varien_Simplexml_Element|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Roles::getResourcesList2D() should return array|Varien_Simplexml_Element but returns array|Varien_Simplexml_Element|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Roles::getResourcesTree() should return array|Varien_Simplexml_Element but returns array|Varien_Simplexml_Element|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main::_getSetId() should return int but returns int|string|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Main.php',
@@ -2942,11 +2927,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Usps::getCode() should return array<string, mixed>|bool but returns array<int|string, array<string, array<int|string, array<string, list<string>>|string>>|string>.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Usa_Model_Shipping_Carrier_Usps::getCode() should return array<string, mixed>|bool but returns array<string, array<int|string, array<string, list<string>>|string>>|string|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php',
@@ -3242,7 +3222,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Varien/Filter/Template/Simple.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Varien_Http_Adapter_Curl::_getResource() should return CurlHandle|resource but returns CurlHandle|resource|false.',
+    'rawMessage' => 'Method Varien_Http_Adapter_Curl::_getResource() should return CurlHandle but returns CurlHandle|null.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Http/Adapter/Curl.php',
 ];

@@ -121,9 +121,7 @@ class Mage_Paypal_Model_Pro
      */
     public function getApi()
     {
-        if ($this->_api === null) {
-            $this->_api = Mage::getModel($this->_apiType);
-        }
+        $this->_api ??= Mage::getModel($this->_apiType);
 
         $this->_api->setConfigObject($this->_config);
         return $this->_api;
@@ -348,7 +346,7 @@ class Mage_Paypal_Model_Pro
             $errors[] = Mage::helper('paypal')->__('Schedule description is too long.');
         }
 
-        if ($errors) {
+        if ($errors !== []) {
             Mage::throwException(implode(' ', $errors));
         }
     }

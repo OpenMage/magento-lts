@@ -1073,6 +1073,12 @@
             </sales_resource>
         </models>
         <template>
+            <email_layout_handles>
+                <sales_email_order_items/>
+                <sales_email_order_invoice_items/>
+                <sales_email_order_shipment_items/>
+                <sales_email_order_creditmemo_items/>
+            </email_layout_handles>
             <email>
                 <sales_email_order_template translate="label" module="sales">
                     <label>New Order</label>

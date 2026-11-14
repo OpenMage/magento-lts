@@ -733,12 +733,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                             $shipXml = $xml->IntlShipment;
                             $this->_parseXmlObject($shipXml);
                         }
-
-                        $shipXml = (
-                            ($request->getDestCountryId() == self::USA_COUNTRY_ID)
-                            ? $xml->Shipment
-                            : $xml->IntlShipment
-                        );
                     }
                 }
             } else {
@@ -1092,7 +1086,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                                                     $addArr[] = (string) $thistory->Location->Country;
                                                 }
 
-                                                if ($addArr) {
+                                                if ($addArr !== []) {
                                                     $tempArr['deliverylocation'] = implode(', ', $addArr);
                                                 } elseif (isset($thistory['final_delivery'])
                                                           && (string) $thistory['final_delivery'] === 'true'
@@ -1101,7 +1095,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                                                     * if the history is final delivery, there is no informationabout
                                                     * city, state and country
                                                     */
-                                                    $addArr = [];
                                                     if (isset($txml->Receiver->City)) {
                                                         $addArr[] = (string) $txml->Receiver->City;
                                                     }

@@ -205,11 +205,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
         $needsRefresh = false;
 
         if ($globalConfigCache !== false) {
-            try {
-                $data = unserialize($globalConfigCache, ['allowed_classes' => false]);
-            } catch (Exception $exception) {
-                Mage::logException($exception);
-            }
+            $data = unserialize($globalConfigCache, ['allowed_classes' => false]);
         }
 
         /** @var Mage_Core_Model_Store $store */

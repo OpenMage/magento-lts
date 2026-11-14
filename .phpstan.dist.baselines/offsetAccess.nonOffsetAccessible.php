@@ -228,7 +228,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset non-falsy-string on Mage_SalesRule_Model_Resource_Rule_Collection.',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Validator.php',
 ];
 $ignoreErrors[] = [
@@ -258,7 +258,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset 0 on array<Varien_Simplexml_Element>|false.',
-    'count' => 8,
+    'count' => 7,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php',
 ];
 $ignoreErrors[] = [
@@ -312,11 +312,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'name\' on non-empty-array|true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset \'size\' on array|bool.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
@@ -327,29 +322,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'type\' on non-empty-array|true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset \'uid\' on array{0: int, 1: int, 2: int, 3: int, 4: int, 5: int, 6: int, 7: int, ...}|false.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'expire\' on array|bool.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'expire\' on non-empty-array|true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'tags\' on non-empty-array|true.',
-    'count' => 3,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset 0 on non-empty-list<string>|false.',
@@ -430,16 +405,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset \'name\' on array{name: string, passwd: string, uid: int, gid: int, gecos: string, dir: string, shell: string}|false.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Varien/Io/File.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset (int|string) on array|object.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset mixed on array|object.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Object/Mapper.php',
 ];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

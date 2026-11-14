@@ -91,9 +91,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
             return $this;
         }
 
-        if (is_null($tags)) {
-            $tags = $this->_cacheTags;
-        }
+        $tags ??= $this->_cacheTags;
 
         $xmlString = $this->_config->getXmlString();
         $this->_saveCache($xmlString, $this->getCacheId(), $tags, $this->getCacheLifetime());
@@ -270,7 +268,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      */
     public function getEncryptedNodeEntriesPaths($explodePathToEntities = false)
     {
-        $paths = [];
+        $entities = [];
         $configSections = $this->getSections();
         if ($configSections) {
             foreach ($configSections->xpath('//sections/*/groups/*/fields/*/backend_model') as $node) {
@@ -278,15 +276,104 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
                     $section = $node->getParent()->getParent()->getParent()->getParent()->getParent()->getName();
                     $group   = $node->getParent()->getParent()->getParent()->getName();
                     $field   = $node->getParent()->getName();
-                    if ($explodePathToEntities) {
-                        $paths[] = ['section' => $section, 'group' => $group, 'field' => $field];
-                    } else {
-                        $paths[] = $section . '/' . $group . '/' . $field;
-                    }
+                    $entities[] = ['section' => $section, 'group' => $group, 'field' => $field];
                 }
             }
         }
 
+        if ($explodePathToEntities) {
+            return $entities;
+        }
+
+        $paths = [];
+        foreach ($entities as $entity) {
+            $paths[] = $entity['section'] . '/' . $entity['group'] . '/' . $entity['field'];
+        }
+
+        return array_values(array_unique(array_merge(
+            $paths,
+            $this->_getEncryptedConfigPathOverrides(),
+            $this->_getEncryptedDefaultConfigPaths(),
+        )));
+    }
+
+    /**
+     * Look for encrypted fields at any depth of system.xml that store their value under an explicit
+     * <config_path>, which the section/group/field scan above cannot see (nested groups, as in the
+     * PayPal section, or a field redirected to another path).
+     *
+     * @return string[]
+     */
+    protected function _getEncryptedConfigPathOverrides(): array
+    {
+        $paths = [];
+        $configSections = $this->getSections();
+        if (!$configSections instanceof Varien_Simplexml_Element) {
+            return $paths;
+        }
+
+        $xpath = '//sections//fields/*[backend_model="adminhtml/system_config_backend_encrypted"]/config_path';
+        $nodes = $configSections->xpath($xpath);
+        if (!is_array($nodes)) {
+            return $paths;
+        }
+
+        foreach ($nodes as $node) {
+            $path = trim((string) $node, '/');
+            if ($path !== '') {
+                $paths[] = $path;
+            }
+        }
+
         return $paths;
+    }
+
+    /**
+     * Look for encrypted node entries in merged default configuration and return their config paths.
+     *
+     * @return string[]
+     */
+    protected function _getEncryptedDefaultConfigPaths(): array
+    {
+        $paths = [];
+        $config = Mage::getConfig();
+        $defaultConfig = $config instanceof Mage_Core_Model_Config ? $config->getNode('default') : false;
+        if (!$defaultConfig instanceof Varien_Simplexml_Element) {
+            return $paths;
+        }
+
+        $nodes = $defaultConfig->xpath('.//*[@backend_model="adminhtml/system_config_backend_encrypted"]');
+        if (!is_array($nodes)) {
+            return $paths;
+        }
+
+        foreach ($nodes as $node) {
+            $path = $this->_getDefaultConfigNodePath($node);
+            if ($path !== '') {
+                $paths[] = $path;
+            }
+        }
+
+        return $paths;
+    }
+
+    /**
+     * Return a slash-delimited path for a node below the merged default config root.
+     *
+     * Usually section/group/field, but walk up to <default> rather than assume three levels.
+     */
+    protected function _getDefaultConfigNodePath(Varien_Simplexml_Element $node): string
+    {
+        $path = [];
+        while ($node->getName() !== 'default') {
+            array_unshift($path, $node->getName());
+            // getParent() returns null above the document root, whatever its return type says
+            $node = $node->getParent();
+            if (!$node instanceof Varien_Simplexml_Element) {
+                return '';
+            }
+        }
+
+        return implode('/', $path);
     }
 }

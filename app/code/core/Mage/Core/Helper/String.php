@@ -88,9 +88,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
 
         $string = $this->cleanString($string);
-        if (is_null($length)) {
-            $length = $this->strlen($string) - $offset;
-        }
+        $length ??= $this->strlen($string) - $offset;
 
         return iconv_substr($string, $offset, $length, self::ICONV_CHARSET);
     }
@@ -508,6 +506,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if ($num <= 0x7F) {
             $ord = $num;
         } elseif ($num < 0xC2) {
+            // @phpstan-ignore assign.redundant
             $ord = 0;
         } elseif ($num <= 0xDF) {
             $ord = (($num & 0x1F) << 6 | (ord($char[1]) & 0x3F));

@@ -181,6 +181,25 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
+     * Delete every API session of a user
+     *
+     * Used when the user's credentials stop being valid (API key changed or
+     * account deactivated), so that sessions opened with the old credentials
+     * cannot outlive them.
+     *
+     * @param  int   $userId
+     * @return $this
+     */
+    public function clearByUserId($userId)
+    {
+        $this->_getWriteAdapter()->delete(
+            $this->getTable('api/session'),
+            ['user_id = ?' => (int) $userId],
+        );
+        return $this;
+    }
+
+    /**
      * Retrieve api user role data if it was assigned to role
      *
      * @param  int|Mage_Api_Model_User $user

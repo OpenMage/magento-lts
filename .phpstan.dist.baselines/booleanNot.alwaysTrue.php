@@ -41,10 +41,5 @@ $ignoreErrors[] = [
     'count' => 2,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/system/store/tree.phtml',
 ];
-$ignoreErrors[] = [
-    'rawMessage' => 'Negated boolean expression is always true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Cache/Backend/File.php',
-];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

@@ -172,9 +172,7 @@ class Mage_Core_Model_Resource_Setup
     public function getTable($tableName)
     {
         $cacheKey = $this->_getTableCacheName($tableName);
-        if (!isset($this->_tables[$cacheKey])) {
-            $this->_tables[$cacheKey] = Mage::getSingleton('core/resource')->getTableName($tableName);
-        }
+        $this->_tables[$cacheKey] ??= Mage::getSingleton('core/resource')->getTableName($tableName);
 
         return $this->_tables[$cacheKey];
     }

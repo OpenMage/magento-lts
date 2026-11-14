@@ -51,7 +51,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 //want to load all products no matter anchor or not
                 $category->setIsAnchor(1);
                 $newurl = $category->getUrl();
-                $title = $category->getName();
+                $title = $this->escapeHtml($category->getName());
                 $data = ['title' => $title,
                     'description' => $title,
                     'link'        => $newurl,
@@ -121,8 +121,8 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         $helper = $this->helper('catalog/image');
 
         $description = '<table><tr>'
-                     . '<td><a href="' . $product->getProductUrl() . '"><img src="'
-                     . $helper->init($product, 'thumbnail')->resize(75, 75)
+                     . '<td><a href="' . $this->escapeUrl($product->getProductUrl()) . '"><img src="'
+                     . $this->escapeUrl($helper->init($product, 'thumbnail')->resize(75, 75))
                      . '" border="0" align="left" height="75" width="75"></a></td>'
                      . '<td  style="text-decoration:none;">' . $product->getDescription();
 
@@ -133,7 +133,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         $description .= '</td></tr></table>';
         $rssObj = $args['rssObj'];
         $data = [
-            'title'         => $product->getName(),
+            'title'         => $this->escapeHtml($product->getName()),
             'link'          => $product->getProductUrl(),
             'description'   => $description,
         ];

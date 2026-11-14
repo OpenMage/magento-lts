@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    OpenMage_Tests
+ */
+
+declare(strict_types=1);
+
+namespace OpenMage\Tests\Unit\Mage\Csp\Helper;
+
+/**
+ * Records whether it was instantiated while a CSP host list was unserialized
+ */
+final class DataTestFixture
+{
+    public static bool $awakened = false;
+
+    public string $host = 'gadget.example';
+
+    public function __wakeup(): void
+    {
+        self::$awakened = true;
+    }
+}

@@ -19,11 +19,6 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function _initAction()
     {
-        $act = $this->getRequest()->getActionName();
-        if (!$act) {
-            $act = 'default';
-        }
-
         $this->loadLayout()
             ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Customers'), Mage::helper('reports')->__('Customers'));
@@ -170,9 +165,9 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath =  match ($action) {
-            'accounts' => 'report/customers/accounts',
-            'orders' => 'report/customers/orders',
-            'totals' => 'report/customers/totals',
+            'accounts', 'exportaccountscsv', 'exportaccountsexcel' => 'report/customers/accounts',
+            'orders', 'exportorderscsv', 'exportordersexcel' => 'report/customers/orders',
+            'totals', 'exporttotalscsv', 'exporttotalsexcel' => 'report/customers/totals',
             default => 'report/customers',
         };
 

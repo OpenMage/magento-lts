@@ -179,9 +179,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getWishlistItemCollection()
     {
-        if (is_null($this->_wishlistItemCollection)) {
-            $this->_wishlistItemCollection = $this->_createWishlistItemCollection();
-        }
+        $this->_wishlistItemCollection ??= $this->_createWishlistItemCollection();
 
         return $this->_wishlistItemCollection;
     }

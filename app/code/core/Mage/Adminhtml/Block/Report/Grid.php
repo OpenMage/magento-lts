@@ -115,9 +115,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $filter = $this->getParam($this->getVarNameFilter());
 
-        if (is_null($filter)) {
-            $filter = $this->_defaultFilter;
-        }
+        $filter ??= $this->_defaultFilter;
 
         if (is_string($filter)) {
             $data = [];

@@ -19,11 +19,6 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function _initAction()
     {
-        $act = $this->getRequest()->getActionName();
-        if (!$act) {
-            $act = 'default';
-        }
-
         $this->loadLayout()
             ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Tag'), Mage::helper('reports')->__('Tag'));
@@ -302,9 +297,12 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $action = strtolower($this->getRequest()->getActionName());
         $aclPath = match ($action) {
-            'customer' => 'report/tags/customer',
-            'productall', 'product' => 'report/tags/product',
-            'popular' => 'report/tags/popular',
+            'customer', 'exportcustomercsv', 'exportcustomerexcel',
+            'customerdetail', 'exportcustomerdetailcsv', 'exportcustomerdetailexcel' => 'report/tags/customer',
+            'productall', 'product', 'exportproductcsv', 'exportproductexcel',
+            'productdetail', 'exportproductdetailcsv', 'exportproductdetailexcel' => 'report/tags/product',
+            'popular', 'exportpopularcsv', 'exportpopularexcel',
+            'tagdetail', 'exporttagdetailcsv', 'exporttagdetailexcel' => 'report/tags/popular',
             default => 'report/tags',
         };
 

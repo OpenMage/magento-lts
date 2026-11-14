@@ -15,6 +15,7 @@ parameters:
     strictRules:
         allRules: true
     stubFiles:
+        - dev/phpstan/stubs/Zend/Cache.stub
         - dev/phpstan/stubs/Zend/Log.stub
         - dev/phpstan/stubs/Zend/Measure.stub
         - dev/phpstan/stubs/Zend/Validate.stub

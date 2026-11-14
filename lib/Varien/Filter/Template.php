@@ -139,7 +139,6 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
         if (preg_match_all(self::CONSTRUCTION_PATTERN, $value, $constructions, PREG_SET_ORDER)) {
             foreach ($constructions as $construction) {
-                $replacedValue = '';
                 $callback = [$this, $construction[1] . 'Directive'];
                 if (!is_callable($callback)) {
                     continue;
@@ -151,7 +150,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                     throw $exception;
                 }
 
-                $value = str_replace($construction[0], $replacedValue, $value);
+                $value = str_replace($construction[0], $replacedValue ?? '', $value);
             }
         }
 
@@ -299,7 +298,8 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                         || str_starts_with($stackVars[$i]['name'], 'get')
                     ) {
                         $isEncrypted = false;
-                        if ($stackVars[$i]['name'] == 'getConfig') {
+                        // PHP method names are case-insensitive, store.GetConfig() reaches the same method
+                        if (strcasecmp($stackVars[$i]['name'], 'getConfig') === 0) {
                             $isEncrypted = $emailPathValidator->isValid($stackVars[$i]['args']);
                         }
 

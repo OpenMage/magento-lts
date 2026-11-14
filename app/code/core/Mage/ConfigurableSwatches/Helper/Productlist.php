@@ -78,10 +78,7 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
      */
     public function getSwatchAttributeId()
     {
-        if (is_null($this->_swatchAttributeId)) {
-            $this->_swatchAttributeId
-                = Mage::getStoreConfig(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_LIST_SWATCH_ATTRIBUTE);
-        }
+        $this->_swatchAttributeId ??= Mage::getStoreConfig(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_LIST_SWATCH_ATTRIBUTE);
 
         return $this->_swatchAttributeId;
     }
@@ -94,10 +91,8 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
      */
     public function getSwatchAttribute()
     {
-        if (is_null($this->_swatchAttribute)) {
-            $this->_swatchAttribute = Mage::getSingleton('eav/config')
-                ->getAttribute('catalog_product', $this->getSwatchAttributeId());
-        }
+        $this->_swatchAttribute ??= Mage::getSingleton('eav/config')
+            ->getAttribute('catalog_product', $this->getSwatchAttributeId());
 
         return $this->_swatchAttribute;
     }

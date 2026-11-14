@@ -114,9 +114,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
                 ->where('tag_id IN(?)', $tagIds);
             $tagsRaw = $this->getConnection()->fetchAll($select);
             foreach ($tagsRaw as $tag) {
-                if (!isset($tagsStores[$tag['tag_id']])) {
-                    $tagsStores[$tag['tag_id']] = [];
-                }
+                $tagsStores[$tag['tag_id']] ??= [];
 
                 $tagsStores[$tag['tag_id']][] = $tag['store_id'];
             }

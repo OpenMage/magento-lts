@@ -24,7 +24,7 @@
                 <?php echo $this->getBlockHtml('formkey'); ?>
                 <div class="fieldset" class="fieldset">
                     <h2 class="legend"><?php echo $this->getFormTitle() ?></h2>
-                    <p class="description"><?php echo $this->__('Log in to use <strong>%s</strong>', $this->getConsumer()->getName()) ?></p>
+                    <p class="description"><?php echo $this->__('Log in to use <strong>%s</strong>', $this->escapeHtml($this->getConsumer()->getName())) ?></p>
                     <div class="login-form simple">
                             <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>"/>
                             <div class="input-box input-left">

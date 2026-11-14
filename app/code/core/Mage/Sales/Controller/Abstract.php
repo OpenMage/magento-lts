@@ -56,9 +56,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
      */
     protected function _loadValidOrder($orderId = null)
     {
-        if ($orderId === null) {
-            $orderId = (int) $this->getRequest()->getParam('order_id');
-        }
+        $orderId ??= (int) $this->getRequest()->getParam('order_id');
 
         if (!$orderId) {
             $this->_forward('noRoute');
@@ -111,14 +109,29 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Action for reorder
+     *
+     * The form key is what protects this action against cross-site requests. It is accepted
+     * from the POST body as well as from the URL, because getReorderUrl() embeds it so that
+     * themes still rendering the reorder control as a plain link keep working.
      */
     public function reorderAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->norouteAction();
+            return;
+        }
+
         if (!$this->_loadValidOrder()) {
             return;
         }
 
+        /** @var Mage_Sales_Model_Order $order */
         $order = Mage::registry('current_order');
+        if (!Mage::helper('sales/reorder')->canReorder($order)) {
+            $this->norouteAction();
+            return;
+        }
+
         /** @var Mage_Checkout_Model_Cart $cart */
         $cart = Mage::getSingleton('checkout/cart');
 

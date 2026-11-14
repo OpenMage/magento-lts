@@ -237,13 +237,23 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 
         if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED !== $callback) {
             $callbackUrl = $this->getConsumer()->getCallbackUrl();
-            $isWhitelisted = $callbackUrl && str_starts_with($callback, $callbackUrl);
-            $violations = $validator->validateUrl(
-                value: $callback,
-                message: 'Invalid URL {{ value }}.',
-            );
-            if (!$isWhitelisted && $violations->count() > 0) {
-                Mage::throwException($violations->get(0)->getMessage());
+
+            if ($callbackUrl) {
+                /** @var Mage_Oauth_Helper_Data $helper */
+                $helper = Mage::helper('oauth');
+
+                // A registered callback URL is the whitelist, nothing else is accepted
+                if (!$helper->isCallbackUrlWhitelisted($callback, $callbackUrl)) {
+                    Mage::throwException($helper->__('Invalid URL "%s".', $callback));
+                }
+            } else {
+                $violations = $validator->validateUrl(
+                    value: $callback,
+                    message: 'Invalid URL {{ value }}.',
+                );
+                if ($violations->count() > 0) {
+                    Mage::throwException($violations->get(0)->getMessage());
+                }
             }
         }
 

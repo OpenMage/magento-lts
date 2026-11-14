@@ -96,7 +96,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             }
 
             if (!$wishlist->getId() || $wishlist->getCustomerId() != $customerId) {
-                $wishlist = null;
                 Mage::throwException(
                     Mage::helper('wishlist')->__("Requested wishlist doesn't exist"),
                 );
@@ -328,6 +327,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             return;
         }
 
+        $wishlist = false;
         try {
             $id = (int) $this->getRequest()->getParam('id');
             /** @var Mage_Wishlist_Model_Item $item */
@@ -359,7 +359,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             Mage::logException($exception);
         }
 
-        $this->_redirect('*/*', ['wishlist_id' => $wishlist->getId()]);
+        if ($wishlist !== false) {
+            $this->_redirect('*/*', ['wishlist_id' => $wishlist->getId()]);
+        } else {
+            $this->_redirect('*/*/');
+        }
     }
 
     /**
@@ -794,6 +798,13 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             return;
         }
 
+        /** @var Mage_Wishlist_Model_Item $item */
+        $item = Mage::getModel('wishlist/item')->load($option->getWishlistItemId());
+        if ((int) $item->getId() === 0 || $this->_getWishlist($item->getWishlistId()) === false) {
+            $this->_forward('noRoute');
+            return;
+        }
+
         $optionId = null;
         if (str_starts_with($option->getCode(), Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX)) {
             $optionId = str_replace(Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX, '', $option->getCode());
@@ -816,10 +827,22 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         try {
             $info      = unserialize($option->getValue(), ['allowed_classes' => false]);
+            /** @var Mage_Catalog_Model_Product_Option_Type_File $optionFile */
+            $optionFile = Mage::getModel('catalog/product_option_type_file');
+            if (!is_array($info) || !$optionFile->isValidOptionFilePath($info['quote_path'] ?? null)) {
+                throw new Exception();
+            }
+
             $filePath  = Mage::getBaseDir() . $info['quote_path'];
             $secretKey = $this->getRequest()->getParam('key');
 
-            if ($secretKey == $info['secret_key']) {
+            if (is_string($secretKey)
+                && isset($info['secret_key'])
+                && is_string($info['secret_key'])
+                && hash_equals($info['secret_key'], $secretKey)
+                && is_file($filePath)
+                && hash_equals(substr((string) md5_file($filePath), 0, 20), $secretKey)
+            ) {
                 $this->_prepareDownloadResponse($info['title'], [
                     'value' => $filePath,
                     'type'  => 'filename',

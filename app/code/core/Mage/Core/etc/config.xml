@@ -296,7 +296,7 @@
             </translate_inline>
             <log>
                 <active>0</active>
-                <max_level>600</max_level>
+                <max_level>7</max_level>
                 <file>system.log</file>
                 <exception_file>exception.log</exception_file>
             </log>
@@ -453,6 +453,9 @@
                     <php4>php4</php4>
                     <php5>php5</php5>
                     <php7>php7</php7>
+                    <php8>php8</php8>
+                    <phar>phar</phar>
+                    <phps>phps</phps>
                     <!-- EOF PHP script file extensions -->
                     <!-- File extension of configuration of an Apache Web server -->
                     <htaccess>htaccess</htaccess>
@@ -462,8 +465,9 @@
                     <pl>pl</pl>
                     <!-- Python script file extension -->
                     <py>py</py>
-                    <!-- Active Server Page script file extension -->
+                    <!-- Active Server Page script file extensions -->
                     <asp>asp</asp>
+                    <aspx>aspx</aspx>
                     <!-- UNIX command prompt file extension -->
                     <sh>sh</sh>
                     <!-- Common Gateway Interface script extension type -->

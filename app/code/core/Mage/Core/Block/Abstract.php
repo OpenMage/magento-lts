@@ -817,9 +817,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function addToChildGroup($groupName, Mage_Core_Block_Abstract $child)
     {
-        if (!isset($this->_childGroups[$groupName])) {
-            $this->_childGroups[$groupName] = [];
-        }
+        $this->_childGroups[$groupName] ??= [];
 
         if (!in_array($child->getBlockAlias(), $this->_childGroups[$groupName])) {
             $this->_childGroups[$groupName][] = $child->getBlockAlias();
@@ -1552,9 +1550,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _getSidPlaceholder($cacheKey = null)
     {
-        if (is_null($cacheKey)) {
-            $cacheKey = $this->getCacheKey();
-        }
+        $cacheKey ??= $this->getCacheKey();
 
         return '<!--SID=' . $cacheKey . '-->';
     }
@@ -1596,9 +1592,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
     public function isModuleEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
     {
-        if ($moduleName === null) {
-            $moduleName = $this->getModuleName();
-        }
+        $moduleName ??= $this->getModuleName();
 
         return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
@@ -1611,9 +1605,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function isModuleOutputEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
     {
-        if ($moduleName === null) {
-            $moduleName = $this->getModuleName();
-        }
+        $moduleName ??= $this->getModuleName();
 
         return Mage::helper($helperAlias)->isModuleOutputEnabled($moduleName);
     }

@@ -95,9 +95,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
             // Set default attribute values for new product
             if (!Mage::registry('product')->getId()) {
                 foreach ($attributes as $attribute) {
-                    if (!isset($values[$attribute->getAttributeCode()])) {
-                        $values[$attribute->getAttributeCode()] = $attribute->getDefaultValue();
-                    }
+                    $values[$attribute->getAttributeCode()] ??= $attribute->getDefaultValue();
                 }
             }
 

@@ -19,6 +19,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\LogTrait;
+use SimpleXMLElement;
 
 final class LogTest extends OpenMageTest
 {
@@ -87,6 +88,25 @@ final class LogTest extends OpenMageTest
     public function testGetLogLevelMaxValue(): void
     {
         self::assertIsInt(Subject::getLogLevelMaxValue());
+    }
+
+    /**
+     * The default from Mage_Core's config.xml is compared on the RFC 5424 scale,
+     * so it must be one of the back-end options and must not filter any level.
+     *
+     * @covers Mage_Core_Helper_Log::getLogLevelValue()
+     * @group Helper
+     */
+    public function testDefaultMaxLogLevelLogsAllLevels(): void
+    {
+        $config = simplexml_load_file(Mage::getModuleDir('etc', 'Mage_Core') . DS . 'config.xml');
+        self::assertInstanceOf(SimpleXMLElement::class, $config);
+        $default = (string) $config->default->dev->log->max_level;
+
+        $options = Mage::getModel('adminhtml/system_config_source_log_level')->toOptionArray();
+        self::assertArrayHasKey((int) $default, $options);
+
+        self::assertSame(Subject::getLogLevelValue(Level::Debug), Subject::getLogLevelValue($default));
     }
 
     /**

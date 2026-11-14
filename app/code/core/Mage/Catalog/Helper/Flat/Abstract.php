@@ -67,10 +67,8 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
      */
     public function isAccessible()
     {
-        if (is_null($this->_isAccessible)) {
-            $this->_isAccessible = $this->isEnabled()
-                && $this->getProcess()->getStatus() != Mage_Index_Model_Process::STATUS_RUNNING;
-        }
+        $this->_isAccessible ??= $this->isEnabled()
+            && $this->getProcess()->getStatus() != Mage_Index_Model_Process::STATUS_RUNNING;
 
         return $this->_isAccessible;
     }
@@ -82,9 +80,7 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
      */
     public function isAvailable()
     {
-        if (is_null($this->_isAvailable)) {
-            $this->_isAvailable = $this->isAccessible() && !$this->getProcess()->isLocked();
-        }
+        $this->_isAvailable ??= $this->isAccessible() && !$this->getProcess()->isLocked();
 
         return $this->_isAvailable;
     }
@@ -96,10 +92,8 @@ abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstra
      */
     public function getProcess()
     {
-        if (is_null($this->_process)) {
-            $this->_process = Mage::getModel('index/process')
-                ->load($this->_indexerCode, 'indexer_code');
-        }
+        $this->_process ??= Mage::getModel('index/process')
+            ->load($this->_indexerCode, 'indexer_code');
 
         return $this->_process;
     }

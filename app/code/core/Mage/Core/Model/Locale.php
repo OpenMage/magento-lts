@@ -449,7 +449,6 @@ class Mage_Core_Model_Locale
      */
     public function getAllowCurrencies()
     {
-        $data = [];
         if (Mage::isInstalled()) {
             $data = Mage::app()->getStore()->getConfig(self::XML_PATH_ALLOW_CURRENCIES_INSTALLED);
             return explode(',', $data);
@@ -547,9 +546,7 @@ class Mage_Core_Model_Locale
      */
     public function date($date = null, $part = null, $locale = null, $useTimezone = true)
     {
-        if (is_null($locale)) {
-            $locale = $this->getLocale();
-        }
+        $locale ??= $this->getLocale();
 
         if (!is_int($date) && empty($date)) {
             // $date may be false, but Zend_Date uses strict compare
