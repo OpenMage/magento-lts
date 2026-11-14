@@ -15,11 +15,14 @@ use Mage;
 use Mage_Catalog_Model_Resource_Product_Collection;
 use Mage_CatalogInventory_Model_Observer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\CatalogInventory\Model\ObserverTrait;
 use Varien_Event;
 use Varien_Event_Observer;
 
 final class ObserverTest extends OpenMageTest
 {
+    use ObserverTrait;
+
     public function testAddStockStatusToCollectionHonorsExplicitlyFalseFlags(): void
     {
         $collection = $this->getMockBuilder(Mage_Catalog_Model_Resource_Product_Collection::class)

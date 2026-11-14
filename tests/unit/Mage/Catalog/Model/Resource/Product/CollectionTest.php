@@ -14,10 +14,13 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Product;
 use Mage_Catalog_Model_Product;
 use Mage_Catalog_Model_Resource_Product_Collection as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\Resource\Product\CollectionTrait;
 use ReflectionMethod;
 
 final class CollectionTest extends OpenMageTest
 {
+    use CollectionTrait;
+
     public function testPrepareUrlDataObjectHonorsExplicitlyFalseFlag(): void
     {
         $collection = $this->getMockBuilder(Subject::class)
