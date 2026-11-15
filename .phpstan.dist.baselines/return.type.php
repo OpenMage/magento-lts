@@ -2772,11 +2772,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Rule.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_SalesRule_Model_Rule::_getAddressId() should return string but returns int|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Rule.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_SalesRule_Model_Validator::_getSingleton() should return Mage_Core_Model_Abstract but returns object|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Validator.php',
