@@ -1697,7 +1697,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/catalog/product/price.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to an undefined method Mage_Catalog_Model_Product_Type_Price|Mage_Core_Model_Abstract::getPrices().',
+    'rawMessage' => 'Call to an undefined method Mage_Catalog_Model_Product_Type_Price|Mage_Core_Model_Abstract::getTotalPrices().',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/bundle/rss/catalog/product/price.phtml',
 ];
