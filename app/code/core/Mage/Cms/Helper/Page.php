@@ -48,10 +48,6 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      */
     protected function _renderPage(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
     {
-        if (!is_null($pageId) && !is_scalar($pageId)) {
-            return false;
-        }
-
         $page = Mage::getSingleton('cms/page');
         if (!is_null($pageId) && $pageId !== $page->getId()) {
             $delimiterPosition = strrpos($pageId, '|');
