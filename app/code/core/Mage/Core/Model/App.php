@@ -876,7 +876,7 @@ class Mage_Core_Model_App
             return $storeId;
         }
 
-        if (!isset($storeId)) {
+        if (!isset($storeId) || is_array($storeId)) {
             $this->throwStoreException('Invalid store id requested.');
         }
 
