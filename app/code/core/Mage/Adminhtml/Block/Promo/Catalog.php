@@ -16,11 +16,12 @@ class Mage_Adminhtml_Block_Promo_Catalog extends Mage_Adminhtml_Block_Widget_Gri
 {
     public function __construct()
     {
-        $this->_addButton('apply_rules', [
-            'label'     => Mage::helper('catalogrule')->__('Apply Rules'),
-            'onclick'   => "location.href='" . $this->getUrl('*/*/applyRules') . "'",
-            'class'     => 'apply',
-        ]);
+        $this->_addPreparedButton(
+            id: 'apply_rules',
+            label: Mage::helper('catalogrule')->__('Apply Rules'),
+            class: 'apply',
+            onClick: "location.href='" . $this->getUrl('*/*/applyRules') . "'",
+        );
 
         $this->_controller = 'promo_catalog';
         $this->_headerText = Mage::helper('catalogrule')->__('Catalog Price Rules');

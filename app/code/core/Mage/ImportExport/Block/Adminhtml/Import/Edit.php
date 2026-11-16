@@ -18,8 +18,8 @@ class Mage_ImportExport_Block_Adminhtml_Import_Edit extends Mage_Adminhtml_Block
     {
         parent::__construct();
 
-        $this->removeButton('back')
-            ->removeButton('reset')
+        $this->removeButton(self::BUTTON_TYPE_BACK)
+            ->removeButton(self::BUTTON_TYPE_RESET)
             ->_updateButton(self::BUTTON_TYPE_SAVE, 'label', $this->__('Check Data'))
             ->_updateButton(self::BUTTON_TYPE_SAVE, 'id', 'upload_button')
             ->_updateButton(self::BUTTON_TYPE_SAVE, 'onclick', 'editForm.postToFrame();');

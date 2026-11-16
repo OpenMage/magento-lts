@@ -31,47 +31,50 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
         $this->_removeButton(self::BUTTON_TYPE_DELETE);
 
         if ($this->getCreditmemo()->canCancel()) {
-            $this->_addButton(self::BUTTON_TYPE_CANCEL, [
-                'label'     => Mage::helper('sales')->__('Cancel'),
-                'class'     => 'delete',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCancelUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_CANCEL,
+                module: 'sales',
+                onClickUrl: $this->getCancelUrl(),
+            );
         }
 
         if ($this->_isAllowedAction('emails')) {
-            $this->addButton('send_notification', [
-                'label'     => Mage::helper('sales')->__('Send Email'),
-                'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getEmailUrl(),
-                    Mage::helper('sales')->__('Are you sure you want to send Creditmemo email to customer?'),
-                ),
-                'class'     => 'send-email',
-            ]);
+            $onClick = Mage::helper('core/js')->getConfirmSetLocationJs(
+                $this->getEmailUrl(),
+                Mage::helper('sales')->__('Are you sure you want to send Creditmemo email to customer?'),
+            );
+
+            $this->_addPreparedButton(
+                id: 'send_notification',
+                label: Mage::helper('sales')->__('Send Email'),
+                class: 'send-email',
+                onClick: $onClick,
+            );
         }
 
         if ($this->getCreditmemo()->canRefund()) {
-            $this->_addButton('refund', [
-                'label'     => Mage::helper('sales')->__('Refund'),
-                'class'     => 'save refund',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getRefundUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: 'refund',
+                label: Mage::helper('sales')->__('Refund'),
+                class: 'save refund',
+                onClickUrl: $this->getRefundUrl(),
+            );
         }
 
         if ($this->getCreditmemo()->canVoid()) {
-            $this->_addButton(self::BUTTON_TYPE_VOID, [
-                'label'     => Mage::helper('sales')->__('Void'),
-                'class'     => 'save void',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl()),
-
-            ]);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_VOID,
+                module: 'sales',
+                onClickUrl: $this->getVoidUrl(),
+            );
         }
 
         if ($this->getCreditmemo()->getId()) {
-            $this->_addButton(self::BUTTON_TYPE_PRINT, [
-                'label'     => Mage::helper('sales')->__('Print'),
-                'class'     => 'save print',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
-            ]);
+            $this->_addPreparedButton(
+                id: self::BUTTON_TYPE_PRINT,
+                module: 'sales',
+                onClickUrl: $this->getPrintUrl(),
+            );
         }
     }
 

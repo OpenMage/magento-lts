@@ -30,11 +30,11 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Widget_C
     #[Override]
     protected function _prepareLayout()
     {
-        $this->_addButton('add_new', [
-            'label'   => Mage::helper('catalog')->__('Add Product'),
-            'onclick' => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/new')),
-            'class'   => 'add',
-        ]);
+        $this->_addPreparedButton(
+            id: self::BUTTON_TYPE_ADD,
+            label: Mage::helper('catalog')->__('Add Product'),
+            onClickUrl: $this->getUrl('*/*/new'),
+        );
 
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/catalog_product_grid', 'product.grid'));
         return parent::_prepareLayout();

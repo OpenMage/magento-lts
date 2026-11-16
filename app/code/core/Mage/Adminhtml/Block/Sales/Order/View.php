@@ -38,10 +38,13 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                 $this->getEditUrl(),
                 Mage::helper('sales')->__('Are you sure? This order will be canceled and a new one will be created instead'),
             );
-            $this->_addButton('order_edit', [
-                'label'    => Mage::helper('sales')->__('Edit'),
-                'onclick'  => $onclickJs,
-            ]);
+
+            $this->_addPreparedButton(
+                id: 'order_edit',
+                label: Mage::helper('sales')->__('Edit'),
+                onClick: $onclickJs,
+            );
+
             // see if order has non-editable products as items
             $nonEditableTypes = array_keys($this->getOrder()->getResource()->aggregateProductsByTypes(
                 $order->getId(),
