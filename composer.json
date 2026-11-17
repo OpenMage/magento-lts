@@ -78,7 +78,7 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^10.5",
-        "rector/rector": "^2.1.12",
+        "rector/rector": "^2.8.3",
         "shipmonk/phpstan-baseline-per-identifier": "^2.3",
         "squizlabs/php_codesniffer": "^3.7",
         "symplify/easy-coding-standard": "^13.0"
