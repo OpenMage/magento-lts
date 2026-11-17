@@ -5933,7 +5933,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $str of method Mage_Core_Helper_String::str_split() expects string, string|null given.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php',
 ];
 $ignoreErrors[] = [

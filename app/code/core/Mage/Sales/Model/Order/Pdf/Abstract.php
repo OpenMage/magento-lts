@@ -423,10 +423,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
         foreach ($payment as $value) {
             if (trim($value) !== '') {
-                //Printing "Payment Method" lines
-                $value = preg_replace('/<br[^>]*>/i', "\n", $value);
-                foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $str) {
-                    $page->drawText(strip_tags(trim($str)), $paymentLeft, $yPayments, 'UTF-8');
+                //Printing "Payment Method" lines, tags are stripped before wrapping so they don't count towards the line length
+                $value = preg_replace('/<br[^>]*>/i', "\n", $value) ?? $value;
+                foreach (Mage::helper('core/string')->str_split(strip_tags($value), 45, true, true) as $str) {
+                    $page->drawText(trim($str), $paymentLeft, $yPayments, 'UTF-8');
                     $yPayments -= 15;
                 }
             }
