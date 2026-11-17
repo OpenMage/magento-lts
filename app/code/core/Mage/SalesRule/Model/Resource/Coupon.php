@@ -184,7 +184,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
      */
     public function updateSpecificCoupons(Mage_SalesRule_Model_Rule $rule)
     {
-        if (!$rule || !$rule->getId() || !$rule->hasDataChanges()) {
+        if (!$rule->getId() || !$rule->hasDataChanges()) {
             return $this;
         }
 
