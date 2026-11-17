@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     public function setProduct(Mage_Catalog_Model_Product $product)
     {
         $this->_product = $product;
-        if ($product->getId()) {
+        if (!is_null($product->getId())) {
             $this->_hasLinkFilter = true;
             $this->setStore($product->getStore());
         }
@@ -210,7 +210,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             $adapter->quoteInto('links.link_type_id = ?', $this->_linkTypeId),
         ];
         $joinType = 'join';
-        if ($this->getProduct() && $this->getProduct()->getId()) {
+        if ($this->getProduct() instanceof Mage_Catalog_Model_Product && !is_null($this->getProduct()->getId())) {
             $productId = $this->getProduct()->getId();
             if ($this->_isStrongMode) {
                 $this->getSelect()->where('links.product_id = ?', (int) $productId);

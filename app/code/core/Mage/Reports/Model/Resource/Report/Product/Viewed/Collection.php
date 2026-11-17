@@ -203,13 +203,13 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                 }
 
                 // not the last day of the year
-                if ($periodTo
+                if ($periodTo instanceof Zend_Date
                     && ($periodTo->toValue(Zend_Date::MONTH) != 12 || $periodTo->toValue(Zend_Date::DAY) != 31)
                 ) {
                     $dtFrom = $periodTo->getDate()->setMonth(1)->setDay(1);
                     // first day of the year
                     $dtTo = $periodTo->getDate();
-                    if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
+                    if (!$periodFrom instanceof Zend_Date || $dtFrom->isLater($periodFrom)) {
                         $selectUnions[] = $this->_makeBoundarySelect(
                             $dtFrom->toString($dtFormat),
                             $dtTo->toString($dtFormat),
