@@ -83,7 +83,7 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
             $dateStart = new Zend_Date(Carbon::createFromTimestamp($start->getTimestamp())->format('Y'), Varien_Date::DATE_INTERNAL_FORMAT);
         }
 
-        if (!$period || !$dateStart) {
+        if (!$period || !$dateStart instanceof Zend_Date) {
             return $intervals;
         }
 

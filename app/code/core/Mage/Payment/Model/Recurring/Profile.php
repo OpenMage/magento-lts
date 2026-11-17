@@ -315,7 +315,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         // TODO: implement proper logic with invoking payment method instance
         $date = $minAllowed;
         $now = Mage::helper('core/clock')->now();
-        if (!$date || $date->getTimestamp() < $now->getTimestamp()) {
+        if (!$date instanceof Zend_Date || $date->getTimestamp() < $now->getTimestamp()) {
             $date = new Zend_Date($now->getTimestamp());
         }
 

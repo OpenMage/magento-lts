@@ -60,9 +60,6 @@ try {
             __DIR__,
         ])
         ->withSkipPath(__DIR__ . '/vendor')
-        ->withRules([
-            Php83\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector::class,
-        ])
         ->withRules(Migration\TypeDeclarationDocblocks::getRules())
         ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Log::renameClassConst())
         ->withConfiguredRule(Renaming\ClassConstFetch\RenameClassConstFetchRector::class, Migration\Zend\Measure::renameClassConst())

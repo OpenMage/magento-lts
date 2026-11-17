@@ -80,6 +80,7 @@ trait FedexTrait
 
     /**
      * @phpstan-return Address
+     * @return array<string, string|bool>
      */
     protected function domesticShipper(): array
     {
@@ -98,6 +99,7 @@ trait FedexTrait
 
     /**
      * @phpstan-return Address
+     * @return array<string, string|bool>
      */
     protected function domesticRecipient(): array
     {
@@ -116,6 +118,7 @@ trait FedexTrait
 
     /**
      * @phpstan-return Address
+     * @return array<string, string|bool>
      */
     protected function ukRecipient(): array
     {
@@ -134,6 +137,7 @@ trait FedexTrait
 
     /**
      * @phpstan-return CommodityItem
+     * @return array<string, string|int|float>
      */
     protected function intlCommodityItem(): array
     {

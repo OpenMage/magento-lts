@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     public function setProduct(Mage_Catalog_Model_Product $product)
     {
         $this->_product = $product;
-        if ($product && $product->getId()) {
+        if ($product->getId()) {
             $this->_hasLinkFilter = true;
             $this->setStore($product->getStore());
         }

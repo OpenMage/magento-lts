@@ -29,7 +29,7 @@ class Mage_Core_Model_Resource_Type_Db_Mysqli extends Mage_Core_Model_Resource_T
 
         $conn = new Varien_Db_Adapter_Mysqli($configArr);
 
-        if (!empty($configArr['initStatements']) && $conn) {
+        if (!empty($configArr['initStatements'])) {
             $conn->query($configArr['initStatements']);
         }
 

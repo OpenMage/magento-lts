@@ -19,11 +19,15 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\UnaryMinus;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Scalar;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Exception\Configuration\InvalidConfigurationException;
@@ -145,9 +149,9 @@ CODE_SAMPLE,
      */
     private function isScalarValue(Expr $expr): bool
     {
-        return $expr instanceof Node\Scalar
-            || ($expr instanceof Expr\ConstFetch && in_array($this->getName($expr), ['true', 'false', 'null'], true))
-            || ($expr instanceof Expr\UnaryMinus && $expr->expr instanceof Node\Scalar);
+        return $expr instanceof Scalar
+            || ($expr instanceof ConstFetch && in_array($this->getName($expr), ['true', 'false', 'null'], true))
+            || ($expr instanceof UnaryMinus && $expr->expr instanceof Scalar);
     }
 
     private function createValue(null|bool|ClassConstant|float|int|string $value, MethodCall|StaticCall $node): Expr
@@ -182,7 +186,7 @@ CODE_SAMPLE,
         }
 
         $classReflection = $scope->getClassReflection();
-        if ($classReflection === null || $classReflection->isAnonymous()) {
+        if (!$classReflection instanceof ClassReflection || $classReflection->isAnonymous()) {
             return false;
         }
 

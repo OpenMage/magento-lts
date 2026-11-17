@@ -286,7 +286,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Tracking_Service
      */
     protected function _debug(array $debugData): void
     {
-        if ($this->_carrierModel && $this->_carrierModel->getConfigFlag('debug')) {
+        if ($this->_carrierModel instanceof Mage_Usa_Model_Shipping_Carrier_Usps && $this->_carrierModel->getConfigFlag('debug')) {
             Mage::getModel('core/log_adapter', 'usps.log')->log($debugData);
         }
     }
