@@ -294,11 +294,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Roles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Server/Handler/Abstract.php',
 ];
 $ignoreErrors[] = [
