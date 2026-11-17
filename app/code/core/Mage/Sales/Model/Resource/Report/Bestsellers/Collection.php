@@ -240,7 +240,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                 }
             } elseif ($this->_period == 'month') {
                 // not the first day of the month
-                if ($periodFrom
+                if ($periodFrom instanceof Zend_Date
                     && $periodFrom->toValue(Zend_Date::DAY) != 1
                 ) {
                     $dtFrom = $periodFrom->getDate();
@@ -264,7 +264,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                     $dtFrom = $periodTo->getDate()->setDay(1);
                     // first day of the month
                     $dtTo = $periodTo->getDate();
-                    if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
+                    if (!$periodFrom instanceof Zend_Date || $dtFrom->isLater($periodFrom)) {
                         $selectUnions[] = $this->_makeBoundarySelect(
                             $dtFrom->toString($dtFormat),
                             $dtTo->toString($dtFormat),
