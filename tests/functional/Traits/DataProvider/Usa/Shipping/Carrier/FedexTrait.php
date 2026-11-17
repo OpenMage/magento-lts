@@ -79,8 +79,8 @@ trait FedexTrait
     protected string $trackingNumberAlt = '122816215025810';
 
     /**
-     * @phpstan-return Address
      * @return array<string, string|bool>
+     * @phpstan-return Address
      */
     protected function domesticShipper(): array
     {
@@ -98,8 +98,8 @@ trait FedexTrait
     }
 
     /**
-     * @phpstan-return Address
      * @return array<string, string|bool>
+     * @phpstan-return Address
      */
     protected function domesticRecipient(): array
     {
@@ -117,8 +117,8 @@ trait FedexTrait
     }
 
     /**
-     * @phpstan-return Address
      * @return array<string, string|bool>
+     * @phpstan-return Address
      */
     protected function ukRecipient(): array
     {
@@ -136,8 +136,8 @@ trait FedexTrait
     }
 
     /**
-     * @phpstan-return CommodityItem
      * @return array<string, string|int|float>
+     * @phpstan-return CommodityItem
      */
     protected function intlCommodityItem(): array
     {
