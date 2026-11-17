@@ -1802,11 +1802,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Zend_Date|null given on the left side.',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, Mage_Customer_Model_Customer given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Review/Block/Form.php',
@@ -2087,11 +2082,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Resource/Order/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Zend_Date|null given on the left side.',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/controllers/Billing/AgreementController.php',
@@ -2200,11 +2190,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Service/Standards.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, Mage_Usa_Model_Shipping_Carrier_Usps|null given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps/Tracking/Service.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
