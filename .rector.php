@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use OpenMage\Rector\Migration;
-use Rector\Arguments\Rector\ClassMethod\ReplaceArgumentDefaultValueRector;
+use OpenMage\Rector\Rector\ReplaceArgumentValueRector;
 use Rector\Carbon\Rector as Carbon;
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector as CodeQuality;
@@ -84,7 +84,7 @@ try {
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Mage\Wishlist::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Zend\Acl::renameMethod())
         ->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, Migration\Zend\Captcha::renameMethod())
-        ->withConfiguredRule(ReplaceArgumentDefaultValueRector::class, Migration\Mage\Adminhtml::replaceArgumentDefaultValue())
+        ->withConfiguredRule(ReplaceArgumentValueRector::class, Migration\Mage\Adminhtml::replaceArgumentValue())
         ->withConfiguredRule(TypeDeclaration\ClassMethod\AddReturnTypeDeclarationRector::class, Migration\Mage\Adminhtml::addReturnTypeDeclaration())
         # skip: do not apply
         ->withSkip([
@@ -96,10 +96,6 @@ try {
             # skip avoid renaming of methods in tests
             Carbon\FuncCall\TimeFuncCallToCarbonRector::class => [
                 __DIR__ . '/tests/unit/Base/CarbonTest.php',
-            ],
-            # skip adding dynamic property to class ... not sure about
-            CodeQuality\Class_\CompleteDynamicPropertiesRector::class => [
-                __DIR__ . '/lib/3Dsecure/XMLParser.php',
             ],
             # skip classes that throw an exception as a return value, which is not supported by Rector yet
             # see https://github.com/rectorphp/rector/issues/9719
@@ -121,8 +117,6 @@ try {
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class,
             # skip: changes method signature
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
-            # skip: strict_type cannot be applied to OpenMage codebase - yet
-            TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class,
         ])
         # skip: ... @todo: check later
         ->withSkip([
@@ -136,8 +130,6 @@ try {
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class,
             # --- wait for phpstan strict rules
             CodingStyle\FuncCall\StrictArraySearchRector::class,
-            # ... +200 occurrences, need closer review
-            CodingStyle\PostInc\PostIncDecToPreIncDecRector::class,
             # ... needs closer review
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class,
             # ... messes up code
