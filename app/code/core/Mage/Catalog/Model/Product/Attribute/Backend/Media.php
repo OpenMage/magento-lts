@@ -584,6 +584,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      */
     protected function _moveImageFromTmp($file)
     {
+        $this->_validateImageFile($file);
+
         $ioObject = new Varien_Io_File();
         $destDirectory = dirname($this->_getConfig()->getMediaPath($file));
         try {
@@ -621,6 +623,26 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     }
 
     /**
+     * Reject a gallery file name that would leave the media directories it is joined onto
+     *
+     * The value comes from the product save request and is appended to the tmp and the product
+     * media directories, so a NUL byte or a parent directory segment must not reach the file system.
+     *
+     * @param  mixed               $file
+     * @throws Mage_Core_Exception
+     */
+    protected function _validateImageFile($file): void
+    {
+        if (!is_string($file)
+            || $file === ''
+            || str_contains($file, chr(0))
+            || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $file) === 1
+        ) {
+            Mage::throwException(Mage::helper('catalog')->__('Detected malicious path or filename input.'));
+        }
+    }
+
+    /**
      * Check whether file to move exists. Getting unique name
      *
      * @param  string $file
@@ -650,6 +672,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      */
     protected function _copyImage($file)
     {
+        $this->_validateImageFile($file);
+
         try {
             $ioObject = new Varien_Io_File();
             $destDirectory = dirname($this->_getConfig()->getMediaPath($file));
