@@ -93,6 +93,12 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 return false;
             }
         } elseif ($orderId) {
+            // _isAllowed() reads the request the same way; this guards every other caller
+            if (!$this->_isCreateAllowed()) {
+                $this->_getSession()->addError($this->__('Access denied.'));
+                return false;
+            }
+
             $data   = $this->getRequest()->getParam('creditmemo');
             $order  = Mage::getModel('sales/order')->load($orderId);
             $invoice = $this->_initInvoice($order);
@@ -385,7 +391,12 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 Mage::throwException($this->__('The Comment Text field cannot be empty.'));
             }
 
-            $creditmemo = $this->_initCreditmemo();
+            // Without a credit memo id _initCreditmemo() would prepare a new credit memo from the order
+            $creditmemo = (int) $this->getRequest()->getParam('id') > 0 ? $this->_initCreditmemo() : false;
+            if (!$creditmemo instanceof Mage_Sales_Model_Order_Creditmemo) {
+                Mage::throwException($this->__('The credit memo no longer exists.'));
+            }
+
             $creditmemo->addComment(
                 $data['comment'],
                 isset($data['is_customer_notified']),
@@ -456,5 +467,40 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     {
         $this->_initCreditmemo();
         parent::printAction();
+    }
+
+    /**
+     * Creating, cancelling and voiding a credit memo need the Credit Memos order action that
+     * shows its button, on top of the Credit Memos permission every action needs
+     *
+     * Without a credit memo id the actions prepare a new credit memo from the order, which is
+     * creating one. addComment takes the credit memo id from its id param. Viewing, printing,
+     * emailing and commenting on an existing credit memo need only the Credit Memos permission.
+     */
+    #[Override]
+    protected function _isAllowed(): bool
+    {
+        if (!parent::_isAllowed()) {
+            return false;
+        }
+
+        $request = $this->getRequest();
+        $action = strtolower($request->getActionName());
+        $creditmemoId = (int) $request->getParam($action === 'addcomment' ? 'id' : 'creditmemo_id');
+        if (in_array($action, ['start', 'new', 'updateqty', 'save', 'cancel', 'void'], true)
+            || ($creditmemoId === 0 && (int) $request->getParam('order_id') > 0)
+        ) {
+            return $this->_isCreateAllowed();
+        }
+
+        return true;
+    }
+
+    /**
+     * Whether the current admin may create, cancel or void a credit memo
+     */
+    protected function _isCreateAllowed(): bool
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/creditmemo');
     }
 }

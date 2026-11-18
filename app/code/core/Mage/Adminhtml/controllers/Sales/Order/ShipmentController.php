@@ -44,6 +44,12 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 return false;
             }
         } elseif ($orderId) {
+            // _isAllowed() reads the request the same way; this guards every other caller
+            if (!$this->_isCreateAllowed()) {
+                $this->_getSession()->addError($this->__('Access denied.'));
+                return false;
+            }
+
             $order      = Mage::getModel('sales/order')->load($orderId);
 
             /**
@@ -442,7 +448,12 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 Mage::throwException($this->__('Comment text field cannot be empty.'));
             }
 
-            $shipment = $this->_initShipment();
+            // Without a shipment id _initShipment() would prepare a new shipment from the order
+            $shipment = (int) $this->getRequest()->getParam('id') > 0 ? $this->_initShipment() : false;
+            if (!$shipment instanceof Mage_Sales_Model_Order_Shipment) {
+                Mage::throwException($this->__('The shipment no longer exists.'));
+            }
+
             $shipment->addComment(
                 $data['comment'],
                 isset($data['is_customer_notified']),
@@ -788,5 +799,41 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 ->setIndex($this->getRequest()->getParam('index'))
                 ->toHtml(),
         );
+    }
+
+    /**
+     * Creating a shipment needs the Ship order action that shows the Ship button, on top of
+     * the Shipments permission every action needs
+     *
+     * Without a shipment id the actions prepare a new shipment from the order (adding a
+     * tracking number or a label to it saves it), which is creating one. addComment takes the
+     * shipment id from its id param. Tracking, labels, comments, emails and printing for an
+     * existing shipment need only the Shipments permission.
+     */
+    #[Override]
+    protected function _isAllowed(): bool
+    {
+        if (!parent::_isAllowed()) {
+            return false;
+        }
+
+        $request = $this->getRequest();
+        $action = strtolower($request->getActionName());
+        $shipmentId = (int) $request->getParam($action === 'addcomment' ? 'id' : 'shipment_id');
+        if (in_array($action, ['start', 'new', 'save'], true)
+            || ($shipmentId === 0 && (int) $request->getParam('order_id') > 0)
+        ) {
+            return $this->_isCreateAllowed();
+        }
+
+        return true;
+    }
+
+    /**
+     * Whether the current admin may create a shipment
+     */
+    protected function _isCreateAllowed(): bool
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/ship');
     }
 }

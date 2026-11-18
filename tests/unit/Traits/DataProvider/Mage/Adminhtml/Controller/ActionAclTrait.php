@@ -18,6 +18,9 @@ use Mage_Adminhtml_Report_SalesController;
 use Mage_Adminhtml_Report_ShopcartController;
 use Mage_Adminhtml_Report_TagController;
 use Mage_Adminhtml_ReportController;
+use Mage_Adminhtml_Sales_Order_CreditmemoController;
+use Mage_Adminhtml_Sales_Order_InvoiceController;
+use Mage_Adminhtml_Sales_Order_ShipmentController;
 use Mage_Adminhtml_Sales_OrderController;
 use Mage_Adminhtml_System_ConfigController;
 use Mage_Adminhtml_Tax_RateController;
@@ -118,6 +121,72 @@ trait ActionAclTrait
         yield 'tax rate import denied without import export' => [$taxRate, 'importPost', [], ['sales/tax/rates'], false];
         yield 'tax rate import allowed with import export' => [$taxRate, 'importPost', [], ['sales/tax/import_export'], true];
         yield 'tax rate grid export unchanged' => [$taxRate, 'exportCsv', [], ['sales/tax/rates'], true];
+
+        // The order actions are needed on top of the document permission, never instead of it
+        $invoice = Mage_Adminhtml_Sales_Order_InvoiceController::class;
+        $newDoc = ['order_id' => '5'];
+        $existingInvoice = ['invoice_id' => '7'];
+        $invoiceGrid = ['sales/invoice'];
+        foreach (['start', 'new', 'updateQty', 'save'] as $action) {
+            yield "invoice $action denied to invoice grid" => [$invoice, $action, $newDoc, $invoiceGrid, false];
+            yield "invoice $action denied to order invoice alone" => [$invoice, $action, $newDoc, ['sales/order/actions/invoice'], false];
+            yield "invoice $action allowed with order invoice" => [$invoice, $action, $newDoc, [...$invoiceGrid, 'sales/order/actions/invoice'], true];
+        }
+
+        yield 'invoice capture denied to invoice grid' => [$invoice, 'capture', $existingInvoice, $invoiceGrid, false];
+        yield 'invoice capture denied to capture alone' => [$invoice, 'capture', $existingInvoice, ['sales/order/actions/capture'], false];
+        yield 'invoice capture allowed with capture' => [$invoice, 'capture', $existingInvoice, [...$invoiceGrid, 'sales/order/actions/capture'], true];
+        yield 'invoice capture of a new invoice denied without order invoice' => [$invoice, 'capture', $newDoc, [...$invoiceGrid, 'sales/order/actions/capture'], false];
+        yield 'invoice capture of a new invoice allowed with capture and invoice' => [$invoice, 'capture', $newDoc, [...$invoiceGrid, 'sales/order/actions/capture', 'sales/order/actions/invoice'], true];
+        foreach (['cancel', 'void'] as $action) {
+            yield "invoice $action denied to invoice grid" => [$invoice, $action, $existingInvoice, $invoiceGrid, false];
+            yield "invoice $action denied to order invoice" => [$invoice, $action, $existingInvoice, [...$invoiceGrid, 'sales/order/actions/invoice'], false];
+            yield "invoice $action denied to cancel alone" => [$invoice, $action, $existingInvoice, ['sales/order/actions/cancel'], false];
+            yield "invoice $action allowed with cancel" => [$invoice, $action, $existingInvoice, [...$invoiceGrid, 'sales/order/actions/cancel'], true];
+        }
+
+        yield 'invoice view still allowed to invoice grid' => [$invoice, 'view', $existingInvoice, $invoiceGrid, true];
+        yield 'invoice comment still allowed to invoice grid' => [$invoice, 'addComment', ['id' => '7', 'order_id' => '5'], $invoiceGrid, true];
+        yield 'invoice comment without an invoice id denied to invoice grid' => [$invoice, 'addComment', [...$existingInvoice, ...$newDoc], $invoiceGrid, false];
+        yield 'invoice view of a new invoice denied to invoice grid' => [$invoice, 'view', $newDoc, $invoiceGrid, false];
+
+        $shipment = Mage_Adminhtml_Sales_Order_ShipmentController::class;
+        $existingShipment = ['shipment_id' => '7'];
+        $shipmentGrid = ['sales/shipment'];
+        foreach (['start', 'new', 'save'] as $action) {
+            yield "shipment $action denied to shipment grid" => [$shipment, $action, $newDoc, $shipmentGrid, false];
+            yield "shipment $action denied to ship alone" => [$shipment, $action, $newDoc, ['sales/order/actions/ship'], false];
+            yield "shipment $action allowed with ship" => [$shipment, $action, $newDoc, [...$shipmentGrid, 'sales/order/actions/ship'], true];
+        }
+
+        yield 'shipment tracking still allowed to shipment grid' => [$shipment, 'addTrack', $existingShipment, $shipmentGrid, true];
+        yield 'shipment label still allowed to shipment grid' => [$shipment, 'createLabel', $existingShipment, $shipmentGrid, true];
+        yield 'shipment email still allowed to shipment grid' => [$shipment, 'email', $existingShipment, $shipmentGrid, true];
+        yield 'shipment comment still allowed to shipment grid' => [$shipment, 'addComment', ['id' => '7', 'order_id' => '5'], $shipmentGrid, true];
+        yield 'shipment comment without a shipment id denied to shipment grid' => [$shipment, 'addComment', [...$existingShipment, ...$newDoc], $shipmentGrid, false];
+        yield 'shipment tracking on a new shipment denied to shipment grid' => [$shipment, 'addTrack', $newDoc, $shipmentGrid, false];
+        yield 'shipment label on a new shipment denied to shipment grid' => [$shipment, 'createLabel', $newDoc, $shipmentGrid, false];
+        yield 'shipment label on a new shipment allowed with ship' => [$shipment, 'createLabel', $newDoc, [...$shipmentGrid, 'sales/order/actions/ship'], true];
+
+        $creditmemo = Mage_Adminhtml_Sales_Order_CreditmemoController::class;
+        $existingCreditmemo = ['creditmemo_id' => '7'];
+        $creditmemoGrid = ['sales/creditmemo'];
+        foreach (['start', 'new', 'updateQty', 'save'] as $action) {
+            yield "credit memo $action denied to credit memo grid" => [$creditmemo, $action, $newDoc, $creditmemoGrid, false];
+            yield "credit memo $action denied to order credit memos alone" => [$creditmemo, $action, $newDoc, ['sales/order/actions/creditmemo'], false];
+            yield "credit memo $action allowed with order credit memos" => [$creditmemo, $action, $newDoc, [...$creditmemoGrid, 'sales/order/actions/creditmemo'], true];
+        }
+
+        foreach (['cancel', 'void'] as $action) {
+            yield "credit memo $action denied to credit memo grid" => [$creditmemo, $action, $existingCreditmemo, $creditmemoGrid, false];
+            yield "credit memo $action allowed with order credit memos" => [$creditmemo, $action, $existingCreditmemo, [...$creditmemoGrid, 'sales/order/actions/creditmemo'], true];
+        }
+
+        yield 'credit memo from an invoice denied to credit memo grid' => [$creditmemo, 'new', ['order_id' => '5', 'invoice_id' => '6'], [...$creditmemoGrid, 'sales/invoice'], false];
+        yield 'credit memo view still allowed to credit memo grid' => [$creditmemo, 'view', $existingCreditmemo, $creditmemoGrid, true];
+        yield 'credit memo comment still allowed to credit memo grid' => [$creditmemo, 'addComment', ['id' => '7', 'order_id' => '5'], $creditmemoGrid, true];
+        yield 'credit memo comment without a credit memo id denied to credit memo grid' => [$creditmemo, 'addComment', [...$existingCreditmemo, ...$newDoc], $creditmemoGrid, false];
+        yield 'credit memo view denied to order credit memos alone' => [$creditmemo, 'view', $existingCreditmemo, ['sales/order/actions/creditmemo'], false];
     }
 
     /**
@@ -141,16 +210,58 @@ trait ActionAclTrait
     }
 
     /**
-     * Action, resources, expected result.
+     * Action, session quote data, request params, resources, expected result.
      *
      * @return Generator<string, array<mixed>>
      */
     public static function provideOrderEditAclData(): Generator
     {
-        foreach (['start', 'index', 'loadBlock', 'save', 'cancel'] as $action) {
-            yield "{$action} denied to create" => [$action, ['sales/order/actions/create'], false];
-            yield "{$action} allowed with edit" => [$action, ['sales/order/actions/edit'], true];
+        $edit = ['sales/order/actions/edit'];
+        $create = ['sales/order/actions/create'];
+        $editing = ['order_id' => 12, 'customer_id' => 3, 'store_id' => 1];
+        $reordering = ['reordered' => 12, 'customer_id' => 3, 'store_id' => 1];
+        $sameOrder = ['customer_id' => '3', 'store_id' => '1'];
+
+        foreach (['start', 'cancel'] as $action) {
+            yield "$action denied to create" => [$action, [], [], $create, false];
+            yield "$action allowed with edit" => [$action, [], [], $edit, true];
         }
+
+        foreach (['index', 'loadBlock', 'processData', 'addConfigured', 'configureProductToAdd', 'configureQuoteItems', 'showUpdateResult', 'save'] as $action) {
+            yield "$action during an edit allowed with edit" => [$action, $editing, $sameOrder, $edit, true];
+            yield "$action during an edit denied to create" => [$action, $editing, $sameOrder, $create, false];
+            yield "$action without an edit denied to edit" => [$action, [], [], $edit, false];
+            yield "$action without an edit allowed with create" => [$action, [], [], $create, true];
+            yield "$action during a reorder denied to edit" => [$action, $reordering, [], $edit, false];
+        }
+
+        yield 'reorder denied to edit' => ['reorder', [], ['order_id' => '12'], $edit, false];
+        yield 'reorder denied to reorder' => ['reorder', [], ['order_id' => '12'], ['sales/order/actions/reorder'], false];
+        yield 'edit of a guest order allowed with edit' => ['loadBlock', ['order_id' => 12, 'customer_id' => false, 'store_id' => 1], ['store_id' => '1'], $edit, true];
+        yield 'switching the customer of an edit denied to edit' => ['index', $editing, ['customer_id' => '4'], $edit, false];
+        yield 'switching the store of an edit denied to edit' => ['loadBlock', $editing, ['customer_id' => '3', 'store_id' => '2'], $edit, false];
+        yield 'switching the customer of an edit denied to edit and create' => ['save', $editing, ['customer_id' => '4'], [...$edit, ...$create], false];
+    }
+
+    /**
+     * Action, session quote data, request params, resources, expected result.
+     *
+     * @return Generator<string, array<mixed>>
+     */
+    public static function provideOrderCreateDuringEditAclData(): Generator
+    {
+        $edit = ['sales/order/actions/edit'];
+        $create = ['sales/order/actions/create'];
+        $editing = ['order_id' => 12, 'customer_id' => 3, 'store_id' => 1];
+
+        foreach (['save', 'loadBlock', 'addConfigured', 'configureProductToAdd', 'configureQuoteItems'] as $action) {
+            yield "$action during an edit denied to create" => [$action, $editing, [], $create, false];
+            yield "$action during an edit allowed with edit" => [$action, $editing, [], $edit, true];
+        }
+
+        yield 'switching the customer of an edit denied to edit and create' => ['save', $editing, ['customer_id' => '4'], [...$edit, ...$create], false];
+        yield 'start of a new order still allowed with create' => ['start', $editing, [], $create, true];
+        yield 'new order allowed with create' => ['save', ['customer_id' => 3, 'store_id' => 1], [], $create, true];
     }
 
     /**
@@ -197,5 +308,69 @@ trait ActionAclTrait
         yield 'renaming a product class denied to customer classes' => [['class_id' => '2'], 'PRODUCT', $customer, false];
         yield 'editing a customer class allowed with customer classes' => [['class_type' => 'CUSTOMER', 'class_id' => '3'], 'CUSTOMER', $customer, true];
         yield 'either type allowed with both' => [['class_type' => 'PRODUCT', 'class_id' => '3'], 'CUSTOMER', [...$customer, ...$product], true];
+    }
+
+    /**
+     * Action, request params, post data, resources, expected result.
+     * Profile 1 was built with the wizard, profile 2 is an Advanced Profile, profile 3 was deleted.
+     * Batch N ran profile N with the wizard's adapter, batch 4 ran profile 1 with another adapter.
+     *
+     * @return Generator<string, array<mixed>>
+     */
+    public static function provideDataflowGuiAclData(): Generator
+    {
+        $gui = ['system/convert/gui'];
+        $advanced = ['system/convert/profiles'];
+
+        foreach (['edit', 'run', 'delete', 'history', 'upload', 'download'] as $action) {
+            yield "$action of a wizard profile allowed with profiles" => [$action, ['id' => '1'], [], $gui, true];
+            yield "$action of an advanced profile denied to profiles" => [$action, ['id' => '2'], [], $gui, false];
+        }
+
+        yield 'save of a wizard profile allowed with profiles' => ['save', ['profile_id' => '1'], [], $gui, true];
+        yield 'save of an advanced profile denied to profiles' => ['save', ['profile_id' => '2'], [], $gui, false];
+        yield 'save of a new profile allowed with profiles' => ['save', [], [], $gui, true];
+        yield 'new profile allowed with profiles' => ['new', [], [], $gui, true];
+        yield 'batch run of a wizard profile allowed with profiles' => ['batchRun', [], ['batch_id' => '1'], $gui, true];
+        yield 'batch run of an advanced profile denied to profiles' => ['batchRun', [], ['batch_id' => '2'], $gui, false];
+        yield 'batch finish of a wizard profile allowed with profiles' => ['batchFinish', ['id' => '1'], [], $gui, true];
+        yield 'batch finish of an advanced profile denied to profiles' => ['batchFinish', ['id' => '2'], [], $gui, false];
+        yield 'batch run of a deleted profile denied to profiles' => ['batchRun', [], ['batch_id' => '3'], $gui, false];
+        yield 'batch finish of a deleted profile denied to profiles' => ['batchFinish', ['id' => '3'], [], $gui, false];
+        yield 'batch run with another adapter denied to profiles' => ['batchRun', [], ['batch_id' => '4'], $gui, false];
+        yield 'edit of a deleted profile denied to profiles' => ['edit', ['id' => '3'], [], $gui, false];
+        yield 'save of an advanced profile by posted id denied to profiles' => ['save', [], ['profile_id' => '2'], $gui, false];
+        yield 'wizard profiles denied to advanced profiles' => ['edit', ['id' => '1'], [], $advanced, false];
+    }
+
+    /**
+     * Search module, resources besides Global Search, expected result.
+     *
+     * @return Generator<string, array<mixed>>
+     */
+    public static function provideGlobalSearchAclData(): Generator
+    {
+        yield 'products denied to url rewrites' => ['products', ['catalog/urlrewrite'], false];
+        yield 'products allowed with manage products' => ['products', ['catalog/products'], true];
+        yield 'customers denied to customer groups' => ['customers', ['customer/group'], false];
+        yield 'customers allowed with manage customers' => ['customers', ['customer/manage'], true];
+        yield 'orders denied to tax rules' => ['sales', ['sales/tax/rules'], false];
+        yield 'orders denied to order create' => ['sales', ['sales/order/actions/create'], false];
+        yield 'orders allowed with order view' => ['sales', ['sales/order/actions/view'], true];
+    }
+
+    /**
+     * Resources, posted invoice options that must survive.
+     *
+     * @return Generator<string, array<mixed>>
+     */
+    public static function provideInvoiceSaveOptionsData(): Generator
+    {
+        $invoice = ['sales/order/actions/invoice'];
+
+        yield 'invoice only drops capture and shipment' => [$invoice, ['comment_text']];
+        yield 'capture keeps the capture choice' => [[...$invoice, 'sales/order/actions/capture'], ['capture_case', 'comment_text']];
+        yield 'ship keeps the shipment option' => [[...$invoice, 'sales/order/actions/ship'], ['do_shipment', 'comment_text']];
+        yield 'all three keep both' => [[...$invoice, 'sales/order/actions/capture', 'sales/order/actions/ship'], ['capture_case', 'do_shipment', 'comment_text']];
     }
 }

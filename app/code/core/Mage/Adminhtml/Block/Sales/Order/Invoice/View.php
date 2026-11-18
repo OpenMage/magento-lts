@@ -82,7 +82,8 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
             ]);
         }
 
-        if ($this->getInvoice()->canVoid()) {
+        // Voiding cancels the invoice too
+        if ($this->_isAllowedAction('cancel') && $this->getInvoice()->canVoid()) {
             $this->_addButton(self::BUTTON_TYPE_VOID, [
                 'label'     => Mage::helper('sales')->__('Void'),
                 'class'     => 'save void',

@@ -76,6 +76,13 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
 
     public function canCreateShipment()
     {
+        // An order that ships with its invoice still shows the option, checked and disabled
+        if ($this->getForcedShipmentCreate() === 0
+            && !Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/ship')
+        ) {
+            return false;
+        }
+
         foreach ($this->getInvoice()->getAllItems() as $item) {
             if ($item->getOrderItem()->getQtyToShip()) {
                 return true;
