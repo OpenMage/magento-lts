@@ -454,6 +454,82 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Customer attribute codes that hold credentials, which API reads never return or filter on
+     *
+     * These are the password hash and the password-reset token. The confirmation key is not listed: API
+     * reads return whether confirmation is pending instead, see prepareApiConfirmationForRead().
+     *
+     * @return string[]
+     */
+    public function getApiSecretAttributeCodes()
+    {
+        return ['password_hash', 'rp_token', 'rp_token_created_at', 'rp_customer_id'];
+    }
+
+    /**
+     * Check whether an API collection filter may be applied to a customer attribute
+     *
+     * Filtering on a secret attribute would let the caller recover its value one condition at a time, so
+     * secret attributes cannot be filtered on and "confirmation" only accepts a null/notnull condition
+     * (to list customers whose confirmation is pending or done).
+     *
+     * @param  string[] $attributeCodes lower-case codes the filtered field resolves to
+     * @param  mixed    $condition
+     * @return bool
+     */
+    public function isApiFilterAllowed(array $attributeCodes, $condition)
+    {
+        if (array_intersect($attributeCodes, $this->getApiSecretAttributeCodes()) !== []) {
+            return false;
+        }
+
+        if (in_array('confirmation', $attributeCodes, true)) {
+            return is_array($condition)
+                && count($condition) === 1
+                && in_array(key($condition), ['null', 'notnull'], true);
+        }
+
+        return true;
+    }
+
+    /**
+     * Prepare the confirmation key for API output
+     *
+     * The key lets anyone who holds it confirm the account and log in as the customer, so only whether
+     * confirmation is pending is returned.
+     *
+     * @param  null|string $confirmation
+     * @return bool
+     */
+    public function prepareApiConfirmationForRead($confirmation)
+    {
+        return (bool) $confirmation;
+    }
+
+    /**
+     * Prepare a confirmation value written through the API for saving
+     *
+     * API reads return whether confirmation is pending, so a written value is that status too and never
+     * becomes the key: "pending" keeps the customer's key (or creates one) and "confirmed" clears it.
+     * Any value that is not a boolean, such as a key, means pending.
+     *
+     * @param  mixed       $value
+     * @return null|string
+     */
+    public function prepareApiConfirmationForWrite(Mage_Customer_Model_Customer $customer, $value)
+    {
+        $isPending = is_bool($value)
+            ? $value
+            : filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ?? true;
+        if (!$isPending) {
+            return null;
+        }
+
+        $key = (string) $customer->getConfirmation();
+        return $key !== '' ? $key : $customer->getRandomConfirmationKey();
+    }
+
+    /**
      * Retrieve customer reset password link expiration period in days
      *
      * @return int

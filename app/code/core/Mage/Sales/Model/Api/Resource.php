@@ -84,7 +84,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             }
         }
 
-        return $result;
+        return $this->_removeSecrets($result);
     }
 
     /**
