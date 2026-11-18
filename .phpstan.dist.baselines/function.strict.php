@@ -1159,11 +1159,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Install/Model/Installer/Filesystem.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Call to function in_array() requires parameter #3 to be set.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Log/Helper/Data.php',
 ];
 $ignoreErrors[] = [
