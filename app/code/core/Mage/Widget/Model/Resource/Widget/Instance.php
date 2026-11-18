@@ -415,7 +415,11 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
 
                 $xml  = (string) $row['xml'];
                 $type = $checker->getGeneratedLayoutUpdateBlockType($xml);
-                if (trim($xml) === '' || ($type !== null && $checker->setType($type)->isTypeDeclared())) {
+                if (trim($xml) === '') {
+                    continue;
+                }
+
+                if ($type !== null && $checker->setType($type)->isTypeDeclared()) {
                     continue;
                 }
 

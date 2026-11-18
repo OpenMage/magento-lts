@@ -30,7 +30,7 @@ final class ApiReadSecretsTest extends OpenMageTest
 
     public function testReadableAttributeCodesExcludeSecrets(): void
     {
-        $customer = $this->createMock(Mage_Customer_Model_Customer::class);
+        $customer = self::createStub(Mage_Customer_Model_Customer::class);
         $allowed = array_fill_keys(['email', 'firstname', 'confirmation', ...self::SECRET_CODES], true);
 
         $subject = $this->createPartialMock(Subject::class, ['getAllowedAttributes']);
@@ -43,7 +43,7 @@ final class ApiReadSecretsTest extends OpenMageTest
 
     public function testExplicitAttributeFilterCannotReadmitSecrets(): void
     {
-        $customer = $this->createMock(Mage_Customer_Model_Customer::class);
+        $customer = self::createStub(Mage_Customer_Model_Customer::class);
         $filter = ['email', ...self::SECRET_CODES];
 
         $subject = $this->createPartialMock(Subject::class, ['getAllowedAttributes']);

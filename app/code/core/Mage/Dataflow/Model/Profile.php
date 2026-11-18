@@ -486,7 +486,11 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     $parseFileXmlInter .= $filterXml;
                 } elseif (is_array($value)) {
                     foreach ($value as $a => $b) {
-                        if (!is_scalar($b) || (string) $b === '') {
+                        if (!is_scalar($b)) {
+                            continue;
+                        }
+
+                        if ((string) $b === '') {
                             continue;
                         }
 

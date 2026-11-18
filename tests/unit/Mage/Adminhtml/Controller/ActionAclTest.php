@@ -177,7 +177,7 @@ final class ActionAclTest extends OpenMageTest
         $this->loginWithRole(['global_search', ...$granted]);
         $config = Mage::getConfig();
         self::assertNotNull($config);
-        $acl = (string) $config->getNode("adminhtml/global_search/$module/acl");
+        $acl = (string) $config->getNode("adminhtml/global_search/{$module}/acl");
 
         self::assertNotSame('', $acl);
         self::assertSame($expected, Mage::getSingleton('admin/session')->isAllowed($acl));

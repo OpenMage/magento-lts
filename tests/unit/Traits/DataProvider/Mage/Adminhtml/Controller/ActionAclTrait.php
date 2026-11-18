@@ -128,9 +128,9 @@ trait ActionAclTrait
         $existingInvoice = ['invoice_id' => '7'];
         $invoiceGrid = ['sales/invoice'];
         foreach (['start', 'new', 'updateQty', 'save'] as $action) {
-            yield "invoice $action denied to invoice grid" => [$invoice, $action, $newDoc, $invoiceGrid, false];
-            yield "invoice $action denied to order invoice alone" => [$invoice, $action, $newDoc, ['sales/order/actions/invoice'], false];
-            yield "invoice $action allowed with order invoice" => [$invoice, $action, $newDoc, [...$invoiceGrid, 'sales/order/actions/invoice'], true];
+            yield "invoice {$action} denied to invoice grid" => [$invoice, $action, $newDoc, $invoiceGrid, false];
+            yield "invoice {$action} denied to order invoice alone" => [$invoice, $action, $newDoc, ['sales/order/actions/invoice'], false];
+            yield "invoice {$action} allowed with order invoice" => [$invoice, $action, $newDoc, [...$invoiceGrid, 'sales/order/actions/invoice'], true];
         }
 
         yield 'invoice capture denied to invoice grid' => [$invoice, 'capture', $existingInvoice, $invoiceGrid, false];
@@ -139,10 +139,10 @@ trait ActionAclTrait
         yield 'invoice capture of a new invoice denied without order invoice' => [$invoice, 'capture', $newDoc, [...$invoiceGrid, 'sales/order/actions/capture'], false];
         yield 'invoice capture of a new invoice allowed with capture and invoice' => [$invoice, 'capture', $newDoc, [...$invoiceGrid, 'sales/order/actions/capture', 'sales/order/actions/invoice'], true];
         foreach (['cancel', 'void'] as $action) {
-            yield "invoice $action denied to invoice grid" => [$invoice, $action, $existingInvoice, $invoiceGrid, false];
-            yield "invoice $action denied to order invoice" => [$invoice, $action, $existingInvoice, [...$invoiceGrid, 'sales/order/actions/invoice'], false];
-            yield "invoice $action denied to cancel alone" => [$invoice, $action, $existingInvoice, ['sales/order/actions/cancel'], false];
-            yield "invoice $action allowed with cancel" => [$invoice, $action, $existingInvoice, [...$invoiceGrid, 'sales/order/actions/cancel'], true];
+            yield "invoice {$action} denied to invoice grid" => [$invoice, $action, $existingInvoice, $invoiceGrid, false];
+            yield "invoice {$action} denied to order invoice" => [$invoice, $action, $existingInvoice, [...$invoiceGrid, 'sales/order/actions/invoice'], false];
+            yield "invoice {$action} denied to cancel alone" => [$invoice, $action, $existingInvoice, ['sales/order/actions/cancel'], false];
+            yield "invoice {$action} allowed with cancel" => [$invoice, $action, $existingInvoice, [...$invoiceGrid, 'sales/order/actions/cancel'], true];
         }
 
         yield 'invoice view still allowed to invoice grid' => [$invoice, 'view', $existingInvoice, $invoiceGrid, true];
@@ -154,9 +154,9 @@ trait ActionAclTrait
         $existingShipment = ['shipment_id' => '7'];
         $shipmentGrid = ['sales/shipment'];
         foreach (['start', 'new', 'save'] as $action) {
-            yield "shipment $action denied to shipment grid" => [$shipment, $action, $newDoc, $shipmentGrid, false];
-            yield "shipment $action denied to ship alone" => [$shipment, $action, $newDoc, ['sales/order/actions/ship'], false];
-            yield "shipment $action allowed with ship" => [$shipment, $action, $newDoc, [...$shipmentGrid, 'sales/order/actions/ship'], true];
+            yield "shipment {$action} denied to shipment grid" => [$shipment, $action, $newDoc, $shipmentGrid, false];
+            yield "shipment {$action} denied to ship alone" => [$shipment, $action, $newDoc, ['sales/order/actions/ship'], false];
+            yield "shipment {$action} allowed with ship" => [$shipment, $action, $newDoc, [...$shipmentGrid, 'sales/order/actions/ship'], true];
         }
 
         yield 'shipment tracking still allowed to shipment grid' => [$shipment, 'addTrack', $existingShipment, $shipmentGrid, true];
@@ -172,14 +172,14 @@ trait ActionAclTrait
         $existingCreditmemo = ['creditmemo_id' => '7'];
         $creditmemoGrid = ['sales/creditmemo'];
         foreach (['start', 'new', 'updateQty', 'save'] as $action) {
-            yield "credit memo $action denied to credit memo grid" => [$creditmemo, $action, $newDoc, $creditmemoGrid, false];
-            yield "credit memo $action denied to order credit memos alone" => [$creditmemo, $action, $newDoc, ['sales/order/actions/creditmemo'], false];
-            yield "credit memo $action allowed with order credit memos" => [$creditmemo, $action, $newDoc, [...$creditmemoGrid, 'sales/order/actions/creditmemo'], true];
+            yield "credit memo {$action} denied to credit memo grid" => [$creditmemo, $action, $newDoc, $creditmemoGrid, false];
+            yield "credit memo {$action} denied to order credit memos alone" => [$creditmemo, $action, $newDoc, ['sales/order/actions/creditmemo'], false];
+            yield "credit memo {$action} allowed with order credit memos" => [$creditmemo, $action, $newDoc, [...$creditmemoGrid, 'sales/order/actions/creditmemo'], true];
         }
 
         foreach (['cancel', 'void'] as $action) {
-            yield "credit memo $action denied to credit memo grid" => [$creditmemo, $action, $existingCreditmemo, $creditmemoGrid, false];
-            yield "credit memo $action allowed with order credit memos" => [$creditmemo, $action, $existingCreditmemo, [...$creditmemoGrid, 'sales/order/actions/creditmemo'], true];
+            yield "credit memo {$action} denied to credit memo grid" => [$creditmemo, $action, $existingCreditmemo, $creditmemoGrid, false];
+            yield "credit memo {$action} allowed with order credit memos" => [$creditmemo, $action, $existingCreditmemo, [...$creditmemoGrid, 'sales/order/actions/creditmemo'], true];
         }
 
         yield 'credit memo from an invoice denied to credit memo grid' => [$creditmemo, 'new', ['order_id' => '5', 'invoice_id' => '6'], [...$creditmemoGrid, 'sales/invoice'], false];
@@ -223,16 +223,16 @@ trait ActionAclTrait
         $sameOrder = ['customer_id' => '3', 'store_id' => '1'];
 
         foreach (['start', 'cancel'] as $action) {
-            yield "$action denied to create" => [$action, [], [], $create, false];
-            yield "$action allowed with edit" => [$action, [], [], $edit, true];
+            yield "{$action} denied to create" => [$action, [], [], $create, false];
+            yield "{$action} allowed with edit" => [$action, [], [], $edit, true];
         }
 
         foreach (['index', 'loadBlock', 'processData', 'addConfigured', 'configureProductToAdd', 'configureQuoteItems', 'showUpdateResult', 'save'] as $action) {
-            yield "$action during an edit allowed with edit" => [$action, $editing, $sameOrder, $edit, true];
-            yield "$action during an edit denied to create" => [$action, $editing, $sameOrder, $create, false];
-            yield "$action without an edit denied to edit" => [$action, [], [], $edit, false];
-            yield "$action without an edit allowed with create" => [$action, [], [], $create, true];
-            yield "$action during a reorder denied to edit" => [$action, $reordering, [], $edit, false];
+            yield "{$action} during an edit allowed with edit" => [$action, $editing, $sameOrder, $edit, true];
+            yield "{$action} during an edit denied to create" => [$action, $editing, $sameOrder, $create, false];
+            yield "{$action} without an edit denied to edit" => [$action, [], [], $edit, false];
+            yield "{$action} without an edit allowed with create" => [$action, [], [], $create, true];
+            yield "{$action} during a reorder denied to edit" => [$action, $reordering, [], $edit, false];
         }
 
         yield 'reorder denied to edit' => ['reorder', [], ['order_id' => '12'], $edit, false];
@@ -255,8 +255,8 @@ trait ActionAclTrait
         $editing = ['order_id' => 12, 'customer_id' => 3, 'store_id' => 1];
 
         foreach (['save', 'loadBlock', 'addConfigured', 'configureProductToAdd', 'configureQuoteItems'] as $action) {
-            yield "$action during an edit denied to create" => [$action, $editing, [], $create, false];
-            yield "$action during an edit allowed with edit" => [$action, $editing, [], $edit, true];
+            yield "{$action} during an edit denied to create" => [$action, $editing, [], $create, false];
+            yield "{$action} during an edit allowed with edit" => [$action, $editing, [], $edit, true];
         }
 
         yield 'switching the customer of an edit denied to edit and create' => ['save', $editing, ['customer_id' => '4'], [...$edit, ...$create], false];
@@ -323,8 +323,8 @@ trait ActionAclTrait
         $advanced = ['system/convert/profiles'];
 
         foreach (['edit', 'run', 'delete', 'history', 'upload', 'download'] as $action) {
-            yield "$action of a wizard profile allowed with profiles" => [$action, ['id' => '1'], [], $gui, true];
-            yield "$action of an advanced profile denied to profiles" => [$action, ['id' => '2'], [], $gui, false];
+            yield "{$action} of a wizard profile allowed with profiles" => [$action, ['id' => '1'], [], $gui, true];
+            yield "{$action} of an advanced profile denied to profiles" => [$action, ['id' => '2'], [], $gui, false];
         }
 
         yield 'save of a wizard profile allowed with profiles' => ['save', ['profile_id' => '1'], [], $gui, true];

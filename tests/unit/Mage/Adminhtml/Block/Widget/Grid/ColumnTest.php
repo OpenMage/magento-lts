@@ -118,7 +118,7 @@ final class ColumnTest extends OpenMageTest
     public function testStaticFrameCallbackIsNotCalled(): void
     {
         $column = $this->createColumn();
-        $column->setFrameCallback([self::class, 'staticFrameCallback']);
+        $column->setFrameCallback(self::staticFrameCallback(...));
 
         self::$staticCalls = 0;
 
@@ -167,7 +167,7 @@ final class ColumnTest extends OpenMageTest
         $column->setGetter(static fn(Varien_Object $row): string => 'closure:' . $row->getValue());
         self::assertSame('closure:cell', $column->getRowFieldExport($row));
 
-        $column->setGetter([self::class, 'staticFrameCallback']);
+        $column->setGetter(self::staticFrameCallback(...));
         self::$staticCalls = 0;
         self::assertSame('', $column->getRowFieldExport($row));
         self::assertSame(0, self::$staticCalls);

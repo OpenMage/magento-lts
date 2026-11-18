@@ -55,7 +55,7 @@ final class CheckoutTest extends OpenMageTest
         $subject = new $class([
             'quote' => $quote,
             'config' => Mage::getModel('paypal/config'),
-            'session' => $this->createMock(Mage_Customer_Model_Session::class),
+            'session' => self::createStub(Mage_Customer_Model_Session::class),
         ]);
 
         $this->expectException(Mage_Core_Exception::class);

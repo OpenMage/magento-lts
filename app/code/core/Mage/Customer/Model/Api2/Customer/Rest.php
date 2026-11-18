@@ -99,7 +99,15 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
         /** @var Mage_Customer_Helper_Data $helper */
         $helper = Mage::helper('customer');
         foreach ($filter as $filterEntry) {
-            if (!is_array($filterEntry) || !isset($filterEntry['attribute']) || !is_scalar($filterEntry['attribute'])) {
+            if (!is_array($filterEntry)) {
+                continue;
+            }
+
+            if (!isset($filterEntry['attribute'])) {
+                continue;
+            }
+
+            if (!is_scalar($filterEntry['attribute'])) {
                 continue;
             }
 

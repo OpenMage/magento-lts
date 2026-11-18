@@ -64,8 +64,8 @@ final class WidgetTest extends OpenMageTest
             ->willReturn(new Varien_Simplexml_Config('<widgets><a type="cms/widget_page_link"/><b type="catalog/product_widget_new"/></widgets>'));
 
         foreach ([1, 2] as $check) {
-            self::assertTrue($subject->isWidgetTypeDeclared('cms/widget_page_link'), "check $check");
-            self::assertFalse($subject->isWidgetTypeDeclared('core/text_list'), "check $check");
+            self::assertTrue($subject->isWidgetTypeDeclared('cms/widget_page_link'), "check {$check}");
+            self::assertFalse($subject->isWidgetTypeDeclared('core/text_list'), "check {$check}");
         }
 
         $subject->resetDeclaredTypes();
