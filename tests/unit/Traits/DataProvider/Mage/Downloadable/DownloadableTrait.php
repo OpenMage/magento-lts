@@ -43,4 +43,36 @@ trait DownloadableTrait
             '0',
         ];
     }
+
+    /**
+     * @return Generator<string, array{bool, mixed}>
+     */
+    public static function provideIsValidRelativeFilePathData(): Generator
+    {
+        yield 'dispersed upload' => [true, '/r/e/readme.txt'];
+        yield 'dispersed upload without leading slash' => [true, 'r/e/readme.txt'];
+        yield 'double dot inside a name' => [true, '/r/e/read..me.txt'];
+        yield 'name starting with dots' => [true, '/r/e/..readme'];
+        yield 'parent segment' => [false, '/../../../../app/.htaccess'];
+        yield 'parent segment without leading slash' => [false, '../app/etc/local.xml'];
+        yield 'parent segment in the middle' => [false, '/r/../../e/readme.txt'];
+        yield 'trailing parent segment' => [false, '/r/e/..'];
+        yield 'bare parent segment' => [false, '..'];
+        yield 'backslash parent segment' => [false, '\\..\\..\\app\\.htaccess'];
+        yield 'NUL byte' => [false, "/r/e/readme.txt\0.jpg"];
+        yield 'empty string' => [false, ''];
+        yield 'null' => [false, null];
+        yield 'array' => [false, ['/r/e/readme.txt']];
+    }
+
+    /**
+     * @return Generator<string, array{string, string}>
+     */
+    public static function provideMoveFileFromTmpTraversalData(): Generator
+    {
+        yield 'new file' => ['/../../protected.txt', 'new'];
+        yield 'new file with tmp suffix' => ['/../../protected.txt.tmp', 'new'];
+        yield 'new file with backslashes' => ['\\..\\..\\protected.txt', 'new'];
+        yield 'old file' => ['/../../protected.txt', 'old'];
+    }
 }
