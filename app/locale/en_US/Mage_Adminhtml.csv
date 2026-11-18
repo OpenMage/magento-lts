@@ -1272,6 +1272,7 @@
 "Yes (301 Moved Permanently)","Yes (301 Moved Permanently)"
 "Yes (302 Found)","Yes (302 Found)"
 "Yes (only price with tax)","Yes (only price with tax)"
+"You cannot change the role of your own account.","You cannot change the role of your own account."
 "You cannot delete your own account.","You cannot delete your own account."
 "You did not sign in correctly or your account is temporarily disabled.","You did not sign in correctly or your account is temporarily disabled."
 "You have %s unread message(s).","You have %s unread message(s)."
