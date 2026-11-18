@@ -218,5 +218,113 @@ final class ValidatorTest extends OpenMageTest
             '<block type="core/text" name="t"/>',
             [],
         ];
+
+        $grid = '<reference name="content"><block type="%s" name="g">'
+            . '<action method="addColumn" json="column"><id>x</id>'
+            . '<column>{"index":"x","default":"x","frame_callback":["Zend_Loader","loadFile"]}</column></action>'
+            . '<action method="getCsv"/></block></reference>';
+
+        yield 'admin grid with a JSON column callback' => [
+            false,
+            sprintf($grid, 'adminhtml/catalog_product_grid'),
+            [
+                'invalidBlockName' => 'Disallowed block name for frontend.',
+            ],
+        ];
+
+        yield 'admin CMS page grid with a JSON column callback' => [
+            false,
+            sprintf($grid, 'adminhtml/cms_page_grid'),
+            [
+                'invalidBlockName' => 'Disallowed block name for frontend.',
+            ],
+        ];
+
+        yield 'admin block by alias' => [
+            false,
+            '<block type="adminhtml/customer_grid" name="g"/>',
+            [
+                'invalidBlockName' => 'Disallowed block name for frontend.',
+            ],
+        ];
+
+        yield 'admin block by alias with a capitalised module' => [
+            false,
+            '<block type="Adminhtml/customer_grid" name="g"/>',
+            [
+                'invalidBlockName' => 'Disallowed block name for frontend.',
+            ],
+        ];
+
+        yield 'admin block by class name in another case' => [
+            false,
+            '<block type="\\mage_adminhtml_block_customer_grid" name="g"/>',
+            [
+                'invalidBlockName' => 'Disallowed block name for frontend.',
+            ],
+        ];
+
+        yield 'admin block in the class attribute' => [
+            false,
+            '<block type="core/text" class="Mage_Adminhtml_Block_Widget_Grid_Column" name="g"/>',
+            [
+                'invalidBlockName' => 'Disallowed block name for frontend.',
+            ],
+        ];
+
+        yield 'admin block of another module (Block_Adminhtml naming)' => [
+            false,
+            '<block type="sales/adminhtml_recurring_profile_grid" name="g"/>',
+            [
+                'invalidBlockName' => 'Disallowed block name for frontend.',
+            ],
+        ];
+
+        yield 'block extending an admin block base class' => [
+            false,
+            '<block type="weee/renderer_weee_tax" name="g"/>',
+            [
+                'invalidBlockName' => 'Disallowed block name for frontend.',
+            ],
+        ];
+
+        yield 'admin block nested in a frontend block' => [
+            false,
+            '<reference name="content"><block type="core/text_list" name="l">'
+                . '<block type="adminhtml/cms_page_grid" name="g"/></block></reference>',
+            [
+                'invalidBlockName' => 'Disallowed block name for frontend.',
+            ],
+        ];
+
+        yield 'json attribute on a frontend block action' => [
+            false,
+            '<reference name="content"><block type="core/text" name="t">'
+                . '<action method="setData" json="v"><k>x</k><v>["Zend_Loader","loadFile"]</v></action></block></reference>',
+            [
+                'protectedAttrJsonInAction' => 'JSON arguments should not be used in custom layout updates.',
+            ],
+        ];
+
+        yield 'json attribute on an action of an existing block' => [
+            false,
+            '<reference name="content"><action method="setData" json="v"><k>x</k><v>"y"</v></action></reference>',
+            [
+                'protectedAttrJsonInAction' => 'JSON arguments should not be used in custom layout updates.',
+            ],
+        ];
+
+        yield 'frontend block with a plain setData action' => [
+            true,
+            '<reference name="content"><block type="catalog/product_list" name="p">'
+                . '<action method="setData"><k>column_count</k><v>4</v></action></block></reference>',
+            [],
+        ];
+
+        yield 'frontend block whose name mentions admin' => [
+            true,
+            '<reference name="content"><block type="core/text" name="adminhtml_grid"/></reference>',
+            [],
+        ];
     }
 }

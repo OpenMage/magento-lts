@@ -187,7 +187,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          * should return new version of rendered value
          */
         $frameCallback = $this->getFrameCallback();
-        if (is_array($frameCallback) || $frameCallback instanceof Closure) {
+        if ($this->_isFrameCallbackAllowed($frameCallback)) {
             $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, false);
         }
 
@@ -215,11 +215,26 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          * should return new version of rendered value
          */
         $frameCallback = $this->getFrameCallback();
-        if (is_array($frameCallback) || $frameCallback instanceof Closure) {
+        if ($this->_isFrameCallbackAllowed($frameCallback)) {
             return call_user_func($frameCallback, $renderedValue, $row, $this, true);
         }
 
         return $renderedValue;
+    }
+
+    /**
+     * Whether a frame callback may be called
+     *
+     * Only closures and [object, method] callables are called. Column options can come from layout
+     * XML, which can only express strings and arrays, so a static ["Class", "method"] callable there
+     * would let the layout call any static method with the cell value as its first argument.
+     *
+     * @param mixed $callback
+     */
+    protected function _isFrameCallbackAllowed($callback): bool
+    {
+        return $callback instanceof Closure
+            || (is_array($callback) && count($callback) === 2 && is_object($callback[0] ?? null));
     }
 
     /**
