@@ -30,6 +30,12 @@ use PHPUnit\Framework\MockObject\MockObject;
  *
  * _initCheckout() is the first step after each guard; the subject's version throws an
  * Error (not caught by the actions) so that passing the guard is observable without a quote.
+ *
+ * Each test runs in its own process: PHPUnit 9 prints progress before the tests start a
+ * session or send headers, which the session and response refuse after output.
+ *
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
  */
 final class ExpressControllerTest extends OpenMageTest
 {

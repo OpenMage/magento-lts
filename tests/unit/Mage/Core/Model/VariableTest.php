@@ -16,7 +16,6 @@ use Mage;
 use Mage_Core_Exception;
 use Mage_Core_Model_Variable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
-use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionMethod;
 
 final class VariableTest extends OpenMageTest
@@ -60,18 +59,18 @@ final class VariableTest extends OpenMageTest
     }
 
     /**
+     * @dataProvider provideValidCodes
      * @group Model
      */
-    #[DataProvider('provideValidCodes')]
     public function testIsValidCodeAcceptsCodes(string $code): void
     {
         self::assertTrue(Subject::isValidCode($code));
     }
 
     /**
+     * @dataProvider provideInvalidCodes
      * @group Model
      */
-    #[DataProvider('provideInvalidCodes')]
     public function testIsValidCodeRejectsCodes(string $code): void
     {
         self::assertFalse(Subject::isValidCode($code));
@@ -80,9 +79,9 @@ final class VariableTest extends OpenMageTest
     /**
      * The form validation (AJAX) rejects the code before the uniqueness lookup.
      *
+     * @dataProvider provideInvalidCodes
      * @group Model
      */
-    #[DataProvider('provideInvalidCodes')]
     public function testValidateRejectsInvalidCode(string $code): void
     {
         $variable = Mage::getModel('core/variable')->setData(['code' => $code, 'name' => 'Name']);
@@ -94,9 +93,9 @@ final class VariableTest extends OpenMageTest
     /**
      * Saving rejects a new variable with an invalid code, whatever the form did.
      *
+     * @dataProvider provideInvalidCodes
      * @group Model
      */
-    #[DataProvider('provideInvalidCodes')]
     public function testBeforeSaveRejectsInvalidCodeOnNewVariable(string $code): void
     {
         $variable = Mage::getModel('core/variable')->setData(['code' => $code, 'name' => 'Name']);
@@ -133,9 +132,9 @@ final class VariableTest extends OpenMageTest
     }
 
     /**
+     * @dataProvider provideValidCodes
      * @group Model
      */
-    #[DataProvider('provideValidCodes')]
     public function testBeforeSaveAcceptsValidCode(string $code): void
     {
         $variable = Mage::getModel('core/variable')->setData(['code' => $code, 'name' => 'Name']);

@@ -16,7 +16,6 @@ use Mage_Api2_Exception;
 use Mage_Api2_Model_Request;
 use Mage_Customer_Model_Api2_Customer_Rest_Admin_V1 as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
-use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionMethod;
 
 /**
@@ -26,10 +25,10 @@ use ReflectionMethod;
 final class RestReadSecretsTest extends OpenMageTest
 {
     /**
+     * @dataProvider provideCustomerData
      * @param array<string, mixed> $data
      * @param array<string, mixed> $expected
      */
-    #[DataProvider('provideCustomerData')]
     public function testPrepareCustomerDataForResponse(array $data, array $expected): void
     {
         $subject = new Subject();
@@ -62,9 +61,9 @@ final class RestReadSecretsTest extends OpenMageTest
     }
 
     /**
+     * @dataProvider provideRejectedFilters
      * @param list<array<string, mixed>> $filter
      */
-    #[DataProvider('provideRejectedFilters')]
     public function testFilterRejectsSecretsAndConfirmationValueConditions(array $filter): void
     {
         $this->expectException(Mage_Api2_Exception::class);
@@ -87,9 +86,9 @@ final class RestReadSecretsTest extends OpenMageTest
     }
 
     /**
+     * @dataProvider provideAllowedFilters
      * @param null|list<array<string, mixed>> $filter
      */
-    #[DataProvider('provideAllowedFilters')]
     public function testFilterAllowsOtherFilters(?array $filter): void
     {
         $this->expectNotToPerformAssertions();

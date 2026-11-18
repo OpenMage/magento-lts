@@ -17,7 +17,6 @@ use Mage_Customer_Model_Customer_Api as Subject;
 use Mage_Eav_Model_Entity_Abstract;
 use Mage_Eav_Model_Entity_Attribute;
 use OpenMage\Tests\Unit\OpenMageTest;
-use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionMethod;
 
 /**
@@ -56,7 +55,9 @@ final class ApiReadSecretsTest extends OpenMageTest
         self::assertSame(['email'], $this->invoke($subject, '_getReadableAttributeCodes', $customer, $filter));
     }
 
-    #[DataProvider('provideReadValues')]
+    /**
+     * @dataProvider provideReadValues
+     */
     public function testPrepareAttributeValueForRead(string $code, mixed $value, mixed $expected): void
     {
         self::assertSame($expected, $this->invoke(new Subject(), '_prepareAttributeValueForRead', $code, $value));
@@ -70,7 +71,9 @@ final class ApiReadSecretsTest extends OpenMageTest
         yield 'other attributes are untouched' => ['email', 'john@example.com', 'john@example.com'];
     }
 
-    #[DataProvider('provideFilters')]
+    /**
+     * @dataProvider provideFilters
+     */
     public function testIsAllowedFilter(bool $expected, int|string $field, mixed $condition, ?string $resolvedCode): void
     {
         $entity = $this->createMock(Mage_Eav_Model_Entity_Abstract::class);
@@ -106,7 +109,9 @@ final class ApiReadSecretsTest extends OpenMageTest
         yield 'attribute id resolving to confirmation' => [false, '45', ['like' => 'a%'], 'confirmation'];
     }
 
-    #[DataProvider('provideConfirmationWrites')]
+    /**
+     * @dataProvider provideConfirmationWrites
+     */
     public function testPrepareConfirmationForWrite(?string $storedKey, mixed $value, ?string $expected): void
     {
         $customer = $this->createPartialMock(Mage_Customer_Model_Customer::class, ['getRandomConfirmationKey']);
