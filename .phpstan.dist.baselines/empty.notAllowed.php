@@ -28,11 +28,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
     'count' => 5,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Session.php',
 ];
@@ -3398,7 +3393,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 4,
+    'count' => 3,
     'path' => __DIR__ . '/../lib/Varien/Simplexml/Element.php',
 ];
 $ignoreErrors[] = [
