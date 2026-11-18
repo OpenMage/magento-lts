@@ -42,6 +42,10 @@ class Mage_Admin_Model_Observer
         } else {
             if ($user) {
                 $user->reload();
+                if ($user->getId() && !$this->_isSessionUserAllowed($session, $user)) {
+                    $this->_logoutSessionUser($session);
+                    $user = null;
+                }
             }
 
             if (!$user || !$user->getId()) {
@@ -94,6 +98,37 @@ class Mage_Admin_Model_Observer
         }
 
         $session->refreshAcl();
+    }
+
+    /**
+     * Whether the freshly reloaded session user may still use the admin panel
+     *
+     * Applies the checks that login applies (Mage_Admin_Model_User::authenticate()) on every request,
+     * so that deactivating a user or removing its role also ends the sessions it already has.
+     */
+    protected function _isSessionUserAllowed(Mage_Admin_Model_Session $session, Mage_Admin_Model_User $user): bool
+    {
+        if ((int) $user->getIsActive() !== 1) {
+            return false;
+        }
+
+        // A user without a role has no ACL role once the ACL is rebuilt after the role change
+        $session->refreshAcl($user);
+        $acl = $session->getAcl();
+
+        return $acl && $acl->hasRole($user->getAclRole());
+    }
+
+    /**
+     * End the session of a user that may no longer use the admin panel
+     */
+    protected function _logoutSessionUser(Mage_Admin_Model_Session $session): void
+    {
+        $session->unsetAll();
+        $session->renewSession();
+        Mage::getSingleton('adminhtml/session')->addError(
+            Mage::helper('adminhtml')->__('You did not sign in correctly or your account is temporarily disabled.'),
+        );
     }
 
     /**

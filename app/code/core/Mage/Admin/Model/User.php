@@ -15,6 +15,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Resource_User            _getResource()
+ * @method int                                       getAclVersion()
  * @method string                                    getCreated()
  * @method string                                    getEmail()
  * @method array                                     getExtra()
@@ -39,6 +40,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  * @method bool                                      hasNewPassword()
  * @method bool                                      hasPassword()
  * @method bool                                      hasPasswordConfirmation()
+ * @method $this                                     setAclVersion(int $value)
  * @method $this                                     setCreated(string $value)
  * @method $this                                     setEmail(string $value)
  * @method $this                                     setExtra(string $value)

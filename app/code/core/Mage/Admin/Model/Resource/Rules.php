@@ -68,6 +68,9 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
                 }
             }
 
+            // Commit the members' new ACL version with the rules: saving the role moved them to a new version
+            // before its rules changed, and a session that rebuilt its ACL since then has the old rules.
+            $reloaded = $this->_reloadRoleUsersAcl((int) $roleId);
             $adapter->commit();
         } catch (Mage_Core_Exception $mageCoreException) {
             $adapter->rollBack();
@@ -75,7 +78,33 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
         } catch (Exception $exception) {
             $adapter->rollBack();
             Mage::logException($exception);
+            return;
         }
+
+        if ($reloaded) {
+            $this->_getUserResource()->cleanMenuCache();
+        }
+    }
+
+    /**
+     * Make every member of the role rebuild its ACL on its next request
+     *
+     * @return bool                      whether the role has members
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
+     */
+    protected function _reloadRoleUsersAcl(int $roleId): bool
+    {
+        /** @var Mage_Admin_Model_Roles $role */
+        $role = Mage::getModel('admin/roles')->setId($roleId);
+        return $this->_getUserResource()->bumpAclVersion($role->getResource()->getRoleUsers($role)) > 0;
+    }
+
+    protected function _getUserResource(): Mage_Admin_Model_Resource_User
+    {
+        /** @var Mage_Admin_Model_Resource_User $resource */
+        $resource = Mage::getResourceSingleton('admin/user');
+        return $resource;
     }
 
     /**
