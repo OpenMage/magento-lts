@@ -21,7 +21,8 @@ final class TemplateTest extends OpenMageTest
     /**
      * GHSA-94p5-6j66-c9j6: getConfig() on a template variable must not return encrypted
      * configuration, whatever the case of the method name (PHP method names are
-     * case-insensitive) and whether the path names the field or one of its parents.
+     * case-insensitive), whether the path names the field or one of its parents, and whether
+     * it uses the `node@attribute=value` segment syntax that the config reader accepts.
      *
      * @dataProvider provideGetConfigDirectives
      * @group Filter
@@ -49,5 +50,8 @@ final class TemplateTest extends OpenMageTest
         yield 'upper case method' => ['{{var store.GETCONFIG("paypal/wpp/api_password")}}', ''];
         yield 'mixed case method' => ['{{var store.GetConfig("paypal/wpp/api_signature")}}', ''];
         yield 'encrypted parent group' => ['{{var store.getConfig("paypal/wpp")}}', ''];
+        yield 'attribute selector on the field' => ['{{var store.getConfig("paypal/wpp/api_password@x=")}}', ''];
+        yield 'attribute selector on the group' => ['{{var store.getConfig("paypal/wpp@x=/api_password")}}', ''];
+        yield 'attribute selector in a condition' => ['{{depend store.getConfig("paypal/wpp/api_password@x=")}}set{{/depend}}', ''];
     }
 }
