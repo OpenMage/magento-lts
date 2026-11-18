@@ -2882,7 +2882,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Usa/Helper/DataTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Varien_Object@anonymous/tests/unit/Varien/Filter/TemplateTest.php:31::getConfig() has parameter $path with no type specified.',
+    'rawMessage' => 'Method Varien_Object@anonymous/tests/unit/Varien/Filter/TemplateTest.php:32::getConfig() has parameter $path with no type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Varien/Filter/TemplateTest.php',
 ];

@@ -442,11 +442,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $callback of function call_user_func expects callable(): mixed, array<mixed, mixed>|Closure given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $string of function addslashes expects string, array<string|null>|string|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Action.php',
@@ -8920,6 +8915,16 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $timestamp of function date expects int|null, int|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Base/CarbonTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $renderer of method Mage_Adminhtml_Block_Widget_Grid_Column::setRenderer() expects string, Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract@anonymous/tests/unit/Mage/Adminhtml/Block/Widget/Grid/ColumnTest.php:189 given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Adminhtml/Block/Widget/Grid/ColumnTest.php',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 $renderer of method Mage_Adminhtml_Block_Widget_Grid_Column::setRenderer() expects string, Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract@anonymous/tests/unit/Mage/Adminhtml/Block/Widget/Grid/ColumnTest.php:63|Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text given.',
+    'count' => 1,
+    'path' => __DIR__ . '/../tests/unit/Mage/Adminhtml/Block/Widget/Grid/ColumnTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $string of method Mage_Catalog_Helper_Product_Url::format() expects string, string|null given.',

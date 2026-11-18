@@ -213,17 +213,17 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 3,
+    'count' => 4,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/items/column/downloadable/creditmemo/name.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 3,
+    'count' => 4,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/items/column/downloadable/invoice/name.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 3,
+    'count' => 4,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/downloadable/sales/items/column/downloadable/name.phtml',
 ];
 $ignoreErrors[] = [
@@ -443,12 +443,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 5,
+    'count' => 6,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/view/info.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 1,
+    'count' => 2,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/view/tab/info.phtml',
 ];
 $ignoreErrors[] = [
@@ -705,6 +705,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/seo/sitemap.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/design/frontend/base/default/template/cataloginventory/stockqty/composite.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
@@ -1228,7 +1233,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 3,
+    'count' => 11,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/sales/order/trackinginfo.phtml',
 ];
 $ignoreErrors[] = [
@@ -1268,7 +1273,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
-    'count' => 6,
+    'count' => 15,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/shipping/tracking/popup.phtml',
 ];
 $ignoreErrors[] = [
@@ -1365,6 +1370,11 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/catalog/product/view/type/grouped.phtml',
+];
+$ignoreErrors[] = [
+    'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/cataloginventory/stockqty/composite.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 (array<string|null>|string|null) of echo cannot be converted to string.',

@@ -9857,7 +9857,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LoggerTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Varien_Object@anonymous/tests/unit/Varien/Filter/TemplateTest.php:31::getConfig() has no return type specified.',
+    'rawMessage' => 'Method Varien_Object@anonymous/tests/unit/Varien/Filter/TemplateTest.php:32::getConfig() has no return type specified.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Varien/Filter/TemplateTest.php',
 ];

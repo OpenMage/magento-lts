@@ -1768,7 +1768,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Call to an undefined method object::getTracking().',
-    'count' => 3,
+    'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/shipping/tracking/popup.phtml',
 ];
 $ignoreErrors[] = [

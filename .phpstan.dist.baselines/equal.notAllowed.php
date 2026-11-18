@@ -3418,7 +3418,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<0, max> and int is not allowed.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Dataflow/Model/Profile.php',
 ];
 $ignoreErrors[] = [
