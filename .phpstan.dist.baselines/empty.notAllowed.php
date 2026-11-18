@@ -2988,7 +2988,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Construct empty() is not allowed. Use more strict comparison.',
-    'count' => 4,
+    'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/controllers/Adminhtml/Widget/InstanceController.php',
 ];
 $ignoreErrors[] = [
