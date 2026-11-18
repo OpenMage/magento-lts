@@ -462,11 +462,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Observer.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "!=" between string and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Request/Interpreter/Xml.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "!=" between mixed and float|int<0, max> is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Api2/Model/Resource.php',
