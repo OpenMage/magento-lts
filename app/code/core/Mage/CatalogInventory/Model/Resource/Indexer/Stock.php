@@ -158,7 +158,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
         $pCount = $adapter->fetchOne($select);
 
         // if affected more 30% of all products - run reindex all products
-        if ($pCount * 0.3 < count($processIds)) {
+        if ((int) $pCount * 0.3 < count($processIds)) {
             return $this->reindexAll();
         }
 
@@ -173,7 +173,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
         $bCount = $adapter->fetchOne($select);
 
         // if affected with relations more 30% of all products - run reindex all products
-        if ($pCount * 0.3 < count($processIds) + $aCount + $bCount) {
+        if ((int) $pCount * 0.3 < count($processIds) + $aCount + $bCount) {
             return $this->reindexAll();
         }
 

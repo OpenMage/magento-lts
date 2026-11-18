@@ -64,7 +64,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
 
         // simplexml bug: @attributes is in children() but invisible in foreach
-        foreach ($this->children() as $ignored) {
+        foreach ($this->children() as $ignored) { /** @phpstan-ignore foreach.unusedValue */
             return true;
         }
 
@@ -225,7 +225,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             foreach ($this->children() as $childName => $child) {
                 $result[$childName] = $child->_asArray($isCanonical);
             }
-        } elseif (empty($result)) {
+        } elseif ($result === []) {
             // return as string, if nothing was found
             $result = (string) $this;
         } else {

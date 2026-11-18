@@ -31,7 +31,8 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Discount extends Mage_Sales_Model_
          * basing on how much shipping should be refunded.
          */
         $baseShippingAmount = $creditmemo->getBaseShippingAmount();
-        if ($baseShippingAmount) {
+        // Free shipping (0.00) has no shipping discount to divide; the shipping total rejects the amount
+        if ($baseShippingAmount && $order->getBaseShippingAmount() > 0) {
             $baseShippingDiscount = $baseShippingAmount * $order->getBaseShippingDiscountAmount() / $order->getBaseShippingAmount();
             $shippingDiscount = $order->getShippingAmount() * $baseShippingDiscount / $order->getBaseShippingAmount();
             $totalDiscountAmount += $shippingDiscount;

@@ -111,7 +111,6 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
                     $result['message'] = $this->__('Address could not be verified.');
                 }
             } else {
-                $result['status'] = 'error';
                 $result['message'] = $verificationResult['error'] ?? $this->__('Address verification failed.');
             }
 
@@ -133,7 +132,6 @@ class Mage_Usa_AddressController extends Mage_Core_Controller_Front_Action
     {
         $result = [
             'success' => false,
-            'message' => '',
         ];
 
         try {

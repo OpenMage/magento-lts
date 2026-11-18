@@ -180,7 +180,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         /**
          * Generate cms pages sitemap
          */
-        $homepage = (string) Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE, $storeId);
+        $homepage = $this->getHomePageIdentifier($storeId);
         $changefreq = (string) Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
         $priority   = (string) Mage::getStoreConfig('sitemap/page/priority', $storeId);
         $lastmod    = Mage::getStoreConfigFlag('sitemap/page/lastmod', $storeId) ? $date : '';
@@ -244,5 +244,17 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         }
 
         return '<url>' . $row . '</url>';
+    }
+
+    /**
+     * Get the identifier of the store's CMS home page
+     *
+     * The configured value has the page id appended ("home|2") when several CMS pages share the identifier.
+     *
+     * @param int|string $storeId
+     */
+    protected function getHomePageIdentifier($storeId): string
+    {
+        return explode('|', (string) Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE, $storeId))[0];
     }
 }

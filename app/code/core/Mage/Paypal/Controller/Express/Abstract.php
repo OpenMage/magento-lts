@@ -15,6 +15,11 @@
 abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Controller_Front_Action
 {
     /**
+     * Registry key that returnAction() sets after checking the return token, and placeOrderAction() consumes
+     */
+    private const VERIFIED_RETURN_REGISTRY_KEY = 'paypal_express_verified_return';
+
+    /**
      * @var Mage_Paypal_Model_Express_Checkout
      */
     protected $_checkout = null;
@@ -194,17 +199,28 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
         if ($this->getRequest()->getParam('retry_authorization') == 'true'
             && is_array($this->_getCheckoutSession()->getPaypalTransactionData())
         ) {
-            $this->_forward('placeOrder');
+            // Without the token the retry is not placed here; the review page places it with the form key
+            if ($this->_isValidReturnToken()) {
+                $this->_forwardVerifiedReturn();
+            } else {
+                $this->_redirect('*/*/review');
+            }
+
             return;
         }
 
         try {
+            // A return without the matching token must not import the payer's details or place the order
+            if (!$this->_isValidReturnToken()) {
+                Mage::throwException($this->__('Wrong PayPal Express Checkout Token specified.'));
+            }
+
             $this->_getCheckoutSession()->unsPaypalTransactionData();
             $this->_checkout = $this->_initCheckout();
             $this->_checkout->returnFromPaypal($this->_initToken());
 
             if ($this->_checkout->canSkipOrderReviewStep()) {
-                $this->_forward('placeOrder');
+                $this->_forwardVerifiedReturn();
             } else {
                 $this->_redirect('*/*/review');
             }
@@ -271,6 +287,10 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         try {
             $isAjax = $this->getRequest()->getParam('isAjax');
+            if (!$this->_validateFormKey()) {
+                Mage::throwException($this->__('Invalid form key. Please refresh the page.'));
+            }
+
             $this->_initCheckout();
             $this->_checkout->updateShippingMethod($this->getRequest()->getParam('shipping_method'));
             if ($isAjax) {
@@ -289,7 +309,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
 
         if (isset($isAjax) && $isAjax) {
             $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
-                . Mage::getUrl('*/*/review') . ';</script>');
+                . Mage::helper('core')->jsonEncode(Mage::getUrl('*/*/review')) . ';</script>');
         } else {
             $this->_redirect('*/*/review');
         }
@@ -317,14 +337,25 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
         }
 
         $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
-            . Mage::getUrl('*/*/review') . ';</script>');
+            . Mage::helper('core')->jsonEncode(Mage::getUrl('*/*/review')) . ';</script>');
     }
 
     /**
      * Submit the order
+     *
+     * Requires a POST with the form key, except when returnAction() checked the Express Checkout
+     * token of the PayPal return and forwarded here in the same request.
      */
     public function placeOrderAction()
     {
+        if (!$this->_consumeVerifiedReturn()
+            && (!$this->getRequest()->isPost() || !$this->_validateFormKey())
+        ) {
+            $this->_getSession()->addError($this->__('Invalid form key. Please refresh the page.'));
+            $this->_redirect('*/*/review');
+            return;
+        }
+
         try {
             $requiredAgreements = Mage::helper('checkout')->getRequiredAgreementIds();
             if ($requiredAgreements) {
@@ -393,6 +424,42 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             Mage::logException($exception);
             $this->_redirect('*/*/review');
         }
+    }
+
+    /**
+     * Whether the request carries the Express Checkout token of this session
+     *
+     * PayPal appends the token to the return URL, so a request without it did not come from PayPal.
+     */
+    protected function _isValidReturnToken(): bool
+    {
+        $sessionToken = (string) $this->_getSession()->getExpressCheckoutToken();
+        $requestToken = $this->getRequest()->getParam('token');
+        return $sessionToken !== ''
+            && is_string($requestToken)
+            && hash_equals($sessionToken, $requestToken);
+    }
+
+    /**
+     * Forward a PayPal return whose token was checked to placeOrderAction()
+     */
+    protected function _forwardVerifiedReturn(): void
+    {
+        Mage::unregister(self::VERIFIED_RETURN_REGISTRY_KEY);
+        Mage::register(self::VERIFIED_RETURN_REGISTRY_KEY, true);
+        $this->_forward('placeOrder');
+    }
+
+    /**
+     * Whether returnAction() forwarded a checked PayPal return in this request; the flag is cleared on read
+     *
+     * The flag lives in the registry, which a client cannot set, unlike request params.
+     */
+    protected function _consumeVerifiedReturn(): bool
+    {
+        $isVerified = Mage::registry(self::VERIFIED_RETURN_REGISTRY_KEY) === true;
+        Mage::unregister(self::VERIFIED_RETURN_REGISTRY_KEY);
+        return $isVerified;
     }
 
     /**

@@ -47,8 +47,8 @@
                 <br/>
                     <?php foreach ($_order->getTracksCollection() as $_track): ?>
                         <div>
-                            <?php $trackNumber = $_track->getNumber();?>
-                            <strong><?php echo $_track->getTitle() ?></strong>
+                            <?php $trackNumber = $this->escapeHtml($_track->getNumber()) ?>
+                            <strong><?php echo $this->escapeHtml($_track->getTitle()) ?></strong>
                             <span data-copy-text="<?php echo $trackNumber ?>"><?php echo $trackNumber ?></span>
                         </div> 
                     <?php endforeach; ?>

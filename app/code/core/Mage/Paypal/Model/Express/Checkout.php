@@ -606,6 +606,11 @@ class Mage_Paypal_Model_Express_Checkout
      */
     public function place($token, $shippingMethodCode = null)
     {
+        // returnFromPaypal() sets this method; any other method was not approved at PayPal
+        if ($this->_quote->getPayment()->getMethod() !== $this->_methodType) {
+            Mage::throwException(Mage::helper('paypal')->__('Unable to place the order: the payment method was not approved by PayPal.'));
+        }
+
         if ($shippingMethodCode) {
             $this->updateShippingMethod($shippingMethodCode);
         }

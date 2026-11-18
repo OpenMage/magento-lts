@@ -350,7 +350,6 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $nameFile = str_replace($path, '', $file);
         $nameFile = str_replace('\\', '/', $nameFile);
 
-        $packedHeader = '';
         $longHeader = '';
         if (!$long && strlen($nameFile) > 100) {
             $longHeader = $this->_composeHeader(true);

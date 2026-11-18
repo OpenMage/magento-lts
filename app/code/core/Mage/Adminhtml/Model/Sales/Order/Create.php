@@ -604,7 +604,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
                     break;
                 case 'wishlist':
-                    $wishlist = null;
                     if (!isset($moveTo[1])) {
                         $wishlist = Mage::getModel('wishlist/wishlist')->loadByCustomer(
                             $this->getSession()->getCustomer(),

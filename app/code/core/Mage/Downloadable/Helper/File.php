@@ -58,7 +58,11 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     public function moveFileFromTmp($baseTmpPath, $basePath, $file)
     {
         if (isset($file[0])) {
-            $fileName = $file[0]['file'];
+            $fileName = $file[0]['file'] ?? null;
+            if (!$this->isValidRelativeFilePath($fileName)) {
+                Mage::throwException(Mage::helper('downloadable')->__('An error occurred while saving the file(s).'));
+            }
+
             if ($file[0]['status'] == 'new') {
                 try {
                     $fileName = $this->_moveFileFromTmp(
@@ -87,6 +91,10 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
      */
     protected function _moveFileFromTmp($baseTmpPath, $basePath, $file)
     {
+        if (!$this->isValidRelativeFilePath($file)) {
+            throw new Exception('Detected malicious path or filename input.');
+        }
+
         $ioObject = new Varien_Io_File();
         $destDirectory = dirname($this->getFilePath($basePath, $file));
         try {
@@ -113,6 +121,22 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
             $this->getFilePath($basePath, $destFile),
         );
         return str_replace($ioObject->dirsep(), '/', $destFile);
+    }
+
+    /**
+     * Check that a file name taken from the request stays inside the directory it is joined onto
+     *
+     * The value is appended to a base directory by getFilePath(), so it must not contain a NUL byte
+     * or a parent directory segment in either slash notation.
+     *
+     * @param mixed $file
+     */
+    public function isValidRelativeFilePath($file): bool
+    {
+        return is_string($file)
+            && $file !== ''
+            && !str_contains($file, chr(0))
+            && preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $file) !== 1;
     }
 
     /**

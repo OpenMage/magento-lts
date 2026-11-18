@@ -30,6 +30,11 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
 
     public const TYPE_HTML = 'html';
 
+    /**
+     * Allowed variable code: the rule the admin form has always applied (validate-xml-identifier)
+     */
+    public const CODE_PATTERN = '/^[a-z][a-z0-9_\/-]*$/iD';
+
     protected $_storeId = 0;
 
     /**
@@ -106,6 +111,10 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     public function validate()
     {
         if ($this->getCode() && $this->getName()) {
+            if (!$this->_isCodeAllowed()) {
+                return $this->_getInvalidCodeMessage();
+            }
+
             $variable = $this->getResource()->getVariableByCode($this->getCode());
             if (!empty($variable) && $variable['variable_id'] != $this->getId()) {
                 return Mage::helper('core')->__('Variable Code must be unique.');
@@ -115,6 +124,59 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
         }
 
         return Mage::helper('core')->__('Validation has failed.');
+    }
+
+    /**
+     * Check whether a string is a valid variable code
+     *
+     * @param  mixed $code
+     * @return bool
+     */
+    public static function isValidCode($code)
+    {
+        return is_string($code) && preg_match(self::CODE_PATTERN, $code) === 1;
+    }
+
+    /**
+     * Reject a new or changed code that is not a valid variable code
+     *
+     * Codes stored before this check are kept when they are not changed.
+     *
+     * @inheritDoc
+     */
+    #[Override]
+    protected function _beforeSave()
+    {
+        if (!$this->_isCodeAllowed()) {
+            Mage::throwException($this->_getInvalidCodeMessage());
+        }
+
+        return parent::_beforeSave();
+    }
+
+    /**
+     * The code is valid, or it is an unchanged code of an existing variable
+     *
+     * @return bool
+     */
+    protected function _isCodeAllowed()
+    {
+        if (self::isValidCode($this->getCode())) {
+            return true;
+        }
+
+        return $this->getId() !== null && $this->getOrigData('code') !== null
+            && (string) $this->getOrigData('code') === (string) $this->getCode();
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getInvalidCodeMessage()
+    {
+        return Mage::helper('core')->__(
+            'Variable Code must start with a letter and contain only letters, digits, underscores, hyphens and slashes.',
+        );
     }
 
     /**

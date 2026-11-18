@@ -182,27 +182,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Roles::getResourcesList() return type has no value type specified in iterable type array|Varien_Simplexml_Element.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Admin_Model_Roles::getResourcesList2D() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Roles::getResourcesList2D() return type has no value type specified in iterable type array|Varien_Simplexml_Element.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Roles::getResourcesTree() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Admin_Model_Roles::getResourcesTree() return type has no value type specified in iterable type array|Varien_Simplexml_Element.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Admin/Model/Roles.php',
 ];
@@ -2663,11 +2643,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Api_Model_Roles::getResourcesList2D() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Roles.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Api_Model_Roles::getResourcesTree() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Api/Model/Roles.php',
 ];
@@ -16398,7 +16373,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'PHPDoc tag @var for variable $saveData has no value type specified in iterable type array.',
-    'count' => 4,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Eav/Model/Entity/Abstract.php',
 ];
 $ignoreErrors[] = [

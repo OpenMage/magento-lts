@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
      */
     public function addProductIdFilter()
     {
-        if ($this->getProduct() && $this->getProduct()->getId()) {
+        if ($this->getProduct() instanceof Mage_Catalog_Model_Product && !is_null($this->getProduct()->getId())) {
             $this->addFieldToFilter('product_id', ['eq' => $this->getProduct()->getId()]);
         }
 

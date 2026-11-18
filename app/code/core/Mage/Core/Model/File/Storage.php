@@ -154,7 +154,6 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
 
             $offset = 0;
             while (($dirs = $sourceModel->exportDirectories($offset)) !== false) {
-                $flagData['timeout_reached'] = false;
                 if (!$hasErrors) {
                     $hasErrors = $this->_synchronizeHasErrors($sourceModel, $destinationModel);
                     if ($hasErrors) {
@@ -173,7 +172,6 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
 
             $offset = 0;
             while (($files = $sourceModel->exportFiles($offset, 1)) !== false) {
-                $flagData['timeout_reached'] = false;
                 if (!$hasErrors) {
                     $hasErrors = $this->_synchronizeHasErrors($sourceModel, $destinationModel);
                     if ($hasErrors) {

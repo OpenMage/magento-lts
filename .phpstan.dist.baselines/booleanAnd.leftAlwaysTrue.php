@@ -9,11 +9,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Left side of && is always true.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Link/Product/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Left side of && is always true.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Paypal/Model/Cart.php',
 ];
 $ignoreErrors[] = [

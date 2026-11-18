@@ -198,7 +198,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
                     Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.'),
                 );
                 Mage::logException($exception);
-                Mage::getSingleton('adminhtml/session')->setPageData($data);
+                Mage::getSingleton('adminhtml/session')->setPageData($data ?? []);
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('rule_id')]);
                 return;
             }

@@ -224,6 +224,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         }
 
         $this->setTotalQty($totalQty);
+        $this->getOrder()->setIsInProcess(true);
 
         return $this;
     }

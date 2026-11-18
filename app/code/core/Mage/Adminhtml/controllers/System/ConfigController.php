@@ -55,6 +55,11 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     {
         parent::preDispatch();
 
+        // Already denied, redirected or forwarded: the section check would render the denied page a second time
+        if ($this->getFlag('', self::FLAG_NO_DISPATCH) === true) {
+            return $this;
+        }
+
         if ($this->getRequest()->getParam('section')) {
             $this->_isSectionAllowedFlag = $this->_isSectionAllowed($this->getRequest()->getParam('section'));
         }
