@@ -77,9 +77,9 @@
                     <?php if (isset($option['custom_view']) && $option['custom_view']): ?>
                         <?php echo $option['value'];?>
                     <?php else: ?>
-                        <?php echo Mage::helper('core/string')->truncate($option['value'], 55, '', $_remainder);?>
+                        <?php echo $this->escapeHtml(Mage::helper('core/string')->truncate($option['value'], 55, '', $_remainder));?>
                         <?php if ($_remainder):?>
-                            ... <span id="<?php echo $_id = 'id' . uniqid()?>"><?php echo $_remainder ?></span>
+                            ... <span id="<?php echo $_id = 'id' . uniqid()?>"><?php echo $this->escapeHtml($_remainder) ?></span>
                             <script type="text/javascript">
                             $('<?php echo $_id ?>').hide();
                             $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});

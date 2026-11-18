@@ -44,7 +44,7 @@
                     <?php elseif($track->getTrackSummary()): ?>
                     <tr>
                         <th class="label"><?php echo $this->__('Info:'); ?></th>
-                        <td class="value"><?php echo $track->getTrackSummary(); ?></td>
+                        <td class="value"><?php echo $this->escapeHtml($track->getTrackSummary()); ?></td>
                     </tr>
                     <?php elseif($track->getUrl()): ?>
                     <tr>
@@ -55,49 +55,49 @@
                         <?php if ($track->getStatus()): ?>
                         <tr>
                             <th class="label"><?php echo $this->__('Status:'); ?></th>
-                            <td class="value"><?php echo $track->getStatus(); ?></td>
+                            <td class="value"><?php echo $this->escapeHtml($track->getStatus()); ?></td>
                         </tr>
                         <?php endif ?>
 
                         <?php if ($track->getDeliverydate()): ?>
                         <tr>
                             <th class="label"><?php echo $this->__('Delivered on:'); ?></th>
-                            <td class="value"><?php echo $this->formatDeliveryDateTime($track->getDeliverydate(),$track->getDeliverytime()); ?></td>
+                            <td class="value"><?php echo $this->escapeHtml($this->formatDeliveryDateTime($track->getDeliverydate(), $track->getDeliverytime())); ?></td>
                         </tr>
                         <?php endif ?>
 
                         <?php if ($track->getSignedby()): ?>
                         <tr>
                             <th class="label"><?php echo $this->__('Signed by:'); ?></th>
-                            <td class="value"><?php echo $track->getSignedby(); ?></td>
+                            <td class="value"><?php echo $this->escapeHtml($track->getSignedby()); ?></td>
                         </tr>
                         <?php endif ?>
 
                         <?php if ($track->getDeliveryLocation()): ?>
                         <tr>
                             <th class="label"><?php echo $this->__('Delivered to:'); ?></th>
-                            <td class="value"><?php echo $track->getDeliveryLocation(); ?></td>
+                            <td class="value"><?php echo $this->escapeHtml($track->getDeliveryLocation()); ?></td>
                         </tr>
                         <?php endif ?>
 
                         <?php if ($track->getShippedDate()): ?>
                         <tr>
                             <th class="label"><?php echo $this->__('Shipped or billed on:'); ?></th>
-                            <td class="value"><?php echo $track->getShippedDate(); ?></td>
+                            <td class="value"><?php echo $this->escapeHtml($track->getShippedDate()); ?></td>
                         </tr>
                         <?php endif ?>
 
                         <?php if ($track->getService()): ?>
                         <tr>
                             <th class="label"><?php echo $this->__('Service Type:'); ?></th>
-                            <td class="value"><?php echo $track->getService(); ?></td>
+                            <td class="value"><?php echo $this->escapeHtml($track->getService()); ?></td>
                         </tr>
                         <?php endif ?>
 
                         <?php if ($track->getWeight()): ?>
                         <tr>
                             <th class="label"><?php echo $this->__('Weight:'); ?></th>
-                            <td class="value"><?php echo $track->getWeight(); ?></td>
+                            <td class="value"><?php echo $this->escapeHtml($track->getWeight()); ?></td>
                         </tr>
                         <?php endif ?>
                     <?php endif ?>
@@ -113,7 +113,8 @@
             <script type="text/javascript">decorateTable('tracking-table-popup-<?php echo $_id++ ?>');</script>
             <?php if (is_object($track) && is_array($track->getProgressdetail()) && count($track->getProgressdetail()) > 0): ?>
                 <br />
-                <table class="data-table" id="track-history-table-<?php echo $track->getTracking(); ?>">
+                <?php $_historyTableId = 'track-history-table-' . $track->getTracking() ?>
+                <table class="data-table" id="<?php echo $this->escapeHtml($_historyTableId) ?>">
                     <col />
                     <col width="1" />
                     <col width="1" />
@@ -131,15 +132,15 @@
                     <?php $_detailDate = (isset($_detail['deliverydate']) ? $this->formatDeliveryDate($_detail['deliverydate']) : '') ?>
                     <?php $_detailTime = (isset($_detail['deliverytime']) ? $this->formatDeliveryTime($_detail['deliverytime'], $_detail['deliverydate']) : '') ?>
                         <tr>
-                            <td><?php echo ($_detail['deliverylocation'] ?? ''); ?></td>
-                            <td><span class="nobr"><?php echo $_detailDate ?></span></td>
-                            <td><span class="nobr"><?php echo $_detailTime ?></span></td>
-                            <td><?php echo ($_detail['activity'] ?? '') ?></td>
+                            <td><?php echo $this->escapeHtml($_detail['deliverylocation'] ?? ''); ?></td>
+                            <td><span class="nobr"><?php echo $this->escapeHtml($_detailDate) ?></span></td>
+                            <td><span class="nobr"><?php echo $this->escapeHtml($_detailTime) ?></span></td>
+                            <td><?php echo $this->escapeHtml($_detail['activity'] ?? '') ?></td>
                         </tr>
                    <?php endforeach ?>
                    </tbody>
                 </table>
-                <script type="text/javascript">decorateTable('track-history-table-<?php echo $track->getTracking(); ?>');</script>
+                <script type="text/javascript">decorateTable(<?php echo Mage::helper('core')->jsonEncode($_historyTableId) ?>);</script>
             <?php endif ?>
             <div class="divider"></div>
             <?php if($counter!=$rowCount): ?>

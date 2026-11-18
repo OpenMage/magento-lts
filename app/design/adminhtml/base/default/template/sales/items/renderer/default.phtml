@@ -7,7 +7,7 @@
  */
 ?>
 
-<?php echo $this->getItem()->getName() ?>
+<?php echo $this->escapeHtml($this->getItem()->getName()) ?>
 <div><strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($this->getItem()->getSku()))); ?></div>
 <?php if ($this->getOrderOptions()): ?>
     <ul class="item-options">
