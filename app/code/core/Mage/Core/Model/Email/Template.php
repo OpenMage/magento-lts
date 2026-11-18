@@ -611,7 +611,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $variables = Zend_Json::decode($variablesString);
         }
 
-        return $variables;
+        return is_array($variables) ? $variables : [];
     }
 
     /**
@@ -626,9 +626,13 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $variables = $this->_parseVariablesString($this->getDataByKey('orig_template_variables'));
         if ($variables) {
             foreach ($variables as $value => $label) {
+                if (!is_scalar($label)) {
+                    continue;
+                }
+
                 $optionArray[] = [
                     'value' => '{{' . $value . '}}',
-                    'label' => Mage::helper('core')->__('%s', $label),
+                    'label' => Mage::helper('core')->__('%s', Mage::helper('core')->escapeHtml((string) $label)),
                 ];
             }
 
