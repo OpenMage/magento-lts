@@ -15,6 +15,13 @@
 class Mage_Widget_Model_Widget extends Varien_Object
 {
     /**
+     * Whether each widget type checked so far is declared in a widget.xml, by type
+     *
+     * @var array<string, bool>
+     */
+    protected $_declaredTypes = [];
+
+    /**
      * Load Widgets XML config from widget.xml files and cache it
      *
      * @return Varien_Simplexml_Config
@@ -44,17 +51,58 @@ class Mage_Widget_Model_Widget extends Varien_Object
     /**
      * Return widget XML config element based on its type
      *
+     * The type is compared as a plain string, never interpolated into an XPath expression,
+     * so a type that is not declared in a widget.xml can never resolve to a declared widget.
+     *
      * @param  string                        $type Widget type
      * @return null|Varien_Simplexml_Element
      */
     public function getXmlElementByType($type)
     {
-        $elements = $this->getXmlConfig()->getXpath('*[@type="' . $type . '"]');
-        if (is_array($elements) && isset($elements[0]) && $elements[0] instanceof Varien_Simplexml_Element) {
-            return $elements[0];
+        if (!is_string($type) || $type === '') {
+            return null;
+        }
+
+        $widgets = $this->getXmlConfig()->getNode();
+        if (!$widgets instanceof Varien_Simplexml_Element) {
+            return null;
+        }
+
+        foreach ($widgets->children() as $element) {
+            if ($element->getAttribute('type') === $type) {
+                return $element;
+            }
         }
 
         return null;
+    }
+
+    /**
+     * Check whether a widget type is declared in a widget.xml of an installed module
+     *
+     * The answer for each type is kept for the rest of the request, because saving a widget
+     * instance checks its type once per layout handle; resetDeclaredTypes() forgets them.
+     *
+     * @param string $type Widget type
+     */
+    public function isWidgetTypeDeclared($type): bool
+    {
+        if (!is_string($type) || $type === '') {
+            return false;
+        }
+
+        return $this->_declaredTypes[$type] ??= $this->getXmlElementByType($type) !== null;
+    }
+
+    /**
+     * Forget the answers kept by isWidgetTypeDeclared(), so the next check reads the widget config again
+     *
+     * @return $this
+     */
+    public function resetDeclaredTypes()
+    {
+        $this->_declaredTypes = [];
+        return $this;
     }
 
     /**
