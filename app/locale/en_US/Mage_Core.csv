@@ -188,6 +188,7 @@
 "Invalid transactional email code: %s","Invalid transactional email code: %s"
 "Invalid website's configuration path: %s","Invalid website's configuration path: %s"
 "JavaScript Settings","JavaScript Settings"
+"JSON arguments should not be used in custom layout updates.","JSON arguments should not be used in custom layout updates."
 "Layout","Layout"
 "Leave empty for access from any location.","Leave empty for access from any location."
 "List of stores","List of stores"

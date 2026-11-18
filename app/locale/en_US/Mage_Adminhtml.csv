@@ -529,6 +529,7 @@
 "JavaScript seems to be disabled in your browser.","JavaScript seems to be disabled in your browser."
 "JavaScript/CSS","JavaScript/CSS"
 "JavaScript/CSS Cache","JavaScript/CSS Cache"
+"JSON arguments should not be used in custom layout updates.","JSON arguments should not be used in custom layout updates."
 "Kb","Kb"
 "Key %s does not contain scalar value","Key %s does not contain scalar value"
 "Key %s does not exist in array","Key %s does not exist in array"

@@ -109,4 +109,94 @@ final class ColumnTest extends OpenMageTest
             }
         }
     }
+
+    /**
+     * A static ["Class", "method"] frame callback, the only kind layout XML can express, is not called
+     *
+     * @group Block
+     */
+    public function testStaticFrameCallbackIsNotCalled(): void
+    {
+        $column = $this->createColumn();
+        $column->setFrameCallback([self::class, 'staticFrameCallback']);
+
+        self::$staticCalls = 0;
+
+        self::assertSame('cell', $column->getRowField(new Varien_Object(['value' => 'cell'])));
+        self::assertSame('cell', $column->getRowFieldExport(new Varien_Object(['value' => 'cell'])));
+        self::assertSame(0, self::$staticCalls);
+
+        $column->setFrameCallback(['Zend_Loader', 'loadFile']);
+        self::assertSame('x', $column->getRowFieldExport(new Varien_Object(['value' => 'x'])));
+    }
+
+    /**
+     * @group Block
+     */
+    public function testObjectFrameCallbackIsCalled(): void
+    {
+        $column = $this->createColumn();
+        $decorator = new class {
+            public function decorate(string $value, Varien_Object $row, Subject $column, bool $isExport): string
+            {
+                return '[' . $value . ($isExport ? '|export' : '') . ']';
+            }
+        };
+
+        // the [object, method] array form that grids built before first-class callables use
+        $method = 'decorate';
+        $column->setFrameCallback([$decorator, $method]);
+        self::assertSame('[cell]', $column->getRowField(new Varien_Object(['value' => 'cell'])));
+        self::assertSame('[cell|export]', $column->getRowFieldExport(new Varien_Object(['value' => 'cell'])));
+
+        $column->setFrameCallback(static fn(string $value): string => '<' . $value . '>');
+        self::assertSame('<cell>', $column->getRowField(new Varien_Object(['value' => 'cell'])));
+    }
+
+    /**
+     * @group Block
+     */
+    public function testGetterCallables(): void
+    {
+        $column = $this->createColumn();
+        $row = new Varien_Object(['value' => 'cell']);
+
+        $column->setGetter('getValue');
+        self::assertSame('cell', $column->getRowFieldExport($row));
+
+        $column->setGetter(static fn(Varien_Object $row): string => 'closure:' . $row->getValue());
+        self::assertSame('closure:cell', $column->getRowFieldExport($row));
+
+        $column->setGetter([self::class, 'staticFrameCallback']);
+        self::$staticCalls = 0;
+        self::assertSame('', $column->getRowFieldExport($row));
+        self::assertSame(0, self::$staticCalls);
+    }
+
+    public static int $staticCalls = 0;
+
+    public static function staticFrameCallback(mixed ...$args): string
+    {
+        self::$staticCalls++;
+        return 'called';
+    }
+
+    private function createColumn(): Subject
+    {
+        $column = new Subject();
+        $column->setIndex('value');
+
+        $renderer = new class extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract {
+            #[Override]
+            public function render(Varien_Object $row)
+            {
+                return (string) $this->_getValue($row);
+            }
+        };
+        $renderer->setColumn($column);
+
+        $column->setRenderer($renderer);
+
+        return $column;
+    }
 }

@@ -26,6 +26,8 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
 
     public const PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR = 'protectedAttrHelperInActionVar';
 
+    public const PROTECTED_ATTR_JSON_IN_TAG_ACTION       = 'protectedAttrJsonInAction';
+
     public const INVALID_XML_OBJECT_EXCEPTION            = 'invalidXmlObject';
 
     /**
@@ -71,6 +73,22 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
      */
     protected $_protectedExpressions = [
         self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR => "//*[local-name()='action']/*[@helper]",
+        // The layout generator JSON-decodes the action arguments named in a "json" attribute. That is the only
+        // way layout XML can pass a list, and so a callable such as ["Class", "method"], to a block method.
+        self::PROTECTED_ATTR_JSON_IN_TAG_ACTION       => '//*[@json]',
+    ];
+
+    /**
+     * Admin block classes that may not be placed on the storefront by a custom layout update
+     *
+     * Admin blocks expect an authorised back-office user. On the storefront they publish admin data (grids
+     * load whole collections) and accept configuration that runs code, such as grid column callbacks.
+     *
+     * @var list<class-string>
+     */
+    protected $_adminhtmlBlockClasses = [
+        Mage_Adminhtml_Block_Abstract::class,
+        Mage_Adminhtml_Block_Template::class,
     ];
 
     public function __construct()
@@ -90,6 +108,8 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
             $this->_messageTemplates = [
                 self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR
                     => Mage::helper('core')->__('Helper attributes should not be used in custom layout updates.'),
+                self::PROTECTED_ATTR_JSON_IN_TAG_ACTION
+                    => Mage::helper('core')->__('JSON arguments should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('core')->__('XML data is invalid.'),
                 self::INVALID_TEMPLATE_PATH => Mage::helper('core')->__(
                     'Invalid template path used in layout update.',
@@ -249,6 +269,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
      * class names case-insensitively, with or without a leading backslash. The XPath block test
      * only compares the literal "type" attribute, so every block is also checked here against
      * the class the generator would actually create, including subclasses of a disallowed class.
+     * Admin blocks are always disallowed, see _isAdminhtmlBlock().
      */
     protected function _hasDisallowedBlock(Varien_Simplexml_Element $xml): bool
     {
@@ -260,10 +281,6 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
             }
         }
 
-        if ($disallowed === []) {
-            return false;
-        }
-
         $blocks = $xml->xpath("//*[local-name()='block']");
         foreach (is_array($blocks) ? $blocks : [] as $block) {
             foreach (['class', 'type'] as $attribute) {
@@ -272,7 +289,7 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
                     continue;
                 }
 
-                if (isset($disallowed[strtolower($className)])) {
+                if ($this->_isAdminhtmlBlock($className) || isset($disallowed[strtolower($className)])) {
                     return true;
                 }
 
@@ -281,6 +298,28 @@ class Mage_Core_Model_Layout_Validator extends Mage_Core_Model_Validate_Abstract
                         return true;
                     }
                 }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Whether $className is an admin block
+     *
+     * Matches the core admin blocks ("adminhtml/..." resolves to Mage_Adminhtml_Block_...), the
+     * "Block_Adminhtml" naming used by admin blocks of other modules and extensions, and any class
+     * extending a core admin block base class.
+     */
+    protected function _isAdminhtmlBlock(string $className): bool
+    {
+        if (preg_match('/^Mage_Adminhtml_|[_\\\\]Block[_\\\\]Adminhtml(?:[_\\\\]|$)/i', $className) === 1) {
+            return true;
+        }
+
+        foreach ($this->_adminhtmlBlockClasses as $adminhtmlBlockClass) {
+            if ($this->_isSubclassOf($className, $adminhtmlBlockClass)) {
+                return true;
             }
         }
 

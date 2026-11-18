@@ -24,6 +24,8 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Model_Valida
 
     public const PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR = 'protectedAttrHelperInActionVar';
 
+    public const PROTECTED_ATTR_JSON_IN_TAG_ACTION       = 'protectedAttrJsonInAction';
+
     /**
      * The Varien SimpleXml object
      *
@@ -114,6 +116,8 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Mage_Core_Model_Valida
             $this->_messageTemplates = [
                 self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR
                     => Mage::helper('adminhtml')->__('Helper attributes should not be used in custom layout updates.'),
+                self::PROTECTED_ATTR_JSON_IN_TAG_ACTION
+                    => Mage::helper('adminhtml')->__('JSON arguments should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('adminhtml')->__('XML data is invalid.'),
                 self::INVALID_TEMPLATE_PATH => Mage::helper('adminhtml')->__(
                     'Invalid template path used in layout update.',

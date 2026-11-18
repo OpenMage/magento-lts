@@ -92,7 +92,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         $action->loadLayoutUpdates();
         $layoutUpdate = ($page->getCustomLayoutUpdateXml() && $inRange)
             ? $page->getCustomLayoutUpdateXml() : $page->getLayoutUpdateXml();
-        $action->getLayout()->getUpdate()->addUpdate($layoutUpdate);
+        $action->getLayout()->getUpdate()->addUpdate($this->_getValidLayoutUpdate((string) $layoutUpdate));
         $action->generateLayoutXml()->generateLayoutBlocks();
 
         $contentHeadingBlock = $action->getLayout()->getBlock('page_content_heading');
@@ -136,6 +136,30 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     public function renderPageExtended(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
     {
         return $this->_renderPage($action, $pageId, $renderLayout);
+    }
+
+    /**
+     * Return the page layout update if it passes the custom layout update validator, '' otherwise
+     *
+     * The update is validated when the page is saved, but a stored update saved before a validator
+     * rule existed would otherwise still be applied. Product and category layout updates are
+     * validated at render time in the same way (Mage_Catalog_Model_Design).
+     */
+    protected function _getValidLayoutUpdate(string $layoutUpdate): string
+    {
+        if (trim($layoutUpdate) === '') {
+            return $layoutUpdate;
+        }
+
+        try {
+            if (Mage::getModel('core/layout_validator')->isValid($layoutUpdate)) {
+                return $layoutUpdate;
+            }
+        } catch (Exception) {
+            // an update that cannot be validated is not applied
+        }
+
+        return '';
     }
 
     /**
