@@ -71,7 +71,9 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
             }
 
             if (isset($options['attributes_info'])) {
-                $result = array_merge($result, $options['attributes_info']);
+                /** @var Mage_Catalog_Helper_Product_Configuration $helper */
+                $helper = Mage::helper('catalog/product_configuration');
+                $result = array_merge($result, $helper->escapeAttributesInfo($options['attributes_info']));
             }
         }
 
