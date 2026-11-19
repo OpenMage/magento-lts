@@ -30,7 +30,6 @@ if (!isset($this) || !$this instanceof Mage_Core_Model_Resource_Setup) {
     return;
 }
 
-/** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
 

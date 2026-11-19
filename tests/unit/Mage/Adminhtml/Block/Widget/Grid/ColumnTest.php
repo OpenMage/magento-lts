@@ -118,7 +118,7 @@ final class ColumnTest extends OpenMageTest
     public function testStaticFrameCallbackIsNotCalled(): void
     {
         $column = $this->createColumn();
-        $column->setFrameCallback(self::staticFrameCallback(...));
+        $column->setFrameCallback($this->staticCallbackArray());
 
         self::$staticCalls = 0;
 
@@ -167,7 +167,7 @@ final class ColumnTest extends OpenMageTest
         $column->setGetter(static fn(Varien_Object $row): string => 'closure:' . $row->getValue());
         self::assertSame('closure:cell', $column->getRowFieldExport($row));
 
-        $column->setGetter(self::staticFrameCallback(...));
+        $column->setGetter($this->staticCallbackArray());
         self::$staticCalls = 0;
         self::assertSame('', $column->getRowFieldExport($row));
         self::assertSame(0, self::$staticCalls);
@@ -198,5 +198,17 @@ final class ColumnTest extends OpenMageTest
         $column->setRenderer($renderer);
 
         return $column;
+    }
+
+    /**
+     * The static ["Class", "method"] array that layout XML can express. The method name is passed
+     * through a variable so that Rector's ArrayToFirstClassCallableRector does not turn the array
+     * into a closure, which the column is meant to allow.
+     *
+     * @return array{class-string, string}
+     */
+    private function staticCallbackArray(string $method = 'staticFrameCallback'): array
+    {
+        return [self::class, $method];
     }
 }
