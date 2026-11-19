@@ -25,6 +25,11 @@
 
 use Monolog\Level;
 
+// Only run from a setup resource: PHPUnit 9 re-includes every loaded file in tests that run in a separate process
+if (!isset($this) || !$this instanceof Mage_Core_Model_Resource_Setup) {
+    return;
+}
+
 /** @var Mage_Core_Model_Resource_Setup $this */
 $installer = $this;
 $installer->startSetup();
