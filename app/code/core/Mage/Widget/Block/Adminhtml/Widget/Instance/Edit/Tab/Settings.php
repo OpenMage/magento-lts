@@ -148,12 +148,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
      */
     public function getTypesOptionsArray()
     {
-        $widgets = $this->getWidgetInstance()->getWidgetsOptionArray();
-        array_unshift($widgets, [
-            'value' => '',
-            'label' => Mage::helper('widget')->__('-- Please Select --'),
-        ]);
-        return $widgets;
+        return Mage::getModel('widget/widget')->getWidgetsOptionArray();
     }
 
     /**

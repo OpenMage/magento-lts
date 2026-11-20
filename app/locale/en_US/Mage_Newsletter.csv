@@ -38,6 +38,7 @@
 "Error Code","Error Code"
 "Error Text","Error Text"
 "Follow this link to unsubscribe <!-- This tag is for unsubscribe link  --><a href=""{{var subscriber.getUnsubscriptionLink()}}"">{{var subscriber.getUnsubscriptionLink()}}</a>","Follow this link to unsubscribe <!-- This tag is for unsubscribe link  --><a href=""{{var subscriber.getUnsubscriptionLink()}}"">{{var subscriber.getUnsubscriptionLink()}}</a>"
+"Forms","Forms"
 "Guest","Guest"
 "ID","ID"
 "Invalid queue selected.","Invalid queue selected."

@@ -9,7 +9,8 @@
 -->
 <widgets>
     <new_products type="catalog/product_widget_new" translate="name description" module="catalog">
-        <name>Catalog New Products List</name>
+        <name>New Products List</name>
+        <group>Catalog</group>
         <description>List of Products that are set as New</description>
         <is_email_compatible>1</is_email_compatible>
         <parameters>
@@ -79,7 +80,8 @@
     </new_products>
 
     <catalog_product_link type="catalog/product_widget_link" translate="name description" module="catalog">
-        <name>Catalog Product Link</name>
+        <name>Product Link</name>
+        <group>Catalog</group>
         <description>Link to a Specified Product</description>
         <is_email_compatible>1</is_email_compatible>
         <parameters>
@@ -129,7 +131,8 @@
     </catalog_product_link>
 
     <catalog_category_link type="catalog/category_widget_link" translate="name description" module="catalog">
-        <name>Catalog Category Link</name>
+        <name>Category Link</name>
+        <group>Catalog</group>
         <description>Link to a Specified Category</description>
         <is_email_compatible>1</is_email_compatible>
         <parameters>
