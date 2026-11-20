@@ -37,13 +37,15 @@ final class SetCommandTest extends TestCase
 
     private const CONFIG_PATH_TARGET = 'paypal/general/merchant_country';
 
+    private const FILE_FIELD = 'design/head/shortcut_icon';
+
     private const LOG_PATHS = ['system/log/enabled', 'system/log/time', 'system/log/frequency',
         'crontab/jobs/log_clean/schedule/cron_expr', 'crontab/jobs/log_clean/run/model'];
 
     protected function setUp(): void
     {
         $this->snapshotConfig([
-            self::BASE_URL, self::ENCRYPTED, self::UNKNOWN_FIELD, self::CONFIG_PATH_FIELD, self::CONFIG_PATH_TARGET, ...self::LOG_PATHS,
+            self::BASE_URL, self::ENCRYPTED, self::UNKNOWN_FIELD, self::CONFIG_PATH_FIELD, self::CONFIG_PATH_TARGET, self::FILE_FIELD, ...self::LOG_PATHS,
         ]);
     }
 
@@ -278,6 +280,20 @@ final class SetCommandTest extends TestCase
         );
         self::assertSame([], $this->storedRows(self::CONFIG_PATH_FIELD));
         self::assertSame([], $this->storedRows(self::CONFIG_PATH_TARGET));
+    }
+
+    public function testValidateRefusesAFileField(): void
+    {
+        $before = $this->storedRows(self::FILE_FIELD);
+        $tester = $this->createTester();
+
+        self::assertSame(Command::FAILURE, $tester->execute(['path' => self::FILE_FIELD, 'value' => 'favicon.ico', '--validate' => true], ['capture_stderr_separately' => true]));
+        self::assertSame('', $tester->getDisplay());
+        self::assertStringContainsString(
+            sprintf('The field %s uploads a file: --validate cannot save it, nothing was saved.', self::FILE_FIELD),
+            $tester->getErrorOutput(),
+        );
+        self::assertSame($before, $this->storedRows(self::FILE_FIELD));
     }
 
     public function testValidateEncryptsProtectedFields(): void

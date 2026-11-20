@@ -17,6 +17,7 @@ use Mage;
 use Mage_Adminhtml_Helper_Config;
 use Mage_Adminhtml_Model_Config;
 use Mage_Adminhtml_Model_System_Config_Backend_Encrypted;
+use Mage_Adminhtml_Model_System_Config_Backend_File;
 use Mage_Core_Exception;
 use Mage_Core_Model_Config_Data;
 use Mage_Core_Model_Resource_Config_Data_Collection;
@@ -178,6 +179,11 @@ final class SetCommand extends AbstractConfigCommand
         $model = Mage::getModel($backendClass ?? 'core/config_data');
         if (!$model instanceof Mage_Core_Model_Config_Data) {
             Mage::throwException(sprintf('Invalid config field backend model: %s', (string) $backendClass));
+        }
+
+        // _beforeSave() of the file backends takes the value from an uploaded file and drops the posted one.
+        if ($model instanceof Mage_Adminhtml_Model_System_Config_Backend_File) {
+            Mage::throwException(sprintf('The field %s uploads a file: --validate cannot save it, nothing was saved.', $path));
         }
 
         if ($encrypted && $model instanceof Mage_Adminhtml_Model_System_Config_Backend_Encrypted) {
