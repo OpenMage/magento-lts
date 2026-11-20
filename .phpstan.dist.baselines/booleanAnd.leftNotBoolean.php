@@ -807,6 +807,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/controllers/CategoryController.php',
 ];
 $ignoreErrors[] = [
+    'rawMessage' => 'Only booleans are allowed in &&, mixed given on the left side.',
+    'count' => 1,
+    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/controllers/Product/CompareController.php',
+];
+$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, Mage_Catalog_Model_Category given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/controllers/ProductController.php',

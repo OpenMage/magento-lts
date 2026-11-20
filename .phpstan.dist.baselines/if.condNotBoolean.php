@@ -3378,7 +3378,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/controllers/Product/CompareController.php',
 ];
 $ignoreErrors[] = [
