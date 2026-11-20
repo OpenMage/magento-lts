@@ -727,21 +727,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Rule/Model/Resource/Rule/Collection/Abstract.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Block_Order_Comments::getComments() return type with generic class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract does not specify its types: T',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Order/Comments.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'PHPDoc tag @var for variable $commentCollection contains generic class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract but does not specify its types: T',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Order/Comments.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Property Mage_Sales_Block_Order_Comments::$_commentCollection with generic class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract does not specify its types: T',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Order/Comments.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Block_Order_Details::getInvoices() return type with generic class Mage_Sales_Model_Resource_Order_Collection_Abstract does not specify its types: T',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Block/Order/Details.php',
@@ -855,16 +840,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Model_Entity_Sale_Collection::getIterator() return type with generic class ArrayIterator does not specify its types: TKey, TValue',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Entity/Sale/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Model_Order_Creditmemo::getCommentsCollection() return type with generic class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract does not specify its types: T',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Sales_Model_Order_Invoice::getCommentsCollection() return type with generic class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract does not specify its types: T',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Invoice.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Sales_Model_Resource_Order_Collection::addAddressFields() return type with generic class Mage_Sales_Model_Resource_Collection_Abstract does not specify its types: T',

@@ -50,7 +50,6 @@
  * @method float                                              getShippingTaxAmount()
  * @method int                                                getState()
  * @method string                                             getStoreCurrencyCode()
- * @method int                                                getStoreId()
  * @method float                                              getStoreToBaseRate()
  * @method float                                              getStoreToOrderRate()
  * @method float                                              getSubtotal()
@@ -94,7 +93,6 @@
  * @method $this                                              setShippingTaxAmount(float $value)
  * @method $this                                              setState(int $value)
  * @method $this                                              setStoreCurrencyCode(string $value)
- * @method $this                                              setStoreId(int $value)
  * @method $this                                              setStoreToBaseRate(float $value)
  * @method $this                                              setStoreToOrderRate(float $value)
  * @method $this                                              setSubtotal(float $value)
@@ -105,6 +103,15 @@
  */
 class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
 {
+    public const ENTITY                                = 'invoice';
+
+    /**
+     * Event type names for order emails
+     */
+    public const EMAIL_EVENT_NAME_NEW_INVOICE    = 'new_invoice';
+
+    public const EMAIL_EVENT_NAME_UPDATE_INVOICE = 'update_invoice';
+
     /**
      * Invoice states
      */
@@ -229,7 +236,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             ->addAttributeToFilter('increment_id', $incrementId)
             ->getAllIds();
 
-        if (!empty($ids)) {
+        if ($ids !== []) {
             reset($ids);
             $this->load(current($ids));
         }
@@ -544,7 +551,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      */
     public function getItemsCollection()
     {
-        if (empty($this->_items)) {
+        if (is_null($this->_items)) {
             $this->_items = Mage::getResourceModel('sales/order_invoice_item_collection')
                 ->setInvoiceFilter($this->getId());
 
@@ -760,8 +767,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param  bool                                                        $reload
-     * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
+     * @param  bool                                                       $reload
+     * @return Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection
      */
     public function getCommentsCollection($reload = false)
     {
@@ -805,35 +812,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $copyTo = $this->_getEmails(self::XML_PATH_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $storeId);
         // Check if at least one recipient is found
-        if (!$notifyCustomer && !$copyTo) {
+        if (!$notifyCustomer && !is_array($copyTo)) {
             return $this;
         }
 
-        // Start store emulation process
-        if ($storeId != Mage::app()->getStore()->getId()) {
-            $appEmulation = Mage::getSingleton('core/app_emulation');
-            $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
-        }
-
-        try {
-            // Retrieve specified view block from appropriate design package (depends on emulated store)
-            $paymentBlock = Mage::helper('payment')->getInfoBlock($order->getPayment())
-                ->setIsSecureMode(true);
-            $paymentBlock->getMethod()->setStore($storeId);
-            $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $exception) {
-            // Stop store emulation process
-            if (isset($appEmulation, $initialEnvironmentInfo)) {
-                $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-            }
-
-            throw $exception;
-        }
-
-        // Stop store emulation process
-        if (isset($appEmulation, $initialEnvironmentInfo)) {
-            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-        }
+        $paymentBlockHtml = $this->getPaymentBlockHtml($order);
 
         // Retrieve corresponding email template id and customer name
         if ($order->getCustomerIsGuest()) {
@@ -844,11 +827,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             $customerName = $order->getCustomerName();
         }
 
-        $mailer = Mage::getModel('core/email_template_mailer');
+        $mailer = $this->getMailer();
         if ($notifyCustomer) {
             $emailInfo = Mage::getModel('core/email_info');
             $emailInfo->addTo($order->getCurrentCustomerEmail(), $customerName);
-            if ($copyTo && $copyMethod == 'bcc') {
+            if (is_array($copyTo) && $copyMethod == 'bcc') {
                 // Add bcc to customer email
                 foreach ($copyTo as $email) {
                     $emailInfo->addBcc($email);
@@ -859,7 +842,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         }
 
         // Email copies are sent as separated emails if their copy method is 'copy' or a customer should not be notified
-        if ($copyTo && ($copyMethod == 'copy' || !$notifyCustomer)) {
+        if (is_array($copyTo) && ($copyMethod == 'copy' || !$notifyCustomer)) {
             foreach ($copyTo as $email) {
                 $emailInfo = Mage::getModel('core/email_info');
                 $emailInfo->addTo($email);
@@ -878,7 +861,15 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             'billing'      => $order->getBillingAddress(),
             'payment_html' => $paymentBlockHtml,
         ]);
-        $mailer->send();
+
+        /** @var Mage_Core_Model_Email_Queue $emailQueue */
+        $emailQueue = Mage::getModel('core/email_queue');
+        $emailQueue->setEntityId($this->getId())
+            ->setEntityType(self::ENTITY)
+            ->setEventType(self::EMAIL_EVENT_NAME_NEW_INVOICE)
+            ->setIsForceCheck(true);
+
+        $mailer->setQueue($emailQueue)->send();
 
         if ($notifyCustomer) {
             $this->setEmailSent(true);
@@ -908,7 +899,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $copyTo = $this->_getEmails(self::XML_PATH_UPDATE_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_COPY_METHOD, $storeId);
         // Check if at least one recipient is found
-        if (!$notifyCustomer && !$copyTo) {
+        if (!$notifyCustomer && !is_array($copyTo)) {
             return $this;
         }
 
@@ -921,11 +912,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             $customerName = $order->getCustomerName();
         }
 
-        $mailer = Mage::getModel('core/email_template_mailer');
+        $mailer = $this->getMailer();
         if ($notifyCustomer) {
             $emailInfo = Mage::getModel('core/email_info');
             $emailInfo->addTo($order->getCurrentCustomerEmail(), $customerName);
-            if ($copyTo && $copyMethod == 'bcc') {
+            if (is_array($copyTo) && $copyMethod == 'bcc') {
                 // Add bcc to customer email
                 foreach ($copyTo as $email) {
                     $emailInfo->addBcc($email);
@@ -936,7 +927,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         }
 
         // Email copies are sent as separated emails if their copy method is 'copy' or a customer should not be notified
-        if ($copyTo && ($copyMethod == 'copy' || !$notifyCustomer)) {
+        if (is_array($copyTo) && ($copyMethod == 'copy' || !$notifyCustomer)) {
             foreach ($copyTo as $email) {
                 $emailInfo = Mage::getModel('core/email_info');
                 $emailInfo->addTo($email);
@@ -954,23 +945,17 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             'comment'      => $comment,
             'billing'      => $order->getBillingAddress(),
         ]);
-        $mailer->send();
+
+        /** @var Mage_Core_Model_Email_Queue $emailQueue */
+        $emailQueue = Mage::getModel('core/email_queue');
+        $emailQueue->setEntityId($this->getId())
+            ->setEntityType(self::ENTITY)
+            ->setEventType(self::EMAIL_EVENT_NAME_UPDATE_INVOICE)
+            ->setIsForceCheck(true);
+
+        $mailer->setQueue($emailQueue)->send();
 
         return $this;
-    }
-
-    /**
-     * @param  string     $configPath
-     * @return array|bool
-     */
-    protected function _getEmails($configPath)
-    {
-        $data = Mage::getStoreConfig($configPath, $this->getStoreId());
-        if (!empty($data)) {
-            return explode(',', $data);
-        }
-
-        return false;
     }
 
     /**
