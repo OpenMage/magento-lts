@@ -28,7 +28,8 @@ final class ReindexAllCommand extends AbstractIndexCommand
     #[Override]
     protected function configure(): void
     {
-        $this->setHelp('Rebuilds every index; when one fails or is locked, goes on with the next ones and exits with an error.');
+        $this->setHelp('Rebuilds every index; when one fails or is locked, goes on with the next ones and exits with an error.' . PHP_EOL
+            . 'Reindexes the dependencies of an index first and skips the index when one of them failed.');
     }
 
     #[Override]

@@ -28,6 +28,13 @@ use Throwable;
 abstract class AbstractIndexCommand extends AbstractCommand
 {
     /**
+     * Result of each process run by executeProcesses(), keyed by indexer code
+     *
+     * @var array<string, bool>
+     */
+    private array $results = [];
+
+    /**
      * Visible index processes keyed by indexer code, in the order of the index_process table
      *
      * @return array<string, Mage_Index_Model_Process>
@@ -62,17 +69,18 @@ abstract class AbstractIndexCommand extends AbstractCommand
     }
 
     /**
-     * Reindexes each process and goes on after a failure; returns false when at least one failed
+     * Reindexes each process after its dependencies and goes on after a failure; returns false when at least one failed
      *
      * @param list<Mage_Index_Model_Process> $processes
      */
     protected function executeProcesses(OutputInterface $output, array $processes): bool
     {
         $isSuccessful = true;
+        $this->results = [];
         Mage::dispatchEvent('shell_reindex_init_process');
         try {
             foreach ($processes as $process) {
-                $isSuccessful = $this->executeProcess($output, $process) && $isSuccessful;
+                $isSuccessful = $this->executeWithDependencies($output, $process) && $isSuccessful;
             }
         } finally {
             Mage::dispatchEvent('shell_reindex_finalize_process');
@@ -103,6 +111,38 @@ abstract class AbstractIndexCommand extends AbstractCommand
         } catch (Mage_Core_Exception) {
             return true;
         }
+    }
+
+    /**
+     * reindexEverything() flags a process as done before its reindexAll(), also when reindexAll() fails.
+     * The dependencies run first, once each; a process whose dependency failed is not run.
+     */
+    private function executeWithDependencies(OutputInterface $output, Mage_Index_Model_Process $process): bool
+    {
+        $code = $process->getIndexerCode();
+        if (isset($this->results[$code])) {
+            return $this->results[$code];
+        }
+
+        $failed = [];
+        foreach ($process->getDepends() as $dependencyCode) {
+            $dependency = $this->getIndexer()->getProcessByCode($dependencyCode);
+            if ($dependency instanceof Mage_Index_Model_Process && !$this->executeWithDependencies($output, $dependency)) {
+                $failed[] = $dependencyCode;
+            }
+        }
+
+        if ($failed !== []) {
+            $this->writeError($output, sprintf(
+                '<error>Reindex of %s skipped: dependency %s failed</error>',
+                $code,
+                implode(', ', $failed),
+            ));
+
+            return $this->results[$code] = false;
+        }
+
+        return $this->results[$code] = $this->executeProcess($output, $process);
     }
 
     private function executeProcess(OutputInterface $output, Mage_Index_Model_Process $process): bool

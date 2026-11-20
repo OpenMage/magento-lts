@@ -38,7 +38,8 @@ final class ReindexCommand extends AbstractIndexCommand
             ->setHelp('Rebuilds the given indexes, e.g. index:reindex catalog_product_price,catalog_url' . PHP_EOL
                 . 'Without code, lists the indexes and reads their numbers or codes, e.g. "1,3".' . PHP_EOL
                 . 'Fails without reindexing anything when a code is unknown; when an index fails or is locked,'
-                . ' goes on with the next ones and exits with an error.');
+                . ' goes on with the next ones and exits with an error.' . PHP_EOL
+                . 'Reindexes the dependencies of an index first and skips the index when one of them failed.');
     }
 
     #[Override]

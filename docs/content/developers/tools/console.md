@@ -100,6 +100,8 @@ With `--no-interaction` (`-n`), it fails and prints the known codes instead.
 An unknown code stops `index:reindex` before any reindex.
 `index:reindex` and `index:reindex:all` write their progress to the standard output.
 When an index fails or is locked, its error goes to the error output, the next indexes still run, and the command exits with the code 1.
+Each index runs after the indexes it depends on, once each, even when they are not given, e.g. `cataloginventory_stock` before `catalog_product_price`.
+An index whose dependency failed is not run and counts as failed.
 
 ### System information
 
@@ -223,6 +225,7 @@ The commands keep the names and arguments of n98-magerun, with these differences
 - `--magerun-script` of `config:get` adds `--force` to the commands for the ID 0 of the `websites` and `stores` scopes.
 - `config:set` refuses a path of less than three segments, and checks that the website or store of a numeric `--scope-id` exists.
 - `config:set` rebuilds the configuration after saving, and adds the `--validate` and `--no-reinit` options.
+- `index:reindex` and `index:reindex:all` print the dependencies they reindex, and do not run an index whose dependency failed.
 
 ## Declare a command in a module
 

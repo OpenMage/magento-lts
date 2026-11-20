@@ -67,6 +67,52 @@ final class ReindexCommandTest extends AbstractIndexCommandTestCase
         self::assertStringContainsString('Successfully re-indexed catalogsearch_fulltext', $tester->getDisplay());
     }
 
+    public function testIndexIsSkippedWhenItsDependencyFailed(): void
+    {
+        $this->useFailingIndexer('cataloginventory_stock');
+        $tester = $this->createTester('index:reindex');
+
+        self::assertSame(Command::FAILURE, $tester->execute(
+            ['index_code' => ['cataloginventory_stock,catalog_product_price,tag_summary']],
+            ['capture_stderr_separately' => true],
+        ));
+        self::assertSame(1, RecordingIndexer::$reindexCount);
+        self::assertStringContainsString(
+            'Reindex of catalog_product_price skipped: dependency cataloginventory_stock failed',
+            $tester->getErrorOutput(),
+        );
+        self::assertStringNotContainsString('Started reindex of: catalog_product_price', $tester->getDisplay());
+        self::assertStringContainsString('Successfully re-indexed tag_summary', $tester->getDisplay());
+    }
+
+    public function testDependencyIsReindexedFirstAndReportedOnce(): void
+    {
+        $this->useFailingIndexer('cataloginventory_stock');
+        $tester = $this->createTester('index:reindex');
+
+        self::assertSame(Command::FAILURE, $tester->execute(
+            ['index_code' => ['catalog_product_price,cataloginventory_stock']],
+            ['capture_stderr_separately' => true],
+        ));
+        self::assertSame(0, RecordingIndexer::$reindexCount);
+        self::assertSame(1, substr_count($tester->getErrorOutput(), 'Reindex of cataloginventory_stock finished with error'));
+        self::assertStringContainsString('Reindex of catalog_product_price skipped', $tester->getErrorOutput());
+        self::assertStringNotContainsString('Successfully re-indexed', $tester->getDisplay());
+    }
+
+    public function testSharedDependencyRunsOnce(): void
+    {
+        $tester = $this->createTester('index:reindex');
+
+        self::assertSame(Command::SUCCESS, $tester->execute(['index_code' => ['catalog_product_price,catalog_product_attribute']]));
+        self::assertSame(3, RecordingIndexer::$reindexCount);
+        self::assertSame(1, substr_count($tester->getDisplay(), 'Successfully re-indexed cataloginventory_stock'));
+        self::assertLessThan(
+            strpos($tester->getDisplay(), 'Started reindex of: catalog_product_price'),
+            strpos($tester->getDisplay(), 'Successfully re-indexed cataloginventory_stock'),
+        );
+    }
+
     public function testLockedIndexFailsWithoutWaiting(): void
     {
         $lockFile = $this->getConfig()->getVarDir('locks') . DS
