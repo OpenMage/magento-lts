@@ -9,6 +9,6 @@
 /** @var Mage_Adminhtml_Block_Sales_Order_Create_Comment $this */
  ?>
 <!--<h4 class="icon-head fieldset-legend <?php echo $this->getHeaderCssClass() ?>"><?php echo $this->getHeaderText() ?></h4>-->
-<label for="order-comment"><?php echo Mage::helper('sales')->__('Order Comments') ?></label><br />
-<textarea style="width:98%; height:8em;" id="order-comment" name="order[comment][customer_note]" rows="2" cols="15"><?php echo $this->getCommentNote() ?></textarea>
+<label for="order-comment-customer_note"><?php echo Mage::helper('sales')->__('Order Comments') ?></label><br />
+<textarea style="width:98%; height:8em;" id="order-comment-customer_note" name="order[comment][customer_note]" rows="2" cols="15"><?php echo $this->getCommentNote() ?></textarea>
 <script type="text/javascript">order.commentFieldsBind('order-comment')</script>
