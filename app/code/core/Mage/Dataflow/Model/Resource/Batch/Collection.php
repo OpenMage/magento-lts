@@ -11,6 +11,7 @@
  * Dataflow batch collection
  *
  * @package    Mage_Dataflow
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Dataflow_Model_Batch>
  */
 class Mage_Dataflow_Model_Resource_Batch_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

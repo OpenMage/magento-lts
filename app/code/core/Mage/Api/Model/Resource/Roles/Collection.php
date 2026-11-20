@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Api Roles Resource Collection
  *
  * @package    Mage_Api
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Api_Model_Role>
  */
 class Mage_Api_Model_Resource_Roles_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

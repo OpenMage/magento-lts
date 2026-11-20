@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Admin permissions block collection
  *
  * @package    Mage_Adminhtml
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Admin_Model_Block>
  */
 class Mage_Admin_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
