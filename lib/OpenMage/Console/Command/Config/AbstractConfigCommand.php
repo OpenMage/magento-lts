@@ -48,7 +48,7 @@ abstract class AbstractConfigCommand extends AbstractCommand
     /**
      * Converts a website or store code to its ID and checks that the website or store exists
      *
-     * Without $force, ID 0 is refused in the websites and stores scopes: it is the admin website and store.
+     * Without $force, the admin website and store (ID 0) are refused, given by ID or by code.
      */
     protected function resolveScopeId(string $scope, string $scopeId, bool $force = false): int
     {
@@ -84,7 +84,19 @@ abstract class AbstractConfigCommand extends AbstractCommand
             throw new InvalidArgumentException(sprintf('Unknown %s "%s" in scope %s.', $isId ? 'ID' : 'code', $scopeId, $scope));
         }
 
-        return (int) $entity->getId();
+        $entityId = (int) $entity->getId();
+        if ($entityId === 0 && !$force) {
+            $type = $scope === 'websites' ? 'website' : 'store';
+            throw new InvalidArgumentException(sprintf(
+                '%s "%s" in scope %s is the admin %s (ID 0), use --force to write it anyway.',
+                ucfirst($type),
+                $scopeId,
+                $scope,
+                $type,
+            ));
+        }
+
+        return $entityId;
     }
 
     protected function coreHelper(): Mage_Core_Helper_Data

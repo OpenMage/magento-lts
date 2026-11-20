@@ -181,6 +181,34 @@ final class SetCommandTest extends TestCase
         self::assertArrayHasKey('stores/0', $this->storedRows(self::PATH));
     }
 
+    #[DataProvider('provideAdminScopes')]
+    public function testAdminCodeNeedsForce(string $scope, string $entity): void
+    {
+        $tester = $this->createTester();
+        try {
+            $tester->execute(['path' => self::PATH, 'value' => 'x', '--scope' => $scope, '--scope-id' => 'admin', '--no-reinit' => true]);
+            self::fail('The admin code was accepted without --force.');
+        } catch (InvalidArgumentException $invalidArgumentException) {
+            self::assertSame(
+                sprintf('%s "admin" in scope %s is the admin %s (ID 0), use --force to write it anyway.', ucfirst($entity), $scope, $entity),
+                $invalidArgumentException->getMessage(),
+            );
+            self::assertSame([], $this->storedRows(self::PATH));
+        }
+
+        $tester->execute(['path' => self::PATH, 'value' => 'x', '--scope' => $scope, '--scope-id' => 'admin', '--force' => true, '--no-reinit' => true]);
+        self::assertArrayHasKey($scope . '/0', $this->storedRows(self::PATH));
+    }
+
+    /**
+     * @return iterable<string, array{string, string}>
+     */
+    public static function provideAdminScopes(): iterable
+    {
+        yield 'store' => ['stores', 'store'];
+        yield 'website' => ['websites', 'website'];
+    }
+
     public function testNullValueUnlessNoNull(): void
     {
         $tester = $this->createTester();

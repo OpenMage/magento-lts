@@ -50,7 +50,7 @@ final class SetCommand extends AbstractConfigCommand
             ->addOption('scope', null, InputOption::VALUE_REQUIRED, 'Scope: ' . implode(', ', self::SCOPES), 'default')
             ->addOption('scope-id', null, InputOption::VALUE_REQUIRED, 'Scope ID, or website or store code', '0')
             ->addOption('encrypt', null, InputOption::VALUE_NONE, 'Encrypt the value with the encryption key of local.xml')
-            ->addOption('force', null, InputOption::VALUE_NONE, 'Allow the admin scope ID 0 and IDs of websites or stores that do not exist')
+            ->addOption('force', null, InputOption::VALUE_NONE, 'Allow the admin website and store (ID 0 or code admin) and IDs of websites or stores that do not exist')
             ->addOption('no-null', null, InputOption::VALUE_NONE, 'Store the value NULL as the string "NULL"')
             ->addOption('validate', null, InputOption::VALUE_NONE, 'Save through the backend model of the field, as the admin configuration does')
             ->addOption('no-reinit', null, InputOption::VALUE_NONE, 'Do not rebuild the configuration afterwards')

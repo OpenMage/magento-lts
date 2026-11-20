@@ -184,7 +184,8 @@ bin/openmage config:set carriers/dhl/password "$DHL_PASSWORD" --encrypt
 ```
 
 The path needs at least three non-empty segments, as in `section/group/field`; `--force` does not lift this check.
-The website or store of `--scope-id` must exist, and the ID 0 of the `websites` and `stores` scopes is refused; `--force` allows both for a numeric ID.
+The website or store of `--scope-id` must exist, and the admin website and store of the `websites` and `stores` scopes (ID 0 or code `admin`) are refused.
+`--force` allows the admin website and store, and a numeric ID of a website or store that does not exist.
 The two-character sequences `\n` and `\r` of the value are converted to line breaks, and cannot be escaped.
 
 With `--validate`, the backend model declared by the field in `system.xml` checks and transforms the value, as the admin configuration does: validation, encryption of protected fields, cron expressions.
