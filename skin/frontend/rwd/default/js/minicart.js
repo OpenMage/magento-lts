@@ -32,7 +32,7 @@ Minicart.prototype = {
     initAfterEvents : {},
     removeItemAfterEvents : {},
     init: function() {
-        var cart = this;
+        const cart = this;
 
         // bind remove event
         $j(this.selectors.itemRemove).unbind('click.minicart').bind('click.minicart', function(e) {
@@ -58,7 +58,7 @@ Minicart.prototype = {
                 cart.processUpdateQuantity(this);
         });
 
-        for (var i in this.initAfterEvents) {
+        for (const i in this.initAfterEvents) {
             if (this.initAfterEvents.hasOwnProperty(i) && typeof(this.initAfterEvents[i]) === "function") {
                 this.initAfterEvents[i]();
             }
@@ -67,7 +67,7 @@ Minicart.prototype = {
     },
 
     removeItem: function(el) {
-        var cart = this;
+        const cart = this;
         if (confirm(el.data('confirm'))) {
             cart.hideMessage();
             cart.showOverlay();
@@ -85,12 +85,12 @@ Minicart.prototype = {
                 } else {
                     cart.showMessage(result);
                 }
-            }).error(function() {
+            }).fail(function() {
                 cart.hideOverlay();
                 cart.showError(cart.defaultErrorMessage);
             });
         }
-        for (var i in this.removeItemAfterEvents) {
+        for (const i in this.removeItemAfterEvents) {
             if (this.removeItemAfterEvents.hasOwnProperty(i) && typeof(this.removeItemAfterEvents[i]) === "function") {
                 this.removeItemAfterEvents[i]();
             }
@@ -105,17 +105,17 @@ Minicart.prototype = {
     },
 
     displayQuantityButton: function(el) {
-        var buttonId = this.selectors.quantityButtonPrefix + $j(el).data('item-id');
+        const buttonId = this.selectors.quantityButtonPrefix + $j(el).data('item-id');
         $j(buttonId).addClass('visible').attr('disabled',null);
     },
 
     hideQuantityButton: function(el) {
-        var buttonId = this.selectors.quantityButtonPrefix + $j(el).data('item-id');
+        const buttonId = this.selectors.quantityButtonPrefix + $j(el).data('item-id');
         $j(buttonId).removeClass('visible').attr('disabled','disabled');
     },
 
     processUpdateQuantity: function(el) {
-        var input = $j(this.selectors.quantityInputPrefix + $j(el).data('item-id'));
+        const input = $j(this.selectors.quantityInputPrefix + $j(el).data('item-id'));
         if (this.isValidQty(input.val()) && input.val() != this.previousVal) {
             this.updateItem(el);
         } else {
@@ -124,8 +124,8 @@ Minicart.prototype = {
     },
 
     updateItem: function(el) {
-        var cart = this;
-        var input = $j(this.selectors.quantityInputPrefix + $j(el).data('item-id'));
+        const cart = this;
+        const input = $j(this.selectors.quantityInputPrefix + $j(el).data('item-id'));
 
         if (!$j.isNumeric(input.val())) {
             cart.hideOverlay();
@@ -133,7 +133,7 @@ Minicart.prototype = {
             return false;
         }
 
-        var quantity = input.val();
+        const quantity = input.val();
         cart.hideMessage();
         cart.showOverlay();
         $j.ajax({
@@ -154,7 +154,7 @@ Minicart.prototype = {
             } else {
                 cart.showMessage(result);
             }
-        }).error(function() {
+        }).fail(function() {
             cart.hideOverlay();
             cart.showError(cart.defaultErrorMessage);
         });
@@ -162,7 +162,7 @@ Minicart.prototype = {
     },
 
     updateContentOnRemove: function(result, el) {
-        var cart = this;
+        const cart = this;
         el.hide('slow', function() {
             $j(cart.selectors.container).html(result.content);
             cart.showMessage(result);
