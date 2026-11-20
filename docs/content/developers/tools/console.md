@@ -190,7 +190,7 @@ The two-character sequences `\n` and `\r` of the value are converted to line bre
 
 With `--validate`, the backend model declared by the field in `system.xml` checks and transforms the value, as the admin configuration does: validation, encryption of protected fields, cron expressions.
 The admin events `admin_system_config_section_save_after` and `admin_system_config_changed_section_<section>` are dispatched.
-`--validate` fails, and saves nothing, when the path is not a field of `system.xml`.
+`--validate` fails, and saves nothing, when the path is not a field of `system.xml`, and for a field that `system.xml` saves under another path (`config_path`): the message gives that path, to set without `--validate`.
 Fields uploading a file cannot be saved with `--validate`.
 
 The command prints the path and the saved value, or `(encrypted)` in place of a value encrypted by `--encrypt` or by the backend model.

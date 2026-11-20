@@ -62,7 +62,8 @@ final class SetCommand extends AbstractConfigCommand
                 (validation, encryption of protected fields, cron expressions) and the admin events
                 admin_system_config_section_save_after and admin_system_config_changed_section_<section> are dispatched.
                 The other fields of the group are given to the backend model with their current values.
-                Fields uploading a file cannot be saved with --validate, and a path that is not a field of system.xml is refused.
+                Fields uploading a file cannot be saved with --validate, and a path that is not a field of system.xml is refused,
+                as a field that system.xml saves under another path (config_path).
 
                 The path needs at least three segments (section/group/field): a shorter one would replace a whole branch of the configuration.
                 The two-character sequences <info>\n</info> and <info>\r</info> of the value are converted to line breaks; they cannot be escaped.
@@ -164,6 +165,11 @@ final class SetCommand extends AbstractConfigCommand
 
         if ($group === null || $field === null || !$fieldConfig instanceof Varien_Simplexml_Element) {
             Mage::throwException(sprintf('No field of system.xml has the path "%s": --validate cannot check the value, nothing was saved.', $path));
+        }
+
+        $configPath = (string) $fieldConfig->config_path;
+        if ($configPath !== '' && $configPath !== $path) {
+            Mage::throwException(sprintf('The field %s is saved under %s: set that path without --validate.', $path, $configPath));
         }
 
         /** @var Mage_Adminhtml_Helper_Config $configHelper */

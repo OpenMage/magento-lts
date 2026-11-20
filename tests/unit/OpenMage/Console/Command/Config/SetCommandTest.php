@@ -33,12 +33,18 @@ final class SetCommandTest extends TestCase
 
     private const UNKNOWN_FIELD = 'web/unsecure/base_ur';
 
+    private const CONFIG_PATH_FIELD = 'payment/account/merchant_country';
+
+    private const CONFIG_PATH_TARGET = 'paypal/general/merchant_country';
+
     private const LOG_PATHS = ['system/log/enabled', 'system/log/time', 'system/log/frequency',
         'crontab/jobs/log_clean/schedule/cron_expr', 'crontab/jobs/log_clean/run/model'];
 
     protected function setUp(): void
     {
-        $this->snapshotConfig([self::BASE_URL, self::ENCRYPTED, self::UNKNOWN_FIELD, ...self::LOG_PATHS]);
+        $this->snapshotConfig([
+            self::BASE_URL, self::ENCRYPTED, self::UNKNOWN_FIELD, self::CONFIG_PATH_FIELD, self::CONFIG_PATH_TARGET, ...self::LOG_PATHS,
+        ]);
     }
 
     protected function tearDown(): void
@@ -258,6 +264,20 @@ final class SetCommandTest extends TestCase
         self::assertSame('', $tester->getDisplay());
         self::assertStringContainsString($path, $tester->getErrorOutput());
         self::assertSame([], $this->storedRows($path));
+    }
+
+    public function testValidateRefusesAFieldSavedUnderAnotherPath(): void
+    {
+        $tester = $this->createTester();
+
+        self::assertSame(Command::FAILURE, $tester->execute(['path' => self::CONFIG_PATH_FIELD, 'value' => 'FR', '--validate' => true], ['capture_stderr_separately' => true]));
+        self::assertSame('', $tester->getDisplay());
+        self::assertStringContainsString(
+            sprintf('The field %s is saved under %s: set that path without --validate.', self::CONFIG_PATH_FIELD, self::CONFIG_PATH_TARGET),
+            $tester->getErrorOutput(),
+        );
+        self::assertSame([], $this->storedRows(self::CONFIG_PATH_FIELD));
+        self::assertSame([], $this->storedRows(self::CONFIG_PATH_TARGET));
     }
 
     public function testValidateEncryptsProtectedFields(): void
