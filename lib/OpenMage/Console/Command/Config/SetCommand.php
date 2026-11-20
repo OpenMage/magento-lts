@@ -276,6 +276,8 @@ final class SetCommand extends AbstractConfigCommand
         $section = explode('/', $path)[0];
         [$website, $store] = $this->scopeCodes($scope, $scopeId);
 
+        // The observer of a changed admin URL sends an HTTP redirect and calls exit(0) when this key is registered.
+        Mage::unregister('custom_admin_path_redirect');
         Mage::dispatchEvent('admin_system_config_section_save_after', ['website' => $website, 'store' => $store, 'section' => $section]);
         Mage::dispatchEvent('admin_system_config_changed_section_' . $section, ['website' => $website, 'store' => $store]);
     }

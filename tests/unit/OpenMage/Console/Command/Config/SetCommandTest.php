@@ -39,13 +39,16 @@ final class SetCommandTest extends TestCase
 
     private const FILE_FIELD = 'design/head/shortcut_icon';
 
+    private const ADMIN_CUSTOM_PATH = 'admin/url/custom_path';
+
     private const LOG_PATHS = ['system/log/enabled', 'system/log/time', 'system/log/frequency',
         'crontab/jobs/log_clean/schedule/cron_expr', 'crontab/jobs/log_clean/run/model'];
 
     protected function setUp(): void
     {
         $this->snapshotConfig([
-            self::BASE_URL, self::ENCRYPTED, self::UNKNOWN_FIELD, self::CONFIG_PATH_FIELD, self::CONFIG_PATH_TARGET, self::FILE_FIELD, ...self::LOG_PATHS,
+            self::BASE_URL, self::ENCRYPTED, self::UNKNOWN_FIELD, self::CONFIG_PATH_FIELD, self::CONFIG_PATH_TARGET,
+            self::FILE_FIELD, self::ADMIN_CUSTOM_PATH, ...self::LOG_PATHS,
         ]);
     }
 
@@ -294,6 +297,25 @@ final class SetCommandTest extends TestCase
             $tester->getErrorOutput(),
         );
         self::assertSame($before, $this->storedRows(self::FILE_FIELD));
+    }
+
+    /**
+     * Runs bin/openmage in a child process: the admin observer of a custom admin path ends the process with exit(0)
+     */
+    public function testValidateOfTheCustomAdminPathReturnsItsResult(): void
+    {
+        $command = [PHP_BINARY, dirname(__DIR__, 6) . '/bin/openmage', 'config:set', self::ADMIN_CUSTOM_PATH, 'openmage-console-test', '--validate'];
+        $process = proc_open($command, [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
+        self::assertIsResource($process);
+
+        $stdout = (string) stream_get_contents($pipes[1]);
+        $stderr = (string) stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+
+        self::assertSame(0, proc_close($process), $stderr);
+        self::assertStringContainsString(self::ADMIN_CUSTOM_PATH . ' => openmage-console-test', $stdout);
+        self::assertSame('openmage-console-test', $this->storedRows(self::ADMIN_CUSTOM_PATH)['default/0']['value'] ?? null);
     }
 
     public function testValidateEncryptsProtectedFields(): void

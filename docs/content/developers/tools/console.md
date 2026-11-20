@@ -192,6 +192,7 @@ With `--validate`, the backend model declared by the field in `system.xml` check
 The admin events `admin_system_config_section_save_after` and `admin_system_config_changed_section_<section>` are dispatched.
 `--validate` fails, and saves nothing, when the path is not a field of `system.xml`, and for a field that `system.xml` saves under another path (`config_path`): the message gives that path, to set without `--validate`.
 Fields uploading a file cannot be saved with `--validate`: their backend model only takes a value from an uploaded file.
+A new custom admin path does not end the command: the redirection of the admin to the new URL is skipped.
 
 The command prints the path and the saved value, or `(encrypted)` in place of a value encrypted by `--encrypt` or by the backend model.
 
