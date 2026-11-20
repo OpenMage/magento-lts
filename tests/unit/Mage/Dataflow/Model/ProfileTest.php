@@ -45,7 +45,7 @@ final class ProfileTest extends OpenMageTest
         foreach ($expectedVars as $name => $value) {
             $vars = $xml->xpath('//var[@name=' . $this->xpathLiteral($name) . ']');
             self::assertIsArray($vars);
-            self::assertNotCount(0, $vars,"var $name missing");
+            self::assertNotCount(0, $vars, "var $name missing");
             self::assertSame($value, (string) $vars[0]);
         }
 
