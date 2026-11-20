@@ -605,11 +605,12 @@ Product.Configurable.prototype = {
         this.links.each(function (pair) {
             for (var i = 0, length = pair.value.length; i < length; i++) {
                 var attribute = pair.value[i];
+                var attributeId = String(attribute.attribute_id);
                 if (uniqueAttributeValues.keys()
-                    .indexOf(attribute.attribute_id) == -1) {
-                    uniqueAttributeValues.set(attribute.attribute_id, $H({}));
+                    .indexOf(attributeId) == -1) {
+                    uniqueAttributeValues.set(attributeId, $H({}));
                 }
-                uniqueAttributeValues.get(attribute.attribute_id).set(
+                uniqueAttributeValues.get(attributeId).set(
                     attribute.value_index, attribute);
             }
         });
@@ -619,14 +620,15 @@ Product.Configurable.prototype = {
             .each(
                 function (row) {
                     var attribute = row.attributeObject;
+                    var attributeId = String(attribute.attribute_id);
                     for (var i = 0, length = attribute.values.length; i < length; i++) {
                         if (uniqueAttributeValues.keys().indexOf(
-                                attribute.attribute_id) == -1
+                                attributeId) == -1
                             || uniqueAttributeValues
-                                .get(attribute.attribute_id)
+                                .get(attributeId)
                                 .keys()
                                 .indexOf(
-                                    attribute.values[i].value_index) == -1) {
+                                    String(attribute.values[i].value_index)) == -1) {
                             row.attributeValues
                                 .childElements()
                                 .each(
@@ -639,15 +641,15 @@ Product.Configurable.prototype = {
 
                         } else {
                             uniqueAttributeValues.get(
-                                attribute.attribute_id).unset(
+                                attributeId).unset(
                                 attribute.values[i].value_index);
                         }
                     }
                     attribute.values = attribute.values.compact();
                     if (uniqueAttributeValues
-                        .get(attribute.attribute_id)) {
+                        .get(attributeId)) {
                         uniqueAttributeValues.get(
-                            attribute.attribute_id).each(
+                            attributeId).each(
                             function (pair) {
                                 attribute.values.push(pair.value);
                                 this
