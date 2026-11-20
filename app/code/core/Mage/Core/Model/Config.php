@@ -569,6 +569,42 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
+     * Clean the cache with a configuration rebuilt beforehand, then save it before releasing the lock
+     *
+     * The configuration is rebuilt from the XML files and the database before the cleaner runs.
+     * The cleaner runs and the configuration cache is saved under the cache save lock, so
+     * requests that miss the configuration cache wait for it instead of rebuilding it.
+     *
+     * @param  callable(): mixed $cleaner flushes or cleans the cache
+     * @return mixed             the cleaner's return value
+     */
+    public function cleanAndWarmCache(callable $cleaner)
+    {
+        $cache = Mage::app()->getCacheInstance();
+        if ($cache->canUse('config') !== true) {
+            return $cleaner();
+        }
+
+        $cache->banUse('config');
+        try {
+            $this->reinit();
+        } finally {
+            $cache->unbanUse('config');
+        }
+
+        // getCacheSaveLock() does nothing while the config cache type is banned.
+        $this->getCacheSaveLock(30, true);
+        try {
+            $result = $cleaner();
+            $this->saveCache();
+        } finally {
+            $this->releaseCacheSaveLock();
+        }
+
+        return $result;
+    }
+
+    /**
      * Save configuration cache
      *
      * @param  array $tags cache tags

@@ -48,7 +48,9 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
      */
     public function flushAllAction()
     {
-        Mage::app()->getCacheInstance()->flush();
+        Mage::app()->getConfig()->cleanAndWarmCache(static function (): bool {
+            return Mage::app()->getCacheInstance()->flush();
+        });
         Mage::dispatchEvent('adminhtml_cache_flush_all');
         $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The cache storage has been flushed.'));
         $this->_redirect('*/*');
@@ -60,18 +62,11 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
      */
     public function flushSystemAction()
     {
-        Mage::app()->getCacheInstance()->banUse('config');
-        Mage::getConfig()->reinit();
-        Mage::getConfig()->getCacheSaveLock(30, true);
-        try {
+        Mage::app()->getConfig()->cleanAndWarmCache(static function (): void {
             Mage::app()->cleanCache();
             Mage_Core_Model_Resource_Setup::applyAllUpdates();
             Mage_Core_Model_Resource_Setup::applyAllDataUpdates();
-            Mage::app()->getCacheInstance()->unbanUse('config');
-            Mage::getConfig()->saveCache();
-        } finally {
-            Mage::getConfig()->releaseCacheSaveLock();
-        }
+        });
 
         Mage::dispatchEvent('adminhtml_cache_flush_system');
         $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The OpenMage cache has been flushed and updates applied.'));
