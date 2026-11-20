@@ -11,23 +11,45 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Model\Resource\Collection;
 
-// use Mage;
-// use Mage_Sales_Model_Resource_Collection_Abstract as Subject;
-use Override;
+use Mage;
+use Mage_Core_Exception;
+use Mage_Sales_Model_Resource_Order_Collection;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sales\Model\Resource\Collection\AbstractTrait;
+use ReflectionMethod;
 
 final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    // private static Subject $subject;
-
-    #[Override]
-    public static function setUpBeforeClass(): void
+    /**
+     * @dataProvider provideAttributeToFieldData
+     * @group Model
+     */
+    public function testAttributeToField(string $expected, mixed $attribute): void
     {
-        parent::setUpBeforeClass();
-        // self::$subject = Mage::getModel('sales/resource_collection_abstract');
-        self::markTestSkipped('');
+        self::assertSame($expected, $this->attributeToField($attribute));
+    }
+
+    /**
+     * The exception names what was given, so the caller can be found
+     *
+     * @dataProvider provideAttributeToFieldExceptionData
+     * @group Model
+     */
+    public function testAttributeToFieldException(string $expectedMessage, mixed $attribute): void
+    {
+        $this->expectException(Mage_Core_Exception::class);
+        $this->expectExceptionMessage($expectedMessage);
+
+        $this->attributeToField($attribute);
+    }
+
+    private function attributeToField(mixed $attribute): mixed
+    {
+        /** @var Mage_Sales_Model_Resource_Order_Collection $subject */
+        $subject = Mage::getResourceModel('sales/order_collection');
+
+        return (new ReflectionMethod($subject, '_attributeToField'))->invoke($subject, $attribute);
     }
 }
