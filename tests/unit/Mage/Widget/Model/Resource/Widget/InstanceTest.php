@@ -224,11 +224,9 @@ final class InstanceTest extends OpenMageTest
         $setup = new Mage_Core_Model_Resource_Setup('widget_setup');
         $file = Mage::getBaseDir() . DS . self::UPGRADE_FILE;
         // Bound to the setup object, as Mage_Core_Model_Resource_Setup runs data upgrade files
-        $result = (function () use ($file) {
-            return include $file;
-        })->call($setup);
+        $result = (fn() => include $file)->call($setup);
 
-        self::assertNotEmpty($result);
+        self::assertNotFalse($result);
         self::assertSame(0, $this->countRows('core/layout_update', $removed));
         self::assertSame(1, $this->countRows('core/layout_update', $unowned));
 
