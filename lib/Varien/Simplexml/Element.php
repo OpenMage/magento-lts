@@ -225,7 +225,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             foreach ($this->children() as $childName => $child) {
                 $result[$childName] = $child->_asArray($isCanonical);
             }
-        } elseif (empty($result)) {
+        } elseif ($result === []) {
             // return as string, if nothing was found
             $result = (string) $this;
         } else {

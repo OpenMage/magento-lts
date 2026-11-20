@@ -125,7 +125,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             $level = -1;
         } else {
             $resourceName = $parentName;
-            if (!in_array($resource->getName(), ['title', 'sort_order', 'children'])
+            if (!in_array($resource->getName(), ['title', 'sort_order', 'children'], true)
             ) {
                 $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
 

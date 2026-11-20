@@ -181,13 +181,13 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
             $periodTo   = (is_null($this->_to) ? null : new Zend_Date($this->_to, $dtFormat));
             if ($this->_period == 'year') {
                 // not the first day of the year
-                if ($periodFrom
+                if ($periodFrom instanceof Zend_Date
                     && ($periodFrom->toValue(Zend_Date::MONTH) != 1 || $periodFrom->toValue(Zend_Date::DAY) != 1)
                 ) {
                     $dtFrom = $periodFrom->getDate();
                     // last day of the year
                     $dtTo = $periodFrom->getDate()->setMonth(12)->setDay(31);
-                    if (!$periodTo || $dtTo->isEarlier($periodTo)) {
+                    if (!$periodTo instanceof Zend_Date || $dtTo->isEarlier($periodTo)) {
                         $selectUnions[] = $this->_makeBoundarySelect(
                             $dtFrom->toString($dtFormat),
                             $dtTo->toString($dtFormat),
@@ -203,13 +203,13 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                 }
 
                 // not the last day of the year
-                if ($periodTo
+                if ($periodTo instanceof Zend_Date
                     && ($periodTo->toValue(Zend_Date::MONTH) != 12 || $periodTo->toValue(Zend_Date::DAY) != 31)
                 ) {
                     $dtFrom = $periodTo->getDate()->setMonth(1)->setDay(1);
                     // first day of the year
                     $dtTo = $periodTo->getDate();
-                    if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
+                    if (!$periodFrom instanceof Zend_Date || $dtFrom->isLater($periodFrom)) {
                         $selectUnions[] = $this->_makeBoundarySelect(
                             $dtFrom->toString($dtFormat),
                             $dtTo->toString($dtFormat),
@@ -225,8 +225,8 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                 }
 
                 // the same year
-                if ($periodFrom
-                    && $periodTo
+                if ($periodFrom instanceof Zend_Date
+                    && $periodTo instanceof Zend_Date
                     && $periodFrom->toValue(Zend_Date::YEAR) == $periodTo->toValue(Zend_Date::YEAR)
                 ) {
                     $dtFrom = $periodFrom->getDate();
@@ -239,13 +239,13 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                 }
             } elseif ($this->_period == 'month') {
                 // not the first day of the month
-                if ($periodFrom
+                if ($periodFrom instanceof Zend_Date
                     && $periodFrom->toValue(Zend_Date::DAY) != 1
                 ) {
                     $dtFrom = $periodFrom->getDate();
                     // last day of the month
                     $dtTo = $periodFrom->getDate()->addMonth(1)->setDay(1)->subDay(1);
-                    if (!$periodTo || $dtTo->isEarlier($periodTo)) {
+                    if (!$periodTo instanceof Zend_Date || $dtTo->isEarlier($periodTo)) {
                         $selectUnions[] = $this->_makeBoundarySelect(
                             $dtFrom->toString($dtFormat),
                             $dtTo->toString($dtFormat),
@@ -257,13 +257,13 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                 }
 
                 // not the last day of the month
-                if ($periodTo
+                if ($periodTo instanceof Zend_Date
                     && $periodTo->toValue(Zend_Date::DAY) != $periodTo->toValue(Zend_Date::MONTH_DAYS)
                 ) {
                     $dtFrom = $periodTo->getDate()->setDay(1);
                     // first day of the month
                     $dtTo = $periodTo->getDate();
-                    if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
+                    if (!$periodFrom instanceof Zend_Date || $dtFrom->isLater($periodFrom)) {
                         $selectUnions[] = $this->_makeBoundarySelect(
                             $dtFrom->toString($dtFormat),
                             $dtTo->toString($dtFormat),
@@ -275,8 +275,8 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                 }
 
                 // the same month
-                if ($periodFrom
-                    && $periodTo
+                if ($periodFrom instanceof Zend_Date
+                    && $periodTo instanceof Zend_Date
                     && (
                         $periodFrom->toValue(Zend_Date::YEAR) == $periodTo->toValue(Zend_Date::YEAR)
                         && $periodFrom->toValue(Zend_Date::MONTH) == $periodTo->toValue(Zend_Date::MONTH)

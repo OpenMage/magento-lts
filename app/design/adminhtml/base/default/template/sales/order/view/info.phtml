@@ -19,7 +19,7 @@ $emailSentInfo  = $_order->getEmailSent() ? Mage::helper('sales')->__('Sent') : 
     <div class="entry-edit">
         <div class="entry-edit-head">
         <?php if ($this->getNoUseOrderLink()): ?>
-            <h4 class="icon-head head-account" data-copy-text="<?php echo $_order->getRealOrderId() ?>"><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?></h4>
+            <h4 class="icon-head head-account" data-copy-text="<?php echo $this->escapeHtml($_order->getRealOrderId()) ?>"><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?></h4>
         <?php else: ?>
             <a href="<?php echo $this->getViewUrl($_order->getId()) ?>"><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?></a>
         <?php endif ?>
@@ -108,7 +108,7 @@ $emailSentInfo  = $_order->getEmailSent() ? Mage::helper('sales')->__('Sent') : 
                 </tr>
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Email') ?></label></td>
-                    <td class="value"><a href="mailto:<?php echo $this->escapeHtml($_order->getCustomerEmail()) ?>" data-copy-text="<?php echo $_order->getCustomerEmail()?>"><strong><?php echo $this->escapeHtml($_order->getCustomerEmail()) ?></strong></a></td>
+                    <td class="value"><a href="mailto:<?php echo $this->escapeHtml($_order->getCustomerEmail()) ?>" data-copy-text="<?php echo $this->escapeHtml($_order->getCustomerEmail()) ?>"><strong><?php echo $this->escapeHtml($_order->getCustomerEmail()) ?></strong></a></td>
                 </tr>
                 <?php if ($_groupName = $this->getCustomerGroupName()) : ?>
                 <tr>

@@ -10,7 +10,7 @@
 ?>
 
 <?php if ($_item = $this->getItem()): ?>
-    <h5 class="title"><?php echo $_item->getName() ?></h5>
+    <h5 class="title"><?php echo $this->escapeHtml($_item->getName()) ?></h5>
     <div><strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($this->getSku()))); ?></div>
     <?php if ($this->getOrderOptions()): ?>
         <dl class="item-options">
@@ -20,9 +20,10 @@
             <?php if (isset($_option['custom_view']) && $_option['custom_view']): ?>
                 <?php echo $_option['value'];?>
             <?php else: ?>
-                <?php echo Mage::helper('core/string')->truncate($_option['value'], 55, '', $_remainder);?>
-                <?php if ($_remainder):?>
-                    ... <span id="<?php echo $_id = 'id' . uniqid()?>"><?php echo $_remainder ?></span>
+                <?php $_formattedOption = $this->getFormattedOption($_option['value']); ?>
+                <?php echo $_formattedOption['value'] ?>
+                <?php if ($_formattedOption['remainder']):?>
+                    ... <span id="<?php echo $_id = 'id' . uniqid()?>"><?php echo $_formattedOption['remainder'] ?></span>
                     <script type="text/javascript">
                     $('<?php echo $_id ?>').hide();
                     $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});

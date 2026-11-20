@@ -528,7 +528,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
             // Detect implicit rollback - MySQL SQLSTATE: ER_LOCK_WAIT_TIMEOUT or ER_LOCK_DEADLOCK
             if ($this->_transactionLevel > 0
-                && $exception->getPrevious() && isset($exception->getPrevious()->errorInfo[1])
+                && $exception->getPrevious() instanceof Throwable && isset($exception->getPrevious()->errorInfo[1])
                 && in_array($exception->getPrevious()->errorInfo[1], [1205, 1213], true)
             ) {
                 if ($this->_debug) {

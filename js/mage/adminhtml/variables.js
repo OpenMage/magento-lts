@@ -39,7 +39,7 @@ var Variables = {
             this.variablesContent = '<ul>';
             variables.each(function(variableGroup) {
                 if (variableGroup.label && variableGroup.value) {
-                    this.variablesContent += '<li><b>' + variableGroup.label + '</b></li>';
+                    this.variablesContent += '<li><b>' + this.escapeHtml(variableGroup.label, false) + '</b></li>';
                     (variableGroup.value).each(function(variable){
                         if (variable.value && variable.label) {
                             this.variablesContent += '<li style="padding-left: 20px;">' +
@@ -81,7 +81,6 @@ var Variables = {
             id:this.dialogWindowId,
             onClose: this.closeDialogWindow.bind(this)
         });
-        variablesContent.evalScripts.bind(variablesContent).defer();
     },
     closeDialogWindow: function(window) {
         if (!window) {
@@ -93,10 +92,27 @@ var Variables = {
             Windows.overlayHideEffectOptions = this.overlayHideEffectOptions;
         }
     },
+    /**
+     * Escape a string for use as HTML text or as a quoted attribute value.
+     * With doubleEncode false, existing entities are kept (like the PHP escapeHtml() helper), which is only
+     * safe for element text: the server already escapes some labels, and they must not show as "&amp;".
+     */
+    escapeHtml: function(value, doubleEncode) {
+        var ampersand = doubleEncode === false ? /&(?!(?:[a-z][a-z0-9]*|#[0-9]+|#x[0-9a-f]+);)/gi : /&/g;
+        return String(value)
+            .replace(ampersand, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    },
+    /**
+     * Build one chooser row. The value is written as a JavaScript string literal and then HTML-escaped,
+     * because the browser decodes the onclick attribute before it runs it. The label is element text.
+     */
     prepareVariableRow: function(varValue, varLabel) {
-        var value = (varValue).replace(/"/g, '&quot;').replace(/\\/g, '\\\\').replace(/'/g, '\\&#39;');
-        var content = '<a href="#" onclick="'+this.insertFunction+'(\''+ value +'\');return false;">' + varLabel + '</a>';
-        return content;
+        var onclick = this.insertFunction + '(' + JSON.stringify(String(varValue)) + ');return false;';
+        return '<a href="#" onclick="' + this.escapeHtml(onclick) + '">' + this.escapeHtml(varLabel, false) + '</a>';
     },
     insertVariable: function(value) {
         this.closeDialogWindow(this.dialogWindow);

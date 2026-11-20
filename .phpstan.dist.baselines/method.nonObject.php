@@ -1617,39 +1617,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method addComment() on Mage_Sales_Model_Order_Creditmemo|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getCommentsCollection() on Mage_Sales_Model_Order_Creditmemo|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method sendUpdateEmail() on Mage_Sales_Model_Order_Creditmemo|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method toHtml() on Mage_Core_Block_Abstract|false.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method addComment() on Mage_Sales_Model_Order_Invoice|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method save() on Mage_Sales_Model_Order_Invoice|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method sendUpdateEmail() on Mage_Sales_Model_Order_Invoice|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method setCommentText() on Mage_Sales_Model_Order_Invoice|false.',
@@ -1663,11 +1633,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method addComment() on Mage_Sales_Model_Order_Shipment|true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method addComment() on bool|Mage_Sales_Model_Order_Shipment.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
 ];
@@ -1713,17 +1678,12 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method save() on bool|Mage_Sales_Model_Order_Shipment.',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method sendEmail() on Mage_Sales_Model_Order_Shipment|true.',
     'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method sendUpdateEmail() on bool|Mage_Sales_Model_Order_Shipment.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php',
 ];
 $ignoreErrors[] = [
@@ -6808,11 +6768,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Cannot call method setTitle() on Mage_Widget_Model_Widget_Instance|true.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Widget/controllers/Adminhtml/Widget/InstanceController.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method validate() on bool|Mage_Widget_Model_Widget_Instance.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Widget/controllers/Adminhtml/Widget/InstanceController.php',
 ];
