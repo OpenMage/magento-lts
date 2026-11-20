@@ -67,6 +67,12 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             return;
         }
 
+        // Stores are loaded by Mage_Core_Model_App::_initStores(), which runs after the config cache is built and
+        // calls getConfig() before filling them: leave the registry unset so the next call applies the overrides.
+        if (Mage::app()->getStores(withDefault: true) === []) {
+            return;
+        }
+
         $env = $this->getEnv();
 
         foreach ($env as $configKey => $value) {
