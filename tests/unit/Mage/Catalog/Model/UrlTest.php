@@ -13,6 +13,7 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
 use Override;
 use Mage;
+use Mage_Catalog_Model_Resource_Url;
 use Mage_Catalog_Model_Url as Subject;
 use Mage_Core_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -110,5 +111,29 @@ final class UrlTest extends OpenMageTest
         self::assertSame($expectedResult[$locale]['&'], $result[$locale]['&']);
 
         self::assertSame('at', $result[$locale]['@']);
+    }
+
+    /**
+     * @group Model
+     */
+    public function testGetCategoryRequestPathReclaimsOldPathWithSuffix(): void
+    {
+        $resource = $this->createMock(Mage_Catalog_Model_Resource_Url::class);
+        $resource->method('getCategoryModel')->willReturn(Mage::getModel('catalog/category'));
+        $resource->method('findFinalTargetPath')->with('parent/child.html', 1)->willReturn('category/5');
+        $resource->expects(self::once())->method('deleteRewriteRecord')
+            ->willReturnCallback(static function (string $requestPath, int $storeId, bool $permanent = false): void {
+                self::assertSame('parent/child.html', $requestPath);
+                self::assertSame(1, $storeId);
+                self::assertFalse($permanent, 'A rewrite that is not a permanent redirect must be removed as well.');
+            });
+
+        $subject = $this->createPartialMock(Subject::class, ['getCategoryUrlSuffix', 'getResource']);
+        $subject->method('getCategoryUrlSuffix')->willReturn('.html');
+        $subject->method('getResource')->willReturn($resource);
+
+        $category = new Varien_Object(['id' => 5, 'store_id' => 1, 'url_key' => 'child']);
+
+        self::assertSame('parent/child.html', $subject->getCategoryRequestPath($category, 'parent/'));
     }
 }
