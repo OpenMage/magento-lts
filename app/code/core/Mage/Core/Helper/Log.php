@@ -8,13 +8,15 @@ declare(strict_types=1);
  * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
-
+use Monolog\Handler\MissingExtensionException;
 use Monolog\Level;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\FormattableHandlerInterface;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\StreamHandler;
+use Monolog\Handler\SyslogHandler;
+use Monolog\Handler\SyslogUdpHandler;
 
 /**
  * Core logging helper
@@ -32,6 +34,22 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
     public const XML_PATH_DEV_LOG_EXCEPTION_FILE       = 'dev/log/exception_file';
 
     public const XML_PATH_DEV_LOG_MAX_LEVEL            = 'dev/log/max_level';
+
+    public const XML_PATH_DEV_LOG_HANDLER              = 'dev/log/handler';
+
+    public const XML_PATH_DEV_LOG_SYSLOG_IDENT         = 'dev/log/syslog_ident';
+
+    public const XML_PATH_DEV_LOG_SYSLOG_FACILITY      = 'dev/log/syslog_facility';
+
+    public const XML_PATH_DEV_LOG_SYSLOG_HOST          = 'dev/log/syslog_host';
+
+    public const XML_PATH_DEV_LOG_SYSLOG_PORT          = 'dev/log/syslog_port';
+
+    public const HANDLER_FILE                          = 'file';
+
+    public const HANDLER_SYSLOG                        = 'syslog';
+
+    public const HANDLER_SYSLOG_UDP                    = 'syslog_udp';
 
     public const LOG_FORMAT_MONOLOG                    = 1;
 
@@ -66,6 +84,57 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
             self::XML_PATH_DEV_LOG_FILE,
             Mage_Core_Model_Store::DEFAULT_CODE,
         );
+    }
+
+    /**
+     * Retrieve the configured log handler
+     *
+     * The handler is read at default scope only: loggers are shared by the whole process.
+     *
+     * @return self::HANDLER_*
+     */
+    public static function getConfigHandler(): string
+    {
+        $handler = self::getDefaultConfigValue(self::XML_PATH_DEV_LOG_HANDLER);
+
+        return in_array($handler, [self::HANDLER_SYSLOG, self::HANDLER_SYSLOG_UDP], true) ? $handler : self::HANDLER_FILE;
+    }
+
+    /**
+     * Retrieve syslog handler instance, configured from the dev/log/syslog_* settings
+     *
+     * Messages are prefixed with the logger channel (the log file name without extension),
+     * so system, exception and custom logs stay distinguishable in syslog.
+     *
+     * @param  self::HANDLER_SYSLOG|self::HANDLER_SYSLOG_UDP $handlerType
+     * @throws InvalidArgumentException                      for an unsupported handler type
+     * @throws MissingExtensionException                     for UDP without the sockets extension
+     * @throws UnexpectedValueException                      for an unknown syslog facility
+     */
+    public static function getSyslogHandler(string $handlerType, Level $logLevel = Level::Debug): HandlerInterface
+    {
+        $ident = self::getDefaultConfigValue(self::XML_PATH_DEV_LOG_SYSLOG_IDENT);
+        $facility = self::getDefaultConfigValue(self::XML_PATH_DEV_LOG_SYSLOG_FACILITY);
+
+        $handler = match ($handlerType) {
+            self::HANDLER_SYSLOG => new SyslogHandler($ident, $facility, $logLevel),
+            self::HANDLER_SYSLOG_UDP => new SyslogUdpHandler(
+                host: self::getDefaultConfigValue(self::XML_PATH_DEV_LOG_SYSLOG_HOST),
+                port: (int) self::getDefaultConfigValue(self::XML_PATH_DEV_LOG_SYSLOG_PORT),
+                facility: $facility,
+                level: $logLevel,
+                ident: $ident,
+            ),
+            default => throw new InvalidArgumentException(sprintf('Unsupported syslog handler "%s".', $handlerType)),
+        };
+
+        // one record per line: syslog relays and collectors do not expect multi-line messages
+        $handler->setFormatter(self::getLineFormatter(
+            format: '%channel%.%level_name%: %message% %context% %extra%',
+            ignoreEmptyContextAndExtra: true,
+        ));
+
+        return $handler;
     }
 
     /**
@@ -202,5 +271,13 @@ class Mage_Core_Helper_Log extends Mage_Core_Helper_Abstract
         }
 
         return $logFile;
+    }
+
+    /**
+     * Retrieve a configuration value at default scope, also before the stores are initialised
+     */
+    private static function getDefaultConfigValue(string $path): string
+    {
+        return (string) Mage::getConfig()?->getNode($path, Mage_Core_Model_Store::DEFAULT_CODE);
     }
 }

@@ -17,6 +17,9 @@ Added progressive to image resize. ([#197](https://github.com/OpenMage/magento-l
 ## `catalog/search/search_separator`
 Make `fulltext` search separator (`OR`/`AND`) configurable from back-end. ([#1852](https://github.com/OpenMage/magento-lts/pull/1852))
 
+## `dev/log/handler`
+Send `Mage::log()` and `Mage::logException()` to syslog, local or remote over UDP, instead of files in `var/log`. Configured with `dev/log/syslog_ident`, `dev/log/syslog_facility`, `dev/log/syslog_host` and `dev/log/syslog_port`. ([#5852](https://github.com/OpenMage/magento-lts/pull/5852))
+
 ## `dev/log/max_level`
 Set log level from configuration. ([#1727](https://github.com/OpenMage/magento-lts/pull/1727))
 

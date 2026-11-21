@@ -13,9 +13,13 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Override;
 use Mage;
+use Mage_Core_Model_Config;
 use Mage_Core_Helper_Log as Subject;
+use InvalidArgumentException;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
+use Monolog\Handler\SyslogHandler;
+use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Level;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\LogTrait;
@@ -70,6 +74,48 @@ final class LogTest extends OpenMageTest
     public function testGetHandler(): void
     {
         self::assertInstanceOf(StreamHandler::class, Subject::getHandler('somefile.log'));
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Log::getConfigHandler()
+     * @group Helper
+     */
+    public function testGetConfigHandler(): void
+    {
+        $config = Mage::getConfig();
+        self::assertInstanceOf(Mage_Core_Model_Config::class, $config);
+
+        $path = 'default/' . Subject::XML_PATH_DEV_LOG_HANDLER;
+        $original = (string) $config->getNode($path);
+
+        try {
+            self::assertSame(Subject::HANDLER_FILE, $original, 'File must stay the default log handler.');
+
+            $config->setNode($path, Subject::HANDLER_SYSLOG_UDP);
+            self::assertSame(Subject::HANDLER_SYSLOG_UDP, Subject::getConfigHandler());
+
+            $config->setNode($path, 'unknown');
+            self::assertSame(Subject::HANDLER_FILE, Subject::getConfigHandler());
+        } finally {
+            $config->setNode($path, $original);
+        }
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Log::getSyslogHandler()
+     * @group Helper
+     */
+    public function testGetSyslogHandler(): void
+    {
+        self::assertInstanceOf(SyslogHandler::class, Subject::getSyslogHandler(Subject::HANDLER_SYSLOG));
+
+        if (extension_loaded('sockets')) {
+            self::assertInstanceOf(SyslogUdpHandler::class, Subject::getSyslogHandler(Subject::HANDLER_SYSLOG_UDP));
+        }
+
+        $this->expectException(InvalidArgumentException::class);
+        // @phpstan-ignore argument.type (an unsupported handler type is the case under test)
+        Subject::getSyslogHandler(Subject::HANDLER_FILE);
     }
 
     /**
