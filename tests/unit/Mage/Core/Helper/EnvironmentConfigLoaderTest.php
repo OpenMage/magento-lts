@@ -112,7 +112,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         // empty because env flag is not set
         $env = $environmentConfigLoaderHelper->getEnv();
         self::assertIsArray($env);
-        self::assertEmpty($env);
+        self::assertCount(0, $env);
         /** @phpstan-ignore method.internal */
         $environmentConfigLoaderHelper->setEnvStore([
             'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value',
@@ -121,7 +121,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         // flag is set => feature is enabled
         $env = $environmentConfigLoaderHelper->getEnv();
         self::assertIsArray($env);
-        self::assertNotEmpty($env);
+        self::assertNotCount(0, $env);
     }
 
     /**
