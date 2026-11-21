@@ -14,6 +14,30 @@
         </Mage_Core>
     </modules>
     <global>
+        <console>
+            <commands>
+                <cache_clean>
+                    <name>cache:clean</name>
+                    <class>OpenMage\Console\Command\Cache\CleanCommand</class>
+                </cache_clean>
+                <cache_flush>
+                    <name>cache:flush</name>
+                    <class>OpenMage\Console\Command\Cache\FlushCommand</class>
+                </cache_flush>
+                <config_get>
+                    <name>config:get</name>
+                    <class>OpenMage\Console\Command\Config\GetCommand</class>
+                </config_get>
+                <config_set>
+                    <name>config:set</name>
+                    <class>OpenMage\Console\Command\Config\SetCommand</class>
+                </config_set>
+                <sys_info>
+                    <name>sys:info</name>
+                    <class>OpenMage\Console\Command\Sys\InfoCommand</class>
+                </sys_info>
+            </commands>
+        </console>
         <models>
             <core_resource>
                 <entities>

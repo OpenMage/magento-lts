@@ -31,11 +31,13 @@ parameters:
         - index.php
         - install.php
         - app/Mage.php
+        - bin/openmage
         - app/code/core/Mage
         - app/design/
         - errors
         - lib/Mage
         - lib/Magento
+        - lib/OpenMage
         - lib/Varien
         - shell
         - tests/unit

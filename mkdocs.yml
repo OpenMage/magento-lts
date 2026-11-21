@@ -211,6 +211,7 @@ nav:
       - 'Events':
           - developers/events/list.md
       - 'Tools':
+          - developers/tools/console.md
           - developers/tools/n98-magerun.md
           - developers/tools/phpstorm.md
       - 'Multistore':

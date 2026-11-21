@@ -7,6 +7,9 @@ tags:
 
 - GitHub [repository](https://github.com/netz98/n98-magerun)
 
+!!! note
+    n98-magerun is archived. OpenMage ships its own command line tool, [`bin/openmage`](console.md), with some of its commands under the same names.
+
 ## Using n98-magerun
 
 You can use the Swiss army knife for Magento developers, system-admins and DevOps. The tool provides a huge set of well tested command line commands which save hours of work time.
