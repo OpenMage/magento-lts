@@ -438,10 +438,13 @@ class Mage_System_Ftp
         $symbol = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $exp = floor(log($bytes) / log(1024));
         if (!is_finite($exp)) {
-            return "";
+            return '';
         }
 
-        /** @var $exp int<0, 8> */
+        if ($exp > count($symbol)) {
+            $exp = count($symbol) - 1;
+        }
+
         return sprintf('%.2f ' . $symbol[(string) $exp], ($bytes / 1024 ** floor($exp)));
     }
 

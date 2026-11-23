@@ -19,7 +19,7 @@ use Mage_Cms_Block_Block;
 trait LayoutTrait
 {
     /**
-     * @return Generator<string, list{class-string|false, bool, string, null, array}, void, void>
+     * @return Generator<string, list{class-string|false, bool, string}, void, void>
      */
     public static function provideCreateBlock(): Generator
     {
@@ -27,15 +27,11 @@ trait LayoutTrait
             Mage_Cms_Block_Block::class,
             true,
             'cms/block',
-            null,
-            [],
         ];
         yield 'not instance of Mage_Core_Block_Abstract' => [
             false,
             false,
             'rule/conditions',
-            null,
-            [],
         ];
     }
 
