@@ -371,8 +371,6 @@ use Mage_Adminhtml_Block_Report_Product_Downloads_Renderer_Purchases;
 use Mage_Adminhtml_Block_Report_Product_Grid;
 use Mage_Adminhtml_Block_Report_Product_Lowstock;
 use Mage_Adminhtml_Block_Report_Product_Lowstock_Grid;
-use Mage_Adminhtml_Block_Report_Product_Ordered;
-use Mage_Adminhtml_Block_Report_Product_Ordered_Grid;
 use Mage_Adminhtml_Block_Report_Product_Sold;
 use Mage_Adminhtml_Block_Report_Product_Sold_Grid;
 use Mage_Adminhtml_Block_Report_Product_Viewed;
@@ -476,7 +474,6 @@ use Mage_Adminhtml_Block_Sales_Order_Create_Newsletter;
 use Mage_Adminhtml_Block_Sales_Order_Create_Newsletter_Form;
 use Mage_Adminhtml_Block_Sales_Order_Create_Search;
 use Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid;
-use Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage;
 use Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Price;
 use Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Product;
 use Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Qty;
@@ -653,10 +650,6 @@ use Mage_Adminhtml_Block_System_Store_Delete_Group;
 use Mage_Adminhtml_Block_System_Store_Delete_Website;
 use Mage_Adminhtml_Block_System_Store_Edit;
 use Mage_Adminhtml_Block_System_Store_Edit_Form;
-use Mage_Adminhtml_Block_System_Store_Grid;
-use Mage_Adminhtml_Block_System_Store_Grid_Render_Group;
-use Mage_Adminhtml_Block_System_Store_Grid_Render_Store;
-use Mage_Adminhtml_Block_System_Store_Grid_Render_Website;
 use Mage_Adminhtml_Block_System_Store_Store;
 use Mage_Adminhtml_Block_System_Store_Tree;
 use Mage_Adminhtml_Block_System_Variable;
@@ -680,8 +673,6 @@ use Mage_Adminhtml_Block_Tag_Product;
 use Mage_Adminhtml_Block_Tag_Product_Grid;
 use Mage_Adminhtml_Block_Tag_Store_Switcher;
 use Mage_Adminhtml_Block_Tag_Tag;
-use Mage_Adminhtml_Block_Tag_Tag_Edit;
-use Mage_Adminhtml_Block_Tag_Tag_Edit_Form;
 use Mage_Adminhtml_Block_Tag_Tag_Grid;
 use Mage_Adminhtml_Block_Tax_Class;
 use Mage_Adminhtml_Block_Tax_Class_Edit;
@@ -979,7 +970,6 @@ use Mage_Customer_Block_Account_Dashboard_Newsletter;
 use Mage_Customer_Block_Account_Dashboard_Sidebar;
 use Mage_Customer_Block_Account_Forgotpassword;
 use Mage_Customer_Block_Account_Navigation;
-use Mage_Customer_Block_Account_Resetpassword;
 use Mage_Customer_Block_Address_Book;
 use Mage_Customer_Block_Address_Edit;
 use Mage_Customer_Block_Address_Renderer_Default;
@@ -1021,8 +1011,6 @@ use Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items;
 use Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Form;
 use Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Giftoptions;
 use Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items;
-use Mage_GiftMessage_Block_Message_Form;
-use Mage_GiftMessage_Block_Message_Helper;
 use Mage_GiftMessage_Block_Message_Inline;
 use Mage_GoogleAnalytics_Block_Ga;
 use Mage_GoogleAnalytics_Block_Gtm;
@@ -1076,13 +1064,11 @@ use Mage_Page_Block_Html_Head;
 use Mage_Page_Block_Html_Header;
 use Mage_Page_Block_Html_Notices;
 use Mage_Page_Block_Html_Pager;
-use Mage_Page_Block_Html_Toplinks;
 use Mage_Page_Block_Html_Topmenu;
 use Mage_Page_Block_Html_Topmenu_Renderer;
 use Mage_Page_Block_Html_Welcome;
 use Mage_Page_Block_Html_Wrapper;
 use Mage_Page_Block_Js_Cookie;
-use Mage_Page_Block_Js_Translate;
 use Mage_Page_Block_Redirect;
 use Mage_Page_Block_Switch;
 use Mage_Page_Block_Template_Container;
@@ -1118,7 +1104,6 @@ use Mage_Paypal_Block_Adminhtml_System_Config_Field_Hidden;
 use Mage_Paypal_Block_Adminhtml_System_Config_Field_SolutionType;
 use Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated;
 use Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Expanded;
-use Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global;
 use Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group;
 use Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint;
 use Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location;
@@ -1139,15 +1124,12 @@ use Mage_Paypal_Block_Hosted_Pro_Form;
 use Mage_Paypal_Block_Hosted_Pro_Iframe;
 use Mage_Paypal_Block_Hosted_Pro_Info;
 use Mage_Paypal_Block_Iframe;
-use Mage_Paypal_Block_Logo;
 use Mage_Paypal_Block_Payflow_Advanced_Form;
 use Mage_Paypal_Block_Payflow_Advanced_Iframe;
 use Mage_Paypal_Block_Payflow_Advanced_Info;
-use Mage_Paypal_Block_Payflow_Advanced_Review;
 use Mage_Paypal_Block_Payflow_Link_Form;
 use Mage_Paypal_Block_Payflow_Link_Iframe;
 use Mage_Paypal_Block_Payflow_Link_Info;
-use Mage_Paypal_Block_Payflow_Link_Review;
 use Mage_Paypal_Block_Payment_Info;
 use Mage_Paypal_Block_Standard_Form;
 use Mage_Paypal_Block_Standard_Redirect;
@@ -1156,9 +1138,7 @@ use Mage_Persistent_Block_Header_Additional;
 use Mage_ProductAlert_Block_Email_Abstract;
 use Mage_ProductAlert_Block_Email_Price;
 use Mage_ProductAlert_Block_Email_Stock;
-use Mage_ProductAlert_Block_Price;
 use Mage_ProductAlert_Block_Product_View;
-use Mage_ProductAlert_Block_Stock;
 use Mage_Rating_Block_Entity_Detailed;
 use Mage_Reports_Block_Product_Abstract;
 use Mage_Reports_Block_Product_Compared;
@@ -1242,7 +1222,6 @@ use Mage_Sales_Block_Order_Print_Shipment;
 use Mage_Sales_Block_Order_Recent;
 use Mage_Sales_Block_Order_Shipment;
 use Mage_Sales_Block_Order_Shipment_Items;
-use Mage_Sales_Block_Order_Tax;
 use Mage_Sales_Block_Order_Totals;
 use Mage_Sales_Block_Order_View;
 use Mage_Sales_Block_Payment_Form_Billing_Agreement;
@@ -1314,8 +1293,12 @@ use Mage_Wishlist_Block_Share_Wishlist;
  */
 trait BlocksTrait
 {
+    /**
+     * @return class-string[]
+     */
     public static function getAllBlockClasses(): array
     {
+        /** @phpstan-ignore classConstant.deprecatedClass */
         return [
             'adminhtml/abstract' => Mage_Adminhtml_Block_Abstract::class,
             'adminhtml/api_buttons' => Mage_Adminhtml_Block_Api_Buttons::class,
@@ -1677,8 +1660,6 @@ trait BlocksTrait
             'adminhtml/report_product_grid' => Mage_Adminhtml_Block_Report_Product_Grid::class,
             'adminhtml/report_product_lowstock' => Mage_Adminhtml_Block_Report_Product_Lowstock::class,
             'adminhtml/report_product_lowstock_grid' => Mage_Adminhtml_Block_Report_Product_Lowstock_Grid::class,
-            'adminhtml/report_product_ordered' => Mage_Adminhtml_Block_Report_Product_Ordered::class,
-            'adminhtml/report_product_ordered_grid' => Mage_Adminhtml_Block_Report_Product_Ordered_Grid::class,
             'adminhtml/report_product_sold' => Mage_Adminhtml_Block_Report_Product_Sold::class,
             'adminhtml/report_product_sold_grid' => Mage_Adminhtml_Block_Report_Product_Sold_Grid::class,
             'adminhtml/report_product_viewed' => Mage_Adminhtml_Block_Report_Product_Viewed::class,
@@ -1782,7 +1763,6 @@ trait BlocksTrait
             'adminhtml/sales_order_create_newsletter_form' => Mage_Adminhtml_Block_Sales_Order_Create_Newsletter_Form::class,
             'adminhtml/sales_order_create_search' => Mage_Adminhtml_Block_Sales_Order_Create_Search::class,
             'adminhtml/sales_order_create_search_grid' => Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid::class,
-            'adminhtml/sales_order_create_search_grid_renderer_giftmessage' => Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage::class,
             'adminhtml/sales_order_create_search_grid_renderer_price' => Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Price::class,
             'adminhtml/sales_order_create_search_grid_renderer_product' => Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Product::class,
             'adminhtml/sales_order_create_search_grid_renderer_qty' => Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Qty::class,
@@ -1959,10 +1939,6 @@ trait BlocksTrait
             'adminhtml/system_store_delete_website' => Mage_Adminhtml_Block_System_Store_Delete_Website::class,
             'adminhtml/system_store_edit' => Mage_Adminhtml_Block_System_Store_Edit::class,
             'adminhtml/system_store_edit_form' => Mage_Adminhtml_Block_System_Store_Edit_Form::class,
-            'adminhtml/system_store_grid' => Mage_Adminhtml_Block_System_Store_Grid::class,
-            'adminhtml/system_store_grid_render_group' => Mage_Adminhtml_Block_System_Store_Grid_Render_Group::class,
-            'adminhtml/system_store_grid_render_store' => Mage_Adminhtml_Block_System_Store_Grid_Render_Store::class,
-            'adminhtml/system_store_grid_render_website' => Mage_Adminhtml_Block_System_Store_Grid_Render_Website::class,
             'adminhtml/system_store_store' => Mage_Adminhtml_Block_System_Store_Store::class,
             'adminhtml/system_store_tree' => Mage_Adminhtml_Block_System_Store_Tree::class,
             'adminhtml/system_variable' => Mage_Adminhtml_Block_System_Variable::class,
@@ -1986,8 +1962,6 @@ trait BlocksTrait
             'adminhtml/tag_product_grid' => Mage_Adminhtml_Block_Tag_Product_Grid::class,
             'adminhtml/tag_store_switcher' => Mage_Adminhtml_Block_Tag_Store_Switcher::class,
             'adminhtml/tag_tag' => Mage_Adminhtml_Block_Tag_Tag::class,
-            'adminhtml/tag_tag_edit' => Mage_Adminhtml_Block_Tag_Tag_Edit::class,
-            'adminhtml/tag_tag_edit_form' => Mage_Adminhtml_Block_Tag_Tag_Edit_Form::class,
             'adminhtml/tag_tag_grid' => Mage_Adminhtml_Block_Tag_Tag_Grid::class,
             'adminhtml/tax_class' => Mage_Adminhtml_Block_Tax_Class::class,
             'adminhtml/tax_class_edit' => Mage_Adminhtml_Block_Tax_Class_Edit::class,
@@ -2285,7 +2259,6 @@ trait BlocksTrait
             'customer/account_dashboard_sidebar' => Mage_Customer_Block_Account_Dashboard_Sidebar::class,
             'customer/account_forgotpassword' => Mage_Customer_Block_Account_Forgotpassword::class,
             'customer/account_navigation' => Mage_Customer_Block_Account_Navigation::class,
-            'customer/account_resetpassword' => Mage_Customer_Block_Account_Resetpassword::class,
             'customer/address_book' => Mage_Customer_Block_Address_Book::class,
             'customer/address_edit' => Mage_Customer_Block_Address_Edit::class,
             'customer/address_renderer_default' => Mage_Customer_Block_Address_Renderer_Default::class,
@@ -2327,8 +2300,6 @@ trait BlocksTrait
             'giftmessage/adminhtml_sales_order_view_form' => Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Form::class,
             'giftmessage/adminhtml_sales_order_view_giftoptions' => Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Giftoptions::class,
             'giftmessage/adminhtml_sales_order_view_items' => Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items::class,
-            'giftmessage/message_form' => Mage_GiftMessage_Block_Message_Form::class,
-            'giftmessage/message_helper' => Mage_GiftMessage_Block_Message_Helper::class,
             'giftmessage/message_inline' => Mage_GiftMessage_Block_Message_Inline::class,
             'googleanalytics/ga' => Mage_GoogleAnalytics_Block_Ga::class,
             'googleanalytics/gtm' => Mage_GoogleAnalytics_Block_Gtm::class,
@@ -2382,13 +2353,11 @@ trait BlocksTrait
             'page/html_header' => Mage_Page_Block_Html_Header::class,
             'page/html_notices' => Mage_Page_Block_Html_Notices::class,
             'page/html_pager' => Mage_Page_Block_Html_Pager::class,
-            'page/html_toplinks' => Mage_Page_Block_Html_Toplinks::class,
             'page/html_topmenu' => Mage_Page_Block_Html_Topmenu::class,
             'page/html_topmenu_renderer' => Mage_Page_Block_Html_Topmenu_Renderer::class,
             'page/html_welcome' => Mage_Page_Block_Html_Welcome::class,
             'page/html_wrapper' => Mage_Page_Block_Html_Wrapper::class,
             'page/js_cookie' => Mage_Page_Block_Js_Cookie::class,
-            'page/js_translate' => Mage_Page_Block_Js_Translate::class,
             'page/redirect' => Mage_Page_Block_Redirect::class,
             'page/switch' => Mage_Page_Block_Switch::class,
             'page/template_container' => Mage_Page_Block_Template_Container::class,
@@ -2424,7 +2393,6 @@ trait BlocksTrait
             'paypal/adminhtml_system_config_field_solutionType' => Mage_Paypal_Block_Adminhtml_System_Config_Field_SolutionType::class,
             'paypal/adminhtml_system_config_fieldset_deprecated' => Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated::class,
             'paypal/adminhtml_system_config_fieldset_expanded' => Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Expanded::class,
-            'paypal/adminhtml_system_config_fieldset_global' => Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global::class,
             'paypal/adminhtml_system_config_fieldset_group' => Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group::class,
             'paypal/adminhtml_system_config_fieldset_hint' => Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint::class,
             'paypal/adminhtml_system_config_fieldset_location' => Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location::class,
@@ -2445,15 +2413,12 @@ trait BlocksTrait
             'paypal/hosted_pro_iframe' => Mage_Paypal_Block_Hosted_Pro_Iframe::class,
             'paypal/hosted_pro_info' => Mage_Paypal_Block_Hosted_Pro_Info::class,
             'paypal/iframe' => Mage_Paypal_Block_Iframe::class,
-            'paypal/logo' => Mage_Paypal_Block_Logo::class,
             'paypal/payflow_advanced_form' => Mage_Paypal_Block_Payflow_Advanced_Form::class,
             'paypal/payflow_advanced_iframe' => Mage_Paypal_Block_Payflow_Advanced_Iframe::class,
             'paypal/payflow_advanced_info' => Mage_Paypal_Block_Payflow_Advanced_Info::class,
-            'paypal/payflow_advanced_review' => Mage_Paypal_Block_Payflow_Advanced_Review::class,
             'paypal/payflow_link_form' => Mage_Paypal_Block_Payflow_Link_Form::class,
             'paypal/payflow_link_iframe' => Mage_Paypal_Block_Payflow_Link_Iframe::class,
             'paypal/payflow_link_info' => Mage_Paypal_Block_Payflow_Link_Info::class,
-            'paypal/payflow_link_review' => Mage_Paypal_Block_Payflow_Link_Review::class,
             'paypal/payment_info' => Mage_Paypal_Block_Payment_Info::class,
             'paypal/standard_form' => Mage_Paypal_Block_Standard_Form::class,
             'paypal/standard_redirect' => Mage_Paypal_Block_Standard_Redirect::class,
@@ -2462,9 +2427,7 @@ trait BlocksTrait
             'productalert/email_abstract' => Mage_ProductAlert_Block_Email_Abstract::class,
             'productalert/email_price' => Mage_ProductAlert_Block_Email_Price::class,
             'productalert/email_stock' => Mage_ProductAlert_Block_Email_Stock::class,
-            'productalert/price' => Mage_ProductAlert_Block_Price::class,
             'productalert/product_view' => Mage_ProductAlert_Block_Product_View::class,
-            'productalert/stock' => Mage_ProductAlert_Block_Stock::class,
             'rating/entity_detailed' => Mage_Rating_Block_Entity_Detailed::class,
             'reports/product_abstract' => Mage_Reports_Block_Product_Abstract::class,
             'reports/product_compared' => Mage_Reports_Block_Product_Compared::class,
@@ -2548,7 +2511,6 @@ trait BlocksTrait
             'sales/order_recent' => Mage_Sales_Block_Order_Recent::class,
             'sales/order_shipment' => Mage_Sales_Block_Order_Shipment::class,
             'sales/order_shipment_items' => Mage_Sales_Block_Order_Shipment_Items::class,
-            'sales/order_tax' => Mage_Sales_Block_Order_Tax::class,
             'sales/order_totals' => Mage_Sales_Block_Order_Totals::class,
             'sales/order_view' => Mage_Sales_Block_Order_View::class,
             'sales/payment_form_billing_agreement' => Mage_Sales_Block_Payment_Form_Billing_Agreement::class,
@@ -2617,6 +2579,9 @@ trait BlocksTrait
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function getAbstractBlockClasses(): array
     {
         return [
@@ -2653,6 +2618,9 @@ trait BlocksTrait
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function getBlockClassesNotInstanceOfMageCoreBlockAbstract(): array
     {
         return [
@@ -2683,6 +2651,8 @@ trait BlocksTrait
 
     /**
      * classes require some mocked data ... call member function on null|bool
+     *
+     * @return class-string[]
      */
     public static function getBlockClassesToMock(): array
     {
@@ -2745,7 +2715,6 @@ trait BlocksTrait
             Mage_Adminhtml_Block_Tag_Edit_Assigned::class,
             Mage_Adminhtml_Block_Tag_Product::class,
             Mage_Adminhtml_Block_Tag_Product_Grid::class,
-            Mage_Adminhtml_Block_Tag_Tag_Edit::class,
             Mage_Adminhtml_Block_Urlrewrite::class,
             Mage_Adminhtml_Block_Urlrewrite_Edit::class,
             Mage_Adminhtml_Block_Widget_Grid_Container::class,
@@ -2778,6 +2747,9 @@ trait BlocksTrait
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function getBlockClassesWithErrors(): array
     {
         # exeption thrown ... check
@@ -2803,6 +2775,9 @@ trait BlocksTrait
         ];
     }
 
+    /**
+     * @return class-string[]
+     */
     public static function getBlockClassesWithSessions(): array
     {
         return [
@@ -2860,8 +2835,6 @@ trait BlocksTrait
             Mage_Adminhtml_Block_Report_Product::class,
             Mage_Adminhtml_Block_Report_Product_Downloads::class,
             Mage_Adminhtml_Block_Report_Product_Lowstock::class,
-            Mage_Adminhtml_Block_Report_Product_Ordered::class,
-            Mage_Adminhtml_Block_Report_Product_Ordered_Grid::class,
             Mage_Adminhtml_Block_Report_Product_Sold::class,
             Mage_Adminhtml_Block_Report_Product_Sold_Grid::class,
             Mage_Adminhtml_Block_Report_Product_Viewed::class,

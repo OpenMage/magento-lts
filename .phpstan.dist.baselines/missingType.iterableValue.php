@@ -28267,41 +28267,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/AppTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getAbstractBlockClasses() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getAllBlockClasses() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getBlockClassesNotInstanceOfMageCoreBlockAbstract() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getBlockClassesToMock() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getBlockClassesWithErrors() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getBlockClassesWithSessions() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::testCreateBlock() has parameter $attributes with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Zend_Cache_Backend@anonymous/tests/unit/Mage/Core/Model/Purifier/DefinitionCacheTest.php:48::getMetadatas() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/Purifier/DefinitionCacheTest.php',

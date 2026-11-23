@@ -18,6 +18,9 @@ use Mage_Cms_Block_Block;
 
 trait LayoutTrait
 {
+    /**
+     * @return Generator<string, list{class-string|false, bool, string, null, array}, void, void>
+     */
     public static function provideCreateBlock(): Generator
     {
         yield 'instance of Mage_Core_Block_Abstract' => [
@@ -36,6 +39,10 @@ trait LayoutTrait
         ];
     }
 
+
+    /**
+     * @return Generator<class-string, list{class-string, bool, string}, void, void>
+     */
     public static function provideGetBlockSingleton(): Generator
     {
         $notInstanceOfMageCoreBlockAbstract = static::getBlockClassesNotInstanceOfMageCoreBlockAbstract();
@@ -54,10 +61,10 @@ trait LayoutTrait
         ];
 
         foreach ($allBlocks as $alias => $className) {
-            if (!in_array($className, $ignoredClasses)) {
+            if (!in_array($className, $ignoredClasses, true)) {
                 yield $className => [
                     $className,
-                    !in_array($className, $notInstanceOfMageCoreBlockAbstract),
+                    !in_array($className, $notInstanceOfMageCoreBlockAbstract, true),
                     $alias,
                 ];
             }
