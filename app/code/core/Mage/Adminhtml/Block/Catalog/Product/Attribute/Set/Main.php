@@ -193,7 +193,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             $nodeChildren = Mage::getResourceModel('catalog/product_attribute_collection')
                 ->setAttributeGroupFilter($node->getId())
                 ->addVisibleFilter()
-                ->checkConfigurableProducts()
                 ->load();
 
             if ($nodeChildren->getSize() > 0) {
