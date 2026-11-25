@@ -2,11 +2,6 @@
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method checkConfigurableProducts() of class Mage_Eav_Model_Resource_Entity_Attribute_Collection.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Main.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method addDaysInWishlist() of class Mage_Wishlist_Model_Resource_Item_Collection.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php',
