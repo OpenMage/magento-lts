@@ -31,7 +31,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     /**
      * To be used as regex condition
      */
-    protected const ALLOWED_CHARS = ['A-Z', '-', '_'];
+    protected const ALLOWED_CHARS = ['A-Z', '0-9', '_', '-'];
 
     protected $_moduleName = 'Mage_Core';
 
@@ -381,7 +381,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             . self::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp
             . self::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp
             . self::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp . '/';
-        // /OPENMAGE_CONFIG__(WEBSITES__[A-Z][A-Z0-9]+|DEFAULT|STORES__[A-Z-_]+)__([A-Z-_]*)__([A-Z-_]*)__([A-Z-_]*)/
+        // /OPENMAGE_CONFIG__(WEBSITES__[A-Z][A-Z0-9]+|DEFAULT|STORES__[A-Z0-9_-]+)__([A-Z0-9_-]*)__([A-Z0-9_-]*)__([A-Z0-9_-]*)/
 
         return (bool) preg_match($regexp, $configKey);
     }
