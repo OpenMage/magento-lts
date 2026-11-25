@@ -43,6 +43,12 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 return false;
             }
         } elseif ($orderId) {
+            // _isAllowed() reads the request the same way; this guards every other caller
+            if (!$this->_isCreateAllowed()) {
+                $this->_getSession()->addError($this->__('Access denied.'));
+                return false;
+            }
+
             $order = Mage::getModel('sales/order')->load($orderId);
             /**
              * Check order existing
@@ -220,7 +226,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      */
     public function saveAction()
     {
-        $data = $this->getRequest()->getPost('invoice');
+        $data = $this->_filterInvoiceData((array) $this->getRequest()->getPost('invoice'));
         $orderId = $this->getRequest()->getParam('order_id');
 
         if (!empty($data['comment_text'])) {
@@ -397,7 +403,12 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 Mage::throwException($this->__('The Comment Text field cannot be empty.'));
             }
 
-            $invoice = $this->_initInvoice();
+            // Without an invoice id _initInvoice() would prepare a new invoice from the order
+            $invoice = (int) $this->getRequest()->getParam('id') > 0 ? $this->_initInvoice() : false;
+            if (!$invoice instanceof Mage_Sales_Model_Order_Invoice) {
+                Mage::throwException($this->__('The invoice no longer exists.'));
+            }
+
             $invoice->addComment(
                 $data['comment'],
                 isset($data['is_customer_notified']),
@@ -504,5 +515,72 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     {
         $this->_initInvoice();
         parent::printAction();
+    }
+
+    /**
+     * Creating, capturing, cancelling and voiding an invoice need the order action that shows
+     * its button, on top of the Invoices permission every action needs
+     *
+     * Without an invoice id the actions prepare a new invoice from the order, which is creating
+     * one. addComment takes the invoice id from its id param. Voiding cancels the invoice too, so
+     * it needs Cancel. Viewing, printing and commenting on an existing invoice need only the
+     * Invoices permission.
+     */
+    #[Override]
+    protected function _isAllowed(): bool
+    {
+        if (!parent::_isAllowed()) {
+            return false;
+        }
+
+        $request = $this->getRequest();
+        $action = strtolower($request->getActionName());
+        $aclResource = match ($action) {
+            'start', 'new', 'updateqty', 'save' => 'sales/order/actions/invoice',
+            'capture' => 'sales/order/actions/capture',
+            'cancel', 'void' => 'sales/order/actions/cancel',
+            default => null,
+        };
+        if ($aclResource !== null && !Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
+            return false;
+        }
+
+        $invoiceId = (int) $request->getParam($action === 'addcomment' ? 'id' : 'invoice_id');
+        if ($invoiceId === 0 && (int) $request->getParam('order_id') > 0) {
+            return $this->_isCreateAllowed();
+        }
+
+        return true;
+    }
+
+    /**
+     * Whether the current admin may create an invoice
+     */
+    protected function _isCreateAllowed(): bool
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/invoice');
+    }
+
+    /**
+     * Remove the invoice options the current admin may not use
+     *
+     * The invoice form offers the capture choice only to the Capture permission and the
+     * Create Shipment option only to the Ship permission.
+     *
+     * @param  array<string, mixed> $data posted invoice data
+     * @return array<string, mixed>
+     */
+    protected function _filterInvoiceData(array $data): array
+    {
+        $session = Mage::getSingleton('admin/session');
+        if (!$session->isAllowed('sales/order/actions/capture')) {
+            unset($data['capture_case']);
+        }
+
+        if (!$session->isAllowed('sales/order/actions/ship')) {
+            unset($data['do_shipment']);
+        }
+
+        return $data;
     }
 }

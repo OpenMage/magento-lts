@@ -100,6 +100,7 @@ namespace PHPSTORM_META {
             'core/log' => \Mage_Core_Helper_Log::class,
             'core/measure_length' => \Mage_Core_Helper_Measure_Length::class,
             'core/measure_weight' => \Mage_Core_Helper_Measure_Weight::class,
+            'core/network' => \Mage_Core_Helper_Network::class,
             'core/psrLogger' => \Mage_Core_Helper_PsrLogger::class,
             'core/purifier' => \Mage_Core_Helper_Purifier::class,
             'core/purifier_definitionCache' => \Mage_Core_Helper_Purifier_DefinitionCache::class,

@@ -34,11 +34,6 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      */
     public function _initAction()
     {
-        $act = $this->getRequest()->getActionName();
-        if (!$act) {
-            $act = 'default';
-        }
-
         $this->loadLayout()
             ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Statistics'), Mage::helper('reports')->__('Statistics'));
@@ -86,7 +81,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     protected function _getCollectionNames()
     {
         $codes = $this->getRequest()->getParam('code');
-        if (!$codes) {
+        if ($codes === null) {
             throw new Exception(Mage::helper('adminhtml')->__('No report code specified.'));
         }
 

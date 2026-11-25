@@ -138,7 +138,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
             if (!$foundItem || $currentPenalty > $penalty) {
                 $foundItem = $item;
                 $currentPenalty = $penalty;
-                if (!$currentPenalty) {
+                if ($currentPenalty === 0) {
                     break; // Found best matching item with zero penalty, no reason to continue
                 }
             }

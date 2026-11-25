@@ -42,11 +42,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/controllers/TagController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Implicit array creation is not allowed - variable $defaultValues might not exist.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Implicit array creation is not allowed - variable $params does not exist.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Block/Layer/State.php',
@@ -57,19 +52,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Layer/Filter/Item.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Implicit array creation is not allowed - variable $path does not exist.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Product/Image.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Implicit array creation is not allowed - variable $updateCond does not exist.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Implicit array creation is not allowed - variable $pricing does not exist.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable/Attribute/Collection.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Implicit array creation is not allowed - variable $search does not exist.',
@@ -155,11 +140,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Implicit array creation is not allowed - variable $lines does not exist.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Pdf/Shipment.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Implicit array creation is not allowed - variable $itemCollsX might not exist.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Pdf/Shipment/Packaging.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Implicit array creation is not allowed - variable $result might not exist.',

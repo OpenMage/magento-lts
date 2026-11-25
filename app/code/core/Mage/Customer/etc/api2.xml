@@ -42,7 +42,7 @@
                     <website_id>Associate to Website</website_id>
                     <created_in>Created From</created_in>
                     <group_id>Group</group_id>
-                    <confirmation>Is Confirmed</confirmation>
+                    <confirmation>Confirmation Pending</confirmation>
                     <disable_auto_group_change>Disable automatic group change based on VAT ID</disable_auto_group_change>
                     <created_at>Created Date</created_at>
                     <updated_at>Updated Date</updated_at>

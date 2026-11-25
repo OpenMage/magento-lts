@@ -17,6 +17,22 @@ Options All -Indexes
     AddHandler cgi-script .php .pl .py .jsp .asp .sh .cgi
     Options -ExecCGI
 
+############################################
+## Deny access to PHP files, also when PHP runs through PHP-FPM
+## (SetHandler proxy:fcgi), where the directives above have no effect
+
+<FilesMatch "(?i)\.(php[0-9]?|pht|phtml|phar)$">
+    <IfModule !mod_authz_core.c>
+        #Apache 2.2
+        Order allow,deny
+        Deny from all
+    </IfModule>
+    <IfModule mod_authz_core.c>
+        #Apache 2.3+
+        Require all denied
+    </IfModule>
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
 
 ############################################

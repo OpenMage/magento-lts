@@ -331,8 +331,8 @@ final class DefinitionCacheTest extends OpenMageTest
 
         $purifier = new HTMLPurifier($config);
 
-        self::assertEmpty(self::$cacheBackend->getIds(), 'Cache should be empty at start of test');
-        self::assertEmpty(self::$cacheBackend->getTags(), 'Cache should be empty at start of test');
+        self::assertCount(0, self::$cacheBackend->getIds(), 'Cache should be empty at start of test');
+        self::assertCount(0, self::$cacheBackend->getTags(), 'Cache should be empty at start of test');
 
         $purifier->purify(
             <<<'HTML'
@@ -343,7 +343,7 @@ final class DefinitionCacheTest extends OpenMageTest
             HTML,
         );
 
-        self::assertNotEmpty(self::$cacheBackend->getIds(), 'Cache should contain definition entries after purifying');
-        self::assertNotEmpty(self::$cacheBackend->getTags(), 'Cache should contain tags after purifying');
+        self::assertNotCount(0, self::$cacheBackend->getIds(), 'Cache should contain definition entries after purifying');
+        self::assertNotCount(0, self::$cacheBackend->getTags(), 'Cache should contain tags after purifying');
     }
 }

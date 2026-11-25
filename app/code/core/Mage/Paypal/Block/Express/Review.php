@@ -218,14 +218,20 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
             $canEditShippingAddress = $this->_quote->getMayEditShippingAddress() && $this->_quote->getPayment()
                     ->getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_BUTTON) == 1;
             // misc shipping parameters
-            $this->setShippingMethodSubmitUrl($this->getUrl("{$this->_paypalActionPrefix}/express/saveShippingMethod"))
+            $this->setShippingMethodSubmitUrl($this->getUrl(
+                "{$this->_paypalActionPrefix}/express/saveShippingMethod",
+                [Mage_Core_Model_Url::FORM_KEY => $this->getFormKey()],
+            ))
                 ->setCanEditShippingAddress($canEditShippingAddress)
                 ->setCanEditShippingMethod($this->_quote->getMayEditShippingMethod())
             ;
         }
 
         $this->setEditUrl($this->getUrl("{$this->_paypalActionPrefix}/express/edit"))
-            ->setPlaceOrderUrl($this->getUrl("{$this->_paypalActionPrefix}/express/placeOrder"));
+            ->setPlaceOrderUrl($this->getUrl(
+                "{$this->_paypalActionPrefix}/express/placeOrder",
+                [Mage_Core_Model_Url::FORM_KEY => $this->getFormKey()],
+            ));
 
         return parent::_beforeToHtml();
     }

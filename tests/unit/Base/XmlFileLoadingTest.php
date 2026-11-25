@@ -29,7 +29,7 @@ final class XmlFileLoadingTest extends TestCase
             SimpleXMLElement::class,
             LIBXML_PEDANTIC, //not needed by OpenMage, but good to test more strictly
         );
-        self::assertNotEmpty($simplexml->asXML());
+        self::assertNotSame('', $simplexml->asXML());
     }
 
     /**

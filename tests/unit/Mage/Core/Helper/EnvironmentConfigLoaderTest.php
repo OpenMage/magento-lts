@@ -18,6 +18,7 @@ use Mage;
 use Mage_Core_Exception;
 use Mage_Core_Helper_EnvironmentConfigLoader;
 use OpenMage\Tests\Unit\OpenMageTest;
+use ReflectionProperty;
 use Varien_Simplexml_Config;
 
 /**
@@ -111,7 +112,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         // empty because env flag is not set
         $env = $environmentConfigLoaderHelper->getEnv();
         self::assertIsArray($env);
-        self::assertEmpty($env);
+        self::assertCount(0, $env);
         /** @phpstan-ignore method.internal */
         $environmentConfigLoaderHelper->setEnvStore([
             'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value',
@@ -120,7 +121,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
         // flag is set => feature is enabled
         $env = $environmentConfigLoaderHelper->getEnv();
         self::assertIsArray($env);
-        self::assertNotEmpty($env);
+        self::assertNotCount(0, $env);
     }
 
     /**
@@ -232,6 +233,40 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
             'env_path' => $websitePath,
             'value'    => 'website_new_value',
         ]];
+    }
+
+    /**
+     * @group Helper
+     */
+    public function testOverrideIsAppliedWhenFirstCalledBeforeStoresAreInitialized(): void
+    {
+        $app = Mage::app();
+        $storesProperty = new ReflectionProperty($app, '_stores');
+        $stores = $storesProperty->getValue($app);
+
+        /** @var Mage_Core_Helper_EnvironmentConfigLoader $loader */
+        $loader = Mage::helper('core/environmentConfigLoader');
+        /** @phpstan-ignore method.internal */
+        $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
+            'OPENMAGE_CONFIG__DEFAULT__TESTS__ENV_LOADER__BEFORE_INIT_STORES' => 'env_value',
+        ]);
+
+        try {
+            // Same state as a cold cache: Mage_Core_Model_Config::init() runs before Mage_Core_Model_App::_initStores()
+            $storesProperty->setValue($app, []);
+            try {
+                $loader->overrideEnvironment($app->getConfig());
+            } finally {
+                $storesProperty->setValue($app, $stores);
+            }
+
+            self::assertSame('env_value', Mage::getStoreConfig('tests/env_loader/before_init_stores', 'german'));
+        } finally {
+            /** @phpstan-ignore method.internal */
+            $loader->setEnvStore([]);
+            $app->reinitStores();
+        }
     }
 
     /**

@@ -204,7 +204,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
             return $containersAll;
         }
 
-        if (!$params || !$method || !$countryShipper || !$countryRecipient) {
+        if (!$method || !$countryShipper || !$countryRecipient) {
             return $containersAll;
         }
 

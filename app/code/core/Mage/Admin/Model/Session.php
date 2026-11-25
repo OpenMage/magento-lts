@@ -13,6 +13,7 @@
  * @package    Mage_Admin
  *
  * @method Mage_Admin_Model_Acl  getAcl()
+ * @method null|int              getAclVersion()
  * @method int                   getActiveTabId()
  * @method string                getDeletedPath()
  * @method bool                  getIndirectLogin()
@@ -24,6 +25,7 @@
  * @method bool                  getUserPasswordChanged()
  * @method bool                  hasSyncProcessStopWatch()
  * @method $this                 setAcl(Mage_Admin_Model_Acl $acl)
+ * @method $this                 setAclVersion(int $value)
  * @method $this                 setActiveTabId(int $value)
  * @method $this                 setAttributeData(array|false $data)
  * @method $this                 setDeletedPath(string $value)
@@ -159,6 +161,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 $this->setIsFirstPageAfterLogin(true);
                 $this->setUser($user);
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
+                $this->setAclVersion((int) $user->getAclVersion());
                 if ($backendLocale = $user->getBackendLocale()) {
                     Mage::getSingleton('adminhtml/session')->setLocale($backendLocale);
                 }
@@ -190,6 +193,11 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Refresh ACL resources stored in session
      *
+     * The user's `acl_version` changes whenever the user's permissions may have changed (see
+     * Mage_Admin_Model_Resource_User::bumpAclVersion()). The session rebuilds its ACL when the version
+     * differs from the one it was built with, so every session of the user notices the change, not only
+     * the first one.
+     *
      * @param  Mage_Admin_Model_User $user
      * @return $this
      */
@@ -201,15 +209,30 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             return $this;
         }
 
-        if (!$this->getAcl() || $user->getReloadAclFlag()) {
-            $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
+        if ((int) $user->getReloadAclFlag() !== 0 && $user->getId()) {
+            // Code that predates the ACL version asks for a reload with reload_acl_flag. Another session
+            // of the user may take the request first, so read the version it moved to either way.
+            $resource = $user->getResource();
+            $resource->takeReloadAclFlag($user);
+            $user->setReloadAclFlag(0)->setOrigData('reload_acl_flag', 0)
+                ->setAclVersion($resource->getAclVersion($user));
         }
 
-        if ($user->getReloadAclFlag()) {
-            $user->getResource()->saveReloadAclFlag($user, 0);
+        $version = (int) $user->getAclVersion();
+        if (!$this->getAcl() || $this->getAclVersion() !== $version) {
+            $this->setAcl($this->_loadAcl());
+            $this->setAclVersion($version);
         }
 
         return $this;
+    }
+
+    /**
+     * Build the ACL from the current roles and rules
+     */
+    protected function _loadAcl(): Mage_Admin_Model_Acl
+    {
+        return Mage::getResourceModel('admin/acl')->loadAcl();
     }
 
     /**

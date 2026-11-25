@@ -58,7 +58,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
     protected function _retrieve()
     {
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('id'));
-        return $customer->getData();
+        return $this->_prepareCustomerDataForResponse($customer->getData());
     }
 
     /**
@@ -69,7 +69,70 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
     protected function _retrieveCollection()
     {
         $data = $this->_getCollectionForRetrieve()->load()->toArray();
-        return $data['items'] ?? $data;
+        $items = $data['items'] ?? $data;
+
+        foreach ($items as $key => $item) {
+            if (is_array($item)) {
+                $items[$key] = $this->_prepareCustomerDataForResponse($item);
+            }
+        }
+
+        return $items;
+    }
+
+    /**
+     * Reject collection filters that could recover a credential or the confirmation key
+     *
+     * See Mage_Customer_Helper_Data::isApiFilterAllowed(): credentials cannot be filtered on, whatever
+     * attributes the API role allows, and the confirmation key only accepts null/notnull.
+     *
+     * @throws Exception
+     * @throws Mage_Api2_Exception
+     */
+    protected function _validateSecretFilters(): void
+    {
+        $filter = $this->getRequest()->getFilter();
+        if (!is_array($filter)) {
+            return;
+        }
+
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = Mage::helper('customer');
+        foreach ($filter as $filterEntry) {
+            if (!is_array($filterEntry) || !isset($filterEntry['attribute']) || !is_scalar($filterEntry['attribute'])) {
+                continue;
+            }
+
+            $attributeCode = strtolower(trim((string) $filterEntry['attribute']));
+            unset($filterEntry['attribute']);
+            if (!$helper->isApiFilterAllowed([$attributeCode], $filterEntry)) {
+                $this->_critical(self::RESOURCE_COLLECTION_FILTERING_ERROR);
+            }
+        }
+    }
+
+    /**
+     * Remove credentials from customer data before it is returned
+     *
+     * Credentials are removed whatever attributes the API role allows, and only whether confirmation is
+     * pending is returned for the confirmation key.
+     *
+     * @param  array<string, mixed> $data
+     * @return array<string, mixed>
+     */
+    protected function _prepareCustomerDataForResponse(array $data)
+    {
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = Mage::helper('customer');
+        foreach ($helper->getApiSecretAttributeCodes() as $attributeCode) {
+            unset($data[$attributeCode]);
+        }
+
+        if (array_key_exists('confirmation', $data)) {
+            $data['confirmation'] = $helper->prepareApiConfirmationForRead($data['confirmation']);
+        }
+
+        return $data;
     }
 
     /**
@@ -138,6 +201,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
             $this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ),
         ));
 
+        $this->_validateSecretFilters();
         $this->_applyCollectionModifiers($collection);
         return $collection;
     }

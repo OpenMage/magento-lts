@@ -7,6 +7,8 @@
  * @package    Mage_Widget
  */
 
+use Monolog\Level;
+
 /**
  * Widget Instance Model
  *
@@ -46,6 +48,15 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     public const SINGLE_CATEGORY_LAYOUT_HANDLE    = 'CATEGORY_{{ID}}';
 
     public const XML_NODE_RELATED_CACHE = 'global/widget/related_cache_types';
+
+    /**
+     * Reasons the Mage_Widget 1.6.0.2 data upgrade removes a stored layout update
+     *
+     * @see getLayoutUpdateRemovalReason()
+     */
+    public const LAYOUT_UPDATE_UNDECLARED_TYPE = 'undeclared widget type';
+
+    public const LAYOUT_UPDATE_UNEXPECTED_XML  = 'unexpected layout update XML';
 
     protected $_layoutHandles = [];
 
@@ -111,13 +122,24 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     #[Override]
     protected function _beforeSave()
     {
+        if (!$this->isTypeDeclared()) {
+            Mage::log(
+                sprintf(
+                    'Refused to save widget instance %s: its type is not declared in any widget.xml.',
+                    $this->_getLogLabel(),
+                ),
+                Level::Warning,
+            );
+            Mage::throwException(Mage::helper('widget')->__('Wrong widget type specified.'));
+        }
+
         $pageGroupIds = [];
         $tmpPageGroups = [];
         $pageGroups = $this->getDataByKey('page_groups');
         if ($pageGroups) {
             foreach ($pageGroups as $pageGroup) {
-                if (isset($pageGroup[$pageGroup['page_group']])) {
-                    $pageGroupData = $pageGroup[$pageGroup['page_group']];
+                $pageGroupData = $this->validatePageGroup($pageGroup);
+                if ($pageGroupData !== null) {
                     if ($pageGroupData['page_id']) {
                         $pageGroupIds[] = $pageGroupData['page_id'];
                     }
@@ -174,6 +196,117 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Validate one entry of the page groups (display-on rules) before it is turned into layout updates
+     *
+     * The admin form and _beforeSave() share this check, so both treat a malformed entry the same way.
+     *
+     * @param  mixed               $pageGroup one page groups entry: its code under "page_group" and its data under that code
+     * @return null|array<mixed>   the page group data, or null if the entry holds none
+     * @throws Mage_Core_Exception if the page group is malformed
+     */
+    public function validatePageGroup($pageGroup): ?array
+    {
+        if (!is_array($pageGroup) || !isset($pageGroup['page_group'])) {
+            return null;
+        }
+
+        $code = $pageGroup['page_group'];
+        if (!is_string($code)) {
+            throw Mage::exception('Mage_Core', Mage::helper('widget')->__('Wrong widget display option specified.'));
+        }
+
+        if (!isset($pageGroup[$code])) {
+            return null;
+        }
+
+        $pageGroupData = $pageGroup[$code];
+        if (!is_array($pageGroupData)) {
+            throw Mage::exception('Mage_Core', Mage::helper('widget')->__('Wrong widget display option specified.'));
+        }
+
+        $this->_validatePageGroup($code, $pageGroupData);
+        return $pageGroupData;
+    }
+
+    /**
+     * Validate the data of one page group
+     *
+     * @param  string              $pageGroup     page group code, e.g. "all_pages" or "anchor_categories"
+     * @param  mixed               $pageGroupData page group data posted for that code
+     * @throws Mage_Core_Exception
+     */
+    protected function _validatePageGroup($pageGroup, $pageGroupData): void
+    {
+        if (!is_array($pageGroupData)
+            || ($pageGroup !== 'pages' && !isset($this->_layoutHandles[$pageGroup]))
+        ) {
+            Mage::throwException(Mage::helper('widget')->__('Wrong widget display option specified.'));
+        }
+
+        $for = $pageGroupData['for'] ?? self::ALL_ENTITIES;
+        if ($for !== self::ALL_ENTITIES && $for !== self::SPECIFIC_ENTITIES) {
+            Mage::throwException(Mage::helper('widget')->__('Wrong widget display option specified.'));
+        }
+
+        if ($for === self::SPECIFIC_ENTITIES && !isset($this->_specificEntitiesLayoutHandles[$pageGroup])) {
+            Mage::throwException(Mage::helper('widget')->__('Wrong widget display option specified.'));
+        }
+
+        if (!$this->isValidBlockReference($pageGroupData['block'] ?? '')
+            || !$this->isValidTemplatePath($pageGroupData['template'] ?? '')
+        ) {
+            Mage::throwException(Mage::helper('widget')->__('Templatepath or block reference contain special characters.'));
+        }
+    }
+
+    /**
+     * Check that a block reference (layout block name) contains no characters with a meaning in XML or HTML
+     *
+     * @param mixed $blockReference
+     */
+    public function isValidBlockReference($blockReference): bool
+    {
+        return $this->_hasNoMarkupCharacters($blockReference);
+    }
+
+    /**
+     * Check that a template path contains no characters with a meaning in XML or HTML
+     *
+     * This does not check where the path leads; the design package resolves it inside the theme.
+     *
+     * @param mixed $templatePath
+     */
+    public function isValidTemplatePath($templatePath): bool
+    {
+        return $this->_hasNoMarkupCharacters($templatePath);
+    }
+
+    /**
+     * Check that a value is a string without characters that HTML escaping would change
+     *
+     * @param mixed $value
+     */
+    protected function _hasNoMarkupCharacters($value): bool
+    {
+        return is_string($value) && $value === htmlspecialchars($value, ENT_QUOTES | ENT_HTML5);
+    }
+
+    /**
+     * Check that the widget type is declared in a widget.xml of an installed module
+     *
+     * Only declared widget types may be placed on the storefront. Instances saved with any other
+     * type (for example by an older release that did not check it) can still be loaded and deleted,
+     * but cannot be saved and get no layout update generated.
+     */
+    public function isTypeDeclared(): bool
+    {
+        $type = $this->getType();
+        return is_string($type)
+            && $type !== ''
+            && Mage::getSingleton('widget/widget')->isWidgetTypeDeclared($type);
+    }
+
+    /**
      * Validate widget instance data
      *
      * @return string|true
@@ -181,6 +314,10 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     public function validate()
     {
         if ($this->isCompleteToCreate()) {
+            if (!$this->isTypeDeclared()) {
+                return Mage::helper('widget')->__('Wrong widget type specified.');
+            }
+
             return true;
         }
 
@@ -498,16 +635,22 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Generate layout update xml
      *
+     * Nothing is generated for an incomplete new instance, for an unreadable template, or for a
+     * type that no widget.xml declares (_beforeSave() refuses to save such an instance, and logs it).
+     *
      * @param  string $blockReference
      * @param  string $templatePath
      * @return string
      */
     public function generateLayoutUpdateXml($blockReference, $templatePath = '')
     {
-        if ($templatePath !== htmlspecialchars($templatePath, ENT_QUOTES | ENT_HTML5)
-            || $blockReference !== htmlspecialchars($blockReference, ENT_QUOTES | ENT_HTML5)
-        ) {
-            Mage::throwException('Templatepath or block reference contain special characters.');
+        $templatePath = (string) $templatePath;
+        if (!$this->isValidTemplatePath($templatePath) || !$this->isValidBlockReference($blockReference)) {
+            Mage::throwException(Mage::helper('widget')->__('Templatepath or block reference contain special characters.'));
+        }
+
+        if ((!$this->getId() && !$this->isCompleteToCreate()) || !$this->isTypeDeclared()) {
+            return '';
         }
 
         $templateFilename = Mage::getSingleton('core/design_package')->getTemplateFilename($templatePath, [
@@ -515,25 +658,23 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             '_package' => $this->getPackage(),
             '_theme'   => $this->getTheme(),
         ]);
-        if (!$this->getId() && !$this->isCompleteToCreate()
-            || ($templatePath && !is_readable($templateFilename))
-        ) {
+        if ($templatePath && !is_readable($templateFilename)) {
             return '';
         }
 
         $parameters = $this->getWidgetParameters();
-        $xml = '<reference name="' . $blockReference . '">';
+        $xml = '<reference name="' . $this->_escapeXml($blockReference) . '">';
         $template = '';
         if (isset($parameters['template'])) {
             unset($parameters['template']);
         }
 
         if ($templatePath) {
-            $template = ' template="' . $templatePath . '"';
+            $template = ' template="' . $this->_escapeXml($templatePath) . '"';
         }
 
         $hash = Mage::helper('core')->uniqHash();
-        $xml .= '<block type="' . $this->getType() . '" name="' . $hash . '"' . $template . '>';
+        $xml .= '<block type="' . $this->_escapeXml($this->getType()) . '" name="' . $this->_escapeXml($hash) . '"' . $template . '>';
         foreach ($parameters as $name => $value) {
             if (is_array($value)) {
                 $value = implode(',', $value);
@@ -541,13 +682,200 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
 
             if ($name && strlen((string) $value)) {
                 $xml .= '<action method="setData">'
-                    . '<name>' . $name . '</name>'
-                    . '<value>' . Mage::helper('widget')->escapeHtml($value) . '</value>'
+                    . '<name>' . $this->_escapeXml($name) . '</name>'
+                    . '<value>' . $this->_escapeXml($value) . '</value>'
                     . '</action>';
             }
         }
 
         return $xml . '</block></reference>';
+    }
+
+    /**
+     * Identify this instance in log messages
+     */
+    protected function _getLogLabel(): string
+    {
+        $id = $this->getId();
+        return $id === null || $id === '' ? '(new)' : '#' . $id;
+    }
+
+    /**
+     * Check that a stored layout update has exactly the shape generateLayoutUpdateXml() produces
+     *
+     * That is one <reference> holding one <block> of this instance's (declared) type, whose only
+     * children are <action method="setData"> elements with a <name> and a <value>. Layout updates
+     * of any other shape were not produced by the widget generator for this type, for example
+     * because a type with markup in it was saved before types were checked.
+     *
+     * @param string $xml layout update XML as stored in core_layout_update.xml
+     */
+    public function isGeneratedLayoutUpdateXml($xml): bool
+    {
+        if (!is_string($xml)) {
+            return false;
+        }
+
+        if (trim($xml) === '') {
+            // Generated when the instance was incomplete or its template unreadable; it adds nothing
+            return true;
+        }
+
+        return $this->isTypeDeclared() && $this->getGeneratedLayoutUpdateBlockType($xml) === $this->getType();
+    }
+
+    /**
+     * Why the data upgrade removes a stored layout update of this instance, or null if it is kept
+     *
+     * @param  string                                                                      $xml layout update XML as stored in core_layout_update.xml
+     * @return null|self::LAYOUT_UPDATE_UNDECLARED_TYPE|self::LAYOUT_UPDATE_UNEXPECTED_XML
+     */
+    public function getLayoutUpdateRemovalReason($xml): ?string
+    {
+        if ($this->isGeneratedLayoutUpdateXml($xml)) {
+            return null;
+        }
+
+        return $this->isTypeDeclared() ? self::LAYOUT_UPDATE_UNEXPECTED_XML : self::LAYOUT_UPDATE_UNDECLARED_TYPE;
+    }
+
+    /**
+     * Block type of a layout update that has the shape generateLayoutUpdateXml() produces, or null for any other XML
+     *
+     * The type itself is not checked; isGeneratedLayoutUpdateXml() compares it with this instance's type.
+     *
+     * @param string $xml layout update XML as stored in core_layout_update.xml
+     */
+    public function getGeneratedLayoutUpdateBlockType($xml): ?string
+    {
+        if (!is_string($xml) || trim($xml) === '') {
+            return null;
+        }
+
+        $document = new DOMDocument();
+        $previous = libxml_use_internal_errors(true);
+        $loaded = $document->loadXML('<root>' . $xml . '</root>', LIBXML_NONET);
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous);
+        if (!$loaded || !$document->documentElement instanceof DOMElement) {
+            return null;
+        }
+
+        $references = $this->_getChildElements($document->documentElement);
+        if ($references === null || count($references) !== 1
+            || !$this->_isPlainElement($references[0], 'reference', ['name'], ['name'])
+            || !$this->isValidBlockReference($references[0]->getAttribute('name'))
+        ) {
+            return null;
+        }
+
+        $blocks = $this->_getChildElements($references[0]);
+        if ($blocks === null || count($blocks) !== 1
+            || !$this->_isPlainElement($blocks[0], 'block', ['type', 'name', 'template'], ['type', 'name'])
+            || ($blocks[0]->hasAttribute('template') && !$this->isValidTemplatePath($blocks[0]->getAttribute('template')))
+        ) {
+            return null;
+        }
+
+        $actions = $this->_getChildElements($blocks[0]);
+        if ($actions === null) {
+            return null;
+        }
+
+        foreach ($actions as $action) {
+            if (!$this->_isPlainElement($action, 'action', ['method'], ['method'])
+                || $action->getAttribute('method') !== 'setData'
+            ) {
+                return null;
+            }
+
+            $arguments = $this->_getChildElements($action);
+            if ($arguments === null || count($arguments) !== 2
+                || !$this->_isPlainElement($arguments[0], 'name', [])
+                || !$this->_isPlainElement($arguments[1], 'value', [])
+                || $this->_getChildElements($arguments[0]) !== []
+                || $this->_getChildElements($arguments[1]) !== []
+                // The generator never sets the template through a parameter, nor a parameter without a name
+                || in_array($arguments[0]->textContent, ['', 'template'], true)
+            ) {
+                return null;
+            }
+        }
+
+        return $blocks[0]->getAttribute('type');
+    }
+
+    /**
+     * Child elements of a node, or null if it has children other than elements, text and CDATA
+     *
+     * Text is only allowed where it cannot hold markup: whitespace between elements, or the text
+     * content of an element without element children (checked by the caller).
+     *
+     * @return null|list<DOMElement>
+     */
+    protected function _getChildElements(DOMElement $parent): ?array
+    {
+        $elements = [];
+        $hasText = false;
+        foreach ($parent->childNodes as $child) {
+            if ($child instanceof DOMElement) {
+                $elements[] = $child;
+            } elseif ($child instanceof DOMText) {
+                // DOMCdataSection extends DOMText
+                $hasText = $hasText || trim($child->data) !== '';
+            } else {
+                return null;
+            }
+        }
+
+        if ($hasText && $elements !== []) {
+            return null;
+        }
+
+        return $elements;
+    }
+
+    /**
+     * Check an element's name, that it has no namespace, that it only has allowed attributes, and has the required ones
+     *
+     * @param string[] $allowedAttributes
+     * @param string[] $requiredAttributes
+     */
+    protected function _isPlainElement(DOMElement $element, string $name, array $allowedAttributes, array $requiredAttributes = []): bool
+    {
+        if ($element->namespaceURI !== null || $element->nodeName !== $name) {
+            return false;
+        }
+
+        foreach ($element->attributes ?? [] as $attribute) {
+            if (!$attribute instanceof DOMAttr
+                || $attribute->namespaceURI !== null
+                || !in_array($attribute->nodeName, $allowedAttributes, true)
+            ) {
+                return false;
+            }
+        }
+
+        foreach ($requiredAttributes as $attribute) {
+            if ($element->getAttribute($attribute) === '') {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Escape a value for use in layout update XML text or a double- or single-quoted attribute
+     *
+     * @param  mixed  $value
+     * @return string
+     */
+    protected function _escapeXml($value)
+    {
+        $escaped = htmlspecialchars((string) $value, ENT_QUOTES | ENT_XML1 | ENT_SUBSTITUTE, 'UTF-8');
+        // Control characters are not allowed in XML 1.0 even when escaped, and would make the update unreadable
+        return (string) preg_replace('/[^\x{9}\x{A}\x{D}\x{20}-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]/u', "\u{FFFD}", $escaped);
     }
 
     /**

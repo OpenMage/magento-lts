@@ -48,6 +48,10 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     {
         $customer = Mage::getModel('customer/customer');
         $customerData = $this->_prepareData($customerData);
+        if (is_array($customerData) && array_key_exists('confirmation', $customerData)) {
+            $customerData['confirmation'] = $this->_prepareConfirmationForWrite($customer, $customerData['confirmation']);
+        }
+
         try {
             $customer
                 ->setData($customerData)
@@ -85,8 +89,8 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $result[$attributeAlias] = $customer->getData($attributeCode);
         }
 
-        foreach (array_keys($this->getAllowedAttributes($customer, $attributes)) as $attributeCode) {
-            $result[$attributeCode] = $customer->getData($attributeCode);
+        foreach ($this->_getReadableAttributeCodes($customer, $attributes) as $attributeCode) {
+            $result[$attributeCode] = $this->_prepareAttributeValueForRead($attributeCode, $customer->getData($attributeCode));
         }
 
         return $result;
@@ -107,6 +111,10 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         $filters = $apiHelper->parseFilters($filters, $this->_mapAttributes);
         try {
             foreach ($filters as $field => $value) {
+                if (!$this->_isAllowedFilter($collection->getEntity(), $field, $value)) {
+                    Mage::throwException(Mage::helper('customer')->__('Filtering by "%s" is not allowed.', $field));
+                }
+
                 $collection->addFieldToFilter($field, $value);
             }
         } catch (Mage_Core_Exception $mageCoreException) {
@@ -122,9 +130,9 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
                 $row[$attributeAlias] = $data[$attributeCode] ?? null;
             }
 
-            foreach (array_keys($this->getAllowedAttributes($customer)) as $attributeCode) {
+            foreach ($this->_getReadableAttributeCodes($customer) as $attributeCode) {
                 if (isset($data[$attributeCode])) {
-                    $row[$attributeCode] = $data[$attributeCode];
+                    $row[$attributeCode] = $this->_prepareAttributeValueForRead($attributeCode, $data[$attributeCode]);
                 }
             }
 
@@ -132,6 +140,89 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         }
 
         return $result;
+    }
+
+    /**
+     * Return codes of the attributes info() and items() may return
+     *
+     * Credentials (see Mage_Customer_Helper_Data::getApiSecretAttributeCodes()) are excluded after the
+     * optional filter, so naming one in the filter cannot re-admit it. They are kept out of
+     * $_ignoredAttributeCodes because update() uses that list.
+     *
+     * @param  null|array<int|string> $filter
+     * @return string[]
+     * @throws Mage_Core_Exception
+     */
+    protected function _getReadableAttributeCodes(Mage_Customer_Model_Customer $customer, ?array $filter = null)
+    {
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = Mage::helper('customer');
+        return array_values(array_diff(
+            array_keys($this->getAllowedAttributes($customer, $filter)),
+            $helper->getApiSecretAttributeCodes(),
+        ));
+    }
+
+    /**
+     * Prepare an attribute value for API output
+     *
+     * Only whether confirmation is pending is returned for the confirmation key. This matches the
+     * xsd:boolean type of the "confirmation" element in the SOAP v2 and WS-I customerCustomerEntity type.
+     *
+     * @param  string $attributeCode
+     * @param  mixed  $value
+     * @return mixed
+     */
+    protected function _prepareAttributeValueForRead($attributeCode, $value)
+    {
+        if ($attributeCode === 'confirmation') {
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = Mage::helper('customer');
+            return $helper->prepareApiConfirmationForRead($value);
+        }
+
+        return $value;
+    }
+
+    /**
+     * Prepare a confirmation value written by create() or update()
+     *
+     * Reads return a boolean, so a caller that writes back what it read must not store that boolean as
+     * the key, and a caller can never choose the key.
+     *
+     * @param  mixed       $value
+     * @return null|string
+     */
+    protected function _prepareConfirmationForWrite(Mage_Customer_Model_Customer $customer, $value)
+    {
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = Mage::helper('customer');
+        return $helper->prepareApiConfirmationForWrite($customer, $value);
+    }
+
+    /**
+     * Check whether a filter may be applied to the customer collection
+     *
+     * See Mage_Customer_Helper_Data::isApiFilterAllowed(). The field is resolved through the entity like
+     * the collection filter does, so attribute ids and codes that only match in the database collation
+     * are caught too.
+     *
+     * @param  int|string          $field
+     * @param  mixed               $condition
+     * @return bool
+     * @throws Mage_Core_Exception
+     */
+    protected function _isAllowedFilter(Mage_Eav_Model_Entity_Abstract $entity, $field, $condition)
+    {
+        $codes = [strtolower(trim((string) $field))];
+        $attribute = $entity->getAttribute($field);
+        if ($attribute !== false) {
+            $codes[] = strtolower((string) $attribute->getAttributeCode());
+        }
+
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = Mage::helper('customer');
+        return $helper->isApiFilterAllowed($codes, $condition);
     }
 
     /**
@@ -155,7 +246,12 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 
         foreach (array_keys($this->getAllowedAttributes($customer)) as $attributeCode) {
             if (isset($customerData[$attributeCode])) {
-                $customer->setData($attributeCode, $customerData[$attributeCode]);
+                $value = $customerData[$attributeCode];
+                if ($attributeCode === 'confirmation') {
+                    $value = $this->_prepareConfirmationForWrite($customer, $value);
+                }
+
+                $customer->setData($attributeCode, $value);
             }
         }
 

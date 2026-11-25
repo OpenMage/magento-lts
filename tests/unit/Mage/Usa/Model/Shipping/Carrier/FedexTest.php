@@ -531,7 +531,8 @@ final class FedexTest extends OpenMageTest
         $response = $fedex->requestToShipment($shipmentRequest);
         $info = (array) $response->getData('info');
         self::assertSame('FIRST', $info[0]['tracking_number']);
-        self::assertNotEmpty($response->getErrors());
+        self::assertTrue($response->hasErrors());
+        self::assertNotSame('', $response->getErrors());
     }
 
     public function testGetCodeMethodReturnsDeprecatedLabelFallbackForLegacyServiceTypes(): void

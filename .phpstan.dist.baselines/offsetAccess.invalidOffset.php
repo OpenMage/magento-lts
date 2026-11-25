@@ -738,11 +738,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Possibly invalid array key type int|string|null.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Possibly invalid array key type int|string|null.',
     'count' => 2,
     'path' => __DIR__ . '/../app/code/core/Mage/Weee/Block/Renderer/Weee/Tax.php',
 ];

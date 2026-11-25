@@ -214,4 +214,28 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     {
         return Mage::getStoreConfig(self::XML_PATH_MAX_QUERY_WORDS, $this->getStoreId());
     }
+
+    /**
+     * Validate search term data entered in the admin
+     *
+     * @return string[]|true
+     * @throws Exception
+     */
+    public function validate()
+    {
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
+
+        $violations->append($validator->validateNotEmpty(
+            value: $this->getQueryText(),
+            message: Mage::helper('catalog')->__('Search Query is required field.'),
+        ));
+
+        $errors = $validator->getErrorMessages($violations);
+        if (!$errors instanceof ArrayObject) {
+            return true;
+        }
+
+        return (array) $errors;
+    }
 }

@@ -106,6 +106,40 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
     }
 
     /**
+     * Keep the save on the loaded user, and away from the status and role of the current admin's own account
+     *
+     * The post's user_id is replaced by the loaded user's, which the own-account check compares and the
+     * save writes. An administrator cannot change the status or the role of their own account: the form
+     * does not offer the status, and a session whose access was revoked must not be able to restore it.
+     *
+     * @param  array<string, mixed>                     $data posted user data
+     * @return array{array<string, mixed>, null|string} data to save, and the error that refuses the save
+     */
+    protected function _prepareUserData(Mage_Admin_Model_User $model, array $data): array
+    {
+        if ((int) $model->getId() === 0) {
+            unset($data['user_id']);
+            return [$data, null];
+        }
+
+        $data['user_id'] = (int) $model->getId();
+        $sessionUser = Mage::getSingleton('admin/session')->getUser();
+        if (!$sessionUser instanceof Mage_Admin_Model_User || (int) $sessionUser->getId() !== (int) $model->getId()) {
+            return [$data, null];
+        }
+
+        unset($data['is_active']);
+        $postedRoles = $this->getRequest()->getParam('roles', false);
+        if (is_array($postedRoles) && $postedRoles !== []
+            && array_map(intval(...), array_slice($postedRoles, 0, 1)) !== array_map(intval(...), $model->getRoles())
+        ) {
+            return [$data, $this->__('You cannot change the role of your own account.')];
+        }
+
+        return [$data, null];
+    }
+
+    /**
      * @return void
      */
     public function saveAction()
@@ -126,6 +160,11 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             $this->getRequest()->setParam('current_password', null);
             unset($data['current_password']);
             $result = $this->_validateCurrentPassword($currentPassword);
+
+            [$data, $ownAccountError] = $this->_prepareUserData($model, $data);
+            if (!is_array($result) && $ownAccountError !== null) {
+                $result = [$ownAccountError];
+            }
 
             $model->setData($data);
 

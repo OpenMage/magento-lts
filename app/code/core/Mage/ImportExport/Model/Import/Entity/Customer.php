@@ -578,7 +578,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         if (strlen(trim($rowData[self::COL_EMAIL]))) {
             $scope = self::SCOPE_DEFAULT;
         } elseif ($foundOptions) {
-            $scope = self::SCOPE_OPTIONS;
+            $scope = self::SCOPE_OPTIONS; /** @phpstan-ignore assign.redundant */
         } elseif (strlen(trim($rowData[self::COL_POSTCODE]))) {
             $scope = self::SCOPE_ADDRESS;
         }

@@ -75,14 +75,16 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $xmlString = '';
         $isWorksheet = false;
         while (($xmlOriginalString = $batchIoAdapter->read()) !== false) {
+            if (!is_string($xmlOriginalString)) {
+                break;
+            }
+
             $xmlString .= $xmlOriginalString;
             if (!$isWorksheet) {
                 $strposS = strpos($xmlString, '<Worksheet');
-                $substrL = 10;
                 //fix for OpenOffice
                 if ($strposS === false) {
                     $strposS = strpos($xmlString, '<ss:Worksheet');
-                    $substrL = 13;
                 }
 
                 if ($strposS === false) {

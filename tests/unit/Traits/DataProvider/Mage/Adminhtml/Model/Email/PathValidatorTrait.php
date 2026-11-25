@@ -25,6 +25,13 @@ trait PathValidatorTrait
         yield 'parent group returns decrypted children' => ['paypal/wpp'];
         yield 'parent section returns decrypted children' => ['paypal'];
         yield 'surrounding slashes' => ['/paypal/wpp/api_password/'];
+        yield 'attribute selector on the field' => ['paypal/wpp/api_password@x='];
+        yield 'quoted attribute selector on the field' => ['paypal/wpp/api_password@x=""'];
+        yield 'attribute selector on the group' => ['paypal/wpp@x=/api_password'];
+        yield 'attribute selector on the section' => ['paypal@x=/wpp/api_password'];
+        yield 'attribute selector on an unencrypted field' => ['general/store_information/name@x='];
+        yield 'empty segment' => ['paypal//wpp/api_password'];
+        yield 'surrounding whitespace' => [' paypal/wpp/api_password'];
     }
 
     public static function provideUnencryptedConfigPaths(): Generator
@@ -32,5 +39,6 @@ trait PathValidatorTrait
         yield 'store name' => ['general/store_information/name'];
         yield 'sibling sharing a prefix' => ['paypal/wpp/api_password_not'];
         yield 'empty' => [''];
+        yield 'hyphen and dot in a segment' => ['some-module/group.name/field_1'];
     }
 }
