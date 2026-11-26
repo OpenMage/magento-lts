@@ -11,6 +11,7 @@
  * SalesRule Model Resource Coupon_Collection
  *
  * @package    Mage_SalesRule
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_SalesRule_Model_Coupon>
  */
 class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

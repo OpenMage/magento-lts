@@ -11,6 +11,7 @@
  * Eav Form Element Resource Collection
  *
  * @package    Mage_Eav
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Eav_Model_Form_Element>
  */
 class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

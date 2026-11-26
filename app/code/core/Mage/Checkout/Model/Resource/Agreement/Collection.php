@@ -13,6 +13,7 @@ declare(strict_types=1);
  * Resource Model for Agreement Collection
  *
  * @package    Mage_Checkout
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Checkout_Model_Agreement>
  */
 class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

@@ -11,6 +11,7 @@
  * Creditmemos collection
  *
  * @package    Mage_Sales
+ * @extends Mage_Eav_Model_Entity_Collection_Abstract<Mage_Sales_Model_Order_Creditmemo>
  */
 class Mage_Sales_Model_Entity_Order_Creditmemo_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {

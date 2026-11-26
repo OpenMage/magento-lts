@@ -12,6 +12,7 @@
  *
  * @package    Mage_Directory
  * @deprecated  since 1.5.0.0
+ * @extends Mage_Core_Model_Resource_Db_Collection_Abstract<Mage_Directory_Model_Currency>
  */
 class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
