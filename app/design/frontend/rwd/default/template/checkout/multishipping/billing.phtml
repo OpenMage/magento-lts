@@ -83,20 +83,19 @@
         var payment = new paymentForm('multishipping-billing-form');
         var quoteBaseGrandTotal = <?php echo (float)$this->getQuoteBaseGrandTotal(); ?>;
         function toggleToolTip(event){
-            if($('payment-tool-tip')){
-                /*$('payment-tool-tip').setStyle({
-                    top: (Event.pointerY(event)-510)+'px',
-                    left: (Event.pointerX(event)-800)+'px'
-                })*/
-                $('payment-tool-tip').toggle();
+            var paymentToolTip = document.getElementById('payment-tool-tip');
+            if(paymentToolTip){
+                paymentToolTip.style.display = paymentToolTip.style.display === 'none' ? '' : 'none';
             }
-            Event.stop(event);
+            event.preventDefault();
+            event.stopPropagation();
         }
-        if($('payment-tool-tip-close')){
-            Event.observe($('payment-tool-tip-close'), 'click', toggleToolTip);
+        var paymentToolTipClose = document.getElementById('payment-tool-tip-close');
+        if(paymentToolTipClose){
+            paymentToolTipClose.addEventListener('click', toggleToolTip);
         }
-        $$('.cvv-what-is-this').each(function(element){
-            Event.observe(element, 'click', toggleToolTip);
+        document.querySelectorAll('.cvv-what-is-this').forEach(function(element){
+            element.addEventListener('click', toggleToolTip);
         });
     //]]>
     </script>

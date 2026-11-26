@@ -38,10 +38,11 @@
     </table>
     <script type="text/javascript">
     //<![CDATA[
-    $('<?php echo $this->getPlaceholderId() ?>').observe('click', function(event){
-        this.toggleClassName('expanded');
-        $('<?php echo $this->getDetailsPlaceholderId() ?>').toggleClassName('no-display');
-        event.stop();
+    document.getElementById('<?php echo $this->getPlaceholderId() ?>').addEventListener('click', function(event){
+        this.classList.toggle('expanded');
+        document.getElementById('<?php echo $this->getDetailsPlaceholderId() ?>').classList.toggle('no-display');
+        event.preventDefault();
+        event.stopPropagation();
         decorateTable('<?php echo $this->getDetailsPlaceholderId() ?>');
     });
     //]]>
