@@ -14,6 +14,8 @@ use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\EmailValidator;
+use Symfony\Component\Validator\ConstraintValidatorFactory;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\IdenticalTo;
 use Symfony\Component\Validator\Constraints\Image;
@@ -48,7 +50,11 @@ class Mage_Core_Helper_Validate extends Mage_Core_Helper_Abstract
 
     public function __construct()
     {
-        self::$validator = Validation::createValidator();
+        self::$validator = Validation::createValidatorBuilder()
+            ->setConstraintValidatorFactory(new ConstraintValidatorFactory([
+                EmailValidator::class => new EmailValidator(Email::VALIDATION_MODE_HTML5),
+            ]))
+            ->getValidator();
     }
 
     public static function getValidator(): ValidatorInterface
