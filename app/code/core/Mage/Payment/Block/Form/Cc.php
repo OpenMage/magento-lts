@@ -35,14 +35,14 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     /**
      * Retrieve available credit card types
      *
-     * @return array
+     * @return array<string>
      */
     public function getCcAvailableTypes()
     {
         $types = $this->_getConfig()->getCcTypes();
         if ($method = $this->getMethod()) {
             $availableTypes = $method->getConfigData('cctypes');
-            if ($availableTypes) {
+            if (is_string($availableTypes) && $availableTypes !== '') {
                 $availableTypes = explode(',', $availableTypes);
                 foreach (array_keys($types) as $code) {
                     if (!in_array($code, $availableTypes, true)) {
@@ -58,7 +58,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     /**
      * Retrieve credit card expire months
      *
-     * @return array
+     * @return array<string>
      */
     public function getCcMonths()
     {
@@ -75,7 +75,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     /**
      * Retrieve credit card expire years
      *
-     * @return array
+     * @return array<int|string>
      */
     public function getCcYears()
     {
@@ -126,7 +126,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     * @return array
     */
     /**
-     * @return array
+     * @return array<int|string>
      */
     public function getSsStartYears()
     {
