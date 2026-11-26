@@ -55,4 +55,60 @@ final class TemplateTest extends OpenMageTest
         yield 'attribute selector on the group' => ['{{var store.getConfig("paypal/wpp@x=/api_password")}}', ''];
         yield 'attribute selector in a condition' => ['{{depend store.getConfig("paypal/wpp/api_password@x=")}}set{{/depend}}', ''];
     }
+
+    /**
+     * Values like 0 (int, e.g. Quote::getIsVirtual()) and "0" (string, loaded from the database)
+     * must be treated as false by {{depend}} and {{if}}; since PHP 8, 0 == '' is false.
+     *
+     * @group Filter
+     */
+    #[DataProvider('provideConditionValues')]
+    public function testDependDirective(mixed $value, bool $isTrue): void
+    {
+        $subject = new Subject();
+        $subject->setVariables(['order' => new Varien_Object(['is_virtual' => $value])]);
+
+        self::assertSame(
+            $isTrue ? 'yes' : '',
+            $subject->filter('{{depend order.getIsVirtual()}}yes{{/depend}}'),
+        );
+    }
+
+    /**
+     * @group Filter
+     */
+    #[DataProvider('provideConditionValues')]
+    public function testIfDirective(mixed $value, bool $isTrue): void
+    {
+        $subject = new Subject();
+        $subject->setVariables(['order' => new Varien_Object(['is_virtual' => $value])]);
+
+        self::assertSame(
+            $isTrue ? 'yes' : 'no',
+            $subject->filter('{{if order.getIsVirtual()}}yes{{else}}no{{/if}}'),
+        );
+        self::assertSame(
+            $isTrue ? 'yes' : '',
+            $subject->filter('{{if order.getIsVirtual()}}yes{{/if}}'),
+        );
+    }
+
+    public static function provideConditionValues(): Generator
+    {
+        yield 'null' => [null, false];
+        yield 'false' => [false, false];
+        yield 'empty string' => ['', false];
+        yield 'int zero' => [0, false];
+        yield 'string zero' => ['0', false];
+        yield 'float zero' => [0.0, false];
+        yield 'empty array' => [[], false];
+        yield 'true' => [true, true];
+        yield 'int one' => [1, true];
+        yield 'string one' => ['1', true];
+        yield 'decimal string zero' => ['0.0000', true];
+        yield 'whitespace' => [' ', true];
+        yield 'non-empty string' => ['abc', true];
+        yield 'non-empty array' => [[0], true];
+        yield 'object' => [new Varien_Object(), true];
+    }
 }
