@@ -58,7 +58,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
                         $value,
                     );
                 } elseif (is_array($option['value'])) {
-                    $html .= '<optgroup label="' . $option['label'] . '">' . "\n";
+                    $html .= '<optgroup label="' . $this->_escape($option['label']) . '">' . "\n";
                     foreach ($option['value'] as $groupItem) {
                         $html .= $this->_optionToHtml($groupItem, $value);
                     }
@@ -82,7 +82,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     protected function _optionToHtml($option, $selected)
     {
         if (is_array($option['value'])) {
-            $html = '<optgroup label="' . $option['label'] . '">' . "\n";
+            $html = '<optgroup label="' . $this->_escape($option['label']) . '">' . "\n";
             foreach ($option['value'] as $groupItem) {
                 $html .= $this->_optionToHtml($groupItem, $selected);
             }
