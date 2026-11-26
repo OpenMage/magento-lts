@@ -212,7 +212,13 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
      */
     public function addRateVotes()
     {
+        $isRatingEnabled = Mage::helper('core')->isModuleEnabled('Mage_Rating');
         foreach ($this->getItems() as $item) {
+            if (!$isRatingEnabled) {
+                $item->setRatingVotes(new Varien_Data_Collection());
+                continue;
+            }
+
             $votesCollection = Mage::getModel('rating/rating_option_vote')
                 ->getResourceCollection()
                 ->setReviewFilter($item->getId())
