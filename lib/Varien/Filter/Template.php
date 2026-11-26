@@ -217,7 +217,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             return $construction[0];
         }
 
-        if ($this->_getVariable($construction[1], '') == '') {
+        if ($this->isEmptyConditionValue($this->_getVariable($construction[1], ''))) {
             return '';
         }
 
@@ -230,7 +230,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             return $construction[0];
         }
 
-        if ($this->_getVariable($construction[1], '') == '') {
+        if ($this->isEmptyConditionValue($this->_getVariable($construction[1], ''))) {
             if (isset($construction[3]) && isset($construction[4])) {
                 return $construction[4];
             }
@@ -239,6 +239,11 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         }
 
         return $construction[2];
+    }
+
+    protected function isEmptyConditionValue(mixed $value): bool
+    {
+        return in_array($value, [null, false, '', '0', 0, 0.0, []], true);
     }
 
     /**

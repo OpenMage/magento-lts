@@ -5823,11 +5823,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Varien/Filter/Template.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 4,
     'path' => __DIR__ . '/../lib/Varien/Filter/Template/Tokenizer/Parameter.php',
 ];
