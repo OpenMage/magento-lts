@@ -1630,6 +1630,9 @@
             </reorder>
         </sales>
         <sales_email>
+            <general>
+                <enable_queue_usage>0</enable_queue_usage>
+            </general>
             <order>
                 <enabled>1</enabled>
                 <template>sales_email_order_template</template>
