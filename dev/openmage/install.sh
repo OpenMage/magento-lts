@@ -137,8 +137,7 @@ $dc exec mysql mysql -e "
 DELETE FROM core_config_data WHERE path IN ('admin/url/use_custom', 'web/unsecure/base_url', 'web/secure/base_url');
 INSERT INTO core_config_data (scope, scope_id, path, value) VALUES
 ('default',0,'admin/url/use_custom','1'),
-('stores',0,'web/unsecure/base_url','$ADMIN_URL'),
-('stores',0,'web/secure/base_url','$ADMIN_URL');
+('default',0,'admin/url/custom','$ADMIN_URL');
 " "$MYSQL_DATABASE"
 rm -rf ${SRC_DIR}/var/cache/*
 
