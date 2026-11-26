@@ -29,7 +29,6 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         $options = [];
         $optionIds = $item->getOptionByCode('option_ids');
         if ($optionIds) {
-            $options = [];
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 $option = $product->getOptionById($optionId);
                 if ($option) {
@@ -77,6 +76,8 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
     /**
      * Retrieves configuration options for configurable product
      *
+     * Option values are HTML, like the custom option values formatted by their option type.
+     *
      * @return array
      */
     public function getConfigurableOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
@@ -89,8 +90,28 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
 
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $product->getTypeInstance(true);
-        $attributes = $productType->getSelectedAttributesInfo($product);
+        $attributes = $this->escapeAttributesInfo($productType->getSelectedAttributesInfo($product));
         return array_merge($attributes, $this->getCustomOptions($item));
+    }
+
+    /**
+     * Escape the option values of configurable attributes for HTML output
+     *
+     * Mage_Catalog_Model_Product_Type_Configurable::getSelectedAttributesInfo() returns the option labels
+     * raw, and orders keep them raw in the "attributes_info" product option.
+     *
+     * @param  array<int, array<string, mixed>> $attributesInfo
+     * @return array<int, array<string, mixed>>
+     */
+    public function escapeAttributesInfo(array $attributesInfo)
+    {
+        foreach ($attributesInfo as $key => $attribute) {
+            if (is_array($attribute) && isset($attribute['value'])) {
+                $attributesInfo[$key]['value'] = $this->escapeHtml($attribute['value']);
+            }
+        }
+
+        return $attributesInfo;
     }
 
     /**
@@ -209,7 +230,6 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         }
 
         // Truncate standard view
-        $result = [];
         if (is_array($optionValue)) {
             $truncatedValue = implode("\n", $optionValue);
             $truncatedValue = nl2br($truncatedValue);

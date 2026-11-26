@@ -297,12 +297,10 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     public function randomSequence($length = 32)
     {
         $str = '';
-        $par = [];
         $char = array_merge(range('a', 'z'), range(0, 9));
         $charLen = count($char) - 1;
         for ($index = 0; $index < $length; $index++) {
             $disc = random_int(0, $charLen);
-            $par[$index] = $char[$disc];
             $str .= $char[$disc];
         }
 

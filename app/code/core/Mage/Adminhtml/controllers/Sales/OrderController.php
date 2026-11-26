@@ -220,6 +220,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      */
     public function reviewPaymentAction()
     {
+        $order = null;
         try {
             if (!$order = $this->_initOrder()) {
                 return;
@@ -253,7 +254,11 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             Mage::logException($exception);
         }
 
-        $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
+        if ($order !== null) {
+            $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
+        } else {
+            $this->_redirect('*/*/');
+        }
     }
 
     /**

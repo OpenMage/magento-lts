@@ -1179,7 +1179,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         $quotePayment = $orderPayment->getOrder()->getQuote()->getPayment();
         $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_LAST_DECLINED);
-        $exceptionMessage = null;
 
         try {
             switch ($response->getResponseCode()) {

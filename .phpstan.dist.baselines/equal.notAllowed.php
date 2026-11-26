@@ -2202,11 +2202,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Onepage.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 6,
-    'path' => __DIR__ . '/../app/code/core/Mage/Checkout/Model/Type/Onepage.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and int is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/CartController.php',
@@ -4868,7 +4863,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between mixed and string is not allowed.',
-    'count' => 17,
+    'count' => 16,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php',
 ];
 $ignoreErrors[] = [

@@ -757,11 +757,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Block/Widget/Name.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, Mage_Customer_Model_Attribute given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Customer/Helper/Address.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Customer/Model/Address.php',

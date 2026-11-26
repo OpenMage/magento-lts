@@ -48,11 +48,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only numeric types are allowed in -, int|false given on the left side.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Entity/Summary/Collection/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only numeric types are allowed in -, int|false given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Reports/Model/Resource/Product/Index/Abstract.php',
 ];

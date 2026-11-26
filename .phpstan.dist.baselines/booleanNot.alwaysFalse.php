@@ -19,16 +19,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'rawMessage' => 'Negated boolean expression is always false.',
     'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/SalesRule/Model/Resource/Coupon.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Negated boolean expression is always false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Shipping/Model/Carrier/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Negated boolean expression is always false.',
-    'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/checkout/onepage/login.phtml',
 ];
 $ignoreErrors[] = [

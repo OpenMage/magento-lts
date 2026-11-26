@@ -207,7 +207,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
             $original = $string;
             if (str_contains($original, '::')) {
                 // ignored scope
-                [$ignored, $original] = explode('::', $original);
+                [, $original] = explode('::', $original);
             }
 
             if ($original == $translate) {

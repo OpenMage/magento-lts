@@ -29,7 +29,7 @@
             <?php $childProductStockQty = $this->getProductStockQty($childProduct); ?>
             <?php if ($childProductStockQty > 0) : ?>
                 <tr>
-                    <td><?php echo $childProduct->getName() ?></td>
+                    <td><?php echo $this->escapeHtml($childProduct->getName()) ?></td>
                     <td class="a-center"><?php echo $childProductStockQty ?></td>
                 </tr>
             <?php endif ?>

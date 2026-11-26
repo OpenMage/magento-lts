@@ -70,6 +70,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
     /**
      * Returns list of options and their values for product configuration
      *
+     * Option values are HTML: the product configuration helpers escape them, see
+     * Mage_Catalog_Helper_Product_Configuration::getConfigurableOptions().
+     *
      * @return array
      */
     protected function getOptionList()

@@ -79,6 +79,11 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             $packageTheme = $package . '/' . $theme === '/' ? null : $package . '/' . $theme;
             $widgetInstance->setType($type)
                 ->setPackageTheme($packageTheme);
+            // No type yet means the Settings tab is shown to pick one; any given type must be declared
+            if ($type !== null && $type !== '' && !$widgetInstance->isTypeDeclared()) {
+                $this->_getSession()->addError(Mage::helper('widget')->__('Wrong widget type specified.'));
+                return false;
+            }
         }
 
         Mage::register('current_widget_instance', $widgetInstance);
@@ -118,6 +123,15 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             return;
         }
 
+        if ($widgetInstance instanceof Mage_Widget_Model_Widget_Instance
+            && $widgetInstance->getId() !== null
+            && !$widgetInstance->isTypeDeclared()
+        ) {
+            $this->_getSession()->addError(Mage::helper('widget')->__(
+                'The type of this widget instance is not declared by any enabled module, so it cannot be saved. Delete it, or enable or reinstall the module that provides this widget type.',
+            ));
+        }
+
         $this->_title($widgetInstance->getId() ? $widgetInstance->getTitle() : $this->__('New Instance'));
 
         $this->_initAction();
@@ -145,7 +159,9 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         $response->setError(false);
 
         $widgetInstance = $this->_initWidgetInstance();
-        $result = $widgetInstance->validate();
+        $result = $widgetInstance instanceof Mage_Widget_Model_Widget_Instance
+            ? $widgetInstance->validate()
+            : Mage::helper('widget')->__('Wrong widget type specified.');
         if ($result !== true && is_string($result)) {
             $this->_getSession()->addError($result);
             $this->_initLayoutMessages('adminhtml/session');
@@ -263,8 +279,12 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      */
     public function blocksAction()
     {
-        /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
+        if (!$widgetInstance instanceof Mage_Widget_Model_Widget_Instance) {
+            $this->setBody('');
+            return;
+        }
+
         $layout = $this->getRequest()->getParam('layout');
         $selected = $this->getRequest()->getParam('selected');
         $blocksChooser = $this->getLayout()
@@ -284,8 +304,12 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      */
     public function templateAction()
     {
-        /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
+        if (!$widgetInstance instanceof Mage_Widget_Model_Widget_Instance) {
+            $this->setBody('');
+            return;
+        }
+
         $block = $this->getRequest()->getParam('block');
         $selected = $this->getRequest()->getParam('selected');
         $templateChooser = $this->getLayout()
@@ -339,14 +363,18 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             $validatorCustomLayout = Mage::getModel('adminhtml/layoutUpdate_validator');
             foreach ($data['widget_instance'] as $pageGroup) {
                 try {
-                    if (!empty($pageGroup['page_group'])
-                        && !empty($pageGroup[$pageGroup['page_group']]['template'])
-                        && !empty($pageGroup[$pageGroup['page_group']]['block'])
-                        && !$validatorCustomLayout->isValid($widgetInstance->generateLayoutUpdateXml(
-                            $pageGroup[$pageGroup['page_group']]['block'],
-                            $pageGroup[$pageGroup['page_group']]['template'],
-                        ))
-                    ) {
+                    // The same check as on save, so a page group skipped here is skipped there too
+                    $pageGroupData = $widgetInstance->validatePageGroup($pageGroup);
+                    if ($pageGroupData === null) {
+                        continue;
+                    }
+
+                    // Validate the generated XML of every page group, whether or not it sets a template
+                    $layoutXml = $widgetInstance->generateLayoutUpdateXml(
+                        $pageGroupData['block'] ?? '',
+                        $pageGroupData['template'] ?? '',
+                    );
+                    if ($layoutXml !== '' && !$validatorCustomLayout->isValid($layoutXml)) {
                         $errorNo = false;
                     }
                 } catch (Exception $exception) {

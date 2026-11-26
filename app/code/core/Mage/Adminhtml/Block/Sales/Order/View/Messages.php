@@ -29,14 +29,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Messages extends Mage_Adminhtml_Bloc
          */
         Mage::getModel('customer/customer')->load($this->_getOrder()->getCustomerId());
 
-        /**
-         * Check Item products existing
-         */
-        $productIds = [];
-        foreach ($this->_getOrder()->getAllItems() as $item) {
-            $productIds[] = $item->getProductId();
-        }
-
         return parent::_prepareLayout();
     }
 }

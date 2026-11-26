@@ -12,21 +12,12 @@
  * @var Mage_Payment_Block_Info $this
  */
 ?>
-<p><strong><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></strong></p>
+<?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?>{{pdf_row_separator}}
 
 <?php if (is_array($_specificInfo = $this->getSpecificInformation()) && $_specificInfo !== []):?>
-<table>
-    <tbody>
-    <?php foreach ($_specificInfo as $_label => $_value):?>
-        <tr>
-            <th><strong><?php echo $this->escapeHtml($_label)?>:</strong></th>
-        </tr>
-        <tr>
-            <td><?php echo nl2br(implode("\n", $this->getValueAsArray($_value, true)))?></td>
-        </tr>
-    <?php endforeach ?>
-    </tbody>
-</table>
+<?php foreach ($_specificInfo as $_label => $_value):?>
+<?php echo $this->escapeHtml($_label) ?>: <?php echo implode(' ', $this->getValueAsArray($_value, true))?>{{pdf_row_separator}}
+<?php endforeach ?>
 <?php endif ?>
 
-<?php echo $this->getChildHtml()?>
+<?php echo implode('{{pdf_row_separator}}', $this->getChildPdfAsArray()) ?>

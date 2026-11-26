@@ -74,7 +74,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
                 return $row->$getter();
             }
 
-            if (is_callable($getter)) {
+            // Only closures, invokable objects and [object, method] callables: column options can come from
+            // layout XML, where a static ["Class", "method"] callable would call any static method
+            if (is_callable($getter)
+                && (is_object($getter) || (is_array($getter) && is_object($getter[0])))
+            ) {
                 return call_user_func($getter, $row);
             }
 

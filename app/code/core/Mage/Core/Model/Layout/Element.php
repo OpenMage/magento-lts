@@ -54,7 +54,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
      */
     public function getBlockName()
     {
-        $tagName = (string) $this->getName();
+        $tagName = $this->getName();
         if ($tagName !== 'block' && $tagName !== 'reference' || empty($this['name'])) {
             return false;
         }

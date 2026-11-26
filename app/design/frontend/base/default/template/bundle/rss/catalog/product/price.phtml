@@ -17,7 +17,7 @@
 ?>
 
 <?php $_product = $this->getProduct() ?>
-<?php [$_minimalPrice, $_maximalPrice] = $_product->getPriceModel()->getPrices($_product) ?>
+<?php [$_minimalPrice, $_maximalPrice] = $_product->getPriceModel()->getTotalPrices($_product) ?>
 <?php $_id = $_product->getId() ?>
 
 <?php

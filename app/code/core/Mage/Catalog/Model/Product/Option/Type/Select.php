@@ -130,16 +130,12 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         } elseif ($this->_isSingleSelection()) {
             if ($_result = $option->getValueById($optionValue)) {
                 $result = $_result->getTitle();
-            } else {
-                if ($this->getListener()) {
-                    $this->getListener()
-                            ->setHasError(true)
-                            ->setMessage(
-                                $this->_getWrongConfigurationMessage(),
-                            );
-                }
-
-                $result = '';
+            } elseif ($this->getListener()) {
+                $this->getListener()
+                        ->setHasError(true)
+                        ->setMessage(
+                            $this->_getWrongConfigurationMessage(),
+                        );
             }
         } else {
             $result = $optionValue;

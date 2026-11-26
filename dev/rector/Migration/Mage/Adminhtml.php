@@ -19,8 +19,9 @@ use Mage_Adminhtml_Block_Widget_Container;
 use Mage_Adminhtml_Block_Widget_Form;
 use Mage_Adminhtml_Block_Widget_Grid;
 use Mage_Adminhtml_Controller_Action;
+use OpenMage\Rector\ValueObject\ClassConstant;
+use OpenMage\Rector\ValueObject\ReplaceArgumentValue;
 use PHPStan\Type\BooleanType;
-use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
 
@@ -55,52 +56,37 @@ final class Adminhtml
     }
 
     /**
-     * @return ReplaceArgumentDefaultValue[]
+     * @return ReplaceArgumentValue[]
      */
-    public static function replaceArgumentDefaultValue(): array
+    public static function replaceArgumentValue(): array
     {
-        return [
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'add', 'self::BUTTON_TYPE_ADD'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'back', 'self::BUTTON_TYPE_BACK'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'cancel', 'self::BUTTON_TYPE_CANCEL'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'close', 'self::BUTTON_TYPE_CLOSE'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'delete', 'self::BUTTON_TYPE_DELETE'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'print', 'self::BUTTON_TYPE_PRINT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'reset', 'self::BUTTON_TYPE_RESET'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'save', 'self::BUTTON_TYPE_SAVE'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'savecontinue', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'saveandcontinue', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'save_and_continue', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'save_and_edit', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_addButton', 0, 'void', 'self::BUTTON_TYPE_VOID'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'add', 'self::BUTTON_TYPE_ADD'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'back', 'self::BUTTON_TYPE_BACK'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'cancel', 'self::BUTTON_TYPE_CANCEL'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'close', 'self::BUTTON_TYPE_CLOSE'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'delete', 'self::BUTTON_TYPE_DELETE'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'print', 'self::BUTTON_TYPE_PRINT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'reset', 'self::BUTTON_TYPE_RESET'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'save', 'self::BUTTON_TYPE_SAVE'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'savecontinue', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'saveandcontinue', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'save_and_continue', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'save_and_edit', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_removeButton', 0, 'void', 'self::BUTTON_TYPE_VOID'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'add', 'self::BUTTON_TYPE_ADD'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'back', 'self::BUTTON_TYPE_BACK'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'cancel', 'self::BUTTON_TYPE_CANCEL'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'close', 'self::BUTTON_TYPE_CLOSE'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'delete', 'self::BUTTON_TYPE_DELETE'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'print', 'self::BUTTON_TYPE_PRINT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'reset', 'self::BUTTON_TYPE_RESET'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'save', 'self::BUTTON_TYPE_SAVE'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'savecontinue', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'saveandcontinue', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'save_and_continue', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'save_and_edit', 'self::BUTTON_TYPE_SAVE_EDIT'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Container::class, '_updateButton', 0, 'void', 'self::BUTTON_TYPE_VOID'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Grid::class, 'setDefaultDir', 0, 'asc', 'ASC'),
-            new ReplaceArgumentDefaultValue(Mage_Adminhtml_Block_Widget_Grid::class, 'setDefaultDir', 0, 'desc', 'DESC'),
+        $container = Mage_Adminhtml_Block_Widget_Container::class;
+        $buttonTypes = [
+            'add'               => 'BUTTON_TYPE_ADD',
+            'back'              => 'BUTTON_TYPE_BACK',
+            'cancel'            => 'BUTTON_TYPE_CANCEL',
+            'close'             => 'BUTTON_TYPE_CLOSE',
+            'delete'            => 'BUTTON_TYPE_DELETE',
+            'print'             => 'BUTTON_TYPE_PRINT',
+            'reset'             => 'BUTTON_TYPE_RESET',
+            'save'              => 'BUTTON_TYPE_SAVE',
+            'savecontinue'      => 'BUTTON_TYPE_SAVE_EDIT',
+            'saveandcontinue'   => 'BUTTON_TYPE_SAVE_EDIT',
+            'save_and_continue' => 'BUTTON_TYPE_SAVE_EDIT',
+            'save_and_edit'     => 'BUTTON_TYPE_SAVE_EDIT',
+            'void'              => 'BUTTON_TYPE_VOID',
         ];
+
+        $replacements = [];
+        foreach (['_addButton', '_removeButton', '_updateButton'] as $method) {
+            foreach ($buttonTypes as $before => $constant) {
+                $replacements[] = new ReplaceArgumentValue($container, $method, 0, $before, new ClassConstant($container, $constant));
+            }
+        }
+
+        $replacements[] = new ReplaceArgumentValue(Mage_Adminhtml_Block_Widget_Grid::class, 'setDefaultDir', 0, 'asc', 'ASC');
+        $replacements[] = new ReplaceArgumentValue(Mage_Adminhtml_Block_Widget_Grid::class, 'setDefaultDir', 0, 'desc', 'DESC');
+
+        return $replacements;
     }
 }

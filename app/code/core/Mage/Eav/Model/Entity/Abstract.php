@@ -394,10 +394,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
         $attribute = $attributeInstance;
 
-        if (empty($attributeId)) {
-            $attributeId = $attribute->getAttributeId();
-        }
-
         if (isset($attributeCode) && !$attribute->getAttributeCode()) {
             $attribute->setAttributeCode($attributeCode);
         }
@@ -1369,7 +1365,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
             $newObject->setId($entityId);
         } else {
-            $where = sprintf('%s=%d', $adapter->quoteIdentifier($entityIdField), $entityId);
+            $where = sprintf('%s=%d', $adapter->quoteIdentifier($entityIdField), (int) $entityId);
             $adapter->update($entityTable, $entityRow, $where);
         }
 

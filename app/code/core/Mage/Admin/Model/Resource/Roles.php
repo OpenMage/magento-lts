@@ -94,10 +94,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
         parent::_afterSave($object);
 
         if ($this->_updateRoleUsersAcl($object)) {
-            Mage::app()->getCache()->clean(
-                Zend_Cache::CLEANING_MODE_MATCHING_TAG,
-                [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS],
-            );
+            $this->_getUserResource()->cleanMenuCache();
         }
 
         return $this;
@@ -115,9 +112,17 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     {
         parent::_afterDelete($object);
 
+        // Read the members while their rows still exist, so their open sessions drop the deleted role
+        $users = $this->getRoleUsers($object);
+
         $adapter = $this->_getWriteAdapter();
         $adapter->delete($this->getMainTable(), ['parent_id = ?' => (int) $object->getId()]);
         $adapter->delete($this->_ruleTable, ['role_id = ?' => (int) $object->getId()]);
+
+        if ($this->_getUserResource()->bumpAclVersion($users) > 0) {
+            $this->_getUserResource()->cleanMenuCache();
+        }
+
         return $this;
     }
 
@@ -146,17 +151,13 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      */
     private function _updateRoleUsersAcl(Mage_Admin_Model_Roles $role): bool
     {
-        $users = $this->getRoleUsers($role);
-        $rowsCount = 0;
+        return $this->_getUserResource()->bumpAclVersion($this->getRoleUsers($role)) > 0;
+    }
 
-        if (count($users)) {
-            $rowsCount = $this->_getWriteAdapter()->update(
-                $this->_usersTable,
-                ['reload_acl_flag' => 1],
-                ['user_id IN (?)' => $users],
-            );
-        }
-
-        return $rowsCount > 0;
+    protected function _getUserResource(): Mage_Admin_Model_Resource_User
+    {
+        /** @var Mage_Admin_Model_Resource_User $resource */
+        $resource = Mage::getResourceSingleton('admin/user');
+        return $resource;
     }
 }

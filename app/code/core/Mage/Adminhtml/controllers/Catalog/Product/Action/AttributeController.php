@@ -216,7 +216,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             $this->_redirect('*/catalog_product/', ['_current' => true]);
         }
 
-        return $error !== null;
+        return $error === null;
     }
 
     /**

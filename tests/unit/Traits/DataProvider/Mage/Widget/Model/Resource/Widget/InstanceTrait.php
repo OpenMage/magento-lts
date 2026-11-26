@@ -11,4 +11,19 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Widget\Model\Resource\Widget;
 
-trait InstanceTrait {}
+use Generator;
+
+trait InstanceTrait
+{
+    /**
+     * @return Generator<string, array{int, bool}>
+     */
+    public static function provideCleanupBatchData(): Generator
+    {
+        yield 'one layout update per batch' => [1, true];
+        yield 'two layout updates per batch' => [2, true];
+        yield 'all in one batch' => [200, true];
+        // As in setup scripts, which turn foreign key checks off, so ON DELETE CASCADE does not run
+        yield 'foreign key checks off' => [1, false];
+    }
+}

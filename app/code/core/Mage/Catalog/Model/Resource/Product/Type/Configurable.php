@@ -89,7 +89,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
      */
     public function getChildrenIds($parentId, $required = true)
     {
-        $childrenIds = [];
         $select = $this->_getReadAdapter()->select()
             ->from(['l' => $this->getMainTable()], ['product_id', 'parent_id'])
             ->join(

@@ -139,7 +139,7 @@ final class Mage
      */
     public static function getVersion()
     {
-        $i = self::getVersionInfo();
+        $i = self::getMagentoVersionInfo();
         return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : '')
                         . "-{$i['stability']}{$i['number']}", '.-');
     }
@@ -151,6 +151,16 @@ final class Mage
      */
     #[Deprecated]
     public static function getVersionInfo()
+    {
+        return self::getMagentoVersionInfo();
+    }
+
+    /**
+     * Magento version information for getVersion() and the deprecated getVersionInfo()
+     *
+     * @return array<string, string>
+     */
+    private static function getMagentoVersionInfo(): array
     {
         return [
             'major'     => '1',
@@ -204,7 +214,7 @@ final class Mage
             return [
                 'major'     => '20',
                 'minor'     => '19',
-                'patch'     => '0',
+                'patch'     => '1',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];

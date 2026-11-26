@@ -47,8 +47,8 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
             $query = $this->_prepareSelect($this->getSelect());
             $rows = $this->_fetchAll($query);
         } catch (Exception $exception) {
-            Mage::printException($exception, $query);
-            $this->printLogQuery(true, true, $query);
+            Mage::printException($exception, $query ?? null);
+            $this->printLogQuery(true, true, $query ?? null);
             throw $exception;
         }
 

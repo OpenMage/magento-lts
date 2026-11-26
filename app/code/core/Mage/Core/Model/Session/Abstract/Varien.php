@@ -8,6 +8,7 @@
  */
 
 use Mage_Adminhtml_Model_System_Config_Source_Cookie_Samesite as CookieSamesite;
+use Monolog\Level;
 
 /**
  * @package    Mage_Core
@@ -61,6 +62,12 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     public function start($sessionName = null)
     {
         if (isset($_SESSION) && !$this->getSkipEmptySessionCheck()) {
+            return $this;
+        }
+
+        if (PHP_SAPI === 'cli' && headers_sent()) {
+            Mage::log('Session not started in CLI: output was already sent', Level::Warning);
+            $_SESSION ??= [];
             return $this;
         }
 
