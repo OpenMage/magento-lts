@@ -14,11 +14,11 @@ namespace OpenMage\Tests\Unit\Mage\Review\Model\Resource\Review;
 use Mage;
 use Mage_Core_Helper_Data;
 use Mage_Review_Model_Resource_Review_Collection as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Data_Collection;
 use Varien_Object;
 
-final class CollectionTest extends TestCase
+final class CollectionTest extends OpenMageTest
 {
     /**
      * @dataProvider provideRatingModuleStatus
