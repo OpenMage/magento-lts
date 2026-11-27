@@ -1317,16 +1317,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/email/order/items.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, (int|string) given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/form/cc.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, (int|string) given.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/form/ccsave.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, int<0, 1> given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/create/items/grid.phtml',
@@ -1477,16 +1467,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/page/print.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, (int|string) given.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/payment/form/cc.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, (int|string) given.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/payment/form/ccsave.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, int<0, 1> given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/rss/order/details.phtml',
@@ -1540,16 +1520,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, string given.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/page/print.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, (int|string) given.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/payment/form/cc.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in a ternary operator condition, (int|string) given.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/payment/form/ccsave.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in a ternary operator condition, mixed given.',

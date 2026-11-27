@@ -292,36 +292,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'name\' on array{name: \'\'}|array{name: string, passwd: string, gid: int, members: list<string>}|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'name\' on array{name: \'\'}|array{name: string, passwd: string, uid: int, gid: int, gecos: string, dir: string, shell: string}|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'name\' on array|bool.',
-    'count' => 2,
-    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'name\' on array|false.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'size\' on array|bool.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Cannot access offset \'type\' on array|bool.',
-    'count' => 1,
-    'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot access offset \'uid\' on array{0: int, 1: int, 2: int, 3: int, 4: int, 5: int, 6: int, 7: int, ...}|false.',
     'count' => 1,
     'path' => __DIR__ . '/../lib/Mage/Archive/Tar.php',

@@ -33,7 +33,7 @@
         <?php endif ?>
             <h3><?php echo $this->__('Billing Address') ?></h3>
             <?php $_billing = $_creditmemo->getBillingAddress() ?>
-            <address><?php echo $_order->getBillingAddress()->format('html') ?></address>
+            <address><?php echo $_order->getBillingAddress()?->format('html') ?></address>
         </div>
     <?php if (!$_order->getIsVirtual()): ?>
     </div>

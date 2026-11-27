@@ -542,11 +542,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/Sales/Order/Random.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $string of function rtrim expects string, array<string>|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Baseurl.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $string of function explode expects string, Mage_Core_Model_Config_Element|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Currency/Abstract.php',
@@ -2672,11 +2667,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/CartController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $value of method Varien_Filter_Template::filter() expects string, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Cms/Block/Widget/Block.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $storeId of method Mage_Cms_Model_Page::checkIdentifier() expects int, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Cms/Controller/Router.php',
@@ -4572,11 +4562,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Media/Model/Image.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $field of method Mage_Newsletter_Model_Resource_Queue_Collection::_getIdsFromLink() expects string, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Resource/Queue/Collection.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $value of method Varien_Db_Select::where() expects array|float|int|string|Zend_Db_Expr|Zend_Db_Select|null, string|false given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Newsletter/Model/Resource/Queue/Collection.php',
@@ -5275,11 +5260,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $storeId of method Mage_Rating_Model_Resource_Rating_Option_Vote_Collection::setStoreFilter() expects int, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Review/Model/Resource/Review/Collection.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $fieldName of method Varien_Data_Collection_Db<Mage_Catalog_Model_Product>::_getConditionSql() expects string, Mage_Eav_Model_Entity_Attribute_Abstract|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $storeId of method Mage_Rating_Model_Resource_Rating_Option_Vote_Collection::setStoreFilter() expects int, int|null given.',
@@ -6823,11 +6803,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $json of function json_decode expects string, string|true given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/UspsAuth.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Parameter #4 $specificLifetime of method Zend_Cache_Core::save() expects int|false|null, float|int<1, max> given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Usa/Model/Shipping/Carrier/UspsAuth.php',
 ];

@@ -6837,11 +6837,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/shipment/packaging/grid.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Cannot call method getFormated() on Mage_Sales_Model_Order_Address|false.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/sales/order/view/info.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Cannot call method getLabel() on Varien_Object|null.',
     'count' => 3,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/catalog/product/gallery.phtml',

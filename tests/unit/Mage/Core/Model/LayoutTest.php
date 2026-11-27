@@ -44,9 +44,9 @@ final class LayoutTest extends OpenMageTest
      *
      * @param bool|class-string $expectedResult
      */
-    public function testCreateBlock(bool|string $expectedResult, bool $willReturnBlock, string $type, ?string $name, array $attributes): void
+    public function testCreateBlock(bool|string $expectedResult, bool $willReturnBlock, string $type): void
     {
-        $result = self::$subject->createBlock($type, $name, $attributes);
+        $result = self::$subject->createBlock($type);
 
         if ($willReturnBlock && is_string($expectedResult)) {
             self::assertInstanceOf($expectedResult, $result);

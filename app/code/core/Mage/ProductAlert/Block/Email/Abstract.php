@@ -116,15 +116,17 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     /**
      * Get filtered product short description to be inserted into mail
      *
-     * @return null|string
+     * @return string
      */
     public function _getFilteredProductShortDescription(Mage_Catalog_Model_Product $product)
     {
         $shortDescription = $product->getShortDescription();
-        if ($shortDescription) {
-            return Mage::getSingleton('core/input_filter_maliciousCode')->filter($shortDescription);
+        if (is_null($shortDescription) || $shortDescription === '') {
+            return '';
         }
 
-        return $shortDescription;
+        /** @var Mage_Core_Model_Input_Filter_MaliciousCode $filter */
+        $filter = Mage::getSingleton('core/input_filter_maliciousCode');
+        return $filter->filter($shortDescription);
     }
 }

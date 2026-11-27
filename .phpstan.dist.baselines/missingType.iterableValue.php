@@ -13147,11 +13147,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Input/Filter/MaliciousCode.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Core_Model_Input_Filter_MaliciousCode::filter() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Input/Filter/MaliciousCode.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Core_Model_Input_Filter_MaliciousCode::setExpressions() has parameter $expressions with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Input/Filter/MaliciousCode.php',
@@ -19047,26 +19042,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Catalog/Product/View/Profile.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Block_Form_Cc::getCcAvailableTypes() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Cc.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Block_Form_Cc::getCcMonths() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Cc.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Block_Form_Cc::getCcYears() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Cc.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Block_Form_Cc::getSsStartYears() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Cc.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Block_Form_Container::getMethods() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Container.php',
@@ -19143,16 +19118,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Model_Config::getAllMethods() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getMonths() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getYears() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
 ];
@@ -28265,41 +28230,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Property OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\AppTest::$disabledModules type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/AppTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getAbstractBlockClasses() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getAllBlockClasses() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getBlockClassesNotInstanceOfMageCoreBlockAbstract() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getBlockClassesToMock() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getBlockClassesWithErrors() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::getBlockClassesWithSessions() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::testCreateBlock() has parameter $attributes with no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Zend_Cache_Backend@anonymous/tests/unit/Mage/Core/Model/Purifier/DefinitionCacheTest.php:48::getMetadatas() return type has no value type specified in iterable type array.',

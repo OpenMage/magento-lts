@@ -5182,26 +5182,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/newsletter/preview/store.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between (int|string) and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/form/cc.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int|string and string is not allowed.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/form/cc.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between (int|string) and string is not allowed.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/form/ccsave.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int|string and string is not allowed.',
-    'count' => 3,
-    'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/payment/form/ccsave.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, max> and mixed is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/adminhtml/base/default/template/rating/detailed.phtml',
@@ -5472,26 +5452,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/page/switch/stores.phtml',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between (int|string) and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/payment/form/cc.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int|string and string is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/payment/form/cc.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between (int|string) and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/payment/form/ccsave.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int|string and string is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/base/default/template/payment/form/ccsave.phtml',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
     'count' => 2,
     'path' => __DIR__ . '/../app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml',
@@ -5540,26 +5500,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between int<1, max> and int<0, max> is not allowed.',
     'count' => 1,
     'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/page/html/topmenu/renderer.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between (int|string) and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/payment/form/cc.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int|string and string is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/payment/form/cc.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between (int|string) and string is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/payment/form/ccsave.phtml',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between int|string and string is not allowed.',
-    'count' => 4,
-    'path' => __DIR__ . '/../app/design/frontend/rwd/default/template/payment/form/ccsave.phtml',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',

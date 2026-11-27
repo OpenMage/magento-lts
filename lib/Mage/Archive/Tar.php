@@ -371,9 +371,9 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $header['6-magic']        = 'ustar ';
         $header['2-version']      = ' ';
         $a = function_exists('posix_getpwuid') ? posix_getpwuid(fileowner($file)) : ['name' => ''];
-        $header['32-uname']       = $a['name'];
+        $header['32-uname']       = $a === false ? '' : $a['name'];
         $a = function_exists('posix_getgrgid') ? posix_getgrgid(filegroup($file)) : ['name' => ''];
-        $header['32-gname']       = $a['name'];
+        $header['32-gname']       = $a === false ? '' : $a['name'];
         $header['8-devmajor']     = '';
         $header['8-devminor']     = '';
         $header['155-prefix']     = '';
@@ -529,7 +529,10 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             if ($header['name'] == '././@LongLink' && $header['type'] == 'L') {
                 $realName = substr(fread($pointer, (int) (($header['size'] + 512 - 1) / 512) * 512), 0, $header['size']);
                 $headerMain = $this->_parseHeader($pointer);
-                $headerMain['name'] = $realName;
+                if (is_array($headerMain)) {
+                    $headerMain['name'] = $realName;
+                }
+
                 return $headerMain;
             }
 
@@ -593,7 +596,10 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $realName = substr($realNameBlock, 0, $header['size']);
 
             $headerMain = $this->_extractFileHeader();
-            $headerMain['name'] = trim($realName);
+            if (is_array($headerMain)) {
+                $headerMain['name'] = trim($realName);
+            }
+
             return $headerMain;
         }
 
@@ -687,6 +693,11 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
 
         while (!$archiveReader->eof()) {
             $header = $this->_extractFileHeader();
+
+            if (!is_array($header)) {
+                continue;
+            }
+
             if ($header['name'] == $file) {
                 $extractedFile = $destination . basename($header['name']);
                 $this->_extractAndWriteFile($header, $extractedFile);

@@ -59,19 +59,22 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
         self::$_widgetUsageMap[$blockHash] = true;
 
         if ($blockId) {
+            /** @var Mage_Cms_Model_Block $block */
             $block = Mage::getModel('cms/block')
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($blockId);
             if ($block->getIsActive()) {
                 $helper = Mage::helper('cms');
                 $processor = $helper->getBlockTemplateProcessor();
+                /** @var string $content */
+                $content = $block->getContent();
                 if ($this->isRequestFromAdminArea()) {
-                    $this->setText($processor->filter(
-                        Mage::getSingleton('core/input_filter_maliciousCode')->filter($block->getContent()),
-                    ));
-                } else {
-                    $this->setText($processor->filter($block->getContent()));
+                    /** @var Mage_Core_Model_Input_Filter_MaliciousCode $maliciousCodeFilter */
+                    $maliciousCodeFilter = Mage::getSingleton('core/input_filter_maliciousCode');
+                    $content = $maliciousCodeFilter->filter($content);
                 }
+
+                $this->setText($processor->filter($content));
 
                 $this->addModelTags($block);
             }

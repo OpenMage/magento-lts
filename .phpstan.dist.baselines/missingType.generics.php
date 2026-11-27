@@ -1272,16 +1272,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/ConfigTest.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::provideCreateBlock() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LayoutTest::provideGetBlockSingleton() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
-    'count' => 1,
-    'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LayoutTest.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method OpenMage\\Tests\\Unit\\Mage\\Core\\Model\\LocaleTest::provideGetNumberData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn',
     'count' => 1,
     'path' => __DIR__ . '/../tests/unit/Mage/Core/Model/LocaleTest.php',

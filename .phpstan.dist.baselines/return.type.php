@@ -2292,11 +2292,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paygate/Model/Authorizenet/Cards.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Block_Form::getInfoData() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Helper_Data::getMethodFormBlock() should return Mage_Core_Block_Abstract but returns Mage_Core_Block_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',
@@ -2375,16 +2370,6 @@ $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_PaypalUk_Model_Pro::_getParentTransactionId() should return string but returns array|float|int|string|false|null.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/PaypalUk/Model/Pro.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_ProductAlert_Block_Email_Abstract::_getFilteredProductShortDescription() should return string|null but returns array|float|int|string|false|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ProductAlert/Block/Email/Abstract.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_ProductAlert_Block_Email_Abstract::_getFilteredProductShortDescription() should return string|null but returns array|string.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/ProductAlert/Block/Email/Abstract.php',
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_ProductAlert_Block_Email_Abstract::getStore() should return Mage_Core_Model_Store but returns Mage_Core_Model_Store|null.',
