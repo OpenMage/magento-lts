@@ -49,11 +49,14 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     /**
      * Deleting script tags from string
      *
-     * @param  string $html
-     * @return string
+     * @param  null|string $html
+     * @return null|string
      */
     public function maliciousCodeFilter($html)
     {
+        if (is_null($html)) {
+            return null;
+        }
         return Mage::getSingleton('core/input_filter_maliciousCode')->filter($html);
     }
 }

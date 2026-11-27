@@ -12,11 +12,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/AdminNotification/Model/Feed.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Binary operation "+" between 0|0.0|string|false|null and 1 results in an error.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Api/Tab/Rolesedit.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Binary operation "." between \'<optgroup label="\' and array<string|null>|string|null results in an error.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php',

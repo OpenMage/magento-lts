@@ -43,7 +43,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
 
     /**
      * @param  null|array|string $value
-     * @return array|string
+     * @return ($data is array ? array<?string> : ?string)
      */
     public function filter($value)
     {
