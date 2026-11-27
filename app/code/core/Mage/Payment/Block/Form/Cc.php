@@ -58,7 +58,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     /**
      * Retrieve credit card expire months
      *
-     * @return array<string>
+     * @return array<int, string>
      */
     public function getCcMonths()
     {
@@ -75,7 +75,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     /**
      * Retrieve credit card expire years
      *
-     * @return array<int|string>
+     * @return array<int, int|string>
      */
     public function getCcYears()
     {

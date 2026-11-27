@@ -1562,11 +1562,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paygate/Model/Authorizenet/Cards.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, list<string> given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Cc.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, Mage_Payment_Model_Info|false given on the left side.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Info/Container.php',

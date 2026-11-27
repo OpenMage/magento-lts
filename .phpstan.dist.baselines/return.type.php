@@ -2292,11 +2292,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Paygate/Model/Authorizenet/Cards.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Block_Form::getInfoData() should return string but returns array<string|null>|string|null.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Helper_Data::getMethodFormBlock() should return Mage_Core_Block_Abstract but returns Mage_Core_Block_Abstract|false.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Helper/Data.php',

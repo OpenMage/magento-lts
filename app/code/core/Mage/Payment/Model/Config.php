@@ -115,7 +115,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve list of months translation
      *
-     * @return array<string>
+     * @return array<int, string>
      */
     public function getMonths()
     {
@@ -131,7 +131,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve array of available years
      *
-     * @return array<int>
+     * @return array<int, int>
      */
     public function getYears()
     {

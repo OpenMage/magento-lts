@@ -6062,16 +6062,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Catalog/Product/View/Profile.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, Mage_Payment_Model_Method_Abstract given.',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Cc.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in an if condition, mixed given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Cc.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in an if condition, string given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Info/Cc.php',

@@ -44,7 +44,7 @@
                 <select id="<?php echo $_code ?>_expiration" name="payment[cc_exp_month]" class="month validate-cc-exp required-entry">
                 <?php $_ccExpMonth = $this->getInfoData('cc_exp_month') ?>
                 <?php foreach ($this->getCcMonths() as $k => $v): ?>
-                    <option value="<?php echo $k ? $k : '' ?>"<?php if($k === $_ccExpMonth): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                    <option value="<?php echo $k === 0 ? '' : $k ?>"<?php if($k === $_ccExpMonth): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
                 <?php endforeach ?>
                 </select>
             </div>
@@ -52,7 +52,7 @@
                 <?php $_ccExpYear = $this->getInfoData('cc_exp_year') ?>
                 <select id="<?php echo $_code ?>_expiration_yr" name="payment[cc_exp_year]" class="year required-entry">
                 <?php foreach ($this->getCcYears() as $k => $v): ?>
-                    <option value="<?php echo $k ? $k : '' ?>"<?php if($k === $_ccExpYear): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                    <option value="<?php echo $k === 0 ? '' : $k ?>"<?php if($k === $_ccExpYear): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
                 <?php endforeach ?>
                 </select>
             </div>
@@ -88,7 +88,7 @@
                         <select id="<?php echo $_code ?>_start_month" name="payment[cc_ss_start_month]" class="validate-cc-ukss month">
                         <?php $_ccStartMonth = $this->getInfoData('cc_ss_start_month') ?>
                         <?php foreach ($this->getCcMonths() as $k => $v): ?>
-                            <option value="<?php echo $k ? $k : '' ?>"<?php if($k === $_ccStartMonth): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                            <option value="<?php echo $k === 0 ? '' : $k ?>"<?php if($k === $_ccStartMonth): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
                         <?php endforeach ?>
                         </select>
                     </div>
@@ -96,7 +96,7 @@
                         <select id="<?php echo $_code ?>_start_year" name="payment[cc_ss_start_year]" class="validate-cc-ukss year">
                         <?php $_ccStartYear = $this->getInfoData('cc_ss_start_year') ?>
                         <?php foreach ($this->getSsStartYears() as $k => $v): ?>
-                            <option value="<?php echo $k ? $k : '' ?>"<?php if((string) $k === $_ccStartYear): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                            <option value="<?php echo $k === 0 ? '' : $k ?>"<?php if((string) $k === $_ccStartYear): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
                         <?php endforeach ?>
                         </select>
                     </div>

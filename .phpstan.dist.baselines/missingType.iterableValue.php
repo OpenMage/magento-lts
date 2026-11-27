@@ -19047,26 +19047,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Catalog/Product/View/Profile.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Block_Form_Cc::getCcAvailableTypes() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Cc.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Block_Form_Cc::getCcMonths() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Cc.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Block_Form_Cc::getCcYears() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Cc.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Block_Form_Cc::getSsStartYears() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Cc.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Block_Form_Container::getMethods() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Block/Form/Container.php',
@@ -19143,16 +19123,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Payment_Model_Config::getAllMethods() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getMonths() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
-];
-$ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Payment_Model_Config::getYears() return type has no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Payment/Model/Config.php',
 ];
