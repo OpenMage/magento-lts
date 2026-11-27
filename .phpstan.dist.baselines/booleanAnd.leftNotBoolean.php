@@ -1892,11 +1892,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Only booleans are allowed in &&, null given on the left side.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Config.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Only booleans are allowed in &&, array|bool given on the left side.',
     'count' => 4,
     'path' => __DIR__ . '/../app/code/core/Mage/Sales/Model/Order/Creditmemo.php',

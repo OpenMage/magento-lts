@@ -349,7 +349,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             case 'rdt.title':
             case 'rdt.nickname':
             case 'rdt.detail':
-                $conditionSql = $this->_getConditionSql($attribute, $condition);
+                $conditionSql = $this->_getConditionSql((string) $attribute, $condition);
                 $this->getSelect()->where($conditionSql);
                 break;
             case 'stores':

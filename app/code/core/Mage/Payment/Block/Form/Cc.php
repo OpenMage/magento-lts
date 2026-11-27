@@ -40,14 +40,13 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     public function getCcAvailableTypes()
     {
         $types = $this->_getConfig()->getCcTypes();
-        if ($method = $this->getMethod()) {
-            $availableTypes = $method->getConfigData('cctypes');
-            if (is_string($availableTypes) && $availableTypes !== '') {
-                $availableTypes = explode(',', $availableTypes);
-                foreach (array_keys($types) as $code) {
-                    if (!in_array($code, $availableTypes, true)) {
-                        unset($types[$code]);
-                    }
+
+        $availableTypes = $this->getMethod()->getConfigData('cctypes');
+        if (is_string($availableTypes) && $availableTypes !== '') {
+            $availableTypes = explode(',', $availableTypes);
+            foreach (array_keys($types) as $code) {
+                if (!in_array($code, $availableTypes, true)) {
+                    unset($types[$code]);
                 }
             }
         }
@@ -96,16 +95,12 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
      */
     public function hasVerification()
     {
-        if ($this->getMethod()) {
-            $configData = $this->getMethod()->getConfigData('useccv');
-            if (is_null($configData)) {
-                return true;
-            }
-
-            return (bool) $configData;
+        $configData = $this->getMethod()->getConfigData('useccv');
+        if (is_null($configData)) {
+            return true;
         }
 
-        return true;
+        return (bool) $configData;
     }
 
     /*
@@ -118,7 +113,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     {
         $availableTypes = explode(',', $this->getMethod()->getConfigData('cctypes'));
         $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
-        return $availableTypes && $ssPresenations !== [];
+        return $ssPresenations !== [];
     }
 
     /*

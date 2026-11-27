@@ -146,12 +146,16 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
     /**
      * Get link to edit order address page
      *
-     * @param  Mage_Sales_Model_Order_Address $address
-     * @param  string                         $label
+     * @param  null|Mage_Sales_Model_Order_Address $address
+     * @param  string                              $label
      * @return string
      */
     public function getAddressEditLink($address, $label = '')
     {
+        if (is_null($address)) {
+            return '';
+        }
+
         if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/edit')) {
             return '';
         }

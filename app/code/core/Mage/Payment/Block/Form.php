@@ -43,7 +43,7 @@ class Mage_Payment_Block_Form extends Mage_Core_Block_Template
     /**
      * Retrieve field value data from payment info object
      *
-     * @param  string $field
+     * @param  string      $field
      * @return null|string
      */
     public function getInfoData($field)

@@ -137,7 +137,8 @@ $emailSentInfo  = $_order->getEmailSent() ? Mage::helper('sales')->__('Sent') : 
             <div class="tools"><?php echo $this->getAddressEditLink($_order->getBillingAddress())?></div>
         </div>
         <fieldset>
-            <address><?php echo $this->maliciousCodeFilter($_order->getBillingAddress()?->format('html')) ?></address>
+            <?php $address = $_order->getBillingAddress() ?>
+            <address><?php echo $address !== false ? $this->maliciousCodeFilter($address?->format('html')) : '' ?></address>
         </fieldset>
     </div>
 </div>
@@ -150,7 +151,8 @@ $emailSentInfo  = $_order->getEmailSent() ? Mage::helper('sales')->__('Sent') : 
             <div class="tools"><?php echo $this->getAddressEditLink($_order->getShippingAddress())?></div>
         </div>
         <fieldset>
-            <address><?php echo $this->maliciousCodeFilter($_order->getShippingAddress()->format('html')) ?></address>
+            <?php $address = $_order->getShippingAddress() ?>
+            <address><?php echo $address !== false ? $this->maliciousCodeFilter($address?->format('html')) : '' ?></address>
         </fieldset>
     </div>
 </div>

@@ -5267,11 +5267,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Review/Model/Resource/Review/Collection.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $fieldName of method Varien_Data_Collection_Db<Mage_Catalog_Model_Product>::_getConditionSql() expects string, Mage_Eav_Model_Entity_Attribute_Abstract|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #1 $storeId of method Mage_Rating_Model_Resource_Rating_Option_Vote_Collection::setStoreFilter() expects int, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php',
