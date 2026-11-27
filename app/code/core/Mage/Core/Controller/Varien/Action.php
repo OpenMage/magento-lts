@@ -818,7 +818,7 @@ abstract class Mage_Core_Controller_Varien_Action
             $refererUrl = Mage::helper('core')->urlDecodeAndEscape($url);
         }
 
-        if (empty($refererUrl) || !$this->_isUrlInternal($refererUrl)) {
+        if (empty($refererUrl) || !is_string($refererUrl) || !$this->_isUrlInternal($refererUrl)) {
             return Mage::app()->getStore()->getBaseUrl();
         }
 

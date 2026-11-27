@@ -22,7 +22,7 @@ class Mage_Cms_PageController extends Mage_Core_Controller_Front_Action
     {
         $pageId = $this->getRequest()
             ->getParam('page_id', $this->getRequest()->getParam('id', false));
-        if (!Mage::helper('cms/page')->renderPage($this, $pageId)) {
+        if (!is_string($pageId) || !Mage::helper('cms/page')->renderPage($this, $pageId)) {
             $this->_forward('noRoute');
         }
     }

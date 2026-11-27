@@ -2397,13 +2397,8 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/App.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Loose comparison via "==" between string and mixed is not allowed.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/App.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Loose comparison via "==" between string and string is not allowed.',
-    'count' => 6,
+    'count' => 7,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/App.php',
 ];
 $ignoreErrors[] = [
