@@ -13147,11 +13147,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Input/Filter/MaliciousCode.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Method Mage_Core_Model_Input_Filter_MaliciousCode::filter() return type has no value type specified in iterable type array.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Input/Filter/MaliciousCode.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Method Mage_Core_Model_Input_Filter_MaliciousCode::setExpressions() has parameter $expressions with no value type specified in iterable type array.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Core/Model/Input/Filter/MaliciousCode.php',

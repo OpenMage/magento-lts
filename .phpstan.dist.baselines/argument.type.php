@@ -2667,11 +2667,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../app/code/core/Mage/Checkout/controllers/CartController.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Parameter #1 $value of method Varien_Filter_Template::filter() expects string, array|string given.',
-    'count' => 1,
-    'path' => __DIR__ . '/../app/code/core/Mage/Cms/Block/Widget/Block.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Parameter #2 $storeId of method Mage_Cms_Model_Page::checkIdentifier() expects int, int|null given.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Cms/Controller/Router.php',

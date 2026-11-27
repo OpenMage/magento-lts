@@ -132,12 +132,12 @@ $emailSentInfo  = $_order->getEmailSent() ? Mage::helper('sales')->__('Sent') : 
 <div class="box-left">
     <!--Billing Address-->
     <div class="entry-edit">
+        <?php $address = $_order->getBillingAddress() ?>
         <div class="entry-edit-head">
             <h4 class="icon-head head-billing-address"><?php echo Mage::helper('sales')->__('Billing Address') ?></h4>
-            <div class="tools"><?php echo $this->getAddressEditLink($_order->getBillingAddress())?></div>
+            <div class="tools"><?php echo $address !== false ? $this->getAddressEditLink($address) : '' ?></div>
         </div>
         <fieldset>
-            <?php $address = $_order->getBillingAddress() ?>
             <address><?php echo $address !== false ? $this->maliciousCodeFilter($address?->format('html')) : '' ?></address>
         </fieldset>
     </div>
@@ -146,12 +146,12 @@ $emailSentInfo  = $_order->getEmailSent() ? Mage::helper('sales')->__('Sent') : 
 <div class="box-right">
     <!--Shipping Address-->
     <div class="entry-edit">
+        <?php $address = $_order->getShippingAddress() ?>
         <div class="entry-edit-head">
             <h4 class="icon-head head-shipping-address"><?php echo Mage::helper('sales')->__('Shipping Address') ?></h4>
-            <div class="tools"><?php echo $this->getAddressEditLink($_order->getShippingAddress())?></div>
+            <div class="tools"><?php echo $address !== false ? $this->getAddressEditLink($address) : '' ?></div>
         </div>
         <fieldset>
-            <?php $address = $_order->getShippingAddress() ?>
             <address><?php echo $address !== false ? $this->maliciousCodeFilter($address?->format('html')) : '' ?></address>
         </fieldset>
     </div>
