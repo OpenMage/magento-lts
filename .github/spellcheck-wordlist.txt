@@ -72,8 +72,10 @@ SKU
 SKUs
 SMTP
 SSL
+syslog
 TinyMCE
 toc
+UDP
 URI
 un
 Varien
