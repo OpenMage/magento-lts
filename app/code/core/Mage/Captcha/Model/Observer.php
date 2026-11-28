@@ -98,7 +98,7 @@ class Mage_Captcha_Model_Observer
     {
         $formId = 'guest_checkout';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
-        $checkoutMethod = Mage::getSingleton('checkout/type_onepage')->getQuote()->getCheckoutMethod();
+        $checkoutMethod = $this->getQuoteCheckoutMethod(Mage::getSingleton('checkout/type_onepage')->getQuote());
         if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_GUEST && $captchaModel->isRequired()) {
             $controller = $observer->getControllerAction();
             if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
@@ -121,7 +121,7 @@ class Mage_Captcha_Model_Observer
     {
         $formId = 'register_during_checkout';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
-        $checkoutMethod = Mage::getSingleton('checkout/type_onepage')->getQuote()->getCheckoutMethod();
+        $checkoutMethod = $this->getQuoteCheckoutMethod(Mage::getSingleton('checkout/type_onepage')->getQuote());
         if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER && $captchaModel->isRequired()) {
             $controller = $observer->getControllerAction();
             if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
@@ -261,6 +261,16 @@ class Mage_Captcha_Model_Observer
     {
         Mage::getResourceModel('captcha/log')->deleteUserAttempts($login);
         return $this;
+    }
+
+    /**
+     * The quote's checkout method, as the deprecated Mage_Sales_Model_Quote::getCheckoutMethod() returns it
+     */
+    protected function getQuoteCheckoutMethod(Mage_Sales_Model_Quote $quote): string
+    {
+        return $quote->getCustomerId()
+            ? Mage_Sales_Model_Quote::CHECKOUT_METHOD_LOGIN_IN
+            : (string) $quote->getData('checkout_method');
     }
 
     /**

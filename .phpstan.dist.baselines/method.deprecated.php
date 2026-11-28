@@ -28,12 +28,6 @@ after 1.6.2.0',
     'path' => __DIR__ . '/../app/code/core/Mage/Bundle/Model/Product/Price.php',
 ];
 $ignoreErrors[] = [
-    'rawMessage' => 'Call to deprecated method getCheckoutMethod() of class Mage_Sales_Model_Quote:
-after 1.4 beta1 it is checkout module responsibility',
-    'count' => 2,
-    'path' => __DIR__ . '/../app/code/core/Mage/Captcha/Model/Observer.php',
-];
-$ignoreErrors[] = [
     'rawMessage' => 'Call to deprecated method clear() of class Mage_Eav_Model_Config.',
     'count' => 1,
     'path' => __DIR__ . '/../app/code/core/Mage/Catalog/Model/Entity/Attribute.php',
