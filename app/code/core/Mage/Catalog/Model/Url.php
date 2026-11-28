@@ -778,7 +778,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
 
         $fullPath = $requestPath . $categoryUrlSuffix;
         if ($this->_deleteOldTargetPath($fullPath, $idPath, $storeId)) {
-            return $requestPath;
+            return $fullPath;
         }
 
         return $this->getUnusedPathByUrlKey($storeId, $fullPath, $this->generatePath('id', null, $category), $urlKey);
@@ -796,7 +796,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     {
         $finalOldTargetPath = $this->getResource()->findFinalTargetPath($requestPath, $storeId);
         if ($finalOldTargetPath && $finalOldTargetPath == $idPath) {
-            $this->getResource()->deleteRewriteRecord($requestPath, $storeId, true);
+            $this->getResource()->deleteRewriteRecord($requestPath, $storeId);
             return true;
         }
 
