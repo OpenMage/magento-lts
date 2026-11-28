@@ -19,6 +19,7 @@ return ECSConfig::configure()
         __DIR__ . '/errors',
         __DIR__ . '/lib/Mage',
         __DIR__ . '/lib/Magento',
+        __DIR__ . '/lib/OpenMage',
         __DIR__ . '/lib/Varien',
         __DIR__ . '/shell',
         __DIR__ . '/tests',

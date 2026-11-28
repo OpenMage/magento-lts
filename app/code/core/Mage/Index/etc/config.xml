@@ -26,6 +26,22 @@
         </jobs>
     </crontab>
     <global>
+        <console>
+            <commands>
+                <index_list>
+                    <name>index:list</name>
+                    <class>OpenMage\Console\Command\Index\ListCommand</class>
+                </index_list>
+                <index_reindex>
+                    <name>index:reindex</name>
+                    <class>OpenMage\Console\Command\Index\ReindexCommand</class>
+                </index_reindex>
+                <index_reindex_all>
+                    <name>index:reindex:all</name>
+                    <class>OpenMage\Console\Command\Index\ReindexAllCommand</class>
+                </index_reindex_all>
+            </commands>
+        </console>
         <helpers>
             <index>
                 <class>Mage_Index_Helper</class>

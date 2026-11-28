@@ -242,6 +242,9 @@
         <testsuite name="Mage_Wishlist">
             <directory>tests/unit/Mage/Wishlist</directory>
         </testsuite>
+        <testsuite name="OpenMage">
+            <directory>tests/unit/OpenMage</directory>
+        </testsuite>
         <testsuite name="Varien">
             <directory>tests/unit/Varien</directory>
         </testsuite>
