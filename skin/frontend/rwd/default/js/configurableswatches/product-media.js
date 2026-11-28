@@ -10,33 +10,35 @@ var ConfigurableMediaImages = {
     productImages: {},
     imageObjects: {},
 
-    // deprecated - use Array.prototype.intersect instead
     arrayIntersect: function(a, b) {
-        return a.intersect(b);
+        // Array#intersect de-duplicated the left-hand array first
+        return a.filter(function(item, idx) {
+            return a.indexOf(item) === idx && b.indexOf(item) !== -1;
+        });
     },
 
     getCompatibleProductImages: function(productFallback, selectedLabels) {
         //find compatible products
-        var compatibleProducts = [];
-        var compatibleProductSets = [];
-        selectedLabels.each(function(selectedLabel) {
+        let compatibleProducts = [];
+        const compatibleProductSets = [];
+        selectedLabels.forEach(function(selectedLabel) {
             if(typeof(productFallback['option_labels']) != 'undefined') {
                 if (!productFallback['option_labels'][selectedLabel]) {
                     return;
                 }
 
-                var optionProducts = productFallback['option_labels'][selectedLabel]['products'];
+                const optionProducts = productFallback['option_labels'][selectedLabel]['products'];
                 compatibleProductSets.push(optionProducts);
 
                 //optimistically push all products
-                optionProducts.each(function (productId) {
+                optionProducts.forEach(function(productId) {
                     compatibleProducts.push(productId);
                 });
             }
         });
 
         //intersect compatible products
-        compatibleProductSets.each(function(productSet) {
+        compatibleProductSets.forEach(function(productSet) {
             compatibleProducts = ConfigurableMediaImages.arrayIntersect(compatibleProducts, productSet);
         });
 
@@ -52,37 +54,37 @@ var ConfigurableMediaImages = {
     },
 
     getSwatchImage: function(productId, optionLabel, selectedLabels) {
-        var fallback = ConfigurableMediaImages.productImages[productId];
+        const fallback = ConfigurableMediaImages.productImages[productId];
         if(!fallback) {
             return null;
         }
 
         //first, try to get label-matching image on config product for this option's label
         if(typeof(fallback['option_labels']) != 'undefined') {
-            var currentLabelImage = fallback['option_labels'][optionLabel];
+            const currentLabelImage = fallback['option_labels'][optionLabel];
             if (currentLabelImage && fallback['option_labels'][optionLabel]['configurable_product'][ConfigurableMediaImages.imageType]) {
                 //found label image on configurable product
                 return fallback['option_labels'][optionLabel]['configurable_product'][ConfigurableMediaImages.imageType];
             }
         }
 
-        var compatibleProducts = ConfigurableMediaImages.getCompatibleProductImages(fallback, selectedLabels);
+        const compatibleProducts = ConfigurableMediaImages.getCompatibleProductImages(fallback, selectedLabels);
 
         if(compatibleProducts.length == 0) { //no compatible products
             return null; //bail
         }
 
         //second, get any product which is compatible with currently selected option(s)
-        var optionLabels = fallback['option_labels'];
-        for (var key in optionLabels) {
+        const optionLabels = fallback['option_labels'];
+        for (const key in optionLabels) {
             if (optionLabels.hasOwnProperty(key)) {
-                var value = optionLabels[key];
-                var image = value['configurable_product'][ConfigurableMediaImages.imageType];
-                var products = value['products'];
+                const value = optionLabels[key];
+                const image = value['configurable_product'][ConfigurableMediaImages.imageType];
+                const products = value['products'];
 
                 if (image) { //configurable product has image in the first place
                     //if intersection between compatible products and this label's products, we found a match
-                    var isCompatibleProduct = products.filter(function(productId) {
+                    const isCompatibleProduct = products.filter(function(productId) {
                         return compatibleProducts.includes(productId);
                     }).length > 0;
 
@@ -94,12 +96,14 @@ var ConfigurableMediaImages = {
         }
 
         //third, get image off of child product which is compatible
-        var childSwatchImage = null;
-        var childProductImages = fallback[ConfigurableMediaImages.imageType];
-        compatibleProducts.each(function(productId) {
-            if(childProductImages[productId] && ConfigurableMediaImages.isValidImage(childProductImages[productId])) {
-                childSwatchImage = childProductImages[productId];
-                return false; //break "loop"
+        // NB: the original Prototype code used `each(... return false)`, which does NOT break the
+        // loop (only `throw $break` does), so it iterated all compatible products and the LAST
+        // match won. Preserve that behaviour here — do not break on the first match.
+        let childSwatchImage = null;
+        const childProductImages = fallback[ConfigurableMediaImages.imageType];
+        compatibleProducts.forEach(function(childId) {
+            if(childProductImages[childId] && ConfigurableMediaImages.isValidImage(childProductImages[childId])) {
+                childSwatchImage = childProductImages[childId];
             }
         });
         if (childSwatchImage) {
@@ -116,9 +120,9 @@ var ConfigurableMediaImages = {
     },
 
     getImageObject: function(productId, imageUrl) {
-        var key = productId+'-'+imageUrl;
+        const key = productId+'-'+imageUrl;
         if(!ConfigurableMediaImages.imageObjects[key]) {
-            var image = document.createElement('img');
+            const image = document.createElement('img');
             image.src = imageUrl;
             ConfigurableMediaImages.imageObjects[key] = image;
         }
@@ -126,27 +130,27 @@ var ConfigurableMediaImages = {
     },
 
     updateImage(el) {
-        var select = el;
-        var label = select.options[select.selectedIndex].getAttribute('data-label');
-        var productId = optionsPrice.productId; //get product ID from options price object
+        const select = el;
+        const label = select.options[select.selectedIndex].getAttribute('data-label');
+        const productId = optionsPrice.productId; //get product ID from options price object
 
         //find all selected labels
-        var selectedLabels = [];
+        const selectedLabels = [];
 
-        var superAttributeSelects = document.querySelectorAll('.product-options .super-attribute-select');
+        const superAttributeSelects = document.querySelectorAll('.product-options .super-attribute-select');
         superAttributeSelects.forEach(function(option) {
             if (option.value !== '') {
                 selectedLabels.push(option.options[option.selectedIndex].getAttribute('data-label'));
             }
         });
 
-        var swatchImageUrl = ConfigurableMediaImages.getSwatchImage(productId, label, selectedLabels);
+        const swatchImageUrl = ConfigurableMediaImages.getSwatchImage(productId, label, selectedLabels);
         if (!ConfigurableMediaImages.isValidImage(swatchImageUrl)) {
             console.log('no image found');
             return;
         }
 
-        var swatchImage = ConfigurableMediaImages.getImageObject(productId, swatchImageUrl);
+        const swatchImage = ConfigurableMediaImages.getImageObject(productId, swatchImageUrl);
 
         this.swapImage(swatchImage);
     },
@@ -154,10 +158,12 @@ var ConfigurableMediaImages = {
     swapImage: function(targetImage) {
         targetImage.classList.add('gallery-image');
 
-        var imageGallery = document.querySelector('.product-image-gallery');
+        ProductMediaManager.destroyZoom();
+
+        const imageGallery = document.querySelector('.product-image-gallery');
 
         if (targetImage.complete) { // image already loaded -- swap immediately
-            var galleryImages = imageGallery.querySelectorAll('.gallery-image');
+            const galleryImages = imageGallery.querySelectorAll('.gallery-image');
             galleryImages.forEach(function(image) {
                 image.classList.remove('visible');
             });
@@ -167,6 +173,8 @@ var ConfigurableMediaImages = {
 
             // reveal new image
             targetImage.classList.add('visible');
+
+            ProductMediaManager.createZoom($j(targetImage));
         } else { // need to wait for image to load
             // add spinner
             imageGallery.classList.add('loading');
@@ -180,19 +188,21 @@ var ConfigurableMediaImages = {
                 imageGallery.classList.remove('loading');
 
                 // hide old image
-                var galleryImages = imageGallery.querySelectorAll('.gallery-image');
+                const galleryImages = imageGallery.querySelectorAll('.gallery-image');
                 galleryImages.forEach(function(image) {
                     image.classList.remove('visible');
                 });
 
                 // reveal new image
                 targetImage.classList.add('visible');
+
+                ProductMediaManager.createZoom($j(targetImage));
             });
         }
     },
 
     wireOptions: function() {
-        var selectElements = document.querySelectorAll('.product-options .super-attribute-select');
+        const selectElements = document.querySelectorAll('.product-options .super-attribute-select');
         selectElements.forEach(function(selectElement) {
             selectElement.addEventListener('change', function(e) {
                 ConfigurableMediaImages.updateImage(this);
@@ -201,7 +211,7 @@ var ConfigurableMediaImages = {
     },
 
     swapListImage: function(productId, imageObject) {
-        var originalImage = document.querySelector('#product-collection-image-' + productId);
+        const originalImage = document.querySelector('#product-collection-image-' + productId);
 
         if (imageObject.complete) { // swap image immediately
 
@@ -216,7 +226,7 @@ var ConfigurableMediaImages = {
 
         } else { // need to load image
 
-            var wrapper = originalImage.parentNode;
+            const wrapper = originalImage.parentNode;
 
             // add spinner
             wrapper.classList.add('loading');
@@ -240,12 +250,12 @@ var ConfigurableMediaImages = {
     },
 
     swapListImageByOption: function(productId, optionLabel) {
-        var swatchImageUrl = ConfigurableMediaImages.getSwatchImage(productId, optionLabel, [optionLabel]);
+        const swatchImageUrl = ConfigurableMediaImages.getSwatchImage(productId, optionLabel, [optionLabel]);
         if(!swatchImageUrl) {
             return;
         }
 
-        var newImage = ConfigurableMediaImages.getImageObject(productId, swatchImageUrl);
+        const newImage = ConfigurableMediaImages.getImageObject(productId, swatchImageUrl);
         newImage.classList.add('product-collection-image-' + productId);
 
         ConfigurableMediaImages.swapListImage(productId, newImage);
